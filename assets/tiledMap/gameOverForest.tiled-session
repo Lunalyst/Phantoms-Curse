@@ -1,0 +1,72 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "ForestHome.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "#Tile Set V.0.7": {
+            "scaleInDock": 1
+        },
+        "ForestHome.json": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 895.3333333333333,
+                "y": 450.6666666666666
+            }
+        },
+        "ForestHome.json#Tile Set V.0.7": {
+            "scaleInDock": 1
+        },
+        "Forestlevel1.json": {
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 146.96969696969688,
+                "y": 642.4242424242425
+            }
+        },
+        "Forestlevel1.json#Tile Set V.0.7": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "gameOverForest.json": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 542,
+                "y": 380
+            }
+        },
+        "gameOverForest.json#Tile Set V.0.7": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "F:/BackUpFiles/Game Concept Art/Snakebit Island Alpha/assets/tiledMap",
+    "map.height": 30,
+    "map.lastUsedFormat": "json",
+    "map.layerDataFormat": null,
+    "map.width": 100,
+    "openFiles": [
+        "gameOverForest.json",
+        "Forestlevel1.json",
+        "ForestHome.json"
+    ],
+    "project": "gameOverForest.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "gameOverForest.json",
+        "Forestlevel1.json",
+        "ForestHome.json"
+    ],
+    "tileset.embedInMap": true
+}

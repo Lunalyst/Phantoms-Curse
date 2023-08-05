@@ -1,0 +1,53 @@
+SlimeDefeatedPlayerAnimation(keyD,KeyDisplay){
+                console.log("defeated Stage: "+this.playerDefeatedAnimationStage+"player defeated counter"+this.playerDefeated+"");
+                KeyDisplay.visible = false;
+                if(this.playerDefeatedAnimationStage === "stage1"){
+                    if(this.playerDefeated < 120 ){
+                        this.playerDefeated++; 
+                    }
+                    if(this.playerDefeated < 20){
+                        this.anims.play("slimeLargeDefeat1");   
+                    }else if(this.playerDefeated < 40){
+                        this.anims.play("slimeLargeDefeat2");   
+                    }else if(this.playerDefeated < 60){
+                        this.anims.play("slimeLargeDefeat3");   
+                    }else if(this.playerDefeated < 80){
+                        this.anims.play("slimeLargeDefeat4");   
+                    }else if(this.playerDefeated < 100){
+                        this.anims.play("slimeLargeDefeat5");   
+                    }else if(this.playerDefeated < 120){
+                        this.anims.play("slimeLargeDefeat6");   
+                    }else if(this.playerDefeated === 120){
+                        this.playerDefeated = 0;
+                        this.playerDefeatedAnimationStage = "stage2";
+                    }
+                }else if(this.playerDefeatedAnimationStage === "stage2"){
+
+                if(this.playerDefeated < 30){
+                    this.playerDefeated++; 
+                }
+                if(this.stageTimer < 30){
+                    this.stagetimer++;
+                }
+           
+                if(this.playerDefeated < 10){
+                    this.anims.play("slimeLargeDefeat7"); 
+                }else if(this.playerDefeated < 20){
+                    this.anims.play("slimeLargeDefeat8"); 
+                }else if(this.playerDefeated < 30){
+                    this.anims.play("slimeLargeDefeat9");  
+                }else if(this.playerDefeated === 30){
+                    this.playerDefeated = 0;
+                    KeyDisplay.visible = true;
+                    KeyDisplay.playDKey();
+                }
+                
+                if(keyD.isDown && this.stageTimer === 30){
+                    this.stageTimer = 0;
+                    his.playerDefeatedAnimationStage === "stage3";
+                }
+                
+            } 
+              
+
+        }

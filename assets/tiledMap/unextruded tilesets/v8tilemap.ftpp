@@ -1,0 +1,921 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "",
+  "images": [
+    {
+      "name": "sprite_000.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_000.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_001.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_001.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_002.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_002.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_003.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_003.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_004.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_004.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_005.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_005.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_006.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_006.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_007.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_007.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_008.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_008.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_009.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_009.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_010.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_010.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_011.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_011.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_012.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_012.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_013.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_013.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_014.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_014.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_015.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_015.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_016.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_016.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_017.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_017.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_018.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_018.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_019.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_019.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_020.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_020.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_021.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_021.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_022.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_022.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_023.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_023.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_024.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_024.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_025.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_025.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_026.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_026.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_027.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_027.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_028.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_028.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_029.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_029.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_030.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_030.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_031.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_031.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_032.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_032.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_033.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_033.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_034.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_034.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_035.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_035.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_036.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_036.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_037.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_037.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_038.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_038.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_039.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_039.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_040.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_040.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_041.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_041.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_042.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_042.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_043.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_043.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_044.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_044.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_045.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_045.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_046.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_046.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_047.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_047.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_048.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_048.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_049.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_049.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_050.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_050.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_051.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_051.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_052.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_052.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_053.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_053.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_054.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_054.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_055.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_055.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_056.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_056.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_057.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_057.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_058.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_058.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_059.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_059.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_060.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_060.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_061.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_061.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_062.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_062.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_063.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_063.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_064.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_064.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_065.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_065.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_066.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_066.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_067.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_067.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_068.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_068.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_069.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_069.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_070.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_070.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_071.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_071.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_072.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_072.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_073.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_073.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_074.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_074.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_075.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_075.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_076.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_076.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_077.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_077.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_078.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_078.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_079.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_079.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_080.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_080.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_081.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_081.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_082.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_082.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_083.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_083.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_084.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_084.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_085.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_085.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_086.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_086.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_087.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_087.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_088.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_088.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_089.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_089.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_090.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_090.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_091.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_091.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_092.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_092.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_093.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_093.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_094.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_094.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_095.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_095.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_096.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_096.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_097.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_097.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_098.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_098.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_099.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_099.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_100.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_100.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_101.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_101.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_102.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_102.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_103.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_103.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_104.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_104.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_105.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_105.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_106.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_106.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_107.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_107.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_108.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_108.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_109.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_109.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_110.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_110.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_111.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_111.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_112.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_112.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_113.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_113.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_114.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_114.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_115.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_115.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_116.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_116.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_117.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_117.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_118.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_118.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_119.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_119.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_120.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_120.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_121.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_121.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_122.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_122.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_123.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_123.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_124.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_124.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_125.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_125.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_126.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_126.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_127.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_127.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_128.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_128.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_129.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_129.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_130.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_130.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_131.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_131.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_132.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_132.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_133.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_133.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_134.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_134.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_135.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_135.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_136.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_136.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_137.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_137.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_138.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_138.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_139.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_139.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_140.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_140.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_141.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_141.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_142.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_142.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_143.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_143.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_144.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_144.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_145.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_145.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_146.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_146.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_147.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_147.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_148.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_148.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_149.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_149.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_150.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_150.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_151.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_151.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_152.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_152.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_153.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_153.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_154.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_154.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_155.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_155.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_156.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_156.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_157.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_157.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_158.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_158.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_159.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_159.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_160.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_160.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_161.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_161.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_162.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_162.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_163.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_163.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_164.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_164.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_165.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_165.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_166.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_166.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_167.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_167.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_168.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_168.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_169.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_169.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_170.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_170.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_171.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_171.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_172.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_172.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_173.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_173.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_174.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_174.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_175.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_175.png",
+      "folder": ""
+    },
+    {
+      "name": "sprite_176.png",
+      "path": "F:/BackUpFiles/Piskel-0.14.0/Concept Art Piskels/TileSetTiles/Tile Set V.0.8/sprite_176.png",
+      "folder": ""
+    }
+  ],
+  "folders": [],
+  "packOptions": {
+    "textureName": "texture",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": true,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "Phaser 3",
+    "fileName": "pack-result",
+    "savePath": "",
+    "width": 416,
+    "height": 2048,
+    "fixedSize": false,
+    "powerOfTwo": false,
+    "padding": 0,
+    "extrude": 0,
+    "allowRotation": false,
+    "allowTrim": false,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": false,
+    "packer": "MaxRectsBin",
+    "packerMethod": "BestShortSideFit"
+  }
+}

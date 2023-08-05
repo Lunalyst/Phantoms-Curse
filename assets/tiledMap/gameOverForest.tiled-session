@@ -1,0 +1,38 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "gameOverForest.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "gameOverForest.json": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 495.25,
+                "y": 260.5
+            }
+        },
+        "gameOverForest.json#Tile Set V.0.7": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "F:/BackUpFiles/Game Concept Art/Snakebit Island Alpha/assets/tiledMap",
+    "map.lastUsedFormat": "json",
+    "map.layerDataFormat": null,
+    "openFiles": [
+        "gameOverForest.json"
+    ],
+    "project": "gameOverForest.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "gameOverForest.json"
+    ],
+    "tileset.embedInMap": true
+}

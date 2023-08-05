@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Snakebit Island</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+</head>
+
+<body>
+  <script src="lib/phaser.js"></script>
+
+  <script src="forestHomeLevel.js"></script>
+  <script src="allSceneFunctions.js"></script>
+  <script src="player.js"></script>
+  <script src="level.js"></script>
+  <script src="hpBar.js"></script>
+  <script src="keyPrompts.js"></script>
+  <script src="blueSlime.js"></script>
+  <script src="titleScreen.js"></script>
+  <script src="gameOver.js"></script>
+  <script src="turnPineForest1.js"></script>
+  <script src="warp.js"></script>
+  <script src="inventory.js"></script>
+  <script src="inventorySlots.js"></script>
+  <script src="hitBoxes.js"></script>
+  <script src="bestiary.js"></script>
+  <script src="bestiaryControls.js"></script>
+  <script src="savePoint.js"></script>
+  <script src="inventoryLabels.js"></script>
+  <script src="inventoryBorder.js"></script>
+  <script src="sign.js"></script>
+  <script src="textBox.js"></script>
+  <script src="textBoxCharacter.js"></script>
+  <script src="textBoxProfile.js"></script>
+  <script src="saveSlot.js"></script>
+  <script src="skillMark.js"></script>
+  <script src="sexMark.js"></script>
+  <script src="healthMark.js"></script>
+  <script src="bestiaryMark.js"></script>
+  <script src="shellMark.js"></script>
+  
+  <script> new Phaser.Game(
+      {
+      //list of property names and there associated values.
+      width: 900,
+      height: 900, 
+      //3200 w by 1920 h for world boarders
+      type: Phaser.WEBGL,
+      physics: {
+        default: 'arcade',
+        arcade: {
+          //gravity:{y:300},
+          // debug is excelent for testing velocity and hitboxes.
+          debug: false
+        }
+      },
+      scene: [new titleScreen,new forestHomeLevel,new gameOver,new turnPineForest1],//multiple scenes
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      }, // scale manager used to scale game up to fit display. centers gameplay screen
+    });
+  </script>
+
+ <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script> 
+</body>
+
+</html>

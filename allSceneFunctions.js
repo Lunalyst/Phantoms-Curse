@@ -112,7 +112,7 @@ class allSceneFunctions{
       console.log(" something went wrong with loading a save file. location: "+slot);
     }
     //retrieves data from the file object and gives it to the current scene
-    if(file !== undefined){
+    if(file !== undefined && file !== null){
     console.log("calling loadslot for save slot "+ slot +"loadGameFile============================");
     console.log("save file x:"+ file.saveX);
     console.log("save file y:"+ file.saveY);
@@ -137,9 +137,10 @@ class allSceneFunctions{
     scene1.playerBestiaryData = file.pbd;
     scene1.playerSkillsData = file.psd;
       // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
+      let tempPlayerSaveSlotData = file.pssd;
+      if(scene1.playerBestiaryData !== undefined){
+
     let bestiaryPercent = 0;
-    let tempPlayerSaveSlotData = file.pssd;
-    
       for(let counter = 0; counter < scene1.playerBestiaryData.length;counter++){
         if(scene1.playerBestiaryData[counter] !== 0){
           bestiaryPercent++;
@@ -147,6 +148,7 @@ class allSceneFunctions{
       }   
       bestiaryPercent =  (bestiaryPercent /scene1.playerBestiaryData.length) * 100;
       tempPlayerSaveSlotData[2] = bestiaryPercent;
+    }
       
       
     scene1.playerSaveSlotData = tempPlayerSaveSlotData;

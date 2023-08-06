@@ -310,4 +310,17 @@ class textBox extends Phaser.Physics.Arcade.Sprite{
       this.textBoxProfileImage.setScale(.6);
 
     }
+
+    activateTitleScreenTextbox(scene,keyW,isVisible,profileArray,text){
+            this.setText(text);
+            this.formatText();
+            this.setProfileArray(this.profileArray);
+            this.activateTextBox(scene,keyW,);
+            this.hideText(isVisible);
+            this.setProfileArray(profileArray);
+            this.displayText(0,87);
+            this.textBoxProfileImage.visible = isVisible;
+            this.visible = isVisible;
+            
+    }
 }

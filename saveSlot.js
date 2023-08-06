@@ -13,7 +13,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
       this.healthIcon = new healthMark(scene, this.x-340, this.y+45);
       this.bestiaryIcon = new bestiaryMark(scene, this.x-260, this.y-10);
       this.shellIcon = new shellMark(scene, this.x-260, this.y+45);
-      this.trashCan = new removeSlot(scene, this.x+350, this.y).setInteractive();
+      
+      
 
       let startingX = -375;
       let startingY = -40;
@@ -181,7 +182,6 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
         this.healthIcon.visible = true;
         this.bestiaryIcon.visible = true;
         this.shellIcon.visible = true;
-        this.trashCan.visible = true;
         for(let counter = 0; counter < this.slotLetters.length; counter++){
           this.slotLetters[counter].visible = true;
           this.slotLetters[counter].setScale(.3);
@@ -203,7 +203,6 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
         this.healthIcon.visible = false;
         this.bestiaryIcon.visible = false;
         this.shellIcon.visible = false;
-        this.trashCan.visible = false;
         for(let counter = 0; counter < this.skillMarks.length; counter++){
           this.skillMarks[counter].visible = false;
         }
@@ -225,7 +224,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
     setSkillDisplay(scene){
       // sets the skills from the savefile to be displayed.
       let animationNumber = "";
-      if(scene.playerSaveSlotData != undefined){
+      if(scene.playerSaveSlotData !== undefined && scene.playerSkillsData !== undefined){
       for(let counter = 0; counter < scene.playerSkillsData.length;counter++){
        // console.log("scene.playerSkillsData[counter]: "+scene.playerSkillsData[counter] +" this.skillMarks.length "+this.skillMarks.length+" scene.playerSkillsData.length "+scene.playerSkillsData.length);
         //console.log("scene.playerSkillsData[counter]: "+scene.playerSkillsData[counter] +" this.skillMarks[counter] "+this.skillMarks[counter]);
@@ -269,7 +268,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
           this.healthIcon.anims.play("6");
         }
 
-        if(scene.playerSaveSlotData[1] !== undefined){
+        if(scene.playerSaveSlotData !== undefined){
           animationNumber = "";
           animationNumber += scene.playerSaveSlotData[1];
           console.log("animationNumber for currency: " +animationNumber);
@@ -283,15 +282,21 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
 
           }
 
-          if(scene.playerSaveSlotData[2] !== undefined){
+          if(scene.playerSaveSlotData !== undefined){
             animationNumber = "";
             animationNumber += scene.playerSaveSlotData[2];
             //console.log("animationNumber for bestiary percent: " +animationNumber);
+            if(scene.playerSaveSlotData[2] > 9){
               for(let counter = 0; counter < this.bestiaryLetters.length-1; counter++){
 
                     this.bestiaryLetters[counter].anims.play(animationNumber.charAt(counter));  
                   
               }
+            }else if(scene.playerSaveSlotData[2] < 10){
+
+                this.bestiaryLetters[1].anims.play(animationNumber);  
+                this.bestiaryLetters[0].visible = false;
+            }
   
             }
 
@@ -299,11 +304,11 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
           
        
     
-        animationNumber = "";
+       /* animationNumber = "";
         animationNumber = animationNumber + scene.playerSaveSlotData[2];
         for(let counter = 0; counter < this.bestiaryLetters.length; counter++){
           
-        }
+        }*/
       
       
     }

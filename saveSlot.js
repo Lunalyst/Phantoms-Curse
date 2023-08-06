@@ -13,6 +13,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
       this.healthIcon = new healthMark(scene, this.x-340, this.y+45);
       this.bestiaryIcon = new bestiaryMark(scene, this.x-260, this.y-10);
       this.shellIcon = new shellMark(scene, this.x-260, this.y+45);
+      this.trashCan = new removeSlot(scene, this.x+350, this.y).setInteractive();
 
       let startingX = -375;
       let startingY = -40;
@@ -180,6 +181,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
         this.healthIcon.visible = true;
         this.bestiaryIcon.visible = true;
         this.shellIcon.visible = true;
+        this.trashCan.visible = true;
         for(let counter = 0; counter < this.slotLetters.length; counter++){
           this.slotLetters[counter].visible = true;
           this.slotLetters[counter].setScale(.3);
@@ -201,6 +203,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite{
         this.healthIcon.visible = false;
         this.bestiaryIcon.visible = false;
         this.shellIcon.visible = false;
+        this.trashCan.visible = false;
         for(let counter = 0; counter < this.skillMarks.length; counter++){
           this.skillMarks[counter].visible = false;
         }

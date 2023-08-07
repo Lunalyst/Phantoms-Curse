@@ -116,7 +116,7 @@ class allSceneFunctions{
 
 
     //retrieves data from the file object and gives it to the current scene
-    if(file !== undefined){
+    if(file !== undefined&& file!== null){
     console.log("calling loadslot for save slot "+ slot +"loadGameFile============================");
     console.log("save file x:"+ file.saveX);
     console.log("save file y:"+ file.saveY);

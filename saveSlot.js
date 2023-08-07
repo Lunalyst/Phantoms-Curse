@@ -195,19 +195,6 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
         }
         skillCounter++;
       }
-      /*for (let counter = 0; counter < scene.playerSkillsData.length; counter++) {
-        // console.log("scene.playerSkillsData[counter]: "+scene.playerSkillsData[counter] +" this.skillMarks.length "+this.skillMarks.length+" scene.playerSkillsData.length "+scene.playerSkillsData.length);
-        //console.log("scene.playerSkillsData[counter]: "+scene.playerSkillsData[counter] +" this.skillMarks[counter] "+this.skillMarks[counter]);
-        if (scene.playerSkillsData[counter] != 0) {
-          //console.log("setting skill: "+scene.playerSkillsData[counter]);
-          this.skillMarks[counter].anims.play(scene.playerSkillsData[counter].toString());
-          this.skillMarks[counter].visible = true;
-        } else {
-          //console.log("skill blank because it is set to zero.");
-          this.skillMarks[counter].visible = false;
-        }
-
-      }*/
     }
     // sets the sexicon to reflect the save data
     //undefined when comparing with object does explicit type conversions which can be true when they should be false. to get around this we use the explicit !== operator.

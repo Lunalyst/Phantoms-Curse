@@ -37,23 +37,13 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     spacing = 0;
     rows = 0;
 
-    this.skillMarks = [
-      this.s1 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s2 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s3 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s4 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s5 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s6 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s7 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s8 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s9 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      this.s10 = new skillMark(scene, this.x + startingX, this.y + startingY),
-      //this.s6 = new skillMark(scene, this.x, this.y-30),
-    ];
+
+    this.skillMarks = [];
 
 
+    for (let counter = 0; counter < 11; counter++) {
 
-    for (let counter = 0; counter < this.skillMarks.length; counter++) {
+      this.skillMarks.push(new skillMark(scene, this.x + startingX, this.y + startingY));
 
       if (counter === 5) {
         rows++;

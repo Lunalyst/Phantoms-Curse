@@ -115,7 +115,7 @@ class forestHomeLevel extends Phaser.Scene {
       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
       this.load.image('TABToSkip', 'assets/tabToSkip.png');
       this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
-      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 350, frameHeight: 200 });
+      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
       this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
@@ -255,7 +255,7 @@ class forestHomeLevel extends Phaser.Scene {
         console.log("grab cooldown has ended. player can be grabbed agian.");
         },3000);
 
-        console.log("this.playerSaveSlotData: "+this.playerSaveSlotData);
+        console.log("this.playerSaveSlotData: ",this.playerSaveSlotData);
     }
 
     update(){
@@ -279,7 +279,7 @@ class forestHomeLevel extends Phaser.Scene {
     }
 
       if(this.keyTAB.isDown && this.grabbed === false){
-      console.log("tabKey Pressed");
+      //console.log("tabKey Pressed");
       this.playerInventory.setView(this);
       this.activateFunctions.checkBlueSlimePause(this);
       //this.player1.pausePlayerPhysics(this);

@@ -11,14 +11,41 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       scene.add.existing(this);
 
       this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('bestiary', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p0',frames: this.anims.generateFrameNames('bestiary', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p1',frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p2',frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p3',frames: this.anims.generateFrameNames('bestiary', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p4',frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p5',frames: this.anims.generateFrameNames('bestiary', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'p6',frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'cover',frames: this.anims.generateFrameNames('bestiary', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'back',frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'blueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'largeBlueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'axolotlMale',frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'axolotlfemale',frames: this.anims.generateFrameNames('bestiary', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'largePurpleSlugFemale',frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'largePurpleSlugMale',frames: this.anims.generateFrameNames('bestiary', { start: 8, end: 8 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'rabbitfemale',frames: this.anims.generateFrameNames('bestiary', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'rabbitMale',frames: this.anims.generateFrameNames('bestiary', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'cowFemale',frames: this.anims.generateFrameNames('bestiary', { start: 11, end:11 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'cowMale',frames: this.anims.generateFrameNames('bestiary', { start: 12, end: 12 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'blueSlimeHumanoidFemale',frames: this.anims.generateFrameNames('bestiary', { start: 13, end: 13 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'blueSlimeHumanoidFemaleLarge',frames: this.anims.generateFrameNames('bestiary', { start: 14, end: 14 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'sharkFemale',frames: this.anims.generateFrameNames('bestiary', { start: 15, end: 15 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'sharkMale',frames: this.anims.generateFrameNames('bestiary', { start: 16, end: 16 }),frameRate: 10,repeat: -1});
+
       this.anims.play("closed");
+
+    /*let playerBestiaryData = {
+                blueSlime:1,
+                largeBlueSlime:1,
+                axolotlMale:1,
+                axolotlfemale:1,
+                largePurpleSlugFemale:1,
+                largePurpleSlugMale:1,
+                rabbitfemale:1,
+                rabbitMale:1,
+                cowFemale:1,
+                cowMale:1,
+                blueSlimeHumanoidFemale:1,
+                blueSlimeHumanoidMale:1,
+                sharkFemale:1,
+                sharkMale:1
+             }; */
 
       this.setDepth(60);
       this.setScale(1.5 );
@@ -26,11 +53,22 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.setScrollFactor(0);
       this.isOpen = false;
       this.index = 0;
-      this.visable = false;
+      this.visible = false;
       this.openDelay = false;
       bestiaryThat = this;
       this.pageNumber = 0;
-      this.setScale(.6);
+      this.setScale(.4);
+      this.activeBestiaryPages = [];
+      //this.activeBestiaryPages.push('closed');
+      this.activeBestiaryPages.push('cover');
+      for(let [key,value] of Object.entries(scene.playerBestiaryData)){
+        console.log("key: ",key," value: ",value);
+        if(value === 1){
+          this.activeBestiaryPages.push(key.toString());
+        }
+      }
+      this.activeBestiaryPages.push('back');
+      console.log(this.activeBestiaryPages);
       
      
       
@@ -40,8 +78,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
          
         if(this.isOpen === false && this.openDelay === false){
             this.isOpen = true;
-            console.log("this.isOpen from bestiary"+this.isOpen);
-            this.anims.play("p"+this.pageNumber);
+            console.log("this.isOpen from bestiary "+this.isOpen);
+            this.anims.play(this.activeBestiaryPages[this.pageNumber]);
             this.openDelay = true;
             
             setTimeout(function(){
@@ -51,7 +89,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
                 scene.playerInventory.bestiaryLeft.visible = false;
                 scene.playerInventory.bestiaryRight.visible = true;
                 //scene.bestiaryExit.visible = true;
-              }else if(this.pageNumber === 6){
+              }else if(this.pageNumber === this.activeBestiaryPages.length-1){
                 scene.playerInventory.bestiaryLeft.visible = true;
                 scene.playerInventory.bestiaryRight.visible = false;
                 //scene.bestiaryExit.visible = true;
@@ -82,10 +120,11 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       // page number is being refrenced improprly scene.inventory.bestuaryui.pagenumber
       inventory.bestiaryRight.on('pointerdown', function (pointer) {
         console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" + scene.playerInventory.bestiaryUI.pageNumber);
-        if(scene.playerInventory.bestiaryUI.pageNumber >= 0 && scene.playerInventory.bestiaryUI.pageNumber < 6 ){
+        console.log(" pageID: ", bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+        if(scene.playerInventory.bestiaryUI.pageNumber >= 0 && scene.playerInventory.bestiaryUI.pageNumber < bestiaryThat.activeBestiaryPages.length ){
           scene.playerInventory.bestiaryUI.pageNumber++;
-          scene.playerInventory.bestiaryUI.anims.play("p"+scene.playerInventory.bestiaryUI.pageNumber);
-          if(scene.playerInventory.bestiaryUI.pageNumber === 6){
+          scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+          if(scene.playerInventory.bestiaryUI.pageNumber === bestiaryThat.activeBestiaryPages.length-1){
             console.log(" hiding right bestiary arrow" );
             scene.playerInventory.bestiaryRight.visible = false;
           }else{
@@ -99,9 +138,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       });
       inventory.bestiaryLeft.on('pointerdown', function (pointer) {
         console.log(" activating bestiary turn page left scene.bestiaryUI.pageNumber" + scene.playerInventory.bestiaryUI.pageNumber);
-        if(scene.playerInventory.bestiaryUI.pageNumber > 0 && scene.playerInventory.bestiaryUI.pageNumber <= 6 ){
+        if(scene.playerInventory.bestiaryUI.pageNumber > 0 && scene.playerInventory.bestiaryUI.pageNumber <= bestiaryThat.activeBestiaryPages.length ){
           scene.playerInventory.bestiaryUI.pageNumber--;
-          scene.playerInventory.bestiaryUI.anims.play("p"+scene.playerInventory.bestiaryUI.pageNumber);
+          scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
           if(scene.playerInventory.bestiaryUI.pageNumber === 0){
             console.log(" hiding left bestiary arrow" );
             scene.playerInventory.bestiaryLeft.visible = false;

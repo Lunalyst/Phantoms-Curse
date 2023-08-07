@@ -40,7 +40,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
     }
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
     setView(scene){
-      console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
+      //console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
         if(this.isOpen === false && this.openDelay === false){
             this.isOpen = true;
             this.anims.play("open");
@@ -95,14 +95,14 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
           //console.log("this.inventoryArray: "+scene.inventoryArray[index]);
           if(row === 0 && col === 3){
             console.log("activated bestiary controls");
-            this.bestiaryUI = new bestiary(scene,500,350,'bestiary').setInteractive(scene.input.makePixelPerfect());
-            this.bestiaryLabel = new inventoryLabels(scene,510,315,'Labels');
+            this.bestiaryUI = new bestiary(scene,580,395,'bestiary').setInteractive(scene.input.makePixelPerfect());
+            this.bestiaryLabel = new inventoryLabels(scene,510,323,'Labels');
             this.bestiaryLabel.anims.play('bestiary');
             this.bestiaryUI.visible = this.isOnScreen;
-            this.bestiaryLeft = new bestiaryControls(scene,this.bestiaryUI.x-80,this.bestiaryUI.y+50,"UIControls").setInteractive();
+            this.bestiaryLeft = new bestiaryControls(scene,this.bestiaryUI.x-80,this.bestiaryUI.y+100,"UIControls").setInteractive();
             this.bestiaryLeft.anims.play("pointLeft");
             this.bestiaryLeft.visible = false;
-            this.bestiaryRight = new bestiaryControls(scene,this.bestiaryUI.x+80,this.bestiaryUI.y+50,"UIControls").setInteractive();
+            this.bestiaryRight = new bestiaryControls(scene,this.bestiaryUI.x+80,this.bestiaryUI.y+100,"UIControls").setInteractive();
             this.bestiaryRight.anims.play("pointRight");
             this.bestiaryRight.visible = false;
             this.bestiaryUI.applyUIControlElements(scene,this);

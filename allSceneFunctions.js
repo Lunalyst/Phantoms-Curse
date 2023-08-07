@@ -66,10 +66,10 @@ class allSceneFunctions{
       console.log("location: "+ location);
       console.log("playerInventoryData: "+ playerInventoryData);
       console.log("playerInventoryAmountData: "+ playerInventoryAmountData);
-      console.log("playerBestiaryData: "+ playerBestiaryData);
-      console.log("playerSkillsData: "+ playerSkillsData);
-      console.log("playerSaveSlotData: "+ playerSaveSlotData);
-      console.log("gameFlags: "+ gameFlags);
+      console.log("playerBestiaryData: ", playerBestiaryData);
+      console.log("playerSkillsData: ", playerSkillsData);
+      console.log("playerSaveSlotData: ", playerSaveSlotData);
+      console.log("gameFlags: ", gameFlags);
 
       const file = {
           saveX: savePointX,
@@ -87,14 +87,14 @@ class allSceneFunctions{
       }
       //uses local Storage to store the data
       //console.log("HP in saveGame: "+playerHp)
-      if(playerSaveSlotData[0] === 1){
+      if(playerSaveSlotData.saveSlot === 1){
         localStorage.setItem('saveFile1',JSON.stringify(file));
-      }else if(playerSaveSlotData[0] === 2){
+      }else if(playerSaveSlotData.saveSlot === 2){
         localStorage.setItem('saveFile2',JSON.stringify(file));
-      }else if(playerSaveSlotData[0] === 3){
+      }else if(playerSaveSlotData.saveSlot === 3){
         localStorage.setItem('saveFile3',JSON.stringify(file));
       }else{
-        console.log(" something went wrong with the save location. location: "+playerSaveSlotData[0]);
+        console.log(" something went wrong with the save location. location: "+playerSaveSlotData.saveSlot);
       }
       //console.log("saved warp x: " +scene1.warpToX+" saved warp y: "+scene1.warpToY);
   }
@@ -102,17 +102,21 @@ class allSceneFunctions{
   loadGameFile(scene1,slot){
     console.log("attempting to load slot:"+ slot);
     //sets variable to the stored data
+    let file;
     if(slot === 1){
-      var file = JSON.parse(localStorage.getItem('saveFile1'));
+      file = JSON.parse(localStorage.getItem('saveFile1'));
     }else if(slot === 2){
-      var file = JSON.parse(localStorage.getItem('saveFile2'));
+      file = JSON.parse(localStorage.getItem('saveFile2'));
     }else if(slot === 3){
-      var file = JSON.parse(localStorage.getItem('saveFile3'));
+      file = JSON.parse(localStorage.getItem('saveFile3'));
     }else{
       console.log(" something went wrong with loading a save file. location: "+slot);
+      file = undefined;
     }
+
+
     //retrieves data from the file object and gives it to the current scene
-    if(file !== undefined && file !== null){
+    if(file !== undefined){
     console.log("calling loadslot for save slot "+ slot +"loadGameFile============================");
     console.log("save file x:"+ file.saveX);
     console.log("save file y:"+ file.saveY);
@@ -121,10 +125,10 @@ class allSceneFunctions{
     console.log("location: "+ file.locationName);
     console.log("playerInventoryData: "+ file.id);
     console.log("playerInventoryAmountData: "+ file.piad);
-    console.log("playerBestiaryData: "+ file.pbd);
-    console.log("playerSkillsData: "+ file.psd);
-    console.log("playerSaveSlotData: "+ file.pssd);
-    console.log("gameFlags: "+ file.flags);
+    console.log("playerBestiaryData: ", file.pbd);
+    console.log("playerSkillsData: ", file.psd);
+    console.log("playerSaveSlotData: ", file.pssd);
+    console.log("gameFlags: ", file.flags);
    
 
     scene1.warpToX = file.saveX;
@@ -141,13 +145,15 @@ class allSceneFunctions{
       if(scene1.playerBestiaryData !== undefined){
 
     let bestiaryPercent = 0;
-      for(let counter = 0; counter < scene1.playerBestiaryData.length;counter++){
-        if(scene1.playerBestiaryData[counter] !== 0){
-          bestiaryPercent++;
-        }
-      }   
-      bestiaryPercent =  (bestiaryPercent /scene1.playerBestiaryData.length) * 100;
-      tempPlayerSaveSlotData[2] = bestiaryPercent;
+ 
+    for(let [key,value] of Object.entries(scene1.playerBestiaryData)){
+      if(value !== 0){
+        bestiaryPercent++;
+      }
+    }
+      
+      bestiaryPercent =  (bestiaryPercent / Object.keys(scene1.playerBestiaryData).length) * 100;
+      tempPlayerSaveSlotData.bestiaryCompletionPercent = bestiaryPercent;
     }
       
       
@@ -172,10 +178,10 @@ class allSceneFunctions{
         console.log("playerSex: "+ playerSex);
         console.log("playerInventoryData: "+ playerInventoryData);
         console.log("playerInventoryAmountData: "+ playerInventoryAmountData);
-        console.log("playerBestiaryData: "+ playerBestiaryData);
-        console.log("playerSkillsData: "+ playerSkillsData);
-        console.log("playerSaveSlotData: "+ playerSaveSlotData);
-        console.log("gameFlags: "+ gameFlags);
+        console.log("playerBestiaryData: ", playerBestiaryData);
+        console.log("playerSkillsData: ", playerSkillsData);
+        console.log("playerSaveSlotData: ", playerSaveSlotData);
+        console.log("gameFlags: ", gameFlags);
         console.log("location: "+ location);
 
         const file = {
@@ -207,11 +213,11 @@ class allSceneFunctions{
         console.log("player HP: "+ file.playerHpValue);
         console.log("playerInventoryData: "+ file.inventoryData);
         console.log("playerInventoryAmountData: "+ file.piad);
-        console.log("playerBestiaryData: "+ file.pbd);
-        console.log("playerSkillsData: "+ file.psd);
-        console.log("playerSaveSlotData: "+ file.pssd);
-        console.log("playerSex: "+ file.sex);
-        console.log("gameFlags: "+file.flags);
+        console.log("playerBestiaryData: ", file.pbd);
+        console.log("playerSkillsData: ", file.psd);
+        console.log("playerSaveSlotData: ", file.pssd);
+        console.log("playerSex: ", file.sex);
+        console.log("gameFlags: "+ file.flags);
 
         scene1.warpToX = file.warpToThisX;
         scene1.warpToY = file.warpToThisY;

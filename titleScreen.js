@@ -305,6 +305,42 @@ class titleScreen extends Phaser.Scene {
         this.maleIcon.on('pointerdown', function (pointer) {
             console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
              //saveGame(nextSceneX,nextSceneY,playerHp,playerSex,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
+             
+             let playerBestiaryData = {
+                blueSlime:1,
+                largeBlueSlime:0,
+                blueSlimeHumanoid:0,
+                rabbit:0,
+                largePurpleSlug:0,
+                goat:0,
+                mimic:0,
+                cow:0,
+                snake:0,
+                spider:0,
+                beeLarva:0,
+                beeDrone:0,
+                beeBrute:0
+             };
+
+             let playerSkillsData = {
+                jump:0,
+                dash:2,
+                strength:0,
+                mimic:4,
+                looting:0
+             };
+
+             let saveSlotData = {
+                saveSlot:that.tempNewGameSlotID,
+                currency: 567,
+                bestiaryCompletionPercent: 0
+             };
+
+             let gameFlags = {
+                cutTree1:0
+
+             };
+
             that.allFunctions.saveGame(
                 1650,//nextSceneX
                 542,//nextSceneY
@@ -312,10 +348,10 @@ class titleScreen extends Phaser.Scene {
                 0,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
                 [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
-                [1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],//playerBestiaryData
-                [1,0,3,0,5,0,0,0,0,0],//playerSkillsData
-                [that.tempNewGameSlotID,999,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]//gameFlags
+                playerBestiaryData,//playerBestiaryData
+                playerSkillsData,//playerSkillsData
+                saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                gameFlags//gameFlags
                 );
                 that.scene.start('forestHome');
                    
@@ -324,6 +360,41 @@ class titleScreen extends Phaser.Scene {
         this.femaleIcon.on('pointerdown', function (pointer) {
             console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
              //saveGame(nextSceneX,nextSceneY,playerHp,playerInventoryData,playerSex,gameFlags)
+             let playerBestiaryData = {
+                blueSlime:1,
+                largeBlueSlime:1,
+                blueSlimeHumanoid:1,
+                rabbit:1,
+                largePurpleSlug:1,
+                goat:0,
+                mimic:0,
+                cow:1,
+                snake:1,
+                spider:1,
+                beeLarva:1,
+                beeDrone:1,
+                beeBrute:1
+             };
+
+             let playerSkillsData = {
+                jump:1,
+                dash:0,
+                strength:3,
+                mimic:4,
+                looting:5
+             };
+
+             let saveSlotData = {
+                saveSlot:that.tempNewGameSlotID,
+                currency: 567,
+                bestiaryCompletionPercent: 0
+             };
+
+             let gameFlags = {
+                cutTree1:0
+
+             };
+
             that.allFunctions.saveGame(
                 1650,//nextSceneX
                 542,//nextSceneY
@@ -331,10 +402,10 @@ class titleScreen extends Phaser.Scene {
                 1,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
                 [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
-                [1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerBestiaryData
-                [1,2,3,4,5,1,2,3,4,5],//playerSkillsData
-                [that.tempNewGameSlotID,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]//gameFlags
+                playerBestiaryData,//playerBestiaryData
+                playerSkillsData,//playerSkillsData
+                saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                gameFlags//gameFlags
                 );
                 that.scene.start('forestHome');
                    
@@ -344,7 +415,11 @@ class titleScreen extends Phaser.Scene {
 
             
             that.clearSlotData();
-            that.playerSaveSlotData = [that.selectedSlotToBeDeleted,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            let playerSaveSlotData = {
+                saveSlot:that.selectedSlotToBeDeleted,
+                currency: 0,
+                bestiaryCompletionPercent: 0
+             };
             that.activateFunctions.saveGameFile(
                 that.warpToX,
                 that.warpToY,
@@ -355,7 +430,7 @@ class titleScreen extends Phaser.Scene {
                 that.playerInventoryAmountData,
                 that.playerBestiaryData,
                 that.playerSkillsData,
-                that.playerSaveSlotData,
+                playerSaveSlotData,
                 that.flagValues
                );
 

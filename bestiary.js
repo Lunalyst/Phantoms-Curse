@@ -30,23 +30,6 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
 
       this.anims.play("closed");
 
-    /*let playerBestiaryData = {
-                blueSlime:1,
-                largeBlueSlime:1,
-                axolotlMale:1,
-                axolotlfemale:1,
-                largePurpleSlugFemale:1,
-                largePurpleSlugMale:1,
-                rabbitfemale:1,
-                rabbitMale:1,
-                cowFemale:1,
-                cowMale:1,
-                blueSlimeHumanoidFemale:1,
-                blueSlimeHumanoidMale:1,
-                sharkFemale:1,
-                sharkMale:1
-             }; */
-
       this.setDepth(60);
       this.setScale(1.5 );
       //connects the sprite to the camera so that it sticks with the player.
@@ -69,8 +52,44 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       }
       this.activeBestiaryPages.push('back');
       console.log(this.activeBestiaryPages);
-      
-     
+
+      let startingX = -5;
+      let startingY = -100;
+      let spacing = 0;
+      let rows = 0;
+
+      let titleSize = "MONSTER_TITLE";
+      this.bestiaryTitle = [];
+      for(let counter = 0;counter<titleSize.length;counter++){
+        this.bestiaryTitle.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+        //this.bestiaryTitle[counter].visible = true;
+        this.bestiaryTitle[counter].setScale(.15);
+        this.bestiaryTitle[counter].setDepth(70);
+        this.bestiaryTitle[counter].anims.play(titleSize.charAt(counter));
+        this.bestiaryTitle[counter].x = this.bestiaryTitle[counter].x + spacing;
+        this.bestiaryTitle[counter].y = this.bestiaryTitle[counter].y + 7;
+        spacing = spacing + 7;
+      }
+
+      startingX = -5;
+      startingY = -120;
+      spacing = 0;
+      let spacingY = 0;
+      rows = 5;
+
+      let summarySize = "THIS SUMMARY IS A MONSTER SUMMARY.THIS IS WHERE A MONSTERS SUMMARY IS DISPLAYED. THIS WILL TELL YOU SOME INTERESTING INFORMATION ABOUT THE MONSTER. THESE ENTRYS ARE USUALLY UNLOCKED BY GETTING DEFEATED BY THE MONSTER AND THEN SAVING.";
+      this.bestiarySummary = [];
+      for(let counter = 0;counter<summarySize.length;counter++){
+        this.bestiarySummary.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+        //this.bestiaryTitle[counter].visible = true;
+        this.bestiarySummary[counter].setScale(.13);
+        this.bestiarySummary[counter].setDepth(70);
+        this.bestiarySummary[counter].anims.play(summarySize.charAt(counter));
+        this.bestiarySummary[counter].x = this.bestiarySummary[counter].x + spacing;
+        this.bestiarySummary[counter].y = this.bestiarySummary[counter].y + spacingY;
+        spacing = spacing + 6;
+      }
+
       
     }
 
@@ -88,15 +107,17 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
               if(this.pageNumber === 0){
                 scene.playerInventory.bestiaryLeft.visible = false;
                 scene.playerInventory.bestiaryRight.visible = true;
-                //scene.bestiaryExit.visible = true;
+                
+                this.displayBestiaryText(false);
               }else if(this.pageNumber === this.activeBestiaryPages.length-1){
                 scene.playerInventory.bestiaryLeft.visible = true;
                 scene.playerInventory.bestiaryRight.visible = false;
-                //scene.bestiaryExit.visible = true;
+                this.displayBestiaryText(true);
               }else{
                 scene.playerInventory.bestiaryLeft.visible = true;
                 scene.playerInventory.bestiaryRight.visible = true;
-                //scene.bestiaryExit.visible = true;
+                this.displayBestiaryText(true);
+                
               }
 
         }else if(this.isOpen === true && this.openDelay === false){
@@ -104,6 +125,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
             console.log("this.isOpen from bestiary"+this.isOpen);
             this.anims.play("closed");
             this.openDelay = true;
+            this.displayBestiaryText(false);
             setTimeout(function(){
               console.log("bestiary openDelay set to false");
               bestiaryThat.openDelay = false; 
@@ -121,12 +143,14 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       inventory.bestiaryRight.on('pointerdown', function (pointer) {
         console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" + scene.playerInventory.bestiaryUI.pageNumber);
         console.log(" pageID: ", bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+        bestiaryThat.displayBestiaryText(true);
         if(scene.playerInventory.bestiaryUI.pageNumber >= 0 && scene.playerInventory.bestiaryUI.pageNumber < bestiaryThat.activeBestiaryPages.length ){
           scene.playerInventory.bestiaryUI.pageNumber++;
           scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+
           if(scene.playerInventory.bestiaryUI.pageNumber === bestiaryThat.activeBestiaryPages.length-1){
             console.log(" hiding right bestiary arrow" );
-            scene.playerInventory.bestiaryRight.visible = false;
+            scene.playerInventory.bestiaryRight.visible = false;  
           }else{
             scene.playerInventory.bestiaryLeft.visible = true;
             scene.playerInventory.bestiaryRight.visible = true;
@@ -143,8 +167,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
           scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
           if(scene.playerInventory.bestiaryUI.pageNumber === 0){
             console.log(" hiding left bestiary arrow" );
+            bestiaryThat.displayBestiaryText(false);
             scene.playerInventory.bestiaryLeft.visible = false;
           }else{
+            bestiaryThat.displayBestiaryText(true);
             scene.playerInventory.bestiaryLeft.visible = true;
             scene.playerInventory.bestiaryRight.visible = true;
           }
@@ -153,5 +179,14 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         
       });
    
+    }
+
+    displayBestiaryText(isVisible){
+      console.log("setting text tovisible: ", isVisible);
+      for(let counter = 0; counter < this.bestiaryTitle.length;counter++){
+        this.bestiaryTitle[counter].visible = isVisible;
+        console.log(this.bestiaryTitle[counter].x ," ",this.bestiaryTitle[counter].y);
+      }
+      
     }
 }

@@ -33,9 +33,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.skillLabel;
       this.inventoryBorder;
       this.bestiaryUI;
-      this.bestiaryLeft;
-      this.bestiaryRight;
-      this.invenhtoryElements = new Phaser.GameObjects.Group(scene); 
+      this.inventoryElements = new Phaser.GameObjects.Group(scene); 
       
       
     }
@@ -76,8 +74,6 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
               },1000);
 
         }
-        this.bestiaryLeft.visible = false;
-        this.bestiaryRight.visible = false;
         //scene.bestiaryExit.visible = false;
         this.bestiaryUI.isOpen =true;
         this.bestiaryUI.openDelay = false;
@@ -93,20 +89,17 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
         for(row = 0; row < 6; row++){
           //console.log("generating inventory slot: "+index+" 450 + (row*10): "+(row * 10)+" (col*10): "+(col * 10) );
           scene.inventoryArray[index] = new inventorySlots(scene,(this.x-155) + (row*30), (this.y-105) +(col*30),'inventorySlots').setInteractive();
+          this.inventoryElements.add(scene.inventoryArray[index]);
           //console.log("this.inventoryArray: "+scene.inventoryArray[index]);
           if(row === 0 && col === 3){
             console.log("activated bestiary controls");
             this.bestiaryUI = new bestiary(scene,580,395,'bestiary').setInteractive(scene.input.makePixelPerfect());
+            this.inventoryElements.add(this.bestiaryUI);
             this.bestiaryLabel = new inventoryLabels(scene,510,323,'Labels');
+            this.inventoryElements.add(this.bestiaryLabel);
             this.bestiaryLabel.anims.play('bestiary');
             this.bestiaryUI.visible = this.isOnScreen;
-            this.bestiaryLeft = new bestiaryControls(scene,this.bestiaryUI.x-80,this.bestiaryUI.y+100,"UIControls").setInteractive();
-            this.bestiaryLeft.anims.play("pointLeft");
-            this.bestiaryLeft.visible = false;
-            this.bestiaryRight = new bestiaryControls(scene,this.bestiaryUI.x+80,this.bestiaryUI.y+100,"UIControls").setInteractive();
-            this.bestiaryRight.anims.play("pointRight");
-            this.bestiaryRight.visible = false;
-            this.bestiaryUI.applyUIControlElements(scene,this);
+            this.bestiaryUI.applyUIControlElements();
             
           }
           index++;
@@ -114,31 +107,27 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
         }
       }
       scene.inventoryArray[index] = new inventorySlots(scene,455,310,'inventorySlots').setInteractive();
+      this.inventoryElements.add(scene.inventoryArray[index]);
       this.weaponLabel = new inventoryLabels(scene,455,330,'inventoryLabels');
+      this.inventoryElements.add(this.weaponLabel);
       index++;
       scene.inventoryArray[index] = new inventorySlots(scene,455,360,'inventorySlots').setInteractive();
+      this.inventoryElements.add(scene.inventoryArray[index]);
       this.ringLabel = new inventoryLabels(scene,455,380,'Labels');
+      this.inventoryElements.add(this.ringLabel);
       this.ringLabel.anims.play('ring');
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
+      this.inventoryElements.add(this.inventoryBorder);
 
     }
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
-      let index = 0;
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
-          scene.inventoryArray[index].visible = this.isOnScreen;
-          index++;
-        }
-      }
-      scene.inventoryArray[index].visible = this.isOnScreen;
-          index++;
-      scene.inventoryArray[index].visible = this.isOnScreen;
-      this.bestiaryUI.visible = this.isOnScreen;
-      this.weaponLabel.visible = this.isOnScreen;
-      this.ringLabel.visible = this.isOnScreen;
-      this.bestiaryLabel.visible = this.isOnScreen;
-      this.inventoryBorder.visible = this.isOnScreen;
+      this.inventoryElements.toggleVisible();
+
+      /*this.inventoryElements.children.each(function (tempElement){
+        tempElement.visible = inventoryThat.isOnScreen;
+       
+       },scene);*/
       
     }
     // applies the correct animation to the inventory slot based on the inventory data

@@ -278,7 +278,7 @@ class forestHomeLevel extends Phaser.Scene {
       this.activateFunctions.checkSign(this,"Forestlevel1");
     }
 
-      if(this.keyTAB.isDown && this.grabbed === false){
+      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
       //console.log("tabKey Pressed");
       this.playerInventory.setView(this);
       this.activateFunctions.checkBlueSlimePause(this);
@@ -292,6 +292,9 @@ class forestHomeLevel extends Phaser.Scene {
       this.activateFunctions.checkBlueSlimePause(this);
       this.physics.pause();
       this.player1.anims.pause();
+      if(this.playerInventory.isOpen === true){
+         this.playerInventory.setView(this);
+      }
     }else if(this.pausedInTextBox === false && this.isPaused === false){
       this.activateFunctions.checkBlueSlimePause(this);
       this.physics.resume();

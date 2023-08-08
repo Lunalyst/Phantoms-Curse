@@ -41,8 +41,18 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       bestiaryThat = this;
       this.pageNumber = 0;
       this.setScale(.4);
+
+      this.bestiaryLeft;
+      this.bestiaryRight;
+      this.bestiaryLeft = new bestiaryControls(scene,this.x-80,this.y+100,"UIControls").setInteractive();
+      this.bestiaryLeft.anims.play("pointLeft");
+      this.bestiaryLeft.visible = false;
+      this.bestiaryRight = new bestiaryControls(scene,this.x+80,this.y+100,"UIControls").setInteractive();
+      this.bestiaryRight.anims.play("pointRight");
+      this.bestiaryRight.visible = false;
+
+
       this.activeBestiaryPages = [];
-      //this.activeBestiaryPages.push('closed');
       this.activeBestiaryPages.push('cover');
       for(let [key,value] of Object.entries(scene.playerBestiaryData)){
         console.log("key: ",key," value: ",value);
@@ -53,16 +63,16 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.activeBestiaryPages.push('back');
       console.log(this.activeBestiaryPages);
 
-      let startingX = -5;
-      let startingY = -100;
+      let startingX = -70;
+      let startingY = -120;
       let spacing = 0;
-      let rows = 0;
 
       let titleSize = "MONSTER_TITLE";
+      this.titleCharacters = new Phaser.GameObjects.Group(scene);
       this.bestiaryTitle = [];
       for(let counter = 0;counter<titleSize.length;counter++){
         this.bestiaryTitle.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
-        //this.bestiaryTitle[counter].visible = true;
+        this.titleCharacters.add(this.bestiaryTitle[counter]);
         this.bestiaryTitle[counter].setScale(.15);
         this.bestiaryTitle[counter].setDepth(70);
         this.bestiaryTitle[counter].anims.play(titleSize.charAt(counter));
@@ -71,23 +81,32 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         spacing = spacing + 7;
       }
 
-      startingX = -5;
-      startingY = -120;
+      startingX = -40;
+      startingY = -90;
       spacing = 0;
-      let spacingY = 0;
-      rows = 5;
+      let rowSpacing = 0;
+      let rowCounter = 0;
 
       let summarySize = "THIS SUMMARY IS A MONSTER SUMMARY.THIS IS WHERE A MONSTERS SUMMARY IS DISPLAYED. THIS WILL TELL YOU SOME INTERESTING INFORMATION ABOUT THE MONSTER. THESE ENTRYS ARE USUALLY UNLOCKED BY GETTING DEFEATED BY THE MONSTER AND THEN SAVING.";
+      this.summaryCharacters = new Phaser.GameObjects.Group(scene);
       this.bestiarySummary = [];
       for(let counter = 0;counter<summarySize.length;counter++){
         this.bestiarySummary.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
-        //this.bestiaryTitle[counter].visible = true;
-        this.bestiarySummary[counter].setScale(.13);
+        //this.bestiarySummary[counter].visible = true;
+        this.summaryCharacters.add(this.bestiarySummary[counter]);
+        this.bestiarySummary[counter].setScale(.15);
         this.bestiarySummary[counter].setDepth(70);
         this.bestiarySummary[counter].anims.play(summarySize.charAt(counter));
         this.bestiarySummary[counter].x = this.bestiarySummary[counter].x + spacing;
-        this.bestiarySummary[counter].y = this.bestiarySummary[counter].y + spacingY;
-        spacing = spacing + 6;
+        this.bestiarySummary[counter].y = this.bestiarySummary[counter].y + rowSpacing;
+        spacing = spacing + 7;
+        rowCounter++;
+        if(rowCounter === 15){
+          rowCounter = 0;
+          spacing = 0;
+          rowSpacing += 7;
+
+        }
       }
 
       
@@ -100,28 +119,39 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
             console.log("this.isOpen from bestiary "+this.isOpen);
             this.anims.play(this.activeBestiaryPages[this.pageNumber]);
             this.openDelay = true;
+            this.setScale(.5);
+            this.x = 550;
+            this.y = 395;
+            this.bestiaryLeft.x = this.x-100;
+            this.bestiaryLeft.y = this.y+120;
+            this.bestiaryRight.x = this.x+100;
+            this.bestiaryRight.y = this.y+120;
             
             setTimeout(function(){
               bestiaryThat.openDelay = false; 
               },1000);
+
               if(this.pageNumber === 0){
-                scene.playerInventory.bestiaryLeft.visible = false;
-                scene.playerInventory.bestiaryRight.visible = true;
+                this.bestiaryLeft.visible = false;
+                this.bestiaryRight.visible = true;
                 
                 this.displayBestiaryText(false);
               }else if(this.pageNumber === this.activeBestiaryPages.length-1){
-                scene.playerInventory.bestiaryLeft.visible = true;
-                scene.playerInventory.bestiaryRight.visible = false;
+               this.bestiaryLeft.visible = true;
+                this.bestiaryRight.visible = false;
                 this.displayBestiaryText(true);
               }else{
-                scene.playerInventory.bestiaryLeft.visible = true;
-                scene.playerInventory.bestiaryRight.visible = true;
+                this.bestiaryLeft.visible = true;
+                this.bestiaryRight.visible = true;
                 this.displayBestiaryText(true);
                 
               }
 
         }else if(this.isOpen === true && this.openDelay === false){
             this.isOpen = false;
+            this.setScale(.4);
+            this.x = 580;
+            this.y = 395;
             console.log("this.isOpen from bestiary"+this.isOpen);
             this.anims.play("closed");
             this.openDelay = true;
@@ -130,49 +160,49 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
               console.log("bestiary openDelay set to false");
               bestiaryThat.openDelay = false; 
               },1000);
-              scene.playerInventory.bestiaryLeft.visible = false;
-              scene.playerInventory.bestiaryRight.visible = false;
+              this.bestiaryLeft.visible = false;
+             this.bestiaryRight.visible = false;
               //scene.bestiaryExit.visible = false;
         }
 
     }
 
-    applyUIControlElements(scene,inventory){
+    applyUIControlElements(){
     
       // page number is being refrenced improprly scene.inventory.bestuaryui.pagenumber
-      inventory.bestiaryRight.on('pointerdown', function (pointer) {
-        console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" + scene.playerInventory.bestiaryUI.pageNumber);
+      this.bestiaryRight.on('pointerdown', function (pointer) {
+        console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" +  bestiaryThat.pageNumber);
         console.log(" pageID: ", bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
         bestiaryThat.displayBestiaryText(true);
-        if(scene.playerInventory.bestiaryUI.pageNumber >= 0 && scene.playerInventory.bestiaryUI.pageNumber < bestiaryThat.activeBestiaryPages.length ){
-          scene.playerInventory.bestiaryUI.pageNumber++;
-          scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+        if(bestiaryThat.pageNumber >= 0 && bestiaryThat.pageNumber < bestiaryThat.activeBestiaryPages.length ){
+          bestiaryThat.pageNumber++;
+          bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
 
-          if(scene.playerInventory.bestiaryUI.pageNumber === bestiaryThat.activeBestiaryPages.length-1){
+          if(bestiaryThat.pageNumber === bestiaryThat.activeBestiaryPages.length-1){
             console.log(" hiding right bestiary arrow" );
-            scene.playerInventory.bestiaryRight.visible = false;  
+            bestiaryThat.bestiaryRight.visible = false;  
           }else{
-            scene.playerInventory.bestiaryLeft.visible = true;
-            scene.playerInventory.bestiaryRight.visible = true;
+            bestiaryThat.bestiaryLeft.visible = true;
+            bestiaryThat.bestiaryRight.visible = true;
           }
         }
 
         
         
       });
-      inventory.bestiaryLeft.on('pointerdown', function (pointer) {
-        console.log(" activating bestiary turn page left scene.bestiaryUI.pageNumber" + scene.playerInventory.bestiaryUI.pageNumber);
-        if(scene.playerInventory.bestiaryUI.pageNumber > 0 && scene.playerInventory.bestiaryUI.pageNumber <= bestiaryThat.activeBestiaryPages.length ){
-          scene.playerInventory.bestiaryUI.pageNumber--;
-          scene.playerInventory.bestiaryUI.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
-          if(scene.playerInventory.bestiaryUI.pageNumber === 0){
+      this.bestiaryLeft.on('pointerdown', function (pointer) {
+        console.log(" activating bestiary turn page left scene.bestiaryUI.pageNumber" + bestiaryThat.pageNumber);
+        if(bestiaryThat.pageNumber > 0 && bestiaryThat.pageNumber <= bestiaryThat.activeBestiaryPages.length ){
+          bestiaryThat.pageNumber--;
+          bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
+          if(bestiaryThat.pageNumber === 0){
             console.log(" hiding left bestiary arrow" );
             bestiaryThat.displayBestiaryText(false);
-            scene.playerInventory.bestiaryLeft.visible = false;
+            bestiaryThat.bestiaryLeft.visible = false;
           }else{
             bestiaryThat.displayBestiaryText(true);
-            scene.playerInventory.bestiaryLeft.visible = true;
-            scene.playerInventory.bestiaryRight.visible = true;
+            bestiaryThat.bestiaryLeft.visible = true;
+            bestiaryThat.bestiaryRight.visible = true;
           }
         }
         
@@ -183,10 +213,15 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
 
     displayBestiaryText(isVisible){
       console.log("setting text tovisible: ", isVisible);
-      for(let counter = 0; counter < this.bestiaryTitle.length;counter++){
+      /*for(let counter = 0; counter < this.bestiaryTitle.length;counter++){
         this.bestiaryTitle[counter].visible = isVisible;
         console.log(this.bestiaryTitle[counter].x ," ",this.bestiaryTitle[counter].y);
+      }*/
+      if(isVisible === true && this.bestiaryTitle[0].visible === false || isVisible === false && this.bestiaryTitle[0].visible === true){
+        this.titleCharacters.toggleVisible();
+        this.summaryCharacters.toggleVisible();
       }
+    
       
     }
 }

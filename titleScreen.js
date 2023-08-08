@@ -320,7 +320,8 @@ class titleScreen extends Phaser.Scene {
                 blueSlimeHumanoidFemale:1,
                 blueSlimeHumanoidFemaleLarge:1,
                 sharkFemale:1,
-                sharkMale:1
+                sharkMale:1,
+                
              };
 
              let playerSkillsData = {

@@ -8,11 +8,16 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     this.characterSexSlot;
     this.visible = false;
+    this.slotElements = new Phaser.GameObjects.Group(scene);
 
     this.sexIcon = new sexMark(scene, this.x - 340, this.y - 10);
+    this.slotElements.add(this.sexIcon);
     this.healthIcon = new healthMark(scene, this.x - 340, this.y + 45);
+    this.slotElements.add(this.healthIcon);
     this.bestiaryIcon = new bestiaryMark(scene, this.x - 260, this.y - 10);
+    this.slotElements.add(this.bestiaryIcon);
     this.shellIcon = new shellMark(scene, this.x - 260, this.y + 45);
+    this.slotElements.add(this.shellIcon);
 
 
 
@@ -26,8 +31,10 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < slotLetterString.length; counter++) {
       this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
       this.slotLetters[counter].anims.play(slotLetterString.charAt(counter));
+      this.slotLetters[counter].setScale(.3);
       this.slotLetters[counter].x = this.slotLetters[counter].x + spacing;
       this.slotLetters[counter].y = this.slotLetters[counter].y - 23;
+      this.slotElements.add(this.slotLetters[counter]);
       spacing = spacing + 15;
     }
 
@@ -44,6 +51,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < 11; counter++) {
 
       this.skillMarks.push(new skillMark(scene, this.x + startingX, this.y + startingY));
+      //this.slotElements.add(this.skillMarks[counter]);
 
       if (counter === 5) {
         rows++;
@@ -73,6 +81,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     let skillString = "SKILLS:";
     for (let counter = 0; counter < skillString.length; counter++) {
       this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      this.slotElements.add(this.skillLetters[counter]);
+      this.skillLetters[counter].setScale(.3);
       this.skillLetters[counter].anims.play(skillString.charAt(counter));
       this.skillLetters[counter].x = this.skillLetters[counter].x + spacing;
       this.skillLetters[counter].y = this.skillLetters[counter].y - 23;
@@ -90,6 +100,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     let shellString = "000";
     for (let counter = 0; counter < shellString.length; counter++) {
       this.shellLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      //this.slotElements.add(this.shellLetters[counter]);
+      this.shellLetters[counter].setScale(.5);
       this.shellLetters[counter].anims.play(shellString.charAt(counter));
       this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
       this.shellLetters[counter].y = this.shellLetters[counter].y - 23;
@@ -109,6 +121,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     let bestiaryString = "000%";
     for (let counter = 0; counter < bestiaryString.length; counter++) {
       this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      //this.slotElements.add(this.bestiaryLetters[counter]);
+      this.bestiaryLetters[counter].setScale(.5);
       this.bestiaryLetters[counter].anims.play(bestiaryString.charAt(counter));
       this.bestiaryLetters[counter].x = this.bestiaryLetters[counter].x + spacing;
       this.bestiaryLetters[counter].y = this.bestiaryLetters[counter].y - 23;
@@ -126,40 +140,18 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
   }
 
   showSlot() {
+    this.slotElements.toggleVisible();
     if (this.visible === true) {
-      this.sexIcon.visible = true;
-      this.healthIcon.visible = true;
-      this.bestiaryIcon.visible = true;
-      this.shellIcon.visible = true;
-      for (let counter = 0; counter < this.slotLetters.length; counter++) {
-        this.slotLetters[counter].visible = true;
-        this.slotLetters[counter].setScale(.3);
-      }
-      for (let counter = 0; counter < this.skillLetters.length; counter++) {
-        this.skillLetters[counter].visible = true;
-        this.skillLetters[counter].setScale(.3);
-      }
+     
       for (let counter = 0; counter < this.shellLetters.length; counter++) {
         this.shellLetters[counter].visible = true;
-        this.shellLetters[counter].setScale(.5);
       }
       for (let counter = 0; counter < this.bestiaryLetters.length; counter++) {
         this.bestiaryLetters[counter].visible = true;
-        this.bestiaryLetters[counter].setScale(.5);
       }
     } else {
-      this.sexIcon.visible = false;
-      this.healthIcon.visible = false;
-      this.bestiaryIcon.visible = false;
-      this.shellIcon.visible = false;
       for (let counter = 0; counter < this.skillMarks.length; counter++) {
         this.skillMarks[counter].visible = false;
-      }
-      for (let counter = 0; counter < this.slotLetters.length; counter++) {
-        this.slotLetters[counter].visible = false;
-      }
-      for (let counter = 0; counter < this.skillLetters.length; counter++) {
-        this.skillLetters[counter].visible = false;
       }
       for (let counter = 0; counter < this.shellLetters.length; counter++) {
         this.shellLetters[counter].visible = false;

@@ -58,28 +58,28 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }else{
     this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 9 }),frameRate: 6,repeat: -1});
 
-    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 10, end: 14 }),frameRate: 16,repeat: -1});
-    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 15, end: 19 }),frameRate: 16 ,repeat: -1});
+    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 10, end: 13 }),frameRate: 16,repeat: -1});
+    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 14, end: 17 }),frameRate: 16 ,repeat: -1});
 
-    this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 22 }),frameRate: 2 ,repeat: -1});
-    this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 24, end: 24 }),frameRate: 2 ,repeat: -1});
+    this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 20 }),frameRate: 2 ,repeat: -1});
+    this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 22 }),frameRate: 2 ,repeat: -1});
 
-    this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 27, end: 27 }),frameRate: 2,repeat: -1});
-    this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 29, end: 29 }),frameRate: 2,repeat: -1});
+    this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 25, end: 25 }),frameRate: 2,repeat: -1});
+    this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 27, end: 27 }),frameRate: 2,repeat: -1});
 
-    this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 30, end: 49 }),frameRate: 1.5,repeat: -1});
+    this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 28, end: 47 }),frameRate: 1.5,repeat: -1});
    
-    this.anims.create({key: 'pAttackKnifeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 50, end: 54 }),frameRate: 12,repeat: -1});
-    this.anims.create({key: 'pAttackKnifeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 55, end: 59 }),frameRate: 12,repeat: -1});
+    this.anims.create({key: 'pAttackKnifeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 48, end: 52 }),frameRate: 12,repeat: -1});
+    this.anims.create({key: 'pAttackKnifeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 53, end: 57 }),frameRate: 12,repeat: -1});
 
-    this.anims.create({key: 'pAttackAxeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 60, end: 64 }),frameRate: 9,repeat: -1});
-    this.anims.create({key: 'pAttackAxeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 65, end: 69 }),frameRate: 9,repeat: -1});
+    this.anims.create({key: 'pAttackAxeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 58, end: 62 }),frameRate: 9,repeat: -1});
+    this.anims.create({key: 'pAttackAxeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 63, end: 67 }),frameRate: 9,repeat: -1});
 
-    this.anims.create({key: 'pAttackOarRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 70, end: 74 }),frameRate: 8,repeat: -1});
-    this.anims.create({key: 'pAttackOarLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 75, end: 79 }),frameRate: 8,repeat: -1});
+    this.anims.create({key: 'pAttackOarRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 68, end: 72 }),frameRate: 8,repeat: -1});
+    this.anims.create({key: 'pAttackOarLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 73, end: 77 }),frameRate: 8,repeat: -1});
 
-    this.anims.create({key: 'pAttackUnarmedRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 80, end: 84 }),frameRate: 12,repeat: -1});
-    this.anims.create({key: 'pAttackUnarmedLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 85, end: 89 }),frameRate: 12,repeat: -1});
+    this.anims.create({key: 'pAttackUnarmedRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 78, end: 82 }),frameRate: 12,repeat: -1});
+    this.anims.create({key: 'pAttackUnarmedLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 83, end: 87 }),frameRate: 12,repeat: -1});
     }
 
 

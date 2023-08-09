@@ -41,6 +41,39 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       bestiaryThat = this;
       this.pageNumber = 0;
       this.setScale(.4);
+      /*let playerBestiaryData = {
+                blueSlime:1,
+                largeBlueSlime:1,
+                axolotlMale:1,
+                axolotlfemale:1,
+                largePurpleSlugFemale:1,
+                largePurpleSlugMale:1,
+                rabbitfemale:1,
+                rabbitMale:1,
+                cowFemale:1,
+                cowMale:1,
+                blueSlimeHumanoidFemale:1,
+                blueSlimeHumanoidFemaleLarge:1,
+                sharkFemale:1,
+                sharkMale:1,
+                
+             }; */
+
+      this.bestiaryTextList = {
+        blueSlime: {
+          title:"BLUE SLIME",
+          summary:"THIS SMALL SLIME IS THE MOST COMMON OF SLIME TYPES. IT HAS BASIC INSTINCTS AND WILL BLINDLY JUMP TOWARDS PREY. THIS SLIME IS MOSTLY MADE OF WATER AND CAN BE FOUND MOST PLACES. SINCE THERE WHOL BODY IS A SENSORY ORGAN THEY ARE PERTICULARLY WEAK TO BLUNT DAMAGE.",
+        },
+        largeBlueSlime: {
+          title:"BLUE SLIME LARGE",
+          summary:"ACTS VERY SIMILIAR TO IT SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.",
+        },
+
+      back:{
+        title:"BESTIARY INFO",
+        summary:"THIS BOOK CAN RECORD INFORMATION ABOUT ENEMYS YOU HAVE ENCOUNTERED. WHEN YOU DEFEAT ENEMYS, OR BE DEFEATED BY THEM, YOU CAN FIND A NEW ENTRY ABOUT THAT ENEMY HERE. ENEMYS HAVE ELEMENTAL WEAKNESSES WHICH ARE DISPLAYED. ON THERE STATS SECTION."
+      }
+      };
 
       this.bestiaryLeft;
       this.bestiaryRight;
@@ -63,11 +96,11 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.activeBestiaryPages.push('back');
       console.log(this.activeBestiaryPages);
 
-      let startingX = -70;
+      let startingX = -120;
       let startingY = -120;
       let spacing = 0;
 
-      let titleSize = "MONSTER_TITLE";
+      let titleSize = "PLACEHOLDER MONSTER TITLE";
       this.titleCharacters = new Phaser.GameObjects.Group(scene);
       this.bestiaryTitle = [];
       for(let counter = 0;counter<titleSize.length;counter++){
@@ -87,24 +120,25 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       let rowSpacing = 0;
       let rowCounter = 0;
 
-      let summarySize = "THIS SUMMARY IS A MONSTER SUMMARY.THIS IS WHERE A MONSTERS SUMMARY IS DISPLAYED. THIS WILL TELL YOU SOME INTERESTING INFORMATION ABOUT THE MONSTER. THESE ENTRYS ARE USUALLY UNLOCKED BY GETTING DEFEATED BY THE MONSTER AND THEN SAVING.";
+      this.summarySize = "+_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________+";
+      this.formatSummary();
       this.summaryCharacters = new Phaser.GameObjects.Group(scene);
       this.bestiarySummary = [];
-      for(let counter = 0;counter<summarySize.length;counter++){
+      for(let counter = 0;counter<this.summarySize.length;counter++){
         this.bestiarySummary.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
         //this.bestiarySummary[counter].visible = true;
         this.summaryCharacters.add(this.bestiarySummary[counter]);
         this.bestiarySummary[counter].setScale(.15);
         this.bestiarySummary[counter].setDepth(70);
-        this.bestiarySummary[counter].anims.play(summarySize.charAt(counter));
+        this.bestiarySummary[counter].anims.play(this.summarySize.charAt(counter));
         this.bestiarySummary[counter].x = this.bestiarySummary[counter].x + spacing;
         this.bestiarySummary[counter].y = this.bestiarySummary[counter].y + rowSpacing;
         spacing = spacing + 7;
         rowCounter++;
-        if(rowCounter === 15){
+        if(rowCounter === 17){
           rowCounter = 0;
           spacing = 0;
-          rowSpacing += 7;
+          rowSpacing += 8;
 
         }
       }
@@ -213,15 +247,79 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
 
     displayBestiaryText(isVisible){
       console.log("setting text tovisible: ", isVisible);
-      /*for(let counter = 0; counter < this.bestiaryTitle.length;counter++){
-        this.bestiaryTitle[counter].visible = isVisible;
-        console.log(this.bestiaryTitle[counter].x ," ",this.bestiaryTitle[counter].y);
-      }*/
+ 
       if(isVisible === true && this.bestiaryTitle[0].visible === false || isVisible === false && this.bestiaryTitle[0].visible === true){
         this.titleCharacters.toggleVisible();
         this.summaryCharacters.toggleVisible();
       }
     
       
+    }
+
+    formatSummary(){
+      let tempString = "";
+      let formatingCounter = 0;
+      let BackPetal = 0;
+      let BackPetalString = "";
+      let spacing = "";
+      let FrontPetalString = "";
+      let backString = "";
+      for(let counter = 0;counter < this.summarySize.length;counter++){
+
+        // if the line has letters or symbols that get cut of to the next line we want to add spaces.
+        //
+        if(formatingCounter === 17 && this.summarySize.charAt(counter) !== ' '){
+          for(let index = tempString.length;index > 0;index--){
+            if(tempString.charAt(index) !== ' '){
+              BackPetal++;
+              BackPetalString = tempString.charAt(index) + BackPetalString;
+              if(index === 1){
+
+              }
+            }else if(tempString.charAt(index) === ' '){
+              for(let coun = 0;coun < BackPetal-1;coun++){
+                spacing += " ";
+                
+              }
+              for(let coun = counter; coun <this.summarySize.length;coun++){
+                FrontPetalString += this.summarySize.charAt(coun);
+              }
+              for(let coun = counter-BackPetal;coun >= 0;coun--){
+                backString =  this.summarySize.charAt(coun)+ backString;
+              }
+              
+              console.log("backString: "+backString);
+              console.log("spacing: ("+spacing+")");
+              console.log("BackPetalString: "+BackPetalString);
+              console.log("FrontPetalString: "+FrontPetalString);
+              
+              
+              this.summarySize = backString + spacing + BackPetalString + FrontPetalString;
+              console.log("====================================================");
+              console.log("this.currentText: "+this.summarySize);
+              console.log("==========================================================================================");
+              BackPetal = 0;
+              BackPetalString = "";
+              backString="";
+              spacing = "";
+              FrontPetalString = "";
+              
+
+              break;
+            }
+
+          }
+          
+          tempString = "";
+          formatingCounter = 0;
+        }else if(formatingCounter === 17){
+          formatingCounter = 0;
+        }
+        //console.log("formatingCounter: "+formatingCounter);
+        formatingCounter++;
+        tempString += this.summarySize.charAt(counter);
+      }
+      
+
     }
 }

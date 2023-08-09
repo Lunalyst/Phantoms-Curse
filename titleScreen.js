@@ -307,20 +307,20 @@ class titleScreen extends Phaser.Scene {
              //saveGame(nextSceneX,nextSceneY,playerHp,playerSex,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
              
              let playerBestiaryData = {
-                blueSlime:1,
-                largeBlueSlime:1,
-                axolotlMale:1,
-                axolotlfemale:1,
-                largePurpleSlugFemale:1,
-                largePurpleSlugMale:1,
-                rabbitfemale:1,
-                rabbitMale:1,
-                cowFemale:1,
-                cowMale:1,
-                blueSlimeHumanoidFemale:1,
-                blueSlimeHumanoidFemaleLarge:1,
-                sharkFemale:1,
-                sharkMale:1,
+                blueSlime:0,
+                largeBlueSlime:0,
+                axolotlMale:0,
+                axolotlfemale:0,
+                largePurpleSlugFemale:0,
+                largePurpleSlugMale:0,
+                rabbitfemale:0,
+                rabbitMale:0,
+                cowFemale:0,
+                cowMale:0,
+                blueSlimeHumanoidFemale:0,
+                blueSlimeHumanoidFemaleLarge:0,
+                sharkFemale:0,
+                sharkMale:0,
                 
              };
 
@@ -342,7 +342,18 @@ class titleScreen extends Phaser.Scene {
                 cutTree1:0
 
              };
-
+            /*saveGame(
+                nextSceneX,
+                nextSceneY,
+                playerHp,
+                playerSex,
+                playerInventoryData,
+                playerInventoryAmountData,
+                playerBestiaryData,
+                playerSkillsData,
+                playerSaveSlotData,
+                gameFlags)*/ 
+                console.log("saveSlotData: ",saveSlotData);
             that.allFunctions.saveGame(
                 1650,//nextSceneX
                 542,//nextSceneY
@@ -363,8 +374,8 @@ class titleScreen extends Phaser.Scene {
             console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
              //saveGame(nextSceneX,nextSceneY,playerHp,playerInventoryData,playerSex,gameFlags)
              let playerBestiaryData = {
-                blueSlime:1,
-                largeBlueSlime:1,
+                blueSlime:0,
+                largeBlueSlime:0,
                 axolotlMale:0,
                 axolotlfemale:0,
                 largePurpleSlugFemale:0,
@@ -401,7 +412,7 @@ class titleScreen extends Phaser.Scene {
             that.allFunctions.saveGame(
                 1650,//nextSceneX
                 542,//nextSceneY
-                1,//playerHp
+                2,//playerHp
                 1,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
                 [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
@@ -588,7 +599,7 @@ class titleScreen extends Phaser.Scene {
                         this.playerInventoryAmountData,
                         this.playerBestiaryData,
                         this.playerSkillsData,
-                        this.playerSex,
+                        this.playerSaveSlotData,
                         this.flagValues
                            );
                     console.log("warping player to location."+ this.playerLocation);

@@ -33,8 +33,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
     if(sex === 0){
     this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 9 }),frameRate: 6,repeat: -1});
 
-    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('malePlayer', { start: 10, end: 13 }),frameRate: 13,repeat: -1});
-    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 14, end: 17 }),frameRate: 13 ,repeat: -1});
+    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('malePlayer', { start: 10, end: 13 }),frameRate: 10,repeat: -1});
+    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 14, end: 17 }),frameRate: 10 ,repeat: -1});
 
     this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('malePlayer', { start: 20, end: 20 }),frameRate: 2 ,repeat: -1});
     this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('malePlayer', { start: 22, end: 22 }),frameRate: 2 ,repeat: -1});
@@ -58,8 +58,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }else{
     this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 9 }),frameRate: 6,repeat: -1});
 
-    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 10, end: 13 }),frameRate: 16,repeat: -1});
-    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 14, end: 17 }),frameRate: 16 ,repeat: -1});
+    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 10, end: 13 }),frameRate: 10,repeat: -1});
+    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 14, end: 17 }),frameRate: 10 ,repeat: -1});
 
     this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 20 }),frameRate: 2 ,repeat: -1});
     this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 22 }),frameRate: 2 ,repeat: -1});

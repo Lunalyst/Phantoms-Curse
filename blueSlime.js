@@ -170,10 +170,10 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite{
         }
         //checks to see if slime should jump to move if the player is in range
         if(player1.x > this.x-400 && player1.x < this.x+400){
-            console.log("player is in range of slime");
+            //console.log("player is in range of slime");
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
             if(player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false){
-                console.log("player is to the right of the slime");
+                //console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
                 if(this.slimePreviousY > this.y){
                     
@@ -242,7 +242,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite{
                 if(this.slimeSize === 1){
                     this.setVelocityX(this.randomXVelocity * -1);
                     this.setVelocityY(this.randomYVelocity * -1); 
-                    console.log("this.randomXVelocity: "+this.randomXVelocity+" this.randomYVelocity: "+ this.randomYVelocity);
+                    //console.log("this.randomXVelocity: "+this.randomXVelocity+" this.randomYVelocity: "+ this.randomYVelocity);
                 }else if(this.slimeSize === 2){
                     this.setVelocityX(this.randomXVelocity * -1);
                     this.setVelocityY(this.randomYVelocity * -1); 
@@ -439,6 +439,12 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite{
                     // resets the animation block.
                     currentSlime.keyAnimationPlayed = false;
                   },2000);
+            }else if(this.slimeSize === 1){
+                if(this.keyAnimationPlayed === false){
+                    console.log(" setting keyA display");
+                    KeyDisplay.playAKey();
+                    this.keyAnimationPlayed = true;
+                }
             }
         }
              // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?

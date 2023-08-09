@@ -20,15 +20,23 @@ class gameOver extends Phaser.Scene {
     this.keyS;
     this.space;
     this.shift;
-    this.playerSex;
     this.mycamera;
     this.processMap;
     this.backround;
     this.myMap;
     this.activateFunctions;
-    
 
+    this.warpToX = 450;
+    this.warpToY = 600;
+    this.inventoryDataArray;
+    this.playerSex;
     this.playerLocation = "forestHome";
+    this.playerInventoryAmountData;
+    this.playerBestiaryData;
+    this.playerSkillsData;
+    this.playerSaveSlotData;
+    this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    
     this.enemyThatDefeatedPlayer ="";
     
    
@@ -68,6 +76,7 @@ class gameOver extends Phaser.Scene {
             this.tryAgian.anims.play('tryAgianInActive');
             this.tryAgian.setScale(.5);
             this.tryAgian.setDepth(7);
+
             gameoverThat.tryAgian.visible = false;
              
             console.log("loading gameover tileset");
@@ -115,16 +124,150 @@ class gameOver extends Phaser.Scene {
             
             this.tryAgian.on('pointerdown', function (pointer) {
 
-                gameoverThat.allFunctions.loadGameFile(gameoverThat);
-                if(gameoverThat.warpToX !== undefined){
-                    gameoverThat.allFunctions.saveGame( gameoverThat.warpToX, gameoverThat.warpToY, gameoverThat.playerHealth, gameoverThat.inventoryDataArray, gameoverThat.playerSex,gameoverThat.flagValues);
+                let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
+                let tempPlayerSex = gameoverThat.playerSex;
+                //console.log("gameoverThat.playerSex: ",gameoverThat.playerSex);
+                gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
+
+                if(gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
+                    for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
+                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
+                        if(gameoverThat.enemyThatDefeatedPlayer === key){
+                            console.log("found bestiary entry : ", key);
+                            gameoverThat.playerBestiaryData[key] = 1;
+                        }
+                      }
+                    /*saveGame(
+                        nextSceneX,
+                        nextSceneY,
+                        playerHp,
+                        playerSex,
+                        playerInventoryData,
+                        playerInventoryAmountData,
+                        playerBestiaryData,
+                        playerSkillsData,
+                        playerSaveSlotData,
+                        gameFlags)*/
+                    gameoverThat.allFunctions.saveGame(
+                    gameoverThat.warpToX,
+                    gameoverThat.warpToY,
+                    gameoverThat.playerHealth,
+                    gameoverThat.playerSex,
+                    gameoverThat.inventoryDataArray,
+                    gameoverThat.playerInventoryAmountData,
+                    gameoverThat.playerBestiaryData,
+                    gameoverThat.playerSkillsData,
+                    gameoverThat.playerSaveSlotData,
+                    gameoverThat.flagValues
+                    );
                     gameoverThat.scene.start(gameoverThat.playerLocation); 
-                }else if(that.playerSex){
-                    that.allFunctions.saveGame(1650,542,1,[2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],1);
-                    that.scene.start('forestHome');
-                }else{
-                    that.allFunctions.saveGame(1650,542,1,[2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],0);
-                    that.scene.start('forestHome');
+                }
+                console.log("gameoverThat.playerSex: ",gameoverThat.playerSex);
+                if(tempPlayerSex === 1){
+                    let playerBestiaryData = {
+                        blueSlime:0,
+                        largeBlueSlime:0,
+                        axolotlMale:0,
+                        axolotlfemale:0,
+                        largePurpleSlugFemale:0,
+                        largePurpleSlugMale:0,
+                        rabbitfemale:0,
+                        rabbitMale:0,
+                        cowFemale:0,
+                        cowMale:0,
+                        blueSlimeHumanoidFemale:0,
+                        blueSlimeHumanoidFemaleLarge:0,
+                        sharkFemale:0,
+                        sharkMale:0
+                     };
+
+                     for(let [key,value] of Object.entries(playerBestiaryData)){
+                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
+                        if(gameoverThat.enemyThatDefeatedPlayer === key){
+                            console.log("found bestiary entry : ", key);
+                            playerBestiaryData[key] = 1;
+                        }
+                      }
+        
+                     let playerSkillsData = {
+                        jump:0,
+                        dash:0,
+                        strength:0,
+                        mimic:0,
+                        looting:0
+                     };
+
+        
+                     let gameFlags = {
+                        cutTree1:0
+        
+                     };
+        
+                    gameoverThat.allFunctions.saveGame(
+                        1650,//nextSceneX
+                        542,//nextSceneY
+                        2,//playerHp
+                        1,//playerSex
+                        [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
+                        [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
+                        playerBestiaryData,//playerBestiaryData
+                        playerSkillsData,//playerSkillsData
+                        tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                        gameFlags//gameFlags
+                        );
+                        gameoverThat.scene.start('forestHome');
+                }else if(tempPlayerSex === 0){
+                    let playerBestiaryData = {
+                        blueSlime:0,
+                        largeBlueSlime:0,
+                        axolotlMale:0,
+                        axolotlfemale:0,
+                        largePurpleSlugFemale:0,
+                        largePurpleSlugMale:0,
+                        rabbitfemale:0,
+                        rabbitMale:0,
+                        cowFemale:0,
+                        cowMale:0,
+                        blueSlimeHumanoidFemale:0,
+                        blueSlimeHumanoidFemaleLarge:0,
+                        sharkFemale:0,
+                        sharkMale:0
+                     };
+
+                     for(let [key,value] of Object.entries(playerBestiaryData)){
+                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
+                        if(gameoverThat.enemyThatDefeatedPlayer === key){
+                            console.log("found bestiary entry : ", key);
+                            playerBestiaryData[key] = 1;
+                        }
+                      }
+        
+                     let playerSkillsData = {
+                        jump:0,
+                        dash:0,
+                        strength:0,
+                        mimic:0,
+                        looting:0
+                     };
+        
+                     let gameFlags = {
+                        cutTree1:0
+        
+                     };
+        
+                    gameoverThat.allFunctions.saveGame(
+                        1650,//nextSceneX
+                        542,//nextSceneY
+                        2,//playerHp
+                        0,//playerSex
+                        [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
+                        [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
+                        playerBestiaryData,//playerBestiaryData
+                        playerSkillsData,//playerSkillsData
+                        tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                        gameFlags//gameFlags
+                        );
+                        gameoverThat.scene.start('forestHome');
                 }
         
             });

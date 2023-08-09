@@ -22,14 +22,17 @@ class allSceneFunctions{
 
     }
 
-    saveGameoverFile(playerSex,enemyThatDefeatedPlayer){
+    saveGameoverFile(playerSex,enemyThatDefeatedPlayer,playerSaveSlotData){
       //make sure to restore player hp
       //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
       console.log("calling saveGameoverFile============================");
       console.log("playerSex: "+ playerSex);
+      console.log("enemyThatDefeatedPlayer: "+ enemyThatDefeatedPlayer);
+      console.log("playerSaveSlotData: ", playerSaveSlotData);
       const file = {      
           sex: playerSex,
-          enemy: enemyThatDefeatedPlayer
+          enemy: enemyThatDefeatedPlayer,
+          pssd:playerSaveSlotData
       }
       //uses local Storage to store the data
       //console.log("HP in saveGame: "+playerHp)
@@ -45,12 +48,14 @@ class allSceneFunctions{
    
     console.log("playerSex: "+ file.sex);
     console.log("enemy: "+ file.enemy);
+    console.log("playerSaveSlotData: ", file.pssd);
     
 
     scene1.playerSex = file.sex;
     scene1.enemyThatDefeatedPlayer = file.enemy;
+    scene1.playerSaveSlotData = file.pssd;
     //scene1.playerLocation = file.locationName;
-    console.log("scene1.inventoryDataArray "+scene1.inventoryDataArray);
+    //console.log("scene1.inventoryDataArray "+scene1.inventoryDataArray);
     //console.log("HP in loadGame: "+scene1.healthDisplay.playerHealth)
     //console.log("loaded warp x: " +scene1.warpToX+" loaded warp y: "+scene1.warpToY);
 }
@@ -188,12 +193,12 @@ class allSceneFunctions{
             warpToThisX: nextSceneX,
             warpToThisY: nextSceneY,
             playerHpValue: playerHp,
+            sex: playerSex,
             inventoryData: playerInventoryData,
             piad: playerInventoryAmountData,
             pbd: playerBestiaryData,
             psd: playerSkillsData,
             pssd: playerSaveSlotData,
-            sex: playerSex,
             flags: gameFlags
         }
         //uses local Storage to store the data

@@ -62,16 +62,16 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.bestiaryTextList = {
         blueSlime: {
           title:"BLUE SLIME",
-          summary:"THIS SMALL SLIME IS THE MOST COMMON OF SLIME TYPES. IT HAS BASIC INSTINCTS AND WILL BLINDLY JUMP TOWARDS PREY. THIS SLIME IS MOSTLY MADE OF WATER AND CAN BE FOUND MOST PLACES. SINCE THERE WHOL BODY IS A SENSORY ORGAN THEY ARE PERTICULARLY WEAK TO BLUNT DAMAGE.",
+          summary:"THIS SMALL SLIME IS THE MOST COMMON OF SLIME TYPES. IT HAS BASIC INSTINCTS AND WILL BLINDLY JUMP TOWARDS PREY. THIS SLIME IS MOSTLY MADE OF WATER AND CAN BE FOUND MOST PLACES. SINCE THERE WHOLE BODY IS A SENSORY ORGAN THEY ARE PERTICULARLY WEAK TO BLUNT DAMAGE.",
         },
         largeBlueSlime: {
           title:"BLUE SLIME LARGE",
-          summary:"ACTS VERY SIMILIAR TO IT SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.",
+          summary:"THIS SLIME ACTS VERY SIMILIAR TO IT'S SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.IT IS ABLE TO DISOLVE PREY AT A FASTER RATE.",
         },
 
       back:{
         title:"BESTIARY INFO",
-        summary:"THIS BOOK CAN RECORD INFORMATION ABOUT ENEMYS YOU HAVE ENCOUNTERED. WHEN YOU DEFEAT ENEMYS, OR BE DEFEATED BY THEM, YOU CAN FIND A NEW ENTRY ABOUT THAT ENEMY HERE. ENEMYS HAVE ELEMENTAL WEAKNESSES WHICH ARE DISPLAYED. ON THERE STATS SECTION."
+        summary:"THIS BOOK CAN RECORD INFORMATION ABOUT ENEMYS YOU HAVE ENCOUNTERED. WHEN YOU ARE DEFEATED BY THEM, YOU CAN FIND A NEW ENTRY ABOUT THAT ENEMY HERE. ENEMYS HAVE ELEMENTAL WEAKNESSES WHICH ARE DISPLAYED. ON THERE STATS SECTION."
       }
       };
 
@@ -121,7 +121,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       let rowCounter = 0;
 
       this.summarySize = "+_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________++_______________+";
-      this.formatSummary();
+      this.formattedString = "";
       this.summaryCharacters = new Phaser.GameObjects.Group(scene);
       this.bestiarySummary = [];
       for(let counter = 0;counter<this.summarySize.length;counter++){
@@ -168,15 +168,16 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
               if(this.pageNumber === 0){
                 this.bestiaryLeft.visible = false;
                 this.bestiaryRight.visible = true;
-                
                 this.displayBestiaryText(false);
               }else if(this.pageNumber === this.activeBestiaryPages.length-1){
                this.bestiaryLeft.visible = true;
                 this.bestiaryRight.visible = false;
+                this.setBestiaryInfo();
                 this.displayBestiaryText(true);
               }else{
                 this.bestiaryLeft.visible = true;
                 this.bestiaryRight.visible = true;
+                this.setBestiaryInfo();
                 this.displayBestiaryText(true);
                 
               }
@@ -210,11 +211,13 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         bestiaryThat.displayBestiaryText(true);
         if(bestiaryThat.pageNumber >= 0 && bestiaryThat.pageNumber < bestiaryThat.activeBestiaryPages.length ){
           bestiaryThat.pageNumber++;
+          bestiaryThat.setBestiaryInfo();
           bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
-
+          //SET DESCRIPTION HERE
           if(bestiaryThat.pageNumber === bestiaryThat.activeBestiaryPages.length-1){
             console.log(" hiding right bestiary arrow" );
             bestiaryThat.bestiaryRight.visible = false;  
+            bestiaryThat.bestiaryLeft.visible = true;  
           }else{
             bestiaryThat.bestiaryLeft.visible = true;
             bestiaryThat.bestiaryRight.visible = true;
@@ -228,11 +231,13 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         console.log(" activating bestiary turn page left scene.bestiaryUI.pageNumber" + bestiaryThat.pageNumber);
         if(bestiaryThat.pageNumber > 0 && bestiaryThat.pageNumber <= bestiaryThat.activeBestiaryPages.length ){
           bestiaryThat.pageNumber--;
+          bestiaryThat.setBestiaryInfo();
           bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
           if(bestiaryThat.pageNumber === 0){
             console.log(" hiding left bestiary arrow" );
             bestiaryThat.displayBestiaryText(false);
             bestiaryThat.bestiaryLeft.visible = false;
+            bestiaryThat.bestiaryRight.visible = true;
           }else{
             bestiaryThat.displayBestiaryText(true);
             bestiaryThat.bestiaryLeft.visible = true;
@@ -252,8 +257,45 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         this.titleCharacters.toggleVisible();
         this.summaryCharacters.toggleVisible();
       }
+
+      
+
     
       
+    }
+
+    setBestiaryInfo(){
+
+      for(let [mainKey,value] of Object.entries(this.bestiaryTextList)){
+        if(this.activeBestiaryPages[this.pageNumber] === mainKey){
+          for(let counter = 0;counter < this.bestiaryTitle.length;counter++){
+
+            if(counter < value.title.length){
+              this.bestiaryTitle[counter].anims.play(value.title.charAt(counter));
+            }else{
+              this.bestiaryTitle[counter].anims.play(" ");
+            }
+          
+          }
+          
+          this.formattedString = value.summary;
+          this.formatSummary();
+
+          for(let counter = 0;counter < this.bestiarySummary.length;counter++){
+
+            if(counter < this.formattedString.length){
+              //this.summarySize.charAt(counter) = value.summary.charAt(counter);
+              this.bestiarySummary[counter].anims.play(this.formattedString.charAt(counter));
+            }else{
+              this.bestiarySummary[counter].anims.play(" ");
+            }
+          
+          }
+          
+        }
+        
+      }
+
     }
 
     formatSummary(){
@@ -264,11 +306,11 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       let spacing = "";
       let FrontPetalString = "";
       let backString = "";
-      for(let counter = 0;counter < this.summarySize.length;counter++){
+      for(let counter = 0;counter < this.formattedString.length;counter++){
 
         // if the line has letters or symbols that get cut of to the next line we want to add spaces.
         //
-        if(formatingCounter === 17 && this.summarySize.charAt(counter) !== ' '){
+        if(formatingCounter === 17 && this.formattedString.charAt(counter) !== ' '){
           for(let index = tempString.length;index > 0;index--){
             if(tempString.charAt(index) !== ' '){
               BackPetal++;
@@ -281,23 +323,23 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
                 spacing += " ";
                 
               }
-              for(let coun = counter; coun <this.summarySize.length;coun++){
-                FrontPetalString += this.summarySize.charAt(coun);
+              for(let coun = counter; coun <this.formattedString.length;coun++){
+                FrontPetalString += this.formattedString.charAt(coun);
               }
               for(let coun = counter-BackPetal;coun >= 0;coun--){
-                backString =  this.summarySize.charAt(coun)+ backString;
+                backString =  this.formattedString.charAt(coun)+ backString;
               }
               
-              console.log("backString: "+backString);
-              console.log("spacing: ("+spacing+")");
-              console.log("BackPetalString: "+BackPetalString);
-              console.log("FrontPetalString: "+FrontPetalString);
+              //console.log("backString: "+backString);
+              //console.log("spacing: ("+spacing+")");
+              //console.log("BackPetalString: "+BackPetalString);
+              //console.log("FrontPetalString: "+FrontPetalString);
               
               
-              this.summarySize = backString + spacing + BackPetalString + FrontPetalString;
-              console.log("====================================================");
-              console.log("this.currentText: "+this.summarySize);
-              console.log("==========================================================================================");
+              this.formattedString = backString + spacing + BackPetalString + FrontPetalString;
+             // console.log("====================================================");
+              //console.log("this.currentText: "+this.formattedString);
+              //console.log("==========================================================================================");
               BackPetal = 0;
               BackPetalString = "";
               backString="";
@@ -317,7 +359,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         }
         //console.log("formatingCounter: "+formatingCounter);
         formatingCounter++;
-        tempString += this.summarySize.charAt(counter);
+        tempString += this.formattedString.charAt(counter);
       }
       
 

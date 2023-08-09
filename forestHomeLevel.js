@@ -354,7 +354,8 @@ class forestHomeLevel extends Phaser.Scene {
     changeToGameover(){
       this.myMap.destroy();
       this.processMap.destroy();
-      this.activateFunctions.saveGameoverFile(this.playerSex,this.enemyThatDefeatedPlayer);
+      console.log("this.playerSaveSlotData sent to gameover: ",this.playerSaveSlotData);
+      this.activateFunctions.saveGameoverFile(this.playerSex,this.enemyThatDefeatedPlayer,this.playerSaveSlotData);
       this.scene.start('gameOverForest');
     }
     

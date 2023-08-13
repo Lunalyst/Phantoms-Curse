@@ -13,9 +13,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('bestiary', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'cover',frames: this.anims.generateFrameNames('bestiary', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'back',frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'blueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'largeBlueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'axolotlMale',frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'blueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'largeBlueSlime',frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 10 }),frameRate: 7,repeat: -1});
+      /*this.anims.create({key: 'axolotlMale',frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'axolotlfemale',frames: this.anims.generateFrameNames('bestiary', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'largePurpleSlugFemale',frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'largePurpleSlugMale',frames: this.anims.generateFrameNames('bestiary', { start: 8, end: 8 }),frameRate: 10,repeat: -1});
@@ -26,7 +26,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'blueSlimeHumanoidFemale',frames: this.anims.generateFrameNames('bestiary', { start: 13, end: 13 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'blueSlimeHumanoidFemaleLarge',frames: this.anims.generateFrameNames('bestiary', { start: 14, end: 14 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'sharkFemale',frames: this.anims.generateFrameNames('bestiary', { start: 15, end: 15 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'sharkMale',frames: this.anims.generateFrameNames('bestiary', { start: 16, end: 16 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'sharkMale',frames: this.anims.generateFrameNames('bestiary', { start: 16, end: 16 }),frameRate: 10,repeat: -1});*/
 
       this.anims.play("closed");
 
@@ -41,23 +41,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       bestiaryThat = this;
       this.pageNumber = 0;
       this.setScale(.4);
-      /*let playerBestiaryData = {
-                blueSlime:1,
-                largeBlueSlime:1,
-                axolotlMale:1,
-                axolotlfemale:1,
-                largePurpleSlugFemale:1,
-                largePurpleSlugMale:1,
-                rabbitfemale:1,
-                rabbitMale:1,
-                cowFemale:1,
-                cowMale:1,
-                blueSlimeHumanoidFemale:1,
-                blueSlimeHumanoidFemaleLarge:1,
-                sharkFemale:1,
-                sharkMale:1,
-                
-             }; */
+      
 
       this.bestiaryTextList = {
         blueSlime: {
@@ -77,10 +61,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
 
       this.bestiaryLeft;
       this.bestiaryRight;
-      this.bestiaryLeft = new bestiaryControls(scene,this.x-80,this.y+100,"UIControls").setInteractive();
+      this.bestiaryLeft = new UIControls(scene,this.x-80,this.y+100,"UIControls").setInteractive();
       this.bestiaryLeft.anims.play("pointLeft");
       this.bestiaryLeft.visible = false;
-      this.bestiaryRight = new bestiaryControls(scene,this.x+80,this.y+100,"UIControls").setInteractive();
+      this.bestiaryRight = new UIControls(scene,this.x+80,this.y+100,"UIControls").setInteractive();
       this.bestiaryRight.anims.play("pointRight");
       this.bestiaryRight.visible = false;
 
@@ -115,7 +99,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
       }
 
       startingX = -40;
-      startingY = -90;
+      startingY = -100;
       spacing = 0;
       let rowSpacing = 0;
       let rowCounter = 0;
@@ -163,7 +147,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
             
             setTimeout(function(){
               bestiaryThat.openDelay = false; 
-              },1000);
+              },250);
 
               if(this.pageNumber === 0){
                 this.bestiaryLeft.visible = false;

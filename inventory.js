@@ -119,6 +119,26 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
       this.inventoryElements.add(this.inventoryBorder);
 
+      this.shellIcon = new shellMark(scene, 510,360);
+      this.shellIcon.setScale(.4);
+      this.inventoryElements.add(this.shellIcon);
+      let startingX = 20;
+      let startingY = 0;
+      let spacing = 0;
+  
+      this.shellLetters = [];
+      let shellString = "000";
+      for (let counter = 0; counter < shellString.length; counter++) {
+        this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY));
+        this.inventoryElements.add(this.shellLetters[counter]);
+        this.shellLetters[counter].setScale(.3);
+        this.shellLetters[counter].anims.play(shellString.charAt(counter));
+        this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
+        this.shellLetters[counter].y = this.shellLetters[counter].y ;
+        spacing = spacing + 13;
+  
+      }
+
     }
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
@@ -128,6 +148,20 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
         tempElement.visible = inventoryThat.isOnScreen;
        
        },scene);*/
+ 
+       if (scene.playerSaveSlotData !== undefined) {
+        let animationNumber = "";
+        animationNumber += scene.playerSaveSlotData.currency;
+        console.log("animationNumber for currency: " + animationNumber);
+        for (let counter = 0; counter < this.shellLetters.length; counter++) {
+          if (counter < animationNumber.length) {
+            this.shellLetters[counter].anims.play(animationNumber.charAt(counter));
+          } else {
+            this.shellLetters[counter].visible = false;
+          }
+        }
+  
+      }
       
     }
     // applies the correct animation to the inventory slot based on the inventory data

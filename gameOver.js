@@ -161,9 +161,7 @@ class gameOver extends Phaser.Scene {
                     gameoverThat.flagValues
                     );
                     gameoverThat.scene.start(gameoverThat.playerLocation); 
-                }
-                console.log("gameoverThat.playerSex: ",gameoverThat.playerSex);
-                if(tempPlayerSex === 1){
+                }else if(tempPlayerSex === 1){
                     let playerBestiaryData = {
                         blueSlime:0,
                         largeBlueSlime:0,

@@ -306,7 +306,7 @@ class forestHomeLevel extends Phaser.Scene {
       if(this.grabbed === false){ 
         //calls built in move player function to handle how the player moves and is animated while moving  
         if(!this.shift.isDown){
-        this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY);
+        this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
         }
         //changes the scale and location of the health bar for zoomed out camera
         this.healthDisplay.zoomedOut();

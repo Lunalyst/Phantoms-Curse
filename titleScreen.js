@@ -307,8 +307,8 @@ class titleScreen extends Phaser.Scene {
              //saveGame(nextSceneX,nextSceneY,playerHp,playerSex,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
              
              let playerBestiaryData = {
-                blueSlime:0,
-                largeBlueSlime:0,
+                blueSlime:1,
+                largeBlueSlime:1,
                 axolotlMale:0,
                 axolotlfemale:0,
                 largePurpleSlugFemale:0,
@@ -325,10 +325,10 @@ class titleScreen extends Phaser.Scene {
              };
 
              let playerSkillsData = {
-                jump:0,
-                dash:2,
+                jump:1,
+                dash:0,
                 strength:0,
-                mimic:4,
+                mimic:0,
                 looting:0
              };
 

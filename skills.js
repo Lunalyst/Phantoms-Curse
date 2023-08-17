@@ -58,7 +58,7 @@ class skills extends Phaser.Physics.Arcade.Sprite{
         },
         back:{
           title:"SKILLS",
-          summary:"THIS BOOK CAN REMIND YOU HOW THE CURSE SKILL WORK. THE ABILITYS ARE OFTEN GRANTED TO THOSE WHO BEFRIEND THE CURSED."
+          summary:"THIS BOOK CAN REMIND YOU HOW THE CURSE SKILLS WORK. THESE CURSES ARE OFTEN GRANTED TO THOSE WHO BEFRIEND THE CURSED."
         }
       };
 
@@ -293,7 +293,7 @@ class skills extends Phaser.Physics.Arcade.Sprite{
 
         // if the line has letters or symbols that get cut of to the next line we want to add spaces.
         //
-        if(formatingCounter === 17 && this.formattedString.charAt(counter) !== ' '){
+        if(formatingCounter === 25 && this.formattedString.charAt(counter) !== ' '){
           for(let index = tempString.length;index > 0;index--){
             if(tempString.charAt(index) !== ' '){
               BackPetal++;
@@ -337,7 +337,7 @@ class skills extends Phaser.Physics.Arcade.Sprite{
           
           tempString = "";
           formatingCounter = 0;
-        }else if(formatingCounter === 17){
+        }else if(formatingCounter === 25){
           formatingCounter = 0;
         }
         //console.log("formatingCounter: "+formatingCounter);

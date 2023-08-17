@@ -69,11 +69,11 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 10, end: 13 }),frameRate: 10,repeat: -1});
     this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 14, end: 17 }),frameRate: 10 ,repeat: -1});
 
-    this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 20 }),frameRate: 2 ,repeat: -1});
-    this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 22 }),frameRate: 2 ,repeat: -1});
+    this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 19, end: 20 }),frameRate: 10 ,repeat: 0});
+    this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 21, end: 22 }),frameRate: 10 ,repeat: 0});
 
-    this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 25, end: 25 }),frameRate: 2,repeat: -1});
-    this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 27, end: 27 }),frameRate: 2,repeat: -1});
+    this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 24, end: 25 }),frameRate: 10,repeat: 0});
+    this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 26, end: 27 }),frameRate: 10,repeat: 0});
 
     this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 28, end: 47 }),frameRate: 1.5,repeat: -1});
    

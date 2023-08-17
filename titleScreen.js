@@ -334,7 +334,7 @@ class titleScreen extends Phaser.Scene {
 
              let saveSlotData = {
                 saveSlot:that.tempNewGameSlotID,
-                currency: 567,
+                currency: 0,
                 bestiaryCompletionPercent: 0
              };
 
@@ -393,14 +393,14 @@ class titleScreen extends Phaser.Scene {
              let playerSkillsData = {
                 jump:1,
                 dash:0,
-                strength:3,
-                mimic:4,
-                looting:5
+                strength:0,
+                mimic:0,
+                looting:0
              };
 
              let saveSlotData = {
                 saveSlot:that.tempNewGameSlotID,
-                currency: 567,
+                currency: 0,
                 bestiaryCompletionPercent: 0
              };
 

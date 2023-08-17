@@ -42,6 +42,8 @@
   <script src="bestiaryMark.js"></script>
   <script src="shellMark.js"></script>
   <script src="removeSlot.js"></script>
+  <script src="doubleJumpEffect.js"></script>
+  <script src="skills.js"></script>
   
   <script> new Phaser.Game(
       {
@@ -55,7 +57,7 @@
         arcade: {
           //gravity:{y:300},
           // debug is excelent for testing velocity and hitboxes.
-          debug: false
+          debug: true
         }
       },
       scene: [new titleScreen,new forestHomeLevel,new gameOver,new turnPineForest1],//multiple scenes

@@ -138,6 +138,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
             this.anims.play(this.activeBestiaryPages[this.pageNumber]);
             this.openDelay = true;
             this.setScale(.5);
+            this.setDepth(60);
             this.x = 550;
             this.y = 395;
             this.bestiaryLeft.x = this.x-100;
@@ -169,14 +170,15 @@ class bestiary extends Phaser.Physics.Arcade.Sprite{
         }else if(this.isOpen === true && this.openDelay === false){
             this.isOpen = false;
             this.setScale(.4);
+            this.setDepth(50);
             this.x = 580;
             this.y = 395;
-            console.log("this.isOpen from bestiary"+this.isOpen);
+            //console.log("this.isOpen from bestiary"+this.isOpen);
             this.anims.play("closed");
             this.openDelay = true;
             this.displayBestiaryText(false);
             setTimeout(function(){
-              console.log("bestiary openDelay set to false");
+              //console.log("bestiary openDelay set to false");
               bestiaryThat.openDelay = false; 
               },1000);
               this.bestiaryLeft.visible = false;

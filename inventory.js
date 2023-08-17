@@ -33,6 +33,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.skillLabel;
       this.inventoryBorder;
       this.bestiaryUI;
+      this.skillUI;
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
       
       
@@ -79,6 +80,10 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
         this.bestiaryUI.openDelay = false;
         this.bestiaryUI.openBestiary(scene);
 
+        this.skillUI.isOpen = true;
+        this.skillUI.openDelay = false;
+        this.skillUI.openSkill(scene);
+
     }
     //creates the intem slots displayed in the inventory.
     generateSlots(scene){ 
@@ -100,7 +105,16 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
             this.bestiaryLabel.anims.play('bestiary');
             this.bestiaryUI.visible = this.isOnScreen;
             this.bestiaryUI.applyUIControlElements();
+
             
+            this.skillUI = new skills(scene,490,395,'skill').setInteractive(scene.input.makePixelPerfect());
+            this.inventoryElements.add(this.skillUI); 
+            this.skillLabel = new inventoryLabels(scene,560,323,'Labels');
+            this.inventoryElements.add(this.skillLabel); 
+            this.skillLabel.anims.play('skills');     
+            this.skillLabel.visible = this.isOnScreen;      
+            this.skillUI.visible = this.isOnScreen;
+            this.skillUI.applyUIControlElements();
           }
           index++;
           
@@ -143,7 +157,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
       this.inventoryElements.toggleVisible();
-
+      
       /*this.inventoryElements.children.each(function (tempElement){
         tempElement.visible = inventoryThat.isOnScreen;
        
@@ -225,6 +239,11 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       scene.inventoryArray[41].on('pointerdown', function (pointer) {activeSlot = 41;scene.playerInventory.lightUpSlot(scene,activeSlot);});*/
       this.bestiaryUI.on('pointerdown', function (pointer) {
         inventoryThat.bestiaryUI.openBestiary(scene);
+        console.log("opening bestiary");
+      });
+
+      this.skillUI.on('pointerdown', function (pointer) {
+        inventoryThat.skillUI.openSkill(scene);
         console.log("opening bestiary");
       });
      

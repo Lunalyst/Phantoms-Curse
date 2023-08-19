@@ -63,19 +63,19 @@
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
- "tileheight":32,
+ "tileheight":96,
  "tilesets":[
         {
          "columns":14,
          "firstgid":1,
-         "image":"Tile Set V.0.8.png",
-         "imageheight":480,
-         "imagewidth":448,
+         "image":"TilesetsNotExtruded\/Tile Set V.0.8.png",
+         "imageheight":1440,
+         "imagewidth":1344,
          "margin":0,
          "name":"Tile Set V.0.8",
          "spacing":0,
          "tilecount":210,
-         "tileheight":32,
+         "tileheight":96,
          "tiles":[
                 {
                  "id":0,
@@ -167,9 +167,9 @@
                          "value":true
                         }]
                 }],
-         "tilewidth":32
+         "tilewidth":96
         }],
- "tilewidth":32,
+ "tilewidth":96,
  "type":"map",
  "version":"1.9",
  "width":100

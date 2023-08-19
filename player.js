@@ -35,7 +35,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.spaceDelay = false;
     this.spaceWasPressed = false;
     this.jumped = false;
-    this.setScale(.34);
+    this.setScale(1/3);
 
     //defines player animations.
     if(sex === 0){

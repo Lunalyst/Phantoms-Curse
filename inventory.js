@@ -35,6 +35,8 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.bestiaryUI;
       this.skillUI;
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
+      //this.inventoryElements.add(this); 
+      
       
       
     }

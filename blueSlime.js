@@ -62,7 +62,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite{
         this.randomInputCooldown = false;
         this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
-        this.setScale(.34);
+        this.setScale(1/3);
         
         
         

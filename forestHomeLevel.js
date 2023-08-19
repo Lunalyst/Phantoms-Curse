@@ -109,7 +109,8 @@ class forestHomeLevel extends Phaser.Scene {
       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 32 , frameHeight: 32 });
       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
       this.load.image('hitbox', 'assets/hitbox.png');
-      this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 270 , frameHeight: 75 });
+      this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
+      this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
@@ -144,7 +145,7 @@ class forestHomeLevel extends Phaser.Scene {
     //creates a functions object to call the generalized functions i dont want to copy paste on each gameplay scene
     this.activateFunctions = new allSceneFunctions;
     // creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
-    this.healthDisplay = new hpBar(this,280,270,'healthBar');
+    this.healthDisplay = new hpBar(this,450,450);
     //loads local save data.
     this.activateFunctions.loadGame(this);
   
@@ -200,7 +201,7 @@ class forestHomeLevel extends Phaser.Scene {
     this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
     this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
     this.cameras.main.followOffset.set(0,-1500);
-    this.cameras.main.zoom = 1;
+    //this.cameras.main.zoom = 1;
     
     
     

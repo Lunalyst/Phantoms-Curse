@@ -7,6 +7,13 @@ https://github.com/sporadic-labs/tile-extruder
 // all extruded tile sets with no spacing or margins ori0gi0nally will have 1 pixel space and 2 pixel margins.
 */
 
+/*
+for new tileset, 
+Orthogonal
+Base64 (uncompressed)
+Right Down.
+*/
+
 
 class level extends Phaser.Tilemaps.Tilemap{
         constructor(scene,mapData){
@@ -34,12 +41,23 @@ class level extends Phaser.Tilemaps.Tilemap{
         setTiles(){
                 
                 //this.make.tilemap({ key: "map" });
-                this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled, "source_map",32,32,1,2); 
+                this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled, "source_map",96,96,1,2); 
                 //first argument is tileset name in Tiled
-                this.layer3 = this.createStaticLayer("Tile Layer 3", this.myTileSet, 0, 0);
-                this.layer2 = this.createStaticLayer("Tile Layer 2", this.myTileSet, 0, 0);
-                this.layer1 = this.createStaticLayer("Tile Layer 1", this.myTileSet, 0, 0);
-                this.layer0 = this.createStaticLayer("Tile Layer 0", this.myTileSet, 0, 0);
+                this.layer3 = this.createLayer("Tile Layer 3", this.myTileSet, 0, 0);
+                this.layer2 = this.createLayer("Tile Layer 2", this.myTileSet, 0, 0);
+                this.layer1 = this.createLayer("Tile Layer 1", this.myTileSet, 0, 0);
+                this.layer0 = this.createLayer("Tile Layer 0", this.myTileSet, 0, 0);
+
+                this.layer0.scale = 1/3;
+                this.layer1.scale = 1/3;
+                this.layer2.scale = 1/3;
+                this.layer3.scale = 1/3;
+
+                /*this.layer0.resizeWorld();
+                this.layer1.resizeWorld();
+                this.layer2.resizeWorld();
+                this.layer3.resizeWorld();*/
+
                 let currentTileLayer1;
                 let currentTileLayer0;
             
@@ -151,5 +169,7 @@ class level extends Phaser.Tilemaps.Tilemap{
 		});
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
+
+                //this.layer1.
         }
 }

@@ -1,52 +1,85 @@
 /*
 https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
+//https://phaser.io/examples/v3/view/game-objects/graphics/health-bars-demo
 use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
 */
 let healthBar;
-class hpBar extends Phaser.Physics.Arcade.Sprite{
+class hpBar extends Phaser.GameObjects.Container{
 
     constructor(scene, xPos, yPos){
-        //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'healthBar');
-        //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-        //so here in the subclass of sprite its refering to the image object we just made. 
-        scene.add.existing(this);
-        //sets the depth of the ui sprite so that it isnt obscured by other game sprites.
-        this.anims.create({key: '0',frames: this.anims.generateFrameNames('healthBar', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '1',frames: this.anims.generateFrameNames('healthBar', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '2',frames: this.anims.generateFrameNames('healthBar', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '3',frames: this.anims.generateFrameNames('healthBar', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '4',frames: this.anims.generateFrameNames('healthBar', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '5',frames: this.anims.generateFrameNames('healthBar', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
-        this.anims.create({key: '6',frames: this.anims.generateFrameNames('healthBar', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
-        this.setDepth(6);
-        this.setScale(.6);
+
+        super(scene, xPos, yPos,);
+
+        this.outSide = scene.add.sprite(this.x, this.y, 'healthBar');
+
+        this.outSide.anims.create({key: '6',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '7',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '8',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '9',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '10',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '11',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '12',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '13',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '14',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 8, end: 8 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '15',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: '16',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
+        //this.outSide.anims.create({key: '13',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
+
+        this.setDepth(20);
         //connects the sprite to the camera so that it sticks with the player.
         this.setScrollFactor(0);
+
         this.damageCoolDown = false;
         this.playerHealth = 6;
         this.playerHealthMax = 6;
-        this.anims.play(""+this.playerHealth);
+        this.zoom = .6;
+        // change this to the hp max size value sent into the scene
+        this.outSide.anims.play("6");
+
         healthBar = this;
 
+        this.maxLength = 284;
+        this.barHight = 57;
+
+        this.bar = new Phaser.GameObjects.Graphics(scene);
+        this.bar.setDepth(20);
+        //this.bar.setDepth(7);
+        //this.bar.setScale(.3);
+        this.bar.setScrollFactor(0);
+
+       /* this.hpBarElements = new Phaser.GameObjects.Group(scene); 
+        this.hpBarElements.add(this.outSide); 
+        this.hpBarElements.add(this.bar); */
+        
+        this.add(this.outSide);
+        this.add(this.bar);
+
+        scene.add.existing(this);
+        this.setScale(.3);
+        //this.updateDisplay();
     }
     //simple function using if statements to update display using animations defined above.
-    updateDisplay(playerHealth){
-        if(playerHealth === 6){
-            this.anims.play("6");
-        }else if(playerHealth === 5){
-            this.anims.play("5");
-        }else if(playerHealth === 4){
-            this.anims.play("4");
-        }else if(playerHealth === 3){
-            this.anims.play("3");
-        }else if(playerHealth === 2){
-            this.anims.play("2");
-        }else if(playerHealth === 1){
-            this.anims.play("1");
-        }else if(playerHealth === 0){
-            this.anims.play("0");
+    updateDisplay(){
+
+        this.bar.clear();
+        
+        let percentage = (this.playerHealth/this.playerHealthMax);
+
+        let barLength = Math.floor(this.maxLength * percentage);
+
+        
+        if (this.playerHealth < (this.playerHealthMax/3))
+        {
+            this.bar.fillStyle(0xff0000);
+        }else if(this.playerHealth < (this.playerHealthMax/2)){
+            this.bar.fillStyle(0xffff00);
+        }else{
+            this.bar.fillStyle(0x00ff00);
         }
+
+        //let barLength = Math.floor(this.p *  this.maxLength);
+        //this.bar.setScale(.4);
+        this.bar.fillRect(-33,  422, barLength,  this.barHight);
 
     }
 
@@ -55,7 +88,7 @@ class hpBar extends Phaser.Physics.Arcade.Sprite{
         if(this.damageCoolDown === false ){
           this.damageCoolDown = true;
           this.playerHealth -= damageTaken;
-          this.updateDisplay(this.playerHealth);
+          this.updateDisplay();
           
         }
         setTimeout(function(){
@@ -69,7 +102,7 @@ class hpBar extends Phaser.Physics.Arcade.Sprite{
         //only heals the player if there hp is less that the given max
         if(this.playerHealth < this.playerHealthMax){
             this.playerHealth+= healthHealed;
-            this.updateDisplay(this.playerHealth);
+            this.updateDisplay();
           }
           //used to fix hp value if it overflows past max hp value
         if(this.playerHealth > this.playerHealthMax){
@@ -78,17 +111,28 @@ class hpBar extends Phaser.Physics.Arcade.Sprite{
     }
 
     zoomedOut(){
-        this.setScale(.5);
-        this.x = 300;
-        this.y = 250;
+        this.x =270 
+        this.y =120
+
+        this.setScale(.3);
+        this.zoom = .3;
+        this.updateDisplay();
+
     }
 
     zoomIn(){
         //console.log(" zooming in the health bar");
-        this.setScale(.2);
-        this.x = 390;
-        this.y = 370;
+        this.x =383 
+        this.y =305
+
+        this.setScale(.15);
+        this.zoom = .15;
+        this.updateDisplay();
+       
+
     }
+
+    
 
 
 }

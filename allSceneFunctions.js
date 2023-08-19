@@ -227,7 +227,7 @@ class allSceneFunctions{
         scene1.warpToX = file.warpToThisX;
         scene1.warpToY = file.warpToThisY;
         scene1.healthDisplay.playerHealth = file.playerHpValue;
-        scene1.healthDisplay.anims.play(""+file.playerHpValue);
+        //scene1.healthDisplay.anims.play(""+file.playerHpValue);
         scene1.inventoryDataArray = file.inventoryData;
         scene1.playerInventoryAmountData = file.piad;
         scene1.playerBestiaryData = file.pbd;

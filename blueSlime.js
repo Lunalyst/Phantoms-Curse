@@ -461,11 +461,17 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite{
              // large slime functions for breaking free as well
              if(this.slimeSize === 2 && hpBar.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100){
                 this.largeSlimeDamageCounter = true;
-                hpBar.calcDamage(1);
+                hpBar.calcDamage(4);
                 setTimeout(function(){
                     currentSlime.largeSlimeDamageCounter = false;
                   },1500);
-            }else if(this.slimeSize === 1 && hpBar.playerHealth === 0){// if the player has been defeated the do the following steps.
+            }else if(this.slimeSize === 1 && hpBar.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100){
+                this.largeSlimeDamageCounter = true;
+                hpBar.calcDamage(2);
+                setTimeout(function(){
+                    currentSlime.largeSlimeDamageCounter = false;
+                  },2000);
+                }else if(this.slimeSize === 1 && hpBar.playerHealth === 0){// if the player has been defeated the do the following steps.
                 this.playerDefeated = true;
                  //console.log(" keyA: "+keyA+" keyD: "+keyD);
                  scene.skipIndicator.visible = true;

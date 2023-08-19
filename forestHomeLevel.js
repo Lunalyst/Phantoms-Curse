@@ -148,6 +148,8 @@ class forestHomeLevel extends Phaser.Scene {
     this.healthDisplay = new hpBar(this,450,450);
     //loads local save data.
     this.activateFunctions.loadGame(this);
+
+    this.healthDisplay.setUpgradeSize(this.playerSaveSlotData.playerHealthUpgrades);
   
     //controls the Background
     this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");

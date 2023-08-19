@@ -11,16 +11,17 @@ class healthMark extends Phaser.Physics.Arcade.Sprite{
       this.visible = false;
       this.setScale(.7);
       
-      this.anims.create({key: '6',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '7',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '8',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '9',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 3, end: 3 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '10',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '11',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 5, end: 5 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '12',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 6, end: 6 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '13',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 7, end: 7 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '14',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 8, end: 8 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '15',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 9, end: 9 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '0',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '1',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '2',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '3',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 3, end: 3 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '4',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '5',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 5, end: 5 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '6',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 6, end: 6 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '7',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 7, end: 7 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '8',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 8, end: 8 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '9',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 9, end: 9 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '10',frames: this.anims.generateFrameNames('healthSlotIcon', { start: 10, end: 10 }),frameRate: 1,repeat: -1});
       
 
 

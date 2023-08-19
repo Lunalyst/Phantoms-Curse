@@ -200,11 +200,11 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     if (scene.playerHealth !== undefined) {
       animationNumber = "";
-      animationNumber = animationNumber + scene.playerHealth;
+      animationNumber = animationNumber + scene.playerSaveSlotData.playerHealthUpgrades;
       console.log("animationNumber for hp: " + animationNumber);
       this.healthIcon.anims.play(animationNumber);
     } else {
-      this.healthIcon.anims.play("6");
+      this.healthIcon.anims.play("0");
     }
 
     if (scene.playerSaveSlotData !== undefined) {

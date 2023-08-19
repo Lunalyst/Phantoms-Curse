@@ -335,7 +335,8 @@ class titleScreen extends Phaser.Scene {
              let saveSlotData = {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
-                bestiaryCompletionPercent: 0
+                bestiaryCompletionPercent: 0,
+                playerHealthUpgrades: 0
              };
 
              let gameFlags = {
@@ -401,7 +402,8 @@ class titleScreen extends Phaser.Scene {
              let saveSlotData = {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
-                bestiaryCompletionPercent: 0
+                bestiaryCompletionPercent: 0,
+                playerHealthUpgrades: 1
              };
 
              let gameFlags = {

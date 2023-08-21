@@ -15,6 +15,9 @@ https://phaser.discourse.group/t/tiled-tilemap-partially-invisible-but-no-consol
 // note to self. when passing variables into my classes as parameters it may be benificial to give them different names in the function deffinition
 // that might be causing the issue where KeyA, KeyD and key Display are not working half the dam time
 
+//import { Scene } from '@phaser-plus/core'
+//import { Debugger } from '@phaser-plus/debugger'
+
 let forestHomeThat;
 class forestHomeLevel extends Phaser.Scene {
   
@@ -132,6 +135,8 @@ class forestHomeLevel extends Phaser.Scene {
 
     create(){
     //console.log("activating scene");
+    //this.features.register('debugger', Debugger)
+
     // allows detection of key inputs for movement and player attacks
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);

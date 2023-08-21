@@ -46,7 +46,12 @@
   <script src="skills.js"></script>
   <script src="hpBarAmount.js"></script>
   
-  <script> new Phaser.Game(
+  
+  <script type="module"> 
+
+  //import "./forestHomeLevel"  
+  new Phaser.Game(
+      
       {
       //list of property names and there associated values.
       width: 900,
@@ -61,13 +66,14 @@
           debug: false
         }
       },
-      scene: [new titleScreen,new forestHomeLevel,new gameOver,new turnPineForest1],//multiple scenes
+      scene: [new titleScreen,new forestHomeLevel ,new gameOver,new turnPineForest1],//multiple scenes
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
       }, // scale manager used to scale game up to fit display. centers gameplay screen
     });
-  </script>
+    
+    </script>
 
  <!--
   This script places a badge on your repl's full-browser view back to your repl's cover

@@ -9,6 +9,8 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //https://stackoverflow.com/questions/71490140/phaser-3-play-animation-after-previous-animation-finished
 //https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObject.html#once__anchor
 
+//at higher hrtz rates breaks the slimegrab function. needs to be redone again. fuck.
+
 //implementation for the blue slime enemy.
 class blueSlime extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, xPos, yPos, sex) {
@@ -402,14 +404,15 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 }
             }
             // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
-            if (this.struggleCounter > 0 && this.struggleCounter < 100) {
+            // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
+            if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
                 // this case subtracts from the struggle free counter if the value is not pressed fast enough.
                 this.struggleCounter--;
                 this.struggleCounterTick = true;
                 // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
                 setTimeout(function () {
                     currentSlime.struggleCounterTick = false;
-                }, 1);
+                }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
             }
             // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.

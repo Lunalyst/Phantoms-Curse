@@ -132,8 +132,8 @@ class hpBar extends Phaser.GameObjects.Container{
         this.x =383 
         this.y =305
 
-        this.setScale(.15);
-        this.zoom = .15;
+        this.setScale(0.15);
+        this.zoom = 0.15;
         this.updateDisplay();
        
 

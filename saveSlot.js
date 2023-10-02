@@ -1,3 +1,5 @@
+
+// class that creates the saveslot in the title screen.
 class saveSlot extends Phaser.Physics.Arcade.Sprite {
   // every class needs constructor
   constructor(scene, xPos, yPos) {
@@ -10,6 +12,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.visible = false;
     this.slotElements = new Phaser.GameObjects.Group(scene);
 
+    //title slot elements.
     this.sexIcon = new sexMark(scene, this.x - 340, this.y - 10);
     this.slotElements.add(this.sexIcon);
     this.healthIcon = new healthMark(scene, this.x - 340, this.y + 45);
@@ -19,13 +22,12 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.shellIcon = new shellMark(scene, this.x - 260, this.y + 45);
     this.slotElements.add(this.shellIcon);
 
-
-
+    // controls the slot text on saveslot.
     let startingX = -375;
     let startingY = -40;
     let spacing = 0;
     let rows = 0;
-
+    
     this.slotLetters = [];
     let slotLetterString = "SLOT:?";
     for (let counter = 0; counter < slotLetterString.length; counter++) {
@@ -38,7 +40,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       spacing = spacing + 15;
     }
 
-
+     // controls the skillmarks on saveslot.
     startingX = -110;
     startingY = -0;
     spacing = 0;
@@ -51,8 +53,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < 11; counter++) {
 
       this.skillMarks.push(new skillMark(scene, this.x + startingX, this.y + startingY));
-      //this.slotElements.add(this.skillMarks[counter]);
-
+      
       if (counter === 5) {
         rows++;
         spacing = 0;
@@ -71,6 +72,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     }
 
+    // controls the skill letters on saveslot.
     startingX = -120;
     startingY = -40;
     spacing = 0;
@@ -90,7 +92,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-
+    // controls the shell currency numbers on saveslot.
     startingX = -220;
     startingY = 70;
     spacing = 0;
@@ -109,7 +111,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-
+    // controls the bestiary characters on saveslot.
     startingX = -220;
     startingY = 12;
     spacing = 0;
@@ -139,6 +141,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
   }
 
+  //sets the visibility of the save slot
   showSlot() {
     this.slotElements.toggleVisible();
     if (this.visible === true) {
@@ -162,6 +165,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+  // function sets the skills from the savedata of the current slot.
   setSkillDisplay(scene) {
     // sets the skills from the savefile to be displayed.
     let animationNumber = "";
@@ -181,9 +185,6 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     // sets the sexicon to reflect the save data
     //undefined when comparing with object does explicit type conversions which can be true when they should be false. to get around this we use the explicit !== operator.
     if (scene.playerSex !== undefined) {
-      //animationNumber = scene.playerSaveSlotData[0];
-      //console.log("scene.playerSaveSlotData[0]: "+scene.playerSaveSlotData[0]);
-      //console.log("seting sexicon to animationNumber: "+animationNumber);
       this.sexIcon.anims.play(scene.playerSex.toString());
     } else {
       this.sexIcon.anims.play("2");

@@ -112,13 +112,6 @@ class textBox extends Phaser.Physics.Arcade.Sprite{
       this.profileArray;
       this.profileArrayPosition = 0;
       
-
-
-      
-      
-      
-
-      
     }
     // we need to pause the game when player is in a text box.
     // there should only one textbox entity per scene

@@ -137,6 +137,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
   //function opens the bestiary so the proper page is displayed when clicked on in the inventory.
   openBestiary(scene) {
 
+    //if bestiary is close then open it and set open delay.
     if (this.isOpen === false && this.openDelay === false) {
       this.isOpen = true;
       console.log("this.isOpen from bestiary " + this.isOpen);
@@ -172,7 +173,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
         this.displayBestiaryText(true);
 
       }
-
+      //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
       this.setScale(.4);
@@ -288,7 +289,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
   }
 
-  
+  // function which formats the text string so that it properly fits within the summary character lines.
   formatSummary() {
     let tempString = "";
     let formatingCounter = 0;
@@ -321,16 +322,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
               backString = this.formattedString.charAt(coun) + backString;
             }
 
-            //console.log("backString: "+backString);
-            //console.log("spacing: ("+spacing+")");
-            //console.log("BackPetalString: "+BackPetalString);
-            //console.log("FrontPetalString: "+FrontPetalString);
-
-
             this.formattedString = backString + spacing + BackPetalString + FrontPetalString;
-            // console.log("====================================================");
-            //console.log("this.currentText: "+this.formattedString);
-            //console.log("==========================================================================================");
+           
             BackPetal = 0;
             BackPetalString = "";
             backString = "";
@@ -348,7 +341,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       } else if (formatingCounter === 17) {
         formatingCounter = 0;
       }
-      //console.log("formatingCounter: "+formatingCounter);
+      
       formatingCounter++;
       tempString += this.formattedString.charAt(counter);
     }

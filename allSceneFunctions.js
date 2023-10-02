@@ -37,9 +37,7 @@ class allSceneFunctions {
       pssd: playerSaveSlotData
     };
     //uses local Storage to store the data
-    //console.log("HP in saveGame: "+playerHp)
     localStorage.setItem('saveGameoverFile', JSON.stringify(file));
-    //console.log("saved warp x: " +scene1.warpToX+" saved warp y: "+scene1.warpToY);
   }
   //function to load data once we are in the gameover scene.
   loadGameoverFile(scene1) {
@@ -47,6 +45,7 @@ class allSceneFunctions {
     // we will use const because we dont want anything to change variable. difference between let and var is that var can exist outside the scope when its declared. using let makes sure that the variable stays within scope.obeying scoping rules.
     const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
     //retrieves data from the file object and gives it to the current scene
+    console.log("calling loadGameoverFile============================");
     console.log("playerSex: " + file.sex);
     console.log("enemy: " + file.enemy);
     console.log("playerSaveSlotData: ", file.pssd);
@@ -54,10 +53,6 @@ class allSceneFunctions {
     scene1.playerSex = file.sex;
     scene1.enemyThatDefeatedPlayer = file.enemy;
     scene1.playerSaveSlotData = file.pssd;
-    //scene1.playerLocation = file.locationName;
-    //console.log("scene1.inventoryDataArray "+scene1.inventoryDataArray);
-    //console.log("HP in loadGame: "+scene1.healthDisplay.playerHealth)
-    //console.log("loaded warp x: " +scene1.warpToX+" loaded warp y: "+scene1.warpToY);
   }
   // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
   saveGameFile(savePointX, savePointY, playerHp, playerSex, location, playerInventoryData, playerInventoryAmountData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {

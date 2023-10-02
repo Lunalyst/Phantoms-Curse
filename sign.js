@@ -26,8 +26,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
       currentSign = this;
       //defines player animations. 
   }
-// bug fixed where holding w before overlaping a warp zone caused the next scene to be constantly loaded.
-// lesson learned dont but scene triggers in a overlap function.
+//function which allows the player to use w to display textbox
   activateSign(scene1,keyW,activeId){
     //console.log("this.safeToSign: "+this.safeToSign+" activeId: "+activeId+" this.signId: "+this.signId+" this.promptCooldown: "+this.promptCooldown);
       if(this.safeToSign === true && keyW.isDown && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false){

@@ -336,7 +336,7 @@ class titleScreen extends Phaser.Scene {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 0
+                playerHealthUpgrades: 10
              };
 
              let gameFlags = {

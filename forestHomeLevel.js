@@ -86,11 +86,6 @@ class forestHomeLevel extends Phaser.Scene {
     this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     console.log("this.playerSaveSlotData: "+this.playerSaveSlotData);
-
-   
-    
-  
-
     }
 
     preload(){
@@ -362,6 +357,7 @@ class forestHomeLevel extends Phaser.Scene {
 
     // function that makes slimes in a row.
 
+    // function which destroys this scene and starts the gameover scene.
     changeToGameover(){
       this.myMap.destroy();
       this.processMap.destroy();

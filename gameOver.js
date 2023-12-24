@@ -15,30 +15,30 @@ class gameOver extends Phaser.Scene {
         this.tryAgain;
         this.allFunctions;
         this.keyA;
-    this.keyW;
-    this.keyD;
-    this.keyS;
-    this.space;
-    this.shift;
-    this.mycamera;
-    this.processMap;
-    this.backround;
-    this.myMap;
-    this.activateFunctions;
+        this.keyW;
+        this.keyD;
+        this.keyS;
+        this.space;
+        this.shift;
+        this.mycamera;
+        this.processMap;
+        this.backround;
+        this.myMap;
+        this.activateFunctions;
 
-    this.warpToX = 450;
-    this.warpToY = 600;
-    this.inventoryDataArray;
-    this.playerSex;
-    this.playerLocation = "forestHome";
-    this.playerInventoryAmountData;
-    this.playerBestiaryData;
-    this.playerSkillsData;
-    this.playerSaveSlotData;
-    this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    
-    this.enemyThatDefeatedPlayer ="";
-    
+        this.warpToX = 450;
+        this.warpToY = 600;
+        this.inventoryDataArray;
+        this.playerSex;
+        this.playerLocation = "forestHome";
+        this.playerInventoryAmountData;
+        this.playerBestiaryData;
+        this.playerSkillsData;
+        this.playerSaveSlotData;
+        this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        
+        this.enemyThatDefeatedPlayer ="";
+        
    
     gameoverThat = this;
         }
@@ -188,7 +188,7 @@ class gameOver extends Phaser.Scene {
                       }
         
                      let playerSkillsData = {
-                        jump:0,
+                        jump:1,
                         dash:0,
                         strength:0,
                         mimic:0,
@@ -241,7 +241,7 @@ class gameOver extends Phaser.Scene {
                       }
         
                      let playerSkillsData = {
-                        jump:0,
+                        jump:1,
                         dash:0,
                         strength:0,
                         mimic:0,

@@ -51,6 +51,7 @@ class hpBar extends Phaser.GameObjects.Container{
         //this.bar.setDepth(7);
         //this.bar.setScale(.3);
         this.bar.setScrollFactor(0);
+    
 
        /* this.hpBarElements = new Phaser.GameObjects.Group(scene); 
         this.hpBarElements.add(this.outSide); 
@@ -58,9 +59,10 @@ class hpBar extends Phaser.GameObjects.Container{
         
         this.add(this.outSide);
         this.add(this.bar);
+        
 
         scene.add.existing(this);
-        this.setScale(.3);
+        this.setScale(.4);
         //this.updateDisplay();
     }
     //simple function using if statements to update display using animations defined above.
@@ -84,25 +86,27 @@ class hpBar extends Phaser.GameObjects.Container{
 
         //this.bar.setScale(.4);
         this.bar.fillRect(-33,  422, barLength,  this.barHight);
+        this.bar.x = this.outSide.x-450;
+        this.bar.y = this.outSide.y-450;
 
     }
 
     calcDamage(damageTaken){
         //calcs damage by updating the value first then the display. thes sets cool down so damage does not happen too quickly.
-        if(this.damageCoolDown === false ){
-          this.damageCoolDown = true;
+        //if(this.damageCoolDown === false ){
+          //this.damageCoolDown = true;
           this.playerHealth -= damageTaken;
           if(this.playerHealth < 0){
             this.playerHealth = 0;
           }
           this.updateDisplay();
           
-        }
-        setTimeout(function(){
+       // }
+        /*setTimeout(function(){
             healthBar.damageCoolDown = false;
             console.log("damage cool down:"+ healthBar.damageCoolDown);
             //healthBar.clearTint();
-          },2000);
+          },2000);*/
     }
 
     calcHealing(healthHealed){
@@ -115,6 +119,12 @@ class hpBar extends Phaser.GameObjects.Container{
         if(this.playerHealth > this.playerHealthMax){
             this.playerHealth = this.playerHealthMax;
         }
+    }
+
+    maxHealth(){
+            //maxes out the players current hp
+            this.playerHealth = this.playerHealthMax;
+            this.updateDisplay();
     }
 
     zoomedOut(){

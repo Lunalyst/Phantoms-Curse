@@ -5,6 +5,8 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 // example enemy behaviors
 */
 
+//import { decreaseHealth } from "./uiScripts/events";
+
 //how to use once and a promise for animations completing.
 //https://stackoverflow.com/questions/71490140/phaser-3-play-animation-after-previous-animation-finished
 //https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObject.html#once__anchor
@@ -58,6 +60,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
         this.setScale(1 / 3);
+
 
         console.log("sex passed in slime: " + sex);
         //defines Slime animations based on the players sex.
@@ -292,9 +295,11 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
-    slimeGrab(player1, hpBar, keyA, KeyDisplay, keyD, scene, keyTAB) {
+    slimeGrab(player1, keyA, KeyDisplay, keyD, scene, keyTAB) {
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+
+
         this.clearTint();
         // moves player attackhitbox out of the way.
         scene.attackHitBox.y = player1.y + 10000;
@@ -324,6 +329,14 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
             this.playerGrabbed = true;
             //if the player is grabbed then do the following.
         } else if (this.playerGrabbed === true) {
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+    
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject)
+
             //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
             player1.y = this.y - 150;
@@ -334,8 +347,10 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
             KeyDisplay.x = this.x;
             KeyDisplay.y = this.y + 70;
             // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-            if (this.playerDamaged === false && hpBar.playerHealth > 0) {
-                hpBar.calcDamage(1);
+            if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
+                //hpBar.calcDamage(1);
+                healthEmitter.emit(healthEvent.loseHealth,1)
+                console.log('return value of health emitter: ', playerHealthObject.playerHealth);
                 this.playerDamaged = true;
             }
             // something wacky. once the Phaser.Input.Keyboard.JustDown(keyA) is checked for something.
@@ -348,7 +363,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 if (this.randomInput === 0 && this.slimeSize === 2) {
                     if (Phaser.Input.Keyboard.JustDown(keyA) === true) {
                         console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
-                        if (hpBar.playerHealth >= 1) {
+                        if (playerHealthObject.playerHealth >= 1) {
                             this.struggleCounter += 20;
                             console.log('strugglecounter: ' + this.struggleCounter);
                         }
@@ -357,7 +372,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                     // important anims.play block so that the animation can player properly.
                     if (Phaser.Input.Keyboard.JustDown(keyD) === true) {
                         console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
-                        if (hpBar.playerHealth >= 1) {
+                        if (playerHealthObject.playerHealth >= 1) {
                             this.struggleCounter += 20;
                             console.log('strugglecounter: ' + this.struggleCounter);
                         }
@@ -367,7 +382,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
                     if (Phaser.Input.Keyboard.JustDown(keyA) === true) {
                         console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
-                        if (this.slimeSize === 1 && hpBar.playerHealth >= 1) {
+                        if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1) {
                             this.struggleCounter += 25;
                             console.log('strugglecounter: ' + this.struggleCounter);
                         }
@@ -416,20 +431,22 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 //console.log('strugglecounter: '+this.struggleCounter);
             }
             // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
-            if (this.slimeSize === 2 && hpBar.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
+            if (this.slimeSize === 2 && playerHealthObject.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
                 this.largeSlimeDamageCounter = true;
-                hpBar.calcDamage(4);
+                //hpBar.calcDamage(4);
+                healthEmitter.emit(healthEvent.loseHealth,4)
                 setTimeout(function () {
                     currentSlime.largeSlimeDamageCounter = false;
                 }, 1500);
-            } else if (this.slimeSize === 1 && hpBar.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
+            } else if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
                 this.largeSlimeDamageCounter = true;
-                hpBar.calcDamage(2);
+                //hpBar.calcDamage(2);
+                healthEmitter.emit(healthEvent.loseHealth,2)
                 setTimeout(function () {
                     currentSlime.largeSlimeDamageCounter = false;
                 }, 2000);
                 // if the player has been defeated the do the following steps.
-            } else if (this.slimeSize === 1 && hpBar.playerHealth === 0) {
+            } else if (this.slimeSize === 1 && playerHealthObject.playerHealth === 0) {
                 this.playerDefeated = true;
                 scene.skipIndicator.visible = true;
                 scene.enemyThatDefeatedPlayer = "blueSlime";
@@ -473,7 +490,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 //console.log("player defeated by small slime");
                 this.smallSlimeDefeatedPlayerAnimation();
                 // same code but for the large slime if it beats the player.
-            } else if (this.slimeSize === 2 && hpBar.playerHealth === 0) {
+            } else if (this.slimeSize === 2 && playerHealthObject.playerHealth === 0) {
                 this.playerDefeated = true;
                 //console.log(" keyA: "+keyA+" keyD: "+keyD);
                 scene.skipIndicator.visible = true;
@@ -519,7 +536,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 this.largeSlimeDefeatedPlayerAnimation();
             }
             // if the player breaks free then do the following
-            if (this.struggleCounter >= 100 && hpBar.playerHealth >= 1) {
+            if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
                 KeyDisplay.visible = false;
                 // can we replace this with a settimeout function? probbably. lets make a backup first.
                 if (this.slimeSize === 1 && this.struggleFree === false) {
@@ -532,14 +549,14 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                             currentSlime.struggleFree = true;
                         });
                     }
-                } else if (this.slimeSize === 2 && this.struggleFree === false && hpBar.playerHealth >= 1) {
+                } else if (this.slimeSize === 2 && this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
                     setTimeout(function () {
                         currentSlime.struggleFree = true;
                     }, 100);
 
                     // if the player if freed do the following to reset the player.
-                } else if (this.struggleFree === true && hpBar.playerHealth >= 1) {
+                } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
                     this.struggleFree = false;
                     this.playerBrokeFree = 0;
                     if (this.slimeSize === 1) {

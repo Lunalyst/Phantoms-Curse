@@ -4,6 +4,7 @@ https://phaser.io/examples/v3/view/input/mouse/click-sprite
 https://phaser.io/examples/v2/input/pointer-over
 https://braelynnn.medium.com/phaser-game-settings-using-localstorage-1cf6a9fa6f2c
  */
+let playerUI;
 class titleScreen extends Phaser.Scene {
     constructor(){
         // scene settings
@@ -367,7 +368,9 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
+                that.scene.start('gameHud')
                 that.scene.start('forestHome');
+                
                    
         });
         
@@ -423,7 +426,9 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
+                that.scene.start('gameHud')
                 that.scene.start('forestHome');
+                
                    
         });
 
@@ -605,6 +610,7 @@ class titleScreen extends Phaser.Scene {
                         this.flagValues
                            );
                     console.log("warping player to location."+ this.playerLocation);
+                    this.scene.start('gameHud'); 
                     this.scene.start(this.playerLocation); 
                 }
         }

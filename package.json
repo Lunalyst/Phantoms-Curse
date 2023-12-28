@@ -10,11 +10,14 @@
 	},
 	"dependencies": {
 		"@phaser-plus/core": "^0.1.8",
+		"events": "^3.3.0",
 		"jslint": "^0.12.1",
 		"phaser": "^3.60.0"
 	},
 	"devDependencies": {
 		"@phaser-plus/cli": "^0.1.8",
+		"@types/events": "^3.0.3",
+		"@types/node": "^20.10.5",
 		"parcel": "^2.9.3",
 		"process": "^0.11.10"
 	}

@@ -12,7 +12,10 @@
 <body>
   <script src="lib/phaser.js"></script>
 
-  <script src="forestHomeLevel.js"></script>
+  <script src="sceneScripts/forestHomeLevel.js"></script>
+  <script src="sceneScripts/gameHud.js"></script>
+  <script src="sceneScripts/sceneTemplate.js"></script>
+  <script src="uiScripts/events.js"></script>
   <script src="allSceneFunctions.js"></script>
   <script src="player.js"></script>
   <script src="level.js"></script>
@@ -21,7 +24,7 @@
   <script src="blueSlime.js"></script>
   <script src="titleScreen.js"></script>
   <script src="gameOver.js"></script>
-  <script src="turnPineForest1.js"></script>
+  <script src="sceneScripts/turnPineForest1.js"></script>
   <script src="warp.js"></script>
   <script src="inventory.js"></script>
   <script src="inventorySlots.js"></script>
@@ -50,6 +53,8 @@
   <script type="module"> 
 
   //import "./forestHomeLevel"  
+  //import "sceneScripts/gameHud.js" 
+    
   new Phaser.Game(
       
       {
@@ -66,7 +71,7 @@
           debug: false
         }
       },
-      scene: [new titleScreen,new forestHomeLevel ,new gameOver,new turnPineForest1],//multiple scenes
+      scene: [new titleScreen ,new forestHomeLevel ,new gameOver,new turnPineForest1,new sceneTemplate, new gameHud],//multiple scenes
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

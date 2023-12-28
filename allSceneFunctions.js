@@ -98,7 +98,7 @@ class allSceneFunctions {
   }
 
   //loads savedata from the sabeslot in title screen.
-  loadGameFile(scene1, slot) {
+  loadGameFile(scene, slot) {
     console.log("attempting to load slot:" + slot);
     // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
     let file;
@@ -129,33 +129,33 @@ class allSceneFunctions {
       console.log("playerSaveSlotData: ", file.pssd);
       console.log("gameFlags: ", file.flags);
       //sets values from save data to the values in the scene.
-      scene1.warpToX = file.saveX;
-      scene1.warpToY = file.saveY;
-      scene1.playerHealth = file.playerHpValue;
-      scene1.playerSex = file.sex;
-      scene1.playerLocation = file.locationName;
-      scene1.inventoryDataArray = file.id;
-      scene1.playerInventoryAmountData = file.piad;
-      scene1.playerBestiaryData = file.pbd;
-      scene1.playerSkillsData = file.psd;
+      scene.warpToX = file.saveX;
+      scene.warpToY = file.saveY;
+      scene.playerHealth = file.playerHpValue;
+      scene.playerSex = file.sex;
+      scene.playerLocation = file.locationName;
+      scene.inventoryDataArray = file.id;
+      scene.playerInventoryAmountData = file.piad;
+      scene.playerBestiaryData = file.pbd;
+      scene.playerSkillsData = file.psd;
       // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
       let tempPlayerSaveSlotData = file.pssd;
-      if (scene1.playerBestiaryData !== undefined) {
+      if (scene.playerBestiaryData !== undefined) {
 
         let bestiaryPercent = 0;
         // loops though the objects to find how many of the entrys the player has
-        for (let [key, value] of Object.entries(scene1.playerBestiaryData)) {
+        for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
           if (value !== 0) {
             bestiaryPercent++;
           }
         }
         // calcs percentage and sets it to the value apart of the save data
-        bestiaryPercent = (bestiaryPercent / Object.keys(scene1.playerBestiaryData).length) * 100;
+        bestiaryPercent = (bestiaryPercent / Object.keys(scene.playerBestiaryData).length) * 100;
         tempPlayerSaveSlotData.bestiaryCompletionPercent = bestiaryPercent;
       }
-      scene1.playerSaveSlotData = tempPlayerSaveSlotData;
-      scene1.playerSex = file.sex;
-      scene1.flagValues = file.flags;
+      scene.playerSaveSlotData = tempPlayerSaveSlotData;
+      scene.playerSex = file.sex;
+      scene.flagValues = file.flags;
       // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
       //scene1.playerLocation = file.locationName;
     }
@@ -193,32 +193,19 @@ class allSceneFunctions {
   }
 
   // grabs data from temp save when the player transitions scenes.
-  loadGame(scene1) {
+  loadGame(scene) {
     //sets variable to the stored data
     var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
     //retrieves data from the file object and gives it to the current scene
     console.log("calling temerary loadGame============================");
     console.log("save file x:" + file.warpToThisX);
     console.log("save file y:" + file.warpToThisY);
-    console.log("player HP: " + file.playerHpValue);
-    console.log("playerInventoryData: " + file.inventoryData);
-    console.log("playerInventoryAmountData: " + file.piad);
-    console.log("playerBestiaryData: ", file.pbd);
-    console.log("playerSkillsData: ", file.psd);
-    console.log("playerSaveSlotData: ", file.pssd);
     console.log("playerSex: ", file.sex);
-    console.log("gameFlags: " + file.flags);
-
-    scene1.warpToX = file.warpToThisX;
-    scene1.warpToY = file.warpToThisY;
-    scene1.healthDisplay.playerHealth = file.playerHpValue;
-    scene1.inventoryDataArray = file.inventoryData;
-    scene1.playerInventoryAmountData = file.piad;
-    scene1.playerBestiaryData = file.pbd;
-    scene1.playerSkillsData = file.psd;
-    scene1.playerSaveSlotData = file.pssd;
-    scene1.playerSex = file.sex;
-    scene1.flagValues = file.flags;
+  
+    scene.warpToX = file.warpToThisX;
+    scene.warpToY = file.warpToThisY;
+    loadSceneTransitionLoad.emit(SceneTransitionLoad.loadValues,file.playerHpValue,file.inventoryData,file.piad,file.pbd,file.psd,file.pssd,file.flags);
+    scene.playerSex = file.sex;
   }
 
   //generates slimes
@@ -348,11 +335,11 @@ class allSceneFunctions {
   //function to activate blue slime grab animation
   checkBlueSlimeGrab(scene) {
     //console.log("activating grab function");
-    scene.healthDisplay.zoomIn();
+    //scene.healthDisplay.zoomIn();
     scene.slimes.children.each(function (tempSlime) {
       if (tempSlime.playerGrabbed === true) {
         //remeber this function is called twice. once when grab hamppens and agian when the update loop has this.grabbed set to true.
-        tempSlime.slimeGrab(scene.player1, scene.healthDisplay, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
+        tempSlime.slimeGrab(scene.player1,scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
         //focuses on slime that grabbed character and zooms ui elements.
         scene.mycamera.startFollow(tempSlime);
         scene.cameras.main.zoom = 5;
@@ -395,7 +382,7 @@ class allSceneFunctions {
           tempSlime.setVelocityX(0);
           scene.player1.setVelocityX(0);
           //calls the grab function
-          tempSlime.slimeGrab(scene.player1, scene.healthDisplay, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
+          tempSlime.slimeGrab(scene.player1, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
           //sets the scene grab value to true since the player has been grabbed
           // tells instance of slime that it has grabbed player
           tempSlime.playerGrabbed = true;

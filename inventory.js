@@ -36,6 +36,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.skillUI;
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
       //this.inventoryElements.add(this); 
+      console.log('created the inevntory in the for the player')
       
       
       

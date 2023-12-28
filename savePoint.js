@@ -41,8 +41,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //saveGameFile(savePointX,savePointY,playerHp,playerSex,location,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
             scene1.activateFunctions.saveGameFile(saveX,saveY,hpBar.playerHealthMax,scene1.playerSex,scene1.playerLocation,scene1.inventoryDataArray,scene1.playerInventoryAmountData,scene1.playerBestiaryData,scene1.playerSkillsData,scene1.playerSaveSlotData,flagValues);
             this.anims.play('saveStoneAnimation',true);
-            hpBar.playerHealth = hpBar.playerHealthMax;
-            hpBar.updateDisplay(hpBar.playerHealthMax);
+            healthEmitter.emit(healthEvent.maxHealth);
             setTimeout(function(){
               currentSavePoint.anims.play('saveStone',true);
               },2700);

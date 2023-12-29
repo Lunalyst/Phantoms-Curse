@@ -21,8 +21,23 @@ loadSceneTransitionLoad = new Phaser.Events.EventEmitter();
 
 tabKey = {
     isTabDown: 'tab_is_down',
-    
 };
 
 accessTabKey = new Phaser.Events.EventEmitter();
+
+inventoryKey = {
+    activateWindow: 'activate_window',
+    isWindowOpen: 'is_window_open',
+    getSaveData: 'get_save_data',
+};
+
+inventoryKeyEmitter = new Phaser.Events.EventEmitter();
+
+playerSkills = {
+    getJump: 'get_jump',
+};
+
+playerSkillsEmitter = new Phaser.Events.EventEmitter();
+
+
 

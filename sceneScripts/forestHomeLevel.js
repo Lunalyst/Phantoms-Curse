@@ -29,6 +29,7 @@ class forestHomeLevel extends Phaser.Scene {
     this.keyW;
     this.keyD;
     this.keyS;
+    this.keyTAB;
     this.space;
     this.shift;
     this.player1;
@@ -90,6 +91,7 @@ class forestHomeLevel extends Phaser.Scene {
     this.tabObject = {
       tabIsDown: false
     };
+    
 
     }
 
@@ -142,8 +144,9 @@ class forestHomeLevel extends Phaser.Scene {
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-    //this.input.keyboard.on('keydown_W', this.yourFunction, this);
-    //this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+
+    //controls for the hud.
+    this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
     this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
     this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
     //this.input.mouse.capture = true;
@@ -292,9 +295,11 @@ class forestHomeLevel extends Phaser.Scene {
       this.activateFunctions.checkSign(this,"Forestlevel1");
     }
     //accessTabKey.on(tabKey.isTabDown,(isDown)
-    if(accessTabKey.emit(tabKey.isTabDown,this.tabObject.tabIsDown) && this.grabbed === false && this.pausedInTextBox === false){
+    if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
       //console.log("tabKey Pressed");
-      this.playerInventory.setView(this);
+      //this.playerInventory.setView(this);
+      //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
+      inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
       this.activateFunctions.checkBlueSlimePause(this);
       //this.player1.pausePlayerPhysics(this);
     }else{
@@ -347,8 +352,14 @@ class forestHomeLevel extends Phaser.Scene {
         //applies a function to each slime that calls the grab function. only works 
         //before activating grab, closes inventory if its open.
         //this.healthDisplay.zoomIn();
-        if(this.playerInventory.isOpen === true){
-          this.playerInventory.setView(this);
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+        if(isWindowObject.isOpen === true){
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
         }
         this.activateFunctions.checkBlueSlimeGrab(forestHomeThat);
       }

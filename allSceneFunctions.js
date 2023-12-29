@@ -55,41 +55,42 @@ class allSceneFunctions {
     scene1.playerSaveSlotData = file.pssd;
   }
   // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
-  saveGameFile(savePointX, savePointY, playerHp, playerSex, location, playerInventoryData, playerInventoryAmountData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {
+  saveGameFile(savePointX, savePointY, playerSex, location, dataObject) {
     // these are the game variables that are hard saved when the player uses a save point.
     console.log("calling saveslot saveGameFile============================");
     console.log("save file x:" + savePointX);
     console.log("save file y:" + savePointY);
-    console.log("player HP: " + playerHp);
+    console.log("player HP: " + dataObject.playerMaxHp);
     console.log("playerSex: " + playerSex);
     console.log("location: " + location);
-    console.log("playerInventoryData: " + playerInventoryData);
-    console.log("playerInventoryAmountData: " + playerInventoryAmountData);
-    console.log("playerBestiaryData: ", playerBestiaryData);
-    console.log("playerSkillsData: ", playerSkillsData);
-    console.log("playerSaveSlotData: ", playerSaveSlotData);
-    console.log("gameFlags: ", gameFlags);
+    console.log("playerInventoryData: " + dataObject.inventoryArray);
+    console.log("playerInventoryAmountData: " + dataObject.playerInventoryAmountData);
+    console.log("playerBestiaryData: ", dataObject.playerBestiaryData);
+    console.log("playerSkillsData: ", dataObject.playerSkillsData);
+    console.log("playerSaveSlotData: ", dataObject.playerSaveSlotData);
+    console.log("gameFlags: ", dataObject.flagValues);
+    console.log("=======================================================");
     // bundles save data up in a variable to be json.stringifyed
     const file = {
       saveX: savePointX,
       saveY: savePointY,
-      playerHpValue: playerHp,
+      playerHpValue: dataObject.playerMaxHp,
       sex: playerSex,
       locationName: location,
-      id: playerInventoryData,
-      piad: playerInventoryAmountData,
-      pbd: playerBestiaryData,
-      psd: playerSkillsData,
-      pssd: playerSaveSlotData,
-      flags: gameFlags,
+      id: dataObject.inventoryArray,
+      piad: dataObject.playerInventoryAmountData,
+      pbd: dataObject.playerBestiaryData,
+      psd: dataObject.playerSkillsData,
+      pssd: dataObject.playerSaveSlotData,
+      flags: dataObject.flagValues,
 
     }
     //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
-    if (playerSaveSlotData.saveSlot === 1) {
+    if (dataObject.playerSaveSlotData.saveSlot === 1) {
       localStorage.setItem('saveFile1', JSON.stringify(file));
-    } else if (playerSaveSlotData.saveSlot === 2) {
+    } else if (dataObject.playerSaveSlotData.saveSlot === 2) {
       localStorage.setItem('saveFile2', JSON.stringify(file));
-    } else if (playerSaveSlotData.saveSlot === 3) {
+    } else if (dataObject.playerSaveSlotData.saveSlot === 3) {
       localStorage.setItem('saveFile3', JSON.stringify(file));
     } else {
       console.log(" something went wrong with the save location. location: " + playerSaveSlotData.saveSlot);
@@ -371,8 +372,15 @@ class allSceneFunctions {
       }
       //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
       scene.physics.add.overlap(scene.player1, tempSlime, function () {
-        if (scene.playerInventory.isOpen === true) {
-          scene.playerInventory.setView(scene);
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+        if (isWindowObject.isOpen === true) {
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          //scene.playerInventory.setView(scene);
         }
         //console.log("player overlaps slime");
         //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation

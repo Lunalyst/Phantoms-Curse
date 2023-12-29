@@ -11,64 +11,31 @@ class gameHud extends Phaser.Scene {
     constructor(){
       // scene settings
       super({key: 'gameHud',active: false,physics:{default:'arcade'}});
-      //super({key: 'forestHome',active: false ,physics:{default:'arcade'}});
-    
-    //object for displaying health
+
     this.healthDisplay;
-    //is used to tell if the player has been grabbed by an enemy.
-    this.keyTAB;
     this.grabbed = false;
-    //this.mycamera;
-    //this.spawnedEnemys = false;
-    //key prompt object for when the player is grabbed
     this.KeyDisplay;
-    //when the player dies they can skip to the game over animation
     this.skipIndicator;
-    //this.slimeId = 0;
-    //this.processMap;
-    //this.backround;
-    //this.myMap;
     this.activateFunctions;
-    //this.warp1;
     this.loadCoolDown = false;
     this.saveCoolDown = false;
     this.signCoolDown = false;
-    //this.portals;
-   //this.portalId = 0;
-    //this.saveStoneId = 0;
-    //this.signId = 0;
-    //this.activatedPortalId = 0;
-    //this.activatedSavePointId = 0;
-    //this.activatedSignId = 0;
     this.playerInventory;
     this.inventoryTween;
+    //contains the slot objects
     this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+    //contains inventory data
     this.inventoryDataArray;
-    //this.index = 0;
-    //this.grabCoolDown = false;
-    //this.attackHitBox;
-    //this.backroundTimer = 0;
     this.weaponDes;
     this.ringDes;
-    //this.playerLocation = "forestHome";
-    //this.signPoints;
-    //this.saveStonePoints;
     this.isPaused = false;
     this.sceneTextBox;
     this.pausedInTextBox = false;
-    //this.enemyThatDefeatedPlayer ="";
-
-    //variables that hold save data
-    //this.warpToX = 450;
-    //this.warpToY = 600;
-    this.inventoryDataArray;
-    this.playerSex;
-    //this.playerLocation = "forestHome";
     this.playerInventoryAmountData;
     this.playerBestiaryData;
     this.playerSkillsData;
     this.playerSaveSlotData;
-    this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    this.flagValues;
       }
 
       preload(){
@@ -148,7 +115,7 @@ class gameHud extends Phaser.Scene {
 
         //creates a listener that sets the variables we need for our hud
         loadSceneTransitionLoad.on(SceneTransitionLoad.loadValues,(playerHpValue,inventoryData,piad,pbd,psd,pssd,flags) =>{
-          console.log('==================================================')
+          console.log('==================================================');
           console.log('Setting Values to hud')
           console.log("player HP: " + playerHpValue);
           console.log("playerInventoryData: " + inventoryData);
@@ -157,6 +124,8 @@ class gameHud extends Phaser.Scene {
           console.log("playerSkillsData: ", psd);
           console.log("playerSaveSlotData: ", pssd);
           console.log("gameFlags: " + flags);
+          
+
 
           this.healthDisplay.playerHealth = playerHpValue;
           this.inventoryDataArray = inventoryData;
@@ -165,52 +134,81 @@ class gameHud extends Phaser.Scene {
           this.playerSkillsData = psd;
           this.playerSaveSlotData = pssd;
           this.flagValues = flags;
+
+          console.log('testing trouble values for saving =====');
+          console.log("player HP: " + this.healthDisplay.playerHealth);
+          console.log("playerInventoryData: " + this.inventoryDataArray);
+          console.log("gameFlags: " + this.flagValues);
           
           //sets the upgrade size of the player hp bar
           this.healthDisplay.setUpgradeSize(this.playerSaveSlotData.playerHealthUpgrades);
 
           //updates the health display so the values are shown correctly on the hp bar
           this.healthDisplay.updateDisplay();
-        });
 
-        
-    
+          
 
-        //controls for the hud.
-        this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+          //creates a emitter listener snice we need to know if the tabkey is pressed so we know if the hud is open or not.
+          //accessTabKey.on(tabKey.isTabDown,(object) =>{
+            //object.tabIsDown = this.keyTAB.isDown;
+          //});
 
-        //creates a emitter listener snice we need to know if the tabkey is pressed so we know if the hud is open or not.
-        accessTabKey.on(tabKey.isTabDown,(object) =>{
-                 object.tabIsDown = this.keyTAB.isDown;
-      });
+          this.input.mouse.capture = true;
 
+          // create inventory hub object
+          this.playerInventory = new inventory(this,180,70,"inventory");
+          
+          //makes a tween for the inventory object so the interior is see through
+          this.inventoryTween = this.tweens.add({
+              targets:this.playerInventory,
+              alpha: { from: 1, to: 0.8 },
+              ease: 'Sine.InOut',
+              duration: 500,
+              yoyo: false
+          });
 
-        this.input.mouse.capture = true;
+          //makes the player inventory slot
+          this.playerInventory.generateSlots(this);
 
-        // create inventory hub object
-        this.playerInventory = new inventory(this,180,70,"inventory");
-        
-        //makes a tween for the inventory object so the interior is see through
-        this.inventoryTween = this.tweens.add({
-            targets:this.playerInventory,
-            alpha: { from: 1, to: 0.8 },
-            ease: 'Sine.InOut',
-            duration: 500,
-            yoyo: false
-        });
+          // applys interactions to the object apart of the inventory. 
+          this.playerInventory.applyInteractionToSlots(this);
 
-        //makes the player inventory slot
-        this.playerInventory.generateSlots(this);
+          //emitter to opem and close the inventory when the tab input is recieved from the scene
+          inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
+            this.playerInventory.setView(scene,this);
+          });
 
-        // applys interactions to the object apart of the inventory. 
-        this.playerInventory.applyInteractionToSlots(this);
+          //emitter to tell when the inventory is open or no so we can close it if the player gets grabbed ect.
+          inventoryKeyEmitter.on(inventoryKey.isWindowOpen,(object) =>{
+            object.isOpen =  this.playerInventory.isOpen;
+          });
+          
+          //emitter to grab save data so that the save point can have acess to it.
+          inventoryKeyEmitter.on(inventoryKey.getSaveData,(playerDataObject) =>{
+            
+            playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
+            playerDataObject.inventoryArray = this.inventoryDataArray;
+            playerDataObject.playerInventoryAmountData = this.playerInventoryAmountData;
+            playerDataObject.playerBestiaryData = this.playerBestiaryData;
+            playerDataObject.playerSkillsData = this.playerSkillsData;
+            playerDataObject.playerSaveSlotData = this.playerSaveSlotData;
+            playerDataObject.flagValues = this.flagValues;
+
+          });
+
+          //emitter to get the player skills object so the player class has acess to it for jump skilles ect.
+          playerSkillsEmitter.on(playerSkills.getJump,(object) =>{
+            object.playerSkills = this.playerSkillsData;
+          });
       
-        this.playerInventory.setView(this);
+        });
+
         
         }
 
         update(){
-
+          //console.log("playerInventoryData: " + this.inventoryDataArray);
+          
         }
 
     }

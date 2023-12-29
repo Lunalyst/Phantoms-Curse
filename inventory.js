@@ -42,7 +42,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       
     }
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
-    setView(scene){
+    setView(scene,hud){
       //console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
         if(this.isOpen === false && this.openDelay === false){
             this.isOpen = true;
@@ -50,9 +50,9 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
             this.openDelay = true;
             this.isOnScreen = true;
             console.log("setSlotView");
-            this.setSlotView(scene);
+            this.setSlotView(hud);
             console.log("setSlots");
-            this.setSlots(scene);
+            this.setSlots(hud);
             console.log("calling delay");
             scene.isPaused = true;
             scene.physics.pause();
@@ -70,8 +70,8 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
             scene.isPaused = false;
             scene.physics.resume();
             scene.player1.anims.resume();
-            this.setSlotView(scene);
-            this.setSlots(scene);
+            this.setSlotView(hud);
+            this.setSlots(hud);
             setTimeout(function(){
               console.log("openDelay set to false");
                 inventoryThat.openDelay = false; 

@@ -39,7 +39,21 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         if( this.safeToSave === true && keyW.isDown){
             //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
             //saveGameFile(savePointX,savePointY,playerHp,playerSex,location,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
-            scene1.activateFunctions.saveGameFile(saveX,saveY,hpBar.playerHealthMax,scene1.playerSex,scene1.playerLocation,scene1.inventoryDataArray,scene1.playerInventoryAmountData,scene1.playerBestiaryData,scene1.playerSkillsData,scene1.playerSaveSlotData,flagValues);
+            let playerDataObject = {
+                playerMaxHp: null,
+                inventoryArray: null,
+                playerInventoryAmountData: null,
+                playerBestiaryData: null,
+                playerSkillsData: null,
+                playerSaveSlotData: null,
+                flagValues: null,
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject)
+            console.log('inventory date now in savepointssavegame =============');
+            console.log('playerDataObject.flagValues: ', playerDataObject.flagValues);
+
+            scene1.activateFunctions.saveGameFile(saveX,saveY,scene1.playerSex,scene1.playerLocation,playerDataObject);
             this.anims.play('saveStoneAnimation',true);
             healthEmitter.emit(healthEvent.maxHealth);
             setTimeout(function(){

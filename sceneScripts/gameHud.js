@@ -39,7 +39,7 @@ class gameHud extends Phaser.Scene {
       }
 
       preload(){
-        //loads all sprites and sprite sheets to be used later in game
+       /* //loads all sprites and sprite sheets to be used later in game
       //load in the source bitmap file from Tiled
       this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
       //load in the JSON file for the bitmap
@@ -48,7 +48,7 @@ class gameHud extends Phaser.Scene {
       //this might load the save file.json
       //this.load.json("saveFile","saveFile.json");
       //loads sprites.
-      // could just define player sprite here.
+      // could just define player sprite here.*/
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet('backgroundForestLevel', 'assets/titleScreenBackground.png',{frameWidth: 1000 , frameHeight: 664});
@@ -75,7 +75,6 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
     
-        
       }
 
       create(){
@@ -185,7 +184,7 @@ class gameHud extends Phaser.Scene {
           
           //emitter to grab save data so that the save point can have acess to it.
           inventoryKeyEmitter.on(inventoryKey.getSaveData,(playerDataObject) =>{
-            
+
             playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
             playerDataObject.inventoryArray = this.inventoryDataArray;
             playerDataObject.playerInventoryAmountData = this.playerInventoryAmountData;
@@ -200,9 +199,15 @@ class gameHud extends Phaser.Scene {
           playerSkillsEmitter.on(playerSkills.getJump,(object) =>{
             object.playerSkills = this.playerSkillsData;
           });
+
+          //emitter for returning save slot data
+          playerSaveSlot.on(playerSaveSlot.getSaveSlot,(object) =>{
+            object.playerSaveSlotData = this.playerSaveSlotData;
+          });
       
         });
 
+        
         
         }
 

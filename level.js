@@ -38,10 +38,16 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.acceptabletiles;
                 this.tilesetNameInTiled;
         }
-        setTiles(){
+
+        setTiles(sourceMap){
+                console.log("activating tiles +++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 
-                //this.make.tilemap({ key: "map" });
-                this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled, "source_map",96,96,1,2); 
+                ///this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
+                console.log("sourceMap: ",sourceMap );
+
+                //this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,"source_map",96,96,1,2); 
+                
+                this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,sourceMap,96,96,1,2); 
                 //first argument is tileset name in Tiled
                 this.layer3 = this.createLayer("Tile Layer 3", this.myTileSet, 0, 0);
                 this.layer2 = this.createLayer("Tile Layer 2", this.myTileSet, 0, 0);
@@ -53,10 +59,6 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.layer2.scale = 1/3;
                 this.layer3.scale = 1/3;
 
-                /*this.layer0.resizeWorld();
-                this.layer1.resizeWorld();
-                this.layer2.resizeWorld();
-                this.layer3.resizeWorld();*/
 
                 let currentTileLayer1;
                 let currentTileLayer0;
@@ -170,6 +172,6 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
 
-                //this.layer1.
+                console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         }
 }

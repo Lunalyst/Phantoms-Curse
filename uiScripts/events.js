@@ -39,5 +39,11 @@ playerSkills = {
 
 playerSkillsEmitter = new Phaser.Events.EventEmitter();
 
+playerSaveSlot = {
+    getSaveSlot: 'get_save_slot',
+};
+
+playerSaveSlot = new Phaser.Events.EventEmitter();
+
 
 

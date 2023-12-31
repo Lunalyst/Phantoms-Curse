@@ -24,73 +24,60 @@ class forestHomeLevel extends Phaser.Scene {
   constructor(){
     // scene settings
     super({key: 'forestHome',active: false ,physics:{default:'arcade'}});
-    //variables attached to the scene
-    this.keyA;
-    this.keyW;
-    this.keyD;
-    this.keyS;
-    this.keyTAB;
-    this.space;
-    this.shift;
-    this.player1;
-    this.slimes;
-    this.healthDisplay;
-    this.grabbed = false;
-    this.mycamera;
-    this.spawnedEnemys = false;
-    this.KeyDisplay;
-    this.skipIndicator;
-    this.slimeId = 0;
-    this.processMap;
-    this.backround;
-    this.myMap;
-    this.activateFunctions;
-    this.warp1;
-    this.loadCoolDown = false;
-    this.saveCoolDown = false;
-    this.signCoolDown = false;
-    this.portals;
-    this.portalId = 0;
-    this.saveStoneId = 0;
-    this.signId = 0;
-    this.activatedPortalId = 0;
-    this.activatedSavePointId = 0;
-    this.activatedSignId = 0;
-    this.playerInventory;
-    this.inventoryTween;
-    this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-    this.inventoryDataArray;
-    this.index = 0;
-    this.grabCoolDown = false;
-    this.attackHitBox;
-    this.backroundTimer = 0;
-    this.weaponDes;
-    this.ringDes;
-    this.playerLocation = "forestHome";
-    this.signPoints;
-    this.saveStonePoints;
-    this.isPaused = false;
-    this.sceneTextBox;
-    this.pausedInTextBox = false;
-    this.enemyThatDefeatedPlayer ="";
+      //variables that all scenes should have
+      this.keyA;
+      this.keyW;
+      this.keyD;
+      this.keyS;
+      this.keyTAB;
+      this.space;
+      this.shift;
+      this.player1;
+      this.grabbed = false;
+      this.mycamera;
+      this.spawnedEnemys = false;
+      this.KeyDisplay;
+      this.skipIndicator;
+      this.processMap;
+      this.backround;
+      this.myMap;
+      this.activateFunctions;
+      this.warp1;
+      this.loadCoolDown = false;
+      this.saveCoolDown = false;
+      this.signCoolDown = false;
+      this.portals;
+      this.portalId = 0;
+      this.saveStoneId = 0;
+      this.signId = 0;
+      this.activatedPortalId = 0;
+      this.activatedSavePointId = 0;
+      this.activatedSignId = 0;
+      this.grabCoolDown = false;
+      this.attackHitBox;
+      this.playerLocation = "forestHome";
+      this.signPoints;
+      this.saveStonePoints;
+      this.isPaused = false;
+      this.sceneTextBox;
+      this.pausedInTextBox = false;
+      this.enemyThatDefeatedPlayer ="";
+      this.warpToX = 450;
+      this.warpToY = 600;
+      this.playerSex;
+      this.tabObject = {
+          tabIsDown: false
+      };
 
-    //variables that hold save data
-    this.warpToX = 450;
-    this.warpToY = 600;
-    this.inventoryDataArray;
-    this.playerSex;
-    this.playerLocation = "forestHome";
-    this.playerInventoryAmountData;
-    this.playerBestiaryData;
-    this.playerSkillsData;
-    this.playerSaveSlotData;
-    this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      //defines scene specific variables
+      //map needs to be define in the level with tileset json and tileset image.
+      this.processMap;
+      this.myMap;
 
-    console.log("this.playerSaveSlotData: "+this.playerSaveSlotData);
+      //definition for enemy variables
+      this.slimes;
+      this.slimeId = 0;
 
-    this.tabObject = {
-      tabIsDown: false
-    };
     
 
     }

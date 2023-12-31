@@ -56,59 +56,63 @@ class forestHomeLevel extends defaultScene {
     }
 
     create(){
+    //console.log("activating scene");
+    //this.features.register('debugger', Debugger)
 
-    this.createStockSceneVariables();
-    
+    this.setUpPlayerInputs();
 
+    //creates a functions object to call the generalized functions i dont want to copy paste on each gameplay scene
+    this.activateFunctions = new allSceneFunctions;
    
+    //loads local save data.
+    this.activateFunctions.loadGame(this);
+
+    //controls the Background
     this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
     
-    
-    //creates a tilemap to be sent into the level class.the key value must match the key given to the json file. 
-    this.myMap = this.make.tilemap({ key: "map" });
-    //creates a new level object which is used to display map. sends scene and mapdata
-    this.processMap = new level(this,this.myMap);
-    //defines the tile set to be used when generating level
-    this.processMap.tilesetNameInTiled = "Tile Set V.0.8";
-    //calls function that loads the tiles from the json
-    this.processMap.setTiles("source_map");
+    this.grabbed = false;
+
+    this.setUpTileSet("map","Tile Set V.0.8","source_map");
     //creates a new player object calling the player class and sending it the scene, xpos, and y pos.
     
+    this.setUpPlayer();
 
     //creates a group of slime objects
     this.slimes = this.physics.add.group();
 
+    this.setUpKeyPrompts();
+
+    //needs to be refactored into gameHud
+    this.skipIndicator = this.add.sprite(520, 533,'TABToSkip');
+    this.skipIndicator.setScale(.2);
+    this.skipIndicator.visible = false;
+    this.skipIndicator.setScrollFactor(0);
+
     //java script being java script an allowing for the acess of a global variable in the player class to be acessed in foresthomelevel.
     //adds colliders to player as well as slimes to the tiled level
-    this.physics.add.collider(this.player1,this.processMap.layer1);
-    this.physics.add.collider(this.player1,this.processMap.layer0);
-    this.physics.add.collider(this.processMap.layer1, this.slimes);
-    this.physics.add.collider( this.slimes, this.slimes);
-
+    this.setUpPlayerCollider();
     
-    //sets up camera to follow player.
-    this.mycamera = this.cameras.main;
-    this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
-    this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
-    this.cameras.main.followOffset.set(0,-1500);
-    console.log("this.mycamera: ", this.mycamera)
-    //this.cameras.main.zoom = 1;*/
+    this.setUpSlimeCollider();
+
+    this.setUpPlayerCamera();
+    //this.cameras.main.zoom = 1;
     
     
     
     //sets the scene this to that so that it can be used in other places that this would be out of scope.
     forestHomeThat = this;
-
     //creates a warp sprite and gives it a tag to tell it where to send the player.
     this.portals = this.physics.add.group();
+    this.signPoints = this.physics.add.group();
+    this.saveStonePoints = this.physics.add.group();
     //this.activateFunctions.initPortals(2813,517,this,420,1540,0);
     //this.activateFunctions.initPortals(396,580,this,4373,1253,0);
     //sets safetoload false by default.
     //same as we generate save stones the same way.
-    //this.saveStonePoints = this.physics.add.group();
+    
     this.activateFunctions.initSavePoints(2050,558,this);
       // as well as signs.
-    //this.signPoints = this.physics.add.group();
+
     this.activateFunctions.initSigns(1280,554,this,
       "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
       ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
@@ -118,18 +122,26 @@ class forestHomeLevel extends defaultScene {
     this.sceneTextBox = new textBox(this,450,620,'textBox');
     
 
-    //this.safeToLoad = false;
-    //this.safeToSave = false;
+    this.safeToLoad = false;
+    this.safeToSave = false;
+
+    // stops user from warping so fast. after a second of being loaded the player can load zones.
+    this.loadCoolDown = false;
+    this.saveCoolDown = false;
+    this.signCoolDown = false;
+    
     //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
         //generates enemys
         forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        //forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        //forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-
+        forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        //forestHomeThat.activateFunctions.initSlimes(500, 550, 1,forestHomeThat,forestHomeThat.playerSex);
+        
+        
         forestHomeThat.spawnedEnemys = true;
       },1000);
-
+      
       setTimeout(function(){
         forestHomeThat.loadCoolDown = true;
       },1000);
@@ -139,12 +151,12 @@ class forestHomeLevel extends defaultScene {
       setTimeout(function(){
         forestHomeThat.signCoolDown = true;
       },1000);
-      
+      //console.log("warpToX:"+ this.warpToX +" warpToY: "+this.warpToY );
+      // this delays grab when loading into the scene.
       setTimeout(function(){
         forestHomeThat.grabCoolDown = false;
         console.log("grab cooldown has ended. player can be grabbed agian.");
         },3000);
-
     }
 
     update(){

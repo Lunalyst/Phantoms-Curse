@@ -101,40 +101,6 @@ class defaultScene extends Phaser.Scene {
         this.processMap.setTiles(sourceMap);
 
     }
-
-    setUpPlayer(){
-        //creates a player object with the given values
-        this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
-        //creates a hitbox which will be used to 
-        this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
-    }
-
-    setUpKeyPrompts(){
-        this.KeyDisplay = new keyPrompts(this, 450, 500,'keyPrompts');
-        this.KeyDisplay.visible = false;
-    }
-
-    setUpPlayerCollider(){
-        this.physics.add.collider(this.player1,this.processMap.layer1);
-        this.physics.add.collider(this.player1,this.processMap.layer0);
-    }
-
-    setUpSlimeCollider(){
-        this.physics.add.collider(this.processMap.layer1, this.slimes);
-        this.physics.add.collider( this.slimes, this.slimes); 
-    }
-
-    setUpLayer1Collider(object){
-        this.physics.add.collider(this.processMap.layer1, object);
-    }
-
-    setUpPlayerCamera(){
-        //sets up camera to follow player.
-        this.mycamera = this.cameras.main;
-        this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
-        this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
-        this.cameras.main.followOffset.set(0,-1500);
-    }
   
       // function which destroys this scene and starts the gameover scene.
       changeToGameover(){

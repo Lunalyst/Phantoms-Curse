@@ -33,7 +33,6 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.play("closed");
 
     this.setDepth(60);
-    this.setScale(1.5);
     //connects the sprite to the camera so that it sticks with the player.
     this.setScrollFactor(0);
     this.isOpen = false;
@@ -42,7 +41,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.openDelay = false;
     bestiaryThat = this;
     this.pageNumber = 0;
-    this.setScale(0.4);
+    this.setScale(0.7);
 
     //object contains the text data for the bestiary.
     this.bestiaryTextList = {
@@ -146,7 +145,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       this.setScale(0.5);
       this.setDepth(60);
       this.x = 550;
-      this.y = 395;
+      this.y = 195;
       this.bestiaryLeft.x = this.x - 100;
       this.bestiaryLeft.y = this.y + 120;
       this.bestiaryRight.x = this.x + 100;
@@ -179,7 +178,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       this.setScale(.4);
       this.setDepth(50);
       this.x = 580;
-      this.y = 395;
+      this.y = 195;
       this.anims.play("closed");
       this.openDelay = true;
       this.displayBestiaryText(false);

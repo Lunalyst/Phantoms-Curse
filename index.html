@@ -12,43 +12,51 @@
 <body>
   <script src="lib/phaser.js"></script>
 
-  <script src="sceneScripts/defaultScene.js"></script>
-  <script src="sceneScripts/forestHomeLevel.js"></script>
-  <script src="sceneScripts/gameHud.js"></script>
-  <script src="sceneScripts/sceneTemplate.js"></script>
-  <script src="uiScripts/events.js"></script>
-  <script src="allSceneFunctions.js"></script>
-  <script src="player.js"></script>
-  <script src="level.js"></script>
-  <script src="hpBar.js"></script>
-  <script src="keyPrompts.js"></script>
-  <script src="blueSlime.js"></script>
-  <script src="titleScreen.js"></script>
-  <script src="gameOver.js"></script>
-  <script src="sceneScripts/turnPineForest1.js"></script>
-  <script src="warp.js"></script>
-  <script src="inventory.js"></script>
-  <script src="inventorySlots.js"></script>
-  <script src="hitBoxes.js"></script>
-  <script src="bestiary.js"></script>
-  <script src="UIControls.js"></script>
-  <script src="savePoint.js"></script>
-  <script src="inventoryLabels.js"></script>
-  <script src="inventoryBorder.js"></script>
-  <script src="sign.js"></script>
-  <script src="textBox.js"></script>
-  <script src="textBoxCharacter.js"></script>
-  <script src="textBoxProfile.js"></script>
-  <script src="saveSlot.js"></script>
-  <script src="skillMark.js"></script>
-  <script src="sexMark.js"></script>
-  <script src="healthMark.js"></script>
-  <script src="bestiaryMark.js"></script>
-  <script src="shellMark.js"></script>
-  <script src="removeSlot.js"></script>
-  <script src="doubleJumpEffect.js"></script>
-  <script src="skills.js"></script>
-  <script src="hpBarAmount.js"></script>
+  <script src="scripts/sceneScripts/allSceneFunctions.js"></script>
+  <script src="scripts/sceneScripts/defaultScene.js"></script>
+  <script src="scripts/sceneScripts/forestHomeLevel.js"></script>
+  <script src="scripts/sceneScripts/gameHud.js"></script>
+  <script src="scripts/sceneScripts/gameOver.js"></script>
+  <script src="scripts/sceneScripts/level.js"></script>
+  <script src="scripts/sceneScripts/titleScreen.js"></script>
+  <script src="scripts/sceneScripts/turnPineForest1.js"></script>
+ 
+
+  <script src="scripts/playerScripts/doubleJumpEffect.js"></script>
+  <script src="scripts/playerScripts/hitBoxes.js"></script>
+  <script src="scripts/playerScripts/player.js"></script>
+
+
+  <script src="scripts/uiScripts/bestiary.js"></script>
+  <script src="scripts/uiScripts/bestiaryMark.js"></script>
+  <script src="scripts/uiScripts/events.js"></script>
+  <script src="scripts/uiScripts/healthMark.js"></script>
+  <script src="scripts/uiScripts/hpBar.js"></script>
+  <script src="scripts/uiScripts/inventory.js"></script>
+  <script src="scripts/uiScripts/inventoryBorder.js"></script>
+  <script src="scripts/uiScripts/inventoryLabels.js"></script>
+  <script src="scripts/uiScripts/inventorySlots.js"></script>
+  <script src="scripts/uiScripts/keyPrompts.js"></script>
+  <script src="scripts/uiScripts/removeSlot.js"></script>
+  <script src="scripts/uiScripts/saveSlot.js"></script>
+  <script src="scripts/uiScripts/sexMark.js"></script>
+  <script src="scripts/uiScripts/shellMark.js"></script>
+  <script src="scripts/uiScripts/skillMark.js"></script>
+  <script src="scripts/uiScripts/skills.js"></script>
+  <script src="scripts/uiScripts/textBox.js"></script>
+  <script src="scripts/uiScripts/textBoxCharacter.js"></script>
+  <script src="scripts/uiScripts/textBoxProfile.js"></script>
+  <script src="scripts/uiScripts/UIControls.js"></script>
+
+  <script src="scripts/gameObjectScripts/savePoint.js"></script>
+  <script src="scripts/gameObjectScripts/sign.js"></script>
+  <script src="scripts/gameObjectScripts/warp.js"></script>
+
+  <script src="scripts/enemyScripts/blueSlime.js"></script>
+  
+
+
+  
   
   
   <script type="module"> 
@@ -72,7 +80,7 @@
           debug: false
         }
       },
-      scene: [new titleScreen ,new forestHomeLevel ,new gameOver,new turnPineForest1,new sceneTemplate, new gameHud],//multiple scenes
+      scene: [new titleScreen ,new forestHomeLevel ,new gameOver,new turnPineForest1, new gameHud],//multiple scenes
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

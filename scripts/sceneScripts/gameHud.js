@@ -69,6 +69,7 @@ class gameHud extends Phaser.Scene {
 
       create(){
         
+        console.log("create function in hud activated-------------------------------------------------------")
         // creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,180,20);
         //creates a listener for a emmiter so that when the player takes damage, the class calling the damage function only needs to call the emitter.
@@ -98,9 +99,6 @@ class gameHud extends Phaser.Scene {
 
         //calls the function which loads the data from the json file to our game scene hud
         this.activateFunctions = new allSceneFunctions;
-        
-        //loads local save data.
-        //this.activateFunctions.loadGame(this);
 
         //creates a listener that sets the variables we need for our hud
         loadSceneTransitionLoad.on(SceneTransitionLoad.loadValues,(playerHpValue,inventoryData,piad,pbd,psd,pssd,flags) =>{
@@ -195,16 +193,66 @@ class gameHud extends Phaser.Scene {
           playerSaveSlot.on(playerSaveSlot.getSaveSlot,(object) =>{
             object.playerSaveSlotData = this.playerSaveSlotData;
           });
-      
+
+          // some console logs to se if emitters are active
+          this.printActiveEmitter()
+
         });
 
-        
-        
+        console.log("create function in hud finished-------------------------------------------------------");
         }
 
         update(){
           //console.log("playerInventoryData: " + this.inventoryDataArray);
           
         }
+
+        //function that prints listeners
+        printActiveEmitter(){
+          console.log("healthEmitter current listeners: ",
+           healthEmitter.listenerCount(healthEvent.loseHealth)+
+           healthEmitter.listenerCount(healthEvent.gainHealth)+
+           healthEmitter.listenerCount(healthEvent.maxHealth)+
+           healthEmitter.listenerCount(healthEvent.returnHealth));
+
+          console.log("loadSceneTransitionLoad current listeners: ",loadSceneTransitionLoad.listenerCount(SceneTransitionLoad.loadValues));
+
+          console.log("accessTabKey current listeners: ",accessTabKey.listenerCount(tabKey.isTabDown));
+
+          console.log("inventoryKeyEmitter current listeners: ",
+          inventoryKeyEmitter.listenerCount(inventoryKey.activateWindow)+
+          inventoryKeyEmitter.listenerCount(inventoryKey.isWindowOpen)+
+          inventoryKeyEmitter.listenerCount(inventoryKey. getSaveData));
+
+          console.log("playerSkillsEmitter current listeners: ",playerSkillsEmitter.listenerCount(playerSkills.getJump));
+
+          console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot. getSaveSlot));
+
+        }
+
+        clearAllEmmitters(){
+
+        console.log("removing listeners");
+        healthEmitter.removeAllListeners(healthEvent.loseHealth);
+        healthEmitter.removeAllListeners(healthEvent.gainHealth);
+        healthEmitter.removeAllListeners(healthEvent.maxHealth);
+        healthEmitter.removeAllListeners(healthEvent.returnHealth);
+        loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
+        accessTabKey.removeAllListeners(tabKey.isTabDown);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
+        playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
+        playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
+
+        printActiveEmitter()
+        
+        
+        
+        
+        
+        
+        
+      }
 
     }

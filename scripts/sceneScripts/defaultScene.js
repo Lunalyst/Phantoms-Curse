@@ -96,9 +96,12 @@ class defaultScene extends Phaser.Scene {
         this.activateFunctions.loadGame(this);
         
         //makes player and puts them in the correct x,y with the correct sex
-        this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
+        this.player1 = new player(this,500, 0,this.playerSex);
+        //this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
         //makes the player visible
         this.player1.visible = true;
+
+        console.log("player object: ",this.player1)
             
         //creates hitbox so the player can damage enemies
         this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
@@ -174,9 +177,60 @@ class defaultScene extends Phaser.Scene {
   
         this.activateFunctions.saveGameoverFile(this.playerSex,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData);
 
-        this.scene.stop('gameHud');
-        this.scene.stop('forestHome');
-        this.scene.start('gameOverForest');
+        console.log("removing listeners");
+        healthEmitter.removeAllListeners(healthEvent.loseHealth);
+        healthEmitter.removeAllListeners(healthEvent.gainHealth);
+        healthEmitter.removeAllListeners(healthEvent.maxHealth);
+        healthEmitter.removeAllListeners(healthEvent.returnHealth);
+        loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
+        accessTabKey.removeAllListeners(tabKey.isTabDown);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
+        inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
+        playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
+        playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
+
+
+
+
+        console.log("healthEmitter current listeners: ",
+           healthEmitter.listenerCount(healthEvent.loseHealth)+
+           healthEmitter.listenerCount(healthEvent.gainHealth)+
+           healthEmitter.listenerCount(healthEvent.maxHealth)+
+           healthEmitter.listenerCount(healthEvent.returnHealth));
+
+          console.log("loadSceneTransitionLoad current listeners: ",loadSceneTransitionLoad.listenerCount(SceneTransitionLoad.loadValues));
+
+          console.log("accessTabKey current listeners: ",accessTabKey.listenerCount(tabKey.isTabDown));
+
+          console.log("inventoryKeyEmitter current listeners: ",
+          inventoryKeyEmitter.listenerCount(inventoryKey.activateWindow)+
+          inventoryKeyEmitter.listenerCount(inventoryKey.isWindowOpen)+
+          inventoryKeyEmitter.listenerCount(inventoryKey. getSaveData));
+
+          console.log("playerSkillsEmitter current listeners: ",playerSkillsEmitter.listenerCount(playerSkills.getJump));
+
+          console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot. getSaveSlot));
+
+        //this.registry.destroy();
+        //this.events.off();
+        //this.scene.restart();
+
+        //this.scene.stop('gameHud');
+        //this.scene.stop(this.playerLocation);
+        this.scene.start('titleScreen');
+
+        //this.scene.start('titleScreen');
+        //this.scene.restart();
+        
+
+        /*this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
+            this.animationPlayed = false;
+            this.playerDefeatedAnimationStage++;
+        });
+    }*/
+        //this.scene.stop('forestHome');
+        //this.scene.start('gameOverForest');
       }
       
   }

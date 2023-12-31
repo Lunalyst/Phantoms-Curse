@@ -29,98 +29,122 @@ class forestHomeLevel extends defaultScene {
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
 
+    //defines scene specific variables
+    //map needs to be define in the level with tileset json and tileset image.
     this.processMap;
     this.myMap;
-    //defines scene specific variables
+
+    //definition for enemy variables
     this.slimes;
     this.slimeId = 0;
+
+    
 
     }
 
     preload(){
-      //loads all sprites and sprite sheets to be used later in game
-      //load in the source bitmap file from Tiled
+      //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
-      //load in the JSON file for the bitmap
       this.load.tilemapTiledJSON("map" , "assets/tiledMap/ForestHome.json");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
-      //this might load the save file.json
-      //this.load.json("saveFile","saveFile.json");
-      //loads sprites.
-      // could just define player sprite here.
-      this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-      this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
+
+      //preload of object which are scene specific
       this.load.spritesheet('backgroundForestLevel', 'assets/titleScreenBackground.png',{frameWidth: 1000 , frameHeight: 664});
-      this.load.spritesheet('inventory', 'assets/Inventory.png',{frameWidth: 600 , frameHeight: 425 });
-      this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 600 , frameHeight: 425 });
-      this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 32 , frameHeight: 32 });
-      this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
-      this.load.image('hitbox', 'assets/hitbox.png');
-      this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
-      this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-      this.load.image('TABToSkip', 'assets/tabToSkip.png');
-      this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
-      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
-      this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
-      this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
-      this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
-      this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-      this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-      this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
-      this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
-      this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
-      this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
-    
-    
+
     }
 
     create(){
 
-
-      //function apart of default scene which sets up the variable definitions and other things that all scenes should create on start up
-      this.createStockSceneVariables();
-
-      //controls the Background
-      this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
+    this.createStockSceneVariables();
     
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
-        
-      //adds colliders for the enemies in the level
-      this.physics.add.collider(this.processMap.layer1, this.slimes);
-      this.physics.add.collider( this.slimes, this.slimes);
-        
-      //sets the scene this to that so that it can be used in other places that this would be out of scope.
-      forestHomeThat = this;
-      //this.activateFunctions.initPortals(2813,517,this,420,1540,0);
-      //this.activateFunctions.initPortals(396,580,this,4373,1253,0);
-      //sets safetoload false by default.
-        
-      this.activateFunctions.initSavePoints(2050,558,this);
-            
-      this.activateFunctions.initSigns(1280,554,this,
-            "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
-            ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
-      this.activateFunctions.initSigns(1380,554,this,
-            " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
-            ['randiMad','randiBlush']);
-      this.sceneTextBox = new textBox(this,450,620,'textBox');
-        
-      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-        setTimeout(function(){
-          //generates enemys
-          forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-          forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-          forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-            
-            
-          forestHomeThat.spawnedEnemys = true;
-          },1000);
-            // stops user from warping so fast. after a second of being loaded the player can load zones.
+
+   
+    this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
     
+    
+    //creates a tilemap to be sent into the level class.the key value must match the key given to the json file. 
+    this.myMap = this.make.tilemap({ key: "map" });
+    //creates a new level object which is used to display map. sends scene and mapdata
+    this.processMap = new level(this,this.myMap);
+    //defines the tile set to be used when generating level
+    this.processMap.tilesetNameInTiled = "Tile Set V.0.8";
+    //calls function that loads the tiles from the json
+    this.processMap.setTiles("source_map");
+    //creates a new player object calling the player class and sending it the scene, xpos, and y pos.
+    
+
+    //creates a group of slime objects
+    this.slimes = this.physics.add.group();
+
+    //java script being java script an allowing for the acess of a global variable in the player class to be acessed in foresthomelevel.
+    //adds colliders to player as well as slimes to the tiled level
+    this.physics.add.collider(this.player1,this.processMap.layer1);
+    this.physics.add.collider(this.player1,this.processMap.layer0);
+    this.physics.add.collider(this.processMap.layer1, this.slimes);
+    this.physics.add.collider( this.slimes, this.slimes);
+
+    
+    //sets up camera to follow player.
+    this.mycamera = this.cameras.main;
+    this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
+    this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
+    this.cameras.main.followOffset.set(0,-1500);
+    console.log("this.mycamera: ", this.mycamera)
+    //this.cameras.main.zoom = 1;*/
+    
+    
+    
+    //sets the scene this to that so that it can be used in other places that this would be out of scope.
+    forestHomeThat = this;
+
+    //creates a warp sprite and gives it a tag to tell it where to send the player.
+    this.portals = this.physics.add.group();
+    //this.activateFunctions.initPortals(2813,517,this,420,1540,0);
+    //this.activateFunctions.initPortals(396,580,this,4373,1253,0);
+    //sets safetoload false by default.
+    //same as we generate save stones the same way.
+    //this.saveStonePoints = this.physics.add.group();
+    this.activateFunctions.initSavePoints(2050,558,this);
+      // as well as signs.
+    //this.signPoints = this.physics.add.group();
+    this.activateFunctions.initSigns(1280,554,this,
+      "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
+      ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
+    this.activateFunctions.initSigns(1380,554,this,
+      " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
+      ['randiMad','randiBlush']);
+    this.sceneTextBox = new textBox(this,450,620,'textBox');
+    
+
+    //this.safeToLoad = false;
+    //this.safeToSave = false;
+    //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
+      setTimeout(function(){
+        //generates enemys
+        forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        //forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        //forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+
+        forestHomeThat.spawnedEnemys = true;
+      },1000);
+
+      setTimeout(function(){
+        forestHomeThat.loadCoolDown = true;
+      },1000);
+      setTimeout(function(){
+        forestHomeThat.saveCoolDown = true;
+      },1000);
+      setTimeout(function(){
+        forestHomeThat.signCoolDown = true;
+      },1000);
+      
+      setTimeout(function(){
+        forestHomeThat.grabCoolDown = false;
+        console.log("grab cooldown has ended. player can be grabbed agian.");
+        },3000);
+
     }
 
     update(){

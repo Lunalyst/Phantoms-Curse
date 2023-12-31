@@ -38,7 +38,7 @@ class forestHomeLevel extends defaultScene {
     this.slimes;
     this.slimeId = 0;
 
-    //old code ================================================================================================
+    
 
     }
 
@@ -58,6 +58,7 @@ class forestHomeLevel extends defaultScene {
     create(){
 
     this.createStockSceneVariables();
+    
 
    
     this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
@@ -90,6 +91,7 @@ class forestHomeLevel extends defaultScene {
     this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
     this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
     this.cameras.main.followOffset.set(0,-1500);
+    console.log("this.mycamera: ", this.mycamera)
     //this.cameras.main.zoom = 1;*/
     
     
@@ -122,8 +124,8 @@ class forestHomeLevel extends defaultScene {
       setTimeout(function(){
         //generates enemys
         forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        //forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
+        //forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
 
         forestHomeThat.spawnedEnemys = true;
       },1000);

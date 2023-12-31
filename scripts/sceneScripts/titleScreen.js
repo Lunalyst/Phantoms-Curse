@@ -369,7 +369,7 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
-                that.scene.start('gameHud')
+                that.scene.launch('gameHud')
                 that.scene.start('forestHome');
                 
                    
@@ -427,7 +427,7 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
-                that.scene.start('gameHud')
+                that.scene.launch('gameHud')
                 that.scene.start('forestHome');
                 
                    
@@ -611,7 +611,7 @@ class titleScreen extends Phaser.Scene {
                         this.flagValues
                            );
                     console.log("warping player to location."+ this.playerLocation);
-                    this.scene.start('gameHud'); 
+                    this.scene.launch('gameHud'); 
                     this.scene.start(this.playerLocation); 
                 }
         }

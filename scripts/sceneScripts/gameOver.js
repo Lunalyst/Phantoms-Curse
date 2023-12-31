@@ -160,7 +160,10 @@ class gameOver extends Phaser.Scene {
                     gameoverThat.playerSaveSlotData,
                     gameoverThat.flagValues
                     );
+                    
+                    gameoverThat.scene.start('gameHud');
                     gameoverThat.scene.start(gameoverThat.playerLocation); 
+
                 }else if(tempPlayerSex === 1){
                     let playerBestiaryData = {
                         blueSlime:0,
@@ -213,7 +216,10 @@ class gameOver extends Phaser.Scene {
                         tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                         gameFlags//gameFlags
                         );
+
+                        gameoverThat.scene.start('gameHud');
                         gameoverThat.scene.start('forestHome');
+
                 }else if(tempPlayerSex === 0){
                     let playerBestiaryData = {
                         blueSlime:0,
@@ -269,6 +275,7 @@ class gameOver extends Phaser.Scene {
                         //that.scene.start('forestHome');
                     gameoverThat.scene.start('gameHud');
                     gameoverThat.scene.start('forestHome');
+                    
                 }
         
             });

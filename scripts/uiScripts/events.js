@@ -29,6 +29,7 @@ inventoryKey = {
     activateWindow: 'activate_window',
     isWindowOpen: 'is_window_open',
     getSaveData: 'get_save_data',
+    getInventory:'get_inventory',
 };
 
 inventoryKeyEmitter = new Phaser.Events.EventEmitter();
@@ -44,6 +45,8 @@ playerSaveSlot = {
 };
 
 playerSaveSlot = new Phaser.Events.EventEmitter();
+
+
 
 
 

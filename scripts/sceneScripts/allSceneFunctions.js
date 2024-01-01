@@ -205,8 +205,9 @@ class allSceneFunctions {
   
     scene.warpToX = file.warpToThisX;
     scene.warpToY = file.warpToThisY;
-    loadSceneTransitionLoad.emit(SceneTransitionLoad.loadValues,file.playerHpValue,file.inventoryData,file.piad,file.pbd,file.psd,file.pssd,file.flags);
     scene.playerSex = file.sex;
+
+    //loadSceneTransitionLoad.emit(SceneTransitionLoad.loadValues,file.playerHpValue,file.inventoryData,file.piad,file.pbd,file.psd,file.pssd,file.flags);
   }
 
   //generates slimes

@@ -65,6 +65,7 @@ class forestHomeLevel extends defaultScene {
     this.activateFunctions = new allSceneFunctions;
    
     //loads local save data.
+    console.log("activating function to load game");
     this.activateFunctions.loadGame(this);
 
     //controls the Background
@@ -95,7 +96,7 @@ class forestHomeLevel extends defaultScene {
     this.setUpSlimeCollider();
 
     this.setUpPlayerCamera();
-    //this.cameras.main.zoom = 1;
+    
     
     
     

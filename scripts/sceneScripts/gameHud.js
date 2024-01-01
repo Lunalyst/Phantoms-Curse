@@ -70,9 +70,15 @@ class gameHud extends Phaser.Scene {
       create(){
         
         console.log("create function in hud activated-------------------------------------------------------")
-        // creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
+
+        
+
+        //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,180,20);
         //creates a listener for a emmiter so that when the player takes damage, the class calling the damage function only needs to call the emitter.
+
+        //first we need the data from the json which was updated by the titlescreen or another screen
+          this.loadSceneTransitionValues();
 
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
         healthEmitter.on(healthEvent.loseHealth,(damage) =>{
@@ -97,36 +103,6 @@ class gameHud extends Phaser.Scene {
             healthObject.playerHealth = this.healthDisplay.playerHealth;
         });
 
-        //calls the function which loads the data from the json file to our game scene hud
-        this.activateFunctions = new allSceneFunctions;
-
-        //creates a listener that sets the variables we need for our hud
-        loadSceneTransitionLoad.on(SceneTransitionLoad.loadValues,(playerHpValue,inventoryData,piad,pbd,psd,pssd,flags) =>{
-          console.log('==================================================');
-          console.log('Setting Values to hud')
-          console.log("player HP: " + playerHpValue);
-          console.log("playerInventoryData: " + inventoryData);
-          console.log("playerInventoryAmountData: " + piad);
-          console.log("playerBestiaryData: ", pbd);
-          console.log("playerSkillsData: ", psd);
-          console.log("playerSaveSlotData: ", pssd);
-          console.log("gameFlags: " + flags);
-          
-
-
-          this.healthDisplay.playerHealth = playerHpValue;
-          this.inventoryDataArray = inventoryData;
-          this.playerInventoryAmountData = piad;
-          this.playerBestiaryData = pbd;
-          this.playerSkillsData = psd;
-          this.playerSaveSlotData = pssd;
-          this.flagValues = flags;
-
-          console.log('testing trouble values for saving =====');
-          console.log("player HP: " + this.healthDisplay.playerHealth);
-          console.log("playerInventoryData: " + this.inventoryDataArray);
-          console.log("gameFlags: " + this.flagValues);
-          
           //sets the upgrade size of the player hp bar
           console.log("this.playerSaveSlotData.playerHealthUpgrades", this.playerSaveSlotData.playerHealthUpgrades)
           this.healthDisplay.setUpgradeSize(this.playerSaveSlotData.playerHealthUpgrades);
@@ -134,13 +110,7 @@ class gameHud extends Phaser.Scene {
           //updates the health display so the values are shown correctly on the hp bar
           this.healthDisplay.updateDisplay();
 
-          
-
-          //creates a emitter listener snice we need to know if the tabkey is pressed so we know if the hud is open or not.
-          //accessTabKey.on(tabKey.isTabDown,(object) =>{
-            //object.tabIsDown = this.keyTAB.isDown;
-          //});
-
+          //adds the only direct input the hud needs which is the mouse inputs.
           this.input.mouse.capture = true;
 
           // create inventory hub object
@@ -164,6 +134,12 @@ class gameHud extends Phaser.Scene {
           //emitter to opem and close the inventory when the tab input is recieved from the scene
           inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
             this.playerInventory.setView(scene,this);
+          });
+
+          //emitter so other classes can acess the players inventory 
+          inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
+            console.log("player inventory:",this.playerInventory);
+            playerDataObject.playerInventoryData = this.inventoryDataArray;
           });
 
           //emitter to tell when the inventory is open or no so we can close it if the player gets grabbed ect.
@@ -194,10 +170,9 @@ class gameHud extends Phaser.Scene {
             object.playerSaveSlotData = this.playerSaveSlotData;
           });
 
-          // some console logs to se if emitters are active
-          this.printActiveEmitter()
-
-        });
+          //test to see if the emitters are active
+          this.printActiveEmitter();
+        
 
         console.log("create function in hud finished-------------------------------------------------------");
         }
@@ -205,6 +180,30 @@ class gameHud extends Phaser.Scene {
         update(){
           //console.log("playerInventoryData: " + this.inventoryDataArray);
           
+        }
+
+        loadSceneTransitionValues(){
+           //on start up we need files from the scene transition. so we grab those.
+           var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
+
+           console.log('==================================================');
+           console.log('Setting Values to hud')
+           console.log("player HP: " + file.playerHpValue);
+           console.log("playerInventoryData: " + file.inventoryData);
+           console.log("playerInventoryAmountData: " + file.piad);
+           console.log("playerBestiaryData: ", file.pbd);
+           console.log("playerSkillsData: ", file.psd);
+           console.log("playerSaveSlotData: ", file.pssd);
+           console.log("gameFlags: " + file.flags);
+           
+           this.healthDisplay.playerHealth = file.playerHpValue;
+           this.inventoryDataArray = file.inventoryData;
+           this.playerInventoryAmountData = file.piad;
+           this.playerBestiaryData = file.pbd;
+           this.playerSkillsData = file.psd;
+           this.playerSaveSlotData = file.pssd;
+           this.flagValues = file.flags;
+ 
         }
 
         //function that prints listeners
@@ -232,27 +231,20 @@ class gameHud extends Phaser.Scene {
 
         clearAllEmmitters(){
 
-        console.log("removing listeners");
-        healthEmitter.removeAllListeners(healthEvent.loseHealth);
-        healthEmitter.removeAllListeners(healthEvent.gainHealth);
-        healthEmitter.removeAllListeners(healthEvent.maxHealth);
-        healthEmitter.removeAllListeners(healthEvent.returnHealth);
-        loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
-        accessTabKey.removeAllListeners(tabKey.isTabDown);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
-        playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
-        playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
+          console.log("removing listeners");
+          healthEmitter.removeAllListeners(healthEvent.loseHealth);
+          healthEmitter.removeAllListeners(healthEvent.gainHealth);
+          healthEmitter.removeAllListeners(healthEvent.maxHealth);
+          healthEmitter.removeAllListeners(healthEvent.returnHealth);
+          loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
+          accessTabKey.removeAllListeners(tabKey.isTabDown);
+          inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
+          inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
+          inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
+          playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
+          playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
 
-        printActiveEmitter()
-        
-        
-        
-        
-        
-        
-        
+        printActiveEmitter(); 
       }
 
     }

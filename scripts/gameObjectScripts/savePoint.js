@@ -23,23 +23,24 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         this.promptCooldown = false;
         this.saveStoneId;
         
+        //defines player animations
         this.anims.create({key: 'saveStone',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'saveStoneAnimation',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 15}),frameRate: 7,repeat: -1});
-        //defines player animations. 
-        
+        this.anims.create({key: 'saveStoneAnimation',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 15}),frameRate: 7,repeat: 0});
+
+        //variables use to protect the object from being called at the wrong time.
         this.safeToSave = false;
         this.saveCoolDown= false;
         
         
     }
-// bug fixed where holding w before overlaping a warp zone caused the next scene to be constantly loaded.
-// lesson learned dont but scene triggers in a overlap function.
 
+    //function which saves the game to the hard memory file when the boject is interacted with
     savePointSaveGame(scene1,keyW,location,activeId,hpBar,keyDisplay,player1,saveX,saveY,flagValues){
-        //console.log("this.safeToSave: "+this.safeToSave+" keyW.isDown: "+keyW.isDown+" activeId: "+activeId+" this.saveStoneId: "+this.saveStoneId+" this.promptCooldown: "+this.promptCooldown);
+        
+        //if the player is withing the correct range, and the press w and the cooldown is false then save the game
         if( this.safeToSave === true && keyW.isDown && this.saveCoolDown === false){
-            //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
-            //saveGameFile(savePointX,savePointY,playerHp,playerSex,location,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
+            
+            //makes a boject which can be accessed by our inventory emitter
             let playerDataObject = {
                 playerMaxHp: null,
                 inventoryArray: null,
@@ -50,36 +51,44 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
                 flagValues: null,
             };
             
+            //calls the emitter sending it the object so it can give us the save data we need.
             inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject)
-            console.log('inventory date now in savepointssavegame =============');
-            console.log('playerDataObject.flagValues: ', playerDataObject.flagValues);
-
+            
+            //saves the game by calling the all activatefunctions 
             scene1.activateFunctions.saveGameFile(saveX,saveY,scene1.playerSex,scene1.playerLocation,playerDataObject);
-            this.anims.play('saveStoneAnimation',true);
-            healthEmitter.emit(healthEvent.maxHealth);
-            let currentSaveStone = this;
-            setTimeout(function(){
-             currentSaveStone.anims.play('saveStone',true);
-              },2700);
 
-             // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
-                    //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
-            this.saveCoolDown = true;     // delay the button prompt so the animation can play.
+            //once we play the save animation once, then we set the animation back to nothing.
+            this.anims.play('saveStoneAnimation').once('animationcomplete', () => {
+                this.anims.play('saveStone',true);
+            });
+
+            //heal the player back to full once they save
+            healthEmitter.emit(healthEvent.maxHealth);
+
+            //create a refrence to the object so it can be accesed in our time out function
+            let currentSaveStone = this;
+
+            // functions been activated so create set save cooldown to true
+            this.saveCoolDown = true; 
+
+            //after a second set savecooldown back to false
             setTimeout(function () {
                 currentSaveStone.saveCoolDown = false;    
             }, 1000);
-          }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false){
-              console.log("prompts active");
-              this.saveStoneKeyPrompts.visible = true;
-              this.saveStoneKeyPrompts.playWKey();
-              this.promptCooldown = true;
-             
-              
-          }
-           if(this.safeToSave === false){
+
+        //this code plays the animation for the w key under the save stone
+        }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false){
+            console.log("prompts active");
+            this.saveStoneKeyPrompts.visible = true;
+            this.saveStoneKeyPrompts.playWKey();
+            this.promptCooldown = true;       
+        }
+
+        //set w key prompt to be invisible if the play is not over it.
+        if(this.safeToSave === false){
             this.saveStoneKeyPrompts.visible = false;
             this.promptCooldown = false;
-          }
+        }
           
     }
 

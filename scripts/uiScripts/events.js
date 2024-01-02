@@ -47,6 +47,12 @@ playerSaveSlot = {
 
 playerSaveSlot = new Phaser.Events.EventEmitter();
 
+skipIndicator = {
+    activateSkipIndicator: 'activate_skip_indicator',
+};
+
+skipIndicatorEmitter = new Phaser.Events.EventEmitter();
+
 
 
 

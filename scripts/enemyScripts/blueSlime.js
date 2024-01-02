@@ -448,7 +448,8 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 // if the player has been defeated the do the following steps.
             } else if (this.slimeSize === 1 && playerHealthObject.playerHealth === 0) {
                 this.playerDefeated = true;
-                scene.skipIndicator.visible = true;
+
+                skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
                 scene.enemyThatDefeatedPlayer = "blueSlime";
                 // if we start the player defeated animation then we need to set a few things.
                 if (this.playerDefeatedAnimationStage === 0) {
@@ -493,7 +494,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
             } else if (this.slimeSize === 2 && playerHealthObject.playerHealth === 0) {
                 this.playerDefeated = true;
                 //console.log(" keyA: "+keyA+" keyD: "+keyD);
-                scene.skipIndicator.visible = true;
+                skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
                 scene.enemyThatDefeatedPlayer = "largeBlueSlime";
                 // if we start the player defeated animation then we need to set a few things.
                 if (this.playerDefeatedAnimationStage === 0) {

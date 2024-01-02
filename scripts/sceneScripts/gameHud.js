@@ -36,6 +36,7 @@ class gameHud extends Phaser.Scene {
     this.playerSkillsData;
     this.playerSaveSlotData;
     this.flagValues;
+    this.skipIndicator;
       }
 
       preload(){
@@ -75,10 +76,15 @@ class gameHud extends Phaser.Scene {
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,180,20);
-        //creates a listener for a emmiter so that when the player takes damage, the class calling the damage function only needs to call the emitter.
+
+        //when player dies the prompt to skip animations need to pop up.
+        this.skipIndicator = this.add.sprite(750, 780,'TABToSkip');
+        this.skipIndicator.visible = false;
+        this.skipIndicator.setScrollFactor(0);
+        
 
         //first we need the data from the json which was updated by the titlescreen or another screen
-          this.loadSceneTransitionValues();
+        this.loadSceneTransitionValues();
 
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
         healthEmitter.on(healthEvent.loseHealth,(damage) =>{
@@ -170,6 +176,12 @@ class gameHud extends Phaser.Scene {
             object.playerSaveSlotData = this.playerSaveSlotData;
           });
 
+
+          //emitter for returning save slot data
+          skipIndicatorEmitter.on(skipIndicator.activateSkipIndicator,() =>{
+            this.skipIndicator.visible = true;
+          });
+
           //test to see if the emitters are active
           this.printActiveEmitter();
         
@@ -178,7 +190,7 @@ class gameHud extends Phaser.Scene {
         }
 
         update(){
-          //console.log("playerInventoryData: " + this.inventoryDataArray);
+          
           
         }
 

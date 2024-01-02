@@ -83,11 +83,7 @@ class forestHomeLevel extends defaultScene {
 
     this.setUpKeyPrompts();
 
-    //needs to be refactored into gameHud
-    this.skipIndicator = this.add.sprite(520, 533,'TABToSkip');
-    this.skipIndicator.setScale(.2);
-    this.skipIndicator.visible = false;
-    this.skipIndicator.setScrollFactor(0);
+
 
     //java script being java script an allowing for the acess of a global variable in the player class to be acessed in foresthomelevel.
     //adds colliders to player as well as slimes to the tiled level

@@ -30,6 +30,7 @@ inventoryKey = {
     isWindowOpen: 'is_window_open',
     getSaveData: 'get_save_data',
     getInventory:'get_inventory',
+    isInventoryOpen: 'is_inventory_open'
 };
 
 inventoryKeyEmitter = new Phaser.Events.EventEmitter();

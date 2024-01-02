@@ -138,7 +138,7 @@ class gameHud extends Phaser.Scene {
 
           //emitter so other classes can acess the players inventory 
           inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
-            console.log("player inventory:",this.playerInventory);
+            //console.log("player inventory:",this.playerInventory);
             playerDataObject.playerInventoryData = this.inventoryDataArray;
           });
 

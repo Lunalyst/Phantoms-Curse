@@ -303,7 +303,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
   inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
-  console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
+  //console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
 
     if(this.body.blocked.down){
       if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24] === 0){

@@ -196,8 +196,15 @@ class forestHomeLevel extends defaultScene {
       this.activateFunctions.checkBlueSlimePause(this);
       this.physics.pause();
       this.player1.anims.pause();
-      if(this.playerInventory.isOpen === true){
-         this.playerInventory.setView(this);
+
+      let isWindowObject = {
+        isOpen: null
+      };
+      
+      inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+      if(isWindowObject.isOpen === true){
+        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
       }
     }else if(this.pausedInTextBox === false && this.isPaused === false){
       this.activateFunctions.checkBlueSlimePause(this);

@@ -335,7 +335,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 playerHealth: null
             };
     
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject)
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
             //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.

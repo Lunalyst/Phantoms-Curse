@@ -56,110 +56,102 @@ class forestHomeLevel extends defaultScene {
     }
 
     create(){
-    //console.log("activating scene");
-    //this.features.register('debugger', Debugger)
-
-    this.setUpPlayerInputs();
-
-    //creates a functions object to call the generalized functions i dont want to copy paste on each gameplay scene
-    this.activateFunctions = new allSceneFunctions;
-   
-    //loads local save data.
-    console.log("activating function to load game");
-    this.activateFunctions.loadGame(this);
-
-    //controls the Background
-    this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
     
-    this.grabbed = false;
-
-    this.setUpTileSet("map","Tile Set V.0.8","source_map");
-    //creates a new player object calling the player class and sending it the scene, xpos, and y pos.
+      //sets up player controls
+      this.setUpPlayerInputs();
     
-    this.setUpPlayer();
+      //loads local save data.
+      console.log("activating function to load game");
+      this.loadGame();
 
-    //creates a group of slime objects
-    this.slimes = this.physics.add.group();
-
-    this.setUpKeyPrompts();
-
-
-
-    //java script being java script an allowing for the acess of a global variable in the player class to be acessed in foresthomelevel.
-    //adds colliders to player as well as slimes to the tiled level
-    this.setUpPlayerCollider();
-    
-    this.setUpSlimeCollider();
-
-    this.setUpPlayerCamera();
-    
-    
-    
-    
-    //sets the scene this to that so that it can be used in other places that this would be out of scope.
-    forestHomeThat = this;
-    //creates a warp sprite and gives it a tag to tell it where to send the player.
-    this.portals = this.physics.add.group();
-    this.signPoints = this.physics.add.group();
-    this.saveStonePoints = this.physics.add.group();
-    //this.activateFunctions.initPortals(2813,517,this,420,1540,0);
-    //this.activateFunctions.initPortals(396,580,this,4373,1253,0);
-    //sets safetoload false by default.
-    //same as we generate save stones the same way.
-    
-    this.activateFunctions.initSavePoints(2050,558,this);
-      // as well as signs.
-
-    this.activateFunctions.initSigns(1280,554,this,
-      "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
-      ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
-    this.activateFunctions.initSigns(1380,554,this,
-      " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
-      ['randiMad','randiBlush']);
-    this.sceneTextBox = new textBox(this,450,620,'textBox');
-    
-
-    this.safeToLoad = false;
-    this.safeToSave = false;
-
-    // stops user from warping so fast. after a second of being loaded the player can load zones.
-    this.loadCoolDown = false;
-    this.saveCoolDown = false;
-    this.signCoolDown = false;
-    
-    //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      setTimeout(function(){
-        //generates enemys
-        forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        forestHomeThat.activateFunctions.initSlimes(300, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        forestHomeThat.activateFunctions.initSlimes(2380, 500, 1,forestHomeThat,forestHomeThat.playerSex);
-        //forestHomeThat.activateFunctions.initSlimes(500, 550, 1,forestHomeThat,forestHomeThat.playerSex);
-        
-        
-        forestHomeThat.spawnedEnemys = true;
-      },1000);
+      //controls the Background
+      this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundForestLevel");
       
-      setTimeout(function(){
-        forestHomeThat.loadCoolDown = true;
-      },1000);
-      setTimeout(function(){
-        forestHomeThat.saveCoolDown = true;
-      },1000);
-      setTimeout(function(){
-        forestHomeThat.signCoolDown = true;
-      },1000);
-      //console.log("warpToX:"+ this.warpToX +" warpToY: "+this.warpToY );
-      // this delays grab when loading into the scene.
-      setTimeout(function(){
-        forestHomeThat.grabCoolDown = false;
-        console.log("grab cooldown has ended. player can be grabbed agian.");
-        },3000);
+      this.grabbed = false;
+
+      //creates tileset
+      this.setUpTileSet("map","Tile Set V.0.8","source_map");
+    
+      //creates player object
+      this.setUpPlayer();
+
+      //creates a group of slime objects
+      this.slimes = this.physics.add.group();
+
+      //sets up the player key prompts for when the player is grabbed
+      this.setUpKeyPrompts();
+
+      //adds colliders to player as well as slimes to the tiled level
+      this.setUpPlayerCollider();
+      this.setUpSlimeCollider();
+
+      //sets up the player camera
+      this.setUpPlayerCamera();
+      
+      //sets the scene this to that so that it can be used in other places that this would be out of scope.
+      tutorialBeachThat = this;
+      //creates a warp sprite and gives it a tag to tell it where to send the player.
+      this.portals = this.physics.add.group();
+      this.signPoints = this.physics.add.group();
+      this.saveStonePoints = this.physics.add.group();
+      
+      
+      
+      this.initSavePoints(2050,558);
+        // as well as signs.
+
+      //this sets up the text box which will be used by the signs to display text.
+      this.setUpTextBox();
+
+      this.initSigns(1280,554,
+        "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
+        ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
+      this.initSigns(1380,554,
+        " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
+        ['randiMad','randiBlush']);
+        
+      
+
+      this.safeToLoad = false;
+      this.safeToSave = false;
+      this.grabCoolDown = false;
+
+      // stops user from warping so fast. after a second of being loaded the player can load zones.
+      this.loadCoolDown = false;
+      this.saveCoolDown = false;
+      this.signCoolDown = false;
+      
+      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
+        setTimeout(function(){
+          //generates enemys
+          tutorialBeachThat.initSlimes(300, 500, 1,tutorialBeachThat.playerSex);
+          tutorialBeachThat.initSlimes(300, 500, 1,tutorialBeachThat.playerSex);
+          tutorialBeachThat.initSlimes(2380, 500, 1,tutorialBeachThat.playerSex);
+      
+          tutorialBeachThat.spawnedEnemys = true;
+        },1000);
+        
+        setTimeout(function(){
+          tutorialBeachThat.loadCoolDown = true;
+        },1000);
+        setTimeout(function(){
+          tutorialBeachThat.saveCoolDown = true;
+        },1000);
+        setTimeout(function(){
+          tutorialBeachThat.signCoolDown = true;
+        },1000);
+        //console.log("warpToX:"+ this.warpToX +" warpToY: "+this.warpToY );
+        // this delays grab when loading into the scene.
+        setTimeout(function(){
+          tutorialBeachThat.grabCoolDown = false;
+          console.log("grab cooldown has ended. player can be grabbed agian.");
+          },3000);
     }
 
     update(){
       //console.log("this.backroundTimer: "+this.backroundTimer);
       
-      this.activateFunctions.animateBackround(this);
+      this.animateBackround();
       
       //this.backround.y = this.player1.y;
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
@@ -167,13 +159,13 @@ class forestHomeLevel extends defaultScene {
     //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     if(this.loadCoolDown === true){
-      this.activateFunctions.checkWarp(this,"Forestlevel1");
+      this.checkWarp("Forestlevel1");
     }
     if(this.saveCoolDown === true){
-      this.activateFunctions.checkSave(this,"Forestlevel1");
+      this.checkSave("Forestlevel1");
     }
     if(this.signCoolDown === true){
-      this.activateFunctions.checkSign(this,"Forestlevel1");
+      this.checkSign(this);
     }
     //accessTabKey.on(tabKey.isTabDown,(isDown)
     if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
@@ -181,15 +173,15 @@ class forestHomeLevel extends defaultScene {
       //this.playerInventory.setView(this);
       //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
       inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
-      this.activateFunctions.checkBlueSlimePause(this);
+      this.checkBlueSlimePause();
       //this.player1.pausePlayerPhysics(this);
     }else{
-      this.activateFunctions.checkBlueSlimePause(this);
+      this.checkBlueSlimePause();
     }
 
     if(this.pausedInTextBox === true){
       this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
-      this.activateFunctions.checkBlueSlimePause(this);
+      this.checkBlueSlimePause();
       this.physics.pause();
       this.player1.anims.pause();
 
@@ -203,7 +195,7 @@ class forestHomeLevel extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
       }
     }else if(this.pausedInTextBox === false && this.isPaused === false){
-      this.activateFunctions.checkBlueSlimePause(this);
+      this.checkBlueSlimePause();
       this.physics.resume();
       this.player1.anims.resume();
     }
@@ -219,10 +211,8 @@ class forestHomeLevel extends defaultScene {
         //this.healthDisplay.zoomedOut();
         //makes a function applied to all slime entities
         //this.portals.hidePrompt
-        //this.activateFunctions.checkWarpPrompts(forestHomeThat);
-        //this.activateFunctions.checkSavePrompts(forestHomeThat);
         //applies a function to every slime object by calling the blueSlimeCollisions function.
-        this.activateFunctions.checkBlueSlimeInteractions(forestHomeThat);
+        this.checkBlueSlimeInteractions(this);
         ///this.blueSlimeCollisions();//HERE
         //sets the camera to follow the player and changes the scale as well
         this.mycamera.startFollow(this.player1);
@@ -249,7 +239,7 @@ class forestHomeLevel extends defaultScene {
         if(isWindowObject.isOpen === true){
           inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
         }
-        this.activateFunctions.checkBlueSlimeGrab(forestHomeThat);
+        this.checkBlueSlimeGrab();
       }
 
   }else if(this.isPaused === true){

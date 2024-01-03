@@ -82,6 +82,9 @@ class gameHud extends Phaser.Scene {
         this.skipIndicator.visible = false;
         this.skipIndicator.setScrollFactor(0);
         
+        //sets the  scene text book in the hud
+        this.sceneTextBox = new textBox(this,450,620,'textBox');
+        
 
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadSceneTransitionValues();

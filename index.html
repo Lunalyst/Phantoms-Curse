@@ -14,12 +14,15 @@
 
   <script src="scripts/sceneScripts/allSceneFunctions.js"></script>
   <script src="scripts/sceneScripts/defaultScene.js"></script>
-  <script src="scripts/sceneScripts/forestHomeLevel.js"></script>
   <script src="scripts/sceneScripts/gameHud.js"></script>
   <script src="scripts/sceneScripts/gameOver.js"></script>
   <script src="scripts/sceneScripts/level.js"></script>
   <script src="scripts/sceneScripts/titleScreen.js"></script>
-  <script src="scripts/sceneScripts/turnPineForest1.js"></script>
+  <script src="scripts/sceneScripts/emitters.js"></script>
+
+  <script src="scripts/sceneScripts/levels/tutorialBeach.js"></script>
+  <script src="scripts/sceneScripts/levels/forestHomeLevel.js"></script>
+  <script src="scripts/sceneScripts/levels/turnPineForest1.js"></script>
  
 
   <script src="scripts/playerScripts/doubleJumpEffect.js"></script>
@@ -29,7 +32,6 @@
 
   <script src="scripts/uiScripts/bestiary.js"></script>
   <script src="scripts/uiScripts/bestiaryMark.js"></script>
-  <script src="scripts/uiScripts/events.js"></script>
   <script src="scripts/uiScripts/healthMark.js"></script>
   <script src="scripts/uiScripts/hpBar.js"></script>
   <script src="scripts/uiScripts/inventory.js"></script>
@@ -80,7 +82,7 @@
           debug: false
         }
       },
-      scene: [new titleScreen ,new forestHomeLevel ,new gameOver,new turnPineForest1, new gameHud],//multiple scenes
+      scene: [new titleScreen ,new forestHomeLevel ,new tutorialBeach, new gameOver,new turnPineForest1, new gameHud],//multiple scenes
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

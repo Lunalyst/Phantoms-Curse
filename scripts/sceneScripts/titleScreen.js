@@ -428,7 +428,7 @@ class titleScreen extends Phaser.Scene {
                 gameFlags//gameFlags
                 );
                 that.scene.launch('gameHud')
-                that.scene.start('forestHome');
+                that.scene.start('tutorialBeachLevel');
                 
                    
         });

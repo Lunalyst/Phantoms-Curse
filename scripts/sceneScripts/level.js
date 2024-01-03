@@ -3,8 +3,12 @@ https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
 use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
 // important. to fix tile bleeding we follow the guide here using tile extruder.
 https://github.com/sporadic-labs/tile-extruder
+//use this code in cmd
 //tile-extruder --tileWidth 32 --tileHeight 32 --input ./Downloads/Tile-Set-V.0.8.png --output ./Downloads/extruded.png
-// all extruded tile sets with no spacing or margins ori0gi0nally will have 1 pixel space and 2 pixel margins.
+//tile-extruder --tileWidth 32 --tileHeight 32 --input ./Downloads/Forest_Large_Tiles_this.png --output ./Downloads/extruded.png
+// all extruded tile sets with no spacing or margins originally will have 1 pixel space and 2 pixel margins.
+// dont forget our tiles are 96 by 96 then downscaled by a third
+//tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles_this.png --output ./Downloads/extruded.png
 */
 
 /*

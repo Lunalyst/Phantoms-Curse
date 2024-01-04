@@ -1,7 +1,7 @@
 
 
-let tutorialBeachThat;
-class tutorialBeach extends defaultScene {
+let tutorialCaveThat;
+class tutorialCave extends defaultScene {
   
   constructor(){
     // scene settings
@@ -27,7 +27,7 @@ class tutorialBeach extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Beach.json");
+      this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Cave.json");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
 
       //preload of object which are scene specific
@@ -111,19 +111,12 @@ class tutorialBeach extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //is 12 units plus player position.
-      this.initSigns(606,937,
-      "To Any Who Have Washed Up On This cursed beach, you can move with a and d, and jump with space bar. if something is interactable, then a Key prompt will apear below it. Dialogue can also be progressed with w. ",
-       ['signLoop']);
-
-      this.initSigns(1928,713,
-        "some surfaces can be jumped through but not back down. so be careful. ",
-         ['signLoop']);
-
-      this.initSigns(3489,521,
-          "some interactables will take you to new places. ",
-           ['signLoop']);
-      
+      //this.initSigns(1280,554,
+       // "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
+       // ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
+      //this.initSigns(1380,554,
+       // " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
+       // ['randiMad','randiBlush']);
         
       
 

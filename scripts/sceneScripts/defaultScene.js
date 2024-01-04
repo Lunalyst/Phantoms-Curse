@@ -378,6 +378,7 @@ class defaultScene extends Phaser.Scene {
         //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
         //console.log(" scene.portalId: "+ scene.portalId);
     }
+    
     initSigns(x, y, text, profileArray) {
         let sign1 = new sign(this, x, y, text, profileArray);
         //gives portal a unique id so that scene can tell which warp object is being activated

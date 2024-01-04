@@ -358,8 +358,8 @@ class titleScreen extends Phaser.Scene {
                 gameFlags)*/ 
                 console.log("saveSlotData: ",saveSlotData);
             that.allFunctions.saveGame(
-                1650,//nextSceneX
-                542,//nextSceneY
+                441,//nextSceneX
+                926,//nextSceneY
                 1,//playerHp
                 0,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
@@ -370,7 +370,7 @@ class titleScreen extends Phaser.Scene {
                 gameFlags//gameFlags
                 );
                 that.scene.launch('gameHud')
-                that.scene.start('forestHome');
+                that.scene.start('tutorialBeachLevel');
                 
                    
         });
@@ -416,8 +416,8 @@ class titleScreen extends Phaser.Scene {
              };
 
             that.allFunctions.saveGame(
-                1650,//nextSceneX
-                542,//nextSceneY
+                441,//nextSceneX
+                926,//nextSceneY
                 2,//playerHp
                 1,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData

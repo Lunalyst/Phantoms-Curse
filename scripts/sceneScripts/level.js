@@ -8,7 +8,7 @@ https://github.com/sporadic-labs/tile-extruder
 //tile-extruder --tileWidth 32 --tileHeight 32 --input ./Downloads/Forest_Large_Tiles_this.png --output ./Downloads/extruded.png
 // all extruded tile sets with no spacing or margins originally will have 1 pixel space and 2 pixel margins.
 // dont forget our tiles are 96 by 96 then downscaled by a third
-//tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles_this.png --output ./Downloads/extruded.png
+//tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
 */
 
 /*

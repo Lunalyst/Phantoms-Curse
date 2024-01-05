@@ -2526,31 +2526,13 @@
                  "id":799
                 }, 
                 {
-                 "id":800,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":800
                 }, 
                 {
-                 "id":801,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":801
                 }, 
                 {
-                 "id":802,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":802
                 }, 
                 {
                  "id":803
@@ -2652,13 +2634,7 @@
                  "id":835
                 }, 
                 {
-                 "id":836,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":836
                 }, 
                 {
                  "id":837
@@ -2694,49 +2670,19 @@
                  "id":847
                 }, 
                 {
-                 "id":848,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":848
                 }, 
                 {
-                 "id":849,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":849
                 }, 
                 {
-                 "id":850,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":850
                 }, 
                 {
-                 "id":851,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":851
                 }, 
                 {
-                 "id":852,
-                 "properties":[
-                        {
-                         "name":"collision",
-                         "type":"bool",
-                         "value":true
-                        }]
+                 "id":852
                 }, 
                 {
                  "id":853

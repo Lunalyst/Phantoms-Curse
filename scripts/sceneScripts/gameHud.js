@@ -159,6 +159,7 @@ class gameHud extends Phaser.Scene {
           //emitter to grab save data so that the save point can have acess to it.
           inventoryKeyEmitter.on(inventoryKey.getSaveData,(playerDataObject) =>{
 
+            playerDataObject.currentHp = this.healthDisplay.playerHealth;
             playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
             playerDataObject.inventoryArray = this.inventoryDataArray;
             playerDataObject.playerInventoryAmountData = this.playerInventoryAmountData;

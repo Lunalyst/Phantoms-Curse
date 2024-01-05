@@ -60,7 +60,6 @@ class defaultScene extends Phaser.Scene {
         this.activatedSignId = 0;
         this.grabCoolDown = false;
         this.attackHitBox;
-        this.playerLocation = "forestHome";
         this.signPoints;
         this.saveStonePoints;
         this.isPaused = false;
@@ -109,8 +108,9 @@ class defaultScene extends Phaser.Scene {
         //defines the tile set to be used when generating level
         this.processMap.tilesetNameInTiled = tilesetImage;
         //calls function that loads the tiles from the json
-        this.processMap.setTiles(sourceMap);
+        this.processMap.setTiles(sourceMap,this);
 
+        
     }
 
     setUpPlayer(){
@@ -354,13 +354,13 @@ class defaultScene extends Phaser.Scene {
     }
 
     // creates warp portal objects in the scene
-    initPortals(x, y, toX, toY, animation) {
+    initPortals(x, y, toX, toY, animation,destination) {
         let portal1 = new warp(this, x, y);
         //gives portal a unique id so that scene can tell which warp object is being activated
         portal1.warpPortalId = this.portalId;
         this.portalId++;
         //sets the location given as to where the player will be sent in the next scene
-        portal1.setLocationToSendPlayer(toX, toY, animation);
+        portal1.setLocationToSendPlayer(toX, toY, animation,destination);
         //adds portal object to the portal object in the scene
         this.portals.add(portal1);
         //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
@@ -378,7 +378,7 @@ class defaultScene extends Phaser.Scene {
         //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
         //console.log(" scene.portalId: "+ scene.portalId);
     }
-    
+
     initSigns(x, y, text, profileArray) {
         let sign1 = new sign(this, x, y, text, profileArray);
         //gives portal a unique id so that scene can tell which warp object is being activated
@@ -393,12 +393,13 @@ class defaultScene extends Phaser.Scene {
 
     //test to see if the player should be warped.
     checkWarp(location) {
+        //console.log("checking warp");
         //applies a function to each portal object in the scene
         this.portals.children.each(function (tempPortal) {
         //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
         // fuck overlap function. check if the player is within the bounds fo the sprite and control prompts according to that. problem solved.
         if ((this.player1.x > tempPortal.x - 50 && this.player1.x < tempPortal.x + 50) && (this.player1.y > tempPortal.y - 50 && this.player1.y < tempPortal.y + 50) && this.grabbed === false) {
-            //console.log("within warp point");
+            console.log("within warp point");
             tempPortal.safeToLoad = true;
             this.activatedPortalId = tempPortal.warpPortalId;
             //console.log("scene.activatedPortalId: "+scene.activatedPortalId+" tempPortal.warpPortalId: "+tempPortal.warpPortalId+" scene.safeToLoad: "+scene.safeToLoad+" scene.safeToSave: "+scene.safeToSave);
@@ -406,7 +407,8 @@ class defaultScene extends Phaser.Scene {
             //console.log("outside save point");
             tempPortal.safeToLoad = false;
         }
-        tempPortal.warpTo(this, this.keyW, location, this.activatedPortalId, this.healthDisplay, this.KeyDisplay, this.player1);
+
+        tempPortal.warpTo(this, this.keyW, this.activatedPortalId);
         }, this);
     }
 

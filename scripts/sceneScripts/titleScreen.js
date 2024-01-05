@@ -414,10 +414,11 @@ class titleScreen extends Phaser.Scene {
                 cutTree1:0
 
              };
-
+             //441, 926
+             //3735,541
             that.allFunctions.saveGame(
-                441,//nextSceneX
-                926,//nextSceneY
+                3735,//nextSceneX
+                541,//nextSceneY
                 2,//playerHp
                 1,//playerSex
                 [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData

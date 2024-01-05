@@ -5,8 +5,11 @@ class tutorialCave extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'tutorialBeachLevel',active: false ,physics:{default:'arcade'}});
+    super({key: 'tutorialCaveLevel',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
+
+    //this varialve stores the key so that when the player saves they load back in the correct location
+    this.playerLocation = "tutorialCaveLevel";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,11 +30,10 @@ class tutorialCave extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Cave.json");
+      this.load.tilemapTiledJSON("cave_map" , "assets/tiledMap/LockWood/Tutorial_Cave.json");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
 
       //preload of object which are scene specific
-      this.load.spritesheet('backgroundBeachLevel', 'assets/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
 
@@ -40,7 +42,9 @@ class tutorialCave extends defaultScene {
        this.load.image('hitbox', 'assets/hitbox.png');
        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
        this.load.image('TABToSkip', 'assets/tabToSkip.png');
-       this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
+
+       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
+       
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
@@ -60,6 +64,13 @@ class tutorialCave extends defaultScene {
        this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
        this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
 
+       //loads the plugin to animate the tiles that have animation
+       this.load.scenePlugin({
+        key: 'AnimatedTiles',
+        url: 'lib/vendors/AnimatedTiles.js',
+        sceneKey: 'AnimatedTiles'
+      });
+
     }
 
     create(){
@@ -71,14 +82,11 @@ class tutorialCave extends defaultScene {
       console.log("activating function to load game");
 
       this.loadGame();
-
-      //controls the Background
-      this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundBeachLevel");
       
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("cave_map","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -111,13 +119,14 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //this.initSigns(1280,554,
-       // "War has changed. It's no longer about nations, ideologies, or ethnicity. It's an endless series of proxy battles fought by mercenaries and machines. War - and its consumption of life - has become a well-oiled machine. War has changed. ID-tagged soldiers carry ID-tagged weapons, use ID-tagged gear. Nanomachines inside their bodies enhance and regulate their abilities. Genetic control. Information control. Emotion control. Battlefield control. Everything is monitored and kept under control. War has changed. The age of deterrence has become the age of control... All in the name of averting catastrophe from weapons of mass destruction. And he who controls the battlefield... controls history. War has changed. When the battlefield is under total control... War becomes routine.",
-       // ['randiMad','randiBlush','randiMad','randiSquish','randiShocked','randiShifty','randiSquish','randiMad','randiMad','randiBlush','randiMad','randiSquish','randiShocked']);
-      //this.initSigns(1380,554,
-       // " i’ll have two number 9s, a number 9 large, a number 6 with extra dip, a number 7, two number 45s, one with cheese, and a large soda.",
-       // ['randiMad','randiBlush']);
-        
+      this.initSigns(1574,1673,
+        "This Island is host to many monsters. tread carefully! ",
+         ['signLoop']);
+
+      this.initSavePoints(896,1230);
+
+      this.initPortals(465,1808,3735,528,"warpCaveInside","tutorialBeachLevel");
+
       
 
       this.safeToLoad = false;
@@ -164,7 +173,7 @@ class tutorialCave extends defaultScene {
       console.log()
       
       //this.backround.y = this.player1.y;
-      this.backround.y = this.player1.y-200;
+      //this.backround.y = this.player1.y-200;
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
     console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);

@@ -7,6 +7,8 @@ class tutorialBeach extends defaultScene {
     // scene settings
     super({key: 'tutorialBeachLevel',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
+    //this varialve stores the key so that when the player saves they load back in the correct location
+    this.playerLocation = "tutorialBeachLevel";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -25,6 +27,7 @@ class tutorialBeach extends defaultScene {
     }
 
     preload(){
+      
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Beach.json");
@@ -32,6 +35,7 @@ class tutorialBeach extends defaultScene {
 
       //preload of object which are scene specific
       this.load.spritesheet('backgroundBeachLevel', 'assets/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
+
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
 
@@ -40,7 +44,9 @@ class tutorialBeach extends defaultScene {
        this.load.image('hitbox', 'assets/hitbox.png');
        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
        this.load.image('TABToSkip', 'assets/tabToSkip.png');
-       this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
+
+       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
+
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
@@ -60,6 +66,17 @@ class tutorialBeach extends defaultScene {
        this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
        this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
 
+       //loads the plugin to animate the tiles that have animation
+       //this.load.scenePlugin('animatedTiles',  AnimatedTiles , 'animatedTiles', 'animatedTiles');
+
+       this.load.scenePlugin({
+        key: 'AnimatedTiles',
+        url: 'lib/vendors/AnimatedTiles.js',
+        sceneKey: 'AnimatedTiles'
+      });
+
+      console.log("this.sys:",this.sys);
+   
     }
 
     create(){
@@ -79,7 +96,9 @@ class tutorialBeach extends defaultScene {
 
       //creates tileset
       this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
-    
+
+      //this.tilesAnimated.init(this.map);
+
       //creates player object
       this.setUpPlayer();
 
@@ -123,6 +142,8 @@ class tutorialBeach extends defaultScene {
       this.initSigns(3489,521,
           "some interactables will take you to new places. ",
            ['signLoop']);
+
+      this.initPortals(3735,528,465,1823,"warpCaveOutside","tutorialCaveLevel");
       
         
       

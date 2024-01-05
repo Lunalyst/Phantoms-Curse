@@ -36,14 +36,18 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.layer0;
                 this.g_grid;
                 this.grid = [];
+
+                this.tilesets;
                 
                 this.tileset; 
                 this.tileprops;
                 this.acceptabletiles;
                 this.tilesetNameInTiled;
+
+                this.animatedTiles = {};
         }
 
-        setTiles(sourceMap){
+        setTiles(sourceMap,scene){
                 console.log("activating tiles +++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 
                 ///this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
@@ -52,6 +56,7 @@ class level extends Phaser.Tilemaps.Tilemap{
                 //this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,"source_map",96,96,1,2); 
                 
                 this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,sourceMap,96,96,1,2); 
+
                 //first argument is tileset name in Tiled
                 this.layer3 = this.createLayer("Tile Layer 3", this.myTileSet, 0, 0);
                 this.layer2 = this.createLayer("Tile Layer 2", this.myTileSet, 0, 0);
@@ -84,11 +89,19 @@ class level extends Phaser.Tilemaps.Tilemap{
 
                 }
                 this.g_grid = this.grid;
+
             
                 this.tileset = this.tilesets[0];
                 this.tileprops = this.tileset.tileProperties;
+
+                //animate tileset
+                scene.sys.AnimatedTiles.init(this);
+
   
                 }
+
+                ///this.animatedTiles = {};
+
                 //this gives special collision to tiles thast the player can move through. needs two layers as when phaser creates layers and gives them collision,
                 //they are all connected. so if the player passes through a tile they can easily escape the map. by doing two layers there is clear definition between
                 //platforms and impassable ground.
@@ -96,6 +109,117 @@ class level extends Phaser.Tilemaps.Tilemap{
 			row.forEach((Tile) => {
                                 //this checks the tileset name, then applies special collision to tiles base 
                                 //on there index so that player can pass through tile frim underneath.
+
+                                let ForestLargeTilesArray = [39,55,71,800,801,802,836,848,849,850,851,852];
+                                
+                                // when setting up tiles player can move through add one to it from its original value.
+                                // may need to remove a few here if tiles have collision but shouldn't
+                                if(this.tilesetNameInTiled === "Forest_Large_Tiles"){
+                                        switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
+                                                case 39: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 55: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 71: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 800: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 801: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 802: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 803: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 837: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 848: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 849: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 850: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 851: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 852: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 853: // <- this tile only colides top
+                                                console.log("found a tile that player can pass through");
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+
+                                        }
+                                }
+
+
+
                                 if(this.tilesetNameInTiled === "Tile Set V.0.8"){
 				switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
                                         case 157: // <- this tile only colides top
@@ -173,6 +297,8 @@ class level extends Phaser.Tilemaps.Tilemap{
                         }
 			})
 		});
+
+                this.tilesets = [this.layer0,this.layer1,this.layer2,this.layer3]
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
 

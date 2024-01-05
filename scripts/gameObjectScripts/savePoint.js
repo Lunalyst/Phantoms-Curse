@@ -42,6 +42,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             
             //makes a boject which can be accessed by our inventory emitter
             let playerDataObject = {
+                currentHp: null,
                 playerMaxHp: null,
                 inventoryArray: null,
                 playerInventoryAmountData: null,

@@ -1,15 +1,15 @@
 
 
-let tutorialCaveThat;
-class tutorialCave extends defaultScene {
+let ForestRavineHomeThat;
+class ForestRavineHome extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'tutorialCaveLevel',active: false ,physics:{default:'arcade'}});
+    super({key: 'ForestRavineHome',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "tutorialCaveLevel";
+    this.playerLocation = "ForestRavineHome";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -30,12 +30,14 @@ class tutorialCave extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("cave_map" , "assets/tiledMap/LockWood/Tutorial_Cave.json");
+      this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Player_Home.json");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
 
       //preload of object which are scene specific
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+
+      this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -86,7 +88,7 @@ class tutorialCave extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("cave_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("home_map","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -119,15 +121,15 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
-         ['signLoop']);
+      
+      this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
+      this.backround.setDepth(-50);
 
-      this.initSavePoints(896,1230);
+      
 
-      this.initPortals(465,1808,3735,528,"warpCaveInside","tutorialBeachLevel");
+      this.initPortals(390,1906,1777,529,"warpCaveOutside","tutorialCaveLevel");
 
-      this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
+      this.initPortals(1504,1264,500,600,"door1","HomeInterior1");
 
       
 
@@ -171,8 +173,9 @@ class tutorialCave extends defaultScene {
       //console.log("this.backroundTimer: "+this.backroundTimer);
       
       //this.animateBackround();
+      this.backround.y = this.player1.y;
 
-      console.log()
+      console.log();
       
       //this.backround.y = this.player1.y;
       //this.backround.y = this.player1.y-200;

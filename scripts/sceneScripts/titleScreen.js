@@ -438,23 +438,59 @@ class titleScreen extends Phaser.Scene {
 
             
             that.clearSlotData();
+
             let playerSaveSlotData = {
                 saveSlot:that.selectedSlotToBeDeleted,
                 currency: 0,
                 bestiaryCompletionPercent: 0
              };
+
+             let playerBestiaryData = {
+                blueSlime:0,
+                largeBlueSlime:0,
+                axolotlMale:0,
+                axolotlfemale:0,
+                largePurpleSlugFemale:0,
+                largePurpleSlugMale:0,
+                rabbitfemale:0,
+                rabbitMale:0,
+                cowFemale:0,
+                cowMale:0,
+                blueSlimeHumanoidFemale:0,
+                blueSlimeHumanoidFemaleLarge:0,
+                sharkFemale:0,
+                sharkMale:0
+             };
+
+             let playerSkillsData = {
+                jump:1,
+                dash:0,
+                strength:0,
+                mimic:0,
+                looting:0
+             };
+
+             let gameFlags = {
+                cutTree1:0
+
+             };
+
+             let playerDataObject = {
+                currentHp: null,
+                playerMaxHp: null,
+                inventoryArray: null,
+                playerInventoryAmountData: null,
+                playerBestiaryData: playerBestiaryData,
+                playerSkillsData: playerSkillsData,
+                playerSaveSlotData: playerSaveSlotData,
+                flagValues: gameFlags,
+            };
             that.activateFunctions.saveGameFile(
                 that.warpToX,
                 that.warpToY,
-                that.playerHealth,
                 that.playerSex,
                 that.playerLocation,
-                that.inventoryDataArray,
-                that.playerInventoryAmountData,
-                that.playerBestiaryData,
-                that.playerSkillsData,
-                playerSaveSlotData,
-                that.flagValues
+                playerDataObject
                );
 
                that.sceneTextBox.hideText(false);

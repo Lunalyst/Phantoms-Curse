@@ -367,6 +367,21 @@ class defaultScene extends Phaser.Scene {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    initPortalsWithTransparency(x, y, toX, toY, animation,destination,transparency) {
+      let portal1 = new warp(this, x, y);
+      portal1.setAlpha(transparency);
+      portal1.setDepth(100);
+      //gives portal a unique id so that scene can tell which warp object is being activated
+      portal1.warpPortalId = this.portalId;
+      this.portalId++;
+      //sets the location given as to where the player will be sent in the next scene
+      portal1.setLocationToSendPlayer(toX, toY, animation,destination);
+      //adds portal object to the portal object in the scene
+      this.portals.add(portal1);
+      //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
+      //console.log(" scene.portalId: "+ scene.portalId);
+    }
+
     initSavePoints(x, y) {
         let savePoint1 = new savePoint(this, x, y);
         //gives portal a unique id so that scene can tell which warp object is being activated

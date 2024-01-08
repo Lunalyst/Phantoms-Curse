@@ -27,7 +27,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.playerOverlapingPortal = false;
         this.anims.create({key: 'warpCaveOutside',frames: this.anims.generateFrameNames('warpSprites', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveInside',frames: this.anims.generateFrameNames('warpSprites', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'door',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'door1',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
         this.safeToLoad = false;
         this.destination;
         //defines player animations. 

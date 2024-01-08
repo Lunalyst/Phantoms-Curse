@@ -22,6 +22,10 @@
 
   <script src="scripts/sceneScripts/levels/tutorialBeach.js"></script>
   <script src="scripts/sceneScripts/levels/tutorialCave.js"></script>
+  <script src="scripts/sceneScripts/levels/forestRavineHome.js"></script>
+  <script src="scripts/sceneScripts/levels/homeInterior1.js"></script>
+  <script src="scripts/sceneScripts/levels/homeInterior2.js"></script>
+
   <script src="scripts/sceneScripts/levels/forestHomeLevel.js"></script>
   <script src="scripts/sceneScripts/levels/turnPineForest1.js"></script>
  
@@ -83,7 +87,17 @@
           debug: false
         }
       },
-      scene: [new titleScreen ,new forestHomeLevel ,new tutorialBeach,new tutorialCave, new gameOver,new turnPineForest1, new gameHud],//multiple scenes
+      scene: [
+        new titleScreen,
+        new tutorialBeach,
+        new tutorialCave,
+        new gameOver,
+        new ForestRavineHome,
+        new HomeInterior1,
+        new HomeInterior2,
+        new forestHomeLevel,
+        new turnPineForest1,
+        new gameHud],//multiple scenes
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH

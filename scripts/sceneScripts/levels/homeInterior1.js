@@ -1,15 +1,15 @@
 
 
-let tutorialCaveThat;
-class tutorialCave extends defaultScene {
+let HomeInterior1That;
+class HomeInterior1 extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'tutorialCaveLevel',active: false ,physics:{default:'arcade'}});
+    super({key: 'HomeInterior1',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "tutorialCaveLevel";
+    this.playerLocation = "HomeInterior1";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -30,7 +30,7 @@ class tutorialCave extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("cave_map" , "assets/tiledMap/LockWood/Tutorial_Cave.json");
+      this.load.tilemapTiledJSON("home_interior1_map" , "assets/tiledMap/LockWood/Player_Home_Interior1.json");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
 
       //preload of object which are scene specific
@@ -86,7 +86,7 @@ class tutorialCave extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("cave_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("home_interior1_map","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -119,16 +119,15 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(1574,1673,
+      /*this.initSigns(1574,1673,
         "This Island is host to many monsters. tread carefully! ",
          ['signLoop']);
+        */
+      
 
-      this.initSavePoints(896,1230);
-
-      this.initPortals(465,1808,3735,528,"warpCaveInside","tutorialBeachLevel");
-
-      this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
-
+      this.initPortalsWithTransparency(500,592,1501,1264,"door1","ForestRavineHome",0.75);
+      
+      this.initPortals(352,592,352,592,"door2","HomeInterior2");
       
 
       this.safeToLoad = false;

@@ -415,15 +415,44 @@ class titleScreen extends Phaser.Scene {
 
              };
 
-             let item = {
-                itemID: 0,
-                itemStackable: 0, 
-                itemAmount: 0
-             };
+             
 
-             this.inventoryArray  = [];
+            this.inventoryArray  = [];
 
-             //for(counter = 0, counter <)
+            for(let counter = 0; counter < 25; counter++){
+
+                let item = {
+                    itemID: 0,
+                    itemStackable: 1, 
+                    itemAmount: 0
+                 };
+
+                this.inventoryArray.push(item);
+            }
+
+            this.inventoryArray[0].itemID = 2;
+            this.inventoryArray[0].itemStackable = 0;
+            this.inventoryArray[0].itemAmount = 1;
+
+            this.inventoryArray[1].itemID = 4;
+            this.inventoryArray[1].itemStackable = 0;
+            this.inventoryArray[1].itemAmount = 1;
+
+            this.inventoryArray[2].itemID = 6;
+            this.inventoryArray[2].itemStackable = 0;
+            this.inventoryArray[2].itemAmount = 1;
+
+            this.inventoryArray[3].itemID = 8;
+            this.inventoryArray[3].itemStackable = 0;
+            this.inventoryArray[3].itemAmount = 1;
+
+            this.inventoryArray[4].itemID = 10;
+            this.inventoryArray[4].itemStackable = 0;
+            this.inventoryArray[4].itemAmount = 1;
+
+            console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
+
+            
              //441, 926
              //3735,541
             that.allFunctions.saveGame(

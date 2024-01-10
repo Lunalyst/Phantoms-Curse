@@ -414,6 +414,16 @@ class titleScreen extends Phaser.Scene {
                 cutTree1:0
 
              };
+
+             let item = {
+                itemID: 0,
+                itemStackable: 0, 
+                itemAmount: 0
+             };
+
+             this.inventoryArray  = [];
+
+             //for(counter = 0, counter <)
              //441, 926
              //3735,541
             that.allFunctions.saveGame(

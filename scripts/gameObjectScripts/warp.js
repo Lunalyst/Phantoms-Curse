@@ -25,23 +25,34 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.portalKeyPrompts.visible = false;
         this.promptCooldown = false;
         this.playerOverlapingPortal = false;
+        this.safeToLoad = false;
+        this.destination;
+
+        // object animations / different object sprites
         this.anims.create({key: 'warpCaveOutside',frames: this.anims.generateFrameNames('warpSprites', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveInside',frames: this.anims.generateFrameNames('warpSprites', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'door1',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
-        this.safeToLoad = false;
-        this.destination;
+        
         //defines player animations. 
     }
+
 // bug fixed where holding w before overlaping a warp zone caused the next scene to be constantly loaded.
 // lesson learned dont but scene triggers in a overlap function.
-    warpTo(scene1,keyW,activeId){
-      //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
-        if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId){
-          console.log("warping scenes");
-            //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
-            //saveGame(nextSceneX,nextSceneY,playerHp,playerSex,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
 
+    //function to check if the player should be warped
+    warpTo(scene1,keyW,activeId){
+
+      //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
+        
+      // if the player is within range, and presses w then activate scene transition
+      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId){
+
+          console.log("warping scenes");
+          
+            //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
+           
+            // calls emitter to save the scene 
             let playerDataObject = {
               currentHp: null,
               playerMaxHp: null,
@@ -71,9 +82,9 @@ class warp extends Phaser.Physics.Arcade.Sprite{
 
             scene1.portalId = 0;
             
-            //this.scene.launch('gameHud'); 
+            //scene1.scene.start('gamehud'); 
             scene1.scene.start(this.destination); 
-
+              //otherwise we show the key prompt if the player is within range
           }else if(this.safeToLoad === true && activeId === this.warpPortalId && this.promptCooldown === false ){
             console.log("safe to press w to warp scenes");
               this.portalKeyPrompts.visible = true;
@@ -81,14 +92,14 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               this.promptCooldown = true;
               
           }
-
+          //reset variables
           if(this.safeToLoad === false){
             this.portalKeyPrompts.visible = false;
             this.promptCooldown = false;
           }
     }
 
-
+    //called when set up in initportals in the default scene. so the portal knows what scene the player is going to and where to put them in that scene.
     setLocationToSendPlayer(x,y,animation,destination){
       this.destination = destination;
       this.nextSceneX = x;

@@ -122,8 +122,8 @@ class ForestRavineHome extends defaultScene {
       this.setUpTextBox();
 
       
-      this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
-      this.backround.setDepth(-50);
+      //this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
+      //this.backround.setDepth(-50);
 
       
 
@@ -173,7 +173,7 @@ class ForestRavineHome extends defaultScene {
       //console.log("this.backroundTimer: "+this.backroundTimer);
       
       //this.animateBackround();
-      this.backround.y = this.player1.y;
+      //this.backround.y = this.player1.y;
 
       console.log();
       

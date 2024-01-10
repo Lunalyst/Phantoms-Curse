@@ -145,6 +145,8 @@ class defaultScene extends Phaser.Scene {
         this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
         this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
         this.cameras.main.followOffset.set(0,-1500);
+
+        hudDepthEmitter.emit(hudDepth.toTop);
     }
 
     setUpTextBox(){

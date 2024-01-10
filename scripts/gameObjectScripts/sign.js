@@ -9,10 +9,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
       scene.physics.add.existing(this);
-      //this.visible = false;
       this.setPushable(false);
-      //this.setScale(1.5,1.5);
-      //this.setSize(40,50,true);
       this.signKeyPrompts = new keyPrompts(scene, xPos, yPos + 40,'keyPrompts');
       this.signKeyPrompts.visible = false;
       this.promptCooldown = false;
@@ -24,31 +21,27 @@ class sign extends Phaser.Physics.Arcade.Sprite{
       this.setScale(.34);
       this.profileArray = profileArray;
       currentSign = this;
-      //defines player animations. 
+
   }
+
 //function which allows the player to use w to display textbox
   activateSign(scene1,keyW,activeId){
+
     //console.log("this.safeToSign: "+this.safeToSign+" activeId: "+activeId+" this.signId: "+this.signId+" this.promptCooldown: "+this.promptCooldown);
+
+    //if the player meets activation requiements for the sign display the text box
       if(this.safeToSign === true && keyW.isDown && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false){
           console.log("activating sign");
-          //here is where we display sign when w is pressed.
-          //scene1.sceneTextBox.visible = true;
-          //if(this.activationDelay === false){
-
           
+          //activates textbox apart of the main scene
           scene1.pausedInTextBox = true;
           scene1.sceneTextBox.setText(this.textToDisplay);
           scene1.sceneTextBox.formatText();
           scene1.sceneTextBox.setProfileArray(this.profileArray);
           scene1.sceneTextBox.activateTextBox(scene1,scene1.keyW,);
           this.activationDelay = true;
-          /*setTimeout(function(){
-            currentSign.activationDelay = false;
-            
-            
-            },100);
-          }*/
-         
+          
+         //otherwise we want to display the key prompts 
         }else if(this.safeToSign === true && activeId === this.signId && this.promptCooldown === false ){
           console.log("safe to press w to warp scenes");
             this.signKeyPrompts.visible = true;
@@ -56,7 +49,8 @@ class sign extends Phaser.Physics.Arcade.Sprite{
             this.promptCooldown = true;
             
         }
-
+        
+        // resets variables.
         if(this.safeToSign === false){
           this.signKeyPrompts.visible = false;
           this.promptCooldown = false;

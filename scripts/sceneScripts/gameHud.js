@@ -72,7 +72,12 @@ class gameHud extends Phaser.Scene {
         
         console.log("create function in hud activated-------------------------------------------------------")
 
-        
+        //when launched always ensures the scene is at the top layer.
+        this.scene.bringToTop();
+
+        hudDepthEmitter.on(hudDepth.toTop,() =>{
+          this.scene.bringToTop();
+        });
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,180,20);
@@ -241,7 +246,9 @@ class gameHud extends Phaser.Scene {
 
           console.log("playerSkillsEmitter current listeners: ",playerSkillsEmitter.listenerCount(playerSkills.getJump));
 
-          console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot. getSaveSlot));
+          console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot.getSaveSlot));
+
+          console.log("hudDepthEmitter current listeners: ",hudDepthEmitter.listenerCount(hudDepth.toTop));
 
         }
 
@@ -259,6 +266,7 @@ class gameHud extends Phaser.Scene {
           inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
           playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
           playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
+          hudDepthEmitter.removeAllListeners(hudDepth.toTop);
 
         printActiveEmitter(); 
       }

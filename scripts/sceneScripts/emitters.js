@@ -54,6 +54,11 @@ skipIndicator = {
 skipIndicatorEmitter = new Phaser.Events.EventEmitter();
 
 
+hudDepth = {
+    toTop: 'to_top'
+};
+
+hudDepthEmitter = new Phaser.Events.EventEmitter();
 
 
 

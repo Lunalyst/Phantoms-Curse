@@ -46,7 +46,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
       //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
         
       // if the player is within range, and presses w then activate scene transition
-      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId){
+      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId && scene1.isPaused === false){
 
           console.log("warping scenes");
           
@@ -85,7 +85,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
             //scene1.scene.start('gamehud'); 
             scene1.scene.start(this.destination); 
               //otherwise we show the key prompt if the player is within range
-          }else if(this.safeToLoad === true && activeId === this.warpPortalId && this.promptCooldown === false ){
+          }else if(this.safeToLoad === true && activeId === this.warpPortalId && this.promptCooldown === false && scene1.isPaused === false){
             console.log("safe to press w to warp scenes");
               this.portalKeyPrompts.visible = true;
               this.portalKeyPrompts.playWKey();

@@ -416,15 +416,17 @@ class titleScreen extends Phaser.Scene {
              };
 
              
-
+             //creates a array to be filled my objects
             this.inventoryArray  = [];
 
+            //fills the array with objects
             for(let counter = 0; counter < 25; counter++){
 
+                //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                //are not refrencing the same object like it would be if this variable was defined outside this for loop.
                 let item = {
                     itemID: 0,
                     itemStackable: 1, 
-                    itemAmount: 0
                  };
 
                 this.inventoryArray.push(item);
@@ -432,23 +434,23 @@ class titleScreen extends Phaser.Scene {
 
             this.inventoryArray[0].itemID = 2;
             this.inventoryArray[0].itemStackable = 0;
-            this.inventoryArray[0].itemAmount = 1;
+           
 
             this.inventoryArray[1].itemID = 4;
             this.inventoryArray[1].itemStackable = 0;
-            this.inventoryArray[1].itemAmount = 1;
+            
 
             this.inventoryArray[2].itemID = 6;
             this.inventoryArray[2].itemStackable = 0;
-            this.inventoryArray[2].itemAmount = 1;
+            
 
             this.inventoryArray[3].itemID = 8;
             this.inventoryArray[3].itemStackable = 0;
-            this.inventoryArray[3].itemAmount = 1;
+            
 
             this.inventoryArray[4].itemID = 10;
             this.inventoryArray[4].itemStackable = 0;
-            this.inventoryArray[4].itemAmount = 1;
+            
 
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
 
@@ -460,7 +462,7 @@ class titleScreen extends Phaser.Scene {
                 541,//nextSceneY
                 2,//playerHp
                 1,//playerSex
-                [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
+                this.inventoryArray,//playerInventoryData
                 [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
                 playerBestiaryData,//playerBestiaryData
                 playerSkillsData,//playerSkillsData

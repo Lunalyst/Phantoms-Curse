@@ -2,6 +2,8 @@
 https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
 use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
 */
+
+//player sprite object
 class player extends Phaser.Physics.Arcade.Sprite{
   // every class needs constructor
   constructor(scene, xPos, yPos,sex){
@@ -106,63 +108,71 @@ class player extends Phaser.Physics.Arcade.Sprite{
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
     // this statement clears the valuse chacking to see if the play is in the air and when to play the jumping animation in the air.
     
-    
-  //controls when the player is moving tothe left and right.
-
+  //calls emitter to check if the player has skills that apply to movement
   let playerSkillsObject = {
     playerSkills: null
   };
   
   playerSkillsEmitter.emit(playerSkills.getJump,playerSkillsObject);
   
+  //move the player left
   if(keyA.isDown && this.body.blocked.down){
       this.setSize(50,210,true);
-        this.lastKey = "a";
-        this.idleTimer = 0;
-        this.setVelocityX(-300);
-        if(this.body.blocked.down){
-          this.anims.play('pLeft',true);
-          //console.log("moving left");
-        }
-      } else if(keyD.isDown && this.body.blocked.down){
-        this.setSize(50,210,true);
-        this.lastKey = "d";
-        this.idleTimer = 0;
-        this.setVelocityX(300);
-        if(this.body.blocked.down){
-          this.anims.play('pRight',true);
-         //console.log("moving Right");
-        }
-      }else if(this.idleTimer === 2000){
-        this.setVelocityX(0);
-        this.anims.play('pSleep',true);
-      }else{
-        this.setSize(50,210,true);
-        this.setVelocityX(0);
-        /*if(this.lastKey === "d"){
-          this.anims.play('pIdleRight',true);
-        }else if(this.lastKey === "a"){
-          this.anims.play('pIdleLeft',true);
-        }*/
-        if(this.animationInAir === false){
-          this.anims.play('pIdle',true);
-        }
-        // resets the ilde animation value.
-        if(this.idleTimer < 2000 && this.idleTimerDelay === false){
-          //console.log("Idle Timer: "+ this.idleTimer);
-          let that = this;
-          this.idleTimerDelay = true;
-          setTimeout(function(){
-            that.idleTimer++;
-            that.idleTimerDelay = false;
-          },1);
-         
-        }
-        
+      this.lastKey = "a";
+      this.idleTimer = 0;
+      this.setVelocityX(-300);
+      if(this.body.blocked.down){
+        this.anims.play('pLeft',true);
+        //console.log("moving left");
       }
+
+  //moves the player right
+  } else if(keyD.isDown && this.body.blocked.down){
+      this.setSize(50,210,true);
+      this.lastKey = "d";
+      this.idleTimer = 0;
+      this.setVelocityX(300);
+      if(this.body.blocked.down){
+        this.anims.play('pRight',true);
+         //console.log("moving Right");
+      }
+
+  //if the player doesnt move for long enough, play idle animation
+  }else if(this.idleTimer === 2000){
+      this.setVelocityX(0);
+      this.anims.play('pSleep',true);
+
+  //otherwise we play idle animation
+  }else{
+      this.setSize(50,210,true);
+      this.setVelocityX(0);
+
+      //old code for idle left and right animations.
+      /*if(this.lastKey === "d"){
+        this.anims.play('pIdleRight',true);
+      }else if(this.lastKey === "a"){
+        this.anims.play('pIdleLeft',true);
+      }*/
+
+      if(this.animationInAir === false){
+        this.anims.play('pIdle',true);
+      }
+
+      // resets the ilde animation value.
+      if(this.idleTimer < 2000 && this.idleTimerDelay === false){
+        //console.log("Idle Timer: "+ this.idleTimer);
+        let that = this;
+        this.idleTimerDelay = true;
+        setTimeout(function(){
+          that.idleTimer++;
+          that.idleTimerDelay = false;
+        },1);
+         
+      }    
+    }
+
    //checks to see if player space is down and player is on the ground to activate jump 
    //some notes, inorder to implement double jump use this.jumped to block out the first jump functions, then make a one where it is available.
-
    if(space.isDown){
     let that = this;
     console.log("this.spaceDelay: ",this.spaceDelay);
@@ -178,6 +188,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }
    }
 
+   //if the player is down, then reset variables.   
    if(this.body.blocked.down){
     this.animationPlayedGoingUp = false;
     this.animationPlayedGoingDown = false;
@@ -185,24 +196,23 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.doubleJumpActivation = false;
     this.spaceWasPressed = false;
     this.spaceDelay = false;
-    //console.log("===============================================================================================================");
     //console.log("body.isdown, reseting animation blocks.");
   }
-      
+     
+  //if space is pressed and the player is on the ground then jump
   if (space.isDown && this.body.blocked.down){
     this.idleTimer = 0;
     this.setVelocityY(-350);
     let that = this;
-    
     //console.log(" jumping");
-    //checks to see if player is moving left and not touching the ground.
-    
     }
-     if(keyA.isDown && !this.body.blocked.down){
-      //console.log("IN AIR AND MOVING LEFT");
-      this.setVelocityX(-300);
-      this.animationInAir = true;
-      let that = this;
+
+  //if the player is  in the air and moving to the left
+  if(keyA.isDown && !this.body.blocked.down){
+  //console.log("IN AIR AND MOVING LEFT");
+    this.setVelocityX(-300);
+    this.animationInAir = true;
+    let that = this;
 
 
       //if the player has the double jump ability, allow them to jupm agian.
@@ -228,7 +238,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
         //console.log(" jumping while keyA is down and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }
     //checks to see if player is moving right and not touching the ground.
-    }else if(keyD.isDown && !this.body.blocked.down){
+
+  //if the player is  in the air and moving to the right
+  }else if(keyD.isDown && !this.body.blocked.down){
       //console.log("IN AIR AND MOVING RIGHT");
       this.setVelocityX(300);
       this.animationInAir = true;
@@ -256,8 +268,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
         //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       
       }
-      //does default if jumping without other input
-    }else if(!this.body.blocked.down){
+
+  //if the player is in the air.
+  }else if(!this.body.blocked.down){
       this.idleTimer = 0;
       this.animationInAir = true;
       //if the player has the double jump ability, allow them to jupm agian.
@@ -293,6 +306,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       //console.log("previous player y"+ playerPreviousY);
       playerPreviousY = this.y;
   }
+  
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   attackPlayer(keyShift,scene){
     let that = this;

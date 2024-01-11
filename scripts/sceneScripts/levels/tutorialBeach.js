@@ -195,7 +195,7 @@ class tutorialBeach extends defaultScene {
       this.backround.y = this.player1.y-200;
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     if(this.loadCoolDown === true){
       this.checkWarp("tutorialBeach");

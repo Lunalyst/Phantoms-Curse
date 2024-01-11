@@ -1,3 +1,5 @@
+
+//is the hitbox the player uses to damage enemies.
 class hitBoxes extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos){

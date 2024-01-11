@@ -9,9 +9,14 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
-      
-      this.setDepth(20);
 
+      this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'open',frames: this.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+      this.anims.play("closed");
+      
+
+      this.setDepth(20);
+      //this.setScale(.);
       //connects the sprite to the camera so that it sticks with the player.
       this.setScrollFactor(0);
       this.isOpen = false;
@@ -29,74 +34,54 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.bestiaryUI;
       this.skillUI;
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
-
-      //inventory keys 
-      this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'open',frames: this.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-      this.anims.play("closed");
-
+      //this.inventoryElements.add(this); 
       console.log('created the inevntory in the for the player')
       
+      
+      
     }
-
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
     setView(scene,hud){
-
       //console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
-
-        //if the inventory isnt open and there is no delay, then open inventory and make it visible
         if(this.isOpen === false && this.openDelay === false){
-          
             this.isOpen = true;
             this.anims.play("open");
             this.openDelay = true;
             this.isOnScreen = true;
             console.log("setSlotView");
-
             this.setSlotView(hud);
             console.log("setSlots");
             this.setSlots(hud);
             console.log("calling delay");
-
             scene.isPaused = true;
             scene.physics.pause();
             scene.player1.anims.pause();
-
-            //sets open delay back to false after 1 second.
             setTimeout(function(){
               console.log("open delay set to false");
                 inventoryThat.openDelay = false; 
               },1000);
 
-        //if the inventory is open, and the delay is false then close inventory
         }else if(this.isOpen === true && this.openDelay === false){
-
             this.isOpen = false;
             this.anims.play("closed");
             this.openDelay = true;
             this.isOnScreen = false;
-
             scene.isPaused = false;
             scene.physics.resume();
             scene.player1.anims.resume();
-
             this.setSlotView(hud);
             this.setSlots(hud);
-
-            //sets open delay back to false after 1 second.
             setTimeout(function(){
               console.log("openDelay set to false");
                 inventoryThat.openDelay = false; 
               },1000);
 
         }
-
-        //sets bestiary book
+        //scene.bestiaryExit.visible = false;
         this.bestiaryUI.isOpen =true;
         this.bestiaryUI.openDelay = false;
         this.bestiaryUI.openBestiary(scene);
 
-        //sets skill book
         this.skillUI.isOpen = true;
         this.skillUI.openDelay = false;
         this.skillUI.openSkill(scene);
@@ -105,24 +90,16 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
 
     //creates the intem slots displayed in the inventory.
     generateSlots(scene){ 
-
       let index = 0;
       let col = 0;
       let row = 0;
-
-      //nested loop which generates the item slots within the gamehud
       for(col = 0; col < 4; col++){
         for(row = 0; row < 6; row++){
-          
-          //generates the slot
+          //console.log("generating inventory slot: "+index+" 450 + (row*10): "+(row * 10)+" (col*10): "+(col * 10) );
           scene.inventoryArray[index] = new inventorySlots(scene,(this.x-250) + (row*40), (this.y-160) +(col*40),'inventorySlots').setInteractive();
-
-          //adds the slot to the inventory elements
           this.inventoryElements.add(scene.inventoryArray[index]);
-          
-          //generates the bestiary and skills book in the gamehud
+          //console.log("this.inventoryArray: "+scene.inventoryArray[index]);
           if(row === 0 && col === 3){
-
             console.log("activated bestiary controls");
             this.bestiaryUI = new bestiary(scene,580,195,'bestiary').setInteractive(scene.input.makePixelPerfect());
             this.inventoryElements.add(this.bestiaryUI);
@@ -146,8 +123,6 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
           
         }
       }
-
-      //sets up the last two slots which will be used for the players weapon and ring slot.
       scene.inventoryArray[index] = new inventorySlots(scene,455,110,'inventorySlots').setInteractive();
       this.inventoryElements.add(scene.inventoryArray[index]);
       this.weaponLabel = new inventoryLabels(scene,455,130,'inventoryLabels');
@@ -162,13 +137,13 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.inventoryBorder.setScale(1);
       this.inventoryElements.add(this.inventoryBorder);
 
-      //sets up the currency counter in the inventory.
       this.shellIcon = new shellMark(scene, 510,160);
       this.shellIcon.setScale(.4);
       this.inventoryElements.add(this.shellIcon);
       let startingX = 20;
       let startingY = 0;
       let spacing = 0;
+  
       this.shellLetters = [];
       let shellString = "000";
       for (let counter = 0; counter < shellString.length; counter++) {
@@ -183,12 +158,15 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       }
 
     }
-
-    // controls if the inventory slots are viewable. makes them invisible if inventory is closed.
+    // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
       this.inventoryElements.toggleVisible();
-    
-       //
+      
+      /*this.inventoryElements.children.each(function (tempElement){
+        tempElement.visible = inventoryThat.isOnScreen;
+       
+       },scene);*/
+ 
        if (scene.playerSaveSlotData !== undefined) {
         let animationNumber = "";
         animationNumber += scene.playerSaveSlotData.currency;
@@ -259,25 +237,51 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       });
      
     }
+
     //is called when click event on a slot to handle what happens. if one is selected then highlight slot. if two then switch items.
     lightUpSlot(scene,activeSlot){
+      console.log("highlighting item, printing scene.inventoryDataArray[activeSlot]: ",scene.inventoryDataArray[activeSlot]);
 
+          //if the current slot is not highlighted and there is no slots selected for either of the two active slots, then
           if(scene.inventoryArray[activeSlot].isLitUp === false && this.activeSlot1 === -1 || this.activeSlot2 === -2){
+
+            //light up slot by setting bool to true.
             scene.inventoryArray[activeSlot].isLitUp = true;
-              scene.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID+1;
+            //light up slot animation which is always item id + 1
+            scene.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID+1;
+
+            //if the player selects a slot and there is no slot in active lost 1, and the slot does not equal the second slot, then
             if(this.activeSlot1 === -1 && this.activeSlot1 !== activeSlot && activeSlot !== this.activeSlot2){
+
+              //then set the selected slot equal to the active slot.
               this.activeSlot1 = activeSlot;
+
+            //if the second slot is empty and does not equal the active slot and the active slot does not equal the first switching slot, then
             }else if(this.activeSlot2 === -2 && this.activeSlot2 !== activeSlot && activeSlot !== this.activeSlot1){
+
+              // then set the current activeslot2 to the active slot so that they can be switched with the activeslot1
               this.activeSlot2 = activeSlot;
+
+            //if the active slot matches the activeslot1 then
             }else if(activeSlot === this.activeSlot1){
+
+              //slot is no longer lit up
               scene.inventoryArray[activeSlot].isLitUp = false;
+              //play default darken animation.
               scene.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              //reset activeslot1
               this.activeSlot1 = -1;
             }
             
+          //else if the activeslot is lit up and both activeslots are not empty, then 
           }else if(scene.inventoryArray[activeSlot].isLitUp === true && this.activeSlot1 !== -1 || this.activeSlot2 !== -2){
+
+            //darken active slot
             scene.inventoryArray[activeSlot].isLitUp = false;
+            //switch the id of the items by seting the animation number to the inventorydata at that slot in the inventorydataarray.
             scene.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+
+            //resets activeslots1 and activeslots2
             if(this.activeSlot1 !== -1 && activeSlot === this.activeSlot1){
               this.activeSlot1 = -1;
             }else if(this.activeSlot2 !== -2 && activeSlot === this.activeSlot2){
@@ -285,17 +289,31 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
             }
 
           }
+
+          //if both slots are defined then switch the two items.
           if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
+
+            //make a temp variable for the switch
             let temp = 0;
+
+            //set temp to the item id in activeSlot1
             temp = scene.inventoryDataArray[this.activeSlot1].itemID;
+            //set activeSlot1 to activeslot2 
             scene.inventoryDataArray[this.activeSlot1].itemID = scene.inventoryDataArray[this.activeSlot2].itemID;
+            //set activeslot2 to temp
             scene.inventoryDataArray[this.activeSlot2].itemID = temp;
+
+            //set animation for activeSlot1
             scene.inventoryArray[this.activeSlot1].isLitUp = false;
             scene.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
             scene.inventoryArray[this.activeSlot1].anims.play(''+scene.inventoryArray[this.activeSlot1].animsNumber);
+
+            //set animation for activeSlot2
             scene.inventoryArray[this.activeSlot2].isLitUp = false;
             scene.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
             scene.inventoryArray[this.activeSlot2].anims.play(''+scene.inventoryArray[this.activeSlot2].animsNumber);
+
+            //clear both slots.
             this.activeSlot1 = -1;
             this.activeSlot2 = -2;
           }

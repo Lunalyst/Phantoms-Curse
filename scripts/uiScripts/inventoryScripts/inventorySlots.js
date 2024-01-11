@@ -25,8 +25,10 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.slotId = 0;
       this.isLitUp = false;
       this.visible = false;
-      //this.setScale(.6);
+
       // add two text numbers that show the amount of item. if you can have multiple of that item.
+      this.slotNumbers = new inventorySlotNumber(scene,this.x+20,this.y+20);
+      //this.slotNumbers.visible = false;
       
 
       

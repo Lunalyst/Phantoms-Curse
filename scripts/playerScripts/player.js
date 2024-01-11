@@ -306,7 +306,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       //console.log("previous player y"+ playerPreviousY);
       playerPreviousY = this.y;
   }
-  
+
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   attackPlayer(keyShift,scene){
     let that = this;
@@ -320,7 +320,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   //console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
 
     if(this.body.blocked.down){
-      if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24] === 0){
+      if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 0){
         this.anims.play("pAttackUnarmedRight",true);
         this.setVelocityX(0);
         this.bluntDamage = 1;
@@ -335,7 +335,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24] === 0){
+      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 0){
         this.anims.play("pAttackUnarmedLeft",true);
         this.setVelocityX(0);
         this.bluntDamage = 1;
@@ -350,7 +350,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24] === 4){
+      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeRight",true);
         this.setVelocityX(0);
         this.sliceDamage = 4;
@@ -365,7 +365,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24] === 4){
+      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeLeft",true);
         this.setVelocityX(0);
         this.sliceDamage = 4;
@@ -380,7 +380,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24] === 10){
+      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeRight",true);
         this.setVelocityX(0);
         this.sliceDamage = 8;
@@ -395,7 +395,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24] === 10){
+      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeLeft",true);
         this.setVelocityX(0);
         this.sliceDamage = 8;
@@ -410,7 +410,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24] === 2){
+      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarRight",true);
         this.setVelocityX(0);
         this.bluntDamage = 2;
@@ -425,7 +425,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24] === 2){
+      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarLeft",true);
         this.setVelocityX(0);
         this.bluntDamage = 2;

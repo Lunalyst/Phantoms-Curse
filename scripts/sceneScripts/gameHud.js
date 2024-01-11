@@ -23,7 +23,6 @@ class gameHud extends Phaser.Scene {
     this.playerInventory;
     this.inventoryTween;
     //contains the slot objects
-    this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
     //contains inventory data
     this.inventoryDataArray;
     this.weaponDes;

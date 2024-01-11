@@ -35,7 +35,6 @@ class titleScreen extends Phaser.Scene {
         this.playerSex;
         this.playerLocation;
         this.inventoryDataArray;
-        this.playerInventoryAmountData;
         this.playerBestiaryData;
         this.playerSkillsData;
         this.playerSaveSlotData;
@@ -306,7 +305,6 @@ class titleScreen extends Phaser.Scene {
 
         this.maleIcon.on('pointerdown', function (pointer) {
             console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
-             //saveGame(nextSceneX,nextSceneY,playerHp,playerSex,playerInventoryData,playerInventoryAmountData,playerBestiaryData,playerSkillsData,playerSaveSlotData,gameFlags)
              
              let playerBestiaryData = {
                 blueSlime:1,
@@ -345,25 +343,56 @@ class titleScreen extends Phaser.Scene {
                 cutTree1:0
 
              };
-            /*saveGame(
-                nextSceneX,
-                nextSceneY,
-                playerHp,
-                playerSex,
-                playerInventoryData,
-                playerInventoryAmountData,
-                playerBestiaryData,
-                playerSkillsData,
-                playerSaveSlotData,
-                gameFlags)*/ 
-                console.log("saveSlotData: ",saveSlotData);
+             //creates a array to be filled my objects
+             this.inventoryArray  = [];
+
+             //fills the array with objects
+             for(let counter = 0; counter < 25; counter++){
+ 
+                 //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                 //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                 let item = {
+                     itemID: 0,
+                     itemStackable: 1,
+                     itemAmount: 0 
+                  };
+ 
+                 this.inventoryArray.push(item);
+             }
+ 
+             this.inventoryArray[0].itemID = 2;
+             this.inventoryArray[0].itemStackable = 0;
+             this.inventoryArray[0].itemAmount = 1;
+            
+ 
+             this.inventoryArray[1].itemID = 4;
+             this.inventoryArray[1].itemStackable = 0;
+             this.inventoryArray[1].itemAmount = 1;
+             
+ 
+             this.inventoryArray[2].itemID = 6;
+             this.inventoryArray[2].itemStackable = 0;
+             this.inventoryArray[2].itemAmount = 1;
+             
+ 
+             this.inventoryArray[3].itemID = 8;
+             this.inventoryArray[3].itemStackable = 0;
+             this.inventoryArray[3].itemAmount = 1;
+             
+ 
+             this.inventoryArray[4].itemID = 10;
+             this.inventoryArray[4].itemStackable = 0;
+             this.inventoryArray[4].itemAmount = 1;
+             
+ 
+            console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
+
             that.allFunctions.saveGame(
                 441,//nextSceneX
                 926,//nextSceneY
                 1,//playerHp
                 0,//playerSex
-                [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
-                [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
+                this.inventoryArray,//playerInventoryData
                 playerBestiaryData,//playerBestiaryData
                 playerSkillsData,//playerSkillsData
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
@@ -416,7 +445,7 @@ class titleScreen extends Phaser.Scene {
              };
 
              
-             //creates a array to be filled my objects
+            //creates a array to be filled my objects
             this.inventoryArray  = [];
 
             //fills the array with objects
@@ -426,7 +455,8 @@ class titleScreen extends Phaser.Scene {
                 //are not refrencing the same object like it would be if this variable was defined outside this for loop.
                 let item = {
                     itemID: 0,
-                    itemStackable: 1, 
+                    itemStackable: 1,
+                    itemAmount: 0 
                  };
 
                 this.inventoryArray.push(item);
@@ -434,22 +464,27 @@ class titleScreen extends Phaser.Scene {
 
             this.inventoryArray[0].itemID = 2;
             this.inventoryArray[0].itemStackable = 0;
+            this.inventoryArray[0].itemAmount = 1;
            
 
             this.inventoryArray[1].itemID = 4;
             this.inventoryArray[1].itemStackable = 0;
+            this.inventoryArray[1].itemAmount = 1;
             
 
             this.inventoryArray[2].itemID = 6;
             this.inventoryArray[2].itemStackable = 0;
+            this.inventoryArray[2].itemAmount = 1;
             
 
             this.inventoryArray[3].itemID = 8;
             this.inventoryArray[3].itemStackable = 0;
+            this.inventoryArray[3].itemAmount = 1;
             
 
             this.inventoryArray[4].itemID = 10;
             this.inventoryArray[4].itemStackable = 0;
+            this.inventoryArray[4].itemAmount = 1;
             
 
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
@@ -463,7 +498,6 @@ class titleScreen extends Phaser.Scene {
                 2,//playerHp
                 1,//playerSex
                 this.inventoryArray,//playerInventoryData
-                [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
                 playerBestiaryData,//playerBestiaryData
                 playerSkillsData,//playerSkillsData
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
@@ -483,7 +517,8 @@ class titleScreen extends Phaser.Scene {
             let playerSaveSlotData = {
                 saveSlot:that.selectedSlotToBeDeleted,
                 currency: 0,
-                bestiaryCompletionPercent: 0
+                bestiaryCompletionPercent: 0,
+                playerHealthUpgrades: 0,
              };
 
              let playerBestiaryData = {
@@ -504,7 +539,7 @@ class titleScreen extends Phaser.Scene {
              };
 
              let playerSkillsData = {
-                jump:1,
+                jump:0,
                 dash:0,
                 strength:0,
                 mimic:0,
@@ -520,7 +555,6 @@ class titleScreen extends Phaser.Scene {
                 currentHp: null,
                 playerMaxHp: null,
                 inventoryArray: null,
-                playerInventoryAmountData: null,
                 playerBestiaryData: playerBestiaryData,
                 playerSkillsData: playerSkillsData,
                 playerSaveSlotData: playerSaveSlotData,
@@ -637,7 +671,6 @@ class titleScreen extends Phaser.Scene {
         this.playerSex= undefined;
         this.playerLocation= undefined;
         this.inventoryDataArray = undefined;
-        this.playerInventoryAmountData = undefined;
         this.playerBestiaryData = undefined;
         this.playerSkillsData = undefined;
         this.playerSaveSlotData = undefined;
@@ -682,7 +715,6 @@ class titleScreen extends Phaser.Scene {
                         this.playerHealth,
                         this.playerSex,
                         this.inventoryDataArray,
-                        this.playerInventoryAmountData,
                         this.playerBestiaryData,
                         this.playerSkillsData,
                         this.playerSaveSlotData,

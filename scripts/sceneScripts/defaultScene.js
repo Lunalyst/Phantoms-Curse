@@ -193,7 +193,6 @@ class defaultScene extends Phaser.Scene {
         console.log("playerSex: " + playerSex);
         console.log("location: " + location);
         console.log("playerInventoryData: " + dataObject.inventoryArray);
-        console.log("playerInventoryAmountData: " + dataObject.playerInventoryAmountData);
         console.log("playerBestiaryData: ", dataObject.playerBestiaryData);
         console.log("playerSkillsData: ", dataObject.playerSkillsData);
         console.log("playerSaveSlotData: ", dataObject.playerSaveSlotData);
@@ -207,7 +206,6 @@ class defaultScene extends Phaser.Scene {
         sex: playerSex,
         locationName: location,
         id: dataObject.inventoryArray,
-        piad: dataObject.playerInventoryAmountData,
         pbd: dataObject.playerBestiaryData,
         psd: dataObject.playerSkillsData,
         pssd: dataObject.playerSaveSlotData,
@@ -253,7 +251,6 @@ class defaultScene extends Phaser.Scene {
         console.log("playerSex: " + file.sex);
         console.log("location: " + file.locationName);
         console.log("playerInventoryData: " + file.id);
-        console.log("playerInventoryAmountData: " + file.piad);
         console.log("playerBestiaryData: ", file.pbd);
         console.log("playerSkillsData: ", file.psd);
         console.log("playerSaveSlotData: ", file.pssd);
@@ -265,7 +262,6 @@ class defaultScene extends Phaser.Scene {
         this.playerSex = file.sex;
         this.playerLocation = file.locationName;
         this.inventoryDataArray = file.id;
-        this.playerInventoryAmountData = file.piad;
         this.playerBestiaryData = file.pbd;
         this.playerSkillsData = file.psd;
         // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
@@ -292,7 +288,7 @@ class defaultScene extends Phaser.Scene {
     }
 
     //temp save game. used to keep track of data between scenes.
-    saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerInventoryAmountData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {
+    saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {
         //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
 
         console.log("calling temerary saveGame============================");
@@ -301,7 +297,6 @@ class defaultScene extends Phaser.Scene {
         console.log("player HP: " + playerHp);
         console.log("playerSex: " + playerSex);
         console.log("playerInventoryData: " + playerInventoryData);
-        console.log("playerInventoryAmountData: " + playerInventoryAmountData);
         console.log("playerBestiaryData: ", playerBestiaryData);
         console.log("playerSkillsData: ", playerSkillsData);
         console.log("playerSaveSlotData: ", playerSaveSlotData);
@@ -314,7 +309,6 @@ class defaultScene extends Phaser.Scene {
         playerHpValue: playerHp,
         sex: playerSex,
         inventoryData: playerInventoryData,
-        piad: playerInventoryAmountData,
         pbd: playerBestiaryData,
         psd: playerSkillsData,
         pssd: playerSaveSlotData,
@@ -337,7 +331,6 @@ class defaultScene extends Phaser.Scene {
         this.warpToY = file.warpToThisY;
         this.playerSex = file.sex;
 
-        //loadSceneTransitionLoad.emit(SceneTransitionLoad.loadValues,file.playerHpValue,file.inventoryData,file.piad,file.pbd,file.psd,file.pssd,file.flags);
     }
 
     //generates slimes

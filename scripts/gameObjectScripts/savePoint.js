@@ -45,7 +45,6 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
                 currentHp: null,
                 playerMaxHp: null,
                 inventoryArray: null,
-                playerInventoryAmountData: null,
                 playerBestiaryData: null,
                 playerSkillsData: null,
                 playerSaveSlotData: null,

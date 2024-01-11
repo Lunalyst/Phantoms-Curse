@@ -30,7 +30,6 @@ class gameOver extends Phaser.Scene {
         this.inventoryDataArray;
         this.playerSex;
         this.playerLocation = "forestHome";
-        this.playerInventoryAmountData;
         this.playerBestiaryData;
         this.playerSkillsData;
         this.playerSaveSlotData;
@@ -137,24 +136,13 @@ class gameOver extends Phaser.Scene {
                             gameoverThat.playerBestiaryData[key] = 1;
                         }
                       }
-                    /*saveGame(
-                        nextSceneX,
-                        nextSceneY,
-                        playerHp,
-                        playerSex,
-                        playerInventoryData,
-                        playerInventoryAmountData,
-                        playerBestiaryData,
-                        playerSkillsData,
-                        playerSaveSlotData,
-                        gameFlags)*/
+                    
                     gameoverThat.allFunctions.saveGame(
                     gameoverThat.warpToX,
                     gameoverThat.warpToY,
                     gameoverThat.playerHealth,
                     gameoverThat.playerSex,
                     gameoverThat.inventoryDataArray,
-                    gameoverThat.playerInventoryAmountData,
                     gameoverThat.playerBestiaryData,
                     gameoverThat.playerSkillsData,
                     gameoverThat.playerSaveSlotData,
@@ -203,14 +191,54 @@ class gameOver extends Phaser.Scene {
                         cutTree1:0
         
                      };
+
+                      //creates a array to be filled my objects
+                      let inventoryArray  = [];
+
+                      //fills the array with objects
+                      for(let counter = 0; counter < 25; counter++){
+          
+                          //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                          //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                          let item = {
+                              itemID: 0,
+                              itemStackable: 1,
+                              itemAmount: 0 
+                           };
+          
+                          inventoryArray.push(item);
+                      }
+          
+                      inventoryArray[0].itemID = 2;
+                      inventoryArray[0].itemStackable = 0;
+                      inventoryArray[0].itemAmount = 1;
+                     
+          
+                      inventoryArray[1].itemID = 4;
+                      inventoryArray[1].itemStackable = 0;
+                      inventoryArray[1].itemAmount = 1;
+                      
+          
+                      inventoryArray[2].itemID = 6;
+                      inventoryArray[2].itemStackable = 0;
+                      inventoryArray[2].itemAmount = 1;
+                      
+          
+                      inventoryArray[3].itemID = 8;
+                      inventoryArray[3].itemStackable = 0;
+                      inventoryArray[3].itemAmount = 1;
+                      
+          
+                      inventoryArray[4].itemID = 10;
+                      inventoryArray[4].itemStackable = 0;
+                      inventoryArray[4].itemAmount = 1;
         
                     gameoverThat.allFunctions.saveGame(
                         1650,//nextSceneX
                         542,//nextSceneY
                         2,//playerHp
                         1,//playerSex
-                        [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
-                        [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
+                        inventoryArray,//playerInventoryData
                         playerBestiaryData,//playerBestiaryData
                         playerSkillsData,//playerSkillsData
                         tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
@@ -258,14 +286,54 @@ class gameOver extends Phaser.Scene {
                         cutTree1:0
         
                      };
+
+                      //creates a array to be filled my objects
+            let inventoryArray  = [];
+
+            //fills the array with objects
+            for(let counter = 0; counter < 25; counter++){
+
+                //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                let item = {
+                    itemID: 0,
+                    itemStackable: 1,
+                    itemAmount: 0 
+                 };
+
+                inventoryArray.push(item);
+            }
+
+            inventoryArray[0].itemID = 2;
+            inventoryArray[0].itemStackable = 0;
+            inventoryArray[0].itemAmount = 1;
+           
+
+            inventoryArray[1].itemID = 4;
+            inventoryArray[1].itemStackable = 0;
+            inventoryArray[1].itemAmount = 1;
+            
+
+            inventoryArray[2].itemID = 6;
+            inventoryArray[2].itemStackable = 0;
+            inventoryArray[2].itemAmount = 1;
+            
+
+            inventoryArray[3].itemID = 8;
+            inventoryArray[3].itemStackable = 0;
+            inventoryArray[3].itemAmount = 1;
+            
+
+            inventoryArray[4].itemID = 10;
+            inventoryArray[4].itemStackable = 0;
+            inventoryArray[4].itemAmount = 1;
         
                     gameoverThat.allFunctions.saveGame(
                         1650,//nextSceneX
                         542,//nextSceneY
                         2,//playerHp
                         0,//playerSex
-                        [2,4,6,8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryData
-                        [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//playerInventoryAmountData
+                        inventoryArray,//playerInventoryData
                         playerBestiaryData,//playerBestiaryData
                         playerSkillsData,//playerSkillsData
                         tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)

@@ -31,7 +31,6 @@ class gameHud extends Phaser.Scene {
     this.isPaused = false;
     this.sceneTextBox;
     this.pausedInTextBox = false;
-    this.playerInventoryAmountData;
     this.playerBestiaryData;
     this.playerSkillsData;
     this.playerSaveSlotData;
@@ -167,7 +166,6 @@ class gameHud extends Phaser.Scene {
             playerDataObject.currentHp = this.healthDisplay.playerHealth;
             playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
             playerDataObject.inventoryArray = this.inventoryDataArray;
-            playerDataObject.playerInventoryAmountData = this.playerInventoryAmountData;
             playerDataObject.playerBestiaryData = this.playerBestiaryData;
             playerDataObject.playerSkillsData = this.playerSkillsData;
             playerDataObject.playerSaveSlotData = this.playerSaveSlotData;
@@ -211,7 +209,6 @@ class gameHud extends Phaser.Scene {
            console.log('Setting Values to hud')
            console.log("player HP: " + file.playerHpValue);
            console.log("playerInventoryData: " + file.inventoryData);
-           console.log("playerInventoryAmountData: " + file.piad);
            console.log("playerBestiaryData: ", file.pbd);
            console.log("playerSkillsData: ", file.psd);
            console.log("playerSaveSlotData: ", file.pssd);
@@ -219,7 +216,6 @@ class gameHud extends Phaser.Scene {
            
            this.healthDisplay.playerHealth = file.playerHpValue;
            this.inventoryDataArray = file.inventoryData;
-           this.playerInventoryAmountData = file.piad;
            this.playerBestiaryData = file.pbd;
            this.playerSkillsData = file.psd;
            this.playerSaveSlotData = file.pssd;

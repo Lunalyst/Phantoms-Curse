@@ -11,7 +11,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
     constructor(scene, xPos, yPos){
 
-        super(scene, xPos, yPos,);
+        super(scene, xPos, yPos);
 
         this.outSide = scene.add.sprite(this.x, this.y, 'healthBar');
 

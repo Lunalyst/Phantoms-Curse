@@ -36,7 +36,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
 
       this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-      this.InventorySlotsNumbers = [];
+      //this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
       //this.inventoryElements.add(this); 
       console.log('created the inevntory in the for the player')
       
@@ -98,8 +98,9 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       let row = 0;
       for(col = 0; col < 4; col++){
         for(row = 0; row < 6; row++){
-          //console.log("generating inventory slot: "+index+" 450 + (row*10): "+(row * 10)+" (col*10): "+(col * 10) );
+          console.log("generating inventory slot: "+index+" 450 + (row*10): "+(row * 10)+" (col*10): "+(col * 10) );
           this.inventoryArray[index] = new inventorySlots(scene,(this.x-250) + (row*40), (this.y-160) +(col*40),'inventorySlots').setInteractive();
+          //this.InventorySlotsNumbers[index] =  new InventorySlotNumber(scene,(this.x-100) + (row*20), (this.y-60) +(col*20));
 
           this.inventoryElements.add(this.inventoryArray[index]);
     
@@ -131,6 +132,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.inventoryElements.add(this.inventoryArray[index]);
       this.weaponLabel = new inventoryLabels(scene,455,130,'inventoryLabels');
       this.inventoryElements.add(this.weaponLabel);
+
       index++;
       this.inventoryArray[index] = new inventorySlots(scene,455,160,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
@@ -160,6 +162,10 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
         spacing = spacing + 13;
   
       }
+
+      //this.testCharacter = new textBoxCharacter(scene,455,200);
+      //this.testCharacter.anims.play(shellString.charAt(0));
+
 
     }
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.

@@ -1,7 +1,4 @@
-
-
-//class which makes a container containing the number sprites used to show how much of an item the player has in there inventory.
-class InventorySlotNumber extends Phaser.GameObjects.Container{
+class InventorySlotContainer extends Phaser.GameObjects.Container{
 
   constructor(scene, xPos, yPos){
 
@@ -11,11 +8,6 @@ class InventorySlotNumber extends Phaser.GameObjects.Container{
       this.number1 = new textBoxCharacter(scene,this.x, this.y);
       this.number1.anims.play('0');
       this.number1.visible = true;
-      this.number2 = new textBoxCharacter(scene,this.x+5, this.y);
-      this.number2.anims.play('0');
-      this.number2.visible = true;
-      console.log("finished seting slot characters");
-
       
       this.setDepth(51);
 

@@ -9,7 +9,7 @@ class shellMark extends Phaser.Physics.Arcade.Sprite{
       this.setDepth(50);
       this.setScrollFactor(0);
       this.visible = false;
-      this.setScale(.7);
+      this.setScale(.4);
   
       
     }

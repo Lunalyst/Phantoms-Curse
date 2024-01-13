@@ -1,24 +1,19 @@
 
 /*https://phaser.io/examples/v3/view/input/mouse/click-sprite*/
 let inventoryThat;
-class inventory extends Phaser.Physics.Arcade.Sprite{
+class inventory extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos){
       //super() calls the constructor() from the parent class we are extending
-      super(scene, xPos, yPos, 'inventory');
+      super(scene, xPos, yPos);
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
 
-      this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
-      this.anims.create({key: 'open',frames: this.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-      this.anims.play("closed");
-      
-
-      this.setDepth(20);
-      //this.setScale(.);
       //connects the sprite to the camera so that it sticks with the player.
       this.setScrollFactor(0);
+      this.setDepth(20);
+
       this.isOpen = false;
       this.openDelay = false;
       inventoryThat = this;
@@ -31,14 +26,23 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       this.bestiaryLabel;
       this.skillLabel;
       this.inventoryBorder;
+    
+
+      this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
+      this.inventoryInterior.setScale(1/2);
+      this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
+      this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+      this.inventoryInterior.anims.play("closed");
+      this.add(this.inventoryInterior);
+
       this.bestiaryUI;
       this.skillUI;
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
 
       this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-      //this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+      this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
       //this.inventoryElements.add(this); 
-      console.log('created the inevntory in the for the player')
+      console.log('created the inevntory in the for the player');
       
       
       
@@ -48,7 +52,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
       //console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
         if(this.isOpen === false && this.openDelay === false){
             this.isOpen = true;
-            this.anims.play("open");
+            this.inventoryInterior.anims.play("open");
             this.openDelay = true;
             this.isOnScreen = true;
             console.log("setSlotView");
@@ -66,7 +70,7 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
 
         }else if(this.isOpen === true && this.openDelay === false){
             this.isOpen = false;
-            this.anims.play("closed");
+            this.inventoryInterior.anims.play("closed");
             this.openDelay = true;
             this.isOnScreen = false;
             scene.isPaused = false;
@@ -93,69 +97,122 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
 
     //creates the intem slots displayed in the inventory.
     generateSlots(scene){ 
+
       let index = 0;
       let col = 0;
       let row = 0;
+      //nested for loop that generates rows and collums of the inventory slots.
       for(col = 0; col < 4; col++){
         for(row = 0; row < 6; row++){
-          console.log("generating inventory slot: "+index+" 450 + (row*10): "+(row * 10)+" (col*10): "+(col * 10) );
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-250) + (row*40), (this.y-160) +(col*40),'inventorySlots').setInteractive();
-          //this.InventorySlotsNumbers[index] =  new InventorySlotNumber(scene,(this.x-100) + (row*20), (this.y-60) +(col*20));
-
+          
+          //creates the slots as the loop generats the slots
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-165) +(col*60),'inventorySlots').setInteractive();
+          //adds the object to this container.
+          this.add(this.inventoryArray[index]);
+          //adds this to a group to set sprite visibility.
           this.inventoryElements.add(this.inventoryArray[index]);
-    
-          if(row === 0 && col === 3){
-            console.log("activated bestiary controls");
-            this.bestiaryUI = new bestiary(scene,580,195,'bestiary').setInteractive(scene.input.makePixelPerfect());
-            this.inventoryElements.add(this.bestiaryUI);
-            this.bestiaryLabel = new inventoryLabels(scene,510,123,'Labels');
-            this.inventoryElements.add(this.bestiaryLabel);
-            this.bestiaryLabel.anims.play('bestiary');
-            this.bestiaryUI.visible = this.isOnScreen;
-            this.bestiaryUI.applyUIControlElements();
 
-            
-            this.skillUI = new skills(scene,490,195,'skill').setInteractive(scene.input.makePixelPerfect());
-            this.inventoryElements.add(this.skillUI); 
-            this.skillLabel = new inventoryLabels(scene,560,123,'Labels');
-            this.inventoryElements.add(this.skillLabel); 
-            this.skillLabel.anims.play('skills');     
-            this.skillLabel.visible = this.isOnScreen;      
-            this.skillUI.visible = this.isOnScreen;
-            this.skillUI.applyUIControlElements();
-          }
+          console.log("this.inventoryArray[index].x: ",this.inventoryArray[index].x," this.inventoryArray[index].y: ",this.inventoryArray[index].y);
+          //adds the numbers in each slot to the visibility group
+          this.inventoryElements.add(this.inventoryArray[index].number1);
+          this.add(this.inventoryArray[index].number1);
+          this.inventoryElements.add(this.inventoryArray[index].number2);
+          this.add(this.inventoryArray[index].number2);
+  
           index++;
           
         }
       }
-      this.inventoryArray[index] = new inventorySlots(scene,455,110,'inventorySlots').setInteractive();
+    /*
+            - | -
+              |
+      -       |       +
+      -----------------
+      -       |       +
+              |
+            + | +
+    */
+    //when making a container and adding object keep in mind the graph above for where it should be placed when setting up its x and y position.
+    
+
+      //sets up bestiary and its label
+      console.log("activated bestiary controls");
+      this.bestiaryUI = new bestiary(scene,this.x-125,this.y+180,'bestiary').setInteractive(scene.input.makePixelPerfect());
+      this.inventoryElements.add(this.bestiaryUI);
+      this.add(this.bestiaryUI);
+
+      this.bestiaryLabel = new inventoryLabels(scene,this.x-195,this.y+110,'Labels');
+      this.inventoryElements.add(this.bestiaryLabel);
+      this.add(this.bestiaryLabel);
+      this.bestiaryLabel.anims.play('bestiary');
+      this.bestiaryUI.visible = this.isOnScreen;
+      this.bestiaryUI.applyUIControlElements();
+
+       //sets up skills and its label     
+      this.skillUI = new skills(scene,this.x-125,this.y+230,'skill').setInteractive(scene.input.makePixelPerfect());
+      this.inventoryElements.add(this.skillUI); 
+      this.add(this.skillUI);
+      this.skillLabel = new inventoryLabels(scene,65,560,'Labels');
+      this.inventoryElements.add(this.skillLabel); 
+      this.add(this.skillLabel);
+      this.skillLabel.anims.play('skills');     
+      this.skillLabel.visible = this.isOnScreen;      
+      this.skillUI.visible = this.isOnScreen;
+      this.skillUI.applyUIControlElements();
+
+      //weapon slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-160,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
-      this.weaponLabel = new inventoryLabels(scene,455,130,'inventoryLabels');
+      this.add(this.inventoryArray[index]);
+      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-115, 'inventoryLabels');
       this.inventoryElements.add(this.weaponLabel);
+      this.add(this.weaponLabel);
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
 
+      //increments index so that the ring slot does not over write the weapon slot in the array.
       index++;
-      this.inventoryArray[index] = new inventorySlots(scene,455,160,'inventorySlots').setInteractive();
-      this.inventoryElements.add(this.inventoryArray[index]);
-      this.ringLabel = new inventoryLabels(scene,455,180,'Labels');
-      this.inventoryElements.add(this.ringLabel);
-      this.ringLabel.anims.play('ring');
-      this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
-      this.inventoryBorder.setScale(1);
-      this.inventoryElements.add(this.inventoryBorder);
 
-      this.shellIcon = new shellMark(scene, 510,160);
-      this.shellIcon.setScale(.4);
+      //ring slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-90,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-45,'Labels');
+      this.inventoryElements.add(this.ringLabel);
+      this.add(this.ringLabel);
+      this.ringLabel.anims.play('ring');
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+
+
+      //creates boarder which is not translucent
+      this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
+      this.inventoryBorder.setScale(1/2);
+      this.inventoryElements.add(this.inventoryBorder);
+      this.add(this.inventoryBorder);
+
+     
+      
+      this.shellIcon = new shellMark(scene,this.x-120,this.y+80);
+      this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
-      let startingX = 20;
+      this.add(this.shellIcon);
+      let startingX = 25;
       let startingY = 0;
       let spacing = 0;
+
   
       this.shellLetters = [];
       let shellString = "000";
       for (let counter = 0; counter < shellString.length; counter++) {
         this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY));
         this.inventoryElements.add(this.shellLetters[counter]);
-        this.shellLetters[counter].setScale(.3);
+        this.add(this.shellLetters[counter]);
+        this.shellLetters[counter].setScale(.4);
         this.shellLetters[counter].anims.play(shellString.charAt(counter));
         this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
         this.shellLetters[counter].y = this.shellLetters[counter].y ;
@@ -171,12 +228,24 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
       this.inventoryElements.toggleVisible();
+
+      console.log("scene.inventoryDataArray: ", scene.inventoryDataArray)
+
+      for(let counter = 0; counter < 26 ;counter++){
+        this.inventoryArray[counter].number1.visible = this.isOnScreen;
+        this.inventoryArray[counter].number2.visible = this.isOnScreen;
+
+        //console.log("counter: ",counter,"scene.inventoryDataArray[counter].itemAmount: ",scene.inventoryDataArray[counter].itemAmount);
+
+       // console.log("this.inventoryElements.visible", this.isOnScreen);
+        if(this.isOnScreen === true){
+          this.inventoryArray[counter].setSlotNumber(scene.inventoryDataArray[counter].itemAmount);
+        }
+        
+
+      }
       
-      /*this.inventoryElements.children.each(function (tempElement){
-        tempElement.visible = inventoryThat.isOnScreen;
-       
-       },scene);*/
- 
+        
        if (scene.playerSaveSlotData !== undefined) {
         let animationNumber = "";
         animationNumber += scene.playerSaveSlotData.currency;
@@ -314,11 +383,13 @@ class inventory extends Phaser.Physics.Arcade.Sprite{
             this.inventoryArray[this.activeSlot1].isLitUp = false;
             this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
             this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
+            this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
 
             //set animation for activeSlot2
             this.inventoryArray[this.activeSlot2].isLitUp = false;
             this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
             this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
+            this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
 
             //clear both slots.
             this.activeSlot1 = -1;

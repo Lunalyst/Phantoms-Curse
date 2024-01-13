@@ -38,23 +38,11 @@ class gameHud extends Phaser.Scene {
       }
 
       preload(){
-       //preload of object always needed
-       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.image('hitbox', 'assets/hitbox.png');
-       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-       this.load.image('TABToSkip', 'assets/tabToSkip.png');
-       this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
-       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
-       this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-       this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
-       this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
-       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
        //hud specific 
-       this.load.spritesheet('inventory', 'assets/Inventory.png',{frameWidth: 600 , frameHeight: 425 });
-       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 600 , frameHeight: 425 });
+       this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 819 });
+       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 819 });
+
        this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 32 , frameHeight: 32 });
        this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
        this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
@@ -126,11 +114,11 @@ class gameHud extends Phaser.Scene {
           this.input.mouse.capture = true;
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,320,280,"inventory");
+          this.playerInventory = new inventory(this,130,150,"inventory");
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
-              targets:this.playerInventory,
+              targets:this.playerInventory.inventoryInterior,
               alpha: { from: 1, to: 0.8 },
               ease: 'Sine.InOut',
               duration: 500,

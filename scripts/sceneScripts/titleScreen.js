@@ -347,7 +347,7 @@ class titleScreen extends Phaser.Scene {
              this.inventoryArray  = [];
 
              //fills the array with objects
-             for(let counter = 0; counter < 25; counter++){
+             for(let counter = 0; counter < 26; counter++){
  
                  //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
                  //are not refrencing the same object like it would be if this variable was defined outside this for loop.
@@ -449,7 +449,7 @@ class titleScreen extends Phaser.Scene {
             this.inventoryArray  = [];
 
             //fills the array with objects
-            for(let counter = 0; counter < 25; counter++){
+            for(let counter = 0; counter < 26; counter++){
 
                 //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
                 //are not refrencing the same object like it would be if this variable was defined outside this for loop.

@@ -13,7 +13,7 @@ class inventoryLabels extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'bestiary',frames: this.anims.generateFrameNames('inventoryLabels', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'skills',frames: this.anims.generateFrameNames('inventoryLabels', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
       this.visible = false;
-      //this.setScale(.8);
+      this.setScale(1.5);
       
 
       

@@ -14,6 +14,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.setScrollFactor(0);
       this.setDepth(20);
 
+      //seting variables 
       this.isOpen = false;
       this.openDelay = false;
       inventoryThat = this;
@@ -21,70 +22,88 @@ class inventory extends Phaser.GameObjects.Container{
       this.isOnScreen = false;
       this.activeSlot1 = -1;
       this.activeSlot2 = -2;
+      this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+      this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+
+      //setting inventory objects
       this.weaponLabel;
       this.ringLabel;
       this.bestiaryLabel;
       this.skillLabel;
       this.inventoryBorder;
-    
-
+      this.bestiaryUI;
+      this.skillUI;
       this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
+
+      //setting the interior object of the inventory as a back drop for other objects.
       this.inventoryInterior.setScale(1/2);
       this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.play("closed");
       this.add(this.inventoryInterior);
 
-      this.bestiaryUI;
-      this.skillUI;
+      //object for turning of and on the visiblity of our inventory.
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
 
-      this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-      this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
       //this.inventoryElements.add(this); 
       console.log('created the inevntory in the for the player');
-      
-      
-      
+    
     }
+    
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
     setView(scene,hud){
-      //console.log("this.isOpen " + this.isOpen +" this.openDelay " + this.openDelay);
+
+        // if the player hasnt opened the inventory and the delay is false then
         if(this.isOpen === false && this.openDelay === false){
+
+            //set variables to reflect it is now open
             this.isOpen = true;
             this.inventoryInterior.anims.play("open");
             this.openDelay = true;
             this.isOnScreen = true;
+            scene.isPaused = true;
+
+            //calls the slots functions so the slots are displaying items correctly
             console.log("setSlotView");
             this.setSlotView(hud);
             console.log("setSlots");
             this.setSlots(hud);
-            console.log("calling delay");
-            scene.isPaused = true;
+
+            //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
             scene.player1.anims.pause();
+
+            //set time out for delay.
             setTimeout(function(){
-              console.log("open delay set to false");
                 inventoryThat.openDelay = false; 
               },1000);
 
+        // otherwise if inventory is open then
         }else if(this.isOpen === true && this.openDelay === false){
+            //set variables to reflect that
             this.isOpen = false;
             this.inventoryInterior.anims.play("closed");
             this.openDelay = true;
             this.isOnScreen = false;
             scene.isPaused = false;
+
+            //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
             scene.player1.anims.resume();
+
+            //hides slots.
             this.setSlotView(hud);
             this.setSlots(hud);
+
+            //set time out for delay.
             setTimeout(function(){
               console.log("openDelay set to false");
                 inventoryThat.openDelay = false; 
               },1000);
 
         }
-        //scene.bestiaryExit.visible = false;
+        
+        //sets variables in bestiary to tell it that it can open.
         this.bestiaryUI.isOpen =true;
         this.bestiaryUI.openDelay = false;
         this.bestiaryUI.openBestiary(scene);
@@ -140,6 +159,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryUI = new bestiary(scene,this.x-125,this.y+180,'bestiary').setInteractive(scene.input.makePixelPerfect());
       this.inventoryElements.add(this.bestiaryUI);
       this.add(this.bestiaryUI);
+      this.add(this.bestiaryUI.bestiaryLeft);
+      this.add(this.bestiaryUI.bestiaryRight);
 
       this.bestiaryLabel = new inventoryLabels(scene,this.x-195,this.y+110,'Labels');
       this.inventoryElements.add(this.bestiaryLabel);
@@ -196,7 +217,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryBorder);
 
      
-      
+      //adds currency counter
       this.shellIcon = new shellMark(scene,this.x-120,this.y+80);
       this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
@@ -205,7 +226,7 @@ class inventory extends Phaser.GameObjects.Container{
       let startingY = 0;
       let spacing = 0;
 
-  
+      //adds currency letters
       this.shellLetters = [];
       let shellString = "000";
       for (let counter = 0; counter < shellString.length; counter++) {
@@ -219,11 +240,6 @@ class inventory extends Phaser.GameObjects.Container{
         spacing = spacing + 13;
   
       }
-
-      //this.testCharacter = new textBoxCharacter(scene,455,200);
-      //this.testCharacter.anims.play(shellString.charAt(0));
-
-
     }
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
@@ -235,9 +251,6 @@ class inventory extends Phaser.GameObjects.Container{
         this.inventoryArray[counter].number1.visible = this.isOnScreen;
         this.inventoryArray[counter].number2.visible = this.isOnScreen;
 
-        //console.log("counter: ",counter,"scene.inventoryDataArray[counter].itemAmount: ",scene.inventoryDataArray[counter].itemAmount);
-
-       // console.log("this.inventoryElements.visible", this.isOnScreen);
         if(this.isOnScreen === true){
           this.inventoryArray[counter].setSlotNumber(scene.inventoryDataArray[counter].itemAmount);
         }

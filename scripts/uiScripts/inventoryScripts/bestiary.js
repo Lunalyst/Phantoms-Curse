@@ -39,6 +39,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.index = 0;
     this.visible = false;
     this.openDelay = false;
+    this.originalX = xPos;
+    this.originalY = yPos;
     bestiaryThat = this;
     this.pageNumber = 0;
     this.setScale(0.4);
@@ -144,15 +146,15 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       this.anims.play(this.activeBestiaryPages[this.pageNumber]);
       this.openDelay = true;
       this.setScale(0.5);
-      this.setDepth(60);
+      //this.setDepth(60);
 
-      //this.x = 550;
-      //this.y = 195;
+      this.x = 200;
+      this.y = 360;
 
-      this.bestiaryLeft.x = this.x - 100;
-      this.bestiaryLeft.y = this.y + 120;
-      this.bestiaryRight.x = this.x + 100;
-      this.bestiaryRight.y = this.y + 120;
+      this.bestiaryLeft.x = this.x-20 ;
+      this.bestiaryLeft.y = this.y ;
+      this.bestiaryRight.x = this.x +20;
+      this.bestiaryRight.y = this.y;
 
       // delays how quickly the player can open the inventory.
       setTimeout(function () {
@@ -179,7 +181,11 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
       this.setScale(.4);
-      this.setDepth(50);
+      this.setDepth(52);
+
+      this.x = this.originalX;
+      this.y = this.originalY;
+
       this.anims.play("closed");
       this.openDelay = true;
       this.displayBestiaryText(false);

@@ -108,9 +108,9 @@ class inventory extends Phaser.GameObjects.Container{
         this.bestiaryUI.openDelay = false;
         this.bestiaryUI.openBestiary(scene);
 
-        this.skillUI.isOpen = true;
-        this.skillUI.openDelay = false;
-        this.skillUI.openSkill(scene);
+        //this.skillUI.isOpen = true;
+        //this.skillUI.openDelay = false;
+        //this.skillUI.openSkill(scene);
 
     }
 
@@ -125,7 +125,7 @@ class inventory extends Phaser.GameObjects.Container{
         for(row = 0; row < 6; row++){
           
           //creates the slots as the loop generats the slots
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-165) +(col*60),'inventorySlots').setInteractive();
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-125) +(col*60),'inventorySlots').setInteractive();
           //adds the object to this container.
           this.add(this.inventoryArray[index]);
           //adds this to a group to set sprite visibility.
@@ -156,13 +156,25 @@ class inventory extends Phaser.GameObjects.Container{
 
       //sets up bestiary and its label
       console.log("activated bestiary controls");
-      this.bestiaryUI = new bestiary(scene,this.x-125,this.y+180,'bestiary').setInteractive(scene.input.makePixelPerfect());
+      this.bestiaryUI = new bestiary(scene,this.x-195,this.y+120,this.x+440,this.y-40).setInteractive(scene.input.makePixelPerfect());
       this.inventoryElements.add(this.bestiaryUI);
       this.add(this.bestiaryUI);
+
+      //fun fact any sprite object thats a sub object like the buttons for the bestiary, need to be added to the list otherwise they will not be aligned properly
       this.add(this.bestiaryUI.bestiaryLeft);
       this.add(this.bestiaryUI.bestiaryRight);
 
-      this.bestiaryLabel = new inventoryLabels(scene,this.x-195,this.y+110,'Labels');
+      //need to add the text to this container object.
+      for(let counter = 0; counter < this.bestiaryUI.bestiaryTitle.length;counter++){
+        this.add(this.bestiaryUI.bestiaryTitle[counter]);
+      }
+
+      for(let counter = 0; counter < this.bestiaryUI.bestiarySummary.length;counter++){
+        this.add(this.bestiaryUI.bestiarySummary[counter]);
+      }
+
+
+      this.bestiaryLabel = new inventoryLabels(scene,this.x-195,this.y+150,'Labels');
       this.inventoryElements.add(this.bestiaryLabel);
       this.add(this.bestiaryLabel);
       this.bestiaryLabel.anims.play('bestiary');
@@ -170,7 +182,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryUI.applyUIControlElements();
 
        //sets up skills and its label     
-      this.skillUI = new skills(scene,this.x-125,this.y+230,'skill').setInteractive(scene.input.makePixelPerfect());
+      /*this.skillUI = new skills(scene,this.x-125,this.y+230,'skill').setInteractive(scene.input.makePixelPerfect());
       this.inventoryElements.add(this.skillUI); 
       this.add(this.skillUI);
       this.skillLabel = new inventoryLabels(scene,65,560,'Labels');
@@ -179,13 +191,13 @@ class inventory extends Phaser.GameObjects.Container{
       this.skillLabel.anims.play('skills');     
       this.skillLabel.visible = this.isOnScreen;      
       this.skillUI.visible = this.isOnScreen;
-      this.skillUI.applyUIControlElements();
+      this.skillUI.applyUIControlElements();*/
 
       //weapon slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-160,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-120,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-115, 'inventoryLabels');
+      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-75, 'inventoryLabels');
       this.inventoryElements.add(this.weaponLabel);
       this.add(this.weaponLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
@@ -197,10 +209,10 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
 
       //ring slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-90,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-50,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-45,'Labels');
+      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-5,'Labels');
       this.inventoryElements.add(this.ringLabel);
       this.add(this.ringLabel);
       this.ringLabel.anims.play('ring');
@@ -218,7 +230,7 @@ class inventory extends Phaser.GameObjects.Container{
 
      
       //adds currency counter
-      this.shellIcon = new shellMark(scene,this.x-120,this.y+80);
+      this.shellIcon = new shellMark(scene,this.x-120,this.y+120);
       this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
       this.add(this.shellIcon);
@@ -323,10 +335,10 @@ class inventory extends Phaser.GameObjects.Container{
         console.log("opening bestiary");
       });
 
-      this.skillUI.on('pointerdown', function (pointer) {
+      /*this.skillUI.on('pointerdown', function (pointer) {
         inventoryThat.skillUI.openSkill(scene);
         console.log("opening bestiary");
-      });
+      });*/
      
     }
 

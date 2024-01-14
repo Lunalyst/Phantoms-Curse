@@ -20,12 +20,16 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '9',frames: this.anims.generateFrameNames('inventorySlots', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
       this.anims.create({key: '10',frames: this.anims.generateFrameNames('inventorySlots', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
       this.anims.create({key: '11',frames: this.anims.generateFrameNames('inventorySlots', { start: 11, end: 11 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '12',frames: this.anims.generateFrameNames('inventorySlots', { start: 12, end: 12 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '13',frames: this.anims.generateFrameNames('inventorySlots', { start: 13, end: 13 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '14',frames: this.anims.generateFrameNames('inventorySlots', { start: 14, end: 14 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '15',frames: this.anims.generateFrameNames('inventorySlots', { start: 15, end: 15 }),frameRate: 10,repeat: -1});
       this.anims.play("empty");
       this.animsNumber = 0;
       this.slotId = 0;
       this.isLitUp = false;
       this.visible = false;
-      this.setScale(1.5);
+      this.setScale((1/3)+((1/3)/2));
 
       //sets up slot inventory amount object.
       this.number1 = new textBoxCharacter(scene, xPos+7, yPos+12);

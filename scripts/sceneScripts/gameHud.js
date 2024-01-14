@@ -40,10 +40,10 @@ class gameHud extends Phaser.Scene {
       preload(){
            
        //hud specific 
-       this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 819 });
-       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 819 });
+       this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 669 });
+       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 669 });
 
-       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 32 , frameHeight: 32 });
+       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
        this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
        this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
        this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });

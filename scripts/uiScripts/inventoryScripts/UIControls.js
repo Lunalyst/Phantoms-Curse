@@ -12,7 +12,7 @@ class UIControls extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'closeBox',frames: this.anims.generateFrameNames('UIControls', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
       this.anims.play("pointLeft");
       this.setDepth(70);
-      this.setScale(.5);
+      //this.setScale(.8);
       //connects the sprite to the camera so that it sticks with the player.
       this.setScrollFactor(0);
       //this.openDelay = false;

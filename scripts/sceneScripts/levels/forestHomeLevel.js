@@ -43,16 +43,13 @@ class forestHomeLevel extends defaultScene {
     }
 
     preload(){
-      //loads the image with the tiles and the .json file of the tilemap
-      this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
+      
       this.load.tilemapTiledJSON("map" , "assets/tiledMap/ForestHome.json");
-      this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
-
+      
       //preload of object which are scene specific
       this.load.spritesheet('backgroundForestLevel', 'assets/titleScreenBackground.png',{frameWidth: 1000 , frameHeight: 664});
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-
+      
+      this.defaultPreload();
     }
 
     create(){

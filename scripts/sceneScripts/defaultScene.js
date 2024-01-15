@@ -1,31 +1,39 @@
 class defaultScene extends Phaser.Scene {
 
     defaultPreload(){
-        //preload of object always needed
-        this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-        this.load.image('hitbox', 'assets/hitbox.png');
-        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-        this.load.image('TABToSkip', 'assets/tabToSkip.png');
-        this.load.spritesheet('forestWarp', 'assets/GroundForestWarp.png',{frameWidth: 80 , frameHeight: 80 });
-        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
-        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-        this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
-        this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
-        this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
-            
-        //hud specific 
-        this.load.spritesheet('inventory', 'assets/Inventory.png',{frameWidth: 600 , frameHeight: 425 });
-        this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 600 , frameHeight: 425 });
-        this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 32 , frameHeight: 32 });
-        this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
-        this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
-        this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
-        this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
-        this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
-        this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
+        
+       //loads the image with the tiles and the .json file of the tilemap
+      this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
+      this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
+
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+
+      this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
+       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
+       this.load.image('hitbox', 'assets/hitbox.png');
+       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
+       this.load.image('TABToSkip', 'assets/tabToSkip.png');
+
+       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
+       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
+       this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
+       this.load.spritesheet('itemDrops', 'assets/itemDrops.png',{frameWidth: 96, frameHeight: 96});
+
+       this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
+       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
+       this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
+       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
+           
+       //loads the plugin to animate the tiles that have animation
+       //this.load.scenePlugin('animatedTiles',  AnimatedTiles , 'animatedTiles', 'animatedTiles');
+
+       this.load.scenePlugin({
+        key: 'AnimatedTiles',
+        url: 'lib/vendors/AnimatedTiles.js',
+        sceneKey: 'AnimatedTiles'
+      });
+
       }
 
     constructStockSceneVariables(){
@@ -69,6 +77,8 @@ class defaultScene extends Phaser.Scene {
         this.warpToX = 450;
         this.warpToY = 600;
         this.playerSex;
+
+        this.itemDrops;
 
         this.tabObject = {
             tabIsDown: false
@@ -125,10 +135,21 @@ class defaultScene extends Phaser.Scene {
         this.KeyDisplay.visible = false;
     }
 
+    setUpItemDrops(){
+      //sets up the group for items in the scene
+      this.itemDrops = this.physics.add.group();
+    }
+
     setUpPlayerCollider(){
         this.physics.add.collider(this.player1,this.processMap.layer1);
         this.physics.add.collider(this.player1,this.processMap.layer0);
     }
+
+    setUpItemDropCollider(){
+      //sets up physics for the itemDrops Group
+      this.physics.add.collider(this.itemDrops,this.processMap.layer1);
+      //this.physics.add.collider(this.itemDrops,this.processMap.layer0);
+  }
 
     setUpSlimeCollider(){
         this.physics.add.collider(this.processMap.layer1, this.slimes);
@@ -401,6 +422,21 @@ class defaultScene extends Phaser.Scene {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    initItemDrop(x, y,itemID,itemStackable,itemAmount) {
+      //creates a item drop
+      let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount);
+      //adds it to the item drop group
+      //drop1.body.setGravityY(600);
+      this.itemDrops.add(drop1);
+      //adds gravity. dont know why defining it in the object itself didnt work. this is fine.
+      drop1.body.setGravityY(600);
+
+      drop1.body.setBounce(0.5 , 0.5);
+
+      console.log("adding new item drop: ",drop1)
+      
+  }
+
     //test to see if the player should be warped.
     checkWarp(location) {
         //console.log("checking warp");
@@ -457,6 +493,32 @@ class defaultScene extends Phaser.Scene {
     
         }, scene);
       }
+
+    checkItemPickUp() {
+        
+      this.itemDrops.children.each(function (tempItemDrop) {
+      //if player overlaps with item then they pick it up
+      if ((this.player1.x > tempItemDrop.x - 20 && this.player1.x < tempItemDrop.x + 20) && (this.player1.y > tempItemDrop.y - 20 && this.player1.y < tempItemDrop.y + 20) && this.grabbed === false) {
+          console.log("picked up item");
+          //create a temp item to pass to emitter
+          let item = tempItemDrop.itemDropObject;
+
+          let addedToInventory = {
+            added: false
+          };
+
+          console.log("item : ", item);
+          //emitter to add object to inventory.
+          inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+          console.log("addedToInventory : ", addedToInventory);
+           if(addedToInventory.added === true){
+              tempItemDrop.destroy();
+           }
+
+        } 
+
+        }, this);
+    }
 
     // simple function to change the backround animation frames.
     // should fix with some settimeout functions.

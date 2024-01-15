@@ -160,6 +160,70 @@ class gameHud extends Phaser.Scene {
 
           });
 
+          //emitter so itemdrops can be added to the inventory.
+          inventoryKeyEmitter.on(inventoryKey.addItem,(item,addedToInventory) => {
+              /*
+              let item = {
+                      itemID: 0,
+                      itemStackable: 1,
+                      itemAmount: 0 
+                  };
+              */
+            console.log("this.inventoryDataArray: ",this.inventoryDataArray)
+            let itemAdded = false;
+            //loop through inventory item array to see if the item added already been picked up.
+              for(let counter = 0; counter < this.inventoryDataArray.length ;counter++){
+
+                  //console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.ItemID);
+                  //console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
+                  //console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
+
+                  //if the item id matches, and the item is stackable, and the total amount does not go above 64 and the item has not already been added then add the item recieved to the item allready in the inventory.
+                  if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
+                    //adds the item to the item in the inventory.
+                    this.inventoryDataArray[counter].itemAmount = this.inventoryDataArray[counter].itemAmount + item.itemAmount;
+                    //lets the check function know if it sucessfully put a item in the inventory.
+                    itemAdded = true;
+                    //item added so break out of the loop.
+                    break;
+                  
+                  //alternatively, if the item amount plus the inventory object would create a stack larger than 64  we increase the stack to 64 and make a new stack.
+                  }else if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount > 64 && this.inventoryDataArray[counter].itemAmount !== 64){
+                    
+                    //set the value in the item to be added to the difference.
+                    item.itemAmount = (this.inventoryDataArray[counter].itemAmount + item.itemAmount) - 64;
+                    //then set the initial value  of the item in the inventory to 64
+                    this.inventoryDataArray[counter].itemAmount = 64;
+                    //break out of loop not setting item added as there is still a item that needs to be added. goes to the next loop.
+                    break;
+                  
+                  //edge case, if the player some how recieves a item larger than 64. dont know how a player would achieve this. something to keep in mind but shouldnt be possible.
+                  }
+              }
+              //if the item doesnt exist in the players inventory or that item slot is full, then add it to the nearest item slot that is empty.
+              if(itemAdded === false){
+                //loop through inventory item array
+                for(let counter = 0; counter < this.inventoryDataArray.length;counter++){
+
+                  //if the item id is empty then add the new item to that id.
+                  if(this.inventoryDataArray[counter].itemID === 0 ){
+                    //adds the item to the item in the inventory.
+                    this.inventoryDataArray[counter] = item;
+
+                    itemAdded = true;
+
+                    //item added so break out of the loop.
+                    break;
+                  }
+                }
+              }
+
+              addedToInventory.added = itemAdded;
+              console.log("addedToInventory.added: ",addedToInventory.added)
+              console.log("this.inventoryDataArray: ",this.inventoryDataArray)
+
+          });
+
           //emitter to get the player skills object so the player class has acess to it for jump skilles ect.
           playerSkillsEmitter.on(playerSkills.getJump,(object) =>{
             object.playerSkills = this.playerSkillsData;

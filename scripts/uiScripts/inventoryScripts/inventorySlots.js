@@ -32,10 +32,10 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.setScale((1/3)+((1/3)/2));
 
       //sets up slot inventory amount object.
-      this.number1 = new textBoxCharacter(scene, xPos+7, yPos+12);
+      this.number1 = new textBoxCharacter(scene, xPos+5, yPos+12);
       this.number1.anims.play('0');
 
-      this.number2 = new textBoxCharacter(scene, xPos+12, yPos+12);
+      this.number2 = new textBoxCharacter(scene, xPos+13, yPos+12);
       this.number2.anims.play('0');
 
       
@@ -45,38 +45,39 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
     setSlotNumber(number){
 
       //convert incoming number to a string
-      let numberString = number.toString();
+      console.log("number : ", number)
 
       // if number is less than one hide both numbers
       if(number < 1){
 
         this.number1.visible = false;
         this.number2.visible = false;
-        this.number1.anims.play(numberString);
+        this.number1.anims.play(""+number);
 
       //else if the number is less than ten, display the first number only.
       }else if(number < 10){
   
         this.number1.visible = true;
         this.number2.visible = false;
-        this.number1.anims.play(numberString);
+        this.number1.anims.play(""+number);
   
         //return 0;
         
       //else if the number is less than 65 set both numbers accordingly.
       }else if(number < 65){
   
+        let temp = ""+number;
         this.number1.visible = true;
         this.number2.visible = true;
-        this.number1.anims.play(numberString.charAt(0));
-        this.number2.anims.play(numberString.charAt(1));
+        this.number1.anims.play(temp.charAt(0));
+        this.number2.anims.play(temp.charAt(1));
   
         //return 0;
 
       //else if the number is larger than 64 display error message.
       }else{
   
-        Console.log("item overflow detected");
+        console.log("item overflow detected");
         this.number1.anims.play("6");
         this.number2.anims.play("4");
   

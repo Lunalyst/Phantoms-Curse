@@ -28,42 +28,14 @@ class tutorialBeach extends defaultScene {
 
     preload(){
       
-      //loads the image with the tiles and the .json file of the tilemap
-      this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Beach.json");
-      this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
 
       //preload of object which are scene specific
       this.load.spritesheet('backgroundBeachLevel', 'assets/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      
+      this.defaultPreload();
 
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-
-      this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.image('hitbox', 'assets/hitbox.png');
-       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-       this.load.image('TABToSkip', 'assets/tabToSkip.png');
-
-       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
-
-       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
-       this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-       this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
-       this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
-       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
-           
-       //loads the plugin to animate the tiles that have animation
-       //this.load.scenePlugin('animatedTiles',  AnimatedTiles , 'animatedTiles', 'animatedTiles');
-
-       this.load.scenePlugin({
-        key: 'AnimatedTiles',
-        url: 'lib/vendors/AnimatedTiles.js',
-        sceneKey: 'AnimatedTiles'
-      });
-
-      console.log("this.sys:",this.sys);
+      
    
     }
 
@@ -132,6 +104,22 @@ class tutorialBeach extends defaultScene {
            ['signLoop']);
 
       this.initPortals(3735,528,465,1823,"warpCaveOutside","tutorialCaveLevel");
+
+      this.setUpItemDrops();
+      this.setUpItemDropCollider();
+
+      this.initItemDrop(506,900,12,1,2);
+      this.initItemDrop(516,900,12,1,2);
+      this.initItemDrop(526,900,12,1,2);
+      this.initItemDrop(536,900,12,1,2);
+      this.initItemDrop(546,900,12,1,2);
+      this.initItemDrop(556,900,12,1,2);
+      this.initItemDrop(566,900,12,1,2);
+      this.initItemDrop(576,900,12,1,63);
+      this.initItemDrop(586,900,12,1,32);
+      this.initItemDrop(596,900,12,1,14);
+      this.initItemDrop(606,900,12,1,60);
+      this.initItemDrop(616,900,12,1,20);
       
         
       
@@ -178,85 +166,40 @@ class tutorialBeach extends defaultScene {
       //this.animateBackround();
 
       console.log()
-      
+      this.checkItemPickUp();
       //this.backround.y = this.player1.y;
       this.backround.y = this.player1.y-200;
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
     //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
-    if(this.loadCoolDown === true){
-      this.checkWarp("tutorialBeach");
-    }
-    if(this.saveCoolDown === true){
-      this.checkSave("tutorialBeach");
-    }
-    if(this.signCoolDown === true){
-      this.checkSign(this);
-    }
-    //accessTabKey.on(tabKey.isTabDown,(isDown)
-    if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
-      //console.log("tabKey Pressed");
-      //this.playerInventory.setView(this);
-      //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
-      inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
-      this.checkBlueSlimePause();
-      //this.player1.pausePlayerPhysics(this);
-    }else{
-      this.checkBlueSlimePause();
-    }
-
-    if(this.pausedInTextBox === true){
-      this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
-      this.checkBlueSlimePause();
-      this.physics.pause();
-      this.player1.anims.pause();
-
-      let isWindowObject = {
-        isOpen: null
-      };
-      
-      inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-      if(isWindowObject.isOpen === true){
-        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
+      if(this.loadCoolDown === true){
+        this.checkWarp("tutorialBeach");
       }
-    }else if(this.pausedInTextBox === false && this.isPaused === false){
-      this.checkBlueSlimePause();
-      this.physics.resume();
-      this.player1.anims.resume();
-    }
+      if(this.saveCoolDown === true){
+        this.checkSave("tutorialBeach");
+      }
+      if(this.signCoolDown === true){
+        this.checkSign(this);
+      }
+      //accessTabKey.on(tabKey.isTabDown,(isDown)
+      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+        //console.log("tabKey Pressed");
+        //this.playerInventory.setView(this);
+        //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
+        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
+        this.checkBlueSlimePause();
+        //this.player1.pausePlayerPhysics(this);
+      }else{
+        this.checkBlueSlimePause();
+      }
 
+      if(this.pausedInTextBox === true){
+        this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+        this.checkBlueSlimePause();
+        this.physics.pause();
+        this.player1.anims.pause();
 
-    if(this.isPaused === false){
-      if(this.grabbed === false){ 
-        //calls built in move player function to handle how the player moves and is animated while moving  
-        if(!this.shift.isDown){
-        this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
-        }
-        //changes the scale and location of the health bar for zoomed out camera
-        //this.healthDisplay.zoomedOut();
-        //makes a function applied to all slime entities
-        //this.portals.hidePrompt
-        //applies a function to every slime object by calling the blueSlimeCollisions function.
-        this.checkBlueSlimeInteractions(this);
-        ///this.blueSlimeCollisions();//HERE
-        //sets the camera to follow the player and changes the scale as well
-        this.mycamera.startFollow(this.player1);
-        this.cameras.main.zoom = 2;
-        this.cameras.main.followOffset.set(0,70);
-        //checks if player is over a warp point and sends them to the correct location
-        //console.log("this.loadCoolDown: "+ this.loadCoolDown);
-        
-        //if play hits tab and not grabbed open inventory.
-        
-          this.player1.attackPlayer(this.shift,this);
-
-      }else if(this.grabbed === true){
-        //if the player is grabbed then zoom camera in and edit ui elements to fit the screen
-        //applies a function to each slime that calls the grab function. only works 
-        //before activating grab, closes inventory if its open.
-        //this.healthDisplay.zoomIn();
         let isWindowObject = {
           isOpen: null
         };
@@ -264,20 +207,66 @@ class tutorialBeach extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
         if(isWindowObject.isOpen === true){
-          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
         }
-        this.checkBlueSlimeGrab();
+      }else if(this.pausedInTextBox === false && this.isPaused === false){
+        this.checkBlueSlimePause();
+        this.physics.resume();
+        this.player1.anims.resume();
       }
 
-  }else if(this.isPaused === true){
 
-  }
-    //updates the previous y value. used to animate the falling animation of the player.
-    this.player1.playerPreviousY = this.player1.y;
-    //update the damage cool down if player takes damage.
+      if(this.isPaused === false){
+        if(this.grabbed === false){ 
+
+          //calls built in move player function to handle how the player moves and is animated while moving  
+          if(!this.shift.isDown){
+          this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+          }
+          //changes the scale and location of the health bar for zoomed out camera
+          //this.healthDisplay.zoomedOut();
+          //makes a function applied to all slime entities
+          //this.portals.hidePrompt
+          //applies a function to every slime object by calling the blueSlimeCollisions function.
+          this.checkBlueSlimeInteractions(this);
+          ///this.blueSlimeCollisions();//HERE
+          //sets the camera to follow the player and changes the scale as well
+          this.mycamera.startFollow(this.player1);
+          this.cameras.main.zoom = 2;
+          this.cameras.main.followOffset.set(0,70);
+          //checks if player is over a warp point and sends them to the correct location
+          //console.log("this.loadCoolDown: "+ this.loadCoolDown);
+          
+          //if play hits tab and not grabbed open inventory.
+          
+            this.player1.attackPlayer(this.shift,this);
+
+        }else if(this.grabbed === true){
+          //if the player is grabbed then zoom camera in and edit ui elements to fit the screen
+          //applies a function to each slime that calls the grab function. only works 
+          //before activating grab, closes inventory if its open.
+          //this.healthDisplay.zoomIn();
+          let isWindowObject = {
+            isOpen: null
+          };
+          
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          if(isWindowObject.isOpen === true){
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          }
+          this.checkBlueSlimeGrab();
+        }
+
+    }else if(this.isPaused === true){
+
+    }
+      //updates the previous y value. used to animate the falling animation of the player.
+      this.player1.playerPreviousY = this.player1.y;
+      //update the damage cool down if player takes damage.
+      
     
-  
-  }
+    }
 
 }
   

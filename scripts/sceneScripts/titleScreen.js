@@ -493,6 +493,14 @@ class titleScreen extends Phaser.Scene {
             this.inventoryArray[6].itemID = 14;
             this.inventoryArray[6].itemStackable = 0;
             this.inventoryArray[6].itemAmount = 12;
+
+            this.inventoryArray[7].itemID = 14;
+            this.inventoryArray[7].itemStackable = 0;
+            this.inventoryArray[7].itemAmount = 60;
+
+            this.inventoryArray[8].itemID = 14;
+            this.inventoryArray[8].itemStackable = 0;
+            this.inventoryArray[8].itemAmount = 12;
             
 
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);

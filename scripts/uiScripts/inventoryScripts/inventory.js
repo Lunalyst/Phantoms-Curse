@@ -393,9 +393,68 @@ class inventory extends Phaser.GameObjects.Container{
             }
 
           }
+          console.log("this.activeSlot1: ",this.activeSlot1," this.activeSlot2: ",this.activeSlot2);
+          //if the player some how gets two seperate stacks of the same item then allow them to stack it. firs is if the two stacks add up to less than 64
+          if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && (scene.inventoryDataArray[this.activeSlot1].itemID === scene.inventoryDataArray[this.activeSlot2].itemID ) && (scene.inventoryDataArray[this.activeSlot1].itemAmount + scene.inventoryDataArray[this.activeSlot2].itemAmount < 65)){
+            
+            console.log("scene.inventoryDataArray[this.activeSlot1].itemID: ",scene.inventoryDataArray[this.activeSlot1].itemAmount," scene.inventoryDataArray[this.activeSlot2].itemID",scene.inventoryDataArray[this.activeSlot2].itemAmount);
+            // temp item to clear the slot
+            let temp = {
+              itemID: 0,
+              itemStackable: 1,
+              itemAmount: 0 
+           };
 
+           //adds the amount to the second object
+           scene.inventoryDataArray[this.activeSlot2].itemAmount = scene.inventoryDataArray[this.activeSlot2].itemAmount + scene.inventoryDataArray[this.activeSlot1].itemAmount;
+           
+           //set activeSlot1 to a empty object.
+           scene.inventoryDataArray[this.activeSlot1] = temp;
+
+           
+           //set animation for activeSlot1
+           this.inventoryArray[this.activeSlot1].isLitUp = false;
+           this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
+           this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
+           this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+
+           //set animation for activeSlot2
+           this.inventoryArray[this.activeSlot2].isLitUp = false;
+           this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
+           this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
+           this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+
+           //clear both slots.
+           this.activeSlot1 = -1;
+           this.activeSlot2 = -2;
+           
+          //if the items amount add to larger than 64, make a full stack and update the first stack with the new amount.
+          }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && (scene.inventoryDataArray[this.activeSlot1].itemID === scene.inventoryDataArray[this.activeSlot2].itemID ) && (scene.inventoryDataArray[this.activeSlot1].itemAmount + scene.inventoryDataArray[this.activeSlot2].itemAmount > 64) && scene.inventoryDataArray[this.activeSlot1].itemAmount !== 64){
+            console.log("scene.inventoryDataArray[this.activeSlot1].itemID: ",scene.inventoryDataArray[this.activeSlot1].itemID," scene.inventoryDataArray[this.activeSlot2].itemID",scene.inventoryDataArray[this.activeSlot2].itemID);
+            //adds the amount to the second object
+            scene.inventoryDataArray[this.activeSlot2].itemAmount = 64 ;
+            
+            //set activeSlot1 to a empty object.
+            scene.inventoryDataArray[this.activeSlot1].itemAmount = (scene.inventoryDataArray[this.activeSlot2].itemAmount + scene.inventoryDataArray[this.activeSlot1].itemAmount) - 64 ;
+
+            //set animation for activeSlot1
+            this.inventoryArray[this.activeSlot1].isLitUp = false;
+            this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
+            this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
+            this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+
+            //set animation for activeSlot2
+            this.inventoryArray[this.activeSlot2].isLitUp = false;
+            this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
+            this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
+            this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+
+            //clear both slots.
+            this.activeSlot1 = -1;
+            this.activeSlot2 = -2;
+           
           //if both slots are defined then switch the two items.
-          if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
+          }if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
 
             //set temp to the item id in activeSlot1
             let temp = scene.inventoryDataArray[this.activeSlot1];

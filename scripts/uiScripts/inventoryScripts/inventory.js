@@ -23,7 +23,6 @@ class inventory extends Phaser.GameObjects.Container{
       this.activeSlot1 = -1;
       this.activeSlot2 = -2;
       this.inventoryArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-      this.InventorySlotsNumbers = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
       //setting inventory objects
       this.weaponLabel;
@@ -34,6 +33,13 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryUI;
       this.skillUI;
       this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
+
+      //sprite for players internal inventory for storage.
+      /*this.container = scene.add.sprite(this.x-111, this.y+300, 'containerScreen');
+      this.container.setScale((1/3)+((1/3)/2));
+      this.add(this.container);*/
+
+      this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
       //setting the interior object of the inventory as a back drop for other objects.
       this.inventoryInterior.setScale(1/2);
@@ -142,6 +148,7 @@ class inventory extends Phaser.GameObjects.Container{
           
         }
       }
+
     /*
             - | -
               |
@@ -222,6 +229,19 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryArray[index].number2);
 
 
+      index++;
+      //slots for the container.
+      /*for(col = 0; col < 4; col++){
+        for(row = 0; row < 5; row++){
+          //creates the slots as the loop generats the slots
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-425) +(col*60),'inventorySlots').setInteractive();
+          //adds the object to this container.
+          this.add(this.inventoryArray[index]);
+          index++; 
+        }
+      }*/
+
+
       //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
       this.inventoryBorder.setScale(1/2);
@@ -259,7 +279,7 @@ class inventory extends Phaser.GameObjects.Container{
 
       console.log("scene.inventoryDataArray: ", scene.inventoryDataArray)
 
-      for(let counter = 0; counter < 26 ;counter++){
+      for(let counter = 0; counter <= 25 ;counter++){
         this.inventoryArray[counter].number1.visible = this.isOnScreen;
         this.inventoryArray[counter].number2.visible = this.isOnScreen;
 
@@ -302,33 +322,13 @@ class inventory extends Phaser.GameObjects.Container{
     
     //applies interactive click events on all inventory slots
     applyInteractionToSlots(scene){
+      console.log("this.inventoryArray: ", this.inventoryArray);
       let activeSlot = 0;
-      this.inventoryArray[0].on('pointerdown', function (pointer) {activeSlot = 0;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[1].on('pointerdown', function (pointer) {activeSlot = 1;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[2].on('pointerdown', function (pointer) {activeSlot = 2;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[3].on('pointerdown', function (pointer) {activeSlot = 3;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[4].on('pointerdown', function (pointer) {activeSlot = 4;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[5].on('pointerdown', function (pointer) {activeSlot = 5;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[6].on('pointerdown', function (pointer) {activeSlot = 6;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[7].on('pointerdown', function (pointer) {activeSlot = 7;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[8].on('pointerdown', function (pointer) {activeSlot = 8;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[9].on('pointerdown', function (pointer) {activeSlot = 9;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[10].on('pointerdown', function (pointer) {activeSlot = 10;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[11].on('pointerdown', function (pointer) {activeSlot = 11;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[12].on('pointerdown', function (pointer) {activeSlot = 12;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[13].on('pointerdown', function (pointer) {activeSlot = 13;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[14].on('pointerdown', function (pointer) {activeSlot = 14;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[15].on('pointerdown', function (pointer) {activeSlot = 15;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[16].on('pointerdown', function (pointer) {activeSlot = 16;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[17].on('pointerdown', function (pointer) {activeSlot = 17;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[18].on('pointerdown', function (pointer) {activeSlot = 18;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[19].on('pointerdown', function (pointer) {activeSlot = 19;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[20].on('pointerdown', function (pointer) {activeSlot = 20;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[21].on('pointerdown', function (pointer) {activeSlot = 21;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[22].on('pointerdown', function (pointer) {activeSlot = 22;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[23].on('pointerdown', function (pointer) {activeSlot = 23;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[24].on('pointerdown', function (pointer) {activeSlot = 24;scene.playerInventory.lightUpSlot(scene,activeSlot);});
-      this.inventoryArray[25].on('pointerdown', function (pointer) {activeSlot = 25;scene.playerInventory.lightUpSlot(scene,activeSlot);});
+      // applys  lightupslot function to slots when clicked.
+      for(let counter = 0; counter <= 25;counter++){
+        console.log("counter: ", counter);
+        this.inventoryArray[counter].on('pointerdown', function (pointer) {activeSlot = counter;scene.playerInventory.lightUpSlot(scene,activeSlot);});
+      }
       
       this.bestiaryUI.on('pointerdown', function (pointer) {
         inventoryThat.bestiaryUI.openBestiary(scene);

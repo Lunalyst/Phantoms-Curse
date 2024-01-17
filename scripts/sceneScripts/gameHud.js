@@ -51,6 +51,10 @@ class gameHud extends Phaser.Scene {
        this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
        this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
        this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
+
+       //level containers for hud.
+       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
+
     
       }
 
@@ -136,6 +140,10 @@ class gameHud extends Phaser.Scene {
             this.playerInventory.setView(scene,this);
           });
 
+          inventoryKeyEmitter.on(inventoryKey.activateWindowWithContainer,(scene) =>{
+            this.playerInventory.setView(scene,this);
+          });
+
           //emitter so other classes can acess the players inventory 
           inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
             //console.log("player inventory:",this.playerInventory);
@@ -172,7 +180,7 @@ class gameHud extends Phaser.Scene {
             console.log("this.inventoryDataArray: ",this.inventoryDataArray)
             let itemAdded = false;
             //loop through inventory item array to see if the item added already been picked up.
-              for(let counter = 0; counter < this.inventoryDataArray.length ;counter++){
+              for(let counter = 0; counter < 25 ;counter++){
 
                   //console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.ItemID);
                   //console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
@@ -203,7 +211,7 @@ class gameHud extends Phaser.Scene {
               //if the item doesnt exist in the players inventory or that item slot is full, then add it to the nearest item slot that is empty.
               if(itemAdded === false){
                 //loop through inventory item array
-                for(let counter = 0; counter < this.inventoryDataArray.length;counter++){
+                for(let counter = 0; counter < 25;counter++){
 
                   //if the item id is empty then add the new item to that id.
                   if(this.inventoryDataArray[counter].itemID === 0 ){

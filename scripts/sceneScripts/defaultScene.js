@@ -19,6 +19,7 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('itemDrops', 'assets/itemDrops.png',{frameWidth: 96, frameHeight: 96});
+       this.load.spritesheet('chest', 'assets/chest.png',{frameWidth: 249, frameHeight: 231});
 
        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
        this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
@@ -66,6 +67,8 @@ class defaultScene extends Phaser.Scene {
         this.activatedPortalId = 0;
         this.activatedSavePointId = 0;
         this.activatedSignId = 0;
+        this.containerId = 0;
+        this.activatedContainerId = 0;
         this.grabCoolDown = false;
         this.attackHitBox;
         this.signPoints;
@@ -138,6 +141,12 @@ class defaultScene extends Phaser.Scene {
     setUpItemDrops(){
       //sets up the group for items in the scene
       this.itemDrops = this.physics.add.group();
+    }
+
+    setUpContainers(){
+      //sets up the group for items in the scene
+      this.itemContainers = this.physics.add.group();
+
     }
 
     setUpPlayerCollider(){
@@ -435,7 +444,21 @@ class defaultScene extends Phaser.Scene {
 
       console.log("adding new item drop: ",drop1)
       
-  }
+    }
+
+    initItemContainer(x, y,itemID,itemStackable,itemAmount) {
+      //creates a item drop
+      let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount);
+
+      //gives portal a unique id so that scene can tell which warp object is being activated
+      container.containerId = this.containerId;
+      this.containerId++;
+      //adds it to the item drop group
+      this.itemContainers.add(container);
+      
+      console.log("adding new item container: ",container)
+      
+    }
 
     //test to see if the player should be warped.
     checkWarp(location) {
@@ -517,6 +540,24 @@ class defaultScene extends Phaser.Scene {
 
         } 
 
+        }, this);
+    }
+
+    checkContainerPickUp() {
+        
+      this.itemContainers.children.each(function (tempItemContainer) {
+      //if player overlaps with item then they pick it up
+      if ((this.player1.x > tempItemContainer.x - 40 && this.player1.x < tempItemContainer.x + 40) && (this.player1.y > tempItemContainer.y - 40 && this.player1.y < tempItemContainer.y + 40) && this.grabbed === false) {
+          
+           //console.log("within sign");
+           tempItemContainer.safeToOpen = true;
+           this.activatedContainerId = tempItemContainer.containerId;
+         } else {
+           //console.log("outside save point");
+           tempItemContainer.safeToOpen = false;
+         }
+
+        tempItemContainer.activateContainer(this,this.keyW, this.activatedContainerId);
         }, this);
     }
 

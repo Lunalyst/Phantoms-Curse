@@ -115,11 +115,9 @@ class tutorialBeach extends defaultScene {
       this.initItemDrop(546,900,12,1,2);
       this.initItemDrop(556,900,12,1,2);
       this.initItemDrop(566,900,12,1,2);
-      this.initItemDrop(576,900,12,1,63);
-      this.initItemDrop(586,900,12,1,32);
-      this.initItemDrop(596,900,12,1,14);
-      this.initItemDrop(606,900,12,1,60);
-      this.initItemDrop(616,900,12,1,20);
+
+      this.setUpContainers();
+      this.initItemContainer(506,900,2,0,1);
       
         
       
@@ -166,12 +164,15 @@ class tutorialBeach extends defaultScene {
       //this.animateBackround();
 
       console.log()
-      this.checkItemPickUp();
       //this.backround.y = this.player1.y;
       this.backround.y = this.player1.y-200;
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
     //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
+      this.checkItemPickUp();
+
+      this.checkContainerPickUp();
 
       if(this.loadCoolDown === true){
         this.checkWarp("tutorialBeach");

@@ -332,11 +332,12 @@ class titleScreen extends Phaser.Scene {
                 looting:0
              };
 
-             let saveSlotData = {
+            let saveSlotData = {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 10
+                playerHealthUpgrades: 1,
+                PlayerStorage: [],
              };
 
              let gameFlags = {
@@ -436,7 +437,8 @@ class titleScreen extends Phaser.Scene {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 1
+                playerHealthUpgrades: 1,
+                PlayerStorage: [],
              };
 
              let gameFlags = {
@@ -444,7 +446,7 @@ class titleScreen extends Phaser.Scene {
 
              };
 
-             
+               
             //creates a array to be filled my objects
             this.inventoryArray  = [];
 

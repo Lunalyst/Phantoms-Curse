@@ -341,8 +341,7 @@ class titleScreen extends Phaser.Scene {
              };
 
              let gameFlags = {
-                cutTree1:0
-
+                containerFlags: []
              };
              //creates a array to be filled my objects
              this.inventoryArray  = [];
@@ -442,7 +441,7 @@ class titleScreen extends Phaser.Scene {
              };
 
              let gameFlags = {
-                cutTree1:0
+                containerFlags: []
 
              };
 
@@ -489,19 +488,19 @@ class titleScreen extends Phaser.Scene {
             this.inventoryArray[4].itemAmount = 1;
 
             this.inventoryArray[5].itemID = 12;
-            this.inventoryArray[5].itemStackable = 0;
+            this.inventoryArray[5].itemStackable = 1;
             this.inventoryArray[5].itemAmount = 5;
 
             this.inventoryArray[6].itemID = 14;
-            this.inventoryArray[6].itemStackable = 0;
+            this.inventoryArray[6].itemStackable = 1;
             this.inventoryArray[6].itemAmount = 12;
 
             this.inventoryArray[7].itemID = 14;
-            this.inventoryArray[7].itemStackable = 0;
+            this.inventoryArray[7].itemStackable = 1;
             this.inventoryArray[7].itemAmount = 60;
 
             this.inventoryArray[8].itemID = 14;
-            this.inventoryArray[8].itemStackable = 0;
+            this.inventoryArray[8].itemStackable = 1;
             this.inventoryArray[8].itemAmount = 12;
             
 
@@ -565,7 +564,7 @@ class titleScreen extends Phaser.Scene {
              };
 
              let gameFlags = {
-                cutTree1:0
+                containerFlags: []
 
              };
 

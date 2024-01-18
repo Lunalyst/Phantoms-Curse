@@ -32,7 +32,9 @@ inventoryKey = {
     getSaveData: 'get_save_data',
     getInventory:'get_inventory',
     isInventoryOpen: 'is_inventory_open',
-    addItem: 'add_item'
+    addItem: 'add_item',
+    addContainerFlag: 'add_container_flag',
+    checkContainerFlag: 'check_container_flag'
 };
 
 inventoryKeyEmitter = new Phaser.Events.EventEmitter();

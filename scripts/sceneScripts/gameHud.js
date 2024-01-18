@@ -182,12 +182,15 @@ class gameHud extends Phaser.Scene {
             //loop through inventory item array to see if the item added already been picked up.
               for(let counter = 0; counter < 25 ;counter++){
 
-                  //console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.ItemID);
-                  //console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
-                  //console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
+                  console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.ItemID);
+                  console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
+                  console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
 
                   //if the item id matches, and the item is stackable, and the total amount does not go above 64 and the item has not already been added then add the item recieved to the item allready in the inventory.
                   if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
+                    
+                    console.log("item stack adds to less than 65")
+                    
                     //adds the item to the item in the inventory.
                     this.inventoryDataArray[counter].itemAmount = this.inventoryDataArray[counter].itemAmount + item.itemAmount;
                     //lets the check function know if it sucessfully put a item in the inventory.
@@ -198,6 +201,7 @@ class gameHud extends Phaser.Scene {
                   //alternatively, if the item amount plus the inventory object would create a stack larger than 64  we increase the stack to 64 and make a new stack.
                   }else if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount > 64 && this.inventoryDataArray[counter].itemAmount !== 64){
                     
+                    console.log("item stack adds to more than 64")
                     //set the value in the item to be added to the difference.
                     item.itemAmount = (this.inventoryDataArray[counter].itemAmount + item.itemAmount) - 64;
                     //then set the initial value  of the item in the inventory to 64
@@ -229,6 +233,38 @@ class gameHud extends Phaser.Scene {
               addedToInventory.added = itemAdded;
               console.log("addedToInventory.added: ",addedToInventory.added)
               console.log("this.inventoryDataArray: ",this.inventoryDataArray)
+
+          });
+
+          //emitter that adds a container flag so that we can define a container give it a flag, and set that flag all from the init of that container object.
+          inventoryKeyEmitter.on(inventoryKey.addContainerFlag,(containerString) =>{
+
+            //pushes a value to the containerflags array in the flags object apart of player data.
+            console.log("containerString: ",containerString);
+            this.flagValues.containerFlags.push(containerString);
+
+            console.log("adding flag to players flag data: ",this.flagValues);
+
+          });
+
+          //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
+          inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
+            console.log("checking if flag exists. : ",object);
+
+            /*let object = {
+              flagToFind: "",
+              foundFlag: false,
+            };*/
+
+            //search for the string value in this.flagValues.containerFlags
+            for(let counter = 0; counter < this.flagValues.containerFlags.length; counter++){
+              //if we find a flag that matches, set the value to true in our object passed by refrence.
+              if(this.flagValues.containerFlags[counter] === object.flagToFind){
+                object.foundFlag = true;
+              }
+            }
+
+            console.log("search for flag complete: ",object);
 
           });
 

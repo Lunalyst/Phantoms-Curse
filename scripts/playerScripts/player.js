@@ -320,37 +320,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   //console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
 
     if(this.body.blocked.down){
-      if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 0){
-        this.anims.play("pAttackUnarmedRight",true);
-        this.setVelocityX(0);
-        this.bluntDamage = 1;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x+20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 0){
-        this.anims.play("pAttackUnarmedLeft",true);
-        this.setVelocityX(0);
-        this.bluntDamage = 1;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x-20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
+      if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeRight",true);
         this.setVelocityX(0);
         this.sliceDamage = 4;
@@ -448,6 +418,36 @@ class player extends Phaser.Physics.Arcade.Sprite{
           this.heatDamage = 0;
           this.lightningDamage = 0;
           this.coldDamage = 0;
+        }
+      }else if(this.lastKey === 'd' && keyShift.isDown){
+        this.anims.play("pAttackUnarmedRight",true);
+        this.setVelocityX(0);
+        this.bluntDamage = 1;
+        if(that.hitboxCoolDown === false){
+          scene.attackHitBox.x = this.x;
+          scene.attackHitBox.y = this.y+10000;
+          setTimeout(function(){
+            that.hitboxCoolDown = true;
+          },200);
+        }else if(that.hitboxCoolDown === true){
+          scene.attackHitBox.x = this.x+20;
+          scene.attackHitBox.y = this.y;
+          that.hitboxCoolDown = false; 
+        }
+      }else if(this.lastKey === 'a'&& keyShift.isDown){
+        this.anims.play("pAttackUnarmedLeft",true);
+        this.setVelocityX(0);
+        this.bluntDamage = 1;
+        if(that.hitboxCoolDown === false){
+          scene.attackHitBox.x = this.x;
+          scene.attackHitBox.y = this.y+10000;
+          setTimeout(function(){
+            that.hitboxCoolDown = true;
+          },200);
+        }else if(that.hitboxCoolDown === true){
+          scene.attackHitBox.x = this.x-20;
+          scene.attackHitBox.y = this.y;
+          that.hitboxCoolDown = false; 
         }
       }else if(keyShift.isDown){
         this.setVelocityX(0);

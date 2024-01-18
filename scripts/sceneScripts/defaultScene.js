@@ -446,9 +446,9 @@ class defaultScene extends Phaser.Scene {
       
     }
 
-    initItemContainer(x, y,itemID,itemStackable,itemAmount) {
+    initItemContainer(x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag) {
       //creates a item drop
-      let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount);
+      let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag);
 
       //gives portal a unique id so that scene can tell which warp object is being activated
       container.containerId = this.containerId;

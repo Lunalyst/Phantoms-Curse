@@ -105,9 +105,11 @@ class tutorialBeach extends defaultScene {
 
       this.initPortals(3735,528,465,1823,"warpCaveOutside","tutorialCaveLevel");
 
+      //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //adds items that the player can pick up in the scene.
       this.initItemDrop(506,900,12,1,2);
       this.initItemDrop(516,900,12,1,2);
       this.initItemDrop(526,900,12,1,2);
@@ -116,8 +118,18 @@ class tutorialBeach extends defaultScene {
       this.initItemDrop(556,900,12,1,2);
       this.initItemDrop(566,900,12,1,2);
 
+      //sets up containers
       this.setUpContainers();
-      this.initItemContainer(506,900,2,0,1);
+
+      //creates an object to be put in the container
+      let oar = {
+        itemID: 2,
+        itemStackable: 0,
+        itemAmount: 1
+    };
+    
+    //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+    this.initItemContainer(506,900,oar,true,"beach_tutorial_chest_with_oar");
       
         
       

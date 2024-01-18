@@ -5,21 +5,33 @@ class sign extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, xPos, yPos,text,profileArray){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos, 'sign');
-      //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-      //so here in the subclass of sprite its refering to the image object we just made. 
+
+      //then we add new instance into the scene.
       scene.add.existing(this);
+      //give this object a physics box.
       scene.physics.add.existing(this);
+      //make it unpussable in any way. potentially unnessary.
       this.setPushable(false);
+      
+      //makes a key promptsa object to be displayed to the user
       this.signKeyPrompts = new keyPrompts(scene, xPos, yPos + 40,'keyPrompts');
       this.signKeyPrompts.visible = false;
       this.promptCooldown = false;
+
+      //more variables which help the sign object tell when to display prompts and textbox
       this.playerOverlapingSign = false;
       this.safeToSign = false;
       this.textToDisplay = text;
       this.signId = 0;
       this.activationDelay = false;
-      this.setScale(.34);
+
+      //sets scale of object
+      this.setScale(1/3);
+
+      //createdfor use in textbox
       this.profileArray = profileArray;
+
+      //global variable for timeout functions.
       currentSign = this;
 
   }
@@ -41,7 +53,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
           scene1.sceneTextBox.activateTextBox(scene1,scene1.keyW,);
           this.activationDelay = true;
           
-         //otherwise we want to display the key prompts 
+        //otherwise we want to display the key prompts 
         }else if(this.safeToSign === true && activeId === this.signId && this.promptCooldown === false ){
           console.log("safe to press w to warp scenes");
             this.signKeyPrompts.visible = true;

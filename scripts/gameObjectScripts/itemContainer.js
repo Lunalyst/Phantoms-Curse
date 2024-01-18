@@ -10,10 +10,9 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, xPos, yPos,item,openOnlyOnce,flag){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, 'chest');
-        //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-        //so here in the subclass of sprite its refering to the image object we just made. 
+        //then we add new instance into the scene. 
         scene.add.existing(this);
-        //then we call this next line to give it collision
+        //then we call this next line to give it collision box
         scene.physics.add.existing(this);
         //now we can perform any specalized set ups for this object
         
@@ -92,13 +91,10 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
                 added: false
             };
 
-            console.log("item : ", item);
 
             //emitter to add object to inventory.
             inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
-            console.log("addedToInventory : ", addedToInventory);
-
-            console.log("this.saveId : ", this.flag);
+    
             //now to add the flag to the player data so the player cant open this container multiple times.
             inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
 

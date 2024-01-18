@@ -20,7 +20,7 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: '14',frames: this.anims.generateFrameNames('itemDrops', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
         
         
-        //sets the given item id remeber that the item is 
+        //sets the given item data into a object
         this.itemDropObject = {
             itemID: setItemID,
             itemStackable: setItemStackable,

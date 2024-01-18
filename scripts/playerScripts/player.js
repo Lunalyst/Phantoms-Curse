@@ -9,37 +9,53 @@ class player extends Phaser.Physics.Arcade.Sprite{
   constructor(scene, xPos, yPos,sex){
     //super() calls the constructor() from the parent class we are extending
     super(scene, xPos, yPos);
-    //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-    //so here in the subclass of sprite its refering to the image object we just made. 
+    //then we add new instance into the scene. 
     scene.add.existing(this);
     //then we call this next line to give it collision
     scene.physics.add.existing(this);
-    //now we can perform any specalized set ups for this object
-    this.custom_id = 'player';// creates a custome property to make it easy to track the identity of the player sprite.
-    this.idleTimer = 0;// give player a idle timer to tell if player is gone long enough to start sleeping animation.
+  
+    // creates a custome property to make it easy to track the identity of the player sprite.
+    this.custom_id = 'player';
+    // give player a idle timer to tell if player is gone long enough to start sleeping animation.
+    this.idleTimer = 0;
     this.idleTimerDelay = false;
-    this.lastKey = "d";// adds a key to tell movement function what key was pressed last to keep animations facing the right way
+    // adds a key to tell movement function what key was pressed last to keep animations facing the right way
+    this.lastKey = "d";
+    //varibale use to tell what falling animation should be played. used to tell if the player is falling
     this.playerPreviousY = 0;
-    this.body.setGravityY(600); // sets gravity 
+    this.animationPlayedGoingUp = false;
+    this.animationPlayedGoingDown = false;
+    this.animationInAir = false;
+    //sets player gravity in the scene
+    this.body.setGravityY(600); 
+    //player not pushable. may cause a problem if i want a enemy that throws player
     this.setPushable(false);
+    //object is on view layer 6
     this.setDepth(6);
+    // hitbox cooldown.
     this.hitboxCoolDown = false;
+
+    //used to tell what damage type the player is dealing with melee weapons.
     this.sliceDamage = 0;
     this.bluntDamage = 0;
     this.pierceDamage = 0;
     this.heatDamage = 0;
     this.lightningDamage = 0;
     this.coldDamage = 0;
-    this.animationPlayedGoingUp = false;
-    this.animationPlayedGoingDown = false;
-    this.animationInAir = false;
+
+    //did the player use the doublejump skill?
     this.doubleJumpActivation = false;
     this.spaceDelay = false;
     this.spaceWasPressed = false;
     this.jumped = false;
+
+    //shrinks the sprite by 1/3 since the sprites are 3 times as big to improve resolution.
     this.setScale(1/3);
 
-    //defines player animations.
+    //is used to increase players speed via items or skills.
+    this.speedBoost = 1;
+
+    //defines player animations. animations are define on startup based on the players sex
     if(sex === 0){
     this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 9 }),frameRate: 6,repeat: -1});
 
@@ -91,36 +107,40 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.anims.create({key: 'pAttackUnarmedRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 78, end: 82 }),frameRate: 12,repeat: -1});
     this.anims.create({key: 'pAttackUnarmedLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 83, end: 87 }),frameRate: 12,repeat: -1});
     }
-
-
-    
   }
     
-    
-  
-  
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
   movePlayer(keyA,keyD,space,playerPreviousY,scene){
-    //changes the hitbox ,true centeres the sprite. fixes an issue where player hit 
-    //box would be disjointed from the sprite. caused by phaser inililizing the prite before hpysics is fully set up
-    //might cause problems if hitbox needs to change as it it set after every call.
    
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
-    // this statement clears the valuse chacking to see if the play is in the air and when to play the jumping animation in the air.
     
-  //calls emitter to check if the player has skills that apply to movement
+  //create a temp object to be sent to the emitter
   let playerSkillsObject = {
     playerSkills: null
   };
-  
+
+  //calls emitter to check if the player has skills that apply to movement
   playerSkillsEmitter.emit(playerSkills.getJump,playerSkillsObject);
+
+  let playerDataObject = {
+    playerInventoryData: null
+  };
+  // call to emitter to get player inventory data.
+  inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
+
+  if(playerDataObject.playerInventoryData[25].itemID === 8){
+    console.log("speed ring equipt");
+    this.speedBoost = 1.5;
+  }else{
+    this.speedBoost = 1;
+  }
   
   //move the player left
   if(keyA.isDown && this.body.blocked.down){
       this.setSize(50,210,true);
       this.lastKey = "a";
       this.idleTimer = 0;
-      this.setVelocityX(-300);
+      this.setVelocityX(-300 * this.speedBoost);
       if(this.body.blocked.down){
         this.anims.play('pLeft',true);
         //console.log("moving left");
@@ -131,7 +151,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.setSize(50,210,true);
       this.lastKey = "d";
       this.idleTimer = 0;
-      this.setVelocityX(300);
+      this.setVelocityX(300 * this.speedBoost);
       if(this.body.blocked.down){
         this.anims.play('pRight',true);
          //console.log("moving Right");
@@ -196,7 +216,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.doubleJumpActivation = false;
     this.spaceWasPressed = false;
     this.spaceDelay = false;
-    //console.log("body.isdown, reseting animation blocks.");
   }
      
   //if space is pressed and the player is on the ground then jump
@@ -204,13 +223,12 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.idleTimer = 0;
     this.setVelocityY(-350);
     let that = this;
-    //console.log(" jumping");
     }
 
   //if the player is  in the air and moving to the left
   if(keyA.isDown && !this.body.blocked.down){
   //console.log("IN AIR AND MOVING LEFT");
-    this.setVelocityX(-300);
+    this.setVelocityX(-300 * this.speedBoost);
     this.animationInAir = true;
     let that = this;
 
@@ -242,7 +260,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   //if the player is  in the air and moving to the right
   }else if(keyD.isDown && !this.body.blocked.down){
       //console.log("IN AIR AND MOVING RIGHT");
-      this.setVelocityX(300);
+      this.setVelocityX(300 * this.speedBoost);
       this.animationInAir = true;
       //if the player has the double jump ability, allow them to jupm agian.
       if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
@@ -308,14 +326,17 @@ class player extends Phaser.Physics.Arcade.Sprite{
   }
 
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
+  //this function handles player attack animations.
   attackPlayer(keyShift,scene){
+    //temp variable of this object to be used my timeout functions
     let that = this;
 
+    //temp object sent to be sent to a emitter
     let playerDataObject = {
       playerInventoryData: null
-  };
-
-  inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
+    };
+    // call to emitter to get player inventory data.
+    inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
   //console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
 

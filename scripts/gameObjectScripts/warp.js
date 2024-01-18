@@ -3,46 +3,49 @@
 communicate between scenes
 https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
 */
+
 class warp extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, 'warpSprites');
-        //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-        //so here in the subclass of sprite its refering to the image object we just made. 
+        //then we add new instance into the scene.
         scene.add.existing(this);
         //then we call this next line to give it collision
         scene.physics.add.existing(this);
-        //now we can perform any specalized set ups for this object
-        //this.body.setGravityY(600); // sets gravity 
+        //object set to not be pushable. 
         this.setPushable(false);
+        //sets scale to 1 third. sprites are upscaled by 3 times so they look sharper.
         this.setScale(1/3,1/3);
+        //changes collision box size.
         this.setSize(40,50,true);
+        //stores the x and y of where the warp will put the player in the next scene.
         this.nextSceneX;
         this.nextSceneY;
+        //id used to distinguish between multiple protals in the scene.
         this.warpPortalId;
+        //sets up key prompts displayed to the player.
         this.portalKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
         this.portalKeyPrompts.visible = false;
         this.promptCooldown = false;
         this.playerOverlapingPortal = false;
         this.safeToLoad = false;
+        //stores the location string to tell which scene should be loaded.
         this.destination;
 
-        // object animations / different object sprites
+        //warp sprite animations
         this.anims.create({key: 'warpCaveOutside',frames: this.anims.generateFrameNames('warpSprites', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveInside',frames: this.anims.generateFrameNames('warpSprites', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'door1',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
         
-        //defines player animations. 
     }
 
-// bug fixed where holding w before overlaping a warp zone caused the next scene to be constantly loaded.
-// lesson learned dont but scene triggers in a overlap function.
 
     //function to check if the player should be warped
     warpTo(scene1,keyW,activeId){
-
+      // bug fixed where holding w before overlaping a warp zone caused the next scene to be constantly loaded.lesson learned dont but scene triggers in a overlap function.
+      
       //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
         
       // if the player is within range, and presses w then activate scene transition

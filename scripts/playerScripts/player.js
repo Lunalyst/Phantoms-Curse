@@ -128,6 +128,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   // call to emitter to get player inventory data.
   inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
+  //if the player has speed ring equipt change speed multiplier.
   if(playerDataObject.playerInventoryData[25].itemID === 8){
     console.log("speed ring equipt");
     this.speedBoost = 1.5;
@@ -338,9 +339,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
     // call to emitter to get player inventory data.
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
-  //console.log("playerDataObject.playerInventoryData: ",playerDataObject.playerInventoryData);
-
+    //plays attack animations based on what the player has equipt when the player isa not in the air.
     if(this.body.blocked.down){
+
+      //plays attack for knife right
       if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeRight",true);
         this.setVelocityX(0);
@@ -356,6 +358,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays attack for knife left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeLeft",true);
         this.setVelocityX(0);
@@ -371,6 +374,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays attack for axe right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeRight",true);
         this.setVelocityX(0);
@@ -386,6 +390,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays attack for axe left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeLeft",true);
         this.setVelocityX(0);
@@ -401,6 +406,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays attack for oar right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarRight",true);
         this.setVelocityX(0);
@@ -416,6 +422,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays attack for oar left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarLeft",true);
         this.setVelocityX(0);
@@ -440,6 +447,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
           this.lightningDamage = 0;
           this.coldDamage = 0;
         }
+
+      //plays animation for unarmed or non weapon equipt right.
       }else if(this.lastKey === 'd' && keyShift.isDown){
         this.anims.play("pAttackUnarmedRight",true);
         this.setVelocityX(0);
@@ -455,6 +464,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           scene.attackHitBox.y = this.y;
           that.hitboxCoolDown = false; 
         }
+      //plays animation for unarmed or non weapon equipt left.
       }else if(this.lastKey === 'a'&& keyShift.isDown){
         this.anims.play("pAttackUnarmedLeft",true);
         this.setVelocityX(0);

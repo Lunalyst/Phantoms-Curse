@@ -1,70 +1,69 @@
-//import { healthEmitter } from "./events";
-//https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-constructor-at-new-mapboxgeocoder
 
-//let activeUI;
-// the goal of this class is to factor out ui elements that we want to keep inbetween scenes by making a scene that is active and overlayed over the current scene
-//so refactoring out my old code we need to keep all ui elements and player controls in this scene
-// leave game object definitions within the scene its self
+//https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-constructor-at-new-mapboxgeocoder
 //https://www.youtube.com/watch?v=5zl74QQjUDI
+
+//this class is to factor out ui elements that we want to keep inbetween scenes by making a scene that is active and overlayed over the current scene
 class gameHud extends Phaser.Scene {
   
     constructor(){
       // scene settings
       super({key: 'gameHud',active: false,physics:{default:'arcade'}});
 
-    this.healthDisplay;
-    this.grabbed = false;
-    this.KeyDisplay;
-    this.skipIndicator;
-    this.activateFunctions;
-    this.loadCoolDown = false;
-    this.saveCoolDown = false;
-    this.signCoolDown = false;
-    this.playerInventory;
-    this.inventoryTween;
-    //contains the slot objects
-    //contains inventory data
-    this.inventoryDataArray;
-    this.weaponDes;
-    this.ringDes;
-    this.isPaused = false;
-    this.sceneTextBox;
-    this.pausedInTextBox = false;
-    this.playerBestiaryData;
-    this.playerSkillsData;
-    this.playerSaveSlotData;
-    this.flagValues;
-    this.skipIndicator;
-      }
+      //gamehud variables
+      this.healthDisplay;
+      this.grabbed = false;
+      this.KeyDisplay;
+      this.skipIndicator;
+      this.activateFunctions;
+      this.loadCoolDown = false;
+      this.saveCoolDown = false;
+      this.signCoolDown = false;
+      this.playerInventory;
+      this.inventoryTween;
+      this.inventoryDataArray;
+      this.weaponDes;
+      this.ringDes;
+      this.isPaused = false;
+      this.sceneTextBox;
+      this.pausedInTextBox = false;
+      this.playerBestiaryData;
+      this.playerSkillsData;
+      this.playerSaveSlotData;
+      this.flagValues;
+      this.skipIndicator;  
+    }
 
-      preload(){
+    //loads gamehud sprites
+    preload(){
            
-       //hud specific 
-       this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 669 });
-       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 669 });
+      //hud specific 
+      this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 669 });
+      this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 669 });
 
-       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
-       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
-       this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
-       this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
-       this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
-       this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
-       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
-       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
+      this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
+      this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
+      this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
+      this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
+      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
+      this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
+      this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
+      this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
 
-       //level containers for hud.
-       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
+      //level containers for hud.
+      this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
 
     
-      }
+    }
 
-      create(){
+    //sets up gamehud elements and emitters.
+    create(){
         
-        console.log("create function in hud activated-------------------------------------------------------")
+        console.log("create function in hud activated")
 
         //when launched always ensures the scene is at the top layer.
         this.scene.bringToTop();
 
+        //puts the hud to the top of the scene display order.
         hudDepthEmitter.on(hudDepth.toTop,() =>{
           this.scene.bringToTop();
         });
@@ -182,9 +181,9 @@ class gameHud extends Phaser.Scene {
             //loop through inventory item array to see if the item added already been picked up.
               for(let counter = 0; counter < 25 ;counter++){
 
-                  console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.ItemID);
-                  console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
-                  console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
+                  //console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.itemID);
+                  //console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
+                  //console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
 
                   //if the item id matches, and the item is stackable, and the total amount does not go above 64 and the item has not already been added then add the item recieved to the item allready in the inventory.
                   if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
@@ -274,7 +273,7 @@ class gameHud extends Phaser.Scene {
           });
 
           //emitter for returning save slot data
-          playerSaveSlot.on(playerSaveSlot.getSaveSlot,(object) =>{
+          playerSaveSlotEmitter.on(playerSaveSlot.getSaveSlot,(object) =>{
             object.playerSaveSlotData = this.playerSaveSlotData;
           });
 
@@ -289,14 +288,15 @@ class gameHud extends Phaser.Scene {
         
 
         console.log("create function in hud finished-------------------------------------------------------");
-        }
+    }
 
-        update(){
-          
-          
-        }
+    //update loop.
+    update(){
+              
+    }
 
-        loadSceneTransitionValues(){
+    //loads value from data to display the hud
+    loadSceneTransitionValues(){
            //on start up we need files from the scene transition. so we grab those.
            var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
 
@@ -316,50 +316,101 @@ class gameHud extends Phaser.Scene {
            this.playerSaveSlotData = file.pssd;
            this.flagValues = file.flags;
  
+    }
+
+    //function that prints listeners
+    printActiveEmitter(){
+
+      //creates two arrays to hold keys and emitters, same code is in gameover function in default scene.
+      let emitterArray = [];
+      let keyArray = [];
+
+      keyArray.push(healthEvent);
+      emitterArray.push(healthEmitter);
+      
+      keyArray.push(SceneTransitionLoad);
+      emitterArray.push(loadSceneTransitionLoad);
+
+      keyArray.push(tabKey);
+      emitterArray.push(accessTabKey);
+
+      keyArray.push(inventoryKey);
+      emitterArray.push(inventoryKeyEmitter);
+
+      keyArray.push(playerSkills);
+      emitterArray.push(playerSkillsEmitter);
+
+      keyArray.push(playerSaveSlot);
+      emitterArray.push(playerSaveSlotEmitter);
+
+      keyArray.push(skipIndicator);
+      emitterArray.push(skipIndicatorEmitter);
+
+      keyArray.push(hudDepth);
+      emitterArray.push(hudDepthEmitter);
+      
+
+      let emitterTotal = 0;
+      //loops through the arrays
+      for(let counter = 0; counter < emitterArray.length; counter++){
+        //for each key add the emitter totals
+        for(const property in keyArray[counter]){
+          //console.log(`emitter: ${property}: ${healthEvent[property]}`);
+          emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
+          //healthEmitter.removeAllListeners(healthEvent[property]);
         }
+        //print the emitter listeners
+        console.log(keyArray[counter]," current listeners: ",emitterTotal);
+        emitterTotal = 0;
 
-        //function that prints listeners
-        printActiveEmitter(){
-          console.log("healthEmitter current listeners: ",
-           healthEmitter.listenerCount(healthEvent.loseHealth)+
-           healthEmitter.listenerCount(healthEvent.gainHealth)+
-           healthEmitter.listenerCount(healthEvent.maxHealth)+
-           healthEmitter.listenerCount(healthEvent.returnHealth));
+      }  
+    }
 
-          console.log("loadSceneTransitionLoad current listeners: ",loadSceneTransitionLoad.listenerCount(SceneTransitionLoad.loadValues));
+    //clears all emitters
+    clearAllEmmitters(){
 
-          console.log("accessTabKey current listeners: ",accessTabKey.listenerCount(tabKey.isTabDown));
+      console.log("removing listeners");
 
-          console.log("inventoryKeyEmitter current listeners: ",
-          inventoryKeyEmitter.listenerCount(inventoryKey.activateWindow)+
-          inventoryKeyEmitter.listenerCount(inventoryKey.isWindowOpen)+
-          inventoryKeyEmitter.listenerCount(inventoryKey. getSaveData));
+      let emitterArray = [];
+      let keyArray = [];
 
-          console.log("playerSkillsEmitter current listeners: ",playerSkillsEmitter.listenerCount(playerSkills.getJump));
+      keyArray.push(healthEvent);
+      emitterArray.push(healthEmitter);
+      
+      keyArray.push(SceneTransitionLoad);
+      emitterArray.push(loadSceneTransitionLoad);
 
-          console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot.getSaveSlot));
+      keyArray.push(tabKey);
+      emitterArray.push(accessTabKey);
 
-          console.log("hudDepthEmitter current listeners: ",hudDepthEmitter.listenerCount(hudDepth.toTop));
+      keyArray.push(inventoryKey);
+      emitterArray.push(inventoryKeyEmitter);
 
+      keyArray.push(playerSkills);
+      emitterArray.push(playerSkillsEmitter);
+
+      keyArray.push(playerSaveSlot);
+      emitterArray.push(playerSaveSlotEmitter);
+
+      keyArray.push(skipIndicator);
+      emitterArray.push(skipIndicatorEmitter);
+
+      keyArray.push(hudDepth);
+      emitterArray.push(hudDepthEmitter);
+      
+
+      //same code is in gameover function in default scene.
+
+      for(let counter = 0; counter < emitterArray.length; counter++){
+
+        for(const property in keyArray[counter]){
+          
+         emitterArray[counter].removeAllListeners(keyArray[counter][property]);
+          
         }
+    
+      }  
 
-        clearAllEmmitters(){
-
-          console.log("removing listeners");
-          healthEmitter.removeAllListeners(healthEvent.loseHealth);
-          healthEmitter.removeAllListeners(healthEvent.gainHealth);
-          healthEmitter.removeAllListeners(healthEvent.maxHealth);
-          healthEmitter.removeAllListeners(healthEvent.returnHealth);
-          loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
-          accessTabKey.removeAllListeners(tabKey.isTabDown);
-          inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
-          inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
-          inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
-          playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
-          playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
-          hudDepthEmitter.removeAllListeners(hudDepth.toTop);
-
-        printActiveEmitter(); 
-      }
+    }
 
     }

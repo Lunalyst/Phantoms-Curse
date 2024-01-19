@@ -1,5 +1,5 @@
 // here are the event emmiter definitions and key definitions
-//these keys are use to tell 
+
 healthEvent = {
     loseHealth: 'lose_health',
     gainHealth: 'gain_health',
@@ -49,7 +49,7 @@ playerSaveSlot = {
     getSaveSlot: 'get_save_slot',
 };
 
-playerSaveSlot = new Phaser.Events.EventEmitter();
+playerSaveSlotEmitter = new Phaser.Events.EventEmitter();
 
 skipIndicator = {
     activateSkipIndicator: 'activate_skip_indicator',

@@ -1,5 +1,8 @@
 class defaultScene extends Phaser.Scene {
 
+    //{preload Functions}===================================================================================================================
+
+    //loads all the sprites for a current default scene. may make more specalized preload function in the future.
     defaultPreload(){
         
        //loads the image with the tiles and the .json file of the tilemap
@@ -26,17 +29,17 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
        this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
-       //loads the plugin to animate the tiles that have animation
-       //this.load.scenePlugin('animatedTiles',  AnimatedTiles , 'animatedTiles', 'animatedTiles');
-
+       //loads a plugin to the heaa of the html to animate tiles in levels
        this.load.scenePlugin({
         key: 'AnimatedTiles',
         url: 'lib/vendors/AnimatedTiles.js',
         sceneKey: 'AnimatedTiles'
-      });
+        });
+    }
 
-      }
+    //{scene setup Functions}===================================================================================================================
 
+    //sets up default scene variables that every scene should need. could be factored out into multiple varialbe set ups for different scenes
     constructStockSceneVariables(){
 
         //variables that all scenes should have
@@ -99,6 +102,23 @@ class defaultScene extends Phaser.Scene {
     
     }
 
+    //old function to animate backround. could be removed.
+    animateBackround() {
+      if (this.backroundTimer < 100) {
+      this.backround.setFrame(0);
+      this.backroundTimer++;
+      } else if (this.backroundTimer < 200) {
+      this.backround.setFrame(2);
+      this.backroundTimer++;
+      } else if (this.backroundTimer < 300) {
+      this.backround.setFrame(1);
+      this.backroundTimer++;
+      } else if (this.backroundTimer < 301) {
+      this.backroundTimer = 0;
+      }
+    }
+
+    //function to set up player key input definitions.
     setUpPlayerInputs(){
         // allows detection of key inputs for movement and player attacks
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -113,6 +133,7 @@ class defaultScene extends Phaser.Scene {
 
     }
 
+    //function called to laod tilesets.
     setUpTileSet(map,tilesetImage,sourceMap){
         //creates a tilemap to be sent into the level class.the key value must match the key given to the json file. 
         this.myMap = this.make.tilemap({ key: map });
@@ -126,6 +147,7 @@ class defaultScene extends Phaser.Scene {
         
     }
 
+    //sets up player object
     setUpPlayer(){
         //creates a player object with the given values
         this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
@@ -133,55 +155,68 @@ class defaultScene extends Phaser.Scene {
         this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
     }
 
+    //sets up keyprompts in the scene for when the player is grabbed.
     setUpKeyPrompts(){
         this.KeyDisplay = new keyPrompts(this, 450, 500,'keyPrompts');
         this.KeyDisplay.visible = false;
     }
 
+    //sets up item object. will likely be called from enemy classes to drop items from enemys. is generic enough for other uses as well.
     setUpItemDrops(){
       //sets up the group for items in the scene
       this.itemDrops = this.physics.add.group();
     }
 
+    //creates a container object to hold items.
     setUpContainers(){
       //sets up the group for items in the scene
       this.itemContainers = this.physics.add.group();
 
     }
 
+    //sets up camera object
+    setUpPlayerCamera(){
+      //sets up camera to follow player.
+      this.mycamera = this.cameras.main;
+      this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
+      this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
+      this.cameras.main.followOffset.set(0,-1500);
+
+      hudDepthEmitter.emit(hudDepth.toTop);
+    }
+
+    //sets up text box in scene
+    setUpTextBox(){
+      this.sceneTextBox = new textBox(this,450,620,'textBox');
+    }
+
+    //{collision Functions}===================================================================================================================
+
+    //sets up player collision
     setUpPlayerCollider(){
         this.physics.add.collider(this.player1,this.processMap.layer1);
         this.physics.add.collider(this.player1,this.processMap.layer0);
     }
 
+    //sets up itemDrop collision
     setUpItemDropCollider(){
       //sets up physics for the itemDrops Group
       this.physics.add.collider(this.itemDrops,this.processMap.layer1);
       //this.physics.add.collider(this.itemDrops,this.processMap.layer0);
-  }
+    }
 
+    //sets up slime enemy collision
     setUpSlimeCollider(){
         this.physics.add.collider(this.processMap.layer1, this.slimes);
         this.physics.add.collider( this.slimes, this.slimes); 
     }
 
+    //sets up function to give a object collision with layer1
     setUpLayer1Collider(object){
         this.physics.add.collider(this.processMap.layer1, object);
     }
 
-    setUpPlayerCamera(){
-        //sets up camera to follow player.
-        this.mycamera = this.cameras.main;
-        this.mycamera.startFollow(this.player1 ,false,0,0,10000,10000);
-        this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
-        this.cameras.main.followOffset.set(0,-1500);
-
-        hudDepthEmitter.emit(hudDepth.toTop);
-    }
-
-    setUpTextBox(){
-        this.sceneTextBox = new textBox(this,450,620,'textBox');
-    }
+    //{Save AND lOAD Functions}===================================================================================================================
 
     //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
     saveGameoverFile(playerSex, enemyThatDefeatedPlayer, playerSaveSlotData) {
@@ -198,6 +233,7 @@ class defaultScene extends Phaser.Scene {
         //uses local Storage to store the data
         localStorage.setItem('saveGameoverFile', JSON.stringify(file));
     }
+
     //function to load data once we are in the gameover scene.
     loadGameoverFile() {
         //sets variable to the stored data
@@ -213,6 +249,7 @@ class defaultScene extends Phaser.Scene {
         this.enemyThatDefeatedPlayer = file.enemy;
         this.playerSaveSlotData = file.pssd;
     }
+
     // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
     saveGameFile(savePointX, savePointY, playerSex, location, dataObject) {
         // these are the game variables that are hard saved when the player uses a save point.
@@ -363,7 +400,9 @@ class defaultScene extends Phaser.Scene {
 
     }
 
-    //generates slimes
+    //{itit object Functions}===================================================================================================================
+
+    //creates slime object in levels
     initSlimes(startX, startY, amount, playerSex) {
         //creates a row of slime enemys and adds them to the slime enemy groups.
         for (let row = 0; row < amount; row++) {
@@ -378,7 +417,7 @@ class defaultScene extends Phaser.Scene {
         }
     }
 
-    // creates warp portal objects in the scene
+    //creates warp portal objects in the scene
     initPortals(x, y, toX, toY, animation,destination) {
         let portal1 = new warp(this, x, y);
         //gives portal a unique id so that scene can tell which warp object is being activated
@@ -392,6 +431,7 @@ class defaultScene extends Phaser.Scene {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    //creates warp portal objects that are transparent in the scene
     initPortalsWithTransparency(x, y, toX, toY, animation,destination,transparency) {
       let portal1 = new warp(this, x, y);
       portal1.setAlpha(transparency);
@@ -407,6 +447,7 @@ class defaultScene extends Phaser.Scene {
       //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    //creates save point in the scene
     initSavePoints(x, y) {
         let savePoint1 = new savePoint(this, x, y);
         //gives portal a unique id so that scene can tell which warp object is being activated
@@ -419,6 +460,7 @@ class defaultScene extends Phaser.Scene {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    //creates a sign object in the scene
     initSigns(x, y, text, profileArray) {
         let sign1 = new sign(this, x, y, text, profileArray);
         //gives portal a unique id so that scene can tell which warp object is being activated
@@ -431,6 +473,7 @@ class defaultScene extends Phaser.Scene {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    //creates a item drop object in the scene
     initItemDrop(x, y,itemID,itemStackable,itemAmount) {
       //creates a item drop
       let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount);
@@ -446,6 +489,7 @@ class defaultScene extends Phaser.Scene {
       
     }
 
+    //creates a item container in the scene
     initItemContainer(x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag) {
       //creates a item drop
       let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag);
@@ -460,7 +504,9 @@ class defaultScene extends Phaser.Scene {
       
     }
 
-    //test to see if the player should be warped.
+    //{check object Functions}===================================================================================================================
+
+    //test to see if the player should be warped
     checkWarp(location) {
         //console.log("checking warp");
         //applies a function to each portal object in the scene
@@ -481,6 +527,7 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    //test to se if the player is safe to save there game
     checkSave() {
         //applies a function to each portal object in the scene
         this.saveStonePoints.children.each(function (tempSavePoint) {
@@ -499,6 +546,7 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    //checks to see if the player can activate a sign object
     checkSign(scene) {
         //applies a function to each portal object in the scene
         scene.signPoints.children.each(function (tempSignPoint) {
@@ -515,8 +563,9 @@ class defaultScene extends Phaser.Scene {
           tempSignPoint.activateSign(scene, scene.keyW, scene.activatedSignId);
     
         }, scene);
-      }
+    }
 
+    //checks to see if the items should be picked up
     checkItemPickUp() {
         
       this.itemDrops.children.each(function (tempItemDrop) {
@@ -543,6 +592,7 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    //checks to see if the container should be opened
     checkContainerPickUp() {
         
       this.itemContainers.children.each(function (tempItemContainer) {
@@ -559,23 +609,6 @@ class defaultScene extends Phaser.Scene {
 
         tempItemContainer.activateContainer(this,this.keyW, this.activatedContainerId);
         }, this);
-    }
-
-    // simple function to change the backround animation frames.
-    // should fix with some settimeout functions.
-    animateBackround() {
-        if (this.backroundTimer < 100) {
-        this.backround.setFrame(0);
-        this.backroundTimer++;
-        } else if (this.backroundTimer < 200) {
-        this.backround.setFrame(2);
-        this.backroundTimer++;
-        } else if (this.backroundTimer < 300) {
-        this.backround.setFrame(1);
-        this.backroundTimer++;
-        } else if (this.backroundTimer < 301) {
-        this.backroundTimer = 0;
-        }
     }
 
     //function to activate blue slime grab animation
@@ -600,6 +633,7 @@ class defaultScene extends Phaser.Scene {
         }
         }, this);
     }
+
     //function keeps track of slime interactions
     checkBlueSlimeInteractions(scene) {
 
@@ -665,14 +699,17 @@ class defaultScene extends Phaser.Scene {
         }, this);
     
     }
-    // function called to pause slimes for all slimes in the group.
+
+    //function called to pause slimes for all slimes in the group.
     checkBlueSlimePause() {
         this.slimes.children.each(function (tempSlime1) {
         tempSlime1.pauseSlimeAnimations(this);
         }, this);
     }
+
+    //{game over scene transitions}===================================================================================================================
   
-      // function which destroys this scene and starts the gameover scene.
+    //function which destroys this scene and starts the gameover scene.
     changeToGameover(){
 
         this.myMap.destroy();
@@ -682,50 +719,174 @@ class defaultScene extends Phaser.Scene {
           playerSaveSlotData: null
         };
       
-        playerSaveSlot.emit(playerSaveSlot.getSaveSlot,playerSaveSlotDataObject)
+        playerSaveSlotEmitter.emit(playerSaveSlot.getSaveSlot,playerSaveSlotDataObject)
   
         console.log("this.playerSaveSlotData sent to gameover: ",playerSaveSlotDataObject.playerSaveSlotData);
   
         this.saveGameoverFile(this.playerSex,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData);
 
-        console.log("removing listeners");
-        //removes listeners
-        healthEmitter.removeAllListeners(healthEvent.loseHealth);
-        healthEmitter.removeAllListeners(healthEvent.gainHealth);
-        healthEmitter.removeAllListeners(healthEvent.maxHealth);
-        healthEmitter.removeAllListeners(healthEvent.returnHealth);
-        loadSceneTransitionLoad.removeAllListeners(SceneTransitionLoad.loadValues);
-        accessTabKey.removeAllListeners(tabKey.isTabDown);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.activateWindow);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.isWindowOpen);
-        inventoryKeyEmitter.removeAllListeners(inventoryKey.getSaveData);
-        playerSkillsEmitter.removeAllListeners(playerSkills.getJump);
-        playerSaveSlot.removeAllListeners(playerSaveSlot. getSaveSlot);
-        skipIndicatorEmitter.removeAllListeners();
-
-        console.log("healthEmitter current listeners: ",
-           healthEmitter.listenerCount(healthEvent.loseHealth)+
-           healthEmitter.listenerCount(healthEvent.gainHealth)+
-           healthEmitter.listenerCount(healthEvent.maxHealth)+
-           healthEmitter.listenerCount(healthEvent.returnHealth));
-
-        console.log("loadSceneTransitionLoad current listeners: ",loadSceneTransitionLoad.listenerCount(SceneTransitionLoad.loadValues));
-
-        console.log("accessTabKey current listeners: ",accessTabKey.listenerCount(tabKey.isTabDown));
-
-        console.log("inventoryKeyEmitter current listeners: ",
-        inventoryKeyEmitter.listenerCount(inventoryKey.activateWindow)+
-        inventoryKeyEmitter.listenerCount(inventoryKey.isWindowOpen)+
-        inventoryKeyEmitter.listenerCount(inventoryKey. getSaveData));
-
-        console.log("playerSkillsEmitter current listeners: ",playerSkillsEmitter.listenerCount(playerSkills.getJump));
-
-        console.log("playerSaveSlot current listeners: ",playerSaveSlot.listenerCount(playerSaveSlot. getSaveSlot));
-
         
+      console.log("removing listeners");
+
+      let emitterArray = [];
+      let keyArray = [];
+
+      keyArray.push(healthEvent);
+      emitterArray.push(healthEmitter);
+      
+      keyArray.push(SceneTransitionLoad);
+      emitterArray.push(loadSceneTransitionLoad);
+
+      keyArray.push(tabKey);
+      emitterArray.push(accessTabKey);
+
+      keyArray.push(inventoryKey);
+      emitterArray.push(inventoryKeyEmitter);
+
+      keyArray.push(playerSkills);
+      emitterArray.push(playerSkillsEmitter);
+
+      keyArray.push(playerSaveSlot);
+      emitterArray.push(playerSaveSlotEmitter);
+
+      keyArray.push(skipIndicator);
+      emitterArray.push(skipIndicatorEmitter);
+
+      keyArray.push(hudDepth);
+      emitterArray.push(hudDepthEmitter);
+      
+
+      for(let counter = 0; counter < emitterArray.length; counter++){
+
+        for(const property in keyArray[counter]){
+          
+         emitterArray[counter].removeAllListeners(keyArray[counter][property]);
+          
+        }
+    
+      }  
+
+      let emitterTotal = 0;
+
+      for(let counter = 0; counter < emitterArray.length; counter++){
+
+        for(const property in keyArray[counter]){
+          //console.log(`emitter: ${property}: ${healthEvent[property]}`);
+          emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
+          //healthEmitter.removeAllListeners(healthEvent[property]);
+        }
+        console.log(keyArray[counter]," current listeners: ",emitterTotal);
+        emitterTotal = 0;
+
+      }  
         this.scene.stop('gameHud');
         this.scene.start('gameOverForest');
 
+    }
+
+    //{Update functions}===================================================================================================================
+    defaultUpdate(){
+    //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
+    //console.log("grabbed:"+ this.grabbed);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
+      this.checkItemPickUp();
+
+      this.checkContainerPickUp();
+
+      if(this.loadCoolDown === true){
+        this.checkWarp("tutorialBeach");
       }
+      if(this.saveCoolDown === true){
+        this.checkSave("tutorialBeach");
+      }
+      if(this.signCoolDown === true){
+        this.checkSign(this);
+      }
+      //accessTabKey.on(tabKey.isTabDown,(isDown)
+      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+        //console.log("tabKey Pressed");
+        //this.playerInventory.setView(this);
+        //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
+        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
+        this.checkBlueSlimePause();
+        //this.player1.pausePlayerPhysics(this);
+      }else{
+        this.checkBlueSlimePause();
+      }
+
+      if(this.pausedInTextBox === true){
+        this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+        this.checkBlueSlimePause();
+        this.physics.pause();
+        this.player1.anims.pause();
+
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+        if(isWindowObject.isOpen === true){
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
+        }
+      }else if(this.pausedInTextBox === false && this.isPaused === false){
+        this.checkBlueSlimePause();
+        this.physics.resume();
+        this.player1.anims.resume();
+      }
+
+
+      if(this.isPaused === false){
+        if(this.grabbed === false){ 
+
+          //calls built in move player function to handle how the player moves and is animated while moving  
+          if(!this.shift.isDown){
+          this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+          }
+          //changes the scale and location of the health bar for zoomed out camera
+          //this.healthDisplay.zoomedOut();
+          //makes a function applied to all slime entities
+          //this.portals.hidePrompt
+          //applies a function to every slime object by calling the blueSlimeCollisions function.
+          this.checkBlueSlimeInteractions(this);
+          ///this.blueSlimeCollisions();//HERE
+          //sets the camera to follow the player and changes the scale as well
+          this.mycamera.startFollow(this.player1);
+          this.cameras.main.zoom = 2;
+          this.cameras.main.followOffset.set(0,70);
+          //checks if player is over a warp point and sends them to the correct location
+          //console.log("this.loadCoolDown: "+ this.loadCoolDown);
+          
+          //if play hits tab and not grabbed open inventory.
+          
+            this.player1.attackPlayer(this.shift,this);
+
+        }else if(this.grabbed === true){
+          //if the player is grabbed then zoom camera in and edit ui elements to fit the screen
+          //applies a function to each slime that calls the grab function. only works 
+          //before activating grab, closes inventory if its open.
+          //this.healthDisplay.zoomIn();
+          let isWindowObject = {
+            isOpen: null
+          };
+          
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          if(isWindowObject.isOpen === true){
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          }
+          this.checkBlueSlimeGrab();
+        }
+
+    }else if(this.isPaused === true){
+
+    }
+      //updates the previous y value. used to animate the falling animation of the player.
+      this.player1.playerPreviousY = this.player1.y;
+      //update the damage cool down if player takes damage.
+      
+    
+    }
       
   }

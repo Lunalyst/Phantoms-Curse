@@ -7,67 +7,84 @@ class gameOver extends Phaser.Scene {
     constructor(){
         // scene settings
         super({key: 'gameOverForest',active: false,physics:{default:'arcade'}});
-        //variables attached to the scene
+        
         this.newGame;
+        //tileset map
         this.processMap;
-        this.enemy;
-        this.gameOverSign;
-        this.tryAgain;
-        this.allFunctions;
-        this.keyA;
-        this.keyW;
-        this.keyD;
-        this.keyS;
-        this.space;
-        this.shift;
-        this.mycamera;
-        this.processMap;
-        this.backround;
         this.myMap;
-        this.activateFunctions;
+        //enemy that beat player
+        this.enemy;
+        //game over display "cursed"
+        this.gameOverSign;
+        //try agian button 
+        this.tryAgain;
+        //function to acess other functions. should factor this out.
+        this.allFunctions;
+        //sets up camera object
+        this.mycamera;
+        //backround image
+        this.backround;
+        //default placement of enemy that defeated player in the scene.
         this.warpToX = 450;
         this.warpToY = 600;
+        //array to hold player data.
         this.inventoryDataArray;
+        //contains the player sex value
         this.playerSex;
-        this.playerLocation = "forestHome";
+        //contains default player location
+        this.playerLocation = "";
         this.playerBestiaryData;
         this.playerSkillsData;
         this.playerSaveSlotData;
         this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        
+        //enemy that defeated player string
         this.enemyThatDefeatedPlayer ="";
         
-   
+        //allow acess to scene in settimeout functions.
         gameoverThat = this;
         }
 
+        //loads sprites for game over.
         preload(){
             this.load.image("gameOverbackground" , "assets/titleScreenBackground.png");
             this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
             this.load.spritesheet("gameOverSign" , "assets/gameoversign.png" , {frameWidth: 720 , frameHeight: 300 });
-            //this.load.spritesheet("tryAgianSign" , "assets/try agian.png",{frameWidth: 200, frameHeight: 70});
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
-            
             
              //load in the JSON file for the bitmap
             this.load.tilemapTiledJSON("mapGameover" , "assets/tiledMap/gameOverForest.json");
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
 
-            
-           
-           
-            
         }
 
         create(){
 
+            //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
             this.allFunctions = new allSceneFunctions;
-            this.allFunctions.loadGameoverFile(this);
+
+            //load gameoverFile data to this scene
+            const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
+            //retrieves data from the file object and gives it to the current scene
+            console.log("calling loadGameoverFile============================");
+            console.log("playerSex: " + file.sex);
+            console.log("enemy: " + file.enemy);
+            console.log("playerSaveSlotData: ", file.pssd);
+
+            this.playerSex = file.sex;
+            this.enemyThatDefeatedPlayer = file.enemy;
+            this.playerSaveSlotData = file.pssd;
+
             console.log("this.playersex: "+ this.playerSex);
             console.log("now in gameover scene");
+
+            //creates backround object
             let backround = this.add.sprite(450, 0, "gameOverbackground");
             backround.setScale(1.5,1.5);
+
+            //creates try again button
             this.tryAgian = this.add.sprite(450, 345, "tryAgianSign").setInteractive();
+
+            //creates animations for try agian button
             this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'gameoverTitleAnimation',frames: this.anims.generateFrameNames('gameOverSign', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
@@ -76,15 +93,18 @@ class gameOver extends Phaser.Scene {
             this.tryAgian.setScale(.5);
             this.tryAgian.setDepth(7);
 
-            gameoverThat.tryAgian.visible = false;
+            this.tryAgian.visible = false;
              
             console.log("loading gameover tileset");
+
             let myMap = this.make.tilemap({ key: "mapGameover" });
             //creates a new level object which is used to display map. sends scene and mapdata
             this.processMap = new level(this,myMap);
             //calls function that loads the tiles from the json
             this.processMap.tilesetNameInTiled = "Tile Set V.0.8";
             this.processMap.setTiles('source_map');
+
+            //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
                 this.enemy = new blueSlime(this,450, 280,this.playerSex);
                 this.enemy.slimeGameOver();
@@ -95,18 +115,22 @@ class gameOver extends Phaser.Scene {
                 this.enemy.y-500;
             
             }
+
+            //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
+
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
             this.mycamera.startFollow(this.enemy);
             this.mycamera.setBounds( 0, 0, myMap.widthInPixels, myMap.HeightInPixels); 
-            this.cameras.main.zoom = 1.7;
+            this.cameras.main.zoom = 3;
+            this.cameras.main.followOffset.set(0,50);
+
+            //game over sign.
             this.gameOverSign = this.add.sprite(450,160,"gameOverSign");
             this.gameOverSign.setScale(.3);
             this.gameOverSign.setDepth(7);
-            this.cameras.main.zoom = 3;
-            this.cameras.main.followOffset.set(0,50);
-            let that = this;
+            
             
 
             setTimeout(function(){

@@ -1,6 +1,4 @@
 
-
-let tutorialCaveThat;
 class tutorialCave extends defaultScene {
   
   constructor(){
@@ -66,8 +64,6 @@ class tutorialCave extends defaultScene {
       //sets up the player camera
       this.setUpPlayerCamera();
       
-      //sets the scene this to that so that it can be used in other places that this would be out of scope.
-      tutorialBeachThat = this;
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
@@ -91,48 +87,25 @@ class tutorialCave extends defaultScene {
 
       this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
 
-      
-
-      this.safeToLoad = false;
-      this.safeToSave = false;
-      this.grabCoolDown = false;
-
-      // stops user from warping so fast. after a second of being loaded the player can load zones.
-      this.loadCoolDown = false;
-      this.saveCoolDown = false;
-      this.signCoolDown = false;
-      
-      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-        setTimeout(function(){
-          //generates enemys
-          //tutorialBeachThat.initSlimes(300, 500, 1,tutorialBeachThat.playerSex);
-          //tutorialBeachThat.initSlimes(300, 500, 1,tutorialBeachThat.playerSex);
-          //tutorialBeachThat.initSlimes(2380, 500, 1,tutorialBeachThat.playerSex);
-      
-          tutorialBeachThat.spawnedEnemys = true;
-        },1000);
-        
-        setTimeout(function(){
-          tutorialBeachThat.loadCoolDown = true;
-        },1000);
-        setTimeout(function(){
-          tutorialBeachThat.saveCoolDown = true;
-        },1000);
-        setTimeout(function(){
-          tutorialBeachThat.signCoolDown = true;
-        },1000);
-        //console.log("warpToX:"+ this.warpToX +" warpToY: "+this.warpToY );
-        // this delays grab when loading into the scene.
-        setTimeout(function(){
-          tutorialBeachThat.grabCoolDown = false;
-          console.log("grab cooldown has ended. player can be grabbed agian.");
-          },3000);
-
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
+      let thisScene = this;
+        setTimeout(function(){
+          //generates enemys
+          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
+      
+          thisScene.spawnedEnemys = true;
+        },1000);
+
+        //calls the time outs for various things.
+        this.setUpDefaultTimeOuts();
     }
 
     update(){

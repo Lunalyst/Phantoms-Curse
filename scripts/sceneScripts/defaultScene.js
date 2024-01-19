@@ -86,6 +86,8 @@ class defaultScene extends Phaser.Scene {
 
         this.itemDrops;
 
+        this.gameStartedDelay = true;
+
         this.tabObject = {
             tabIsDown: false
         };
@@ -188,6 +190,49 @@ class defaultScene extends Phaser.Scene {
     //sets up text box in scene
     setUpTextBox(){
       this.sceneTextBox = new textBox(this,450,620,'textBox');
+    }
+
+    setUpDefaultTimeOuts(){
+
+      let thisScene = this;
+
+      this.safeToLoad = false;
+      this.safeToSave = false;
+      this.grabCoolDown = false;
+
+      // stops user from warping so fast. after a second of being loaded the player can load zones.
+      this.loadCoolDown = false;
+      this.saveCoolDown = false;
+      this.signCoolDown = false;
+
+      
+      setTimeout(function(){
+        thisScene.loadCoolDown = true;
+      },1000);
+      setTimeout(function(){
+        thisScene.saveCoolDown = true;
+      },1000);
+      setTimeout(function(){
+        thisScene.signCoolDown = true;
+      },1000);
+      //console.log("warpToX:"+ this.warpToX +" warpToY: "+this.warpToY );
+      // this delays grab when loading into the scene.
+
+     
+      setTimeout(function(){
+        thisScene.grabCoolDown = false;
+        console.log("grab cooldown has ended. player can be grabbed agian.");
+        thisScene.gameStartedDelay = false;
+        console.log("activating physics");
+      },3000);
+
+       // before we do anything, we need to pause the physics. that way the player does not fall out of the world
+       this.physics.pause();
+      setTimeout(function(){
+        thisScene.gameStartedDelay = false;
+        console.log("activating physics");
+      },200);
+      
     }
 
     //{collision Functions}===================================================================================================================
@@ -815,7 +860,7 @@ class defaultScene extends Phaser.Scene {
         this.checkBlueSlimePause();
       }
 
-      if(this.pausedInTextBox === true){
+      if(this.pausedInTextBox === true && this.gameStartedDelay === false){
         this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
         this.checkBlueSlimePause();
         this.physics.pause();
@@ -830,7 +875,7 @@ class defaultScene extends Phaser.Scene {
         if(isWindowObject.isOpen === true){
           inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
         }
-      }else if(this.pausedInTextBox === false && this.isPaused === false){
+      }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
         this.checkBlueSlimePause();
         this.physics.resume();
         this.player1.anims.resume();

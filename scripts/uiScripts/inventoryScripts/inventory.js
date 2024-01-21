@@ -137,7 +137,7 @@ class inventory extends Phaser.GameObjects.Container{
           //adds this to a group to set sprite visibility.
           this.inventoryElements.add(this.inventoryArray[index]);
 
-          console.log("this.inventoryArray[index].x: ",this.inventoryArray[index].x," this.inventoryArray[index].y: ",this.inventoryArray[index].y);
+          //console.log("this.inventoryArray[index].x: ",this.inventoryArray[index].x," this.inventoryArray[index].y: ",this.inventoryArray[index].y);
           //adds the numbers in each slot to the visibility group
           this.inventoryElements.add(this.inventoryArray[index].number1);
           this.add(this.inventoryArray[index].number1);
@@ -326,7 +326,7 @@ class inventory extends Phaser.GameObjects.Container{
       let activeSlot = 0;
       // applys  lightupslot function to slots when clicked.
       for(let counter = 0; counter <= 25;counter++){
-        console.log("counter: ", counter);
+        //console.log("counter: ", counter);
         this.inventoryArray[counter].on('pointerdown', function (pointer) {activeSlot = counter;scene.playerInventory.lightUpSlot(scene,activeSlot);});
       }
       

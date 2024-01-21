@@ -398,8 +398,16 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
-                that.scene.launch('gameHud')
-                that.scene.start('tutorialBeachLevel');
+
+                console.log("now stoping this scene",);
+                that.scene.stop();
+                console.log("now loading game ui",);
+                that.scene.launch('gameHud');
+                setTimeout(function () {
+                    console.log("now Loading main scene",);
+                    that.scene.start('tutorialBeachLevel');
+        
+                }, 10);
                 
                    
         });
@@ -510,8 +518,8 @@ class titleScreen extends Phaser.Scene {
              //441, 926
              //3735,541
             that.allFunctions.saveGame(
-                3735,//nextSceneX
-                541,//nextSceneY
+                441,//nextSceneX
+                926,//nextSceneY
                 2,//playerHp
                 1,//playerSex
                 this.inventoryArray,//playerInventoryData
@@ -520,9 +528,16 @@ class titleScreen extends Phaser.Scene {
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                 gameFlags//gameFlags
                 );
-                that.scene.launch('gameHud')
-                that.scene.start('tutorialBeachLevel');
-                
+
+                console.log("now stoping this scene",);
+                that.scene.stop();
+                console.log("now loading game ui",);
+                that.scene.launch('gameHud');
+                setTimeout(function () {
+                    console.log("now Loading main scene",);
+                    that.scene.start('tutorialBeachLevel');
+        
+                }, 10);
                    
         });
 
@@ -737,9 +752,18 @@ class titleScreen extends Phaser.Scene {
                         this.playerSaveSlotData,
                         this.flagValues
                            );
+
                     console.log("warping player to location."+ this.playerLocation);
-                    this.scene.launch('gameHud'); 
-                    this.scene.start(this.playerLocation); 
+
+                    console.log("now stoping this scene",);
+                    that.scene.stop();
+                    console.log("now loading game ui",);
+                    that.scene.launch('gameHud');
+                    setTimeout(function () {
+                        console.log("now Loading main scene",);
+                        that.scene.start(gameoverThat.playerLocation);
+        
+                    }, 100);
                 }
         }
         }

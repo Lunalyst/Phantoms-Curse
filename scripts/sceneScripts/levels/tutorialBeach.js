@@ -39,6 +39,9 @@ class tutorialBeach extends defaultScene {
 
     create(){
     
+      //sets up gameover location
+      this.setupGameoverLocation("caveGameover");
+      
       //sets up player controls
       this.setUpPlayerInputs();
     
@@ -111,23 +114,13 @@ class tutorialBeach extends defaultScene {
 
       //sets up containers
       this.setUpContainers();
-
-      //creates an object to be put in the container
-      let oar = {
-        itemID: 2,
-        itemStackable: 0,
-        itemAmount: 1
-    };
-    
-    //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-    this.initItemContainer(506,900,oar,true,"beach_tutorial_chest_with_oar");
-      
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+                926,
+          thisScene.initSlimes(606,937, 1,thisScene.playerSex);
           //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
           //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
       

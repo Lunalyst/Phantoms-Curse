@@ -4,9 +4,10 @@ https://phaser.io/examples/v2/input/pointer-over
  */
 let gameoverThat;
 class gameOver extends Phaser.Scene {
+
     constructor(){
         // scene settings
-        super({key: 'gameOverForest',active: false,physics:{default:'arcade'}});
+        super({key: 'gameOver',active: false,physics:{default:'arcade'}});
         
         this.newGame;
         //tileset map
@@ -39,6 +40,9 @@ class gameOver extends Phaser.Scene {
         this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         //enemy that defeated player string
         this.enemyThatDefeatedPlayer ="";
+
+        //value to store string of location the player was defeated
+        this.gameoverLocation;
         
         //allow acess to scene in settimeout functions.
         gameoverThat = this;
@@ -46,14 +50,24 @@ class gameOver extends Phaser.Scene {
 
         //loads sprites for game over.
         preload(){
+
             this.load.image("gameOverbackground" , "assets/titleScreenBackground.png");
-            this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
+
+            this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
             this.load.spritesheet("gameOverSign" , "assets/gameoversign.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
             
              //load in the JSON file for the bitmap
-            this.load.tilemapTiledJSON("mapGameover" , "assets/tiledMap/gameOverForest.json");
+            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
+            this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");
+
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
+
+            this.load.scenePlugin({
+                key: 'AnimatedTiles',
+                url: 'lib/vendors/AnimatedTiles.js',
+                sceneKey: 'AnimatedTiles'
+            });
 
         }
 
@@ -63,14 +77,16 @@ class gameOver extends Phaser.Scene {
             this.allFunctions = new allSceneFunctions;
 
             //load gameoverFile data to this scene
-            const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
+             const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
             //retrieves data from the file object and gives it to the current scene
             console.log("calling loadGameoverFile============================");
             console.log("playerSex: " + file.sex);
+            console.log("location: ", file.location);
             console.log("enemy: " + file.enemy);
             console.log("playerSaveSlotData: ", file.pssd);
 
             this.playerSex = file.sex;
+            this.gameoverLocation = file.location;
             this.enemyThatDefeatedPlayer = file.enemy;
             this.playerSaveSlotData = file.pssd;
 
@@ -82,7 +98,7 @@ class gameOver extends Phaser.Scene {
             backround.setScale(1.5,1.5);
 
             //creates try again button
-            this.tryAgian = this.add.sprite(450, 345, "tryAgianSign").setInteractive();
+            this.tryAgian = this.add.sprite(450, 635, "tryAgianSign").setInteractive();
 
             //creates animations for try agian button
             this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
@@ -97,19 +113,20 @@ class gameOver extends Phaser.Scene {
              
             console.log("loading gameover tileset");
 
-            let myMap = this.make.tilemap({ key: "mapGameover" });
+            let myMap = this.make.tilemap({ key: this.gameoverLocation});
             //creates a new level object which is used to display map. sends scene and mapdata
             this.processMap = new level(this,myMap);
             //calls function that loads the tiles from the json
-            this.processMap.tilesetNameInTiled = "Tile Set V.0.8";
-            this.processMap.setTiles('source_map');
+            this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
+            this.processMap.setTiles('source_map',this);
+
 
             //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
-                this.enemy = new blueSlime(this,450, 280,this.playerSex);
+                this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeGameOver();
             }else if(this.enemyThatDefeatedPlayer === "largeBlueSlime"){
-                this.enemy = new blueSlime(this,450, 280,this.playerSex);
+                this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeSize = 2;
                 this.enemy.largeSlimeGameOver();
                 this.enemy.y-500;
@@ -127,12 +144,12 @@ class gameOver extends Phaser.Scene {
             this.cameras.main.followOffset.set(0,50);
 
             //game over sign.
-            this.gameOverSign = this.add.sprite(450,160,"gameOverSign");
+            this.gameOverSign = this.add.sprite(450,410,"gameOverSign");
             this.gameOverSign.setScale(.3);
             this.gameOverSign.setDepth(7);
             
             
-
+            //sets timeout for animations.
             setTimeout(function(){
                 gameoverThat.gameOverSign.anims.play("gameoverTitleAnimation");
               },200);
@@ -145,22 +162,33 @@ class gameOver extends Phaser.Scene {
                 gameoverThat.tryAgian.visible = true;
               },1000);
             
+            //logic for try agian button
             this.tryAgian.on('pointerdown', function (pointer) {
 
+                //sets a few variables
                 let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
                 let tempPlayerSex = gameoverThat.playerSex;
-                //console.log("gameoverThat.playerSex: ",gameoverThat.playerSex);
+                
+                //load player data from file
                 gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
 
-                if(gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
+                //if the player has data in thee save file then load them back to there last save
+                if(this.playerLocation !== null &&this.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
+
+                    console.log("save file detected, now setting player back to correct scene.");
+                    console.log("this.playerLocation",this.playerLocation);
+
+                    //loop through of entrys the player has that was loaded from file
                     for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
-                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
+
+                        // if the key can be found then we set the entry to 1 to represent the player having the entry.
                         if(gameoverThat.enemyThatDefeatedPlayer === key){
                             console.log("found bestiary entry : ", key);
                             gameoverThat.playerBestiaryData[key] = 1;
                         }
                       }
                     
+                    //call save function for temp save so when we start the scene agian, it has the correct data.
                     gameoverThat.allFunctions.saveGame(
                     gameoverThat.warpToX,
                     gameoverThat.warpToY,
@@ -173,10 +201,24 @@ class gameOver extends Phaser.Scene {
                     gameoverThat.flagValues
                     );
                     
-                    gameoverThat.scene.start('gameHud');
-                    gameoverThat.scene.start(gameoverThat.playerLocation); 
+                    console.log("player trying again: ");
 
+                    //launch the gameplay scenes.
+                    console.log("now stoping this scene",);
+                    gameoverThat.scene.stop();
+                    console.log("now loading game ui",);
+                    gameoverThat.scene.launch('gameHud');
+                    setTimeout(function () {
+                        console.log("now Loading main scene",);
+                        gameoverThat.scene.start(gameoverThat.playerLocation);
+        
+                    }, 100);
+
+                //if the player has not saved, send them back to the beginning of the game
                 }else if(tempPlayerSex === 1){
+                    console.log("no save file detected: now sending male player back to the beginning of the game ");
+                    console.log("this.playerLocation",this.playerLocation);
+
                     let playerBestiaryData = {
                         blueSlime:0,
                         largeBlueSlime:0,
@@ -191,88 +233,75 @@ class gameOver extends Phaser.Scene {
                         blueSlimeHumanoidFemale:0,
                         blueSlimeHumanoidFemaleLarge:0,
                         sharkFemale:0,
-                        sharkMale:0
+                        sharkMale:0,
+                        
                      };
-
-                     for(let [key,value] of Object.entries(playerBestiaryData)){
-                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
-                        if(gameoverThat.enemyThatDefeatedPlayer === key){
-                            console.log("found bestiary entry : ", key);
-                            playerBestiaryData[key] = 1;
-                        }
-                      }
         
                      let playerSkillsData = {
-                        jump:1,
+                        jump:0,
                         dash:0,
                         strength:0,
                         mimic:0,
                         looting:0
                      };
-
+        
+                    let saveSlotData = {
+                        saveSlot:gameoverThat.playerSaveSlotData.saveSlot,
+                        currency: 0,
+                        bestiaryCompletionPercent: 0,
+                        playerHealthUpgrades: 0,
+                        PlayerStorage: [],
+                     };
         
                      let gameFlags = {
-                        cutTree1:0
-        
+                        containerFlags: []
                      };
 
-                      //creates a array to be filled my objects
-                      let inventoryArray  = [];
-
-                      //fills the array with objects
-                      for(let counter = 0; counter < 25; counter++){
-          
-                          //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                          //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                          let item = {
-                              itemID: 0,
-                              itemStackable: 1,
-                              itemAmount: 0 
-                           };
-          
-                          inventoryArray.push(item);
-                      }
-          
-                      inventoryArray[0].itemID = 2;
-                      inventoryArray[0].itemStackable = 0;
-                      inventoryArray[0].itemAmount = 1;
-                     
-          
-                      inventoryArray[1].itemID = 4;
-                      inventoryArray[1].itemStackable = 0;
-                      inventoryArray[1].itemAmount = 1;
-                      
-          
-                      inventoryArray[2].itemID = 6;
-                      inventoryArray[2].itemStackable = 0;
-                      inventoryArray[2].itemAmount = 1;
-                      
-          
-                      inventoryArray[3].itemID = 8;
-                      inventoryArray[3].itemStackable = 0;
-                      inventoryArray[3].itemAmount = 1;
-                      
-          
-                      inventoryArray[4].itemID = 10;
-                      inventoryArray[4].itemStackable = 0;
-                      inventoryArray[4].itemAmount = 1;
+                     //creates a array to be filled my objects
+                     gameoverThat.inventoryArray  = [];
         
-                    gameoverThat.allFunctions.saveGame(
-                        1650,//nextSceneX
-                        542,//nextSceneY
-                        2,//playerHp
+                     //fills the array with objects
+                     for(let counter = 0; counter < 26; counter++){
+         
+                         //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                         //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                         let item = {
+                             itemID: 0,
+                             itemStackable: 1,
+                             itemAmount: 0 
+                          };
+         
+                        gameoverThat.inventoryArray.push(item);
+                     }
+                     
+        
+                     gameoverThat.allFunctions.saveGame(
+                        441,//nextSceneX
+                        926,//nextSceneY
+                        1,//playerHp
                         1,//playerSex
-                        inventoryArray,//playerInventoryData
+                        gameoverThat.inventoryArray,//playerInventoryData
                         playerBestiaryData,//playerBestiaryData
                         playerSkillsData,//playerSkillsData
-                        tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                        saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                         gameFlags//gameFlags
                         );
 
-                        gameoverThat.scene.start('gameHud');
-                        gameoverThat.scene.start('forestHome');
+                        console.log("now stoping this scene",);
+                        gameoverThat.scene.stop();
+                        console.log("now loading game ui",);
+                        gameoverThat.scene.launch('gameHud');
+                        setTimeout(function () {
+                            console.log("now Loading main scene",);
+                            gameoverThat.scene.start('tutorialBeachLevel');
+        
+                        }, 100);
 
                 }else if(tempPlayerSex === 0){
+
+                    console.log("no save file detected: now sending male player back to the beginning of the game ");
+                    console.log("this.playerLocation",this.playerLocation);
+
                     let playerBestiaryData = {
                         blueSlime:0,
                         largeBlueSlime:0,
@@ -287,91 +316,74 @@ class gameOver extends Phaser.Scene {
                         blueSlimeHumanoidFemale:0,
                         blueSlimeHumanoidFemaleLarge:0,
                         sharkFemale:0,
-                        sharkMale:0
+                        sharkMale:0,
+                        
                      };
-
-                     for(let [key,value] of Object.entries(playerBestiaryData)){
-                        //console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer," key: ",key);
-                        if(gameoverThat.enemyThatDefeatedPlayer === key){
-                            console.log("found bestiary entry : ", key);
-                            playerBestiaryData[key] = 1;
-                        }
-                      }
         
                      let playerSkillsData = {
-                        jump:1,
+                        jump:0,
                         dash:0,
                         strength:0,
                         mimic:0,
                         looting:0
                      };
         
-                     let gameFlags = {
-                        cutTree1:0
+                    let saveSlotData = {
+                        saveSlot:gameoverThat.playerSaveSlotData.saveSlot,
+                        currency: 0,
+                        bestiaryCompletionPercent: 0,
+                        playerHealthUpgrades: 0,
+                        PlayerStorage: [],
+                     };
         
+                     let gameFlags = {
+                        containerFlags: []
                      };
 
-                      //creates a array to be filled my objects
-            let inventoryArray  = [];
-
-            //fills the array with objects
-            for(let counter = 0; counter < 25; counter++){
-
-                //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                let item = {
-                    itemID: 0,
-                    itemStackable: 1,
-                    itemAmount: 0 
-                 };
-
-                inventoryArray.push(item);
-            }
-
-            inventoryArray[0].itemID = 2;
-            inventoryArray[0].itemStackable = 0;
-            inventoryArray[0].itemAmount = 1;
-           
-
-            inventoryArray[1].itemID = 4;
-            inventoryArray[1].itemStackable = 0;
-            inventoryArray[1].itemAmount = 1;
-            
-
-            inventoryArray[2].itemID = 6;
-            inventoryArray[2].itemStackable = 0;
-            inventoryArray[2].itemAmount = 1;
-            
-
-            inventoryArray[3].itemID = 8;
-            inventoryArray[3].itemStackable = 0;
-            inventoryArray[3].itemAmount = 1;
-            
-
-            inventoryArray[4].itemID = 10;
-            inventoryArray[4].itemStackable = 0;
-            inventoryArray[4].itemAmount = 1;
+                     //creates a array to be filled my objects
+                     gameoverThat.inventoryArray  = [];
         
-                    gameoverThat.allFunctions.saveGame(
-                        1650,//nextSceneX
-                        542,//nextSceneY
-                        2,//playerHp
+                     //fills the array with objects
+                     for(let counter = 0; counter < 26; counter++){
+         
+                         //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                         //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                         let item = {
+                             itemID: 0,
+                             itemStackable: 1,
+                             itemAmount: 0 
+                          };
+         
+                        gameoverThat.inventoryArray.push(item);
+                     }
+                     
+        
+                     gameoverThat.allFunctions.saveGame(
+                        441,//nextSceneX
+                        926,//nextSceneY
+                        1,//playerHp
                         0,//playerSex
-                        inventoryArray,//playerInventoryData
+                        gameoverThat.inventoryArray,//playerInventoryData
                         playerBestiaryData,//playerBestiaryData
                         playerSkillsData,//playerSkillsData
-                        tempPlayerSaveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
+                        saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
                         gameFlags//gameFlags
                         );
-                        //that.scene.start('gameHud')
-                        //that.scene.start('forestHome');
-                    gameoverThat.scene.start('gameHud');
-                    gameoverThat.scene.start('forestHome');
-                    
-                }
+
+                        console.log("now stoping this scene",);
+                        gameoverThat.scene.stop();
+                        console.log("now loading game ui",);
+                        gameoverThat.scene.launch('gameHud');
+                        setTimeout(function () {
+                            console.log("now Loading main scene",);
+                            gameoverThat.scene.start('tutorialBeachLevel');
+        
+                        }, 100);
+                     }
         
             });
 
+            //plays animation for pointer lighting up when mouse hovers over it.
             this.tryAgian.on('pointerover',function(pointer){
                 gameoverThat.tryAgian.anims.play("tryAgianActive");
             })
@@ -384,7 +396,7 @@ class gameOver extends Phaser.Scene {
         }
 
         update(){
-            
+            //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
         }
 
 }

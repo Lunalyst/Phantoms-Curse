@@ -16,7 +16,7 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
        this.load.image('hitbox', 'assets/hitbox.png');
        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-       this.load.image('TABToSkip', 'assets/tabToSkip.png');
+       
 
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
@@ -87,6 +87,8 @@ class defaultScene extends Phaser.Scene {
         this.itemDrops;
 
         this.gameStartedDelay = true;
+
+        this.gameoverLocation = "";
 
         this.tabObject = {
             tabIsDown: false
@@ -192,6 +194,7 @@ class defaultScene extends Phaser.Scene {
       this.sceneTextBox = new textBox(this,450,620,'textBox');
     }
 
+    //contains most default timeout functions
     setUpDefaultTimeOuts(){
 
       let thisScene = this;
@@ -235,6 +238,11 @@ class defaultScene extends Phaser.Scene {
       
     }
 
+    //sets location of the game over.
+    setupGameoverLocation(location){
+      this.gameoverLocation = location;
+    }
+
     //{collision Functions}===================================================================================================================
 
     //sets up player collision
@@ -264,17 +272,21 @@ class defaultScene extends Phaser.Scene {
     //{Save AND lOAD Functions}===================================================================================================================
 
     //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
-    saveGameoverFile(playerSex, enemyThatDefeatedPlayer, playerSaveSlotData) {
+    saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData) {
         //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
         console.log("calling saveGameoverFile============================");
         console.log("playerSex: " + playerSex);
+        console.log("gameoverLocation: " + gameoverLocation);
         console.log("enemyThatDefeatedPlayer: " + enemyThatDefeatedPlayer);
         console.log("playerSaveSlotData: ", playerSaveSlotData);
+
         const file = {
         sex: playerSex,
+        location: gameoverLocation,
         enemy: enemyThatDefeatedPlayer,
         pssd: playerSaveSlotData
         };
+        
         //uses local Storage to store the data
         localStorage.setItem('saveGameoverFile', JSON.stringify(file));
     }
@@ -287,10 +299,12 @@ class defaultScene extends Phaser.Scene {
         //retrieves data from the file object and gives it to the current scene
         console.log("calling loadGameoverFile============================");
         console.log("playerSex: " + file.sex);
+        console.log("location: ", file.location);
         console.log("enemy: " + file.enemy);
         console.log("playerSaveSlotData: ", file.pssd);
 
         this.playerSex = file.sex;
+        this.gameoverLocation = file.location;
         this.enemyThatDefeatedPlayer = file.enemy;
         this.playerSaveSlotData = file.pssd;
     }
@@ -752,6 +766,14 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    checkPlayerOutOfBounds(){
+      if(this.player1.y > 3000){
+        this.player1.x = this.warpToX
+        this.player1.y = this.warpToY
+      }
+
+    }
+
     //{game over scene transitions}===================================================================================================================
   
     //function which destroys this scene and starts the gameover scene.
@@ -768,7 +790,7 @@ class defaultScene extends Phaser.Scene {
   
         console.log("this.playerSaveSlotData sent to gameover: ",playerSaveSlotDataObject.playerSaveSlotData);
   
-        this.saveGameoverFile(this.playerSex,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData);
+        this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData);
 
         
       console.log("removing listeners");
@@ -825,7 +847,7 @@ class defaultScene extends Phaser.Scene {
 
       }  
         this.scene.stop('gameHud');
-        this.scene.start('gameOverForest');
+        this.scene.start('gameOver');
 
     }
 
@@ -834,6 +856,9 @@ class defaultScene extends Phaser.Scene {
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
     //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
+    //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
+      this.checkPlayerOutOfBounds();
 
       this.checkItemPickUp();
 
@@ -887,6 +912,7 @@ class defaultScene extends Phaser.Scene {
 
           //calls built in move player function to handle how the player moves and is animated while moving  
           if(!this.shift.isDown){
+          
           this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
           }
           //changes the scale and location of the health bar for zoomed out camera

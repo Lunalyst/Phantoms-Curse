@@ -48,6 +48,7 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
+      this.load.image('TABToSkip', 'assets/tabToSkip.png');
 
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
@@ -145,6 +146,7 @@ class gameHud extends Phaser.Scene {
 
           //emitter so other classes can acess the players inventory 
           inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
+            console.log("this.inventoryDataArray in inventoryKey.getInventory:" ,this.inventoryDataArray);
             //console.log("player inventory:",this.playerInventory);
             playerDataObject.playerInventoryData = this.inventoryDataArray;
           });
@@ -269,7 +271,10 @@ class gameHud extends Phaser.Scene {
 
           //emitter to get the player skills object so the player class has acess to it for jump skilles ect.
           playerSkillsEmitter.on(playerSkills.getJump,(object) =>{
+
+            console.log("this.playerSkillsData when emitter is called",this.playerSkillsData);
             object.playerSkills = this.playerSkillsData;
+
           });
 
           //emitter for returning save slot data

@@ -34,6 +34,9 @@ class tutorialCave extends defaultScene {
     }
 
     create(){
+
+      //sets up gameover location
+      this.setupGameoverLocation("caveGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -77,9 +80,21 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
+      this.initSigns(671,1757+12,
+        "you may find things on this island that can help you. when you open a container you may recieve a item. you can check your inventory by pressing tab. to move items around simply click them from there current slot to the slot you want it to be in. you have two special slots. weapon and ring. the weapon slot allows you to change your attack. rings help you more passively. if you have no weapon equipt you will simply flail about.  ",
+        ['signLoop']);
+
+      this.initSigns(1077,1257,
+        "use these shrines to save your progress. you will find them scattered all over the island. these shrines are special and will restore your strength as well. ",
          ['signLoop']);
+
+      this.initSigns(788,541+12,
+        "This Island is host to many monsters. tread carefully! they will try and turn you into one of us....  ",
+        ['signLoop']);
+
+      this.initSigns(1642,573+12,
+        "monsters might drop items if you defeat them. ",
+          ['signLoop']);
 
       this.initSavePoints(896,1230);
 
@@ -89,7 +104,17 @@ class tutorialCave extends defaultScene {
 
       //sets up containers
       this.setUpContainers();
+
+      let oar = {
+          itemID: 2,
+          itemStackable: 0,
+          itemAmount: 1
+      };
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      this.initItemContainer(780,1757-3,oar,true,"cave_tutorial_chest_with_oar");
       //sets up item drops for the scene
+
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
@@ -97,7 +122,7 @@ class tutorialCave extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          thisScene.initSlimes(1309, 605, 1,thisScene.playerSex);
           //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
           //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
       

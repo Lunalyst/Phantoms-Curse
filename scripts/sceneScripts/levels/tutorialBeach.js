@@ -40,8 +40,8 @@ class tutorialBeach extends defaultScene {
     create(){
     
       //sets up gameover location
-      this.setupGameoverLocation("caveGameover");
-      
+      this.setupGameoverLocation("forestGameover");
+
       //sets up player controls
       this.setUpPlayerInputs();
     

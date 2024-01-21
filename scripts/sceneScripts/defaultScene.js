@@ -88,7 +88,7 @@ class defaultScene extends Phaser.Scene {
 
         this.gameStartedDelay = true;
 
-        this.gameoverLocation = "";
+        this.gameoverLocation = "caveGameover";
 
         this.tabObject = {
             tabIsDown: false

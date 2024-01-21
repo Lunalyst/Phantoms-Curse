@@ -51,15 +51,18 @@ class gameOver extends Phaser.Scene {
         //loads sprites for game over.
         preload(){
 
-            this.load.image("gameOverbackground" , "assets/titleScreenBackground.png");
+            this.load.image('backgroundForestRavineLevel', 'assets/forest_ravine_background.png');
+            this.load.image('backgroundBeachLevel', 'assets/beach_background.png');
 
             this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
             this.load.spritesheet("gameOverSign" , "assets/gameoversign.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
             
              //load in the JSON file for the bitmap
-            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
+            this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");
             this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");
+            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
+            
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
 
@@ -94,8 +97,14 @@ class gameOver extends Phaser.Scene {
             console.log("now in gameover scene");
 
             //creates backround object
-            let backround = this.add.sprite(450, 0, "gameOverbackground");
-            backround.setScale(1.5,1.5);
+            if(this.gameoverLocation === "forestGameover"){
+                let backround = this.add.sprite(450, 380, "backgroundForestRavineLevel");
+
+            }else if(this.gameoverLocation === "beachGameover"){
+                let backround = this.add.sprite(450, 380, "backgroundBeachLevel");
+
+            }
+            
 
             //creates try again button
             this.tryAgian = this.add.sprite(450, 635, "tryAgianSign").setInteractive();
@@ -200,8 +209,6 @@ class gameOver extends Phaser.Scene {
                     gameoverThat.playerSaveSlotData,
                     gameoverThat.flagValues
                     );
-                    
-                    console.log("player trying again: ");
 
                     //launch the gameplay scenes.
                     console.log("now stoping this scene",);
@@ -217,7 +224,6 @@ class gameOver extends Phaser.Scene {
                 //if the player has not saved, send them back to the beginning of the game
                 }else if(tempPlayerSex === 1){
                     console.log("no save file detected: now sending male player back to the beginning of the game ");
-                    console.log("this.playerLocation",this.playerLocation);
 
                     let playerBestiaryData = {
                         blueSlime:0,

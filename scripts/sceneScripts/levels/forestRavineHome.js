@@ -63,7 +63,10 @@ class ForestRavineHome extends defaultScene {
     }
 
     create(){
-    
+      
+      //sets up gameover location
+      this.setupGameoverLocation("forestGameover");
+
       //sets up player controls
       this.setUpPlayerInputs();
     

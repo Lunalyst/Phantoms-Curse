@@ -260,6 +260,7 @@ class defaultScene extends Phaser.Scene {
 
     //sets up slime enemy collision
     setUpSlimeCollider(){
+        this.slimeId = 0;
         this.physics.add.collider(this.processMap.layer1, this.slimes);
         this.physics.add.collider( this.slimes, this.slimes); 
     }
@@ -470,6 +471,7 @@ class defaultScene extends Phaser.Scene {
         //id is important for slime combine function. since when the slimes collide symultaniously it needs a way to tell if
         //slime is destroyed or becomes a large slime. if the id is higher on the slime then that one becomes a larger slime
         slime1.slimeId = this.slimeId;
+        console.log("slime1.slimeId: ",slime1.slimeId)
         this.slimeId++;
         this.slimes.add(slime1);
         //console.log("slime id: "+ scene.slimeId);
@@ -766,6 +768,7 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    //special check to keep player from falling out of the world
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
         this.player1.x = this.warpToX
@@ -855,7 +858,7 @@ class defaultScene extends Phaser.Scene {
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();

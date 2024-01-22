@@ -349,7 +349,7 @@ class gameOver extends Phaser.Scene {
 
                 }else if(tempPlayerSex === 0){
 
-                    console.log("no save file detected: now sending male player back to the beginning of the game ");
+                    console.log("no save file detected: now sending female player back to the beginning of the game ");
                     console.log("this.playerLocation",this.playerLocation);
 
                     let playerBestiaryData = {

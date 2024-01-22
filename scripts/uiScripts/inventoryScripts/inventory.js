@@ -273,23 +273,13 @@ class inventory extends Phaser.GameObjects.Container{
   
       }
     }
+
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
+      //sets the elements of the ivnentory to ve visible
       this.inventoryElements.toggleVisible();
 
       console.log("scene.inventoryDataArray: ", scene.inventoryDataArray)
-
-      for(let counter = 0; counter <= 25 ;counter++){
-        this.inventoryArray[counter].number1.visible = this.isOnScreen;
-        this.inventoryArray[counter].number2.visible = this.isOnScreen;
-
-        if(this.isOnScreen === true){
-          this.inventoryArray[counter].setSlotNumber(scene.inventoryDataArray[counter].itemAmount);
-        }
-        
-
-      }
-      
         
        if (scene.playerSaveSlotData !== undefined) {
         let animationNumber = "";
@@ -317,6 +307,19 @@ class inventory extends Phaser.GameObjects.Container{
       }
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
       index++;
+      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+
+       //loops through all slots to set the correct number 
+       for(let counter = 0; counter < 26 ;counter++){
+        this.inventoryArray[counter].number1.visible = this.isOnScreen;
+        this.inventoryArray[counter].number2.visible = this.isOnScreen;
+
+        if(this.isOnScreen === true){
+          this.inventoryArray[counter].setSlotNumber(scene.inventoryDataArray[counter].itemAmount);
+        }
+        
+
+      }
       
     }
     

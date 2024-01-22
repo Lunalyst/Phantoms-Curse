@@ -594,14 +594,14 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
     slimeCombine(otherSlime, grabbed) {
-        //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+otherSlime.slimeId)
+        //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+ otherSlime.slimeId)
         //console.log("grabbed : "+ grabbed);
         if (grabbed === false) {
             if (this.slimeId === otherSlime.slimeId) {
                 //console.log("slime overlap with its self detected;");
                 return;
             } else if (this.slimeId < otherSlime.slimeId) {
-                //console.log("this slime with Id: "+ this. slimeId+" is living")
+                console.log("this slime with Id: "+ this. slimeId+" is living")
                 this.setSize(130, 90, true);
                 this.setOffset(82, 209);
                 this.anims.play("mitosis");
@@ -633,7 +633,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         } else if (this.mitosisCounter === true) {
             //this.mitosisCounter--;
             //this.anims.play("mitosis");
-            console.log("this.mitosisCounter: " + this.mitosisCounter);
+            //console.log("this.mitosisCounter: " + this.mitosisCounter);
         }
     }
     // controls the damage resistance of the slime.

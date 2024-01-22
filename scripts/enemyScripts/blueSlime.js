@@ -160,9 +160,11 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         if (player1.x > this.x - 400 && player1.x < this.x + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
             if (player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+                console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
                 if (this.slimePreviousY > this.y) {
 
+                    console.log("slime in right up animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpUp', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
@@ -170,17 +172,19 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                     }
                     //otherwise it plays falling down animation
                 } else if (this.slimePreviousY <= this.y) {
+                    console.log("slime in right down animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpDown', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeDown', true);
                     }
                 } else {
+                   /* console.log("slime in right idle animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeIdle', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeIdle', true);
-                    }
+                    }*/
                 }
                 // jumps the slime to the right
                 if (this.slimeSize === 1) {
@@ -197,27 +201,30 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                     currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
                 }, 200);
 
-            } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
-                //console.log("player is to the left of the slime");
-                if (this.slimePreviousY < this.y) {
 
+            } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+                console.log("player is to the left of the slime");
+                if (this.slimePreviousY < this.y) {
+                    console.log("slime in left up animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpUp', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeUp', true);
                     }
                 } else if (this.slimePreviousY <= this.y) {
+                    console.log("slime in left down animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpDown', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeUp', true);
                     }
                 } else {
+                    /*console.log("slime in left idle animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeIdle', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeIdle', true);
-                    }
+                    }*/
                 }
                 // jumps the slime to the left
                 if (this.slimeSize === 1) {

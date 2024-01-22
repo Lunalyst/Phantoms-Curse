@@ -109,10 +109,10 @@ class TestCave extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          thisScene.initSlimes(863, 797, 1,thisScene.playerSex);
+          //thisScene.initSlimes(863, 797, 1,thisScene.playerSex);
           thisScene.initSlimes(1073, 893, 1,thisScene.playerSex);
           thisScene.initSlimes(1173, 893, 1,thisScene.playerSex);
-          thisScene.initSlimes(1391, 797, 1,thisScene.playerSex);
+          //thisScene.initSlimes(1391, 797, 1,thisScene.playerSex);
       
           thisScene.spawnedEnemys = true;
         },1000);

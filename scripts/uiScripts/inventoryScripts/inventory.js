@@ -281,6 +281,7 @@ class inventory extends Phaser.GameObjects.Container{
 
       console.log("scene.inventoryDataArray: ", scene.inventoryDataArray)
         
+      //sets the currency icon and number in the inventory.
        if (scene.playerSaveSlotData !== undefined) {
         let animationNumber = "";
         animationNumber += scene.playerSaveSlotData.currency;
@@ -296,15 +297,20 @@ class inventory extends Phaser.GameObjects.Container{
       }
       
     }
+
     // applies the correct animation to the inventory slot based on the inventory data
     setSlots(scene){
+
+      //index to keep track fo slots
       let index = 0;
+      //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
           this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
           index++;
         }
       }
+      //sets the ring and weapon slot to play the correct animation
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
       index++;
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);

@@ -4,41 +4,40 @@ use classes tab as a guide for how to set up the header. each object has differe
 // important. to fix tile bleeding we follow the guide here using tile extruder.
 https://github.com/sporadic-labs/tile-extruder
 //use this code in cmd
-//tile-extruder --tileWidth 32 --tileHeight 32 --input ./Downloads/Tile-Set-V.0.8.png --output ./Downloads/extruded.png
-//tile-extruder --tileWidth 32 --tileHeight 32 --input ./Downloads/Forest_Large_Tiles_this.png --output ./Downloads/extruded.png
-// all extruded tile sets with no spacing or margins originally will have 1 pixel space and 2 pixel margins.
 // dont forget our tiles are 96 by 96 then downscaled by a third
 //tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
-*/
 
-/*
 for new tileset, 
 Orthogonal
 Base64 (uncompressed)
 Right Down.
+
+then add the tileset in on the left. remeber to give tiles the collision boolean property for tiles that have colliders.
+colliders that are one way(like the platforms) are define here. do not give those collision in tiled.
 */
 
-
 class level extends Phaser.Tilemaps.Tilemap{
+
         constructor(scene,mapData){
                 //super() calls the constructor() from the parent class we are extending
                 super(scene,mapData);
-                //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-                //so here in the subclass of sprite its refering to the image object we just made. 
+                //then we add new instance into the scene. 
                 scene.add.existing(this);
                 //then we call this next line to give it collision
                 scene.physics.add.existing(this);
                 //now we can perform any specalized set ups for this object
                 this.myTileSet;
+
+                //tile layers we are expecting in out tiled .json
                 this.layer3; 
                 this.layer2;
                 this.layer1;
                 this.layer0;
                 this.g_grid;
+                //grid shape 
                 this.grid = [];
-
+                //variables used to generate tilemap
                 this.tilesets;
-                
                 this.tileset; 
                 this.tileprops;
                 this.acceptabletiles;
@@ -47,28 +46,30 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.animatedTiles = {};
         }
 
+        //function which sets up the tiled level. recieve a source map png key and the scene variable.
         setTiles(sourceMap,scene){
                 console.log("activating tiles +++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 
-                ///this.load.image("source_map" , "assets/tiledMap/Tile Set V.0.8.png");
+                
                 console.log("sourceMap: ",sourceMap );
 
-                //this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,"source_map",96,96,1,2); 
                 
+                //sets up the image of the tileset to the json map using the specifications below. tile size and extrusion settings which is one pixel by 2pixel boarder around the tiles.
                 this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,sourceMap,96,96,1,2); 
 
-                //first argument is tileset name in Tiled
+                //sets up each layer using the json layers.
                 this.layer3 = this.createLayer("Tile Layer 3", this.myTileSet, 0, 0);
                 this.layer2 = this.createLayer("Tile Layer 2", this.myTileSet, 0, 0);
                 this.layer1 = this.createLayer("Tile Layer 1", this.myTileSet, 0, 0);
                 this.layer0 = this.createLayer("Tile Layer 0", this.myTileSet, 0, 0);
 
+                //scales the layers back down so 96 tiles becomes 32. done to improve resolution of tiles so they dont look fuzzy and low rez
                 this.layer0.scale = 1/3;
                 this.layer1.scale = 1/3;
                 this.layer2.scale = 1/3;
                 this.layer3.scale = 1/3;
 
-
+                //code that loops through tiles.
                 let currentTileLayer1;
                 let currentTileLayer0;
             
@@ -90,17 +91,14 @@ class level extends Phaser.Tilemaps.Tilemap{
                 }
                 this.g_grid = this.grid;
 
-            
                 this.tileset = this.tilesets[0];
                 this.tileprops = this.tileset.tileProperties;
 
-                //animate tileset
+                //adds animate property to tileset. why we need a scene refrence
                 scene.sys.AnimatedTiles.init(this);
 
   
                 }
-
-                ///this.animatedTiles = {};
 
                 //this gives special collision to tiles thast the player can move through. needs two layers as when phaser creates layers and gives them collision,
                 //they are all connected. so if the player passes through a tile they can easily escape the map. by doing two layers there is clear definition between
@@ -218,87 +216,11 @@ class level extends Phaser.Tilemaps.Tilemap{
                                         }
                                 }
 
-
-
-                                if(this.tilesetNameInTiled === "Tile Set V.0.8"){
-				switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
-                                        case 157: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 158: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 159: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 161: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 162: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 166: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 167: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 183: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 187: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        case 188: // <- this tile only colides top
-                                        console.log("found a tile that player can pass through");
-                                        Tile.collideUp = true;
-                                        Tile.collideDown = false;
-                                        Tile.collideLeft = false;
-                                        Tile.collideRight = false;
-                                        break;
-                                        default: break;
-				}
-                        }
 			})
 		});
-
+                // sets tilesets to be an array containing our tileset layers
                 this.tilesets = [this.layer0,this.layer1,this.layer2,this.layer3]
+                //adds collision to the first two layers.
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
 

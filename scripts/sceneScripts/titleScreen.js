@@ -754,14 +754,15 @@ class titleScreen extends Phaser.Scene {
                            );
 
                     console.log("warping player to location."+ this.playerLocation);
-
+                    
                     console.log("now stoping this scene",);
-                    that.scene.stop();
+                    this.scene.stop();
                     console.log("now loading game ui",);
-                    that.scene.launch('gameHud');
+                    this.scene.launch('gameHud');
+                    let that = this;
                     setTimeout(function () {
                         console.log("now Loading main scene",);
-                        that.scene.start(gameoverThat.playerLocation);
+                        that.scene.start(that.playerLocation);
         
                     }, 100);
                 }

@@ -146,8 +146,7 @@ class gameHud extends Phaser.Scene {
 
           //emitter so other classes can acess the players inventory 
           inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
-            console.log("this.inventoryDataArray in inventoryKey.getInventory:" ,this.inventoryDataArray);
-            //console.log("player inventory:",this.playerInventory);
+            //console.log("this.inventoryDataArray in inventoryKey.getInventory:" ,this.inventoryDataArray);
             playerDataObject.playerInventoryData = this.inventoryDataArray;
           });
 
@@ -272,7 +271,7 @@ class gameHud extends Phaser.Scene {
           //emitter to get the player skills object so the player class has acess to it for jump skilles ect.
           playerSkillsEmitter.on(playerSkills.getJump,(object) =>{
 
-            console.log("this.playerSkillsData when emitter is called",this.playerSkillsData);
+            //console.log("this.playerSkillsData when emitter is called",this.playerSkillsData);
             object.playerSkills = this.playerSkillsData;
 
           });

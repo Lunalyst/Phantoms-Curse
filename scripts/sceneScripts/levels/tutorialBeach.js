@@ -40,7 +40,7 @@ class tutorialBeach extends defaultScene {
     create(){
     
       //sets up gameover location
-      this.setupGameoverLocation("forestGameover");
+      this.setupGameoverLocation("beachGameover");
 
       //sets up player controls
       this.setUpPlayerInputs();
@@ -97,7 +97,7 @@ class tutorialBeach extends defaultScene {
           "some interactables will take you to new places. ",
            ['signLoop']);
 
-      this.initPortals(3735,528,465,1823,"warpCaveOutside","tutorialCaveLevel");
+      this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
       //sets up item drops for the scene
       this.setUpItemDrops();

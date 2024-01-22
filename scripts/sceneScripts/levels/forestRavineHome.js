@@ -109,15 +109,21 @@ class ForestRavineHome extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initSigns(813,1757+12,
+        "follow the platforms upward. we have a small lodging for those that was up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
+        ['signLoop']);
+
       
       this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
 
       
 
-      this.initPortals(390,1906,1777,529,"warpCaveOutside","tutorialCaveLevel");
+      this.initPortals(390,1904,1777,541,"warpCaveOutside","tutorialCaveLevel");
 
-      this.initPortals(1504,1264,500,600,"door1","HomeInterior1");
+      this.initPortals(1504,1264,500,605,"door1","HomeInterior1");
+
+      this.initPortals(2566,1373-13,343,829,"warpCaveOutside","TestCave");
 
       //sets up containers
       this.setUpContainers();

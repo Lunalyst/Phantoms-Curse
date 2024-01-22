@@ -1,14 +1,13 @@
 
-
-class HomeInterior1 extends defaultScene {
+class TestCave extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'HomeInterior1',active: false ,physics:{default:'arcade'}});
+    super({key: 'TestCave',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "HomeInterior1";
+    this.playerLocation = "TestCave";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,15 +26,17 @@ class HomeInterior1 extends defaultScene {
     }
 
     preload(){
-      //loads the image with the tiles and the .json file of the tilemap
-      this.load.tilemapTiledJSON("home_interior1_map" , "assets/tiledMap/LockWood/Player_Home_Interior1.json");
-     
 
+      this.load.tilemapTiledJSON("test_cave_map" , "assets/tiledMap/LockWood/Test_Cave.json");
+      
       this.defaultPreload();
 
     }
 
     create(){
+
+      //sets up gameover location
+      this.setupGameoverLocation("caveGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -48,7 +49,7 @@ class HomeInterior1 extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("home_interior1_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("test_cave_map","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -79,19 +80,28 @@ class HomeInterior1 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      /*this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
-         ['signLoop']);
-        */
+      this.initSigns(443,797+12,
+        "Why did I move here? I guess it was the weather. Or the... Ah, I don't know, that thing.  ",
+        ['signLoop']);
+
+      //this.initSavePoints(896,1230);
+
+      this.initPortals(343,829-12,2566,1373,"warpCaveInside","ForestRavineHome");
       
 
-      this.initPortalsWithTransparency(500,592,1501,1277,"door1","ForestRavineHome",0.75);
-      
-      this.initPortals(352,592,352,605,"door2","HomeInterior2");
-      
       //sets up containers
       this.setUpContainers();
+
+      let axe = {
+          itemID: 10,
+          itemStackable: 0,
+          itemAmount: 1
+      };
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      this.initItemContainer(1403,666,axe,true,"cave_chest_with_axe");
       //sets up item drops for the scene
+
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
@@ -99,9 +109,10 @@ class HomeInterior1 extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
+          thisScene.initSlimes(863, 797, 1,thisScene.playerSex);
+          thisScene.initSlimes(1073, 893, 1,thisScene.playerSex);
+          thisScene.initSlimes(1173, 893, 1,thisScene.playerSex);
+          thisScene.initSlimes(1391, 797, 1,thisScene.playerSex);
       
           thisScene.spawnedEnemys = true;
         },1000);

@@ -86,7 +86,7 @@ class HomeInterior2 extends defaultScene {
 
       this.initSavePoints(480,590);
 
-      this.initPortalsWithTransparency(352,592,352,592,"door2","HomeInterior1",0.75);
+      this.initPortalsWithTransparency(352,592,352,605,"door2","HomeInterior1",0.75);
 
       //sets up containers
       this.setUpContainers();

@@ -98,7 +98,7 @@ class tutorialCave extends defaultScene {
 
       this.initSavePoints(896,1230);
 
-      this.initPortals(465,1808,3735,528,"warpCaveInside","tutorialBeachLevel");
+      this.initPortals(465,1808,3735,541,"warpCaveInside","tutorialBeachLevel");
 
       this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
 

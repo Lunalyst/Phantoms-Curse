@@ -44,8 +44,6 @@ class gameOver extends Phaser.Scene {
         //value to store string of location the player was defeated
         this.gameoverLocation;
         
-        //allow acess to scene in settimeout functions.
-        gameoverThat = this;
         }
 
         //loads sprites for game over.
@@ -172,6 +170,8 @@ class gameOver extends Phaser.Scene {
               },1000);
             
             //logic for try agian button
+            //allow acess to scene in settimeout functions.
+            gameoverThat = this;
             this.tryAgian.on('pointerdown', function (pointer) {
 
                 //sets a few variables
@@ -179,13 +179,56 @@ class gameOver extends Phaser.Scene {
                 let tempPlayerSex = gameoverThat.playerSex;
                 
                 //load player data from file
-                gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
+                //gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
+                let slot = gameoverThat.playerSaveSlotData.saveSlot;
+                console.log("attempting to load slot:" + slot);
+                // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
+                let file;
+                if(slot === 1) {
+                file = JSON.parse(localStorage.getItem('saveFile1'));
+                } else if (slot === 2) {
+                file = JSON.parse(localStorage.getItem('saveFile2'));
+                } else if (slot === 3) {
+                file = JSON.parse(localStorage.getItem('saveFile3'));
+                } else {
+                console.log(" something went wrong with loading a save file. location: " + slot);
+                file = undefined;
+                }
+
+
+                //retrieves data from the file object and gives it to the current scene
+                if (file !== undefined && file !== null) {
+                console.log("calling loadslot for save slot " + slot + "loadGameFile============================");
+                console.log("save file x:" + file.saveX);
+                console.log("save file y:" + file.saveY);
+                console.log("player HP: " + file.playerHpValue);
+                console.log("playerSex: " + file.sex);
+                console.log("location: " + file.locationName);
+                console.log("playerInventoryData: " + file.id);
+                console.log("playerBestiaryData: ", file.pbd);
+                console.log("playerSkillsData: ", file.psd);
+                console.log("playerSaveSlotData: ", file.pssd);
+                console.log("gameFlags: ", file.flags);
+                //sets values from save data to the values in the scene.
+                gameoverThat.warpToX = file.saveX;
+                gameoverThat.warpToY = file.saveY;
+                gameoverThat.playerHealth = file.playerHpValue;
+                gameoverThat.playerSex = file.sex;
+                gameoverThat.playerLocation = file.locationName;
+                gameoverThat.inventoryDataArray = file.id;
+                gameoverThat.playerBestiaryData = file.pbd;
+                gameoverThat.playerSkillsData = file.psd;
+                gameoverThat.playerSaveSlotData = file.pssd;
+                gameoverThat.flagValues = file.flags;
+                }
 
                 //if the player has data in thee save file then load them back to there last save
-                if(this.playerLocation !== null &&this.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
+                
+                console.log("gameoverThat.playerLocation: ",gameoverThat.playerLocation," gameoverThat.playerBestiaryData: ",gameoverThat.playerBestiaryData);
+                if(gameoverThat.playerLocation !== null && gameoverThat.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
 
                     console.log("save file detected, now setting player back to correct scene.");
-                    console.log("this.playerLocation",this.playerLocation);
+                    console.log("gameoverThat.playerLocation",gameoverThat.playerLocation);
 
                     //loop through of entrys the player has that was loaded from file
                     for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
@@ -196,18 +239,19 @@ class gameOver extends Phaser.Scene {
                             gameoverThat.playerBestiaryData[key] = 1;
                         }
                       }
-                    
+
+                    gameoverThat.allFunctions = new allSceneFunctions;
                     //call save function for temp save so when we start the scene agian, it has the correct data.
                     gameoverThat.allFunctions.saveGame(
-                    gameoverThat.warpToX,
-                    gameoverThat.warpToY,
-                    gameoverThat.playerHealth,
-                    gameoverThat.playerSex,
-                    gameoverThat.inventoryDataArray,
-                    gameoverThat.playerBestiaryData,
-                    gameoverThat.playerSkillsData,
-                    gameoverThat.playerSaveSlotData,
-                    gameoverThat.flagValues
+                        gameoverThat.warpToX,
+                        gameoverThat.warpToY,
+                        gameoverThat.playerHealth,
+                        gameoverThat.playerSex,
+                        gameoverThat.inventoryDataArray,
+                        gameoverThat.playerBestiaryData,
+                        gameoverThat.playerSkillsData,
+                        gameoverThat.playerSaveSlotData,
+                        gameoverThat.flagValues
                     );
 
                     //launch the gameplay scenes.
@@ -216,7 +260,7 @@ class gameOver extends Phaser.Scene {
                     console.log("now loading game ui",);
                     gameoverThat.scene.launch('gameHud');
                     setTimeout(function () {
-                        console.log("now Loading main scene",);
+                        console.log("now Loading main scene:", gameoverThat.playerLocation);
                         gameoverThat.scene.start(gameoverThat.playerLocation);
         
                     }, 100);

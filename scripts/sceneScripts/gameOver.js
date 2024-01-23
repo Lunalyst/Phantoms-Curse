@@ -288,7 +288,7 @@ class gameOver extends Phaser.Scene {
                      };
         
                      let playerSkillsData = {
-                        jump:0,
+                        jump:1,
                         dash:0,
                         strength:0,
                         mimic:0,
@@ -371,7 +371,7 @@ class gameOver extends Phaser.Scene {
                      };
         
                      let playerSkillsData = {
-                        jump:0,
+                        jump:1,
                         dash:0,
                         strength:0,
                         mimic:0,

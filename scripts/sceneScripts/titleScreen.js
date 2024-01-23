@@ -336,7 +336,7 @@ class titleScreen extends Phaser.Scene {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 1,
+                playerHealthUpgrades: 0,
                 PlayerStorage: [],
              };
 
@@ -360,7 +360,7 @@ class titleScreen extends Phaser.Scene {
                  this.inventoryArray.push(item);
              }
  
-             this.inventoryArray[0].itemID = 2;
+             /*this.inventoryArray[0].itemID = 2;
              this.inventoryArray[0].itemStackable = 0;
              this.inventoryArray[0].itemAmount = 1;
             
@@ -382,7 +382,7 @@ class titleScreen extends Phaser.Scene {
  
              this.inventoryArray[4].itemID = 10;
              this.inventoryArray[4].itemStackable = 0;
-             this.inventoryArray[4].itemAmount = 1;
+             this.inventoryArray[4].itemAmount = 1;*/
              
  
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
@@ -444,7 +444,7 @@ class titleScreen extends Phaser.Scene {
                 saveSlot:that.tempNewGameSlotID,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 1,
+                playerHealthUpgrades: 0,
                 PlayerStorage: [],
              };
 
@@ -471,7 +471,7 @@ class titleScreen extends Phaser.Scene {
                 this.inventoryArray.push(item);
             }
 
-            this.inventoryArray[0].itemID = 2;
+            /*this.inventoryArray[0].itemID = 2;
             this.inventoryArray[0].itemStackable = 0;
             this.inventoryArray[0].itemAmount = 1;
            
@@ -509,7 +509,7 @@ class titleScreen extends Phaser.Scene {
 
             this.inventoryArray[8].itemID = 14;
             this.inventoryArray[8].itemStackable = 1;
-            this.inventoryArray[8].itemAmount = 12;
+            this.inventoryArray[8].itemAmount = 12;*/
             
 
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);

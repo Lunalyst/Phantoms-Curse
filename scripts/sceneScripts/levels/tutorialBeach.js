@@ -104,13 +104,13 @@ class tutorialBeach extends defaultScene {
       this.setUpItemDropCollider();
 
       //adds items that the player can pick up in the scene.
-      this.initItemDrop(506,900,12,1,2);
+      /*this.initItemDrop(506,900,12,1,2);
       this.initItemDrop(516,900,12,1,2);
       this.initItemDrop(526,900,12,1,2);
       this.initItemDrop(536,900,12,1,2);
       this.initItemDrop(546,900,12,1,2);
       this.initItemDrop(556,900,12,1,2);
-      this.initItemDrop(566,900,12,1,2);
+      this.initItemDrop(566,900,12,1,2);*/
 
       //sets up containers
       this.setUpContainers();
@@ -120,7 +120,7 @@ class tutorialBeach extends defaultScene {
         setTimeout(function(){
           //generates enemys
                 926,
-          thisScene.initSlimes(606,937, 1,thisScene.playerSex);
+          //thisScene.initSlimes(606,937, 1,thisScene.playerSex);
           //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
           //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
       

@@ -92,6 +92,24 @@ class TestCave extends defaultScene {
       //sets up containers
       this.setUpContainers();
 
+      let knife = {
+        itemID: 4,
+        itemStackable: 0,
+        itemAmount: 1
+    };
+    
+    //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+    this.initItemContainer(563,765-3,knife,true,"cave_chest_with_knife");
+
+    let speedRing = {
+      itemID: 8,
+      itemStackable: 0,
+      itemAmount: 1
+  };
+  
+  //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+  this.initItemContainer(1608,765-3,speedRing,true,"cave_chest_with_speedRing");
+
       let axe = {
           itemID: 10,
           itemStackable: 0,

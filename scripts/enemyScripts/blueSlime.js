@@ -15,6 +15,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 
 //implementation for the blue slime enemy.
 class blueSlime extends Phaser.Physics.Arcade.Sprite {
+    
     constructor(scene, xPos, yPos, sex) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, 'blueSlime');

@@ -110,7 +110,7 @@ class ForestRavineHome extends defaultScene {
       this.setUpTextBox();
 
       this.initSigns(813,1757+12,
-        "follow the platforms upward. we have a small lodging for those that was up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
+        "follow the platforms upward. we have a small lodging for those that wash up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
         ['signLoop']);
 
       

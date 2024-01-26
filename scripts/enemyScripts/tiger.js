@@ -14,11 +14,11 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //at higher hrtz rates breaks the slimegrab function. needs to be redone again. fuck.
 
 //implementation for the blue slime enemy.
-class blueSlime extends Phaser.Physics.Arcade.Sprite {
+class tiger extends Phaser.Physics.Arcade.Sprite {
     
     constructor(scene, xPos, yPos, sex) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'blueSlime');
+        super(scene, xPos, yPos, 'tiger');
         //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
         //so here in the subclass of sprite its refering to the image object we just made. 
         scene.add.existing(this);
@@ -65,95 +65,59 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
         console.log("sex passed in slime: " + sex);
         //defines Slime animations based on the players sex.
+
+        this.anims.create({ key: 'tigerLeftIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'tigerLeftWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 9 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerLeftJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 10, end: 12 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerLeftInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerRightIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerRightWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 23 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerRightJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 24, end: 26 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerRightInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 27, end: 27 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: -1 });
         if (sex === 0) {
-            this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeJumpUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeJumpDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 6, end: 6 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 14, end: 19 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabBreak', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 20, end: 22 }), frameRate: 3, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabFallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 23, end: 30 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 31, end: 34 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 36, end: 37 }), frameRate: 7, repeat: 1 });
-            this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 36, end: 39 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 40, end: 45 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 46, end: 52 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 53, end: 55 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 56, end: 66 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 67, end: 71 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'mitosis', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 72, end: 78 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeLargeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 78, end: 81 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeLargeUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 82, end: 82 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeLargeDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 83, end: 83 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeStruggle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 85, end: 100 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 101, end: 108 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 104, end: 107 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 108, end: 112 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 113, end: 116 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated4', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 116, end: 119 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated5', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 120, end: 141 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated6', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 141, end: 144 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGameOver1', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 145, end: 148 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGameOver2', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 149, end: 152 }), frameRate: 7, repeat: -0 });
-            this.anims.create({ key: 'slimeGameOver3', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 152, end: 155 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 40, end: 54 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 54, end: 57 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallowRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 63, end: 73 }), frameRate: 7, repeat: -1 });
+            
+            
         } else {
-            this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeJumpUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeJumpDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 6, end: 6 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 14, end: 19 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabBreak', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 20, end: 22 }), frameRate: 3, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabFallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 23, end: 30 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 31, end: 34 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 36, end: 37 }), frameRate: 7, repeat: 1 });
-            this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 36, end: 39 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 40, end: 45 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 46, end: 52 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 53, end: 55 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 56, end: 66 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 67, end: 71 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'mitosis', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 72, end: 78 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'slimeLargeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 78, end: 81 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeLargeUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 82, end: 82 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeLargeDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 83, end: 83 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeStruggle', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 85, end: 100 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 101, end: 108 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 104, end: 107 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 108, end: 112 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 113, end: 116 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated4', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 116, end: 119 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated5', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 120, end: 141 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'largeSlimeGrabDefeated6', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 141, end: 144 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGameOver1', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 145, end: 148 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'slimeGameOver2', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 149, end: 152 }), frameRate: 7, repeat: -0 });
-            this.anims.create({ key: 'slimeGameOver3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 152, end: 155 }), frameRate: 7, repeat: -1 });
+           
         }
+        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tiger-evan', { start: 74, end: 78 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tiger-evan', { start: 78, end: 82 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tiger-evan', { start: 82, end: 86 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tiger-evan', { start: 86, end: 90 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tiger-evan', { start: 90, end: 101 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tiger-evan', { start: 101, end: 108 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tiger-evan', { start: 108, end: 124 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tiger-evan', { start: 124, end: 130 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tiger-evan', { start: 130, end: 139 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tiger-evan', { start: 139, end: 143 }), frameRate: 7, repeat: -1 });
 
 
 
     }
 
     //functions that move slime objects.
-    moveSlime(player1) {
+    moveTiger(player1) {
 
-        //if the slime is of size 1 then set its hit box to the correct size
-        if (this.slimeSize === 1) {
-            this.setSize(90, 65, true);
-            this.setOffset(105, 233);
+        
+            //this.setSize(90, 65, true);
+            //this.setOffset(105, 233);
 
             this.body.setGravityY(600);
             //else if the slime is size 2 then set its hit box to the correct size
-        } else if (this.slimeSize === 2) {
-            this.setSize(130, 90, true);
-            this.setOffset(82, 209);
-            this.body.setGravityY(700);
-        }
+        
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
-            let currentSlime = this;
+            let currentTiger = this;
             //controls the random delay between the slimes movements.
             setTimeout(function () {
-                currentSlime.moveCycleTimer = false;
-                currentSlime.activatedCycleTimer = false;
-                currentSlime.randomMoveTimer = Math.floor((Math.random() * 3000) + 2000);
+                currentTiger.moveCycleTimer = false;
+                currentTiger.activatedCycleTimer = false;
+                currentTiger.randomMoveTimer = Math.floor((Math.random() * 3000) + 2000);
             }, this.randomMoveTimer);
             this.activatedCycleTimer = true;
         }
@@ -163,92 +127,44 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
             if (player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
-                if (this.slimePreviousY > this.y) {
+            
+                    console.log("tiger walking right");
+                    
+                        this.anims.play('tigerRightWalk', true);
+                   
+                    //play the walking right animation
+                    this.setVelocityX(this.randomXVelocity);
+                    
+                let currentTiger = this;
 
-                    console.log("slime in right up animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeJumpUp', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeUp', true);
-                    }
-                    //otherwise it plays falling down animation
-                } else if (this.slimePreviousY <= this.y) {
-                    console.log("slime in right down animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeJumpDown', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeDown', true);
-                    }
-                } else {
-                   /* console.log("slime in right idle animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeIdle', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeIdle', true);
-                    }*/
-                }
-                // jumps the slime to the right
-                if (this.slimeSize === 1) {
-                    this.setVelocityX(this.randomXVelocity);
-                    this.setVelocityY(this.randomYVelocity * -1);
-                } else if (this.slimeSize === 2) {
-                    this.setVelocityX(this.randomXVelocity);
-                    this.setVelocityY(this.randomYVelocity * -1);
-                }
-                let currentSlime = this;
                 setTimeout(function () {
-                    currentSlime.moveCycleTimer = true;
-                    currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                    currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
+                    currentTiger.moveCycleTimer = true;
+                    currentTiger.randomXVelocity = Math.floor((Math.random() * 50) + 150);
+                    //currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
                 }, 200);
 
 
             } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
-                console.log("player is to the left of the slime");
-                if (this.slimePreviousY < this.y) {
-                    console.log("slime in left up animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeJumpUp', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeUp', true);
-                    }
-                } else if (this.slimePreviousY <= this.y) {
-                    console.log("slime in left down animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeJumpDown', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeUp', true);
-                    }
-                } else {
-                    /*console.log("slime in left idle animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeIdle', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeIdle', true);
-                    }*/
-                }
-                // jumps the slime to the left
-                if (this.slimeSize === 1) {
+                
+                    console.log("tiger walking left");
+                    
+                        this.anims.play('tigerLeftWalk', true);
+
+                    //moves tiger left
                     this.setVelocityX(this.randomXVelocity * -1);
-                    this.setVelocityY(this.randomYVelocity * -1);
-                } else if (this.slimeSize === 2) {
-                    this.setVelocityX(this.randomXVelocity * -1);
-                    this.setVelocityY(this.randomYVelocity * -1);
-                }
+                    //this.setVelocityY(this.randomYVelocity * -1);
+                
                 // this creates a random x and y velocity for the slimes next jump
-                let currentSlime = this;
+                let currentTiger = this;
                 setTimeout(function () {
-                    currentSlime.moveCycleTimer = true;
-                    currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                    currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
+                    currentTiger.moveCycleTimer = true;
+                    currentTiger.randomXVelocity = Math.floor((Math.random() * 50) + 150);
+                    currentTiger.randomYVelocity = Math.floor((Math.random() * 100) + 150);
                 }, 200);
 
             } else if (this.moveCycleTimer === true && this.activatedCycleTimer === true && this.body.blocked.down) {
-                if (this.slimeSize === 1) {
+               
                     this.anims.play('slimeIdle', true);
-                } else if (this.slimeSize === 2 && this.mitosing === false) {
-                    this.anims.play('slimeLargeIdle', true);
-                }
                 this.setVelocityX(0);
 
             }
@@ -264,16 +180,12 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
     }
     //simple idle function played when the player is grabbed by something that isnt this slime.
     moveSlimeIdle() {
-        if (this.slimeSize === 1) {
-            this.anims.play('slimeIdle', true);
-            this.setSize(90, 65, true);
-        } else if (this.slimeSize === 2) {
-            this.anims.play('slimeLargeIdle', true);
-            this.setSize(40, 34, true);
-        }
+        
+        this.anims.play('slimeIdle', true);
+        this.setSize(90, 65, true);
+       
         this.body.setGravityY(600);
         this.setVelocityX(0);
-
     }
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
@@ -281,32 +193,11 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         this.setOffset(90, 150);
         this.anims.play('slimeGameOver', true);
     }
-    // functioned called to play animation when the player is defeated by the large slime in gameover.
-    largeSlimeGameOver() {
-        this.setSize(130, 90, true);
-        this.setOffset(82, 209);
-        this.anims.play('slimeGameOver1', true);
-        this.y - 500;
-        let currentSlime = this;
-
-        this.anims.play('slimeGameOver2').once('animationcomplete', () => {
-
-            this.anims.play('slimeGameOver3', true);
-        });
-
-        /*setTimeout(function(){
-            currentSlime.anims.play('slimeGameOver2',true);
-          },1000);
-          setTimeout(function(){
-            currentSlime.anims.play('slimeGameOver3',true);
-          },1700);*/
-    }
-
+    
     //the grab function. is called when player has overlaped with an enemy slime.
     slimeGrab(player1, keyA, KeyDisplay, keyD, scene, keyTAB) {
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
-
 
         this.clearTint();
         // moves player attackhitbox out of the way.

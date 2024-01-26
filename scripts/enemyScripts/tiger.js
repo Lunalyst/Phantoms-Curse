@@ -27,7 +27,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         //now we can perform any specalized set ups for this object
         this.idleTimer = 0;// give player a idle timer to tell if player is gone long enough to start sleeping animation.
         this.lastmove = "left";// adds a key to tell movement function what key was pressed last to keep animations facing the right way
-        this.slimePreviousY = 0;
+        this.tigerPreviousY = 0;
         this.body.setGravityY(600); // sets gravity 
         //this.setPushable(false);
         this.moveCycleTimer = false;
@@ -79,7 +79,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: -1 });
 
         //male animations
-        if (sex === 0) {
+        if (sex === 1) {
             this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 40, end: 54 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 54, end: 57 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
@@ -106,89 +106,64 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
 
     //functions that move slime objects.
     moveTiger(player1) {
-
-        
-            //this.setSize(90, 65, true);
-            //this.setOffset(105, 233);
-
+            
+            //sets the gravity for tiger
             this.body.setGravityY(600);
-            //else if the slime is size 2 then set its hit box to the correct size
-        
-        //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
-        if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
+            //possitions her sprite box correctly along with her hitbox
+            this.setSize(100, 250, true);
+            this.setOffset(100, 20);
+
+ 
             let currentTiger = this;
-            //controls the random delay between the slimes movements.
-            setTimeout(function () {
-                currentTiger.moveCycleTimer = false;
-                currentTiger.activatedCycleTimer = false;
-                currentTiger.randomMoveTimer = Math.floor((Math.random() * 3000) + 2000);
-            }, this.randomMoveTimer);
-            this.activatedCycleTimer = true;
-        }
-        //checks to see if slime should jump to move if the player is in range
+            
+
+        //checks to see if tiger should jump to move if the player is in range
         if (player1.x > this.x - 400 && player1.x < this.x + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
-            if (player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
-                console.log("player is to the right of the slime");
+            if (player1.x > this.x) {
+                //console.log("player is to the right of the tiger");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
             
-                    console.log("tiger walking right");
+                    //console.log("tiger walking right");
                     
                         this.anims.play('tigerRightWalk', true);
                         this.direction = "right";
                    
                     //play the walking right animation
-                    this.setVelocityX(this.randomXVelocity);
+                    this.setVelocityX(100);
                     
                 let currentTiger = this;
 
-                setTimeout(function () {
-                    currentTiger.moveCycleTimer = true;
-                    currentTiger.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                    //currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
-                }, 200);
-
-
-            } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 
-                    console.log("tiger walking left");
+
+
+            } else if (player1.x < this.x ) {
+                
+                    //console.log("tiger walking left");
                     
                         this.anims.play('tigerLeftWalk', true);
                         this.direction = "left";
 
                     //moves tiger left
-                    this.setVelocityX(this.randomXVelocity * -1);
+                    this.setVelocityX(100 * -1);
                     //this.setVelocityY(this.randomYVelocity * -1);
                 
                 // this creates a random x and y velocity for the slimes next jump
                 let currentTiger = this;
-                setTimeout(function () {
-                    currentTiger.moveCycleTimer = true;
-                    currentTiger.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                    currentTiger.randomYVelocity = Math.floor((Math.random() * 100) + 150);
-                }, 200);
-
-            } else if (this.moveCycleTimer === true && this.activatedCycleTimer === true && this.body.blocked.down) {
-
                 
-                    this.anims.play('slimeIdle', true);
-                this.setVelocityX(0);
 
+            } else if (this.body.blocked.down) {
+                if(this.direction === "left"){
+                    this.anims.play('tigerLeftIdle', true);
+               }else if(this.direction === "right") {
+                    this.anims.play('tigerLeftIdle', true);
+               }
+               this.setVelocityX(0);
             }
             let currentSlime = this;
-        } else {
-
-           //player is not in range of the tiger. so she does not move.
-           if(this.direction === "left"){
-                this.anims.play('tigerLeftIdle', true);
-           }else if(this.direction === "right") {
-                this.anims.play('tigerLeftIdle', true);
-           }
-           this.setVelocityX(0);
-
         }
         //updates the previous y value to tell if slime is falling or going up in its jump.
-        this.slimePreviousY = this.y;
+        this.tigerPreviousY = this.y;
     }
 
     //simple idle function played when the player is grabbed by something that isnt this tiger.
@@ -213,17 +188,19 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
     
     //the grab function. is called when player has overlaped with an enemy slime.
-    slimeGrab(player1, keyA, KeyDisplay, keyD, scene, keyTAB) {
-        let currentSlime = this;
+    tigerGrab(player1, keyA, KeyDisplay, keyD, scene, keyTAB) {
+        let currentTiger = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
 
         this.clearTint();
+        console.log("this.playerGrabbed: ",this.playerGrabbed);
         // moves player attackhitbox out of the way.
         scene.attackHitBox.y = player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
             // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-            console.log("this slime did not grab the player this.slimeID: " + this.slimeId);
+            //console.log("this tiger did grab the player this.tigerId: " + this.tigerId);
+            console.log("this.playerGrabbed",this.playerGrabbed);
             player1.visible = false;
             // puts the player hitbox out of the way and locked to a specific location.
             player1.y = this.y - 150;
@@ -231,22 +208,27 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             KeyDisplay.visible = true;
 
             // if its a small slime then play the small slime grab animation.
-            if (this.slimeSize === 1) {
+            if (this.direction === "left") {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                    this.anims.play("slimeGrab", true);
+
+                    this.anims.play('tigerGrabRight').once('animationcomplete', () => {
+                        this.anims.play("tigerStruggleRight", true);
+                    });
                 }
-                // when entering grabs sets offset correctly so play isn't clipping through the ground. or clips through the ground falling nito the void
-                //this.setOffset(40,129);
-            } else if (this.slimeSize === 2) {
+                
+            } else if (this.direction === "right") {
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                    this.anims.play("largeSlimeStruggle", true);
+                    this.anims.play('tigerGrabRight').once('animationcomplete', () => {
+                        this.anims.play("tigerStruggleRight", true);
+                    });
                 }
             }
             this.playerGrabbed = true;
             //if the player is grabbed then do the following.
         } else if (this.playerGrabbed === true) {
 
+            console.log(" now activating player grabbed logic")
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
                 playerHealth: null
@@ -259,7 +241,6 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             player1.y = this.y - 150;
             player1.body.setGravityY(0);
             //this.body.setGravityY(0);
-            player1.setSize(10, 10, true);
             //puts the key display in the correct location.
             KeyDisplay.x = this.x;
             KeyDisplay.y = this.y + 70;
@@ -323,9 +304,9 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                         this.keyAnimationPlayed = true;
                     }
                     setTimeout(function () {
-                        currentSlime.randomInputCooldown = false;
+                        currentTiger.randomInputCooldown = false;
                         // resets the animation block.
-                        currentSlime.keyAnimationPlayed = false;
+                        currentTiger.keyAnimationPlayed = false;
                     }, 2000);
                 } else if (this.slimeSize === 1) {
                     if (this.keyAnimationPlayed === false) {
@@ -343,7 +324,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 this.struggleCounterTick = true;
                 // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
                 setTimeout(function () {
-                    currentSlime.struggleCounterTick = false;
+                    currentTiger.struggleCounterTick = false;
                 }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
             }
@@ -353,14 +334,14 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 //hpBar.calcDamage(4);
                 healthEmitter.emit(healthEvent.loseHealth,4)
                 setTimeout(function () {
-                    currentSlime.TigerDamageCounter = false;
+                    currentTiger.TigerDamageCounter = false;
                 }, 1500);
             } else if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
                 this.TigerDamageCounter = true;
                 //hpBar.calcDamage(2);
                 healthEmitter.emit(healthEvent.loseHealth,2)
                 setTimeout(function () {
-                    currentSlime.TigerDamageCounter = false;
+                    currentTiger.TigerDamageCounter = false;
                 }, 2000);
                 // if the player has been defeated the do the following steps.
             } else if (this.slimeSize === 1 && playerHealthObject.playerHealth === 0) {
@@ -464,13 +445,13 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                         this.animationPlayed = true;
                         this.anims.play('slimeGrabBreak').once('animationcomplete', () => {
                             this.animationPlayed = false;
-                            currentSlime.struggleFree = true;
+                            currentTiger.struggleFree = true;
                         });
                     }
                 } else if (this.slimeSize === 2 && this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
                     setTimeout(function () {
-                        currentSlime.struggleFree = true;
+                        currentTiger.struggleFree = true;
                     }, 100);
 
                     // if the player if freed do the following to reset the player.
@@ -484,7 +465,6 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     }
                     this.struggleCounter = 0;
                     this.animationPlayed = false;
-                    this.setSize(90, 65, true);
                     this.playerDamaged = false;
                     this.playerGrabbed = false;
                     this.keyAnimationPlayed = false;
@@ -498,7 +478,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     // creates a window of time where the player cant be grabbed after being released.
                     // creates a cooldown window so the player does not get grabbed as they escape.
                     setTimeout(function () {
-                        currentSlime.grabCoolDown = false;
+                        currentTiger.grabCoolDown = false;
                         scene.grabCoolDown = false;
                         console.log("grab cooldown has ended. player can be grabbed agian.");
                     }, 3000);
@@ -510,103 +490,32 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
 
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
-    slimeCombine(otherSlime, grabbed) {
-        //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+ otherSlime.slimeId)
-        //console.log("grabbed : "+ grabbed);
-        if (grabbed === false) {
-            if (this.slimeId === otherSlime.slimeId) {
-                //console.log("slime overlap with its self detected;");
-                return;
-            } else if (this.slimeId < otherSlime.slimeId) {
-                console.log("this slime with Id: "+ this. slimeId+" is living")
-                this.setSize(130, 90, true);
-                this.setOffset(82, 209);
-                this.anims.play("mitosis");
-                this.slimeSize = 2;
-                this.tigerHP = 40;
-                this.mitosing = true;
-                //console.log("this.mitosing: "+ this.mitosing);
-                this.mitosisCounter = true;
-                //console.log("this.mitosisCounter: "+ this.mitosisCounter);
-                otherSlime.destroy();
-                let currentSlime = this;
-                setTimeout(function () {
-                    currentSlime.mitosisCounter = false;
-                    currentSlime.mitosing = true;
-
-                }, 1000);
-
-            }
-        } else if (grabbed === true) {
-            this.mitosisCounter = false;
-        }
-    }
-    // checks to see if a slime can combine.
-    mitosisDelayCheck() {
-        if (this.slimeSize === 2 && this.mitosisCounter === false) {
-            this.mitosing = false;
-            //console.log("this.mitosing: "+ this.mitosing);
-            //console.log("this.mitosisCounter: "+ this.mitosisCounter);
-        } else if (this.mitosisCounter === true) {
-            //this.mitosisCounter--;
-            //this.anims.play("mitosis");
-            //console.log("this.mitosisCounter: " + this.mitosisCounter);
-        }
-    }
-    // controls the damage resistance of the slime.
-    slimeDamage(scene) {
-        this.setVelocityX(0);
-        if (this.damageCoolDown === false) {
-            this.damageCoolDown = true;
-            this.setTint(0xff7a7a);
-            if (this.tigerHP > 0) {
-                //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
-                this.slimeCalcDamage(
-                    scene.player1.sliceDamage,
-                    scene.player1.bluntDamage,
-                    scene.player1.pierceDamage,
-                    scene.player1.heatDamage,
-                    scene.player1.lightningDamage,
-                    scene.player1.coldDamage
-                );
-                if (this.tigerHP <= 0) {
-                    this.destroy();
-                }
-            }
-            console.log("damage cool down:" + this.damageCoolDown);
-            let that = this;
-
-            setTimeout(function () {
-                that.damageCoolDown = false;
-                console.log("damage cool down:" + that.damageCoolDown);
-                that.clearTint();
-            }, 100);
-        }
-    }
+    
     //handles damage types for blue slime. get these damage types from the attack that hits the enemy
-    slimeCalcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    tigerCalcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.tigerHP -= (slice / 4);
+            this.tigerHP -= (slice / 2);
         }
         if (blunt > 0) {
-            this.tigerHP -= (blunt * 3);
+            this.tigerHP -= (blunt / 2);
         }
         if (pierce > 0) {
             this.tigerHP -= (pierce / 2);
         }
         if (heat > 0) {
-            this.tigerHP -= (heat / 4);
+            this.tigerHP -= (heat * 2);
         }
         if (lightning > 0) {
             this.tigerHP -= (lightning * 2);
         }
         if (cold > 0) {
-            this.tigerHP -= (cold / 4);
+            this.tigerHP -= (cold / 2);
         }
     }
+
     // plays the slime defeated player animations.
-    smallSlimeDefeatedPlayerAnimation() {
+    tigerDefeatedPlayerAnimation() {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
@@ -653,47 +562,9 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
 
 
     }
-    // plays the large slime defeated player animations.
-    largeSlimeDefeatedPlayerAnimation() {
-        let currentSlime = this;
-        if (this.playerDefeatedAnimationStage === 1) {
-            if (!this.animationPlayed) {
-                this.animationPlayed = true;
-                this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('largeSlimeGrabDefeated1', true);
-        } else if (this.playerDefeatedAnimationStage === 3) {
-            if (!this.animationPlayed) {
-                this.animationPlayed = true;
-                this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 4) {
-            this.anims.play('largeSlimeGrabDefeated3', true);
-        } else if (this.playerDefeatedAnimationStage === 5) {
-            this.anims.play('largeSlimeGrabDefeated4', true);
-        } else if (this.playerDefeatedAnimationStage === 6) {
-            if (!this.animationPlayed) {
-                this.animationPlayed = true;
-                this.anims.play('largeSlimeGrabDefeated5').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 7) {
-            this.anims.play('largeSlimeGrabDefeated6', true);
-        }
-
-
-    }
+    
     //pauses the animations of the slime.
-    pauseSlimeAnimations(scene) {
+    pauseTigerAnimations(scene) {
         if (scene.isPaused === true) {
             this.anims.pause();
         } else if (scene.isPaused === false) {

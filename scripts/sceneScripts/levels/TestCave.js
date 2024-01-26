@@ -60,6 +60,7 @@ class TestCave extends defaultScene {
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
       this.setUpSlimeCollider();
+      this.setUpTigerCollider();
 
       //sets up the player camera
       this.setUpPlayerCamera();
@@ -81,7 +82,7 @@ class TestCave extends defaultScene {
         "Why did I move here? I guess it was the weather. Or the... Ah, I don't know, that thing.  ",
         ['signLoop']);
 
-      //this.initSavePoints(896,1230);
+      this.initSavePoints(687,765-14);
 
       this.initPortals(343,829-12,2566,1373,"warpCaveInside","ForestRavineHome");
       
@@ -125,9 +126,11 @@ class TestCave extends defaultScene {
         setTimeout(function(){
           //generates enemys
           //thisScene.initSlimes(863, 797, 1,thisScene.playerSex);
-          thisScene.initSlimes(1073, 893, 1,thisScene.playerSex);
-          thisScene.initSlimes(1173, 893, 1,thisScene.playerSex);
+          //thisScene.initSlimes(1073, 893, 1,thisScene.playerSex);
+          //thisScene.initSlimes(1173, 893, 1,thisScene.playerSex);
           //thisScene.initSlimes(1391, 797, 1,thisScene.playerSex);
+
+          thisScene.initTiger(1173,700, 1,thisScene.playerSex);
       
           thisScene.spawnedEnemys = true;
         },1000);
@@ -137,12 +140,15 @@ class TestCave extends defaultScene {
     }
 
     update(){
-      
+
       //calls the built in update function
       this.defaultUpdate();
 
       //handles slime interactions
       this.slimeUpdate();
+
+      //handles tiger interactions
+      this.tigerUpdate();
 
     }
 

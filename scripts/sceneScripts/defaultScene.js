@@ -11,7 +11,7 @@ class defaultScene extends Phaser.Scene {
 
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 300, frameHeight: 270 });
+      this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 303, frameHeight: 270 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -494,7 +494,7 @@ class defaultScene extends Phaser.Scene {
     //creates tiger object in levels
     initTiger(startX, startY, playerSex) {
       //creates a tiger enemy
-      let tiger1 = new tiger(this, enemyX, startY, playerSex,this.tigerId);
+      let tiger1 = new tiger(this, startX, startY, playerSex,this.tigerId);
       console.log("tiger1.tigerId: ",tiger1.tigerId);
       this.tigerId++;
       this.tigers.add(tiger1);  
@@ -790,17 +790,20 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    //function to check if a tiger has grabbed the player
     checkTigerGrab() {
-      //console.log("activating grab function");
-      //scene.healthDisplay.zoomIn();
+      
       this.tigers.children.each(function (tempTiger) {
       if (tempTiger.playerGrabbed === true) {
-          //remeber this function is called twice. once when grab hamppens and agian when the update loop has this.grabbed set to true.
-          //tempTiger.slimeGrab(this.player1,this.keyA, this.KeyDisplay, this.keyD, this, this.keyTAB, this);
-          //focuses on slime that grabbed character and zooms ui elements.
+        
+          //focus on the tiger that grabbed the player
           this.mycamera.startFollow(tempTiger);
           this.cameras.main.zoom = 5;
           this.grabbed = tempTiger.playerGrabbed;
+          console.log("this.grabbed",this.grabbed);
+          tempTiger.tigerGrab(this.player1, this.keyA, this.KeyDisplay, this.keyD, this,this.keyTAB);
+          //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
+          
       } else {
           //if slime didn't grab player but player was grabbed then play idle animation.
           tempTiger.moveTigerIdle();
@@ -808,7 +811,84 @@ class defaultScene extends Phaser.Scene {
          
       }
       }, this);
-  }
+    }
+
+    //function keeps track of slime interactions
+    checkTigerInteractions(scene) {
+
+    //applys a function to all tigers
+    scene.tigers.children.each(function (tempTiger) {
+      
+      //calls tiger function to move
+      tempTiger.moveTiger(scene.player1);
+
+      //checks if the attack hitbox is overlapping the tiger to deal damage.
+      scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
+
+        //sets overlap to be true
+        tempTiger.hitboxOverlaps = true;
+      });
+
+      //if the hitbox overlaps the tiger, then  deal damage to that tiger
+      if(tempTiger.hitboxOverlaps === true) {
+
+        console.log("slime taking damage, slime hp:" + tempTiger.tigerHp);
+
+        //inflict damage to tiger
+        tempTiger.tigerDamage(scene);
+
+        //clear overlap verable in tiger.
+        tempTiger.hitboxOverlaps = false;
+
+      }
+      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+      scene.physics.add.overlap(scene.player1, tempTiger, function () {
+
+        //make a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        //that is passed into a emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+        //to tell if the window is open
+        if (isWindowObject.isOpen === true) {
+          //and if it is, then close the window
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          
+        }
+        
+
+        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+        //if the grab cooldowns are clear then
+        if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false) {
+
+          //stop the velocity of the player
+          tempTiger.setVelocityX(0);
+          scene.player1.setVelocityX(0);
+          //calls the grab function
+          tempTiger.tigerGrab(scene.player1, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
+
+          //sets the scene grab value to true since the player has been grabbed
+          // tells instance of slime that it has grabbed player
+          tempTiger.playerGrabbed = true;
+          tempTiger.grabCoolDown = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player grabbed by tiger');
+
+        }
+      });
+    }, this);
+
+    }
+
+    checkTigerPause() {
+      this.tigers.children.each(function (tempTiger) {
+      tempTiger.pauseTigerAnimations(this);
+      }, this);
+    }
 
     //special check to keep player from falling out of the world
     checkPlayerOutOfBounds(){
@@ -902,7 +982,7 @@ class defaultScene extends Phaser.Scene {
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();
@@ -1055,5 +1135,47 @@ class defaultScene extends Phaser.Scene {
         }
           
       }
+
+    tigerUpdate(){
+     
+      //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
+      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+        //check to see if the slime animations need to be paused.
+        this.checkTigerPause();
+      }else{
+        this.checkTigerPause();
+      }
+        
+      //if we are paused in a text box then
+      if(this.pausedInTextBox === true && this.gameStartedDelay === false){
+        //pause enemy animations. physics is paused in defaultupdate.
+        this.checkTigerPause();
+          
+         
+      //otherwise if these are false then
+      }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
+        //resume slime animations
+        this.checkTigerPause();
+      }
+  
+      //if the game is not paused
+      if(this.isPaused === false){
+          //and the player has not been grabbed
+          if(this.grabbed === false){ 
+    
+            //applies a function to every slime object by calling the blueSlimeCollisions function.
+            this.checkTigerInteractions(this);
+
+          //otherwise if the player has been grabbed then
+          }else if(this.grabbed === true){
+            //call check function for slimes.
+            this.checkTigerGrab();
+          }
+    
+      }else if(this.isPaused === true){
+    
+      }
+          
+    }
       
   }

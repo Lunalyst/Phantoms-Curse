@@ -139,6 +139,8 @@ class tutorialBeach extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
+      
+
     }
 
 

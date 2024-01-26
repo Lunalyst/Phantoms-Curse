@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue slime enemy.
 class tiger extends Phaser.Physics.Arcade.Sprite {
     
-    constructor(scene, xPos, yPos, sex) {
+    constructor(scene, xPos, yPos, sex, id) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, 'tiger');
         //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -30,29 +30,29 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.slimePreviousY = 0;
         this.body.setGravityY(600); // sets gravity 
         //this.setPushable(false);
-        this.slimeSize = 1;
         this.moveCycleTimer = false;
         this.activatedCycleTimer = false;
         this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
         this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
+        //value used to tell if the player can escape.
         this.struggleCounter = 0;
+
         this.playerDamaged = false;
         this.playerGrabbed = false;
-        this.mitosing = false;
+        
         this.SlimeAnimationPosition;
-        this.mitosisCounter = false;
+        
         this.struggleFree = false;
         this.grabCoolDown = false;
-        this.slimeId = 0;
-        this.largeSlimeDamageCounter = false;
+        this.tigerId = id;
+        this.TigerDamageCounter = false;
         this.playerDefeated = false;
         this.playerBrokeFree = 0;
         this.playerDefeatedAnimationStage = 0;
         this.stageTimer = 0;
         this.stageNumber = 2;
-        this.body.bounce.x = 1;
-        this.slimeHp = 20;
+        this.tigerHP = 20;
         this.damageCoolDown = false;
         this.hitboxOverlaps = false;
         this.animationPlayed = false;
@@ -60,12 +60,14 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.randomInputCooldown = false;
         this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
+        //shrinks prite back down to a third of its size since we upscale sprites.
         this.setScale(1 / 3);
+        //used to tell which way the tiger is facing.
+        this.direction = "left";
 
 
         console.log("sex passed in slime: " + sex);
-        //defines Slime animations based on the players sex.
-
+        //defines tiger animations based on the players sex.
         this.anims.create({ key: 'tigerLeftIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
         this.anims.create({ key: 'tigerLeftWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 9 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerLeftJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 10, end: 12 }), frameRate: 7, repeat: 0 });
@@ -75,13 +77,15 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({ key: 'tigerRightJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 24, end: 26 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerRightInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 27, end: 27 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: -1 });
+
+        //male animations
         if (sex === 0) {
             this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 40, end: 54 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 54, end: 57 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerSwallowRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 63, end: 73 }), frameRate: 7, repeat: -1 });
             
-            
+        //female animations    
         } else {
            
         }
@@ -131,6 +135,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     console.log("tiger walking right");
                     
                         this.anims.play('tigerRightWalk', true);
+                        this.direction = "right";
                    
                     //play the walking right animation
                     this.setVelocityX(this.randomXVelocity);
@@ -149,6 +154,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     console.log("tiger walking left");
                     
                         this.anims.play('tigerLeftWalk', true);
+                        this.direction = "left";
 
                     //moves tiger left
                     this.setVelocityX(this.randomXVelocity * -1);
@@ -163,30 +169,42 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 }, 200);
 
             } else if (this.moveCycleTimer === true && this.activatedCycleTimer === true && this.body.blocked.down) {
-               
+
+                
                     this.anims.play('slimeIdle', true);
                 this.setVelocityX(0);
 
             }
             let currentSlime = this;
         } else {
-            //player is not in range of slime so slime is in idle animation.
-            this.anims.play('slimeIdle', true);
-            this.setVelocityX(0);
+
+           //player is not in range of the tiger. so she does not move.
+           if(this.direction === "left"){
+                this.anims.play('tigerLeftIdle', true);
+           }else if(this.direction === "right") {
+                this.anims.play('tigerLeftIdle', true);
+           }
+           this.setVelocityX(0);
 
         }
         //updates the previous y value to tell if slime is falling or going up in its jump.
         this.slimePreviousY = this.y;
     }
-    //simple idle function played when the player is grabbed by something that isnt this slime.
-    moveSlimeIdle() {
+
+    //simple idle function played when the player is grabbed by something that isnt this tiger.
+    moveTigerIdle() {
         
-        this.anims.play('slimeIdle', true);
-        this.setSize(90, 65, true);
-       
+        if(this.direction === "left"){
+            this.anims.play('tigerLeftIdle', true);
+        }else if(this.direction === "right") {
+            this.anims.play('tigerLeftIdle', true);
+        }
+
         this.body.setGravityY(600);
         this.setVelocityX(0);
+
     }
+
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
         this.setSize(100, 150, true);
@@ -330,19 +348,19 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 //console.log('strugglecounter: '+this.struggleCounter);
             }
             // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
-            if (this.slimeSize === 2 && playerHealthObject.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
-                this.largeSlimeDamageCounter = true;
+            if (this.slimeSize === 2 && playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
+                this.TigerDamageCounter = true;
                 //hpBar.calcDamage(4);
                 healthEmitter.emit(healthEvent.loseHealth,4)
                 setTimeout(function () {
-                    currentSlime.largeSlimeDamageCounter = false;
+                    currentSlime.TigerDamageCounter = false;
                 }, 1500);
-            } else if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1 && this.largeSlimeDamageCounter === false && this.struggleCounter <= 100) {
-                this.largeSlimeDamageCounter = true;
+            } else if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
+                this.TigerDamageCounter = true;
                 //hpBar.calcDamage(2);
                 healthEmitter.emit(healthEvent.loseHealth,2)
                 setTimeout(function () {
-                    currentSlime.largeSlimeDamageCounter = false;
+                    currentSlime.TigerDamageCounter = false;
                 }, 2000);
                 // if the player has been defeated the do the following steps.
             } else if (this.slimeSize === 1 && playerHealthObject.playerHealth === 0) {
@@ -505,7 +523,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 this.setOffset(82, 209);
                 this.anims.play("mitosis");
                 this.slimeSize = 2;
-                this.slimeHp = 40;
+                this.tigerHP = 40;
                 this.mitosing = true;
                 //console.log("this.mitosing: "+ this.mitosing);
                 this.mitosisCounter = true;
@@ -541,7 +559,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
-            if (this.slimeHp > 0) {
+            if (this.tigerHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.slimeCalcDamage(
                     scene.player1.sliceDamage,
@@ -551,7 +569,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     scene.player1.lightningDamage,
                     scene.player1.coldDamage
                 );
-                if (this.slimeHp <= 0) {
+                if (this.tigerHP <= 0) {
                     this.destroy();
                 }
             }
@@ -569,22 +587,22 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     slimeCalcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.slimeHp -= (slice / 4);
+            this.tigerHP -= (slice / 4);
         }
         if (blunt > 0) {
-            this.slimeHp -= (blunt * 3);
+            this.tigerHP -= (blunt * 3);
         }
         if (pierce > 0) {
-            this.slimeHp -= (pierce / 2);
+            this.tigerHP -= (pierce / 2);
         }
         if (heat > 0) {
-            this.slimeHp -= (heat / 4);
+            this.tigerHP -= (heat / 4);
         }
         if (lightning > 0) {
-            this.slimeHp -= (lightning * 2);
+            this.tigerHP -= (lightning * 2);
         }
         if (cold > 0) {
-            this.slimeHp -= (cold / 4);
+            this.tigerHP -= (cold / 4);
         }
     }
     // plays the slime defeated player animations.

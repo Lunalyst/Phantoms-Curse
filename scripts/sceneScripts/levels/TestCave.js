@@ -54,9 +54,6 @@ class TestCave extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
-
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 
@@ -140,8 +137,12 @@ class TestCave extends defaultScene {
     }
 
     update(){
+      
       //calls the built in update function
       this.defaultUpdate();
+
+      //handles slime interactions
+      this.slimeUpdate();
 
     }
 

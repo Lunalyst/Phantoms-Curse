@@ -94,16 +94,6 @@ class defaultScene extends Phaser.Scene {
         this.tabObject = {
             tabIsDown: false
         };
-
-        enemyInfo = {
-            width: 90,
-            height: 90,
-            offset: {
-              top: 150,
-              left: 60
-            },
-            padding: 0
-          };
     
     }
 
@@ -261,10 +251,22 @@ class defaultScene extends Phaser.Scene {
 
     //sets up slime enemy collision
     setUpSlimeCollider(){
+        //creates a group of slime objects
+        this.slimes = this.physics.add.group();
+        //creates id so scene can work with multiple and slimes
         this.slimeId = 0;
         this.physics.add.collider(this.processMap.layer1, this.slimes);
         this.physics.add.collider( this.slimes, this.slimes); 
     }
+
+    setUpTigerCollider(){
+      //creates a group of tiger objects
+      this.tigers = this.physics.add.group();
+      //creates id so scene can work with multiple and tigers
+      this.tigerId = 0;
+      this.physics.add.collider(this.processMap.layer1, this.tigers);
+      this.physics.add.collider(this.processMap.layer0, this.tigers); 
+  }
 
     //sets up function to give a object collision with layer1
     setUpLayer1Collider(object){
@@ -465,6 +467,16 @@ class defaultScene extends Phaser.Scene {
 
     //creates slime object in levels
     initSlimes(startX, startY, amount, playerSex) {
+        // object to keep track of enemy position data
+        let enemyInfo = {
+          width: 90,
+          height: 90,
+          offset: {
+            top: 150,
+            left: 60
+          },
+          padding: 0
+        };
         //creates a row of slime enemys and adds them to the slime enemy groups.
         for (let row = 0; row < amount; row++) {
         let enemyX = (row * (enemyInfo.width + enemyInfo.padding)) + enemyInfo.offset.left + startX;
@@ -477,6 +489,15 @@ class defaultScene extends Phaser.Scene {
         this.slimes.add(slime1);
         //console.log("slime id: "+ scene.slimeId);
         }
+    }
+
+    //creates tiger object in levels
+    initTiger(startX, startY, playerSex) {
+      //creates a tiger enemy
+      let tiger1 = new tiger(this, enemyX, startY, playerSex,this.tigerId);
+      console.log("tiger1.tigerId: ",tiger1.tigerId);
+      this.tigerId++;
+      this.tigers.add(tiger1);  
     }
 
     //creates warp portal objects in the scene
@@ -769,6 +790,26 @@ class defaultScene extends Phaser.Scene {
         }, this);
     }
 
+    checkTigerGrab() {
+      //console.log("activating grab function");
+      //scene.healthDisplay.zoomIn();
+      this.tigers.children.each(function (tempTiger) {
+      if (tempTiger.playerGrabbed === true) {
+          //remeber this function is called twice. once when grab hamppens and agian when the update loop has this.grabbed set to true.
+          //tempTiger.slimeGrab(this.player1,this.keyA, this.KeyDisplay, this.keyD, this, this.keyTAB, this);
+          //focuses on slime that grabbed character and zooms ui elements.
+          this.mycamera.startFollow(tempTiger);
+          this.cameras.main.zoom = 5;
+          this.grabbed = tempTiger.playerGrabbed;
+      } else {
+          //if slime didn't grab player but player was grabbed then play idle animation.
+          tempTiger.moveTigerIdle();
+          tempTiger.body.setGravityY(600);
+         
+      }
+      }, this);
+  }
+
     //special check to keep player from falling out of the world
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
@@ -856,6 +897,8 @@ class defaultScene extends Phaser.Scene {
     }
 
     //{Update functions}===================================================================================================================
+
+    //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
@@ -864,104 +907,153 @@ class defaultScene extends Phaser.Scene {
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();
 
+      //checks to see if items dropped can be picked up
       this.checkItemPickUp();
 
+      //checks to see if containers can be opened.
       this.checkContainerPickUp();
 
+      //not sure what thes are for. saftey net when loading in?
       if(this.loadCoolDown === true){
-        this.checkWarp("tutorialBeach");
+        this.checkWarp(this.playerLocation);
       }
       if(this.saveCoolDown === true){
-        this.checkSave("tutorialBeach");
+        this.checkSave(this.playerLocation);
       }
       if(this.signCoolDown === true){
         this.checkSign(this);
       }
-      //accessTabKey.on(tabKey.isTabDown,(isDown)
+
+      //if tab is press while the player isnt grabbed or in the pause menue then
       if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
-        //console.log("tabKey Pressed");
-        //this.playerInventory.setView(this);
-        //inventoryKeyEmitter.on(inventoryKey.activateWindow,()
-        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
-        this.checkBlueSlimePause();
-        //this.player1.pausePlayerPhysics(this);
-      }else{
-        this.checkBlueSlimePause();
+        //activate inventory
+        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this); 
       }
 
+      //if the player is paused in text and the delay is false then
       if(this.pausedInTextBox === true && this.gameStartedDelay === false){
+
+        //activate the scene text box
         this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
-        this.checkBlueSlimePause();
+        //pause physics of scene
         this.physics.pause();
+        //pauses the player animations
         this.player1.anims.pause();
 
+        //makes a temp object
         let isWindowObject = {
           isOpen: null
         };
         
+        //that is transfered to the emitter
         inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
+        //which we then use to see if the inventory is open.
         if(isWindowObject.isOpen === true){
+
+          //and if its open then close the inventory.
           inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
         }
+
+      //if we are not paused in a text box and we arnt paused , and the gameplay delay is false then.
       }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
-        this.checkBlueSlimePause();
+
+        //resume physics
         this.physics.resume();
+        //and the player animations
         this.player1.anims.resume();
       }
 
-
+      //if we arnt paused
       if(this.isPaused === false){
+
+        //and the player isnt grabbed
         if(this.grabbed === false){ 
 
-          //calls built in move player function to handle how the player moves and is animated while moving  
+          //and the player isnt using shift to attack
           if(!this.shift.isDown){
-          
+
+          // then move the player
           this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
           }
-          //changes the scale and location of the health bar for zoomed out camera
-          //this.healthDisplay.zoomedOut();
-          //makes a function applied to all slime entities
-          //this.portals.hidePrompt
-          //applies a function to every slime object by calling the blueSlimeCollisions function.
-          this.checkBlueSlimeInteractions(this);
-          ///this.blueSlimeCollisions();//HERE
+          
           //sets the camera to follow the player and changes the scale as well
           this.mycamera.startFollow(this.player1);
           this.cameras.main.zoom = 2;
           this.cameras.main.followOffset.set(0,70);
-          //checks if player is over a warp point and sends them to the correct location
-          //console.log("this.loadCoolDown: "+ this.loadCoolDown);
-          
-          //if play hits tab and not grabbed open inventory.
-          
-            this.player1.attackPlayer(this.shift,this);
 
+          //call player function to see if there attacking
+          this.player1.attackPlayer(this.shift,this);
+
+        //however if the player is grabbed
         }else if(this.grabbed === true){
-          //if the player is grabbed then zoom camera in and edit ui elements to fit the screen
-          //applies a function to each slime that calls the grab function. only works 
-          //before activating grab, closes inventory if its open.
-          //this.healthDisplay.zoomIn();
+          
+          //make a temp object
           let isWindowObject = {
             isOpen: null
           };
           
+          //which we pass to the emitter
           inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
+          //so we can check if the inventory is open
           if(isWindowObject.isOpen === true){
+            //and if it is then close it.
             inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
           }
-          this.checkBlueSlimeGrab();
         }
+      //if we are paused
+      }else if(this.isPaused === true){
+        //do nothing :3
+      }
 
-    }else if(this.isPaused === true){
-
-    }
       //updates the previous y value. used to animate the falling animation of the player.
       this.player1.playerPreviousY = this.player1.y;
       //update the damage cool down if player takes damage.
       
     
     }
+    //handles slimes update every game tick
+    slimeUpdate(){
+     
+        //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
+        if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+          //check to see if the slime animations need to be paused.
+          this.checkBlueSlimePause();
+        }else{
+          this.checkBlueSlimePause();
+        }
+        
+        //if we are paused in a text box then
+        if(this.pausedInTextBox === true && this.gameStartedDelay === false){
+          //pause enemy animations. physics is paused in defaultupdate.
+          this.checkBlueSlimePause();
+          
+         
+        //otherwise if these are false then
+        }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
+          //resume slime animations
+          this.checkBlueSlimePause();
+        }
+  
+        //if the game is not paused
+        if(this.isPaused === false){
+            //and the player has not been grabbed
+            if(this.grabbed === false){ 
+    
+              //applies a function to every slime object by calling the blueSlimeCollisions function.
+              this.checkBlueSlimeInteractions(this);
+
+            //otherwise if the player has been grabbed then
+            }else if(this.grabbed === true){
+              //call check function for slimes.
+              this.checkBlueSlimeGrab();
+            }
+    
+        }else if(this.isPaused === true){
+    
+        }
+          
+      }
       
   }

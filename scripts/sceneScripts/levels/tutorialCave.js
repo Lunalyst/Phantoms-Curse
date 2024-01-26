@@ -134,8 +134,12 @@ class tutorialCave extends defaultScene {
     }
 
     update(){
+      
       //calls the built in update function
       this.defaultUpdate();
+
+      //handles slime interactions
+      this.slimeUpdate();
 
     }
 

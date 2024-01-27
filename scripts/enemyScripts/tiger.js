@@ -72,6 +72,8 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.setScale(1 / 3);
         //used to tell which way the enemy is facing.
         this.direction = "left";
+        //used to tell if the tiger has jumped.
+        this.jumped = false;
 
 
         console.log("sex passed in tiger: " + sex);
@@ -127,7 +129,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         //checks to see if enemy should jump to move if the player is in range of 400
         if (player1.x > this.x - 600 && player1.x < this.x + 600) {
             
-            console.log("this.taunting: ",this.taunting);
+            //console.log("this.taunting: ",this.taunting);
             //checks to see if the tiger should be taunting. 0-4 random values and if its four then
             if(this.randomTauntNumber === 4 && this.taunting === false){
                 //set taunting to true
@@ -143,8 +145,47 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                     this.randomTauntNumber = Math.floor((Math.random() * 5));
                 });
 
-            //if the player is to the right then move enemy to the right    
-            }else if(player1.x > this.x && this.taunting === false) {
+            //if the player is to the right and they are stuck on a ledge then jump.
+        }else if(this.body.blocked.down && this.body.blocked.right && this.jumped === false) {
+            console.log("jumping right")
+            //sets direction
+            this.direction = "right";
+            this.jumped = true;
+                   
+            //moves enemy right, double speed unless the player is close
+
+                this.anims.play('tigerRightInAir');
+                this.setVelocityY(400*-1);
+                
+                let currentTiger = this;
+                setTimeout(function () {
+                    currentTiger.jumped = false;
+                    currentTiger.setVelocityX(150);
+                }, 500);
+
+            
+            //if the player is to the right and they are stuck on a ledge then jump.
+        }else if(this.body.blocked.down && this.body.blocked.left && this.jumped === false) {
+            console.log("jumping left")
+            //sets direction
+            this.direction = "left";
+            this.jumped = true;
+                   
+            //moves enemy right, double speed unless the player is close
+            
+
+                this.anims.play('tigerLeftInAir');
+                this.setVelocityY(400*-1);
+
+                let currentTiger = this;
+                setTimeout(function () {
+                    currentTiger.jumped = false;
+                    currentTiger.setVelocityX(150*-1);
+                }, 500);
+
+            
+            //if the player is to the right then move enemy to the right
+        }else if(this.body.blocked.down && player1.x > this.x && this.taunting === false) {
                 
                 //sets direction
                 this.direction = "right";
@@ -159,7 +200,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 }
             
             //if the player is to the right then move enemy to the left
-            } else if (player1.x < this.x && this.taunting === false) {
+        } else if (this.body.blocked.down && player1.x < this.x && this.taunting === false) {
                 
                 //sets direction
                 this.direction = "left";
@@ -196,8 +237,8 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 this.randomizeCooldown = true;
                 //randomize taunt number
                 this.randomTauntNumber = Math.floor((Math.random() * 5));
-                console.log("this.randomTauntNumber: ",this.randomTauntNumber);
-                console.log("this.randomizeCooldown: ",this.randomizeCooldown);
+                //console.log("this.randomTauntNumber: ",this.randomTauntNumber);
+                //console.log("this.randomizeCooldown: ",this.randomizeCooldown);
                 
 
                 //time out function to set the cooldown to false after two seconds.
@@ -277,6 +318,9 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             this.playerGrabbed = true;
             //if the player is grabbed then do the following.
         } else if (this.playerGrabbed === true) {
+
+            // stopps velocity once player is grabbed
+            this.setVelocityX(0);
 
             //console.log(" now activating player grabbed logic")
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.

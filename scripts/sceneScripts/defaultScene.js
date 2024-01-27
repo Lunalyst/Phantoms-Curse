@@ -800,8 +800,8 @@ class defaultScene extends Phaser.Scene {
           this.mycamera.startFollow(tempTiger);
           this.cameras.main.zoom = 5;
           this.grabbed = tempTiger.playerGrabbed;
-          console.log("this.grabbed",this.grabbed);
-          tempTiger.tigerGrab(this.player1, this.keyA, this.KeyDisplay, this.keyD, this,this.keyTAB);
+          //console.log("this.grabbed",this.grabbed);
+          tempTiger.tigerGrab(this.player1, this.keyS, this.KeyDisplay, this.keyW, this,this.keyTAB);
           //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
           
       } else {
@@ -868,7 +868,7 @@ class defaultScene extends Phaser.Scene {
           tempTiger.setVelocityX(0);
           scene.player1.setVelocityX(0);
           //calls the grab function
-          tempTiger.tigerGrab(scene.player1, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
+          tempTiger.tigerGrab(scene.player1, scene.keyS, scene.KeyDisplay, scene.keyW, scene, scene.keyTAB, this);
 
           //sets the scene grab value to true since the player has been grabbed
           // tells instance of slime that it has grabbed player

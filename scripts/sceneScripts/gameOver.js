@@ -138,8 +138,12 @@ class gameOver extends Phaser.Scene {
                 this.enemy.largeSlimeGameOver();
                 this.enemy.y-500;
             
+            }else if(this.enemyThatDefeatedPlayer === "tiger"){
+                this.enemy = new tiger(this,450, 560,this.playerSex);
+                this.enemy.tigerGameOver();
+                this.enemy.y-500;
+            
             }
-
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
 

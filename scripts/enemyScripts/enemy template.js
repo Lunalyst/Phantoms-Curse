@@ -25,52 +25,44 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         //then we call this next line to give it collision
         scene.physics.add.existing(this);
         //now we can perform any specalized set ups for this object
+        this.idleTimer = 0;// give player a idle timer to tell if player is gone long enough to start sleeping animation.
+        this.lastmove = "left";// adds a key to tell movement function what key was pressed last to keep animations facing the right way
         this.tigerPreviousY = 0;
-        //sets gravity
-        this.body.setGravityY(600);
-        //move timer which can be used for movement. currently not used.
+        this.body.setGravityY(600); // sets gravity 
+        //this.setPushable(false);
         this.moveCycleTimer = false;
         this.activatedCycleTimer = false;
-        //random variable generation
         this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
         this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
-        this.randomInput = Math.floor((Math.random() * 2));
-        //randon number generator for enemy taunting
-        this.randomTauntNumber = Math.floor((Math.random() * 5));
-        this.randomizeCooldown = false;
-        this.taunting = false;
         //value used to tell if the player can escape.
         this.struggleCounter = 0;
-        //checks to tell if player is damaged or grabbed
+
         this.playerDamaged = false;
         this.playerGrabbed = false;
-        //checks to see if the player has broken free from the grab
+        
+        this.SlimeAnimationPosition;
+        
         this.struggleFree = false;
         this.grabCoolDown = false;
+        this.tigerId = id;
+        this.TigerDamageCounter = false;
         this.playerDefeated = false;
         this.playerBrokeFree = 0;
-        //id to tell enemys apart in the scene
-        this.tigerId = id;
-        //damage counter for tiger
-        this.TigerDamageCounter = false;
-        //keeps track of animations for enemys when player is in gameover animation loop.
         this.playerDefeatedAnimationStage = 0;
-        //amount of ph that the enemys has.
+        this.stageTimer = 0;
+        this.stageNumber = 2;
         this.tigerHP = 20;
-        //damage for tiger and
         this.damageCoolDown = false;
         this.hitboxOverlaps = false;
-        //used to block two anims calls from happening at the same time so that we dont get a animation lockup.
         this.animationPlayed = false;
-        this.keyAnimationPlayed = false;
-        //used to put a timer on random inputs
+        this.randomInput = Math.floor((Math.random() * 2));
         this.randomInputCooldown = false;
-        //cooldown for struggle when the player trysd to escape.
+        this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
         //shrinks prite back down to a third of its size since we upscale sprites.
         this.setScale(1 / 3);
-        //used to tell which way the enemy is facing.
+        //used to tell which way the tiger is facing.
         this.direction = "left";
 
 
@@ -84,7 +76,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({ key: 'tigerRightWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 23 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerRightJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 24, end: 26 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerRightInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 27, end: 27 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: -1 });
 
         //male animations
         if (sex === 1) {
@@ -120,110 +112,82 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             //possitions her sprite box correctly along with her hitbox
             this.setSize(100, 250, true);
             this.setOffset(100, 20);
-            //temp refrence used later maybe?
 
-        //checks to see if enemy should jump to move if the player is in range of 400
-        if (player1.x > this.x - 400 && player1.x < this.x + 400) {
-            
-            //checks to see if the tiger should be taunting. 0-4 random values and if its four then
-            if(this.randomTauntNumber === 4 && this.taunting === false){
-                //set taunting to true
-                this.taunting = true;
-                //stop velocity
-                this.setVelocityX(0);
-                //play animation then
-                this.anims.play('tigerTaunt').once('animationcomplete', () => {
-                    
-                    //set taunting to false 
-                    this.taunting = false;
-                    //and randomize the variable agian
-                    this.randomTauntNumber = Math.floor((Math.random() * 5));
-                });
-
-            //if the player is to the right then move enemy to the right    
-            }else if(player1.x > this.x && this.taunting === false) {
-                
-                //plays animation of enemy walking right
-                this.anims.play('tigerRightWalk', true);
-                this.direction = "right";
-                   
-                //moves enemy right
-                this.setVelocityX(100);
-            
-            //if the player is to the right then move enemy to the left
-            } else if (player1.x < this.x && this.taunting === false) {
-                
-                //plays animation of enemy walking left
-                this.anims.play('tigerLeftWalk', true);
-                this.direction = "left";
-
-                //moves enemy left
-                this.setVelocityX(100 * -1);
-            
-            //otherwise if the enemy is on the ground then
-            } else if (this.body.blocked.down && this.taunting === false) {
-
-                //player idle animation in the correct direction
-                if(this.direction === "left"){
-                    this.anims.play('tigerLeftIdle', true);
-                }else if(this.direction === "right") {
-                    this.anims.play('tigerLeftIdle', true);
-                }
-                //sets velocity to zero since the enemy should not be moving.
-               this.setVelocityX(0);
-            }
-
-            //temp variable for a timer
+ 
             let currentTiger = this;
             
-            //if the cooldown is false then
-            if(this.randomizeCooldown === false){
 
-                //set it to true
-                this.randomizeCooldown = true;
-                //randomize taunt number
-                this.randomTauntNumber = Math.floor((Math.random() * 5));
-                console.log("this.randomTauntNumber: ",this.randomTauntNumber);
+        //checks to see if tiger should jump to move if the player is in range
+        if (player1.x > this.x - 400 && player1.x < this.x + 400) {
+            //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
+            if (player1.x > this.x) {
+                //console.log("player is to the right of the tiger");
+                //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
+            
+                    //console.log("tiger walking right");
+                    
+                        this.anims.play('tigerRightWalk', true);
+                        this.direction = "right";
+                   
+                    //play the walking right animation
+                    this.setVelocityX(100);
+                    
+                let currentTiger = this;
 
-                //time out function to set the cooldown to false after two seconds.
-                setTimeout(function () {
-                    currentTiger.randomizeCooldown = false;
-                }, 2000);
+                
+
+
+            } else if (player1.x < this.x ) {
+                
+                    //console.log("tiger walking left");
+                    
+                        this.anims.play('tigerLeftWalk', true);
+                        this.direction = "left";
+
+                    //moves tiger left
+                    this.setVelocityX(100 * -1);
+                    //this.setVelocityY(this.randomYVelocity * -1);
+                
+                // this creates a random x and y velocity for the slimes next jump
+                let currentTiger = this;
+                
+
+            } else if (this.body.blocked.down) {
+                if(this.direction === "left"){
+                    this.anims.play('tigerLeftIdle', true);
+               }else if(this.direction === "right") {
+                    this.anims.play('tigerLeftIdle', true);
+               }
+               this.setVelocityX(0);
             }
-            console.log("this.randomizeCooldown: ",this.randomizeCooldown);
-
+            let currentSlime = this;
         }
-
         //updates the previous y value to tell if slime is falling or going up in its jump.
         this.tigerPreviousY = this.y;
     }
 
-    //simple idle function played when the player is grabbed by something that isnt this enemy.
+    //simple idle function played when the player is grabbed by something that isnt this tiger.
     moveTigerIdle() {
         
-        //player idle animation in the correct direction
         if(this.direction === "left"){
             this.anims.play('tigerLeftIdle', true);
         }else if(this.direction === "right") {
             this.anims.play('tigerLeftIdle', true);
         }
-        //sets velocity to zero since the enemy should not be moving.
+
         this.body.setGravityY(600);
         this.setVelocityX(0);
 
     }
 
-    // functioned called to play animation when the player is defeated by the enemy in gameover.
+    // functioned called to play animation when the player is defeated by the slime in gameover.
     tigerGameOver() {
-        
-        //puts the sprite and hitbox in the correct locations.
         this.setSize(100, 250, true);
         this.setOffset(100, 20);
-        //plays game over animation
         this.anims.play('tigerTummyrelax2', true);
     }
     
-    //the grab function. is called when player has overlaped with an enemy.
+    //the grab function. is called when player has overlaped with an enemy slime.
     tigerGrab(player1, keyS, KeyDisplay, keyW, scene, keyTAB) {
         let currentTiger = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
@@ -287,7 +251,12 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 console.log('return value of health emitter: ', playerHealthObject.playerHealth);
                 this.playerDamaged = true;
             }
-           
+            // something wacky. once the Phaser.Input.Keyboard.JustDown(keyA) is checked for something.
+            // it changes back to false. atleast thats what i think is happening. so if we are checking if its true its the only thing we can do during that update loop function call.
+            // so we have to structure it like so.
+            // this chunk of code checks a random number to tell what button prompt it is. 0 is keyA and 1 is Key D
+            // after we decide the correct key we then check of the correct key is down. if so add to the struggle counter
+            // if slime is size 2 it has this behavio4r, other wise it has a simple keyA prompt.
             if (this.playerDefeated === false) {
                 if (this.randomInput === 0) {
                     if (Phaser.Input.Keyboard.JustDown(keyS) === true) {

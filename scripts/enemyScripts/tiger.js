@@ -78,10 +78,12 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         //defines tiger animations based on the players sex.
         this.anims.create({ key: 'tigerLeftIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
         this.anims.create({ key: 'tigerLeftWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 9 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerLeftRun', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 9 }), frameRate: 13, repeat: -1 });
         this.anims.create({ key: 'tigerLeftJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 10, end: 12 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerLeftInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerRightIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerRightWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 23 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerRightRun', frames: this.anims.generateFrameNames('tiger-evan', { start: 14, end: 23 }), frameRate: 13, repeat: -1 });
         this.anims.create({ key: 'tigerRightJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 24, end: 26 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerRightInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 27, end: 27 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 28, end: 39 }), frameRate: 7, repeat: 0 });
@@ -123,8 +125,9 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             //temp refrence used later maybe?
 
         //checks to see if enemy should jump to move if the player is in range of 400
-        if (player1.x > this.x - 400 && player1.x < this.x + 400) {
+        if (player1.x > this.x - 600 && player1.x < this.x + 600) {
             
+            console.log("this.taunting: ",this.taunting);
             //checks to see if the tiger should be taunting. 0-4 random values and if its four then
             if(this.randomTauntNumber === 4 && this.taunting === false){
                 //set taunting to true
@@ -143,22 +146,32 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             //if the player is to the right then move enemy to the right    
             }else if(player1.x > this.x && this.taunting === false) {
                 
-                //plays animation of enemy walking right
-                this.anims.play('tigerRightWalk', true);
+                //sets direction
                 this.direction = "right";
                    
-                //moves enemy right
-                this.setVelocityX(100);
+                //moves enemy right, double speed unless the player is close
+                if(player1.x > this.x - 90 && player1.x < this.x + 90){
+                    this.anims.play('tigerRightWalk', true);
+                    this.setVelocityX(150); 
+                }else{
+                    this.anims.play('tigerRightRun', true);
+                    this.setVelocityX(220); 
+                }
             
             //if the player is to the right then move enemy to the left
             } else if (player1.x < this.x && this.taunting === false) {
                 
-                //plays animation of enemy walking left
-                this.anims.play('tigerLeftWalk', true);
+                //sets direction
                 this.direction = "left";
 
-                //moves enemy left
-                this.setVelocityX(100 * -1);
+                //moves enemy left, double speed unless the player is close
+                if(player1.x > this.x - 90 && player1.x < this.x + 90){
+                    this.anims.play('tigerLeftWalk', true);
+                    this.setVelocityX(150*-1); 
+                }else{
+                    this.anims.play('tigerLeftRun', true);
+                    this.setVelocityX(220*-1); 
+                }
             
             //otherwise if the enemy is on the ground then
             } else if (this.body.blocked.down && this.taunting === false) {
@@ -184,13 +197,14 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 //randomize taunt number
                 this.randomTauntNumber = Math.floor((Math.random() * 5));
                 console.log("this.randomTauntNumber: ",this.randomTauntNumber);
+                console.log("this.randomizeCooldown: ",this.randomizeCooldown);
+                
 
                 //time out function to set the cooldown to false after two seconds.
                 setTimeout(function () {
                     currentTiger.randomizeCooldown = false;
                 }, 2000);
             }
-            console.log("this.randomizeCooldown: ",this.randomizeCooldown);
 
         }
 

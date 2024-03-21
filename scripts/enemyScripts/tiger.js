@@ -14,69 +14,28 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //at higher hrtz rates breaks the slimegrab function. needs to be redone again. fuck.
 
 //implementation for the blue slime enemy.
-class tiger extends Phaser.Physics.Arcade.Sprite {
+class tiger extends enemy {
     
     constructor(scene, xPos, yPos, sex, id) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'tiger');
-        //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-        //so here in the subclass of sprite its refering to the image object we just made. 
-        scene.add.existing(this);
-        //then we call this next line to give it collision
-        scene.physics.add.existing(this);
-        //now we can perform any specalized set ups for this object
-        this.tigerPreviousY = 0;
-        //sets gravity
-        this.body.setGravityY(600);
-        //move timer which can be used for movement. currently not used.
-        this.moveCycleTimer = false;
-        this.activatedCycleTimer = false;
-        //random variable generation
+        super(scene, xPos, yPos, sex, id, 20, 'tiger');
+        
+        this.body.setGravityY(600); // sets gravity 
+       
         this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
         this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
-        this.randomInput = Math.floor((Math.random() * 2));
-        //randon number generator for enemy taunting
-        this.randomTauntNumber = Math.floor((Math.random() * 5));
-        this.randomizeCooldown = false;
-        this.taunting = false;
         //value used to tell if the player can escape.
-        this.struggleCounter = 0;
-        //checks to tell if player is damaged or grabbed
-        this.playerDamaged = false;
-        this.playerGrabbed = false;
-        //checks to see if the player has broken free from the grab
-        this.struggleFree = false;
-        this.grabCoolDown = false;
-        this.playerDefeated = false;
-        this.playerBrokeFree = 0;
-        //id to tell enemys apart in the scene
-        this.tigerId = id;
-        //damage counter for tiger
-        this.TigerDamageCounter = false;
-        //keeps track of animations for enemys when player is in gameover animation loop.
-        this.playerDefeatedAnimationStage = 0;
-        //amount of ph that the enemys has.
-        this.tigerHP = 20;
-        //damage for tiger and
-        this.damageCoolDown = false;
-        this.hitboxOverlaps = false;
-        //used to block two anims calls from happening at the same time so that we dont get a animation lockup.
-        this.animationPlayed = false;
-        this.keyAnimationPlayed = false;
-        //used to put a timer on random inputs
-        this.randomInputCooldown = false;
-        //cooldown for struggle when the player trysd to escape.
-        this.struggleCounterTick = false;
-        //shrinks prite back down to a third of its size since we upscale sprites.
-        this.setScale(1 / 3);
-        //used to tell which way the enemy is facing.
-        this.direction = "left";
-        //used to tell if the tiger has jumped.
+
+        this.randomInput = Math.floor((Math.random() * 2));
+
+        this.taunting = false;
         this.jumped = false;
-
-
-        console.log("sex passed in tiger: " + sex);
+        this.randomInputCooldown = false;
+        this.struggleCounterTick = false;
+        this.TigerDamageCounter = false;
+        
+    
         //defines tiger animations based on the players sex.
         this.anims.create({ key: 'tigerLeftIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
         this.anims.create({ key: 'tigerLeftWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 9 }), frameRate: 7, repeat: -1 });
@@ -92,15 +51,15 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
 
         //male animations
         if (sex === 1) {
-            this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 40, end: 54 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 54, end: 57 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerSwallowRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 63, end: 73 }), frameRate: 7, repeat: 0 });
             
         //female animations    
         } else {
            
         }
+        this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 40, end: 54 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 54, end: 57 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerSwallowRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 63, end: 73 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tiger-evan', { start: 74, end: 78 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tiger-evan', { start: 78, end: 82 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tiger-evan', { start: 82, end: 86 }), frameRate: 7, repeat: 0 });
@@ -112,12 +71,12 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tiger-evan', { start: 130, end: 139 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tiger-evan', { start: 139, end: 142 }), frameRate: 7, repeat: -1 });
 
-
-
+        this.anims.play("tigerTaunt");
     }
 
     //functions that move slime objects.
-    moveTiger(player1) {
+    move(player1) {
+        console.log("moving tiger");
             
             //sets the gravity for tiger
             this.body.setGravityY(600);
@@ -254,7 +213,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
-    moveTigerIdle() {
+    moveIdle() {
         
         //player idle animation in the correct direction
         if(this.direction === "left"){
@@ -269,7 +228,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.
-    tigerGameOver() {
+    gameOver() {
         
         //puts the sprite and hitbox in the correct locations.
         this.setSize(100, 250, true);
@@ -279,7 +238,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
     
     //the grab function. is called when player has overlaped with an enemy.
-    tigerGrab(player1, keyS, KeyDisplay, keyW, scene, keyTAB) {
+    grab(scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD) {
         let currentTiger = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
 
@@ -339,11 +298,15 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
             KeyDisplay.x = this.x;
             KeyDisplay.y = this.y + 70;
             // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+            console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
             if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
                 //hpBar.calcDamage(1);
                 healthEmitter.emit(healthEvent.loseHealth,1)
                 console.log('return value of health emitter: ', playerHealthObject.playerHealth);
                 this.playerDamaged = true;
+                /*setTimeout(function () {
+                    currentTiger.playerDamaged  = false;
+                }, 2000);*/
             }
            
             if (this.playerDefeated === false) {
@@ -451,7 +414,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 }
 
                 //console.log("player defeated by small slime");
-                this.tigerDefeatedPlayerAnimation();
+                this.defeatedPlayerAnimation();
             }
             // if the player breaks free then do the following
             if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
@@ -495,10 +458,40 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
 
     }
 
+    damage(scene) {
+        this.setVelocityX(0);
+        if (this.damageCoolDown === false) {
+            this.damageCoolDown = true;
+            this.setTint(0xff7a7a);
+            if (this.tigerHp > 0) {
+                //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
+                this.calcDamage(
+                    scene.player1.sliceDamage,
+                    scene.player1.bluntDamage,
+                    scene.player1.pierceDamage,
+                    scene.player1.heatDamage,
+                    scene.player1.lightningDamage,
+                    scene.player1.coldDamage
+                );
+                if (this.tigerHp <= 0) {
+                    this.destroy();
+                }
+            }
+            console.log("damage cool down:" + this.damageCoolDown);
+            let that = this;
+
+            setTimeout(function () {
+                that.damageCoolDown = false;
+                console.log("damage cool down:" + that.damageCoolDown);
+                that.clearTint();
+            }, 100);
+        }
+    }
+
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
     
     //handles damage types for blue slime. get these damage types from the attack that hits the enemy
-    tigerCalcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.tigerHP -= (slice / 2);
@@ -521,7 +514,7 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
     }
 
     // plays the slime defeated player animations.
-    tigerDefeatedPlayerAnimation() {
+    defeatedPlayerAnimation() {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
             //this.animationPlayed = false;
@@ -608,22 +601,5 @@ class tiger extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('tigerTummyrelax2', true);
         }
     }
-    
-
-        
-
-
-    
-    
-    //pauses the animations of the slime.
-    pauseTigerAnimations(scene) {
-        if (scene.isPaused === true) {
-            this.anims.pause();
-        } else if (scene.isPaused === false) {
-            this.anims.resume();
-        }
-
-    }
-
 
 }

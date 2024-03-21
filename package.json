@@ -12,7 +12,8 @@
 		"@phaser-plus/core": "^0.1.8",
 		"events": "^3.3.0",
 		"jslint": "^0.12.1",
-		"phaser": "^3.60.0"
+		"phaser": "^3.60.0",
+		"typescript": "^5.3.3"
 	},
 	"devDependencies": {
 		"@phaser-plus/cli": "^0.1.8",

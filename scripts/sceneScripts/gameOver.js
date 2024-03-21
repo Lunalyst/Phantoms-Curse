@@ -127,7 +127,6 @@ class gameOver extends Phaser.Scene {
             this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
             this.processMap.setTiles('source_map',this);
 
-
             //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
@@ -140,10 +139,11 @@ class gameOver extends Phaser.Scene {
             
             }else if(this.enemyThatDefeatedPlayer === "tiger"){
                 this.enemy = new tiger(this,450, 560,this.playerSex);
-                this.enemy.tigerGameOver();
+                this.enemy.gameOver();
                 this.enemy.y-500;
             
             }
+            
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
 

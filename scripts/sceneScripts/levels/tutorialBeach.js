@@ -63,9 +63,6 @@ class tutorialBeach extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
-
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 

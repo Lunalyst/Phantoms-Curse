@@ -59,8 +59,6 @@ class TestCave extends defaultScene {
 
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
-      this.setUpSlimeCollider();
-      this.setUpTigerCollider();
 
       //sets up the player camera
       this.setUpPlayerCamera();
@@ -69,11 +67,6 @@ class TestCave extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
-      
-      
-      
-      //this.initSavePoints(2050,558);
-        // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
@@ -121,17 +114,19 @@ class TestCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //sets up enemy colliders and groups
+      this.enemyGroupArray = ["blueSlimes","tigers"];
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
-        setTimeout(function(){
-          //generates enemys
+      setTimeout(function(){
           //thisScene.initSlimes(863, 797, 1,thisScene.playerSex);
           //thisScene.initSlimes(1073, 893, 1,thisScene.playerSex);
           //thisScene.initSlimes(1173, 893, 1,thisScene.playerSex);
           //thisScene.initSlimes(1391, 797, 1,thisScene.playerSex);
 
-          thisScene.initTiger(1173,700, 1,thisScene.playerSex);
-      
+          thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -144,11 +139,8 @@ class TestCave extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
-      //handles slime interactions
-      this.slimeUpdate();
-
-      //handles tiger interactions
-      this.tigerUpdate();
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
 
     }
 

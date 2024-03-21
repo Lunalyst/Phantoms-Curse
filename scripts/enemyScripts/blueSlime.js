@@ -264,6 +264,8 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
     }
     //simple idle function played when the player is grabbed by something that isnt this slime.
     moveSlimeIdle() {
+        this.setSize(90, 65, true);
+        this.setOffset(105, 233);
         if (this.slimeSize === 1) {
             this.anims.play('slimeIdle', true);
             this.setSize(90, 65, true);

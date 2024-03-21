@@ -62,7 +62,10 @@ class tutorialCave extends defaultScene {
 
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
-      this.setUpSlimeCollider();
+
+      //sets up enemy colliders and groups
+      let enemyGroupArray = ["blueSlimes"];
+      this.setUpEnemyCollider(enemyGroupArray);
 
       //sets up the player camera
       this.setUpPlayerCamera();
@@ -138,8 +141,8 @@ class tutorialCave extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
-      //handles slime interactions
-      this.slimeUpdate();
+      //handles enemy interactions
+      this.enemyUpdate();
 
     }
 

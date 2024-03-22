@@ -38,6 +38,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.animationPlayed = false;
         this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
+        this.inStartDefeatedLogic = false;
+        this.playerDefeatedAnimationCooldown = false;
 
         //shrinks prite back down to a third of its size since we upscale sprites.
         this.setScale(1 / 3);

@@ -342,6 +342,7 @@ class blueSlime extends enemy {
             // this chunk of code checks a random number to tell what button prompt it is. 0 is keyA and 1 is Key D
             // after we decide the correct key we then check of the correct key is down. if so add to the struggle counter
             // if slime is size 2 it has this behavio4r, other wise it has a simple keyA prompt.
+            console.log("this.playerDefeated: ",this.playerDefeated);
             if (this.playerDefeated === false) {
                 if (this.randomInput === 0 && this.slimeSize === 2) {
                     if (Phaser.Input.Keyboard.JustDown(keyA) === true) {
@@ -450,7 +451,7 @@ class blueSlime extends enemy {
                     console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                 }
 
-                if (keyD.isDown && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 5 && this.playerDefeatedAnimationStage !== 6 && this.playerDefeatedAnimationStage !== 8) {
+                if (Phaser.Input.Keyboard.JustDown(keyD) && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 5 && this.playerDefeatedAnimationStage !== 6 && this.playerDefeatedAnimationStage !== 8) {
                     KeyDisplay.visible = false;
                     //this.stageTimer = 0;
                     this.playerDefeatedAnimationStage++;
@@ -491,12 +492,16 @@ class blueSlime extends enemy {
                         //incriment the animation prompt since we want to move on to the next animation after the current one finishes
                         console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
                     }, 1000);
+                    this.inStartDefeatedLogic = true;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                 }
 
-                if (keyD.isDown && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 3 && this.playerDefeatedAnimationStage !== 6) {
+                if (Phaser.Input.Keyboard.JustDown(keyD) &&
+                 this.playerDefeatedAnimationCooldown === false &&this.inStartDefeatedLogic === false && KeyDisplay.visible === true &&
+                  this.playerDefeatedAnimationStage !== 3 && this.playerDefeatedAnimationStage !== 6) {
                     KeyDisplay.visible = false;
+                    this.playerDefeatedAnimationCooldown = true;
                     //this.stageTimer = 0;
                     this.playerDefeatedAnimationStage++;
                     let currentSlime = this;
@@ -506,6 +511,7 @@ class blueSlime extends enemy {
                     setTimeout(function () {
                         console.log("defeated animation delay.");
                         KeyDisplay.visible = true;
+                        currentSlime.playerDefeatedAnimationCooldown = false;
                         KeyDisplay.playDKey();
                     }, 3000);
                 }
@@ -733,6 +739,7 @@ class blueSlime extends enemy {
                 this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 2) {

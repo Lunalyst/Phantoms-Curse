@@ -810,6 +810,13 @@ class defaultScene extends Phaser.Scene {
       }, this);
     }
 
+    //pauses enemy animations when the player is paused. calles function in enemy base class
+    checkEnemyAnimationPause() {
+      this.enemys.children.each(function (tempEnemy) {
+        tempEnemy.pauseAnimations(this);
+      }, this);
+    }
+
     //function keeps track of slime interactions
     checkBlueSlimeInteractions(scene) {
 
@@ -817,13 +824,13 @@ class defaultScene extends Phaser.Scene {
       //applies functions to all slimes in the group.
       scene.blueSlimes.children.each(function (tempSlime) {
         //calls to make each instance of a slime move.
-        tempSlime.moveSlime(scene.player1);
+        tempSlime.move(scene.player1);
         scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
           tempSlime.hitboxOverlaps = true;
         });
         if (tempSlime.hitboxOverlaps === true) {
           console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
-          tempSlime.slimeDamage(scene);
+          tempSlime.damage(scene);
           tempSlime.hitboxOverlaps = false;
         }
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
@@ -846,7 +853,7 @@ class defaultScene extends Phaser.Scene {
             tempSlime.setVelocityX(0);
             scene.player1.setVelocityX(0);
             //calls the grab function
-            tempSlime.slimeGrab(scene.player1, scene.keyA, scene.KeyDisplay, scene.keyD, scene, scene.keyTAB, this);
+            tempSlime.grab(scene,scene.player1,scene.KeyDisplay,scene.keyTAB,scene.keyW,scene.keyS,scene.keyA,scene.keyD);
             //sets the scene grab value to true since the player has been grabbed
             // tells instance of slime that it has grabbed player
             tempSlime.playerGrabbed = true;
@@ -859,7 +866,7 @@ class defaultScene extends Phaser.Scene {
         //if the slime is size 1 then it checks for overlap between slimes. then if the collide they fuse together and play combination animation
         if (tempSlime.slimeSize === 1) {
           //creates another function applies to the slimes so that there are two instances of a function being applied
-          scene.slimes.children.each(function (tempSlime1) {
+          scene.blueSlimes.children.each(function (tempSlime1) {
             // collider used to detect a collision between two slimes
             scene.physics.add.overlap(tempSlime1, tempSlime, function () {
               // if both slimes are of size 1 then call combine function
@@ -932,10 +939,8 @@ class defaultScene extends Phaser.Scene {
           scene.player1.setVelocityX(0);
           //calls the grab function
           tempTiger.grab(scene,scene.player1,scene.KeyDisplay,scene.keyTAB,scene.keyW,scene.keyS,scene.keyA,scene.keyD);
-          //tempTiger.tigerGrab(scene.player1, scene.keyS, scene.KeyDisplay, scene.keyW, scene, scene.keyTAB, this);
-      
+        
           //sets the scene grab value to true since the player has been grabbed
-          // tells instance of slime that it has grabbed player
           tempTiger.playerGrabbed = true;
           tempTiger.grabCoolDown = true;
           scene.grabbed = true;
@@ -946,13 +951,6 @@ class defaultScene extends Phaser.Scene {
       });
       }, this);
       
-    }
-
-    //pauses enemy animations when the player is paused. calles function in enemy base class
-    checkEnemyAnimationPause() {
-      this.enemys.children.each(function (tempEnemy) {
-        tempEnemy.pauseAnimations(this);
-      }, this);
     }
 
     //{Update functions}===================================================================================================================
@@ -1072,49 +1070,8 @@ class defaultScene extends Phaser.Scene {
       
     
     }
-    //handles slimes update every game tick
-    slimeUpdate(){
-     
-        //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
-        if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
-          //check to see if the slime animations need to be paused.
-          this.checkBlueSlimePause();
-        }else{
-          this.checkBlueSlimePause();
-        }
-        
-        //if we are paused in a text box then
-        if(this.pausedInTextBox === true && this.gameStartedDelay === false){
-          //pause enemy animations. physics is paused in defaultupdate.
-          this.checkBlueSlimePause();
-          
-         
-        //otherwise if these are false then
-        }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
-          //resume slime animations
-          this.checkBlueSlimePause();
-        }
-  
-        //if the game is not paused
-        if(this.isPaused === false){
-            //and the player has not been grabbed
-            if(this.grabbed === false){ 
     
-              //applies a function to every slime object by calling the blueSlimeCollisions function.
-              this.checkBlueSlimeInteractions(this);
-
-            //otherwise if the player has been grabbed then
-            }else if(this.grabbed === true){
-              //call check function for slimes.
-              this.checkBlueSlimeGrab();
-            }
-    
-        }else if(this.isPaused === true){
-    
-        }
-          
-    }
-
+    //updates enemy apart of scene in the update loop
     enemyUpdate(enemyGroupArray){
      
       //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
@@ -1154,9 +1111,6 @@ class defaultScene extends Phaser.Scene {
               }
 
             }
-    
-            //applies a function to every tiger object by calling the enemy specific interactions function
-            this.checkTigerInteractions(this);
 
           //otherwise if the player has been grabbed then
           }else if(this.grabbed === true){
@@ -1168,6 +1122,5 @@ class defaultScene extends Phaser.Scene {
     
       }
           
-    }
-      
+    } 
   }

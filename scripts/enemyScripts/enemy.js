@@ -1,5 +1,4 @@
 
-
 class enemy extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene, xPos, yPos, sex, id, hp, enemySprite) {
@@ -23,7 +22,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.playerDamaged = false;
         this.playerGrabbed = false;
         
-        this.AnimationPosition;
+        this.animationPosition;
         this.struggleFree = false;
         this.grabCoolDown = false;
         this.enemyId = id;

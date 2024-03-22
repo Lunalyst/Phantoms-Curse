@@ -14,56 +14,28 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //at higher hrtz rates breaks the slimegrab function. needs to be redone again. fuck.
 
 //implementation for the blue slime enemy.
-class blueSlime extends Phaser.Physics.Arcade.Sprite {
+class blueSlime extends enemy {
     
-    constructor(scene, xPos, yPos, sex) {
+    constructor(scene, xPos, yPos, sex, id) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'blueSlime');
-        //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
-        //so here in the subclass of sprite its refering to the image object we just made. 
-        scene.add.existing(this);
-        //then we call this next line to give it collision
-        scene.physics.add.existing(this);
-        //now we can perform any specalized set ups for this object
-        this.idleTimer = 0;// give player a idle timer to tell if player is gone long enough to start sleeping animation.
-        this.lastmove = "left";// adds a key to tell movement function what key was pressed last to keep animations facing the right way
-        this.slimePreviousY = 0;
-        this.body.setGravityY(600); // sets gravity 
-        //this.setPushable(false);
+        super(scene, xPos, yPos, sex, id, 20, 'blueSlime');
+
+        // sets gravity 
+        this.body.setGravityY(600); 
         this.slimeSize = 1;
-        this.moveCycleTimer = false;
-        this.activatedCycleTimer = false;
+
+        //randomizes variables
         this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
         this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
-        this.struggleCounter = 0;
-        this.playerDamaged = false;
-        this.playerGrabbed = false;
-        this.mitosing = false;
-        this.SlimeAnimationPosition;
-        this.mitosisCounter = false;
-        this.struggleFree = false;
-        this.grabCoolDown = false;
-        this.slimeId = 0;
-        this.largeSlimeDamageCounter = false;
-        this.playerDefeated = false;
-        this.playerBrokeFree = 0;
-        this.playerDefeatedAnimationStage = 0;
-        this.stageTimer = 0;
-        this.stageNumber = 2;
-        this.body.bounce.x = 1;
-        this.slimeHp = 20;
-        this.damageCoolDown = false;
-        this.hitboxOverlaps = false;
-        this.animationPlayed = false;
         this.randomInput = Math.floor((Math.random() * 2));
+
+        this.mitosing = false;
+        this.mitosisCounter = false;
+        this.largeSlimeDamageCounter = false;
+        this.body.bounce.x = 1;
         this.randomInputCooldown = false;
-        this.keyAnimationPlayed = false;
-        this.struggleCounterTick = false;
-        this.setScale(1 / 3);
-
-
-        console.log("sex passed in slime: " + sex);
+        
         //defines Slime animations based on the players sex.
         if (sex === 0) {
             this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
@@ -132,7 +104,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
     }
 
     //functions that move slime objects.
-    moveSlime(player1) {
+    move(player1) {
 
         //if the slime is of size 1 then set its hit box to the correct size
         if (this.slimeSize === 1) {
@@ -161,19 +133,19 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         if (player1.x > this.x - 400 && player1.x < this.x + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
             if (player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
-                console.log("player is to the right of the slime");
+                //console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
-                if (this.slimePreviousY > this.y) {
+                if (this.enemyPreviousY > this.y) {
 
-                    console.log("slime in right up animation");
+                    //console.log("slime in right up animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpUp', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeUp', true);
                     }
                     //otherwise it plays falling down animation
-                } else if (this.slimePreviousY <= this.y) {
-                    console.log("slime in right down animation");
+                } else if (this.enemyPreviousY <= this.y) {
+                    //console.log("slime in right down animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpDown', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
@@ -205,15 +177,15 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
             } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 console.log("player is to the left of the slime");
-                if (this.slimePreviousY < this.y) {
-                    console.log("slime in left up animation");
+                if (this.enemyPreviousY < this.y) {
+                    //console.log("slime in left up animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpUp', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeUp', true);
                     }
-                } else if (this.slimePreviousY <= this.y) {
-                    console.log("slime in left down animation");
+                } else if (this.enemyPreviousY <= this.y) {
+                    //console.log("slime in left down animation");
                     if (this.slimeSize === 1) {
                         this.anims.play('slimeJumpDown', true);
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
@@ -260,18 +232,18 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
         }
         //updates the previous y value to tell if slime is falling or going up in its jump.
-        this.slimePreviousY = this.y;
+        this.enemyPreviousY = this.y;
     }
     //simple idle function played when the player is grabbed by something that isnt this slime.
-    moveSlimeIdle() {
-        this.setSize(90, 65, true);
-        this.setOffset(105, 233);
+    moveIdle() {
+        //this.setSize(90, 65, true);
+        //this.setOffset(105, 233);
         if (this.slimeSize === 1) {
             this.anims.play('slimeIdle', true);
-            this.setSize(90, 65, true);
+            //this.setSize(90, 65, true);
         } else if (this.slimeSize === 2) {
             this.anims.play('slimeLargeIdle', true);
-            this.setSize(40, 34, true);
+            //this.setSize(40, 34, true);
         }
         this.body.setGravityY(600);
         this.setVelocityX(0);
@@ -305,18 +277,19 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
-    slimeGrab(player1, keyA, KeyDisplay, keyD, scene, keyTAB) {
+    grab(scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD) {
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
 
 
         this.clearTint();
         // moves player attackhitbox out of the way.
+        console.log();
         scene.attackHitBox.y = player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
             // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-            console.log("this slime did not grab the player this.slimeID: " + this.slimeId);
+            console.log("this slime did not grab the player this.slimeID: " + this.enemyId);
             player1.visible = false;
             // puts the player hitbox out of the way and locked to a specific location.
             player1.y = this.y - 150;
@@ -546,6 +519,8 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                 //console.log("player defeated by small slime");
                 this.largeSlimeDefeatedPlayerAnimation();
             }
+
+            console.log("this.struggleFree", this.struggleFree,"playerHealthObject.playerHealth",playerHealthObject.playerHealth);
             // if the player breaks free then do the following
             if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
                 KeyDisplay.visible = false;
@@ -568,6 +543,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
                     // if the player if freed do the following to reset the player.
                 } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
+                    console.log("player has broken free" );
                     this.struggleFree = false;
                     this.playerBrokeFree = 0;
                     if (this.slimeSize === 1) {
@@ -581,6 +557,8 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                     this.playerDamaged = false;
                     this.playerGrabbed = false;
                     this.keyAnimationPlayed = false;
+                    scene.grabbed = false;
+
                     player1.visible = true;
                     player1.setSize(23, 68, true);
                     player1.body.setGravityY(600);
@@ -607,16 +585,16 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+ otherSlime.slimeId)
         //console.log("grabbed : "+ grabbed);
         if (grabbed === false) {
-            if (this.slimeId === otherSlime.slimeId) {
+            if (this.enemyId === otherSlime.enemyId) {
                 //console.log("slime overlap with its self detected;");
                 return;
-            } else if (this.slimeId < otherSlime.slimeId) {
-                console.log("this slime with Id: "+ this. slimeId+" is living")
+            } else if (this.enemyId < otherSlime.enemyId) {
+                console.log("this slime with Id: "+ this.enemyId+" is living")
                 this.setSize(130, 90, true);
                 this.setOffset(82, 209);
                 this.anims.play("mitosis");
                 this.slimeSize = 2;
-                this.slimeHp = 40;
+                this.enemyHP = 40;
                 this.mitosing = true;
                 //console.log("this.mitosing: "+ this.mitosing);
                 this.mitosisCounter = true;
@@ -647,12 +625,12 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         }
     }
     // controls the damage resistance of the slime.
-    slimeDamage(scene) {
+    damage(scene) {
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
-            if (this.slimeHp > 0) {
+            if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.slimeCalcDamage(
                     scene.player1.sliceDamage,
@@ -662,7 +640,7 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
                     scene.player1.lightningDamage,
                     scene.player1.coldDamage
                 );
-                if (this.slimeHp <= 0) {
+                if (this.enemyHP <= 0) {
                     this.destroy();
                 }
             }
@@ -677,25 +655,25 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
         }
     }
     //handles damage types for blue slime. get these damage types from the attack that hits the enemy
-    slimeCalcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.slimeHp -= (slice / 4);
+            this.enemyHP -= (slice / 4);
         }
         if (blunt > 0) {
-            this.slimeHp -= (blunt * 3);
+            this.enemyHP -= (blunt * 3);
         }
         if (pierce > 0) {
-            this.slimeHp -= (pierce / 2);
+            this.enemyHP -= (pierce / 2);
         }
         if (heat > 0) {
-            this.slimeHp -= (heat / 4);
+            this.enemyHP -= (heat / 4);
         }
         if (lightning > 0) {
-            this.slimeHp -= (lightning * 2);
+            this.enemyHP -= (lightning * 2);
         }
         if (cold > 0) {
-            this.slimeHp -= (cold / 4);
+            this.enemyHP -= (cold / 4);
         }
     }
     // plays the slime defeated player animations.
@@ -785,15 +763,5 @@ class blueSlime extends Phaser.Physics.Arcade.Sprite {
 
 
     }
-    //pauses the animations of the slime.
-    pauseSlimeAnimations(scene) {
-        if (scene.isPaused === true) {
-            this.anims.pause();
-        } else if (scene.isPaused === false) {
-            this.anims.resume();
-        }
-
-    }
-
-
+    
 }

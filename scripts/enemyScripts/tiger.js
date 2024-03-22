@@ -76,7 +76,7 @@ class tiger extends enemy {
 
     //functions that move slime objects.
     move(player1) {
-        console.log("moving tiger");
+        //console.log("moving tiger");
             
             //sets the gravity for tiger
             this.body.setGravityY(600);

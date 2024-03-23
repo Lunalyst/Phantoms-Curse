@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.mp3",
+        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
+    ],
+    "spritemap": {
+        "ocean":{
+            "start": 0,
+            "end": 29,
+            "loop": true
+        }
+    }
+}

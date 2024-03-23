@@ -31,6 +31,10 @@ class tutorialCave extends defaultScene {
       
       this.defaultPreload();
 
+      this.load.audioSprite('caveSFX','../audio/used-audio/cave-sounds/cave-sounds.json',[
+        "../audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+      ]);
+
     }
 
     create(){
@@ -50,6 +54,8 @@ class tutorialCave extends defaultScene {
 
       //creates tileset
       this.setUpTileSet("cave_map","Forest_Large_Tiles","source_map");
+
+      this.initLoopingSound('caveSFX','cave', 0.1);
     
       //creates player object
       this.setUpPlayer();
@@ -64,8 +70,8 @@ class tutorialCave extends defaultScene {
       this.setUpPlayerCollider();
 
       //sets up enemy colliders and groups
-      let enemyGroupArray = ["blueSlimes"];
-      this.setUpEnemyCollider(enemyGroupArray);
+      this.enemyGroupArray = ["blueSlimes"];
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up the player camera
       this.setUpPlayerCamera();
@@ -125,9 +131,8 @@ class tutorialCave extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          thisScene.initSlimes(1309, 605, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
+          thisScene.initEnemy(1309, 605, 1,thisScene.playerSex,'tiger');
+          
       
           thisScene.spawnedEnemys = true;
         },1000);
@@ -142,7 +147,7 @@ class tutorialCave extends defaultScene {
       this.defaultUpdate();
 
       //handles enemy interactions
-      this.enemyUpdate();
+      this.enemyUpdate(this.enemyGroupArray);
 
     }
 

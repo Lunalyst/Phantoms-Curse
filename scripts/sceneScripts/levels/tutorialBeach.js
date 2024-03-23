@@ -16,11 +16,7 @@ class tutorialBeach extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
-    
+  
 
     }
 
@@ -32,6 +28,11 @@ class tutorialBeach extends defaultScene {
       this.load.spritesheet('backgroundBeachLevel', 'assets/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
       
       this.defaultPreload();
+
+     this.load.audioSprite('oceanSFX','../audio/used-audio/ocean-sounds/ocean-sounds.json',[
+        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.mp3",
+        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
+      ]);
 
       
    
@@ -58,7 +59,8 @@ class tutorialBeach extends defaultScene {
       //creates tileset
       this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
 
-      //this.tilesAnimated.init(this.map);
+      //adds looping sound effect.
+      this.initLoopingSound('oceanSFX','ocean',0.1);
 
       //creates player object
       this.setUpPlayer();
@@ -68,8 +70,7 @@ class tutorialBeach extends defaultScene {
 
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
-      this.setUpSlimeCollider();
-
+  
       //sets up the player camera
       this.setUpPlayerCamera();
       

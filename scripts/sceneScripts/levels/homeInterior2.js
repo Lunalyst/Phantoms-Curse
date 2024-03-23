@@ -60,8 +60,7 @@ class HomeInterior2 extends defaultScene {
 
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
-      this.setUpSlimeCollider();
-
+      
       //sets up the player camera
       this.setUpPlayerCamera();
       

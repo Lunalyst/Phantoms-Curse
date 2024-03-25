@@ -35,6 +35,16 @@ class blueSlime extends enemy {
         this.largeSlimeDamageCounter = false;
         this.body.bounce.x = 1;
         this.randomInputCooldown = false;
+
+        this.slimeSoundsArray = ['1','2','3','4','5'];
+        this.randomSlimeSound = Math.floor((Math.random() * 4));
+
+        //loads enemy sounds
+        scene.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+            "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+          ]);
+
+          
         
         //defines Slime animations based on the players sex.
         if (sex === 0) {
@@ -57,7 +67,7 @@ class blueSlime extends enemy {
             this.anims.create({ key: 'slimeLargeUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 82, end: 82 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'slimeLargeDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 83, end: 83 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'largeSlimeStruggle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 85, end: 100 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 101, end: 108 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 101, end: 106 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeSlimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 104, end: 107 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'largeSlimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 108, end: 112 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeSlimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 113, end: 116 }), frameRate: 7, repeat: -1 });
@@ -87,7 +97,7 @@ class blueSlime extends enemy {
             this.anims.create({ key: 'slimeLargeUp', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 82, end: 82 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'slimeLargeDown', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 83, end: 83 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'largeSlimeStruggle', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 85, end: 100 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 101, end: 108 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'largeSlimefallingDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 101, end: 107 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeSlimeGrabDefeated1', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 104, end: 107 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'largeSlimeGrabDefeated2', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 108, end: 112 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeSlimeGrabDefeated3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 113, end: 116 }), frameRate: 7, repeat: -1 });
@@ -104,7 +114,7 @@ class blueSlime extends enemy {
     }
 
     //functions that move slime objects.
-    move(player1) {
+    move(player1,scene) {
 
         //if the slime is of size 1 then set its hit box to the correct size
         if (this.slimeSize === 1) {
@@ -151,14 +161,11 @@ class blueSlime extends enemy {
                     } else if (this.slimeSize === 2 && this.mitosing === false) {
                         this.anims.play('slimeLargeDown', true);
                     }
-                } else {
-                   /* console.log("slime in right idle animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeIdle', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeIdle', true);
-                    }*/
-                }
+                } 
+
+                //handles sound effect when slime jumps
+                this.playSlimeSound("3",200);
+                
                 // jumps the slime to the right
                 if (this.slimeSize === 1) {
                     this.setVelocityX(this.randomXVelocity);
@@ -192,13 +199,12 @@ class blueSlime extends enemy {
                         this.anims.play('slimeLargeUp', true);
                     }
                 } else {
-                    /*console.log("slime in left idle animation");
-                    if (this.slimeSize === 1) {
-                        this.anims.play('slimeIdle', true);
-                    } else if (this.slimeSize === 2 && this.mitosing === false) {
-                        this.anims.play('slimeLargeIdle', true);
-                    }*/
+                  
                 }
+                
+                //handles slime when slime jumps
+                this.playSlimeSound('3',200);
+
                 // jumps the slime to the left
                 if (this.slimeSize === 1) {
                     this.setVelocityX(this.randomXVelocity * -1);
@@ -268,12 +274,6 @@ class blueSlime extends enemy {
             this.anims.play('slimeGameOver3', true);
         });
 
-        /*setTimeout(function(){
-            currentSlime.anims.play('slimeGameOver2',true);
-          },1000);
-          setTimeout(function(){
-            currentSlime.anims.play('slimeGameOver3',true);
-          },1700);*/
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
@@ -342,8 +342,10 @@ class blueSlime extends enemy {
             // this chunk of code checks a random number to tell what button prompt it is. 0 is keyA and 1 is Key D
             // after we decide the correct key we then check of the correct key is down. if so add to the struggle counter
             // if slime is size 2 it has this behavio4r, other wise it has a simple keyA prompt.
-            console.log("this.playerDefeated: ",this.playerDefeated);
+            //console.log("this.playerDefeated: ",this.playerDefeated);
             if (this.playerDefeated === false) {
+
+                //logic handles random key imputs display to player and there interactability.
                 if (this.randomInput === 0 && this.slimeSize === 2) {
                     if (Phaser.Input.Keyboard.JustDown(keyA) === true) {
                         console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
@@ -401,6 +403,9 @@ class blueSlime extends enemy {
                         this.keyAnimationPlayed = true;
                     }
                 }
+
+                //handles sound effect diring grab struggle
+                this.playSlimeSound('3',800);
             }
             // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
             // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
@@ -447,13 +452,20 @@ class blueSlime extends enemy {
                         //incriment the animation prompt since we want to move on to the next animation after the current one finishes
                         console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
                     }, 1000);
+                    this.inStartDefeatedLogic = true;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                 }
 
-                if (Phaser.Input.Keyboard.JustDown(keyD) && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 5 && this.playerDefeatedAnimationStage !== 6 && this.playerDefeatedAnimationStage !== 8) {
+                console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
+                " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
+                " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);
+                if (keyD.isDown && this.playerDefeatedAnimationCooldown === false && this.inStartDefeatedLogic === false
+                && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 5 
+                && this.playerDefeatedAnimationStage !== 6 && this.playerDefeatedAnimationStage !== 8) {
                     KeyDisplay.visible = false;
                     //this.stageTimer = 0;
+                    this.playerDefeatedAnimationCooldown = true;
                     this.playerDefeatedAnimationStage++;
                     let currentSlime = this;
                     console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
@@ -463,6 +475,7 @@ class blueSlime extends enemy {
                         console.log("defeated animation delay.");
                         KeyDisplay.visible = true;
                         KeyDisplay.playDKey();
+                        currentSlime.playerDefeatedAnimationCooldown = false;
                     }, 3000);
                 }
                 // if tab is pressed or the player finished the defeated animations then we call the game over scene.
@@ -476,6 +489,8 @@ class blueSlime extends enemy {
                 this.smallSlimeDefeatedPlayerAnimation();
                 // same code but for the large slime if it beats the player.
             } else if (this.slimeSize === 2 && playerHealthObject.playerHealth === 0) {
+
+
                 this.playerDefeated = true;
                 //console.log(" keyA: "+keyA+" keyD: "+keyD);
                 skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
@@ -526,7 +541,7 @@ class blueSlime extends enemy {
                 this.largeSlimeDefeatedPlayerAnimation();
             }
 
-            console.log("this.struggleFree", this.struggleFree,"playerHealthObject.playerHealth",playerHealthObject.playerHealth);
+            //console.log("this.struggleFree", this.struggleFree,"playerHealthObject.playerHealth",playerHealthObject.playerHealth);
             // if the player breaks free then do the following
             if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
                 KeyDisplay.visible = false;
@@ -564,6 +579,8 @@ class blueSlime extends enemy {
                     this.playerGrabbed = false;
                     this.keyAnimationPlayed = false;
                     scene.grabbed = false;
+                    scene.grabCoolDown = true;
+                    
 
                     player1.visible = true;
                     player1.setSize(23, 68, true);
@@ -587,7 +604,7 @@ class blueSlime extends enemy {
     }
 
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
-    slimeCombine(otherSlime, grabbed) {
+    slimeCombine(otherSlime, grabbed,scene) {
         //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+ otherSlime.slimeId)
         //console.log("grabbed : "+ grabbed);
         if (grabbed === false) {
@@ -612,6 +629,10 @@ class blueSlime extends enemy {
                     currentSlime.mitosing = true;
 
                 }, 1000);
+
+                //plays sound effects when slimes combine
+                this.playSlimeSound('5',200);
+
 
             }
         } else if (grabbed === true) {
@@ -638,7 +659,7 @@ class blueSlime extends enemy {
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
-                this.slimeCalcDamage(
+                this.calcDamage(
                     scene.player1.sliceDamage,
                     scene.player1.bluntDamage,
                     scene.player1.pierceDamage,
@@ -652,6 +673,8 @@ class blueSlime extends enemy {
             }
             console.log("damage cool down:" + this.damageCoolDown);
             let that = this;
+    
+            this.playSlimeSound('5',200);
 
             setTimeout(function () {
                 that.damageCoolDown = false;
@@ -691,6 +714,7 @@ class blueSlime extends enemy {
                 this.anims.play('slimeGrabFallingDefeated').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
                 });
 
             }
@@ -735,6 +759,7 @@ class blueSlime extends enemy {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
+                this.playSlimeSound('5',800);
                 this.animationPlayed = true;
                 this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -744,8 +769,10 @@ class blueSlime extends enemy {
             }
         } else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('largeSlimeGrabDefeated1', true);
+            this.playSlimeSound('2',800);
         } else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
+                this.playSlimeSound('4',800);
                 this.animationPlayed = true;
                 this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -753,10 +780,13 @@ class blueSlime extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 4) {
+            this.playSlimeSound('1',600);
             this.anims.play('largeSlimeGrabDefeated3', true);
         } else if (this.playerDefeatedAnimationStage === 5) {
+            this.playSlimeSound('1',400);
             this.anims.play('largeSlimeGrabDefeated4', true);
         } else if (this.playerDefeatedAnimationStage === 6) {
+            this.playSlimeSound('5',2000);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
                 this.anims.play('largeSlimeGrabDefeated5').once('animationcomplete', () => {
@@ -765,10 +795,27 @@ class blueSlime extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
+            this.playSlimeSound('2',800);
             this.anims.play('largeSlimeGrabDefeated6', true);
         }
 
 
     }
+    //plays slime sound based in type input being 1-5 and a time delay
+    playSlimeSound(type,delay){
+        if(this.soundCoolDown === false){
+            this.scene.initSoundEffect('blueSlimeSFX',type,0.3);
+            console.log("this.randomSlimeSound: ",this.randomSlimeSound);
+            this.randomSlimeSound = Math.floor((Math.random() * 4));
+            this.soundCoolDown = true;
+    
+            let currentSlime = this;
+            setTimeout(function () {
+                currentSlime.soundCoolDown = false;
+            }, delay);
+        }
+
+    }
+    
     
 }

@@ -31,6 +31,10 @@ class HomeInterior2 extends defaultScene {
       this.load.tilemapTiledJSON("home_interior2_map" , "assets/tiledMap/LockWood/Player_Home_Interior2.json");
       
       this.defaultPreload();
+
+      this.load.audioSprite('calmSFX','../audio/used-audio/calm-sounds/calm-sounds.json',[
+        "../audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
+      ]);
       
     }
 
@@ -52,8 +56,8 @@ class HomeInterior2 extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
+      //adds looping sound effect.
+      this.initLoopingSound('calmSFX','andrewkn',0.1);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

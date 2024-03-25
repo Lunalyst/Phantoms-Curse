@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
+    ],
+    "spritemap": {
+        "gameover":{
+            "start": 0,
+            "end": 12,
+            "loop": false
+        }
+    }
+}

@@ -18,9 +18,7 @@ class HomeInterior1 extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
+  
 
     
 
@@ -32,6 +30,10 @@ class HomeInterior1 extends defaultScene {
      
 
       this.defaultPreload();
+
+      this.load.audioSprite('calmSFX','../audio/used-audio/calm-sounds/calm-sounds.json',[
+        "../audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
+      ]);
 
     }
 
@@ -52,6 +54,9 @@ class HomeInterior1 extends defaultScene {
     
       //creates player object
       this.setUpPlayer();
+
+      //adds looping sound effect.
+      this.initLoopingSound('calmSFX','andrewkn',0.1);
 
       //creates a group of slime objects
       this.slimes = this.physics.add.group();

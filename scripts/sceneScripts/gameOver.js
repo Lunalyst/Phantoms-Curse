@@ -64,6 +64,14 @@ class gameOver extends Phaser.Scene {
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
 
+            this.load.audioSprite('gameoverSFX','../audio/used-audio/gameover-sounds/gameover-sounds.json',[
+                "../audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
+              ]);
+
+            this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+                "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+              ]);
+
             this.load.scenePlugin({
                 key: 'AnimatedTiles',
                 url: 'lib/vendors/AnimatedTiles.js',
@@ -181,6 +189,11 @@ class gameOver extends Phaser.Scene {
                 //sets a few variables
                 let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
                 let tempPlayerSex = gameoverThat.playerSex;
+                
+                //stops sound effects
+                for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
+                    gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
+                  }
                 
                 //load player data from file
                 //gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
@@ -445,12 +458,95 @@ class gameOver extends Phaser.Scene {
                 gameoverThat.tryAgian.anims.play("tryAgianInActive");
             })
 
-            
+            this.initSoundEffect('gameoverSFX','gameover',0.05);
 
         }
 
         update(){
+
             //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
+
+            //plays sound effects for blueSlime.
+            if(this.enemy.soundCoolDown === false &&(this.enemyThatDefeatedPlayer === "blueSlime" || this.enemyThatDefeatedPlayer === "largeBlueSlime" )){
+                this.initSoundEffect('blueSlimeSFX',this.enemy.slimeSoundsArray[this.enemy.randomSlimeSound],0.1);
+                console.log("this.randomSlimeSound: ",this.randomSlimeSound);
+                this.enemy.randomSlimeSound = Math.floor((Math.random() * 4));
+                this.enemy.soundCoolDown = true;
+
+                let scene = this;
+                setTimeout(function () {
+                    scene.enemy.soundCoolDown = false;
+                }, 1000);
+            }
+
+            
+            
+            
+
+        }
+
+        initLoopingSound(soundID,soundName,volume){
+            //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
+            let createSound = true;
+     
+            //so we loop through the sounds to see if any sounds match our key
+            //this is important as we do not want to create duplicate sounds with the same key.
+            for(let counter = 0; counter < this.sound.sounds.length;counter++){
+              //if a key matches the given sound then set bool to false.
+              if(this.sound.sounds[counter].key === soundID){
+                console.log("found key: ",soundID,"so we wont create the sound object");
+                createSound = false;
+              }
+      
+            }
+      
+            //if we should create the sound because the key does not exist make it
+            if(createSound === true){
+               console.log("key not found making ",soundID);
+               this.sound.playAudioSprite(soundID,soundName);
+              
+            }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+               this.sound.get(soundID).play();
+            }
+           //this line of code sets the whole volume
+           //this.sound.setVolume(volume);
+            
+           //set the volume of the specific sound.
+            this.sound.get(soundID).volume = volume;
+            //ensures that the sound is looping
+            this.sound.get(soundID).config.loop = true;
+     
+         }
+     
+         initSoundEffect(soundID,soundName,volume){
+           //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
+           let createSound = true;
+     
+           //so we loop through the sounds to see if any sounds match our key
+           //this is important as we do not want to create duplicate sounds with the same key.
+           for(let counter = 0; counter < this.sound.sounds.length;counter++){
+             //if a key matches the given sound then set bool to false.
+             if(this.sound.sounds[counter].key === soundID){
+               console.log("found key: ",soundID,"so we wont create the sound object");
+               createSound = false;
+             }
+     
+           }
+     
+           //if we should create the sound because the key does not exist make it
+           if(createSound === true){
+              console.log("key not found making ",soundID);
+              this.sound.playAudioSprite(soundID,soundName);
+             
+           }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+              this.sound.get(soundID).play(soundName);
+           }
+          //this line of code sets the whole volume
+          //this.sound.setVolume(volume);
+           
+          //set the volume of the specific sound.
+           this.sound.get(soundID).volume = volume;
+           //ensures that the sound is looping
         }
 
 }

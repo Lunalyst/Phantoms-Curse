@@ -34,7 +34,13 @@ class tutorialCave extends defaultScene {
       this.load.audioSprite('caveSFX','../audio/used-audio/cave-sounds/cave-sounds.json',[
         "../audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
+      this.load.audioSprite('waterfallSFX','../audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
+        "../audio/used-audio/waterfall-sounds/waterfall.mp3"
+      ]);
 
+      this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      ]);
     }
 
     create(){
@@ -55,7 +61,9 @@ class tutorialCave extends defaultScene {
       //creates tileset
       this.setUpTileSet("cave_map","Forest_Large_Tiles","source_map");
 
+      //plays looping sound
       this.initLoopingSound('caveSFX','cave', 0.1);
+      this.initLoopingSound('waterfallSFX','waterfall', 0.03);
     
       //creates player object
       this.setUpPlayer();
@@ -68,10 +76,6 @@ class tutorialCave extends defaultScene {
 
       //adds colliders to player as well as slimes to the tiled level
       this.setUpPlayerCollider();
-
-      //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes"];
-      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up the player camera
       this.setUpPlayerCamera();
@@ -127,11 +131,14 @@ class tutorialCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //sets up enemy colliders and groups
+      this.enemyGroupArray = ["blueSlimes"];
+      this.setUpEnemyCollider(this.enemyGroupArray);
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          thisScene.initEnemy(1309, 605, 1,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(1309, 605,thisScene.playerSex,'blueSlime');
           
       
           thisScene.spawnedEnemys = true;

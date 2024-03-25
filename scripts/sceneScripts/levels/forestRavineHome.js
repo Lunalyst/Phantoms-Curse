@@ -28,38 +28,15 @@ class ForestRavineHome extends defaultScene {
 
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
+      this.defaultPreload();
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Player_Home.json");
-      this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
-
-      //preload of object which are scene specific
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
-      this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.image('hitbox', 'assets/hitbox.png');
-       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-       this.load.image('TABToSkip', 'assets/tabToSkip.png');
-
-       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
-       
-       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
-       this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-       this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
-       this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
-       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
-           
-       //loads the plugin to animate the tiles that have animation
-       this.load.scenePlugin({
-        key: 'AnimatedTiles',
-        url: 'lib/vendors/AnimatedTiles.js',
-        sceneKey: 'AnimatedTiles'
-      });
-
+      this.load.audioSprite('forestSFX','../audio/used-audio/forest-sounds/forest-sounds.json',[
+        "../audio/used-audio/forest-sounds/birds4.mp3"
+      ]);
     }
 
     create(){
@@ -83,8 +60,8 @@ class ForestRavineHome extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
+      //adds looping sound effect.
+      this.initLoopingSound('forestSFX','forest',1);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

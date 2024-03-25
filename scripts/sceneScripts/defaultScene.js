@@ -17,8 +17,12 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
        this.load.image('hitbox', 'assets/hitbox.png');
        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
-       
 
+       //weapon sound effects
+       this.load.audioSprite('weaponSFX','../audio/used-audio/player-sounds/weapon-swings.json',[
+        "../audio/used-audio/player-sounds/weapon-swings.mp3"
+      ]);
+  
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
@@ -559,14 +563,46 @@ class defaultScene extends Phaser.Scene {
        }else{ // otherwise play the sound from the keys and set its config to true so it loops.
           this.sound.get(soundID).play();
        }
+      //this line of code sets the whole volume
+      //this.sound.setVolume(volume);
        
-       //sets config directly.
-       //let music = this.sound;
-       this.sound.setVolume(volume);
+      //set the volume of the specific sound.
+       this.sound.get(soundID).volume = volume;
+       //ensures that the sound is looping
        this.sound.get(soundID).config.loop = true;
-       //this.sound.get(soundID).config.volume = volume;
 
     }
+
+    initSoundEffect(soundID,soundName,volume){
+      //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
+      let createSound = true;
+
+      //so we loop through the sounds to see if any sounds match our key
+      //this is important as we do not want to create duplicate sounds with the same key.
+      for(let counter = 0; counter < this.sound.sounds.length;counter++){
+        //if a key matches the given sound then set bool to false.
+        if(this.sound.sounds[counter].key === soundID){
+          //console.log("found key: ",soundID,"so we wont create the sound object");
+          createSound = false;
+        }
+
+      }
+
+      //if we should create the sound because the key does not exist make it
+      if(createSound === true){
+         //console.log("key not found making ",soundID);
+         this.sound.playAudioSprite(soundID,soundName);
+        
+      }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+         this.sound.get(soundID).play(soundName);
+      }
+     //this line of code sets the whole volume
+     //this.sound.setVolume(volume);
+      
+     //set the volume of the specific sound.
+      this.sound.get(soundID).volume = volume;
+      //ensures that the sound is looping
+   }
 
     //{check object Functions}===================================================================================================================
 
@@ -756,6 +792,11 @@ class defaultScene extends Phaser.Scene {
         emitterTotal = 0;
 
       }  
+        // stop the music playing
+        for(let counter = 0; counter < this.sound.sounds.length; counter++){
+          this.sound.get(this.sound.sounds[counter].key).stop();
+        }
+
         this.scene.stop('gameHud');
         this.scene.start('gameOver');
 
@@ -858,7 +899,7 @@ class defaultScene extends Phaser.Scene {
       //applies functions to all slimes in the group.
       scene.blueSlimes.children.each(function (tempSlime) {
         //calls to make each instance of a slime move.
-        tempSlime.move(scene.player1);
+        tempSlime.move(scene.player1,scene);
         scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
           tempSlime.hitboxOverlaps = true;
         });
@@ -905,7 +946,7 @@ class defaultScene extends Phaser.Scene {
             scene.physics.add.overlap(tempSlime1, tempSlime, function () {
               // if both slimes are of size 1 then call combine function
               if (tempSlime.slimeSize === 1 && tempSlime1.slimeSize === 1) {
-                tempSlime.slimeCombine(tempSlime1, scene.grabbed);
+                tempSlime.slimeCombine(tempSlime1, scene.grabbed,scene);
               }
             });
           }, this);
@@ -924,7 +965,7 @@ class defaultScene extends Phaser.Scene {
       scene.tigers.children.each(function (tempTiger) {
       
       //calls tiger function to move
-      tempTiger.move(scene.player1);
+      tempTiger.move(scene.player1,scene);
       
       //checks if the attack hitbox is overlapping the tiger to deal damage.
       scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {

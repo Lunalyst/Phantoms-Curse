@@ -55,6 +55,12 @@ class player extends Phaser.Physics.Arcade.Sprite{
     //is used to increase players speed via items or skills.
     this.speedBoost = 1;
 
+    //sound effect cooldown
+    this.soundCoolDown = false;
+
+    //gives player a refrence to the scene.
+    this.scene = scene;
+
     //defines player animations. animations are define on startup based on the players sex
     if(sex === 0){
     this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 9 }),frameRate: 6,repeat: -1});
@@ -346,158 +352,122 @@ class player extends Phaser.Physics.Arcade.Sprite{
       //plays attack for knife right
       if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeRight",true);
-        this.setVelocityX(0);
         this.sliceDamage = 4;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x+20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('high2', 400);
+        this.rightHitBox(300);
       //plays attack for knife left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnifeLeft",true);
-        this.setVelocityX(0);
         this.sliceDamage = 4;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x-20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('high2', 400);
+        this.leftHitBox(300);
       //plays attack for axe right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeRight",true);
-        this.setVelocityX(0);
         this.sliceDamage = 8;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },300);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x+20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('heavy', 600);
+        this.rightHitBox(300);
       //plays attack for axe left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxeLeft",true);
-        this.setVelocityX(0);
         this.sliceDamage = 8;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },300);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x-20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('heavy', 600);
+        this.leftHitBox(300);
+        
       //plays attack for oar right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarRight",true);
-        this.setVelocityX(0);
         this.bluntDamage = 2;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },300);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x+20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('medium', 700);
+        this.rightHitBox(300);
+        
       //plays attack for oar left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOarLeft",true);
-        this.setVelocityX(0);
         this.bluntDamage = 2;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },300);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x-20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }else{
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          this.sliceDamage = 0;
-          this.bluntDamage = 0;
-          this.pierceDamage = 0;
-          this.heatDamage = 0;
-          this.lightningDamage = 0;
-          this.coldDamage = 0;
-        }
-
+        this.weaponSoundEffect('medium', 700);
+        this.leftHitBox(300);
       //plays animation for unarmed or non weapon equipt right.
       }else if(this.lastKey === 'd' && keyShift.isDown){
         this.anims.play("pAttackUnarmedRight",true);
-        this.setVelocityX(0);
         this.bluntDamage = 1;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x+20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('high1', 400);
+        this.rightHitBox(200);
       //plays animation for unarmed or non weapon equipt left.
       }else if(this.lastKey === 'a'&& keyShift.isDown){
         this.anims.play("pAttackUnarmedLeft",true);
-        this.setVelocityX(0);
         this.bluntDamage = 1;
-        if(that.hitboxCoolDown === false){
-          scene.attackHitBox.x = this.x;
-          scene.attackHitBox.y = this.y+10000;
-          setTimeout(function(){
-            that.hitboxCoolDown = true;
-          },200);
-        }else if(that.hitboxCoolDown === true){
-          scene.attackHitBox.x = this.x-20;
-          scene.attackHitBox.y = this.y;
-          that.hitboxCoolDown = false; 
-        }
+        this.weaponSoundEffect('high1', 400);
+        this.leftHitBox(200);
+
       }else if(keyShift.isDown){
         this.setVelocityX(0);
         this.setVelocityY(0);
         //this.anims.play('pIdleIdle',true);
       }else{
+
+        //moves attack hitbox out of the way. probably better way of implementing this
+        //setvisible?
         scene.attackHitBox.x = this.x;
         scene.attackHitBox.y = this.y+10000;
+
+        //stops weapon sound effects.
+        this.scene.initSoundEffect('weaponSFX','medium',0);
+        this.scene.sound.get('weaponSFX').stop();
       }
-      /*else if(keyShift.isDown && this.lastKey === 'd'){
-        this.setVelocityX(0);
-        this.anims.play('pIdleRight',true);
-      }else if(keyShift.isDown && this.lastKey === 'a'){
-        this.setVelocityX(0);
-        this.anims.play('pIdleLeft',true);
-      }*/
     }
   
+  }
+
+  //handles hitbox position when attacking right
+  rightHitBox(delay){
+    this.setVelocityX(0);
+    if(this.hitboxCoolDown === false){
+      this.scene.attackHitBox.x = this.x;
+      this.scene.attackHitBox.y = this.y+10000;
+
+      let that = this;
+      setTimeout(function(){
+        that.hitboxCoolDown = true;
+      },delay);
+    }else if(this.hitboxCoolDown === true){
+      this.scene.attackHitBox.x = this.x+20;
+      this.scene.attackHitBox.y = this.y;
+      this.hitboxCoolDown = false; 
+    }
+
+  }
+
+  //handles hitbox position when attacking left
+  leftHitBox(delay){
+    this.setVelocityX(0);
+    if(this.hitboxCoolDown === false){
+      this.scene.attackHitBox.x = this.x;
+      this.scene.attackHitBox.y = this.y+10000;
+
+      let that = this;
+      setTimeout(function(){
+        that.hitboxCoolDown = true;
+      },delay);
+    }else if(this.hitboxCoolDown === true){
+      this.scene.attackHitBox.x = this.x-20;
+      this.scene.attackHitBox.y = this.y;
+      this.hitboxCoolDown = false; 
+    }
+  }
+
+  // function to activate the weapon swing effect
+  //type are light1 light2 medium and heavy
+  weaponSoundEffect(type, delay){
+    if(this.soundCoolDown === false){
+      this.scene.initSoundEffect('weaponSFX',type,0.1);
+      this.soundCoolDown = true;
+
+      let player = this;
+      setTimeout(function () {
+          player.soundCoolDown = false;
+      }, delay);
+    }
   }
 
 }

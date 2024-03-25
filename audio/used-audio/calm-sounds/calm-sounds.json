@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
+        
+    ],
+    "spritemap": {
+        "andrewkn":{
+            "start": 0,
+            "end": 248,
+            "loop": true
+        }
+    }
+}

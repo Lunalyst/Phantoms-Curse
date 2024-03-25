@@ -31,6 +31,10 @@ class TestCave extends defaultScene {
       
       this.defaultPreload();
 
+      this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -122,7 +126,7 @@ class TestCave extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
+          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
           thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
           //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');

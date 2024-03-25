@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/waterfall-sounds/waterfall.mp3"
+        
+    ],
+    "spritemap": {
+        "waterfall":{
+            "start": 0,
+            "end": 44,
+            "loop": true
+        }
+    }
+}

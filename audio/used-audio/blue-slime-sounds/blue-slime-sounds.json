@@ -1,0 +1,33 @@
+{
+    "resources":[
+        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0.45,
+            "end": 1,
+            "loop": false
+        },
+        "2":{
+            "start": 1.9,
+            "end": 2.5,
+            "loop": false
+        },
+        "3":{
+            "start": 3.4,
+            "end": 4,
+            "loop": false
+        },
+        "4":{
+            "start": 4.7,
+            "end": 5.6,
+            "loop": false
+        },
+        "5":{
+            "start": 6.4,
+            "end": 7.4,
+            "loop": false
+        }
+    }
+}

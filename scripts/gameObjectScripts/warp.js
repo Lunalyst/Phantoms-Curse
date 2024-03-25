@@ -83,11 +83,10 @@ class warp extends Phaser.Physics.Arcade.Sprite{
 
             scene1.portalId = 0;
             //for loop looks through all the looping music playing within a given scene and stops the music.
-            console.log("scene1.sound: ",scene1.sound);
-            console.log("scene1.loopingMusic: ",scene1.loopingMusic);
             for(let counter = 0; counter < scene1.sound.sounds.length; counter++){
               scene1.sound.get(scene1.sound.sounds[counter].key).stop();
             }
+
             //warps player to the next scene
             scene1.scene.start(this.destination); 
               //otherwise we show the key prompt if the player is within range

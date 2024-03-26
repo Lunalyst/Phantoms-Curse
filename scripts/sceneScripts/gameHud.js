@@ -49,6 +49,7 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
       this.load.image('TABToSkip', 'assets/tabToSkip.png');
+      this.load.image('TABToGiveUp', 'assets/tabToGiveUp.png');
 
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
@@ -76,6 +77,12 @@ class gameHud extends Phaser.Scene {
         this.skipIndicator = this.add.sprite(750, 780,'TABToSkip');
         this.skipIndicator.visible = false;
         this.skipIndicator.setScrollFactor(0);
+
+        //when player dies the prompt to skip animations need to pop up.
+        this.giveUpIndicator = this.add.sprite(750, 780,'TABToGiveUp');
+        this.giveUpIndicator.setScale(1/3);
+        this.giveUpIndicator.visible = false;
+        this.giveUpIndicator.setScrollFactor(0);
         
         //sets the  scene text book in the hud
         this.sceneTextBox = new textBox(this,450,620,'textBox');
@@ -282,9 +289,19 @@ class gameHud extends Phaser.Scene {
           });
 
 
-          //emitter for returning save slot data
+          //emitter for displaying tab to skip display
           skipIndicatorEmitter.on(skipIndicator.activateSkipIndicator,() =>{
             this.skipIndicator.visible = true;
+          });
+
+          //emitter for displaying tab to give up display
+          giveUpIndicatorEmitter.on(giveUpIndicator.activateGiveUpIndicator,() =>{
+            this.giveUpIndicator.visible = true;
+          });
+
+          //emitter for hiding tab to give up display
+          giveUpIndicatorEmitter.on(giveUpIndicator.deactivateGiveUpIndicator,() =>{
+            this.giveUpIndicator.visible = false;
           });
 
           //test to see if the emitters are active
@@ -398,6 +415,9 @@ class gameHud extends Phaser.Scene {
 
       keyArray.push(skipIndicator);
       emitterArray.push(skipIndicatorEmitter);
+
+      keyArray.push(giveUpIndicator);
+      emitterArray.push(giveUpIndicatorEmitter);
 
       keyArray.push(hudDepth);
       emitterArray.push(hudDepthEmitter);

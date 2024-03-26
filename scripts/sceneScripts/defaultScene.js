@@ -60,7 +60,7 @@ class defaultScene extends Phaser.Scene {
         this.mycamera;
         this.spawnedEnemys = false;
         this.KeyDisplay;
-        this.skipIndicator;
+        //this.skipIndicator;
         this.processMap;
         this.backround;
         this.myMap;
@@ -764,6 +764,9 @@ class defaultScene extends Phaser.Scene {
 
       keyArray.push(skipIndicator);
       emitterArray.push(skipIndicatorEmitter);
+
+      keyArray.push(giveUpIndicator);
+      emitterArray.push(giveUpIndicatorEmitter);
 
       keyArray.push(hudDepth);
       emitterArray.push(hudDepthEmitter);

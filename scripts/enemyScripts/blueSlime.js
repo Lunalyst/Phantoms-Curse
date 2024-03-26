@@ -296,13 +296,23 @@ class blueSlime extends enemy {
                 playerHealth: null
             };
 
+            //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
+            //logic for when the player is grabbed
             this.slimeGrabTrue(playerHealthObject);
-           
+
+            //displays the give up option on screen
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
+            
+            //if the player is not defeated
             if (this.playerDefeated === false) {
 
+                //then allow the player to use controls to escape.
                 this.playerIsNotDefeatedInputs(playerHealthObject);
+
+                //allows the player to press tab to let the enemy defeat them
+                this.tabToGiveUp();
                 
             }
 
@@ -315,19 +325,20 @@ class blueSlime extends enemy {
             //logic for if the player escapes the grab
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
 
+                //if the player escapes hide the give up indicator.
+                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
             }else  if(playerHealthObject.playerHealth === 0){
 
+                //hide the giveup indicator
+                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
             }
-            
-            
-
-            //console.log("this.struggleFree", this.struggleFree,"playerHealthObject.playerHealth",playerHealthObject.playerHealth);
-            // if the player breaks free then do the following
             
         }
 
@@ -383,7 +394,7 @@ class blueSlime extends enemy {
         //logic handles random key imputs display to player and there interactability.
         //checks if the player is struggleing free by pressing the right buttons.
 
-    let currentSlime = this;
+        let currentSlime = this;
 
         if (this.randomInput === 0 && this.slimeSize === 2) {
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyA) === true) {
@@ -536,7 +547,7 @@ class blueSlime extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (this.scene.keyTAB.isDown || (this.playerDefeatedAnimationStage > 8 && this.scene.keyD.isDown)) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 8 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -592,7 +603,7 @@ class blueSlime extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (this.scene.keyTAB.isDown || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -605,7 +616,7 @@ class blueSlime extends enemy {
     }
 
     playerEscaped(playerHealthObject){
-        
+
         let currentSlime = this;
 
             this.scene.KeyDisplay.visible = false;
@@ -664,7 +675,6 @@ class blueSlime extends enemy {
 
         
     }
-
 
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
     slimeCombine(otherSlime, grabbed,scene) {
@@ -779,15 +789,18 @@ class blueSlime extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
                 });
-
             }
         } else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('slimeGrabDefeated1', true);
+            this.playSlimeSound('2',800);
         } else if (this.playerDefeatedAnimationStage === 3) {
             this.anims.play('slimeGrabDefeated2', true);
+            this.playSlimeSound('2',600);
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('slimeGrabDefeated3', true);
+            this.playSlimeSound('3',600);
         } else if (this.playerDefeatedAnimationStage === 5) {
+            this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated4').once('animationcomplete', () => {
@@ -796,6 +809,7 @@ class blueSlime extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 6) {
+            this.playSlimeSound('4',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated5').once('animationcomplete', () => {
@@ -804,8 +818,10 @@ class blueSlime extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
+            this.playSlimeSound('3',600);
             this.anims.play('slimeGrabDefeated6', true);
         } else if (this.playerDefeatedAnimationStage === 8) {
+            this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
@@ -858,7 +874,6 @@ class blueSlime extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
-            this.playSlimeSound('2',800);
             this.anims.play('largeSlimeGrabDefeated6', true);
         }
 

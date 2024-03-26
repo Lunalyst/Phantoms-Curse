@@ -57,6 +57,13 @@ skipIndicator = {
 
 skipIndicatorEmitter = new Phaser.Events.EventEmitter();
 
+giveUpIndicator = {
+    activateGiveUpIndicator: 'activate_Give_Up_indicator',
+    deactivateGiveUpIndicator: 'deactivate_Give_Up_indicator'
+};
+
+giveUpIndicatorEmitter = new Phaser.Events.EventEmitter();
+
 
 hudDepth = {
     toTop: 'to_top'

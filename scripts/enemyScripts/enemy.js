@@ -50,6 +50,9 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         //used to tell which way the enemy is facing.
         this.direction = "left";
 
+        //used to stop the giveup key from being pressed too much, causing a imediate skip in defeated animations.
+        this.gaveUp = false;
+
         console.log("sex passed in enemy: " + sex);
         
     }
@@ -103,6 +106,12 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
             this.anims.resume();
         }
 
+    }
+
+    tabToGiveUp(){
+        if(Phaser.Input.Keyboard.JustDown(this.scene.keyTAB)){
+            healthEmitter.emit(healthEvent.loseHealth,9999);
+        }
     }
 
 }

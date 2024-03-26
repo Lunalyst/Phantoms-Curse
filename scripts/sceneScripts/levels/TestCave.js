@@ -126,7 +126,7 @@ class TestCave extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           
-          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
           thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
           //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');

@@ -39,6 +39,9 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
         if( this.safeToSave === true && keyW.isDown && this.saveCoolDown === false && scene1.isPaused === false){
             
+            //play save sound
+            scene1.initSoundEffect('curseSFX','curse',0.3);
+
             //makes a boject which can be accessed by our inventory emitter
             let playerDataObject = {
                 currentHp: null,
@@ -73,7 +76,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //after a second set savecooldown back to false
             setTimeout(function () {
                 currentSaveStone.saveCoolDown = false;    
-            }, 1000);
+            }, 2000);
 
         //this code plays the animation for the w key under the save stone
         }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false){

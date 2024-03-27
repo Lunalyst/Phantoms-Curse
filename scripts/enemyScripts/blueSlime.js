@@ -36,6 +36,8 @@ class blueSlime extends enemy {
         this.body.bounce.x = 1;
         this.randomInputCooldown = false;
 
+        this.slimeSoundCoolDown = false;
+
         this.slimeSoundsArray = ['1','2','3','4','5'];
         this.randomSlimeSound = Math.floor((Math.random() * 4));
 
@@ -277,13 +279,13 @@ class blueSlime extends enemy {
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
-    grab(scene, player1, KeyDisplay, keyTAB, keyW, keyS,keyA, keyD) {
+    grab() {
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         // moves player attackhitbox out of the way.
 
-        scene.attackHitBox.y = player1.y + 10000;
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
 
@@ -654,7 +656,12 @@ class blueSlime extends enemy {
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+
+                //sets the cooldown to true, then calls the built in function of the scene to 
+                //set it to false in 3 seconds. need to do this in scene to be safe
+                // if the enemy is destroyed then the timeout function wont have a refrence if done here.
                 this.scene.grabCoolDown = true;
+                this.scene.startGrabCoolDown();
                 
 
                 this.scene.player1.visible = true;
@@ -666,9 +673,9 @@ class blueSlime extends enemy {
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.
+                currentSlime = this;
                 setTimeout(function () {
                     currentSlime.grabCoolDown = false;
-                    currentSlime.scene.grabCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
                 }, 3000);
             }
@@ -793,12 +800,15 @@ class blueSlime extends enemy {
         } else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('slimeGrabDefeated1', true);
             this.playSlimeSound('2',800);
+           
         } else if (this.playerDefeatedAnimationStage === 3) {
             this.anims.play('slimeGrabDefeated2', true);
-            this.playSlimeSound('2',600);
+            //this.playSlimeSound('2',600);
+            this.playPlapSound('plap10',2000);
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('slimeGrabDefeated3', true);
             this.playSlimeSound('3',600);
+            this.playPlapSound('plap9',1000);
         } else if (this.playerDefeatedAnimationStage === 5) {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
@@ -823,6 +833,8 @@ class blueSlime extends enemy {
         } else if (this.playerDefeatedAnimationStage === 8) {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
+                //plays curse sound effect
+                this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -860,13 +872,22 @@ class blueSlime extends enemy {
             }
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.playSlimeSound('1',600);
+            this.playPlapSound('plap10',1800);
             this.anims.play('largeSlimeGrabDefeated3', true);
         } else if (this.playerDefeatedAnimationStage === 5) {
             this.playSlimeSound('1',400);
+            this.playPlapSound('plap11',500);
             this.anims.play('largeSlimeGrabDefeated4', true);
         } else if (this.playerDefeatedAnimationStage === 6) {
             this.playSlimeSound('5',2000);
             if (!this.animationPlayed) {
+                //plays curse sound effect
+                currentSlime = this;
+                setTimeout(function () {
+                    currentSlime.scene.sound.get('plapSFX').stop();
+                    currentSlime.scene.initSoundEffect('curseSFX','curse',0.3);
+                }, 2000);
+               
                 this.animationPlayed = true;
                 this.anims.play('largeSlimeGrabDefeated5').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -881,15 +902,15 @@ class blueSlime extends enemy {
     }
     //plays slime sound based in type input being 1-5 and a time delay
     playSlimeSound(type,delay){
-        if(this.soundCoolDown === false){
+        if(this.slimeSoundCoolDown === false){
             this.scene.initSoundEffect('blueSlimeSFX',type,0.3);
             console.log("this.randomSlimeSound: ",this.randomSlimeSound);
             this.randomSlimeSound = Math.floor((Math.random() * 4));
-            this.soundCoolDown = true;
+            this.slimeSoundCoolDown = true;
     
             let currentSlime = this;
             setTimeout(function () {
-                currentSlime.soundCoolDown = false;
+                currentSlime.slimeSoundCoolDown= false;
             }, delay);
         }
 

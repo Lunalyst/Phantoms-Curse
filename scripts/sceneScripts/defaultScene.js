@@ -22,6 +22,14 @@ class defaultScene extends Phaser.Scene {
        this.load.audioSprite('weaponSFX','../audio/used-audio/player-sounds/weapon-swings.json',[
         "../audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
+
+      this.load.audioSprite('curseSFX','../audio/used-audio/curse-sounds/curse-sounds.json',[
+        "../audio/used-audio/curse-sounds/suntemple-curse.mp3"
+      ]);
+
+      this.load.audioSprite('plapSFX','../audio/used-audio/plap-sounds/plap-sounds.json',[
+        "../audio/used-audio/plap-sounds/plap.mp3"
+      ]);
   
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
@@ -877,7 +885,7 @@ class defaultScene extends Phaser.Scene {
             this.cameras.main.zoom = 5;
             this.grabbed = tempEnemy.playerGrabbed;
             //scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD
-            tempEnemy.grab(this,this.player1,this.KeyDisplay,this.keyTAB,this.keyW,this.keyS,this.keyA,this.keyD);
+            tempEnemy.grab();
             //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
             
         } else {
@@ -893,6 +901,13 @@ class defaultScene extends Phaser.Scene {
       this.enemys.children.each(function (tempEnemy) {
         tempEnemy.pauseAnimations(this);
       }, this);
+    }
+
+    startGrabCoolDown(){
+      let that = this;
+      setTimeout(function () {
+        that.grabCoolDown = false;
+    }, 3000);
     }
 
     //function keeps track of slime interactions
@@ -931,7 +946,7 @@ class defaultScene extends Phaser.Scene {
             tempSlime.setVelocityX(0);
             scene.player1.setVelocityX(0);
             //calls the grab function
-            tempSlime.grab(scene,scene.player1,scene.KeyDisplay,scene.keyTAB,scene.keyW,scene.keyS,scene.keyA,scene.keyD);
+            tempSlime.grab();
             //sets the scene grab value to true since the player has been grabbed
             // tells instance of slime that it has grabbed player
             tempSlime.playerGrabbed = true;

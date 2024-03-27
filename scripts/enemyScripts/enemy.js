@@ -40,7 +40,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.struggleCounterTick = false;
         this.inStartDefeatedLogic = false;
         this.playerDefeatedAnimationCooldown = false;
-        this.soundCoolDown = false;
+        //this.soundCoolDown = false;
+        this.plapSoundCoolDown = false;
 
         this.scene = scene;
 
@@ -113,6 +114,23 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
             healthEmitter.emit(healthEvent.loseHealth,9999);
         }
     }
+
+    playPlapSound(type,delay){
+
+        if(this.plapSoundCoolDown === false){
+            this.scene.initSoundEffect('plapSFX',type,0.3);
+            this.plapSoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.plapSoundCoolDown = false;
+            }, delay);
+        }
+
+    }
+
+    //plays slime sound based in type input being 1-5 and a time delay
+   
 
 }
 

@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/curse-sounds/suntemple-curse.mp3"
+        
+    ],
+    "spritemap": {
+        "curse":{
+            "start": 0,
+            "end": 1,
+            "loop": false
+        }
+    }
+}

@@ -467,21 +467,15 @@ class gameOver extends Phaser.Scene {
             //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
 
             //plays sound effects for blueSlime.
-            if(this.enemy.soundCoolDown === false &&(this.enemyThatDefeatedPlayer === "blueSlime" || this.enemyThatDefeatedPlayer === "largeBlueSlime" )){
-                this.initSoundEffect('blueSlimeSFX',this.enemy.slimeSoundsArray[this.enemy.randomSlimeSound],0.1);
-                console.log("this.randomSlimeSound: ",this.randomSlimeSound);
-                this.enemy.randomSlimeSound = Math.floor((Math.random() * 4));
-                this.enemy.soundCoolDown = true;
-
+            if(this.enemy.slimeSoundCoolDown === false &&(this.enemyThatDefeatedPlayer === "blueSlime" || this.enemyThatDefeatedPlayer === "largeBlueSlime" )){
+                this.initSoundEffect('blueSlimeSFX','2',0.3);
+                
+                this.enemy.slimeSoundCoolDown = true;
                 let scene = this;
                 setTimeout(function () {
-                    scene.enemy.soundCoolDown = false;
-                }, 1000);
+                    scene.enemy.slimeSoundCoolDown = false;
+                }, 700);
             }
-
-            
-            
-            
 
         }
 

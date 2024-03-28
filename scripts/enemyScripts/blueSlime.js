@@ -116,7 +116,7 @@ class blueSlime extends enemy {
     }
 
     //functions that move slime objects.
-    move(player1,scene) {
+    move() {
 
         //if the slime is of size 1 then set its hit box to the correct size
         if (this.slimeSize === 1) {
@@ -142,9 +142,9 @@ class blueSlime extends enemy {
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
-        if (player1.x > this.x - 400 && player1.x < this.x + 400) {
+        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
-            if (player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+            if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 //console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
                 if (this.enemyPreviousY > this.y) {
@@ -184,7 +184,7 @@ class blueSlime extends enemy {
                 }, 200);
 
 
-            } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+            } else if (this.scene.player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 //console.log("player is to the left of the slime");
                 if (this.enemyPreviousY < this.y) {
                     //console.log("slime in left up animation");
@@ -242,6 +242,7 @@ class blueSlime extends enemy {
         //updates the previous y value to tell if slime is falling or going up in its jump.
         this.enemyPreviousY = this.y;
     }
+
     //simple idle function played when the player is grabbed by something that isnt this slime.
     moveIdle() {
         //this.setSize(90, 65, true);
@@ -257,12 +258,14 @@ class blueSlime extends enemy {
         this.setVelocityX(0);
 
     }
+
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
         this.setSize(100, 150, true);
         this.setOffset(90, 150);
         this.anims.play('slimeGameOver', true);
     }
+
     // functioned called to play animation when the player is defeated by the large slime in gameover.
     largeSlimeGameOver() {
         this.setSize(130, 90, true);
@@ -748,7 +751,7 @@ class blueSlime extends enemy {
         }
     }
     // controls the damage resistance of the slime.
-    damage(scene) {
+    damage() {
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
@@ -756,12 +759,12 @@ class blueSlime extends enemy {
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.calcDamage(
-                    scene.player1.sliceDamage,
-                    scene.player1.bluntDamage,
-                    scene.player1.pierceDamage,
-                    scene.player1.heatDamage,
-                    scene.player1.lightningDamage,
-                    scene.player1.coldDamage
+                    this.scene.player1.sliceDamage,
+                    this.scene.player1.bluntDamage,
+                    this.scene.player1.pierceDamage,
+                    this.scene.player1.heatDamage,
+                    this.scene.player1.lightningDamage,
+                    this.scene.player1.coldDamage
                 );
                 if (this.enemyHP <= 0) {
                     this.destroy();

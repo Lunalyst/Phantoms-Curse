@@ -91,6 +91,9 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
                 added: false
             };
 
+            //plays creek sound effect 
+            scene1.initSoundEffect('creakSFX','wood',0.05);
+
 
             //emitter to add object to inventory.
             inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);

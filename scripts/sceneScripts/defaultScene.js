@@ -27,6 +27,10 @@ class defaultScene extends Phaser.Scene {
         "../audio/used-audio/curse-sounds/suntemple-curse.mp3"
       ]);
 
+      this.load.audioSprite('creakSFX','../audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
+        "../audio/used-audio/wood-creak-sounds/wood-creak.mp3"
+      ]);
+
       this.load.audioSprite('plapSFX','../audio/used-audio/plap-sounds/plap-sounds.json',[
         "../audio/used-audio/plap-sounds/plap.mp3"
       ]);

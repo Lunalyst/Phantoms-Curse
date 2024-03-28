@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/wood-creak-sounds/wood-creak.mp3"
+        
+    ],
+    "spritemap": {
+        "wood":{
+            "start": 0,
+            "end": 1,
+            "loop": false
+        }
+    }
+}

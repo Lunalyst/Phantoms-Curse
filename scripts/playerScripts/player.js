@@ -134,6 +134,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   // call to emitter to get player inventory data.
   //console.log("ACTIVATING GET INVENTORY EMITTER FROM PLAYER MOVEMENT FUNCTION");
   inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
+
   //console.log("playerDataObject.playerInventoryData", playerDataObject.playerInventoryData);
   //if the player has speed ring equipt change speed multiplier.
   if(playerDataObject.playerInventoryData[25].itemID === 8){

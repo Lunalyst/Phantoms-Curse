@@ -43,6 +43,7 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
       this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
+      this.load.spritesheet('struggleBar', 'assets/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
       this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
       this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
@@ -72,6 +73,13 @@ class gameHud extends Phaser.Scene {
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,180,20);
+
+        /*let that = this;
+        setTimeout(function () {
+          that.struggleEventBar = new sceneStruggleBar(this, 450, 450);
+        }, 1000);*/
+
+        this.struggleEventBar = new sceneStruggleBar(this, 340, 540);
 
         //when player dies the prompt to skip animations need to pop up.
         this.skipIndicator = this.add.sprite(750, 780,'TABToSkip');
@@ -112,6 +120,25 @@ class gameHud extends Phaser.Scene {
         healthEmitter.on(healthEvent.returnHealth,(healthObject) =>{
             //console.log('emitter returning health value')
             healthObject.playerHealth = this.healthDisplay.playerHealth;
+        });
+
+        struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
+          console.log("setting this.struggleEventBar.visible: ", visible);
+            this.struggleEventBar.visible = visible;  
+
+        });
+
+        struggleEmitter.on(struggleEvent.updateStruggleBar,(struggleAmount) =>{
+          
+          console.log("setting struggleAmount: ", struggleAmount);
+          this.struggleEventBar.setStruggleAmount(struggleAmount);  
+
+        });
+
+        struggleEmitter.on(struggleEvent.updateStruggleBarCap,(struggleCap) =>{
+          console.log("setting struggleCap: ", struggleCap);
+          this.struggleEventBar.setStruggleCap(struggleCap);  
+
         });
 
           //sets the upgrade size of the player hp bar
@@ -397,6 +424,9 @@ class gameHud extends Phaser.Scene {
 
       keyArray.push(healthEvent);
       emitterArray.push(healthEmitter);
+
+      keyArray.push(struggleEvent);
+      emitterArray.push(struggleEmitter);
       
       keyArray.push(SceneTransitionLoad);
       emitterArray.push(loadSceneTransitionLoad);

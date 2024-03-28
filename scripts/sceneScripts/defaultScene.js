@@ -755,6 +755,9 @@ class defaultScene extends Phaser.Scene {
       keyArray.push(healthEvent);
       emitterArray.push(healthEmitter);
       
+      keyArray.push(struggleEvent);
+      emitterArray.push(struggleEmitter);
+      
       keyArray.push(SceneTransitionLoad);
       emitterArray.push(loadSceneTransitionLoad);
 

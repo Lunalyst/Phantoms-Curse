@@ -9,8 +9,13 @@ healthEvent = {
 
 healthEmitter = new Phaser.Events.EventEmitter();
 
+struggleEvent = {
+    activateStruggleBar: 'activate_struggle_bar',
+    updateStruggleBar: 'update_struggle_bar',
+    updateStruggleBarCap: 'update_struggle_bar_cap'
+};
 
-
+struggleEmitter = new Phaser.Events.EventEmitter();
 
 SceneTransitionLoad = {
     loadValues: 'load_values',

@@ -43,6 +43,7 @@
 
   <script src="scripts/uiScripts/healthMark.js"></script>
   <script src="scripts/uiScripts/hpBar.js"></script>
+  <script src="scripts/uiScripts/sceneStruggleBar.js"></script>
   <script src="scripts/uiScripts/keyPrompts.js"></script>
   <script src="scripts/uiScripts/removeSlot.js"></script>
   <script src="scripts/uiScripts/saveSlot.js"></script>
@@ -74,38 +75,40 @@
 
   //import "./forestHomeLevel"  
   //import "sceneScripts/gameHud.js" 
-    
-  new Phaser.Game(
-      
-      {
-      //list of property names and there associated values.
-      width: 900,
-      height: 900, 
-      //3200 w by 1920 h for world boarders
-      type: Phaser.WEBGL,
-      physics: {
-        default: 'arcade',
-        arcade: {
-          // debug is excelent for testing velocity and hitboxes.
-          debug: true
-        }
-      },
-      scene: [
-        new titleScreen,
-        new gameHud,
-        new gameOver,
-        new tutorialBeach,
-        new tutorialCave,
-        new ForestRavineHome,
-        new HomeInterior1,
-        new HomeInterior2,
-        new TestCave
-       ],//multiple scenes
-      scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-      }, // scale manager used to scale game up to fit display. centers gameplay screen
-    });
+  //window.onload waits until all the scripts are loaded before starting the game.
+  window.onload = function(){
+    new Phaser.Game(
+        
+        {
+        //list of property names and there associated values.
+        width: 900,
+        height: 900, 
+        //3200 w by 1920 h for world boarders
+        type: Phaser.WEBGL,
+        physics: {
+          default: 'arcade',
+          arcade: {
+            // debug is excelent for testing velocity and hitboxes.
+            debug: true
+          }
+        },
+        scene: [
+          new titleScreen,
+          new gameHud,
+          new gameOver,
+          new tutorialBeach,
+          new tutorialCave,
+          new ForestRavineHome,
+          new HomeInterior1,
+          new HomeInterior2,
+          new TestCave
+        ],//multiple scenes
+        scale: {
+          mode: Phaser.Scale.FIT,
+          autoCenter: Phaser.Scale.CENTER_BOTH
+        }, // scale manager used to scale game up to fit display. centers gameplay screen
+      });
+    };
     
     </script>
 

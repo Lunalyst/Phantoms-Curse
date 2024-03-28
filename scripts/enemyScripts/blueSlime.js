@@ -185,7 +185,7 @@ class blueSlime extends enemy {
 
 
             } else if (player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
-                console.log("player is to the left of the slime");
+                //console.log("player is to the left of the slime");
                 if (this.enemyPreviousY < this.y) {
                     //console.log("slime in left up animation");
                     if (this.slimeSize === 1) {
@@ -301,6 +301,10 @@ class blueSlime extends enemy {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
+            //makes the struggle bar visible
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+            struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
+
             //logic for when the player is grabbed
             this.slimeGrabTrue(playerHealthObject);
 
@@ -330,6 +334,8 @@ class blueSlime extends enemy {
                 //if the player escapes hide the give up indicator.
                 giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
 
+                struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
@@ -338,6 +344,9 @@ class blueSlime extends enemy {
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
 
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+            
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
             }
@@ -348,7 +357,7 @@ class blueSlime extends enemy {
 
     slimeGrabFalse(){
         // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-        console.log("this slime did not grab the player this.slimeID: " + this.enemyId);
+        //console.log("this slime did not grab the player this.slimeID: " + this.enemyId);
         this.scene.player1.visible = false;
         // puts the player hitbox out of the way and locked to a specific location.
         this.scene.player1.y = this.y - 150;
@@ -403,7 +412,8 @@ class blueSlime extends enemy {
                 console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
-                    console.log('strugglecounter: ' + this.struggleCounter);
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
                 }
             }
         } else if (this.randomInput === 1 && this.slimeSize === 2) {
@@ -412,7 +422,8 @@ class blueSlime extends enemy {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
-                    console.log('strugglecounter: ' + this.struggleCounter);
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
                 }
             }
         } else if (this.slimeSize === 1) {
@@ -422,7 +433,8 @@ class blueSlime extends enemy {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (this.slimeSize === 1 && playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;
-                    console.log('strugglecounter: ' + this.struggleCounter);
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
                 }
             }
 
@@ -461,6 +473,7 @@ class blueSlime extends enemy {
         if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
             // this case subtracts from the struggle free counter if the value is not pressed fast enough.
             this.struggleCounter--;
+            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
             this.struggleCounterTick = true;
             // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
             setTimeout(function () {
@@ -661,8 +674,10 @@ class blueSlime extends enemy {
                 //set it to false in 3 seconds. need to do this in scene to be safe
                 // if the enemy is destroyed then the timeout function wont have a refrence if done here.
                 this.scene.grabCoolDown = true;
+
                 this.scene.startGrabCoolDown();
-                
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
                 this.scene.player1.visible = true;
                 this.scene.player1.setSize(23, 68, true);
@@ -675,6 +690,7 @@ class blueSlime extends enemy {
                 // creates a cooldown window so the player does not get grabbed as they escape.
                 currentSlime = this;
                 setTimeout(function () {
+
                     currentSlime.grabCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
                 }, 3000);
@@ -904,8 +920,6 @@ class blueSlime extends enemy {
     playSlimeSound(type,delay){
         if(this.slimeSoundCoolDown === false){
             this.scene.initSoundEffect('blueSlimeSFX',type,0.3);
-            console.log("this.randomSlimeSound: ",this.randomSlimeSound);
-            this.randomSlimeSound = Math.floor((Math.random() * 4));
             this.slimeSoundCoolDown = true;
     
             let currentSlime = this;

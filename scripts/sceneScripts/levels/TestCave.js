@@ -145,6 +145,7 @@ class TestCave extends defaultScene {
       this.defaultUpdate();
 
       console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
 

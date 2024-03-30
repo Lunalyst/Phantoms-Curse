@@ -116,7 +116,7 @@ class TestForest extends defaultScene {
           //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
           //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
-          //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -126,12 +126,15 @@ class TestForest extends defaultScene {
     }
 
     update(){
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       //makes backround follow player.
       this.backround.y = this.player1.y;
 
       //calls the built in update function
       this.defaultUpdate();
+
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
 
     }
 

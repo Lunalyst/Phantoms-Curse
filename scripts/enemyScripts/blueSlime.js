@@ -535,9 +535,9 @@ class blueSlime extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
+            /*console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
             " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
-            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);
+            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);*/
 
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers

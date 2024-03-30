@@ -75,8 +75,8 @@ class tiger extends enemy {
     }
 
     //functions that move slime objects.
-    move(player1,scene) {
-        //console.log("moving tiger");
+    move(){
+        console.log("moving tiger");
             
             //sets the gravity for tiger
             this.body.setGravityY(600);
@@ -86,7 +86,7 @@ class tiger extends enemy {
             //temp refrence used later maybe?
 
         //checks to see if enemy should jump to move if the player is in range of 400
-        if (player1.x > this.x - 600 && player1.x < this.x + 600) {
+        if (this.scene.player1.x > this.x - 600 && this.scene.player1.x < this.x + 600) {
             
             //console.log("this.taunting: ",this.taunting);
             //checks to see if the tiger should be taunting. 0-4 random values and if its four then
@@ -144,33 +144,33 @@ class tiger extends enemy {
 
             
             //if the player is to the right then move enemy to the right
-        }else if(this.body.blocked.down && player1.x > this.x && this.taunting === false) {
+        }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
                 
                 //sets direction
                 this.direction = "right";
                    
                 //moves enemy right, double speed unless the player is close
-                if(player1.x > this.x - 90 && player1.x < this.x + 90){
+                if(this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 100){
                     this.anims.play('tigerRightWalk', true);
                     this.setVelocityX(150); 
                 }else{
                     this.anims.play('tigerRightRun', true);
-                    this.setVelocityX(220); 
+                    this.setVelocityX(310); 
                 }
             
             //if the player is to the right then move enemy to the left
-        } else if (this.body.blocked.down && player1.x < this.x && this.taunting === false) {
+        } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.taunting === false) {
                 
                 //sets direction
                 this.direction = "left";
 
                 //moves enemy left, double speed unless the player is close
-                if(player1.x > this.x - 90 && player1.x < this.x + 90){
+                if(this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 100){
                     this.anims.play('tigerLeftWalk', true);
                     this.setVelocityX(150*-1); 
                 }else{
                     this.anims.play('tigerLeftRun', true);
-                    this.setVelocityX(220*-1); 
+                    this.setVelocityX(310*-1); 
                 }
             
             //otherwise if the enemy is on the ground then
@@ -238,24 +238,87 @@ class tiger extends enemy {
     }
     
     //the grab function. is called when player has overlaped with an enemy.
-    grab(scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD) {
+    grab() {
         let currentTiger = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
 
         this.clearTint();
         //console.log("this.playerGrabbed: ",this.playerGrabbed);
         // moves player attackhitbox out of the way.
-        scene.attackHitBox.y = player1.y + 10000;
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
-            // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
+           
+            this.tigerGrabFalse();
+
+        } else if (this.playerGrabbed === true) {
+
+             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+             let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            //makes the struggle bar visible
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+            struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
+
+            this.tigerGrabTrue(playerHealthObject);
+
+            
+            if (this.playerDefeated === false) {
+
+                this.playerIsNotDefeatedInputs(playerHealthObject);
+
+                //allows the player to press tab to let the enemy defeat them
+                this.tabToGiveUp();
+            }
+
+            // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
+            if (playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
+                
+                this.playerIsStrugglingLogic();
+
+            } 
+            
+            //if player escapes then do escape logic.
+            if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
+
+                //if the player escapes hide the give up indicator.
+                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+
+                struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                
+                this.playerEscaped(playerHealthObject);
+
+            }else if (playerHealthObject.playerHealth === 0) {
+
+                //hide the giveup indicator
+                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+                
+                //defeated animation logic.
+                this.playerIsDefeatedLogic(playerHealthObject);
+            }
+            // if the player breaks free then do the following
+            
+        }
+
+    }
+
+    tigerGrabFalse(){
+         // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
             //console.log("this tiger did grab the player this.tigerId: " + this.tigerId);
             console.log("this.playerGrabbed",this.playerGrabbed);
-            player1.visible = false;
+            this.scene.player1.visible = false;
             // puts the player hitbox out of the way and locked to a specific location.
-            player1.y = this.y - 150;
+            this.scene.player1.y = this.y - 150;
             // makes the key prompts visible.
-            KeyDisplay.visible = true;
+            this.scene.KeyDisplay.visible = true;
 
             // if its a small slime then play the small slime grab animation.
             if (this.direction === "left") {
@@ -276,152 +339,172 @@ class tiger extends enemy {
             }
             this.playerGrabbed = true;
             //if the player is grabbed then do the following.
-        } else if (this.playerGrabbed === true) {
 
-            // stopps velocity once player is grabbed
-            this.setVelocityX(0);
+    }
 
-            //console.log(" now activating player grabbed logic")
-            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-            let playerHealthObject = {
-                playerHealth: null
-            };
-    
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+    tigerGrabTrue(playerHealthObject){
 
-            //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
-            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            player1.y = this.y - 150;
-            player1.body.setGravityY(0);
-            //this.body.setGravityY(0);
-            //puts the key display in the correct location.
-            KeyDisplay.x = this.x;
-            KeyDisplay.y = this.y + 70;
-            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-            console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
-            if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
-                //hpBar.calcDamage(1);
-                healthEmitter.emit(healthEvent.loseHealth,1)
-                console.log('return value of health emitter: ', playerHealthObject.playerHealth);
-                this.playerDamaged = true;
-                /*setTimeout(function () {
-                    currentTiger.playerDamaged  = false;
-                }, 2000);*/
-            }
-           
-            if (this.playerDefeated === false) {
-                if (this.randomInput === 0) {
-                    if (Phaser.Input.Keyboard.JustDown(keyS) === true) {
-                        console.log('Phaser.Input.Keyboard.JustDown(keyS) ');
-                        if (playerHealthObject.playerHealth >= 1) {
-                            this.struggleCounter += 20;
+        // stopps velocity once player is grabbed
+        this.setVelocityX(0);
 
-                            console.log('strugglecounter: ' + this.struggleCounter);
-                        }
-                    }
-                } else if (this.randomInput === 1) {
-                    // important anims.play block so that the animation can player properly.
-                    if (Phaser.Input.Keyboard.JustDown(keyW) === true) {
-                        console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
-                        if (playerHealthObject.playerHealth >= 1) {
-                            this.struggleCounter += 20;
-                            console.log('strugglecounter: ' + this.struggleCounter);
-                        }
-                    }
+        //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
+        // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+        this.scene.player1.y = this.y - 150;
+        this.scene.player1.body.setGravityY(0);
+        //this.body.setGravityY(0);
+        //puts the key display in the correct location.
+        this.scene.KeyDisplay.x = this.x;
+        this.scene.KeyDisplay.y = this.y + 70;
+        // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+        console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
+        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
+            //hpBar.calcDamage(1);
+            healthEmitter.emit(healthEvent.loseHealth,1)
+            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
+            this.playerDamaged = true;
+            /*setTimeout(function () {
+                currentTiger.playerDamaged  = false;
+            }, 2000);*/
+        }
+       
+
+    }
+
+    playerIsNotDefeatedInputs(playerHealthObject){
+        if (this.randomInput === 0) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
+                console.log('Phaser.Input.Keyboard.JustDown(keyS) ');
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += 20;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    console.log('strugglecounter: ' + this.struggleCounter);
                 }
-                // randomizing input
-                if (this.randomInputCooldown === false) {
+            }
+        } else if (this.randomInput === 1) {
+            // important anims.play block so that the animation can player properly.
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
+                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += 20;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            }
+        }
+        // randomizing input
+        if (this.randomInputCooldown === false) {
 
-                    this.randomInputCooldown = true;
-                    this.randomInput = Math.floor((Math.random() * 2));
-                    console.log("randomizing the key prompt " + this.randomInput);
-                    // important anims.play block so that the animation can player properly.
-                    if (this.keyAnimationPlayed === false && this.randomInput === 0) {
-                        console.log(" setting keyS display");
-                        KeyDisplay.playSKey();
-                        this.keyAnimationPlayed = true;
-                    } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
-                        console.log(" setting keyW display");
-                        KeyDisplay.playWKey();
-                        this.keyAnimationPlayed = true;
-                    }
-                    setTimeout(function () {
-                        currentTiger.randomInputCooldown = false;
-                        // resets the animation block.
-                        currentTiger.keyAnimationPlayed = false;
-                    }, 2000);
-                } 
+            this.randomInputCooldown = true;
+            this.randomInput = Math.floor((Math.random() * 2));
+            console.log("randomizing the key prompt " + this.randomInput);
+            // important anims.play block so that the animation can player properly.
+            if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                console.log(" setting keyS display");
+                this.scene.KeyDisplay.playSKey();
+                this.keyAnimationPlayed = true;
+            } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                console.log(" setting keyW display");
+                this.scene.KeyDisplay.playWKey();
+                this.keyAnimationPlayed = true;
             }
-            // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
-            // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
-            if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
-                // this case subtracts from the struggle free counter if the value is not pressed fast enough.
-                this.struggleCounter--;
-                this.struggleCounterTick = true;
-                // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
-                setTimeout(function () {
-                    currentTiger.struggleCounterTick = false;
-                }, 10);
-                //console.log('strugglecounter: '+this.struggleCounter);
-            }
-            // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
-            if (playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
-                this.TigerDamageCounter = true;
+
+            let currentTiger = this;
+            setTimeout(function () {
+                currentTiger.randomInputCooldown = false;
+                // resets the animation block.
+                currentTiger.keyAnimationPlayed = false;
+            }, 2000);
+        } 
+
+        // reduces the struggle counter over time.
+        if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
+            // this case subtracts from the struggle free counter if the value is not pressed fast enough.
+            this.struggleCounter--;
+            this.struggleCounterTick = true;
+            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+            // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
+            let currentTiger =this;
+            setTimeout(function () {
+                currentTiger.struggleCounterTick = false;
+            }, 10);
+            //console.log('strugglecounter: '+this.struggleCounter);
+        }
+    }
+
+    playerIsStrugglingLogic(){
+        this.TigerDamageCounter = true;
                 //hpBar.calcDamage(4);
                 healthEmitter.emit(healthEvent.loseHealth,4)
+                let currentTiger = this;
                 setTimeout(function () {
                     currentTiger.TigerDamageCounter = false;
                 }, 1500);
-            }  else if (playerHealthObject.playerHealth === 0) {
-                this.playerDefeated = true;
-                //console.log(" keyA: "+keyA+" keyD: "+keyD);
-                skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
-                scene.enemyThatDefeatedPlayer = "tiger";
-                // if we start the player defeated animation then we need to set a few things.
-                if (this.playerDefeatedAnimationStage === 0) {
-                    KeyDisplay.playWKey();
-                    let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
-                    //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
-                    // delay the button prompt so the animation can play.
-                    setTimeout(function () {
-                        KeyDisplay.visible = true;
-                        KeyDisplay.playWKey();
-                        //incriment the animation prompt since we want to move on to the next animation after the current one finishes
-                        console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
-                    }, 1000);
-                    this.playerDefeatedAnimationStage++;
-                    console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
-                }
+    }
 
-                if (keyW.isDown && KeyDisplay.visible === true && this.playerDefeatedAnimationStage !== 1 && this.playerDefeatedAnimationStage !== 3 && this.playerDefeatedAnimationStage !== 5) {
-                    KeyDisplay.visible = false;
+    playerIsDefeatedLogic(playerHealthObject){
+        this.playerDefeated = true;
+        
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
+        this.scene.enemyThatDefeatedPlayer = "tiger";
+
+        // if we start the player defeated animation then we need to set a few things.
+        if (this.playerDefeatedAnimationStage === 0) {
+                this.scene.KeyDisplay.playWKey();
+                let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
+                //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+                // delay the button prompt so the animation can play.
+                setTimeout(function () {
+                    currentTiger.scene.KeyDisplay.visible = true;
+                    thiscurrentTiger.scene.KeyDisplay.playWKey();
+                    //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                     console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
+                }, 1000);
+                this.inStartDefeatedLogic = true;
+                this.playerDefeatedAnimationStage++;
+                console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+                
+         }
+
+
+                if (this.scene.keyW.isDown && 
+                    this.scene.KeyDisplay.visible === true &&
+                    this.playerDefeatedAnimationCooldown === false &&
+                    this.inStartDefeatedLogic === false &&
+                     this.playerDefeatedAnimationStage !== 1 &&
+                      this.playerDefeatedAnimationStage !== 3 &&
+                       this.playerDefeatedAnimationStage !== 5) {
+
+                    this.scene.KeyDisplay.visible = false;
                     //this.stageTimer = 0;
+                    this.playerDefeatedAnimationCooldown = true;
                     this.playerDefeatedAnimationStage++;
                     console.log(" in check this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
 
-                    this.currentSlime = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+                    let currentTiger = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
                     setTimeout(function () {
                         console.log("defeated animation delay.");
-                        KeyDisplay.visible = true;
-                        KeyDisplay.playWKey();
+                        currentTiger.scene.KeyDisplay.visible = true;
+                        currentTiger.scene.KeyDisplay.playWKey();
+                        currentTiger.playerDefeatedAnimationCooldown = false
                     }, 3000);
                 }
                 // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-                if (keyTAB.isDown || (this.playerDefeatedAnimationStage > 6 && keyW.isDown)) {
-                    KeyDisplay.visible = false;
+                if (this.scene.keyTAB.isDown || (this.playerDefeatedAnimationStage > 6 && this.scene.keyW.isDown)) {
+                    this.scene.KeyDisplay.visible = false;
                     console.log("changing scene");
-                    scene.changeToGameover();
+                    this.scene.changeToGameover();
                 }
 
                 //console.log("player defeated by small slime");
                 this.defeatedPlayerAnimation();
-            }
-            // if the player breaks free then do the following
-            if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
-                KeyDisplay.visible = false;
+    }
+
+    playerEscaped(playerHealthObject){
+        this.scene.KeyDisplay.visible = false;
                 // can we replace this with a settimeout function? probbably. lets make a backup first.
                 if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
+                    let currentTiger = this;
                     setTimeout(function () {
                         currentTiger.struggleFree = true;
                     }, 100);
@@ -436,29 +519,29 @@ class tiger extends enemy {
                     this.playerDamaged = false;
                     this.playerGrabbed = false;
                     this.keyAnimationPlayed = false;
-                    player1.visible = true;
+                    this.scene.player1.visible = true;
                     //player1.setSize(23, 68, true);
-                    player1.body.setGravityY(600);
+                    struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                    this.scene.player1.body.setGravityY(600);
                     this.body.setGravityY(600);
-                    player1.x = this.x;
-                    player1.y = this.y;
-                    scene.grabbed = false;
-                    KeyDisplay.visible = false;
+                    this.scene.player1.x = this.x;
+                    this.scene.player1.y = this.y;
+                    this.scene.grabbed = false;
+                    this.scene.KeyDisplay.visible = false;
                     // creates a window of time where the player cant be grabbed after being released.
                     // creates a cooldown window so the player does not get grabbed as they escape.
+                    let currentTiger = this;
                     setTimeout(function () {
                         currentTiger.grabCoolDown = false;
-                        scene.grabCoolDown = false;
+                        currentTiger.scene.grabCoolDown = false;
                         console.log("grab cooldown has ended. player can be grabbed agian.");
                     }, 3000);
                 }
-
-            }
-        }
-
     }
 
-    damage(scene) {
+
+    damage() {
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
@@ -466,12 +549,12 @@ class tiger extends enemy {
             if (this.tigerHp > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.calcDamage(
-                    scene.player1.sliceDamage,
-                    scene.player1.bluntDamage,
-                    scene.player1.pierceDamage,
-                    scene.player1.heatDamage,
-                    scene.player1.lightningDamage,
-                    scene.player1.coldDamage
+                    this.scene.player1.sliceDamage,
+                    this.scene.player1.bluntDamage,
+                    this.scene.player1.pierceDamage,
+                    this.scene.player1.heatDamage,
+                    this.scene.player1.lightningDamage,
+                    this.scene.player1.coldDamage
                 );
                 if (this.tigerHp <= 0) {
                     this.destroy();
@@ -488,9 +571,7 @@ class tiger extends enemy {
         }
     }
 
-    // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
     
-    //handles damage types for blue slime. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
@@ -513,7 +594,7 @@ class tiger extends enemy {
         }
     }
 
-    // plays the slime defeated player animations.
+    // plays the tiger defeated player animations.
     defeatedPlayerAnimation() {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
@@ -525,6 +606,7 @@ class tiger extends enemy {
                     console.log("animation finished");
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
                     console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
                 });
                 

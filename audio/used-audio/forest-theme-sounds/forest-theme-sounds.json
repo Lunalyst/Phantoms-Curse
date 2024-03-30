@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+    ],
+    "spritemap": {
+        "bertsz":{
+            "start": 0,
+            "end": 76,
+            "loop": true
+        }
+    }
+}

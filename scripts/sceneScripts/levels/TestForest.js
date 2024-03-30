@@ -1,13 +1,14 @@
 
-class TestCave extends defaultScene {
+
+class TestForest extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'TestCave',active: false ,physics:{default:'arcade'}});
+    super({key: 'TestForest',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "TestCave";
+    this.playerLocation = "TestForest";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -26,22 +27,27 @@ class TestCave extends defaultScene {
     }
 
     preload(){
-
-      this.load.tilemapTiledJSON("test_cave_map" , "assets/tiledMap/LockWood/Test_Cave.json");
-      
+      //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+      this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
+      this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Test_Forest.json");
 
-      this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+
+      this.load.audioSprite('forestSFX','../audio/used-audio/forest-sounds/forest-sounds.json',[
+        "../audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
+      this.load.audioSprite('forestThemeSFX','../audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
+        "../audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+      ]);
     }
 
     create(){
-
+      
       //sets up gameover location
-      this.setupGameoverLocation("caveGameover");
-    
+      this.setupGameoverLocation("forestGameover");
+
       //sets up player controls
       this.setUpPlayerInputs();
     
@@ -53,10 +59,15 @@ class TestCave extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("test_cave_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("TestForestMap","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
+
+      //adds looping sound effect.
+      this.initLoopingSound('forestSFX','forest',1);
+
+      this.initLoopingSound('forestThemeSFX','bertsz',0.05);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -71,52 +82,26 @@ class TestCave extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
+      
+      
+      
+      //this.initSavePoints(2050,558);
+        // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(443,797+12,
-        "Why did I move here? I guess it was the weather. Or the... Ah, I don't know, that thing.  ",
-        ['signLoop']);
-
-      this.initSavePoints(687,765-14);
-
-      this.initPortals(343,829-12,2566,1373,"warpCaveInside","ForestRavineHome");
-
-      this.initPortals(1892,829-12,378,1149,"warpCaveInside","TestForest");
       
+      this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
+      this.backround.setDepth(-50);
+
+      this.initSavePoints(761,989-14);
+
+      this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
 
       //sets up containers
       this.setUpContainers();
-
-      let knife = {
-        itemID: 4,
-        itemStackable: 0,
-        itemAmount: 1
-    };
-    
-    //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-    this.initItemContainer(563,765-3,knife,true,"cave_chest_with_knife");
-
-    let speedRing = {
-      itemID: 8,
-      itemStackable: 0,
-      itemAmount: 1
-  };
-  
-  //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-  this.initItemContainer(1608,765-3,speedRing,true,"cave_chest_with_speedRing");
-
-      let axe = {
-          itemID: 10,
-          itemStackable: 0,
-          itemAmount: 1
-      };
-      
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      this.initItemContainer(1403,666,axe,true,"cave_chest_with_axe");
       //sets up item drops for the scene
-
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
@@ -128,25 +113,25 @@ class TestCave extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
+          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
+          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
           //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
           thisScene.spawnedEnemys = true;
         },1000);
+
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
     }
 
     update(){
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //makes backround follow player.
+      this.backround.y = this.player1.y;
 
       //calls the built in update function
       this.defaultUpdate();
-
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-      //handles enemy interactions
-      this.enemyUpdate(this.enemyGroupArray);
 
     }
 

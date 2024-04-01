@@ -11,7 +11,7 @@ class defaultScene extends Phaser.Scene {
 
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 303, frameHeight: 270 });
+      this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 291, frameHeight: 270 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
        this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -1032,13 +1032,14 @@ class defaultScene extends Phaser.Scene {
       
         //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
         //if the grab cooldowns are clear then
-        if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false) {
-      
+        if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false && tempTiger.isHidding === false) {
+          
+          console.log(" grabing the player?");
           //stop the velocity of the player
           tempTiger.setVelocityX(0);
           scene.player1.setVelocityX(0);
           //calls the grab function
-          tempTiger.grab(scene,scene.player1,scene.KeyDisplay,scene.keyTAB,scene.keyW,scene.keyS,scene.keyA,scene.keyD);
+          tempTiger.grab();
         
           //sets the scene grab value to true since the player has been grabbed
           tempTiger.playerGrabbed = true;

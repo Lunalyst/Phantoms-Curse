@@ -123,26 +123,26 @@ class gameHud extends Phaser.Scene {
         });
 
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
-          console.log("setting this.struggleEventBar.visible: ", visible);
+          //console.log("setting this.struggleEventBar.visible: ", visible);
             this.struggleEventBar.visible = visible;  
 
         });
 
         struggleEmitter.on(struggleEvent.updateStruggleBar,(struggleAmount) =>{
           
-          console.log("setting struggleAmount: ", struggleAmount);
+          //console.log("setting struggleAmount: ", struggleAmount);
           this.struggleEventBar.setStruggleAmount(struggleAmount);  
 
         });
 
         struggleEmitter.on(struggleEvent.updateStruggleBarCap,(struggleCap) =>{
-          console.log("setting struggleCap: ", struggleCap);
+          //console.log("setting struggleCap: ", struggleCap);
           this.struggleEventBar.setStruggleCap(struggleCap);  
 
         });
 
           //sets the upgrade size of the player hp bar
-          console.log("this.playerSaveSlotData.playerHealthUpgrades", this.playerSaveSlotData.playerHealthUpgrades)
+          //console.log("this.playerSaveSlotData.playerHealthUpgrades", this.playerSaveSlotData.playerHealthUpgrades)
           this.healthDisplay.setUpgradeSize(this.playerSaveSlotData.playerHealthUpgrades);
 
           //updates the health display so the values are shown correctly on the hp bar

@@ -64,12 +64,12 @@ class gameOver extends Phaser.Scene {
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
 
-            this.load.audioSprite('gameoverSFX','../audio/used-audio/gameover-sounds/gameover-sounds.json',[
-                "../audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
+            this.load.audioSprite('gameoverSFX','audio/used-audio/gameover-sounds/gameover-sounds.json',[
+                "audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
               ]);
 
-            this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-                "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+            this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+                "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
               ]);
 
             this.load.scenePlugin({

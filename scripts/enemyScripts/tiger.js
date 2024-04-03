@@ -222,7 +222,7 @@ class tiger extends enemy {
                     
             }else{
                 this.setVelocityX(0);
-                this.scene.initSoundEffect('tigerSFX','8',0.1);
+    
             }
 
         //if the tiger has not been activated, stay in hiding logic
@@ -238,7 +238,6 @@ class tiger extends enemy {
                 
                 //play animation of tiger emerging from bush
                 if (!this.animationPlayed) {
-                    this.scene.initSoundEffect('tigerSFX','2',0.1);
                     this.animationPlayed = true;
                     this.anims.play('suprise').once('animationcomplete', () => {
                         this.animationPlayed = false;

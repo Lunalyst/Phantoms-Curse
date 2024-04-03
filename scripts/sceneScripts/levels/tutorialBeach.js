@@ -60,7 +60,7 @@ class tutorialBeach extends defaultScene {
       this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
 
       //adds looping sound effect.
-      this.initLoopingSound('oceanSFX','ocean',0.1);
+      //this.initLoopingSound('oceanSFX','ocean',0.1);
 
       //creates player object
       this.setUpPlayer();

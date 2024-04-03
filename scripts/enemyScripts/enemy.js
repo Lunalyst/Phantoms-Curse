@@ -129,7 +129,17 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-    //plays slime sound based in type input being 1-5 and a time delay
+    //maybe enemy needs to check if the player is in range of the current enemy. 
+    checkRangeFromPlayer(xLeftThresh, XRightThresh, yLeftThresh, yRightThresh){
+
+        // bounds check defined by x and y parameters
+        if((this.scene.player1.x > this.x  - xLeftThresh && this.scene.player1.x < this.x + XRightThresh) &&this.scene.player1.y > this.y  - yLeftThresh && this.scene.player1.y < this.y + yRightThresh){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
    
 
 }

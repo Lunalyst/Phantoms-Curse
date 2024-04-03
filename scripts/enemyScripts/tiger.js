@@ -45,6 +45,8 @@ class tiger extends enemy {
         this.activateTigerRange = 150;
         this.playerEnteredActivationRange = false;
         this.activatedSuprise = false;
+
+        this.jumpAnimationPlayed = false;
        
 
         this.playerEnteredHidingSpace = false;
@@ -102,107 +104,104 @@ class tiger extends enemy {
         this.anims.play("tigerTaunt");
     }
 
-    //functions that move slime objects.
+    //functions that move tiger objects.
     move(){
-        console.log("this.isHidding: ",this.isHidding);
                 
         //sets the gravity for tiger
         this.body.setGravityY(600);
         //possitions her sprite box correctly along with her hitbox
         this.setSize(100, 250, true);
         this.setOffset(100, 20);
-        //temp refrence used later maybe?
 
+        //if the tiger is no longer in its hiding logic then 
         if(this.isHidding === false){
 
-            //checks to see if enemy should jump to move if the player is in range of 400
+            console.log("this.body.blocked.down: ",this.body.blocked.down,"this.jumped: ",this.jumped,"this.jumpAnimationPlayed: ",this.jumpAnimationPlayed,);
+
+            //checks to see if enemy is in range of player
             if (this.scene.player1.x > this.x - 600 && this.scene.player1.x < this.x + 600) {
                 
-                //console.log("this.taunting: ",this.taunting);
-                //checks to see if the tiger should be taunting. 0-4 random values and if its four then
-                if(this.randomTauntNumber === 4 && this.taunting === false){
+    
+                //if the player is out of range of the player in the y axis, then taunt player.
+                if(this.body.blocked.down && this.y-100 > this.scene.player1.y && this.taunting === false){
                     //set taunting to true
                     this.taunting = true;
                     //stop velocity
                     this.setVelocityX(0);
                     //play animation then
-                    this.anims.play('tigerTaunt').once('animationcomplete', () => {
-                        
-                        //set taunting to false 
-                        this.taunting = false;
-                        //and randomize the variable agian
-                        this.randomTauntNumber = Math.floor((Math.random() * 5));
+                    this.anims.play('tigerTaunt').once('animationcomplete', () => { 
+                        this.taunting = false; 
                     });
 
-                //if the player is to the right and they are stuck on a ledge then jump.
-            }else if(this.body.blocked.down && this.body.blocked.right && this.jumped === false) {
-                console.log("jumping right")
-                //sets direction
-                this.direction = "right";
-                this.jumped = true;
+                //if the player is to the right and above tiger then jump towards the player
+                }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false) {
+                    console.log("jumping right")
                     
-                //moves enemy right, double speed unless the player is close
+                    this.jumped = true;
+                      
+                    if (!this.jumpAnimationPlayed) {
+                        this.jumpAnimationPlayed = true;
+                        this.setVelocityX(0);
 
-                    this.anims.play('tigerRightInAir');
-                    this.setVelocityY(400*-1);
+                        //animation getting interupted causing things to break.
+                        this.anims.play('tigerRightJumpStart').once('animationcomplete', () => {
+                            this.jumpAnimationPlayed = false;
+                            this.setVelocityY(250*-1);
+                        
+                            let currentTiger = this;
+                            setTimeout(function () {
+                                currentTiger.jumped = false;
+                                currentTiger.setVelocityX(310);
+                            }, 160);
+
+                            this.anims.play('tigerRightInAir');
+                        
+                        });
                     
-                    let currentTiger = this;
-                    setTimeout(function () {
-                        currentTiger.jumped = false;
-                        currentTiger.setVelocityX(150);
-                    }, 500);
+                    }
 
-                
-                //if the player is to the right and they are stuck on a ledge then jump.
-            }else if(this.body.blocked.down && this.body.blocked.left && this.jumped === false) {
-                console.log("jumping left")
-                //sets direction
-                this.direction = "left";
-                this.jumped = true;
+                //if the player is to the right and above tiger then jump towards the player
+                }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false) {
+                    console.log("jumping left")
                     
-                //moves enemy right, double speed unless the player is close
-                
+                    this.jumped = true;
+                       
+                    if (!this.jumpAnimationPlayed) {
+                        this.jumpAnimationPlayed = true;
+                        this.setVelocityX(0);
 
-                    this.anims.play('tigerLeftInAir');
-                    this.setVelocityY(400*-1);
+                        this.anims.play('tigerLeftJumpStart').once('animationcomplete', () => {
+                            this.jumpAnimationPlayed = false;
+                            this.setVelocityY(250*-1);
+                        
+                            let currentTiger = this;
+                            setTimeout(function () {
+                                currentTiger.jumped = false;
+                                currentTiger.setVelocityX(310*-1);
+                            }, 160);
 
-                    let currentTiger = this;
-                    setTimeout(function () {
-                        currentTiger.jumped = false;
-                        currentTiger.setVelocityX(150*-1);
-                    }, 500);
+                            this.anims.play('tigerLeftInAir');
+                        
+                        });
+                    
+                    }
 
-                
                 //if the player is to the right then move enemy to the right
-            }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
-                    
-                    //sets direction
+                }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
+                        
                     this.direction = "right";
-                    
-                    //moves enemy right, double speed unless the player is close
-                    if(this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 100){
-                        this.anims.play('tigerRightWalk', true);
-                        this.setVelocityX(150); 
-                    }else{
-                        this.anims.play('tigerRightRun', true);
-                        this.setVelocityX(310); 
-                    }
-                
+                    this.jumpAnimationPlayed = false;  
+                    this.anims.play('tigerRightRun', true);
+                    this.setVelocityX(310); 
+            
                 //if the player is to the right then move enemy to the left
-            } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.taunting === false) {
-                    
-                    //sets direction
+                } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.taunting === false) {
+                        
                     this.direction = "left";
-
-                    //moves enemy left, double speed unless the player is close
-                    if(this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 100){
-                        this.anims.play('tigerLeftWalk', true);
-                        this.setVelocityX(150*-1); 
-                    }else{
-                        this.anims.play('tigerLeftRun', true);
-                        this.setVelocityX(310*-1); 
-                    }
-                
+                    this.jumpAnimationPlayed = false;
+                    this.anims.play('tigerLeftRun', true);
+                    this.setVelocityX(310*-1); 
+                    
                 //otherwise if the enemy is on the ground then
                 } else if (this.body.blocked.down && this.taunting === false) {
 
@@ -212,42 +211,29 @@ class tiger extends enemy {
                     }else if(this.direction === "right") {
                         this.anims.play('tigerLeftIdle', true);
                     }
+
                     //sets velocity to zero since the enemy should not be moving.
-                this.setVelocityX(0);
+                    this.setVelocityX(0);
                 }
 
-                //temp variable for a timer
-                let currentTiger = this;
-                
-                //if the cooldown is false then
-                if(this.randomizeCooldown === false){
-
-                    //set it to true
-                    this.randomizeCooldown = true;
-                    //randomize taunt number
-                    this.randomTauntNumber = Math.floor((Math.random() * 5));
-                    //console.log("this.randomTauntNumber: ",this.randomTauntNumber);
-                    //console.log("this.randomizeCooldown: ",this.randomizeCooldown);
+                if(this.body.blocked.down){
+                    this.jumped = false;
+                }
                     
-
-                    //time out function to set the cooldown to false after two seconds.
-                    setTimeout(function () {
-                        currentTiger.randomizeCooldown = false;
-                    }, 2000);
-                }
+            }else{
+                this.setVelocityX(0);
             }
 
+        //if the tiger has not been activated, stay in hiding logic
         }else if(this.isHidding === true){
 
-            //console.log("this.notice: ",this.noticedPlayer,":",this.scene.player1.x,">",this.x - 50 ," && ",this.scene.player1.x," < ",this.x + 50);
-
             //if the player enters the activation range
-            if (this.playerEnteredActivationRange === false && (this.scene.player1.x > this.x  - this.activateTigerRange && this.scene.player1.x < this.x + this.activateTigerRange)){
+            if (this.playerEnteredActivationRange === false && this.checkRangeFromPlayer(this.activateTigerRange, this.activateTigerRange, this.activateTigerRange, this.activateTigerRange)){
                 //set value to true
                 this.playerEnteredActivationRange = true;
 
-            //so when thep layer leaves the range
-            }else if(this.playerEnteredActivationRange === true &&!(this.scene.player1.x > this.x  - this.activateTigerRange && this.scene.player1.x < this.x + this.activateTigerRange)){
+            //so when thep player leaves the range
+            }else if(this.playerEnteredActivationRange === true && !this.checkRangeFromPlayer(this.activateTigerRange, this.activateTigerRange, this.activateTigerRange, this.activateTigerRange)){
                 
                 //play animation of tiger emerging from bush
                 if (!this.animationPlayed) {
@@ -304,11 +290,8 @@ class tiger extends enemy {
                     console.log('this.playerInOuterRange === true');
                     this.anims.play('hiding', true);
                 }
-            }
-
-            
+            }  
         }
-
         //updates the previous y value to tell if slime is falling or going up in its jump.
         this.tigerPreviousY = this.y;
     }

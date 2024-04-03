@@ -31,8 +31,12 @@ class TestCave extends defaultScene {
       
       this.defaultPreload();
 
-      this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
+        "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
 
     }
@@ -66,6 +70,9 @@ class TestCave extends defaultScene {
 
       //sets up the player camera
       this.setUpPlayerCamera();
+
+      //activates sound
+      this.initLoopingSound('caveSFX','cave', 0.1);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

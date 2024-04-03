@@ -31,15 +31,15 @@ class tutorialCave extends defaultScene {
       
       this.defaultPreload();
 
-      this.load.audioSprite('caveSFX','../audio/used-audio/cave-sounds/cave-sounds.json',[
-        "../audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+      this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
+        "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
-      this.load.audioSprite('waterfallSFX','../audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
-        "../audio/used-audio/waterfall-sounds/waterfall.mp3"
+      this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
+        "audio/used-audio/waterfall-sounds/waterfall.mp3"
       ]);
 
-      this.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
     }
 

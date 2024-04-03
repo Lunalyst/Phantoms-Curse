@@ -42,8 +42,8 @@ class blueSlime extends enemy {
         this.randomSlimeSound = Math.floor((Math.random() * 4));
 
         //loads enemy sounds
-        scene.load.audioSprite('blueSlimeSFX','../audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-            "../audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        scene.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+            "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
           ]);
 
           

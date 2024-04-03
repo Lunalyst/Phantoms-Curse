@@ -31,8 +31,8 @@ class HomeInterior1 extends defaultScene {
 
       this.defaultPreload();
 
-      this.load.audioSprite('calmSFX','../audio/used-audio/calm-sounds/calm-sounds.json',[
-        "../audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
+      this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
+        "audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
       ]);
 
     }

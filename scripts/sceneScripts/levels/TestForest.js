@@ -34,12 +34,12 @@ class TestForest extends defaultScene {
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
-      this.load.audioSprite('forestSFX','../audio/used-audio/forest-sounds/forest-sounds.json',[
-        "../audio/used-audio/forest-sounds/birds4.mp3"
+      this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
+        "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','../audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "../audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
+        "audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
       ]);
     }
 
@@ -92,7 +92,7 @@ class TestForest extends defaultScene {
       this.setUpTextBox();
 
       
-      this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
+      this.backround = this.add.tileSprite(0, 1370, 100000, 664, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
 
       this.initSavePoints(761,989-14);

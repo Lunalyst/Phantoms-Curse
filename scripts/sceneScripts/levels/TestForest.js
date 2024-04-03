@@ -67,7 +67,7 @@ class TestForest extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
 
-      this.initLoopingSound('forestThemeSFX','bertsz',0.05);
+      //this.initLoopingSound('forestThemeSFX','bertsz',0.05);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

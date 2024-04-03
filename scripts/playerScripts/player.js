@@ -339,7 +339,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   attackPlayer(keyShift,scene){
     //temp variable of this object to be used my timeout functions
     let that = this;
-
+    this.setSize(50,210,true);
     //temp object sent to be sent to a emitter
     let playerDataObject = {
       playerInventoryData: null

@@ -1,0 +1,57 @@
+{
+    "resources":[
+        "../audio/used-audio/stomach-sounds/stomach.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0,
+            "end": 2.6,
+            "loop": false
+        },"2":{
+            "start": 1.0,
+            "end": 2.6,
+            "loop": false
+        },"3":{
+            "start": 2.7,
+            "end": 3.7,
+            "loop": false
+        },"4":{
+            "start": 4.3,
+            "end": 5,
+            "loop": false
+        },"5":{
+            "start": 4.3,
+            "end": 5,
+            "loop": false
+        },"6":{
+            "start": 4.3,
+            "end": 5,
+            "loop": false
+        },"7":{
+            "start": 5,
+            "end": 5.8,
+            "loop": false
+        },"8":{
+            "start": 5.8,
+            "end": 6.9,
+            "loop": false
+        },"9":{
+            "start": 7,
+            "end": 7.5,
+            "loop": false
+        },"10":{
+            "start": 7.6,
+            "end": 8.7,
+            "loop": false
+        },"11":{
+            "start": 9,
+            "end": 10.2,
+            "loop": false
+        },"12":{
+            "start": 10.2,
+            "end": 12,
+            "loop": false
+        }
+    }
+}

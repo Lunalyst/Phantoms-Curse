@@ -34,6 +34,22 @@ class defaultScene extends Phaser.Scene {
       this.load.audioSprite('plapSFX','audio/used-audio/plap-sounds/plap-sounds.json',[
         "audio/used-audio/plap-sounds/plap.mp3"
       ]);
+
+      this.load.audioSprite('burpSFX','audio/used-audio/burp-sounds/burp-sounds.json',[
+        "audio/used-audio/burp-sounds/burp.mp3"
+      ]);
+
+      this.load.audioSprite('stomachSFX','audio/used-audio/stomach-sounds/stomach-sounds.json',[
+        "audio/used-audio/stomach-sounds/stomach.mp3"
+      ]);
+
+      this.load.audioSprite('swallowSFX','audio/used-audio/swallow-sounds/swallow-sounds.json',[
+        "audio/used-audio/swallow-sounds/swallow.mp3"
+      ]);
+
+      this.load.audioSprite('tigerSFX','audio/used-audio/tiger-sounds/tiger-sounds.json',[
+        "audio/used-audio/tiger-sounds/tiger.mp3"
+      ]);
   
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });

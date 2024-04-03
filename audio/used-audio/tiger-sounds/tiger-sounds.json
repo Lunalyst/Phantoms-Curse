@@ -1,0 +1,48 @@
+{
+    "resources":[
+        "../audio/used-audio/tiger-sounds/tiger.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0.45,
+            "end": 1,
+            "loop": false
+        },
+        "2":{
+            "start": 1.7,
+            "end": 2.3,
+            "loop": false
+        },
+        "3":{
+            "start": 2.6,
+            "end": 3.3,
+            "loop": false
+        },
+        "4":{
+            "start": 3.3,
+            "end": 5,
+            "loop": false
+        },
+        "5":{
+            "start": 6,
+            "end": 7.5,
+            "loop": false
+        },
+        "6":{
+            "start": 9,
+            "end": 10,
+            "loop": false
+        },
+        "7":{
+            "start": 10,
+            "end": 11,
+            "loop": false
+        },
+        "8":{
+            "start": 11,
+            "end": 12,
+            "loop": false
+        }
+    }
+}

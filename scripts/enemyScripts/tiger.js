@@ -222,6 +222,7 @@ class tiger extends enemy {
                     
             }else{
                 this.setVelocityX(0);
+                this.scene.initSoundEffect('tigerSFX','8',0.1);
             }
 
         //if the tiger has not been activated, stay in hiding logic
@@ -237,6 +238,7 @@ class tiger extends enemy {
                 
                 //play animation of tiger emerging from bush
                 if (!this.animationPlayed) {
+                    this.scene.initSoundEffect('tigerSFX','2',0.1);
                     this.animationPlayed = true;
                     this.anims.play('suprise').once('animationcomplete', () => {
                         this.animationPlayed = false;
@@ -693,8 +695,10 @@ class tiger extends enemy {
             if (!this.animationPlayed) {
                 console.log("the animation has not been played");
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('swallowSFX','2',0.6);
                 this.anims.play('tigerSwallowRight1').once('animationcomplete', () => {
                     console.log("animation finished");
+                    this.scene.initSoundEffect('swallowSFX','3',0.6);
                     this.anims.play('tigerSwallowRight2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
@@ -715,32 +719,46 @@ class tiger extends enemy {
                
                 this.animationPlayed = true;
                 if(randomInt === 0){
+                    this.scene.initSoundEffect('tigerSFX','4',0.5);
+                    this.scene.initSoundEffect('stomachSFX','3',0.7);
                     this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                 }else if(randomInt === 1){
+                    this.scene.initSoundEffect('tigerSFX','5',0.5);
+                    this.scene.initSoundEffect('stomachSFX','5',0.5);
                     this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
 
                 }else if(randomInt === 2){
+                    this.scene.initSoundEffect('tigerSFX','4',0.5);
+                    this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 3){
+                    this.scene.initSoundEffect('tigerSFX','5',0.5);
+                    this.scene.initSoundEffect('stomachSFX','7',0.1);
                     this.anims.play('tigerTummyWobble2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 4){
+                    this.scene.initSoundEffect('tigerSFX','4',0.5);
+                    this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('tigerTummySquish1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 5){
+                    this.scene.initSoundEffect('tigerSFX','5',0.01);
+                    this.scene.initSoundEffect('stomachSFX','8',0.5);
+                    //this.scene.initSoundEffect('burpSFX','4',0.03);
                     this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        
                     });
                     
                 }
@@ -750,6 +768,7 @@ class tiger extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
             if (!this.animationPlayed) {
+                this.scene.initSoundEffect('stomachSFX','1',0.05);
                 this.animationPlayed = true;
                 this.anims.play('tigerTummyDigestion1').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -766,6 +785,8 @@ class tiger extends enemy {
         }else if (this.playerDefeatedAnimationStage === 5) {
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('stomachSFX','2',0.05);
+                //this.scene.initSoundEffect('burpSFX','4',0.05);
                 this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

@@ -45,9 +45,7 @@ class blueSlime extends enemy {
         scene.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
             "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
           ]);
-
           
-        
         //defines Slime animations based on the players sex.
         if (sex === 0) {
             this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
@@ -766,14 +764,15 @@ class blueSlime extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
+
+                this.playSlimeSound('5',200);
+                
                 if (this.enemyHP <= 0) {
                     this.destroy();
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);
             let that = this;
-    
-            this.playSlimeSound('5',200);
 
             setTimeout(function () {
                 that.damageCoolDown = false;

@@ -1,0 +1,21 @@
+{
+    "resources":[
+        "../audio/used-audio/swallow-sounds/swallow.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0.5,
+            "end": 0.1,
+            "loop": false
+        },"2":{
+            "start": 1.5,
+            "end": 2,
+            "loop": false
+        },"3":{
+            "start": 2.4,
+            "end": 3,
+            "loop": false
+        }
+    }
+}

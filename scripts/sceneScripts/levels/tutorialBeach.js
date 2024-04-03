@@ -29,9 +29,9 @@ class tutorialBeach extends defaultScene {
       
       this.defaultPreload();
 
-     this.load.audioSprite('oceanSFX','../audio/used-audio/ocean-sounds/ocean-sounds.json',[
-        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.mp3",
-        "../audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
+     this.load.audioSprite('oceanSFX','audio/used-audio/ocean-sounds/ocean-sounds.json',[
+        "audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.mp3",
+        "audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
       ]);
 
       
@@ -60,7 +60,7 @@ class tutorialBeach extends defaultScene {
       this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
 
       //adds looping sound effect.
-      //this.initLoopingSound('oceanSFX','ocean',0.1);
+      this.initLoopingSound('oceanSFX','ocean',0.1);
 
       //creates player object
       this.setUpPlayer();

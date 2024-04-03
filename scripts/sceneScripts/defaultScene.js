@@ -19,20 +19,20 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
 
        //weapon sound effects
-       this.load.audioSprite('weaponSFX','../audio/used-audio/player-sounds/weapon-swings.json',[
-        "../audio/used-audio/player-sounds/weapon-swings.mp3"
+       this.load.audioSprite('weaponSFX','audio/used-audio/player-sounds/weapon-swings.json',[
+        "audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
 
-      this.load.audioSprite('curseSFX','../audio/used-audio/curse-sounds/curse-sounds.json',[
-        "../audio/used-audio/curse-sounds/suntemple-curse.mp3"
+      this.load.audioSprite('curseSFX','audio/used-audio/curse-sounds/curse-sounds.json',[
+        "audio/used-audio/curse-sounds/suntemple-curse.mp3"
       ]);
 
-      this.load.audioSprite('creakSFX','../audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
-        "../audio/used-audio/wood-creak-sounds/wood-creak.mp3"
+      this.load.audioSprite('creakSFX','audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
+        "audio/used-audio/wood-creak-sounds/wood-creak.mp3"
       ]);
 
-      this.load.audioSprite('plapSFX','../audio/used-audio/plap-sounds/plap-sounds.json',[
-        "../audio/used-audio/plap-sounds/plap.mp3"
+      this.load.audioSprite('plapSFX','audio/used-audio/plap-sounds/plap-sounds.json',[
+        "audio/used-audio/plap-sounds/plap.mp3"
       ]);
   
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });

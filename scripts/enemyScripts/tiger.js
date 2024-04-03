@@ -718,41 +718,35 @@ class tiger extends enemy {
                
                 this.animationPlayed = true;
                 if(randomInt === 0){
-                    this.scene.initSoundEffect('tigerSFX','4',0.5);
                     this.scene.initSoundEffect('stomachSFX','3',0.7);
                     this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                 }else if(randomInt === 1){
-                    this.scene.initSoundEffect('tigerSFX','5',0.5);
                     this.scene.initSoundEffect('stomachSFX','5',0.5);
                     this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
 
                 }else if(randomInt === 2){
-                    this.scene.initSoundEffect('tigerSFX','4',0.5);
                     this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 3){
-                    this.scene.initSoundEffect('tigerSFX','5',0.5);
                     this.scene.initSoundEffect('stomachSFX','7',0.1);
                     this.anims.play('tigerTummyWobble2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 4){
-                    this.scene.initSoundEffect('tigerSFX','4',0.5);
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('tigerTummySquish1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                     
                 }else if(randomInt === 5){
-                    this.scene.initSoundEffect('tigerSFX','5',0.01);
                     this.scene.initSoundEffect('stomachSFX','8',0.5);
                     //this.scene.initSoundEffect('burpSFX','4',0.03);
                     this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {

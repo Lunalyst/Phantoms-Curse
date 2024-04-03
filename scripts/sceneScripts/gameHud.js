@@ -50,8 +50,8 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
       this.load.image('TABToSkip', 'assets/tabToSkip.png');
-      //this.load.image('TABToGiveUp', 'assets/tabToGiveUp.png');
-      this.load.spritesheet('TABToGiveUp', 'assets/tabToGiveUp.png',{frameWidth: 825, frameHeight: 210 });
+      this.load.image('TABToGiveUp', 'assets/tabToGiveUp.png');
+      
 
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });

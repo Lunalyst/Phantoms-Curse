@@ -30,7 +30,8 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         this.safeToSave = false;
         this.saveCoolDown= false;
         
-        
+        //sets scale
+        this.setScale(1/3);
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with

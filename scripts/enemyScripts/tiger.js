@@ -414,7 +414,7 @@ class tiger extends enemy {
             if (this.direction === "left") {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-
+                    this.scene.initSoundEffect('lickSFX','3',0.01);
                     this.anims.play('tigerGrabRight').once('animationcomplete', () => {
                         this.anims.play("tigerStruggleRight", true);
                     });
@@ -603,6 +603,7 @@ class tiger extends enemy {
 
                     // if the player if freed do the following to reset the player.
                 } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
+                    this.anims.play("tigerRightIdle");
                     this.struggleFree = false;
                     this.playerBrokeFree = 0;
                     //this.anims.play("tigerStruggleBreakRight", true);
@@ -635,7 +636,7 @@ class tiger extends enemy {
 
     damage() {
         this.setVelocityX(0);
-        if (this.damageCoolDown === false) {
+        if (this.damageCoolDown === false && this.isHidding === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.tigerHp > 0) {
@@ -718,12 +719,12 @@ class tiger extends enemy {
                
                 this.animationPlayed = true;
                 if(randomInt === 0){
-                    this.scene.initSoundEffect('stomachSFX','3',0.7);
+                    this.scene.initSoundEffect('stomachSFX','3',0.1);
                     this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
                 }else if(randomInt === 1){
-                    this.scene.initSoundEffect('stomachSFX','5',0.5);
+                    this.scene.initSoundEffect('stomachSFX','5',0.1);
                     this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
@@ -735,7 +736,7 @@ class tiger extends enemy {
                     });
                     
                 }else if(randomInt === 3){
-                    this.scene.initSoundEffect('stomachSFX','7',0.1);
+                    this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                     });
@@ -761,7 +762,7 @@ class tiger extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
             if (!this.animationPlayed) {
-                this.scene.initSoundEffect('stomachSFX','1',0.05);
+                this.scene.initSoundEffect('stomachSFX','1',0.03);
                 this.animationPlayed = true;
                 this.anims.play('tigerTummyDigestion1').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -778,8 +779,7 @@ class tiger extends enemy {
         }else if (this.playerDefeatedAnimationStage === 5) {
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
-                this.scene.initSoundEffect('stomachSFX','2',0.05);
-                //this.scene.initSoundEffect('burpSFX','4',0.05);
+                this.scene.initSoundEffect('stomachSFX','2',0.03);
                 this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

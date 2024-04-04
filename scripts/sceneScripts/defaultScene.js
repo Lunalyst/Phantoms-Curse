@@ -14,9 +14,9 @@ class defaultScene extends Phaser.Scene {
       this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 291, frameHeight: 270 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-       this.load.image('hitbox', 'assets/hitbox.png');
-       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 32, frameHeight: 32 });
+      this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
+      this.load.image('hitbox', 'assets/hitbox.png');
+      this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
 
        //weapon sound effects
        this.load.audioSprite('weaponSFX','audio/used-audio/player-sounds/weapon-swings.json',[
@@ -47,12 +47,16 @@ class defaultScene extends Phaser.Scene {
         "audio/used-audio/swallow-sounds/swallow.mp3"
       ]);
 
-      this.load.audioSprite('tigerSFX','audio/used-audio/tiger-sounds/tiger-sounds.json',[
-        "audio/used-audio/tiger-sounds/tiger.mp3"
+      this.load.audioSprite('lickSFX','audio/used-audio/lick-sounds/lick-sounds.json',[
+        "audio/used-audio/lick-sounds/lick.mp3"
       ]);
+
+      /*this.load.audioSprite('tigerSFX','audio/used-audio/tiger-sounds/tiger-sounds.json',[
+        "audio/used-audio/tiger-sounds/tiger.mp3"
+      ]);*/
   
        this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
-       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 71, frameHeight: 100 });
+       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
        this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('itemDrops', 'assets/itemDrops.png',{frameWidth: 96, frameHeight: 96});
        this.load.spritesheet('chest', 'assets/chest.png',{frameWidth: 249, frameHeight: 231});

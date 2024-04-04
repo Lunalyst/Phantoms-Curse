@@ -19,6 +19,8 @@ class keyPrompts extends Phaser.Physics.Arcade.Sprite{
         //this.setScrollFactor(0);
         this.setDepth(6);
 
+        //sets scale
+        this.setScale(1/3);
     }
     //simple function using if statements to update display using animations defined above.
     

@@ -51,7 +51,7 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet("options" , "assets/options.png" , {frameWidth: 165 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("title" , "assets/Phantom's Curse.png" , {frameWidth: 1050 , frameHeight: 100 });
-            this.load.spritesheet("titleLogo" , "assets/title screen logo.png" , {frameWidth: 300 , frameHeight: 320 });
+            this.load.spritesheet("titleLogo" , "assets/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
             this.load.spritesheet("maleSexSelectIcons" , "assets/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("femaleSexSelectIcons" , "assets/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -68,6 +68,7 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet('removeSlots', 'assets/removeSlots.png',{frameWidth: 99, frameHeight: 99 });
             this.load.spritesheet('no', 'assets/no.png',{frameWidth: 60, frameHeight: 33 });
             this.load.spritesheet('yes', 'assets/yes.png',{frameWidth: 78, frameHeight: 33 });
+            this.load.spritesheet('curses', 'assets/curses.png',{frameWidth: 96, frameHeight: 96 });
 
             
             
@@ -92,15 +93,15 @@ class titleScreen extends Phaser.Scene {
             this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
-            this.anims.create({key: 'titleLogoLoop',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 5 }),frameRate: 2,repeat: -1});
+            this.anims.create({key: 'titleLogoLoop',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 14 }),frameRate: 4,repeat: -1});
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 9 }),frameRate: 15,repeat: -1});
             this.anims.create({key: 'titleLoop1',frames: this.anims.generateFrameNames('title', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
             this.backround = this.add.sprite(450, 450, "backgroundForest");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(450, 430, "titleLogo");
+            this.titleLogo = this.add.sprite(450, 500, "titleLogo");
             this.titleLogo.anims.play("titleLogoLoop");
-            this.titleLogo.setScale(2);
+            this.titleLogo.setScale(1/2+1/3);
             this.title =this.add.sprite(450, 50, "title");
             this.title.anims.play("titleLoop1");
             this.title.setScale(.8);

@@ -27,6 +27,11 @@ class titleScreen extends Phaser.Scene {
         this.playerPreferance = 0;
         this.tempNewGameSlotID = 0;
         this.selectedSlotToBeDeleted = 0;
+        this.curse;
+        this.cursecooldown = false;
+
+        this.logoToggle =false;
+        this.logoAnimationPlayed = false;
 
         //saved variables
         this.warpToX;
@@ -50,7 +55,7 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet("loadGame" , "assets/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/options.png" , {frameWidth: 165 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/Back.png" , {frameWidth: 102 , frameHeight: 33 });
-            this.load.spritesheet("title" , "assets/Phantom's Curse.png" , {frameWidth: 1050 , frameHeight: 100 });
+            this.load.spritesheet("title" , "assets/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
             this.load.spritesheet("titleLogo" , "assets/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
             this.load.spritesheet("maleSexSelectIcons" , "assets/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("femaleSexSelectIcons" , "assets/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -64,7 +69,6 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet('sexSlotSexIcon', 'assets/saveSlotSexIcon.png',{frameWidth: 75, frameHeight: 75 });
             this.load.spritesheet('shellIcon', 'assets/shellIcon.png',{frameWidth: 96, frameHeight: 96 });
             this.load.spritesheet('bestiaryIcon', 'assets/bestiaryIcon.png',{frameWidth: 96, frameHeight: 96 });
-            this.load.spritesheet('removeSlots', 'assets/removeSlots.png',{frameWidth: 99, frameHeight: 99 });
             this.load.spritesheet('removeSlots', 'assets/removeSlots.png',{frameWidth: 99, frameHeight: 99 });
             this.load.spritesheet('no', 'assets/no.png',{frameWidth: 60, frameHeight: 33 });
             this.load.spritesheet('yes', 'assets/yes.png',{frameWidth: 78, frameHeight: 33 });
@@ -93,18 +97,18 @@ class titleScreen extends Phaser.Scene {
             this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
-            this.anims.create({key: 'titleLogoLoop',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 14 }),frameRate: 4,repeat: -1});
-            this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 9 }),frameRate: 15,repeat: -1});
-            this.anims.create({key: 'titleLoop1',frames: this.anims.generateFrameNames('title', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'titleLogoLoop1',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 10 }),frameRate: 4,repeat: 0});
+            this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
+            this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 6 }),frameRate: 3,repeat: -1});
             this.backround = this.add.sprite(450, 450, "backgroundForest");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(450, 500, "titleLogo");
-            this.titleLogo.anims.play("titleLogoLoop");
+            this.titleLogo = this.add.sprite(450, 550, "titleLogo");
+           
             this.titleLogo.setScale(1/2+1/3);
             this.title =this.add.sprite(450, 50, "title");
-            this.title.anims.play("titleLoop1");
-            this.title.setScale(.8);
+            this.title.anims.play("titleLoop");
+            this.title.setScale(1/3 + 1/7);
 
             this.sceneTextBox = new textBox(this,450,620,'textBox');
             this.sceneTextBox.setTitleScreenView();
@@ -178,6 +182,9 @@ class titleScreen extends Phaser.Scene {
                 that.back.visible = true;
                 that.titleLogo.visible = false;
                 that.isInSlotSelectNew = true;
+                if(that.curse !== undefined){
+                    that.curse.visible = false;
+                }
 
                 that.showSaveSlots(true,false);
                
@@ -192,6 +199,9 @@ class titleScreen extends Phaser.Scene {
                 that.options.visible = false;
                 that.back.visible = true;
                 that.isInSlotSelectLoad = true;
+                if(that.curse !== undefined){
+                    that.curse.visible = false;
+                }
                 
                 that.showSaveSlots(true,true);
             
@@ -227,6 +237,10 @@ class titleScreen extends Phaser.Scene {
                 that.options.visible = false;
                 that.back.visible = true;
                 that.titleLogo.visible = false;
+
+                if(that.curse !== undefined){
+                    that.curse.visible = false;
+                }
         
              });
 
@@ -360,30 +374,6 @@ class titleScreen extends Phaser.Scene {
  
                  this.inventoryArray.push(item);
              }
- 
-             /*this.inventoryArray[0].itemID = 2;
-             this.inventoryArray[0].itemStackable = 0;
-             this.inventoryArray[0].itemAmount = 1;
-            
- 
-             this.inventoryArray[1].itemID = 4;
-             this.inventoryArray[1].itemStackable = 0;
-             this.inventoryArray[1].itemAmount = 1;
-             
- 
-             this.inventoryArray[2].itemID = 6;
-             this.inventoryArray[2].itemStackable = 0;
-             this.inventoryArray[2].itemAmount = 1;
-             
- 
-             this.inventoryArray[3].itemID = 8;
-             this.inventoryArray[3].itemStackable = 0;
-             this.inventoryArray[3].itemAmount = 1;
-             
- 
-             this.inventoryArray[4].itemID = 10;
-             this.inventoryArray[4].itemStackable = 0;
-             this.inventoryArray[4].itemAmount = 1;*/
              
  
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
@@ -472,45 +462,7 @@ class titleScreen extends Phaser.Scene {
                 this.inventoryArray.push(item);
             }
 
-            /*this.inventoryArray[0].itemID = 2;
-            this.inventoryArray[0].itemStackable = 0;
-            this.inventoryArray[0].itemAmount = 1;
-           
-
-            this.inventoryArray[1].itemID = 4;
-            this.inventoryArray[1].itemStackable = 0;
-            this.inventoryArray[1].itemAmount = 1;
             
-
-            this.inventoryArray[2].itemID = 6;
-            this.inventoryArray[2].itemStackable = 0;
-            this.inventoryArray[2].itemAmount = 1;
-            
-
-            this.inventoryArray[3].itemID = 8;
-            this.inventoryArray[3].itemStackable = 0;
-            this.inventoryArray[3].itemAmount = 1;
-            
-
-            this.inventoryArray[4].itemID = 10;
-            this.inventoryArray[4].itemStackable = 0;
-            this.inventoryArray[4].itemAmount = 1;
-
-            this.inventoryArray[5].itemID = 12;
-            this.inventoryArray[5].itemStackable = 1;
-            this.inventoryArray[5].itemAmount = 5;
-
-            this.inventoryArray[6].itemID = 14;
-            this.inventoryArray[6].itemStackable = 1;
-            this.inventoryArray[6].itemAmount = 12;
-
-            this.inventoryArray[7].itemID = 14;
-            this.inventoryArray[7].itemStackable = 1;
-            this.inventoryArray[7].itemAmount = 60;
-
-            this.inventoryArray[8].itemID = 14;
-            this.inventoryArray[8].itemStackable = 1;
-            this.inventoryArray[8].itemAmount = 12;*/
             
 
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
@@ -694,6 +646,29 @@ class titleScreen extends Phaser.Scene {
         }
 
         update(){
+
+            if(this.logoToggle === false){
+                if(this.logoAnimationPlayed === false){
+                    this.logoAnimationPlayed = true;
+                    this.curse = new curse(this, 275,175);
+                    console.log("this.curse",this.curse);
+                    this.cursecooldown = this.curse.destroyCurse();
+                    this.titleLogo.anims.play("titleLogoLoop1").once('animationcomplete' , () =>{
+                        this.logoAnimationPlayed = false;
+                        this.logoToggle = true;
+                    });
+                }
+                
+            }else if(this.logoToggle === true){
+                if(this.logoAnimationPlayed === false){
+                    this.logoAnimationPlayed = true;
+                    this.titleLogo.anims.play("titleLogoLoop2").once('animationcomplete' , () =>{
+                        this.logoAnimationPlayed = false;
+                        this.logoToggle = false;
+                    });
+                }
+
+            }
             
         }
 

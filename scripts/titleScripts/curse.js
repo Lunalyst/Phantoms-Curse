@@ -19,23 +19,19 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '2',frames: this.anims.generateFrameNames('curses', { start: 8, end: 14 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '3',frames: this.anims.generateFrameNames('curses', { start: 15, end: 21 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '4',frames: this.anims.generateFrameNames('curses', { start: 22, end: 28 }),frameRate: 4,repeat: 0});
-      
-
-
-      //this.anims.play('2');
 
       this.setScale(1);
       
     }
 
-    destroyCurse(){
+    switchCurse(){
 
       this.randomCurse = Math.floor((Math.random() * 4)+1);
        let temp = ''+ this.randomCurse;
        console.log("temp: ", temp);
 
         this.anims.play(temp).once('animationcomplete' , () =>{
-          this.destroy();
+          this.visible = false;
           return false;
         });
     }

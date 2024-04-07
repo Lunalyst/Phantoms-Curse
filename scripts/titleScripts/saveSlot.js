@@ -27,6 +27,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     let startingY = -40;
     let spacing = 0;
     let rows = 0;
+
+    this.scene = scene;
     
     this.slotLetters = [];
     let slotLetterString = "SLOT:?";
@@ -166,13 +168,13 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
   }
 
   // function sets the skills from the savedata of the current slot.
-  setSkillDisplay(scene) {
+  setSkillDisplay() {
     // sets the skills from the savefile to be displayed.
     let animationNumber = "";
-    if (scene.playerSaveSlotData !== undefined && scene.playerSkillsData !== undefined) {
+    if (this.scene.playerSaveSlotData !== undefined && this.scene.playerSkillsData !== undefined) {
 
       let skillCounter = 0;
-      for(let [key,value] of Object.entries(scene.playerSkillsData)){
+      for(let [key,value] of Object.entries(this.scene.playerSkillsData)){
         if(value !== 0){
           this.skillMarks[skillCounter].anims.play(value.toString());
           this.skillMarks[skillCounter].visible = true;
@@ -184,33 +186,33 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     }
     // sets the sexicon to reflect the save data
     //undefined when comparing with object does explicit type conversions which can be true when they should be false. to get around this we use the explicit !== operator.
-    if (scene.playerSex !== undefined) {
-      this.sexIcon.anims.play(scene.playerSex.toString());
+    if (this.scene.playerSex !== undefined) {
+      this.sexIcon.anims.play(this.scene.playerSex.toString());
     } else {
       this.sexIcon.anims.play("2");
     }
 
     //sets the slot number character to be correct.
-    if (scene.tempNewGameSlotID !== undefined) {
+    if (this.scene.tempNewGameSlotID !== undefined) {
 
       //console.log("seting sexicon to animationNumber: "+animationNumber);
-      this.slotLetters[5].anims.play(scene.tempNewGameSlotID.toString());
+      this.slotLetters[5].anims.play(this.scene.tempNewGameSlotID.toString());
     } else {
       this.slotLetters[5].anims.play("?");
     }
 
-    if (scene.playerHealth !== undefined) {
+    if (this.scene.playerHealth !== undefined) {
       animationNumber = "";
-      animationNumber = animationNumber + scene.playerSaveSlotData.playerHealthUpgrades;
+      animationNumber = animationNumber + this.scene.playerSaveSlotData.playerHealthUpgrades;
       console.log("animationNumber for hp: " + animationNumber);
       this.healthIcon.anims.play(animationNumber);
     } else {
       this.healthIcon.anims.play("0");
     }
 
-    if (scene.playerSaveSlotData !== undefined) {
+    if (this.scene.playerSaveSlotData !== undefined) {
       animationNumber = "";
-      animationNumber += scene.playerSaveSlotData.currency;
+      animationNumber += this.scene.playerSaveSlotData.currency;
       console.log("animationNumber for currency: " + animationNumber);
       for (let counter = 0; counter < this.shellLetters.length; counter++) {
         if (counter < animationNumber.length) {
@@ -222,11 +224,11 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     }
     // displays
-    if (scene.playerSaveSlotData !== undefined) {
+    if (this.scene.playerSaveSlotData !== undefined) {
       animationNumber = "";
-      animationNumber += scene.playerSaveSlotData.bestiaryCompletionPercent;
+      animationNumber += this.scene.playerSaveSlotData.bestiaryCompletionPercent;
       //console.log("animationNumber for bestiary percent: " +animationNumber);
-      if (scene.playerSaveSlotData.bestiaryCompletionPercent > 9 && scene.playerSaveSlotData.bestiaryCompletionPercent < 100 ) {
+      if (this.scene.playerSaveSlotData.bestiaryCompletionPercent > 9 && this.scene.playerSaveSlotData.bestiaryCompletionPercent < 100 ) {
         for (let counter = 0; counter < this.bestiaryLetters.length - 1; counter++) {
 
           this.bestiaryLetters[counter].anims.play(animationNumber.charAt(counter));
@@ -234,13 +236,13 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
         }
         this.bestiaryLetters[3].visible = false;
         this.bestiaryLetters[2].anims.play("%");
-      } else if (scene.playerSaveSlotData.bestiaryCompletionPercent < 10) {
+      } else if (this.scene.playerSaveSlotData.bestiaryCompletionPercent < 10) {
         this.bestiaryLetters[3].visible = false;
         this.bestiaryLetters[2].visible = false;
         this.bestiaryLetters[1].anims.play("%");
         this.bestiaryLetters[0].anims.play(animationNumber.charAt(0));
        
-      }else if(scene.playerSaveSlotData.bestiaryCompletionPercent === 100){
+      }else if(this.scene.playerSaveSlotData.bestiaryCompletionPercent === 100){
         this.bestiaryLetters[3].anims.play("%");
         this.bestiaryLetters[2].anims.play("0");
         this.bestiaryLetters[1].anims.play("0");

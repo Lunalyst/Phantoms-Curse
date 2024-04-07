@@ -9,8 +9,7 @@ class titleScreen extends Phaser.Scene {
     constructor(){
         // scene settings
         super({key: 'titleScreen',active: true,physics:{default:'arcade'}});
-
-        //button definitions
+        //variables attached to the scene
         this.newGame;
         this.loadGame;
         this.allFunctions;
@@ -18,30 +17,23 @@ class titleScreen extends Phaser.Scene {
         this.titleLogo;
         this.title;
         this.activateFunctions;
-        this.curse;
-
-        //location values. could be simplifyed into  chacking one variable that matches a string.
         this.isInOptionsMenu = false;
         this.isInNewGameSelect = false;
         this.isInNewGameSlotSelect = false;
         this.isInSlotSelectLoad = false;
         this.isInSlotSelectNew = false;
         this.isInDelete = false;
-
-        this.menuLocation = 'mainMenu';
-
-
         this.playerSexSelect = 0;
         this.playerPreferance = 0;
         this.tempNewGameSlotID = 0;
         this.selectedSlotToBeDeleted = 0;
+        this.curse;
         this.cursecooldown = false;
 
-        //bools for logo animation
         this.logoToggle =false;
         this.logoAnimationPlayed = false;
 
-        //variables for storage.
+        //saved variables
         this.warpToX;
         this.warpToY;
         this.playerHealth;
@@ -52,6 +44,8 @@ class titleScreen extends Phaser.Scene {
         this.playerSkillsData;
         this.playerSaveSlotData;
         this.flagValues;
+
+        this.curse; 
         }
 
         //options and new game should make other elements dissapear and for a box of appropriate size to appear. for new game we are going to need a textbox telling the player to choose a sex and a preferance.
@@ -88,20 +82,10 @@ class titleScreen extends Phaser.Scene {
 
         create(){
             let that = this;
-            this.anims.create({key: 'newActive',frames: this.anims.generateFrameNames('newGame', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'newInActive',frames: this.anims.generateFrameNames('newGame', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'loadActive',frames: this.anims.generateFrameNames('loadGame', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'loadInActive',frames: this.anims.generateFrameNames('loadGame', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'optionsActive',frames: this.anims.generateFrameNames('options', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'optionsInActive',frames: this.anims.generateFrameNames('options', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'backActive',frames: this.anims.generateFrameNames('back', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'backInActive',frames: this.anims.generateFrameNames('back', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'noActive',frames: this.anims.generateFrameNames('no', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'noInActive',frames: this.anims.generateFrameNames('no', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'yesActive',frames: this.anims.generateFrameNames('yes', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'yesInActive',frames: this.anims.generateFrameNames('yes', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'maleActive',frames: this.anims.generateFrameNames('maleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'maleInActive',frames: this.anims.generateFrameNames('maleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
@@ -117,6 +101,8 @@ class titleScreen extends Phaser.Scene {
             this.title =this.add.sprite(450, 50, "title");
             this.title.anims.play("titleLoop");
             this.title.setScale(1/3 + 1/7);
+
+            this.curse = new curse(this, 275,175);
 
             this.sceneTextBox = new textBox(this,450,620,'textBox');
             this.sceneTextBox.setTitleScreenView();
@@ -154,15 +140,21 @@ class titleScreen extends Phaser.Scene {
 
             this.activateFunctions = new allSceneFunctions;
            
-            //this.backround.anims.play("backroundLoop");
-            this.newGame =  this.add.sprite(150, 600, "newGame").setInteractive();
-            //this.newGame.setScale(3);
-            this.loadGame =  this.add.sprite(150, 650, "loadGame").setInteractive();
-            //this.loadGame.setScale(3);
-            this.options =  this.add.sprite(130, 700, "options").setInteractive();
-            //this.options.setScale(3);
-            this.back =  this.add.sprite(80, 850, "back").setInteractive();
-            this.back.visible = false;
+            this.newGame = new newGame(this,150,600);
+
+            this.loadGame = new loadGame(this,150, 650);
+
+            this.options = new options(this,130, 700);
+
+            this.back = new back(this, 80, 850);
+
+            this.maleIcon = new maleIcon(this,350, 500);
+
+            //this.maleIcon = this.add.sprite(350, 500, "maleSexSelectIcons").setInteractive();
+            //this.maleIcon.visible = false;
+
+            this.femaleIcon = this.add.sprite(550, 500, "femaleSexSelectIcons").setInteractive();
+            this.femaleIcon.visible = false;
 
             this.no = this.add.sprite(350, 500, "no").setInteractive();
             this.no. visible = false;
@@ -170,50 +162,23 @@ class titleScreen extends Phaser.Scene {
             this.yes = this.add.sprite(550, 500, "yes").setInteractive();
             this.yes. visible = false;
 
-            this.maleIcon = this.add.sprite(350, 500, "maleSexSelectIcons").setInteractive();
-            this.maleIcon.visible = false;
-
-            this.femaleIcon = this.add.sprite(550, 500, "femaleSexSelectIcons").setInteractive();
-            this.femaleIcon.visible = false;
-            //this.back.setScale(3);
             
 
             this.allFunctions = new allSceneFunctions;
 
             this.input.mouse.capture = true;
 
-            this.newGame.on('pointerdown', function (pointer) {
+            this.newGame.setupNewGame();
 
-                that.newGame.visible = false;
-                that.loadGame.visible = false;
-                that.options.visible = false;
-                that.back.visible = true;
-                that.titleLogo.visible = false;
-                that.isInSlotSelectNew = true;
-                if(that.curse !== undefined){
-                    that.curse.visible = false;
-                }
+            this.loadGame.setupLoadGame();
 
-                that.showSaveSlots(true,false);
-               
-            });
+            this.options.setupOptions();
 
-            this.loadGame.on('pointerdown', function (pointer) {
+            this.back.setupBack();
 
-                // here is where we set up the three save slots.
-                that.newGame.visible = false;
-                that.loadGame.visible = false;
-                that.titleLogo.visible = false;
-                that.options.visible = false;
-                that.back.visible = true;
-                that.isInSlotSelectLoad = true;
-                if(that.curse !== undefined){
-                    that.curse.visible = false;
-                }
-                
-                that.showSaveSlots(true,true);
-            
-            });
+            this.maleIcon.setupmaleIcon();
+
+
 
             this.saveslot1.on('pointerdown', function (pointer) {
                 console.log("activating saveSlot1, that.isInSlotSelectNew: "+ that.isInSlotSelectNew+ "that.isInSlotSelectLoad: "+ that.isInSlotSelectLoad);
@@ -236,271 +201,6 @@ class titleScreen extends Phaser.Scene {
             // make a options setting. options setting should hide other options on screen. maybe a popup window that covers title?
             // should change sound effects. maybe key binds or something of the like.
 
-            this.options.on('pointerdown', function (pointer) {
-
-       
-                that.isInOptionsMenu = true;
-                that.newGame.visible = false;
-                that.loadGame.visible = false;
-                that.options.visible = false;
-                that.back.visible = true;
-                that.titleLogo.visible = false;
-
-                if(that.curse !== undefined){
-                    that.curse.visible = false;
-                }
-        
-             });
-
-            this.back.on('pointerdown', function (pointer) {
-        //console.log("activating back button. "+  )
-       
-            if(that.isInOptionsMenu){
-                console.log("leaving options menu.");
-                that.newGame.visible = true;
-                that.loadGame.visible = true;
-                that.titleLogo.visible = true;
-                that.options.visible = true;
-                that.back.visible = false;
-                that.isInOptionsMenu = false;
-            }else if(that.isInNewGameSelect){
-                console.log("leaving new game sex select.");
-                that.newGame.visible = false;
-                that.loadGame.visible = false;
-                that.options.visible = false;
-                that.back.visible = true;
-                that.titleLogo.visible = false;
-                that.isInSlotSelectNew = true;
-                that.isInNewGameSelect = false;
-
-                that.sceneTextBox.hideText(false);
-                that.sceneTextBox.textBoxProfileImage.visible = false;
-                that.sceneTextBox.visible = false;
-                that.femaleIcon.visible = false;
-                that.maleIcon.visible = false;
-
-                that.showSaveSlots(true,false);
-               
-
-            }else if(that.isInSlotSelectLoad === true || that.isInSlotSelectNew === true){
-                console.log("leaving loadfile select/make new game select.");
-                that.isInSlotSelectLoad = false;
-                that.isInSlotSelectNew = false;
-                that.isInNewGameSlotSelect = false;
-                that.newGame.visible = true;
-                that.loadGame.visible = true;
-                that.titleLogo.visible = true;
-                that.options.visible = true;
-                that.back.visible = false;
-                that.isInOptionsMenu = false;
-                that.saveslot1.visible = false;
-                that.trashCan1.visible = false;
-                that.saveslot1.showSlot();
-                that.saveslot2.visible = false;
-                that.trashCan2.visible = false;
-                that.saveslot2.showSlot();
-                that.saveslot3.visible = false;
-                that.trashCan3.visible = false;
-                that.saveslot3.showSlot();
-
-
-            }else if(that.isInDelete === true){
-
-                that.sceneTextBox.hideText(false);
-                that.sceneTextBox.textBoxProfileImage.visible = false;
-                that.sceneTextBox.visible = false;
-
-                that.yes.visible = false;
-                that.no.visible = false;
-                that.isInDelete = false;
-
-                that.newGame.visible = false;
-                that.loadGame.visible = false;
-                that.titleLogo.visible = false;
-                that.options.visible = false;
-                that.back.visible = true;
-                that.isInSlotSelectLoad = true;
-                
-                that.showSaveSlots(true,true);
-            }
-    
-            });
-
-        this.maleIcon.on('pointerdown', function (pointer) {
-            console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
-             
-             let playerBestiaryData = {
-                blueSlime:1,
-                largeBlueSlime:1,
-                axolotlMale:0,
-                axolotlfemale:0,
-                largePurpleSlugFemale:0,
-                largePurpleSlugMale:0,
-                rabbitfemale:0,
-                rabbitMale:0,
-                cowFemale:0,
-                cowMale:0,
-                blueSlimeHumanoidFemale:0,
-                blueSlimeHumanoidFemaleLarge:0,
-                sharkFemale:0,
-                sharkMale:0,
-                
-             };
-
-             let playerSkillsData = {
-                jump:1,
-                dash:0,
-                strength:0,
-                mimic:0,
-                looting:0
-             };
-
-            let saveSlotData = {
-                saveSlot:that.tempNewGameSlotID,
-                currency: 0,
-                bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 0,
-                PlayerStorage: [],
-             };
-
-             let gameFlags = {
-                containerFlags: []
-             };
-             //creates a array to be filled my objects
-             this.inventoryArray  = [];
-
-             //fills the array with objects
-             for(let counter = 0; counter < 26; counter++){
- 
-                 //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                 //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                 let item = {
-                     itemID: 0,
-                     itemStackable: 1,
-                     itemAmount: 0 
-                  };
- 
-                 this.inventoryArray.push(item);
-             }
-             
- 
-            console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
-
-            that.allFunctions.saveGame(
-                441,//nextSceneX
-                926,//nextSceneY
-                1,//playerHp
-                0,//playerSex
-                this.inventoryArray,//playerInventoryData
-                playerBestiaryData,//playerBestiaryData
-                playerSkillsData,//playerSkillsData
-                saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                gameFlags//gameFlags
-                );
-
-                console.log("now stoping this scene",);
-                that.scene.stop();
-                console.log("now loading game ui",);
-                that.scene.launch('gameHud');
-                setTimeout(function () {
-                    console.log("now Loading main scene",);
-                    that.scene.start('tutorialBeachLevel');
-        
-                }, 10);
-                
-                   
-        });
-        
-        this.femaleIcon.on('pointerdown', function (pointer) {
-            console.log("that.tempNewGameSlotID: "+that.tempNewGameSlotID);
-             //saveGame(nextSceneX,nextSceneY,playerHp,playerInventoryData,playerSex,gameFlags)
-             let playerBestiaryData = {
-                blueSlime:0,
-                largeBlueSlime:0,
-                axolotlMale:0,
-                axolotlfemale:0,
-                largePurpleSlugFemale:0,
-                largePurpleSlugMale:0,
-                rabbitfemale:0,
-                rabbitMale:0,
-                cowFemale:0,
-                cowMale:0,
-                blueSlimeHumanoidFemale:0,
-                blueSlimeHumanoidFemaleLarge:0,
-                sharkFemale:0,
-                sharkMale:0
-             };
-
-             let playerSkillsData = {
-                jump:1,
-                dash:0,
-                strength:0,
-                mimic:0,
-                looting:0
-             };
-
-             let saveSlotData = {
-                saveSlot:that.tempNewGameSlotID,
-                currency: 0,
-                bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 0,
-                PlayerStorage: [],
-             };
-
-             let gameFlags = {
-                containerFlags: []
-
-             };
-
-               
-            //creates a array to be filled my objects
-            this.inventoryArray  = [];
-
-            //fills the array with objects
-            for(let counter = 0; counter < 26; counter++){
-
-                //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                let item = {
-                    itemID: 0,
-                    itemStackable: 1,
-                    itemAmount: 0 
-                 };
-
-                this.inventoryArray.push(item);
-            }
-
-            
-            
-
-            console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
-
-            
-             //441, 926
-             //3735,541
-            that.allFunctions.saveGame(
-                441,//nextSceneX
-                926,//nextSceneY
-                2,//playerHp
-                1,//playerSex
-                this.inventoryArray,//playerInventoryData
-                playerBestiaryData,//playerBestiaryData
-                playerSkillsData,//playerSkillsData
-                saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                gameFlags//gameFlags
-                );
-
-                console.log("now stoping this scene",);
-                that.scene.stop();
-                console.log("now loading game ui",);
-                that.scene.launch('gameHud');
-                setTimeout(function () {
-                    console.log("now Loading main scene",);
-                    that.scene.start('tutorialBeachLevel');
-        
-                }, 10);
-                   
-        });
 
         this.yes.on('pointerdown', function (pointer) {
 
@@ -656,11 +356,11 @@ class titleScreen extends Phaser.Scene {
         update(){
 
             if(this.logoToggle === false){
-                if(this.logoAnimationPlayed === false){
+                if(this.logoAnimationPlayed === false && this.titleLogo.visible === true){
                     this.logoAnimationPlayed = true;
-                    this.curse = new curse(this, 275,175);
+                    this.curse.visible = true;
                     console.log("this.curse",this.curse);
-                    this.cursecooldown = this.curse.destroyCurse();
+                    this.cursecooldown = this.curse.switchCurse();
                     this.titleLogo.anims.play("titleLogoLoop1").once('animationcomplete' , () =>{
                         this.logoAnimationPlayed = false;
                         this.logoToggle = true;
@@ -678,6 +378,17 @@ class titleScreen extends Phaser.Scene {
 
             }
             
+        }
+
+        switchScene(){
+            console.log("now stoping this scene",);
+            this.scene.stop();
+
+            console.log("now loading game ui",);
+            this.scene.launch('gameHud');
+            
+            console.log("now Loading main scene",);
+            this.scene.start('tutorialBeachLevel');
         }
 
         clearSlotData(){
@@ -754,12 +465,13 @@ class titleScreen extends Phaser.Scene {
         }
 
         showSaveSlots(isVisible,trashCansVisible){
-            
+            console.log("activating showsaveslots.");
+            console.log("isVisible: ",isVisible," trashCansVisible: ",trashCansVisible);
             this.saveslot1.visible = isVisible;
             this.activateFunctions.loadGameFile(this,1);
             this.tempNewGameSlotID = 1;
             this.saveslot1.showSlot();
-            this.saveslot1.setSkillDisplay(this);
+            this.saveslot1.setSkillDisplay();
             this.trashCan1.visible = trashCansVisible;
             this.clearSlotData();
 
@@ -767,7 +479,7 @@ class titleScreen extends Phaser.Scene {
             this.activateFunctions.loadGameFile(this,2);
             this.tempNewGameSlotID = 2;
             this.saveslot2.showSlot();
-            this.saveslot2.setSkillDisplay(this);
+            this.saveslot2.setSkillDisplay();
             this.trashCan2.visible = trashCansVisible;
             this.clearSlotData();
 
@@ -775,7 +487,7 @@ class titleScreen extends Phaser.Scene {
             this.activateFunctions.loadGameFile(this,3); 
             this.tempNewGameSlotID = 3;
             this.saveslot3.showSlot();
-            this.saveslot3.setSkillDisplay(this);
+            this.saveslot3.setSkillDisplay();
             this.trashCan3.visible = trashCansVisible;
             this.clearSlotData();
 

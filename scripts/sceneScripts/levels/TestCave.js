@@ -88,7 +88,7 @@ class TestCave extends defaultScene {
 
       this.initSavePoints(687,765-14);
 
-      this.initPortals(343,829-12,2566,1373,"warpCaveInside","ForestRavineHome");
+      this.initPortals(343,829-13,2566,1373,"warpCaveInside","ForestRavineHome");
 
       this.initPortals(1892,829-12,378,1149,"warpCaveInside","TestForest");
       

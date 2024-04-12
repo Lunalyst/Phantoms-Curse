@@ -645,7 +645,7 @@ class defaultScene extends Phaser.Scene {
         this.portals.children.each(function (tempPortal) {
         //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
         // fuck overlap function. check if the player is within the bounds fo the sprite and control prompts according to that. problem solved.
-        if ((this.player1.x > tempPortal.x - 50 && this.player1.x < tempPortal.x + 50) && (this.player1.y > tempPortal.y - 50 && this.player1.y < tempPortal.y + 50) && this.grabbed === false) {
+        if ((this.player1.x > tempPortal.x - 30 && this.player1.x < tempPortal.x + 30) && (this.player1.y > tempPortal.y - 50 && this.player1.y < tempPortal.y + 50) && this.grabbed === false) {
             console.log("within warp point");
             tempPortal.safeToLoad = true;
             this.activatedPortalId = tempPortal.warpPortalId;
@@ -747,7 +747,7 @@ class defaultScene extends Phaser.Scene {
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
         this.player1.x = this.warpToX
-        this.player1.y = this.warpToY
+        this.player1.y = this.warpToY-20
       }
 
     }

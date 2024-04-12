@@ -84,10 +84,6 @@ class titleScreen extends Phaser.Scene {
             let that = this;
             this.anims.create({key: 'noActive',frames: this.anims.generateFrameNames('no', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'noInActive',frames: this.anims.generateFrameNames('no', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'yesActive',frames: this.anims.generateFrameNames('yes', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'yesInActive',frames: this.anims.generateFrameNames('yes', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
             this.anims.create({key: 'titleLogoLoop1',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 10 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
@@ -150,17 +146,16 @@ class titleScreen extends Phaser.Scene {
 
             this.maleIcon = new maleIcon(this,350, 500);
 
-            //this.maleIcon = this.add.sprite(350, 500, "maleSexSelectIcons").setInteractive();
-            //this.maleIcon.visible = false;
+            this.femaleIcon = new femaleIcon(this,550, 500);
 
-            this.femaleIcon = this.add.sprite(550, 500, "femaleSexSelectIcons").setInteractive();
-            this.femaleIcon.visible = false;
+            this.yes = new yes(this,550, 500);
+
 
             this.no = this.add.sprite(350, 500, "no").setInteractive();
             this.no. visible = false;
 
-            this.yes = this.add.sprite(550, 500, "yes").setInteractive();
-            this.yes. visible = false;
+           // this.yes = this.add.sprite(550, 500, "yes").setInteractive();
+            //this.yes. visible = false;
 
             
 
@@ -176,7 +171,11 @@ class titleScreen extends Phaser.Scene {
 
             this.back.setupBack();
 
-            this.maleIcon.setupmaleIcon();
+            this.maleIcon.setupMaleIcon();
+
+            this.femaleIcon.setupFemaleIcon();
+
+            this.yes.setupYes();
 
 
 
@@ -202,79 +201,7 @@ class titleScreen extends Phaser.Scene {
             // should change sound effects. maybe key binds or something of the like.
 
 
-        this.yes.on('pointerdown', function (pointer) {
-
-            
-            that.clearSlotData();
-
-            let playerSaveSlotData = {
-                saveSlot:that.selectedSlotToBeDeleted,
-                currency: 0,
-                bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 0,
-             };
-
-             let playerBestiaryData = {
-                blueSlime:0,
-                largeBlueSlime:0,
-                axolotlMale:0,
-                axolotlfemale:0,
-                largePurpleSlugFemale:0,
-                largePurpleSlugMale:0,
-                rabbitfemale:0,
-                rabbitMale:0,
-                cowFemale:0,
-                cowMale:0,
-                blueSlimeHumanoidFemale:0,
-                blueSlimeHumanoidFemaleLarge:0,
-                sharkFemale:0,
-                sharkMale:0
-             };
-
-             let playerSkillsData = {
-                jump:0,
-                dash:0,
-                strength:0,
-                mimic:0,
-                looting:0
-             };
-
-             let gameFlags = {
-                containerFlags: []
-
-             };
-
-             let playerDataObject = {
-                currentHp: null,
-                playerMaxHp: null,
-                inventoryArray: null,
-                playerBestiaryData: playerBestiaryData,
-                playerSkillsData: playerSkillsData,
-                playerSaveSlotData: playerSaveSlotData,
-                flagValues: gameFlags,
-            };
-            that.activateFunctions.saveGameFile(
-                that.warpToX,
-                that.warpToY,
-                that.playerSex,
-                that.playerLocation,
-                playerDataObject
-               );
-
-               that.sceneTextBox.hideText(false);
-                that.sceneTextBox.textBoxProfileImage.visible = false;
-                that.sceneTextBox.visible = false;
-
-                that.yes.visible = false;
-                that.no.visible = false;
-                that.isInDelete = false;
-
-                that.back.visible = true;
-                that.isInSlotSelectLoad = true;
-                
-                that.showSaveSlots(true,true);
-           
-        });
+        
 
         this.no.on('pointerdown', function (pointer) {
 

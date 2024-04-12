@@ -11,8 +11,8 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
         this.visible = false;
         this.setInteractive();
       
-        this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('maleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('maleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'femaleActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'femaleInActive',frames: this.anims.generateFrameNames('femaleSexSelectIcons', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             
         this.anims.play('femaleInActive');
 

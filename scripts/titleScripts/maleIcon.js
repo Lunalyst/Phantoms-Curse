@@ -20,7 +20,7 @@ class maleIcon extends Phaser.Physics.Arcade.Sprite{
       
     }
 
-    setupmaleIcon(){
+    setupMaleIcon(){
 
         let that = this;
 

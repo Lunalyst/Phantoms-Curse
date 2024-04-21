@@ -53,7 +53,8 @@ class gameOver extends Phaser.Scene {
             this.load.image('backgroundBeachLevel', 'assets/beach_background.png');
 
             this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
-            this.load.spritesheet("gameOverSign" , "assets/gameoversign.png" , {frameWidth: 720 , frameHeight: 300 });
+            this.load.spritesheet("gameOverSignCursed" , "assets/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
+            this.load.spritesheet("gameOverSignEaten" , "assets/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
             
              //load in the JSON file for the bitmap
@@ -93,11 +94,13 @@ class gameOver extends Phaser.Scene {
             console.log("location: ", file.location);
             console.log("enemy: " + file.enemy);
             console.log("playerSaveSlotData: ", file.pssd);
+            console.log("defeatedTitle: ", file.dt);
 
             this.playerSex = file.sex;
             this.gameoverLocation = file.location;
             this.enemyThatDefeatedPlayer = file.enemy;
             this.playerSaveSlotData = file.pssd;
+            this.defeatedTitle = file.dt;
 
             console.log("this.playersex: "+ this.playerSex);
             console.log("now in gameover scene");
@@ -118,8 +121,10 @@ class gameOver extends Phaser.Scene {
             //creates animations for try agian button
             this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'gameoverTitleAnimation',frames: this.anims.generateFrameNames('gameOverSign', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
-            this.anims.create({key: 'gameoverTitleAnimationLoop',frames: this.anims.generateFrameNames('gameOverSign', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
+            this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
+            this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
+            this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
+            this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
             this.tryAgian.anims.play('tryAgianInActive');
             this.tryAgian.setScale(.5);
             this.tryAgian.setDepth(7);
@@ -170,11 +175,20 @@ class gameOver extends Phaser.Scene {
             
             //sets timeout for animations.
             setTimeout(function(){
-                gameoverThat.gameOverSign.anims.play("gameoverTitleAnimation");
+                if(gameoverThat.defeatedTitle === 'eaten'){
+                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationEaten");
+                }else{
+                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationCursed");
+                }
+                
               },200);
 
               setTimeout(function(){
-                gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationLoop");
+                if(gameoverThat.defeatedTitle === 'eaten'){
+                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
+                }else{
+                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationLoopCursed");
+                }
               },220);
            
               setTimeout(function(){

@@ -385,6 +385,11 @@ class tiger extends enemy {
 
             }else if (playerHealthObject.playerHealth === 0) {
 
+                // changes the title to reflect the game over.
+                if(this.scene.defeatedTitle !== "eaten"){
+                    this.scene.defeatedTitle = "eaten";
+                }
+
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
 

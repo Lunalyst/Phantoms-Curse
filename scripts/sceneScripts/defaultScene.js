@@ -127,6 +127,8 @@ class defaultScene extends Phaser.Scene {
 
         this.gameoverLocation = "caveGameover";
 
+        this.defeatedTitle = "cursed";
+
         this.tabObject = {
             tabIsDown: false
         };
@@ -296,19 +298,21 @@ class defaultScene extends Phaser.Scene {
     //{Save AND lOAD Functions}===================================================================================================================
 
     //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
-    saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData) {
+    saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
         //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
         console.log("calling saveGameoverFile============================");
         console.log("playerSex: " + playerSex);
         console.log("gameoverLocation: " + gameoverLocation);
         console.log("enemyThatDefeatedPlayer: " + enemyThatDefeatedPlayer);
         console.log("playerSaveSlotData: ", playerSaveSlotData);
+        console.log("defeatedTitle: ", defeatedTitle);
 
         const file = {
         sex: playerSex,
         location: gameoverLocation,
         enemy: enemyThatDefeatedPlayer,
-        pssd: playerSaveSlotData
+        pssd: playerSaveSlotData,
+        dt: defeatedTitle
         };
         
         //uses local Storage to store the data
@@ -326,11 +330,13 @@ class defaultScene extends Phaser.Scene {
         console.log("location: ", file.location);
         console.log("enemy: " + file.enemy);
         console.log("playerSaveSlotData: ", file.pssd);
+        console.log("defeatedTitle: ", file.dt);
 
         this.playerSex = file.sex;
         this.gameoverLocation = file.location;
         this.enemyThatDefeatedPlayer = file.enemy;
         this.playerSaveSlotData = file.pssd;
+        this.defeatedTitle = file.dt;
     }
 
     // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
@@ -768,7 +774,7 @@ class defaultScene extends Phaser.Scene {
   
         console.log("this.playerSaveSlotData sent to gameover: ",playerSaveSlotDataObject.playerSaveSlotData);
   
-        this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData);
+        this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData,this.defeatedTitle);
 
         
       console.log("removing listeners");

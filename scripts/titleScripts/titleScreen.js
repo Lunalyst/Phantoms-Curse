@@ -63,7 +63,7 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet("femaleSexSelectIcons" , "assets/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-            this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
+            this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
             this.load.spritesheet('saveSlot', 'assets/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
             this.load.spritesheet('skillSaveSlotIcon', 'assets/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
@@ -76,12 +76,17 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet('yes', 'assets/yes.png',{frameWidth: 78, frameHeight: 33 });
             this.load.spritesheet('curses', 'assets/curses.png',{frameWidth: 96, frameHeight: 96 });
 
-            
-            
+            this.load.scenePlugin({
+                key: 'rexuiplugin',
+                url: 'lib/vendors/rexuiplugin.min.js',
+                sceneKey: 'rexUI'
+            });
+
         }
 
         create(){
             let that = this;
+
             this.anims.create({key: 'noActive',frames: this.anims.generateFrameNames('no', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'noInActive',frames: this.anims.generateFrameNames('no', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
@@ -177,7 +182,23 @@ class titleScreen extends Phaser.Scene {
 
             this.yes.setupYes();
 
+            this.no.on('pointerdown', function (pointer) {
 
+                that.sceneTextBox.hideText(false);
+                that.sceneTextBox.textBoxProfileImage.visible = false;
+                that.sceneTextBox.visible = false;
+
+                that.yes.visible = false;
+                that.no.visible = false;
+                that.isInDelete = false;
+
+                that.back.visible = true;
+                that.isInSlotSelectLoad = true;
+                
+                that.showSaveSlots(true,true);
+            
+           
+        });
 
             this.saveslot1.on('pointerdown', function (pointer) {
                 console.log("activating saveSlot1, that.isInSlotSelectNew: "+ that.isInSlotSelectNew+ "that.isInSlotSelectLoad: "+ that.isInSlotSelectLoad);
@@ -200,26 +221,32 @@ class titleScreen extends Phaser.Scene {
             // make a options setting. options setting should hide other options on screen. maybe a popup window that covers title?
             // should change sound effects. maybe key binds or something of the like.
 
+            
+
+            /*this.soundSlider = new Slider(this,{
+                x: 200,
+                y: 200,
+                width: 200,
+                height: 20,
+                orientation: 'x',
+    
+                track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 6, COLOR_DARK),
+                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
+    
+                valuechangeCallback: function (value) {
+                    print0.text = value;
+                },
+                space: {
+                    top: 4,
+                    bottom: 4
+                },
+                input: 'drag', // 'drag'|'click'
+            }).layout();
+
+            this.add.existing(this.soundSlider);*/
+            
 
         
-
-        this.no.on('pointerdown', function (pointer) {
-
-                that.sceneTextBox.hideText(false);
-                that.sceneTextBox.textBoxProfileImage.visible = false;
-                that.sceneTextBox.visible = false;
-
-                that.yes.visible = false;
-                that.no.visible = false;
-                that.isInDelete = false;
-
-                that.back.visible = true;
-                that.isInSlotSelectLoad = true;
-                
-                that.showSaveSlots(true,true);
-            
-           
-        });
 
 
             this.newGame.on('pointerover',function(pointer){

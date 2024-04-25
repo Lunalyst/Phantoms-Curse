@@ -35,7 +35,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < slotLetterString.length; counter++) {
       this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
       this.slotLetters[counter].anims.play(slotLetterString.charAt(counter));
-      this.slotLetters[counter].setScale(.3);
+      this.slotLetters[counter].setScale(1/6);
       this.slotLetters[counter].x = this.slotLetters[counter].x + spacing;
       this.slotLetters[counter].y = this.slotLetters[counter].y - 23;
       this.slotElements.add(this.slotLetters[counter]);
@@ -86,7 +86,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < skillString.length; counter++) {
       this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
       this.slotElements.add(this.skillLetters[counter]);
-      this.skillLetters[counter].setScale(.3);
+      this.skillLetters[counter].setScale(1/6);
       this.skillLetters[counter].anims.play(skillString.charAt(counter));
       this.skillLetters[counter].x = this.skillLetters[counter].x + spacing;
       this.skillLetters[counter].y = this.skillLetters[counter].y - 23;
@@ -105,7 +105,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < shellString.length; counter++) {
       this.shellLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
       //this.slotElements.add(this.shellLetters[counter]);
-      this.shellLetters[counter].setScale(.5);
+      this.shellLetters[counter].setScale(1/6);
       this.shellLetters[counter].anims.play(shellString.charAt(counter));
       this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
       this.shellLetters[counter].y = this.shellLetters[counter].y - 23;
@@ -126,7 +126,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < bestiaryString.length; counter++) {
       this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
       //this.slotElements.add(this.bestiaryLetters[counter]);
-      this.bestiaryLetters[counter].setScale(.5);
+      this.bestiaryLetters[counter].setScale(1/6);
       this.bestiaryLetters[counter].anims.play(bestiaryString.charAt(counter));
       this.bestiaryLetters[counter].x = this.bestiaryLetters[counter].x + spacing;
       this.bestiaryLetters[counter].y = this.bestiaryLetters[counter].y - 23;
@@ -136,7 +136,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     
 
     //this.setDepth(70);
-    this.setScale(.6);
+    this.setScale(.61);
     //connects the sprite to the camera so that it sticks with the player.
     this.setScrollFactor(0);
     //this.openDelay = false;

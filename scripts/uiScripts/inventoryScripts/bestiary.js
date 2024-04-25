@@ -17,18 +17,6 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'back', frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 6 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 10 }), frameRate: 7, repeat: -1 });
-    /*this.anims.create({key: 'axolotlMale',frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'axolotlfemale',frames: this.anims.generateFrameNames('bestiary', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'largePurpleSlugFemale',frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'largePurpleSlugMale',frames: this.anims.generateFrameNames('bestiary', { start: 8, end: 8 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'rabbitfemale',frames: this.anims.generateFrameNames('bestiary', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'rabbitMale',frames: this.anims.generateFrameNames('bestiary', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'cowFemale',frames: this.anims.generateFrameNames('bestiary', { start: 11, end:11 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'cowMale',frames: this.anims.generateFrameNames('bestiary', { start: 12, end: 12 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'blueSlimeHumanoidFemale',frames: this.anims.generateFrameNames('bestiary', { start: 13, end: 13 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'blueSlimeHumanoidFemaleLarge',frames: this.anims.generateFrameNames('bestiary', { start: 14, end: 14 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'sharkFemale',frames: this.anims.generateFrameNames('bestiary', { start: 15, end: 15 }),frameRate: 10,repeat: -1});
-    this.anims.create({key: 'sharkMale',frames: this.anims.generateFrameNames('bestiary', { start: 16, end: 16 }),frameRate: 10,repeat: -1});*/
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -51,7 +39,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
     bestiaryThat = this;
     this.pageNumber = 0;
-    this.setScale(0.8);
+    this.setScale(1/6);
 
     //object contains the text data for the bestiary.
     this.bestiaryTextList = {
@@ -73,10 +61,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     //creates the buttons on the left and right of the bestiary menu when its open.
     this.bestiaryLeft;
     this.bestiaryRight;
-    this.bestiaryLeft = new UIControls(scene, this.openX - 150, this.openY + 180, "UIControls").setInteractive();
+    this.bestiaryLeft = new UIControls(scene, this.openX - 185, this.openY + 235, "UIControls").setInteractive();
     this.bestiaryLeft.anims.play("pointLeft");
     this.bestiaryLeft.visible = false;
-    this.bestiaryRight = new UIControls(scene, this.openX + 150, this.openY + 180, "UIControls").setInteractive();
+    this.bestiaryRight = new UIControls(scene, this.openX + 185, this.openY + 235, "UIControls").setInteractive();
     this.bestiaryRight.anims.play("pointRight");
     this.bestiaryRight.visible = false;
 
@@ -94,8 +82,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     console.log(this.activeBestiaryPages);
 
     //handles the positioning of the title text sprites.
-    let startingX = -165;
-    let startingY = -185;
+    let startingX = -190;
+    let startingY = -215;
     let spacing = 0;
 
     let titleSize = "PLACEHOLDER MONSTER TITLE";
@@ -104,17 +92,17 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < titleSize.length; counter++) {
       this.bestiaryTitle.push(new textBoxCharacter(scene, this.openX + startingX, this.openY + startingY));
       this.titleCharacters.add(this.bestiaryTitle[counter]);
-      this.bestiaryTitle[counter].setScale(0.15);
+      this.bestiaryTitle[counter].setScale(1/6);
       this.bestiaryTitle[counter].setDepth(70);
       this.bestiaryTitle[counter].anims.play(titleSize.charAt(counter));
       this.bestiaryTitle[counter].x = this.bestiaryTitle[counter].x + spacing;
       this.bestiaryTitle[counter].y = this.bestiaryTitle[counter].y + 9;
-      spacing = spacing + 10;
+      spacing = spacing + 16;
     }
 
     //handles the summary character text sprites.
-    startingX = -15;
-    startingY = -160;
+    startingX = -35;
+    startingY = -180;
     spacing = 0;
     let rowSpacing = 0;
     let rowCounter = 0;
@@ -126,17 +114,17 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     for (let counter = 0; counter < this.summarySize.length; counter++) {
       this.bestiarySummary.push(new textBoxCharacter(scene,this.openX + startingX, this.openY + startingY));
       this.summaryCharacters.add(this.bestiarySummary[counter]);
-      this.bestiarySummary[counter].setScale(0.15);
+      this.bestiarySummary[counter].setScale(1/6);
       this.bestiarySummary[counter].setDepth(70);
       this.bestiarySummary[counter].anims.play(this.summarySize.charAt(counter));
       this.bestiarySummary[counter].x = this.bestiarySummary[counter].x + spacing;
       this.bestiarySummary[counter].y = this.bestiarySummary[counter].y + rowSpacing;
-      spacing = spacing + 10;
+      spacing = spacing + 16;
       rowCounter++;
-      if (rowCounter === 17) {
+      if (rowCounter === 15) {
         rowCounter = 0;
         spacing = 0;
-        rowSpacing += 10;
+        rowSpacing += 20;
 
       }
     }
@@ -155,7 +143,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       console.log("this.isOpen from bestiary " + this.isOpen);
       this.anims.play(this.activeBestiaryPages[this.pageNumber]);
       this.openDelay = true;
-      this.setScale(0.8);
+      this.setScale(0.45);
       this.setDepth(60);
 
       this.x = this.openX;
@@ -193,7 +181,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
-      this.setScale(.4);
+      this.setScale(.21);
       this.setDepth(52);
 
       this.x = this.originalX;
@@ -321,7 +309,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
       // if the line has letters or symbols that get cut of to the next line we want to add spaces.
       //
-      if (formatingCounter === 17 && this.formattedString.charAt(counter) !== ' ') {
+      if (formatingCounter === 15 && this.formattedString.charAt(counter) !== ' ') {
         for (let index = tempString.length; index > 0; index--) {
           if (tempString.charAt(index) !== ' ') {
             BackPetal++;
@@ -357,7 +345,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
         tempString = "";
         formatingCounter = 0;
-      } else if (formatingCounter === 17) {
+      } else if (formatingCounter === 15) {
         formatingCounter = 0;
       }
       

@@ -42,7 +42,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
       //setting the interior object of the inventory as a back drop for other objects.
-      this.inventoryInterior.setScale(1/2);
+      this.inventoryInterior.setScale(0.26);
       this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.play("closed");
@@ -131,7 +131,7 @@ class inventory extends Phaser.GameObjects.Container{
         for(row = 0; row < 6; row++){
           
           //creates the slots as the loop generats the slots
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-125) +(col*60),'inventorySlots').setInteractive();
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-180) + (row*60), (this.y-125) +(col*60),'inventorySlots').setInteractive();
           //adds the object to this container.
           this.add(this.inventoryArray[index]);
           //adds this to a group to set sprite visibility.
@@ -163,7 +163,7 @@ class inventory extends Phaser.GameObjects.Container{
 
       //sets up bestiary and its label
       console.log("activated bestiary controls");
-      this.bestiaryUI = new bestiary(scene,this.x-195,this.y+120,this.x+440,this.y-40).setInteractive(scene.input.makePixelPerfect());
+      this.bestiaryUI = new bestiary(scene,this.x-183,this.y+120,this.x+445,this.y+40).setInteractive(scene.input.makePixelPerfect());
       this.inventoryElements.add(this.bestiaryUI);
       this.add(this.bestiaryUI);
 
@@ -181,7 +181,7 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
 
-      this.bestiaryLabel = new inventoryLabels(scene,this.x-195,this.y+150,'Labels');
+      this.bestiaryLabel = new inventoryLabels(scene,this.x-183,this.y+150,'Labels');
       this.inventoryElements.add(this.bestiaryLabel);
       this.add(this.bestiaryLabel);
       this.bestiaryLabel.anims.play('bestiary');
@@ -230,27 +230,18 @@ class inventory extends Phaser.GameObjects.Container{
 
 
       index++;
-      //slots for the container.
-      /*for(col = 0; col < 4; col++){
-        for(row = 0; row < 5; row++){
-          //creates the slots as the loop generats the slots
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-200) + (row*60), (this.y-425) +(col*60),'inventorySlots').setInteractive();
-          //adds the object to this container.
-          this.add(this.inventoryArray[index]);
-          index++; 
-        }
-      }*/
+      
 
 
       //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
-      this.inventoryBorder.setScale(1/2);
+      this.inventoryBorder.setScale(0.26);
       this.inventoryElements.add(this.inventoryBorder);
       this.add(this.inventoryBorder);
 
      
       //adds currency counter
-      this.shellIcon = new shellMark(scene,this.x-120,this.y+120);
+      this.shellIcon = new shellMark(scene,this.x-110,this.y+120);
       this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
       this.add(this.shellIcon);
@@ -265,7 +256,7 @@ class inventory extends Phaser.GameObjects.Container{
         this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY));
         this.inventoryElements.add(this.shellLetters[counter]);
         this.add(this.shellLetters[counter]);
-        this.shellLetters[counter].setScale(.4);
+        this.shellLetters[counter].setScale(1/6);
         this.shellLetters[counter].anims.play(shellString.charAt(counter));
         this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
         this.shellLetters[counter].y = this.shellLetters[counter].y ;

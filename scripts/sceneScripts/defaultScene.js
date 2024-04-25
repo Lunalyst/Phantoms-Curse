@@ -62,7 +62,7 @@ class defaultScene extends Phaser.Scene {
        this.load.spritesheet('chest', 'assets/chest.png',{frameWidth: 249, frameHeight: 231});
 
        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 40, frameHeight: 40 });
+       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 84, frameHeight: 108});
        this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
        this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
@@ -72,6 +72,12 @@ class defaultScene extends Phaser.Scene {
         url: 'lib/vendors/AnimatedTiles.js',
         sceneKey: 'AnimatedTiles'
         });
+
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'lib/vendors/rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });  
     }
 
     //{scene setup Functions}===================================================================================================================

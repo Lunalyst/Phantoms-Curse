@@ -37,15 +37,15 @@ class gameHud extends Phaser.Scene {
     preload(){
            
       //hud specific 
-      this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 969 , frameHeight: 669 });
-      this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 969 , frameHeight: 669 });
+      this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
+      this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
 
       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
       this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
       this.load.spritesheet('struggleBar', 'assets/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
-      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 462, frameHeight: 630 });
+      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 924, frameHeight: 1260 });
       this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
       this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
@@ -77,7 +77,7 @@ class gameHud extends Phaser.Scene {
         });
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
-        this.healthDisplay = new hpBar(this,180,20);
+        this.healthDisplay = new hpBar(this,170,20);
 
         /*let that = this;
         setTimeout(function () {
@@ -157,7 +157,7 @@ class gameHud extends Phaser.Scene {
           this.input.mouse.capture = true;
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,130,150,"inventory");
+          this.playerInventory = new inventory(this,117,115,"inventory");
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({

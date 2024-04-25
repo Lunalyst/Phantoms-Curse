@@ -5,6 +5,11 @@ https://phaser.io/examples/v2/input/pointer-over
 https://braelynnn.medium.com/phaser-game-settings-using-localstorage-1cf6a9fa6f2c
  */
 let playerUI;
+
+const COLOR_PRIMARY = 0x4e342e;
+const COLOR_LIGHT = 0x7b5e57;
+const COLOR_DARK = 0x260e04;
+
 class titleScreen extends Phaser.Scene {
     constructor(){
         // scene settings
@@ -44,6 +49,8 @@ class titleScreen extends Phaser.Scene {
         this.playerSkillsData;
         this.playerSaveSlotData;
         this.flagValues;
+        this.OptionsMenu;
+       
 
         this.curse; 
         }
@@ -221,34 +228,9 @@ class titleScreen extends Phaser.Scene {
             // make a options setting. options setting should hide other options on screen. maybe a popup window that covers title?
             // should change sound effects. maybe key binds or something of the like.
 
-            
-
-            /*this.soundSlider = new Slider(this,{
-                x: 200,
-                y: 200,
-                width: 200,
-                height: 20,
-                orientation: 'x',
-    
-                track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 6, COLOR_DARK),
-                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
-    
-                valuechangeCallback: function (value) {
-                    print0.text = value;
-                },
-                space: {
-                    top: 4,
-                    bottom: 4
-                },
-                input: 'drag', // 'drag'|'click'
-            }).layout();
-
-            this.add.existing(this.soundSlider);*/
-            
-
+            this.optionsMenu = new optionsMenu(this,50,150);
+            this.optionsMenu.visible = false;
         
-
-
             this.newGame.on('pointerover',function(pointer){
                 that.newGame.anims.play("newActive");
             })

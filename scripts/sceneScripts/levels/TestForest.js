@@ -92,7 +92,7 @@ class TestForest extends defaultScene {
       this.setUpTextBox();
 
       
-      this.backround = this.add.tileSprite(0, 1370, 100000, 664, "backgroundForestRavineLevel");
+      this.backround = this.add.tileSprite(0, 1370, 1000, 664, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
 
       this.initSavePoints(761,989-14);

@@ -73,11 +73,11 @@ class defaultScene extends Phaser.Scene {
         sceneKey: 'AnimatedTiles'
         });
 
-        this.load.scenePlugin({
+        /*this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'lib/vendors/rexuiplugin.min.js',
             sceneKey: 'rexUI'
-        });  
+        });  */
     }
 
     //{scene setup Functions}===================================================================================================================

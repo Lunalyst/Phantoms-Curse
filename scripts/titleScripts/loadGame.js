@@ -23,7 +23,13 @@ class loadGame extends Phaser.Physics.Arcade.Sprite{
     setupLoadGame(){
 
         let that = this;
-        let tempscene = this.scene;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("loadActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("loadInActive");
+        })
 
         this.on('pointerdown', function (pointer) {
 

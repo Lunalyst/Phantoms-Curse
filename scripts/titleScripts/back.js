@@ -24,17 +24,27 @@ class back extends Phaser.Physics.Arcade.Sprite{
 
         let that = this;
 
+        this.on('pointerover',function(pointer){
+            that.anims.play("backActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("backInActive");
+        })
+
         this.on('pointerdown', function (pointer) {
             //console.log("activating back button. "+  )
            
                 if(that.scene.isInOptionsMenu){
                     console.log("leaving options menu.");
+                    that.scene.elements.setVisible(0);
+
                     that.scene.newGame.visible = true;
                     that.scene.loadGame.visible = true;
                     that.scene.titleLogo.visible = true;
                     that.scene.options.visible = true;
                     that.visible = false;
                     that.scene.isInOptionsMenu = false;
+                    
                 }else if(that.scene.isInNewGameSelect){
                     console.log("leaving new game sex select.");
                     that.scene.newGame.visible = false;

@@ -47,15 +47,6 @@ class hpBar extends Phaser.GameObjects.Container{
         this.barHight = startmaxHight;
 
         this.bar = new Phaser.GameObjects.Graphics(scene);
-        this.bar.setDepth(20);
-        //this.bar.setDepth(7);
-        //this.bar.setScale(.3);
-        this.bar.setScrollFactor(0);
-    
-
-       /* this.hpBarElements = new Phaser.GameObjects.Group(scene); 
-        this.hpBarElements.add(this.outSide); 
-        this.hpBarElements.add(this.bar); */
         
         this.add(this.outSide);
         this.add(this.bar);

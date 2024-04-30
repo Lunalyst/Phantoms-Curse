@@ -24,6 +24,13 @@ class options extends Phaser.Physics.Arcade.Sprite{
 
         let that = this;
 
+        this.on('pointerover',function(pointer){
+            that.anims.play("optionsActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("optionsInActive");
+        })
+
         this.on('pointerdown', function (pointer) {
 
        
@@ -33,9 +40,8 @@ class options extends Phaser.Physics.Arcade.Sprite{
             that.visible = false;
             that.scene.back.visible = true;
             that.scene.titleLogo.visible = false;
-
-            
             that.scene.curse.visible = false;
+            that.scene.optionsMenu.visible = true;
         
     
          });

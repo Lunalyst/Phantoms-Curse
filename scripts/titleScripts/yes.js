@@ -2,7 +2,7 @@ class yes extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos){
       //super() calls the constructor() from the parent class we are extending
-      super(scene, xPos, yPos, 'femaleSexSelectIcons');
+      super(scene, xPos, yPos, 'yes');
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
         scene.add.existing(this);
@@ -24,6 +24,13 @@ class yes extends Phaser.Physics.Arcade.Sprite{
     setupYes(){
 
         let that = this;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("yesActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("yesInActive");
+        })
 
         this.on('pointerdown', function (pointer) {
 

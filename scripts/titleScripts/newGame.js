@@ -22,21 +22,27 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
 
     setupNewGame(){
 
-        let thatNG = this;
+        let that = this;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("newActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("newInActive");
+        })
 
         this.on('pointerdown', function (pointer) {
+            that.visible = false;
+            that.scene.loadGame.visible = false;
+            that.scene.options.visible = false;
+            that.scene.back.visible = true;
+            that.scene.titleLogo.visible = false;
+            that.scene.isInSlotSelectNew = true;
+            that.scene.curse.visible = false;
+            that.scene.curse.visible = false;
+            
 
-            thatNG.visible = false;
-            thatNG.scene.loadGame.visible = false;
-            thatNG.scene.options.visible = false;
-            thatNG.scene.back.visible = true;
-            thatNG.scene.titleLogo.visible = false;
-            thatNG.scene.isInSlotSelectNew = true;
-            if(thatNG.scene.curse !== undefined){
-                thatNG.scene.curse.visible = false;
-            }
-
-            thatNG.scene.showSaveSlots(true,false);
+            that.scene.showSaveSlots(true,false);
            
         });
 

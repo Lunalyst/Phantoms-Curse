@@ -24,6 +24,13 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
 
         let that = this;
 
+        this.on('pointerover',function(pointer){
+            that.anims.play("femaleActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("femaleInActive");
+        })
+
         this.on('pointerdown', function (pointer) {
             console.log("that.tempNewGameSlotID: "+that.scene.tempNewGameSlotID);
              //saveGame(nextSceneX,nextSceneY,playerHp,playerInventoryData,playerSex,gameFlags)

@@ -25,8 +25,8 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //this.add(this.print0);
         this.volumeSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
-                x: ((this.x - scene.cameras.main.worldView.x) * scene.cameras.main.zoom)+200,
-                y: ((this.y - scene.cameras.main.worldView.y) * scene.cameras.main.zoom)+177,
+                x: ((this.x - scene.cameras.main.worldView.x) * scene.cameras.main.zoom)+45,
+                y: ((this.y - scene.cameras.main.worldView.y) * scene.cameras.main.zoom)+50,
                 width: 200,
                 height: 20,
                 orientation: 'x',
@@ -43,7 +43,6 @@ class optionsMenu extends Phaser.GameObjects.Container{
                 },
                 input: 'drag', // 'drag'|'click'
             }).layout();
-
             this.add(this.volumeSlider);
 
             console.log("scene.rexUI",scene.rexUI);
@@ -53,7 +52,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
        
         scene.add.existing(this);
 
-        //this.visible = true;
+        this.visible = false;
     }
     
 

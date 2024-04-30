@@ -24,6 +24,13 @@ class maleIcon extends Phaser.Physics.Arcade.Sprite{
 
         let that = this;
 
+        this.on('pointerover',function(pointer){
+            that.anims.play("maleActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("maleInActive");
+        })
+
         this.on('pointerdown', function (pointer) {
             console.log("that.tempNewGameSlotID: "+that.scene.tempNewGameSlotID);
              

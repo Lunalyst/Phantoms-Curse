@@ -11,6 +11,8 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.characterSexSlot;
     this.visible = false;
     this.slotElements = new Phaser.GameObjects.Group(scene);
+    this.setInteractive();
+    this.visible = false;
 
     //title slot elements.
     this.sexIcon = new sexMark(scene, this.x - 340, this.y - 10);
@@ -251,17 +253,6 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       }
 
     }
-
-
-
-
-
-    /* animationNumber = "";
-     animationNumber = animationNumber + scene.playerSaveSlotData[2];
-     for(let counter = 0; counter < this.bestiaryLetters.length; counter++){
-       
-     }*/
-
 
   }
 

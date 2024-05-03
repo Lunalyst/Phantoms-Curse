@@ -32,10 +32,10 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.setScale((1/3)+((1/3)/2));
 
       //sets up slot inventory amount object.
-      this.number1 = new textBoxCharacter(scene, xPos+5, yPos+12);
+      this.number1 = new textBoxCharacter(scene, xPos+5, yPos+12,'charBlack');
       this.number1.anims.play('0');
 
-      this.number2 = new textBoxCharacter(scene, xPos+13, yPos+12);
+      this.number2 = new textBoxCharacter(scene, xPos+13, yPos+12,'charBlack');
       this.number2.anims.play('0');
 
       

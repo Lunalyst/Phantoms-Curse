@@ -90,7 +90,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.titleCharacters = new Phaser.GameObjects.Group(scene);
     this.bestiaryTitle = [];
     for (let counter = 0; counter < titleSize.length; counter++) {
-      this.bestiaryTitle.push(new textBoxCharacter(scene, this.openX + startingX, this.openY + startingY));
+      this.bestiaryTitle.push(new textBoxCharacter(scene, this.openX + startingX, this.openY + startingY,'charBubble'));
       this.titleCharacters.add(this.bestiaryTitle[counter]);
       this.bestiaryTitle[counter].setScale(1/6);
       this.bestiaryTitle[counter].setDepth(70);
@@ -112,7 +112,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.summaryCharacters = new Phaser.GameObjects.Group(scene);
     this.bestiarySummary = [];
     for (let counter = 0; counter < this.summarySize.length; counter++) {
-      this.bestiarySummary.push(new textBoxCharacter(scene,this.openX + startingX, this.openY + startingY));
+      this.bestiarySummary.push(new textBoxCharacter(scene,this.openX + startingX, this.openY + startingY,'charBlack'));
       this.summaryCharacters.add(this.bestiarySummary[counter]);
       this.bestiarySummary[counter].setScale(1/6);
       this.bestiarySummary[counter].setDepth(70);

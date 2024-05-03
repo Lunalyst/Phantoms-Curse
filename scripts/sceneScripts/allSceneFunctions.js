@@ -96,7 +96,22 @@ class allSceneFunctions {
       console.log("playerSkillsData: ", file.psd);
       console.log("playerSaveSlotData: ", file.pssd);
       console.log("gameFlags: ", file.flags);
+      console.log("settings: ", file.settings);
       //sets values from save data to the values in the scene.
+
+      if(file.settings === undefined){
+        
+        let settings = {
+          preferance: 2,
+          volume: 1.0,
+          onomatopoeia: true
+       };
+
+        scene.settings = settings;
+
+        console.log("settings not defined now setting the settings: ", scene.settings);
+      }
+
       scene.warpToX = file.saveX;
       scene.warpToY = file.saveY;
       scene.playerHealth = file.playerHpValue;
@@ -128,7 +143,7 @@ class allSceneFunctions {
     }
   }
   //temp save game. used to keep track of data between scenes.
-  saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {
+  saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags,settings) {
     //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
 
     console.log("calling temerary saveGame============================");
@@ -141,6 +156,8 @@ class allSceneFunctions {
     console.log("playerSkillsData: ", playerSkillsData);
     console.log("playerSaveSlotData: ", playerSaveSlotData);
     console.log("gameFlags: ", gameFlags);
+    console.log("settings: ", settings);
+
     console.log("location: " + location);
 
     const file = {
@@ -152,7 +169,8 @@ class allSceneFunctions {
       pbd: playerBestiaryData,
       psd: playerSkillsData,
       pssd: playerSaveSlotData,
-      flags: gameFlags
+      flags: gameFlags,
+      settings: settings
     }
     localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
   }

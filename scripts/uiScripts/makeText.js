@@ -6,7 +6,7 @@ use classes tab as a guide for how to set up the header. each object has differe
 
 class makeText extends Phaser.GameObjects.Container{
 
-    constructor(scene, xPos, yPos,text){
+    constructor(scene, xPos, yPos,font,text){
 
         super(scene, xPos, yPos);
 
@@ -26,7 +26,7 @@ class makeText extends Phaser.GameObjects.Container{
         this.letterString = text;
         //fills the array fill of textboxcharacters
         for (let counter = 0; counter < this.letterString.length; counter++) {
-          this.letters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+          this.letters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,font));
           this.letters[counter].anims.play(this.letterString.charAt(counter));
           this.letters[counter].setScale(1/6);
           this.letters[counter].x = this.letters[counter].x + spacing;

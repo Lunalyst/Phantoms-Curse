@@ -4,9 +4,11 @@ const lineLength = 24;
 const textEnd = 72;
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
-    constructor(scene, xPos, yPos,){
+    constructor(scene, xPos, yPos,font){
       
       super(scene, xPos, yPos);
+
+      console.log('font ',font);
       
       this.setDepth(50);
       scene.add.existing(this);
@@ -23,7 +25,7 @@ class textBox extends Phaser.GameObjects.Container{
       let spacing = -200
       let y = -20
       for(let i = 0; i < textEnd; i++){
-        let textChar = new textBoxCharacter(scene, spacing, y);
+        let textChar = new textBoxCharacter(scene, spacing, y,font);
         textChar.setScale(1/6);
         this.add(textChar);
 

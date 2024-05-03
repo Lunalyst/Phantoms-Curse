@@ -35,7 +35,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.slotLetters = [];
     let slotLetterString = "SLOT:?";
     for (let counter = 0; counter < slotLetterString.length; counter++) {
-      this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
       this.slotLetters[counter].anims.play(slotLetterString.charAt(counter));
       this.slotLetters[counter].setScale(1/6);
       this.slotLetters[counter].x = this.slotLetters[counter].x + spacing;
@@ -86,7 +86,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.skillLetters = [];
     let skillString = "SKILLS:";
     for (let counter = 0; counter < skillString.length; counter++) {
-      this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
       this.slotElements.add(this.skillLetters[counter]);
       this.skillLetters[counter].setScale(1/6);
       this.skillLetters[counter].anims.play(skillString.charAt(counter));
@@ -105,7 +105,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.shellLetters = [];
     let shellString = "000";
     for (let counter = 0; counter < shellString.length; counter++) {
-      this.shellLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      this.shellLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
       //this.slotElements.add(this.shellLetters[counter]);
       this.shellLetters[counter].setScale(1/6);
       this.shellLetters[counter].anims.play(shellString.charAt(counter));
@@ -126,7 +126,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.bestiaryLetters = [];
     let bestiaryString = "000%";
     for (let counter = 0; counter < bestiaryString.length; counter++) {
-      this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY));
+      this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
       //this.slotElements.add(this.bestiaryLetters[counter]);
       this.bestiaryLetters[counter].setScale(1/6);
       this.bestiaryLetters[counter].anims.play(bestiaryString.charAt(counter));

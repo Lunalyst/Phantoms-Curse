@@ -24,7 +24,6 @@ class gameHud extends Phaser.Scene {
       this.weaponDes;
       this.ringDes;
       this.isPaused = false;
-      this.sceneTextBox;
       this.pausedInTextBox = false;
       this.playerBestiaryData;
       this.playerSkillsData;
@@ -56,6 +55,11 @@ class gameHud extends Phaser.Scene {
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
 
+      this.load.scenePlugin({
+        key: 'rexuiplugin',
+        url: 'lib/vendors/rexuiplugin.min.js',
+        sceneKey: 'rexUI'
+      });
     
     }
 
@@ -97,10 +101,6 @@ class gameHud extends Phaser.Scene {
         this.giveUpIndicator.visible = false;
         this.giveUpIndicator.setScrollFactor(0);
         
-        //sets the  scene text book in the hud
-        this.sceneTextBox = new textBox(this,450,620,'textBox');
-        
-
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadSceneTransitionValues();
 
@@ -362,6 +362,7 @@ class gameHud extends Phaser.Scene {
            console.log("playerSkillsData: ", file.psd);
            console.log("playerSaveSlotData: ", file.pssd);
            console.log("gameFlags: " + file.flags);
+           console.log("settings: " + file.settings);
            
            this.healthDisplay.playerHealth = file.playerHpValue;
            this.inventoryDataArray = file.inventoryData;
@@ -369,6 +370,7 @@ class gameHud extends Phaser.Scene {
            this.playerSkillsData = file.psd;
            this.playerSaveSlotData = file.pssd;
            this.flagValues = file.flags;
+           this.settings = file.settings;
  
     }
 

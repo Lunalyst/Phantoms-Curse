@@ -223,7 +223,7 @@ class defaultScene extends Phaser.Scene {
 
     //sets up text box in scene
     setUpTextBox(){
-      this.sceneTextBox = new textBox(this,450,620,'textBox');
+      this.sceneTextBox = new textBox(this,450,620,'charBlack');
     }
 
     //contains most default timeout functions
@@ -412,6 +412,7 @@ class defaultScene extends Phaser.Scene {
         console.log("playerSkillsData: ", file.psd);
         console.log("playerSaveSlotData: ", file.pssd);
         console.log("gameFlags: ", file.flags);
+        console.log("settings: ", file.settings);
         //sets values from save data to the values in the scene.
         this.warpToX = file.saveX;
         this.warpToY = file.saveY;
@@ -439,13 +440,14 @@ class defaultScene extends Phaser.Scene {
         this.playerSaveSlotData = tempPlayerSaveSlotData;
         this.playerSex = file.sex;
         this.flagValues = file.flags;
+        this.settings = file.settings;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
        
         }
     }
 
     //temp save game. used to keep track of data between scenes.
-    saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags) {
+    saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags,settings) {
         //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
 
         console.log("calling temerary saveGame============================");
@@ -469,7 +471,8 @@ class defaultScene extends Phaser.Scene {
         pbd: playerBestiaryData,
         psd: playerSkillsData,
         pssd: playerSaveSlotData,
-        flags: gameFlags
+        flags: gameFlags,
+        settings: settings
         }
         localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
     }

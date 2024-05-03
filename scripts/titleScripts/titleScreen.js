@@ -38,6 +38,9 @@ class titleScreen extends Phaser.Scene {
         this.logoToggle =false;
         this.logoAnimationPlayed = false;
 
+        this.optionsMenu;
+        this.elements;
+
         //saved variables
         this.warpToX;
         this.warpToY;
@@ -49,12 +52,10 @@ class titleScreen extends Phaser.Scene {
         this.playerSkillsData;
         this.playerSaveSlotData;
         this.flagValues;
-        this.optionsMenu;
-        this.elements;
+        this.settings;
+       
         }
 
-        //options and new game should make other elements dissapear and for a box of appropriate size to appear. for new game we are going to need a textbox telling the player to choose a sex and a preferance.
-        //in the options menu maybe the player should be able to 
         preload(){
             //this.load.spritesheet('backgroundForest', 'assets/titleScreenBackground.png',{frameWidth: 1000 , frameHeight: 664});
             this.load.spritesheet('backgroundForest', 'assets/title-backround.png',{frameWidth: 1000 , frameHeight: 667});
@@ -68,7 +69,8 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet("femaleSexSelectIcons" , "assets/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-            this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('charBlack', 'assets/characterSetBlack.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('charBubble', 'assets/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
             this.load.spritesheet('saveSlot', 'assets/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
             this.load.spritesheet('skillSaveSlotIcon', 'assets/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
@@ -80,6 +82,7 @@ class titleScreen extends Phaser.Scene {
             this.load.spritesheet('no', 'assets/no.png',{frameWidth: 60, frameHeight: 33 });
             this.load.spritesheet('yes', 'assets/yes.png',{frameWidth: 78, frameHeight: 33 });
             this.load.spritesheet('curses', 'assets/curses.png',{frameWidth: 96, frameHeight: 96 });
+            this.load.spritesheet('buttons', 'assets/buttons.png',{frameWidth: 75, frameHeight: 75 });
 
             this.load.scenePlugin({
                 key: 'rexuiplugin',
@@ -122,7 +125,7 @@ class titleScreen extends Phaser.Scene {
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.sceneTextBox = new textBox(this,450,600);
+            this.sceneTextBox = new textBox(this,450,600,'charBlack');
             this.sceneTextBox.setScale(1.2);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -135,6 +138,7 @@ class titleScreen extends Phaser.Scene {
                 );
             this.elements.add(this.sceneTextBox);
 
+            //sets up the three save slots
             this.saveslot1 = new saveSlot(this, 450, 220);
             this.elements.add(this.saveslot1);
 
@@ -149,7 +153,6 @@ class titleScreen extends Phaser.Scene {
             this.trashCan2.setupRemoveSlot(2);
             this.elements.add(this.trashCan2);
 
-
             this.saveslot3 = new saveSlot(this, 450, 660);
             this.elements.add(this.saveslot3);
 
@@ -159,6 +162,7 @@ class titleScreen extends Phaser.Scene {
 
             this.activateFunctions = new allSceneFunctions;
            
+            //sets up button objects.
             this.newGame = new newGame(this,150,600);
             this.elements.add(this.newGame);
 
@@ -183,13 +187,15 @@ class titleScreen extends Phaser.Scene {
             this.no = new no(this,350, 500);
             this.elements.add(this.no);
 
-            this.optionsMenu = new optionsMenu(this,50,150);
+            this.optionsMenu = new optionsMenu(this,200,150);
             this.elements.add(this.optionsMenu);
 
             this.allFunctions = new allSceneFunctions;
 
+            //sets up mouse detection
             this.input.mouse.capture = true;
 
+            //applies function so the buttons
             this.newGame.setupNewGame();
 
             this.loadGame.setupLoadGame();
@@ -225,13 +231,11 @@ class titleScreen extends Phaser.Scene {
                 
             });
            
-
-            //this.elements.setVisible();
-
         }
 
         update(){
 
+            //code handles the title screen phantom logo animation.
             if(this.logoToggle === false){
                 if(this.logoAnimationPlayed === false && this.titleLogo.visible === true){
                     this.logoAnimationPlayed = true;
@@ -257,6 +261,7 @@ class titleScreen extends Phaser.Scene {
             
         }
 
+        //function to switch scene
         switchScene(){
             console.log("now stoping this scene",);
             this.scene.stop();
@@ -268,6 +273,7 @@ class titleScreen extends Phaser.Scene {
             this.scene.start('tutorialBeachLevel');
         }
 
+        //clears slot data
         clearSlotData(){
         this.warpToX = undefined;
         this.warpToY= undefined;
@@ -279,6 +285,7 @@ class titleScreen extends Phaser.Scene {
         this.playerSkillsData = undefined;
         this.playerSaveSlotData = undefined;
         this.flagValues = undefined;
+        this.setting = undefined;
         }
 
         ActivateSaveSlot(slot){
@@ -322,7 +329,8 @@ class titleScreen extends Phaser.Scene {
                         this.playerBestiaryData,
                         this.playerSkillsData,
                         this.playerSaveSlotData,
-                        this.flagValues
+                        this.flagValues,
+                        this.settings
                            );
 
                     console.log("warping player to location."+ this.playerLocation);

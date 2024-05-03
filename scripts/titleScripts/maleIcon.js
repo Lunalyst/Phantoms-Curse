@@ -71,6 +71,13 @@ class maleIcon extends Phaser.Physics.Arcade.Sprite{
              let gameFlags = {
                 containerFlags: []
              };
+
+             let settings = {
+                preferance: 2,
+                volume: 1.0,
+                onomatopoeia: true
+             };
+
              //creates a array to be filled my objects
              this.inventoryArray  = [];
 
@@ -100,7 +107,8 @@ class maleIcon extends Phaser.Physics.Arcade.Sprite{
                 playerBestiaryData,//playerBestiaryData
                 playerSkillsData,//playerSkillsData
                 saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                gameFlags//gameFlags
+                gameFlags,//gameFlags
+                settings//settings
                 );
 
                that.scene.switchScene();

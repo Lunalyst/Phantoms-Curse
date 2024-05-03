@@ -33,6 +33,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryUI;
       this.skillUI;
       this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
+      this.settingsButton;
+      this.settingsUI;
 
       //sprite for players internal inventory for storage.
       /*this.container = scene.add.sprite(this.x-111, this.y+300, 'containerScreen');
@@ -68,6 +70,8 @@ class inventory extends Phaser.GameObjects.Container{
             this.openDelay = true;
             this.isOnScreen = true;
             scene.isPaused = true;
+            this.settingsButton.visible = true;
+            
 
             //calls the slots functions so the slots are displaying items correctly
             console.log("setSlotView");
@@ -92,6 +96,7 @@ class inventory extends Phaser.GameObjects.Container{
             this.openDelay = true;
             this.isOnScreen = false;
             scene.isPaused = false;
+            this.settingsButton.visible = false;
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
@@ -188,18 +193,6 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryUI.visible = this.isOnScreen;
       this.bestiaryUI.applyUIControlElements();
 
-       //sets up skills and its label     
-      /*this.skillUI = new skills(scene,this.x-125,this.y+230,'skill').setInteractive(scene.input.makePixelPerfect());
-      this.inventoryElements.add(this.skillUI); 
-      this.add(this.skillUI);
-      this.skillLabel = new inventoryLabels(scene,65,560,'Labels');
-      this.inventoryElements.add(this.skillLabel); 
-      this.add(this.skillLabel);
-      this.skillLabel.anims.play('skills');     
-      this.skillLabel.visible = this.isOnScreen;      
-      this.skillUI.visible = this.isOnScreen;
-      this.skillUI.applyUIControlElements();*/
-
       //weapon slot and its label setup
       this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-120,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
@@ -228,11 +221,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryElements.add(this.inventoryArray[index].number2);
       this.add(this.inventoryArray[index].number2);
 
-
       index++;
       
-
-
       //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
       this.inventoryBorder.setScale(0.26);
@@ -253,7 +243,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.shellLetters = [];
       let shellString = "000";
       for (let counter = 0; counter < shellString.length; counter++) {
-        this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY));
+        this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY,'charBlack'));
         this.inventoryElements.add(this.shellLetters[counter]);
         this.add(this.shellLetters[counter]);
         this.shellLetters[counter].setScale(1/6);
@@ -263,6 +253,19 @@ class inventory extends Phaser.GameObjects.Container{
         spacing = spacing + 13;
   
       }
+
+      //adding settings menu
+      this.settingsUI = new optionsMenu(scene,this.x+425,this.y+40);
+      //this.add(this.settingsUI);
+
+      //adds settings menu button
+      this.settingsButton = new settingsButton(scene,this.x+5,this.y+125,this.settingsUI);
+      this.settingsButton.setupSettingsButton();
+      this.add(this.settingsButton);
+
+      
+
+
     }
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.

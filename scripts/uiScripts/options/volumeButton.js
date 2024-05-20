@@ -27,6 +27,16 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
       
     }
 
+    //set button value
+    setValue(value){
+        this.isOn = value;
+        if(this.isOn){
+            this.anims.play("volumeOnInActive");
+        }else{
+            this.anims.play("volumeOffInActive");
+        }
+    }
+
     setupVolumeButton(){
 
         let that = this;
@@ -53,12 +63,14 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
                 if(that.isOn){
                     that.isOn = false;
                     that.optionsMenu.volumeSlider.setValue(0);
+                    that.optionsMenu.newSoundValue = 0;
                     that.anims.play("volumeOffActive");
                     
 
                 }else{
                     that.isOn = true;
                     that.optionsMenu.volumeSlider.setValue(1);
+                    that.optionsMenu.newSoundValue = 1;
                     that.anims.play("volumeOnActive");
                 }
                    

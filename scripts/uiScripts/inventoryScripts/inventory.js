@@ -35,11 +35,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
       this.settingsButton;
       this.settingsUI;
-
-      //sprite for players internal inventory for storage.
-      /*this.container = scene.add.sprite(this.x-111, this.y+300, 'containerScreen');
-      this.container.setScale((1/3)+((1/3)/2));
-      this.add(this.container);*/
+      this.settingsOpen = false;
+      this.bestiaryOpen = false;
 
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
@@ -70,7 +67,9 @@ class inventory extends Phaser.GameObjects.Container{
             this.openDelay = true;
             this.isOnScreen = true;
             scene.isPaused = true;
+            this.visible = true;
             this.settingsButton.visible = true;
+            this.settingsUI.visible = false;
             
 
             //calls the slots functions so the slots are displaying items correctly
@@ -97,6 +96,16 @@ class inventory extends Phaser.GameObjects.Container{
             this.isOnScreen = false;
             scene.isPaused = false;
             this.settingsButton.visible = false;
+            this.settingsUI.visible = false;
+            //if the menu is closed the make sure to reset settings if its prematurely closed.
+            this.settingsUI.resetSettings();
+
+            //ensures that if thep layer closes inventory then the bestiary and
+            //settings can be re opened.
+            this.settingsOpen = false;
+            this.bestiaryOpen = false;
+
+            
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
@@ -118,10 +127,7 @@ class inventory extends Phaser.GameObjects.Container{
         this.bestiaryUI.isOpen =true;
         this.bestiaryUI.openDelay = false;
         this.bestiaryUI.openBestiary(scene);
-
-        //this.skillUI.isOpen = true;
-        //this.skillUI.openDelay = false;
-        //this.skillUI.openSkill(scene);
+        this.bestiaryOpen = false;
 
     }
 
@@ -255,11 +261,11 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
       //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this.x+425,this.y+40);
+      this.settingsUI = new optionsMenu(scene,this.x+500,this.y-200);
       //this.add(this.settingsUI);
 
       //adds settings menu button
-      this.settingsButton = new settingsButton(scene,this.x+5,this.y+125,this.settingsUI);
+      this.settingsButton = new settingsButton(scene,this.x+5,this.y+125,this.settingsUI,this);
       this.settingsButton.setupSettingsButton();
       this.add(this.settingsButton);
 
@@ -334,8 +340,17 @@ class inventory extends Phaser.GameObjects.Container{
       }
       
       this.bestiaryUI.on('pointerdown', function (pointer) {
-        inventoryThat.bestiaryUI.openBestiary(scene);
-        console.log("opening bestiary");
+        //opens bestiary if settings is not open.
+        if(inventoryThat.settingsOpen === false){
+          inventoryThat.bestiaryUI.openBestiary(scene);
+          if(inventoryThat.bestiaryOpen === false){
+            inventoryThat.bestiaryOpen = true;
+          }else{
+            inventoryThat.bestiaryOpen = false;
+          }
+        }
+        
+        console.log("opening bestiary: ",inventoryThat.bestiaryOpen);
       });
 
       /*this.skillUI.on('pointerdown', function (pointer) {

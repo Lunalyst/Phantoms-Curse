@@ -76,5 +76,12 @@ hudDepth = {
 
 hudDepthEmitter = new Phaser.Events.EventEmitter();
 
+settings = {
+    getSettings: 'get_settings',
+    setSettings: 'set_settings'
+};
+
+settingsEmitter = new Phaser.Events.EventEmitter();
+
 
 

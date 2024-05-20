@@ -39,6 +39,8 @@ class gameHud extends Phaser.Scene {
       this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
       this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
 
+      this.load.spritesheet('optionsMenu', 'assets/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
+
       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
       this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
@@ -334,6 +336,15 @@ class gameHud extends Phaser.Scene {
           //emitter for hiding tab to give up display
           giveUpIndicatorEmitter.on(giveUpIndicator.deactivateGiveUpIndicator,() =>{
             this.giveUpIndicator.visible = false;
+          });
+
+          //setting emitter definitions which allow for the settings to be transfered and saved.
+          settingsEmitter.on(settings.getSettings,() =>{
+            
+          });
+
+          settingsEmitter.on(settings.setSettings,(object) =>{
+            
           });
 
           //test to see if the emitters are active

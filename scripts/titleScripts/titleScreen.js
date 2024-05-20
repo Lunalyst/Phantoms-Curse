@@ -187,8 +187,8 @@ class titleScreen extends Phaser.Scene {
             this.no = new no(this,350, 500);
             this.elements.add(this.no);
 
-            this.optionsMenu = new optionsMenu(this,200,150);
-            this.elements.add(this.optionsMenu);
+            //this.optionsMenu = new optionsMenu(this,200,150);
+            //this.elements.add(this.optionsMenu);
 
             this.allFunctions = new allSceneFunctions;
 

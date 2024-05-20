@@ -1,6 +1,6 @@
 class settingsButton extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
-    constructor(scene, xPos, yPos,settingsUIObject){
+    constructor(scene, xPos, yPos,settingsUIObject,inventoryObject){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos, 'buttons');
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -20,6 +20,8 @@ class settingsButton extends Phaser.Physics.Arcade.Sprite{
         this.scene = scene;
 
         this.settingsUI = settingsUIObject;
+
+        this.inventory = inventoryObject;
       
     }
 
@@ -37,11 +39,13 @@ class settingsButton extends Phaser.Physics.Arcade.Sprite{
         })
         
         this.on('pointerdown', function (pointer) {
-            that.visible = false;
-
-            that.settingsUI.visible = true;
-                
-                   
+            //opens settings ui if bestiary is not open.
+            if(that.inventory.bestiaryOpen === false){
+                that.visible = false;
+                that.settingsUI.visible = true;
+                that.inventory.settingsOpen = true;
+            }
+            console.log("opening bestiary: ",that.inventory.settingsOpen);
         });
 
     }

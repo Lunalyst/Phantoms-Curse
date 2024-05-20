@@ -24,7 +24,6 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.add(this.optionMenuBorder);
 
         this.currentSoundValue = 1;
-        this.newSoundValue = 1;
 
         this.currentOnomatValue = 1;
         this.newOnomatValue = 1;
@@ -68,12 +67,11 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.sexButton.setupSexButton();
         this.add(this.sexButton);
 
-
-        //this.print0 = scene.add.text(200, 180, '');
-        //this.add(this.print0);
         console.log('scene.rexUI: ',scene.rexUI);
 
         let that = this;
+
+        this.scene = scene;
 
         this.volumeSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
@@ -90,13 +88,18 @@ class optionsMenu extends Phaser.GameObjects.Container{
     
                 valuechangeCallback: function (value) {
 
-                    //if the value is zero, set the volume button to 
+                    //if the value is zero, mute volume. else set volume to value
                     if(value === 0){
                         that.volumeButton.isOn = false;
                         that.volumeButton.anims.play("volumeOffInActive");
+                        that.scene.sound.setVolume(0);  
+                        that.currentSoundValue = 0; 
+                    
                     }else{
                         that.volumeButton.isOn = true;
                         that.volumeButton.anims.play("volumeOnInActive");
+                        that.scene.sound.setVolume(value);
+                        that.currentSoundValue = value; 
                     }
                 },
                 space: {
@@ -108,7 +111,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
             this.add(this.volumeSlider);
             console.log('this.volumeSlider: ',this.volumeSlider);
 
-        this.scene = scene;
+        
 
        
         scene.add.existing(this);
@@ -120,13 +123,11 @@ class optionsMenu extends Phaser.GameObjects.Container{
     resetSettings(){
 
         //sets the values apart of the main object
-        this.newSoundValue = this.currentSoundValue;
         this.newOnomatValue = this.currentOnomatValue;
         this.newPrefValue = this.currentPrefValue;
         this.newSexValue = this.currentSexValue;
 
         //resets the value in the button objects
-        this.volumeButton.setValue(this.currentSoundValue);
         this.volumeSlider.setValue(this.currentSoundValue);
         this.onomatButton.setValue(this.currentOnomatValue);
         this.prefButton.setValue(this.currentPrefValue);
@@ -138,18 +139,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
     //save settings 
     saveSettings(){
 
-        //sets the values apart of the main object
-        this.newSoundValue = this.currentSoundValue;
-        this.newOnomatValue = this.currentOnomatValue;
-        this.newPrefValue = this.currentPrefValue;
-        this.newSexValue = this.currentSexValue;
-
-        //resets the value in the button objects
-        this.volumeButton.setValue(this.currentSoundValue);
-        this.volumeSlider.setValue(this.currentSoundValue);
-        this.onomatButton.setValue(this.currentOnomatValue);
-        this.prefButton.setValue(this.currentPrefValue);
-        this.sexButton.setValue(this.currentSexValue);
+        
 
 
     }

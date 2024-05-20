@@ -59,19 +59,22 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-            
+
+                //button mutes sound or chenges volume to max.
                 if(that.isOn){
                     that.isOn = false;
                     that.optionsMenu.volumeSlider.setValue(0);
                     that.optionsMenu.newSoundValue = 0;
                     that.anims.play("volumeOffActive");
-                    
-
+                    that.scene.sound.setVolume(0);
+                    that.scene.currentSoundValue = 0;
                 }else{
                     that.isOn = true;
                     that.optionsMenu.volumeSlider.setValue(1);
                     that.optionsMenu.newSoundValue = 1;
                     that.anims.play("volumeOnActive");
+                    that.scene.sound.setVolume(1);
+                    that.scene.currentSoundValue = 1;
                 }
                    
         });

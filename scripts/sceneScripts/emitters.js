@@ -35,6 +35,7 @@ inventoryKey = {
     activateWindowWithContainer: 'activate_window_with_container',
     isWindowOpen: 'is_window_open',
     getSaveData: 'get_save_data',
+    setSaveData: 'set_save_data',
     getInventory:'get_inventory',
     isInventoryOpen: 'is_inventory_open',
     addItem: 'add_item',
@@ -76,12 +77,7 @@ hudDepth = {
 
 hudDepthEmitter = new Phaser.Events.EventEmitter();
 
-settings = {
-    getSettings: 'get_settings',
-    setSettings: 'set_settings'
-};
 
-settingsEmitter = new Phaser.Events.EventEmitter();
 
 
 

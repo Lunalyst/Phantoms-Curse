@@ -20,15 +20,21 @@ class gameHud extends Phaser.Scene {
       this.signCoolDown = false;
       this.playerInventory;
       this.inventoryTween;
-      this.inventoryDataArray;
       this.weaponDes;
       this.ringDes;
       this.isPaused = false;
       this.pausedInTextBox = false;
+      // save data within the game hud.
+      this.saveX;
+      this.saveY;
+      this.playerSex;
+      this.playerLocation;
+      this.inventoryDataArray;
       this.playerBestiaryData;
       this.playerSkillsData;
       this.playerSaveSlotData;
       this.flagValues;
+      this.settings;
       this.skipIndicator;  
     }
 
@@ -198,7 +204,10 @@ class gameHud extends Phaser.Scene {
           
           //emitter to grab save data so that the save point can have acess to it.
           inventoryKeyEmitter.on(inventoryKey.getSaveData,(playerDataObject) =>{
-
+            playerDataObject.saveX = this.saveX;
+            playerDataObject.saveY = this.saveY;
+            playerDataObject.playerSex = this.playerSex;
+            playerDataObject.playerLocation = this.playerLocation;
             playerDataObject.currentHp = this.healthDisplay.playerHealth;
             playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
             playerDataObject.inventoryArray = this.inventoryDataArray;
@@ -206,7 +215,25 @@ class gameHud extends Phaser.Scene {
             playerDataObject.playerSkillsData = this.playerSkillsData;
             playerDataObject.playerSaveSlotData = this.playerSaveSlotData;
             playerDataObject.flagValues = this.flagValues;
+            playerDataObject.settings = this.settings;
 
+          });
+
+          //emmitter to set the current values to the game hud. used for keeping the game hud up to date after a save.
+          inventoryKeyEmitter.on(inventoryKey.setSaveData,(playerDataObject) =>{
+            //takes a object, and sets values accordingly
+            this.saveX = playerDataObject.saveX;
+            this.saveY = playerDataObject.saveY;
+            this.playerSex = playerDataObject.playerSex;
+            this.playerLocation = playerDataObject.playerLocation;
+            this.healthDisplay.playerHealth = playerDataObject.currentHp;
+            this.healthDisplay.playerHealthMax = playerDataObject.playerMaxHp;
+            this.inventoryDataArray = playerDataObject.inventoryArray;
+            this.playerBestiaryData = playerDataObject.playerBestiaryData;
+            this.playerSkillsData = playerDataObject.playerSkillsData;
+            this.playerSaveSlotData = playerDataObject.playerSaveSlotData;
+            this.flagValues = playerDataObject.flagValues;
+            this.settings = playerDataObject.settings;
           });
 
           //emitter so itemdrops can be added to the inventory.
@@ -338,15 +365,6 @@ class gameHud extends Phaser.Scene {
             this.giveUpIndicator.visible = false;
           });
 
-          //setting emitter definitions which allow for the settings to be transfered and saved.
-          settingsEmitter.on(settings.getSettings,() =>{
-            
-          });
-
-          settingsEmitter.on(settings.setSettings,(object) =>{
-            
-          });
-
           //test to see if the emitters are active
           this.printActiveEmitter();
         
@@ -374,6 +392,7 @@ class gameHud extends Phaser.Scene {
            console.log("playerSaveSlotData: ", file.pssd);
            console.log("gameFlags: " + file.flags);
            console.log("settings: " + file.settings);
+
            
            this.healthDisplay.playerHealth = file.playerHpValue;
            this.inventoryDataArray = file.inventoryData;

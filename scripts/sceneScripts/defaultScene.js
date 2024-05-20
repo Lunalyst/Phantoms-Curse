@@ -121,6 +121,7 @@ class defaultScene extends Phaser.Scene {
         this.warpToX = 450;
         this.warpToY = 600;
         this.playerSex;
+        this.settings;
 
         this.itemDrops;
 
@@ -341,32 +342,34 @@ class defaultScene extends Phaser.Scene {
     }
 
     // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
-    saveGameFile(savePointX, savePointY, playerSex, location, dataObject) {
+    saveGameFile(dataObject) {
         // these are the game variables that are hard saved when the player uses a save point.
         console.log("calling saveslot saveGameFile============================");
-        console.log("save file x:" + savePointX);
-        console.log("save file y:" + savePointY);
+        console.log("save file x:" + dataObject.saveX);
+        console.log("save file y:" + dataObject.saveY);
         console.log("player HP: " + dataObject.playerMaxHp);
-        console.log("playerSex: " + playerSex);
-        console.log("location: " + location);
+        console.log("playerSex: " + dataObject.playerSex);
+        console.log("location: " + dataObject.playerLocation);
         console.log("playerInventoryData: " + dataObject.inventoryArray);
         console.log("playerBestiaryData: ", dataObject.playerBestiaryData);
         console.log("playerSkillsData: ", dataObject.playerSkillsData);
         console.log("playerSaveSlotData: ", dataObject.playerSaveSlotData);
         console.log("gameFlags: ", dataObject.flagValues);
+        console.log("settings: ", dataObject.settings);
         console.log("=======================================================");
         // bundles save data up in a variable to be json.stringifyed
         const file = {
-        saveX: savePointX,
-        saveY: savePointY,
+        saveX: dataObject.saveX,
+        saveY: dataObject.saveY,
         playerHpValue: dataObject.playerMaxHp,
-        sex: playerSex,
-        locationName: location,
+        sex: dataObject.playerSex,
+        locationName: dataObject.playerLocation,
         id: dataObject.inventoryArray,
         pbd: dataObject.playerBestiaryData,
         psd: dataObject.playerSkillsData,
         pssd: dataObject.playerSaveSlotData,
         flags: dataObject.flagValues,
+        settings: dataObject.settings
 
         }
         //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
@@ -683,7 +686,7 @@ class defaultScene extends Phaser.Scene {
             //console.log("outside save point");
             tempSavePoint.safeToSave = false;
         }
-        tempSavePoint.savePointSaveGame(this, this.keyW, location, this.activatedSavePointId, this.healthDisplay, this.KeyDisplay, this.player1, tempSavePoint.x, tempSavePoint.y, this.flagValues);
+        tempSavePoint.savePointSaveGame(this, this.keyW, this.activatedSavePointId, tempSavePoint.x, tempSavePoint.y);
         
         }, this);
     }

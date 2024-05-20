@@ -35,7 +35,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with
-    savePointSaveGame(scene1,keyW,location,activeId,hpBar,keyDisplay,player1,saveX,saveY,flagValues){
+    savePointSaveGame(scene1,keyW,activeId,saveX,saveY){
         
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
         if( this.safeToSave === true && keyW.isDown && this.saveCoolDown === false && scene1.isPaused === false){
@@ -43,8 +43,12 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //play save sound
             scene1.initSoundEffect('curseSFX','curse',0.3);
 
-            //makes a boject which can be accessed by our inventory emitter
+            //makes a object which can be accessed by our inventory emitter
             let playerDataObject = {
+                saveX: null,
+                saveY: null,
+                playerSex:null,
+                playerLocation: null,
                 currentHp: null,
                 playerMaxHp: null,
                 inventoryArray: null,
@@ -52,13 +56,23 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
                 playerSkillsData: null,
                 playerSaveSlotData: null,
                 flagValues: null,
+                settings:null
             };
             
             //calls the emitter sending it the object so it can give us the save data we need.
-            inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject)
+            inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject);
             
-            //saves the game by calling the all activatefunctions 
-            scene1.saveGameFile(saveX,saveY+15,scene1.playerSex,scene1.playerLocation,playerDataObject);
+            //modifies the object with the new relivant information.
+            playerDataObject.saveX = saveX;
+            playerDataObject.saveY = saveY+15;
+            playerDataObject.playerSex = scene1.playerSex;
+            playerDataObject.playerLocation = scene1.playerLocation;
+
+            //saves the game by calling the save game file function in the scene
+            scene1.saveGameFile(playerDataObject);
+
+            //need to update the hud with the new changes after we save the game file.
+            inventoryKeyEmitter.emit(inventoryKey.setSaveData,playerDataObject);
 
             //once we play the save animation once, then we set the animation back to nothing.
             this.anims.play('saveStoneAnimation').once('animationcomplete', () => {

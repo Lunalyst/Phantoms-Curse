@@ -64,6 +64,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               playerSkillsData: null,
               playerSaveSlotData: null,
               flagValues: null,
+              settings:null
             };
           
             //calls the emitter sending it the object so it can give us the save data we need.
@@ -78,7 +79,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               playerDataObject.playerBestiaryData,
               playerDataObject.playerSkillsData,
               playerDataObject.playerSaveSlotData,
-              playerDataObject.flagValues
+              playerDataObject.flagValues,
+              playerDataObject.settings
               );
 
             scene1.portalId = 0;

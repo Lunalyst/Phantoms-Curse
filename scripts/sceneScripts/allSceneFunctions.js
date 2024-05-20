@@ -38,6 +38,7 @@ class allSceneFunctions {
     console.log("playerSkillsData: ", dataObject.playerSkillsData);
     console.log("playerSaveSlotData: ", dataObject.playerSaveSlotData);
     console.log("gameFlags: ", dataObject.flagValues);
+    console.log("settings: ", dataObject.settings);
     console.log("=======================================================");
     // bundles save data up in a variable to be json.stringifyed
     const file = {
@@ -51,6 +52,7 @@ class allSceneFunctions {
       psd: dataObject.playerSkillsData,
       pssd: dataObject.playerSaveSlotData,
       flags: dataObject.flagValues,
+      settings: dataObject.settings
 
     }
     //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.

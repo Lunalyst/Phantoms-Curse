@@ -62,13 +62,13 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
             
                 if(that.isOn){
                     that.isOn = false;
-                    that.optionsMenu.newOnomatValue = 0;
+                    that.optionsMenu.currentOnomatValue = false;
                     that.anims.play("onomatOffActive");
                     
 
                 }else{
                     that.isOn = true;
-                    that.optionsMenu.newOnomatValue = 1;
+                    that.optionsMenu.currentOnomatValue = true;
                     that.anims.play("onomatOnActive");
                 }
                    

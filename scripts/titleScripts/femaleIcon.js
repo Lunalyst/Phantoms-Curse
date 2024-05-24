@@ -74,7 +74,7 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
 
              let settings = {
                 preferance: 2,
-                volume: 1.0,
+                volume: 1,
                 onomatopoeia: true
              };
 
@@ -102,22 +102,26 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
             console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
 
             
-             //441, 926
-             //3735,541
-            that.scene.allFunctions.saveGame(
-                441,//nextSceneX
-                926,//nextSceneY
-                2,//playerHp
-                1,//playerSex
-                this.inventoryArray,//playerInventoryData
-                playerBestiaryData,//playerBestiaryData
-                playerSkillsData,//playerSkillsData
-                saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                gameFlags,//gameFlags
-                settings // settings
-                );
+            let playerDataObject = {
+                saveX: 441,
+                saveY: 926,
+                playerHpValue: 1,
+                playerSex: 1,
+                playerLocation: 'tutorialBeachLevel',
+                inventoryArray: this.inventoryArray,
+                playerBestiaryData: playerBestiaryData,
+                playerSkillsData:  playerSkillsData,
+                playerSaveSlotData: saveSlotData,
+                flagValues: gameFlags,
+                settings:settings
+              };
 
-                that.scene.switchScene();
+            //saves data to the temp data location
+            that.scene.saveGame(playerDataObject);
+            //also hard saves the game to prevent issues, and allow the player to have a first save point on the beach.
+            that.scene.saveGameFile(playerDataObject);
+            
+            that.scene.switchScene();
                    
         });
 

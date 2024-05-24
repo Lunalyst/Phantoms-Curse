@@ -28,7 +28,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
 
       this.randomCurse = Math.floor((Math.random() * 4)+1);
        let temp = ''+ this.randomCurse;
-       console.log("temp: ", temp);
+       //console.log("temp: ", temp);
 
         this.anims.play(temp).once('animationcomplete' , () =>{
           this.visible = false;

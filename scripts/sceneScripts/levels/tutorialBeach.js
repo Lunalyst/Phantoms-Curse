@@ -49,7 +49,7 @@ class tutorialBeach extends defaultScene {
       //loads local save data.
       console.log("activating function to load game");
 
-      this.loadGame();
+      this.loadGamePlayData();
 
       //controls the Background
       this.backround = this.add.tileSprite(0, 100, 10000, 3000, "backgroundBeachLevel");

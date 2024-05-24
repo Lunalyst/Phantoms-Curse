@@ -55,10 +55,13 @@ class warp extends Phaser.Physics.Arcade.Sprite{
           
             //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
            
-            // calls emitter to save the scene 
+            //creates a object to hold data for scene transition
             let playerDataObject = {
-              currentHp: null,
-              playerMaxHp: null,
+              saveX: null,
+              saveY: null,
+              playerHpValue: null,
+              playerSex: null,
+              playerLocation: null,
               inventoryArray: null,
               playerBestiaryData: null,
               playerSkillsData: null,
@@ -66,22 +69,18 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               flagValues: null,
               settings:null
             };
-          
-            //calls the emitter sending it the object so it can give us the save data we need.
-            inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject);
 
-            scene1.saveGame(
-              this.nextSceneX,
-              this.nextSceneY,
-              playerDataObject.currentHp,
-              scene1.playerSex,
-              playerDataObject.inventoryArray,
-              playerDataObject.playerBestiaryData,
-              playerDataObject.playerSkillsData,
-              playerDataObject.playerSaveSlotData,
-              playerDataObject.flagValues,
-              playerDataObject.settings
-              );
+            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+        
+            //then we set the correct location values to the scene transition data.
+            playerDataObject.saveX = this.nextSceneX;
+            playerDataObject.saveY = this.nextSceneY;
+            playerDataObject.playerSex = scene1.playerSex;
+            playerDataObject.playerLocation = this.destination;
+
+            // then we save the scene transition data.
+            scene1.saveGame(playerDataObject);
 
             scene1.portalId = 0;
             //for loop looks through all the looping music playing within a given scene and stops the music.

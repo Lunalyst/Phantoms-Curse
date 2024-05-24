@@ -75,21 +75,20 @@ class yes extends Phaser.Physics.Arcade.Sprite{
              };
 
              let playerDataObject = {
+                saveX:that.scene.warpToX,
+                saveY:that.scene.warpToY,
                 currentHp: null,
                 playerMaxHp: null,
+                playerSex: that.scene.playerSex,
+                playerLocation: that.scene.playerLocation,
                 inventoryArray: null,
                 playerBestiaryData: playerBestiaryData,
                 playerSkillsData: playerSkillsData,
                 playerSaveSlotData: playerSaveSlotData,
                 flagValues: gameFlags,
             };
-            that.scene.activateFunctions.saveGameFile(
-                that.scene.warpToX,
-                that.scene.warpToY,
-                that.scene.playerSex,
-                that.scene.playerLocation,
-                playerDataObject
-               );
+
+            that.scene.saveGameFile(playerDataObject);
 
                that.scene.sceneTextBox.hideText(false);
                 that.scene.sceneTextBox.textBoxProfileImage.visible = false;

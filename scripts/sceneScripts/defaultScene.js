@@ -1,4 +1,4 @@
-class defaultScene extends Phaser.Scene {
+class defaultScene extends allSceneFunctions {
 
     //{preload Functions}===================================================================================================================
 
@@ -297,205 +297,6 @@ class defaultScene extends Phaser.Scene {
         this.physics.add.collider(this.processMap.layer1, object);
     }
 
-    //{Save AND lOAD Functions}===================================================================================================================
-
-    //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
-    saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
-        //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
-        console.log("calling saveGameoverFile============================");
-        console.log("playerSex: " + playerSex);
-        console.log("gameoverLocation: " + gameoverLocation);
-        console.log("enemyThatDefeatedPlayer: " + enemyThatDefeatedPlayer);
-        console.log("playerSaveSlotData: ", playerSaveSlotData);
-        console.log("defeatedTitle: ", defeatedTitle);
-
-        const file = {
-        sex: playerSex,
-        location: gameoverLocation,
-        enemy: enemyThatDefeatedPlayer,
-        pssd: playerSaveSlotData,
-        dt: defeatedTitle
-        };
-        
-        //uses local Storage to store the data
-        localStorage.setItem('saveGameoverFile', JSON.stringify(file));
-    }
-
-    //function to load data once we are in the gameover scene.
-    loadGameoverFile() {
-        //sets variable to the stored data
-        // we will use const because we dont want anything to change variable. difference between let and var is that var can exist outside the scope when its declared. using let makes sure that the variable stays within scope.obeying scoping rules.
-        const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
-        //retrieves data from the file object and gives it to the current scene
-        console.log("calling loadGameoverFile============================");
-        console.log("playerSex: " + file.sex);
-        console.log("location: ", file.location);
-        console.log("enemy: " + file.enemy);
-        console.log("playerSaveSlotData: ", file.pssd);
-        console.log("defeatedTitle: ", file.dt);
-
-        this.playerSex = file.sex;
-        this.gameoverLocation = file.location;
-        this.enemyThatDefeatedPlayer = file.enemy;
-        this.playerSaveSlotData = file.pssd;
-        this.defeatedTitle = file.dt;
-    }
-
-    // the deep save function that is used to keep the savedata of the player. activated in savepoints class.
-    saveGameFile(dataObject) {
-        // these are the game variables that are hard saved when the player uses a save point.
-        console.log("calling saveslot saveGameFile============================");
-        console.log("save file x:" + dataObject.saveX);
-        console.log("save file y:" + dataObject.saveY);
-        console.log("player HP: " + dataObject.playerMaxHp);
-        console.log("playerSex: " + dataObject.playerSex);
-        console.log("location: " + dataObject.playerLocation);
-        console.log("playerInventoryData: " + dataObject.inventoryArray);
-        console.log("playerBestiaryData: ", dataObject.playerBestiaryData);
-        console.log("playerSkillsData: ", dataObject.playerSkillsData);
-        console.log("playerSaveSlotData: ", dataObject.playerSaveSlotData);
-        console.log("gameFlags: ", dataObject.flagValues);
-        console.log("settings: ", dataObject.settings);
-        console.log("=======================================================");
-        // bundles save data up in a variable to be json.stringifyed
-        const file = {
-        saveX: dataObject.saveX,
-        saveY: dataObject.saveY,
-        playerHpValue: dataObject.playerMaxHp,
-        sex: dataObject.playerSex,
-        locationName: dataObject.playerLocation,
-        id: dataObject.inventoryArray,
-        pbd: dataObject.playerBestiaryData,
-        psd: dataObject.playerSkillsData,
-        pssd: dataObject.playerSaveSlotData,
-        flags: dataObject.flagValues,
-        settings: dataObject.settings
-
-        }
-        //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
-        if (dataObject.playerSaveSlotData.saveSlot === 1) {
-        localStorage.setItem('saveFile1', JSON.stringify(file));
-        } else if (dataObject.playerSaveSlotData.saveSlot === 2) {
-        localStorage.setItem('saveFile2', JSON.stringify(file));
-        } else if (dataObject.playerSaveSlotData.saveSlot === 3) {
-        localStorage.setItem('saveFile3', JSON.stringify(file));
-        } else {
-        console.log(" something went wrong with the save location. location: " + playerSaveSlotData.saveSlot);
-        }
-        
-    }
-
-    //loads savedata from the sabeslot in title screen.
-    loadGameFile(slot) {
-        console.log("attempting to load slot:" + slot);
-        // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
-        let file;
-        if (slot === 1) {
-        file = JSON.parse(localStorage.getItem('saveFile1'));
-        } else if (slot === 2) {
-        file = JSON.parse(localStorage.getItem('saveFile2'));
-        } else if (slot === 3) {
-        file = JSON.parse(localStorage.getItem('saveFile3'));
-        } else {
-        console.log(" something went wrong with loading a save file. location: " + slot);
-        file = undefined;
-        }
-
-
-        //retrieves data from the file object and gives it to the current scene
-        if (file !== undefined && file !== null) {
-        console.log("calling loadslot for save slot " + slot + "loadGameFile============================");
-        console.log("save file x:" + file.saveX);
-        console.log("save file y:" + file.saveY);
-        console.log("player HP: " + file.playerHpValue);
-        console.log("playerSex: " + file.sex);
-        console.log("location: " + file.locationName);
-        console.log("playerInventoryData: " + file.id);
-        console.log("playerBestiaryData: ", file.pbd);
-        console.log("playerSkillsData: ", file.psd);
-        console.log("playerSaveSlotData: ", file.pssd);
-        console.log("gameFlags: ", file.flags);
-        console.log("settings: ", file.settings);
-        //sets values from save data to the values in the scene.
-        this.warpToX = file.saveX;
-        this.warpToY = file.saveY;
-        this.playerHealth = file.playerHpValue;
-        this.playerSex = file.sex;
-        this.playerLocation = file.locationName;
-        this.inventoryDataArray = file.id;
-        this.playerBestiaryData = file.pbd;
-        this.playerSkillsData = file.psd;
-        // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
-        let tempPlayerSaveSlotData = file.pssd;
-        if (this.playerBestiaryData !== undefined) {
-
-            let bestiaryPercent = 0;
-            // loops though the objects to find how many of the entrys the player has
-            for (let [key, value] of Object.entries(this.playerBestiaryData)) {
-            if (value !== 0) {
-                bestiaryPercent++;
-            }
-            }
-            // calcs percentage and sets it to the value apart of the save data
-            bestiaryPercent = (bestiaryPercent / Object.keys(this.playerBestiaryData).length) * 100;
-            tempPlayerSaveSlotData.bestiaryCompletionPercent = bestiaryPercent;
-        }
-        this.playerSaveSlotData = tempPlayerSaveSlotData;
-        this.playerSex = file.sex;
-        this.flagValues = file.flags;
-        this.settings = file.settings;
-        // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
-       
-        }
-    }
-
-    //temp save game. used to keep track of data between scenes.
-    saveGame(nextSceneX, nextSceneY, playerHp, playerSex, playerInventoryData, playerBestiaryData, playerSkillsData, playerSaveSlotData, gameFlags,settings) {
-        //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
-
-        console.log("calling temerary saveGame============================");
-        console.log("save file x:" + nextSceneX);
-        console.log("save file y:" + nextSceneY);
-        console.log("player HP: " + playerHp);
-        console.log("playerSex: " + playerSex);
-        console.log("playerInventoryData: " + playerInventoryData);
-        console.log("playerBestiaryData: ", playerBestiaryData);
-        console.log("playerSkillsData: ", playerSkillsData);
-        console.log("playerSaveSlotData: ", playerSaveSlotData);
-        console.log("gameFlags: ", gameFlags);
-        console.log("location: " + location);
-
-        const file = {
-        warpToThisX: nextSceneX,
-        warpToThisY: nextSceneY,
-        playerHpValue: playerHp,
-        sex: playerSex,
-        inventoryData: playerInventoryData,
-        pbd: playerBestiaryData,
-        psd: playerSkillsData,
-        pssd: playerSaveSlotData,
-        flags: gameFlags,
-        settings: settings
-        }
-        localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
-    }
-
-    // grabs data from temp save when the player transitions scenes.
-    loadGame() {
-        //sets variable to the stored data
-        var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
-        //retrieves data from the file object and gives it to the current scene
-        console.log("calling temerary loadGame============================");
-        console.log("save file x:" + file.warpToThisX);
-        console.log("save file y:" + file.warpToThisY);
-        console.log("playerSex: ", file.sex);
-    
-        this.warpToX = file.warpToThisX;
-        this.warpToY = file.warpToThisY;
-        this.playerSex = file.sex;
-
-    }
-
     //{itit object Functions}===================================================================================================================
 
     //creates warp portal objects in the scene
@@ -594,7 +395,7 @@ class defaultScene extends Phaser.Scene {
        for(let counter = 0; counter < this.sound.sounds.length;counter++){
          //if a key matches the given sound then set bool to false.
          if(this.sound.sounds[counter].key === soundID){
-           console.log("found key: ",soundID,"so we wont create the sound object");
+           //console.log("found key: ",soundID,"so we wont create the sound object");
            createSound = false;
          }
  
@@ -602,7 +403,7 @@ class defaultScene extends Phaser.Scene {
  
        //if we should create the sound because the key does not exist make it
        if(createSound === true){
-          console.log("key not found making ",soundID);
+          //console.log("key not found making ",soundID);
           this.sound.playAudioSprite(soundID,soundName);
          
        }else{ // otherwise play the sound from the keys and set its config to true so it loops.

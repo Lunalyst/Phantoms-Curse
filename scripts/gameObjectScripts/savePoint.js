@@ -43,36 +43,36 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //play save sound
             scene1.initSoundEffect('curseSFX','curse',0.3);
 
-            //makes a object which can be accessed by our inventory emitter
+            //creates a object to hold data for scene transition
             let playerDataObject = {
                 saveX: null,
                 saveY: null,
-                playerSex:null,
+                playerHpValue: null,
+                playerMaxHP: null,
+                playerSex: null,
                 playerLocation: null,
-                currentHp: null,
-                playerMaxHp: null,
                 inventoryArray: null,
                 playerBestiaryData: null,
                 playerSkillsData: null,
                 playerSaveSlotData: null,
                 flagValues: null,
                 settings:null
-            };
-            
-            //calls the emitter sending it the object so it can give us the save data we need.
-            inventoryKeyEmitter.emit(inventoryKey.getSaveData,playerDataObject);
-            
+              };
+              
+            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
             //modifies the object with the new relivant information.
             playerDataObject.saveX = saveX;
             playerDataObject.saveY = saveY+15;
             playerDataObject.playerSex = scene1.playerSex;
             playerDataObject.playerLocation = scene1.playerLocation;
 
+            //maxes out hp.
+            playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
+
             //saves the game by calling the save game file function in the scene
             scene1.saveGameFile(playerDataObject);
-
-            //need to update the hud with the new changes after we save the game file.
-            inventoryKeyEmitter.emit(inventoryKey.setSaveData,playerDataObject);
 
             //once we play the save animation once, then we set the animation back to nothing.
             this.anims.play('saveStoneAnimation').once('animationcomplete', () => {

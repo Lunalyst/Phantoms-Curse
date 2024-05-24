@@ -54,7 +54,7 @@ class TestForest extends defaultScene {
       //loads local save data.
       console.log("activating function to load game");
 
-      this.loadGame();
+      this.loadGamePlayData();
       
       this.grabbed = false;
 

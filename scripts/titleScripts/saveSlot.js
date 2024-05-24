@@ -188,7 +188,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     }
     // sets the sexicon to reflect the save data
     //undefined when comparing with object does explicit type conversions which can be true when they should be false. to get around this we use the explicit !== operator.
-    if (this.scene.playerSex !== undefined) {
+    if (this.scene.playerSex !== undefined && this.scene.playerSex !== null) {
       this.sexIcon.anims.play(this.scene.playerSex.toString());
     } else {
       this.sexIcon.anims.play("2");

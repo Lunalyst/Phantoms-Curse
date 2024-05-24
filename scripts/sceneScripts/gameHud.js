@@ -3,7 +3,7 @@
 //https://www.youtube.com/watch?v=5zl74QQjUDI
 
 //this class is to factor out ui elements that we want to keep inbetween scenes by making a scene that is active and overlayed over the current scene
-class gameHud extends Phaser.Scene {
+class gameHud extends allSceneFunctions {
   
     constructor(){
       // scene settings
@@ -14,7 +14,6 @@ class gameHud extends Phaser.Scene {
       this.grabbed = false;
       this.KeyDisplay;
       this.skipIndicator;
-      this.activateFunctions;
       this.loadCoolDown = false;
       this.saveCoolDown = false;
       this.signCoolDown = false;
@@ -25,8 +24,6 @@ class gameHud extends Phaser.Scene {
       this.isPaused = false;
       this.pausedInTextBox = false;
       // save data within the game hud.
-      this.saveX;
-      this.saveY;
       this.playerSex;
       this.playerLocation;
       this.inventoryDataArray;
@@ -110,7 +107,7 @@ class gameHud extends Phaser.Scene {
         this.giveUpIndicator.setScrollFactor(0);
         
         //first we need the data from the json which was updated by the titlescreen or another screen
-        this.loadSceneTransitionValues();
+        this.loadGameHudData();
 
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
         healthEmitter.on(healthEvent.loseHealth,(damage) =>{
@@ -164,6 +161,26 @@ class gameHud extends Phaser.Scene {
           //adds the only direct input the hud needs which is the mouse inputs.
           this.input.mouse.capture = true;
 
+          //emitter to return the save slot
+          inventoryKeyEmitter.on(inventoryKey.getSaveSlot,(object) =>{
+            object.saveSlot = this.playerSaveSlotData.saveSlot;
+          });
+
+          //emitter to return the updated data within the gamehud as the game is playing.
+          inventoryKeyEmitter.on(inventoryKey.getCurrentData,(object) =>{
+            //sets values for saving
+            object.playerHpValue = this.healthDisplay.playerHealth;
+            object.inventoryArray = this.inventoryDataArray;
+            object.playerBestiaryData = this.playerBestiaryData;
+            object.playerSkillsData = this.playerSkillsData;
+            object.playerSaveSlotData = this.playerSaveSlotData;
+            object.flagValues = this.flagValues;
+            object.settings = this.settings;
+
+            //set for save object so it can set hp to max.
+            object.playerMaxHP = this.healthDisplay.playerHealthMax;
+          });
+
           // create inventory hub object
           this.playerInventory = new inventory(this,117,115,"inventory");
           
@@ -200,40 +217,6 @@ class gameHud extends Phaser.Scene {
           //emitter to tell when the inventory is open or no so we can close it if the player gets grabbed ect.
           inventoryKeyEmitter.on(inventoryKey.isWindowOpen,(object) =>{
             object.isOpen =  this.playerInventory.isOpen;
-          });
-          
-          //emitter to grab save data so that the save point can have acess to it.
-          inventoryKeyEmitter.on(inventoryKey.getSaveData,(playerDataObject) =>{
-            playerDataObject.saveX = this.saveX;
-            playerDataObject.saveY = this.saveY;
-            playerDataObject.playerSex = this.playerSex;
-            playerDataObject.playerLocation = this.playerLocation;
-            playerDataObject.currentHp = this.healthDisplay.playerHealth;
-            playerDataObject.playerMaxHp = this.healthDisplay.playerHealthMax;
-            playerDataObject.inventoryArray = this.inventoryDataArray;
-            playerDataObject.playerBestiaryData = this.playerBestiaryData;
-            playerDataObject.playerSkillsData = this.playerSkillsData;
-            playerDataObject.playerSaveSlotData = this.playerSaveSlotData;
-            playerDataObject.flagValues = this.flagValues;
-            playerDataObject.settings = this.settings;
-
-          });
-
-          //emmitter to set the current values to the game hud. used for keeping the game hud up to date after a save.
-          inventoryKeyEmitter.on(inventoryKey.setSaveData,(playerDataObject) =>{
-            //takes a object, and sets values accordingly
-            this.saveX = playerDataObject.saveX;
-            this.saveY = playerDataObject.saveY;
-            this.playerSex = playerDataObject.playerSex;
-            this.playerLocation = playerDataObject.playerLocation;
-            this.healthDisplay.playerHealth = playerDataObject.currentHp;
-            this.healthDisplay.playerHealthMax = playerDataObject.playerMaxHp;
-            this.inventoryDataArray = playerDataObject.inventoryArray;
-            this.playerBestiaryData = playerDataObject.playerBestiaryData;
-            this.playerSkillsData = playerDataObject.playerSkillsData;
-            this.playerSaveSlotData = playerDataObject.playerSaveSlotData;
-            this.flagValues = playerDataObject.flagValues;
-            this.settings = playerDataObject.settings;
           });
 
           //emitter so itemdrops can be added to the inventory.
@@ -378,32 +361,6 @@ class gameHud extends Phaser.Scene {
       this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
     }
 
-    //loads value from data to display the hud
-    loadSceneTransitionValues(){
-           //on start up we need files from the scene transition. so we grab those.
-           var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
-
-           console.log('==================================================');
-           console.log('Setting Values to hud')
-           console.log("player HP: " + file.playerHpValue);
-           console.log("playerInventoryData: " + file.inventoryData);
-           console.log("playerBestiaryData: ", file.pbd);
-           console.log("playerSkillsData: ", file.psd);
-           console.log("playerSaveSlotData: ", file.pssd);
-           console.log("gameFlags: " + file.flags);
-           console.log("settings: " + file.settings);
-
-           
-           this.healthDisplay.playerHealth = file.playerHpValue;
-           this.inventoryDataArray = file.inventoryData;
-           this.playerBestiaryData = file.pbd;
-           this.playerSkillsData = file.psd;
-           this.playerSaveSlotData = file.pssd;
-           this.flagValues = file.flags;
-           this.settings = file.settings;
- 
-    }
-
     //function that prints listeners
     printActiveEmitter(){
 
@@ -446,7 +403,7 @@ class gameHud extends Phaser.Scene {
           //healthEmitter.removeAllListeners(healthEvent[property]);
         }
         //print the emitter listeners
-        console.log(keyArray[counter]," current listeners: ",emitterTotal);
+        //console.log(keyArray[counter]," current listeners: ",emitterTotal);
         emitterTotal = 0;
 
       }  

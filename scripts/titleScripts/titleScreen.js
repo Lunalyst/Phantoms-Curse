@@ -6,18 +6,13 @@ https://braelynnn.medium.com/phaser-game-settings-using-localstorage-1cf6a9fa6f2
  */
 let playerUI;
 
-const COLOR_PRIMARY = 0x4e342e;
-const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
-
-class titleScreen extends Phaser.Scene {
+class titleScreen extends allSceneFunctions {
     constructor(){
         // scene settings
         super({key: 'titleScreen',active: true,physics:{default:'arcade'}});
         //variables attached to the scene
         this.newGame;
         this.loadGame;
-        this.allFunctions;
         this.backround;
         this.titleLogo;
         this.title;
@@ -160,8 +155,6 @@ class titleScreen extends Phaser.Scene {
             this.trashCan3.setupRemoveSlot(3);
             this.elements.add(this.trashCan3);
 
-            this.activateFunctions = new allSceneFunctions;
-           
             //sets up button objects.
             this.newGame = new newGame(this,150,600);
             this.elements.add(this.newGame);
@@ -189,8 +182,6 @@ class titleScreen extends Phaser.Scene {
 
             //this.optionsMenu = new optionsMenu(this,200,150);
             //this.elements.add(this.optionsMenu);
-
-            this.allFunctions = new allSceneFunctions;
 
             //sets up mouse detection
             this.input.mouse.capture = true;
@@ -240,7 +231,7 @@ class titleScreen extends Phaser.Scene {
                 if(this.logoAnimationPlayed === false && this.titleLogo.visible === true){
                     this.logoAnimationPlayed = true;
                     this.curse.visible = true;
-                    console.log("this.curse",this.curse);
+                    //console.log("this.curse",this.curse);
                     this.cursecooldown = this.curse.switchCurse();
                     this.titleLogo.anims.play("titleLogoLoop1").once('animationcomplete' , () =>{
                         this.logoAnimationPlayed = false;
@@ -317,28 +308,39 @@ class titleScreen extends Phaser.Scene {
                     );
                 //add text box describing the player sex select. need to change scale.
                 
+                //if the player is in the load menu
                 }else if(this.isInSlotSelectLoad === true){
-                this.activateFunctions.loadGameFile(this,slot);
+                //load the game file save slot data
+                this.loadGameFile(slot);
+                //then check if that data has a valid x cordinate,
+                //many need better check for file validity
                 if(this.warpToX !== undefined){
-                    this.allFunctions.saveGame( 
-                        this.warpToX,
-                        this.warpToY,
-                        this.playerHealth,
-                        this.playerSex,
-                        this.inventoryDataArray,
-                        this.playerBestiaryData,
-                        this.playerSkillsData,
-                        this.playerSaveSlotData,
-                        this.flagValues,
-                        this.settings
-                           );
 
-                    console.log("warping player to location."+ this.playerLocation);
+                    //calls the scene transition load.
+                    let playerDataObject = {
+                        saveX: this.warpToX,
+                        saveY: this.warpToY,
+                        playerHpValue: this.playerHealth,
+                        playerSex:this.playerSex,
+                        playerLocation: this.playerLocation,
+                        inventoryArray: this.inventoryDataArray,
+                        playerBestiaryData: this.playerBestiaryData,
+                        playerSkillsData: this.playerSkillsData,
+                        playerSaveSlotData: this.playerSaveSlotData,
+                        flagValues: this.flagValues,
+                        settings:this.settings
+                    };
+
+                    this.saveGame(playerDataObject);
                     
+                    //loads the next gameplay scene
+                    console.log("warping player to location."+ this.playerLocation);
                     console.log("now stoping this scene",);
                     this.scene.stop();
+
                     console.log("now loading game ui",);
                     this.scene.launch('gameHud');
+
                     let that = this;
                     setTimeout(function () {
                         console.log("now Loading main scene",);
@@ -353,7 +355,7 @@ class titleScreen extends Phaser.Scene {
             console.log("activating showsaveslots.");
             console.log("isVisible: ",isVisible," trashCansVisible: ",trashCansVisible);
             this.saveslot1.visible = isVisible;
-            this.activateFunctions.loadGameFile(this,1);
+            this.loadGameFile(1);
             this.tempNewGameSlotID = 1;
             this.saveslot1.showSlot();
             this.saveslot1.setSkillDisplay();
@@ -361,7 +363,7 @@ class titleScreen extends Phaser.Scene {
             this.clearSlotData();
 
             this.saveslot2.visible = isVisible;
-            this.activateFunctions.loadGameFile(this,2);
+            this.loadGameFile(2);
             this.tempNewGameSlotID = 2;
             this.saveslot2.showSlot();
             this.saveslot2.setSkillDisplay();
@@ -369,7 +371,7 @@ class titleScreen extends Phaser.Scene {
             this.clearSlotData();
 
             this.saveslot3.visible = isVisible;
-            this.activateFunctions.loadGameFile(this,3); 
+            this.loadGameFile(3); 
             this.tempNewGameSlotID = 3;
             this.saveslot3.showSlot();
             this.saveslot3.setSkillDisplay();

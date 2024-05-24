@@ -37,7 +37,7 @@ class makeText extends Phaser.GameObjects.Container{
         }
         
         scene.add.existing(this);
-        console.log("maketext: ", this);
+        //console.log("maketext: ", this);
         //this.visible = true;
     }
     

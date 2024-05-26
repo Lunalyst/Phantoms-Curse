@@ -3,7 +3,7 @@ https://phaser.io/examples/v3/view/input/mouse/click-sprite
 https://phaser.io/examples/v2/input/pointer-over
  */
 let gameoverThat;
-class gameOver extends Phaser.Scene {
+class gameOver extends allSceneFunctions {
 
     constructor(){
         // scene settings
@@ -84,23 +84,9 @@ class gameOver extends Phaser.Scene {
         create(){
 
             //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
-            this.allFunctions = new allSceneFunctions;
 
             //load gameoverFile data to this scene
-             const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
-            //retrieves data from the file object and gives it to the current scene
-            console.log("calling loadGameoverFile============================");
-            console.log("playerSex: " + file.sex);
-            console.log("location: ", file.location);
-            console.log("enemy: " + file.enemy);
-            console.log("playerSaveSlotData: ", file.pssd);
-            console.log("defeatedTitle: ", file.dt);
-
-            this.playerSex = file.sex;
-            this.gameoverLocation = file.location;
-            this.enemyThatDefeatedPlayer = file.enemy;
-            this.playerSaveSlotData = file.pssd;
-            this.defeatedTitle = file.dt;
+            this.loadGameoverFile();
 
             console.log("this.playersex: "+ this.playerSex);
             console.log("now in gameover scene");
@@ -204,57 +190,20 @@ class gameOver extends Phaser.Scene {
                 let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
                 let tempPlayerSex = gameoverThat.playerSex;
                 
-                //stops sound effects
-                for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
-                    gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
-                  }
-                
-                //load player data from file
-                //gameoverThat.allFunctions.loadGameFile(gameoverThat,gameoverThat.playerSaveSlotData.saveSlot);
+                //grabs current saveslot
                 let slot = gameoverThat.playerSaveSlotData.saveSlot;
+
+                //loads player info from hard save
+                gameoverThat.loadGameFile(slot);
                 console.log("attempting to load slot:" + slot);
                 // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
-                let file;
-                if(slot === 1) {
-                file = JSON.parse(localStorage.getItem('saveFile1'));
-                } else if (slot === 2) {
-                file = JSON.parse(localStorage.getItem('saveFile2'));
-                } else if (slot === 3) {
-                file = JSON.parse(localStorage.getItem('saveFile3'));
-                } else {
-                console.log(" something went wrong with loading a save file. location: " + slot);
-                file = undefined;
-                }
-
-
-                //retrieves data from the file object and gives it to the current scene
-                if (file !== undefined && file !== null) {
-                console.log("calling loadslot for save slot " + slot + "loadGameFile============================");
-                console.log("save file x:" + file.saveX);
-                console.log("save file y:" + file.saveY);
-                console.log("player HP: " + file.playerHpValue);
-                console.log("playerSex: " + file.sex);
-                console.log("location: " + file.locationName);
-                console.log("playerInventoryData: " + file.id);
-                console.log("playerBestiaryData: ", file.pbd);
-                console.log("playerSkillsData: ", file.psd);
-                console.log("playerSaveSlotData: ", file.pssd);
-                console.log("gameFlags: ", file.flags);
-                //sets values from save data to the values in the scene.
-                gameoverThat.warpToX = file.saveX;
-                gameoverThat.warpToY = file.saveY;
-                gameoverThat.playerHealth = file.playerHpValue;
-                gameoverThat.playerSex = file.sex;
-                gameoverThat.playerLocation = file.locationName;
-                gameoverThat.inventoryDataArray = file.id;
-                gameoverThat.playerBestiaryData = file.pbd;
-                gameoverThat.playerSkillsData = file.psd;
-                gameoverThat.playerSaveSlotData = file.pssd;
-                gameoverThat.flagValues = file.flags;
+                
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
+                    gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
                 }
 
                 //if the player has data in thee save file then load them back to there last save
-                
                 console.log("gameoverThat.playerLocation: ",gameoverThat.playerLocation," gameoverThat.playerBestiaryData: ",gameoverThat.playerBestiaryData);
                 if(gameoverThat.playerLocation !== null && gameoverThat.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
 
@@ -271,23 +220,27 @@ class gameOver extends Phaser.Scene {
                         }
                       }
 
-                    gameoverThat.allFunctions = new allSceneFunctions;
+                      //creates a object to hold data for scene transition
+                        let playerDataObject = {
+                            saveX: gameoverThat.warpToX,
+                            saveY: gameoverThat.warpToY,
+                            playerHpValue: gameoverThat.playerHealth,
+                            playerSex:gameoverThat.playerSex,
+                            playerLocation: gameoverThat.playerLocation,
+                            inventoryArray: gameoverThat.inventoryDataArray,
+                            playerBestiaryData: gameoverThat.playerBestiaryData,
+                            playerSkillsData: gameoverThat.playerSkillsData,
+                            playerSaveSlotData: gameoverThat.playerSaveSlotData,
+                            flagValues: gameoverThat.flagValues,
+                            settings:gameoverThat.settings
+                        };
+
                     //call save function for temp save so when we start the scene agian, it has the correct data.
-                    gameoverThat.allFunctions.saveGame(
-                        gameoverThat.warpToX,
-                        gameoverThat.warpToY,
-                        gameoverThat.playerHealth,
-                        gameoverThat.playerSex,
-                        gameoverThat.inventoryDataArray,
-                        gameoverThat.playerBestiaryData,
-                        gameoverThat.playerSkillsData,
-                        gameoverThat.playerSaveSlotData,
-                        gameoverThat.flagValues
-                    );
+                    gameoverThat.saveGame(playerDataObject);
 
                     //launch the gameplay scenes.
                     console.log("now stoping this scene",);
-                    gameoverThat.scene.stop();
+                    //gameoverThat.scene.stop();
                     console.log("now loading game ui",);
                     gameoverThat.scene.launch('gameHud');
                     setTimeout(function () {

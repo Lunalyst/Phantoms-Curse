@@ -16,11 +16,13 @@ class no extends Phaser.Physics.Arcade.Sprite{
         
         this.anims.play('noInActive');
 
+        this.optionsMenu;
+
         this.scene = scene;
       
     }
 
-    setupNo(){
+    setupNoTitle(){
 
         let that = this;
 
@@ -50,5 +52,31 @@ class no extends Phaser.Physics.Arcade.Sprite{
        
     });
 
+    }
+
+    //used to set the options menu refrence in this object.
+    setOptionsMenu(menu){
+        this.optionsMenu = menu;
+    }
+
+    setupNoSettings(){
+
+        let that = this;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("noActive");
+        });
+        this.on('pointerout',function(pointer){
+            that.anims.play("noInActive");
+        });
+
+        this.on('pointerdown', function (pointer) {
+
+            //hides the textbox and options if the player clicks no
+            that.optionsMenu.optionsTextBox.visible = false;
+            that.optionsMenu.yes.visible = false;
+            that.optionsMenu.no.visible = false;
+            
+        });
     }
 }

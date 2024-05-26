@@ -18,10 +18,12 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         this.anims.play('yesInActive');
 
         this.scene = scene;
+
+        this.optionsMenu;
       
     }
 
-    setupYes(){
+    setupYesTitle(){
 
         let that = this;
 
@@ -105,5 +107,34 @@ class yes extends Phaser.Physics.Arcade.Sprite{
            
         });
 
+        
+
     }
+
+    //used to set the options menu refrence in this object.
+    setOptionsMenu(menu){
+        this.optionsMenu = menu;
+    }
+
+    setupYesSettings(){
+
+        let that = this;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("yesActive");
+        })
+        this.on('pointerout',function(pointer){
+            that.anims.play("yesInActive");
+        })
+
+        this.on('pointerdown', function (pointer) {
+
+            that.scene.cameras.main.fadeOut(500, 0, 0, 0);
+            //location.reload();
+        });
+    }
+
+    /*callSceneTransition(){
+        this.scene.changeToTitleScreen();
+    }*/
 }

@@ -66,6 +66,7 @@ class textBox extends Phaser.GameObjects.Container{
         this.lines[counter].visible = hideBool;
       }
     }
+
     activateTextBox(scene1,keyW){
       console.log("textbox",this);
       //console.log("activating text box");
@@ -101,6 +102,8 @@ class textBox extends Phaser.GameObjects.Container{
         currentTextBox.textCoolDown =  true;
         },300);
       }
+
+      
     
     //console.log("this.endPosition: "+ this.endPosition)
     //console.log(" this.currentText: "+this.currentText);
@@ -123,10 +126,70 @@ class textBox extends Phaser.GameObjects.Container{
         },1000);
     }
   }
+}
+
+activateTextBoxOnce(scene1){
+  console.log("textbox",this);
+  //console.log("activating text box");
+  //console.log("this.textBoxActivationCoolDown: "+ this.textBoxActivationCoolDown);
+  if(this.textBoxActivationCoolDown === false){
+
+    if(this.textCoolDown){
+    this.visible = true;
+    this.textBoxProfileImage.visible = true;
+    this.hideText(true);
+    scene1.isPaused = true;
+    scene1.pausedInTextBox = true;
+    //console.log("scene1.isPaused: "+ scene1.isPaused);
+  }
+  
+  //first we want to display the beginning part of the text. if the text is shorter that 87 chars
+  //then we want to skip the while loop allowing ups to display text cause all text has been displayed.
+
+    //console.log("generating text");
+    //if we are waiting for the player to press w then we stop displaying more text.
+  if(false){
+    // loop gest start and end position
+  this.startPosition = this.endPosition;
+  this.endPosition = this.endPosition+textEnd;
+  this.displayText(this.startPosition,this.endPosition);
+  if(this.profileArrayPosition < this.profileArray.length-1){
+    this.profileArrayPosition++;
+  }
+  this.textCoolDown = false;
+  setTimeout(function(){
+    //console.log("delay end for text box");
+    
+    currentTextBox.textCoolDown =  true;
+    },300);
+  }
 
   
-  
-    }
+
+//console.log("this.endPosition: "+ this.endPosition)
+//console.log(" this.currentText: "+this.currentText);
+//console.log(" this.currentText.length-1: "+this.currentText.length-1);
+if(this.endPosition-textEnd > this.currentText.length-1){
+  //this.finishedDisplayingText = true;
+  scene1.isPaused = false;
+  scene1.pausedInTextBox = false;
+  this.visible = false;
+  this.textBoxProfileImage.visible = false;
+  this.hideText(false);
+  this.startPosition = 0;
+  this.endPosition = 0;
+  this.textBoxActivationCoolDown = true;
+  this.profileArrayPosition = 0;
+  setTimeout(function(){
+    console.log("delay end for text box");
+    
+    currentTextBox.textBoxActivationCoolDown =  false;
+    },1000);
+}
+}
+}
+
+
     // this. line and two numbers representing the start and end location of the text to be display.
     displayText(start,end){
       let textPos = 0;
@@ -247,11 +310,11 @@ class textBox extends Phaser.GameObjects.Container{
 
     }
 
-    activateTitleScreenTextbox(scene,keyW,isVisible,profileArray,text){
+    activateTitleScreenTextbox(scene,isVisible,profileArray,text){
             this.setText(text);
             this.formatText();
             this.setProfileArray(this.profileArray);
-            this.activateTextBox(scene,keyW,);
+            this.activateTextBoxOnce(scene);
             //this.hideText(isVisible);
             this.setProfileArray(profileArray);
             this.displayText(0,textEnd);

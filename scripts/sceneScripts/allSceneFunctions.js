@@ -279,6 +279,7 @@ class allSceneFunctions extends Phaser.Scene {
 
     this.healthDisplay.playerHealth = file.playerHpValue;
     this.playerSex = file.sex;
+    this.playerLocation = file.locationName;
     this.inventoryDataArray = file.id;
     this.playerBestiaryData = file.pbd;
     this.playerSkillsData = file.psd;
@@ -289,6 +290,7 @@ class allSceneFunctions extends Phaser.Scene {
     console.log("[loadGameHudData]============================================");
         console.log("this.healthDisplay.playerHealth:",this.healthDisplay.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
         console.log("this.playerSex:",this.playerSex," <-- file.sex: ",file.sex);
+        console.log("this.playerLocation:",this.playerLocation," <-- file.locationName: ",file.locationName);
         console.log("this.inventoryDataArray:",this.inventoryDataArray," <-- file.id: ",file.id);
         console.log("this.playerBestiaryData:",this.playerBestiaryData," <-- file.pbd: ",file.pbd);
         console.log("this.playerSkillsData:",this.playerSkillsData," <-- file.psd: ",file.psd);
@@ -331,10 +333,220 @@ returnSave(dataObject){
     console.log("=======================================================");
 }
 
-validateSaveFile(){
+//function to fix dave file if the file is broken or outdated.
+validateSaveFile(dataObject){
+
+  if(dataObject.saveX === undefined || dataObject.saveX === null){
+    dataObject.saveX = 441;
+    dataObject.saveY = 926;
+    dataObject.playerLocation = 'tutorialBeachLevel';
+  }
+
+  if(dataObject.saveY === undefined || dataObject.saveY === null){
+    dataObject.saveX = 441;
+    dataObject.saveY = 926;
+    dataObject.playerLocation = 'tutorialBeachLevel';
+  }
+
+  if(dataObject.playerHpValue === undefined || dataObject.playerHpValue === null){
+    dataObject.playerHpValue = 1;
+  }
+
+  if(dataObject.playerSex === undefined || dataObject.playerSex === null){
+    dataObject.playerSex = 1;
+  }
+
+  if(dataObject.playerLocation === undefined || dataObject.playerLocation === null){
+    dataObject.saveX = 441;
+    dataObject.saveY = 926;
+    dataObject.playerLocation = 'tutorialBeachLevel';
+  }
+
+  if(dataObject.inventoryArray === undefined || dataObject.inventoryArray === null){
+    //creates a array to be filled my objects
+    let inventoryArray  = [];
+
+    //fills the array with objects
+    for(let counter = 0; counter < 26; counter++){
+
+        //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+        //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+        let item = {
+            itemID: 0,
+            itemStackable: 1,
+            itemAmount: 0 
+         };
+
+        inventoryArray.push(item);
+    }
+    dataObject.inventoryArray = inventoryArray;
+  }
+
+  if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){
+    let playerBestiaryData = {
+      blueSlime:0,
+      largeBlueSlime:0,
+      axolotlMale:0,
+      axolotlfemale:0,
+      largePurpleSlugFemale:0,
+      largePurpleSlugMale:0,
+      rabbitfemale:0,
+      rabbitMale:0,
+      cowFemale:0,
+      cowMale:0,
+      blueSlimeHumanoidFemale:0,
+      blueSlimeHumanoidFemaleLarge:0,
+      sharkFemale:0,
+      sharkMale:0
+    };
+
+    dataObject.playerBestiaryData = playerBestiaryData;
+  }
+
+  if(dataObject.playerSkillsData === undefined || dataObject.playerSkillsData === null){
+    let playerSkillsData = {
+      jump:1,
+      dash:0,
+      strength:0,
+      mimic:0,
+      looting:0
+   };
     
+    dataObject.playerSkillsData = playerSkillsData;
+  }
+
+  if(dataObject.playerSaveSlotData === undefined || dataObject.playerSaveSlotData === null){
+    let saveSlotData = {
+      saveSlot:that.scene.tempNewGameSlotID,
+      currency: 0,
+      bestiaryCompletionPercent: 0,
+      playerHealthUpgrades: 0,
+      PlayerStorage: [],
+   };
+    
+    dataObject.playerSaveSlotData = saveSlotData;
+  }
+
+  if(dataObject.flagValues === undefined || dataObject.flagValues === null){
+    let gameFlags = {
+      containerFlags: []
+
+   };
+    
+    dataObject.flagValues = gameFlags;
+  }
+
+  if(dataObject.settings === undefined || dataObject.settings === null){
+    let settings = {
+      preferance: 2,
+      volume: 1,
+      onomatopoeia: true
+   };
+    
+    dataObject.settings = settings;
+
+  }
 }
 
+//function that prints listeners
+printActiveEmitter(){
 
+  //creates two arrays to hold keys and emitters, same code is in gameover function in default scene.
+  let emitterArray = [];
+  let keyArray = [];
+
+  keyArray.push(healthEvent);
+  emitterArray.push(healthEmitter);
+  
+  keyArray.push(SceneTransitionLoad);
+  emitterArray.push(loadSceneTransitionLoad);
+
+  keyArray.push(tabKey);
+  emitterArray.push(accessTabKey);
+
+  keyArray.push(inventoryKey);
+  emitterArray.push(inventoryKeyEmitter);
+
+  keyArray.push(playerSkills);
+  emitterArray.push(playerSkillsEmitter);
+
+  keyArray.push(playerSaveSlot);
+  emitterArray.push(playerSaveSlotEmitter);
+
+  keyArray.push(skipIndicator);
+  emitterArray.push(skipIndicatorEmitter);
+
+  keyArray.push(hudDepth);
+  emitterArray.push(hudDepthEmitter);
+  
+
+  let emitterTotal = 0;
+  //loops through the arrays
+  for(let counter = 0; counter < emitterArray.length; counter++){
+    //for each key add the emitter totals
+    for(const property in keyArray[counter]){
+      //console.log(`emitter: ${property}: ${healthEvent[property]}`);
+      emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
+      //healthEmitter.removeAllListeners(healthEvent[property]);
+    }
+    //print the emitter listeners
+    //console.log(keyArray[counter]," current listeners: ",emitterTotal);
+    emitterTotal = 0;
+
+  }  
+}
+
+//clears all emitters
+clearAllEmmitters(){
+
+  console.log("removing listeners");
+
+  let emitterArray = [];
+  let keyArray = [];
+
+  keyArray.push(healthEvent);
+  emitterArray.push(healthEmitter);
+
+  keyArray.push(struggleEvent);
+  emitterArray.push(struggleEmitter);
+  
+  keyArray.push(SceneTransitionLoad);
+  emitterArray.push(loadSceneTransitionLoad);
+
+  keyArray.push(tabKey);
+  emitterArray.push(accessTabKey);
+
+  keyArray.push(inventoryKey);
+  emitterArray.push(inventoryKeyEmitter);
+
+  keyArray.push(playerSkills);
+  emitterArray.push(playerSkillsEmitter);
+
+  keyArray.push(playerSaveSlot);
+  emitterArray.push(playerSaveSlotEmitter);
+
+  keyArray.push(skipIndicator);
+  emitterArray.push(skipIndicatorEmitter);
+
+  keyArray.push(giveUpIndicator);
+  emitterArray.push(giveUpIndicatorEmitter);
+
+  keyArray.push(hudDepth);
+  emitterArray.push(hudDepthEmitter);
+  
+
+  //same code is in gameover function in default scene.
+
+  for(let counter = 0; counter < emitterArray.length; counter++){
+
+    for(const property in keyArray[counter]){
+      
+     emitterArray[counter].removeAllListeners(keyArray[counter][property]);
+      
+    }
+
+  }  
+
+}
 
 }

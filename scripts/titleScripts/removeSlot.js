@@ -47,7 +47,6 @@ class removeSlot extends Phaser.Physics.Arcade.Sprite{
 
           this.scene.sceneTextBox.activateTitleScreenTextbox(
               this.scene,//scene
-              this.scene.keyW,//keyW input
               true,// is the text box visible?
               ["lunalyst"],// sets profile array
               "are you sure you want to delete save slot: "+ slot +"?"//text sent to the text box.

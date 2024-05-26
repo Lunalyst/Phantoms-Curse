@@ -73,6 +73,11 @@ class gameHud extends allSceneFunctions {
         
         console.log("create function in hud activated")
 
+        //creates fadeout when fadeout function is called in the camera object
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+          location.reload();
+        })
+
         //set up to display the cursors location. used for debugging
         this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
         this.pointer = this.input.activePointer;
@@ -212,6 +217,11 @@ class gameHud extends allSceneFunctions {
           inventoryKeyEmitter.on(inventoryKey.getInventory,(playerDataObject) =>{
             //console.log("this.inventoryDataArray in inventoryKey.getInventory:" ,this.inventoryDataArray);
             playerDataObject.playerInventoryData = this.inventoryDataArray;
+          });
+
+          //important emitter called by warp to set the new location. important for the back to title screen button in settings.
+          inventoryKeyEmitter.on(inventoryKey.setLocation,(location) =>{
+              this.playerLocation = location;
           });
 
           //emitter to tell when the inventory is open or no so we can close it if the player gets grabbed ect.
@@ -361,105 +371,4 @@ class gameHud extends allSceneFunctions {
       this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
     }
 
-    //function that prints listeners
-    printActiveEmitter(){
-
-      //creates two arrays to hold keys and emitters, same code is in gameover function in default scene.
-      let emitterArray = [];
-      let keyArray = [];
-
-      keyArray.push(healthEvent);
-      emitterArray.push(healthEmitter);
-      
-      keyArray.push(SceneTransitionLoad);
-      emitterArray.push(loadSceneTransitionLoad);
-
-      keyArray.push(tabKey);
-      emitterArray.push(accessTabKey);
-
-      keyArray.push(inventoryKey);
-      emitterArray.push(inventoryKeyEmitter);
-
-      keyArray.push(playerSkills);
-      emitterArray.push(playerSkillsEmitter);
-
-      keyArray.push(playerSaveSlot);
-      emitterArray.push(playerSaveSlotEmitter);
-
-      keyArray.push(skipIndicator);
-      emitterArray.push(skipIndicatorEmitter);
-
-      keyArray.push(hudDepth);
-      emitterArray.push(hudDepthEmitter);
-      
-
-      let emitterTotal = 0;
-      //loops through the arrays
-      for(let counter = 0; counter < emitterArray.length; counter++){
-        //for each key add the emitter totals
-        for(const property in keyArray[counter]){
-          //console.log(`emitter: ${property}: ${healthEvent[property]}`);
-          emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
-          //healthEmitter.removeAllListeners(healthEvent[property]);
-        }
-        //print the emitter listeners
-        //console.log(keyArray[counter]," current listeners: ",emitterTotal);
-        emitterTotal = 0;
-
-      }  
-    }
-
-    //clears all emitters
-    clearAllEmmitters(){
-
-      console.log("removing listeners");
-
-      let emitterArray = [];
-      let keyArray = [];
-
-      keyArray.push(healthEvent);
-      emitterArray.push(healthEmitter);
-
-      keyArray.push(struggleEvent);
-      emitterArray.push(struggleEmitter);
-      
-      keyArray.push(SceneTransitionLoad);
-      emitterArray.push(loadSceneTransitionLoad);
-
-      keyArray.push(tabKey);
-      emitterArray.push(accessTabKey);
-
-      keyArray.push(inventoryKey);
-      emitterArray.push(inventoryKeyEmitter);
-
-      keyArray.push(playerSkills);
-      emitterArray.push(playerSkillsEmitter);
-
-      keyArray.push(playerSaveSlot);
-      emitterArray.push(playerSaveSlotEmitter);
-
-      keyArray.push(skipIndicator);
-      emitterArray.push(skipIndicatorEmitter);
-
-      keyArray.push(giveUpIndicator);
-      emitterArray.push(giveUpIndicatorEmitter);
-
-      keyArray.push(hudDepth);
-      emitterArray.push(hudDepthEmitter);
-      
-
-      //same code is in gameover function in default scene.
-
-      for(let counter = 0; counter < emitterArray.length; counter++){
-
-        for(const property in keyArray[counter]){
-          
-         emitterArray[counter].removeAllListeners(keyArray[counter][property]);
-          
-        }
-    
-      }  
-
-    }
-
-    }
+}

@@ -58,6 +58,26 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.sexButton = new sexSelectButton(scene,this,-70,340);
         this.sexButton.setupSexButton();
         this.add(this.sexButton);
+        
+        this.exitButton = new exitButton(scene,this,180,460);
+        this.exitButton.setupExitButton();
+        this.add(this.exitButton);
+
+        //need textbox to display exit
+        this.optionsTextBox = new textBox(scene,-167,895,'charBlack');
+        this.optionsTextBox.setScale(1.1);
+        this.add(this.optionsTextBox);
+
+        //need yes button to boot to main menu
+        this.yes = new yes(scene,-297, 805);
+        this.yes.setupYesSettings();
+        this.add(this.yes);
+
+        //need no to close prompt
+        this.no = new no(scene,-37, 805);
+        this.no.setOptionsMenu(this);
+        this.no.setupNoSettings();
+        this.add(this.no);
 
         //rexUI scene slider plugin
         this.volumeSlider = new RexPlugins.UI.Slider(scene,{

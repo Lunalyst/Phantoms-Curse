@@ -19,6 +19,7 @@ struggleEmitter = new Phaser.Events.EventEmitter();
 
 SceneTransitionLoad = {
     loadValues: 'load_values',
+    backToTitle: 'back_to_title'
     
 };
 
@@ -37,6 +38,7 @@ inventoryKey = {
     getSaveSlot: 'get_save_slot',
     getCurrentData: 'get_current_data',
     getInventory:'get_inventory',
+    setLocation:'set_location',
     isInventoryOpen: 'is_inventory_open',
     addItem: 'add_item',
     addContainerFlag: 'add_container_flag',

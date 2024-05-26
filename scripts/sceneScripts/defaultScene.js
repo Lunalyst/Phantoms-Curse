@@ -136,7 +136,9 @@ class defaultScene extends allSceneFunctions {
         };
 
         this.loopingMusic = [];
-    
+
+        this.sentToTitle = false;
+
     }
 
     //old function to animate backround. could be removed.
@@ -167,7 +169,6 @@ class defaultScene extends allSceneFunctions {
         this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
-
     }
 
     //function called to laod tilesets.
@@ -180,6 +181,8 @@ class defaultScene extends allSceneFunctions {
         this.processMap.tilesetNameInTiled = tilesetImage;
         //calls function that loads the tiles from the json
         this.processMap.setTiles(sourceMap,this);
+
+        
 
         
     }
@@ -220,6 +223,18 @@ class defaultScene extends allSceneFunctions {
       this.cameras.main.followOffset.set(0,-1500);
 
       hudDepthEmitter.emit(hudDepth.toTop);
+
+      //creates cool fade in effect on scene load
+      this.cameras.main.fadeIn(500, 0, 0, 0);
+
+      this.destination ='';
+      //creates fadeout when fadeout function is called in the camera object
+      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+        //warps player to the next scene
+        this.scene.stop();
+        this.scene.start(this.destination); 
+      })
+
     }
 
     //sets up text box in scene
@@ -567,13 +582,10 @@ class defaultScene extends allSceneFunctions {
     }
 
     //{game over scene transitions}===================================================================================================================
-  
+
     //function which destroys this scene and starts the gameover scene.
     changeToGameover(){
 
-        this.myMap.destroy();
-        this.processMap.destroy();
-  
         let playerSaveSlotDataObject = {
           playerSaveSlotData: null
         };
@@ -584,74 +596,18 @@ class defaultScene extends allSceneFunctions {
   
         this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData,this.defeatedTitle);
 
-        
-      console.log("removing listeners");
+        //clears emitters
+        this.clearAllEmmitters();
 
-      let emitterArray = [];
-      let keyArray = [];
-
-      keyArray.push(healthEvent);
-      emitterArray.push(healthEmitter);
-      
-      keyArray.push(struggleEvent);
-      emitterArray.push(struggleEmitter);
-      
-      keyArray.push(SceneTransitionLoad);
-      emitterArray.push(loadSceneTransitionLoad);
-
-      keyArray.push(tabKey);
-      emitterArray.push(accessTabKey);
-
-      keyArray.push(inventoryKey);
-      emitterArray.push(inventoryKeyEmitter);
-
-      keyArray.push(playerSkills);
-      emitterArray.push(playerSkillsEmitter);
-
-      keyArray.push(playerSaveSlot);
-      emitterArray.push(playerSaveSlotEmitter);
-
-      keyArray.push(skipIndicator);
-      emitterArray.push(skipIndicatorEmitter);
-
-      keyArray.push(giveUpIndicator);
-      emitterArray.push(giveUpIndicatorEmitter);
-
-      keyArray.push(hudDepth);
-      emitterArray.push(hudDepthEmitter);
-      
-
-      for(let counter = 0; counter < emitterArray.length; counter++){
-
-        for(const property in keyArray[counter]){
-          
-         emitterArray[counter].removeAllListeners(keyArray[counter][property]);
-          
-        }
-    
-      }  
-
-      let emitterTotal = 0;
-
-      for(let counter = 0; counter < emitterArray.length; counter++){
-
-        for(const property in keyArray[counter]){
-          //console.log(`emitter: ${property}: ${healthEvent[property]}`);
-          emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
-          //healthEmitter.removeAllListeners(healthEvent[property]);
-        }
-        console.log(keyArray[counter]," current listeners: ",emitterTotal);
-        emitterTotal = 0;
-
-      }  
-        // stop the music playing
+        //for loop looks through all the looping music playing within a given scene and stops the music.
         for(let counter = 0; counter < this.sound.sounds.length; counter++){
           this.sound.get(this.sound.sounds[counter].key).stop();
         }
 
+        //https://blog.ourcade.co/posts/2020/phaser-3-fade-out-scene-transition/
+
         this.scene.stop('gameHud');
         this.scene.start('gameOver');
-
     }
 
     //{enemy functions}======================================================================================================================

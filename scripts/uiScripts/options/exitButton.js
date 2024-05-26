@@ -24,7 +24,7 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
       
     }
 
-    setupSexButton(){
+    setupExitButton(){
 
         let that = this;
 
@@ -37,7 +37,15 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerdown', function (pointer) {
             
-                //prompt the user if they want ot quit, letting them know that there progress will be lost if they do
+            //prompt the user if they want ot quit, letting them know that there progress will be lost if they do
+            that.optionsMenu.optionsTextBox.activateTitleScreenTextbox(
+                this.scene,//scene
+                true,// is the text box visible?
+                ["sign"],// sets profile array
+                "if you quit to title, progress will be lost. is that ok? "//text sent to the text box.
+            );
+            that.optionsMenu.yes.visible = true;
+            that.optionsMenu.no.visible = true;
 
                 
                    

@@ -93,9 +93,24 @@ class titleScreen extends allSceneFunctions {
 
             this.elements = this.physics.add.group();
 
-            
+            //dramatic fade in.
+            this.cameras.main.fadeIn(500, 0, 0, 0);
 
-            
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                console.log("warping player to location."+ this.playerLocation);
+                console.log("now stoping this scene",);
+                this.scene.stop();
+
+                console.log("now loading game ui",);
+                this.scene.start('gameHud');
+
+                let that = this;
+                setTimeout(function () {
+                    console.log("now Loading main scene ",that.playerLocation);
+                    that.scene.start(that.playerLocation);
+                }, 100);
+            })
+
             // animations for some sprites present
             this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
             this.anims.create({key: 'titleLogoLoop1',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 10 }),frameRate: 4,repeat: 0});
@@ -126,7 +141,6 @@ class titleScreen extends allSceneFunctions {
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             this.sceneTextBox.activateTitleScreenTextbox(
                 this,//scene
-                this.keyW,//keyW input
                 false,// is the text box visible?
                 ["lunalyst"],// sets profile array
                 "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
@@ -199,9 +213,9 @@ class titleScreen extends allSceneFunctions {
 
             this.femaleIcon.setupFemaleIcon();
 
-            this.yes.setupYes();
+            this.yes.setupYesTitle();
 
-            this.no.setupNo();
+            this.no.setupNoTitle();
 
             this.saveslot1.on('pointerdown', function (pointer) {
                 console.log("activating saveSlot1, that.isInSlotSelectNew: "+ that.isInSlotSelectNew+ "that.isInSlotSelectLoad: "+ that.isInSlotSelectLoad);
@@ -254,14 +268,9 @@ class titleScreen extends allSceneFunctions {
 
         //function to switch scene
         switchScene(){
-            console.log("now stoping this scene",);
-            this.scene.stop();
-
-            console.log("now loading game ui",);
-            this.scene.launch('gameHud');
-            
-            console.log("now Loading main scene",);
-            this.scene.start('tutorialBeachLevel');
+            //loads the next gameplay scene by calling the fadeout camera effect.
+            this.playerLocation = 'tutorialBeachLevel';
+            this.cameras.main.fadeOut(500, 0, 0, 0);
         }
 
         //clears slot data
@@ -301,7 +310,6 @@ class titleScreen extends allSceneFunctions {
                 console.log("that.tempNewGameSlotID: "+this.tempNewGameSlotID);
                 this.sceneTextBox.activateTitleScreenTextbox(
                     this,//scene
-                    this.keyW,//keyW input
                     true,// is the text box visible?
                     ["lunalyst"],// sets profile array
                     "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
@@ -333,20 +341,8 @@ class titleScreen extends allSceneFunctions {
 
                     this.saveGame(playerDataObject);
                     
-                    //loads the next gameplay scene
-                    console.log("warping player to location."+ this.playerLocation);
-                    console.log("now stoping this scene",);
-                    this.scene.stop();
-
-                    console.log("now loading game ui",);
-                    this.scene.launch('gameHud');
-
-                    let that = this;
-                    setTimeout(function () {
-                        console.log("now Loading main scene",);
-                        that.scene.start(that.playerLocation);
-        
-                    }, 100);
+                    //loads the next gameplay scene by calling the fadeout camera effect.
+                    this.cameras.main.fadeOut(500, 0, 0, 0);
                 }
         }
         }

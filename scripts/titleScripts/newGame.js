@@ -26,15 +26,16 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("newActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){
             that.anims.play("newInActive");
         })
 
         this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.visible = false;
             that.scene.loadGame.visible = false;
-            that.scene.options.visible = false;
             that.scene.back.visible = true;
             that.scene.titleLogo.visible = false;
             that.scene.isInSlotSelectNew = true;

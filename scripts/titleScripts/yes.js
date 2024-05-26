@@ -29,13 +29,14 @@ class yes extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("yesActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){
             that.anims.play("yesInActive");
         })
 
         this.on('pointerdown', function (pointer) {
-
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
             
             that.scene.clearSlotData();
 
@@ -121,6 +122,7 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         let that = this;
 
         this.on('pointerover',function(pointer){
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
             that.anims.play("yesActive");
         })
         this.on('pointerout',function(pointer){
@@ -128,13 +130,9 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.scene.cameras.main.fadeOut(500, 0, 0, 0);
             //location.reload();
         });
     }
-
-    /*callSceneTransition(){
-        this.scene.changeToTitleScreen();
-    }*/
 }

@@ -51,6 +51,7 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
         let that = this;
 
         this.on('pointerover',function(pointer){
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
             if(that.isOn){
                 that.anims.play("volumeOnActive");
             }else{
@@ -68,7 +69,7 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
                 //button mutes sound or chenges volume to max.
                 if(that.isOn){
                     that.isOn = false;

@@ -79,6 +79,14 @@ class titleScreen extends allSceneFunctions {
             this.load.spritesheet('curses', 'assets/curses.png',{frameWidth: 96, frameHeight: 96 });
             this.load.spritesheet('buttons', 'assets/buttons.png',{frameWidth: 75, frameHeight: 75 });
 
+            this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
+                "audio/used-audio/titlescreen-sounds/kickhat-ambient-drone.mp3"
+              ]);
+            
+            this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
+                "audio/used-audio/button-sounds/button-sounds.mp3"
+              ]);
+
             this.load.scenePlugin({
                 key: 'rexuiplugin',
                 url: 'lib/vendors/rexuiplugin.min.js',
@@ -93,10 +101,20 @@ class titleScreen extends allSceneFunctions {
 
             this.elements = this.physics.add.group();
 
+            //adds looping sound effect.
+            this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
+
             //dramatic fade in.
             this.cameras.main.fadeIn(500, 0, 0, 0);
 
+            //handles scene transition and fade out.
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < this.sound.sounds.length; counter++){
+                    this.sound.get(this.sound.sounds[counter].key).stop();
+                }
+                
                 console.log("warping player to location."+ this.playerLocation);
                 console.log("now stoping this scene",);
                 this.scene.stop();
@@ -170,14 +188,11 @@ class titleScreen extends allSceneFunctions {
             this.elements.add(this.trashCan3);
 
             //sets up button objects.
-            this.newGame = new newGame(this,150,600);
+            this.newGame = new newGame(this,150,750);
             this.elements.add(this.newGame);
 
-            this.loadGame = new loadGame(this,150, 650);
+            this.loadGame = new loadGame(this,150, 800);
             this.elements.add(this.loadGame);
-
-            this.options = new options(this,130, 700);
-            this.elements.add(this.options);
 
             this.back = new back(this, 80, 850);
             this.elements.add(this.back);
@@ -194,9 +209,6 @@ class titleScreen extends allSceneFunctions {
             this.no = new no(this,350, 500);
             this.elements.add(this.no);
 
-            //this.optionsMenu = new optionsMenu(this,200,150);
-            //this.elements.add(this.optionsMenu);
-
             //sets up mouse detection
             this.input.mouse.capture = true;
 
@@ -204,8 +216,6 @@ class titleScreen extends allSceneFunctions {
             this.newGame.setupNewGame();
 
             this.loadGame.setupLoadGame();
-
-            this.options.setupOptions();
 
             this.back.setupBack();
 
@@ -289,7 +299,7 @@ class titleScreen extends allSceneFunctions {
         }
 
         ActivateSaveSlot(slot){
-
+            this.initSoundEffect('buttonSFX','2',0.05);
             if(this.isInSlotSelectNew === true){
                 this.back.visible = true;
                 this.isInNewGameSelect = true;

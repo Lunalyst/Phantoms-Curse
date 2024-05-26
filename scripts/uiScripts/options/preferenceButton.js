@@ -46,6 +46,7 @@ class preferenceButton extends Phaser.Physics.Arcade.Sprite{
         let that = this;
 
         this.on('pointerover',function(pointer){
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
             if(that.preference === 0){
                 that.anims.play("preMaleActive");
             }else if(that.preference === 1){
@@ -66,7 +67,7 @@ class preferenceButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
             if(that.preference === 0){
                 that.anims.play("preFemaleActive");
                 that.preference = 1;

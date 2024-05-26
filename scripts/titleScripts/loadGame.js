@@ -26,18 +26,19 @@ class loadGame extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("loadActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){
             that.anims.play("loadInActive");
         })
 
         this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
 
             // here is where we set up the three save slots.
             that.scene.newGame.visible = false;
             that.visible = false;
             that.scene.titleLogo.visible = false;
-            that.scene.options.visible = false;
             that.scene.back.visible = true;
             that.scene.isInSlotSelectLoad = true;
             if(that.scene.curse !== undefined){

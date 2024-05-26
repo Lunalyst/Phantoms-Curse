@@ -547,6 +547,73 @@ clearAllEmmitters(){
 
   }  
 
+  
+
 }
+
+  initLoopingSound(soundID,soundName,volume){
+    //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
+    let createSound = true;
+
+    //so we loop through the sounds to see if any sounds match our key
+    //this is important as we do not want to create duplicate sounds with the same key.
+    for(let counter = 0; counter < this.sound.sounds.length;counter++){
+      //if a key matches the given sound then set bool to false.
+      if(this.sound.sounds[counter].key === soundID){
+        //console.log("found key: ",soundID,"so we wont create the sound object");
+        createSound = false;
+      }
+
+    }
+
+    //if we should create the sound because the key does not exist make it
+    if(createSound === true){
+      //console.log("key not found making ",soundID);
+      this.sound.playAudioSprite(soundID,soundName);
+      
+    }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+      this.sound.get(soundID).play();
+    }
+  //this line of code sets the whole volume
+  //this.sound.setVolume(volume);
+    
+  //set the volume of the specific sound.
+    this.sound.get(soundID).volume = volume;
+    //ensures that the sound is looping
+    this.sound.get(soundID).config.loop = true;
+
+  }
+
+  initSoundEffect(soundID,soundName,volume){
+  //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
+  let createSound = true;
+
+  //so we loop through the sounds to see if any sounds match our key
+  //this is important as we do not want to create duplicate sounds with the same key.
+  for(let counter = 0; counter < this.sound.sounds.length;counter++){
+    //if a key matches the given sound then set bool to false.
+    if(this.sound.sounds[counter].key === soundID){
+      //console.log("found key: ",soundID,"so we wont create the sound object");
+      createSound = false;
+    }
+
+  }
+
+  //if we should create the sound because the key does not exist make it
+  if(createSound === true){
+      //console.log("key not found making ",soundID);
+      this.sound.playAudioSprite(soundID,soundName);
+    
+  }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+      this.sound.get(soundID).play(soundName);
+  }
+  //this line of code sets the whole volume
+  //this.sound.setVolume(volume);
+  
+  //set the volume of the specific sound.
+  this.sound.get(soundID).volume = volume;
+  //ensures that the sound is looping
+  }
+
 
 }

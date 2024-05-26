@@ -30,13 +30,14 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("exitActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){   
             that.anims.play("exitInActive");
         })
 
         this.on('pointerdown', function (pointer) {
-            
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
             //prompt the user if they want ot quit, letting them know that there progress will be lost if they do
             that.optionsMenu.optionsTextBox.activateTitleScreenTextbox(
                 this.scene,//scene

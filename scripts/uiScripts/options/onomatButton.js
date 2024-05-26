@@ -32,6 +32,7 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
         this.isOn = value;
         if(this.isOn){
             this.anims.play("onomatOnInActive");
+            
         }else{
             this.anims.play("onomatOffInActive");
         }
@@ -42,6 +43,7 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
         let that = this;
 
         this.on('pointerover',function(pointer){
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
             if(that.isOn){
                 that.anims.play("onomatOnActive");
             }else{
@@ -59,7 +61,7 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-            
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
                 if(that.isOn){
                     that.isOn = false;
                     that.optionsMenu.currentOnomatValue = false;

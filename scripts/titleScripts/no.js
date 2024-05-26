@@ -65,12 +65,14 @@ class no extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("noActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         });
         this.on('pointerout',function(pointer){
             that.anims.play("noInActive");
         });
 
         this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
 
             //hides the textbox and options if the player clicks no
             that.optionsMenu.optionsTextBox.visible = false;

@@ -26,30 +26,21 @@ class back extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerover',function(pointer){
             that.anims.play("backActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){
             that.anims.play("backInActive");
         })
 
         this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
             //console.log("activating back button. "+  )
            
-                if(that.scene.isInOptionsMenu){
-                    console.log("leaving options menu.");
-                    that.scene.elements.setVisible(0);
-
-                    that.scene.newGame.visible = true;
-                    that.scene.loadGame.visible = true;
-                    that.scene.titleLogo.visible = true;
-                    that.scene.options.visible = true;
-                    that.visible = false;
-                    that.scene.isInOptionsMenu = false;
-                    
-                }else if(that.scene.isInNewGameSelect){
+                if(that.scene.isInNewGameSelect){
                     console.log("leaving new game sex select.");
                     that.scene.newGame.visible = false;
                     that.scene.loadGame.visible = false;
-                    that.scene.options.visible = false;
+                    
                     that.visible = true;
                     that.scene.titleLogo.visible = false;
                     that.scene.isInSlotSelectNew = true;
@@ -72,9 +63,9 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.newGame.visible = true;
                     that.scene.loadGame.visible = true;
                     that.scene.titleLogo.visible = true;
-                    that.scene.options.visible = true;
+                    
                     that.scene.back.visible = false;
-                    that.scene.isInOptionsMenu = false;
+                    
                     that.scene.saveslot1.visible = false;
                     that.scene.trashCan1.visible = false;
                     that.scene.saveslot1.showSlot();
@@ -99,7 +90,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.newGame.visible = false;
                     that.scene.loadGame.visible = false;
                     that.scene.titleLogo.visible = false;
-                    that.scene.options.visible = false;
+                    
                     that.scene.back.visible = true;
                     that.scene.isInSlotSelectLoad = true;
                     

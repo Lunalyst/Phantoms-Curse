@@ -24,26 +24,27 @@ class removeSlot extends Phaser.Physics.Arcade.Sprite{
 
       this.on('pointerdown', function (pointer) {
         that.activateTrashCan(number);
-     });
+        that.scene.initSoundEffect('buttonSFX','1',0.05);
+        });
 
-    }
+        }
 
-    activateTrashCan(slot){
-      this.scene.isInSlotSelectLoad = false;
-      this.scene.isInDelete = true;
-      this.scene.saveslot1.visible = false;
-      this.scene.trashCan1.visible = false;
-      this.scene.saveslot1.showSlot();
-      this.scene.saveslot2.visible = false;
-      this.scene.trashCan2.visible = false;
-      this.scene.saveslot2.showSlot();
-      this.scene.saveslot3.visible = false;
-      this.scene.trashCan3.visible = false;
-      this.scene.saveslot3.showSlot();
-      this.scene.selectedSlotToBeDeleted = slot;
-      this.scene.yes.visible = true;
-      this.scene.no.visible = true;
-      
+        activateTrashCan(slot){
+          this.scene.isInSlotSelectLoad = false;
+          this.scene.isInDelete = true;
+          this.scene.saveslot1.visible = false;
+          this.scene.trashCan1.visible = false;
+          this.scene.saveslot1.showSlot();
+          this.scene.saveslot2.visible = false;
+          this.scene.trashCan2.visible = false;
+          this.scene.saveslot2.showSlot();
+          this.scene.saveslot3.visible = false;
+          this.scene.trashCan3.visible = false;
+          this.scene.saveslot3.showSlot();
+          this.scene.selectedSlotToBeDeleted = slot;
+          this.scene.yes.visible = true;
+          this.scene.no.visible = true;
+          
 
           this.scene.sceneTextBox.activateTitleScreenTextbox(
               this.scene,//scene

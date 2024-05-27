@@ -23,10 +23,6 @@ class defaultScene extends allSceneFunctions {
         "audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
 
-      this.load.audioSprite('curseSFX','audio/used-audio/curse-sounds/curse-sounds.json',[
-        "audio/used-audio/curse-sounds/suntemple-curse.mp3"
-      ]);
-
       this.load.audioSprite('creakSFX','audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
         "audio/used-audio/wood-creak-sounds/wood-creak.mp3"
       ]);
@@ -139,6 +135,9 @@ class defaultScene extends allSceneFunctions {
 
         this.sentToTitle = false;
 
+        //variable to tell when the player is defeated to call a different load.
+        this.playerDefeated = false;
+
     }
 
     //old function to animate backround. could be removed.
@@ -231,8 +230,15 @@ class defaultScene extends allSceneFunctions {
       //creates fadeout when fadeout function is called in the camera object
       this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
         //warps player to the next scene
-        this.scene.stop();
-        this.scene.start(this.destination); 
+
+        if(this.playerDefeated === true){
+          this.scene.stop('gameHud');
+          this.scene.start('gameOver');
+        }else{
+          this.scene.stop();
+          this.scene.start(this.destination); 
+        }
+        
       })
 
     }
@@ -540,10 +546,9 @@ class defaultScene extends allSceneFunctions {
           this.sound.get(this.sound.sounds[counter].key).stop();
         }
 
-        //https://blog.ourcade.co/posts/2020/phaser-3-fade-out-scene-transition/
-
-        this.scene.stop('gameHud');
-        this.scene.start('gameOver');
+        this.playerDefeated = true;
+        this.cameras.main.fadeOut(500, 0, 0, 0);
+  
     }
 
     //{enemy functions}======================================================================================================================

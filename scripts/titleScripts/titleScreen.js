@@ -48,6 +48,9 @@ class titleScreen extends allSceneFunctions {
         this.playerSaveSlotData;
         this.flagValues;
         this.settings;
+
+        //array to check if there is a file defined 
+        this.savedFileArray = [false,false,false];
        
         }
 
@@ -85,6 +88,10 @@ class titleScreen extends allSceneFunctions {
             
             this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
                 "audio/used-audio/button-sounds/button-sounds.mp3"
+              ]);
+
+            this.load.audioSprite('curseSFX','audio/used-audio/curse-sounds/curse-sounds.json',[
+                "audio/used-audio/curse-sounds/suntemple-curse.mp3"
               ]);
 
             this.load.scenePlugin({
@@ -160,7 +167,7 @@ class titleScreen extends allSceneFunctions {
             this.sceneTextBox.activateTitleScreenTextbox(
                 this,//scene
                 false,// is the text box visible?
-                ["lunalyst"],// sets profile array
+                ["sign"],// sets profile array
                 "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
                 );
             this.elements.add(this.sceneTextBox);
@@ -256,6 +263,7 @@ class titleScreen extends allSceneFunctions {
                     this.logoAnimationPlayed = true;
                     this.curse.visible = true;
                     //console.log("this.curse",this.curse);
+                    this.initSoundEffect('curseSFX','curse',0.1);
                     this.cursecooldown = this.curse.switchCurse();
                     this.titleLogo.anims.play("titleLogoLoop1").once('animationcomplete' , () =>{
                         this.logoAnimationPlayed = false;
@@ -299,8 +307,11 @@ class titleScreen extends allSceneFunctions {
         }
 
         ActivateSaveSlot(slot){
-            this.initSoundEffect('buttonSFX','2',0.05);
-            if(this.isInSlotSelectNew === true){
+
+            console.log('this.savedFileArray', this.savedFileArray);
+            console.log('slot', slot);
+            if(this.isInSlotSelectNew === true && this.savedFileArray[slot-1] === false){
+                this.initSoundEffect('buttonSFX','2',0.05);
                 this.back.visible = true;
                 this.isInNewGameSelect = true;
                 this.isInSlotSelectNew = false;
@@ -321,18 +332,20 @@ class titleScreen extends allSceneFunctions {
                 this.sceneTextBox.activateTitleScreenTextbox(
                     this,//scene
                     true,// is the text box visible?
-                    ["lunalyst"],// sets profile array
+                    ["sign"],// sets profile array
                     "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
                     );
                 //add text box describing the player sex select. need to change scale.
                 
                 //if the player is in the load menu
                 }else if(this.isInSlotSelectLoad === true){
+
                 //load the game file save slot data
                 this.loadGameFile(slot);
                 //then check if that data has a valid x cordinate,
                 //many need better check for file validity
-                if(this.warpToX !== undefined){
+                if(this.warpToX !== undefined && this.warpToX !== null){
+                    this.initSoundEffect('buttonSFX','2',0.05);
 
                     //calls the scene transition load.
                     let playerDataObject = {
@@ -353,8 +366,12 @@ class titleScreen extends allSceneFunctions {
                     
                     //loads the next gameplay scene by calling the fadeout camera effect.
                     this.cameras.main.fadeOut(500, 0, 0, 0);
+                }else{
+                    this.initSoundEffect('buttonSFX','3',0.05);
                 }
-        }
+            }else{
+                this.initSoundEffect('buttonSFX','3',0.05);   
+            }
         }
 
         showSaveSlots(isVisible,trashCansVisible){
@@ -362,6 +379,23 @@ class titleScreen extends allSceneFunctions {
             console.log("isVisible: ",isVisible," trashCansVisible: ",trashCansVisible);
             this.saveslot1.visible = isVisible;
             this.loadGameFile(1);
+            //if the save file is defined
+            console.log("this.warpToX: ",this.warpToX," this.isInSlotSelectNew: ",this.isInSlotSelectNew," this.isInSlotSelectLoad: ",this.isInSlotSelectLoad);
+            if(this.warpToX !== null && this.warpToX !== undefined){
+                this.savedFileArray[0] = true;
+                if(this.isInSlotSelectNew === true){
+                    this.saveslot1.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot1.clearTint();
+                }
+            }else{// if the save file is not defined
+                this.savedFileArray[0] = false;
+                if(this.isInSlotSelectLoad === true){
+                    this.saveslot1.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot1.clearTint();
+                }
+            }
             this.tempNewGameSlotID = 1;
             this.saveslot1.showSlot();
             this.saveslot1.setSkillDisplay();
@@ -370,6 +404,22 @@ class titleScreen extends allSceneFunctions {
 
             this.saveslot2.visible = isVisible;
             this.loadGameFile(2);
+            console.log("this.warpToX: ",this.warpToX," this.isInSlotSelectNew: ",this.isInSlotSelectNew," this.isInSlotSelectLoad: ",this.isInSlotSelectLoad);
+            if(this.warpToX !== null && this.warpToX !== undefined){
+                this.savedFileArray[1] = true;
+                if(this.isInSlotSelectNew === true){
+                    this.saveslot2.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot2.clearTint();
+                }
+            }else{
+                this.savedFileArray[1] = false;
+                if(this.isInSlotSelectLoad === true){
+                    this.saveslot2.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot2.clearTint();
+                }
+            }
             this.tempNewGameSlotID = 2;
             this.saveslot2.showSlot();
             this.saveslot2.setSkillDisplay();
@@ -377,7 +427,23 @@ class titleScreen extends allSceneFunctions {
             this.clearSlotData();
 
             this.saveslot3.visible = isVisible;
-            this.loadGameFile(3); 
+            this.loadGameFile(3);
+            console.log("this.warpToX: ",this.warpToX," this.isInSlotSelectNew: ",this.isInSlotSelectNew," this.isInSlotSelectLoad: ",this.isInSlotSelectLoad);
+            if(this.warpToX !== null && this.warpToX !== undefined){
+                this.savedFileArray[2] = true;
+                if(this.isInSlotSelectNew === true){
+                    this.saveslot3.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot3.clearTint();
+                }
+            }else{
+                this.savedFileArray[2] = false;
+                if(this.isInSlotSelectLoad === true){
+                    this.saveslot3.setTint(0xA9A9A9);
+                }else{
+                    this.saveslot3.clearTint();
+                }
+            }
             this.tempNewGameSlotID = 3;
             this.saveslot3.showSlot();
             this.saveslot3.setSkillDisplay();

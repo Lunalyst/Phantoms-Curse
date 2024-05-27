@@ -99,6 +99,19 @@ class gameOver extends allSceneFunctions {
                 let backround = this.add.sprite(450, 380, "backgroundBeachLevel");
 
             }
+
+            //handles scene transition and fade out for scene transition
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+
+                //launch the gameplay scenes.
+                console.log("now stoping this scene",);
+                console.log("now loading game ui",);
+                this.scene.launch('gameHud');
+                
+                console.log("now Loading main scene:", this.playerLocation);
+                this.scene.start(this.playerLocation);
+
+            })
             
 
             //creates try again button
@@ -184,6 +197,7 @@ class gameOver extends allSceneFunctions {
             //logic for try agian button
             //allow acess to scene in settimeout functions.
             gameoverThat = this;
+
             this.tryAgian.on('pointerdown', function (pointer) {
 
                 //sets a few variables
@@ -237,183 +251,12 @@ class gameOver extends allSceneFunctions {
 
                     //call save function for temp save so when we start the scene agian, it has the correct data.
                     gameoverThat.saveGame(playerDataObject);
-
-                    //launch the gameplay scenes.
-                    console.log("now stoping this scene",);
-                    //gameoverThat.scene.stop();
-                    console.log("now loading game ui",);
-                    gameoverThat.scene.launch('gameHud');
-                    setTimeout(function () {
-                        console.log("now Loading main scene:", gameoverThat.playerLocation);
-                        gameoverThat.scene.start(gameoverThat.playerLocation);
-        
-                    }, 100);
+                    
+                    // calls the fadout function which loads back to the last save on fadeout complete
+                    gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
 
                 //if the player has not saved, send them back to the beginning of the game
-                }else if(tempPlayerSex === 1){
-                    console.log("no save file detected: now sending male player back to the beginning of the game ");
-
-                    let playerBestiaryData = {
-                        blueSlime:0,
-                        largeBlueSlime:0,
-                        axolotlMale:0,
-                        axolotlfemale:0,
-                        largePurpleSlugFemale:0,
-                        largePurpleSlugMale:0,
-                        rabbitfemale:0,
-                        rabbitMale:0,
-                        cowFemale:0,
-                        cowMale:0,
-                        blueSlimeHumanoidFemale:0,
-                        blueSlimeHumanoidFemaleLarge:0,
-                        sharkFemale:0,
-                        sharkMale:0,
-                        
-                     };
-        
-                     let playerSkillsData = {
-                        jump:1,
-                        dash:0,
-                        strength:0,
-                        mimic:0,
-                        looting:0
-                     };
-        
-                    let saveSlotData = {
-                        saveSlot:gameoverThat.playerSaveSlotData.saveSlot,
-                        currency: 0,
-                        bestiaryCompletionPercent: 0,
-                        playerHealthUpgrades: 0,
-                        PlayerStorage: [],
-                     };
-        
-                     let gameFlags = {
-                        containerFlags: []
-                     };
-
-                     //creates a array to be filled my objects
-                     gameoverThat.inventoryArray  = [];
-        
-                     //fills the array with objects
-                     for(let counter = 0; counter < 26; counter++){
-         
-                         //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                         //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                         let item = {
-                             itemID: 0,
-                             itemStackable: 1,
-                             itemAmount: 0 
-                          };
-         
-                        gameoverThat.inventoryArray.push(item);
-                     }
-                     
-        
-                     gameoverThat.allFunctions.saveGame(
-                        441,//nextSceneX
-                        926,//nextSceneY
-                        1,//playerHp
-                        1,//playerSex
-                        gameoverThat.inventoryArray,//playerInventoryData
-                        playerBestiaryData,//playerBestiaryData
-                        playerSkillsData,//playerSkillsData
-                        saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                        gameFlags//gameFlags
-                        );
-
-                        console.log("now stoping this scene",);
-                        gameoverThat.scene.stop();
-                        console.log("now loading game ui",);
-                        gameoverThat.scene.launch('gameHud');
-                        setTimeout(function () {
-                            console.log("now Loading main scene",);
-                            gameoverThat.scene.start('tutorialBeachLevel');
-        
-                        }, 100);
-
-                }else if(tempPlayerSex === 0){
-
-                    console.log("no save file detected: now sending female player back to the beginning of the game ");
-                    console.log("this.playerLocation",this.playerLocation);
-
-                    let playerBestiaryData = {
-                        blueSlime:0,
-                        largeBlueSlime:0,
-                        axolotlMale:0,
-                        axolotlfemale:0,
-                        largePurpleSlugFemale:0,
-                        largePurpleSlugMale:0,
-                        rabbitfemale:0,
-                        rabbitMale:0,
-                        cowFemale:0,
-                        cowMale:0,
-                        blueSlimeHumanoidFemale:0,
-                        blueSlimeHumanoidFemaleLarge:0,
-                        sharkFemale:0,
-                        sharkMale:0,
-                        
-                     };
-        
-                     let playerSkillsData = {
-                        jump:1,
-                        dash:0,
-                        strength:0,
-                        mimic:0,
-                        looting:0
-                     };
-        
-                    let saveSlotData = {
-                        saveSlot:gameoverThat.playerSaveSlotData.saveSlot,
-                        currency: 0,
-                        bestiaryCompletionPercent: 0,
-                        playerHealthUpgrades: 0,
-                        PlayerStorage: [],
-                     };
-        
-                     let gameFlags = {
-                        containerFlags: []
-                     };
-
-                     //creates a array to be filled my objects
-                     gameoverThat.inventoryArray  = [];
-        
-                     //fills the array with objects
-                     for(let counter = 0; counter < 26; counter++){
-         
-                         //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                         //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                         let item = {
-                             itemID: 0,
-                             itemStackable: 1,
-                             itemAmount: 0 
-                          };
-         
-                        gameoverThat.inventoryArray.push(item);
-                     }
-                     
-        
-                     gameoverThat.allFunctions.saveGame(
-                        441,//nextSceneX
-                        926,//nextSceneY
-                        1,//playerHp
-                        0,//playerSex
-                        gameoverThat.inventoryArray,//playerInventoryData
-                        playerBestiaryData,//playerBestiaryData
-                        playerSkillsData,//playerSkillsData
-                        saveSlotData,//playerSaveSlotData(saveslotID,currency, bestiary percentage)
-                        gameFlags//gameFlags
-                        );
-
-                        console.log("now stoping this scene",);
-                        gameoverThat.scene.stop();
-                        console.log("now loading game ui",);
-                        gameoverThat.scene.launch('gameHud');
-                        setTimeout(function () {
-                            console.log("now Loading main scene",);
-                            gameoverThat.scene.start('tutorialBeachLevel');
-        
-                        }, 100);
-                     }
+                }
         
             });
 

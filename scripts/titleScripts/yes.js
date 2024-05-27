@@ -22,7 +22,7 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         this.optionsMenu;
       
     }
-
+    // title screen button is used to delete save data
     setupYesTitle(){
 
         let that = this;
@@ -34,77 +34,54 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         this.on('pointerout',function(pointer){
             that.anims.play("yesInActive");
         })
-
+        //when yes is clicked on we want to delete the save data.
         this.on('pointerdown', function (pointer) {
             that.scene.initSoundEffect('buttonSFX','2',0.05);
+            console.log("activateing yes button");
             
+            //clears slot so new file can be made.
             that.scene.clearSlotData();
+            // empty data object
+            let playerDataObject = {
+                saveX: null,
+                saveY: null,
+                playerHpValue: null,
+                playerSex: null,
+                playerLocation: null,
+                inventoryArray: null,
+                playerBestiaryData: null,
+                playerSkillsData:  null,
+                playerSaveSlotData: null,
+                flagValues: null,
+                settings:null
+              };
 
-            let playerSaveSlotData = {
+              //need a save file slot. so we define that entity here
+              let saveSlotData = {
                 saveSlot:that.scene.selectedSlotToBeDeleted,
                 currency: 0,
                 bestiaryCompletionPercent: 0,
                 playerHealthUpgrades: 0,
+                PlayerStorage: [],
              };
 
-             let playerBestiaryData = {
-                blueSlime:0,
-                largeBlueSlime:0,
-                axolotlMale:0,
-                axolotlfemale:0,
-                largePurpleSlugFemale:0,
-                largePurpleSlugMale:0,
-                rabbitfemale:0,
-                rabbitMale:0,
-                cowFemale:0,
-                cowMale:0,
-                blueSlimeHumanoidFemale:0,
-                blueSlimeHumanoidFemaleLarge:0,
-                sharkFemale:0,
-                sharkMale:0
-             };
+            playerDataObject.playerSaveSlotData = saveSlotData;
 
-             let playerSkillsData = {
-                jump:0,
-                dash:0,
-                strength:0,
-                mimic:0,
-                looting:0
-             };
-
-             let gameFlags = {
-                containerFlags: []
-
-             };
-
-             let playerDataObject = {
-                saveX:that.scene.warpToX,
-                saveY:that.scene.warpToY,
-                currentHp: null,
-                playerMaxHp: null,
-                playerSex: that.scene.playerSex,
-                playerLocation: that.scene.playerLocation,
-                inventoryArray: null,
-                playerBestiaryData: playerBestiaryData,
-                playerSkillsData: playerSkillsData,
-                playerSaveSlotData: playerSaveSlotData,
-                flagValues: gameFlags,
-            };
-
+            //saves game file
             that.scene.saveGameFile(playerDataObject);
 
-               that.scene.sceneTextBox.hideText(false);
-                that.scene.sceneTextBox.textBoxProfileImage.visible = false;
-                that.scene.sceneTextBox.visible = false;
+            that.scene.sceneTextBox.hideText(false);
+            that.scene.sceneTextBox.textBoxProfileImage.visible = false;
+            that.scene.sceneTextBox.visible = false;
 
-                that.visible = false;
-                that.scene.no.visible = false;
-                that.scene.isInDelete = false;
+            that.visible = false;
+            that.scene.no.visible = false;
+            that.scene.isInDelete = false;
 
-                that.scene.back.visible = true;
-                that.scene.isInSlotSelectLoad = true;
+            that.scene.back.visible = true;
+            that.scene.isInSlotSelectLoad = true;
                 
-                that.scene.showSaveSlots(true,true);
+            that.scene.showSaveSlots(true,true);
            
         });
 

@@ -33,91 +33,26 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
+
             that.scene.initSoundEffect('buttonSFX','2',0.05);
+
             console.log("that.tempNewGameSlotID: "+that.scene.tempNewGameSlotID);
-             //saveGame(nextSceneX,nextSceneY,playerHp,playerInventoryData,playerSex,gameFlags)
-             let playerBestiaryData = {
-                blueSlime:0,
-                largeBlueSlime:0,
-                axolotlMale:0,
-                axolotlfemale:0,
-                largePurpleSlugFemale:0,
-                largePurpleSlugMale:0,
-                rabbitfemale:0,
-                rabbitMale:0,
-                cowFemale:0,
-                cowMale:0,
-                blueSlimeHumanoidFemale:0,
-                blueSlimeHumanoidFemaleLarge:0,
-                sharkFemale:0,
-                sharkMale:0
-             };
-
-             let playerSkillsData = {
-                jump:1,
-                dash:0,
-                strength:0,
-                mimic:0,
-                looting:0
-             };
-
-             let saveSlotData = {
-                saveSlot:that.scene.tempNewGameSlotID,
-                currency: 0,
-                bestiaryCompletionPercent: 0,
-                playerHealthUpgrades: 0,
-                PlayerStorage: [],
-             };
-
-             let gameFlags = {
-                containerFlags: []
-
-             };
-
-             let settings = {
-                preferance: 2,
-                volume: 1,
-                onomatopoeia: true
-             };
-
-               
-            //creates a array to be filled my objects
-            this.inventoryArray  = [];
-
-            //fills the array with objects
-            for(let counter = 0; counter < 26; counter++){
-
-                //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-                //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-                let item = {
-                    itemID: 0,
-                    itemStackable: 1,
-                    itemAmount: 0 
-                 };
-
-                this.inventoryArray.push(item);
-            }
-
-            
-            
-
-            console.log("testing new data structure in ->this.inventoryArray",this.inventoryArray);
-
-            
+             
             let playerDataObject = {
-                saveX: 441,
-                saveY: 926,
-                playerHpValue: 1,
-                playerSex: 1,
-                playerLocation: 'tutorialBeachLevel',
-                inventoryArray: this.inventoryArray,
-                playerBestiaryData: playerBestiaryData,
-                playerSkillsData:  playerSkillsData,
-                playerSaveSlotData: saveSlotData,
-                flagValues: gameFlags,
-                settings:settings
+                saveX: null,
+                saveY: null,
+                playerHpValue: null,
+                playerSex: null,
+                playerLocation: null,
+                inventoryArray: null,
+                playerBestiaryData: null,
+                playerSkillsData:  null,
+                playerSaveSlotData: null,
+                flagValues: null,
+                settings:null
               };
 
+            that.scene.makeSaveFile(playerDataObject,1,that.scene.tempNewGameSlotID);
             //saves data to the temp data location
             that.scene.saveGame(playerDataObject);
             //also hard saves the game to prevent issues, and allow the player to have a first save point on the beach.

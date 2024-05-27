@@ -173,7 +173,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
   setSkillDisplay() {
     // sets the skills from the savefile to be displayed.
     let animationNumber = "";
-    if (this.scene.playerSaveSlotData !== undefined && this.scene.playerSkillsData !== undefined) {
+    if (this.scene.playerSaveSlotData !== undefined && this.scene.playerSkillsData !== null) {
 
       let skillCounter = 0;
       for(let [key,value] of Object.entries(this.scene.playerSkillsData)){

@@ -11,7 +11,12 @@
         },
         "2":{
             "start": 0.4,
-            "end": 1,
+            "end": 1.5,
+            "loop": false
+        },
+        "3":{
+            "start": 2.3,
+            "end": 4,
             "loop": false
         }
     }

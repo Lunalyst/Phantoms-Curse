@@ -119,7 +119,7 @@ class allSceneFunctions extends Phaser.Scene {
         this.playerSkillsData = file.psd;
         // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
         let tempPlayerSaveSlotData = file.pssd;
-        if (this.playerBestiaryData !== undefined) {
+        if (this.playerBestiaryData !== undefined && this.playerBestiaryData !== null) {
 
             let bestiaryPercent = 0;
             // loops though the objects to find how many of the entrys the player has
@@ -185,7 +185,7 @@ class allSceneFunctions extends Phaser.Scene {
     dataObject.playerSkillsData = file.psd;
     // does the math and sets the bestiary completion percentage to the playerSaveSlotData[2]
     let tempPlayerSaveSlotData = file.pssd;
-    if (this.playerBestiaryData !== undefined) {
+    if (this.playerBestiaryData !== undefined && this.playerBestiaryData !== null) {
 
         let bestiaryPercent = 0;
         // loops though the objects to find how many of the entrys the player has
@@ -446,6 +446,85 @@ validateSaveFile(dataObject){
     dataObject.settings = settings;
 
   }
+}
+
+//convenient function to reset the player save data to the beginning of the game. declutters some classes.
+makeSaveFile(playerObject,sex,saveslot){
+
+  let playerBestiaryData = {
+    blueSlime:0,
+    largeBlueSlime:0,
+    axolotlMale:0,
+    axolotlfemale:0,
+    largePurpleSlugFemale:0,
+    largePurpleSlugMale:0,
+    rabbitfemale:0,
+    rabbitMale:0,
+    cowFemale:0,
+    cowMale:0,
+    blueSlimeHumanoidFemale:0,
+    blueSlimeHumanoidFemaleLarge:0,
+    sharkFemale:0,
+    sharkMale:0
+ };
+
+ let playerSkillsData = {
+    jump:1,
+    dash:0,
+    strength:0,
+    mimic:0,
+    looting:0
+ };
+
+ let saveSlotData = {
+    saveSlot:saveslot,
+    currency: 0,
+    bestiaryCompletionPercent: 0,
+    playerHealthUpgrades: 0,
+    PlayerStorage: [],
+ };
+
+ let gameFlags = {
+    containerFlags: []
+
+ };
+
+ let settings = {
+    preferance: 2,
+    volume: 1,
+    onomatopoeia: true
+ };
+
+   
+//creates a array to be filled my objects
+this.inventoryArray  = [];
+
+//fills the array with objects
+for(let counter = 0; counter < 26; counter++){
+
+    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+    let item = {
+        itemID: 0,
+        itemStackable: 1,
+        itemAmount: 0 
+     };
+
+    this.inventoryArray.push(item);
+}
+
+  playerObject.saveX = 441;
+  playerObject.saveY = 926;
+  playerObject.playerHpValue = 1;
+  playerObject.playerSex = sex;
+  playerObject.playerLocation = 'tutorialBeachLevel';
+  playerObject.inventoryArray = this.inventoryArray;
+  playerObject.playerBestiaryData = playerBestiaryData;
+  playerObject.playerSkillsData = playerSkillsData;
+  playerObject.playerSaveSlotData = saveSlotData;
+  playerObject.flagValues = gameFlags;
+  playerObject.settings = settings;
+
 }
 
 //function that prints listeners

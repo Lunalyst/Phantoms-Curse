@@ -82,6 +82,9 @@ class warp extends Phaser.Physics.Arcade.Sprite{
             // then we save the scene transition data.
             scene1.saveGame(playerDataObject);
 
+            //kills gameplay emitters so they dont pile up between scenes
+            scene1.clearGameplayEmmitters();
+
             scene1.portalId = 0;
             //for loop looks through all the looping music playing within a given scene and stops the music.
             for(let counter = 0; counter < scene1.sound.sounds.length; counter++){

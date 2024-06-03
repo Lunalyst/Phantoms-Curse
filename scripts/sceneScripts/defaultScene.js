@@ -244,19 +244,27 @@ class defaultScene extends allSceneFunctions {
       //emitter to transition scenes
       loadSceneTransitionLoad.on(SceneTransitionLoad.reloadGame,(location) =>{
         console.log('reloading game, location: ',location);
+        console.log('this, scene: ',this);
         this.destination = location;
+        this.clearGameplayEmmitters();
+        //for loop looks through all the looping music playing within a given scene and stops the music.
+        for(let counter = 0; counter < this.sound.sounds.length; counter++){
+          this.sound.get(this.sound.sounds[counter].key).stop();
+        }
         this.cameras.main.fadeOut(500, 0, 0, 0);
       });
 
       //emitter to resume physics after reload?
       loadSceneTransitionLoad.on(SceneTransitionLoad.unpauseGame,() =>{
         //resume physics
+        console.log('unpausing the game');
+        console.log('this, scene: ',this);
         this.pausedInTextBox = false;
         this.isPaused = false;
         this.gameStartedDelay = false;
-        this.physics.resume();
+        //this.physics.resume();
         //and the player animations
-        this.player1.anims.resume();
+        //this.player1.anims.resume();
       });
       
 

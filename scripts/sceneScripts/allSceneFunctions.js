@@ -630,6 +630,33 @@ clearAllEmmitters(){
 
 }
 
+//clears all emitters
+clearGameplayEmmitters(){
+
+  console.log("removing gameplay listeners");
+
+  let emitterArray = [];
+  let keyArray = [];
+
+  keyArray.push(SceneTransitionLoad);
+  emitterArray.push(loadSceneTransitionLoad);
+
+  //same code is in gameover function in default scene.
+
+  for(let counter = 0; counter < emitterArray.length; counter++){
+
+    for(const property in keyArray[counter]){
+      
+     emitterArray[counter].removeAllListeners(keyArray[counter][property]);
+      
+    }
+
+  }  
+
+  
+
+}
+
   initLoopingSound(soundID,soundName,volume){
     //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
     let createSound = true;

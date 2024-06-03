@@ -107,9 +107,13 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
+            console.log("that.optionsMenu.reloadNeeded: ",that.optionsMenu.reloadNeeded);
+            if(that.optionsMenu.reloadNeeded === true){
+                that.optionsMenu.saveSettings();
+            }else{
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.scene.cameras.main.fadeOut(500, 0, 0, 0);
-            //location.reload();
+            }
         });
     }
 }

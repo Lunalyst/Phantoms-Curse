@@ -261,7 +261,7 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
       //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this.x+500,this.y-200);
+      this.settingsUI = new optionsMenu(scene,this,this.x+500,this.y-200);
       //this.add(this.settingsUI);
 
       //adds settings menu button
@@ -353,11 +353,6 @@ class inventory extends Phaser.GameObjects.Container{
         console.log("opening bestiary: ",inventoryThat.bestiaryOpen);
       });
 
-      /*this.skillUI.on('pointerdown', function (pointer) {
-        inventoryThat.skillUI.openSkill(scene);
-        console.log("opening bestiary");
-      });*/
-     
     }
 
     //is called when click event on a slot to handle what happens. if one is selected then highlight slot. if two then switch items.

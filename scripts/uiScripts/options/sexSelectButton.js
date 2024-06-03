@@ -60,6 +60,9 @@ class sexSelectButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
+
+            that.optionsMenu.reloadNeeded = true;
+            
             that.scene.initSoundEffect('buttonSFX','2',0.05);
                 if(that.sex === 1){
                     that.sex = 0;

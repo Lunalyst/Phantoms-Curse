@@ -67,6 +67,9 @@ class preferenceButton extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
+            
+            that.optionsMenu.reloadNeeded = true;
+            //plays sound and updates preference temp value
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             if(that.preference === 0){
                 that.anims.play("preFemaleActive");

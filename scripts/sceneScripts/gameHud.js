@@ -46,6 +46,7 @@ class gameHud extends allSceneFunctions {
 
       this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
+      this.load.spritesheet('closingButton', 'assets/closingButton.png',{frameWidth: 51, frameHeight: 51 });
       this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
       this.load.spritesheet('struggleBar', 'assets/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
@@ -55,8 +56,11 @@ class gameHud extends allSceneFunctions {
       this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
       this.load.image('TABToSkip', 'assets/tabToSkip.png');
       this.load.image('TABToGiveUp', 'assets/tabToGiveUp.png');
-      
 
+      this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
+        "audio/used-audio/button-sounds/button-sounds.mp3"
+      ]);
+      
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
 

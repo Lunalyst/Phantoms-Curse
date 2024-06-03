@@ -6,7 +6,7 @@ use classes tab as a guide for how to set up the header. each object has differe
 
 class optionsMenu extends Phaser.GameObjects.Container{
 
-    constructor(scene, xPos, yPos){
+    constructor(scene,inventory, xPos, yPos){
 
         super(scene, xPos, yPos);
 
@@ -25,7 +25,10 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //refrences to the scene for some use later
         let that = this;
+
         this.scene = scene;
+
+        this.inventory = inventory;
 
         //add option menu elements and buttons
         this.title = new makeText(scene,0,75,'charBubble',"SETTINGS");
@@ -59,7 +62,12 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.sexButton.setupSexButton();
         this.add(this.sexButton);
         
-        this.exitButton = new exitButton(scene,this,180,460);
+        //exit button text
+        this.exitText = new makeText(scene,-10,240,'charBubble',"EXIT GAME");
+        this.add(this.exitText);
+
+        //exit button
+        this.exitButton = new exitButton(scene,this,-70,460);
         this.exitButton.setupExitButton();
         this.add(this.exitButton);
 
@@ -68,9 +76,15 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.optionsTextBox.setScale(1.1);
         this.add(this.optionsTextBox);
 
+        //closing settings button
+        this.closingButton = new closingButton(scene,inventory,this,190,170);
+        this.closingButton.setupClosingButton();
+        this.add(this.closingButton);
+
         //need yes button to boot to main menu
         this.yes = new yes(scene,-297, 805);
         this.yes.setupYesSettings();
+        this.yes.setOptionsMenu(this);
         this.add(this.yes);
 
         //need no to close prompt
@@ -169,6 +183,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //hides the object on creation.
         this.visible = false;  
+
+        //used to tell if a reload is needed.
+        this.reloadNeeded = false;
     }
 
     applySavedSettings(playerDataObject){
@@ -224,14 +241,89 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //saves settings.
         this.scene.saveGameFile(playerDataObject);
 
+        //resets the reload value
+        this.reloadNeeded = false;
+
     }
 
     //save settings 
     saveSettings(){
 
+        //update the cur values with the new values
+         this.currentPrefValue = this.newPrefValue;
+         this.currentSexValue = this.newSexValue;
+
+        //update the volume and onomat value
+        //first we need to figure out what save slot we are working in. making a temp object
+        let getSaveSlot = {
+            saveSlot: null
+        };
+
+        //we call a emitter to get the slot from the gamehud which has the players data.
+        inventoryKeyEmitter.emit(inventoryKey.getSaveSlot,getSaveSlot);
+
+        //makes a object to pass along the players data too
+        let playerDataObject = {
+            saveX: null,
+            saveY: null,
+            playerHpValue: null,
+            playerSex: null,
+            playerLocation: null,
+            inventoryArray: null,
+            playerBestiaryData: null,
+            playerSkillsData: null,
+            playerSaveSlotData: null,
+            flagValues: null,
+            settings:null
+        };
         
+        // then we call the built in returnfile function from our custom scene class
+        console.log("getting saveslot data for settings.")
+        this.scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
+        
+        //set the non game reset settings
+        playerDataObject.settings.volume = this.currentSoundValue;
+        playerDataObject.settings.onomatopoeia = this.currentOnomatValue;
+        playerDataObject.settings.preferance = this.currentPrefValue;
+        playerDataObject.playerSex = this.currentSexValue;
 
+        //saves settings to the hard save
+        this.scene.saveGameFile(playerDataObject);
 
+        //now we need to update the temp, transition scenes save with the new data
+        console.log('playerDataObject.playerHpValue: ',playerDataObject.playerHpValue)
+        let tempPlayerData = {
+            saveX: playerDataObject.saveX,
+            saveY: playerDataObject.saveY,
+            playerHpValue: playerDataObject.playerHpValue,
+            playerSex: playerDataObject.playerSex,
+            playerLocation: playerDataObject.playerLocation,
+            inventoryArray: playerDataObject.inventoryArray,
+            playerBestiaryData: playerDataObject.playerBestiaryData,
+            playerSkillsData: playerDataObject.playerSkillsData,
+            playerSaveSlotData: playerDataObject.playerSaveSlotData,
+            flagValues: playerDataObject.flagValues,
+            settings:playerDataObject.settings
+          };
+
+        this.scene.saveGame(tempPlayerData);
+
+        //resets the value in the button objects
+        this.volumeButton.setValue(this.currentSoundValue);
+        this.volumeSlider.setValue(this.currentSoundValue);
+        this.onomatButton.setValue(this.currentOnomatValue);
+        this.prefButton.setValue(this.currentPrefValue);
+        this.sexButton.setValue(this.currentSexValue);
+
+        //resets the reload value
+        this.reloadNeeded = false;
+        //call to emitter to unpause physics,since on reload the physics would be paused.
+        loadSceneTransitionLoad.emit(SceneTransitionLoad.unpauseGame);
+
+        //emitter to transition scenes
+        loadSceneTransitionLoad.emit(SceneTransitionLoad.reloadGame,playerDataObject.playerLocation);
+        //restarts the game hud to reflect the changes as well.
+        this.scene.scene.restart();
     }
     
 

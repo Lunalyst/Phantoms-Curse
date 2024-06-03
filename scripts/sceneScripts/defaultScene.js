@@ -241,6 +241,25 @@ class defaultScene extends allSceneFunctions {
         
       })
 
+      //emitter to transition scenes
+      loadSceneTransitionLoad.on(SceneTransitionLoad.reloadGame,(location) =>{
+        console.log('reloading game, location: ',location);
+        this.destination = location;
+        this.cameras.main.fadeOut(500, 0, 0, 0);
+      });
+
+      //emitter to resume physics after reload?
+      loadSceneTransitionLoad.on(SceneTransitionLoad.unpauseGame,() =>{
+        //resume physics
+        this.pausedInTextBox = false;
+        this.isPaused = false;
+        this.gameStartedDelay = false;
+        this.physics.resume();
+        //and the player animations
+        this.player1.anims.resume();
+      });
+      
+
     }
 
     //sets up text box in scene

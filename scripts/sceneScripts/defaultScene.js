@@ -567,6 +567,7 @@ class defaultScene extends allSceneFunctions {
 
         //clears emitters
         this.clearAllEmmitters();
+        this.clearGameplayEmmitters();
 
         //for loop looks through all the looping music playing within a given scene and stops the music.
         for(let counter = 0; counter < this.sound.sounds.length; counter++){

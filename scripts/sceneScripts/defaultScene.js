@@ -230,10 +230,12 @@ class defaultScene extends allSceneFunctions {
       //creates fadeout when fadeout function is called in the camera object
       this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
         //warps player to the next scene
-
+        console.log('sending player to: ',this.destination);
+        console.log('this.playerDefeated: ',this.playerDefeated);
         if(this.playerDefeated === true){
           this.scene.stop('gameHud');
           this.scene.start('gameOver');
+          this.playerDefeated = false;
         }else{
           this.scene.stop();
           this.scene.start(this.destination); 
@@ -256,15 +258,13 @@ class defaultScene extends allSceneFunctions {
 
       //emitter to resume physics after reload?
       loadSceneTransitionLoad.on(SceneTransitionLoad.unpauseGame,() =>{
-        //resume physics
+        //resume physics. update loop needs these variable to be reset inorder for the hpysics to continue to work
+        //on reload.
         console.log('unpausing the game');
         console.log('this, scene: ',this);
         this.pausedInTextBox = false;
         this.isPaused = false;
         this.gameStartedDelay = false;
-        //this.physics.resume();
-        //and the player animations
-        //this.player1.anims.resume();
       });
       
 

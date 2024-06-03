@@ -33,6 +33,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         //stores the location string to tell which scene should be loaded.
         this.destination;
 
+        this.activated = false;
+
         //warp sprite animations
         this.anims.create({key: 'warpCaveOutside',frames: this.anims.generateFrameNames('warpSprites', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveInside',frames: this.anims.generateFrameNames('warpSprites', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
@@ -49,11 +51,11 @@ class warp extends Phaser.Physics.Arcade.Sprite{
       //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
         
       // if the player is within range, and presses w then activate scene transition
-      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId && scene1.isPaused === false){
+      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId && scene1.isPaused === false&& this.activated === false){
 
           console.log("warping scenes");
           
-            //console.log("this.nextSceneX "+ this.nextSceneX +" this.nextSceneY: "+this.nextSceneY );
+          this.activated = true;
            
             //creates a object to hold data for scene transition
             let playerDataObject = {

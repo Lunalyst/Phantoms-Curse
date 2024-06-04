@@ -18,12 +18,9 @@ class TestForest extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
-    
-
+    //variables used for scrolling
+    this.playerPreviousX = 0;
+    this.playerPreviousY = 0;
     }
 
     preload(){
@@ -32,7 +29,9 @@ class TestForest extends defaultScene {
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Test_Forest.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 612 , frameHeight: 408});
+      //this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -91,9 +90,14 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      
-      this.backround = this.add.tileSprite(0, 1370, 1000, 664, "backgroundForestRavineLevel");
+      this.backround = this.add.tileSprite(1000, 800, 10*612, 408, "backgroundForestLevel");
       this.backround.setDepth(-50);
+      this.backround.setScale(1.5);
+
+      console.log('this.scale.width',this.scale.width);
+      this.parrallax1 = this.add.tileSprite(1000, 970, 5*5000,4800, "forestParallax");
+      this.parrallax1.setScale(1/3);
+      this.parrallax1.setDepth(-50);
 
       this.initSavePoints(761,989-14);
 
@@ -123,18 +127,42 @@ class TestForest extends defaultScene {
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
+
+        //sets the previous x for scrolling
+        this.playerPreviousX = this.player1.x;
+        this.playerPreviousY = this.player1.y;
     }
 
     update(){
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-      //makes backround follow player.
-      this.backround.y = this.player1.y;
-
+      
       //calls the built in update function
       this.defaultUpdate();
 
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
+
+
+      //updates the x value of the scrolling backround.
+      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
+        this.parrallax1.x += 0.5;
+        this.backround.x += 0.7;
+      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
+        this.parrallax1.x -= 0.5;
+        this.backround.x -= 0.7;
+      }
+      //updates the x values stored every tick 
+      this.playerPreviousX = this.player1.x;
+
+      //updates the y value of the scrolling backround.
+      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
+        this.parrallax1.y -= 0.1;
+        this.backround.y -= 0.3;
+      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
+        this.parrallax1.y += 0.1;
+        this.backround.y += 0.3;
+      }
+      //updates the y values stored every tick 
+      this.playerPreviousY = this.player1.y;
 
     }
 

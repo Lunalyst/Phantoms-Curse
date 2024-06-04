@@ -64,7 +64,7 @@ class textBoxCharacter extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: ';',frames: this.anims.generateFrameNames(font, { start: 48, end: 48 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '?',frames: this.anims.generateFrameNames(font, { start: 49, end: 49 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '!',frames: this.anims.generateFrameNames(font, { start: 50, end: 50 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: '`',frames: this.anims.generateFrameNames(font, { start: 51, end: 51 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: "`",frames: this.anims.generateFrameNames(font, { start: 51, end: 51 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '"',frames: this.anims.generateFrameNames(font, { start: 52, end: 52 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '^',frames: this.anims.generateFrameNames(font, { start: 53, end: 53 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '&',frames: this.anims.generateFrameNames(font, { start: 54, end: 54 }),frameRate: 1,repeat: -1});

@@ -90,14 +90,16 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.backround = this.add.tileSprite(1000, 800, 10*612, 408, "backgroundForestLevel");
+      this.backround = this.add.tileSprite(1500, 800, 10*612, 408, "backgroundForestLevel");
       this.backround.setDepth(-50);
       this.backround.setScale(1.5);
+      this.backround.setTint(0xd3d3d3);
 
-      console.log('this.scale.width',this.scale.width);
+
       this.parrallax1 = this.add.tileSprite(1000, 970, 5*5000,4800, "forestParallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
+      this.parrallax1.setTint(0x808080);
 
       this.initSavePoints(761,989-14);
 

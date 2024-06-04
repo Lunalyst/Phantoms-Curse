@@ -18,12 +18,10 @@ class ForestRavineHome extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
+    //variables used for scrolling
+    this.playerPreviousX = 0;
+    this.playerPreviousY = 0;
     
-
     }
 
     preload(){
@@ -33,6 +31,8 @@ class ForestRavineHome extends defaultScene {
       this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Player_Home.json");
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+
+      this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -90,8 +90,13 @@ class ForestRavineHome extends defaultScene {
         ['signLoop']);
 
       
-      this.backround = this.add.tileSprite(0, 1370, 10000, 664, "backgroundForestRavineLevel");
+      this.backround = this.add.tileSprite(0, 1070, 10000, 664, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
+
+      this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
+      this.parrallax1.setScale(1/3);
+      this.parrallax1.setDepth(-50);
+      this.parrallax1.setTint(0x808080);
 
       
 
@@ -120,15 +125,38 @@ class ForestRavineHome extends defaultScene {
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
+
+        //sets the previous x for scrolling
+        this.playerPreviousX = this.player1.x;
+        this.playerPreviousY = this.player1.y;
     }
 
     update(){
 
-      //makes backround follow player.
-      this.backround.y = this.player1.y;
-
       //calls the built in update function
       this.defaultUpdate();
+
+       //updates the x value of the scrolling backround.
+       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
+        this.parrallax1.x += 0.5;
+        this.backround.x += 0.7;
+      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
+        this.parrallax1.x -= 0.5;
+        this.backround.x -= 0.7;
+      }
+      //updates the x values stored every tick 
+      this.playerPreviousX = this.player1.x;
+
+      //updates the y value of the scrolling backround.
+      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
+        this.parrallax1.y -= 0.1;
+        this.backround.y -= 0.3;
+      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
+        this.parrallax1.y += 0.1;
+        this.backround.y += 0.3;
+      }
+      //updates the y values stored every tick 
+      this.playerPreviousY = this.player1.y;
 
     }
 

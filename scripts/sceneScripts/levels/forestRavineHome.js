@@ -92,6 +92,7 @@ class ForestRavineHome extends defaultScene {
       
       this.backround = this.add.tileSprite(0, 1070, 10000, 664, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
+      this.backround.setScale(1.2);
 
       this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
       this.parrallax1.setScale(1/3);

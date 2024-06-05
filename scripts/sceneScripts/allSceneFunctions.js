@@ -710,14 +710,16 @@ clearGameplayEmmitters(){
       //console.log("key not found making ",soundID);
       this.sound.playAudioSprite(soundID,soundName);
     
-  }else{ // otherwise play the sound from the keys and set its config to true so it loops.
+  }else if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){ // otherwise play the sound from the keys and set its config to true so it loops.
       this.sound.get(soundID).play(soundName);
   }
   //this line of code sets the whole volume
   //this.sound.setVolume(volume);
   
   //set the volume of the specific sound.
-  this.sound.get(soundID).volume = volume;
+  if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){
+    this.sound.get(soundID).volume = volume;
+  }
   //ensures that the sound is looping
   }
 

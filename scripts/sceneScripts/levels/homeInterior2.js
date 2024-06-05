@@ -44,8 +44,6 @@ class HomeInterior2 extends defaultScene {
       this.setUpPlayerInputs();
     
       //loads local save data.
-      console.log("activating function to load game");
-
       this.loadGamePlayData();
       
       this.grabbed = false;

@@ -116,7 +116,7 @@ class tiger extends enemy {
         //if the tiger is no longer in its hiding logic then 
         if(this.isHidding === false){
 
-            console.log("this.body.blocked.down: ",this.body.blocked.down,"this.jumped: ",this.jumped,"this.jumpAnimationPlayed: ",this.jumpAnimationPlayed,);
+            //console.log("this.body.blocked.down: ",this.body.blocked.down,"this.jumped: ",this.jumped,"this.jumpAnimationPlayed: ",this.jumpAnimationPlayed,);
 
             //checks to see if enemy is in range of player
             if (this.scene.player1.x > this.x - 600 && this.scene.player1.x < this.x + 600) {
@@ -135,7 +135,7 @@ class tiger extends enemy {
 
                 //if the player is to the right and above tiger then jump towards the player
                 }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false) {
-                    console.log("jumping right")
+                    //console.log("jumping right")
                     
                     this.jumped = true;
                       
@@ -162,7 +162,7 @@ class tiger extends enemy {
 
                 //if the player is to the right and above tiger then jump towards the player
                 }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false) {
-                    console.log("jumping left")
+                    //console.log("jumping left")
                     
                     this.jumped = true;
                        
@@ -288,7 +288,7 @@ class tiger extends enemy {
                     });
                 //if hiding animation has been played, play hide animation
                 }else if (this.playerInOuterRange === true && this.activatedSuprise === false){
-                    console.log('this.playerInOuterRange === true');
+                    //console.log('this.playerInOuterRange === true');
                     this.anims.play('hiding', true);
                 }
             }  
@@ -468,7 +468,7 @@ class tiger extends enemy {
     playerIsNotDefeatedInputs(playerHealthObject){
         if (this.randomInput === 0) {
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyS) ');
+               
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
@@ -478,7 +478,7 @@ class tiger extends enemy {
         } else if (this.randomInput === 1) {
             // important anims.play block so that the animation can player properly.
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);

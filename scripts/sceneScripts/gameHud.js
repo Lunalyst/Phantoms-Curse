@@ -60,7 +60,7 @@ class gameHud extends allSceneFunctions {
       this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
         "audio/used-audio/button-sounds/button-sounds.mp3"
       ]);
-      
+
       //level containers for hud.
       this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
 

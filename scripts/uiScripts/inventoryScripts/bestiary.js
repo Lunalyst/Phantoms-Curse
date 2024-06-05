@@ -1,6 +1,8 @@
 //https://stackoverflow.com/questions/71266893/phaser-3-change-hitbox-interactive-area-of-sprite-without-physics
 
 let bestiaryThat;
+
+const bestiaryLineLength = 14;
 class bestiary extends Phaser.Physics.Arcade.Sprite {
   // every class needs constructor
   constructor(scene, xPos, yPos,xOpen,yOpen ) {
@@ -49,7 +51,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       },
       largeBlueSlime: {
         title: "BLUE SLIME LARGE",
-        summary: "THIS SLIME ACTS VERY SIMILIAR TO IT'S SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.IT IS ABLE TO DISOLVE PREY AT A FASTER RATE.",
+        summary: "THIS SLIME ACTS VERY SIMILIAR TO IT`S SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.IT IS ABLE TO DISOLVE PREY AT A FASTER RATE.",
       },
 
       back: {
@@ -297,7 +299,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
   }
 
   // function which formats the text string so that it properly fits within the summary character lines.
-  formatSummary() {
+  /*formatSummary() {
     let tempString = "";
     let formatingCounter = 0;
     let BackPetal = 0;
@@ -353,6 +355,90 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       tempString += this.formattedString.charAt(counter);
     }
 
+
+  }*/
+
+  formatSummary(){
+    //temp array for testing used to check if all the line align with each other.
+    let tempArray = [];
+
+    //string to store new formatted string.
+    let formattedString = "";
+    //temp string to store data
+    let tempString = "";
+    //variable to keep track fo line positioning.
+    let tempLineCounter = 0;
+
+    //loop through the text in the object
+    for(let counter = 0;counter < this.formattedString.length+1;counter++){
+    
+      //if the templinecounter reaches 24 then 
+      //check to see if the current char is a space. if not then 
+      if(tempLineCounter === bestiaryLineLength+1 && this.formattedString.charAt(counter) !== ' '){
+        
+        //reverse through the temp string
+        for(let tempStringPosition = tempString.length;tempStringPosition > 0;tempStringPosition--){
+
+
+          //if the char in tempstring is a space then 
+          if(tempString.charAt(tempStringPosition) === ' '){
+            //slice off the extra word getting cut off 
+            tempString = tempString.slice(0,tempStringPosition);
+
+            //add spaces back to the tempstring until it is the correct line size
+            while(tempString.length < bestiaryLineLength+1){
+              tempString+= ' ';
+            }
+
+            //array for testing purposes
+            tempArray.push(tempString);
+
+            formattedString += tempString;
+            //reset the templinecounter variable
+            tempLineCounter = 0;
+            //empty out string
+            tempString = "";
+            //moves the counter forward one so it doesnt pick up the space at the end of the line.
+            counter+=2;
+            //kills loop
+            tempStringPosition = 0;
+          }
+
+          //keeps position in outer loop so that word being removed is not lost
+          counter--;
+          
+        }      
+      }else if(tempLineCounter === bestiaryLineLength+1 && this.formattedString.charAt(counter) === ' '){
+
+        //add spaces back to the tempstring until it is the correct line size
+        while(tempString.length < bestiaryLineLength+1){
+          tempString+= ' ';
+        }
+        //array for testing purposes
+        tempArray.push(tempString);
+
+        formattedString += tempString;
+        //reset the templinecounter variable
+        tempLineCounter = 0;
+        //empty out string
+        tempString = "";
+        //moves the counter forward one so it doesnt pick up the space at the end of the line.
+        counter++;
+      }
+       
+      //adds to the temp ling
+      tempString += this.formattedString.charAt(counter);
+      //increment line every character.
+      tempLineCounter++;
+    }
+
+    //for testing purposes
+    tempArray.push(tempString);
+    console.log("tempArray: ", tempArray);
+
+    //adds the last line to the string and sets our text object to it.
+    formattedString += tempString;
+    this.formattedString = formattedString;
 
   }
 }

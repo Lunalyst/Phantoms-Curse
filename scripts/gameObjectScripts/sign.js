@@ -48,7 +48,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
           let sign = this;
           setTimeout(function(){
             sign.activated = false;
-          },500);
+          },1000);
           
           //activates textbox apart of the main scene
           scene1.pausedInTextBox = true;

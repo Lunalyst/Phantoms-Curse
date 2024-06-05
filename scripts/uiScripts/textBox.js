@@ -131,23 +131,6 @@ class textBox extends Phaser.GameObjects.Container{
   }
 }
 
-activateTextBoxOnce(scene1){
-  
-  if(this.textBoxActivationCoolDown === false){
-
-    if(this.textCoolDown){
-    this.visible = true;
-    this.textBoxProfileImage.visible = true;
-    this.hideText(true);
-    scene1.isPaused = true;
-    scene1.pausedInTextBox = true;
-    //console.log("scene1.isPaused: "+ scene1.isPaused);
-    }
-  
-  }
-}
-
-
     // this. line and two numbers representing the start and end location of the text to be display.
     displayText(start,end){
       let textPos = 0;
@@ -162,9 +145,12 @@ activateTextBoxOnce(scene1){
       this.textBoxProfileImage.anims.play(this.profileArray[this.profileArrayPosition]);
     }
 
+    //formatting function so text properly fixts in textbox
     formatText(){
-      let tempArray = [];
-      //temp array to store dialogue and ensure each entry is the same size as the line length
+      //temp array for testing used to check if all the line align with each other.
+      //let tempArray = [];
+
+      //string to store new formatted string.
       let formattedString = "";
       //temp string to store data
       let tempString = "";
@@ -192,12 +178,9 @@ activateTextBoxOnce(scene1){
                 tempString+= ' ';
               }
 
-              //add the string to the string to the array
-              console.log('line:<',tempString,'>');
-              console.log('line:< 123456789123456789123456>')
-              console.log('next char: {',this.currentText.charAt(counter+1),'}');
+              //array for testing purposes
+              //tempArray.push(tempString);
 
-              tempArray.push(tempString);
               formattedString += tempString;
               //reset the templinecounter variable
               tempLineCounter = 0;
@@ -219,12 +202,9 @@ activateTextBoxOnce(scene1){
           while(tempString.length < lineLength+1){
             tempString+= ' ';
           }
-          //add the string to the string to the array
-          console.log('line:<',tempString,'>');
-          console.log('line:< 123456789123456789123456>')
-          console.log('next char: {',this.currentText.charAt(counter+1),'}');
+          //array for testing purposes
+          //tempArray.push(tempString);
 
-          tempArray.push(tempString);
           formattedString += tempString;
           //reset the templinecounter variable
           tempLineCounter = 0;
@@ -240,17 +220,13 @@ activateTextBoxOnce(scene1){
         tempLineCounter++;
       }
 
-      tempArray.push(tempString);
+      //for testing purposes
+      //tempArray.push(tempString);
+      //console.log("tempArray: ", tempArray);
 
-      console.log("tempArray: ", tempArray);
-
-      this.currentText = "";
-      for(let counter = 0; counter < tempArray.length; counter++){
-        this.currentText+= tempArray[counter];
-      }
-
-      //formattedString += tempString;
-      //this.currentText = formattedString;
+      //adds the last line to the string and sets our text object to it.
+      formattedString += tempString;
+      this.currentText = formattedString;
 
     }
 

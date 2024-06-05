@@ -180,10 +180,6 @@ class defaultScene extends allSceneFunctions {
         this.processMap.tilesetNameInTiled = tilesetImage;
         //calls function that loads the tiles from the json
         this.processMap.setTiles(sourceMap,this);
-
-        
-
-        
     }
 
     //sets up player object

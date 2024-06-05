@@ -83,7 +83,7 @@ class TestCave extends defaultScene {
       this.setUpTextBox();
 
       this.initSigns(443,797+12,
-        "Why did I move here? I guess it was the weather. Or the... Ah, I don't know, that thing.  ",
+        "Why did I move here? I guess it was the weather. Or the... Ah, I don`t know, that thing.  ",
         ['signLoop']);
 
       this.initSavePoints(687,765-14);

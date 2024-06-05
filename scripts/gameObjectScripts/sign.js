@@ -1,5 +1,4 @@
 
-let currentSign;
 class sign extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos,text,profileArray){
@@ -24,15 +23,13 @@ class sign extends Phaser.Physics.Arcade.Sprite{
       this.textToDisplay = text;
       this.signId = 0;
       this.activationDelay = false;
+      this.activated = false;
 
       //sets scale of object
       this.setScale(1/3);
 
       //createdfor use in textbox
       this.profileArray = profileArray;
-
-      //global variable for timeout functions.
-      currentSign = this;
 
   }
 
@@ -42,8 +39,16 @@ class sign extends Phaser.Physics.Arcade.Sprite{
     //console.log("this.safeToSign: "+this.safeToSign+" activeId: "+activeId+" this.signId: "+this.signId+" this.promptCooldown: "+this.promptCooldown);
 
     //if the player meets activation requiements for the sign display the text box
-      if(this.safeToSign === true && keyW.isDown && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false){
+      if(this.safeToSign === true && keyW.isDown && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false){
           console.log("activating sign");
+          // sets the activated to true so it isnt called multiple times.
+          this.activated = true;
+
+          //sets activated to false after half a second.
+          let sign = this;
+          setTimeout(function(){
+            sign.activated = false;
+          },500);
           
           //activates textbox apart of the main scene
           scene1.pausedInTextBox = true;
@@ -55,10 +60,10 @@ class sign extends Phaser.Physics.Arcade.Sprite{
           
         //otherwise we want to display the key prompts 
         }else if(this.safeToSign === true && activeId === this.signId && this.promptCooldown === false ){
-          console.log("safe to press w to warp scenes");
             this.signKeyPrompts.visible = true;
             this.signKeyPrompts.playWKey();
             this.promptCooldown = true;
+            //this.activated = false;
             
         }
         
@@ -66,6 +71,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
         if(this.safeToSign === false){
           this.signKeyPrompts.visible = false;
           this.promptCooldown = false;
+          //this.activated = false;
         }
   }
 

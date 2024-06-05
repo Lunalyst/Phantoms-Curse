@@ -1,7 +1,7 @@
 let currentTextBox;
 
 const lineLength = 24;
-const textEnd = 72;
+const textEnd = 75;
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,font){
@@ -20,22 +20,26 @@ class textBox extends Phaser.GameObjects.Container{
       this.outSide = scene.add.sprite(0, 0, 'textBox');
       this.add(this.outSide);
 
-      //sets up text for the textbox
+      
       this.lines = [];
       let spacing = -200
       let y = -20
-      for(let i = 0; i < textEnd; i++){
+
+      //sets up text for the textbox there are 75 text characters used
+      for(let i = 0; i < textEnd+1; i++){
         let textChar = new textBoxCharacter(scene, spacing, y,font);
         textChar.setScale(1/6);
-        this.add(textChar);
 
+        this.add(textChar);
         this.lines.push(textChar);
+
         spacing = spacing + 20;
-        if(i === lineLength || i === lineLength*2){
+        if(i === lineLength || i === lineLength*2+1){
+          
           y += 20;
           spacing = -200;
         }
-
+ 
       }
 
       //displays prtofile sprite meant to resemble what is currently talking to the player.
@@ -55,24 +59,21 @@ class textBox extends Phaser.GameObjects.Container{
     
       
     }
-    // we need to pause the game when player is in a text box.
-    // there should only one textbox entity per scene
-    // the thing talking to the player needs to have a profile that fits within the text box.
-    // the characters will be an array of character objects. this entity will be given a string that is then parsed and displayed by the char objects.
-    // if the word is cut off by a nextline then maybe back petal until we hit a space and put that word on the next line.
-    // or we could just send it the text line by line? which ever is more efficient.
+    
+    //function to hide the text of a text box. used to clear text lines.
     hideText(hideBool){
       for(let counter = 0;counter < this.lines.length-1;counter++){
         this.lines[counter].visible = hideBool;
       }
     }
 
+    //function activates textbox and progresses text box when w is pressed
     activateTextBox(scene1,keyW){
-      console.log("textbox",this);
-      //console.log("activating text box");
-      //console.log("this.textBoxActivationCoolDown: "+ this.textBoxActivationCoolDown);
+      
+      //if the cooldown is not true then
       if(this.textBoxActivationCoolDown === false){
 
+        //textbox cooldown check.
         if(this.textCoolDown){
         this.visible = true;
         this.textBoxProfileImage.visible = true;
@@ -82,34 +83,35 @@ class textBox extends Phaser.GameObjects.Container{
         //console.log("scene1.isPaused: "+ scene1.isPaused);
       }
       
-      //first we want to display the beginning part of the text. if the text is shorter that 87 chars
-      //then we want to skip the while loop allowing ups to display text cause all text has been displayed.
-    
-        //console.log("generating text");
-        //if we are waiting for the player to press w then we stop displaying more text.
+      //if the player pressed w then
       if(Phaser.Input.Keyboard.JustDown(keyW)){
-        // loop gest start and end position
-      this.startPosition = this.endPosition;
-      this.endPosition = this.endPosition+textEnd;
-      this.displayText(this.startPosition,this.endPosition);
-      if(this.profileArrayPosition < this.profileArray.length-1){
-        this.profileArrayPosition++;
-      }
-      this.textCoolDown = false;
-      setTimeout(function(){
-        //console.log("delay end for text box");
         
-        currentTextBox.textCoolDown =  true;
-        },300);
-      }
+        //update position so we can display the next set of text.
+        this.startPosition = this.endPosition;
+        this.endPosition = this.endPosition+textEnd;
 
-      
-    
-    //console.log("this.endPosition: "+ this.endPosition)
-    //console.log(" this.currentText: "+this.currentText);
-    //console.log(" this.currentText.length-1: "+this.currentText.length-1);
+        //calls function to display that next set of text
+        this.displayText(this.startPosition,this.endPosition);
+
+        //increments profile position so we can display next profile
+        if(this.profileArrayPosition < this.profileArray.length-1){
+          this.profileArrayPosition++;
+        }
+
+        this.textCoolDown = false;
+
+        //time out function to set the cooldown to true in .3 seconds.
+        setTimeout(function(){
+          //console.log("delay end for text box");
+          
+          currentTextBox.textCoolDown =  true;
+          },300);
+        }
+
+    //once we reach the end of the text, we release the player back into the scene
     if(this.endPosition-textEnd > this.currentText.length-1){
-      //this.finishedDisplayingText = true;
+      
+      //resets values in scene, and this object
       scene1.isPaused = false;
       scene1.pausedInTextBox = false;
       this.visible = false;
@@ -119,9 +121,10 @@ class textBox extends Phaser.GameObjects.Container{
       this.endPosition = 0;
       this.textBoxActivationCoolDown = true;
       this.profileArrayPosition = 0;
+
+      //one second time out for activating this text.
       setTimeout(function(){
         console.log("delay end for text box");
-        
         currentTextBox.textBoxActivationCoolDown =  false;
         },1000);
     }
@@ -129,9 +132,7 @@ class textBox extends Phaser.GameObjects.Container{
 }
 
 activateTextBoxOnce(scene1){
-  console.log("textbox",this);
-  //console.log("activating text box");
-  //console.log("this.textBoxActivationCoolDown: "+ this.textBoxActivationCoolDown);
+  
   if(this.textBoxActivationCoolDown === false){
 
     if(this.textCoolDown){
@@ -141,52 +142,9 @@ activateTextBoxOnce(scene1){
     scene1.isPaused = true;
     scene1.pausedInTextBox = true;
     //console.log("scene1.isPaused: "+ scene1.isPaused);
-  }
+    }
   
-  //first we want to display the beginning part of the text. if the text is shorter that 87 chars
-  //then we want to skip the while loop allowing ups to display text cause all text has been displayed.
-
-    //console.log("generating text");
-    //if we are waiting for the player to press w then we stop displaying more text.
-  if(false){
-    // loop gest start and end position
-  this.startPosition = this.endPosition;
-  this.endPosition = this.endPosition+textEnd;
-  this.displayText(this.startPosition,this.endPosition);
-  if(this.profileArrayPosition < this.profileArray.length-1){
-    this.profileArrayPosition++;
   }
-  this.textCoolDown = false;
-  setTimeout(function(){
-    //console.log("delay end for text box");
-    
-    currentTextBox.textCoolDown =  true;
-    },300);
-  }
-
-  
-
-//console.log("this.endPosition: "+ this.endPosition)
-//console.log(" this.currentText: "+this.currentText);
-//console.log(" this.currentText.length-1: "+this.currentText.length-1);
-if(this.endPosition-textEnd > this.currentText.length-1){
-  //this.finishedDisplayingText = true;
-  scene1.isPaused = false;
-  scene1.pausedInTextBox = false;
-  this.visible = false;
-  this.textBoxProfileImage.visible = false;
-  this.hideText(false);
-  this.startPosition = 0;
-  this.endPosition = 0;
-  this.textBoxActivationCoolDown = true;
-  this.profileArrayPosition = 0;
-  setTimeout(function(){
-    console.log("delay end for text box");
-    
-    currentTextBox.textBoxActivationCoolDown =  false;
-    },1000);
-}
-}
 }
 
 
@@ -194,7 +152,7 @@ if(this.endPosition-textEnd > this.currentText.length-1){
     displayText(start,end){
       let textPos = 0;
       for(let counter = start;counter < end;counter++){
-        if(counter < this.currentText.length-1){
+        if(counter < this.currentText.length){
           this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase());
         }else{
           this.lines[textPos].anims.play(' ');
@@ -205,69 +163,94 @@ if(this.endPosition-textEnd > this.currentText.length-1){
     }
 
     formatText(){
+      let tempArray = [];
+      //temp array to store dialogue and ensure each entry is the same size as the line length
+      let formattedString = "";
+      //temp string to store data
       let tempString = "";
-      let formatingCounter = 0;
-      let BackPetal = 0;
-      let BackPetalString = "";
-      let spacing = "";
-      let FrontPetalString = "";
-      let backString = "";
-      for(let counter = 0;counter < this.currentText.length;counter++){
+      //variable to keep track fo line positioning.
+      let tempLineCounter = 0;
 
-        // if the line has letters or symbols that get cut of to the next line we want to add spaces.
-        //
-        if(formatingCounter == lineLength && this.currentText.charAt(counter) !== ' '){
-          for(let index = tempString.length;index > 0;index--){
-            if(tempString.charAt(index) !== ' '){
-              BackPetal++;
-              BackPetalString = tempString.charAt(index) + BackPetalString;
-              if(index === 1){
+      //loop through the text in the object
+      for(let counter = 0;counter < this.currentText.length+1;counter++){
+      
+        //if the templinecounter reaches 24 then 
+        //check to see if the current char is a space. if not then 
+        if(tempLineCounter === lineLength+1 && this.currentText.charAt(counter) !== ' '){
+          
+          //reverse through the temp string
+          for(let tempStringPosition = tempString.length;tempStringPosition > 0;tempStringPosition--){
 
-              }
-            }else if(tempString.charAt(index) === ' '){
-              for(let coun = 0;coun < BackPetal;coun++){
-                spacing += " ";
-                
-              }
-              for(let coun = counter; coun <this.currentText.length;coun++){
-                FrontPetalString += this.currentText.charAt(coun);
-              }
-              for(let coun = counter-BackPetal;coun >= 0;coun--){
-                backString =  this.currentText.charAt(coun)+ backString;
-              }
-              
-              //console.log("backString: "+backString);
-              //console.log("spacing: ("+spacing+")");
-              //console.log("BackPetalString: "+BackPetalString);
-              //console.log("FrontPetalString: "+FrontPetalString);
-              
-              
-              this.currentText = backString + spacing + BackPetalString + FrontPetalString;
-              //console.log("====================================================");
-              //console.log("this.currentText: "+this.currentText);
-              //console.log("==========================================================================================");
-              BackPetal = 0;
-              BackPetalString = "";
-              backString="";
-              spacing = "";
-              FrontPetalString = "";
-              
 
-              break;
+            //if the char in tempstring is a space then 
+            if(tempString.charAt(tempStringPosition) === ' '){
+              //slice off the extra word getting cut off 
+              tempString = tempString.slice(0,tempStringPosition);
+
+              //add spaces back to the tempstring until it is the correct line size
+              while(tempString.length < lineLength+1){
+                tempString+= ' ';
+              }
+
+              //add the string to the string to the array
+              console.log('line:<',tempString,'>');
+              console.log('line:< 123456789123456789123456>')
+              console.log('next char: {',this.currentText.charAt(counter+1),'}');
+
+              tempArray.push(tempString);
+              formattedString += tempString;
+              //reset the templinecounter variable
+              tempLineCounter = 0;
+              //empty out string
+              tempString = "";
+              //moves the counter forward one so it doesnt pick up the space at the end of the line.
+              counter+=2;
+              //kills loop
+              tempStringPosition = 0;
             }
 
+            //keeps position in outer loop so that word being removed is not lost
+            counter--;
+            
+          }      
+        }else if(tempLineCounter === lineLength+1 && this.currentText.charAt(counter) === ' '){
+
+          //add spaces back to the tempstring until it is the correct line size
+          while(tempString.length < lineLength+1){
+            tempString+= ' ';
           }
-          
+          //add the string to the string to the array
+          console.log('line:<',tempString,'>');
+          console.log('line:< 123456789123456789123456>')
+          console.log('next char: {',this.currentText.charAt(counter+1),'}');
+
+          tempArray.push(tempString);
+          formattedString += tempString;
+          //reset the templinecounter variable
+          tempLineCounter = 0;
+          //empty out string
           tempString = "";
-          formatingCounter = 0;
-        }else if(formatingCounter === lineLength+1){
-          formatingCounter = 0;
+          //moves the counter forward one so it doesnt pick up the space at the end of the line.
+          counter++;
         }
-        //console.log("formatingCounter: "+formatingCounter);
-        formatingCounter++;
+         
+        //adds to the temp ling
         tempString += this.currentText.charAt(counter);
+        //increment line every character.
+        tempLineCounter++;
       }
-      
+
+      tempArray.push(tempString);
+
+      console.log("tempArray: ", tempArray);
+
+      this.currentText = "";
+      for(let counter = 0; counter < tempArray.length; counter++){
+        this.currentText+= tempArray[counter];
+      }
+
+      //formattedString += tempString;
+      //this.currentText = formattedString;
 
     }
 
@@ -311,15 +294,17 @@ if(this.endPosition-textEnd > this.currentText.length-1){
     }
 
     activateTitleScreenTextbox(scene,isVisible,profileArray,text){
+
             this.setText(text);
             this.formatText();
-            this.setProfileArray(this.profileArray);
-            this.activateTextBoxOnce(scene);
-            //this.hideText(isVisible);
             this.setProfileArray(profileArray);
-            this.displayText(0,textEnd);
-            this.visible = isVisible;
-            console.log("textbox",this);
             
+            //makes the text box visible
+            this.visible = true;
+            this.textBoxProfileImage.visible = true;
+            this.hideText(true);
+           
+            this.displayText(0,textEnd);
+            this.visible = isVisible;    
     }
 }

@@ -78,6 +78,7 @@ class no extends Phaser.Physics.Arcade.Sprite{
             that.optionsMenu.optionsTextBox.visible = false;
             that.optionsMenu.yes.visible = false;
             that.optionsMenu.no.visible = false;
+            that.optionsMenu.isQuiting = false;
             
         });
     }

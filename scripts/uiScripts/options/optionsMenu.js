@@ -186,10 +186,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //used to tell if a reload is needed.
         this.reloadNeeded = false;
-    }
 
-    applySavedSettings(playerDataObject){
-
+        //used to tell if quit out or reloading
+        this.isQuiting = false;
     }
 
     //if the menu is closed without saving then, reset changes.
@@ -322,8 +321,18 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //emitter to transition scenes
         loadSceneTransitionLoad.emit(SceneTransitionLoad.reloadGame,playerDataObject.playerLocation);
-        //restarts the game hud to reflect the changes as well.
-        this.scene.scene.restart();
+          
+        //full reloads the game if exiting while settings are changed
+        if(this.isQuiting === true){
+            //calls the fadout for gamehud which reload the webpage.
+            this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+        }else{
+            //restarts the game hud to reflect the changes as well.
+            this.scene.scene.restart();
+        }
+        
+
+        
     }
     
 

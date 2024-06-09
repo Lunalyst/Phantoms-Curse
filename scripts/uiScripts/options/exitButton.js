@@ -49,6 +49,7 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
                 );
                 that.optionsMenu.yes.visible = true;
                 that.optionsMenu.no.visible = true;
+                that.optionsMenu.isQuiting = true;
             
 
         });

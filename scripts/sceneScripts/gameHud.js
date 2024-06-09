@@ -114,6 +114,17 @@ class gameHud extends allSceneFunctions {
         this.giveUpIndicator.setScale(1/3);
         this.giveUpIndicator.visible = false;
         this.giveUpIndicator.setScrollFactor(0);
+
+        //game saved text
+        this.savedText = new makeText(this,0,450,'charBubble'," GAME SAVED... ");
+            this.savedText.textWave();
+            //this.savedText.textFadeOut(2000);
+            let scene = this;
+            setTimeout(function(){
+                //scene.savedText.textFadeIn(2000);
+              },3000);
+            this.savedText.visible = true;
+            this.savedText.setDepth(51);
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();

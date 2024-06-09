@@ -87,18 +87,6 @@ class ForestRavineHome extends defaultScene {
         "follow the platforms upward. we have a small lodging for those that wash up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
         ['signLoop']);
 
-      
-      this.backround = this.add.tileSprite(0, 1070, 10000, 664, "backgroundForestRavineLevel");
-      this.backround.setDepth(-50);
-      this.backround.setScale(1.2);
-
-      this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
-      this.parrallax1.setScale(1/3);
-      this.parrallax1.setDepth(-50);
-      this.parrallax1.setTint(0x808080);
-
-      
-
       this.initPortals(390,1904,1777,541,"warpCaveOutside","tutorialCaveLevel");
 
       this.initPortals(1504,1264,500,605,"door1","HomeInterior1");
@@ -128,10 +116,20 @@ class ForestRavineHome extends defaultScene {
         //sets the previous x for scrolling
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
+
+        this.backround = this.add.tileSprite(0, 1070, 10000, 664, "backgroundForestRavineLevel");
+        this.backround.setDepth(-50);
+        this.backround.setScale(1.2);
+        //original pos - player pos * scrol factor
+
+        this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
+        this.parrallax1.setScale(1/3);
+        this.parrallax1.setDepth(-50);
+        this.parrallax1.setTint(0x808080);
     }
 
     update(){
-
+      
       //calls the built in update function
       this.defaultUpdate();
 

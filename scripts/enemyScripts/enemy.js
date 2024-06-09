@@ -55,7 +55,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.gaveUp = false;
 
         console.log("sex passed in enemy: " + sex);
-        
+ 
     }
 
     //functions that move evemy objects.is to be over written by child class

@@ -47,8 +47,6 @@ class tiger extends enemy {
         this.activatedSuprise = false;
 
         this.jumpAnimationPlayed = false;
-       
-
         this.playerEnteredHidingSpace = false;
         
     
@@ -420,8 +418,16 @@ class tiger extends enemy {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
                     this.scene.initSoundEffect('lickSFX','3',0.01);
+
+                    this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textWave();
+                    this.scene.onomat.textFadeOutAndDestroy(1000);
+
                     this.anims.play('tigerGrabRight').once('animationcomplete', () => {
                         this.anims.play("tigerStruggleRight", true);
+                        this.scene.onomat.destroy();
                     });
                 }
                 
@@ -450,6 +456,9 @@ class tiger extends enemy {
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
+        console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay);
+
+       
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         //console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
@@ -641,10 +650,12 @@ class tiger extends enemy {
 
     damage() {
         this.setVelocityX(0);
+        console.log("this.damageCoolDown:" + this.damageCoolDown,"this.isHidding:" + this.isHidding);
         if (this.damageCoolDown === false && this.isHidding === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
-            if (this.tigerHp > 0) {
+            console.log("activating damage function");
+            if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.calcDamage(
                     this.scene.player1.sliceDamage,
@@ -654,13 +665,12 @@ class tiger extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
-                if (this.tigerHp <= 0) {
+                if (this.enemyHP <= 0) {
                     this.destroy();
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);
             let that = this;
-
             setTimeout(function () {
                 that.damageCoolDown = false;
                 console.log("damage cool down:" + that.damageCoolDown);
@@ -673,42 +683,55 @@ class tiger extends enemy {
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.tigerHP -= (slice / 2);
+            this.enemyHP -= (slice / 2);
         }
         if (blunt > 0) {
-            this.tigerHP -= (blunt / 2);
+            this.enemyHP -= (blunt / 2);
         }
         if (pierce > 0) {
-            this.tigerHP -= (pierce / 2);
+            this.enemyHP -= (pierce / 2);
         }
         if (heat > 0) {
-            this.tigerHP -= (heat * 2);
+            this.enemyHP -= (heat * 2);
         }
         if (lightning > 0) {
-            this.tigerHP -= (lightning * 2);
+            this.enemyHP -= (lightning * 2);
         }
         if (cold > 0) {
-            this.tigerHP -= (cold / 2);
+            this.enemyHP -= (cold / 2);
         }
     }
 
     // plays the tiger defeated player animations.
     defeatedPlayerAnimation() {
-        let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
             //this.animationPlayed = false;
             if (!this.animationPlayed) {
                 console.log("the animation has not been played");
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('swallowSFX','2',0.6);
+                
+                //this.scene.onomat.destroy();
+                this.scene.onomat = new makeText(this.scene,this.x,this.y-50,'charBubble',"GULP!");
+                this.scene.onomat.visible = true;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(600);
+                this.scene.onomat.textFadeOutAndDestroy(600);
+
+                console.log("this.scene.onomat: ",this.scene.onomat);
+                
                 this.anims.play('tigerSwallowRight1').once('animationcomplete', () => {
                     console.log("animation finished");
                     this.scene.initSoundEffect('swallowSFX','3',0.6);
+
+                    //onomat.textWob();
+
                     this.anims.play('tigerSwallowRight2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
                         this.inStartDefeatedLogic = false;
                         console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+
                     });
                 });
                 
@@ -724,39 +747,86 @@ class tiger extends enemy {
                
                 this.animationPlayed = true;
                 if(randomInt === 0){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','3',0.1);
                     this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
-                        this.animationPlayed = false;
+                    this.scene.onomat.destroy();
+                    this.animationPlayed = false;
                     });
                 }else if(randomInt === 1){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-9,this.y+35,'charBubble',"GURGLE");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','5',0.1);
                     this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        this.scene.onomat.destroy();
                     });
 
                 }else if(randomInt === 2){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-9,this.y+18,'charBubble',"WOBBLE");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textSquishLeft(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble1').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        this.scene.onomat.destroy();
                     });
                     
                 }else if(randomInt === 3){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-11,this.y+18,'charBubble',"WOBBLE");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textSquishRight(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble2').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        this.scene.onomat.destroy();
                     });
                     
                 }else if(randomInt === 4){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('tigerTummySquish1').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        this.scene.onomat.destroy();
                     });
                     
                 }else if(randomInt === 5){
+
+                    this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                    this.scene.onomat.visible = true;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+
                     this.scene.initSoundEffect('stomachSFX','8',0.5);
-                    //this.scene.initSoundEffect('burpSFX','4',0.03);
                     this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {
                         this.animationPlayed = false;
+                        this.scene.onomat.destroy();
                         
                     });
                     
@@ -767,9 +837,17 @@ class tiger extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
             if (!this.animationPlayed) {
+
+                this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"CHURN!");
+                this.scene.onomat.visible = true;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textWave();
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
                 this.scene.initSoundEffect('stomachSFX','1',0.03);
                 this.animationPlayed = true;
                 this.anims.play('tigerTummyDigestion1').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
@@ -783,9 +861,17 @@ class tiger extends enemy {
                 
         }else if (this.playerDefeatedAnimationStage === 5) {
             if (!this.animationPlayed) {
+
+                this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"SHRINK...");
+                this.scene.onomat.visible = true;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textWave();
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('stomachSFX','2',0.03);
                 this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);

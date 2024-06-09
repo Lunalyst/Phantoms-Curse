@@ -31,31 +31,31 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.inventory = inventory;
 
         //add option menu elements and buttons
-        this.title = new makeText(scene,0,75,'charBubble',"SETTINGS");
+        this.title = new makeText(scene,0*2,75*2,'charBubble',"SETTINGS");
         this.add(this.title);
 
-        this.soundText = new makeText(scene,-10,100,'charBubble',"VOLUME ");
+        this.soundText = new makeText(scene,-10*2,100*2,'charBubble',"VOLUME ");
         this.add(this.soundText);
 
         this.volumeButton = new volumeButton(scene,this,-70,190);
         this.volumeButton.setupVolumeButton();
         this.add(this.volumeButton);
 
-        this.onomatText = new makeText(scene,-10,130,'charBubble',"ONOMATOPOEIA ");
+        this.onomatText = new makeText(scene,-10*2,130*2,'charBubble',"ONOMATOPOEIA ");
         this.add(this.onomatText);
 
         this.onomatButton = new onomatButton(scene,this,-70,240);
         this.onomatButton.setupOnomatButton();
         this.add(this.onomatButton);
 
-        this.preferanceText = new makeText(scene,-10,155,'charBubble',"PREFERENCE ");
+        this.preferanceText = new makeText(scene,-10*2,155*2,'charBubble',"PREFERENCE ");
         this.add(this.preferanceText);
 
         this.prefButton = new preferenceButton(scene,this,-70,290);
         this.prefButton.setupPrefButton();
         this.add(this.prefButton);
 
-        this.sexText = new makeText(scene,-10,180,'charBubble',"SEX ");
+        this.sexText = new makeText(scene,-10*2,180*2,'charBubble',"SEX ");
         this.add(this.sexText);
 
         this.sexButton = new sexSelectButton(scene,this,-70,340);
@@ -63,7 +63,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.add(this.sexButton);
         
         //exit button text
-        this.exitText = new makeText(scene,-10,240,'charBubble',"EXIT GAME");
+        this.exitText = new makeText(scene,-10*2,240*2,'charBubble',"EXIT GAME");
         this.add(this.exitText);
 
         //exit button

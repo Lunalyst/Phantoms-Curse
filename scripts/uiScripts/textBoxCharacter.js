@@ -7,7 +7,7 @@ class textBoxCharacter extends Phaser.Physics.Arcade.Sprite{
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
       this.setDepth(50);
-      this.setScrollFactor(0);
+      //this.setScrollFactor(0);
       this.visible = false;
       this.setScale(1/12);
 
@@ -79,6 +79,10 @@ class textBoxCharacter extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '_',frames: this.anims.generateFrameNames(font, { start: 63, end: 63 }),frameRate: 1,repeat: -1});
       this.anims.create({key: '|',frames: this.anims.generateFrameNames(font, { start: 64, end: 64 }),frameRate: 1,repeat: -1});
       this.anims.create({key: ' ',frames: this.anims.generateFrameNames(font, { start: 65, end: 65 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '~',frames: this.anims.generateFrameNames(font, { start: 66, end: 66 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '@heart@',frames: this.anims.generateFrameNames(font, { start: 67, end: 67 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '@star@',frames: this.anims.generateFrameNames(font, { start: 68, end: 68 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: '@drop@',frames: this.anims.generateFrameNames(font, { start: 69, end: 69 }),frameRate: 1,repeat: -1});
 
 
       this.anims.play(' ');

@@ -88,7 +88,7 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.backround = this.add.tileSprite(1500, 800, 10*612, 408, "backgroundForestLevel");
+     this.backround = this.add.tileSprite(1500, 800, 10*612, 408, "backgroundForestLevel");
       this.backround.setDepth(-50);
       this.backround.setScale(1.5);
       this.backround.setTint(0xd3d3d3);
@@ -101,7 +101,22 @@ class TestForest extends defaultScene {
 
       this.initSavePoints(761,989-14);
 
+      /*this.test4 = new makeText(this,761,900,'charBubble',"TESTTEXT");
+      this.test4.textWave();
+      this.test4.visible = true;
+      this.test4.setScale(1/2);
+      console.log("this.test4", this.test4);*/
+     
+
+      /*this.marker = new textBoxCharacter(this,761,900,'charBubble');
+      this.marker.visible = true;
+      this.marker.anims.play('X');*/
+
+      console.log("this.test4: ",this.test4 );
+
       this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
+
+
 
       //sets up containers
       this.setUpContainers();
@@ -161,6 +176,7 @@ class TestForest extends defaultScene {
         this.parrallax1.y += 0.1;
         this.backround.y += 0.3;
       }
+
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

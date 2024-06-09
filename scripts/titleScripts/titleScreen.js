@@ -3,6 +3,7 @@
 https://phaser.io/examples/v3/view/input/mouse/click-sprite
 https://phaser.io/examples/v2/input/pointer-over
 https://braelynnn.medium.com/phaser-game-settings-using-localstorage-1cf6a9fa6f2c
+https://phaser.discourse.group/t/removing-images-and-tweens/2391/5
  */
 let playerUI;
 
@@ -109,7 +110,7 @@ class titleScreen extends allSceneFunctions {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,360,450,'charBubble',"ALPHA V0.24");
+            this.version = new makeText(this,360*2,450*2,'charBubble',"ALPHA V0.24");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);

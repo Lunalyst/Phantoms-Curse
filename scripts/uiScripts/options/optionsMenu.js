@@ -243,6 +243,13 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //resets the reload value
         this.reloadNeeded = false;
 
+        //temp object to update the onomat value
+        let onomat = {
+            value: this.currentOnomatValue
+        };
+        //updates the onomat variable using gameplay scene emitter.
+        inventoryKeyEmitter.emit(inventoryKey.updateOnomat,onomat);
+
     }
 
     //save settings 
@@ -331,7 +338,13 @@ class optionsMenu extends Phaser.GameObjects.Container{
             this.scene.scene.restart();
         }
         
-
+        //temp object to update the onomat value
+        let onomat = {
+            value: this.currentOnomatValue
+        };
+        console.log("activating onomat emitter ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        //updates the onomat variable using gameplay scene emitter.
+        inventoryKeyEmitter.emit(inventoryKey.updateOnomat,onomat);
         
     }
     

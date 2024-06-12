@@ -42,7 +42,8 @@ inventoryKey = {
     isInventoryOpen: 'is_inventory_open',
     addItem: 'add_item',
     addContainerFlag: 'add_container_flag',
-    checkContainerFlag: 'check_container_flag'
+    checkContainerFlag: 'check_container_flag',
+    updateOnomat: 'update_onomat'
 };
 
 inventoryKeyEmitter = new Phaser.Events.EventEmitter();

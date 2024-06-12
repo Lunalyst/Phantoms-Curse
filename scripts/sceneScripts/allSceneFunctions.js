@@ -264,11 +264,15 @@ class allSceneFunctions extends Phaser.Scene {
       this.warpToX = file.saveX;
       this.warpToY = file.saveY;
       this.playerSex = file.sex;
+      this.preferance = file.settings.preferance;
+      this.onomatopoeia = file.settings.onomatopoeia;
 
     console.log("[loadGamePlayData]============================================");
     console.log("this.warpToX:",this.warpToX," <-- file.saveX: ",file.saveX);
     console.log("this.warpToY:",this.warpToY," <-- file.saveY: ",file.saveY);
     console.log("this.playerSex:",this.playerSex," <-- file.playerSex: ",file.sex);
+    console.log("this.preferance:",this.preferance," <-- file.settings.preferance: ",file.settings.preferance);
+    console.log("this.onomatopoeia:",this.onomatopoeia," <-- this.onomatopoeia: ",file.settings.onomatopoeia);
     console.log("=======================================================");
   }
 

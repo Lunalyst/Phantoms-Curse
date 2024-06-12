@@ -420,7 +420,7 @@ class tiger extends enemy {
                     this.scene.initSoundEffect('lickSFX','3',0.01);
 
                     this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textWave();
                     this.scene.onomat.textFadeOutAndDestroy(1000);
@@ -713,7 +713,7 @@ class tiger extends enemy {
                 
                 //this.scene.onomat.destroy();
                 this.scene.onomat = new makeText(this.scene,this.x,this.y-50,'charBubble',"GULP!");
-                this.scene.onomat.visible = true;
+                this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(600);
                 this.scene.onomat.textFadeOutAndDestroy(600);
@@ -749,7 +749,7 @@ class tiger extends enemy {
                 if(randomInt === 0){
 
                     this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textBuldgeDown(600);
                     this.scene.onomat.textFadeOutAndDestroy(600);
@@ -758,11 +758,12 @@ class tiger extends enemy {
                     this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
+
                     });
                 }else if(randomInt === 1){
 
                     this.scene.onomat = new makeText(this.scene,this.x-9,this.y+35,'charBubble',"GURGLE");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textBuldgeDown(600);
                     this.scene.onomat.textFadeOutAndDestroy(600);
@@ -776,7 +777,7 @@ class tiger extends enemy {
                 }else if(randomInt === 2){
 
                     this.scene.onomat = new makeText(this.scene,this.x-9,this.y+18,'charBubble',"WOBBLE");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textSquishLeft(600);
                     this.scene.onomat.textFadeOutAndDestroy(600);
@@ -790,7 +791,7 @@ class tiger extends enemy {
                 }else if(randomInt === 3){
 
                     this.scene.onomat = new makeText(this.scene,this.x-11,this.y+18,'charBubble',"WOBBLE");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textSquishRight(600);
                     this.scene.onomat.textFadeOutAndDestroy(600);
@@ -818,7 +819,7 @@ class tiger extends enemy {
                 }else if(randomInt === 5){
 
                     this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
-                    this.scene.onomat.visible = true;
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
                     this.scene.onomat.setScale(1/4);
                     this.scene.onomat.textBuldgeDown(600);
                     this.scene.onomat.textFadeOutAndDestroy(600);
@@ -839,7 +840,7 @@ class tiger extends enemy {
             if (!this.animationPlayed) {
 
                 this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"CHURN!");
-                this.scene.onomat.visible = true;
+                this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.textWave();
                 this.scene.onomat.textFadeOutAndDestroy(1000);
@@ -863,7 +864,7 @@ class tiger extends enemy {
             if (!this.animationPlayed) {
 
                 this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"SHRINK...");
-                this.scene.onomat.visible = true;
+                this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.textWave();
                 this.scene.onomat.textFadeOutAndDestroy(1000);

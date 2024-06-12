@@ -71,6 +71,12 @@ class TestCave extends defaultScene {
       //sets up the player camera
       this.setUpPlayerCamera();
 
+      //sets up the loading emitters andscene fadeout transition.
+      this.setUpSceneTransition();
+
+      //sets up gameplay emitters
+      this.setUpGameplayEmitters();
+
       //activates sound
       this.initLoopingSound('caveSFX','cave', 0.1);
       

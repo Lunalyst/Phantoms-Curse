@@ -74,6 +74,12 @@ class TestForest extends defaultScene {
 
       //sets up the player camera
       this.setUpPlayerCamera();
+
+      //sets up the loading emitters andscene fadeout transition.
+      this.setUpSceneTransition();
+
+      //sets up gameplay emitters
+      this.setUpGameplayEmitters();
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

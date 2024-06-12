@@ -118,6 +118,10 @@ class defaultScene extends allSceneFunctions {
         this.warpToY = 600;
         this.playerSex;
         this.settings;
+        
+        this.preferance;
+        this.onomatopoeia;
+
 
         this.itemDrops;
 
@@ -140,22 +144,6 @@ class defaultScene extends allSceneFunctions {
 
     }
 
-    //old function to animate backround. could be removed.
-    animateBackround() {
-      if (this.backroundTimer < 100) {
-      this.backround.setFrame(0);
-      this.backroundTimer++;
-      } else if (this.backroundTimer < 200) {
-      this.backround.setFrame(2);
-      this.backroundTimer++;
-      } else if (this.backroundTimer < 300) {
-      this.backround.setFrame(1);
-      this.backroundTimer++;
-      } else if (this.backroundTimer < 301) {
-      this.backroundTimer = 0;
-      }
-    }
-
     //function to set up player key input definitions.
     setUpPlayerInputs(){
         // allows detection of key inputs for movement and player attacks
@@ -168,7 +156,6 @@ class defaultScene extends allSceneFunctions {
         this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
-
 
     }
 
@@ -219,7 +206,11 @@ class defaultScene extends allSceneFunctions {
       this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
       this.cameras.main.followOffset.set(0,-1500);
 
+      //puts the gamehud scene above the gameplay scene
       hudDepthEmitter.emit(hudDepth.toTop);
+    }
+
+    setUpSceneTransition(){
 
       //creates cool fade in effect on scene load
       this.cameras.main.fadeIn(500, 0, 0, 0);
@@ -265,7 +256,17 @@ class defaultScene extends allSceneFunctions {
         this.isPaused = false;
         this.gameStartedDelay = false;
       });
-      
+
+    }
+
+    //function to allow the gameplay scene to talk to the game hud.
+    setUpGameplayEmitters(){
+
+      //emitter to update onomat value in the gameplay scene
+      inventoryKeyEmitter.on(inventoryKey.updateOnomat,(onomat) =>{
+          this.onomatopoeia = onomat.value; 
+          console.log("updating this.onomatopoeia: ",this.onomatopoeia);
+      });
 
     }
 

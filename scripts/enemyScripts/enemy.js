@@ -55,6 +55,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.gaveUp = false;
 
         console.log("sex passed in enemy: " + sex);
+
+        this.onomatPlayed = false;
  
     }
 

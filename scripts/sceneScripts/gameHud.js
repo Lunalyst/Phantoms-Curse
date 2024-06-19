@@ -32,7 +32,8 @@ class gameHud extends allSceneFunctions {
       this.playerSaveSlotData;
       this.flagValues;
       this.settings;
-      this.skipIndicator;  
+      this.skipIndicator; 
+      this.saveGraphicDelay = false; 
     }
 
     //loads gamehud sprites
@@ -115,16 +116,7 @@ class gameHud extends allSceneFunctions {
         this.giveUpIndicator.visible = false;
         this.giveUpIndicator.setScrollFactor(0);
 
-        //game saved text
-        this.savedText = new makeText(this,0,450,'charBubble'," GAME SAVED... ");
-            this.savedText.textWave();
-            //this.savedText.textFadeOut(2000);
-            let scene = this;
-            setTimeout(function(){
-                //scene.savedText.textFadeIn(2000);
-              },3000);
-            this.savedText.visible = true;
-            this.savedText.setDepth(51);
+            
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
@@ -199,6 +191,26 @@ class gameHud extends allSceneFunctions {
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;
+          });
+
+          //game saved graphic
+          inventoryKeyEmitter.on(inventoryKey.playGameSaved,() =>{
+            //game saved text
+            if(this.saveGraphicDelay === false){
+              this.saveGraphicDelay = true;
+              this.savedText = new makeText(this,0,895,'charBubble'," GAME SAVED... ");
+              this.savedText.textWave();
+              this.savedText.textFadeOutAndDestroy(3000);
+              let scene = this;
+              setTimeout(function(){
+                scene.savedText.destroy();
+                scene.saveGraphicDelay = false;
+              },3000);
+              this.savedText.visible = true;
+              this.savedText.setDepth(51);
+            }
+            
+            
           });
 
           // create inventory hub object

@@ -808,8 +808,16 @@ class blueSlime extends enemy {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
+
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+            
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabFallingDefeated').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
@@ -818,36 +826,117 @@ class blueSlime extends enemy {
         } else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('slimeGrabDefeated1', true);
             this.playSlimeSound('2',800);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
            
         } else if (this.playerDefeatedAnimationStage === 3) {
             this.anims.play('slimeGrabDefeated2', true);
-            //this.playSlimeSound('2',600);
+            let thisSlime = this;
+
+            //plays onomat 
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+
+                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"PLAP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(400);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                    
+                }, 500);
+            }
             this.playPlapSound('plap10',2000);
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('slimeGrabDefeated3', true);
             this.playSlimeSound('3',600);
             this.playPlapSound('plap9',1000);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+
+                let thisSlime = this;
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                    
+                }, 600);
+            }
+
         } else if (this.playerDefeatedAnimationStage === 5) {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
+
+                this.scene.onomat.destroy();
+                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"SPURT!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(900);
+
                 this.anims.play('slimeGrabDefeated4').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.scene.onomat.destroy();
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 6) {
             this.playSlimeSound('4',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
+
+                this.scene.onomat.destroy();
+                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"SQUEEEZZZEE!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(900);
+
                 this.anims.play('slimeGrabDefeated5').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.scene.onomat.destroy();
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
             this.playSlimeSound('3',600);
             this.anims.play('slimeGrabDefeated6', true);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+
+                this.scene.onomat = new makeText(this.scene,this.x-13,this.y+20,'charBubble',"WOBBLE...");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textSlosh();
+                this.scene.onomat.textFadeOutAndDestroy(900);
+                let thisSlime = this;
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                    
+                }, 1000);
+            }
         } else if (this.playerDefeatedAnimationStage === 8) {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {

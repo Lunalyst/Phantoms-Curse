@@ -74,6 +74,9 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //saves the game by calling the save game file function in the scene
             scene1.saveGameFile(playerDataObject);
 
+            //makes graphic to show player the game is saved
+            inventoryKeyEmitter.emit(inventoryKey.playGameSaved);
+
             //once we play the save animation once, then we set the animation back to nothing.
             this.anims.play('saveStoneAnimation').once('animationcomplete', () => {
                 this.anims.play('saveStone',true);

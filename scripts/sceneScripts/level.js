@@ -224,6 +224,10 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
 
+                //sets layer 2 to be dark.
+                this.layer2.setTint(0x808080);
+                this.layer3.setTint(0x505050);
+
                 //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         }
 }

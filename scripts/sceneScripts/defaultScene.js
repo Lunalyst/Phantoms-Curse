@@ -12,6 +12,8 @@ class defaultScene extends allSceneFunctions {
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 291, frameHeight: 270 });
+      this.load.spritesheet('rabbitMale', 'assets/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.spritesheet('rabbitFemale', 'assets/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -230,6 +232,11 @@ class defaultScene extends allSceneFunctions {
           this.scene.stop();
           this.scene.start(this.destination); 
         }
+        console.log('unpausing the game');
+        console.log('this, scene: ',this);
+        this.pausedInTextBox = false;
+        this.isPaused = false;
+        this.gameStartedDelay = false;
         
       })
 
@@ -244,17 +251,6 @@ class defaultScene extends allSceneFunctions {
           this.sound.get(this.sound.sounds[counter].key).stop();
         }
         this.cameras.main.fadeOut(500, 0, 0, 0);
-      });
-
-      //emitter to resume physics after reload?
-      loadSceneTransitionLoad.on(SceneTransitionLoad.unpauseGame,() =>{
-        //resume physics. update loop needs these variable to be reset inorder for the hpysics to continue to work
-        //on reload.
-        console.log('unpausing the game');
-        console.log('this, scene: ',this);
-        this.pausedInTextBox = false;
-        this.isPaused = false;
-        this.gameStartedDelay = false;
       });
 
     }
@@ -597,6 +593,11 @@ class defaultScene extends allSceneFunctions {
           console.log("adding Tigers group");
           this.tigers = this.physics.add.group();
         }
+        if(enemyGroupArray[counter] === 'rabbits'){
+
+          console.log("adding rabbits group");
+          this.rabbits = this.physics.add.group();
+        }
       }
       //creates enemys group that can apply geberic functions to all enemys
       this.enemys = this.physics.add.group();
@@ -626,12 +627,19 @@ class defaultScene extends allSceneFunctions {
         this.blueSlimes.add(slime1);
 
       }else if(enemyType === 'tiger'){
-        
         let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId);
         console.log("tiger1.enemyId: ",tiger1.enemyId);
         this.enemyId++;
         this.enemys.add(tiger1);  
         this.tigers.add(tiger1);
+
+      }else if(enemyType === 'rabbit'){
+        
+        let rabbit1 = new rabbit(this, startX, startY, playerSex,this.enemyId);
+        console.log("rabbit1.enemyId: ",rabbit1.enemyId);
+        this.enemyId++;
+        this.enemys.add(rabbit1);  
+        this.rabbits.add(rabbit1);
       }else{
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
         console.log("enemy.enemyId: ",enemy.enemyId);
@@ -813,13 +821,84 @@ class defaultScene extends allSceneFunctions {
       
     }
 
+    //function keeps track of slime interactions
+    checkRabbitInteractions(scene) {
+
+      //applys a function to all tigers
+      scene.rabbits.children.each(function (tempRabbits) {
+      
+      //calls tiger function to move
+      tempRabbits.move(scene.player1,scene);
+      
+      //checks if the attack hitbox is overlapping the tiger to deal damage.
+      scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
+      
+        //sets overlap to be true
+        tempRabbits.hitboxOverlaps = true;
+      });
+      
+      //if the hitbox overlaps the tiger, then  deal damage to that tiger
+      if(tempRabbits.hitboxOverlaps === true) {
+      
+        console.log("tiger taking damage, tiger hp:" + tempRabbits.enemyHP);
+      
+        //inflict damage to tiger
+        tempRabbits.damage(scene);
+      
+        //clear overlap verable in tiger.
+        tempRabbits.hitboxOverlaps = false;
+      
+      }
+      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+      scene.physics.add.overlap(scene.player1, tempRabbits, function () {
+      
+        //make a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        //that is passed into a emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+      
+        //to tell if the window is open
+        if (isWindowObject.isOpen === true) {
+          //and if it is, then close the window
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          
+        }
+        
+      
+        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+        //if the grab cooldowns are clear then
+        if (tempRabbits.grabCoolDown === false && scene.grabCoolDown === false) {
+          
+          console.log(" grabing the player?");
+          //stop the velocity of the player
+          tempRabbits.setVelocityX(0);
+          scene.player1.setVelocityX(0);
+          //calls the grab function
+          tempRabbits.grab();
+        
+          //sets the scene grab value to true since the player has been grabbed
+          tempRabbits.playerGrabbed = true;
+          tempRabbits.grabCoolDown = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player grabbed by tempRabbits');
+      
+        }
+      });
+      }, this);
+      
+    }
+
     //{Update functions}===================================================================================================================
 
     //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y,"this.onomat.x: "+this.onomat.x+" this.onomat.y: "+this.onomat.y);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();
@@ -965,9 +1044,11 @@ class defaultScene extends allSceneFunctions {
               if(enemyGroupArray[counter] === 'blueSlimes'){
                 this.checkBlueSlimeInteractions(this);
               }
-
               if(enemyGroupArray[counter] === 'tigers'){
                 this.checkTigerInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'rabbits'){
+                this.checkRabbitInteractions(this);
               }
 
             }

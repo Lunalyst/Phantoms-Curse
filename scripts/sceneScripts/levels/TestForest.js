@@ -106,6 +106,7 @@ class TestForest extends defaultScene {
       this.parrallax1.setTint(0x808080);
 
       this.initSavePoints(761,989-14);
+      this.initSavePoints(4230,1085-14);
 
       /*this.test4 = new makeText(this,761,900,'charBubble',"TESTTEXT");
       this.test4.textWave();
@@ -131,7 +132,7 @@ class TestForest extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","tigers"];
+      this.enemyGroupArray = ["tigers",'rabbits'];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
@@ -142,6 +143,8 @@ class TestForest extends defaultScene {
           //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
           thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
+          thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');
           thisScene.spawnedEnemys = true;
         },1000);
 

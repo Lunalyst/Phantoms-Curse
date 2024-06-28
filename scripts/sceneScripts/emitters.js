@@ -20,7 +20,6 @@ struggleEmitter = new Phaser.Events.EventEmitter();
 SceneTransitionLoad = {
     loadValues: 'load_values',
     reloadGame: 'reload_game',
-    unpauseGame: 'unpause_game'
 };
 
 loadSceneTransitionLoad = new Phaser.Events.EventEmitter();

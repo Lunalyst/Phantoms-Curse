@@ -323,8 +323,6 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //resets the reload value
         this.reloadNeeded = false;
-        //call to emitter to unpause physics,since on reload the physics would be paused.
-        loadSceneTransitionLoad.emit(SceneTransitionLoad.unpauseGame);
 
         //emitter to transition scenes
         loadSceneTransitionLoad.emit(SceneTransitionLoad.reloadGame,playerDataObject.playerLocation);

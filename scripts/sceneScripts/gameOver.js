@@ -154,6 +154,14 @@ class gameOver extends allSceneFunctions {
                 this.enemy.gameOver();
                 this.enemy.y-500;
             
+            }else if(this.enemyThatDefeatedPlayer === "maleRabbit"){
+                this.preferance = 0;
+                this.enemy = new rabbit(this,450, 560,this.playerSex);
+                this.enemy.gameOver();
+            }else if(this.enemyThatDefeatedPlayer === "femaleRabbit"){
+                this.preferance = 1;
+                this.enemy = new rabbit(this,450, 560,this.playerSex);
+                this.enemy.gameOver();
             }
             
             //adds collider for enemy to the tileset

@@ -11,7 +11,7 @@
          "name":"Tile Layer 3",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":70,
          "x":0,
          "y":0
@@ -25,7 +25,7 @@
          "name":"Tile Layer 2",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":70,
          "x":0,
          "y":0
@@ -69,12 +69,12 @@
          "columns":16,
          "firstgid":1,
          "image":"Forest_Large_Tiles.png",
-         "imageheight":9216,
+         "imageheight":9984,
          "imagewidth":1536,
          "margin":0,
          "name":"Forest_Large_Tiles",
          "spacing":0,
-         "tilecount":1536,
+         "tilecount":1664,
          "tileheight":96,
          "tiles":[
                 {

@@ -61,13 +61,13 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
             }else{
                 this.anims.play('closed',true);
             }
-
             
         }
 
         //variables use to protect the object from being called at the wrong time.
         this.safeToOpen = false;
         this.openCoolDown= false;
+        this.itemRecieved = false;
 
         //item that the container holds.
         this.containerItemObject = item;
@@ -94,28 +94,33 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
             //plays creek sound effect 
             scene1.initSoundEffect('creakSFX','wood',0.05);
 
+            if(this.itemRecieved === false){
 
-            //emitter to add object to inventory.
-            inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
-    
-            //now to add the flag to the player data so the player cant open this container multiple times.
-            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
+                //if within this scope then player has recieved the item.
+                this.itemRecieved = true;
+                
+                //emitter to add object to inventory.
+                inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+        
+                //now to add the flag to the player data so the player cant open this container multiple times.
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
 
-            //if the item was added then
-            if(addedToInventory.added === true){
+                //if the item was added then
+                if(addedToInventory.added === true){
 
-                //set variable open to true
-                this.alreadyOpened = true;
+                    //set variable open to true
+                    this.alreadyOpened = true;
 
-                //hides the key prompts
-                this.containerKeyPrompts.visible = false;
-                this.promptCooldown = false;
-                //plays animation to open chect then once that completes play static animation.
-                this.anims.play('opening').once('animationcomplete', () => {
+                    //hides the key prompts
+                    this.containerKeyPrompts.visible = false;
+                    this.promptCooldown = false;
+                    //plays animation to open chect then once that completes play static animation.
+                    this.anims.play('opening').once('animationcomplete', () => {
 
-                    this.anims.play('opened',true);
-    
-                });
+                        this.anims.play('opened',true);
+        
+                    });
+                }
             }
 
             //create a refrence to the object so it can be accesed in our time out function

@@ -140,7 +140,7 @@ class blueSlime extends enemy {
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400) {
+        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
             if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 //console.log("player is to the right of the slime");

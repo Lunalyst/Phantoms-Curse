@@ -135,8 +135,10 @@ class rabbit extends enemy {
                         //animation getting interupted causing things to break.
                         this.anims.play('rabbitHopRightStart').once('animationcomplete', () => {
                             this.jumpAnimationPlayed = false;
-                            this.setVelocityX(270);
-                            this.setVelocityY(240*-1);
+                            if(this.playerGrabbed === false){
+                                this.setVelocityX(270);
+                                this.setVelocityY(240*-1);
+                            }
 
                             let currentRabbit = this;
                             setTimeout(function () {
@@ -160,8 +162,10 @@ class rabbit extends enemy {
 
                         this.anims.play('rabbitHopLeftStart').once('animationcomplete', () => {
                             this.jumpAnimationPlayed = false;
-                            this.setVelocityX(270*-1);
-                            this.setVelocityY(240*-1);
+                            if(this.playerGrabbed === false){
+                                this.setVelocityX(270*-1);
+                                this.setVelocityY(240*-1);
+                            }
                         
                             let currentRabbit = this;
                             setTimeout(function () {

@@ -844,6 +844,8 @@ class blueSlime extends enemy {
             this.anims.play('slimeGrabDefeated2', true);
             let thisSlime = this;
 
+            this.playPlapSound('plap10',2000);
+            
             //plays onomat 
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
@@ -861,7 +863,7 @@ class blueSlime extends enemy {
                     
                 }, 600);
             }
-            this.playPlapSound('plap10',2000);
+            
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('slimeGrabDefeated3', true);
             this.playSlimeSound('3',600);

@@ -12,7 +12,7 @@ class makeText extends Phaser.GameObjects.Container{
 
         //this.setScrollFactor(0);
 
-        //this.setDepth(70);
+        this.setDepth(6);
         // creates text
         let startingX = 0-xPos;
         let startingY = 0-yPos;

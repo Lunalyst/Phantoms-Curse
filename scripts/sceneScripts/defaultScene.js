@@ -25,6 +25,14 @@ class defaultScene extends allSceneFunctions {
         "audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
 
+      this.load.audioSprite('playerJumpSFX','audio/used-audio/bounce-sounds/bounce-sounds.json',[
+        "audio/used-audio/bounce-sounds/bounce-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('jumpSFX','audio/used-audio/bounce-sounds/bounce-sounds.json',[
+        "audio/used-audio/bounce-sounds/bounce-sounds.mp3"
+      ]);
+
       this.load.audioSprite('creakSFX','audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
         "audio/used-audio/wood-creak-sounds/wood-creak.mp3"
       ]);

@@ -248,6 +248,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.animationPlayedGoingUp = false;
         this.animationPlayedGoingDown = false;
         this.setVelocityY(-350);
+        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
         scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
         
       }
@@ -277,7 +278,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.animationPlayedGoingUp = false;
         this.animationPlayedGoingDown = false;
         this.setVelocityY(-350);
-
+        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
         scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
       }
 
@@ -306,7 +307,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.animationPlayedGoingUp = false;
         this.animationPlayedGoingDown = false;
         this.setVelocityY(-350);
-
+        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
         scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
       }
 

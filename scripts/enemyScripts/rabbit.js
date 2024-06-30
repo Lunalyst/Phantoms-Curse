@@ -91,18 +91,18 @@ class rabbit extends enemy {
                 this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbitFemale', { start: 17, end: 20 }), frameRate: 6, repeat: -1 });
                 this.anims.create({ key: 'rabbitShove', frames: this.anims.generateFrameNames('rabbitFemale', { start: 21, end: 31 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'rabbitHump1', frames: this.anims.generateFrameNames('rabbitFemale', { start: 31, end: 34 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'rabbitHump2', frames: this.anims.generateFrameNames('rabbitFemale', { start: 31, end: 34 }), frameRate: 12, repeat: -1 });
-                this.anims.create({ key: 'rabbitHump3', frames: this.anims.generateFrameNames('rabbitFemale', { start: 31, end: 34 }), frameRate: 14, repeat: -1 });   
-                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitFemale', { start: 35, end: 44 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitFemale', { start: 45, end: 48}), frameRate: 6, repeat: -1 }); 
+                this.anims.create({ key: 'rabbitHump2', frames: this.anims.generateFrameNames('rabbitFemale', { start: 35, end: 38 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'rabbitHump3', frames: this.anims.generateFrameNames('rabbitFemale', { start: 35, end: 38 }), frameRate: 14, repeat: -1 });   
+                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitFemale', { start: 39, end: 48 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitFemale', { start: 49, end: 52}), frameRate: 6, repeat: -1 }); 
             }else{
-                this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbitFemale', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'rabbitShove', frames: this.anims.generateFrameNames('rabbitFemale', { start: 53, end: 63 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'rabbitHump1', frames: this.anims.generateFrameNames('rabbitFemale', { start: 64, end: 67 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'rabbitHump2', frames: this.anims.generateFrameNames('rabbitFemale', { start: 64, end: 67 }), frameRate: 12, repeat: -1 });
-                this.anims.create({ key: 'rabbitHump3', frames: this.anims.generateFrameNames('rabbitFemale', { start: 64, end: 67  }), frameRate: 14, repeat: -1 });   
-                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitFemale', { start: 68, end: 76 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitFemale', { start: 77, end: 80}), frameRate: 6, repeat: -1 }); 
+                this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbitFemale', { start: 53, end: 56 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'rabbitShove', frames: this.anims.generateFrameNames('rabbitFemale', { start: 57, end: 67 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'rabbitHump1', frames: this.anims.generateFrameNames('rabbitFemale', { start: 67, end: 70 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'rabbitHump2', frames: this.anims.generateFrameNames('rabbitFemale', { start: 71, end: 74 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'rabbitHump3', frames: this.anims.generateFrameNames('rabbitFemale', { start: 71, end: 74 }), frameRate: 14, repeat: -1 });   
+                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitFemale', { start: 75, end: 84 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitFemale', { start: 85, end: 88}), frameRate: 6, repeat: -1 }); 
             }
             
         }
@@ -143,6 +143,8 @@ class rabbit extends enemy {
                             //we nolonger played the jumping animation so set it to false
                             this.jumpAnimationPlayed = false;
 
+                            this.scene.initSoundEffect('jumpSFX','1',0.1);
+
                             //if the player isnt grabbed, then make the rabbit jump by setting its velocity
                             if(this.playerGrabbed === false){
                                 let randomXVelocity = Math.floor((Math.random() * 260) + 30);
@@ -176,6 +178,8 @@ class rabbit extends enemy {
 
                             //we nolonger played the jumping animation so set it to false
                             this.jumpAnimationPlayed = false;
+
+                            this.scene.initSoundEffect('jumpSFX','1',0.1);
 
                             //if the player isnt grabbed, then make the rabbit jump by setting its velocity
                             if(this.playerGrabbed === false){
@@ -217,6 +221,8 @@ class rabbit extends enemy {
         this.startJump = false;
         this.jumpAnimationPlayed = false;
 
+        //object is on view layer 4 so idling enemys dont overlap current one.
+        this.setDepth(4);
     }
 
     // functioned called to play animation when the player is defeated by the rabbit in gameover.
@@ -228,7 +234,7 @@ class rabbit extends enemy {
 
 
     //the grab function. is called when player has overlaped with an enemy rabbit.
-    grab() {
+    grab(){
 
         //code could be used to get sprite to the ground faster.
         //this.body.setGravityY(600);
@@ -247,6 +253,9 @@ class rabbit extends enemy {
             this.rabbitGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(5);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -383,9 +392,6 @@ class rabbit extends enemy {
             }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
         }
-
-        //handles sound effect diring grab struggle
-        //this.playrabbitSound('3',800);
     }
 
     playerIsStrugglingLogic(){
@@ -575,8 +581,6 @@ class rabbit extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
-
-                this.playrabbitSound('5',200);
                 
                 if (this.enemyHP <= 0) {
                     this.destroy();
@@ -622,12 +626,6 @@ class rabbit extends enemy {
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
 
-                /*this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);*/
-            
                 this.animationPlayed = true;
                 this.anims.play('rabbitShove').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
@@ -638,7 +636,6 @@ class rabbit extends enemy {
             }
         } else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('rabbitGrind', true);
-            this.playrabbitSound('2',800);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
@@ -657,7 +654,9 @@ class rabbit extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
 
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
+                this.playPlapSound('plap1',1800);
+
+                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+10,'charBubble',"SLOOORRRP!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(700);
@@ -673,14 +672,15 @@ class rabbit extends enemy {
             }
         }else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('rabbitRail1', true);
-            this.playrabbitSound('2',800);
+            
+            this.playPlapSound('plap3',800);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -691,14 +691,15 @@ class rabbit extends enemy {
            
         } else if (this.playerDefeatedAnimationStage === 5) {
             this.anims.play('rabbitRail2', true);
-            this.playrabbitSound('2',800);
+            
+            this.playPlapSound('plap9',1000);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(400);
@@ -709,14 +710,15 @@ class rabbit extends enemy {
            
         } else if (this.playerDefeatedAnimationStage === 6) {
             this.anims.play('rabbitRail3', true);
-            this.playrabbitSound('2',800);
+            
+            this.playPlapSound('plap9',500);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(300);
@@ -726,28 +728,21 @@ class rabbit extends enemy {
             }
            
         } else if (this.playerDefeatedAnimationStage === 7) {
-            this.playrabbitSound('5',600);
             if (!this.animationPlayed) {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.animationPlayed = true;
 
-                let thisrabbit = this;
-                if (this.onomatPlayed === false) {
-                    this.onomatPlayed = true;
-                    this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SQUIRT");
-                    this.scene.onomat.visible = this.scene.onomatopoeia;
-                    this.scene.onomat.setScale(1/4);
-                    this.scene.onomat.increaseRight(700);
-                    this.scene.onomat.textFadeOutAndDestroy(700);
-                    setTimeout(function () {
-                        thisrabbit.onomatPlayed = false;
-                    }, 800);
-                }
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+12,'charBubble',"SQUIRT");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
 
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.scene.onomat.destroy();
                 });
             }
         }
@@ -758,12 +753,6 @@ class rabbit extends enemy {
         let currentrabbit = this;
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
-
-                /*this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);*/
             
                 this.animationPlayed = true;
                 this.anims.play('rabbitShove').once('animationcomplete', () => {
@@ -776,57 +765,62 @@ class rabbit extends enemy {
             }
         }else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('rabbitHump1', true);
-            this.playrabbitSound('2',800);
+
+            this.playPlapSound('plap3',800);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+20,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 600);
             }
            
         } else if (this.playerDefeatedAnimationStage === 3) {
             this.anims.play('rabbitHump2', true);
-            this.playrabbitSound('2',800);
+
+            this.playPlapSound('plap9',1000);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+20,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(400);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 400);
             }
            
         } else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('rabbitHump3', true);
-            this.playrabbitSound('2',800);
+
+            this.playPlapSound('plap9',500);
 
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+20,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 300);
             }
            
         } else if (this.playerDefeatedAnimationStage === 5) {
-            this.playrabbitSound('5',600);
             if (!this.animationPlayed) {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
@@ -838,20 +832,5 @@ class rabbit extends enemy {
             }
         }
     }
-    
-    //plays rabbit sound based in type input being 1-5 and a time delay
-    playrabbitSound(type,delay){
-        if(this.rabbitSoundCoolDown === false){
-           // this.scene.initSoundEffect('rabbitSFX',type,0.3);
-            this.rabbitSoundCoolDown = true;
-    
-            let currentrabbit = this;
-            setTimeout(function () {
-                currentrabbit.rabbitSoundCoolDown= false;
-            }, delay);
-        }
-
-    }
-    
     
 }

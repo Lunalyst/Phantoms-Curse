@@ -656,7 +656,7 @@ class defaultScene extends allSceneFunctions {
           
             //focus on the tiger that grabbed the player
             this.mycamera.startFollow(tempEnemy);
-            this.cameras.main.zoom = 5;
+            this.cameras.main.zoom = 4;
             this.grabbed = tempEnemy.playerGrabbed;
             //scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD
             tempEnemy.grab();

@@ -103,7 +103,7 @@ class gameHud extends allSceneFunctions {
           that.struggleEventBar = new sceneStruggleBar(this, 450, 450);
         }, 1000);*/
 
-        this.struggleEventBar = new sceneStruggleBar(this, 340, 540);
+        this.struggleEventBar = new sceneStruggleBar(this, 340, 580);
 
         //when player dies the prompt to skip animations need to pop up.
         this.skipIndicator = this.add.sprite(750, 780,'TABToSkip');

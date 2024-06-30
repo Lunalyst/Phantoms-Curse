@@ -42,16 +42,15 @@ class rabbit extends enemy {
         // sets gravity 
         this.body.setGravityY(600); 
 
-        //randomizes variables
-        this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
-        this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
-        this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
-        this.randomInput = Math.floor((Math.random() * 2));
-
-        this.randomInputCooldown = false;
+        // variables for movement
         this.rabbitSoundCoolDown = false;
         this.jumpAnimationPlayed = false;
         this.rabbitDamageCounter = false;
+        this.jumped = false;
+        this.startJump = false;
+
+        // sets the rabbits hp value
+        this.enemyHP = 35;
 
         //defines rabbit animations based on the players sex.
         if(this.enemySex === 0) {
@@ -110,93 +109,113 @@ class rabbit extends enemy {
     }
 
     //functions that move rabbit objects.
-    move() {
+    move(){
         
-
+        //sets gravity
         this.body.setGravityY(600);
-        //else if the rabbit is size 2 then set its hit box to the correct size
 
-        //checks to see if rabbit should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 300 && this.scene.player1.x < this.x + 300) {
+        //checks to see if rabbit should move if the player is within range.
+        if (this.scene.player1.x > this.x - 350 && this.scene.player1.x < this.x + 350) {
+
             // sets hitbox and position of hitbox.
             this.setSize(70, 180, true);
             this.setOffset(180, 110);
-            //checks to see if rabbit should jump to move if the move cycle is correct for the current instance of rabbit.
-            console.log('this.jumpAnimationPlayed: ',this.jumpAnimationPlayed);
-            if (this.body.blocked.down && this.scene.player1.x > this.x) {
-                
-                this.jumped = true;
-                      
-                    if (!this.jumpAnimationPlayed) {
 
+            //console.log('this.startJump',this.startJump,'this.jumpAnimationPlayed: ',this.jumpAnimationPlayed, " this.body.blocked.down: ",this.body.blocked.down,"this.scene.player1.x < this.x ", this.scene.player1.x < this.x);
+
+            //if the rabbit is left of the player move the rabbit right twards the player
+            if (this.body.blocked.down && this.scene.player1.x > this.x && this.startJump === false) {
+
+                this.startJump = true;
+
+                //if we havent played jump animation
+                    if(!this.jumpAnimationPlayed) {
+
+                        //set it to true
                         this.jumpAnimationPlayed = true;
+                        
+                        //stop velocity so bending legs animation stays still
                         this.setVelocityX(0);
 
-                        //animation getting interupted causing things to break.
+                        //play the animation then on completion of the animation
                         this.anims.play('rabbitHopRightStart').once('animationcomplete', () => {
+
+                            //we nolonger played the jumping animation so set it to false
                             this.jumpAnimationPlayed = false;
+
+                            //if the player isnt grabbed, then make the rabbit jump by setting its velocity
                             if(this.playerGrabbed === false){
-                                this.setVelocityX(270);
+                                let randomXVelocity = Math.floor((Math.random() * 260) + 30);
+                                this.setVelocityX(randomXVelocity);
                                 this.setVelocityY(240*-1);
                             }
-
-                            let currentRabbit = this;
-                            setTimeout(function () {
-                                currentRabbit.jumped = false;
-                                currentRabbit.setVelocityX(currentRabbit.body.velocity.x +(10));
-                            }, 160);
-
+                           
+                            //play the animation for rabbit being in the air.
                             this.anims.play('rabbitHopRightInAir');
+                            
                         
                         });
-                    
-                    }
-
-            } else if (this.body.blocked.down && this.scene.player1.x < this.x ) {
-                //console.log("player is to the left of the rabbit");
-                this.jumped = true;
-                       
-                    if (!this.jumpAnimationPlayed) {
-                        this.jumpAnimationPlayed = true;
-                        this.setVelocityX(0);
-
-                        this.anims.play('rabbitHopLeftStart').once('animationcomplete', () => {
-                            this.jumpAnimationPlayed = false;
-                            if(this.playerGrabbed === false){
-                                this.setVelocityX(270*-1);
-                                this.setVelocityY(240*-1);
-                            }
-                        
-                            let currentRabbit = this;
-                            setTimeout(function () {
-                                currentRabbit.jumped = false;
-                                currentRabbit.setVelocityX(currentRabbit.body.velocity.x +(-1*10));
-                            }, 160);
-
-                            this.anims.play('rabbitHopLeftInAir');
-                        
-                        });
-                    
                     }
                 
-            } 
-        } else if(this.body.blocked.down) {
-            //player is not in range of rabbit so rabbit is in idle animation.
+            //if the rabbit is to the right of the player, then move the rabbit left
+            } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.startJump === false ) {
+
+                this.startJump = true;
+
+                //if we havent played jump animation
+                    if(!this.jumpAnimationPlayed) {
+
+                        //set it to true
+                        this.jumpAnimationPlayed = true;
+                        
+                        //stop velocity so bending legs animation stays still
+                        this.setVelocityX(0);
+
+                        //play the animation then on completion of the animation
+                        this.anims.play('rabbitHopLeftStart').once('animationcomplete', () => {
+
+                            //we nolonger played the jumping animation so set it to false
+                            this.jumpAnimationPlayed = false;
+
+                            //if the player isnt grabbed, then make the rabbit jump by setting its velocity
+                            if(this.playerGrabbed === false){
+                                let randomXVelocity = Math.floor((Math.random() * 260) + 30);
+                                this.setVelocityX(randomXVelocity*-1);
+                                this.setVelocityY(240*-1);
+                            }
+
+                            //play the animation for rabbit being in the air.
+                            this.anims.play('rabbitHopLeftInAir');
+                            
+                        });
+                    }
+            //if the rabbit is on the ground, and the variables are not set, then reset them for the next jump       
+            }else if(this.body.blocked.down && this.startJump === true && this.jumpAnimationPlayed === false){
+                this.startJump = false;
+                this.jumpAnimationPlayed = false;
+            }
+
+        //if the rabit is not in range then stop there velocity and reset the jumping variables.
+        } else {
             this.anims.play('rabbitIdle', true);
             this.setVelocityX(0);
+            this.startJump = false;
             this.jumpAnimationPlayed = false;
-
         }
+
         //updates the previous y value to tell if rabbit is falling or going up in its jump.
         this.enemyPreviousY = this.y;
     }
 
     //simple idle function played when the player is grabbed by something that isnt this rabbit.
     moveIdle() {
-
         this.anims.play('rabbitIdle', true);
         this.body.setGravityY(600);
         this.setVelocityX(0);
+
+        //reset the jump variables if the player is grabbed by another enemy
+        this.startJump = false;
+        this.jumpAnimationPlayed = false;
 
     }
 
@@ -210,11 +229,15 @@ class rabbit extends enemy {
 
     //the grab function. is called when player has overlaped with an enemy rabbit.
     grab() {
+
+        //code could be used to get sprite to the ground faster.
+        //this.body.setGravityY(600);
+
         let currentrabbit = this;
         //first checks if rabbit object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
-        // moves player attackhitbox out of the way.
-
+        
+        //stops the velocity of the enemy
         this.setVelocityX(0);
 
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
@@ -282,9 +305,7 @@ class rabbit extends enemy {
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
             }
-            
         }
-
     }
 
     rabbitGrabFalse(){
@@ -295,8 +316,6 @@ class rabbit extends enemy {
         this.scene.player1.y = this.y - 150;
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
-
-        // if its a small rabbit then play the small rabbit grab animation.
         
         // check to make sure animations dont conflict with eachother.
         if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
@@ -332,11 +351,10 @@ class rabbit extends enemy {
     playerIsNotDefeatedInputs(playerHealthObject){
         //logic handles random key imputs display to player and there interactability.
         //checks if the player is struggleing free by pressing the right buttons.
-
         let currentrabbit = this;
 
             // handles input for escaping.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyA) === true) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;
@@ -345,19 +363,16 @@ class rabbit extends enemy {
                 }
             }
 
-        
-        // randomizing input
-       if (this.rabbitSize === 1) {
-            if (this.keyAnimationPlayed === false) {
-                console.log(" setting keyA display");
-                this.scene.KeyDisplay.playAKey();
-                this.keyAnimationPlayed = true;
-            }
+        // displays inputs while struggling.
+        if (this.keyAnimationPlayed === false) {
+            console.log(" setting keyS display");
+            this.scene.KeyDisplay.playSKey();
+            this.keyAnimationPlayed = true;
         }
 
         // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
         // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
-        if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
+        if (this.struggleCounter > 0 && this.struggleCounter < 200 && this.struggleCounterTick !== true) {
             // this case subtracts from the struggle free counter if the value is not pressed fast enough.
             this.struggleCounter--;
             struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
@@ -374,7 +389,6 @@ class rabbit extends enemy {
     }
 
     playerIsStrugglingLogic(){
-
         let currentrabbit = this;
 
         if (this.rabbitDamageCounter === false ) {
@@ -384,44 +398,42 @@ class rabbit extends enemy {
             setTimeout(function () {
                 currentrabbit.rabbitDamageCounter = false;
             }, 2000);
-            // if the player has been defeated the do the following steps.
         }
     }
 
     playerIsDefeatedLogic(playerHealthObject){
 
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the rabbit.
-            this.playerDefeated = true;
-            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
-            if(this.enemySex === 0){
-                this.scene.enemyThatDefeatedPlayer = "maleRabbit";
-            }else{
-                this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
-            }
-            // if we start the player defeated animation then we need to set a few things.
-            if (this.playerDefeatedAnimationStage === 0) {
-                this.scene.KeyDisplay.playDKey();
-                let currentrabbit = this; // important, sets currentrabbit to the current object so that we can use variables attached to this current rabbit object in our set timeout functions.
-                //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
-                // delay the button prompt so the animation can play.
-                setTimeout(function () {
-                    currentrabbit.scene.KeyDisplay.visible = true;
-                    currentrabbit.scene.KeyDisplay.playDKey();
-                    //incriment the animation prompt since we want to move on to the next animation after the current one finishes
-                    console.log("currentrabbit.playerDefeatedAnimationStage: " + currentrabbit.playerDefeatedAnimationStage);
-                }, 1000);
-                this.inStartDefeatedLogic = true;
-                this.playerDefeatedAnimationStage++;
-                console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
-            }
+        this.playerDefeated = true;
+        //calls emitter to show the tabtoskip graphic
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
 
-            /*console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
-            " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
-            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);*/
+        //sets enemy that defeated the player based on rabbits sex.
+        if(this.enemySex === 0){
+            this.scene.enemyThatDefeatedPlayer = "maleRabbit";
+        }else{
+            this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
+        }
 
-            //may be able to set a bool to true or false to tell what animations have the key skip
-            //that way we dont need tons of if checks for numbers
-            if(this.enemySex === 0){
+        // if we start the player defeated animation then we need to set a few things.
+        if (this.playerDefeatedAnimationStage === 0) {
+            this.scene.KeyDisplay.playDKey();
+            let currentrabbit = this; // important, sets currentrabbit to the current object so that we can use variables attached to this current rabbit object in our set timeout functions.
+            //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+            // delay the button prompt so the animation can play.
+            setTimeout(function () {
+                currentrabbit.scene.KeyDisplay.visible = true;
+                currentrabbit.scene.KeyDisplay.playDKey();
+                //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                console.log("currentrabbit.playerDefeatedAnimationStage: " + currentrabbit.playerDefeatedAnimationStage);
+            }, 1000);
+            this.inStartDefeatedLogic = true;
+            this.playerDefeatedAnimationStage++;
+            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+        }
+
+        //based on the enemys sex, play different animations. 
+        if(this.enemySex === 0){
             if (this.scene.keyD.isDown &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
@@ -444,6 +456,7 @@ class rabbit extends enemy {
                     currentrabbit.playerDefeatedAnimationCooldown = false;
                 }, 3000);
             }
+
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
@@ -454,7 +467,6 @@ class rabbit extends enemy {
             this.maleRabbitDefeatedPlayerAnimation();
 
         }else{
-
             if (this.scene.keyD.isDown &&
                 this.playerDefeatedAnimationCooldown === false &&
                  this.inStartDefeatedLogic === false &&
@@ -484,8 +496,7 @@ class rabbit extends enemy {
            }
             this.femaleRabbitDefeatedPlayerAnimation();
         }
-
-              
+        
     }
 
     playerEscaped(playerHealthObject){
@@ -500,13 +511,12 @@ class rabbit extends enemy {
                     
             }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
                 console.log("player has broken free" );
+                
+                this.anims.play("rabbitIdle", true);
+                
+                //resets the enemy variables and player variables.
                 this.struggleFree = false;
                 this.playerBrokeFree = 0;
-                if (this.rabbitSize === 1) {
-                    this.anims.play("rabbitIdle", true);
-                } else if (this.rabbitSize === 2) {
-                    this.anims.play("rabbitLargeIdle", true);
-                }
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
                 this.setSize(90, 65, true);
@@ -520,6 +530,7 @@ class rabbit extends enemy {
                 // if the enemy is destroyed then the timeout function wont have a refrence if done here.
                 this.scene.grabCoolDown = true;
 
+                //sets grabb cooldown for the scene
                 this.scene.startGrabCoolDown();
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -534,6 +545,10 @@ class rabbit extends enemy {
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.
                 currentrabbit = this;
+
+                //reset the jump variables if the player escapes this enemys grab
+                this.startJump = false;
+                this.jumpAnimationPlayed = false;
                 setTimeout(function () {
 
                     currentrabbit.grabCoolDown = false;
@@ -577,6 +592,7 @@ class rabbit extends enemy {
             }, 100);
         }
     }
+
     //handles damage types for blue rabbit. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
@@ -627,11 +643,12 @@ class rabbit extends enemy {
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"RUB");
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+15,'charBubble',"RUB!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(700);
                 this.scene.onomat.textFadeOutAndDestroy(700);
+                
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
                 }, 800);
@@ -640,11 +657,11 @@ class rabbit extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
 
-                /*this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);*/
+                this.scene.onomat.textFadeOutAndDestroy(1000);
             
                 this.animationPlayed = true;
                 this.anims.play('rabbitPenetrate').once('animationcomplete', () => {
@@ -661,14 +678,15 @@ class rabbit extends enemy {
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 600);
             }
            
         } else if (this.playerDefeatedAnimationStage === 5) {
@@ -678,14 +696,15 @@ class rabbit extends enemy {
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(400);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 400);
             }
            
         } else if (this.playerDefeatedAnimationStage === 6) {
@@ -695,14 +714,15 @@ class rabbit extends enemy {
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"PLAP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
                 setTimeout(function () {
                     thisrabbit.onomatPlayed = false;
-                }, 800);
+                }, 300);
             }
            
         } else if (this.playerDefeatedAnimationStage === 7) {
@@ -711,6 +731,20 @@ class rabbit extends enemy {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.animationPlayed = true;
+
+                let thisrabbit = this;
+                if (this.onomatPlayed === false) {
+                    this.onomatPlayed = true;
+                    this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SQUIRT");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.increaseRight(700);
+                    this.scene.onomat.textFadeOutAndDestroy(700);
+                    setTimeout(function () {
+                        thisrabbit.onomatPlayed = false;
+                    }, 800);
+                }
+
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

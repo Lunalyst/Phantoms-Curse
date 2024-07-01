@@ -601,16 +601,16 @@ class rabbit extends enemy {
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.enemyHP -= (slice / 2);
+            this.enemyHP -= (slice);
         }
         if (blunt > 0) {
-            this.enemyHP -= (blunt * 2);
+            this.enemyHP -= (blunt);
         }
         if (pierce > 0) {
-            this.enemyHP -= (pierce / 2);
+            this.enemyHP -= (pierce);
         }
         if (heat > 0) {
-            this.enemyHP -= (heat / 4);
+            this.enemyHP -= (heat * 4);
         }
         if (lightning > 0) {
             this.enemyHP -= (lightning * 2);

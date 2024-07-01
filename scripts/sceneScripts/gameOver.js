@@ -149,7 +149,7 @@ class gameOver extends allSceneFunctions {
                 this.enemy.largeSlimeGameOver();
                 this.enemy.y-500;
             
-            }else if(this.enemyThatDefeatedPlayer === "tiger"){
+            }else if(this.enemyThatDefeatedPlayer === "femaleTiger"){
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.enemy.y-500;
@@ -232,6 +232,7 @@ class gameOver extends allSceneFunctions {
                     console.log("save file detected, now setting player back to correct scene.");
                     console.log("gameoverThat.playerLocation",gameoverThat.playerLocation);
 
+                    let entryAdded = false;
                     //loop through of entrys the player has that was loaded from file
                     for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
 
@@ -239,8 +240,14 @@ class gameOver extends allSceneFunctions {
                         if(gameoverThat.enemyThatDefeatedPlayer === key){
                             console.log("found bestiary entry : ", key);
                             gameoverThat.playerBestiaryData[key] = 1;
+                            entryAdded = true;
                         }
-                      }
+                
+                    }
+
+                    if(entryAdded === false){
+                        gameoverThat.playerBestiaryData[gameoverThat.enemyThatDefeatedPlayer] = 1;
+                    }
 
                       //creates a object to hold data for scene transition
                         let playerDataObject = {

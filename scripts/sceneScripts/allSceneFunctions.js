@@ -446,7 +446,7 @@ validateSaveFile(dataObject){
       volume: 1,
       onomatopoeia: true
    };
-    
+   
     dataObject.settings = settings;
 
   }
@@ -458,18 +458,9 @@ makeSaveFile(playerObject,sex,saveslot){
   let playerBestiaryData = {
     blueSlime:0,
     largeBlueSlime:0,
-    axolotlMale:0,
-    axolotlfemale:0,
-    largePurpleSlugFemale:0,
-    largePurpleSlugMale:0,
-    rabbitfemale:0,
-    rabbitMale:0,
-    cowFemale:0,
-    cowMale:0,
-    blueSlimeHumanoidFemale:0,
-    blueSlimeHumanoidFemaleLarge:0,
-    sharkFemale:0,
-    sharkMale:0
+    femaleTiger:0,
+    maleRabbit:0,
+    femaleRabbit:0,
  };
 
  let playerSkillsData = {

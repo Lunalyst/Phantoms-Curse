@@ -19,6 +19,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'back', frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 6 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary', { start: 11, end: 17 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 18, end: 21 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 22, end: 25 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -52,6 +55,18 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       largeBlueSlime: {
         title: "BLUE SLIME LARGE",
         summary: "THIS SLIME ACTS VERY SIMILIAR TO IT`S SMALLER COUNTERPART. HOWEVER THIS SLIME IS MUCH LARGER AND MORE DAGEROUS.IT IS ABLE TO DISOLVE PREY AT A FASTER RATE.",
+      },
+      femaleTiger: {
+        title: "FEMALE TIGER",
+        summary: "THIS LARGE CARIVORE IS AN AMBUSH PREDATOR. OPTING TO HIDE UNTIL IT SPOTS PREY BEFORE CHASING THEM DOWN AND DEVOWERING THEM WHOLE. HOWEVER IT IS MORE DOCILE IF IT IS ALREADY FEAD ON SOMETHING.",
+      },
+      maleRabbit: {
+        title: "MALE RABBIT",
+        summary: "THIS HERBAVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE MALES OF THIS GROUP USE TO PENITRATION AS THERE MAIN MEANS OF APPLYING THERE CURSE.  ",
+      },
+      femaleRabbit: {
+        title: "FEMALE RABBIT",
+        summary: "THIS HERBAVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE FEMALES OF THIS GROUP OFTEN TACKLE THERE VICTIMS AND HUMP THEM TO APPLY THERE CURSE. ",
       },
 
       back: {

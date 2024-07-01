@@ -549,7 +549,7 @@ class tiger extends enemy {
         this.playerDefeated = true;
         
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
-        this.scene.enemyThatDefeatedPlayer = "tiger";
+        this.scene.enemyThatDefeatedPlayer = "femaleTiger";
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {

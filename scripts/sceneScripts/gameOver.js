@@ -266,6 +266,9 @@ class gameOver extends allSceneFunctions {
 
                     //call save function for temp save so when we start the scene agian, it has the correct data.
                     gameoverThat.saveGame(playerDataObject);
+
+                    //call save function for temp save so when we start the scene agian, it has the correct data.
+                    gameoverThat.saveGameFile(playerDataObject);
                     
                     // calls the fadout function which loads back to the last save on fadeout complete
                     gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);

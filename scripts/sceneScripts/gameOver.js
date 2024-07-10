@@ -143,25 +143,28 @@ class gameOver extends allSceneFunctions {
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeGameOver();
+                this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "largeBlueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeSize = 2;
                 this.enemy.largeSlimeGameOver();
                 this.enemy.y-500;
-            
+                this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "femaleTiger"){
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.enemy.y-500;
-            
+                this.defeatedTitle = 'eaten';
             }else if(this.enemyThatDefeatedPlayer === "maleRabbit"){
                 this.preferance = 0;
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "femaleRabbit"){
                 this.preferance = 1;
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
             }
             
             //adds collider for enemy to the tileset

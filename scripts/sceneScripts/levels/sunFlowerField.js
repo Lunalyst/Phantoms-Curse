@@ -1,14 +1,14 @@
 
 
-class ForestRavineHome extends defaultScene {
+class sunFlowerField extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'ForestRavineHome',active: false ,physics:{default:'arcade'}});
+    super({key: 'sunFlowerField',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "ForestRavineHome";
+    this.playerLocation = "sunFlowerField";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -21,21 +21,24 @@ class ForestRavineHome extends defaultScene {
     //variables used for scrolling
     this.playerPreviousX = 0;
     this.playerPreviousY = 0;
-    
     }
 
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Player_Home.json");
+      this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Sun_Flower_Fields.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
-
+      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 612 , frameHeight: 408});
+      //this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
       this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
+      ]);
+
+      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
+        "audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
       ]);
     }
 
@@ -53,13 +56,15 @@ class ForestRavineHome extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("home_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("Sun_Flower_Fields","Forest_Large_Tiles","source_map");
     
       //creates player object
       this.setUpPlayer();
 
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
+
+      this.initLoopingSound('forestThemeSFX','bertsz',0.05);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -89,17 +94,23 @@ class ForestRavineHome extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(813,1757+12,
-        "follow the platforms upward. we have a small lodging for those that wash up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
-        ['signLoop']);
+     this.backround = this.add.tileSprite(1500, 1850, 10*612, 408, "backgroundForestLevel");
+      this.backround.setDepth(-50);
+      this.backround.setScale(1.5);
+      this.backround.setTint(0xd3d3d3);
 
-      this.initPortals(390,1904,1777,541,"warpCaveOutside","tutorialCaveLevel");
 
-      this.initPortals(1504,1264,500,605,"door1","HomeInterior1");
+      this.parrallax1 = this.add.tileSprite(1000, 2070, 5*5000,4800, "forestParallax");
+      this.parrallax1.setScale(1/3);
+      this.parrallax1.setDepth(-50);
+      this.parrallax1.setTint(0x808080);
 
-      this.initPortals(2566,1373-13,343,829,"warpCaveOutside","TestCave");
+     
+      this.initSavePoints(759,2077-14);
 
-      this.initPortals(281,1277-13,1570,829,"warpCaveOutside","caveToSunflowers1");
+      this.initPortals(400,2109-13,661,829,"warpCaveOutside","caveToSunflowers1");
+
+
 
       //sets up containers
       this.setUpContainers();
@@ -107,16 +118,23 @@ class ForestRavineHome extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //sets up enemy colliders and groups
+      this.enemyGroupArray = ["tigers",'rabbits'];
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
-        setTimeout(function(){
-          //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
-      
+      setTimeout(function(){
+          
+          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
+          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
+          
+          //thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
+          //thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
+          //thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');
           thisScene.spawnedEnemys = true;
         },1000);
+
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
@@ -124,16 +142,6 @@ class ForestRavineHome extends defaultScene {
         //sets the previous x for scrolling
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
-
-        this.backround = this.add.tileSprite(0, 1070, 10000, 664, "backgroundForestRavineLevel");
-        this.backround.setDepth(-50);
-        this.backround.setScale(1.2);
-        //original pos - player pos * scrol factor
-
-        this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
-        this.parrallax1.setScale(1/3);
-        this.parrallax1.setDepth(-50);
-        this.parrallax1.setTint(0x808080);
     }
 
     update(){
@@ -141,8 +149,12 @@ class ForestRavineHome extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
-       //updates the x value of the scrolling backround.
-       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
+
+
+      //updates the x value of the scrolling backround.
+      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x += 0.5;
         this.backround.x += 0.7;
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
@@ -160,6 +172,7 @@ class ForestRavineHome extends defaultScene {
         this.parrallax1.y += 0.1;
         this.backround.y += 0.3;
       }
+
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

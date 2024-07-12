@@ -63,57 +63,29 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
     //defines player animations. animations are define on startup based on the players sex
     if(sex === 0){
-    this.anims.create({key: 'pIdleRight',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
-    this.anims.create({key: 'pIdleLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 9, end: 16 }),frameRate: 6,repeat: -1});
-
-    this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('malePlayer', { start: 17, end: 24 }),frameRate: 15,repeat: -1});
-    this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 25, end: 32 }),frameRate: 15 ,repeat: -1});
-
-    this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('malePlayer', { start: 34, end: 35 }),frameRate: 10 ,repeat: 0});
-    this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('malePlayer', { start: 36, end: 37 }),frameRate: 10 ,repeat: 0});
-
-    this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('malePlayer', { start: 39, end: 40 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('malePlayer', { start: 41, end: 42 }),frameRate: 10,repeat: 0});
-
-    this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('malePlayer', { start: 43, end: 62 }),frameRate: 1.5,repeat: -1});
-   
-    this.anims.create({key: 'pAttackKnifeRight',frames: this.anims.generateFrameNames('malePlayer', { start: 63, end: 67 }),frameRate: 12,repeat: -1});
-    this.anims.create({key: 'pAttackKnifeLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 68, end: 72 }),frameRate: 12,repeat: -1});
-
-    this.anims.create({key: 'pAttackAxeRight',frames: this.anims.generateFrameNames('malePlayer', { start: 73, end: 77 }),frameRate: 9,repeat: -1});
-    this.anims.create({key: 'pAttackAxeLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 78, end: 82 }),frameRate: 9,repeat: -1});
-
-    this.anims.create({key: 'pAttackOarRight',frames: this.anims.generateFrameNames('malePlayer', { start: 83, end: 87 }),frameRate: 8,repeat: -1});
-    this.anims.create({key: 'pAttackOarLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 88, end: 92 }),frameRate: 8,repeat: -1});
-
-    this.anims.create({key: 'pAttackUnarmedRight',frames: this.anims.generateFrameNames('malePlayer', { start: 93, end: 97 }),frameRate: 12,repeat: -1});
-    this.anims.create({key: 'pAttackUnarmedLeft',frames: this.anims.generateFrameNames('malePlayer', { start: 98, end: 102 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'p',frames: this.anims.generateFrameNames('malePlayer', { start: 9, end: 16 }),frameRate: 15,repeat: -1});
+      this.anims.create({key: 'pJumpUp',frames: this.anims.generateFrameNames('malePlayer', { start: 17, end: 19 }),frameRate: 10 ,repeat: 0});
+      this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('malePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
+      this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('malePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
+    
+      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('malePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('malePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: -1});
+      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('malePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: -1});
+      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('malePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: -1});
+    
     }else{
-      this.anims.create({key: 'pIdleRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
-      this.anims.create({key: 'pIdleLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 9, end: 16 }),frameRate: 6,repeat: -1});
-  
-      this.anims.create({key: 'pRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 17, end: 24 }),frameRate: 15,repeat: -1});
-      this.anims.create({key: 'pLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 25, end: 32 }),frameRate: 15 ,repeat: -1});
-  
-      this.anims.create({key: 'pJumpRightUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 34, end: 35 }),frameRate: 10 ,repeat: 0});
-      this.anims.create({key: 'pJumpRightDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 36, end: 37 }),frameRate: 10 ,repeat: 0});
-  
-      this.anims.create({key: 'pJumpLeftUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 39, end: 40 }),frameRate: 10,repeat: 0});
-      this.anims.create({key: 'pJumpLeftDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 41, end: 42 }),frameRate: 10,repeat: 0});
-  
-      this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 43, end: 62 }),frameRate: 1.5,repeat: -1});
-     
-      this.anims.create({key: 'pAttackKnifeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 63, end: 67 }),frameRate: 12,repeat: -1});
-      this.anims.create({key: 'pAttackKnifeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 68, end: 72 }),frameRate: 12,repeat: -1});
-  
-      this.anims.create({key: 'pAttackAxeRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 73, end: 77 }),frameRate: 9,repeat: -1});
-      this.anims.create({key: 'pAttackAxeLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 78, end: 82 }),frameRate: 9,repeat: -1});
-  
-      this.anims.create({key: 'pAttackOarRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 83, end: 87 }),frameRate: 8,repeat: -1});
-      this.anims.create({key: 'pAttackOarLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 88, end: 92 }),frameRate: 8,repeat: -1});
-  
-      this.anims.create({key: 'pAttackUnarmedRight',frames: this.anims.generateFrameNames('femalePlayer', { start: 93, end: 97 }),frameRate: 12,repeat: -1});
-      this.anims.create({key: 'pAttackUnarmedLeft',frames: this.anims.generateFrameNames('femalePlayer', { start: 98, end: 102 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'p',frames: this.anims.generateFrameNames('femalePlayer', { start: 9, end: 16 }),frameRate: 15,repeat: -1});
+      this.anims.create({key: 'pJumpUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 17, end: 19 }),frameRate: 10 ,repeat: 0});
+      this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
+      this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
+    
+      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: -1});
+      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: -1});
+      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: -1});
+    
     }
   }
     
@@ -156,7 +128,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.idleTimer = 0;
       this.setVelocityX(-250 * this.speedBoost);
       if(this.body.blocked.down){
-        this.anims.play('pLeft',true);
+        this.anims.play('p',true);
+        this.flipX = true;
         //console.log("moving left");
       }
 
@@ -167,7 +140,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.idleTimer = 0;
       this.setVelocityX(250 * this.speedBoost);
       if(this.body.blocked.down){
-        this.anims.play('pRight',true);
+        this.anims.play('p',true);
+        this.flipX = false;
          //console.log("moving Right");
       }
 
@@ -183,9 +157,11 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
       if(this.animationInAir === false){
         if(this.lastKey === "d"){
-          this.anims.play('pIdleRight',true);
+          this.anims.play('pIdle',true);
+          this.flipX = false;
         }else if(this.lastKey === "a"){
-          this.anims.play('pIdleLeft',true);
+          this.anims.play('pIdle',true);
+          this.flipX = true;
         }
       }
 
@@ -258,12 +234,14 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
       if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
 
-        this.anims.play('pJumpLeftUp');
+        this.anims.play('pJumpUp');
+        this.flipX = true;
         this.animationPlayedGoingUp = true;
         //console.log(" jumping while keyA is down and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
         
       }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpLeftDown');
+        this.anims.play('pJumpDown');
+        this.flipX = true;
         this.animationPlayedGoingDown = true;
         //console.log(" jumping while keyA is down and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }
@@ -287,13 +265,15 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
       if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
 
-        this.anims.play('pJumpRightUp');
+        this.anims.play('pJumpUp');
+        this.flipX = false;
         this.animationPlayedGoingUp = true;
         //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
 
       }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
 
-        this.anims.play('pJumpRightDown');
+        this.anims.play('pJumpDown');
+        this.flipX = false;
         this.animationPlayedGoingDown = true;
         //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       
@@ -315,19 +295,23 @@ class player extends Phaser.Physics.Arcade.Sprite{
       }
 
       if(playerPreviousY > this.y && this.lastKey === "d"&& this.animationPlayedGoingUp === false){
-        this.anims.play('pJumpRightUp');
+        this.anims.play('pJumpUp');
+        this.flipX = false;
         this.animationPlayedGoingUp = true;
         //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }else if(playerPreviousY <= this.y && this.lastKey === "d"&&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpRightDown');
+        this.anims.play('pJumpDown');
+        this.flipX = false;
         this.animationPlayedGoingDown = true;
         //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }else if(playerPreviousY > this.y && this.lastKey === "a"&& this.animationPlayedGoingUp === false){
-        this.anims.play('pJumpLeftUp');
+        this.anims.play('pJumpUp');
+        this.flipX = true;
         this.animationPlayedGoingUp = true;
         //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }else if(playerPreviousY <= this.y && this.lastKey === "a"&&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpLeftDown');
+        this.anims.play('pJumpDown');
+        this.flipX = true;
         this.animationPlayedGoingDown = true;
         //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
       }
@@ -355,51 +339,59 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
       //plays attack for knife right
       if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
-        this.anims.play("pAttackKnifeRight",true);
+        this.anims.play("pAttackKnife",true);
+        this.flipX = false;
         this.sliceDamage = 4;
         this.weaponSoundEffect('high2', 400);
         this.rightHitBox(300);
       //plays attack for knife left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
-        this.anims.play("pAttackKnifeLeft",true);
+        this.anims.play("pAttackKnife",true);
+        this.flipX = true;
         this.sliceDamage = 4;
         this.weaponSoundEffect('high2', 400);
         this.leftHitBox(300);
       //plays attack for axe right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
-        this.anims.play("pAttackAxeRight",true);
+        this.anims.play("pAttackAxe",true);
+        this.flipX = false;
         this.sliceDamage = 8;
         this.weaponSoundEffect('heavy', 600);
         this.rightHitBox(300);
       //plays attack for axe left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
-        this.anims.play("pAttackAxeLeft",true);
+        this.anims.play("pAttackAxe",true);
+        this.flipX = true;
         this.sliceDamage = 8;
         this.weaponSoundEffect('heavy', 600);
         this.leftHitBox(300);
         
       //plays attack for oar right
       }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
-        this.anims.play("pAttackOarRight",true);
+        this.anims.play("pAttackOar",true);
+        this.flipX = false;
         this.bluntDamage = 2;
         this.weaponSoundEffect('medium', 700);
         this.rightHitBox(300);
         
       //plays attack for oar left
       }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
-        this.anims.play("pAttackOarLeft",true);
+        this.anims.play("pAttackOar",true);
+        this.flipX = true;
         this.bluntDamage = 2;
         this.weaponSoundEffect('medium', 700);
         this.leftHitBox(300);
       //plays animation for unarmed or non weapon equipt right.
       }else if(this.lastKey === 'd' && keyShift.isDown){
-        this.anims.play("pAttackUnarmedRight",true);
+        this.anims.play("pAttackUnarmed",true);
+        this.flipX = false;
         this.bluntDamage = 1;
         this.weaponSoundEffect('high1', 400);
         this.rightHitBox(200);
       //plays animation for unarmed or non weapon equipt left.
       }else if(this.lastKey === 'a'&& keyShift.isDown){
-        this.anims.play("pAttackUnarmedLeft",true);
+        this.anims.play("pAttackUnarmed",true);
+        this.flipX = true;
         this.bluntDamage = 1;
         this.weaponSoundEffect('high1', 400);
         this.leftHitBox(200);

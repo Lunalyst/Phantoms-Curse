@@ -4,7 +4,8 @@ healthEvent = {
     loseHealth: 'lose_health',
     gainHealth: 'gain_health',
     returnHealth: 'return_health',
-    maxHealth:'max_health'
+    maxHealth:'max_health',
+    upgradeHealth:'upgrade_Health'
 };
 
 healthEmitter = new Phaser.Events.EventEmitter();

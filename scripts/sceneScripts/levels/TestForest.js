@@ -122,8 +122,8 @@ class TestForest extends defaultScene {
       console.log("this.test4: ",this.test4 );
 
       this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
-
-
+//5812,1181 1570,829
+      this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");
 
       //sets up containers
       this.setUpContainers();

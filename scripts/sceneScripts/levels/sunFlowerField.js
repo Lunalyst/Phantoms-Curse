@@ -28,10 +28,12 @@ class sunFlowerField extends defaultScene {
       this.defaultPreload();
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Sun_Flower_Fields.json");
+      
 
-      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 612 , frameHeight: 408});
-      //this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
-      this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
+      this.load.spritesheet('backgroundSunflowerLevel', 'assets/flowerfield backdrop.png',{frameWidth: 2476 , frameHeight: 1707});
+      this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1280 , frameHeight: 854});
+      this.load.spritesheet('sunflowerParallax', 'assets/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
+      this.load.spritesheet("secretWall1" , "assets/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -85,38 +87,45 @@ class sunFlowerField extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
-      
-      
-      
-      //this.initSavePoints(2050,558);
-        // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-     this.backround = this.add.tileSprite(1500, 1850, 10*612, 408, "backgroundForestLevel");
+      this.skybackround = this.add.tileSprite(1500, 1980, 10*1280, 10*854, "backgroundSkyLevel");
+      this.skybackround.setDepth(-51);
+      this.backround = this.add.tileSprite(3000, 1980, 10*2476, 1707, "backgroundSunflowerLevel");
       this.backround.setDepth(-50);
-      this.backround.setScale(1.5);
+      this.backround.setScale(0.3);
       this.backround.setTint(0xd3d3d3);
 
 
-      this.parrallax1 = this.add.tileSprite(1000, 2070, 5*5000,4800, "forestParallax");
+      this.parrallax1 = this.add.tileSprite(1500, 2130, 5*5000,4800, "sunflowerParallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x808080);
 
-     
+      
       this.initSavePoints(759,2077-14);
+
+      this.initSavePoints(5490,1533-14);
 
       this.initPortals(400,2109-13,661,829,"warpCaveOutside","caveToSunflowers1");
 
+      this.initPortals(6763,2109-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
+      //makes secret wall
+      this.secretWall1 = this.add.sprite(4943.6, 1712.1, "secretWall1");
+      this.secretWall1.setDepth(7);
+      this.secretWall1.setScale(1/3);
 
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      //creates health upgrade object in level
+      this.initHealthUpgrade(4642, 1245, 'healthUpgradeInSunflowerField');
 
       //sets up enemy colliders and groups
       this.enemyGroupArray = ["tigers",'rabbits'];

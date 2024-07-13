@@ -148,7 +148,7 @@ class hpBar extends Phaser.GameObjects.Container{
         console.log("this.outSide",this.outSide)
         this.outSide.anims.play(animationNumber);
 
-        //sets the size of the interior health bar to be correct.
+        //sets the size of the interior health bar to be correct. heal increase becomes less with more upgrades.
         for(let counter = 0; counter < size; counter++){
             console.log("upgrade counter: ", counter);
             if(counter < 2){
@@ -168,10 +168,5 @@ class hpBar extends Phaser.GameObjects.Container{
         }
         console.log("this.playerHealthMax: ",this.playerHealthMax);
     }
-    
-    
-
-    
-
 
 }

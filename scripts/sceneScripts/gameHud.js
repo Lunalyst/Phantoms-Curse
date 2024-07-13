@@ -144,6 +144,23 @@ class gameHud extends allSceneFunctions {
             healthObject.playerHealth = this.healthDisplay.playerHealth;
         });
 
+        healthEmitter.on(healthEvent.upgradeHealth,() =>{
+
+          //makes sure upgrades do not go above the limit.
+          if(this.playerSaveSlotData.playerHealthUpgrades < 10){
+
+            //increments the upgrade value in the save data
+            this.playerSaveSlotData.playerHealthUpgrades += 1;
+
+            //calls the function to upgrade the hp
+            this.healthDisplay.setUpgradeSize(this.playerSaveSlotData.playerHealthUpgrades);
+
+          }
+
+          //heals player to full.
+          this.healthDisplay.maxHealth();
+      });
+
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
           //console.log("setting this.struggleEventBar.visible: ", visible);
             this.struggleEventBar.visible = visible;  

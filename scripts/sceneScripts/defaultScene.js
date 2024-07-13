@@ -19,6 +19,7 @@ class defaultScene extends allSceneFunctions {
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/hitbox.png');
       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
+      this.load.spritesheet('healthUpgrade', 'assets/healthUpgrade.png',{frameWidth: 99, frameHeight: 99 });
 
        //weapon sound effects
        this.load.audioSprite('weaponSFX','audio/used-audio/player-sounds/weapon-swings.json',[
@@ -199,6 +200,10 @@ class defaultScene extends allSceneFunctions {
     setUpItemDrops(){
       //sets up the group for items in the scene
       this.itemDrops = this.physics.add.group();
+
+      //adds healthupgrade physics group
+      this.healthUpgrades = this.physics.add.group();
+
     }
 
     //creates a container object to hold items.
@@ -340,6 +345,7 @@ class defaultScene extends allSceneFunctions {
     setUpItemDropCollider(){
       //sets up physics for the itemDrops Group
       this.physics.add.collider(this.itemDrops,this.processMap.layer1);
+      this.physics.add.collider(this.healthUpgrades,this.processMap.layer1);
       //this.physics.add.collider(this.itemDrops,this.processMap.layer0);
     }
 
@@ -421,6 +427,41 @@ class defaultScene extends allSceneFunctions {
 
       console.log("adding new item drop: ",drop1)
       
+    }
+
+    //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
+    initHealthUpgrade(x, y, flag) {
+
+      //make a temp object
+      let object = {
+        flagToFind: flag,
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      //if it has not then spawn it in the level
+      if(object.foundFlag === false){
+
+        //creates a item drop
+        let upgrade1 = new healthUpgrade(this, x, y,flag);
+        
+        //adds healthUpgrade to group
+        this.healthUpgrades.add(upgrade1);
+
+        //adds gravity. dont know why defining it in the object itself didnt work. this is fine.
+        upgrade1.body.setGravityY(600);
+
+        upgrade1.body.setBounce(0.5 , 0.5);
+
+        console.log("adding new healthUpgrade: ",upgrade1)
+      }
+      
+    }
+
+    initHealthUpgradeWithFlag(){
+
     }
 
     //creates a item container in the scene
@@ -524,6 +565,23 @@ class defaultScene extends allSceneFunctions {
         } 
 
         }, this);
+
+        //checks to see if a health upgrade should be added.
+        this.healthUpgrades.children.each(function (tempUpgrade) {
+          //if player overlaps with item then they pick it up
+          if ((this.player1.x > tempUpgrade.x - 20 && this.player1.x < tempUpgrade.x + 20) && (this.player1.y > tempUpgrade.y - 20 && this.player1.y < tempUpgrade.y + 20) && this.grabbed === false) {
+              console.log("picked up healthUpgrade");
+
+              
+              //call emmiter to upgrade the health by 1
+              healthEmitter.emit(healthEvent.upgradeHealth);
+
+              //destroy the object, and adds flag.
+              tempUpgrade.destroyAndFlag();
+              
+            } 
+    
+            }, this);
     }
 
     //checks to see if the container should be opened

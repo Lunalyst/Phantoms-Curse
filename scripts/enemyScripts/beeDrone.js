@@ -45,6 +45,8 @@ class beeDrone extends enemy {
         // variables for movement
         this.beeDroneSoundCoolDown = false;
         this.beeDroneDamageCounter = false;
+        this.randomXVelocity = Math.floor((Math.random() * 250) + 30);
+        this.randomizedXVelocity = false;
       
 
         // sets the beeDrones hp value
@@ -135,23 +137,23 @@ class beeDrone extends enemy {
             }else{
                  //if the beeDrone is left of the player move the beeDrone right twards the player bot not into them yet.
                 if (this.scene.player1.x > this.x){
-                    let randomXVelocity = Math.floor((Math.random() * 240) + 30);
-                    this.setVelocityX(randomXVelocity);
+                    
+                    this.setVelocityX(this.randomXVelocity);
                     //play the animation for beeDrone being in the air.
                     this.anims.play('beeDroneMove',true);
                     this.flipX = false;
                                 
                 //if the beeDrone is to the right of the player, then move the beeDrone left
                 } else if (this.scene.player1.x < this.x) {
-                    let randomXVelocity = Math.floor((Math.random() * 240) + 30);
-                    this.setVelocityX(randomXVelocity * -1);
+
+                    this.setVelocityX(this.randomXVelocity * -1);
                     //play the animation for beeDrone being in the air.
                     this.anims.play('beeDroneMove',true);
                     this.flipX = true;
                 }
             }
             //keep the bee floating lightly above the players y
-            if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y + 50) && (this.scene.player1.x > this.x - 50 && this.scene.player1.x < this.x + 50)){
+            if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y + 50)){
                 //this.anims.play('beeDroneIdle',true);
                 this.setVelocityY(0);
 
@@ -172,6 +174,17 @@ class beeDrone extends enemy {
             this.setVelocityX(0);
             this.setVelocityY(0);
         }
+
+        if(this.randomizedXVelocity === false){
+            this.randomizedXVelocity = true;
+            this.randomXVelocity = Math.floor((Math.random() * 260) + 10);
+            
+            let tempBee = this;
+            setTimeout(function () {
+                tempBee.randomizedXVelocity = false;
+            }, 500);
+        }
+
 
         //updates the previous y value to tell if beeDrone is falling or going up in its jump.
         this.enemyPreviousY = this.y;

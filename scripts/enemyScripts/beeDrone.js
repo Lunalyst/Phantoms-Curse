@@ -47,6 +47,7 @@ class beeDrone extends enemy {
         this.beeDroneDamageCounter = false;
         this.randomXVelocity = Math.floor((Math.random() * 250) + 30);
         this.randomizedXVelocity = false;
+        this.grabTimer = false;
       
 
         // sets the beeDrones hp value
@@ -121,39 +122,27 @@ class beeDrone extends enemy {
     //functions that move beeDrone objects.
     move(){
 
-        //checks to see if beeDrone should move if the player is within range. also has to check y
-        if ((this.scene.player1.x > this.x - 350 && this.scene.player1.x < this.x + 350) && (this.scene.player1.y > this.y - 350 && this.scene.player1.y < this.y + 350)) {
+        //if the enemy is within grab range attempt to grab the player
+        if((this.scene.player1.x > this.x - 60 && this.scene.player1.x < this.x + 60) && this.grabTimer === false){
 
-            // sets hitbox and position of hitbox.
-            this.setSize(70, 180, true);
-    
-            //console.log('this.startJump',this.startJump,'this.jumpAnimationPlayed: ',this.jumpAnimationPlayed, " this.body.blocked.down: ",this.body.blocked.down,"this.scene.player1.x < this.x ", this.scene.player1.x < this.x);
-
-            //if bee is within range
-            if ((this.scene.player1.x > this.x - 50 && this.scene.player1.x < this.x + 50)){
-                this.anims.play('beeDroneIdle',true);
-                this.setVelocityX(0);
-
-            }else{
-                 //if the beeDrone is left of the player move the beeDrone right twards the player bot not into them yet.
+            this.grabTimer = true;
+                //move the bee twords the player using the grab animation
                 if (this.scene.player1.x > this.x){
                     
-                    this.setVelocityX(this.randomXVelocity);
+                    this.setVelocityX(255);
                     //play the animation for beeDrone being in the air.
-                    this.anims.play('beeDroneMove',true);
                     this.flipX = false;
                                 
                 //if the beeDrone is to the right of the player, then move the beeDrone left
                 } else if (this.scene.player1.x < this.x) {
 
-                    this.setVelocityX(this.randomXVelocity * -1);
+                    this.setVelocityX(255 * -1);
                     //play the animation for beeDrone being in the air.
-                    this.anims.play('beeDroneMove',true);
                     this.flipX = true;
                 }
-            }
+
             //keep the bee floating lightly above the players y
-            if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y + 50)){
+            if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y )){
                 //this.anims.play('beeDroneIdle',true);
                 this.setVelocityY(0);
 
@@ -168,16 +157,82 @@ class beeDrone extends enemy {
                 }
             }
 
-        //if the rabit is not in range then stop there velocity and reset the jumping variables.
-        }else{
-            this.anims.play('beeDroneIdle', true);
-            this.setVelocityX(0);
-            this.setVelocityY(0);
+            this.anims.play('beeDroneGrab').once('animationcomplete', () => {
+
+                this.anims.play('beeDroneIdle', true);
+                this.setVelocityX(0);
+                this.setVelocityY(-50);
+
+                let tempBee = this;
+                setTimeout(function () {
+                    tempBee.grabTimer = false;
+                }, 500);
+                
+            });
+
+        //checks to see if beeDrone should move if the player is within range. also has to check y and if the enemy isnt grabbing.
+        }else if(this.grabTimer === false){
+
+            if ((this.scene.player1.x > this.x - 350 && this.scene.player1.x < this.x + 350) && (this.scene.player1.y > this.y - 350 && this.scene.player1.y < this.y + 350)) {
+
+                // sets hitbox and position of hitbox.
+                this.setSize(70, 180, true);
+        
+                //console.log('this.startJump',this.startJump,'this.jumpAnimationPlayed: ',this.jumpAnimationPlayed, " this.body.blocked.down: ",this.body.blocked.down,"this.scene.player1.x < this.x ", this.scene.player1.x < this.x);
+    
+                //if bee is within range
+                if ((this.scene.player1.x > this.x - 50 && this.scene.player1.x < this.x + 50)){
+                    this.anims.play('beeDroneIdle',true);
+                    this.setVelocityX(0);
+    
+                }else{
+                     //if the beeDrone is left of the player move the beeDrone right twards the player bot not into them yet.
+                    if (this.scene.player1.x > this.x){
+                        
+                        this.setVelocityX(this.randomXVelocity);
+                        //play the animation for beeDrone being in the air.
+                        this.anims.play('beeDroneMove',true);
+                        this.flipX = false;
+                                    
+                    //if the beeDrone is to the right of the player, then move the beeDrone left
+                    } else if (this.scene.player1.x < this.x) {
+    
+                        this.setVelocityX(this.randomXVelocity * -1);
+                        //play the animation for beeDrone being in the air.
+                        this.anims.play('beeDroneMove',true);
+                        this.flipX = true;
+                    }
+                }
+                //keep the bee floating lightly above the players y
+                if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y + 50)){
+                    //this.anims.play('beeDroneIdle',true);
+                    this.setVelocityY(0);
+    
+                }else{
+                    if (this.scene.player1.y > this.y) {
+    
+                        this.setVelocityY(70);
+    
+                    } else if (this.scene.player1.y < this.y) {
+    
+                        this.setVelocityY(70*-1);    
+                    }
+                }
+    
+            //if the rabit is not in range then stop there velocity and reset the jumping variables.
+            }else{
+                this.anims.play('beeDroneIdle', true);
+                this.setVelocityX(0);
+                this.setVelocityY(0);
+            }
+
         }
+
 
         if(this.randomizedXVelocity === false){
             this.randomizedXVelocity = true;
-            this.randomXVelocity = Math.floor((Math.random() * 260) + 10);
+            console.log("this.randomXVelocity: ",this.randomXVelocity);
+            this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
             
             let tempBee = this;
             setTimeout(function () {

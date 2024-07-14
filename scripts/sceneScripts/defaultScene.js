@@ -14,6 +14,8 @@ class defaultScene extends allSceneFunctions {
       this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 291, frameHeight: 270 });
       this.load.spritesheet('rabbitMale', 'assets/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('rabbitFemale', 'assets/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.spritesheet('beeDroneMale', 'assets/BeeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeDroneFemale', 'assets/BeeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -460,10 +462,6 @@ class defaultScene extends allSceneFunctions {
       
     }
 
-    initHealthUpgradeWithFlag(){
-
-    }
-
     //creates a item container in the scene
     initItemContainer(x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag) {
       //creates a item drop
@@ -664,6 +662,11 @@ class defaultScene extends allSceneFunctions {
           console.log("adding rabbits group");
           this.rabbits = this.physics.add.group();
         }
+        if(enemyGroupArray[counter] === 'beeDrones'){
+
+          console.log("adding beeDrones group");
+          this.beeDrones = this.physics.add.group();
+        }
       }
       //creates enemys group that can apply geberic functions to all enemys
       this.enemys = this.physics.add.group();
@@ -706,6 +709,14 @@ class defaultScene extends allSceneFunctions {
         this.enemyId++;
         this.enemys.add(rabbit1);  
         this.rabbits.add(rabbit1);
+
+      }else if(enemyType === 'beeDrone'){
+        
+        let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId);
+        console.log("beeDrone.enemyId: ",beeDrone1.enemyId);
+        this.enemyId++;
+        this.enemys.add(beeDrone1);  
+        this.beeDrones.add(beeDrone1);
       }else{
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
         console.log("enemy.enemyId: ",enemy.enemyId);
@@ -958,6 +969,79 @@ class defaultScene extends allSceneFunctions {
       
     }
 
+    //function keeps track of beeDrones interactions
+    checkBeeDroneInteractions(scene) {
+
+      //applys a function to all tigers
+      scene.beeDrones.children.each(function (tempBeeDrone) {
+      
+      //calls tiger function to move
+      tempBeeDrone.move(scene.player1,scene);
+      /*
+      //checks if the attack hitbox is overlapping the tiger to deal damage.
+      scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
+      
+        //sets overlap to be true
+        tempRabbits.hitboxOverlaps = true;
+      });
+      
+      //if the hitbox overlaps the tiger, then  deal damage to that tiger
+      if(tempRabbits.hitboxOverlaps === true) {
+      
+        console.log("tiger taking damage, tiger hp:" + tempRabbits.enemyHP);
+      
+        //inflict damage to tiger
+        tempRabbits.damage(scene);
+      
+        //clear overlap verable in tiger.
+        tempRabbits.hitboxOverlaps = false;
+      
+      }
+      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+      scene.physics.add.overlap(scene.player1, tempRabbits, function () {
+      
+        //make a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        //that is passed into a emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+      
+        //to tell if the window is open
+        if (isWindowObject.isOpen === true) {
+          //and if it is, then close the window
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          
+        }
+        
+      
+        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+        //if the grab cooldowns are clear then
+        if (tempRabbits.grabCoolDown === false && scene.grabCoolDown === false) {
+          
+          console.log(" grabing the player?");
+          //stop the velocity of the player
+          tempRabbits.setVelocityX(0);
+          scene.player1.setVelocityX(0);
+          //calls the grab function
+          tempRabbits.grab();
+        
+          //sets the scene grab value to true since the player has been grabbed
+          tempRabbits.playerGrabbed = true;
+          tempRabbits.grabCoolDown = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player grabbed by tempRabbits');
+      
+        }
+      });
+
+      */
+      }, this);
+      
+    }
+
     //{Update functions}===================================================================================================================
 
     //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
@@ -1115,6 +1199,9 @@ class defaultScene extends allSceneFunctions {
               }
               if(enemyGroupArray[counter] === 'rabbits'){
                 this.checkRabbitInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'beeDrones'){
+                this.checkBeeDroneInteractions(this);
               }
 
             }

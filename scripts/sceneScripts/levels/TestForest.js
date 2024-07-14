@@ -29,8 +29,8 @@ class TestForest extends defaultScene {
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Test_Forest.json");
 
-      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 612 , frameHeight: 408});
-      //this.load.spritesheet('backgroundForestRavineLevel', 'assets/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 936 , frameHeight: 918});
+      this.load.spritesheet('backgroundForestStaticLevel', 'assets/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
       this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -94,9 +94,13 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-     this.backround = this.add.tileSprite(1500, 800, 10*612, 408, "backgroundForestLevel");
+      /*this.skybackround = this.add.tileSprite(1500, 800, 8*1377,918, "backgroundForestStaticLevel");
+      this.skybackround.setDepth(-51);
+      this.skybackround.setTint(0xd3d3d3);*/
+
+      this.backround = this.add.tileSprite(1500, 800, 10*1377 ,918, "backgroundForestStaticLevel");
       this.backround.setDepth(-50);
-      this.backround.setScale(1.5);
+      this.backround.setScale(.9);
       this.backround.setTint(0xd3d3d3);
 
 

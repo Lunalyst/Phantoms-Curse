@@ -30,8 +30,8 @@ class sunFlowerField extends defaultScene {
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Sun_Flower_Fields.json");
       
 
-      this.load.spritesheet('backgroundSunflowerLevel', 'assets/flowerfield backdrop.png',{frameWidth: 2476 , frameHeight: 1707});
-      this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1280 , frameHeight: 854});
+      this.load.spritesheet('backgroundSunflowerLevel', 'assets/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
+      this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       this.load.spritesheet('sunflowerParallax', 'assets/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
       this.load.spritesheet("secretWall1" , "assets/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
 
@@ -91,11 +91,13 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.skybackround = this.add.tileSprite(1500, 1980, 10*1280, 10*854, "backgroundSkyLevel");
+      this.skybackround = this.add.tileSprite(1500, 1980, 8*1024, 8*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-51);
-      this.backround = this.add.tileSprite(3000, 1980, 10*2476, 1707, "backgroundSunflowerLevel");
+      this.skybackround.setTint(0xd3d3d3);
+
+      this.backround = this.add.tileSprite(3000, 2010, 10*1152, 765, "backgroundSunflowerLevel");
       this.backround.setDepth(-50);
-      this.backround.setScale(0.3);
+      this.backround.setScale(0.6);
       this.backround.setTint(0xd3d3d3);
 
 
@@ -114,9 +116,9 @@ class sunFlowerField extends defaultScene {
       this.initPortals(6763,2109-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
       //makes secret wall
-      this.secretWall1 = this.add.sprite(4943.6, 1712.1, "secretWall1");
+      this.secretWall1 = this.add.sprite(4943.6, 1712.2, "secretWall1");
       this.secretWall1.setDepth(7);
-      this.secretWall1.setScale(1/3);
+      this.secretWall1.setScale(0.335);
 
       //sets up containers
       this.setUpContainers();
@@ -128,19 +130,17 @@ class sunFlowerField extends defaultScene {
       this.initHealthUpgrade(4642, 1245, 'healthUpgradeInSunflowerField');
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["tigers",'rabbits'];
+      this.enemyGroupArray = ["beeDrones"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
           
-          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
-          
-          //thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
-          //thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
-          //thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');
+          thisScene.initEnemy(1509, 2000,thisScene.playerSex,'beeDrone');
+
+          thisScene.initEnemy(2009, 2000,thisScene.playerSex,'beeDrone');
+
           thisScene.spawnedEnemys = true;
         },1000);
 

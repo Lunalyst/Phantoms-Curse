@@ -61,6 +61,7 @@ class gameOver extends allSceneFunctions {
             this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");
             this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");
             this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
+            this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Gameover.json");
             
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
@@ -165,15 +166,26 @@ class gameOver extends allSceneFunctions {
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "maleBeeDrone"){
+                this.preferance = 0;
+                this.enemy = new beeDrone(this,430, 570,this.playerSex);
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "femaleBeeDrone"){
+                this.preferance = 0;
+                this.enemy = new beeDrone(this,430, 570,this.playerSex);
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
             }
+            
             
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
 
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
-            this.mycamera.startFollow(this.enemy);
-            this.mycamera.setBounds( 0, 0, myMap.widthInPixels, myMap.HeightInPixels); 
+            //this.mycamera.startFollow(this.enemy);
+            this.mycamera.setBounds( 0, 55, myMap.widthInPixels, myMap.HeightInPixels); 
             this.cameras.main.zoom = 3;
             this.cameras.main.followOffset.set(0,50);
 
@@ -300,6 +312,16 @@ class gameOver extends allSceneFunctions {
             //plays sound effects for blueSlime.
             if(this.enemy.slimeSoundCoolDown === false &&(this.enemyThatDefeatedPlayer === "blueSlime" || this.enemyThatDefeatedPlayer === "largeBlueSlime" )){
                 this.initSoundEffect('blueSlimeSFX','2',0.3);
+                
+                this.enemy.slimeSoundCoolDown = true;
+                let scene = this;
+                setTimeout(function () {
+                    scene.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            }
+
+            if(this.enemy.slimeSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "beeDrone")){
+                this.initSoundEffect('plapSFX','2',0.3);
                 
                 this.enemy.slimeSoundCoolDown = true;
                 let scene = this;

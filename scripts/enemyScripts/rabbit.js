@@ -414,13 +414,6 @@ class rabbit extends enemy {
         //calls emitter to show the tabtoskip graphic
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
 
-        //sets enemy that defeated the player based on rabbits sex.
-        if(this.enemySex === 0){
-            this.scene.enemyThatDefeatedPlayer = "maleRabbit";
-        }else{
-            this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
-        }
-
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {
             this.scene.KeyDisplay.playDKey();
@@ -466,6 +459,14 @@ class rabbit extends enemy {
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
+
+                //sets enemy that defeated the player based on rabbits sex.
+                if(this.enemySex === 0){
+                    this.scene.enemyThatDefeatedPlayer = "maleRabbit";
+                }else{
+                    this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
+                }
+
                 console.log("changing scene");
                 this.scene.changeToGameover();
             }
@@ -496,7 +497,12 @@ class rabbit extends enemy {
            }
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 5 && this.scene.keyD.isDown)) {
-               this.scene.KeyDisplay.visible = false;
+                if(this.enemySex === 0){
+                    this.scene.enemyThatDefeatedPlayer = "maleRabbit";
+                }else{
+                    this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
+                }
+                this.scene.KeyDisplay.visible = false;
                console.log("changing scene");
                this.scene.changeToGameover();
            }

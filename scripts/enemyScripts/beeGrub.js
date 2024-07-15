@@ -11,37 +11,20 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //https://stackoverflow.com/questions/71490140/phaser-3-play-animation-after-previous-animation-finished
 //https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObject.html#once__anchor
 
-//at higher hrtz rates breaks the beeDronegrab function. needs to be redone again. fuck.
+//at higher hrtz rates breaks the beeGrubgrab function. needs to be redone again. fuck.
 
-//implementation for the blue beeDrone enemy.
-class beeDrone extends enemy {
+//implementation for the blue beeGrub enemy.
+class beeGrub extends enemy {
     
     constructor(scene, xPos, yPos, sex, id) {
         
-        //on set up, need to decide if beeDrone is make or female, using preference variable in settings.
-        if(scene.preferance === 0){
-            super(scene, xPos, yPos, sex, id, 20, 'beeDroneMale');
-            this.enemySex = 0;
-        }else if(scene.preferance === 1){
-            super(scene, xPos, yPos, sex, id, 20, 'beeDroneFemale');
-            this.enemySex = 1;
-        
-        //if the pref is either, then we randomly pick a sex for the beeDrone.
-        }else{
-            let randomPref = Math.floor((Math.random() * 2));
-            console.log('randomPref',randomPref);
-            if(randomPref === 1){
-                super(scene, xPos, yPos, sex, id, 20, 'beeDroneFemale');
-                this.enemySex = 1;
-            }else{
-                super(scene, xPos, yPos, sex, id, 20, 'beeDroneMale');
-                this.enemySex = 0;
-            }
-        }
+        //on set up, need to decide if beeGrub is make or female, using preference variable in settings.
+        super(scene, xPos, yPos, sex, id, 20, 'beeGrub');
+       
 
         // variables for movement
-        this.beeDroneSoundCoolDown = false;
-        this.beeDroneDamageCounter = false;
+        this.beeGrubSoundCoolDown = false;
+        this.beeGrubDamageCounter = false;
         this.randomXVelocity = Math.floor((Math.random() * 250) + 30);
         this.randomizedXVelocity = false;
         this.grabTimer = false;
@@ -52,65 +35,22 @@ class beeDrone extends enemy {
         this.grabHitBox.setSize(30,10,true);
         //this.grabHitBox.visible = false;
 
-        // sets the beeDrones hp value
-        this.enemyHP = 50;
+        // sets the beeGrubs hp value
+        this.enemyHP = 30;
 
-        //defines beeDrone animations based on the players sex.
-        if(this.enemySex === 0) {
-            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneMale', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneMale', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
+        //defines beeGrub animations based on the players sex.
+      
+        this.anims.create({ key: 'beeGrubIdle', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 4 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubFedMale', frames: this.anims.generateFrameNames('beeGrub', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubFedFemale', frames: this.anims.generateFrameNames('beeGrub', { start: 12, end: 17 }), frameRate: 8, repeat: -1 });
 
-            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneMale', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
-            if(sex === 0 ){
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale', { start: 40, end: 44 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 58, end: 69 }), frameRate: 8, repeat: -1 }); 
-               
-            }else{
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 73, end: 78 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale', { start: 79, end: 85 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 86, end: 91 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale', { start: 92, end: 96 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 97, end: 108 }), frameRate: 8, repeat: 0 }); 
-            }
-             
-        }else{
-            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
-
-            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
-            if(sex === 0 ){
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 58, end: 69 }), frameRate: 8, repeat: -1 }); 
-               
-            }else{
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 73, end: 78 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 79, end: 85 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 86, end: 91 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 92, end: 96 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 97, end: 108 }), frameRate: 8, repeat: -1 }); 
-            }
             
-        }
 
-        this.anims.play('beeDroneIdle',true);
+        this.anims.play('beeGrubIdle',true);
 
     }
 
-    //functions that move beeDrone objects.
+    //functions that move beeGrub objects.
     move(){
         
         //if the enemy is within grab range attempt to grab the player while the grab timer is false
@@ -146,12 +86,12 @@ class beeDrone extends enemy {
             this.grabHitBox.body.enable = true;
 
             //player the bee grab animation and once its complete
-            this.anims.play('beeDroneGrab').once('animationcomplete', () => {
+            this.anims.play('beeGrubGrab').once('animationcomplete', () => {
 
                 this.hitboxActive = false;
 
                 //play the idle animation
-                this.anims.play('beeDroneIdle', true);
+                this.anims.play('beeGrubIdle', true);
 
                 //have the bee float upwards for the next charge.
                 this.setVelocityX(0);
@@ -165,7 +105,7 @@ class beeDrone extends enemy {
                 
             });
 
-        //checks to see if beeDrone should move if the player is within range. also has to check y and if the enemy isnt grabbing.
+        //checks to see if beeGrub should move if the player is within range. also has to check y and if the enemy isnt grabbing.
         }else if(this.grabTimer === false){
 
             this.grabHitBox.body.enable = false;
@@ -176,30 +116,30 @@ class beeDrone extends enemy {
         
                 //if bee is within range
                 if ((this.scene.player1.x > this.x - 50 && this.scene.player1.x < this.x + 50)){
-                    this.anims.play('beeDroneIdle',true);
+                    this.anims.play('beeGrubIdle',true);
                     this.setVelocityX(0);
     
                 }else{
-                     //if the beeDrone is left of the player move the beeDrone right twards the player bot not into them yet.
+                     //if the beeGrub is left of the player move the beeGrub right twards the player bot not into them yet.
                     if (this.scene.player1.x > this.x){
                         
                         this.setVelocityX(this.randomXVelocity);
-                        //play the animation for beeDrone being in the air.
-                        this.anims.play('beeDroneMove',true);
+                        //play the animation for beeGrub being in the air.
+                        this.anims.play('beeGrubMove',true);
                         this.flipX = false;
                                     
-                    //if the beeDrone is to the right of the player, then move the beeDrone left
+                    //if the beeGrub is to the right of the player, then move the beeGrub left
                     } else if (this.scene.player1.x < this.x) {
     
                         this.setVelocityX(this.randomXVelocity * -1);
-                        //play the animation for beeDrone being in the air.
-                        this.anims.play('beeDroneMove',true);
+                        //play the animation for beeGrub being in the air.
+                        this.anims.play('beeGrubMove',true);
                         this.flipX = true;
                     }
                 }
                 //keep the bee floating lightly above the players y
                 if ((this.scene.player1.y > this.y  && this.scene.player1.y < this.y + 50)){
-                    //this.anims.play('beeDroneIdle',true);
+                    //this.anims.play('beeGrubIdle',true);
                     this.setVelocityY(0);
     
                 }else{
@@ -215,7 +155,7 @@ class beeDrone extends enemy {
     
             //if the be isnt within range of the player have them idle.  
             }else{
-                this.anims.play('beeDroneIdle', true);
+                this.anims.play('beeGrubIdle', true);
                 this.setVelocityX(0);
                 this.setVelocityY(0);
             }
@@ -242,14 +182,14 @@ class beeDrone extends enemy {
             }, 500);
         }
 
-        //updates the previous y value to tell if beeDrone is falling or going up in its jump.
+        //updates the previous y value to tell if beeGrub is falling or going up in its jump.
         this.enemyPreviousY = this.y;
 
     }
 
-    //simple idle function played when the player is grabbed by something that isnt this beeDrone.
+    //simple idle function played when the player is grabbed by something that isnt this beeGrub.
     moveIdle() {
-        this.anims.play('beeDroneIdle', true);
+        this.anims.play('beeGrubIdle', true);
         this.setVelocityX(0);
         this.setVelocityY(0);
         this.grabHitBox.x = this.x;
@@ -257,20 +197,25 @@ class beeDrone extends enemy {
         this.setDepth(4);
     }
 
-    // functioned called to play animation when the player is defeated by the beeDrone in gameover.
-    gameOver(playerSex) {
+    // functioned called to play animation when the player is defeated by the beeGrub in gameover.
+    gameOver() {
         this.setSize(70, 180, true);
         //this.setOffset(180, 110);
-        this.anims.play('beeDroneGameover').once('animationcomplete', () => {
-            let fedGrub = new beeGrub(this.scene, this.x-61, this.y-29,playerSex,1);
-            fedGrub.setSize(70, 70, true);
-           
-            if(playerSex === 0){
-                fedGrub.anims.play('beeGrubFedMale');
-            }else{
-                fedGrub.anims.play('beeGrubFedFemale');
-            }
-            this.anims.play('beeDroneMove', true);
+        this.anims.play('beeGrubGameover').once('animationcomplete', () => {
+
+            this.anims.play('beeGrubMove', true);
+            
+            this.setVelocityX(50);
+
+        });
+    }
+    
+    fedGameOver() {
+        this.setSize(70, 180, true);
+        //this.setOffset(180, 110);
+        this.anims.play('beeGrubGameover').once('animationcomplete', () => {
+
+            this.anims.play('beeGrubMove', true);
             
             this.setVelocityX(50);
 
@@ -278,11 +223,11 @@ class beeDrone extends enemy {
     }
 
 
-    //the grab function. is called when player has overlaped with an enemy beeDrone.
+    //the grab function. is called when player has overlaped with an enemy beeGrub.
     grab(){
 
-        let currentbeeDrone = this;
-        //first checks if beeDrone object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        let currentbeeGrub = this;
+        //first checks if beeGrub object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         
         //stops the x velocity of the enemy
@@ -292,7 +237,7 @@ class beeDrone extends enemy {
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
 
-            this.beeDroneGrabFalse();
+            this.beeGrubGrabFalse();
 
         } else if (this.playerGrabbed === true) {
 
@@ -312,7 +257,7 @@ class beeDrone extends enemy {
             struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
 
             //logic for when the player is grabbed
-            this.beeDroneGrabTrue(playerHealthObject);
+            this.beeGrubGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
@@ -359,9 +304,9 @@ class beeDrone extends enemy {
         }
     }
 
-    beeDroneGrabFalse(){
+    beeGrubGrabFalse(){
         // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-        //console.log("this beeDrone did not grab the player this.beeDroneID: " + this.enemyId);
+        //console.log("this beeGrub did not grab the player this.beeGrubID: " + this.enemyId);
         this.scene.player1.visible = false;
         // puts the player hitbox out of the way and locked to a specific location.
         this.scene.player1.y = this.y - 150;
@@ -376,7 +321,7 @@ class beeDrone extends enemy {
             this.setVelocityY(-100);
 
             // plays the gram animation then starts tween and struggle animation
-            this.anims.play('beeDroneGrabbed').once('animationcomplete', () => {
+            this.anims.play('beeGrubGrabbed').once('animationcomplete', () => {
 
                 this.beeHover = this.scene.tweens.add({
                     targets: this,
@@ -389,7 +334,7 @@ class beeDrone extends enemy {
                     yoyo: true
                 });
 
-                this.anims.play('beeDroneStruggle', true);
+                this.anims.play('beeGrubStruggle', true);
   
             });
     
@@ -399,9 +344,9 @@ class beeDrone extends enemy {
         //if the player is grabbed then do the following.
     }
 
-    beeDroneGrabTrue(playerHealthObject){
+    beeGrubGrabTrue(playerHealthObject){
 
-        //console.log("this beeDrone did grab the player this.beeDroneID: "+ this.beeDroneId);
+        //console.log("this beeGrub did grab the player this.beeGrubID: "+ this.beeGrubId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
         this.scene.player1.y = this.y - 150;
         this.scene.player1.body.setGravityY(0);
@@ -424,7 +369,7 @@ class beeDrone extends enemy {
     playerIsNotDefeatedInputs(playerHealthObject){
         //logic handles random key imputs display to player and there interactability.
         //checks if the player is struggleing free by pressing the right buttons.
-        let currentbeeDrone = this;
+        let currentbeeGrub = this;
 
             // handles input for escaping.
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
@@ -452,28 +397,28 @@ class beeDrone extends enemy {
             this.struggleCounterTick = true;
             // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
             setTimeout(function () {
-                currentbeeDrone.struggleCounterTick = false;
+                currentbeeGrub.struggleCounterTick = false;
             }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
         }
     }
 
     playerIsStrugglingLogic(){
-        let currentbeeDrone = this;
+        let currentbeeGrub = this;
 
-        if (this.beeDroneDamageCounter === false ) {
-            this.beeDroneDamageCounter = true;
+        if (this.beeGrubDamageCounter === false ) {
+            this.beeGrubDamageCounter = true;
             //hpBar.calcDamage(2);
             healthEmitter.emit(healthEvent.loseHealth,2)
             setTimeout(function () {
-                currentbeeDrone.beeDroneDamageCounter = false;
+                currentbeeGrub.beeGrubDamageCounter = false;
             }, 2000);
         }
     }
 
     playerIsDefeatedLogic(playerHealthObject){
 
-        // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the beeDrone.
+        // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the beeGrub.
         this.playerDefeated = true;
         //calls emitter to show the tabtoskip graphic
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
@@ -481,14 +426,14 @@ class beeDrone extends enemy {
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {
             this.scene.KeyDisplay.playDKey();
-            let currentbeeDrone = this; // important, sets currentbeeDrone to the current object so that we can use variables attached to this current beeDrone object in our set timeout functions.
+            let currentbeeGrub = this; // important, sets currentbeeGrub to the current object so that we can use variables attached to this current beeGrub object in our set timeout functions.
             //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
             // delay the button prompt so the animation can play.
             setTimeout(function () {
-                currentbeeDrone.scene.KeyDisplay.visible = true;
-                currentbeeDrone.scene.KeyDisplay.playDKey();
+                currentbeeGrub.scene.KeyDisplay.visible = true;
+                currentbeeGrub.scene.KeyDisplay.playDKey();
                 //incriment the animation prompt since we want to move on to the next animation after the current one finishes
-                console.log("currentbeeDrone.playerDefeatedAnimationStage: " + currentbeeDrone.playerDefeatedAnimationStage);
+                console.log("currentbeeGrub.playerDefeatedAnimationStage: " + currentbeeGrub.playerDefeatedAnimationStage);
             }, 1000);
             this.inStartDefeatedLogic = true;
             this.playerDefeatedAnimationStage++;
@@ -507,15 +452,15 @@ class beeDrone extends enemy {
                 //this.stageTimer = 0;
                 this.playerDefeatedAnimationCooldown = true;
                 this.playerDefeatedAnimationStage++;
-                let currentbeeDrone = this;
-                console.log("currentbeeDrone.playerDefeatedAnimationStage: " + currentbeeDrone.playerDefeatedAnimationStage);
+                let currentbeeGrub = this;
+                console.log("currentbeeGrub.playerDefeatedAnimationStage: " + currentbeeGrub.playerDefeatedAnimationStage);
 
-                this.currentbeeDrone = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+                this.currentbeeGrub = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
                 setTimeout(function () {
                     console.log("defeated animation delay.");
-                    currentbeeDrone.scene.KeyDisplay.visible = true;
-                    currentbeeDrone.scene.KeyDisplay.playDKey();
-                    currentbeeDrone.playerDefeatedAnimationCooldown = false;
+                    currentbeeGrub.scene.KeyDisplay.visible = true;
+                    currentbeeGrub.scene.KeyDisplay.playDKey();
+                    currentbeeGrub.playerDefeatedAnimationCooldown = false;
                 }, 3000);
             }
 
@@ -523,9 +468,9 @@ class beeDrone extends enemy {
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 4 && this.scene.keyD.isDown)) {
                 
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleBeeDrone";
+                    this.scene.enemyThatDefeatedPlayer = "maleBeeGrub";
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleBeeDrone";
+                    this.scene.enemyThatDefeatedPlayer = "femaleBeeGrub";
                 }
 
                 this.scene.gameoverLocation = "hiveGameover";
@@ -534,24 +479,24 @@ class beeDrone extends enemy {
                 this.scene.changeToGameover();
             }
 
-            this.beeDroneDefeatedPlayerAnimation();
+            this.beeGrubDefeatedPlayerAnimation();
      
     }
 
     playerEscaped(playerHealthObject){
 
-        let currentbeeDrone = this;
+        let currentbeeGrub = this;
 
             this.scene.KeyDisplay.visible = false;
             // can we replace this with a settimeout function? probbably. lets make a backup first.
             if (this.struggleFree === false) {
                 console.log("Free counter: " + this.struggleFree);
-                currentbeeDrone.struggleFree = true;
+                currentbeeGrub.struggleFree = true;
                     
             }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
                 console.log("player has broken free" );
                 
-                this.anims.play("beeDroneIdle", true);
+                this.anims.play("beeGrubIdle", true);
                 
                 //resets the enemy variables and player variables.
                 this.struggleFree = false;
@@ -585,14 +530,14 @@ class beeDrone extends enemy {
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.
-                currentbeeDrone = this;
+                currentbeeGrub = this;
 
                 //reset the jump variables if the player escapes this enemys grab
                 this.startJump = false;
                 this.jumpAnimationPlayed = false;
                 setTimeout(function () {
 
-                    currentbeeDrone.grabCoolDown = false;
+                    currentbeeGrub.grabCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
                 }, 3000);
             }
@@ -600,7 +545,7 @@ class beeDrone extends enemy {
         
     }
 
-    // controls the damage resistance of the beeDrone.
+    // controls the damage resistance of the beeGrub.
     damage() {
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
@@ -633,7 +578,7 @@ class beeDrone extends enemy {
         }
     }
 
-    //handles damage types for blue beeDrone. get these damage types from the attack that hits the enemy
+    //handles damage types for blue beeGrub. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
@@ -656,15 +601,15 @@ class beeDrone extends enemy {
         }
     }
 
-    // plays the beeDrone defeated player animations.
-    beeDroneDefeatedPlayerAnimation() {
+    // plays the beeGrub defeated player animations.
+    beeGrubDefeatedPlayerAnimation() {
 
-        let currentbeeDrone = this;
+        let currentbeeGrub = this;
         if (this.playerDefeatedAnimationStage === 1) {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow1').once('animationcomplete', () => {
+                this.anims.play('beeGrubTailSwallow1').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -673,11 +618,11 @@ class beeDrone extends enemy {
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('beeDroneTailStruggle', true);
+            this.anims.play('beeGrubTailStruggle', true);
 
             this.playPlapSound('plap3',800);
 
-            let thisbeeDrone = this;
+            let thisbeeGrub = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
@@ -687,7 +632,7 @@ class beeDrone extends enemy {
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
                 setTimeout(function () {
-                    thisbeeDrone.onomatPlayed = false;
+                    thisbeeGrub.onomatPlayed = false;
                 }, 600);
             }
            
@@ -695,7 +640,7 @@ class beeDrone extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow2').once('animationcomplete', () => {
+                this.anims.play('beeGrubTailSwallow2').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -707,7 +652,7 @@ class beeDrone extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow3').once('animationcomplete', () => {
+                this.anims.play('beeGrubTailSwallow3').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -716,7 +661,7 @@ class beeDrone extends enemy {
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 5) {
-            this.anims.play('beeDroneTailJiggle', true);
+            this.anims.play('beeGrubTailJiggle', true);
            
         }
     }

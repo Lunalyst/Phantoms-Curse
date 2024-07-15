@@ -419,14 +419,17 @@ class player extends Phaser.Physics.Arcade.Sprite{
   rightHitBox(delay){
     this.setVelocityX(0);
     if(this.hitboxCoolDown === false){
-      this.scene.attackHitBox.x = this.x;
+      //this.scene.attackHitBox.x = this.x;
       this.scene.attackHitBox.y = this.y+10000;
+      this.scene.attackHitBox.visible = false;
 
       let that = this;
       setTimeout(function(){
         that.hitboxCoolDown = true;
+        this.scene.attackHitBox.visible = true;
       },delay);
     }else if(this.hitboxCoolDown === true){
+      this.scene.attackHitBox.visible = true;
       this.scene.attackHitBox.x = this.x+20;
       this.scene.attackHitBox.y = this.y;
       this.hitboxCoolDown = false; 

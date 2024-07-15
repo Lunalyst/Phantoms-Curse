@@ -16,6 +16,7 @@ class defaultScene extends allSceneFunctions {
       this.load.spritesheet('rabbitFemale', 'assets/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('beeDroneMale', 'assets/BeeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale', 'assets/BeeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeGrub', 'assets/BeeGrub.png',{frameWidth: 525, frameHeight: 237 });
 
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
@@ -740,9 +741,8 @@ class defaultScene extends allSceneFunctions {
             //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
             
         } else {
-            //if slime didn't grab player but player was grabbed then play idle animation.
+            //if enemy didn't grab player but player was grabbed then play idle animation.
             tempEnemy.moveIdle();
-            tempEnemy.body.setGravityY(600); 
         }
       }, this);
     }
@@ -977,28 +977,30 @@ class defaultScene extends allSceneFunctions {
       
       //calls tiger function to move
       tempBeeDrone.move(scene.player1,scene);
-      /*
-      //checks if the attack hitbox is overlapping the tiger to deal damage.
-      scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
+      
+      //checks if the attack hitbox is overlapping the beedrone to deal damage.
+      scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
       
         //sets overlap to be true
-        tempRabbits.hitboxOverlaps = true;
+        tempBeeDrone.hitboxOverlaps = true;
       });
       
-      //if the hitbox overlaps the tiger, then  deal damage to that tiger
-      if(tempRabbits.hitboxOverlaps === true) {
+      //if the hitbox overlaps the drone, then  deal damage to that drone
+      if(tempBeeDrone.hitboxOverlaps === true) {
       
-        console.log("tiger taking damage, tiger hp:" + tempRabbits.enemyHP);
+        console.log("beeDrone taking damage, tiger hp:" + tempBeeDrone.enemyHP);
       
         //inflict damage to tiger
-        tempRabbits.damage(scene);
+        tempBeeDrone.damage(scene);
       
         //clear overlap verable in tiger.
-        tempRabbits.hitboxOverlaps = false;
+        tempBeeDrone.hitboxOverlaps = false;
       
       }
-      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1, tempRabbits, function () {
+
+      
+      //checks to see if the beedrones attack hitbox overlaps the players hitbox
+      scene.physics.add.overlap(scene.player1, tempBeeDrone.grabHitBox, function () {
       
         //make a temp object
         let isWindowObject = {
@@ -1018,26 +1020,25 @@ class defaultScene extends allSceneFunctions {
       
         //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
         //if the grab cooldowns are clear then
-        if (tempRabbits.grabCoolDown === false && scene.grabCoolDown === false) {
+        if (tempBeeDrone.grabCoolDown === false && scene.grabCoolDown === false) {
           
           console.log(" grabing the player?");
           //stop the velocity of the player
-          tempRabbits.setVelocityX(0);
+          tempBeeDrone.setVelocityX(0);
+          tempBeeDrone.setVelocityY(0);
           scene.player1.setVelocityX(0);
           //calls the grab function
-          tempRabbits.grab();
+          tempBeeDrone.grab();
         
           //sets the scene grab value to true since the player has been grabbed
-          tempRabbits.playerGrabbed = true;
-          tempRabbits.grabCoolDown = true;
+          tempBeeDrone.playerGrabbed = true;
+          tempBeeDrone.grabCoolDown = true;
           scene.grabbed = true;
           scene.grabCoolDown = true;
-          console.log('player grabbed by tempRabbits');
+          console.log('player grabbed by tempBeeDrone');
       
         }
       });
-
-      */
       }, this);
       
     }
@@ -1048,7 +1049,7 @@ class defaultScene extends allSceneFunctions {
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();

@@ -34,6 +34,7 @@ class sunFlowerField extends defaultScene {
       this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       this.load.spritesheet('sunflowerParallax', 'assets/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
       this.load.spritesheet("secretWall1" , "assets/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
+      
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -41,6 +42,10 @@ class sunFlowerField extends defaultScene {
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+      ]);
+
+      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
     }
 
@@ -130,16 +135,24 @@ class sunFlowerField extends defaultScene {
       this.initHealthUpgrade(4642, 1245, 'healthUpgradeInSunflowerField');
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["beeDrones"];
+      this.enemyGroupArray = ["beeDrones",'blueSlimes'];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1509, 2000,thisScene.playerSex,'beeDrone');
+          thisScene.initEnemy(1934, 2064,thisScene.playerSex,'beeDrone');
 
-          thisScene.initEnemy(2009, 2000,thisScene.playerSex,'beeDrone');
+          thisScene.initEnemy(2850, 2064,thisScene.playerSex,'beeDrone');
+
+          thisScene.initEnemy(3550, 2064,thisScene.playerSex,'beeDrone');
+
+          thisScene.initEnemy(4142, 2064,thisScene.playerSex,'beeDrone');
+
+          thisScene.initEnemy(5580, 1885,thisScene.playerSex,'blueSlime');
+
+          thisScene.initEnemy(6194, 2013,thisScene.playerSex,'blueSlime');
 
           thisScene.spawnedEnemys = true;
         },1000);

@@ -17,11 +17,13 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'closed', frames: this.anims.generateFrameNames('bestiary', { start: 0, end: 0 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'cover', frames: this.anims.generateFrameNames('bestiary', { start: 1, end: 1 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'back', frames: this.anims.generateFrameNames('bestiary', { start: 2, end: 2 }), frameRate: 10, repeat: -1 });
-    this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 6 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 10 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary', { start: 11, end: 17 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 18, end: 21 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 22, end: 25 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleBeeDrone', frames: this.anims.generateFrameNames('bestiary', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -67,6 +69,16 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       femaleRabbit: {
         title: "FEMALE RABBIT",
         summary: "THIS HERBAVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE FEMALES OF THIS GROUP OFTEN TACKLE THERE VICTIMS AND HUMP THEM TO APPLY THERE CURSE. ",
+      },
+
+      maleBeeDrone: {
+        title: "MALE BEE DRONE",
+        summary: "THIS LARGE INSECT OFTEN SPENDS IT TIME COLLECTING POLLEN IN PLACES WITH LARGE AMOUNTS OF FLOWERS.HOWEVER THIS INSECT WILL QUICKLY DEVOWER A UNSUSPECTING HUMAN WITH THERE MASSIVE ABDOMENS.",
+      },
+
+      femaleBeeDrone: {
+        title: "FEMALE BEE DRONE",
+        summary: "OFTEN THESE BEES WILL SWARM A HUMAN WHO IS NOT CURSED, HOWEVER THE ARE UNABLE TO PASS ON THERE CURSE DIRECTLY. INSTEAD USING THERE ABDOMEN TO CAPTURE HUMANS TO BRING BACK TO HERE NEST... ",
       },
 
       back: {

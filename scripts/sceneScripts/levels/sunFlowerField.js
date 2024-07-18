@@ -34,6 +34,7 @@ class sunFlowerField extends defaultScene {
       this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       this.load.spritesheet('sunflowerParallax', 'assets/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
       this.load.spritesheet("secretWall1" , "assets/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
+      this.load.spritesheet("lunalyst" , "assets/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -120,11 +121,16 @@ class sunFlowerField extends defaultScene {
 
       this.initPortals(6763,2109-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
+      //fake warps not implemented yet.
+      this.fakeWarp1 = new fakeWarp(this,5601,1533-14,'warpCaveOutsideRubble');
+
+      this.fakeWarp2 = new fakeWarp(this,885,2109-14,'warpCaveOutsideRubble');
+
       //makes secret wall
       this.secretWall1 = this.add.sprite(4943.6, 1712.2, "secretWall1");
       this.secretWall1.setDepth(7);
       this.secretWall1.setScale(0.335);
-
+      
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
@@ -137,6 +143,25 @@ class sunFlowerField extends defaultScene {
       //sets up enemy colliders and groups
       this.enemyGroupArray = ["beeDrones",'blueSlimes'];
       this.setUpEnemyCollider(this.enemyGroupArray);
+                //[                        ]
+      let line1 = 'OH, A HUMAN!                                                                ';
+      let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE.';
+      let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED.';
+      let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM.';
+      let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE.';
+      let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW.';
+      let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME.';
+      let dialogue1 = line1 + line2 + line3 + line4 + line5 + line6 + line7;
+
+      this.initLunalyst(5690,1531,
+      dialogue1,
+      ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch']);
+
+      //define barriers whee enemys cannot go.
+      this.setUpEnemyBarriers();
+      this.ititBarrier(1103,1990,30,140);
+      this.ititBarrier(4812,1990,30,140);
+      this.ititBarrier(6665,2040,30,300);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

@@ -23,6 +23,7 @@ class defaultScene extends allSceneFunctions {
       this.load.image('hitbox', 'assets/hitbox.png');
       this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
       this.load.spritesheet('healthUpgrade', 'assets/healthUpgrade.png',{frameWidth: 99, frameHeight: 99 });
+      this.load.spritesheet('barrier', 'assets/barrier.png',{frameWidth: 96, frameHeight: 96 });
 
        //weapon sound effects
        this.load.audioSprite('weaponSFX','audio/used-audio/player-sounds/weapon-swings.json',[
@@ -73,7 +74,6 @@ class defaultScene extends allSceneFunctions {
 
        this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
        this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 84, frameHeight: 108});
-       this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
        this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
        //loads a plugin to the heaa of the html to animate tiles in levels
@@ -115,9 +115,11 @@ class defaultScene extends allSceneFunctions {
         this.portalId = 0;
         this.saveStoneId = 0;
         this.signId = 0;
+        this.npcId = 0;
         this.activatedPortalId = 0;
         this.activatedSavePointId = 0;
         this.activatedSignId = 0;
+        this.activatedNpcId = 0;
         this.containerId = 0;
         this.activatedContainerId = 0;
         this.grabCoolDown = false;
@@ -207,6 +209,13 @@ class defaultScene extends allSceneFunctions {
       //adds healthupgrade physics group
       this.healthUpgrades = this.physics.add.group();
 
+      //set up the invisible barriers group
+      this.invisibleBarriers = this.physics.add.group();
+
+      this.signPoints = this.add.group();
+
+      this.npcs = this.add.group();
+
     }
 
     //creates a container object to hold items.
@@ -253,8 +262,16 @@ class defaultScene extends allSceneFunctions {
         this.pausedInTextBox = false;
         this.isPaused = false;
         this.gameStartedDelay = false;
-        
-      })
+
+        //should protect agianst the struggle bar lingering if the player gets grabbed while warping.
+        struggleEmitter.emit(struggleEvent.activateStruggleBar,false);
+
+        //hide the giveup indicator
+        giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+
+        //hides the skip indicator 
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+      });
 
       //emitter to transition scenes
       loadSceneTransitionLoad.on(SceneTransitionLoad.reloadGame,(location) =>{
@@ -358,6 +375,10 @@ class defaultScene extends allSceneFunctions {
         this.physics.add.collider(this.processMap.layer1, object);
     }
 
+    setUpEnemyBarriers(){
+      this.physics.add.collider(this.enemys, this.invisibleBarriers);
+  }
+
     //{itit object Functions}===================================================================================================================
 
     //creates warp portal objects in the scene
@@ -412,9 +433,21 @@ class defaultScene extends allSceneFunctions {
         //sets the location given as to where the player will be sent in the next scene
         //adds portal object to the portal object in the scene
         this.signPoints.add(sign1);
-        //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
-        //console.log(" scene.portalId: "+ scene.portalId);
+        
     }
+
+    //creates a lunalyst NPC
+    initLunalyst(x, y, text, profileArray) {
+      let luna = new lunalyst(this, x, y, text, profileArray);
+      //gives portal a unique id so that scene can tell which warp object is being activated
+      luna.npcId = this.npcId;
+      this.npcId++;
+      //sets the location given as to where the player will be sent in the next scene
+      //adds portal object to the portal object in the scene
+      this.npcs.add(luna);
+      //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
+      //console.log(" scene.portalId: "+ scene.portalId);
+  }
 
     //creates a item drop object in the scene
     initItemDrop(x, y,itemID,itemStackable,itemAmount) {
@@ -477,6 +510,16 @@ class defaultScene extends allSceneFunctions {
       console.log("adding new item container: ",container)
       
     }
+
+    ititBarrier(x,y,width,height){
+
+      let invisWall = this.add.sprite(x, y,'barrier');
+      this.physics.add.existing(invisWall);
+      invisWall.body.setSize(width, height, true);
+      invisWall.body.pushable = false;
+      this.invisibleBarriers.add(invisWall);
+
+    }
     
     //{check object Functions}===================================================================================================================
 
@@ -538,6 +581,23 @@ class defaultScene extends allSceneFunctions {
     
         }, scene);
     }
+
+    //checks to see if the player can activate a npc object
+    checkNpc(scene) {
+      //applies a function to each portal object in the scene
+      scene.npcs.children.each(function (tempNpc) {
+        if ((scene.player1.x > tempNpc.x - 30 && scene.player1.x < tempNpc.x + 30) && (scene.player1.y > tempNpc.y - 30 && scene.player1.y < tempNpc.y + 30) && scene.grabbed === false) {
+          //console.log("within luna's range tempNpc.npcId: ",tempNpc.npcId);
+          tempNpc.safeToSpeak = true;
+          scene.activatedNpcId = tempNpc.npcId;
+        } else {
+          //console.log("outside save point");
+          tempNpc.safeToSpeak = false;
+        }
+        tempNpc.activateNpc(scene, scene.keyW, scene.activatedNpcId);
+  
+      }, scene);
+  }
 
     //checks to see if the items should be picked up
     checkItemPickUp() {
@@ -1069,6 +1129,7 @@ class defaultScene extends allSceneFunctions {
       }
       if(this.signCoolDown === true){
         this.checkSign(this);
+        this.checkNpc(this);
       }
 
       //if tab is press while the player isnt grabbed or in the pause menue then

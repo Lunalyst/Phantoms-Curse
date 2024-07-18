@@ -105,7 +105,9 @@ class inventory extends Phaser.GameObjects.Container{
             this.settingsOpen = false;
             this.bestiaryOpen = false;
 
-            
+            //resets active slot values so that activeslot does not linger between inventory opening, and closing.
+            this.activeSlot1 = -1;
+            this.activeSlot2 = -2;
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
@@ -307,13 +309,16 @@ class inventory extends Phaser.GameObjects.Container{
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
           this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+          this.inventoryArray[index].clearTint();
           index++;
         }
       }
       //sets the ring and weapon slot to play the correct animation
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
       index++;
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
 
        //loops through all slots to set the correct number 
        for(let counter = 0; counter < 26 ;counter++){
@@ -364,8 +369,10 @@ class inventory extends Phaser.GameObjects.Container{
 
             //light up slot by setting bool to true.
             this.inventoryArray[activeSlot].isLitUp = true;
+
             //light up slot animation which is always item id + 1
-            this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID+1;
+            this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+            this.inventoryArray[activeSlot].setTint(0xd3d3d3);
 
             //if the player selects a slot and there is no slot in active lost 1, and the slot does not equal the second slot, then
             if(this.activeSlot1 === -1 && this.activeSlot1 !== activeSlot && activeSlot !== this.activeSlot2){
@@ -385,7 +392,8 @@ class inventory extends Phaser.GameObjects.Container{
               //slot is no longer lit up
               this.inventoryArray[activeSlot].isLitUp = false;
               //play default darken animation.
-              this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              //this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              this.inventoryArray[activeSlot].clearTint();
               //reset activeslot1
               this.activeSlot1 = -1;
             }
@@ -433,12 +441,14 @@ class inventory extends Phaser.GameObjects.Container{
            this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
            this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
            this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+           this.inventoryArray[this.activeSlot1].clearTint();
 
            //set animation for activeSlot2
            this.inventoryArray[this.activeSlot2].isLitUp = false;
            this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
            this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
            this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+           this.inventoryArray[this.activeSlot2].clearTint();
 
            //clear both slots.
            this.activeSlot1 = -1;
@@ -462,12 +472,14 @@ class inventory extends Phaser.GameObjects.Container{
             this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
             this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
             this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+            this.inventoryArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.inventoryArray[this.activeSlot2].isLitUp = false;
             this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
             this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
             this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+            this.inventoryArray[this.activeSlot2].clearTint();
 
             //clear both slots.
             this.activeSlot1 = -1;
@@ -488,12 +500,14 @@ class inventory extends Phaser.GameObjects.Container{
             this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
             this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
             this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+            this.inventoryArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.inventoryArray[this.activeSlot2].isLitUp = false;
             this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
             this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
             this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+            this.inventoryArray[this.activeSlot2].clearTint();
 
             //clear both slots.
             this.activeSlot1 = -1;

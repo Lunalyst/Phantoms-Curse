@@ -69,7 +69,7 @@ class beeDrone extends enemy {
                 this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale', { start: 40, end: 44 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 58, end: 69 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 58, end: 69 }), frameRate: 8, repeat: 0 }); 
                
             }else{
                 this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
@@ -93,7 +93,7 @@ class beeDrone extends enemy {
                 this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 58, end: 69 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 58, end: 69 }), frameRate: 8, repeat: 0 }); 
                
             }else{
                 this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
@@ -101,7 +101,7 @@ class beeDrone extends enemy {
                 this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 79, end: 85 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 86, end: 91 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 92, end: 96 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 97, end: 108 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 97, end: 108 }), frameRate: 8, repeat: 0 }); 
             }
             
         }
@@ -233,7 +233,7 @@ class beeDrone extends enemy {
         // randomized bee velocity so they can keep up with the player without overlapping into eachother.
         if(this.randomizedXVelocity === false){
             this.randomizedXVelocity = true;
-            console.log("this.randomXVelocity: ",this.randomXVelocity);
+            //console.log("this.randomXVelocity: ",this.randomXVelocity);
             this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
             
             let tempBee = this;
@@ -315,7 +315,7 @@ class beeDrone extends enemy {
             this.beeDroneGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
             
             //if the player is not defeated
             if (this.playerDefeated === false) {
@@ -338,7 +338,7 @@ class beeDrone extends enemy {
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
 
                 //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
 
@@ -348,7 +348,7 @@ class beeDrone extends enemy {
             }else  if(playerHealthObject.playerHealth === 0){
 
                 //hide the giveup indicator
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -476,7 +476,7 @@ class beeDrone extends enemy {
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the beeDrone.
         this.playerDefeated = true;
         //calls emitter to show the tabtoskip graphic
-        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
        
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {

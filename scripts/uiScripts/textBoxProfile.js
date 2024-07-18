@@ -9,15 +9,21 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.setDepth(50);
       this.setScrollFactor(0);
       this.visible = false;
-      this.setScale(.5);
+      this.setScale(3/4);
       
       this.anims.create({key: 'signLoop',frames: this.anims.generateFrameNames('textBoxProfile', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'randiMad',frames: this.anims.generateFrameNames('textBoxProfile', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: 'randiBlush',frames: this.anims.generateFrameNames('textBoxProfile', { start: 5, end: 5 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: 'randiSquish',frames: this.anims.generateFrameNames('textBoxProfile', { start: 6, end: 6 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: 'randiShocked',frames: this.anims.generateFrameNames('textBoxProfile', { start: 7, end: 7 }),frameRate: 1,repeat: -1});
-      this.anims.create({key: 'randiShifty',frames: this.anims.generateFrameNames('textBoxProfile', { start: 8, end: 9 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'lunalyst',frames: this.anims.generateFrameNames('textBoxProfile', { start: 10, end: 13 }),frameRate: 4,repeat: -1});
+      this.anims.create({key: 'lunaNeutral',frames: this.anims.generateFrameNames('textBoxProfile', { start: 4, end: 13 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaCry',frames: this.anims.generateFrameNames('textBoxProfile', { start: 14, end: 21 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHearts',frames: this.anims.generateFrameNames('textBoxProfile', { start: 22, end: 28 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHappy',frames: this.anims.generateFrameNames('textBoxProfile', { start:29, end: 32 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaKO',frames: this.anims.generateFrameNames('textBoxProfile', { start:33, end: 36 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHeartEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:37, end: 40 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaStarEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:41, end: 44 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaAngryEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:45, end: 48 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaSleeping',frames: this.anims.generateFrameNames('textBoxProfile', { start:49, end: 54 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('textBoxProfile', { start:55, end: 58 }),frameRate: 5,repeat: -1});
+      
+      
       this.anims.play("signLoop",true);
       
 

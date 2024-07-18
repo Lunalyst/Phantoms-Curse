@@ -273,7 +273,7 @@ class rabbit extends enemy {
             this.rabbitGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
             
             //if the player is not defeated
             if (this.playerDefeated === false) {
@@ -296,7 +296,7 @@ class rabbit extends enemy {
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
 
                 //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
 
@@ -306,7 +306,7 @@ class rabbit extends enemy {
             }else  if(playerHealthObject.playerHealth === 0){
 
                 //hide the giveup indicator
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -412,7 +412,7 @@ class rabbit extends enemy {
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the rabbit.
         this.playerDefeated = true;
         //calls emitter to show the tabtoskip graphic
-        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {

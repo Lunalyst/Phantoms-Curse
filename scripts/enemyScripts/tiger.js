@@ -354,7 +354,7 @@ class tiger extends enemy {
             this.tigerGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
             
             if (this.playerDefeated === false) {
 
@@ -375,7 +375,7 @@ class tiger extends enemy {
             if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
 
                 //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                 
@@ -389,7 +389,7 @@ class tiger extends enemy {
                 }
 
                 //hide the giveup indicator
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -548,7 +548,7 @@ class tiger extends enemy {
     playerIsDefeatedLogic(playerHealthObject){
         this.playerDefeated = true;
         
-        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator);
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
         this.scene.enemyThatDefeatedPlayer = "femaleTiger";
 
         // if we start the player defeated animation then we need to set a few things.

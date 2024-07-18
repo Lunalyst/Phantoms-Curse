@@ -388,19 +388,15 @@ class gameHud extends allSceneFunctions {
 
 
           //emitter for displaying tab to skip display
-          skipIndicatorEmitter.on(skipIndicator.activateSkipIndicator,() =>{
-            this.skipIndicator.visible = true;
+          skipIndicatorEmitter.on(skipIndicator.activateSkipIndicator,(visible) =>{
+            this.skipIndicator.visible = visible;
           });
 
           //emitter for displaying tab to give up display
-          giveUpIndicatorEmitter.on(giveUpIndicator.activateGiveUpIndicator,() =>{
-            this.giveUpIndicator.visible = true;
+          giveUpIndicatorEmitter.on(giveUpIndicator.activateGiveUpIndicator,(visible) =>{
+            this.giveUpIndicator.visible = visible;
           });
 
-          //emitter for hiding tab to give up display
-          giveUpIndicatorEmitter.on(giveUpIndicator.deactivateGiveUpIndicator,() =>{
-            this.giveUpIndicator.visible = false;
-          });
 
           //test to see if the emitters are active
           this.printActiveEmitter();

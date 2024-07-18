@@ -169,12 +169,12 @@ class gameOver extends allSceneFunctions {
             }else if(this.enemyThatDefeatedPlayer === "maleBeeDrone"){
                 this.preferance = 0;
                 this.enemy = new beeDrone(this,430, 570,this.playerSex);
-                this.enemy.gameOver();
+                this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "femaleBeeDrone"){
-                this.preferance = 0;
+                this.preferance = 1;
                 this.enemy = new beeDrone(this,430, 570,this.playerSex);
-                this.enemy.gameOver();
+                this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
             }
             

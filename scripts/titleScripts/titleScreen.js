@@ -70,7 +70,7 @@ class titleScreen extends allSceneFunctions {
             this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
             this.load.spritesheet('charBlack', 'assets/characterSetBlack.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('charBubble', 'assets/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 153, frameHeight: 153 });
+            this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
             this.load.spritesheet('saveSlot', 'assets/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
             this.load.spritesheet('skillSaveSlotIcon', 'assets/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
             this.load.spritesheet('healthSlotIcon', 'assets/slotHealthIcon.png',{frameWidth: 99, frameHeight: 99 });

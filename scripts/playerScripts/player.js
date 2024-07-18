@@ -115,7 +115,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   if(playerDataObject.playerInventoryData !== null){
     if(playerDataObject.playerInventoryData[25].itemID === 8){
       //console.log("speed ring equipt");
-      this.speedBoost = 1.5;
+      this.speedBoost = 1.1;
     }else{
       this.speedBoost = 1;
     }

@@ -112,6 +112,7 @@ class beeDrone extends enemy {
 
     //functions that move beeDrone objects.
     move(){
+        console.log(' this.enemyId: ', this.enemyId,' this.playerGrabbed: ',this.playerGrabbed, ' this.grabTimer: ',this.grabTimer);
         
         //if the enemy is within grab range attempt to grab the player while the grab timer is false
         if((this.scene.player1.x > this.x - 60 && this.scene.player1.x < this.x + 60) && this.grabTimer === false){
@@ -136,10 +137,10 @@ class beeDrone extends enemy {
                 this.setVelocityY(0);
             }else{
                 if (this.scene.player1.y > this.y) {
-                    this.setVelocityY(70);
+                    this.setVelocityY(100);
 
                 } else if (this.scene.player1.y < this.y) {
-                    this.setVelocityY(70*-1);    
+                    this.setVelocityY(100*-1);    
                 }
             }
 
@@ -170,7 +171,7 @@ class beeDrone extends enemy {
 
             this.grabHitBox.body.enable = false;
 
-            if ((this.scene.player1.x > this.x - 350 && this.scene.player1.x < this.x + 350) && (this.scene.player1.y > this.y - 350 && this.scene.player1.y < this.y + 350)) {
+            if ((this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && (this.scene.player1.y > this.y - 450 && this.scene.player1.y < this.y + 450)) {
 
                 this.setSize(70, 180, true);
         
@@ -255,6 +256,7 @@ class beeDrone extends enemy {
         this.grabHitBox.x = this.x;
         this.grabHitBox.y = this.y + 3000; 
         this.setDepth(4);
+        this.grabTimer = false;
     }
 
     // functioned called to play animation when the player is defeated by the beeDrone in gameover.

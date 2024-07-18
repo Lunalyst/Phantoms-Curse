@@ -18,6 +18,8 @@ class healthUpgrade extends Phaser.Physics.Arcade.Sprite{
         //sets scale
         this.setScale(1/3);
 
+        this.scene = scene;
+
   
     }
 
@@ -27,6 +29,7 @@ class healthUpgrade extends Phaser.Physics.Arcade.Sprite{
     //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
     inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
 
+    this.scene.initSoundEffect('curseSFX','curse',0.3);
     //destroys the object.
     this.destroy();
     }

@@ -53,7 +53,7 @@ class sunFlowerField extends defaultScene {
     create(){
       
       //sets up gameover location
-      this.setupGameoverLocation("forestGameover");
+      this.setupGameoverLocation("caveGameover");
 
       //sets up player controls
       this.setUpPlayerInputs();
@@ -171,9 +171,9 @@ class sunFlowerField extends defaultScene {
 
           thisScene.initEnemy(2850, 2064,thisScene.playerSex,'beeDrone');
 
-          //thisScene.initEnemy(3550, 2064,thisScene.playerSex,'beeDrone');
+          thisScene.initEnemy(3550, 2064,thisScene.playerSex,'beeDrone');
 
-          //thisScene.initEnemy(4142, 2064,thisScene.playerSex,'beeDrone');
+          thisScene.initEnemy(4142, 2064,thisScene.playerSex,'beeDrone');
 
           thisScene.initEnemy(5580, 1885,thisScene.playerSex,'blueSlime');
 

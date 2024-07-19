@@ -564,11 +564,6 @@ class beeDrone extends enemy {
                     this.scene.enemyThatDefeatedPlayer = "femaleBeeDrone";
                 }
 
-                // changes the title to reflect the game over.
-                if(this.scene.defeatedTitle !== "eaten"){
-                    this.scene.defeatedTitle = "eaten";
-                }
-                
                 this.scene.gameoverLocation = "hiveGameover";
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
@@ -721,9 +716,9 @@ class beeDrone extends enemy {
             let thisbeeDrone = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 15));
-                let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+20,'charBubble',"@heart@");
+                let randX = Math.floor((Math.random() * 30));
+                let randY = Math.floor((Math.random() * 30));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);

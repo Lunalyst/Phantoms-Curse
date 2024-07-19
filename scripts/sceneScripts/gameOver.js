@@ -56,6 +56,7 @@ class gameOver extends allSceneFunctions {
             this.load.spritesheet("gameOverSignCursed" , "assets/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
+            this.load.spritesheet('beeGrub', 'assets/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
             
              //load in the JSON file for the bitmap
             this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");
@@ -134,8 +135,6 @@ class gameOver extends allSceneFunctions {
             this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
             this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
 
-            this.load.spritesheet('beeGrub', 'assets/BeeGrub.png',{frameWidth: 525, frameHeight: 237 });
-            
             this.tryAgian.anims.play('tryAgianInActive');
             this.tryAgian.setScale(.5);
             this.tryAgian.setDepth(7);

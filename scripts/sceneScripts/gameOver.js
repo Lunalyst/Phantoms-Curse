@@ -57,7 +57,7 @@ class gameOver extends allSceneFunctions {
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
             this.load.spritesheet('beeGrub', 'assets/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-            
+            //fix
              //load in the JSON file for the bitmap
             this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");
             this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");

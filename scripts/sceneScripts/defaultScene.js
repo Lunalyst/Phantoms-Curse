@@ -17,7 +17,7 @@ class defaultScene extends allSceneFunctions {
       this.load.spritesheet('beeDroneMale', 'assets/BeeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale', 'assets/BeeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeGrub', 'assets/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-
+      //fix
       this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/hitbox.png');

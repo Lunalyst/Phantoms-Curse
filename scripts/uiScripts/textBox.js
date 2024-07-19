@@ -39,6 +39,8 @@ class textBox extends Phaser.GameObjects.Container{
           y += 20;
           spacing = -200;
         }
+
+      this.completedText = false;
  
       }
 
@@ -81,6 +83,7 @@ class textBox extends Phaser.GameObjects.Container{
         scene1.isPaused = true;
         scene1.pausedInTextBox = true;
         //console.log("scene1.isPaused: "+ scene1.isPaused);
+        this.completedText = false;
       }
       
       //if the player pressed w then
@@ -106,6 +109,8 @@ class textBox extends Phaser.GameObjects.Container{
           
           currentTextBox.textCoolDown =  true;
           },300);
+
+          
         }
 
     //once we reach the end of the text, we release the player back into the scene
@@ -122,11 +127,16 @@ class textBox extends Phaser.GameObjects.Container{
       this.textBoxActivationCoolDown = true;
       this.profileArrayPosition = 0;
 
+      this.completedText = true;
+
       //one second time out for activating this text.
       setTimeout(function(){
         console.log("delay end for text box");
         currentTextBox.textBoxActivationCoolDown =  false;
+        //this.completedText = false;
         },1000);
+
+      
     }
   }
 }

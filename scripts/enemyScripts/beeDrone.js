@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue beeDrone enemy.
 class beeDrone extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id,soundSprite) {
         
         //on set up, need to decide if beeDrone is make or female, using preference variable in settings.
         if(scene.preferance === 0){
@@ -54,6 +54,11 @@ class beeDrone extends enemy {
 
         // sets the beeDrones hp value
         this.enemyHP = 50;
+
+        //defines a string containing telling the enemy which sound channel to use.
+        this.beeSFX = soundSprite;
+        this.playingSound = false;
+        
 
         //defines beeDrone animations based on the players sex.
         if(this.enemySex === 0) {
@@ -112,7 +117,7 @@ class beeDrone extends enemy {
 
     //functions that move beeDrone objects.
     move(){
-        console.log(' this.enemyId: ', this.enemyId,' this.playerGrabbed: ',this.playerGrabbed, ' this.grabTimer: ',this.grabTimer);
+        //console.log(' this.enemyId: ', this.enemyId,' this.playerGrabbed: ',this.playerGrabbed, ' this.grabTimer: ',this.grabTimer);
         
         //if the enemy is within grab range attempt to grab the player while the grab timer is false
         if((this.scene.player1.x > this.x - 60 && this.scene.player1.x < this.x + 60) && this.grabTimer === false){
@@ -173,6 +178,10 @@ class beeDrone extends enemy {
 
             if ((this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && (this.scene.player1.y > this.y - 450 && this.scene.player1.y < this.y + 450)) {
 
+                if(this.playingSound === false){
+                    this.playWingFlapSound('1',500);
+                    this.playingSound = true;
+                }
                 this.setSize(70, 180, true);
         
                 //if bee is within range
@@ -219,6 +228,13 @@ class beeDrone extends enemy {
                 this.anims.play('beeDroneIdle', true);
                 this.setVelocityX(0);
                 this.setVelocityY(0);
+
+                if(this.scene.sound.get(this.beeSFX) !== null){
+                    this.scene.sound.get(this.beeSFX).stop();
+                }
+
+                this.playingSound = false;
+                
             }
 
         }
@@ -262,8 +278,12 @@ class beeDrone extends enemy {
     // functioned called to play animation when the player is defeated by the beeDrone in gameover.
     gameOver(playerSex) {
         this.setSize(70, 180, true);
+
+        this.gameoverAnimationComplete = false;
         //this.setOffset(180, 110);
         this.anims.play('beeDroneGameover').once('animationcomplete', () => {
+
+            this.gameoverAnimationComplete = true;
             let fedGrub = new beeGrub(this.scene, this.x-61, this.y-29,playerSex,1);
             fedGrub.setSize(70, 70, true);
            
@@ -347,7 +367,7 @@ class beeDrone extends enemy {
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
-            }else  if(playerHealthObject.playerHealth === 0){
+            }else if(playerHealthObject.playerHealth === 0){
 
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -473,6 +493,20 @@ class beeDrone extends enemy {
         }
     }
 
+    playWingFlapSound(type,delay){
+
+        if(this.beeDroneSoundCoolDown === false){
+            this.scene.initSoundEffect(this.beeSFX,type,0.3);
+            this.beeDroneSoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.beeDroneSoundCoolDown = false;
+            }, delay);
+        }
+
+    }
+
     playerIsDefeatedLogic(playerHealthObject){
 
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the beeDrone.
@@ -530,6 +564,11 @@ class beeDrone extends enemy {
                     this.scene.enemyThatDefeatedPlayer = "femaleBeeDrone";
                 }
 
+                // changes the title to reflect the game over.
+                if(this.scene.defeatedTitle !== "eaten"){
+                    this.scene.defeatedTitle = "eaten";
+                }
+                
                 this.scene.gameoverLocation = "hiveGameover";
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");

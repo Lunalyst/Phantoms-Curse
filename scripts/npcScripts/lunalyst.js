@@ -1,6 +1,6 @@
 class lunalyst extends npc{
     // every class needs constructor
-    constructor(scene, xPos, yPos,text,profileArray){
+    constructor(scene, xPos, yPos,text,profileArray,flag){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos, 'lunalyst');
 
@@ -10,7 +10,7 @@ class lunalyst extends npc{
       this.anims.play('lunalystIdle',true);
 
        //makes a key promptsa object to be displayed to the user
-       this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
+       this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
        this.npcKeyPrompts.visible = false;
        this.promptCooldown = false;
  
@@ -21,6 +21,10 @@ class lunalyst extends npc{
        this.npcId = 0;
        this.activationDelay = false;
        this.activated = false;
+
+       this.flag = flag;
+       this.dialogueCompleted = false;
+       this.completedText = false;
  
        //createdfor use in textbox
        this.profileArray = profileArray;
@@ -34,6 +38,7 @@ class lunalyst extends npc{
     //console.log("this.safeToSpeak: ",this.safeToSpeak," this.profileArray: ",this.profileArray);
 
     //if the player meets activation requiements for the sign display the text box
+    //console.log('this.safeToSpeak: ', this.safeToSpeak , "keyW.isDown: ",keyW.isDown, "scene1.sceneTextBox.textBoxActivationCoolDown:",scene1.sceneTextBox.textBoxActivationCoolDown);
       if(this.safeToSpeak === true && keyW.isDown && activeId === this.npcId && scene1.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false){
           console.log("activating npc");
           // sets the activated to true so it isnt called multiple times.
@@ -43,19 +48,71 @@ class lunalyst extends npc{
           let sign = this;
           setTimeout(function(){
             sign.activated = false;
-          },1000);
-            
+          },200);
+
           scene1.pausedInTextBox = true;
           scene1.sceneTextBox.setText(this.textToDisplay);
           scene1.sceneTextBox.formatText();
           scene1.sceneTextBox.setProfileArray(this.profileArray);
           scene1.sceneTextBox.activateTextBox(scene1,scene1.keyW,);
           this.activationDelay = true;
+          // updates the npc so that it knows when the dialogue is completed.
+          this.completedText = scene1.sceneTextBox.completedText;
+
+          console.log("this.completedText: ",this.completedText," this.flag: ", this.flag);
+          //once the player has talked to luna once progress dialogue in scene4 and update value
+          if(this.completedText === true && this.flag === 'lunaProtoDialogue'){
+            //change dialogue flag
+            console.log("progressing dialogue once");
+            //now to add the flag to the player data so the gmae know player has talked to luna once.
+            
+            //check to see if flag already exists
+            let object = {
+              flagToFind: "lunaProtoDialogue1",
+              foundFlag: false,
+            };
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+            this.flag = 'lunaProtoDialogue1';
+            
+            //if flag is not present then add it.
+            if(object.foundFlag === false){
+              inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
+            }
+            this.textToDisplay = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
+            this.profileArray =  ['lunaNeutral','lunaHappy'];
+
+            //once the player has talked to luna twice progress dialogue in scene and update value
+          }else if( this.completedText === true && this.flag === 'lunaProtoDialogue1'){
+            console.log("progressing dialogue twice");
+            
+            //check to see if flag already exists
+            let object = {
+              flagToFind: "lunaProtoDialogue2",
+              foundFlag: false,
+            };
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+            this.flag = 'lunaProtoDialogue2';
+
+            //if flag is not present then add it.
+            if(object.foundFlag === false){
+              inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
+            }
+            let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
+            let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?'; 
+            this.textToDisplay = line1 + line2;
+            this.profileArray = ['lunaFingerTouch','lunaHappy'];
+
+          }
+
+          
 
           this.anims.play('lunalystSkirtPull').once('animationcomplete', () => {
             //activates textbox apart of the main scene
 
           this.anims.play('lunalystIdle',true);
+
         });
           
           

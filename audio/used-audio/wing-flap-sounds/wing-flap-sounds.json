@@ -1,0 +1,15 @@
+{
+    "resources":[
+        "../audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0,
+            "end":1,
+            "loop": true
+        }
+        
+        
+    }
+}

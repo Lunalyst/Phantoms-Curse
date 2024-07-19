@@ -437,8 +437,8 @@ class defaultScene extends allSceneFunctions {
     }
 
     //creates a lunalyst NPC
-    initLunalyst(x, y, text, profileArray) {
-      let luna = new lunalyst(this, x, y, text, profileArray);
+    initLunalyst(x, y, text, profileArray,flag) {
+      let luna = new lunalyst(this, x, y, text, profileArray,flag);
       //gives portal a unique id so that scene can tell which warp object is being activated
       luna.npcId = this.npcId;
       this.npcId++;
@@ -586,7 +586,7 @@ class defaultScene extends allSceneFunctions {
     checkNpc(scene) {
       //applies a function to each portal object in the scene
       scene.npcs.children.each(function (tempNpc) {
-        if ((scene.player1.x > tempNpc.x - 30 && scene.player1.x < tempNpc.x + 30) && (scene.player1.y > tempNpc.y - 30 && scene.player1.y < tempNpc.y + 30) && scene.grabbed === false) {
+        if ((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 50 && scene.player1.y < tempNpc.y + 50) && scene.grabbed === false) {
           //console.log("within luna's range tempNpc.npcId: ",tempNpc.npcId);
           tempNpc.safeToSpeak = true;
           scene.activatedNpcId = tempNpc.npcId;
@@ -741,7 +741,7 @@ class defaultScene extends allSceneFunctions {
     }
     
     //creates a enemy. enemytype determines what enemy is spawned
-    initEnemy(startX, startY, playerSex, enemyType) {
+    initEnemy(startX, startY, playerSex, enemyType,soundSFX) {
       console.log("enemy spawned: ",enemyType);
 
     
@@ -773,7 +773,7 @@ class defaultScene extends allSceneFunctions {
 
       }else if(enemyType === 'beeDrone'){
         
-        let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId);
+        let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId,soundSFX);
         console.log("beeDrone.enemyId: ",beeDrone1.enemyId);
         this.enemyId++;
         this.enemys.add(beeDrone1);  

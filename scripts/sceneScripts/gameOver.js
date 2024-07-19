@@ -74,6 +74,14 @@ class gameOver extends allSceneFunctions {
                 "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
               ]);
 
+            this.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+                "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+              ]);
+
+            this.load.audioSprite('plapSFX','audio/used-audio/plap-sounds/plap-sounds.json',[
+                "audio/used-audio/plap-sounds/plap.mp3"
+              ]);
+
             this.load.scenePlugin({
                 key: 'AnimatedTiles',
                 url: 'lib/vendors/AnimatedTiles.js',
@@ -168,14 +176,26 @@ class gameOver extends allSceneFunctions {
                 this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "maleBeeDrone"){
                 this.preferance = 0;
-                this.enemy = new beeDrone(this,430, 570,this.playerSex);
+                this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
+
+                this.stopFlapping = false;
+                let scene = this;
+                setTimeout(function () {
+                    scene.stopFlapping = true;
+                }, 3000);
             }else if(this.enemyThatDefeatedPlayer === "femaleBeeDrone"){
                 this.preferance = 1;
-                this.enemy = new beeDrone(this,430, 570,this.playerSex);
+                this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
+
+                this.stopFlapping = false;
+                let scene = this;
+                setTimeout(function () {
+                    scene.stopFlapping = true;
+                }, 6000);
             }
             
             
@@ -203,15 +223,7 @@ class gameOver extends allSceneFunctions {
                     gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationCursed");
                 }
                 
-              },200);
-
-              setTimeout(function(){
-                if(gameoverThat.defeatedTitle === 'eaten'){
-                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
-                }else{
-                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationLoopCursed");
-                }
-              },220);
+              },100);
            
               setTimeout(function(){
                 gameoverThat.tryAgian.visible = true;
@@ -320,14 +332,33 @@ class gameOver extends allSceneFunctions {
                 }, 700);
             }
 
-            if(this.enemy.slimeSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "beeDrone")){
-                this.initSoundEffect('plapSFX','2',0.3);
+            if(this.enemy.beeDroneSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "maleBeeDrone" || this.enemyThatDefeatedPlayer === "femaleBeeDrone")){
+                if(this.enemy.gameoverAnimationComplete === true){
+                    this.initSoundEffect('plapSFX','plap2',1);
+
+                    if(this.stopFlapping === false){
+                        this.initSoundEffect('wingFlapSFX','1',0.3);
+                    }else{
+                    this.sound.get('wingFlapSFX').stop();  
+                    }
+                    this.enemy.beeDroneSoundCoolDown = true;
+                    let scene = this;
+                    setTimeout(function () {
+                        scene.enemy.beeDroneSoundCoolDown = false;
+                    }, 800);
+                }else if(this.enemy.gameoverAnimationComplete === false){
+                    this.initSoundEffect('plapSFX','plap5',1);
+                    this.initSoundEffect('wingFlapSFX','1',0.3);
                 
-                this.enemy.slimeSoundCoolDown = true;
-                let scene = this;
-                setTimeout(function () {
-                    scene.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                    this.enemy.beeDroneSoundCoolDown = true;
+                    let scene = this;
+                    setTimeout(function () {
+                        scene.enemy.beeDroneSoundCoolDown = false;
+                    }, 1200);
+                }
+
+                
+                
             }
 
         }

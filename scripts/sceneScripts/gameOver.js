@@ -133,6 +133,9 @@ class gameOver extends allSceneFunctions {
             this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
             this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
             this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
+
+            this.load.spritesheet('beeGrub', 'assets/BeeGrub.png',{frameWidth: 525, frameHeight: 237 });
+            
             this.tryAgian.anims.play('tryAgianInActive');
             this.tryAgian.setScale(.5);
             this.tryAgian.setDepth(7);

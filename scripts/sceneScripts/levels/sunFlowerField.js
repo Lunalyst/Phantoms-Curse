@@ -113,13 +113,13 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.skybackround = this.add.tileSprite(1500, 1980, 8*1024, 8*1024, "backgroundSkyLevel");
-      this.skybackround.setDepth(-51);
+      this.skybackround = this.add.tileSprite(1500, -1300, 8*1024, 6*1024, "backgroundSkyLevel");
+      this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
 
       this.backround = this.add.tileSprite(3000, 2010, 10*1152, 765, "backgroundSunflowerLevel");
-      this.backround.setDepth(-50);
-      this.backround.setScale(0.6);
+      this.backround.setDepth(-51);
+      this.backround.setScale(0.7);
       this.backround.setTint(0xd3d3d3);
 
 
@@ -257,9 +257,11 @@ class sunFlowerField extends defaultScene {
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x += 0.5;
         this.backround.x += 0.7;
+        this.skybackround.x += 0.7;
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x -= 0.5;
         this.backround.x -= 0.7;
+        this.skybackround.x -= 0.7;
       }
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;
@@ -268,9 +270,11 @@ class sunFlowerField extends defaultScene {
       if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y -= 0.1;
         this.backround.y -= 0.3;
+        this.skybackround.y -= 0.3;
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y += 0.1;
         this.backround.y += 0.3;
+        this.skybackround.y += 0.3;
       }
 
       //updates the y values stored every tick 

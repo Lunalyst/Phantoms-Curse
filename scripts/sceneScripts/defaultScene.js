@@ -213,8 +213,6 @@ class defaultScene extends allSceneFunctions {
       //set up the invisible barriers group
       this.invisibleBarriers = this.physics.add.group();
 
-      this.signPoints = this.add.group();
-
       this.npcs = this.add.group();
 
     }
@@ -433,7 +431,9 @@ class defaultScene extends allSceneFunctions {
         this.signId++;
         //sets the location given as to where the player will be sent in the next scene
         //adds portal object to the portal object in the scene
+        console.log("group signs",this.signPoints);
         this.signPoints.add(sign1);
+        console.log("added sign",this.signPoints);
         
     }
 
@@ -566,16 +566,18 @@ class defaultScene extends allSceneFunctions {
 
     //checks to see if the player can activate a sign object
     checkSign(scene) {
+      //console.log("checking sign code: scene.signPoints: ",scene.signPoints);
         //applies a function to each portal object in the scene
-        scene.signPoints.children.each(function (tempSignPoint) {
+        this.signPoints.children.each(function (tempSignPoint) {
           //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
           // fuck overlap function. check if the player is within the bounds fo the sprite and control prompts according to that. problem solved.
+          //console.log("testing to see if player is within range");
           if ((scene.player1.x > tempSignPoint.x - 30 && scene.player1.x < tempSignPoint.x + 30) && (scene.player1.y > tempSignPoint.y - 30 && scene.player1.y < tempSignPoint.y + 30) && scene.grabbed === false) {
             //console.log("within sign");
             tempSignPoint.safeToSign = true;
             scene.activatedSignId = tempSignPoint.signId;
           } else {
-            //console.log("outside save point");
+            //console.log("outside sign");
             tempSignPoint.safeToSign = false;
           }
           tempSignPoint.activateSign(scene, scene.keyW, scene.activatedSignId);
@@ -1128,6 +1130,7 @@ class defaultScene extends allSceneFunctions {
       if(this.saveCoolDown === true){
         this.checkSave(this.playerLocation);
       }
+      
       if(this.signCoolDown === true){
         this.checkSign(this);
         this.checkNpc(this);

@@ -449,7 +449,7 @@ class beeDrone extends enemy {
         let currentbeeDrone = this;
 
             // handles input for escaping.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;
@@ -460,8 +460,8 @@ class beeDrone extends enemy {
 
         // displays inputs while struggling.
         if (this.keyAnimationPlayed === false) {
-            console.log(" setting keyS display");
-            this.scene.KeyDisplay.playSKey();
+            console.log(" setting keyW display");
+            this.scene.KeyDisplay.playWKey();
             this.keyAnimationPlayed = true;
         }
 

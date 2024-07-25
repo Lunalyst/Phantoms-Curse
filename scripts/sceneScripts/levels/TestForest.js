@@ -29,9 +29,13 @@ class TestForest extends defaultScene {
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Test_Forest.json");
 
-      this.load.spritesheet('backgroundForestLevel', 'assets/ForestBackground.png',{frameWidth: 936 , frameHeight: 918});
-      this.load.spritesheet('backgroundForestStaticLevel', 'assets/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
-      this.load.spritesheet('forestParallax', 'assets/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
+      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
+      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 270 });
+      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+
+      this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
+      this.load.spritesheet('forestParallax', 'assets/parrallax/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"

@@ -29,14 +29,18 @@ class sunFlowerField extends defaultScene {
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Sun_Flower_Fields.json");
       
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
 
-      this.load.spritesheet('backgroundSunflowerLevel', 'assets/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
-      this.load.spritesheet('backgroundSkyLevel', 'assets/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
-      this.load.spritesheet('sunflowerParallax', 'assets/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
-      this.load.spritesheet("secretWall1" , "assets/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
-      this.load.spritesheet("lunalyst" , "assets/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
+      this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
+      this.load.spritesheet('sunflowerParallax', 'assets/parrallax/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
+      this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       
-
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);

@@ -8,23 +8,14 @@ class defaultScene extends allSceneFunctions {
        //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
+      
+      this.load.spritesheet("malePlayer" , "assets/player/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
+      this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
+      this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('tiger-evan', 'assets/muscleCat.png',{frameWidth: 291, frameHeight: 270 });
-      this.load.spritesheet('rabbitMale', 'assets/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitFemale', 'assets/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('beeDroneMale', 'assets/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale', 'assets/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeGrub', 'assets/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-      //fix
-      //test
-      this.load.spritesheet("malePlayer" , "assets/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
-      this.load.spritesheet("femalePlayer" , "assets/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
-      this.load.image('hitbox', 'assets/hitbox.png');
-      this.load.spritesheet('keyPrompts', 'assets/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
-      this.load.spritesheet('healthUpgrade', 'assets/healthUpgrade.png',{frameWidth: 99, frameHeight: 99 });
-      this.load.spritesheet('barrier', 'assets/barrier.png',{frameWidth: 96, frameHeight: 96 });
+      this.load.spritesheet('keyPrompts', 'assets/hudElements/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
+      this.load.spritesheet('healthUpgrade', 'assets/gameObjects/healthUpgrade.png',{frameWidth: 99, frameHeight: 99 });
+      this.load.spritesheet('barrier', 'assets/gameObjects/barrier.png',{frameWidth: 96, frameHeight: 96 });
 
        //weapon sound effects
        this.load.audioSprite('weaponSFX','audio/used-audio/player-sounds/weapon-swings.json',[
@@ -67,15 +58,13 @@ class defaultScene extends allSceneFunctions {
         "audio/used-audio/tiger-sounds/tiger.mp3"
       ]);*/
   
-       this.load.spritesheet('warpSprites', 'assets/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
-       this.load.spritesheet('savePoint', 'assets/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
-       this.load.spritesheet('sign', 'assets/Sign.png',{frameWidth: 99, frameHeight: 135 });
-       this.load.spritesheet('itemDrops', 'assets/itemDrops.png',{frameWidth: 96, frameHeight: 96});
-       this.load.spritesheet('chest', 'assets/chest.png',{frameWidth: 249, frameHeight: 231});
+       this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
+       this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
+       this.load.spritesheet('sign', 'assets/gameObjects/Sign.png',{frameWidth: 99, frameHeight: 135 });
+       this.load.spritesheet('itemDrops', 'assets/gameObjects/itemDrops.png',{frameWidth: 96, frameHeight: 96});
+       this.load.spritesheet('chest', 'assets/gameObjects/chest.png',{frameWidth: 249, frameHeight: 231});
 
-       this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-       this.load.spritesheet('characterSet', 'assets/characterSet.png',{frameWidth: 84, frameHeight: 108});
-       this.load.spritesheet('doubleJumpEffect', 'assets/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
+       this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
        //loads a plugin to the heaa of the html to animate tiles in levels
        this.load.scenePlugin({

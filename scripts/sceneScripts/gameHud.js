@@ -40,23 +40,22 @@ class gameHud extends allSceneFunctions {
     preload(){
            
       //hud specific 
-      this.load.spritesheet('inventory', 'assets/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
-      this.load.spritesheet('inventoryBorder', 'assets/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
+      this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
+      this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
 
-      this.load.spritesheet('optionsMenu', 'assets/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
+      this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
 
-      this.load.spritesheet('inventorySlots', 'assets/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
-      this.load.spritesheet('slotDiscriptions', 'InventorySlotDiscriptions.png',{frameWidth: 32 , frameHeight: 32 });
-      this.load.spritesheet('closingButton', 'assets/closingButton.png',{frameWidth: 51, frameHeight: 51 });
-      this.load.spritesheet('healthBar', 'assets/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
-      this.load.spritesheet('struggleBar', 'assets/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
-      this.load.spritesheet('hpBarAmount', 'assets/hpBarAmount.png',{frameWidth: 291, frameHeight: 57 });
-      this.load.spritesheet('bestiary', 'assets/bestiary.png',{frameWidth: 924, frameHeight: 1260 });
-      this.load.spritesheet('UIControls', 'assets/UIControls.png',{frameWidth: 32, frameHeight: 32 });
-      this.load.spritesheet('inventoryLabels', 'assets/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
-      this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
-      this.load.image('TABToSkip', 'assets/tabToSkip.png');
-      this.load.image('TABToGiveUp', 'assets/tabToGiveUp.png');
+      this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
+      this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
+      this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
+      this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
+      this.load.spritesheet('bestiary', 'assets/hudElements/bestiary.png',{frameWidth: 924, frameHeight: 1260 });
+      this.load.spritesheet('UIControls', 'assets/hudElements/UIControls.png',{frameWidth: 32, frameHeight: 32 });
+      this.load.spritesheet('inventoryLabels', 'assets/hudElements/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
+      this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });
+      //this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
+      this.load.image('TABToSkip', 'assets/hudElements/tabToSkip.png');
+      this.load.image('TABToGiveUp', 'assets/hudElements/tabToGiveUp.png');
 
       this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
         "audio/used-audio/button-sounds/button-sounds.mp3"

@@ -51,53 +51,48 @@ class tiger extends enemy {
         
     
         //defines tiger animations based on the players sex.
-        this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('tiger-evan', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingPeak', frames: this.anims.generateFrameNames('tiger-evan', { start: 1, end: 3 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'hidingCheckLeft', frames: this.anims.generateFrameNames('tiger-evan', { start: 4, end: 4 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingCheckMiddle', frames: this.anims.generateFrameNames('tiger-evan', { start: 3, end: 3 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingCheckRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hide', frames: this.anims.generateFrameNames('tiger-evan', { start: 6, end: 9 }), frameRate: 20, repeat: 0 });
-        this.anims.create({ key: 'suprise', frames: this.anims.generateFrameNames('tiger-evan', { start: 9, end: 19 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'tigerLeftIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 20, end: 20 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'tigerLeftWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 20, end: 29 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerLeftRun', frames: this.anims.generateFrameNames('tiger-evan', { start: 20, end: 29 }), frameRate: 13, repeat: -1 });
-        this.anims.create({ key: 'tigerLeftJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerLeftInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerRightIdle', frames: this.anims.generateFrameNames('tiger-evan', { start: 34, end: 34 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerRightWalk', frames: this.anims.generateFrameNames('tiger-evan', { start: 34, end: 43 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerRightRun', frames: this.anims.generateFrameNames('tiger-evan', { start: 34, end: 43 }), frameRate: 13, repeat: -1 });
-        this.anims.create({ key: 'tigerRightJumpStart', frames: this.anims.generateFrameNames('tiger-evan', { start: 44, end: 46 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerRightInAir', frames: this.anims.generateFrameNames('tiger-evan', { start: 47, end: 47 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tiger-evan', { start: 48, end: 59 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('tigerFemale', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'hidingPeak', frames: this.anims.generateFrameNames('tigerFemale', { start: 1, end: 3 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'hidingCheckLeft', frames: this.anims.generateFrameNames('tigerFemale', { start: 4, end: 4 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'hidingCheckMiddle', frames: this.anims.generateFrameNames('tigerFemale', { start: 3, end: 3 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'hidingCheckRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'hide', frames: this.anims.generateFrameNames('tigerFemale', { start: 6, end: 9 }), frameRate: 20, repeat: 0 });
+        this.anims.create({ key: 'suprise', frames: this.anims.generateFrameNames('tigerFemale', { start: 9, end: 19 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'tigerIdle', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 20 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'tigerWalk', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerRun', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 13, repeat: -1 });
+        this.anims.create({ key: 'tigerJumpStart', frames: this.anims.generateFrameNames('tigerFemale', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerFemale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
 
         //male animations
         if (sex === 0) {
-            this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 60, end: 74 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 74, end: 77 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerSwallowRight1', frames: this.anims.generateFrameNames('tiger-evan', { start: 78, end: 85 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 60, end: 64 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 65, end: 71 }), frameRate: 7, repeat: 0 });
             
         //female animations    
         } else if(sex === 1) {
-            this.anims.create({ key: 'tigerGrabRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 86, end: 100 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggleRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 100, end: 103 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerSwallowRight1', frames: this.anims.generateFrameNames('tiger-evan', { start: 104, end: 111 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 86, end: 89 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 90, end: 97 }), frameRate: 7, repeat: 0 });
         }
-        //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tiger-evan', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerSwallowRight2', frames: this.anims.generateFrameNames('tiger-evan', { start: 112, end: 116 }), frameRate: 7, repeat: 0 });
+        //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerFemale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
 
-        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tiger-evan', { start: 116, end: 119 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tiger-evan', { start: 120, end: 123 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tiger-evan', { start: 124, end: 127 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tiger-evan', { start: 128, end: 131 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tiger-evan', { start: 132, end: 143 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tiger-evan', { start: 143, end: 149 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tiger-evan', { start: 150, end: 167 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tiger-evan', { start: 167, end: 170 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tiger-evan', { start: 171, end: 180 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tiger-evan', { start: 181, end: 184 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tiger-evan', { start: 185, end: 188 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tiger-evan', { start: 189, end: 192 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tiger-evan', { start: 193, end: 200 }), frameRate: 5, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemale', { start: 103, end: 106 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemale', { start: 107, end: 110 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemale', { start: 111, end: 114 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemale', { start: 115, end: 118 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemale', { start: 119, end: 129 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemale', { start: 130, end: 136 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemale', { start: 137, end: 151 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemale', { start: 152, end: 154 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemale', { start: 155, end: 166 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemale', { start: 167, end: 171 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemale', { start: 172, end: 173 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemale', { start: 174, end: 178 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemale', { start: 179, end: 186 }), frameRate: 5, repeat: -1 });
 
         this.anims.play("tigerTaunt");
     }
@@ -142,7 +137,8 @@ class tiger extends enemy {
                         this.setVelocityX(0);
 
                         //animation getting interupted causing things to break.
-                        this.anims.play('tigerRightJumpStart').once('animationcomplete', () => {
+                        this.flipX = false;
+                        this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                             this.jumpAnimationPlayed = false;
                             this.setVelocityY(250*-1);
                         
@@ -152,7 +148,7 @@ class tiger extends enemy {
                                 currentTiger.setVelocityX(310);
                             }, 160);
 
-                            this.anims.play('tigerRightInAir');
+                            this.anims.play('tigerInAir');
                         
                         });
                     
@@ -168,7 +164,8 @@ class tiger extends enemy {
                         this.jumpAnimationPlayed = true;
                         this.setVelocityX(0);
 
-                        this.anims.play('tigerLeftJumpStart').once('animationcomplete', () => {
+                        this.flipX = true;
+                        this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                             this.jumpAnimationPlayed = false;
                             this.setVelocityY(250*-1);
                         
@@ -178,7 +175,7 @@ class tiger extends enemy {
                                 currentTiger.setVelocityX(310*-1);
                             }, 160);
 
-                            this.anims.play('tigerLeftInAir');
+                            this.anims.play('tigerInAir');
                         
                         });
                     
@@ -188,8 +185,10 @@ class tiger extends enemy {
                 }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
                         
                     this.direction = "right";
-                    this.jumpAnimationPlayed = false;  
-                    this.anims.play('tigerRightRun', true);
+                    this.jumpAnimationPlayed = false; 
+                    
+                    this.flipX = false;
+                    this.anims.play('tigerRun', true);
                     this.setVelocityX(310); 
             
                 //if the player is to the right then move enemy to the left
@@ -197,7 +196,8 @@ class tiger extends enemy {
                         
                     this.direction = "left";
                     this.jumpAnimationPlayed = false;
-                    this.anims.play('tigerLeftRun', true);
+                    this.flipX = true;
+                    this.anims.play('tigerRun', true);
                     this.setVelocityX(310*-1); 
                     
                 //otherwise if the enemy is on the ground then
@@ -205,9 +205,11 @@ class tiger extends enemy {
 
                     //player idle animation in the correct direction
                     if(this.direction === "left"){
-                        this.anims.play('tigerLeftIdle', true);
+                        this.flipX = true;
+                        this.anims.play('tigerIdle', true);
                     }else if(this.direction === "right") {
-                        this.anims.play('tigerLeftIdle', true);
+                        this.flipX = false;
+                        this.anims.play('tigerIdle', true);
                     }
 
                     //sets velocity to zero since the enemy should not be moving.
@@ -260,17 +262,20 @@ class tiger extends enemy {
             }else if(this.noticedPlayer === false && this.peakActivated === false){
 
                 //keep tiger hidden
+                this.flipX = false;
                 this.anims.play('hiding', true);
 
             //if the player has been noticed and is to the right, look at them
             }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x + this.noticeRangeInner && this.scene.player1.x < this.x + this.noticeRangeOuter)){
 
+                this.flipX = false;
                 this.anims.play('hidingCheckRight', true);
                 this.playerInOuterRange = false;
 
             //if the player has been noticed and is to the left, look at them
             }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x - this.noticeRangeOuter && this.scene.player1.x < this.x - this.noticeRangeInner)){
 
+                this.flipX = false;
                 this.anims.play('hidingCheckLeft', true);
                 this.playerInOuterRange = false;
 
@@ -280,6 +285,7 @@ class tiger extends enemy {
                 this.activatedSuprise = true;
                 if (!this.animationPlayed && this.playerInOuterRange === false) {
                     this.animationPlayed = true;
+                    this.flipX = false;
                     this.anims.play('hide').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerInOuterRange = true;
@@ -287,6 +293,7 @@ class tiger extends enemy {
                 //if hiding animation has been played, play hide animation
                 }else if (this.playerInOuterRange === true && this.activatedSuprise === false){
                     //console.log('this.playerInOuterRange === true');
+                    this.flipX = false;
                     this.anims.play('hiding', true);
                 }
             }  
@@ -300,9 +307,11 @@ class tiger extends enemy {
         
         //player idle animation in the correct direction
         if(this.direction === "left"){
-            this.anims.play('tigerLeftIdle', true);
+            this.flipX = true;
+            this.anims.play('tigerIdle', true);
         }else if(this.direction === "right") {
-            this.anims.play('tigerLeftIdle', true);
+            this.flipX = false;
+            this.anims.play('tigerIdle', true);
         }
         //sets velocity to zero since the enemy should not be moving.
         this.body.setGravityY(600);
@@ -425,16 +434,19 @@ class tiger extends enemy {
                     this.scene.onomat.textWave();
                     this.scene.onomat.textFadeOutAndDestroy(1000);
 
-                    this.anims.play('tigerGrabRight').once('animationcomplete', () => {
-                        this.anims.play("tigerStruggleRight", true);
+                    this.flipX = true;
+                    this.anims.play('tigerGrab').once('animationcomplete', () => {
+                        this.anims.play("tigerStruggle", true);
                         this.scene.onomat.destroy();
                     });
                 }
                 
             } else if (this.direction === "right") {
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                    this.anims.play('tigerGrabRight').once('animationcomplete', () => {
-                        this.anims.play("tigerStruggleRight", true);
+
+                    this.flipX = false;
+                    this.anims.play('tigerGrab').once('animationcomplete', () => {
+                        this.anims.play("tigerStruggle", true);
                     });
                 }
             }
@@ -617,7 +629,8 @@ class tiger extends enemy {
 
                     // if the player if freed do the following to reset the player.
                 } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
-                    this.anims.play("tigerRightIdle");
+                    this.flipX = false;
+                    this.anims.play("tigerIdle");
                     this.struggleFree = false;
                     this.playerBrokeFree = 0;
                     //this.anims.play("tigerStruggleBreakRight", true);
@@ -720,13 +733,13 @@ class tiger extends enemy {
 
                 console.log("this.scene.onomat: ",this.scene.onomat);
                 
-                this.anims.play('tigerSwallowRight1').once('animationcomplete', () => {
+                this.anims.play('tigerSwallow1').once('animationcomplete', () => {
                     console.log("animation finished");
                     this.scene.initSoundEffect('swallowSFX','3',0.6);
 
                     //onomat.textWob();
 
-                    this.anims.play('tigerSwallowRight2').once('animationcomplete', () => {
+                    this.anims.play('tigerSwallow2').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
                         this.inStartDefeatedLogic = false;

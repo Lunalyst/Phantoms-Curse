@@ -56,32 +56,30 @@ class titleScreen extends allSceneFunctions {
         }
 
         preload(){
-            //this.load.spritesheet('backgroundForest', 'assets/titleScreenBackground.png',{frameWidth: 1000 , frameHeight: 664});
-            this.load.spritesheet('backgroundForest', 'assets/title-backround.png',{frameWidth: 1000 , frameHeight: 667});
-            this.load.spritesheet("newGame" , "assets/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
-            this.load.spritesheet("loadGame" , "assets/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
-            this.load.spritesheet("options" , "assets/options.png" , {frameWidth: 165 , frameHeight: 33 });
-            this.load.spritesheet("back" , "assets/Back.png" , {frameWidth: 102 , frameHeight: 33 });
-            this.load.spritesheet("title" , "assets/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
-            this.load.spritesheet("titleLogo" , "assets/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
-            this.load.spritesheet("maleSexSelectIcons" , "assets/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
-            this.load.spritesheet("femaleSexSelectIcons" , "assets/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
-            this.load.spritesheet("neutralSexSelectIcons" , "assets/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
-            this.load.spritesheet('textBox', 'assets/textBox.png',{frameWidth: 600, frameHeight: 100 });
-            this.load.spritesheet('charBlack', 'assets/characterSetBlack.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('charBubble', 'assets/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('textBoxProfile', 'assets/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
-            this.load.spritesheet('saveSlot', 'assets/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
-            this.load.spritesheet('skillSaveSlotIcon', 'assets/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
-            this.load.spritesheet('healthSlotIcon', 'assets/slotHealthIcon.png',{frameWidth: 99, frameHeight: 99 });
-            this.load.spritesheet('sexSlotSexIcon', 'assets/saveSlotSexIcon.png',{frameWidth: 75, frameHeight: 75 });
-            this.load.spritesheet('shellIcon', 'assets/shellIcon.png',{frameWidth: 96, frameHeight: 96 });
-            this.load.spritesheet('bestiaryIcon', 'assets/bestiaryIcon.png',{frameWidth: 96, frameHeight: 96 });
-            this.load.spritesheet('removeSlots', 'assets/removeSlots.png',{frameWidth: 99, frameHeight: 99 });
-            this.load.spritesheet('no', 'assets/no.png',{frameWidth: 60, frameHeight: 33 });
-            this.load.spritesheet('yes', 'assets/yes.png',{frameWidth: 78, frameHeight: 33 });
-            this.load.spritesheet('curses', 'assets/curses.png',{frameWidth: 96, frameHeight: 96 });
-            this.load.spritesheet('buttons', 'assets/buttons.png',{frameWidth: 75, frameHeight: 75 });
+            this.load.spritesheet('titleBackground', 'assets/titleScreen/title-backround.png',{frameWidth: 1000 , frameHeight: 667});
+            this.load.spritesheet("newGame" , "assets/titleScreen/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
+            this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
+            this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
+            this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
+            this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
+            this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
+            this.load.spritesheet("maleSexSelectIcons" , "assets/titleScreen/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
+            this.load.spritesheet("femaleSexSelectIcons" , "assets/titleScreen/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
+            this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
+            this.load.spritesheet('textBox', 'assets/hudElements/textBox.png',{frameWidth: 600, frameHeight: 100 });
+            this.load.spritesheet('charBlack', 'assets/hudElements/characterSetBlack.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
+            this.load.spritesheet('saveSlot', 'assets/titleScreen/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
+            this.load.spritesheet('skillSaveSlotIcon', 'assets/titleScreen/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
+            this.load.spritesheet('healthSlotIcon', 'assets/titleScreen/slotHealthIcon.png',{frameWidth: 99, frameHeight: 99 });
+            this.load.spritesheet('sexSlotSexIcon', 'assets/titleScreen/saveSlotSexIcon.png',{frameWidth: 75, frameHeight: 75 });
+            this.load.spritesheet('shellIcon', 'assets/hudElements/shellIcon.png',{frameWidth: 96, frameHeight: 96 });
+            this.load.spritesheet('bestiaryIcon', 'assets/hudElements/bestiaryIcon.png',{frameWidth: 96, frameHeight: 96 });
+            this.load.spritesheet('removeSlots', 'assets/titleScreen/removeSlots.png',{frameWidth: 99, frameHeight: 99 });
+            this.load.spritesheet('no', 'assets/hudElements/no.png',{frameWidth: 60, frameHeight: 33 });
+            this.load.spritesheet('yes', 'assets/hudElements/yes.png',{frameWidth: 78, frameHeight: 33 });
+            this.load.spritesheet('curses', 'assets/titleScreen/curses.png',{frameWidth: 96, frameHeight: 96 });
 
             this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
                 "audio/used-audio/titlescreen-sounds/kickhat-ambient-drone.mp3"
@@ -144,13 +142,12 @@ class titleScreen extends allSceneFunctions {
             })
 
             // animations for some sprites present
-            this.anims.create({key: 'backroundLoop',frames: this.anims.generateFrameNames('backgroundForest', { start: 0, end: 8 }),frameRate: 4,repeat: -1});
             this.anims.create({key: 'titleLogoLoop1',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 10 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 6 }),frameRate: 3,repeat: -1});
 
             //background definition.
-            this.backround = this.add.sprite(450, 450, "backgroundForest");
+            this.backround = this.add.sprite(450, 450, "titleBackground");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
             this.titleLogo = this.add.sprite(450, 550, "titleLogo");

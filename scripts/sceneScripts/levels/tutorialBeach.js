@@ -26,7 +26,7 @@ class tutorialBeach extends defaultScene {
       this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Beach.json");
 
       //preload of object which are scene specific
-      this.load.spritesheet('backgroundBeachLevel', 'assets/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('backgroundBeachLevel', 'assets/backgrounds/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
       
       this.defaultPreload();
 

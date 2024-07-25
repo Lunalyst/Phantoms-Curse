@@ -188,7 +188,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       console.log("this.spaceDelay: ",this.spaceDelay);
       setTimeout(function(){
         that.spaceWasPressed = true;
-        this.spaceDelay = false;
+        that.spaceDelay = false;
         console.log("that.spaceWasPressed: ",that.spaceWasPressed);
       },200);
       console.log("this.spaceWasPressed: ",this.spaceWasPressed);

@@ -49,14 +49,14 @@ class gameOver extends allSceneFunctions {
         //loads sprites for game over.
         preload(){
 
-            this.load.image('backgroundForestRavineLevel', 'assets/forest_ravine_background.png');
-            this.load.image('backgroundBeachLevel', 'assets/beach_background.png');
+            this.load.image('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png');
+            this.load.image('backgroundBeachLevel', 'assets/backgrounds/beach_background.png');
 
             this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
-            this.load.spritesheet("gameOverSignCursed" , "assets/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
-            this.load.spritesheet("gameOverSignEaten" , "assets/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
-            this.load.spritesheet("tryAgianSign" , "assets/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
-            this.load.spritesheet('beeGrub', 'assets/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
+            this.load.spritesheet("gameOverSignCursed" , "assets/gameover/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
+            this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
+            this.load.spritesheet("tryAgianSign" , "assets/gameover/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
+            this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
             //fix
              //load in the JSON file for the bitmap
             this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");

@@ -151,6 +151,7 @@ class TestForest extends defaultScene {
           //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
           
           thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(1300,1120,thisScene.playerSex,'rabbit');
           thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
           thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');
           thisScene.spawnedEnemys = true;

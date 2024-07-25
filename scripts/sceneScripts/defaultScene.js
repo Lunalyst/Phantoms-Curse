@@ -884,67 +884,86 @@ class defaultScene extends allSceneFunctions {
 
       //applys a function to all tigers
       scene.tigers.children.each(function (tempTiger) {
-      
-      //calls tiger function to move
-      tempTiger.move(scene.player1,scene);
-      
-      //checks if the attack hitbox is overlapping the tiger to deal damage.
-      scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
-      
-        //sets overlap to be true
-        tempTiger.hitboxOverlaps = true;
-      });
-      
-      //if the hitbox overlaps the tiger, then  deal damage to that tiger
-      if(tempTiger.hitboxOverlaps === true) {
-      
-        console.log("tiger taking damage, tiger hp:" + tempTiger.enemyHP);
-      
-        //inflict damage to tiger
-        tempTiger.damage(scene);
-      
-        //clear overlap verable in tiger.
-        tempTiger.hitboxOverlaps = false;
-      
-      }
-      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1, tempTiger, function () {
-      
-        //make a temp object
-        let isWindowObject = {
-          isOpen: null
-        };
+
+        //function to check rabbits and see if the tiger can grab one
+        scene.rabbits.children.each(function (tempRabbit) {
+
+           //checks if the tiger overlaps a rabbit
+          scene.physics.add.overlap(tempTiger, tempRabbit, function () {
+
+            if(tempTiger.isHidding === false){
+              tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
+
+              tempRabbit.destroy();
+            }
+            
+           
+          });
+
+        });
         
-        //that is passed into a emitter
-        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-      
-        //to tell if the window is open
-        if (isWindowObject.isOpen === true) {
-          //and if it is, then close the window
-          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-          
+        //calls tiger function to move
+        tempTiger.move(scene.player1,scene);
+        
+        //checks if the attack hitbox is overlapping the tiger to deal damage.
+        scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
+        
+          //sets overlap to be true
+          tempTiger.hitboxOverlaps = true;
+        });
+        
+        //if the hitbox overlaps the tiger, then  deal damage to that tiger
+        if(tempTiger.hitboxOverlaps === true) {
+        
+          console.log("tiger taking damage, tiger hp:" + tempTiger.enemyHP);
+        
+          //inflict damage to tiger
+          tempTiger.damage(scene);
+        
+          //clear overlap verable in tiger.
+          tempTiger.hitboxOverlaps = false;
+        
         }
-        
-      
-        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-        //if the grab cooldowns are clear then
-        if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false && tempTiger.isHidding === false) {
+        //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+        scene.physics.add.overlap(scene.player1, tempTiger, function () {
+          if(tempTiger.tigerIsEating === false){
+            //make a temp object
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            //that is passed into a emitter
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
           
-          console.log(" grabing the player?");
-          //stop the velocity of the player
-          tempTiger.setVelocityX(0);
-          scene.player1.setVelocityX(0);
-          //calls the grab function
-          tempTiger.grab();
-        
-          //sets the scene grab value to true since the player has been grabbed
-          tempTiger.playerGrabbed = true;
-          tempTiger.grabCoolDown = true;
-          scene.grabbed = true;
-          scene.grabCoolDown = true;
-          console.log('player grabbed by tiger');
-      
-        }
+            //to tell if the window is open
+            if (isWindowObject.isOpen === true) {
+              //and if it is, then close the window
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              
+            }
+            
+          
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            //if the grab cooldowns are clear then
+            if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false && tempTiger.isHidding === false) {
+              
+              console.log(" grabing the player?");
+              //stop the velocity of the player
+              tempTiger.setVelocityX(0);
+              scene.player1.setVelocityX(0);
+              //calls the grab function
+              tempTiger.grab();
+            
+              //sets the scene grab value to true since the player has been grabbed
+              tempTiger.playerGrabbed = true;
+              tempTiger.grabCoolDown = true;
+              scene.grabbed = true;
+              scene.grabCoolDown = true;
+              console.log('player grabbed by tiger');
+          
+            }
+          }
+          
       });
       }, this);
       

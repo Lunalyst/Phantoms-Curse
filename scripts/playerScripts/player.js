@@ -34,6 +34,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.setDepth(6);
     // hitbox cooldown.
     this.hitboxCoolDown = false;
+    this.hitboxState = false;
 
     //used to tell what damage type the player is dealing with melee weapons.
     this.sliceDamage = 0;
@@ -323,7 +324,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   //this function handles player attack animations.
-  attackPlayer(keyShift,scene){
+  attackPlayer(scene){
     //temp variable of this object to be used my timeout functions
     let that = this;
     this.setSize(50,210,true);
@@ -335,31 +336,32 @@ class player extends Phaser.Physics.Arcade.Sprite{
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
     //plays attack animations based on what the player has equipt when the player isa not in the air.
+    //console.log('this.scene.shift: ',this.scene.shift);
     if(this.body.blocked.down){
 
       //plays attack for knife right
-      if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
+      if(this.lastKey === 'd' && this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnife",true);
         this.flipX = false;
         this.sliceDamage = 4;
         this.weaponSoundEffect('high2', 400);
         this.rightHitBox(300);
       //plays attack for knife left
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
+      }else if(this.lastKey === 'a'&& this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 4){
         this.anims.play("pAttackKnife",true);
         this.flipX = true;
         this.sliceDamage = 4;
         this.weaponSoundEffect('high2', 400);
         this.leftHitBox(300);
       //plays attack for axe right
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
+      }else if(this.lastKey === 'd' && this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxe",true);
         this.flipX = false;
         this.sliceDamage = 8;
         this.weaponSoundEffect('heavy', 600);
         this.rightHitBox(300);
       //plays attack for axe left
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
+      }else if(this.lastKey === 'a'&& this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 10){
         this.anims.play("pAttackAxe",true);
         this.flipX = true;
         this.sliceDamage = 8;
@@ -367,7 +369,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.leftHitBox(300);
         
       //plays attack for oar right
-      }else if(this.lastKey === 'd' && keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
+      }else if(this.lastKey === 'd' && this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOar",true);
         this.flipX = false;
         this.bluntDamage = 2;
@@ -375,38 +377,39 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.rightHitBox(300);
         
       //plays attack for oar left
-      }else if(this.lastKey === 'a'&& keyShift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
+      }else if(this.lastKey === 'a'&& this.scene.shift.isDown && playerDataObject.playerInventoryData[24].itemID === 2){
         this.anims.play("pAttackOar",true);
         this.flipX = true;
         this.bluntDamage = 2;
         this.weaponSoundEffect('medium', 700);
         this.leftHitBox(300);
       //plays animation for unarmed or non weapon equipt right.
-      }else if(this.lastKey === 'd' && keyShift.isDown){
+      }else if(this.lastKey === 'd' && this.scene.shift.isDown){
         this.anims.play("pAttackUnarmed",true);
         this.flipX = false;
         this.bluntDamage = 1;
         this.weaponSoundEffect('high1', 400);
         this.rightHitBox(200);
       //plays animation for unarmed or non weapon equipt left.
-      }else if(this.lastKey === 'a'&& keyShift.isDown){
+      }else if(this.lastKey === 'a'&& this.scene.shift.isDown){
         this.anims.play("pAttackUnarmed",true);
         this.flipX = true;
         this.bluntDamage = 1;
         this.weaponSoundEffect('high1', 400);
         this.leftHitBox(200);
 
-      }else if(keyShift.isDown){
+      }else if(this.scene.shift.isDown){
         this.setVelocityX(0);
         this.setVelocityY(0);
         //this.anims.play('pIdleIdle',true);
+
+      //important fall though caseto reset variables if the player is not swinging
       }else{
 
-        //moves attack hitbox out of the way. probably better way of implementing this
-        //setvisible?
-        scene.attackHitBox.x = this.x;
-        scene.attackHitBox.y = this.y+10000;
 
+        this.scene.attackHitBox.x = this.x;
+        this.scene.attackHitBox.y = this.y+10000;
+        this.hitboxState = false;
         //stops weapon sound effects.
         this.scene.initSoundEffect('weaponSFX','medium',0);
         this.scene.sound.get('weaponSFX').stop();
@@ -415,43 +418,85 @@ class player extends Phaser.Physics.Arcade.Sprite{
   
   }
 
-  //handles hitbox position when attacking right
+  //handles hitbox position when attacking right, note this function is only activated if shift is down. that is handle
+  //note make a function that given a size number can change the shape of the hitbox?
   rightHitBox(delay){
+
+    //stop the players velocity
     this.setVelocityX(0);
-    if(this.hitboxCoolDown === false){
-      //this.scene.attackHitBox.x = this.x;
-      this.scene.attackHitBox.y = this.y+10000;
-      this.scene.attackHitBox.visible = false;
+    
+    //start by having the player press shift state should be false
+    if(this.hitboxState === false){
+      
 
-      let that = this;
+      //player is swinging so  set the state to true
+      this.hitboxState = true;
+
+      // now we start a timer that will activate the hitbox
+      let tempPlayer = this;
       setTimeout(function(){
-        that.hitboxCoolDown = true;
-        this.scene.attackHitBox.visible = true;
-      },delay);
-    }else if(this.hitboxCoolDown === true){
-      this.scene.attackHitBox.visible = true;
-      this.scene.attackHitBox.x = this.x+20;
-      this.scene.attackHitBox.y = this.y;
-      this.hitboxCoolDown = false; 
-    }
 
+        //after half the delay given we check the hitbox state if its still true
+        if(tempPlayer.hitboxState === true){
+          
+          //put hitbox infront of the player in the way there facing
+          tempPlayer.scene.attackHitBox.x = tempPlayer.x+20;
+          tempPlayer.scene.attackHitBox.y = tempPlayer.y;
+
+          //set a timeout function so the hitbox lingeres for a tenth of a second
+          setTimeout(function(){
+            
+            //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
+            tempPlayer.scene.attackHitBox.x = tempPlayer.x;
+            tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
+            tempPlayer.hitboxState = false;
+
+          },100);
+
+        //otherwise reset state of attack hitbox
+        }
+
+      },delay/2);
+    }
   }
 
   //handles hitbox position when attacking left
   leftHitBox(delay){
+    //stop the players velocity
     this.setVelocityX(0);
-    if(this.hitboxCoolDown === false){
-      this.scene.attackHitBox.x = this.x;
-      this.scene.attackHitBox.y = this.y+10000;
+    
+    //start by having the player press shift state should be false
+    if(this.hitboxState === false){
+      
 
-      let that = this;
+      //player is swinging so  set the state to true
+      this.hitboxState = true;
+
+      // now we start a timer that will activate the hitbox
+      let tempPlayer = this;
       setTimeout(function(){
-        that.hitboxCoolDown = true;
-      },delay);
-    }else if(this.hitboxCoolDown === true){
-      this.scene.attackHitBox.x = this.x-20;
-      this.scene.attackHitBox.y = this.y;
-      this.hitboxCoolDown = false; 
+
+        //after half the delay given we check the hitbox state if its still true
+        if(tempPlayer.hitboxState === true){
+          
+          //put hitbox infront of the player in the way there facing
+          tempPlayer.scene.attackHitBox.x = tempPlayer.x-20;
+          tempPlayer.scene.attackHitBox.y = tempPlayer.y;
+
+          //set a timeout function so the hitbox lingeres for a tenth of a second
+          setTimeout(function(){
+            
+            //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
+            tempPlayer.scene.attackHitBox.x = tempPlayer.x;
+            tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
+            tempPlayer.hitboxState = false;
+
+          },100);
+
+        //otherwise reset state of attack hitbox
+        }
+
+      },delay/2);
     }
   }
 

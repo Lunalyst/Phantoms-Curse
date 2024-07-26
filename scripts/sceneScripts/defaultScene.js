@@ -892,7 +892,7 @@ class defaultScene extends allSceneFunctions {
         //function to check rabbits and see if the tiger can grab one
         scene.rabbits.children.each(function (tempRabbit) {
 
-          console.log('tempTiger.isHidding: ',tempTiger.isHidding,'tempTiger.tigerHasEatenRabbit', tempTiger.tigerHasEatenRabbit);
+          //console.log('tempTiger.isHidding: ',tempTiger.isHidding,'tempTiger.tigerHasEatenRabbit', tempTiger.tigerHasEatenRabbit);
 
           //protection check to see if the tiger hasn't eaten or is eating
           if(tempTiger.isHidding === false && tempTiger.tigerHasEatenRabbit === false){
@@ -1211,7 +1211,7 @@ class defaultScene extends allSceneFunctions {
           this.cameras.main.followOffset.set(0,70);
 
           //call player function to see if there attacking
-          this.player1.attackPlayer(this.shift,this);
+          this.player1.attackPlayer(this);
 
         //however if the player is grabbed
         }else if(this.grabbed === true){

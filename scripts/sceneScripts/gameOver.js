@@ -366,16 +366,7 @@ class gameOver extends allSceneFunctions {
             }else if(this.enemyThatDefeatedPlayer === 'femaleTiger'){
                 this.enemy.playJumpySound('10',800);
             }
-            else if(this.enemyThatDefeatedPlayer === 'femaleTigerBooba' && this.enemy.soundCoolDown === false){
-                this.initSoundEffect('lickSFX','4',0.004);
-                
-                this.enemy.soundCoolDown = true;
-                let scene = this;
-                setTimeout(function () {
-                    scene.enemy.soundCoolDown = false;
-                }, 1000);
-            }
-
+            
         }
 
         initLoopingSound(soundID,soundName,volume){

@@ -18,6 +18,12 @@
             "start": 3.3,
             "end": 4.8,
             "loop": false
+        },
+        "4":{
+            "start": 3.7,
+            "end": 4.8,
+            "loop": false
         }
+
     }
 }

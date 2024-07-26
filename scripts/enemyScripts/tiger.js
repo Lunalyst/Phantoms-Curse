@@ -68,7 +68,7 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerFemale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
         //adding enemy sprite extension to prevent loading issues.
-        this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 0, end: 9 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 0, end: 9 }), frameRate: 9, repeat: -1 });
         this.anims.create({ key: 'tigerSwallowMaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 10, end: 16 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'tigerSwallowFemaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 53, end: 59 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'tigerSwallowRabbitMiddle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 17, end: 18 }), frameRate: 12, repeat: 0 });
@@ -81,9 +81,10 @@ class tiger extends enemy {
             this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 19, end: 22 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 23, end: 31 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 32, end: 35 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 36, end: 39 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 36, end: 39 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 36, end: 39 }), frameRate: 12, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 40, end: 48 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 49, end: 52 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 49, end: 52 }), frameRate: 7, repeat: -1 });
         //female animations    
         } else if(sex === 1) {
             this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
@@ -93,9 +94,10 @@ class tiger extends enemy {
             this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 60, end: 63 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 64, end: 72 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 73, end: 76 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 77, end: 80 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 77, end: 80 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 77, end: 80 }), frameRate: 12, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 81, end: 89 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 90, end: 93 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 90, end: 93 }), frameRate: 7, repeat: -1 });
         
         }
         //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
@@ -212,7 +214,7 @@ class tiger extends enemy {
                         }
     
                     //if the player is to the right then move enemy to the right
-                    }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
+                    }else if(this.body.blocked.down && this.scene.player1.x > this.x+10 && this.taunting === false) {
                             
                         this.direction = "right";
                         this.jumpAnimationPlayed = false; 
@@ -222,7 +224,7 @@ class tiger extends enemy {
                         this.setVelocityX(310); 
                 
                     //if the player is to the right then move enemy to the left
-                    } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.taunting === false) {
+                    } else if (this.body.blocked.down && this.scene.player1.x < this.x-10 && this.taunting === false) {
                             
                         this.direction = "left";
                         this.jumpAnimationPlayed = false;
@@ -372,33 +374,36 @@ class tiger extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
-        if(this.hiding === false){
-            //player idle animation in the correct direction
-            if(this.direction === "left"){
-                this.flipX = true;
-                this.anims.play('tigerIdle', true);
-            }else if(this.direction === "right") {
-                this.flipX = false;
-                this.anims.play('tigerIdle', true);
+        this.setVelocityX(0);
+        if(this.isHidding === false){
+            //player idle animation in the correct direction 
+            if(this.tigerHasEatenRabbit === false){
+                this.anims.play('tigerTaunt', true);
+            }else{
+                this.anims.play('tigerTummybreastSquish', true);
             }
+            
             //sets velocity to zero since the enemy should not be moving.
             this.body.setGravityY(600);
-            this.setVelocityX(0);
         }
-        
 
+        //object is on view layer 4 so idling enemys dont overlap current one.
+        this.setDepth(4);
     }
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.
-    gameOver() {
+    gameOver(version) {
         
         //puts the sprite and hitbox in the correct locations.
         this.setSize(100, 250, true);
         this.setOffset(100, 20);
         //plays game over animation
 
-    
+        if(version === 1){
+            this.anims.play('tigerCubGameover',true);
+        }else{
             this.anims.play('tigerTummybreastSquish',true);
+        }
         
     }
 
@@ -414,15 +419,22 @@ class tiger extends enemy {
         }
         
         //plays long string of animations to show the tiger eating the rabbit and digesting her meal.
+        this.scene.initSoundEffect('swallowSFX','2',0.6);
         this.anims.play(rabbitSexFlag).once('animationcomplete', () => {
+            this.scene.initSoundEffect('swallowSFX','3',0.6);
             this.anims.play('tigerSwallowRabbitMiddle').once('animationcomplete', () => {
                 this.anims.play('tigerSwallowRabbitFinish').once('animationcomplete', () => {
+                    this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('tigerTummyWobble1').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('stomachSFX','6',0.1);
                         this.anims.play('tigerTummyWobble2').once('animationcomplete', () => {
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
                             this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {
+                                this.scene.initSoundEffect('stomachSFX','1',0.03);
                                 this.anims.play('tigerTummyDigestion1').once('animationcomplete', () => {
-                                
+                                    this.scene.initSoundEffect('stomachSFX','2',0.03);
                                     this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
+
                                         this.anims.play('tigerTummyrelax2').once('animationcomplete', () => {
                                             this.tigerIsEating = false;
                                             this.tigerHasEatenRabbit = true;
@@ -454,6 +466,9 @@ class tiger extends enemy {
             this.tigerGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+             //object is on view layer 5 so enemy is infront of others.
+             this.setDepth(5);
 
              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
              let playerHealthObject = {
@@ -497,7 +512,7 @@ class tiger extends enemy {
                 
                 this.playerEscaped(playerHealthObject);
 
-            }else if (playerHealthObject.playerHealth === 0) {
+            }else if (playerHealthObject.playerHealth === 0 && this.tigerHasEatenRabbit === false) {
 
                 // changes the title to reflect the game over.
                 if(this.scene.defeatedTitle !== "eaten"){
@@ -512,6 +527,21 @@ class tiger extends enemy {
                 
                 //defeated animation logic.
                 this.playerIsDefeatedLogic(playerHealthObject);
+            }else if (playerHealthObject.playerHealth === 0 && this.tigerHasEatenRabbit === true) {
+
+                // changes the title to reflect the game over.
+                if(this.scene.defeatedTitle !== "cursed"){
+                    this.scene.defeatedTitle = "cursed";
+                }
+
+                //hide the giveup indicator
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+                
+                //defeated animation logic.
+                this. playerplayerIsDefeatedLogicBooba(playerHealthObject);
             }
             // if the player breaks free then do the following
             
@@ -533,22 +563,45 @@ class tiger extends enemy {
             if (this.direction === "left") {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                    this.scene.initSoundEffect('lickSFX','3',0.01);
-
-                    this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
-                    this.scene.onomat.visible = this.scene.onomatopoeia;
-                    this.scene.onomat.setScale(1/4);
-                    this.scene.onomat.textWave();
-                    this.scene.onomat.textFadeOutAndDestroy(1000);
 
                     this.flipX = true;
 
                     if(this.tigerHasEatenRabbit === false){
+                        this.scene.initSoundEffect('lickSFX','3',0.01);
+
+                        this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
+                        this.scene.onomat.visible = this.scene.onomatopoeia;
+                        this.scene.onomat.setScale(1/4);
+                        this.scene.onomat.textWave();
+                        this.scene.onomat.textFadeOutAndDestroy(1000);
+
                         this.anims.play('tigerGrab').once('animationcomplete', () => {
                             this.anims.play("tigerStruggle", true);
                             this.scene.onomat.destroy();
                         });
                     }else{
+
+                        this.scene.onomat = new makeText(this.scene,this.x-11,this.y+15,'charBubble',"BOUNCE!");
+                        this.scene.onomat.visible = this.scene.onomatopoeia;
+                        this.scene.onomat.setScale(1/4);
+                        this.scene.onomat.textWave();
+                        this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                        if (this.onomatPlayed === false) {
+                            this.onomatPlayed = true;
+                            let randX = Math.floor((Math.random() * 15));
+                            let randY = Math.floor((Math.random() * 15));
+                            this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
+                            this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                            this.scene.heartOnomat1.setScale(1/4);
+                            this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+            
+                            let thisTiger = this;
+                            setTimeout(function () {
+                                thisTiger.onomatPlayed = false;
+                            }, 600);
+                        }
+
                         this.anims.play('tigerBoobaGrab');
                     }
                 }
@@ -577,6 +630,16 @@ class tiger extends enemy {
 
         // stopps velocity once player is grabbed
         this.setVelocityX(0);
+        
+        //plays bouncy sound during the struggle animation if the tiger has eaten.
+        if(this.tigerHasEatenRabbit === true && playerHealthObject.playerHealth > 0 ){
+            let randomInt = Math.ceil(Math.random() * (10 - 6) + 6);
+            let sound = ''+randomInt;
+            console.log("randomInt: ", randomInt);
+            console.log("sound: ", sound);
+            this.playJumpySound(sound,700);
+        }
+        
 
         //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
@@ -586,20 +649,27 @@ class tiger extends enemy {
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
-        console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay);
+        //console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay);
 
        
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         //console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
-        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
+        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0 && this.tigerHasEatenRabbit === false) {
             //hpBar.calcDamage(1);
             healthEmitter.emit(healthEvent.loseHealth,1)
             console.log('return value of health emitter: ', playerHealthObject.playerHealth);
             this.playerDamaged = true;
-            /*setTimeout(function () {
-                currentTiger.playerDamaged  = false;
-            }, 2000);*/
+
+
+            
+        }else if (this.playerDamaged === false && playerHealthObject.playerHealth > 0 && this.tigerHasEatenRabbit === true) {
+            //hpBar.calcDamage(1);
+            healthEmitter.emit(healthEvent.loseHealth,4)
+            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
+            this.playerDamaged = true;
+            
         }
+
        
 
     }
@@ -733,6 +803,65 @@ class tiger extends enemy {
 
                 //console.log("player defeated by small slime");
                 this.defeatedPlayerAnimation();
+    }
+
+    //players defeated animation for when the a rabbit has been eaten.
+    playerplayerIsDefeatedLogicBooba(playerHealthObject){
+        this.playerDefeated = true;
+        
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+        this.scene.enemyThatDefeatedPlayer = "femaleTigerBooba";
+
+        // if we start the player defeated animation then we need to set a few things.
+        if (this.playerDefeatedAnimationStage === 0) {
+                this.scene.KeyDisplay.playWKey();
+                let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
+                //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+                // delay the button prompt so the animation can play.
+                setTimeout(function () {
+                    currentTiger.scene.KeyDisplay.visible = true;
+                    currentTiger.scene.KeyDisplay.playWKey();
+                    //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                     console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
+                }, 1000);
+                this.inStartDefeatedLogic = true;
+                this.playerDefeatedAnimationStage++;
+                console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+                
+         }
+
+
+                if (this.scene.keyW.isDown && 
+                    this.scene.KeyDisplay.visible === true &&
+                    this.playerDefeatedAnimationCooldown === false &&
+                    this.inStartDefeatedLogic === false &&
+                     this.playerDefeatedAnimationStage !== 1 &&
+                       this.playerDefeatedAnimationStage !== 5) {
+
+                    this.scene.KeyDisplay.visible = false;
+                    //this.stageTimer = 0;
+                    this.playerDefeatedAnimationCooldown = true;
+                    this.playerDefeatedAnimationStage++;
+                    console.log(" in check this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+
+                    let currentTiger = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+                    setTimeout(function () {
+                        console.log("defeated animation delay.");
+                        currentTiger.scene.KeyDisplay.visible = true;
+                        currentTiger.scene.KeyDisplay.playWKey();
+                        currentTiger.playerDefeatedAnimationCooldown = false
+                    }, 3000);
+                }
+                // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+                if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.keyW.isDown)) {
+                    this.scene.KeyDisplay.visible = false;
+                    console.log("changing scene");
+                    this.scene.changeToGameover();
+                }
+
+                //console.log("player defeated by small slime");
+                this.defeatedPlayerAnimationBooba();
+
     }
 
     playerEscaped(playerHealthObject){
@@ -869,9 +998,9 @@ class tiger extends enemy {
             
         } else if (this.playerDefeatedAnimationStage === 2) {
             //make a random number from 0-5
-            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
+            //console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
             let randomInt = Math.floor(Math.random() * 6);
-            console.log("randomInt", randomInt)
+            //console.log("randomInt", randomInt)
             if (!this.animationPlayed) {
                
                 this.animationPlayed = true;
@@ -1037,4 +1166,113 @@ class tiger extends enemy {
         }
     }
 
+
+    defeatedPlayerAnimationBooba() {
+        if (this.playerDefeatedAnimationStage === 1) {
+            //this.animationPlayed = false;
+            if (!this.animationPlayed) {
+                console.log("the animation has not been played");
+                this.animationPlayed = true;
+                //this.scene.initSoundEffect('swallowSFX','2',0.6);
+
+                console.log("this.scene.onomat: ",this.scene.onomat);
+                
+                this.anims.play('tigerBoobaLayDown').once('animationcomplete', () => {
+
+                    console.log("animation finished");
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+
+                });
+                
+
+            }
+            
+        } else if (this.playerDefeatedAnimationStage === 2) {
+            
+            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                let thisTiger = this;
+                setTimeout(function () {
+                    thisTiger.onomatPlayed = false;
+                }, 600);
+            }
+
+            this.playJumpySound('2',700);
+
+            this.anims.play('tigerBoobaSnuggle',true);
+            
+        } else if (this.playerDefeatedAnimationStage === 3) {
+
+            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
+
+            this.playPlapSound('plap3',700);
+
+            this.playJumpySound('3',700);
+             
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+
+                let thisTiger = this;
+                setTimeout(function () {
+                    thisTiger.onomatPlayed = false;
+                }, 600);
+            }
+
+            this.anims.play('tigerBoobaHump1',true);
+
+        }else if (this.playerDefeatedAnimationStage === 4) {
+               
+            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+            this.playPlapSound('plap9',500);
+
+            this.playJumpySound('4',500);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
+                setTimeout(function () {
+                    thisrabbit.onomatPlayed = false;
+                }, 300);
+            }
+
+            this.anims.play('tigerBoobaHump2',true);
+                 
+        }else if (this.playerDefeatedAnimationStage === 5) {
+            if (!this.animationPlayed) {
+
+                this.scene.initSoundEffect('curseSFX','curse',0.3);
+               
+                this.animationPlayed = true;
+                //this.scene.initSoundEffect('stomachSFX','2',0.03);
+                this.anims.play('tigerBoobaCurse').once('animationcomplete', () => {
+                    //this.scene.onomat.destroy();
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+                });
+            }
+        }
+    }
 }

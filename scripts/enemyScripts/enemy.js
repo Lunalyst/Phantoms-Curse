@@ -42,6 +42,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.playerDefeatedAnimationCooldown = false;
         //this.soundCoolDown = false;
         this.plapSoundCoolDown = false;
+        this.jumpySoundCoolDown = false;
 
         this.scene = scene;
 
@@ -126,6 +127,20 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
             let enemy = this;
             setTimeout(function () {
                 enemy.plapSoundCoolDown = false;
+            }, delay);
+        }
+
+    }
+
+    playJumpySound(type,delay){
+
+        if(this.jumpySoundCoolDown === false){
+            this.scene.initSoundEffect('jumpySFX',type,0.04);
+            this.jumpySoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.jumpySoundCoolDown = false;
             }, delay);
         }
 

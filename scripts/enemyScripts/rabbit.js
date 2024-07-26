@@ -354,6 +354,10 @@ class rabbit extends enemy {
             this.playerDamaged = true;
         }
 
+        //plays bouncy sound during the struggle animation if the tiger has eaten.
+        if(playerHealthObject.playerHealth > 0 ){
+            this.playJumpySound('4',700);
+        }
         
     }
 
@@ -633,11 +637,16 @@ class rabbit extends enemy {
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                //plays cute jumpy sound for shove
+                this.jumpySoundCoolDown = false;
+                this.playJumpySound('4',700);
+
                 this.anims.play('rabbitShove').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 2) {
@@ -761,11 +770,18 @@ class rabbit extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+                //plays cute jumpy sound for shove
+                this.jumpySoundCoolDown = false;
+                this.playJumpySound('4',700);
+
                 this.anims.play('rabbitShove').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+
+                    this.jumpySoundCoolDown = false;
+                    this.playJumpySound('3',700);
                     
                 });
             }

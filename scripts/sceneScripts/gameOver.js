@@ -166,6 +166,11 @@ class gameOver extends allSceneFunctions {
                 this.enemy.gameOver();
                 this.enemy.y-500;
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "femaleTigerBooba"){
+                this.enemy = new tiger(this,450, 560,this.playerSex);
+                this.enemy.gameOver(1);
+                this.enemy.y-500;
+                this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "maleRabbit"){
                 this.preferance = 0;
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
@@ -317,6 +322,8 @@ class gameOver extends allSceneFunctions {
 
             this.initSoundEffect('gameoverSFX','gameover',0.05);
 
+            this.enemy.soundCoolDown = false;
+
         }
 
         update(){
@@ -332,9 +339,7 @@ class gameOver extends allSceneFunctions {
                 setTimeout(function () {
                     scene.enemy.slimeSoundCoolDown = false;
                 }, 700);
-            }
-
-            if(this.enemy.beeDroneSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "maleBeeDrone" || this.enemyThatDefeatedPlayer === "femaleBeeDrone")){
+            }else if(this.enemy.beeDroneSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "maleBeeDrone" || this.enemyThatDefeatedPlayer === "femaleBeeDrone")){
                 if(this.enemy.gameoverAnimationComplete === true){
                     this.initSoundEffect('plapSFX','plap2',1);
 
@@ -357,10 +362,18 @@ class gameOver extends allSceneFunctions {
                     setTimeout(function () {
                         scene.enemy.beeDroneSoundCoolDown = false;
                     }, 1200);
-                }
-
+                }    
+            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger'){
+                this.enemy.playJumpySound('10',800);
+            }
+            else if(this.enemyThatDefeatedPlayer === 'femaleTigerBooba' && this.enemy.soundCoolDown === false){
+                this.initSoundEffect('lickSFX','4',0.004);
                 
-                
+                this.enemy.soundCoolDown = true;
+                let scene = this;
+                setTimeout(function () {
+                    scene.enemy.soundCoolDown = false;
+                }, 1000);
             }
 
         }

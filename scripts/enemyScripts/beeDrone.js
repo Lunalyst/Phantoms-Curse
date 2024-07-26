@@ -423,6 +423,11 @@ class beeDrone extends enemy {
 
     beeDroneGrabTrue(playerHealthObject){
 
+        //plays jumpy sound during grab.
+        if(playerHealthObject.playerHealth > 0 ){
+            this.playJumpySound('3',700);
+        }
+
         //console.log("this beeDrone did grab the player this.beeDroneID: "+ this.beeDroneId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
         this.scene.player1.y = this.y - 150;

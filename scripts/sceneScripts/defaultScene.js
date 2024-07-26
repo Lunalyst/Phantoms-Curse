@@ -38,6 +38,10 @@ class defaultScene extends allSceneFunctions {
         "audio/used-audio/plap-sounds/plap.mp3"
       ]);
 
+      this.load.audioSprite('jumpySFX','audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.json',[
+        "audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
+      ]);
+
       this.load.audioSprite('burpSFX','audio/used-audio/burp-sounds/burp-sounds.json',[
         "audio/used-audio/burp-sounds/burp.mp3"
       ]);
@@ -888,19 +892,23 @@ class defaultScene extends allSceneFunctions {
         //function to check rabbits and see if the tiger can grab one
         scene.rabbits.children.each(function (tempRabbit) {
 
-           //checks if the tiger overlaps a rabbit
-          scene.physics.add.overlap(tempTiger, tempRabbit, function () {
+          console.log('tempTiger.isHidding: ',tempTiger.isHidding,'tempTiger.tigerHasEatenRabbit', tempTiger.tigerHasEatenRabbit);
 
-            if(tempTiger.isHidding === false){
-              tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
-
-              tempRabbit.destroy();
-            }
+          //protection check to see if the tiger hasn't eaten or is eating
+          if(tempTiger.isHidding === false && tempTiger.tigerHasEatenRabbit === false){
             
-           
+            //checks if the tiger overlaps a rabbit
+            scene.physics.add.overlap(tempTiger, tempRabbit, function () {
+              
+              //if neither party has grabbed the player, then tiger eats the rabbit.
+              if(tempTiger.playerGrabbed === false && tempRabbit.playerGrabbed === false){
+                tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
+                tempRabbit.destroy();
+              
+              }   
+            });
+            }
           });
-
-        });
         
         //calls tiger function to move
         tempTiger.move(scene.player1,scene);

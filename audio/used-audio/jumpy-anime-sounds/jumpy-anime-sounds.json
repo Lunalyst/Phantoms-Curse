@@ -1,0 +1,57 @@
+{
+    "resources":[
+        "../audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0,
+            "end": 0.3,
+            "loop": false
+        },
+        "2":{
+            "start": 0.4,
+            "end": 0.55,
+            "loop": false
+        },
+        "3":{
+            "start": 0.7,
+            "end": 1,
+            "loop": false
+        },
+        "4":{
+            "start": 1.3,
+            "end": 1.5,
+            "loop": false
+        },
+        "5":{
+            "start": 1.7,
+            "end": 2,
+            "loop": false
+        },
+        "6":{
+            "start": 2,
+            "end": 2.3,
+            "loop": false
+        },
+        "7":{
+            "start": 2.5,
+            "end": 2.8,
+            "loop": false
+        },
+        "8":{
+            "start": 3.1,
+            "end": 3.4,
+            "loop": false
+        },
+        "9":{
+            "start": 3.6,
+            "end": 4.0,
+            "loop": false
+        },
+        "10":{
+            "start": 4.2,
+            "end": 4.6,
+            "loop": false
+        }
+    }
+}

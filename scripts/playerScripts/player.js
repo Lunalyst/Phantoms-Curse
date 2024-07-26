@@ -341,66 +341,35 @@ class player extends Phaser.Physics.Arcade.Sprite{
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
         this.flipX = false;
-        switch(playerDataObject.playerInventoryData[24].itemID) {
-          case (0):
-            this.anims.play("pAttackUnarmed",true);
-            this.bluntDamage = 1;
-            this.weaponSoundEffect('high1', 400);
-            this.HitBox(200);
-            break;
-          case (2):
-            this.anims.play("pAttackOar",true);
-            this.bluntDamage = 2;
-            this.weaponSoundEffect('medium', 700);
-            this.HitBox(300);
-            break;
-          case (4):
-            this.anims.play("pAttackKnife",true);
-            this.sliceDamage = 4;
-            this.weaponSoundEffect('high2', 400);
-            this.HitBox(300);
-            break;
-          case (10):
-            this.anims.play("pAttackAxe",true);
-            this.sliceDamage = 8;
-            this.weaponSoundEffect('heavy', 600);
-            this.HitBox(300);
-            break;
-          default:
-        } 
       }else if(this.lastKey === 'a'){
-
         this.flipX = true;
-        switch(playerDataObject.playerInventoryData[24].itemID) {
-          case (0):
-            this.anims.play("pAttackUnarmed",true);
-            this.bluntDamage = 1;
-            this.weaponSoundEffect('high1', 400);
-            this.HitBox(200);
-            break;
-          case (2):
-            this.anims.play("pAttackOar",true);
-            this.bluntDamage = 2;
-            this.weaponSoundEffect('medium', 700);
-            this.HitBox(300);
-            break;
-          case (4):
-            this.anims.play("pAttackKnife",true);
-            this.sliceDamage = 4;
-            this.weaponSoundEffect('high2', 400);
-            this.HitBox(300);
-            break;
-          case (10):
-            this.anims.play("pAttackAxe",true);
-            this.sliceDamage = 8;
-            this.weaponSoundEffect('heavy', 600);
-            this.HitBox(300);
-            break;
-          default:
-        }
-      }else{
-        this.setVelocityX(0);
-        this.setVelocityY(0);
+      }
+
+      //case to determine attack animation
+      switch(playerDataObject.playerInventoryData[24].itemID) {
+        case (2):
+          this.anims.play("pAttackOar",true);
+          this.bluntDamage = 2;
+          this.weaponSoundEffect('medium', 700);
+          this.HitBox(300);
+          break;
+        case (4):
+          this.anims.play("pAttackKnife",true);
+          this.sliceDamage = 4;
+          this.weaponSoundEffect('high2', 400);
+          this.HitBox(300);
+          break;
+        case (10):
+          this.anims.play("pAttackAxe",true);
+          this.sliceDamage = 8;
+          this.weaponSoundEffect('heavy', 600);
+          this.HitBox(300);
+          break;
+        default:
+          this.anims.play("pAttackUnarmed",true);
+          this.bluntDamage = 1;
+          this.weaponSoundEffect('high1', 400);
+          this.HitBox(200);
       }
       
     }else{

@@ -351,23 +351,27 @@ class player extends Phaser.Physics.Arcade.Sprite{
           this.anims.play("pAttackOar",true);
           this.bluntDamage = 2;
           this.weaponSoundEffect('medium', 700);
+          this.setAttackHitboxSize(25,30);
           this.HitBox(300);
           break;
         case (4):
           this.anims.play("pAttackKnife",true);
           this.sliceDamage = 4;
           this.weaponSoundEffect('high2', 400);
-          this.HitBox(300);
+          this.setAttackHitboxSize(15,20);
+          this.HitBox(200);  
           break;
         case (10):
           this.anims.play("pAttackAxe",true);
           this.sliceDamage = 8;
           this.weaponSoundEffect('heavy', 600);
+          this.setAttackHitboxSize(25,30);
           this.HitBox(300);
           break;
         default:
           this.anims.play("pAttackUnarmed",true);
           this.bluntDamage = 1;
+          this.setAttackHitboxSize(10,20);
           this.weaponSoundEffect('high1', 400);
           this.HitBox(200);
       }
@@ -446,6 +450,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
           player.soundCoolDown = false;
       }, delay);
     }
+  }
+
+  setAttackHitboxSize(width,height){
+    this.scene.attackHitBox.setSize(width,height);
   }
 
 }

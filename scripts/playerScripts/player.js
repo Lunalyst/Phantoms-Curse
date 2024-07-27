@@ -84,10 +84,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
       this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
     
-      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: 0});
-      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: 0});
-      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 47 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
+      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
     
     }
   }

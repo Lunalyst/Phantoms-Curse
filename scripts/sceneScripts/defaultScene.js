@@ -10,7 +10,7 @@ class defaultScene extends allSceneFunctions {
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
       
       this.load.spritesheet("malePlayer" , "assets/player/evan_master.png" , {frameWidth: 273 , frameHeight: 270 });
-      this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
+      this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
       this.load.spritesheet('keyPrompts', 'assets/hudElements/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });

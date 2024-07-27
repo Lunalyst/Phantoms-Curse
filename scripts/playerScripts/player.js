@@ -35,7 +35,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     // hitbox cooldown.
     this.hitboxCoolDown = false;
     this.hitboxState = false;
-    this.hasAttacked = false;
+    this.isAttacking = false;
     this.playedAttackAnimation = false;
 
     //used to tell what damage type the player is dealing with melee weapons.
@@ -124,203 +124,205 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }
   }
   
-  //move the player left
-  if(keyA.isDown && this.body.blocked.down){
-      this.setSize(50,210,true);
-      this.lastKey = "a";
-      this.idleTimer = 0;
-      this.setVelocityX(-250 * this.speedBoost);
-      if(this.body.blocked.down){
-        this.anims.play('p',true);
-        this.flipX = true;
-        //console.log("moving left");
-      }
-
-  //moves the player right
-  } else if(keyD.isDown && this.body.blocked.down){
-      this.setSize(50,210,true);
-      this.lastKey = "d";
-      this.idleTimer = 0;
-      this.setVelocityX(250 * this.speedBoost);
-      if(this.body.blocked.down){
-        this.anims.play('p',true);
-        this.flipX = false;
-         //console.log("moving Right");
-      }
-
-  //if the player doesnt move for long enough, play idle animation
-  }else if(this.idleTimer === 2000){
-      this.setVelocityX(0);
-      this.anims.play('pSleep',true);
-
-  //otherwise we play idle animation
-  }else{
-      this.setSize(50,210,true);
-      this.setVelocityX(0);
-
-      if(this.animationInAir === false){
-        if(this.lastKey === "d"){
-          this.anims.play('pIdle',true);
-          this.flipX = false;
-        }else if(this.lastKey === "a"){
-          this.anims.play('pIdle',true);
+  if(this.isAttacking === false){
+    //move the player left
+    if(keyA.isDown && this.body.blocked.down){
+        this.setSize(50,210,true);
+        this.lastKey = "a";
+        this.idleTimer = 0;
+        this.setVelocityX(-250 * this.speedBoost);
+        if(this.body.blocked.down){
+          this.anims.play('p',true);
           this.flipX = true;
+          //console.log("moving left");
         }
+
+    //moves the player right
+    } else if(keyD.isDown && this.body.blocked.down){
+        this.setSize(50,210,true);
+        this.lastKey = "d";
+        this.idleTimer = 0;
+        this.setVelocityX(250 * this.speedBoost);
+        if(this.body.blocked.down){
+          this.anims.play('p',true);
+          this.flipX = false;
+          //console.log("moving Right");
+        }
+
+    //if the player doesnt move for long enough, play idle animation
+    }else if(this.idleTimer === 2000){
+        this.setVelocityX(0);
+        this.anims.play('pSleep',true);
+
+    //otherwise we play idle animation
+    }else{
+        this.setSize(50,210,true);
+        this.setVelocityX(0);
+
+        if(this.animationInAir === false){
+          if(this.lastKey === "d"){
+            this.anims.play('pIdle',true);
+            this.flipX = false;
+          }else if(this.lastKey === "a"){
+            this.anims.play('pIdle',true);
+            this.flipX = true;
+          }
+        }
+
+        // resets the ilde animation value.
+        if(this.idleTimer < 2000 && this.idleTimerDelay === false){
+          //console.log("Idle Timer: "+ this.idleTimer);
+          let that = this;
+          this.idleTimerDelay = true;
+          setTimeout(function(){
+            that.idleTimer++;
+            that.idleTimerDelay = false;
+          },1);
+          
+        }    
       }
 
-      // resets the ilde animation value.
-      if(this.idleTimer < 2000 && this.idleTimerDelay === false){
-        //console.log("Idle Timer: "+ this.idleTimer);
-        let that = this;
-        this.idleTimerDelay = true;
-        setTimeout(function(){
-          that.idleTimer++;
-          that.idleTimerDelay = false;
-        },1);
-         
-      }    
-    }
-
-   //checks to see if player space is down and player is on the ground to activate jump 
-   //some notes, inorder to implement double jump use this.jumped to block out the first jump functions, then make a one where it is available.
-   if(space.isDown){
-    let that = this;
-    console.log("this.spaceDelay: ",this.spaceDelay);
-    if(this.spaceDelay === false){
-      this.spaceDelay = true;
+    //checks to see if player space is down and player is on the ground to activate jump 
+    //some notes, inorder to implement double jump use this.jumped to block out the first jump functions, then make a one where it is available.
+    if(space.isDown){
+      let that = this;
       console.log("this.spaceDelay: ",this.spaceDelay);
-      setTimeout(function(){
-        that.spaceWasPressed = true;
-        that.spaceDelay = false;
-        console.log("that.spaceWasPressed: ",that.spaceWasPressed);
-      },200);
-      console.log("this.spaceWasPressed: ",this.spaceWasPressed);
-    }
-   }
-
-   //if the player is down, then reset variables.   
-   if(this.body.blocked.down){
-    this.animationPlayedGoingUp = false;
-    this.animationPlayedGoingDown = false;
-    this.animationInAir = false;
-    this.doubleJumpActivation = false;
-    this.spaceWasPressed = false;
-    this.spaceDelay = false;
-  }
-     
-  //if space is pressed and the player is on the ground then jump
-  if (space.isDown && this.body.blocked.down){
-    this.idleTimer = 0;
-    this.setVelocityY(-350);
-    let that = this;
+      if(this.spaceDelay === false){
+        this.spaceDelay = true;
+        console.log("this.spaceDelay: ",this.spaceDelay);
+        setTimeout(function(){
+          that.spaceWasPressed = true;
+          that.spaceDelay = false;
+          console.log("that.spaceWasPressed: ",that.spaceWasPressed);
+        },200);
+        console.log("this.spaceWasPressed: ",this.spaceWasPressed);
+      }
     }
 
-  //if the player is  in the air and moving to the left
-  if(keyA.isDown && !this.body.blocked.down){
-  //console.log("IN AIR AND MOVING LEFT");
-    this.setVelocityX(-250 * this.speedBoost);
-    this.animationInAir = true;
-    let that = this;
-
-
-      //if the player has the double jump ability, allow them to jupm agian.
-      if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1){
-        //console.log("activating double jump while aKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-        this.doubleJumpActivation = true;
-        this.animationPlayedGoingUp = false;
-        this.animationPlayedGoingDown = false;
-        this.setVelocityY(-350);
-        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
-        scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
-        
-      }
-
-      if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
-
-        this.anims.play('pJumpUp');
-        this.flipX = true;
-        this.animationPlayedGoingUp = true;
-        //console.log(" jumping while keyA is down and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-        
-      }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpDown');
-        this.flipX = true;
-        this.animationPlayedGoingDown = true;
-        //console.log(" jumping while keyA is down and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-      }
-    //checks to see if player is moving right and not touching the ground.
-
-  //if the player is  in the air and moving to the right
-  }else if(keyD.isDown && !this.body.blocked.down){
-      //console.log("IN AIR AND MOVING RIGHT");
-      this.setVelocityX(250 * this.speedBoost);
-      this.animationInAir = true;
-      //if the player has the double jump ability, allow them to jupm agian.
-      if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
-        //console.log("activating double jump while dKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-        this.doubleJumpActivation = true;
-        this.animationPlayedGoingUp = false;
-        this.animationPlayedGoingDown = false;
-        this.setVelocityY(-350);
-        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
-        scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
-      }
-
-      if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
-
-        this.anims.play('pJumpUp');
-        this.flipX = false;
-        this.animationPlayedGoingUp = true;
-        //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-
-      }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
-
-        this.anims.play('pJumpDown');
-        this.flipX = false;
-        this.animationPlayedGoingDown = true;
-        //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+    //if the player is down, then reset variables.   
+    if(this.body.blocked.down){
+      this.animationPlayedGoingUp = false;
+      this.animationPlayedGoingDown = false;
+      this.animationInAir = false;
+      this.doubleJumpActivation = false;
+      this.spaceWasPressed = false;
+      this.spaceDelay = false;
+    }
       
-      }
-
-  //if the player is in the air.
-  }else if(!this.body.blocked.down){
+    //if space is pressed and the player is on the ground then jump
+    if (space.isDown && this.body.blocked.down){
       this.idleTimer = 0;
-      this.animationInAir = true;
-      //if the player has the double jump ability, allow them to jupm agian.
-      if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
-        //console.log("activating double jump, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-        this.doubleJumpActivation = true;
-        this.animationPlayedGoingUp = false;
-        this.animationPlayedGoingDown = false;
-        this.setVelocityY(-350);
-        this.scene.initSoundEffect('playerJumpSFX','1',0.1);
-        scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
+      this.setVelocityY(-350);
+      let that = this;
       }
 
-      if(playerPreviousY > this.y && this.lastKey === "d"&& this.animationPlayedGoingUp === false){
-        this.anims.play('pJumpUp');
-        this.flipX = false;
-        this.animationPlayedGoingUp = true;
-        //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-      }else if(playerPreviousY <= this.y && this.lastKey === "d"&&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpDown');
-        this.flipX = false;
-        this.animationPlayedGoingDown = true;
-        //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-      }else if(playerPreviousY > this.y && this.lastKey === "a"&& this.animationPlayedGoingUp === false){
-        this.anims.play('pJumpUp');
-        this.flipX = true;
-        this.animationPlayedGoingUp = true;
-        //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-      }else if(playerPreviousY <= this.y && this.lastKey === "a"&&  this.animationPlayedGoingDown === false){
-        this.anims.play('pJumpDown');
-        this.flipX = true;
-        this.animationPlayedGoingDown = true;
-        //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
-      }
-      //console.log("in the air");
-      }
-      //console.log("previous player y"+ playerPreviousY);
+    //if the player is  in the air and moving to the left
+    if(keyA.isDown && !this.body.blocked.down){
+    //console.log("IN AIR AND MOVING LEFT");
+      this.setVelocityX(-250 * this.speedBoost);
+      this.animationInAir = true;
+      let that = this;
+
+
+        //if the player has the double jump ability, allow them to jupm agian.
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1){
+          //console.log("activating double jump while aKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+          this.doubleJumpActivation = true;
+          this.animationPlayedGoingUp = false;
+          this.animationPlayedGoingDown = false;
+          this.setVelocityY(-350);
+          this.scene.initSoundEffect('playerJumpSFX','1',0.1);
+          scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
+          
+        }
+
+        if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
+
+          this.anims.play('pJumpUp');
+          this.flipX = true;
+          this.animationPlayedGoingUp = true;
+          //console.log(" jumping while keyA is down and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+          
+        }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
+          this.anims.play('pJumpDown');
+          this.flipX = true;
+          this.animationPlayedGoingDown = true;
+          //console.log(" jumping while keyA is down and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        }
+      //checks to see if player is moving right and not touching the ground.
+
+    //if the player is  in the air and moving to the right
+    }else if(keyD.isDown && !this.body.blocked.down){
+        //console.log("IN AIR AND MOVING RIGHT");
+        this.setVelocityX(250 * this.speedBoost);
+        this.animationInAir = true;
+        //if the player has the double jump ability, allow them to jupm agian.
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
+          //console.log("activating double jump while dKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+          this.doubleJumpActivation = true;
+          this.animationPlayedGoingUp = false;
+          this.animationPlayedGoingDown = false;
+          this.setVelocityY(-350);
+          this.scene.initSoundEffect('playerJumpSFX','1',0.1);
+          scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
+        }
+
+        if(playerPreviousY > this.y && this.animationPlayedGoingUp === false){
+
+          this.anims.play('pJumpUp');
+          this.flipX = false;
+          this.animationPlayedGoingUp = true;
+          //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+
+        }else if(playerPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
+
+          this.anims.play('pJumpDown');
+          this.flipX = false;
+          this.animationPlayedGoingDown = true;
+          //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        
+        }
+
+    //if the player is in the air.
+    }else if(!this.body.blocked.down){
+        this.idleTimer = 0;
+        this.animationInAir = true;
+        //if the player has the double jump ability, allow them to jupm agian.
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && space.isDown && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
+          //console.log("activating double jump, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+          this.doubleJumpActivation = true;
+          this.animationPlayedGoingUp = false;
+          this.animationPlayedGoingDown = false;
+          this.setVelocityY(-350);
+          this.scene.initSoundEffect('playerJumpSFX','1',0.1);
+          scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
+        }
+
+        if(playerPreviousY > this.y && this.lastKey === "d"&& this.animationPlayedGoingUp === false){
+          this.anims.play('pJumpUp');
+          this.flipX = false;
+          this.animationPlayedGoingUp = true;
+          //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        }else if(playerPreviousY <= this.y && this.lastKey === "d"&&  this.animationPlayedGoingDown === false){
+          this.anims.play('pJumpDown');
+          this.flipX = false;
+          this.animationPlayedGoingDown = true;
+          //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        }else if(playerPreviousY > this.y && this.lastKey === "a"&& this.animationPlayedGoingUp === false){
+          this.anims.play('pJumpUp');
+          this.flipX = true;
+          this.animationPlayedGoingUp = true;
+          //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        }else if(playerPreviousY <= this.y && this.lastKey === "a"&&  this.animationPlayedGoingDown === false){
+          this.anims.play('pJumpDown');
+          this.flipX = true;
+          this.animationPlayedGoingDown = true;
+          //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
+        }
+        //console.log("in the air");
+        }
+        //console.log("previous player y"+ playerPreviousY);
+    }
       playerPreviousY = this.y;
   }
 
@@ -337,8 +339,15 @@ class player extends Phaser.Physics.Arcade.Sprite{
     // call to emitter to get player inventory data.
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
-    //plays attack animations based on what the player has equipt when the player is not in the air.
-    if(this.body.blocked.down && this.scene.shift.isDown){
+    //if shift is pressed then force the player to attacks, no animation cancel
+    console.log("this.body.blocked.down: ", this.body.blocked.down,"this.scene.shift.isDown: ",this.scene.shift.isDown,"this.isAttacking: ",this.isAttacking );
+    if(this.body.blocked.down && this.scene.shift.isDown && this.isAttacking === false){
+      console.log("attacking so set is attacking to true");
+      this.isAttacking = true;
+
+    //plays attack animations based on what the player has equipt when the player is not in the air
+    }else if(this.body.blocked.down && this.isAttacking === true){
+      console.log("locked into attack so activating that");
       //Phaser.Input.Keyboard.JustDown(this.scene.shift)
       //this.scene.shift.isDown
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
@@ -348,17 +357,19 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.flipX = true;
       }
 
-      if(this.hasAttacked === false){
+      
 
         //case to determine attack animation
         switch(playerDataObject.playerInventoryData[24].itemID) {
           case (2):
-            this.anims.play("pAttackOar").once('animationcomplete', () => {
-              this.hasAttacked = true;
-              this.hasAttacked = true;
-              this.anims.play("pIdle",true);
-              this.scene.sound.get('weaponSFX').stop();
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.anims.play("pAttackOar").once('animationcomplete', () => {
+                this.isAttacking = false;
+                this.playedAttackAnimation = false;
+                console.log("attack is over so stoping");
             });
+            }
             this.bluntDamage = 2;
             this.weaponSoundEffect('medium', 600);
             this.setAttackHitboxSize(20,30);
@@ -366,15 +377,14 @@ class player extends Phaser.Physics.Arcade.Sprite{
             break;
           case (4):
             console.log("starting knife animation");
+            
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
               this.anims.play("pAttackKnife").once('animationcomplete', () => {
+                this.isAttacking = false;
                 this.playedAttackAnimation = false;
-                console.log("finishing knife animation");
-                this.hasAttacked = true;
-                this.anims.play("pIdle",true);
-                this.scene.sound.get('weaponSFX').stop();
-              });
+                console.log("attack is over so stoping");
+            });
             }
             this.sliceDamage = 4;
             this.weaponSoundEffect('high2', 400);
@@ -382,33 +392,35 @@ class player extends Phaser.Physics.Arcade.Sprite{
             this.HitBox(200,25);  
             break;
           case (10):
-            this.anims.play("pAttackAxe").once('animationcomplete', () => {
-              this.hasAttacked = true;
-              this.anims.play("pIdle",true);
-              this.scene.sound.get('weaponSFX').stop();
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.anims.play("pAttackAxe").once('animationcomplete', () => {
+                this.isAttacking = false;
+                this.playedAttackAnimation = false;
+                console.log("attack is over so stoping");
             });
+            }
             this.sliceDamage = 8;
             this.weaponSoundEffect('heavy', 600);
             this.setAttackHitboxSize(20,30);
             this.HitBox(300,30);
             break;
           default:
-            this.anims.play("pAttackUnarmed").once('animationcomplete', () => {
-              this.hasAttacked = true;
-              this.anims.play("pIdle",true);
-              this.scene.sound.get('weaponSFX').stop();
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.anims.play("pAttackUnarmed").once('animationcomplete', () => {
+                this.isAttacking = false;
+                this.playedAttackAnimation = false;
+                console.log("attack is over so stoping");
             });
+            }
             this.bluntDamage = 1;
             this.setAttackHitboxSize(10,20);
             this.weaponSoundEffect('high1', 400);
             this.HitBox(200,20);
-        }
-        
+          }
+
     //if player already attacked then play idle animation
-    }else{
-  
-    }
-      
     }else{
       //important fall though caseto reset variables if the player is not swinging
       this.scene.attackHitBox.x = this.x;
@@ -418,7 +430,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.hitboxState = false;
 
       //resets variable so player only swings once per press of shift
-      this.hasAttacked = false;
+      this.isAttacking = false;
 
       //stops weapon sound effects.
       this.scene.initSoundEffect('weaponSFX','medium',0);
@@ -447,7 +459,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
         //after half the delay given we check the hitbox state if its still true
         //console.log("Phaser.Input.Keyboard.JustDown(this.scene.shift) ",Phaser.Input.Keyboard.JustDown(this.scene.shift))
-        if(tempPlayer.hitboxState === true && Phaser.Input.Keyboard.JustDown(tempPlayer.scene.shift)){
+        if(tempPlayer.hitboxState === true){
           
           //put hitbox infront of the player in the way there facing
           if(tempPlayer.lastKey === 'd'){

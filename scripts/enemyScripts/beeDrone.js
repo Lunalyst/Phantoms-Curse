@@ -635,7 +635,7 @@ class beeDrone extends enemy {
 
                     currentbeeDrone.grabCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 3000);
+                }, 800);
             }
 
         
@@ -657,6 +657,8 @@ class beeDrone extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
+
+                this.playJumpySound('2',700);
                 
                 if (this.enemyHP <= 0) {
                     this.grabHitBox.destroy();

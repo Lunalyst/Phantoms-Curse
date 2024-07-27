@@ -35,6 +35,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
     // hitbox cooldown.
     this.hitboxCoolDown = false;
     this.hitboxState = false;
+    this.hasAttacked = false;
+    this.playedAttackAnimation = false;
 
     //used to tell what damage type the player is dealing with melee weapons.
     this.sliceDamage = 0;
@@ -69,11 +71,11 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'pJumpUp',frames: this.anims.generateFrameNames('malePlayer', { start: 17, end: 19 }),frameRate: 10 ,repeat: 0});
       this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('malePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
       this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('malePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
-    
-      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('malePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: -1});
-      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('malePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: -1});
-      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('malePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: -1});
-      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('malePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: -1});
+      
+      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('malePlayer', { start: 42, end: 47 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('malePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('malePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
+      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('malePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
     
     }else{
       this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
@@ -82,10 +84,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
       this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
     
-      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: -1});
-      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: -1});
-      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: -1});
-      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 46 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 47, end: 51 }),frameRate: 9,repeat: 0});
+      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 52, end: 56 }),frameRate: 8,repeat: 0});
+      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 57, end: 61 }),frameRate: 12,repeat: 0});
     
     }
   }
@@ -336,8 +338,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
     //plays attack animations based on what the player has equipt when the player is not in the air.
-    if(this.body.blocked.down && this.scene.shift.isDown ){
-
+    if(this.body.blocked.down && this.scene.shift.isDown){
+      //Phaser.Input.Keyboard.JustDown(this.scene.shift)
+      //this.scene.shift.isDown
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
         this.flipX = false;
@@ -345,36 +348,66 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.flipX = true;
       }
 
-      //case to determine attack animation
-      switch(playerDataObject.playerInventoryData[24].itemID) {
-        case (2):
-          this.anims.play("pAttackOar",true);
-          this.bluntDamage = 2;
-          this.weaponSoundEffect('medium', 700);
-          this.setAttackHitboxSize(25,30);
-          this.HitBox(300);
-          break;
-        case (4):
-          this.anims.play("pAttackKnife",true);
-          this.sliceDamage = 4;
-          this.weaponSoundEffect('high2', 400);
-          this.setAttackHitboxSize(15,20);
-          this.HitBox(200);  
-          break;
-        case (10):
-          this.anims.play("pAttackAxe",true);
-          this.sliceDamage = 8;
-          this.weaponSoundEffect('heavy', 600);
-          this.setAttackHitboxSize(25,30);
-          this.HitBox(300);
-          break;
-        default:
-          this.anims.play("pAttackUnarmed",true);
-          this.bluntDamage = 1;
-          this.setAttackHitboxSize(10,20);
-          this.weaponSoundEffect('high1', 400);
-          this.HitBox(200);
-      }
+      if(this.hasAttacked === false){
+
+        //case to determine attack animation
+        switch(playerDataObject.playerInventoryData[24].itemID) {
+          case (2):
+            this.anims.play("pAttackOar").once('animationcomplete', () => {
+              this.hasAttacked = true;
+              this.hasAttacked = true;
+              this.anims.play("pIdle",true);
+              this.scene.sound.get('weaponSFX').stop();
+            });
+            this.bluntDamage = 2;
+            this.weaponSoundEffect('medium', 600);
+            this.setAttackHitboxSize(20,30);
+            this.HitBox(600,35);
+            break;
+          case (4):
+            console.log("starting knife animation");
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.anims.play("pAttackKnife").once('animationcomplete', () => {
+                this.playedAttackAnimation = false;
+                console.log("finishing knife animation");
+                this.hasAttacked = true;
+                this.anims.play("pIdle",true);
+                this.scene.sound.get('weaponSFX').stop();
+              });
+            }
+            this.sliceDamage = 4;
+            this.weaponSoundEffect('high2', 400);
+            this.setAttackHitboxSize(15,30);
+            this.HitBox(200,25);  
+            break;
+          case (10):
+            this.anims.play("pAttackAxe").once('animationcomplete', () => {
+              this.hasAttacked = true;
+              this.anims.play("pIdle",true);
+              this.scene.sound.get('weaponSFX').stop();
+            });
+            this.sliceDamage = 8;
+            this.weaponSoundEffect('heavy', 600);
+            this.setAttackHitboxSize(20,30);
+            this.HitBox(300,30);
+            break;
+          default:
+            this.anims.play("pAttackUnarmed").once('animationcomplete', () => {
+              this.hasAttacked = true;
+              this.anims.play("pIdle",true);
+              this.scene.sound.get('weaponSFX').stop();
+            });
+            this.bluntDamage = 1;
+            this.setAttackHitboxSize(10,20);
+            this.weaponSoundEffect('high1', 400);
+            this.HitBox(200,20);
+        }
+        
+    //if player already attacked then play idle animation
+    }else{
+  
+    }
       
     }else{
       //important fall though caseto reset variables if the player is not swinging
@@ -383,6 +416,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
       //important reset of the hitbox state incase the player isnt swinging set this to false.
       this.hitboxState = false;
+
+      //resets variable so player only swings once per press of shift
+      this.hasAttacked = false;
 
       //stops weapon sound effects.
       this.scene.initSoundEffect('weaponSFX','medium',0);
@@ -393,7 +429,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
   //handles hitbox position when attacking right, note this function is only activated if shift is down. that is handle
   //note make a function that given a size number can change the shape of the hitbox?
-  HitBox(delay){
+  HitBox(delay,distance){
 
     //stop the players velocity
     this.setVelocityX(0);
@@ -410,13 +446,20 @@ class player extends Phaser.Physics.Arcade.Sprite{
       setTimeout(function(){
 
         //after half the delay given we check the hitbox state if its still true
-        if(tempPlayer.hitboxState === true){
+        //console.log("Phaser.Input.Keyboard.JustDown(this.scene.shift) ",Phaser.Input.Keyboard.JustDown(this.scene.shift))
+        if(tempPlayer.hitboxState === true && Phaser.Input.Keyboard.JustDown(tempPlayer.scene.shift)){
           
           //put hitbox infront of the player in the way there facing
           if(tempPlayer.lastKey === 'd'){
-            tempPlayer.scene.attackHitBox.x = tempPlayer.x+20;
+            tempPlayer.scene.attackHitBox.x = tempPlayer.x+distance;
+
+            //stop the players velocity
+            tempPlayer.setVelocityX(20);
           }else{
-            tempPlayer.scene.attackHitBox.x = tempPlayer.x-20;
+            tempPlayer.scene.attackHitBox.x = tempPlayer.x-distance;
+
+            //stop the players velocity
+            tempPlayer.setVelocityX(-20);
           }
           tempPlayer.scene.attackHitBox.y = tempPlayer.y
 
@@ -427,6 +470,9 @@ class player extends Phaser.Physics.Arcade.Sprite{
             tempPlayer.scene.attackHitBox.x = tempPlayer.x;
             tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
             tempPlayer.hitboxState = false;
+
+            //stop the players velocity
+            tempPlayer.setVelocityX(0);
 
           },100);
 

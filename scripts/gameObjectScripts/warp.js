@@ -93,9 +93,6 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               scene1.sound.get(scene1.sound.sounds[counter].key).stop();
             }
 
-            //calls emitter to set current location of player in gamehud to the destination
-            //inventoryKeyEmitter.emit(inventoryKey.setLocation,this.destination);
-
             //warps player to the next scene
             scene1.destination = this.destination;
             scene1.cameras.main.fadeOut(500, 0, 0, 0);

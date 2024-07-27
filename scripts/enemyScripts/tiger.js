@@ -18,7 +18,7 @@ class tiger extends enemy {
     
     constructor(scene, xPos, yPos, sex, id) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, sex, id, 20, 'tiger');
+        super(scene, xPos, yPos, sex, id, 100, 'tiger');
         
         this.body.setGravityY(600); // sets gravity 
        
@@ -438,6 +438,7 @@ class tiger extends enemy {
                                         this.anims.play('tigerTummyrelax2').once('animationcomplete', () => {
                                             this.tigerIsEating = false;
                                             this.tigerHasEatenRabbit = true;
+                                            this.enemyHP = 120;
             
                                         });
                                     });
@@ -903,7 +904,7 @@ class tiger extends enemy {
                         currentTiger.grabCoolDown = false;
                         currentTiger.scene.grabCoolDown = false;
                         console.log("grab cooldown has ended. player can be grabbed agian.");
-                    }, 3000);
+                    }, 800);
                 }
     }
 
@@ -924,6 +925,9 @@ class tiger extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
+
+                this.playJumpySound('2',700);
+
                 if (this.enemyHP <= 0) {
                     this.destroy();
                 }

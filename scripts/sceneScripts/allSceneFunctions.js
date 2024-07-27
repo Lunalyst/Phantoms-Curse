@@ -6,12 +6,12 @@ class allSceneFunctions extends Phaser.Scene {
     //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
     saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
       //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
-      console.log("calling saveGameoverFile============================");
+      /*console.log("calling saveGameoverFile============================");
       console.log("playerSex: " + playerSex);
       console.log("gameoverLocation: " + gameoverLocation);
       console.log("enemyThatDefeatedPlayer: " + enemyThatDefeatedPlayer);
       console.log("playerSaveSlotData: ", playerSaveSlotData);
-      console.log("defeatedTitle: ", defeatedTitle);
+      console.log("defeatedTitle: ", defeatedTitle);*/
 
       const file = {
       sex: playerSex,
@@ -31,12 +31,12 @@ class allSceneFunctions extends Phaser.Scene {
       // we will use const because we dont want anything to change variable. difference between let and var is that var can exist outside the scope when its declared. using let makes sure that the variable stays within scope.obeying scoping rules.
       const file = JSON.parse(localStorage.getItem('saveGameoverFile'));
       //retrieves data from the file object and gives it to the current scene
-      console.log("calling loadGameoverFile============================");
+      /*console.log("calling loadGameoverFile============================");
       console.log("playerSex: " + file.sex);
       console.log("location: ", file.location);
       console.log("enemy: " + file.enemy);
       console.log("playerSaveSlotData: ", file.pssd);
-      console.log("defeatedTitle: ", file.dt);
+      console.log("defeatedTitle: ", file.dt);*/
 
       this.playerSex = file.sex;
       this.gameoverLocation = file.location;
@@ -63,7 +63,7 @@ class allSceneFunctions extends Phaser.Scene {
       };
 
       // these are the game variables that are hard saved when the player uses a save point.
-      console.log("[saveGameFile]============================================");
+      /*console.log("[saveGameFile]============================================");
       console.log("dataObject.saveX:",dataObject.saveX," --> file.saveX: ",file.saveX);
       console.log("dataObject.saveY:",dataObject.saveY," --> file.saveY: ",file.saveY);
       console.log("dataObject.playerHpValue:",dataObject.playerHpValue," --> file.playerHpValue: ",file.playerHpValue);
@@ -75,7 +75,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," --> file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
-      console.log("=======================================================");
+      console.log("=======================================================");*/
       //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
       if (dataObject.playerSaveSlotData.saveSlot === 1) {
       localStorage.setItem('saveFile1', JSON.stringify(file));
@@ -137,7 +137,7 @@ class allSceneFunctions extends Phaser.Scene {
         this.settings = file.settings;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
         
-        console.log("[loadGameFile]============================================");
+        /*console.log("[loadGameFile]============================================");
         console.log("this.warpToX:",this.warpToX," <-- file.saveX: ",file.saveX);
         console.log("this.warpToY:",this.warpToY," <-- file.saveY: ",file.saveY);
         console.log("this.playerHealth:",this.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
@@ -149,7 +149,7 @@ class allSceneFunctions extends Phaser.Scene {
         console.log("this.playerSaveSlotData:",this.playerSaveSlotData," <-- file.pssd: ",file.pssd);
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
-        console.log("=======================================================");
+        console.log("=======================================================");*/
 
         }
     }
@@ -202,7 +202,7 @@ class allSceneFunctions extends Phaser.Scene {
     dataObject.flagValues = file.flags;
     dataObject.settings = file.settings;
 
-      console.log("[returnFile]==============================================");
+     /*console.log("[returnFile]==============================================");
       console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
       console.log("dataObject.saveY:",dataObject.saveY," <-- file.saveY: ",file.saveY);
       console.log("dataObject.playerHpValue:",dataObject.playerHpValue," <-- file.playerHpValue: ",file.playerHpValue);
@@ -214,7 +214,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," <-- file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," <-- file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
-      console.log("=======================================================");
+      console.log("=======================================================");*/
     // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
    
     }
@@ -239,7 +239,7 @@ class allSceneFunctions extends Phaser.Scene {
       settings: dataObject.settings
       }
 
-      console.log("[saveGame]============================================");
+      /*console.log("[saveGame]============================================");
       console.log("dataObject.saveX:",dataObject.saveX," --> file.saveX: ",file.saveX);
       console.log("dataObject.saveY:",dataObject.saveY," --> file.saveY: ",file.saveY);
       console.log("dataObject.playerHpValue:",dataObject.playerHpValue," --> file.playerHpValue: ",file.playerHpValue);
@@ -251,7 +251,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," --> file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
-      console.log("=======================================================");
+      console.log("=======================================================");*/
 
       localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
   }
@@ -267,13 +267,13 @@ class allSceneFunctions extends Phaser.Scene {
       this.preferance = file.settings.preferance;
       this.onomatopoeia = file.settings.onomatopoeia;
 
-    console.log("[loadGamePlayData]============================================");
+    /*console.log("[loadGamePlayData]============================================");
     console.log("this.warpToX:",this.warpToX," <-- file.saveX: ",file.saveX);
     console.log("this.warpToY:",this.warpToY," <-- file.saveY: ",file.saveY);
     console.log("this.playerSex:",this.playerSex," <-- file.playerSex: ",file.sex);
     console.log("this.preferance:",this.preferance," <-- file.settings.preferance: ",file.settings.preferance);
     console.log("this.onomatopoeia:",this.onomatopoeia," <-- this.onomatopoeia: ",file.settings.onomatopoeia);
-    console.log("=======================================================");
+    console.log("=======================================================");*/
   }
 
   //loads value from data to display the hud
@@ -291,7 +291,7 @@ class allSceneFunctions extends Phaser.Scene {
     this.flagValues = file.flags;
     this.settings = file.settings;
 
-    console.log("[loadGameHudData]============================================");
+    /*console.log("[loadGameHudData]============================================");
         console.log("this.healthDisplay.playerHealth:",this.healthDisplay.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
         console.log("this.playerSex:",this.playerSex," <-- file.sex: ",file.sex);
         console.log("this.playerLocation:",this.playerLocation," <-- file.locationName: ",file.locationName);
@@ -301,7 +301,7 @@ class allSceneFunctions extends Phaser.Scene {
         console.log("this.playerSaveSlotData:",this.playerSaveSlotData," <-- file.pssd: ",file.pssd);
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
-        console.log("=======================================================");
+        console.log("=======================================================");*/
 
 }
 
@@ -322,7 +322,7 @@ returnSave(dataObject){
     dataObject.flagValues = file.flags;
     dataObject.settings = file.settings;
 
-    console.log("[returnSave]==============================================");
+    /*console.log("[returnSave]==============================================");
     console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
     console.log("dataObject.saveY:",dataObject.saveY," <-- file.saveY: ",file.saveY);
     console.log("dataObject.playerHpValue:",dataObject.playerHpValue," <-- file.playerHpValue: ",file.playerHpValue);
@@ -334,7 +334,7 @@ returnSave(dataObject){
     console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," <-- file.pssd: ",file.pssd);
     console.log("dataObject.flagValues:",dataObject.flagValues," <-- file.flags: ",file.flags);
     console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
-    console.log("=======================================================");
+    console.log("=======================================================");*/
 }
 
 //function to fix dave file if the file is broken or outdated.

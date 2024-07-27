@@ -569,7 +569,7 @@ class rabbit extends enemy {
 
                     currentrabbit.grabCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 3000);
+                }, 800);
             }
 
         
@@ -591,6 +591,8 @@ class rabbit extends enemy {
                     this.scene.player1.lightningDamage,
                     this.scene.player1.coldDamage
                 );
+
+                this.playJumpySound('2',700);
                 
                 if (this.enemyHP <= 0) {
                     this.destroy();

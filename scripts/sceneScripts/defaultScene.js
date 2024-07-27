@@ -9,7 +9,7 @@ class defaultScene extends allSceneFunctions {
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
       this.load.tilemapTiledJSON("gameovermap" , "assets/tiledMap/gameOverForest.json");
       
-      this.load.spritesheet("malePlayer" , "assets/player/evan_master.png" , {frameWidth: 213 , frameHeight: 270 });
+      this.load.spritesheet("malePlayer" , "assets/player/evan_master.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 213 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
@@ -814,7 +814,7 @@ class defaultScene extends allSceneFunctions {
       let that = this;
       setTimeout(function () {
         that.grabCoolDown = false;
-    }, 3000);
+    }, 800);
     }
 
     //function keeps track of slime interactions
@@ -917,7 +917,9 @@ class defaultScene extends allSceneFunctions {
         scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
         
           //sets overlap to be true
-          tempTiger.hitboxOverlaps = true;
+          if(tempTiger.tigerIsEating === false){
+            tempTiger.hitboxOverlaps = true;
+          }
         });
         
         //if the hitbox overlaps the tiger, then  deal damage to that tiger
@@ -1060,7 +1062,7 @@ class defaultScene extends allSceneFunctions {
       //checks if the attack hitbox is overlapping the beedrone to deal damage.
       scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
       
-        //sets overlap to be true
+        //sets overlap to be true 
         tempBeeDrone.hitboxOverlaps = true;
       });
       

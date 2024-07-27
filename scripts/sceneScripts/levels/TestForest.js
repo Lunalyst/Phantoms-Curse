@@ -177,10 +177,10 @@ class TestForest extends defaultScene {
 
 
       //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
+      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
         this.parrallax1.x += 0.5;
         this.backround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
+      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
         this.parrallax1.x -= 0.5;
         this.backround.x -= 0.7;
       }

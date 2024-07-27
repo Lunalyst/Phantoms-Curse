@@ -340,16 +340,12 @@ class player extends Phaser.Physics.Arcade.Sprite{
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
     //if shift is pressed then force the player to attacks, no animation cancel
-    console.log("this.body.blocked.down: ", this.body.blocked.down,"this.scene.shift.isDown: ",this.scene.shift.isDown,"this.isAttacking: ",this.isAttacking );
     if(this.body.blocked.down && this.scene.shift.isDown && this.isAttacking === false){
-      console.log("attacking so set is attacking to true");
       this.isAttacking = true;
 
-    //plays attack animations based on what the player has equipt when the player is not in the air
+    //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
     }else if(this.body.blocked.down && this.isAttacking === true){
-      console.log("locked into attack so activating that");
-      //Phaser.Input.Keyboard.JustDown(this.scene.shift)
-      //this.scene.shift.isDown
+
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
         this.flipX = false;
@@ -357,13 +353,12 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.flipX = true;
       }
 
-      
-
         //case to determine attack animation
         switch(playerDataObject.playerInventoryData[24].itemID) {
           case (2):
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','medium',0.3);
               this.anims.play("pAttackOar").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -371,7 +366,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
             });
             }
             this.bluntDamage = 2;
-            this.weaponSoundEffect('medium', 600);
             this.setAttackHitboxSize(20,30);
             this.HitBox(600,35);
             break;
@@ -380,6 +374,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
             
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','high2',0.3);
               this.anims.play("pAttackKnife").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -387,13 +382,13 @@ class player extends Phaser.Physics.Arcade.Sprite{
             });
             }
             this.sliceDamage = 4;
-            this.weaponSoundEffect('high2', 400);
             this.setAttackHitboxSize(15,30);
             this.HitBox(200,25);  
             break;
           case (10):
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','heavy',0.3);
               this.anims.play("pAttackAxe").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -401,13 +396,13 @@ class player extends Phaser.Physics.Arcade.Sprite{
             });
             }
             this.sliceDamage = 8;
-            this.weaponSoundEffect('heavy', 600);
             this.setAttackHitboxSize(20,30);
             this.HitBox(300,30);
             break;
           default:
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','high1',0.3);
               this.anims.play("pAttackUnarmed").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -416,11 +411,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
             }
             this.bluntDamage = 1;
             this.setAttackHitboxSize(10,20);
-            this.weaponSoundEffect('high1', 400);
             this.HitBox(200,20);
           }
 
-    //if player already attacked then play idle animation
+    //otherwise is the player isnt attacking anymore then reset all values
     }else{
       //important fall though caseto reset variables if the player is not swinging
       this.scene.attackHitBox.x = this.x;
@@ -465,13 +459,16 @@ class player extends Phaser.Physics.Arcade.Sprite{
           if(tempPlayer.lastKey === 'd'){
             tempPlayer.scene.attackHitBox.x = tempPlayer.x+distance;
 
-            //stop the players velocity
-            tempPlayer.setVelocityX(20);
+            //has the player move forward slightly
+            if(!tempPlayer.scene.playerGrabbed){
+              tempPlayer.setVelocityX(20);
+            }
           }else{
             tempPlayer.scene.attackHitBox.x = tempPlayer.x-distance;
 
-            //stop the players velocity
-            tempPlayer.setVelocityX(-20);
+            if(!tempPlayer.scene.playerGrabbed){
+              tempPlayer.setVelocityX(-20);
+            }
           }
           tempPlayer.scene.attackHitBox.y = tempPlayer.y
 
@@ -482,9 +479,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
             tempPlayer.scene.attackHitBox.x = tempPlayer.x;
             tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
             tempPlayer.hitboxState = false;
-
-            //stop the players velocity
-            tempPlayer.setVelocityX(0);
 
           },100);
 

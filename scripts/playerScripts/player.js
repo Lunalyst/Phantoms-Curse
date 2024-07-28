@@ -358,7 +358,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           case (2):
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','medium',0.3);
+              this.scene.initSoundEffect('weaponSFX','medium',0.1);
               this.anims.play("pAttackOar").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -374,7 +374,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
             
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high2',0.3);
+              this.scene.initSoundEffect('weaponSFX','high2',0.1);
               this.anims.play("pAttackKnife").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -388,7 +388,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           case (10):
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','heavy',0.3);
+              this.scene.initSoundEffect('weaponSFX','heavy',0.1);
               this.anims.play("pAttackAxe").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
@@ -402,7 +402,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
           default:
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high1',0.3);
+              this.scene.initSoundEffect('weaponSFX','high1',0.1);
               this.anims.play("pAttackUnarmed").once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;

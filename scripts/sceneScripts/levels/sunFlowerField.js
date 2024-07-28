@@ -117,6 +117,14 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initSigns(4666,1725+13,
+        "WHAT DOES IT MEAN TO BE DRIVEN? EVERYDAY I FIND MY SELF CONTINUE TO FIGHTING, BUT A PART OF ME FEARS THAT I WONT LIVE UP TO THE EXPECTATION MY DESIRES HAVE SET.",
+        ['signLoop']);
+
+      this.initSigns(839,1789+13,
+          "WHAT DOES IT MEAN TO HAVE DESIRES? CAN A HEARTS WANTS BE MEASURED? CAN SOMEONES DESIRES BE OVER WRITTEN?",
+          ['signLoop']);
+
       this.skybackround = this.add.tileSprite(1500, -1300, 8*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);

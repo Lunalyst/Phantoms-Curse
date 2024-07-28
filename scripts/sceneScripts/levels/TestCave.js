@@ -91,10 +91,6 @@ class TestCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(443,797+12,
-        "Why did I move here? I guess it was the weather. Or the... Ah, I don`t know, that thing.  ",
-        ['signLoop']);
-
       this.initSavePoints(687,765-14);
 
       this.initPortals(343,829-13,2566,1373,"warpCaveInside","ForestRavineHome");

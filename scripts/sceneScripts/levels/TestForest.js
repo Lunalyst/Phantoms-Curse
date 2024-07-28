@@ -98,6 +98,10 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initSigns(2997,1021+13,
+        "FEELINGS OF FEAR ARE POWERFUL TOOLS FOR DRIVING SOMEONE FORWARD. DONT LET YOUR NEGITIVE EMOTIONS HOLD YOU BACK. USE THEM AS A TOOL TO REACH YOUR DESIRES...  ",
+        ['signLoop']);
+
       /*this.skybackround = this.add.tileSprite(1500, 800, 8*1377,918, "backgroundForestStaticLevel");
       this.skybackround.setDepth(-51);
       this.skybackround.setTint(0xd3d3d3);*/
@@ -147,11 +151,8 @@ class TestForest extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           
-          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
-          
           thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
-          thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit');
+          //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit');
           thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit');
           thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
           thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');

@@ -139,6 +139,20 @@ class TestForest extends defaultScene {
 
       //sets up containers
       this.setUpContainers();
+
+      setTimeout(function(){
+       
+        let speedRing = {
+          itemID: 8,
+          itemStackable: 0,
+          itemAmount: 1
+        };
+    
+        //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+        thisScene.initItemContainer(3421,1021-3,speedRing,true,"cave_chest_with_speedRing");
+      
+      },1000);
+
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();

@@ -127,16 +127,21 @@ class tutorialCave extends defaultScene {
       //sets up containers
       this.setUpContainers();
 
-      let oar = {
-          itemID: 2,
-          itemStackable: 0,
-          itemAmount: 1
-      };
-      
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      this.initItemContainer(780,1757-3,oar,true,"cave_tutorial_chest_with_oar");
-      //sets up item drops for the scene
+      let thisScene = this;
 
+      setTimeout(function(){
+        let oar = {
+            itemID: 2,
+            itemStackable: 0,
+            itemAmount: 1
+        };
+        
+        //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+        thisScene.initItemContainer(780,1757-3,oar,true,"cave_tutorial_chest_with_oar");
+        
+      },1000);
+      
+      //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
@@ -144,7 +149,6 @@ class tutorialCave extends defaultScene {
       this.enemyGroupArray = ["blueSlimes"];
       this.setUpEnemyCollider(this.enemyGroupArray);
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      let thisScene = this;
         setTimeout(function(){
           //generates enemys
           thisScene.initEnemy(1309, 605,thisScene.playerSex,'blueSlime');

@@ -662,7 +662,7 @@ class defaultScene extends allSceneFunctions {
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
         this.player1.x = this.warpToX
-        this.player1.y = this.warpToY-20
+        this.player1.y = this.warpToY-2000
       }
 
     }
@@ -814,7 +814,7 @@ class defaultScene extends allSceneFunctions {
       let that = this;
       setTimeout(function () {
         that.grabCoolDown = false;
-    }, 800);
+    }, 1500);
     }
 
     //function keeps track of slime interactions
@@ -1130,7 +1130,7 @@ class defaultScene extends allSceneFunctions {
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();

@@ -50,14 +50,13 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
             // call the emitter to check if the value already was picked up.
             inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
             //if so then set this.allReadyOpened to true
             if(object.foundFlag === true){
                 //set variable alreadyOpened to true
                 this.alreadyOpened = true;
                 //play open animation
                 this.anims.play('opened',true);
-            //otherwise play closed animation.
+                //otherwise play closed animation.
             }else{
                 this.anims.play('closed',true);
             }

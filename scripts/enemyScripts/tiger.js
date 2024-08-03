@@ -903,7 +903,7 @@ class tiger extends enemy {
                         currentTiger.grabCoolDown = false;
                         currentTiger.scene.grabCoolDown = false;
                         console.log("grab cooldown has ended. player can be grabbed agian.");
-                    }, 800);
+                    }, 1500);
                 }
     }
 

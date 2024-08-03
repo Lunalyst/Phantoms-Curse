@@ -352,8 +352,9 @@ class gameHud extends allSceneFunctions {
           });
 
           //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
+          
           inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
-            console.log("checking if flag exists. : ",object);
+            console.log("after emitterchecking if flag exists. : ",object);
 
             /*let object = {
               flagToFind: "",

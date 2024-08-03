@@ -37,7 +37,7 @@ class gameOver extends allSceneFunctions {
         this.playerBestiaryData;
         this.playerSkillsData;
         this.playerSaveSlotData;
-        this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        //this.flagValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         //enemy that defeated player string
         this.enemyThatDefeatedPlayer ="";
 
@@ -119,6 +119,7 @@ class gameOver extends allSceneFunctions {
                 this.scene.launch('gameHud');
                 
                 console.log("now Loading main scene:", this.playerLocation);
+                
                 this.scene.start(this.playerLocation);
 
             })

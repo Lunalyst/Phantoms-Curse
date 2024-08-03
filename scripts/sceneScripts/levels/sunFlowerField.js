@@ -117,56 +117,70 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(4666,1725+13,
+      this.initSigns(4666,1085+13,
         "WHAT DOES IT MEAN TO BE DRIVEN? EVERYDAY I FIND MY SELF CONTINUE TO FIGHTING, BUT A PART OF ME FEARS THAT I WONT LIVE UP TO THE EXPECTATION MY DESIRES HAVE SET.",
         ['signLoop']);
 
-      this.initSigns(839,1789+13,
+      this.initSigns(839,1149+13,
           "WHAT DOES IT MEAN TO HAVE DESIRES? CAN A HEARTS WANTS BE MEASURED? CAN SOMEONES DESIRES BE OVER WRITTEN?",
           ['signLoop']);
 
-      this.skybackround = this.add.tileSprite(1500, -1300, 8*1024, 6*1024, "backgroundSkyLevel");
+      this.skybackround = this.add.tileSprite(1500, -1940, 8*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
 
-      this.backround = this.add.tileSprite(3000, 2010, 10*1152, 765, "backgroundSunflowerLevel");
+      this.backround = this.add.tileSprite(3000, 1370, 10*1152, 765, "backgroundSunflowerLevel");
       this.backround.setDepth(-51);
       this.backround.setScale(0.7);
       this.backround.setTint(0xd3d3d3);
 
 
-      this.parrallax1 = this.add.tileSprite(1500, 2130, 5*5000,4800, "sunflowerParallax");
+      this.parrallax1 = this.add.tileSprite(1500, 1490, 5*5000,4800, "sunflowerParallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x808080);
 
       
-      this.initSavePoints(759,2077-14);
+      this.initSavePoints(759,1437-14);
 
-      this.initSavePoints(5490,1533-14);
+      this.initSavePoints(5490,893-14);
 
-      this.initPortals(400,2109-13,661,829,"warpCaveOutside","caveToSunflowers1");
-
-      this.initPortals(6763,2109-13,661,829,"warpCaveOutside","caveToSunflowers2");
+      this.initPortals(400,1469-13,661,829,"warpCaveOutside","caveToSunflowers1");
+      //2109-1469 = 640
+      this.initPortals(6763,1469-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
       //fake warps not implemented yet.
-      this.fakeWarp1 = new fakeWarp(this,5601,1533-14,'warpCaveOutsideRubble');
+      this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp2 = new fakeWarp(this,885,2109-14,'warpCaveOutsideRubble');
+      this.fakeWarp2 = new fakeWarp(this,885,1469-13,'warpCaveOutsideRubble');
 
       //makes secret wall
-      this.secretWall1 = this.add.sprite(4943.6, 1712.2, "secretWall1");
+      this.secretWall1 = this.add.sprite(4943.6, 1072.2, "secretWall1");
       this.secretWall1.setDepth(7);
       this.secretWall1.setScale(0.335);
       
       //sets up containers
       this.setUpContainers();
+
+      let thisScene = this;
+      setTimeout(function(){
+           
+        let knife = {
+          itemID: 4,
+          itemStackable: 0,
+          itemAmount: 1
+        };
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      thisScene.initItemContainer(5324,1085-3,knife,true,"cave_chest_with_knife");
+        
+      },1000);
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
       //creates health upgrade object in level
-      this.initHealthUpgrade(4642, 1245, 'healthUpgradeInSunflowerField');
+      this.initHealthUpgrade(4642, 605, 'healthUpgradeInSunflowerField');
 
       //sets up enemy colliders and groups
       this.enemyGroupArray = ["beeDrones",'blueSlimes'];
@@ -189,7 +203,7 @@ class sunFlowerField extends defaultScene {
 
       if(object1.foundFlag === true && object2.foundFlag === false){
         let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(5690,1531,
+      this.initLunalyst(5690,891,
         dialogue,
         ['lunaNeutral','lunaHappy'],
       'lunaProtoDialogue1'
@@ -198,7 +212,7 @@ class sunFlowerField extends defaultScene {
         let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
         let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
         let dialogue = line1 + line2;
-        this.initLunalyst(5690,1531,
+        this.initLunalyst(5690,891,
         dialogue,
         ['lunaFingerTouch','lunaHappy'],
       'lunaProtoDialogue2'
@@ -212,7 +226,7 @@ class sunFlowerField extends defaultScene {
         let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
         let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
         let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(5690,1531,
+        this.initLunalyst(5690,891,
           dialogue,
           ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
         'lunaProtoDialogue'
@@ -224,25 +238,24 @@ class sunFlowerField extends defaultScene {
 
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
-      this.ititBarrier(1103,1990,30,140);
-      this.ititBarrier(4812,1990,30,140);
-      this.ititBarrier(6665,2040,30,300);
+      this.ititBarrier(1103,1350,30,140);
+      this.ititBarrier(4812,1350,30,140);
+      this.ititBarrier(6665,1400,30,300);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1934, 2064,thisScene.playerSex,'beeDrone','wingFlapSFX1');
+          thisScene.initEnemy(1934, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX1');
 
-          thisScene.initEnemy(2850, 2064,thisScene.playerSex,'beeDrone','wingFlapSFX2');
+          thisScene.initEnemy(2850, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX2');
 
-          thisScene.initEnemy(3550, 2064,thisScene.playerSex,'beeDrone','wingFlapSFX3');
+          thisScene.initEnemy(3550, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX3');
 
-          thisScene.initEnemy(4142, 2064,thisScene.playerSex,'beeDrone',"wingFlapSFX4");
+          thisScene.initEnemy(4142, 1424,thisScene.playerSex,'beeDrone',"wingFlapSFX4");
 
-          thisScene.initEnemy(5580, 1885,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(5580, 1245,thisScene.playerSex,'blueSlime');
 
-          thisScene.initEnemy(6194, 2013,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(6194, 1373,thisScene.playerSex,'blueSlime');
 
           thisScene.spawnedEnemys = true;
         },1000);

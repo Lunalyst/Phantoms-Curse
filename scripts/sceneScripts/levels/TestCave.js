@@ -96,37 +96,26 @@ class TestCave extends defaultScene {
       this.initPortals(343,829-13,2566,1373,"warpCaveInside","ForestRavineHome");
 
       this.initPortals(1892,829-12,378,1149,"warpCaveInside","TestForest");
-      
 
-      //sets up containers
+      //creates container objects.
       this.setUpContainers();
 
-      let knife = {
-        itemID: 4,
-        itemStackable: 0,
-        itemAmount: 1
-    };
-    
-    //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-    this.initItemContainer(563,765-3,knife,true,"cave_chest_with_knife");
+      let thisScene = this;
+      setTimeout(function(){
+           
+          let axe = {
+              itemID: 10,
+              itemStackable: 0,
+              itemAmount: 1
+          };
+          
+          //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+          thisScene.initItemContainer(1403,666,axe,true,"cave_chest_with_axe");  
+        
+      },1000);
+      //sets up containers
 
-    let speedRing = {
-      itemID: 8,
-      itemStackable: 0,
-      itemAmount: 1
-  };
-  
-  //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-  this.initItemContainer(1608,765-3,speedRing,true,"cave_chest_with_speedRing");
-
-      let axe = {
-          itemID: 10,
-          itemStackable: 0,
-          itemAmount: 1
-      };
-      
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      this.initItemContainer(1403,666,axe,true,"cave_chest_with_axe");
+   
       //sets up item drops for the scene
 
       this.setUpItemDrops();
@@ -137,7 +126,6 @@ class TestCave extends defaultScene {
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      let thisScene = this;
       setTimeout(function(){
           
           thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');

@@ -51,6 +51,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.sceneTextBox.visible = false;
                     that.scene.femaleIcon.visible = false;
                     that.scene.maleIcon.visible = false;
+                    that.scene.creditsButton.visible = true;
     
                     that.scene.showSaveSlots(true,false);
                    
@@ -63,6 +64,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.newGame.visible = true;
                     that.scene.loadGame.visible = true;
                     that.scene.titleLogo.visible = true;
+                    that.scene.creditsButton.visible = true;
                     
                     that.scene.back.visible = false;
                     
@@ -95,6 +97,17 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.isInSlotSelectLoad = true;
                     
                     that.scene.showSaveSlots(true,true);
+                }else if(that.scene.isInCredits === true){
+                    that.visible = false;
+                    that.scene.isInCredits = false;
+                    that.scene.newGame.visible = true;
+                    that.scene.loadGame.visible = true;
+                    that.scene.titleLogo.visible = true;
+                    that.scene.curse.visible = true;
+                    that.scene.creditsButton.visible = true;
+
+                    that.scene.credits.visible = false;
+                   
                 }
         
             });

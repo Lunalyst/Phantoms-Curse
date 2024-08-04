@@ -41,6 +41,7 @@ class loadGame extends Phaser.Physics.Arcade.Sprite{
             that.scene.titleLogo.visible = false;
             that.scene.back.visible = true;
             that.scene.isInSlotSelectLoad = true;
+            that.scene.creditsButton.visible = false;
             if(that.scene.curse !== undefined){
                 that.scene.curse.visible = false;
             }

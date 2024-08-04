@@ -340,6 +340,27 @@ class makeText extends Phaser.GameObjects.Container{
       }
     }
 
+    textCredits(time,distanceDown){
+      //loop to apply tween to text
+      for(let counter = 0; counter < this.letters.length; counter++){
+          this.scene.tweens.add({
+            targets: this.letters[counter],
+            props : {
+              //x : { value : '-='+Math.cos(100)*10},
+              y: { value : '+='+ distanceDown},
+              angle:360,
+              rotation: 0
+            }, 
+            ease: 'linear',
+            duration: time,
+            repeat: 0,
+            yoyo: false,
+            onComplete: this.remove(time)
+        });
+        
+      }
+    }
+
     
 
     //removes this object

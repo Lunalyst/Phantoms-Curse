@@ -1,8 +1,8 @@
-class newGame extends Phaser.Physics.Arcade.Sprite{
+class creditsButton extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos){
       //super() calls the constructor() from the parent class we are extending
-      super(scene, xPos, yPos, 'newGame');
+      super(scene, xPos, yPos, 'credits');
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
         scene.add.existing(this);
@@ -11,40 +11,41 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
         this.visible = true;
         this.setInteractive();
       
-        this.anims.create({key: 'newActive',frames: this.anims.generateFrameNames('newGame', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'newInActive',frames: this.anims.generateFrameNames('newGame', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'creditsActive',frames: this.anims.generateFrameNames('credits', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'creditsInActive',frames: this.anims.generateFrameNames('credits', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
 
-        this.anims.play('newInActive');
+        this.anims.play('creditsInActive');
 
         this.scene = scene;
       
     }
 
-    setupNewGame(){
+    setupCredits(){
 
         let that = this;
 
         this.on('pointerover',function(pointer){
-            that.anims.play("newActive");
+            that.anims.play("creditsActive");
             that.scene.initSoundEffect('buttonSFX','1',0.05);
         })
         this.on('pointerout',function(pointer){
-            that.anims.play("newInActive");
+            that.anims.play("creditsInActive");
         })
 
         this.on('pointerdown', function (pointer) {
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.visible = false;
+            that.scene.newGame.visible = false;
             that.scene.loadGame.visible = false;
-            that.scene.creditsButton.visible = false;
             that.scene.back.visible = true;
             that.scene.titleLogo.visible = false;
-            that.scene.isInSlotSelectNew = true;
+            that.scene.isInCredits = true;
             that.scene.curse.visible = false;
-            that.scene.curse.visible = false;
+            that.scene.credits.visible = true;
+            //that.scene.credits.activateCredits(true);
             
 
-            that.scene.showSaveSlots(true,false);
+            //that.scene.showSaveSlots(true,false);
            
         });
 

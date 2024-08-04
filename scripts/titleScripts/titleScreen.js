@@ -23,6 +23,7 @@ class titleScreen extends allSceneFunctions {
         this.isInNewGameSlotSelect = false;
         this.isInSlotSelectLoad = false;
         this.isInSlotSelectNew = false;
+        this.isInCredits = false;
         this.isInDelete = false;
         this.playerSexSelect = 0;
         this.playerPreferance = 0;
@@ -61,6 +62,7 @@ class titleScreen extends allSceneFunctions {
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
+            this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
             this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
             this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
             this.load.spritesheet("maleSexSelectIcons" , "assets/titleScreen/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -112,6 +114,30 @@ class titleScreen extends allSceneFunctions {
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);
+
+            this.creditsArray = [
+                'LUNALYST: LEAD DEVELOPER',
+                'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
+                'ZEBBY: INSPIRATION, BUG TESTING',
+                'DRACHEN: INSPIRATION,  BUG TESTING',
+                'CIRME: INSPIRATION, BUG TESTING',
+                'DARKGAMER22263: INSPIRATION, BUG TESTING',
+                'RAT PROFILE PICTURE: INSPIRATION, BUG TESTING',
+                'VIK(OF THE VIRTUOUS KIND): INSPIRATION, BUG TESTING',
+                'SCARLET: INSPIRATION, BUG TESTING',
+                'KAYNSTARR: INSPIRATION',
+                'FLUFFSTUFF: INSPIRATION',
+                'MANNY: INSPIRATION',
+                'WAGOO: INSPIRATION',
+                'NOX: INSPIRATION',
+                'BIGBIGBIG: INSPIRATION',
+                'TURTWAG: INSPIRATION',
+                'ADORABLETYPHLOSION: INSPIRATION',
+            ];
+
+            this.credits = new credits(this,20,200,this.creditsArray);
+            this.credits.setDepth(51);
+            this.credits.activateCredits(true);
 
             //adds looping sound effect.
             this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
@@ -199,11 +225,14 @@ class titleScreen extends allSceneFunctions {
             this.elements.add(this.trashCan3);
 
             //sets up button objects.
-            this.newGame = new newGame(this,150,750);
+            this.newGame = new newGame(this,130,700);
             this.elements.add(this.newGame);
 
-            this.loadGame = new loadGame(this,150, 800);
+            this.loadGame = new loadGame(this,130, 750);
             this.elements.add(this.loadGame);
+
+            this.creditsButton = new creditsButton(this,100,800);
+            this.elements.add(this.creditsButton);
 
             this.back = new back(this, 80, 850);
             this.elements.add(this.back);
@@ -227,6 +256,8 @@ class titleScreen extends allSceneFunctions {
             this.newGame.setupNewGame();
 
             this.loadGame.setupLoadGame();
+
+            this.creditsButton.setupCredits();
 
             this.back.setupBack();
 

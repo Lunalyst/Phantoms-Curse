@@ -84,7 +84,9 @@ class gameHud extends allSceneFunctions {
 
         //set up to display the cursors location. used for debugging
         //this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
-        //this.pointer = this.input.activePointer;
+        
+        // need this to keep track of pointer position
+        this.pointer = this.input.activePointer;
 
         //when launched always ensures the scene is at the top layer.
         this.scene.bringToTop();

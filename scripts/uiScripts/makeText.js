@@ -25,7 +25,6 @@ class makeText extends Phaser.GameObjects.Container{
         this.letters = [];
         this.letterString = text;
         let specialCharacter = false;
-        let closingFound = false;
         let specialCharText = "";
 
         //fills the array fill of textboxcharacters

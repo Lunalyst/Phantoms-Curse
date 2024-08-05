@@ -105,6 +105,8 @@ class TestCave extends defaultScene {
            
           let axe = {
               itemID: 10,
+              itemName: 'AXE',
+              itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
               itemStackable: 0,
               itemAmount: 1
           };

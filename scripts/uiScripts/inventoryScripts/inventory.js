@@ -38,6 +38,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.settingsOpen = false;
       this.bestiaryOpen = false;
 
+      this.scene = scene;
+
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
       //setting the interior object of the inventory as a back drop for other objects.
@@ -117,6 +119,15 @@ class inventory extends Phaser.GameObjects.Container{
             this.setSlotView(hud);
             this.setSlots(hud);
 
+            //
+            if(this.scene.itemName !== undefined){
+              this.scene.itemName.destroy();
+            }
+
+            if(this.scene.itemDescription !== undefined){
+              this.scene.itemDescription.destroy();
+            }
+            
             //set time out for delay.
             setTimeout(function(){
               console.log("openDelay set to false");
@@ -340,8 +351,29 @@ class inventory extends Phaser.GameObjects.Container{
       let activeSlot = 0;
       // applys  lightupslot function to slots when clicked.
       for(let counter = 0; counter <= 25;counter++){
-        //console.log("counter: ", counter);
-        this.inventoryArray[counter].on('pointerdown', function (pointer) {activeSlot = counter;scene.playerInventory.lightUpSlot(scene,activeSlot);});
+        // code that handles applying interaction on slots
+        this.inventoryArray[counter].on('pointerdown', function (pointer) {
+          activeSlot = counter;
+          scene.playerInventory.lightUpSlot(scene,activeSlot);
+        });
+
+        // applies logic to slot to display item name and description?
+        let tempInventory = this;
+        this.inventoryArray[counter].on('pointerover',function(pointer){
+          //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
+          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter].itemName);
+          scene.itemName.setScale(0.7);
+          scene.itemName.setDepth(21);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter].itemDescription);
+          scene.itemDescription.setScale(0.7);
+          scene.itemDescription.setDepth(21);
+        });
+
+        // removes name and discription.
+        this.inventoryArray[counter].on('pointerout',function(pointer){
+          tempInventory.scene.itemName.destroy();
+          tempInventory.scene.itemDescription.destroy();
+        });
       }
       
       this.bestiaryUI.on('pointerdown', function (pointer) {
@@ -425,6 +457,8 @@ class inventory extends Phaser.GameObjects.Container{
             // temp item to clear the slot
             let temp = {
               itemID: 0,
+              itemName: ' ',
+              itemDescription: ' ',
               itemStackable: 1,
               itemAmount: 0 
            };

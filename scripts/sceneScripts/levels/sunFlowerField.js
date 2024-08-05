@@ -167,6 +167,8 @@ class sunFlowerField extends defaultScene {
            
         let knife = {
           itemID: 4,
+          itemName: 'KNIFE',
+          itemDescription: 'GOOD FOR SLASHING MONSTERS.',
           itemStackable: 0,
           itemAmount: 1
         };

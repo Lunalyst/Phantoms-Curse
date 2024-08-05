@@ -132,6 +132,8 @@ class tutorialCave extends defaultScene {
       setTimeout(function(){
         let oar = {
             itemID: 2,
+            itemName: 'OAR',
+            itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
             itemStackable: 0,
             itemAmount: 1
         };

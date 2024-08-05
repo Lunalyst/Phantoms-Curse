@@ -337,6 +337,80 @@ returnSave(dataObject){
     console.log("=======================================================");
 }
 
+//convenient function to reset the player save data to the beginning of the game. declutters some classes.
+makeSaveFile(playerObject,sex,saveslot){
+
+  let playerBestiaryData = {
+    blueSlime:0,
+    largeBlueSlime:0,
+    femaleTiger:0,
+    maleRabbit:0,
+    femaleRabbit:0,
+    maleBeeDrone:0,
+    femaleBeeDrone:0,
+ };
+
+ let playerSkillsData = {
+    jump:1,
+    dash:0,
+    strength:0,
+    mimic:0,
+    looting:0
+ };
+
+ let saveSlotData = {
+    saveSlot:saveslot,
+    currency: 0,
+    bestiaryCompletionPercent: 0,
+    playerHealthUpgrades: 0,
+    PlayerStorage: [],
+ };
+
+ let gameFlags = {
+    containerFlags: []
+
+ };
+
+ let settings = {
+    preferance: 2,
+    volume: 1,
+    onomatopoeia: true
+ };
+
+   
+//creates a array to be filled my objects
+this.inventoryArray  = [];
+
+//fills the array with objects
+for(let counter = 0; counter < 26; counter++){
+
+    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+    let item = {
+        itemID: 0,
+        itemName: ' ',
+        itemDescription: ' ',
+        itemStackable: 1,
+        itemAmount: 0 
+     };
+
+    this.inventoryArray.push(item);
+}
+
+  playerObject.saveX = 441;
+  playerObject.saveY = 926;
+  playerObject.playerHpValue = 1;
+  playerObject.playerSex = sex;
+  playerObject.playerLocation = 'tutorialBeachLevel';
+  playerObject.inventoryArray = this.inventoryArray;
+  playerObject.playerBestiaryData = playerBestiaryData;
+  playerObject.playerSkillsData = playerSkillsData;
+  playerObject.playerSaveSlotData = saveSlotData;
+  playerObject.flagValues = gameFlags;
+  playerObject.settings = settings;
+
+}
+
 //function to fix dave file if the file is broken or outdated.
 validateSaveFile(dataObject){
 
@@ -377,6 +451,8 @@ validateSaveFile(dataObject){
         //are not refrencing the same object like it would be if this variable was defined outside this for loop.
         let item = {
             itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
             itemStackable: 1,
             itemAmount: 0 
          };
@@ -384,7 +460,66 @@ validateSaveFile(dataObject){
         inventoryArray.push(item);
     }
     dataObject.inventoryArray = inventoryArray;
+  // otherwise if the inventory data does exist
+  }else{
+
+    // loop through inventory and apply correct item values
+    for(let counter = 0; counter < 26; counter++){
+      if(dataObject.inventoryArray[counter].itemID === 0){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 2){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 2,
+          itemName: 'OAR',
+          itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
+          itemStackable: 0,
+          itemAmount: 1
+      };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 4){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 4,
+          itemName: 'KNIFE',
+          itemDescription: 'GOOD FOR SLASHING MONSTERS.',
+          itemStackable: 0,
+          itemAmount: 1
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 8){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 8,
+          itemName: 'SPEED RING',
+          itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
+          itemStackable: 0,
+          itemAmount: 1
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 10){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 10,
+          itemName: 'AXE',
+          itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
+          itemStackable: 0,
+          itemAmount: 1
+       };
+
+      }
+    }
   }
+
+
 
   if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){
     let playerBestiaryData = {
@@ -450,76 +585,6 @@ validateSaveFile(dataObject){
     dataObject.settings = settings;
 
   }
-}
-
-//convenient function to reset the player save data to the beginning of the game. declutters some classes.
-makeSaveFile(playerObject,sex,saveslot){
-
-  let playerBestiaryData = {
-    blueSlime:0,
-    largeBlueSlime:0,
-    femaleTiger:0,
-    maleRabbit:0,
-    femaleRabbit:0,
- };
-
- let playerSkillsData = {
-    jump:1,
-    dash:0,
-    strength:0,
-    mimic:0,
-    looting:0
- };
-
- let saveSlotData = {
-    saveSlot:saveslot,
-    currency: 0,
-    bestiaryCompletionPercent: 0,
-    playerHealthUpgrades: 0,
-    PlayerStorage: [],
- };
-
- let gameFlags = {
-    containerFlags: []
-
- };
-
- let settings = {
-    preferance: 2,
-    volume: 1,
-    onomatopoeia: true
- };
-
-   
-//creates a array to be filled my objects
-this.inventoryArray  = [];
-
-//fills the array with objects
-for(let counter = 0; counter < 26; counter++){
-
-    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-    let item = {
-        itemID: 0,
-        itemStackable: 1,
-        itemAmount: 0 
-     };
-
-    this.inventoryArray.push(item);
-}
-
-  playerObject.saveX = 441;
-  playerObject.saveY = 926;
-  playerObject.playerHpValue = 1;
-  playerObject.playerSex = sex;
-  playerObject.playerLocation = 'tutorialBeachLevel';
-  playerObject.inventoryArray = this.inventoryArray;
-  playerObject.playerBestiaryData = playerBestiaryData;
-  playerObject.playerSkillsData = playerSkillsData;
-  playerObject.playerSaveSlotData = saveSlotData;
-  playerObject.flagValues = gameFlags;
-  playerObject.settings = settings;
-
 }
 
 //function that prints listeners

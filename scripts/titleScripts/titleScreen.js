@@ -12,6 +12,8 @@ class titleScreen extends allSceneFunctions {
         // scene settings
         super({key: 'titleScreen',active: true,physics:{default:'arcade'}});
         //variables attached to the scene
+        this.location = 'titleScreen';
+
         this.newGame;
         this.loadGame;
         this.backround;
@@ -104,6 +106,7 @@ class titleScreen extends allSceneFunctions {
         }
 
         create(){
+            console.log("title scene object", this);
 
             let that = this;
 
@@ -118,6 +121,7 @@ class titleScreen extends allSceneFunctions {
             this.creditsArray = [
                 'LUNALYST: LEAD DEVELOPER',
                 'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
+                'GANGSTALKA: SOUND COMPOSER',
                 'ZEBBY: INSPIRATION, BUG TESTING',
                 'DRACHEN: INSPIRATION,  BUG TESTING',
                 'CIRME: INSPIRATION, BUG TESTING',

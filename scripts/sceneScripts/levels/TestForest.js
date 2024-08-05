@@ -144,6 +144,8 @@ class TestForest extends defaultScene {
        
         let speedRing = {
           itemID: 8,
+          itemName: 'SPEED RING',
+          itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
           itemStackable: 0,
           itemAmount: 1
         };

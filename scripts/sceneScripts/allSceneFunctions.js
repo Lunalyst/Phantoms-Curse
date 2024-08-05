@@ -464,8 +464,9 @@ validateSaveFile(dataObject){
   }else{
 
     // loop through inventory and apply correct item values
+    let dupes = [0,0,0,0]
     for(let counter = 0; counter < 26; counter++){
-      if(dataObject.inventoryArray[counter].itemID === 0){
+      if(dataObject.inventoryArray[counter].itemID === 0 ){
 
         dataObject.inventoryArray[counter] = {
           itemID: 0,
@@ -475,7 +476,9 @@ validateSaveFile(dataObject){
           itemAmount: 0 
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 2){
+      }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
+
+        dupes[0] = 1;
 
         dataObject.inventoryArray[counter] = {
           itemID: 2,
@@ -485,7 +488,9 @@ validateSaveFile(dataObject){
           itemAmount: 1
       };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 4){
+      }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
+
+        dupes[1] = 1;
 
         dataObject.inventoryArray[counter] = {
           itemID: 4,
@@ -495,7 +500,9 @@ validateSaveFile(dataObject){
           itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 8){
+      }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
+
+        dupes[2] = 1;
 
         dataObject.inventoryArray[counter] = {
           itemID: 8,
@@ -505,7 +512,9 @@ validateSaveFile(dataObject){
           itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 10){
+      }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
+
+        dupes[3] = 1;
 
         dataObject.inventoryArray[counter] = {
           itemID: 10,
@@ -515,6 +524,45 @@ validateSaveFile(dataObject){
           itemAmount: 1
        };
 
+      }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
       }
     }
   }

@@ -141,7 +141,7 @@ class tutorialCave extends defaultScene {
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
         thisScene.initItemContainer(780,1757-3,oar,true,"cave_tutorial_chest_with_oar");
         
-      },1000);
+      },2000);
       
       //sets up item drops for the scene
       this.setUpItemDrops();

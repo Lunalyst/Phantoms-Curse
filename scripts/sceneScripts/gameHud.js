@@ -83,8 +83,8 @@ class gameHud extends allSceneFunctions {
         })
 
         //set up to display the cursors location. used for debugging
-        this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
-        this.pointer = this.input.activePointer;
+        //this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
+        //this.pointer = this.input.activePointer;
 
         //when launched always ensures the scene is at the top layer.
         this.scene.bringToTop();
@@ -408,7 +408,7 @@ class gameHud extends allSceneFunctions {
     //update loop.
     update(){
       //updates the display showing where the cursor is located.
-      this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
+      //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
     }
 
 }

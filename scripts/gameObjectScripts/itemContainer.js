@@ -82,6 +82,15 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
         if( this.safeToOpen === true && keyW.isDown && this.openCoolDown === false && scene1.isPaused === false && this.alreadyOpened === false){
             
+            //make a temp object
+            let object = {
+                flagToFind: this.flag,
+                foundFlag: false,
+              };
+  
+              // call the emitter to check if the value already was picked up.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
             //create a temp variable to hold our item that is passed to the player
             let item = this.containerItemObject;
 
@@ -92,8 +101,8 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
             //plays creek sound effect 
             scene1.initSoundEffect('creakSFX','wood',0.05);
-
-            if(this.itemRecieved === false){
+            console.log("this.itemRecieved: ",this.itemRecieved, "object.foundFlag: ",object.foundFlag)
+            if(this.itemRecieved === false && object.foundFlag === false){
 
                 //if within this scope then player has recieved the item.
                 this.itemRecieved = true;
@@ -120,6 +129,15 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         
                     });
                 }
+                //if it bugs and the player has a closed chest that should be open then play opening animation, but dont add the item.
+            }else{
+                this.alreadyOpened = true;
+                
+                this.anims.play('opening').once('animationcomplete', () => {
+
+                    this.anims.play('opened',true);
+    
+                });
             }
 
             //create a refrence to the object so it can be accesed in our time out function

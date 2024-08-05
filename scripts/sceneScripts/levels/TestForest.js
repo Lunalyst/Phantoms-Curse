@@ -153,7 +153,7 @@ class TestForest extends defaultScene {
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
         thisScene.initItemContainer(3421,1021-3,speedRing,true,"cave_chest_with_speedRing");
       
-      },1000);
+      },2000);
 
       //sets up item drops for the scene
       this.setUpItemDrops();

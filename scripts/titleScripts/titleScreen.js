@@ -402,6 +402,8 @@ class titleScreen extends allSceneFunctions {
                     };
 
                     this.validateSaveFile(playerDataObject);
+                    
+                    this.saveGameFile(playerDataObject);
 
                     this.saveGame(playerDataObject);
                     

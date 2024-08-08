@@ -1,12 +1,12 @@
 {
     "resources":[
-        "../audio/used-audio/calm-sounds/andrewkn-not-to-notice.mp3"
+        "../audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
         
     ],
     "spritemap": {
-        "andrewkn":{
+        "Paws and Rest":{
             "start": 0,
-            "end": 248,
+            "end": 30,
             "loop": true
         }
     }

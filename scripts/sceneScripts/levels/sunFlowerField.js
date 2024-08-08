@@ -149,7 +149,10 @@ class sunFlowerField extends defaultScene {
       //2109-1469 = 640
       this.initPortals(6763,1469-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
+      //this.initPortals(5601,893-13,661,0,"warpCaveOutside","batCave");
+
       //fake warps not implemented yet.
+      
       this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
 
       this.fakeWarp2 = new fakeWarp(this,885,1469-13,'warpCaveOutsideRubble');

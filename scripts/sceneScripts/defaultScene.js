@@ -1262,7 +1262,7 @@ class defaultScene extends allSceneFunctions {
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
     //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-
+    //console.log('this.sound: ', this.sound);
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();
 

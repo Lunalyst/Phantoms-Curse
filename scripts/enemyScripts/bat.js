@@ -51,6 +51,7 @@ class bat extends enemy {
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
         this.isSleeping = true;
+        this.wakingUp = false;
         
 
         // sets the bats hp value
@@ -271,11 +272,27 @@ class bat extends enemy {
                 tempBee.randomizedXVelocity = false;
             }, 500);
         }
-       }else{
-        //console.log('');
+    // behavior for sleeping 
+    }else{
+
+        // if player is in range, and they make a sound then
+        if(this.wakingUp === false && (this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && this.isSoundEffectPlaying('weaponSFX')){
+            // play animation of them dropping down
+            this.wakingUp = true;
+            this.anims.play('batWakeUp').once('animationcomplete', () => {
+                //set values approperiately.
+                this.isSleeping = false;
+                this.wakingUp = false;
+            });
+            //set value to tell that they ar no longer sleeping
+            //this.isSleeping = false;
+            this.wakingUp = true;
+        }else if(this.wakingUp === false){
+        // play idle animation
         this.setSize(70, 180, true);
-        this.anims.play('batSleep',true);
-       }
+        this.anims.play('batSleep',true);  
+        }
+    }
         
 
         //updates the previous y value to tell if bat is falling or going up in its jump.

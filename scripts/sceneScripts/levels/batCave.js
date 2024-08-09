@@ -26,11 +26,29 @@ class batCave extends defaultScene {
 
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
      
+      this.load.spritesheet('woodBarrier', 'assets/gameObjects/woodBarrier.png',{frameWidth: 126, frameHeight: 288 });
+      this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 40, frameHeight: 20 });
+
+      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
+      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
+
       this.defaultPreload();
 
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+      ]);
+
+      this.load.audioSprite('woodBarrierSFX','/audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
 
     }
@@ -82,10 +100,17 @@ class batCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //this.initPortals(1570,829-13,281,1277,"warpCaveInside","ForestRavineHome");
+      this.initSavePoints(2196,1117-14);
 
-      //this.initPortals(661,829-13,400,1469,"warpCaveInside","sunFlowerField");
-      
+      this.initPortals(4001,541-13,5601,893,"warpCaveInside","sunFlowerField");
+
+
+      this.fakeWarp1 = new fakeWarp(this,4069,1181-13,'warpCaveOutsideRubble');
+
+      this.fakeWarp2 = new fakeWarp(this,2088,1117-13,'warpCaveOutsideRubble');
+
+      this.fakeWarp3 = new fakeWarp(this,510,797-13,'warpCaveOutsideRubble');
+
       //sets up containers
       this.setUpContainers();
 
@@ -93,17 +118,24 @@ class batCave extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","tigers"];
+      this.enemyGroupArray = ["bats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
+
+      //set up wooden barriers in the scene
+      this.setUpWoodenBarriers();
+
+      this.setUpWoodBarriersCollider();
+
+      this.initWoodenBarrier(3023,1245-13);
+
+      this.initWoodenBarrier(1618,829-13);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          
-          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
-          
-          //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
+        thisScene.initEnemy(2900,962,thisScene.playerSex,'bat','wingFlapSFX1');
+
+        thisScene.initEnemy(3200,962,thisScene.playerSex,'bat','wingFlapSFX2');
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -122,6 +154,8 @@ class batCave extends defaultScene {
       this.enemyUpdate(this.enemyGroupArray);
 
     }
+
+    
 
 }
   

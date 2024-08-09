@@ -149,11 +149,11 @@ class sunFlowerField extends defaultScene {
       //2109-1469 = 640
       this.initPortals(6763,1469-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
-      //this.initPortals(5601,893-13,661,0,"warpCaveOutside","batCave");
+      this.initPortals(5601,893-13,4001,541,"warpCaveOutside","batCave");
 
       //fake warps not implemented yet.
       
-      this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
+      //this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
 
       this.fakeWarp2 = new fakeWarp(this,885,1469-13,'warpCaveOutsideRubble');
 
@@ -243,9 +243,9 @@ class sunFlowerField extends defaultScene {
 
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
-      this.ititBarrier(1103,1350,30,140);
-      this.ititBarrier(4812,1350,30,140);
-      this.ititBarrier(6665,1400,30,300);
+      this.initBarrier(1103,1350,30,140);
+      this.initBarrier(4812,1350,30,140);
+      this.initBarrier(6665,1400,30,300);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){

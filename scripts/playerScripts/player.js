@@ -363,9 +363,10 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
                 console.log("attack is over so stoping");
+                this.bluntDamage = 0;
             });
             }
-            this.bluntDamage = 2;
+            this.bluntDamage = 3;
             this.setAttackHitboxSize(20,30);
             this.HitBox(600,35);
             break;
@@ -379,6 +380,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
                 console.log("attack is over so stoping");
+                this.sliceDamage = 0;
             });
             }
             this.sliceDamage = 4;
@@ -393,6 +395,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
                 console.log("attack is over so stoping");
+                this.sliceDamage = 0;
             });
             }
             this.sliceDamage = 8;
@@ -407,6 +410,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
                 this.isAttacking = false;
                 this.playedAttackAnimation = false;
                 console.log("attack is over so stoping");
+                this.bluntDamage = 0;
             });
             }
             this.bluntDamage = 1;

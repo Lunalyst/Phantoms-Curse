@@ -210,6 +210,13 @@ class defaultScene extends allSceneFunctions {
 
     }
 
+    setUpWoodenBarriers(){
+      //set up the invisible barriers group
+      console.log('created wooden barrier group');
+      this.woodenBarriers = this.physics.add.group();
+      this.usingWoodenBarriers = true;
+    }
+
     //creates a container object to hold items.
     setUpContainers(){
       //sets up the group for items in the scene
@@ -369,7 +376,18 @@ class defaultScene extends allSceneFunctions {
 
     setUpEnemyBarriers(){
       this.physics.add.collider(this.enemys, this.invisibleBarriers);
-  }
+    }
+
+    setUpEnemyBarriers(){
+      this.physics.add.collider(this.enemys, this.invisibleBarriers);
+    }
+
+    setUpWoodBarriersCollider(){
+      console.log('setting up wooden barrier colliders');
+      this.physics.add.collider(this.enemys, this.woodenBarriers);
+      this.physics.add.collider(this.player1, this.woodenBarriers);
+
+    }
 
     //{itit object Functions}===================================================================================================================
 
@@ -505,13 +523,22 @@ class defaultScene extends allSceneFunctions {
       
     }
 
-    ititBarrier(x,y,width,height){
+    initBarrier(x,y,width,height){
 
       let invisWall = this.add.sprite(x, y,'barrier');
       this.physics.add.existing(invisWall);
       invisWall.body.setSize(width, height, true);
       invisWall.body.pushable = false;
       this.invisibleBarriers.add(invisWall);
+
+    }
+
+    initWoodenBarrier(x,y){
+
+      let woodWall = new woodBarrier(this,x,y);
+      this.physics.add.existing(woodWall);
+      woodWall.body.pushable = false;
+      this.woodenBarriers.add(woodWall);
 
     }
     
@@ -658,6 +685,23 @@ class defaultScene extends allSceneFunctions {
         }, this);
     }
 
+    checkWoodenBarriers(){
+      this.woodenBarriers.children.each(function (tempbarrier) {
+
+         //checks if the attack hitbox is overlapping the tiger to deal damage.
+         this.physics.add.overlap(this.attackHitBox, tempbarrier, function () {
+    
+          tempbarrier.hitboxOverlaps = true;
+        });
+
+        if (tempbarrier.hitboxOverlaps === true) {
+          console.log("woodenbarrier taking damage, " + tempbarrier.hp);
+          tempbarrier.damage();
+          tempbarrier.hitboxOverlaps = false;
+        }
+      }, this);
+    }
+
     //special check to keep player from falling out of the world
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
@@ -724,6 +768,11 @@ class defaultScene extends allSceneFunctions {
           console.log("adding beeDrones group");
           this.beeDrones = this.physics.add.group();
         }
+        if(enemyGroupArray[counter] === 'bats'){
+
+          console.log("adding bats group");
+          this.bats = this.physics.add.group();
+        }
       }
       //creates enemys group that can apply geberic functions to all enemys
       this.enemys = this.physics.add.group();
@@ -774,6 +823,13 @@ class defaultScene extends allSceneFunctions {
         this.enemyId++;
         this.enemys.add(beeDrone1);  
         this.beeDrones.add(beeDrone1);
+      }else if(enemyType === 'bat'){
+        
+        let bat1 = new bat(this, startX, startY, playerSex,this.enemyId,soundSFX);
+        console.log("bat1.enemyId: ",bat1.enemyId);
+        this.enemyId++;
+        this.enemys.add(bat1);  
+        this.bats.add(bat1);
       }else{
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
         console.log("enemy.enemyId: ",enemy.enemyId);
@@ -1124,6 +1180,81 @@ class defaultScene extends allSceneFunctions {
       
     }
 
+     //function keeps track of beeDrones interactions
+     checkBatInteractions(scene) {
+
+      //applys a function to all tigers
+      scene.bats.children.each(function (batDrone) {
+      
+      //calls tiger function to move
+      batDrone.move(scene.player1,scene);
+      /*
+      //checks if the attack hitbox is overlapping the beedrone to deal damage.
+      scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
+      
+        //sets overlap to be true 
+        tempBeeDrone.hitboxOverlaps = true;
+      });
+      
+      //if the hitbox overlaps the drone, then  deal damage to that drone
+      if(tempBeeDrone.hitboxOverlaps === true) {
+      
+        console.log("beeDrone taking damage, tiger hp:" + tempBeeDrone.enemyHP);
+      
+        //inflict damage to tiger
+        tempBeeDrone.damage(scene);
+      
+        //clear overlap verable in tiger.
+        tempBeeDrone.hitboxOverlaps = false;
+      
+      }
+
+      
+      //checks to see if the beedrones attack hitbox overlaps the players hitbox
+      scene.physics.add.overlap(scene.player1, tempBeeDrone.grabHitBox, function () {
+      
+        //make a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        //that is passed into a emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+      
+        //to tell if the window is open
+        if (isWindowObject.isOpen === true) {
+          //and if it is, then close the window
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          
+        }
+        
+      
+        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+        //if the grab cooldowns are clear then
+        if (tempBeeDrone.grabCoolDown === false && scene.grabCoolDown === false) {
+          
+          console.log(" grabing the player?");
+          //stop the velocity of the player
+          tempBeeDrone.setVelocityX(0);
+          tempBeeDrone.setVelocityY(0);
+          scene.player1.setVelocityX(0);
+          //calls the grab function
+          tempBeeDrone.grab();
+        
+          //sets the scene grab value to true since the player has been grabbed
+          tempBeeDrone.playerGrabbed = true;
+          tempBeeDrone.grabCoolDown = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player grabbed by tempBeeDrone');
+      
+        }
+      });
+      */
+      }, this);
+      
+    }
+
     //{Update functions}===================================================================================================================
 
     //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
@@ -1140,6 +1271,10 @@ class defaultScene extends allSceneFunctions {
 
       //checks to see if containers can be opened.
       this.checkContainerPickUp();
+
+      if(this.usingWoodenBarriers === true){
+        this.checkWoodenBarriers();
+      }
 
       //not sure what thes are for. saftey net when loading in?
       if(this.loadCoolDown === true){
@@ -1286,6 +1421,9 @@ class defaultScene extends allSceneFunctions {
               }
               if(enemyGroupArray[counter] === 'beeDrones'){
                 this.checkBeeDroneInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'bats'){
+                this.checkBatInteractions(this);
               }
 
             }

@@ -849,10 +849,10 @@ clearGameplayEmmitters(){
       }
   
     }
-    console.log("this.sound.get(soundID) ",this.sound.get(soundID));
+    //console.log("this.sound.get(soundID) ",this.sound.get(soundID));
     // if we found the sfx then we return its isplaying value in that sounds object.
     if(findSound === true){
-        console.log("found sound but is it playing? ", this.sound.get(soundID).isPlaying);
+       //console.log("found sound but is it playing? ", this.sound.get(soundID).isPlaying);
          return this.sound.get(soundID).isPlaying;
       
     }else{

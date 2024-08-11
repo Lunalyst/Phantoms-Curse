@@ -419,7 +419,7 @@ class bat extends enemy {
             this.setVelocityY(300);
             this.setSize(70, 411, true);
             // plays the gram animation then starts tween and struggle animation
-            this.x = this.scene.player1.x;
+            //this.x = this.scene.player1.x;
             this.y = this.scene.player1.y-40;
 
             this.anims.play('batButtGrabbed', true);
@@ -631,7 +631,7 @@ class bat extends enemy {
                 this.scene.player1.visible = true;
                 this.scene.player1.setSize(23, 68, true);
                 this.scene.player1.body.setGravityY(600);
-                this.scene.player1.x = this.x;
+                //this.scene.player1.x = this.x;
                 this.scene.player1.y = this.y;
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.

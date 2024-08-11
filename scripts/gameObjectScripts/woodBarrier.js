@@ -74,7 +74,7 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
                     this.anims.play('barrierBroken',true);
                     this.setSize(10,10,true);
                     this.setOffset(0, 300);
-                    this.scene.initSoundEffect('woodBarrierSFX','woodBreak',0.5);
+                    this.scene.initSoundEffect('woodBarrierSFX','woodBreak',0.1);
 
                 }else if(this.hp <= 20){
                     this.anims.play('barrierDamaged3',true);

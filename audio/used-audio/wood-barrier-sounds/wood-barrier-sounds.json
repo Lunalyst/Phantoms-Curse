@@ -6,11 +6,11 @@
     "spritemap": {
         "woodHit":{
             "start": 0,
-            "end": 1,
+            "end": 0.7,
             "loop": false
         },
         "woodBreak":{
-            "start": 1,
+            "start": 0.7,
             "end": 3,
             "loop": false
         }

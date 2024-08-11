@@ -245,7 +245,6 @@ class bat extends enemy {
                     if(this.scene.sound.get(this.batSFX) !== null){
                         this.scene.sound.get(this.batSFX).stop();
                     }
-
                     this.playingSound = false;
                     
                 }
@@ -671,6 +670,7 @@ class bat extends enemy {
                 this.playJumpySound('2',700);
                 
                 if (this.enemyHP <= 0) {
+                    this.scene.sound.get(this.batSFX).stop();
                     this.grabHitBox.destroy();
                     this.destroy();
                 }

@@ -41,11 +41,11 @@ class batCave extends defaultScene {
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
 
-      this.load.audioSprite('woodBarrierSFX','/audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
-      this.load.audioSprite('rubbleSFX','/audio/used-audio/rubble-sounds/rubble-sounds.json',[
+      this.load.audioSprite('rubbleSFX','audio/used-audio/rubble-sounds/rubble-sounds.json',[
         "audio/used-audio/rubble-sounds/rubble-sounds.mp3"
       ]);
 

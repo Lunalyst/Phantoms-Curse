@@ -57,6 +57,10 @@ class batCave extends defaultScene {
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
 
+      this.load.audioSprite('wingFlapSFX3','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -137,31 +141,31 @@ class batCave extends defaultScene {
       this.initWoodenBarrier(1618,829-13);
 
       //sets up rubble pile
-      /*this.setUpRockPile();
+      this.setUpRockPile();
 
       this.initRockPile(3442,1245+20);
 
-      this.initRockPile(3183,1245+20);
+      //this.initRockPile(3183,1245+20);
       this.initRockPile(3233,1245+20);
 
-      this.initRockPile(2420,1245+20);
+      //this.initRockPile(2420,1245+20);
       this.initRockPile(2470,1245+20);
-      this.initRockPile(2520,1245+20);
+      //this.initRockPile(2520,1245+20);
 
       this.initRockPile(2629,1245+20);
-      this.initRockPile(2679,1245+20);
+      //this.initRockPile(2679,1245+20);
 
       this.initRockPile(925,829+20);
-      this.initRockPile(975,829+20);
+      //this.initRockPile(975,829+20);
 
       this.initRockPile(1025,829+20);
-      this.initRockPile(1100,829+20);
+      //this.initRockPile(1100,829+20);
       this.initRockPile(1150,829+20);
-      this.initRockPile(1200,829+20);
+      //this.initRockPile(1200,829+20);
       this.initRockPile(1250,829+20);
-      this.initRockPile(1300,829+20);
+      //this.initRockPile(1300,829+20);
 
-      this.initRockPile(1400,829+20);*/
+      this.initRockPile(1400,829+20);
 
       
      
@@ -230,9 +234,7 @@ class batCave extends defaultScene {
 
         thisScene.initEnemy(3333,962,thisScene.playerSex,'bat','wingFlapSFX2');
 
-        thisScene.initEnemy(1333,546,thisScene.playerSex,'bat','wingFlapSFX1');
-
-        thisScene.initEnemy(1137,546,thisScene.playerSex,'bat','wingFlapSFX2');
+        thisScene.initEnemy(1137,546,thisScene.playerSex,'bat','wingFlapSFX3');
 
           thisScene.spawnedEnemys = true;
         },1000);

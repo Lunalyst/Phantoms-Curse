@@ -41,9 +41,9 @@ class sunFlowerField extends defaultScene {
       this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       
-      this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
+      /*this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
-      ]);
+      ]);*/
 
       this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
         "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
@@ -90,7 +90,7 @@ class sunFlowerField extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestSFX','forest',1);
+      //this.initLoopingSound('forestSFX','forest',1);
 
       this.initLoopingSound('sunflowerThemeSFX','bertsz',0.05);
 
@@ -125,17 +125,17 @@ class sunFlowerField extends defaultScene {
           "WHAT DOES IT MEAN TO HAVE DESIRES? CAN A HEARTS WANTS BE MEASURED? CAN SOMEONES DESIRES BE OVER WRITTEN?",
           ['signLoop']);
 
-      this.skybackround = this.add.tileSprite(1500, -1940, 8*1024, 6*1024, "backgroundSkyLevel");
+      this.skybackround = this.add.tileSprite(1500, -1940, 7*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
 
-      this.backround = this.add.tileSprite(3000, 1370, 10*1152, 765, "backgroundSunflowerLevel");
+      this.backround = this.add.tileSprite(3000, 1370, 7*1152, 765, "backgroundSunflowerLevel");
       this.backround.setDepth(-51);
       this.backround.setScale(0.7);
       this.backround.setTint(0xd3d3d3);
 
 
-      this.parrallax1 = this.add.tileSprite(1500, 1490, 5*5000,4800, "sunflowerParallax");
+      this.parrallax1 = this.add.tileSprite(1500, 1490, 4*5000,4800, "sunflowerParallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x808080);

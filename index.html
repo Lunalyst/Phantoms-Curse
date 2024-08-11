@@ -104,6 +104,8 @@
   <script src="scripts/npcScripts/npc.js"></script>
   <script src="scripts/npcScripts/lunalyst.js"></script>
 
+  <script src="lib/vendors/AnimatedTiles.js"></script>
+
   <script type="module"> 
 
   //import "./forestHomeLevel"  
@@ -124,6 +126,12 @@
             // debug is excelent for testing velocity and hitboxes.
             debug: false
           }
+        },
+        // loads animated tile plugin?
+        plugins: {
+          scene: [
+              { key: 'AnimatedTiles', plugin: AnimatedTiles, mapping: 'AnimatedTiles' }
+          ]
         },
         scene: [
           new titleScreen,

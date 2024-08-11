@@ -71,11 +71,6 @@ class defaultScene extends allSceneFunctions {
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            
        //loads a plugin to the heaa of the html to animate tiles in levels
-       this.load.scenePlugin({
-        key: 'AnimatedTiles',
-        url: 'lib/vendors/AnimatedTiles.js',
-        sceneKey: 'AnimatedTiles'
-        });
 
     }
 
@@ -721,10 +716,11 @@ class defaultScene extends allSceneFunctions {
       this.rockPiles.children.each(function (tempPile) {
 
          //checks if the attack hitbox is overlapping the tiger to deal damage.
-         this.physics.add.overlap(tempPile, this.player1, function () {
-    
+         //this.physics.add.overlap(tempPile, this.player1, function () {
+        if(this.objectsInRangeX(tempPile,this.player1,40) && this.objectsInRangeY(tempPile,this.player1,40)){
           tempPile.hitboxOverlaps = true;
-        });
+        }
+        //});
         
         if (tempPile.hitboxOverlaps === true) {
           tempPile.activateRockPile();
@@ -894,6 +890,32 @@ class defaultScene extends allSceneFunctions {
       this.enemys.children.each(function (tempEnemy) {
         tempEnemy.pauseAnimations(this);
       }, this);
+    }
+
+    objectsInRangeX(object1,object2, width){
+      //console.log("calling ObjectsInRangeX");
+      //console.log("object1: ",object1);
+      //console.log("object2: ",object2);
+      //console.log("width: ",width);
+
+      if ((object1.x > object2.x - width && object1.x < object2.x + width)){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    objectsInRangeY(object1,object2, height){
+      //console.log("calling ObjectsInRangeX");
+      //console.log("object1: ",object1);
+      //console.log("object2: ",object2);
+      //console.log("width: ",width);
+
+      if ((object1.y > object2.y - height && object1.y < object2.y + height)){
+        return true;
+      }else{
+        return false;
+      }
     }
 
     startGrabCoolDown(){
@@ -1155,7 +1177,7 @@ class defaultScene extends allSceneFunctions {
       //if the hitbox overlaps the drone, then  deal damage to that drone
       if(tempBeeDrone.hitboxOverlaps === true) {
       
-        console.log("beeDrone taking damage, tiger hp:" + tempBeeDrone.enemyHP);
+        console.log("beeDrone taking damage, beedrone hp:" + tempBeeDrone.enemyHP);
       
         //inflict damage to tiger
         tempBeeDrone.damage(scene);
@@ -1212,76 +1234,85 @@ class defaultScene extends allSceneFunctions {
 
      //function keeps track of beeDrones interactions
      checkBatInteractions(scene) {
-
+      
       //applys a function to all tigers
       scene.bats.children.each(function (bat) {
       
-      //calls tiger function to move
-      bat.move(scene.player1,scene);
-      
-      //checks if the attack hitbox is overlapping the beedrone to deal damage.
-      scene.physics.add.overlap(scene.attackHitBox, bat, function () {
-      
-        //sets overlap to be true 
-        bat.hitboxOverlaps = true;
-      });
-      
-      //if the hitbox overlaps the drone, then  deal damage to that drone
-      if(bat.hitboxOverlaps === true) {
-      
-        console.log("bat taking damage, bat hp:" + bat.enemyHP);
-      
-        //inflict damage to tiger
-        bat.damage(scene);
-      
-        //clear overlap verable in tiger.
-        bat.hitboxOverlaps = false;
-      
-      }
+      //if the bat is in range then call the function neede for it to work. otherwise dont call these functions
+      if(this.objectsInRangeX(bat,scene.player1,450)){
+        //calls tiger function to move
+        bat.move(scene.player1,scene);
 
-      
-      //checks to see if the beedrones attack hitbox overlaps the players hitbox
-      scene.physics.add.overlap(scene.player1, bat.grabHitBox, function () {
-      
-        //make a temp object
-        let isWindowObject = {
-          isOpen: null
-        };
-        
-        //that is passed into a emitter
-        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-      
-        //to tell if the window is open
-        if (isWindowObject.isOpen === true) {
-          //and if it is, then close the window
-          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+        //if player is attacking
+        if(this.player1.isAttacking === true){
+          //checks if the attack hitbox is overlapping the beedrone to deal damage.
+          scene.physics.add.overlap(scene.attackHitBox, bat, function () {
           
+            //sets overlap to be true 
+            bat.hitboxOverlaps = true;
+          });
+          
+          //if the hitbox overlaps the drone, then  deal damage to that drone
+          if(bat.hitboxOverlaps === true) {
+          
+            console.log("bat taking damage, bat hp:" + bat.enemyHP);
+          
+            //inflict damage to tiger
+            bat.damage(scene);
+          
+            //clear overlap verable in tiger.
+            bat.hitboxOverlaps = false;
+          
+          }
         }
         
-      
-        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-        //if the grab cooldowns are clear then
-        if (bat.grabCoolDown === false && scene.grabCoolDown === false) {
+        //if the bat is trying to grab the player then check overlap
+        if(bat.grabTimer === true){
+          //checks to see if the beedrones attack hitbox overlaps the players hitbox
+          scene.physics.add.overlap(scene.player1, bat.grabHitBox, function () {
+            
+            //make a temp object
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            //that is passed into a emitter
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
           
-          console.log(" grabing the player?");
-          //stop the velocity of the player
-          bat.setVelocityX(0);
-          bat.setVelocityY(0);
-          scene.player1.setVelocityX(0);
-          //calls the grab function
-          bat.grab();
-        
-          //sets the scene grab value to true since the player has been grabbed
-          bat.playerGrabbed = true;
-          bat.grabCoolDown = true;
-          scene.grabbed = true;
-          scene.grabCoolDown = true;
-          console.log('player grabbed by bat');
-      
+            //to tell if the window is open
+            if (isWindowObject.isOpen === true) {
+              //and if it is, then close the window
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              
+            }
+            
+          
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            //if the grab cooldowns are clear then
+            if (bat.grabCoolDown === false && scene.grabCoolDown === false) {
+              
+              console.log(" grabing the player?");
+              //stop the velocity of the player
+              bat.setVelocityX(0);
+              bat.setVelocityY(0);
+              scene.player1.setVelocityX(0);
+              //calls the grab function
+              bat.grab();
+            
+              //sets the scene grab value to true since the player has been grabbed
+              bat.playerGrabbed = true;
+              bat.grabCoolDown = true;
+              scene.grabbed = true;
+              scene.grabCoolDown = true;
+              console.log('player grabbed by bat');
+          
+            }
+          });
         }
-      });
-      
-      }, this);
+        
+        
+      }
+        }, this);
       
     }
 
@@ -1459,7 +1490,6 @@ class defaultScene extends allSceneFunctions {
               if(enemyGroupArray[counter] === 'bats'){
                 this.checkBatInteractions(this);
               }
-
             }
 
           //otherwise if the player has been grabbed then

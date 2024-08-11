@@ -137,7 +137,7 @@ class batCave extends defaultScene {
       this.initWoodenBarrier(1618,829-13);
 
       //sets up rubble pile
-      this.setUpRockPile();
+      /*this.setUpRockPile();
 
       this.initRockPile(3442,1245+20);
 
@@ -161,7 +161,7 @@ class batCave extends defaultScene {
       this.initRockPile(1250,829+20);
       this.initRockPile(1300,829+20);
 
-      this.initRockPile(1400,829+20);
+      this.initRockPile(1400,829+20);*/
 
       
      

@@ -122,7 +122,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
     isSoundEffectPlaying(SFX){
 
         // return the bool value from the scene function to see if a sound is playing.
-        return this.scene.findSoundEffect(SFX);
+        return this.scene.isSoundEffectPlaying(SFX);
     }
 
     playPlapSound(type,delay){

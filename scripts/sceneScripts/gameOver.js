@@ -204,6 +204,16 @@ class gameOver extends allSceneFunctions {
                 setTimeout(function () {
                     scene.stopFlapping = true;
                 }, 6000);
+            }else if(this.enemyThatDefeatedPlayer === "maleBat"){
+                this.preferance = 0;
+                this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
+                this.enemy.gameOver();
+                this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "femaleBat"){
+                this.preferance = 1;
+                this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
+                this.enemy.gameOver();
+                this.defeatedTitle = 'eaten';
             }
             
             

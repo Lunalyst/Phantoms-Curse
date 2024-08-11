@@ -209,12 +209,19 @@ class defaultScene extends allSceneFunctions {
       this.npcs = this.add.group();
 
     }
-
+    // sets up wood barriers group
     setUpWoodenBarriers(){
       //set up the invisible barriers group
       console.log('created wooden barrier group');
       this.woodenBarriers = this.physics.add.group();
       this.usingWoodenBarriers = true;
+    }
+    //
+    setUpRockPile(){
+      //set up the invisible barriers group
+      console.log('created rock pile group');
+      this.rockPiles = this.physics.add.group();
+      this.usingRockPiles = true;
     }
 
     //creates a container object to hold items.
@@ -541,6 +548,14 @@ class defaultScene extends allSceneFunctions {
       this.woodenBarriers.add(woodWall);
 
     }
+
+    initRockPile(x,y){
+      let pile = new rockPile(this,x,y);
+      this.physics.add.existing(pile);
+      pile.body.pushable = false;
+      this.rockPiles.add(pile);
+
+    }
     
     //{check object Functions}===================================================================================================================
 
@@ -698,6 +713,21 @@ class defaultScene extends allSceneFunctions {
           console.log("woodenbarrier taking damage, " + tempbarrier.hp);
           tempbarrier.damage();
           tempbarrier.hitboxOverlaps = false;
+        }
+      }, this);
+    }
+
+    checkRockPiles(){
+      this.rockPiles.children.each(function (tempPile) {
+
+         //checks if the attack hitbox is overlapping the tiger to deal damage.
+         this.physics.add.overlap(tempPile, this.player1, function () {
+    
+          tempPile.hitboxOverlaps = true;
+        });
+        
+        if (tempPile.hitboxOverlaps === true) {
+          tempPile.activateRockPile();
         }
       }, this);
     }
@@ -1184,34 +1214,34 @@ class defaultScene extends allSceneFunctions {
      checkBatInteractions(scene) {
 
       //applys a function to all tigers
-      scene.bats.children.each(function (batDrone) {
+      scene.bats.children.each(function (bat) {
       
       //calls tiger function to move
-      batDrone.move(scene.player1,scene);
-      /*
+      bat.move(scene.player1,scene);
+      
       //checks if the attack hitbox is overlapping the beedrone to deal damage.
-      scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
+      scene.physics.add.overlap(scene.attackHitBox, bat, function () {
       
         //sets overlap to be true 
-        tempBeeDrone.hitboxOverlaps = true;
+        bat.hitboxOverlaps = true;
       });
       
       //if the hitbox overlaps the drone, then  deal damage to that drone
-      if(tempBeeDrone.hitboxOverlaps === true) {
+      if(bat.hitboxOverlaps === true) {
       
-        console.log("beeDrone taking damage, tiger hp:" + tempBeeDrone.enemyHP);
+        console.log("bat taking damage, bat hp:" + bat.enemyHP);
       
         //inflict damage to tiger
-        tempBeeDrone.damage(scene);
+        bat.damage(scene);
       
         //clear overlap verable in tiger.
-        tempBeeDrone.hitboxOverlaps = false;
+        bat.hitboxOverlaps = false;
       
       }
 
       
       //checks to see if the beedrones attack hitbox overlaps the players hitbox
-      scene.physics.add.overlap(scene.player1, tempBeeDrone.grabHitBox, function () {
+      scene.physics.add.overlap(scene.player1, bat.grabHitBox, function () {
       
         //make a temp object
         let isWindowObject = {
@@ -1231,26 +1261,26 @@ class defaultScene extends allSceneFunctions {
       
         //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
         //if the grab cooldowns are clear then
-        if (tempBeeDrone.grabCoolDown === false && scene.grabCoolDown === false) {
+        if (bat.grabCoolDown === false && scene.grabCoolDown === false) {
           
           console.log(" grabing the player?");
           //stop the velocity of the player
-          tempBeeDrone.setVelocityX(0);
-          tempBeeDrone.setVelocityY(0);
+          bat.setVelocityX(0);
+          bat.setVelocityY(0);
           scene.player1.setVelocityX(0);
           //calls the grab function
-          tempBeeDrone.grab();
+          bat.grab();
         
           //sets the scene grab value to true since the player has been grabbed
-          tempBeeDrone.playerGrabbed = true;
-          tempBeeDrone.grabCoolDown = true;
+          bat.playerGrabbed = true;
+          bat.grabCoolDown = true;
           scene.grabbed = true;
           scene.grabCoolDown = true;
-          console.log('player grabbed by tempBeeDrone');
+          console.log('player grabbed by bat');
       
         }
       });
-      */
+      
       }, this);
       
     }
@@ -1274,6 +1304,10 @@ class defaultScene extends allSceneFunctions {
 
       if(this.usingWoodenBarriers === true){
         this.checkWoodenBarriers();
+      }
+
+      if(this.usingRockPiles === true){
+        this.checkRockPiles();
       }
 
       //not sure what thes are for. saftey net when loading in?

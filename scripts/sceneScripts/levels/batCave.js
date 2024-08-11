@@ -27,11 +27,13 @@ class batCave extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
      
       this.load.spritesheet('woodBarrier', 'assets/gameObjects/woodBarrier.png',{frameWidth: 126, frameHeight: 288 });
-      this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 40, frameHeight: 20 });
+      this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 126, frameHeight: 96 });
 
       this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
       this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
 
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      
       this.defaultPreload();
 
 
@@ -41,6 +43,10 @@ class batCave extends defaultScene {
 
       this.load.audioSprite('woodBarrierSFX','/audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('rubbleSFX','/audio/used-audio/rubble-sounds/rubble-sounds.json',[
+        "audio/used-audio/rubble-sounds/rubble-sounds.mp3"
       ]);
 
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
@@ -90,7 +96,7 @@ class batCave extends defaultScene {
       this.setUpGameplayEmitters();
 
       //activates sound
-      this.initLoopingSound('caveSFX','cave', 0.1);
+      this.initLoopingSound('caveSFX','cave', 0.05);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -126,16 +132,108 @@ class batCave extends defaultScene {
 
       this.setUpWoodBarriersCollider();
 
-      this.initWoodenBarrier(3023,1245-13);
+      this.initWoodenBarrier(3025,1245-13);
 
       this.initWoodenBarrier(1618,829-13);
+
+      //sets up rubble pile
+      this.setUpRockPile();
+
+      this.initRockPile(3442,1245+20);
+
+      this.initRockPile(3183,1245+20);
+      this.initRockPile(3233,1245+20);
+
+      this.initRockPile(2420,1245+20);
+      this.initRockPile(2470,1245+20);
+      this.initRockPile(2520,1245+20);
+
+      this.initRockPile(2629,1245+20);
+      this.initRockPile(2679,1245+20);
+
+      this.initRockPile(925,829+20);
+      this.initRockPile(975,829+20);
+
+      this.initRockPile(1025,829+20);
+      this.initRockPile(1100,829+20);
+      this.initRockPile(1150,829+20);
+      this.initRockPile(1200,829+20);
+      this.initRockPile(1250,829+20);
+      this.initRockPile(1300,829+20);
+
+      this.initRockPile(1400,829+20);
+
+      
+     
+      //define barriers whee enemys cannot go.
+      this.setUpEnemyBarriers();
+      this.initBarrier(3632,1149-30,30,140);
+      this.initBarrier(3024,1245-30,34,540);
+      this.initBarrier(2385,1149-40,30,160);
+
+      this.initBarrier(1618,829-30,34,540);
+      this.initBarrier(880,730-40,30,160);
+
+      //make a temp object
+      let object1 = {
+        flagToFind: "lunaProtoDialogue1",
+        foundFlag: false,
+      };
+
+      let object2 = {
+        flagToFind: "lunaProtoDialogue2",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
+
+      if(object1.foundFlag === true && object2.foundFlag === false){
+        let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
+      this.initLunalyst(2009,1117,
+        dialogue,
+        ['lunaNeutral','lunaHappy'],
+      'lunaProtoDialogue1'
+      );
+      }else if(object2.foundFlag === true){
+        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
+        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
+        let dialogue = line1 + line2;
+        this.initLunalyst(2009,1117,
+        dialogue,
+        ['lunaFingerTouch','lunaHappy'],
+      'lunaProtoDialogue2'
+      );
+      }else{
+        let line1 = 'OH, A HUMAN!                                                                ';
+        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
+        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
+        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
+        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
+        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
+        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
+        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
+        this.initLunalyst(2009,1117,
+          dialogue,
+          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
+        'lunaProtoDialogue'
+        );
+     }                                                        
+      
+    
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-        thisScene.initEnemy(2900,962,thisScene.playerSex,'bat','wingFlapSFX1');
+        thisScene.initEnemy(2620,962,thisScene.playerSex,'bat','wingFlapSFX1');
 
-        thisScene.initEnemy(3200,962,thisScene.playerSex,'bat','wingFlapSFX2');
+        thisScene.initEnemy(3333,962,thisScene.playerSex,'bat','wingFlapSFX2');
+
+        thisScene.initEnemy(1333,546,thisScene.playerSex,'bat','wingFlapSFX1');
+
+        thisScene.initEnemy(1137,546,thisScene.playerSex,'bat','wingFlapSFX2');
+
           thisScene.spawnedEnemys = true;
         },1000);
 

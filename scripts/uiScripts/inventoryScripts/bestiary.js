@@ -24,6 +24,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleBeeDrone', frames: this.anims.generateFrameNames('bestiary', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -79,6 +82,21 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       femaleBeeDrone: {
         title: "FEMALE BEE DRONE",
         summary: "OFTEN THESE BEES WILL SWARM A HUMAN WHO IS NOT CURSED, HOWEVER THE ARE UNABLE TO PASS ON THERE CURSE DIRECTLY. INSTEAD USING THERE ABDOMEN TO CAPTURE HUMANS TO BRING BACK TO THERE NEST... ",
+      },
+
+      femaleTigerBooba: {
+        title: "FED FEMALE TIGER",
+        summary: "ONCE THE TIGER HAS HAD A GOOD MEAL THIS VORACIOUS PREDATOR SEEKS OUT HUMANS TO CURSE. ONCE THIS PREDATOR CURSES A UNSUSPECTING HUMAN, SHE WILL LOOK OVER THEM AS HER NEW CUB. ",
+      },
+
+      maleBat: {
+        title: "MALE BAT",
+        summary: "LURKING IN CAVES THIS MONSTER SLEEPS DURING THE DAY. WANDERING HUMANS SHOULD TRY TO BE QUIET AROUND THIS MONSTER, AS WAKING THEM IS NOT ADVISED UNLESS THEY WISH TO BE TURNED INTO PUDGE. ",
+      },
+
+      femaleBat: {
+        title: "FEMALE BAT",
+        summary: "IF THEY ARE SpOOKED WHILE SLEEPING THIS NOCTERNAL PREDATOR WITH CHASE DOWN WHAT EVER SPOOKED IT AND TRY TO DEVOWER THEM WITH THERE REAR END. THESE VORACIOUS BATS ARE QUICK TO DIGEST THERE PREY IN THIS STATE, ADDING THEM TO THERE PUDGE. ",
       },
 
       back: {

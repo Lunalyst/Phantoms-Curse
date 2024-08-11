@@ -49,7 +49,7 @@ class bat extends enemy {
 
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
-        this.grabHitBox.setSize(30,10,true);
+        this.grabHitBox.setSize(20,10,true);
         this.isSleeping = true;
         this.wakingUp = false;
         this.isButtSlamming = false;
@@ -60,7 +60,7 @@ class bat extends enemy {
         this.enemyHP = 60;
 
         //defines a string containing telling the enemy which sound channel to use.
-        this.beeSFX = soundSprite;
+        this.batSFX = soundSprite;
         this.playingSound = false;
         
 
@@ -74,25 +74,22 @@ class bat extends enemy {
             this.anims.create({ key: 'batButtSlamInAir', frames: this.anims.generateFrameNames('batMale', { start: 45, end: 45 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batButtSlamMiss', frames: this.anims.generateFrameNames('batMale', { start: 46, end: 52 }), frameRate: 8, repeat: 0 });
 
-            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batMale', { start: 79, end: 84 }), frameRate: 6, repeat: -1 });
-            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batMale', { start: 85, end: 93 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batMale', { start: 94, end: 97 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batMale', { start: 79, end: 84 }), frameRate: 6, repeat: -1 });
-            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batMale', { start: 85, end: 93 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batMale', { start: 94, end: 97 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batMale', { start: 98, end: 101 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batMale', { start: 79, end: 84 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batMale', { start: 85, end: 93 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batMale', { start: 94, end: 97 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batMale', { start: 98, end: 101 }), frameRate: 8, repeat: -1 });
             
             if(sex === 0 ){
-                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batMale', { start: 53, end: 58 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batMale', { start: 59, end: 62 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batMale', { start: 62, end: 65 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batMale', { start: 66, end: 78 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batMale', { start: 53, end: 58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batMale', { start: 59, end: 62 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batMale', { start: 62, end: 65 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batMale', { start: 66, end: 78 }), frameRate: 8, repeat: 0 });
                   
             }else{
-                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batMale', { start: 102, end: 107 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batMale', { start: 108, end:111 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batMale', { start: 112, end: 115 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batMale', { start: 116, end: 126 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batMale', { start: 102, end: 107 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batMale', { start: 108, end:111 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batMale', { start: 112, end: 115 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batMale', { start: 116, end: 126 }), frameRate: 8, repeat: 0 });
                 
             }
              
@@ -105,25 +102,22 @@ class bat extends enemy {
             this.anims.create({ key: 'batButtSlamInAir', frames: this.anims.generateFrameNames('batFemale', { start: 45, end: 45 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batButtSlamMiss', frames: this.anims.generateFrameNames('batFemale', { start: 46, end: 52 }), frameRate: 8, repeat: 0 });
 
-            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batFemale', { start: 79, end: 84 }), frameRate: 6, repeat: -1 });
-            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batFemale', { start: 85, end: 93 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batFemale', { start: 94, end: 97 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batFemale', { start: 79, end: 84 }), frameRate: 6, repeat: -1 });
-            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batFemale', { start: 85, end: 93 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batFemale', { start: 94, end: 97 }), frameRate: 6, repeat: 0 });
-            this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batFemale', { start: 98, end: 101 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batButtHump', frames: this.anims.generateFrameNames('batFemale', { start: 79, end: 84 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batFemale', { start: 85, end: 93 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batFemale', { start: 94, end: 97 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batFemale', { start: 98, end: 101 }), frameRate: 8, repeat: -1 });
             
             if(sex === 0 ){
-                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 53, end: 58 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 59, end: 62 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 62, end: 65 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 66, end: 78 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 53, end: 58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 59, end: 62 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 62, end: 65 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 66, end: 78 }), frameRate: 8, repeat: 0 });
                   
             }else{
-                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 102, end: 107 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 108, end:111 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 112, end: 115 }), frameRate: 6, repeat: -1 });
-                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 116, end: 126 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 102, end: 107 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 108, end:111 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 112, end: 115 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 116, end: 126 }), frameRate: 8, repeat: 0 });
                 
             }
         }
@@ -137,164 +131,152 @@ class bat extends enemy {
         //if the bat isnt sleeping anymore
         if(this.isSleeping === false){
 
-        //if the enemy is within grab range attempt to grab the player while the grab timer is false
-        if((this.scene.player1.x + 60 > this.x   && this.scene.player1.x - 60 < this.x )&& (this.scene.player1.y-80 > this.y ) && this.grabTimer === false){
+            //if the enemy is within grab range attempt to grab the player while the grab timer is false
+            if((this.scene.player1.x + 10 > this.x   && this.scene.player1.x - 10 < this.x )&& (this.scene.player1.y-60 > this.y && this.scene.player1.y-80 < this.y ) && this.grabTimer === false){
 
-            this.grabTimer = true;
-            this.hitboxActive = true;
+                this.grabTimer = true;
+                this.hitboxActive = true;
 
                 //controls the x velocity when the bee ischarging to grab the player
-                if (this.scene.player1.x > this.x){
-                    
-                    this.setVelocityX(70);
-                    this.flipX = false;
-                                
-                } else if (this.scene.player1.x < this.x) {
+                this.setVelocityX(0);
 
-                    this.setVelocityX(70 * -1);
-                    this.flipX = true;
-                }
+                //controls the y velocity when the bee is charging to grab the player
+                this.setVelocityY(400);
 
-            //controls the y velocity when the bee is charging to grab the player
-           
-            this.setVelocityY(200);
+                this.grabHitBox.body.enable = true;
 
-            
+                //player the bee grab animation and once its complete
+                this.grabTimer = true;
 
-            this.grabHitBox.body.enable = true;
+                this.anims.play('batButtSlam').once('animationcomplete', () => {
 
-            //player the bee grab animation and once its complete
-            this.grabTimer = true;
-
-            this.anims.play('batButtSlam').once('animationcomplete', () => {
-
-                this.isButtSlamming = true;
-                    
-            });
-
-        // if the bat is butt slamming we check to see if the bat hits the ground.
-        }else if(this.isButtSlamming === true){
-            
-            
-            //check to see if bat collides with ground. if true then
-            if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
-                
-                //set value to play butt on ground animation
-                this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
-                    
-                    //set butt slamming to false
-                    this.isButtSlamming = false;
-                    this.grabTimer = false;
-                    this.isPlayingMissedAnims = false;
+                    this.isButtSlamming = true;
+                        
                 });
 
-                //stop velocity of both x and y
-                this.setVelocityX(0);
-                this.setVelocityY(0);
-
-                this.isPlayingMissedAnims = true;
-            // bat is in air and falling so keep downward velocity 
-            }else if(this.isPlayingMissedAnims === false){
-                this.anims.play('batButtSlamInAir');
-                this.setVelocityY(200);
-            }
-
-        //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
-        }else if(this.grabTimer === false){
-
-            //console.log('');
-            this.grabHitBox.body.enable = false;
-
-            if ((this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && (this.scene.player1.y > this.y - 450 && this.scene.player1.y < this.y + 450)) {
-
-                if(this.playingSound === false){
-                    this.playWingFlapSound('1',500);
-                    this.playingSound = true;
-                }
-                this.setSize(70, 180, true);
-                this.setOffset(100, 53);
-        
-                //if bee is within range
-                if ((this.scene.player1.x  > this.x - 20 && this.scene.player1.x < this.x + 20)){
-                    this.anims.play('batIdle',true);
-                    this.setVelocityX(0);
-    
-                }else{
-                     //if the bat is left of the player move the bat right twards the player bot not into them yet.
-                    if (this.scene.player1.x > this.x){
-                        
-                        this.setVelocityX(this.randomXVelocity);
-                        //play the animation for bat being in the air.
-                        this.anims.play('batMove',true);
-                        this.flipX = false;
-                                    
-                    //if the bat is to the right of the player, then move the bat left
-                    } else if (this.scene.player1.x < this.x) {
-    
-                        this.setVelocityX(this.randomXVelocity * -1);
-                        //play the animation for bat being in the air.
-                        this.anims.play('batMove',true);
-                        this.flipX = true;
-                    }
-                }
-                //keep the bee floating lightly above the players y
-                if ((this.scene.player1.y-100 > this.y  && this.scene.player1.y-100 < this.y)){
-                    //this.anims.play('batIdle',true);
-                    this.setVelocityY(0);
-    
-                }else{
-                    if (this.scene.player1.y-80 > this.y) {
-    
-                        this.setVelocityY(70);
-    
-                    } else if (this.scene.player1.y-80 < this.y) {
-    
-                        this.setVelocityY(70*-1);    
-                    }
-                }
-    
-            //if the be isnt within range of the player have them idle.  
-            }else{
-                this.anims.play('batIdle', true);
-                this.setSize(70, 180, true);
-                this.setVelocityX(0);
-                this.setVelocityY(0);
-
-                if(this.scene.sound.get(this.beeSFX) !== null){
-                    this.scene.sound.get(this.beeSFX).stop();
-                }
-
-                this.playingSound = false;
+            // if the bat is butt slamming we check to see if the bat hits the ground.
+            }else if(this.isButtSlamming === true){
                 
+                
+                //check to see if bat collides with ground. if true then
+                if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
+                    
+                    //set value to play butt on ground animation
+                    this.hitboxActive = false;
+                    this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
+                        
+                        //set butt slamming to false
+                        this.isButtSlamming = false;
+                        this.grabTimer = false;
+                        this.isPlayingMissedAnims = false;    
+                    });
+
+                    //stop velocity of both x and y
+                    this.setVelocityX(0);
+                    this.setVelocityY(0);
+
+                    this.isPlayingMissedAnims = true;
+                // bat is in air and falling so keep downward velocity 
+                }else if(this.isPlayingMissedAnims === false){
+                    this.anims.play('batButtSlamInAir');
+                    this.setVelocityY(400);
+                }
+
+            //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
+            }else if(this.grabTimer === false){
+
+                //console.log('');
+                this.grabHitBox.body.enable = false;
+
+                if ((this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && (this.scene.player1.y > this.y - 450 && this.scene.player1.y < this.y + 450)) {
+
+                    if(this.playingSound === false){
+                        this.playWingFlapSound('1',500);
+                        this.playingSound = true;
+                    }
+                    this.setSize(70, 180, true);
+                    this.setOffset(100, 53);
+            
+                    //if bee is within range
+                    if ((this.scene.player1.x  > this.x - 10 && this.scene.player1.x < this.x + 10)){
+                        this.anims.play('batIdle',true);
+                        this.setVelocityX(0);
+        
+                    }else{
+                        //if the bat is left of the player move the bat right twards the player bot not into them yet.
+                        if (this.scene.player1.x > this.x){
+                            
+                            this.setVelocityX(this.randomXVelocity);
+                            //play the animation for bat being in the air.
+                            this.anims.play('batMove',true);
+                            this.flipX = false;
+                                        
+                        //if the bat is to the right of the player, then move the bat left
+                        } else if (this.scene.player1.x < this.x) {
+        
+                            this.setVelocityX(this.randomXVelocity * -1);
+                            //play the animation for bat being in the air.
+                            this.anims.play('batMove',true);
+                            this.flipX = true;
+                        }
+                    }
+                    //keep the bee floating lightly above the players y
+                    if ((this.scene.player1.y-70 > this.y  && this.scene.player1.y-80 < this.y)){
+                        //this.anims.play('batIdle',true);
+                        this.setVelocityY(0);
+        
+                    }else{
+                        if (this.scene.player1.y - 100 > this.y) {
+        
+                            this.setVelocityY(150);
+        
+                        } else if (this.scene.player1.y - 80 < this.y) {
+        
+                            this.setVelocityY(150*-1);    
+                        }
+                    }
+        
+                //if the be isnt within range of the player have them idle.  
+                }else{
+                    this.anims.play('batIdle', true);
+                    this.setVelocityX(0);
+                    this.setVelocityY(0);
+
+                    if(this.scene.sound.get(this.batSFX) !== null){
+                        this.scene.sound.get(this.batSFX).stop();
+                    }
+
+                    this.playingSound = false;
+                    
+                }
+
             }
 
-        }
+            if(this.hitboxActive === true){
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y;
+            }else{
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y + 3000; 
+            }
 
-        if(this.hitboxActive === true){
-            this.grabHitBox.x = this.x;
-            this.grabHitBox.y = this.y;
-        }else{
-            this.grabHitBox.x = this.x;
-            this.grabHitBox.y = this.y + 3000; 
-        }
-
-        // randomized bee velocity so they can keep up with the player without overlapping into eachother.
-        if(this.randomizedXVelocity === false){
-            this.randomizedXVelocity = true;
-            //console.log("this.randomXVelocity: ",this.randomXVelocity);
-            this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
-            
-            let tempBee = this;
-            setTimeout(function () {
-                tempBee.randomizedXVelocity = false;
-            }, 500);
-        }
+            // randomized bee velocity so they can keep up with the player without overlapping into eachother.
+            if(this.randomizedXVelocity === false){
+                this.randomizedXVelocity = true;
+                //console.log("this.randomXVelocity: ",this.randomXVelocity);
+                this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
+                
+                let tempBee = this;
+                setTimeout(function () {
+                    tempBee.randomizedXVelocity = false;
+                }, 500);
+            }
     // behavior for sleeping 
     }else{
 
         // if player is in range, and they make a sound then
-        if(this.wakingUp === false && (this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && 
-        (this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX'))){
+        if(this.wakingUp === false && (this.scene.player1.x > this.x - 300 && this.scene.player1.x < this.x + 300) && 
+        (this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX') || this.isSoundEffectPlaying('rubbleSFX'))){
             // play animation of them dropping down
             this.wakingUp = true;
             this.anims.play('batWakeUp').once('animationcomplete', () => {
@@ -332,9 +314,7 @@ class bat extends enemy {
     // functioned called to play animation when the player is defeated by the bat in gameover.
     gameOver(playerSex) {
         this.setSize(70, 180, true);
-
-        this.gameoverAnimationComplete = false;
-        //this.setOffset(180, 110);
+        this.setOffset(100, 53);
         this.anims.play('batGameover').once('animationcomplete', () => {
 
         });
@@ -427,7 +407,7 @@ class bat extends enemy {
         //console.log("this bat did not grab the player this.batID: " + this.enemyId);
         this.scene.player1.visible = false;
         // puts the player hitbox out of the way and locked to a specific location.
-        this.scene.player1.y = this.y - 150;
+        //this.scene.player1.y = this.y - 150;
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
         
@@ -436,26 +416,14 @@ class bat extends enemy {
            
             //moves bee upward so that when the tween starts it isnt bumping up on the ground if the player is too close
             //tween kills all movement of the direction it is active in.
-            this.setVelocityY(-100);
-
+            this.setVelocityY(300);
+            this.setSize(70, 411, true);
             // plays the gram animation then starts tween and struggle animation
-            this.anims.play('batGrabbed').once('animationcomplete', () => {
+            this.x = this.scene.player1.x;
+            this.y = this.scene.player1.y-40;
 
-                this.beeHover = this.scene.tweens.add({
-                    targets: this,
-                    props : {
-                      y: { value : '+='+10},
-                    }, 
-                    ease: 'linear',
-                    duration: 350,
-                    repeat: -1,
-                    yoyo: true
-                });
-
-                this.anims.play('batStruggle', true);
+            this.anims.play('batButtGrabbed', true);
   
-            });
-    
         }
  
         this.playerGrabbed = true;
@@ -477,7 +445,7 @@ class bat extends enemy {
         this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
-        this.scene.KeyDisplay.y = this.y + 70;
+        this.scene.KeyDisplay.y = this.y + 100;
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
@@ -542,7 +510,7 @@ class bat extends enemy {
     playWingFlapSound(type,delay){
 
         if(this.batSoundCoolDown === false){
-            this.scene.initSoundEffect(this.beeSFX,type,0.3);
+            this.scene.initSoundEffect(this.batSFX,type,0.3);
             this.batSoundCoolDown = true;
     
             let enemy = this;
@@ -583,7 +551,7 @@ class bat extends enemy {
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
                      this.playerDefeatedAnimationStage !== 3 &&
-                      this.playerDefeatedAnimationStage !== 4) {
+                      this.playerDefeatedAnimationStage !== 5) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -602,15 +570,14 @@ class bat extends enemy {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 4 && this.scene.keyD.isDown)) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.keyD.isDown)) {
                 
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "malebat";
+                    this.scene.enemyThatDefeatedPlayer = "maleBat";
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femalebat";
+                    this.scene.enemyThatDefeatedPlayer = "femaleBat";
                 }
 
-                this.scene.gameoverLocation = "hiveGameover";
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -646,6 +613,11 @@ class bat extends enemy {
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
 
+                //set butt slamming to false
+                this.isButtSlamming = false;
+                this.grabTimer = false;
+                this.isPlayingMissedAnims = false; 
+
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
                 // if the enemy is destroyed then the timeout function wont have a refrence if done here.
@@ -655,9 +627,6 @@ class bat extends enemy {
                 this.scene.startGrabCoolDown();
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-
-                //stops the hover tween during grab animation
-                this.beeHover.stop();
 
                 this.scene.player1.visible = true;
                 this.scene.player1.setSize(23, 68, true);
@@ -745,10 +714,18 @@ class bat extends enemy {
 
         let currentbat = this;
         if (this.playerDefeatedAnimationStage === 1) {
+            this.playPlapSound('plap4',800);
+
             if (!this.animationPlayed) {
-            
+                
+                this.scene.onomat = new makeText(this.scene,this.x-9,this.y+20,'charBubble',"SLORP");
+                this.scene.onomat.visible = true;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textBuldgeDown(600);
+                this.scene.onomat.textFadeOutAndDestroy(600);
+
                 this.animationPlayed = true;
-                this.anims.play('batTailSwallow1').once('animationcomplete', () => {
+                this.anims.play('batButtSwallow1').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -757,7 +734,7 @@ class bat extends enemy {
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('batTailStruggle', true);
+            this.anims.play('batButtInHead', true);
 
             this.playPlapSound('plap3',800);
 
@@ -766,7 +743,7 @@ class bat extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -779,19 +756,47 @@ class bat extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('batTailSwallow2').once('animationcomplete', () => {
+                this.playPlapSound('plap5',800);
+                this.anims.play('batButtSwallow2').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    //stops wing beating sound effect
+                    this.scene.sound.get(this.batSFX).stop();
                     
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 4) {
+            this.anims.play('batButtHump', true);
+
+            this.playJumpySound('3',700);
+
+            let thisbat = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 30));
+                let randY = Math.floor((Math.random() * 30));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+15,this.y-randY+70,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                setTimeout(function () {
+                    thisbat.onomatPlayed = false;
+                }, 600);
+            }
+        } else if (this.playerDefeatedAnimationStage === 5) {
+
             if (!this.animationPlayed) {
-            
+                this.scene.onomat = new makeText(this.scene,this.x-11,this.y+60,'charBubble',"CHURN!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textWave();
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                this.scene.initSoundEffect('stomachSFX','1',0.03);
                 this.animationPlayed = true;
-                this.anims.play('batTailSwallow3').once('animationcomplete', () => {
+                this.anims.play('batButtDigest').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -799,9 +804,9 @@ class bat extends enemy {
                     
                 });
             }
-        } else if (this.playerDefeatedAnimationStage === 5) {
-            this.anims.play('batTailJiggle', true);
-           
+        }
+        else if (this.playerDefeatedAnimationStage === 6) {
+            this.anims.play('batButtJiggle', true);
         }
     }
     

@@ -19,6 +19,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '2',frames: this.anims.generateFrameNames('curses', { start: 8, end: 14 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '3',frames: this.anims.generateFrameNames('curses', { start: 15, end: 21 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '4',frames: this.anims.generateFrameNames('curses', { start: 22, end: 28 }),frameRate: 4,repeat: 0});
+      this.anims.create({key: '5',frames: this.anims.generateFrameNames('curses', { start: 29, end: 35 }),frameRate: 4,repeat: 0});
 
       this.setScale(1);
       
@@ -26,7 +27,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
 
     switchCurse(){
 
-      this.randomCurse = Math.floor((Math.random() * 4)+1);
+      this.randomCurse = Math.floor((Math.random() * 5)+1);
        let temp = ''+ this.randomCurse;
        //console.log("temp: ", temp);
 

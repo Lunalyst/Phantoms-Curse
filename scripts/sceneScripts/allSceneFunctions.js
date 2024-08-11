@@ -834,7 +834,7 @@ clearGameplayEmmitters(){
   }
 
   //function to see if sfx is playing or not.
-  findSoundEffect(soundID){
+  isSoundEffectPlaying(soundID){
 
     //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
     let findSound = false;

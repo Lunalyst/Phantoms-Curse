@@ -215,7 +215,7 @@ class level extends Phaser.Tilemaps.Tilemap{
 
                                         }
                                 }else if(this.tilesetNameInTiled === "Forest_Tileset"){
-                                        console.log('Forest_Tileset set up for special collision.');
+                                        //console.log('Forest_Tileset set up for special collision.');
                                         switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
                                                 case 583: // <- this tile only colides top
                                                 Tile.collideUp = true;

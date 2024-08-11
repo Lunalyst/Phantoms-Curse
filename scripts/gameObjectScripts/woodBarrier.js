@@ -18,7 +18,7 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
         //sets scale to 1 third. sprites are upscaled by 3 times so they look sharper.
         this.setScale(1/3,1/3);
         //changes collision box size.
-        this.setSize(40,96,true);
+        this.setSize(70,506,true);
 
         //barrie danage variables.
         this.hp = 50;
@@ -91,7 +91,7 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
             setTimeout(function () {
                 that.damageCoolDown = false;
                 that.clearTint();
-            }, 100);
+            }, 600);
         }
     }
     
@@ -99,13 +99,13 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
       console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
       if (slice > 0) {
-        this.hp -= (slice * 2);
+        this.hp -= (slice - 2);
       }
       if (blunt > 0) {
-        this.hp -= (blunt/2);
+        this.hp -= (blunt/2 - 2);
       }
       if (pierce > 0) {
-        this.hp -= (pierce);
+        this.hp -= (pierce - 3);
       }
       if (heat > 0) {
         this.hp -= (heat * 4);

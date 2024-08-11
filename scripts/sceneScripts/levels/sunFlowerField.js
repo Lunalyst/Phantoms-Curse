@@ -191,7 +191,7 @@ class sunFlowerField extends defaultScene {
       this.enemyGroupArray = ["beeDrones",'blueSlimes'];
       this.setUpEnemyCollider(this.enemyGroupArray);
      
-      //make a temp object
+     /* //make a temp object
       let object1 = {
         flagToFind: "lunaProtoDialogue1",
         foundFlag: false,
@@ -238,7 +238,7 @@ class sunFlowerField extends defaultScene {
         );
      }                                                        
       
-
+    */
       
 
       //define barriers whee enemys cannot go.

@@ -45,8 +45,8 @@ class sunFlowerField extends defaultScene {
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+      this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
+        "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
       ]);
 
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
@@ -92,7 +92,7 @@ class sunFlowerField extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
 
-      this.initLoopingSound('forestThemeSFX','bertsz',0.05);
+      this.initLoopingSound('sunflowerThemeSFX','bertsz',0.05);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

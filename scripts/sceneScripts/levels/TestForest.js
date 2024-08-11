@@ -42,7 +42,7 @@ class TestForest extends defaultScene {
       ]);
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/bertsz__calm.mp3"
+        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
     }
 
@@ -68,7 +68,7 @@ class TestForest extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
 
-      this.initLoopingSound('forestThemeSFX','bertsz',0.05);
+      this.initLoopingSound('forestThemeSFX','bertsz',0.01);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

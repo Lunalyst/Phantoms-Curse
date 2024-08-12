@@ -1,3 +1,11 @@
+/*
+for the sake of being aware of some good practices to prevent gameplay lag, 
+- make sure overlap function are called as little as possible in the update loop.
+- reuse sprites whenever possible.
+- try to keep loops in the update loop to a minimum
+- if lag occurs use the performance tab to record the lg, then use the bottom up tab to find whats causing it
+likely if its a generic phaser 3 function like collide object then there are too many overlap or collision calls.
+*/ 
 class defaultScene extends allSceneFunctions {
 
     //{preload Functions}===================================================================================================================

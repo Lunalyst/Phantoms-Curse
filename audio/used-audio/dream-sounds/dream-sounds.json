@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/dream-sounds/andrewkn-not-to-notice.mp3"
+        
+    ],
+    "spritemap": {
+        "andrewkn":{
+            "start": 0,
+            "end":148 ,
+            "loop": true
+        }
+    }
+}

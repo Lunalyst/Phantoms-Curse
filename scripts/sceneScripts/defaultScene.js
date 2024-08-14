@@ -416,6 +416,20 @@ class defaultScene extends allSceneFunctions {
         //console.log(" scene.portalId: "+ scene.portalId);
     }
 
+    //creates warp portal objects in the scene
+    initBedPortals(x, y) {
+      let portal1 = new bedWarp(this, x, y);
+      //gives portal a unique id so that scene can tell which warp object is being activated
+      portal1.warpPortalId = this.portalId;
+      this.portalId++;
+      //sets the location given as to where the player will be sent in the next scene
+      portal1.setLocationToSendPlayer(1018, 925,'DreamHub');
+      //adds portal object to the portal object in the scene
+      this.portals.add(portal1);
+      //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
+      //console.log(" scene.portalId: "+ scene.portalId);
+  }
+
     //creates warp portal objects that are transparent in the scene
     initPortalsWithTransparency(x, y, toX, toY, animation,destination,transparency) {
       let portal1 = new warp(this, x, y);

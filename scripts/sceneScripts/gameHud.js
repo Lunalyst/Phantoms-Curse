@@ -206,6 +206,7 @@ class gameHud extends allSceneFunctions {
             object.playerSaveSlotData = this.playerSaveSlotData;
             object.flagValues = this.flagValues;
             object.settings = this.settings;
+            object.dreamReturnLocation = this.dreamReturnLocation;
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;

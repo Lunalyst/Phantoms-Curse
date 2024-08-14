@@ -61,7 +61,8 @@ class allSceneFunctions extends Phaser.Scene {
       psd: dataObject.playerSkillsData,
       pssd: dataObject.playerSaveSlotData,
       flags: dataObject.flagValues,
-      settings: dataObject.settings
+      settings: dataObject.settings,
+      dreamReturnLocation: dataObject.dreamReturnLocation
       };
 
       // these are the game variables that are hard saved when the player uses a save point.
@@ -77,6 +78,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," --> file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
+      console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("=======================================================");
       //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
       if (dataObject.playerSaveSlotData.saveSlot === 1) {
@@ -137,6 +139,7 @@ class allSceneFunctions extends Phaser.Scene {
         this.playerSaveSlotData = tempPlayerSaveSlotData;
         this.flagValues = file.flags;
         this.settings = file.settings;
+        this.dreamReturnLocation = file.dreamReturnLocation;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
         
         console.log("[loadGameFile]============================================");
@@ -151,6 +154,7 @@ class allSceneFunctions extends Phaser.Scene {
         console.log("this.playerSaveSlotData:",this.playerSaveSlotData," <-- file.pssd: ",file.pssd);
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
+        console.log("this.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("=======================================================");
 
         }
@@ -203,6 +207,7 @@ class allSceneFunctions extends Phaser.Scene {
     dataObject.playerSaveSlotData = tempPlayerSaveSlotData;
     dataObject.flagValues = file.flags;
     dataObject.settings = file.settings;
+    dataObject.dreamReturnLocation = file.dreamReturnLocation;
 
      console.log("[returnFile]==============================================");
       console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -216,6 +221,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," <-- file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," <-- file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
+      console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("=======================================================");
     // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
    
@@ -238,7 +244,8 @@ class allSceneFunctions extends Phaser.Scene {
       psd: dataObject.playerSkillsData,
       pssd: dataObject.playerSaveSlotData,
       flags: dataObject.flagValues,
-      settings: dataObject.settings
+      settings: dataObject.settings,
+      dreamReturnLocation: dataObject.dreamReturnLocation
       }
 
       console.log("[saveGame]============================================");
@@ -253,6 +260,7 @@ class allSceneFunctions extends Phaser.Scene {
       console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," --> file.pssd: ",file.pssd);
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
+      console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("=======================================================");
 
       localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
@@ -292,6 +300,7 @@ class allSceneFunctions extends Phaser.Scene {
     this.playerSaveSlotData = file.pssd;
     this.flagValues = file.flags;
     this.settings = file.settings;
+    this.dreamReturnLocation = file.dreamReturnLocation;
 
     console.log("[loadGameHudData]============================================");
         console.log("this.healthDisplay.playerHealth:",this.healthDisplay.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
@@ -303,6 +312,7 @@ class allSceneFunctions extends Phaser.Scene {
         console.log("this.playerSaveSlotData:",this.playerSaveSlotData," <-- file.pssd: ",file.pssd);
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
+        console.log("dataObject.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("=======================================================");
 
 }
@@ -323,6 +333,7 @@ returnSave(dataObject){
     dataObject.playerSaveSlotData = file.pssd;
     dataObject.flagValues = file.flags;
     dataObject.settings = file.settings;
+    dataObject.dreamReturnLocation = file.dreamReturnLocations;
 
     console.log("[returnSave]==============================================");
     console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -336,6 +347,7 @@ returnSave(dataObject){
     console.log("dataObject.playerSaveSlotData:",dataObject.playerSaveSlotData," <-- file.pssd: ",file.pssd);
     console.log("dataObject.flagValues:",dataObject.flagValues," <-- file.flags: ",file.flags);
     console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
+    console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
     console.log("=======================================================");
 }
 
@@ -350,6 +362,8 @@ makeSaveFile(playerObject,sex,saveslot){
     femaleRabbit:0,
     maleBeeDrone:0,
     femaleBeeDrone:0,
+    maleBat:0,
+    femaleBat:0,
  };
 
  let playerSkillsData = {
@@ -378,6 +392,12 @@ makeSaveFile(playerObject,sex,saveslot){
     volume: 1,
     onomatopoeia: true
  };
+
+ let dreamReturnLocation = {
+  location: '',
+  x: null,
+  y:null
+};
 
    
 //creates a array to be filled my objects
@@ -410,6 +430,7 @@ for(let counter = 0; counter < 26; counter++){
   playerObject.playerSaveSlotData = saveSlotData;
   playerObject.flagValues = gameFlags;
   playerObject.settings = settings;
+  playerObject.dreamReturnLocation = dreamReturnLocation;
 
 }
 
@@ -635,6 +656,17 @@ validateSaveFile(dataObject){
     dataObject.settings = settings;
 
   }
+
+  if(dataObject.dreamReturnLocation === undefined || dataObject.dreamReturnLocation === null){
+    let dreamReturnLocation = {
+      location: '',
+      x: null,
+      y:null
+    };
+   
+    dataObject.dreamReturnLocation = dreamReturnLocation;
+
+    }
 }
 
 //function that prints listeners

@@ -226,7 +226,8 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSkillsData: null,
             playerSaveSlotData: null,
             flagValues: null,
-            settings:null
+            settings:null,
+            dreamReturnLocation:null
         };
         
         // then we call the built in returnfile function from our custom scene class
@@ -280,7 +281,8 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSkillsData: null,
             playerSaveSlotData: null,
             flagValues: null,
-            settings:null
+            settings:null,
+            dreamReturnLocation:null,
         };
         
         // then we call the built in returnfile function from our custom scene class
@@ -309,7 +311,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSkillsData: playerDataObject.playerSkillsData,
             playerSaveSlotData: playerDataObject.playerSaveSlotData,
             flagValues: playerDataObject.flagValues,
-            settings:playerDataObject.settings
+            settings:playerDataObject.settings,
+            dreamReturnLocation:playerDataObject.dreamReturnLocation
+
           };
 
         this.scene.saveGame(tempPlayerData);

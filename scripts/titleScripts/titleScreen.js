@@ -398,7 +398,8 @@ class titleScreen extends allSceneFunctions {
                         playerSkillsData: this.playerSkillsData,
                         playerSaveSlotData: this.playerSaveSlotData,
                         flagValues: this.flagValues,
-                        settings:this.settings
+                        settings:this.settings,
+                        dreamReturnLocation:this.dreamReturnLocation
                     };
 
                     this.validateSaveFile(playerDataObject);

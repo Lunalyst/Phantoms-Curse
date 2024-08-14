@@ -18,18 +18,14 @@ class HomeInterior2 extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
-    
-
     }
 
     preload(){
 
       this.load.tilemapTiledJSON("home_interior2_map" , "assets/tiledMap/LockWood/Player_Home_Interior2.json");
-      
+
+      this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
+
       this.defaultPreload();
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
@@ -91,10 +87,11 @@ class HomeInterior2 extends defaultScene {
 
       this.initSavePoints(896,1230);*/
 
-      this.initSavePoints(480,590);
+      //this.initSavePoints(450,590);
 
       this.initPortalsWithTransparency(352,592,352,605,"door2","HomeInterior1",0.75);
 
+      this.initBedPortals(598, 592+29);
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene

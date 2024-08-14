@@ -4,11 +4,11 @@ communicate between scenes
 https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
 */
 
-class warp extends Phaser.Physics.Arcade.Sprite{
+class bedWarp extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'warpSprites');
+        super(scene, xPos, yPos, 'bedWarp');
         //then we add new instance into the scene.
         scene.add.existing(this);
         //then we call this next line to give it collision
@@ -25,7 +25,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         //id used to distinguish between multiple protals in the scene.
         this.warpPortalId;
         //sets up key prompts displayed to the player.
-        this.portalKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
+        this.portalKeyPrompts = new keyPrompts(scene, xPos, yPos + 40,'keyPrompts');
         this.portalKeyPrompts.visible = false;
         this.promptCooldown = false;
         this.playerOverlapingPortal = false;
@@ -36,10 +36,12 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.activated = false;
 
         //warp sprite animations
-        this.anims.create({key: 'warpCaveOutside',frames: this.anims.generateFrameNames('warpSprites', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'warpCaveInside',frames: this.anims.generateFrameNames('warpSprites', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'door1',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'bed',frames: this.anims.generateFrameNames('bedWarp', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'bedEvanClose',frames: this.anims.generateFrameNames('bedWarp', { start: 1, end: 3}),frameRate: 6,repeat: 0});
+        this.anims.create({key: 'bedEvanSleep',frames: this.anims.generateFrameNames('bedWarp', { start: 3, end: 3}),frameRate: 6,repeat: -1});
+        this.anims.create({key: 'bedEvelynClose',frames: this.anims.generateFrameNames('bedWarp', { start: 4, end: 6}),frameRate: 6,repeat: 0});
+        this.anims.create({key: 'bedEvelynSleep',frames: this.anims.generateFrameNames('bedWarp', { start: 6, end: 6}),frameRate: 6,repeat: -1});
+       
         
     }
 
@@ -75,12 +77,39 @@ class warp extends Phaser.Physics.Arcade.Sprite{
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-        
-            //then we set the correct location values to the scene transition data.
-            playerDataObject.saveX = this.nextSceneX;
-            playerDataObject.saveY = this.nextSceneY;
-            playerDataObject.playerSex = scene1.playerSex;
-            playerDataObject.playerLocation = this.destination;
+
+            if(scene1.playerLocation === 'DreamHub'){
+
+              //then we set the correct location values to the scene transition data.
+              playerDataObject.saveX = playerDataObject.dreamReturnLocation.x;
+              playerDataObject.saveY = playerDataObject.dreamReturnLocation.y;
+              playerDataObject.playerSex = scene1.playerSex;
+              playerDataObject.playerLocation = playerDataObject.dreamReturnLocation.location;
+
+              //properly sets destination
+              scene1.destination = playerDataObject.dreamReturnLocation.location;
+
+              //clears dream hub data since we no longer need it.
+              playerDataObject.dreamReturnLocation.location = '';
+              playerDataObject.dreamReturnLocation.x = null;
+              playerDataObject.dreamReturnLocation.y = null;
+
+            }else{
+              //saves players last location so that multiple beds can lead to the dreamhub
+              playerDataObject.dreamReturnLocation.location = scene1.playerLocation;
+              playerDataObject.dreamReturnLocation.x = scene1.player1.x;
+              playerDataObject.dreamReturnLocation.y = scene1.player1.y;
+          
+              //then we set the correct location values to the scene transition data.
+              playerDataObject.saveX = this.nextSceneX;
+              playerDataObject.saveY = this.nextSceneY;
+              playerDataObject.playerSex = scene1.playerSex;
+              playerDataObject.playerLocation = this.destination;
+
+              //properly sets destination
+              scene1.destination = this.destination;
+
+            }
 
             // then we save the scene transition data.
             scene1.saveGame(playerDataObject);
@@ -94,9 +123,21 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               scene1.sound.get(scene1.sound.sounds[counter].key).stop();
             }
 
-            //warps player to the next scene
-            scene1.destination = this.destination;
-            scene1.cameras.main.fadeOut(500, 0, 0, 0);
+            //warps player to the next scene after sleeping animation is played.
+            scene1.isPaused = true;
+            scene1.physics.pause();
+            scene1.player1.visible = false;
+
+            if( playerDataObject.playerSex === 0){
+              this.anims.play('bedEvanClose').once('animationcomplete', () => {
+                scene1.cameras.main.fadeOut(500, 0, 0, 0);
+              });
+            }else{
+              this.anims.play('bedEvelynClose').once('animationcomplete', () => {
+                scene1.cameras.main.fadeOut(500, 0, 0, 0);
+              });
+            }
+            
               //otherwise we show the key prompt if the player is within range
           }else if(this.safeToLoad === true && activeId === this.warpPortalId && this.promptCooldown === false && scene1.isPaused === false){
             console.log("safe to press w to warp scenes");
@@ -113,13 +154,10 @@ class warp extends Phaser.Physics.Arcade.Sprite{
     }
 
     //called when set up in initportals in the default scene. so the portal knows what scene the player is going to and where to put them in that scene.
-    setLocationToSendPlayer(x,y,animation,destination){
+    setLocationToSendPlayer(x,y,destination){
       this.destination = destination;
       this.nextSceneX = x;
-      this.nextSceneY = y;
-    
-      this.anims.play(animation);
-       
+      this.nextSceneY = y; 
       
     }
 }

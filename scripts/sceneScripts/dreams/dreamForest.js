@@ -1,13 +1,13 @@
 
-class dreamHub extends defaultScene {
+class dreamForest extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'DreamHub',active: false ,physics:{default:'arcade'}});
+    super({key: 'DreamForest',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "DreamHub";
+    this.playerLocation = "DreamForest";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -22,16 +22,14 @@ class dreamHub extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("dream_hub_map" , "assets/tiledMap/Dream/Dream_Hub.json");
+      this.load.tilemapTiledJSON("dream_forest_map" , "assets/tiledMap/Dream/Dream_Forest.json");
 
-      this.load.image("dream_source_map" , "assets/tiledMap/Dream/Dream_Tileset.png");
+      this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       
       this.defaultPreload();
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-
-      this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
 
       this.load.audioSprite('andrewknSFX','audio/used-audio/dream-sounds/dream-sounds.json',[
         "audio/used-audio/dream-sounds/andrewkn-not-to-notice.mp3"
@@ -55,7 +53,7 @@ class dreamHub extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("dream_hub_map","Dream_Tileset","dream_source_map");
+      this.setUpTileSet("dream_forest_map","Forest_Tileset","forest_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -86,15 +84,8 @@ class dreamHub extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortals(1392,925-13,882,925,"warpCaveOutside","DreamForest");
-
-      this.initSigns(1281,925+12,
-        "WELCOME TO YOUR DREAMS SCAPE. WHILE YOUR HERE YOUR BODY SLEEPS IN THE WAKING WORLD YOU CAN RELIVE MEMORYS OF PAST ENCOUNTERS WITH MONSTERS. ",
-        ['signLoop']);
-
-      this.initBedPortals(1031, 925+15);
-
-      this.initSavePoints(863,925-15);
+      //
+      this.initPortals(881,925-13,1388,925,"warpCaveOutside","DreamHub");
       
       //sets up containers
       this.setUpContainers();
@@ -119,7 +110,7 @@ class dreamHub extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.backround = this.add.tileSprite(100, 350, 1400*3, 664*2, "dreamBackground");
+        this.backround = this.add.tileSprite(100, 300, 1400*3, 664*2, "dreamBackground");
         this.backround.setDepth(-50);
         this.backround.setScale(1);
     }

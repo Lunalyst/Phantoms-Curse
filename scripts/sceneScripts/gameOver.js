@@ -306,7 +306,8 @@ class gameOver extends allSceneFunctions {
                             playerSkillsData: gameoverThat.playerSkillsData,
                             playerSaveSlotData: gameoverThat.playerSaveSlotData,
                             flagValues: gameoverThat.flagValues,
-                            settings:gameoverThat.settings
+                            settings:gameoverThat.settings,
+                            dreamReturnLocation:gameoverThat.dreamReturnLocation
                         };
 
                     //call save function for temp save so when we start the scene agian, it has the correct data.

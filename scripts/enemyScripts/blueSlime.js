@@ -112,7 +112,7 @@ class blueSlime extends enemy {
         this.inSafeMode = inSafeMode;
 
         this.anims.play("slimeIdle",true);
-        
+
         //if the slime is of size 1 then set its hit box to the correct size
         if (this.slimeSize === 1) {
             this.setSize(90, 65, true);
@@ -821,6 +821,9 @@ class blueSlime extends enemy {
     smallSlimeDefeatedPlayerAnimation() {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
+
+            this.playerDefeatedAnimationStageMax = 9;
+
             if (!this.animationPlayed) {
 
                 this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
@@ -973,6 +976,8 @@ class blueSlime extends enemy {
     largeSlimeDefeatedPlayerAnimation() {
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
+
+            this.playerDefeatedAnimationStageMax = 8;
             if (!this.animationPlayed) {
 
                 this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
@@ -1103,7 +1108,7 @@ class blueSlime extends enemy {
 
     //function to show off animation 
     animationGrab(){
-
+        console.log(' activating slime view grab logic');
         //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         
@@ -1118,6 +1123,7 @@ class blueSlime extends enemy {
             this.isViewingAnimation = true;
             this.playerProgressingAnimation = false;
 
+            this.scene.gameoverLocation = "caveGameover";
         //if the player is grabbed then.
         } else if(this.playerGrabbed === true) {
 
@@ -1164,11 +1170,8 @@ class blueSlime extends enemy {
                 //calls animation grab code until the animation is finished
                 if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
                     //handle the defeated logic that plays defeated animations
-                    if(this.tigerHasEatenRabbit === true){
-                        this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
-                    } else{
-                        this.playerIsDefeatedLogic(playerHealthObject);
-                    }
+                    this.playerIsDefeatedLogic(playerHealthObject);
+                    
                 }else{
                     //hide the tab indicator and key prompts
                     skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);

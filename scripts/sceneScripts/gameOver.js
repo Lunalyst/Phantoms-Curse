@@ -1,7 +1,3 @@
-/*
-https://phaser.io/examples/v3/view/input/mouse/click-sprite
-https://phaser.io/examples/v2/input/pointer-over
- */
 let gameoverThat;
 class gameOver extends allSceneFunctions {
 

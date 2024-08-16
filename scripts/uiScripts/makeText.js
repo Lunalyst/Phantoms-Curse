@@ -1,9 +1,3 @@
-/*
-https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
-//https://phaser.io/examples/v3/view/game-objects/graphics/health-bars-demo
-use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
-*/
-
 class makeText extends Phaser.GameObjects.Container{
 
     constructor(scene, xPos, yPos,font,text){

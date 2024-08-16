@@ -1,4 +1,4 @@
-
+// sign entity that allows text to be displayed.
 class sign extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos,text,profileArray){

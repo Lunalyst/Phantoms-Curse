@@ -1,5 +1,3 @@
-//https://stackoverflow.com/questions/71266893/phaser-3-change-hitbox-interactive-area-of-sprite-without-physics
-
 let bestiaryThat;
 
 const bestiaryLineLength = 14;

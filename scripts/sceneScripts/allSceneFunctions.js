@@ -1,5 +1,3 @@
-
-
 //class is used mainly to store functions that should be shared across all game scenes. mainly loading and saving functions.
 class allSceneFunctions extends Phaser.Scene {
   

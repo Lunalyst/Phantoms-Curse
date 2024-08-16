@@ -1,5 +1,3 @@
-
-
 //once the player has the double jump skill, they create this platform under them as a visual effect to show they jumped off something during the double jump.
 class doubleJumpEffect extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor

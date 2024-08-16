@@ -1,19 +1,5 @@
-/*
-https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
-use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
-https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
-// example enemy behaviors
-*/
 
-//import { decreaseHealth } from "./uiScripts/events";
-
-//how to use once and a promise for animations completing.
-//https://stackoverflow.com/questions/71490140/phaser-3-play-animation-after-previous-animation-finished
-//https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObject.html#once__anchor
-
-//at higher hrtz rates breaks the rabbitgrab function. needs to be redone again. fuck.
-
-//implementation for the blue rabbit enemy.
+//implementation for the rabbit enemy.
 class rabbit extends enemy {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {

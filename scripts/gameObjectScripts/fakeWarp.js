@@ -1,9 +1,4 @@
-
-/*
-communicate between scenes
-https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
-*/
-
+//fake warp that doesnt do anything except look pretty.
 class fakeWarp extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos,animation){

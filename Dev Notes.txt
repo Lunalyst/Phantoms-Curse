@@ -1,0 +1,78 @@
+Useful Links:
+
+how to turn game into a exe application, useing electron
+https://www.emanueleferonato.com/2020/10/06/turn-your-html5-games-into-desktop-applications-using-electron-and-distribute-them-part-1-windows/
+
+documentation for arcade bodys.
+https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
+
+example enemy behaviors.
+https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
+
+example as to how to use 'animationoncomplete' to do things only after a animation has finished.
+https://stackoverflow.com/questions/71490140/phaser-3-play-animation-after-previous-animation-finished
+
+documentation for once.
+https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.GameObject.html#once__anchor
+
+communicate between scenes.
+https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
+https://www.youtube.com/watch?v=5zl74QQjUDI
+
+how to use local sotrage to save player progress.
+https://www.dynetisgames.com/2018/10/28/how-save-load-player-progress-localstorage/
+
+how to make one way tiles in tileset.
+https://www.html5gamedevs.com/topic/40484-jump-through-a-tile-from-underneath/
+
+Rexui plugin info.
+https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-textbox/
+
+how to extrude tileset to avoid tile bleeding
+https://github.com/sporadic-labs/tile-extruder
+
+use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
+// important. to fix tile bleeding we follow the guide here using tile extruder.
+https://github.com/sporadic-labs/tile-extruder
+//use this code in cmd
+// dont forget our tiles are 96 by 96 then downscaled by a third
+//tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
+
+for new tileset, 
+Orthogonal
+Base64 (uncompressed)
+Right Down.
+
+then add the tileset in on the left. remeber to give tiles the collision boolean property for tiles that have colliders.
+colliders that are one way(like the platforms) are define here. do not give those collision in tiled.
+
+how to monitor performance and isolate problems.
+https://www.youtube.com/watch?v=mDcNGwxAvKY
+
+for the sake of being aware of some good practices to prevent gameplay lag, 
+- make sure overlap function are called as little as possible in the update loop.
+- reuse sprites whenever possible.
+- try to keep loops in the update loop to a minimum
+- if lag occurs use the performance tab to record the lg, then use the bottom up tab to find whats causing it
+likely if its a generic phaser 3 function like collide object then there are too many overlap or collision calls.
+
+phaser examples
+https://samme.github.io/phaser-examples-mirror/
+https://phaser.io/examples/v3/view/input/mouse/click-sprite
+
+removing tweens and images
+https://phaser.discourse.group/t/removing-images-and-tweens/2391/5
+
+how to set a sprite to be interactive on mouse click
+https://stackoverflow.com/questions/71266893/phaser-3-change-hitbox-interactive-area-of-sprite-without-physics
+
+health bars example 
+https://phaser.io/examples/v3/view/game-objects/graphics/health-bars-demo
+
+Bugs:
+
+tiles not showing up?
+https://phaser.discourse.group/t/tiled-tilemap-partially-invisible-but-no-console-errors/4079
+
+constructor error?
+https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-constructor-at-new-mapboxgeocoder

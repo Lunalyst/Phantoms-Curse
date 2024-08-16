@@ -1,9 +1,4 @@
-
-/*
-communicate between scenes
-https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
-*/
-
+//containter that when interacted with gives the player a item.
 class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
     // is passed in the scene,x&y position for the scene, item id and its details,a flag to tell if it should be opened once, and a bool to tell if the chest can be opened up multiple times.

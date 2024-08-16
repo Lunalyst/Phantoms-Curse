@@ -1,9 +1,4 @@
-
-/*
-communicate between scenes
-https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
-*/
-
+// wood barriers that break when the player does enough damage to them.
 class woodBarrier extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){

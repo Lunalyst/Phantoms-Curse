@@ -1,9 +1,4 @@
-/*
-https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
-use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
-*/
-
-//player sprite object
+//player entity.
 class player extends Phaser.Physics.Arcade.Sprite{
   // every class needs constructor
   constructor(scene, xPos, yPos,sex){

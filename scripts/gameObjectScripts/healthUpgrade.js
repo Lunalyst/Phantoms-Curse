@@ -1,3 +1,4 @@
+//health upgrade that increases player max hp.
 class healthUpgrade extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos,flag){

@@ -1,9 +1,4 @@
-
-/*
-communicate between scenes
-https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
-*/
-
+//warp for bed to the dreamscape
 class bedWarp extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){

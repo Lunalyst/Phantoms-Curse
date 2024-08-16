@@ -1,5 +1,3 @@
-
-/*https://phaser.io/examples/v3/view/input/mouse/click-sprite*/
 let inventoryThat;
 class inventory extends Phaser.GameObjects.Container{
     // every class needs constructor

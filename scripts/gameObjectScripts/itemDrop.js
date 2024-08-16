@@ -1,3 +1,4 @@
+//item drop that the player can pick up. generic class.
 class itemDrop extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos,setItemID,setItemStackable,setItemAmount){

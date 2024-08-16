@@ -1,7 +1,3 @@
-
-//https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-constructor-at-new-mapboxgeocoder
-//https://www.youtube.com/watch?v=5zl74QQjUDI
-
 //this class is to factor out ui elements that we want to keep inbetween scenes by making a scene that is active and overlayed over the current scene
 class gameHud extends allSceneFunctions {
   

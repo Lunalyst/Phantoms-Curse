@@ -1,21 +1,4 @@
-/*
-https://photonstorm.github.io/phaser3-docs/Phaser.Types.Physics.Arcade.html
-use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
-// important. to fix tile bleeding we follow the guide here using tile extruder.
-https://github.com/sporadic-labs/tile-extruder
-//use this code in cmd
-// dont forget our tiles are 96 by 96 then downscaled by a third
-//tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
-
-for new tileset, 
-Orthogonal
-Base64 (uncompressed)
-Right Down.
-
-then add the tileset in on the left. remeber to give tiles the collision boolean property for tiles that have colliders.
-colliders that are one way(like the platforms) are define here. do not give those collision in tiled.
-*/
-
+//creates the tile maps with collision and special properties.
 class level extends Phaser.Tilemaps.Tilemap{
 
         constructor(scene,mapData){

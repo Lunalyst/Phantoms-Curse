@@ -1,9 +1,4 @@
-
-/*
-communicate between scenes
-https://phaser.io/news/2021/07/how-to-communicate-between-scenes-in-phaser-3
-*/
-
+//savestone that allows players to save there progress.
 class savePoint extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){

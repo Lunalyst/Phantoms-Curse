@@ -1,10 +1,3 @@
-
-/*
-https://phaser.io/examples/v3/view/input/mouse/click-sprite
-https://phaser.io/examples/v2/input/pointer-over
-https://braelynnn.medium.com/phaser-game-settings-using-localstorage-1cf6a9fa6f2c
-https://phaser.discourse.group/t/removing-images-and-tweens/2391/5
- */
 let playerUI;
 
 class titleScreen extends allSceneFunctions {

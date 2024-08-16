@@ -1,4 +1,4 @@
-
+// parent class of most npc entitys
 class npc extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
     constructor(scene, xPos, yPos,sprite){

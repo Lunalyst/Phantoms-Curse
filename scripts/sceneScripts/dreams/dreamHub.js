@@ -1,4 +1,4 @@
-
+// hub world for the dream scape. connects to other dream zones.
 class dreamHub extends defaultScene {
   
   constructor(){

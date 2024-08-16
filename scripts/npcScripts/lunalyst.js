@@ -1,3 +1,4 @@
+//basic npc class of lunalyst.
 class lunalyst extends npc{
     // every class needs constructor
     constructor(scene, xPos, yPos,text,profileArray,flag){

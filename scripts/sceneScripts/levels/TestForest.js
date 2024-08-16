@@ -120,17 +120,6 @@ class TestForest extends defaultScene {
       this.initSavePoints(761,989-14);
       this.initSavePoints(4230,1085-14);
 
-      /*this.test4 = new makeText(this,761,900,'charBubble',"TESTTEXT");
-      this.test4.textWave();
-      this.test4.visible = true;
-      this.test4.setScale(1/2);
-      console.log("this.test4", this.test4);*/
-     
-
-      /*this.marker = new textBoxCharacter(this,761,900,'charBubble');
-      this.marker.visible = true;
-      this.marker.anims.play('X');*/
-
       console.log("this.test4: ",this.test4 );
 
       this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
@@ -167,11 +156,11 @@ class TestForest extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
           //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit');
-          thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit');
-          thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit');
-          thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit');
+          thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
+          thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
+          thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

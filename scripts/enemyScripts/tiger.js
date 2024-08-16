@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue slime enemy.
 class tiger extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, sex, id, 100, 'tiger');
         
@@ -67,6 +67,7 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerJumpStart', frames: this.anims.generateFrameNames('tigerFemale', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerFemale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTauntLoop', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: -1 });
         //adding enemy sprite extension to prevent loading issues.
         this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 0, end: 9 }), frameRate: 9, repeat: -1 });
         this.anims.create({ key: 'tigerSwallowMaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 10, end: 16 }), frameRate: 12, repeat: 0 });
@@ -118,7 +119,15 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemale', { start: 174, end: 178 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemale', { start: 179, end: 186 }), frameRate: 5, repeat: -1 });
 
-        this.anims.play("tigerTaunt");
+        this.inSafeMode = inSafeMode;
+
+       
+        if(this.inSafeMode === true){
+            this.anims.play("tigerTauntLoop",true); 
+        }else{
+            this.anims.play("tigerTaunt",true);
+        }
+        
     }
 
     //functions that move tiger objects.
@@ -967,6 +976,9 @@ class tiger extends enemy {
     defeatedPlayerAnimation() {
         if (this.playerDefeatedAnimationStage === 1) {
             //this.animationPlayed = false;
+
+            this.playerDefeatedAnimationStageMax = 9;
+
             if (!this.animationPlayed) {
                 console.log("the animation has not been played");
                 this.animationPlayed = true;
@@ -1173,11 +1185,13 @@ class tiger extends enemy {
     defeatedPlayerAnimationBooba() {
         if (this.playerDefeatedAnimationStage === 1) {
             //this.animationPlayed = false;
+
+            this.playerDefeatedAnimationStageMax = 6;
+
             if (!this.animationPlayed) {
                 console.log("the animation has not been played");
                 this.animationPlayed = true;
-                //this.scene.initSoundEffect('swallowSFX','2',0.6);
-
+                
                 console.log("this.scene.onomat: ",this.scene.onomat);
                 
                 this.anims.play('tigerBoobaLayDown').once('animationcomplete', () => {
@@ -1275,6 +1289,83 @@ class tiger extends enemy {
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
                 });
+            }
+        }
+    }
+
+    //function to show off animation 
+    animationGrab(){
+
+        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        this.clearTint();
+        
+        //stops the x velocity of the enemy
+        this.setVelocityX(0);
+       
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+        // if the grabbed is false but this function is called then do the following.
+        if (this.playerGrabbed === false) {
+
+            this.tigerGrabFalse();
+            this.isViewingAnimation = true;
+            this.playerProgressingAnimation = false;
+
+        //if the player is grabbed then.
+        } else if(this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(5);
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        
+            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+            this.scene.player1.y = this.y - 150;
+            this.scene.player1.body.setGravityY(0);
+            //this.body.setGravityY(0);
+            this.scene.player1.setSize(10, 10, true);
+            //puts the key display in the correct location.
+            this.scene.KeyDisplay.visible = true;
+            this.scene.KeyDisplay.x = this.x;
+            this.scene.KeyDisplay.y = this.y + 100;
+            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+            
+            //if the player is not defeated
+            if (this.playerProgressingAnimation === false) {
+
+            // handles input for progressing animation
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+                this.playerProgressingAnimation = true;
+                }
+
+                // displays inputs while in the first stage of the animation viewing.
+                if (this.keyAnimationPlayed === false) {
+                    //console.log(" setting keyW display");
+                    this.scene.KeyDisplay.playDKey();
+                    this.keyAnimationPlayed = true;
+                }      
+            }
+
+            if( this.playerProgressingAnimation === true){
+                
+                //calls animation grab code until the animation is finished
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                    //handle the defeated logic that plays defeated animations
+                    if(this.tigerHasEatenRabbit === true){
+                        this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                    } else{
+                        this.playerIsDefeatedLogic(playerHealthObject);
+                    }
+                }else{
+                    //hide the tab indicator and key prompts
+                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                    this.scene.KeyDisplay.visible = false;    
+                }
             }
         }
     }

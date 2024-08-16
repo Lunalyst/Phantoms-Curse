@@ -153,7 +153,7 @@ class tutorialCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
         setTimeout(function(){
           //generates enemys
-          thisScene.initEnemy(1309, 605,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(1309, 605,thisScene.playerSex,'blueSlime',false);
           
       
           thisScene.spawnedEnemys = true;

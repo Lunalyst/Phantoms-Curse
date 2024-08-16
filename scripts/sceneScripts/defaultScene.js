@@ -156,6 +156,8 @@ class defaultScene extends allSceneFunctions {
         //variable to tell when the player is defeated to call a different load.
         this.playerDefeated = false;
 
+        this.gaveoverCalled = false;
+
     }
 
     //function to set up player key input definitions.
@@ -766,15 +768,18 @@ class defaultScene extends allSceneFunctions {
 
     //function which destroys this scene and starts the gameover scene.
     changeToGameover(){
+     
 
         let playerSaveSlotDataObject = {
           playerSaveSlotData: null
         };
       
         playerSaveSlotEmitter.emit(playerSaveSlot.getSaveSlot,playerSaveSlotDataObject)
-  
+
         console.log("this.playerSaveSlotData sent to gameover: ",playerSaveSlotDataObject.playerSaveSlotData);
   
+        if(playerSaveSlotDataObject.playerSaveSlotData !== null){
+      
         this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData,this.defeatedTitle);
 
         //clears emitters
@@ -788,6 +793,8 @@ class defaultScene extends allSceneFunctions {
 
         this.playerDefeated = true;
         this.cameras.main.fadeOut(500, 0, 0, 0);
+      }
+      
   
     }
 
@@ -837,7 +844,7 @@ class defaultScene extends allSceneFunctions {
     }
     
     //creates a enemy. enemytype determines what enemy is spawned
-    initEnemy(startX, startY, playerSex, enemyType,soundSFX) {
+    initEnemy(startX, startY, playerSex, enemyType,inSafeMode,soundSFX) {
       console.log("enemy spawned: ",enemyType);
 
     
@@ -845,23 +852,44 @@ class defaultScene extends allSceneFunctions {
       if(enemyType === 'blueSlime'){
         
         //creates a secondary group to handle enemy specific interactions which we will use later
-        let slime1 = new blueSlime(this, startX, startY, playerSex,this.enemyId);
+        let slime1 = new blueSlime(this, startX, startY, playerSex,this.enemyId,inSafeMode);
         console.log("blueSlime.enemyId: ",slime1.enemyId);
         this.enemyId++;
         //adds the enemy to both groups.
         this.enemys.add(slime1);
         this.blueSlimes.add(slime1);
 
+      }else if(enemyType === 'blueSlimeLarge'){
+        
+        //creates a secondary group to handle enemy specific interactions which we will use later
+        let slime1 = new blueSlime(this, startX, startY, playerSex,this.enemyId,inSafeMode);
+        console.log("blueSlime.enemyId: ",slime1.enemyId);
+        this.enemyId++;
+        slime1.slimeSize = 2;
+        slime1.anims.play("slimeLargeIdle",true);
+        //adds the enemy to both groups.
+        this.enemys.add(slime1);
+        this.blueSlimes.add(slime1);
+
       }else if(enemyType === 'tiger'){
-        let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId);
+        let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId,inSafeMode);
         console.log("tiger1.enemyId: ",tiger1.enemyId);
         this.enemyId++;
         this.enemys.add(tiger1);  
         this.tigers.add(tiger1);
 
+      }else if(enemyType === 'tigerBooba'){
+        let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId,inSafeMode);
+        console.log("tiger1.enemyId: ",tiger1.enemyId);
+        this.enemyId++;
+        tiger1.tigerHasEatenRabbit = true;
+        tiger1.anims.play('tigerTummybreastSquish',true);
+        this.enemys.add(tiger1);  
+        this.tigers.add(tiger1);
+
       }else if(enemyType === 'rabbit'){
         
-        let rabbit1 = new rabbit(this, startX, startY, playerSex,this.enemyId);
+        let rabbit1 = new rabbit(this, startX, startY, playerSex,this.enemyId,inSafeMode);
         console.log("rabbit1.enemyId: ",rabbit1.enemyId);
         this.enemyId++;
         this.enemys.add(rabbit1);  
@@ -869,14 +897,14 @@ class defaultScene extends allSceneFunctions {
 
       }else if(enemyType === 'beeDrone'){
         
-        let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId,soundSFX);
+        let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
         console.log("beeDrone.enemyId: ",beeDrone1.enemyId);
         this.enemyId++;
         this.enemys.add(beeDrone1);  
         this.beeDrones.add(beeDrone1);
       }else if(enemyType === 'bat'){
-        
-        let bat1 = new bat(this, startX, startY, playerSex,this.enemyId,soundSFX);
+        console.log("inSafeMode: ",inSafeMode)
+        let bat1 = new bat(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
         console.log("bat1.enemyId: ",bat1.enemyId);
         this.enemyId++;
         this.enemys.add(bat1);  
@@ -900,7 +928,12 @@ class defaultScene extends allSceneFunctions {
             this.cameras.main.zoom = 4;
             this.grabbed = tempEnemy.playerGrabbed;
             //scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD
-            tempEnemy.grab();
+            if(tempEnemy.inSafeMode === false){
+              tempEnemy.grab();
+            }else{
+              tempEnemy.animationGrab();
+            }
+            
             //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
             
         } else {
@@ -942,6 +975,37 @@ class defaultScene extends allSceneFunctions {
     }, 1500);
     }
 
+    viewAnimationLogic(enemy){
+      //check if the player presses w while in range   
+      if(Phaser.Input.Keyboard.JustDown(this.keyW) === true){
+          
+        //stop the velocity of the player
+        enemy.setVelocityX(0);
+        enemy.setVelocityY(0);
+        this.player1.setVelocityX(0);
+        //calls the grab function
+        enemy.animationGrab();
+      
+        //sets the scene grab value to true since the player has been grabbed
+        enemy.playerGrabbed = true;
+        enemy.grabCoolDown = true;
+        this.grabbed = true;
+        this.grabCoolDown = true;
+        enemy.safePrompts.visible = false;
+
+      //otherwise show prompts so the player knows what button to press to enter the animation
+      }else{
+
+        //safety check to make sure that animation is played only once
+        if(enemy.playedSafePrompts === false){
+          enemy.safePrompts.visible = true;
+          enemy.playedSafePrompts = true;
+          enemy.safePrompts.playWKey();
+        }
+      }
+    // otherwise hid the prompt from the player.
+    }
+    
     //function keeps track of slime interactions
     checkBlueSlimeInteractions(scene) {
 
@@ -950,7 +1014,7 @@ class defaultScene extends allSceneFunctions {
       scene.blueSlimes.children.each(function (tempSlime) {
 
         //safty check to improve performance. only does overlap if in range.
-        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150)){
+        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
           //calls to make each instance of a slime move.
           tempSlime.move(scene.player1,scene);
           scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
@@ -1007,6 +1071,15 @@ class defaultScene extends allSceneFunctions {
           //deincriments the grabcooldown on any slime that grabbed the player.
           tempSlime.mitosisDelayCheck();
           // creates a overlap between the damage hitbox and the slime so that slime can take damage
+        }else if(this.objectsInRangeX(tempSlime,scene.player1,30) && this.objectsInRangeY(tempSlime,scene.player1,30)){
+
+          this.viewAnimationLogic(tempSlime);
+        // otherwise hid the prompt from the player.
+        }else{
+          tempSlime.setVelocityY(0);
+          tempSlime.setVelocityX(0);
+          tempSlime.safePrompts.visible = false;
+          tempSlime.playedSafePrompts = false;
         }
       }, this);
 
@@ -1018,6 +1091,7 @@ class defaultScene extends allSceneFunctions {
       //applys a function to all tigers
       scene.tigers.children.each(function (tempTiger) {
 
+        if(scene.objectsInRangeX(tempTiger,scene.player1,300) && scene.objectsInRangeY(tempTiger,scene.player1,150) && tempTiger.inSafeMode === false ){
         //function to check rabbits and see if the tiger can grab one
         scene.rabbits.children.each(function (tempRabbit) {
 
@@ -1045,7 +1119,6 @@ class defaultScene extends allSceneFunctions {
         //calls tiger function to move
         tempTiger.move(scene.player1,scene);
         
-        if(scene.objectsInRangeX(tempTiger,scene.player1,300) && scene.objectsInRangeY(tempTiger,scene.player1,150)){
           //checks if the attack hitbox is overlapping the tiger to deal damage.
           scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
           
@@ -1110,7 +1183,16 @@ class defaultScene extends allSceneFunctions {
           }
           
         });
+      }else if(this.objectsInRangeX(tempTiger,scene.player1,30) && this.objectsInRangeY(tempTiger,scene.player1,30)){
+
+        this.viewAnimationLogic(tempTiger);
+      // otherwise hid the prompt from the player.
+      }else{
+        tempTiger.safePrompts.visible = false;
+        tempTiger.playedSafePrompts = false;
       }
+
+
     }, this);
       
     }
@@ -1118,13 +1200,15 @@ class defaultScene extends allSceneFunctions {
     //function keeps track of slime interactions
     checkRabbitInteractions(scene) {
 
-      //applys a function to all tigers
+      //applys a function to all rabbits
       scene.rabbits.children.each(function (tempRabbits) {
       
-      //calls tiger function to move
-      tempRabbits.move(scene.player1,scene);
-      
-      if(scene.objectsInRangeX(tempRabbits,scene.player1,400) && scene.objectsInRangeY(tempRabbits,scene.player1,150)){
+    
+      if(scene.objectsInRangeX(tempRabbits,scene.player1,400) && scene.objectsInRangeY(tempRabbits,scene.player1,150) && tempRabbits.inSafeMode === false){
+
+        //calls tiger function to move
+        tempRabbits.move(scene.player1,scene);
+
         //checks if the attack hitbox is overlapping the tiger to deal damage.
         scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
         
@@ -1183,6 +1267,13 @@ class defaultScene extends allSceneFunctions {
         
           }
         });
+      }else if(this.objectsInRangeX(tempRabbits,scene.player1,30) && this.objectsInRangeY(tempRabbits,scene.player1,30)){
+
+        this.viewAnimationLogic(tempRabbits);
+      // otherwise hid the prompt from the player.
+      }else{
+        tempRabbits.safePrompts.visible = false;
+        tempRabbits.playedSafePrompts = false;
       }
     }, this);
       
@@ -1195,7 +1286,7 @@ class defaultScene extends allSceneFunctions {
       scene.beeDrones.children.each(function (tempBeeDrone) {
         
         //safty check to improve performance. only does overlap if in range.
-        if(scene.objectsInRangeX(tempBeeDrone,scene.player1,450)){
+        if(scene.objectsInRangeX(tempBeeDrone,scene.player1,450)&& tempBeeDrone.inSafeMode === false){
 
           //calls drone function to move
           tempBeeDrone.move(scene.player1,scene);
@@ -1219,9 +1310,7 @@ class defaultScene extends allSceneFunctions {
             tempBeeDrone.hitboxOverlaps = false;
           
           }
-      }
-
-      //if the bat is trying to grab the player then check overlap
+        //if the bat is trying to grab the player then check overlap
       if(tempBeeDrone.grabTimer === true){
 
         //checks to see if the beedrones attack hitbox overlaps the players hitbox
@@ -1265,7 +1354,18 @@ class defaultScene extends allSceneFunctions {
           }
         });
         }
-      }, this);
+        
+      //if the tempBeeDrone is in safe mode, and in range of the player then 
+      }else if(this.objectsInRangeX(tempBeeDrone,scene.player1,30) && this.objectsInRangeY(tempBeeDrone,scene.player1,30)){
+
+        this.viewAnimationLogic(tempBeeDrone);
+      // otherwise hid the prompt from the player.
+      }else{
+        tempBeeDrone.safePrompts.visible = false;
+        tempBeeDrone.playedSafePrompts = false;
+      }
+
+    }, this);
       
     }
 
@@ -1276,7 +1376,8 @@ class defaultScene extends allSceneFunctions {
       scene.bats.children.each(function (bat) {
       
       //safty check to improve performance. only does overlap if in range.
-      if(this.objectsInRangeX(bat,scene.player1,450)){
+      //console.log('bat.inSafeMode: ',bat.inSafeMode);
+      if(this.objectsInRangeX(bat,scene.player1,450) && bat.inSafeMode === false ){
 
         //calls tiger function to move
         bat.move(scene.player1,scene);
@@ -1292,8 +1393,6 @@ class defaultScene extends allSceneFunctions {
           
           //if the hitbox overlaps the drone, then  deal damage to that drone
           if(bat.hitboxOverlaps === true) {
-          
-            console.log("bat taking damage, bat hp:" + bat.enemyHP);
           
             //inflict damage to tiger
             bat.damage(scene);
@@ -1347,9 +1446,17 @@ class defaultScene extends allSceneFunctions {
           });
         }
         
+      //if the bat is in safe mode, and in range of the player then 
+      }else if(this.objectsInRangeX(bat,scene.player1,30) && this.objectsInRangeY(bat,scene.player1,30)){
         
+        this.viewAnimationLogic(bat);
+
+      // otherwise hid the prompt from the player.
+      }else{
+        bat.safePrompts.visible = false;
+        bat.playedSafePrompts = false;
       }
-        }, this);
+    }, this);
       
     }
 
@@ -1359,7 +1466,7 @@ class defaultScene extends allSceneFunctions {
     defaultUpdate(){
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //console.log("grabbed:"+ this.grabbed);
-    console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+    //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
     //console.log('this.sound: ', this.sound);
     //consider this a safty check. if the player falls out of bounds, put them back to there last warp point.
       this.checkPlayerOutOfBounds();
@@ -1540,4 +1647,65 @@ class defaultScene extends allSceneFunctions {
       }
           
     } 
+
+    //updates enemy apart of scene in the update loop
+    enemyUpdateAnimationView(enemyGroupArray){
+     
+      //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
+      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+        //check to see if the slime animations need to be paused.
+        this.checkEnemyAnimationPause();
+      }else{
+        this.checkEnemyAnimationPause();
+      }
+        
+      //if we are paused in a text box then
+      if(this.pausedInTextBox === true && this.gameStartedDelay === false){
+        //pause enemy animations. physics is paused in defaultupdate.
+        this.checkEnemyAnimationPause();
+          
+         
+      //otherwise if these are false then
+      }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
+        //resume slime animations
+        this.checkEnemyAnimationPause();
+      }
+  
+      //if the game is not paused
+      if(this.isPaused === false){
+          //and the player has not been grabbed
+          if(this.grabbed === false){ 
+
+            //loops through our enemy groups, and applies our interactions to these groups.
+            for(let counter = 0; counter < enemyGroupArray.length;counter++){
+
+              if(enemyGroupArray[counter] === 'blueSlimes'){
+                this.checkBlueSlimeInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'tigers'){
+                this.checkTigerInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'rabbits'){
+                this.checkRabbitInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'beeDrones'){
+                this.checkBeeDroneInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'bats'){
+                this.checkBatInteractions(this);
+              }
+            }
+
+          //otherwise if the player has been grabbed then
+          }else if(this.grabbed === true){
+            //call check function for slimes.
+            this.checkEnemyGrab();
+          }
+    
+      }else if(this.isPaused === true){
+    
+      }
+          
+    } 
+  
   }

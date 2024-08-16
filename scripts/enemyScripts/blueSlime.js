@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue slime enemy.
 class blueSlime extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, sex, id, 20, 'blueSlime');
 
@@ -109,8 +109,22 @@ class blueSlime extends enemy {
             this.anims.create({ key: 'slimeGameOver3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 152, end: 155 }), frameRate: 7, repeat: -1 });
         }
 
+        this.inSafeMode = inSafeMode;
 
+        this.anims.play("slimeIdle",true);
+        
+        //if the slime is of size 1 then set its hit box to the correct size
+        if (this.slimeSize === 1) {
+            this.setSize(90, 65, true);
+            this.setOffset(105, 233);
 
+            this.body.setGravityY(600);
+            //else if the slime is size 2 then set its hit box to the correct size
+        } else if (this.slimeSize === 2) {
+            this.setSize(130, 90, true);
+            this.setOffset(82, 209);
+            this.body.setGravityY(700);
+        }
     }
 
     //functions that move slime objects.
@@ -1085,6 +1099,83 @@ class blueSlime extends enemy {
             }, delay);
         }
 
+    }
+
+    //function to show off animation 
+    animationGrab(){
+
+        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        this.clearTint();
+        
+        //stops the x velocity of the enemy
+        this.setVelocityX(0);
+       
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+        // if the grabbed is false but this function is called then do the following.
+        if (this.playerGrabbed === false) {
+
+            this.slimeGrabFalse();
+            this.isViewingAnimation = true;
+            this.playerProgressingAnimation = false;
+
+        //if the player is grabbed then.
+        } else if(this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(5);
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        
+            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+            this.scene.player1.y = this.y - 150;
+            this.scene.player1.body.setGravityY(0);
+            //this.body.setGravityY(0);
+            this.scene.player1.setSize(10, 10, true);
+            //puts the key display in the correct location.
+            this.scene.KeyDisplay.visible = true;
+            this.scene.KeyDisplay.x = this.x;
+            this.scene.KeyDisplay.y = this.y + 100;
+            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+            
+            //if the player is not defeated
+            if (this.playerProgressingAnimation === false) {
+
+            // handles input for progressing animation
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+                this.playerProgressingAnimation = true;
+                }
+
+                // displays inputs while in the first stage of the animation viewing.
+                if (this.keyAnimationPlayed === false) {
+                    //console.log(" setting keyW display");
+                    this.scene.KeyDisplay.playDKey();
+                    this.keyAnimationPlayed = true;
+                }      
+            }
+
+            if( this.playerProgressingAnimation === true){
+                
+                //calls animation grab code until the animation is finished
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                    //handle the defeated logic that plays defeated animations
+                    if(this.tigerHasEatenRabbit === true){
+                        this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                    } else{
+                        this.playerIsDefeatedLogic(playerHealthObject);
+                    }
+                }else{
+                    //hide the tab indicator and key prompts
+                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                    this.scene.KeyDisplay.visible = false;    
+                }
+            }
+        }
     }
     
     

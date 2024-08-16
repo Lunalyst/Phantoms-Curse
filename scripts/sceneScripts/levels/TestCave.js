@@ -130,8 +130,8 @@ class TestCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
           
-          thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime',false);
+          thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime',false);
           
           //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
           thisScene.spawnedEnemys = true;

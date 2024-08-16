@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue bat enemy.
 class bat extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id,soundSprite) {
+    constructor(scene, xPos, yPos, sex, id,inSafeMode,soundSprite) {
         
         //on set up, need to decide if bat is make or female, using preference variable in settings.
         if(scene.preferance === 0){
@@ -62,13 +62,13 @@ class bat extends enemy {
         //defines a string containing telling the enemy which sound channel to use.
         this.batSFX = soundSprite;
         this.playingSound = false;
-        
 
+        
         //defines bat animations based on the players sex.
         if(this.enemySex === 0) {
             this.anims.create({ key: 'batSleep', frames: this.anims.generateFrameNames('batMale', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batWakeUp', frames: this.anims.generateFrameNames('batMale', { start: 8, end: 23 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'batIdle', frames: this.anims.generateFrameNames('batMale', { start: 24, end: 34 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'batIdle', frames: this.anims.generateFrameNames('batMale', { start: 25, end: 34 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batMove', frames: this.anims.generateFrameNames('batMale', { start: 35, end: 39 }), frameRate: 10, repeat: -1 });
             this.anims.create({ key: 'batButtSlam', frames: this.anims.generateFrameNames('batMale', { start: 41, end: 45 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'batButtSlamInAir', frames: this.anims.generateFrameNames('batMale', { start: 45, end: 45 }), frameRate: 8, repeat: -1 });
@@ -96,7 +96,7 @@ class bat extends enemy {
         }else{
             this.anims.create({ key: 'batSleep', frames: this.anims.generateFrameNames('batFemale', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batWakeUp', frames: this.anims.generateFrameNames('batFemale', { start: 8, end: 23 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'batIdle', frames: this.anims.generateFrameNames('batFemale', { start: 24, end: 34 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'batIdle', frames: this.anims.generateFrameNames('batFemale', { start: 25, end: 34 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batMove', frames: this.anims.generateFrameNames('batFemale', { start: 35, end: 40 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batButtSlam', frames: this.anims.generateFrameNames('batFemale', { start: 41, end: 45 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'batButtSlamInAir', frames: this.anims.generateFrameNames('batFemale', { start: 45, end: 45 }), frameRate: 8, repeat: -1 });
@@ -122,7 +122,14 @@ class bat extends enemy {
             }
         }
 
-        this.anims.play('batSleep',true);
+        this.inSafeMode = inSafeMode;
+        
+        if(this.inSafeMode === true){ 
+            this.anims.play('batIdle',true);
+        }else{
+            this.anims.play('batSleep',true);  
+        }
+        
 
     }
 
@@ -362,6 +369,7 @@ class bat extends enemy {
             //if the player is not defeated
             if (this.playerDefeated === false) {
 
+                console.log('activating player damage function');
                 //then allow the player to use controls to escape.
                 this.playerIsNotDefeatedInputs(playerHealthObject);
 
@@ -411,7 +419,7 @@ class bat extends enemy {
         this.scene.KeyDisplay.visible = true;
         
         // check to make sure animations dont conflict with eachother.
-        if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
+        if (this.playerDefeated === false && this.playerBrokeFree === 0 && !this.animationPlayed) {
            
             //moves bee upward so that when the tween starts it isnt bumping up on the ground if the player is too close
             //tween kills all movement of the direction it is active in.
@@ -714,6 +722,9 @@ class bat extends enemy {
 
         let currentbat = this;
         if (this.playerDefeatedAnimationStage === 1) {
+            //sets the ending value correctly once this enemy defeated animation activates.
+            this.playerDefeatedAnimationStageMax = 6;
+
             this.playPlapSound('plap4',800);
 
             if (!this.animationPlayed) {
@@ -763,8 +774,9 @@ class bat extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
                     //stops wing beating sound effect
-                    this.scene.sound.get(this.batSFX).stop();
-                    
+                    if(this.scene.sound.get(this.batSFX) !== undefined || this.scene.sound.get(this.batSFX) !== null){
+                        //this.scene.sound.get(this.batSFX).stop();
+                    }     
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 4) {
@@ -807,6 +819,86 @@ class bat extends enemy {
         }
         else if (this.playerDefeatedAnimationStage === 6) {
             this.anims.play('batButtJiggle', true);
+        }
+    }
+
+    //function to show off animation 
+    animationGrab(){
+
+        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        this.clearTint();
+        
+        //stops the x velocity of the enemy
+        this.setVelocityX(0);
+       
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+        // if the grabbed is false but this function is called then do the following.
+        if (this.playerGrabbed === false) {
+
+            this.batGrabFalse();
+            this.isViewingAnimation = true;
+            this.playerProgressingAnimation = false;
+
+            this.scene.gameoverLocation = "caveGameover";
+
+        //if the player is grabbed then.
+        } else if(this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(5);
+
+            //plays jumpy sound during grab.
+            if (this.playerProgressingAnimation === false) {
+                this.playJumpySound('3',700);
+            }
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        
+            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+            this.scene.player1.y = this.y - 150;
+            this.scene.player1.body.setGravityY(0);
+            //this.body.setGravityY(0);
+            this.scene.player1.setSize(10, 10, true);
+            //puts the key display in the correct location.
+            this.scene.KeyDisplay.visible = true;
+            this.scene.KeyDisplay.x = this.x;
+            this.scene.KeyDisplay.y = this.y + 100;
+            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+            
+            //if the player is not defeated
+            if (this.playerProgressingAnimation === false) {
+
+            // handles input for progressing animation
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+                this.playerProgressingAnimation = true;
+                }
+
+                // displays inputs while in the first stage of the animation viewing.
+                if (this.keyAnimationPlayed === false) {
+                    //console.log(" setting keyW display");
+                    this.scene.KeyDisplay.playDKey();
+                    this.keyAnimationPlayed = true;
+                }      
+            }
+
+            if( this.playerProgressingAnimation === true){
+                
+                //calls animation grab code until the animation is finished
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                    //handle the defeated logic that plays defeated animations 
+                    this.playerIsDefeatedLogic(playerHealthObject);
+                }else{
+                    //hide the tab indicator and key prompts
+                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                    this.scene.KeyDisplay.visible = false;    
+                }
+            }
         }
     }
     

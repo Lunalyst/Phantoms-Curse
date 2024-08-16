@@ -40,9 +40,17 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.struggleCounterTick = false;
         this.inStartDefeatedLogic = false;
         this.playerDefeatedAnimationCooldown = false;
-        //this.soundCoolDown = false;
         this.plapSoundCoolDown = false;
         this.jumpySoundCoolDown = false;
+        
+        this.playerProgressingAnimation = false;
+        this.isViewingAnimation = false;
+        this.inSafeMode = false;
+
+        this.safePrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
+        this.safePrompts.visible = false;
+        this.playedSafePrompts = false;
+        this.playerDefeatedAnimationStageMax = 0;
 
         this.scene = scene;
 

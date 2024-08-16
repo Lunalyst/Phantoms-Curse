@@ -43,6 +43,7 @@ inventoryKey = {
     addItem: 'add_item',
     addContainerFlag: 'add_container_flag',
     checkContainerFlag: 'check_container_flag',
+    checkBestiaryFlag: 'check_bestiary_flag',
     updateOnomat: 'update_onomat',
     playGameSaved: 'play_game_saved'
 };

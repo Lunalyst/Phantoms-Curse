@@ -250,17 +250,17 @@ class sunFlowerField extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
           
-          thisScene.initEnemy(1934, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX1');
+          thisScene.initEnemy(1934, 1424,thisScene.playerSex,'beeDrone',false,'wingFlapSFX1');
 
-          thisScene.initEnemy(2850, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX2');
+          thisScene.initEnemy(2850, 1424,thisScene.playerSex,'beeDrone',false,'wingFlapSFX2');
 
-          thisScene.initEnemy(3550, 1424,thisScene.playerSex,'beeDrone','wingFlapSFX3');
+          thisScene.initEnemy(3550, 1424,thisScene.playerSex,'beeDrone',false,'wingFlapSFX3');
 
-          thisScene.initEnemy(4142, 1424,thisScene.playerSex,'beeDrone',"wingFlapSFX4");
+          thisScene.initEnemy(4142, 1424,thisScene.playerSex,'beeDrone',false,"wingFlapSFX4");
 
-          thisScene.initEnemy(5580, 1245,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(5580, 1245,thisScene.playerSex,'blueSlime',false);
 
-          thisScene.initEnemy(6194, 1373,thisScene.playerSex,'blueSlime');
+          thisScene.initEnemy(6194, 1373,thisScene.playerSex,'blueSlime',false);
 
           thisScene.spawnedEnemys = true;
         },1000);

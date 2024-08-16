@@ -16,7 +16,7 @@ https://docs.idew.org/video-game/project-references/phaser-coding/enemy-behavior
 //implementation for the blue rabbit enemy.
 class rabbit extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         
         //on set up, need to decide if rabbit is make or female, using preference variable in settings.
         if(scene.preferance === 0){
@@ -105,6 +105,12 @@ class rabbit extends enemy {
                 this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitFemale', { start: 85, end: 88}), frameRate: 6, repeat: -1 }); 
             }
             
+        }
+
+        this.inSafeMode = inSafeMode;
+        
+        if(this.inSafeMode === true){ 
+            this.anims.play('rabbitIdle',true);
         }
     }
 
@@ -636,6 +642,10 @@ class rabbit extends enemy {
     maleRabbitDefeatedPlayerAnimation() {
         let currentrabbit = this;
         if (this.playerDefeatedAnimationStage === 1) {
+
+            //sets the ending value correctly once this enemy defeated animation activates.
+            this.playerDefeatedAnimationStageMax = 8;
+
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
@@ -769,6 +779,10 @@ class rabbit extends enemy {
     femaleRabbitDefeatedPlayerAnimation() {
         let currentrabbit = this;
         if (this.playerDefeatedAnimationStage === 1) {
+
+            //sets the ending value correctly once this enemy defeated animation activates.
+            this.playerDefeatedAnimationStageMax = 6;
+
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
@@ -853,6 +867,87 @@ class rabbit extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                 });
+            }
+        }
+    }
+
+    //function to show off animation 
+    animationGrab(){
+
+        let currentRabbit = this;
+        //first checks if beeDrone object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        this.clearTint();
+        
+        //stops the x velocity of the enemy
+        this.setVelocityX(0);
+       
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+        // if the grabbed is false but this function is called then do the following.
+        if (this.playerGrabbed === false) {
+
+            this.rabbitGrabFalse();
+            this.isViewingAnimation = true;
+            this.playerProgressingAnimation = false;
+
+            this.scene.gameoverLocation = "forestGameover";
+
+        //if the player is grabbed then.
+        } else if(this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(5);
+
+            //plays jumpy sound during grab.
+            if (this.playerProgressingAnimation === false) {
+                this.playJumpySound('3',700);
+            }
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        
+            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+            this.scene.player1.y = this.y - 150;
+            this.scene.player1.body.setGravityY(0);
+            //this.body.setGravityY(0);
+            this.scene.player1.setSize(10, 10, true);
+            //puts the key display in the correct location.
+            this.scene.KeyDisplay.visible = true;
+            this.scene.KeyDisplay.x = this.x;
+            this.scene.KeyDisplay.y = this.y + 90;
+            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+            
+            //if the player is not defeated
+            if (this.playerProgressingAnimation === false) {
+
+            // handles input for progressing animation
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+                this.playerProgressingAnimation = true;
+                }
+
+                // displays inputs while in the first stage of the animation viewing.
+                if (this.keyAnimationPlayed === false) {
+                    //console.log(" setting keyW display");
+                    this.scene.KeyDisplay.playDKey();
+                    this.keyAnimationPlayed = true;
+                }      
+            }
+
+            if( this.playerProgressingAnimation === true){
+                
+                //calls animation grab code until the animation is finished
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                    //handle the defeated logic that plays defeated animations 
+                    this.playerIsDefeatedLogic(playerHealthObject);
+                }else{
+                    //hide the tab indicator and key prompts
+                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                    this.scene.KeyDisplay.visible = false;    
+                }
             }
         }
     }

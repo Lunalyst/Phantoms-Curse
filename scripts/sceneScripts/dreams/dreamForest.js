@@ -30,9 +30,31 @@ class dreamForest extends defaultScene {
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
+      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 270 });
+      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
+      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
 
-      this.load.audioSprite('andrewknSFX','audio/used-audio/dream-sounds/dream-sounds.json',[
-        "audio/used-audio/dream-sounds/andrewkn-not-to-notice.mp3"
+      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
+        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
 
     }
@@ -40,7 +62,7 @@ class dreamForest extends defaultScene {
     create(){
 
       //sets up gameover location
-      this.setupGameoverLocation("caveGameover");
+      this.setupGameoverLocation("forestGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -74,7 +96,7 @@ class dreamForest extends defaultScene {
       this.setUpGameplayEmitters();
 
       //adds looping sound effect.
-      this.initLoopingSound('andrewknSFX','andrewkn',0.1);
+      this.initLoopingSound('forestThemeSFX','bertsz',0.01);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -86,6 +108,8 @@ class dreamForest extends defaultScene {
 
       //
       this.initPortals(881,925-13,1388,925,"warpCaveOutside","DreamHub");
+
+      this.initSavePoints(801,925-15);
       
       //sets up containers
       this.setUpContainers();
@@ -93,8 +117,9 @@ class dreamForest extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = [""];
+      this.enemyGroupArray = ["bats","beeDrones","rabbits","tigers","blueSlimes"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -103,9 +128,111 @@ class dreamForest extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-      
-          thisScene.spawnedEnemys = true;
-        },1000);
+        
+        let object = {
+          flagToFind: 'blueSlime',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+  
+        if(object.foundFlag === true && object.flagToFind === 'blueSlime'){
+          thisScene.initEnemy(663,913,thisScene.playerSex,'blueSlime',true);
+        }
+        
+        object = {
+          flagToFind: 'largeBlueSlime',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+  
+        if(object.foundFlag === true && object.flagToFind === 'largeBlueSlime'){
+          thisScene.initEnemy(551,913,thisScene.playerSex,'blueSlimeLarge',true);
+        }
+
+        object = {
+          flagToFind: 'femaleTiger',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+  
+        if(object.foundFlag === true && object.flagToFind === 'femaleTiger'){
+          thisScene.initEnemy(1251,883,thisScene.playerSex,'tiger',true);
+        }
+
+        object = {
+          flagToFind: 'femaleTigerBooba',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+  
+        if(object.foundFlag === true && object.flagToFind === 'femaleTigerBooba'){
+          thisScene.initEnemy(1384,883,thisScene.playerSex,'tigerBooba',true);
+        }
+
+        let object1 = {
+          flagToFind: 'maleRabbit',
+          foundFlag: false,
+        };
+
+        let object2 = {
+          flagToFind: 'femaleRabbit',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleRabbit' || object2.flagToFind === 'femaleRabbit')){
+          thisScene.initEnemy(1534,881,thisScene.playerSex,'rabbit',true);
+        }
+
+        object1 = {
+          flagToFind: 'maleBeeDrone',
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: 'femaleBeeDrone',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
+
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
+          thisScene.initEnemy(1680,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
+        }
+
+        object1 = {
+          flagToFind: 'maleBat',
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: 'femaleBat',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBat' || object2.flagToFind === 'femaleBat')){
+          thisScene.initEnemy(445,925,thisScene.playerSex,'bat',true,'wingFlapSFX1');
+        }
+        
+        thisScene.spawnedEnemys = true;
+      },1000);
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
@@ -120,7 +247,7 @@ class dreamForest extends defaultScene {
       this.defaultUpdate();
       
       //handles enemy interactions
-      //this.enemyUpdate(this.enemyGroupArray);
+      this.enemyUpdate(this.enemyGroupArray);
 
        //updates the x value of the scrolling backround.
        if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
@@ -140,8 +267,8 @@ class dreamForest extends defaultScene {
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
     
-
     }
 
     

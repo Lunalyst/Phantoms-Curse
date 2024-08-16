@@ -230,11 +230,11 @@ class batCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-        thisScene.initEnemy(2620,962,thisScene.playerSex,'bat','wingFlapSFX1');
+        thisScene.initEnemy(2620,962,thisScene.playerSex,'bat',false,'wingFlapSFX1');
 
-        thisScene.initEnemy(3333,962,thisScene.playerSex,'bat','wingFlapSFX2');
+        thisScene.initEnemy(3333,962,thisScene.playerSex,'bat',false,'wingFlapSFX2');
 
-        thisScene.initEnemy(1137,546,thisScene.playerSex,'bat','wingFlapSFX3');
+        thisScene.initEnemy(1137,546,thisScene.playerSex,'bat',false,'wingFlapSFX3');
 
           thisScene.spawnedEnemys = true;
         },1000);

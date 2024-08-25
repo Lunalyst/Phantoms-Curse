@@ -25,6 +25,8 @@ class HomeInterior2 extends defaultScene {
       this.load.tilemapTiledJSON("home_interior2_map" , "assets/tiledMap/LockWood/Player_Home_Interior2.json");
 
       this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
+      this.load.spritesheet('storageLocker', 'assets/gameObjects/StorageLocker.png',{frameWidth: 195, frameHeight: 291 });
+      this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
 
       this.defaultPreload();
 
@@ -98,6 +100,12 @@ class HomeInterior2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.setUpPlayerStorage();
+      this.initStorage(516, 592);
+
+      this.setUpPlayerCraftingBench();
+      this.initPlayerCraftingBench(451, 592);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
@@ -117,6 +125,8 @@ class HomeInterior2 extends defaultScene {
     update(){
       //calls the built in update function
       this.defaultUpdate();
+
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     }
 

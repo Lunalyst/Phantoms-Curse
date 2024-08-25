@@ -114,6 +114,7 @@ class defaultScene extends allSceneFunctions {
         this.grabCoolDown = false;
         this.attackHitBox;
         this.signPoints;
+        this.container;
         this.saveStonePoints;
         this.isPaused = false;
         this.sceneTextBox;
@@ -226,6 +227,14 @@ class defaultScene extends allSceneFunctions {
       //sets up the group for items in the scene
       this.itemContainers = this.physics.add.group();
 
+    }
+
+    setUpPlayerStorage(){
+      this.playerStorage = this.physics.add.group();
+    }
+
+    setUpPlayerCraftingBench(){
+      this.playerCraftingBench = this.physics.add.group();
     }
 
     //sets up camera object
@@ -464,6 +473,28 @@ class defaultScene extends allSceneFunctions {
         this.signPoints.add(sign1);
         console.log("added sign",this.signPoints);
         
+    }
+
+    //creates a sign object in the scene
+    initStorage(x, y) {
+      let storage = new storageLocker(this, x, y);
+      //sets the location given as to where the player will be sent in the next scene
+      //adds portal object to the portal object in the scene
+      console.log("group container",this.container);
+      this.playerStorage.add(storage);
+      console.log("added container",this.container);
+      
+    }
+
+    //creates a sign object in the scene
+    initPlayerCraftingBench(x, y) {
+      let bench = new craftingBench(this, x, y);
+      //sets the location given as to where the player will be sent in the next scene
+      //adds portal object to the portal object in the scene
+      console.log("group bench",this.playerCraftingBench);
+      this.playerCraftingBench.add(bench);
+      console.log("added bench",this.playerCraftingBench);
+      
     }
 
     //creates a lunalyst NPC

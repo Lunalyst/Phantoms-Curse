@@ -399,6 +399,26 @@ makeSaveFile(playerObject,sex,saveslot){
 
    
 //creates a array to be filled my objects
+this.playerStorage  = [];
+
+//fills the array with objects
+for(let counter = 0; counter < 49; counter++){
+
+    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+    let item = {
+        itemID: 0,
+        itemName: ' ',
+        itemDescription: ' ',
+        itemStackable: 1,
+        itemAmount: 0 
+     };
+
+    this.playerStorage.push(item);
+}
+
+   
+//creates a array to be filled my objects
 this.inventoryArray  = [];
 
 //fills the array with objects
@@ -429,7 +449,7 @@ for(let counter = 0; counter < 26; counter++){
   playerObject.flagValues = gameFlags;
   playerObject.settings = settings;
   playerObject.dreamReturnLocation = dreamReturnLocation;
-
+  playerObject.playerStorage = playerStorage;
 }
 
 //function to fix dave file if the file is broken or outdated.

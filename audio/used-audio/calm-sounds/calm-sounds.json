@@ -6,7 +6,7 @@
     "spritemap": {
         "Paws and Rest":{
             "start": 0,
-            "end": 30,
+            "end": 29.5,
             "loop": true
         }
     }

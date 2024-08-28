@@ -1,4 +1,3 @@
-let inventoryThat;
 class inventory extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos){
@@ -15,7 +14,6 @@ class inventory extends Phaser.GameObjects.Container{
       //seting variables 
       this.isOpen = false;
       this.openDelay = false;
-      inventoryThat = this;
       this.index = 0;
       this.isOnScreen = false;
       this.activeSlot1 = -1;
@@ -58,6 +56,7 @@ class inventory extends Phaser.GameObjects.Container{
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
     setView(scene,hud){
 
+      console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
         // if the player hasnt opened the inventory and the delay is false then
         if(this.isOpen === false && this.openDelay === false){
 
@@ -83,9 +82,10 @@ class inventory extends Phaser.GameObjects.Container{
             scene.player1.anims.pause();
 
             //set time out for delay.
+            let inventoryThat = this;
             setTimeout(function(){
                 inventoryThat.openDelay = false; 
-              },1000);
+                },1000);
 
         // otherwise if inventory is open then
         }else if(this.isOpen === true && this.openDelay === false){
@@ -127,6 +127,7 @@ class inventory extends Phaser.GameObjects.Container{
             }
             
             //set time out for delay.
+            let inventoryThat = this;
             setTimeout(function(){
               console.log("openDelay set to false");
                 inventoryThat.openDelay = false; 
@@ -373,7 +374,8 @@ class inventory extends Phaser.GameObjects.Container{
           tempInventory.scene.itemDescription.destroy();
         });
       }
-      
+
+      let inventoryThat = this;
       this.bestiaryUI.on('pointerdown', function (pointer) {
         //opens bestiary if settings is not open.
         if(inventoryThat.settingsOpen === false){

@@ -42,30 +42,31 @@ class credits extends Phaser.GameObjects.Container{
 
     activateCredits(){
         //if we are still on the title screen.
-        if(this.scene.location === 'titleScreen'){
-            // loop through all the names
-            for(let counter = 0; counter < this.credits.length;counter++){
+        // loop through all the names
+        for(let counter = 0; counter < this.credits.length;counter++){
             
-                //by creating a object after a delay 
-                let tempCredits = this;
-                setTimeout(function () {
-                    //after delay make names and call credits function apart of make texttext.
+            //by creating a object after a delay 
+            let tempCredits = this;
+            setTimeout(function () {
+                //after delay make names and call credits function apart of make texttext.
+                if(tempCredits.scene !== undefined && tempCredits !== null ){
                     console.log("displaying name: ", tempCredits.credits[counter]);
                     let name = new makeText(tempCredits.scene,0,0,'charBubble',tempCredits.credits[counter]);
                     tempCredits.add(name);
                     tempCredits.activeNames.push(name);
                     name.textCredits(20000,500);
+                }
         
-                }, counter*1200);
-            }
-            //after all the credits are displayed loop through them agian.
-            let tempCredits = this;
-            setTimeout(function () {
-                console.log("finished playing now reseting value")
-                    tempCredits.activateCredits();
-            }, this.credits.length*1200*1.2);
-
+            }, counter*1200);
         }
+        //after all the credits are displayed loop through them agian.
+        let tempCredits = this;
+        setTimeout(function () {
+            console.log("finished playing now reseting value")
+            tempCredits.activateCredits();
+        }, this.credits.length*1200*1.2);
+
+        
     }
 
     

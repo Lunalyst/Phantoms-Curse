@@ -83,7 +83,7 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
                 foundFlag: false,
               };
   
-              // call the emitter to check if the value already was picked up.
+            // call the emitter to check if the value already was picked up.
             inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
             //create a temp variable to hold our item that is passed to the player

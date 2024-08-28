@@ -126,7 +126,7 @@ class HomeInterior2 extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     }
 

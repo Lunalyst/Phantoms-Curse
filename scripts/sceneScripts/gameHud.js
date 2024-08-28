@@ -14,6 +14,7 @@ class gameHud extends allSceneFunctions {
       this.saveCoolDown = false;
       this.signCoolDown = false;
       this.playerInventory;
+      this.playerStorage;
       this.inventoryTween;
       this.weaponDes;
       this.ringDes;
@@ -30,6 +31,7 @@ class gameHud extends allSceneFunctions {
       this.settings;
       this.skipIndicator; 
       this.saveGraphicDelay = false; 
+      this.isStorageOpen = false;
     }
 
     //loads gamehud sprites
@@ -38,6 +40,8 @@ class gameHud extends allSceneFunctions {
       //hud specific 
       this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
       this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
+      this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 825 , frameHeight: 564 });
+      this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
 
       this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
 
@@ -79,7 +83,7 @@ class gameHud extends allSceneFunctions {
         })
 
         //set up to display the cursors location. used for debugging
-        //this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
+        this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
         
         // need this to keep track of pointer position
         this.pointer = this.input.activePointer;
@@ -229,7 +233,7 @@ class gameHud extends allSceneFunctions {
           });
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,117,115,"inventory");
+          this.playerInventory = new inventory(this,117,115);
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
@@ -239,6 +243,7 @@ class gameHud extends allSceneFunctions {
               duration: 500,
               yoyo: false
           });
+          //add inventory tweens to both the border of the player inventory, and the storage box
 
           //makes the player inventory slot
           this.playerInventory.generateSlots(this);
@@ -246,13 +251,52 @@ class gameHud extends allSceneFunctions {
           // applys interactions to the object apart of the inventory. 
           this.playerInventory.applyInteractionToSlots(this);
 
-          //emitter to opem and close the inventory when the tab input is recieved from the scene
-          inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
-            this.playerInventory.setView(scene,this);
+          //adds player storage ui
+          this.playerStorage = new storage(this,450,300);
+
+          //makes a tween for the inventory object so the interior is see through
+          this.inventoryTween = this.tweens.add({
+            targets:this.playerStorage.storageInterior,
+            alpha: { from: 1, to: 0.8 },
+            ease: 'Sine.InOut',
+            duration: 500,
+            yoyo: false
           });
 
+        //makes a tween for the inventory object so the interior is see through
+        this.inventoryTween = this.tweens.add({
+          targets:this.playerStorage.playerInventoryInterior,
+          alpha: { from: 1, to: 0.8 },
+          ease: 'Sine.InOut',
+          duration: 500,
+          yoyo: false
+        });
+
+        //makes the player inventory slot
+        this.playerStorage.generateSlots(this);
+
+        // applys interactions to the object apart of the inventory. 
+        this.playerStorage.applyInteractionToSlots(this);
+
+          //emitter to opem and close the inventory when the tab input is recieved from the scene
+          inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
+              //opens inventory so long as the storage locker isnt open.
+              if(this.isStorageOpen === false){
+            this.playerInventory.setView(scene,this);
+              }
+          });
+
+          //emitter to opem and close the inventory when the tab input is recieved from the scene
+          inventoryKeyEmitter.on(inventoryKey.activateStorage,(scene) =>{
+            console.log("activating storage emitter");
+            this.playerStorage.setView(scene,this);
+          });
+
+          //activates storage locker ui
           inventoryKeyEmitter.on(inventoryKey.activateWindowWithContainer,(scene) =>{
             this.playerInventory.setView(scene,this);
+
+            
           });
 
           //emitter so other classes can acess the players inventory 
@@ -415,7 +459,7 @@ class gameHud extends allSceneFunctions {
     //update loop.
     update(){
       //updates the display showing where the cursor is located.
-      //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
+      this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
     }
 
 }

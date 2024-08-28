@@ -231,6 +231,7 @@ class defaultScene extends allSceneFunctions {
 
     setUpPlayerStorage(){
       this.playerStorage = this.physics.add.group();
+      this.usingLocker = true;
     }
 
     setUpPlayerCraftingBench(){
@@ -774,6 +775,26 @@ class defaultScene extends allSceneFunctions {
         if (tempPile.hitboxOverlaps === true) {
           tempPile.activateRockPile();
         }
+      }, this);
+    }
+
+    checkLocker(){
+      this.playerStorage.children.each(function (tempStorage) {
+
+         //checks if the attack hitbox is overlapping the tiger to deal damage.
+         //this.physics.add.overlap(tempPile, this.player1, function () {
+        if(this.objectsInRangeX(tempStorage,this.player1,40) && this.objectsInRangeY(tempStorage,this.player1,40)){
+
+           tempStorage.safeToOpen = true;
+         } else {
+           //console.log("outside save point");
+           tempStorage.safeToOpen = false;
+         }
+        //});
+        
+
+        tempStorage.activateStorage(this,this.keyW);
+        
       }, this);
     }
 
@@ -1505,6 +1526,10 @@ class defaultScene extends allSceneFunctions {
 
       if(this.usingRockPiles === true){
         this.checkRockPiles();
+      }
+
+      if(this.usingLocker === true){
+        this.checkLocker();
       }
 
       //not sure what thes are for. saftey net when loading in?

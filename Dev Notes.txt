@@ -69,6 +69,16 @@ https://stackoverflow.com/questions/71266893/phaser-3-change-hitbox-interactive-
 health bars example 
 https://phaser.io/examples/v3/view/game-objects/graphics/health-bars-demo
 
+when making a container and adding object keep in mind the graph above for where it should be placed when setting up its x and y position.
+        - | -
+          |
+  -       |       +
+  -----------------
+  -       |       +
+          |
+        + | +
+
+
 Bugs:
 
 tiles not showing up?

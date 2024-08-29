@@ -149,6 +149,37 @@ class inventory extends Phaser.GameObjects.Container{
       let index = 0;
       let col = 0;
       let row = 0;
+
+      //weapon slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-120,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-75, 'inventoryLabels');
+      this.inventoryElements.add(this.weaponLabel);
+      this.add(this.weaponLabel);
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+
+      //increments index so that the ring slot does not over write the weapon slot in the array.
+      index++;
+
+      //ring slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-50,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-5,'Labels');
+      this.inventoryElements.add(this.ringLabel);
+      this.add(this.ringLabel);
+      this.ringLabel.anims.play('ring');
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+
+      index++;
+      
       //nested for loop that generates rows and collums of the inventory slots.
       for(col = 0; col < 4; col++){
         for(row = 0; row < 6; row++){
@@ -210,36 +241,6 @@ class inventory extends Phaser.GameObjects.Container{
       this.bestiaryLabel.anims.play('bestiary');
       this.bestiaryUI.visible = this.isOnScreen;
       this.bestiaryUI.applyUIControlElements();
-
-      //weapon slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-120,'inventorySlots').setInteractive();
-      this.inventoryElements.add(this.inventoryArray[index]);
-      this.add(this.inventoryArray[index]);
-      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-75, 'inventoryLabels');
-      this.inventoryElements.add(this.weaponLabel);
-      this.add(this.weaponLabel);
-      this.inventoryElements.add(this.inventoryArray[index].number1);
-      this.add(this.inventoryArray[index].number1);
-      this.inventoryElements.add(this.inventoryArray[index].number2);
-      this.add(this.inventoryArray[index].number2);
-
-      //increments index so that the ring slot does not over write the weapon slot in the array.
-      index++;
-
-      //ring slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-50,'inventorySlots').setInteractive();
-      this.inventoryElements.add(this.inventoryArray[index]);
-      this.add(this.inventoryArray[index]);
-      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-5,'Labels');
-      this.inventoryElements.add(this.ringLabel);
-      this.add(this.ringLabel);
-      this.ringLabel.anims.play('ring');
-      this.inventoryElements.add(this.inventoryArray[index].number1);
-      this.add(this.inventoryArray[index].number1);
-      this.inventoryElements.add(this.inventoryArray[index].number2);
-      this.add(this.inventoryArray[index].number2);
-
-      index++;
       
       //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
@@ -315,6 +316,14 @@ class inventory extends Phaser.GameObjects.Container{
 
       //index to keep track fo slots
       let index = 0;
+
+      //sets the ring and weapon slot to play the correct animation
+      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
+      index++;
+      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
+      
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
@@ -323,12 +332,7 @@ class inventory extends Phaser.GameObjects.Container{
           index++;
         }
       }
-      //sets the ring and weapon slot to play the correct animation
-      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
-      this.inventoryArray[index].clearTint();
-      index++;
-      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
-      this.inventoryArray[index].clearTint();
+      
 
        //loops through all slots to set the correct number 
        for(let counter = 0; counter < 26 ;counter++){

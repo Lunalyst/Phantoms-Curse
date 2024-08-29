@@ -111,7 +111,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   //console.log("playerDataObject.playerInventoryData", playerDataObject.playerInventoryData);
   //if the player has speed ring equipt change speed multiplier.
   if(playerDataObject.playerInventoryData !== null){
-    if(playerDataObject.playerInventoryData[25].itemID === 8){
+    if(playerDataObject.playerInventoryData[1].itemID === 8){
       //console.log("speed ring equipt");
       this.speedBoost = 1.1;
     }else{
@@ -349,7 +349,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
       }
 
         //case to determine attack animation
-        switch(playerDataObject.playerInventoryData[24].itemID) {
+        switch(playerDataObject.playerInventoryData[0].itemID) {
           case (2):
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;

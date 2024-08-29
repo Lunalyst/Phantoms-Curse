@@ -396,28 +396,7 @@ makeSaveFile(playerObject,sex,saveslot){
   x: null,
   y:null
 };
-
-   
-//creates a array to be filled my objects
-this.playerStorage  = [];
-
-//fills the array with objects
-for(let counter = 0; counter < 49; counter++){
-
-    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-    let item = {
-        itemID: 0,
-        itemName: ' ',
-        itemDescription: ' ',
-        itemStackable: 1,
-        itemAmount: 0 
-     };
-
-    this.playerStorage.push(item);
-}
-
-   
+ 
 //creates a array to be filled my objects
 this.inventoryArray  = [];
 
@@ -449,11 +428,12 @@ for(let counter = 0; counter < 26; counter++){
   playerObject.flagValues = gameFlags;
   playerObject.settings = settings;
   playerObject.dreamReturnLocation = dreamReturnLocation;
-  playerObject.playerStorage = playerStorage;
 }
 
 //function to fix dave file if the file is broken or outdated.
 validateSaveFile(dataObject){
+
+  console.log("[validateSaveFile]==============================================");
 
   if(dataObject.saveX === undefined || dataObject.saveX === null){
     dataObject.saveX = 441;
@@ -608,6 +588,18 @@ validateSaveFile(dataObject){
     }
   }
 
+  //adds empty inventory slots to the storage.
+  while(dataObject.inventoryArray.length < 24*2 + 2 + 1 ){
+    console.log("dataObject.inventoryArray.length",dataObject.inventoryArray.length);
+    let item = {
+      itemID: 0,
+      itemName: ' ',
+      itemDescription: ' ',
+      itemStackable: 1,
+      itemAmount: 0 
+   };
+    dataObject.inventoryArray.push(item);
+  }
 
 
   if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){

@@ -17,8 +17,8 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
    
         //warp sprite animations
         this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('storageLocker', { start: 0, end: 0}),frameRate: 8,repeat: -1});
-        this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('storageLocker', { start: 0, end: 0}),frameRate: 8,repeat: 0});
-        this.anims.create({key: 'closing',frames: this.anims.generateFrameNames('storageLocker', { start: 0, end: 0}),frameRate: 8,repeat: 0});
+        this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('storageLocker', { start: 0, end: 6}),frameRate: 8,repeat: 0});
+        this.anims.create({key: 'closing',frames: this.anims.generateFrameNames('storageLocker', { start: 6, end: 12}),frameRate: 8,repeat: 0});
     
         this.anims.play('closed',true);
 
@@ -32,6 +32,8 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
         //variables use to protect the object from being called at the wrong time.
         this.safeToOpen = false;
         this.openCoolDown= false;
+
+        this.isOpen = false;
         
     }
 
@@ -49,6 +51,16 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
            
             // functions been activated so create set save cooldown to true
             this.openCoolDown = true; 
+
+            if(this.isOpen === false){
+
+                this.isOpen = true;
+
+                this.anims.play('opening');
+            }else{
+                this.isOpen = false;
+                this.anims.play('closing');
+            }
             
              let thisLocker = this;
              setTimeout(function () {

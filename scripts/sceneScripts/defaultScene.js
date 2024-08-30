@@ -793,7 +793,7 @@ class defaultScene extends allSceneFunctions {
         //});
         
 
-        tempStorage.activateStorage(this,this.keyW);
+        tempStorage.activateStorage(this.keyW);
         
       }, this);
     }

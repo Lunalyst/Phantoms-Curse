@@ -38,7 +38,7 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with
-    activateStorage(scene1,keyW){
+    activateStorage(keyW){
         
         //console.log("this.safeToOpen: ",this.safeToOpen, " keyW.isDown: ", keyW.isDown," this.openCoolDown: ",this.openCoolDown);
 

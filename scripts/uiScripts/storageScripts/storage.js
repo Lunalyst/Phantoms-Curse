@@ -23,7 +23,9 @@ class storage extends Phaser.GameObjects.Container{
       // should have 2 as the offset.
       this.slotOffset = 2
       this.storageArray = [];
-      
+
+      //when adding new pages, we need this variable to tell what page we are on.
+      this.itemPage = 0;
 
       //defines the inventory border and background
       this.storageInterior = scene.add.sprite(-220, 0, 'storage');
@@ -194,8 +196,8 @@ class storage extends Phaser.GameObjects.Container{
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
-          console.log('first loop scene.inventoryDataArray[',index + this.slotOffset,']: ',scene.inventoryDataArray[index + this.slotOffset].itemID)
-          this.storageArray[index].anims.play(""+scene.inventoryDataArray[index + this.slotOffset].itemID);
+          console.log('first loop scene.inventoryDataArray[',this.setPageValue(index),']: ',scene.inventoryDataArray[this.setPageValue(index)].itemID)
+          this.storageArray[index].anims.play(""+scene.inventoryDataArray[this.setPageValue(index)].itemID);
           this.storageArray[index].clearTint();
           index++;
         }
@@ -204,8 +206,8 @@ class storage extends Phaser.GameObjects.Container{
       //plays info from storage in player data do the storage slots.
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
-          console.log('second loop scene.inventoryDataArray[',index + this.slotOffset,']: ',scene.inventoryDataArray[index + this.slotOffset].itemID);
-          this.storageArray[index].anims.play(""+scene.inventoryDataArray[index + this.slotOffset].itemID);
+          console.log('second loop scene.inventoryDataArray[',this.setPageValue(index),']: ',scene.inventoryDataArray[this.setPageValue(index)].itemID);
+          this.storageArray[index].anims.play(""+scene.inventoryDataArray[this.setPageValue(index)].itemID);
           this.storageArray[index].clearTint();
           index++;
         }
@@ -216,7 +218,7 @@ class storage extends Phaser.GameObjects.Container{
         this.storageArray[counter].number1.visible = this.isOnScreen;
         this.storageArray[counter].number2.visible = this.isOnScreen;
 
-        this.storageArray[counter].setSlotNumber(scene.inventoryDataArray[counter + this.slotOffset].itemAmount);
+        this.storageArray[counter].setSlotNumber(scene.inventoryDataArray[this.setPageValue(counter)].itemAmount);
   
         }
       
@@ -258,9 +260,30 @@ class storage extends Phaser.GameObjects.Container{
 
     }
 
+    //function to check if activeslot1 or activeslot2's values are greater than 25. if they are that means that the active slot is working in the storage space
+    //and we need to apply the page function to them, else leave them as the value they are.
+    //first side representing the inventory 2,3,4,... 25
+    //second side representing storage 26,27,28 ... 49
+    //the problem with multiple pages is that this formula applys to both sides of the storage locker      
+    //(this.activeSlot2 + this.slotOffset) *  this.itemPage)
+    // so this formula should only be applyed to the second half of the sotrage locker ui
+    setPageValue(number){
+
+      //if number is above 26, then we are working with storage, so modify based on page.
+      if(number > 23){
+        return (number + this.slotOffset)+ (this.itemPage * 24);
+
+      //otherwise return the value + the offset.
+      }else{
+        return number + this.slotOffset;
+      }
+      
+      
+    }
+
     //is called when click event on a slot to handle what happens. if one is selected then highlight slot. if two then switch items.
     lightUpSlot(scene,activeSlot){
-      console.log("highlighting item, printing scene.inventoryDataArray[activeSlot]: ",scene.inventoryDataArray[activeSlot + this.slotOffset]);
+      console.log("highlighting item, printing scene.inventoryDataArray[activeSlot]: ",scene.inventoryDataArray[this.setPageValue(activeSlot)]);
 
           //if the current slot is not highlighted and there is no slots selected for either of the two active slots, then
           if(this.storageArray[activeSlot].isLitUp === false && this.activeSlot1 === -1 || this.activeSlot2 === -2){
@@ -269,7 +292,7 @@ class storage extends Phaser.GameObjects.Container{
             this.storageArray[activeSlot].isLitUp = true;
 
             //light up slot animation which is always item id + 1
-            this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot + this.slotOffset].itemID;
+            this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[this.setPageValue(activeSlot)].itemID;
             this.storageArray[activeSlot].setTint(0xd3d3d3);
 
             //if the player selects a slot and there is no slot in active lost 1, and the slot does not equal the second slot, then
@@ -302,7 +325,7 @@ class storage extends Phaser.GameObjects.Container{
             //darken active slot
             this.storageArray[activeSlot].isLitUp = false;
             //switch the id of the items by seting the animation number to the inventorydata at that slot in the inventorydataarray.
-            this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot + this.slotOffset].itemID;
+            this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[this.setPageValue(activeSlot)].itemID;
 
             //resets activeslots1 and activeslots2
             if(this.activeSlot1 !== -1 && activeSlot === this.activeSlot1){
@@ -315,11 +338,11 @@ class storage extends Phaser.GameObjects.Container{
           console.log("this.activeSlot1: ",this.activeSlot1," this.activeSlot2: ",this.activeSlot2);
           //if the player some how gets two seperate stacks of the same item then allow them to stack it. firs is if the two stacks add up to less than 64
           if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
-            scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemStackable === 1 && scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemStackable === 1 &&
-            (scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID === scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID ) &&
-            (scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount + scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount < 65)){
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemStackable === 1 && scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemStackable === 1 &&
+            (scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID === scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID ) &&
+            (scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount + scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount < 65)){
             
-            console.log("scene.inventoryDataArray[this.activeSlot1].itemID: ",scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount," scene.inventoryDataArray[this.activeSlot2].itemID",scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount);
+            console.log("scene.inventoryDataArray[this.activeSlot1].itemID: ",scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount," scene.inventoryDataArray[this.activeSlot2].itemID",scene.inventoryDataArray[this.setPageValue(this.activeSlot2)]);
             // temp item to clear the slot
             let temp = {
               itemID: 0,
@@ -330,24 +353,24 @@ class storage extends Phaser.GameObjects.Container{
            };
 
            //adds the amount to the second object
-           scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount = scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount + scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount;
+           scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount = scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount + scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount;
            
            //set activeSlot1 to a empty object.
-           scene.inventoryDataArray[this.activeSlot1 + this.slotOffset] = temp;
+           scene.inventoryDataArray[this.setPageValue(this.activeSlot1)] = temp;
 
            
            //set animation for activeSlot1
            this.storageArray[this.activeSlot1].isLitUp = false;
-           this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID;
+           this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID;
            this.storageArray[this.activeSlot1].anims.play(''+this.storageArray[this.activeSlot1].animsNumber);
-           this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount);
+           this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount);
            this.storageArray[this.activeSlot1].clearTint();
 
            //set animation for activeSlot2
            this.storageArray[this.activeSlot2].isLitUp = false;
-           this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID;
+           this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID;
            this.storageArray[this.activeSlot2].anims.play(''+this.storageArray[this.activeSlot2].animsNumber);
-           this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount);
+           this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount);
            this.storageArray[this.activeSlot2].clearTint();
 
            //clear both slots.
@@ -356,35 +379,35 @@ class storage extends Phaser.GameObjects.Container{
            
           //if the items amount add to larger than 64, make a full stack and update the first stack with the new amount.
           }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
-            scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemStackable === 1 && 
-            scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemStackable === 1 &&
-             (scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID === scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID ) && 
-             (scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount + scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount > 64) &&
-              scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount !== 64 && scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount !== 64){
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemStackable === 1 && 
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemStackable === 1 &&
+             (scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID === scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID ) && 
+             (scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount + scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount > 64) &&
+              scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount !== 64 && scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount !== 64){
 
-            console.log("scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID: ",
-            scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID,
+            console.log("scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID: ",
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID,
             " scene.inventoryDataArray[this.activeSlot2].itemID",
-            scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID);
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID);
             
             //set activeSlot1 to a empty object.
-            scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount = (scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount + scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount) - 64 ;
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount = (scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount + scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount) - 64 ;
 
             //adds the amount to the second object
-            scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount = 64 ;
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount = 64 ;
 
             //set animation for activeSlot1
             this.storageArray[this.activeSlot1].isLitUp = false;
-            this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID;
+            this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID;
             this.storageArray[this.activeSlot1].anims.play(''+this.storageArray[this.activeSlot1].animsNumber);
-            this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount);
+            this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount);
             this.storageArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.storageArray[this.activeSlot2].isLitUp = false;
-            this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID;
+            this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID;
             this.storageArray[this.activeSlot2].anims.play(''+this.storageArray[this.activeSlot2].animsNumber);
-            this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount);
+            this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount);
             this.storageArray[this.activeSlot2].clearTint();
 
             //clear both slots.
@@ -394,26 +417,26 @@ class storage extends Phaser.GameObjects.Container{
           //if both slots are defined then switch the two items.
           }if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
 
-            console.log("switching items, scene.inventoryDataArray[this.activeSlot1 + this.slotOffset]: ",scene.inventoryDataArray[this.activeSlot1 + this.slotOffset],"switching items, scene.inventoryDataArray[this.activeSlot2 + this.slotOffset]: ",scene.inventoryDataArray[this.activeSlot2 + this.slotOffset]);
+            console.log("switching items, scene.inventoryDataArray[this.setPageValue(this.activeSlot1)]: ",scene.inventoryDataArray[this.setPageValue(this.activeSlot1)],"switching items, scene.inventoryDataArray[this.setPageValue(this.activeSlot2)]: ",scene.inventoryDataArray[this.setPageValue(this.activeSlot2)]);
             //set temp to the item id in activeSlot1
-            let temp = scene.inventoryDataArray[this.activeSlot1 + this.slotOffset];
+            let temp = scene.inventoryDataArray[this.setPageValue(this.activeSlot1)];
             //set activeSlot1 to activeslot2 
-            scene.inventoryDataArray[this.activeSlot1 + this.slotOffset] = scene.inventoryDataArray[this.activeSlot2 + this.slotOffset];
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot1)] = scene.inventoryDataArray[this.setPageValue(this.activeSlot2)];
             //set activeslot2 to temp
-            scene.inventoryDataArray[this.activeSlot2 + this.slotOffset] = temp;
+            scene.inventoryDataArray[this.setPageValue(this.activeSlot2)] = temp;
 
             //set animation for activeSlot1
             this.storageArray[this.activeSlot1].isLitUp = false;
-            this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemID;
+            this.storageArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemID;
             this.storageArray[this.activeSlot1].anims.play(''+this.storageArray[this.activeSlot1].animsNumber);
-            this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1 + this.slotOffset].itemAmount);
+            this.storageArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot1)].itemAmount);
             this.storageArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.storageArray[this.activeSlot2].isLitUp = false;
-            this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemID;
+            this.storageArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemID;
             this.storageArray[this.activeSlot2].anims.play(''+this.storageArray[this.activeSlot2].animsNumber);
-            this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2 + this.slotOffset].itemAmount);
+            this.storageArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.setPageValue(this.activeSlot2)].itemAmount);
             this.storageArray[this.activeSlot2].clearTint();
 
             //clear both slots.

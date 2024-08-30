@@ -23,10 +23,12 @@ class tutorialBeach extends defaultScene {
 
     preload(){
       
-      this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Tutorial_Beach.json");
+      this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Beach_Tileset/Tutorial_Beach.json");
 
       //preload of object which are scene specific
       this.load.spritesheet('backgroundBeachLevel', 'assets/backgrounds/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
+
+      this.load.image("beach_source_map" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Tileset.png");
       
       this.defaultPreload();
 
@@ -59,7 +61,7 @@ class tutorialBeach extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("beach_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("beach_map","Beach_Tileset","beach_source_map");
 
       //adds looping sound effect.
       this.initLoopingSound('oceanSFX','ocean',0.1);

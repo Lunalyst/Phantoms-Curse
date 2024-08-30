@@ -401,7 +401,7 @@ makeSaveFile(playerObject,sex,saveslot){
 this.inventoryArray  = [];
 
 //fills the array with objects
-for(let counter = 0; counter < 26; counter++){
+for(let counter = 0; counter < 50; counter++){
 
     //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
     //are not refrencing the same object like it would be if this variable was defined outside this for loop.
@@ -589,7 +589,8 @@ validateSaveFile(dataObject){
   }
 
   //adds empty inventory slots to the storage.
-  while(dataObject.inventoryArray.length < 24*2 + 2 + 1 ){
+  let inventoryPages = 2+(24*4)+1;
+  while(dataObject.inventoryArray.length < inventoryPages ){
     console.log("dataObject.inventoryArray.length",dataObject.inventoryArray.length);
     let item = {
       itemID: 0,

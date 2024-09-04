@@ -330,6 +330,52 @@ class level extends Phaser.Tilemaps.Tilemap{
                                                 Tile.collideRight = false;
                                                 break;       
                                         }
+                                }else if(this.tilesetNameInTiled==="Cave_Tileset"){
+                                        //console.log('Forest_Tileset set up for special collision.');
+                                        switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
+                                                case 65: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 66: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 67: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 137: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 138: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 139: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 140: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                        }
                                 }
 
 			})

@@ -89,5 +89,6 @@ https://phaser.discourse.group/t/tiled-tilemap-partially-invisible-but-no-consol
 constructor error?
 https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-constructor-at-new-mapboxgeocoder
 
-wierd bug where tileset isnt embedded correctly?
+wierd bug where tileset isnt embedded correctly? beware bad tiles leftover from converting old levels to new tilesets.
+tiles can linger over that are out of range of the tileset, causing this error.
 https://github.com/phaserjs/phaser-ce/issues/273

@@ -152,6 +152,7 @@ class defaultScene extends allSceneFunctions {
         //handle player self grab.
         this.playerStuckGrab = false;
         this.playerStuckGrabActivated = false;
+        this.PlayerStuckSFXTimer = false;
         this.playerStuckGrabbedBy = "";
         this.playerStuckGrabCap = 0;
         
@@ -241,6 +242,16 @@ class defaultScene extends allSceneFunctions {
       console.log('created slime spikes group');
       this.slimeProjectiles = this.physics.add.group();
       this.usingSlimeProjectiles = true;
+    }
+
+    setupSlimeStucks(){
+      //sets up stuck animations so they are defined in the scope of the scenes that need them.
+      if(this.playerSex === 0){
+        this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+      }else{
+        this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+      }
+
     }
 
     //creates a container object to hold items.
@@ -852,10 +863,14 @@ class defaultScene extends allSceneFunctions {
         //if projectile overlaps with player then
         this.physics.add.overlap(this.player1, tempProjectile, function () {
 
-          tempScene.playerStuckGrab = true;
-          tempScene.playerStuckGrabbedBy = "slime_projectile";
-          tempScene.playerStuckGrabCap = 100;
-          tempProjectile.destroy();
+          if(tempProjectile.body.blocked.down === false){
+            //set up player stuck grab and 
+            tempScene.playerStuckGrab = true;
+            tempScene.playerStuckGrabbedBy = "slime_projectile";
+            tempScene.playerStuckGrabCap = 100;
+            tempScene.player1.anims.play("blueSlimeStuck",true);
+            tempProjectile.destroy();
+          }
 
 
         });
@@ -1081,13 +1096,12 @@ class defaultScene extends allSceneFunctions {
     checkStuckGrab() {
 
       //if the player did get self grabbeda
-      console.log("this.playerStuckGrab: ", this.playerStuckGrab, " this.playerGrabbed: ",this.playerGrabbed);
      if(this.playerStuckGrab === true && this.grabbed === false){
 
       //then do set up for that grab
       if(this.playerStuckGrabActivated === false){
         this.cameras.main.zoom = 4;
-
+        this.cameras.main.followOffset.set(0,10);
         this.KeyDisplay.visible = true;
         this.KeyDisplay.playWKey();
 
@@ -1100,10 +1114,22 @@ class defaultScene extends allSceneFunctions {
         //stops the players velocity during the initial grab.
         this.player1.setVelocityX(0);
         this.player1.setVelocityY(0);
+        //plays sfx for player being stuck
+        if(this.PlayerStuckSFXTimer === false){
+          if(this.playerStuckGrabbedBy === "slime_projectile"){
+            this.initSoundEffect('blueSlimeSFX','1',0.3);
+            this.PlayerStuckSFXTimer = true;
+
+            let thisScene = this;
+            setTimeout(function(){
+              thisScene.PlayerStuckSFXTimer = false;
+            },800);
+          } 
+        }
       }
       //makes sure the key display follows the player incase they where grabbed in air.
       this.KeyDisplay.x = this.player1.x;
-      this.KeyDisplay.y = this.player1.y-50;
+      this.KeyDisplay.y = this.player1.y+50;
       
       //if the player is w then
       if(Phaser.Input.Keyboard.JustDown(this.keyW) === true && this.playerStuckGrabCap > 0){
@@ -1122,6 +1148,20 @@ class defaultScene extends allSceneFunctions {
         this.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
       }
+
+      //plays sfx for player being stuck
+      if(this.PlayerStuckSFXTimer === false){
+        if(this.playerStuckGrabbedBy === "slime_projectile"){
+          this.initSoundEffect('blueSlimeSFX','3',0.3);
+          this.PlayerStuckSFXTimer = true;
+
+          let thisScene = this;
+          setTimeout(function(){
+            thisScene.PlayerStuckSFXTimer = false;
+          },800);
+        } 
+      }
+
      }  
     }
 

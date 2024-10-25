@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/slime-cave-sounds/slime-cave-sounds.mp3"
+    ],
+    "spritemap": {
+        "slimeCave":{
+            "start": 0,
+            "end": 18,
+            "loop": true
+        }
+    }
+}

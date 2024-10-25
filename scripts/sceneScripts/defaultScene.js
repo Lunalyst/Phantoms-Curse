@@ -222,6 +222,20 @@ class defaultScene extends allSceneFunctions {
       this.usingRockPiles = true;
     }
 
+    setUpSlimeSpikes(){
+      //set up the slime spikes group
+      console.log('created slime spikes group');
+      this.slimeSpikes = this.physics.add.group();
+      this.usingSlimeSpikes = true;
+    }
+
+    setUpSlimeProjectiles(){
+      //set up the slime projectile group
+      console.log('created slime spikes group');
+      this.slimeProjectiles = this.physics.add.group();
+      this.usingSlimeProjectiles = true;
+    }
+
     //creates a container object to hold items.
     setUpContainers(){
       //sets up the group for items in the scene
@@ -403,6 +417,10 @@ class defaultScene extends allSceneFunctions {
 
     }
 
+    setUpSlimeProjectilesBarriers(){
+      this.physics.add.collider(this.processMap.layer1, this.slimeProjectiles);
+    }
+
     //{itit object Functions}===================================================================================================================
 
     //creates warp portal objects in the scene
@@ -520,7 +538,7 @@ class defaultScene extends allSceneFunctions {
       this.itemDrops.add(drop1);
       //adds gravity. dont know why defining it in the object itself didnt work. this is fine.
       drop1.body.setGravityY(600);
-
+      
       drop1.body.setBounce(0.5 , 0.5);
 
       console.log("adding new item drop: ",drop1)
@@ -597,6 +615,21 @@ class defaultScene extends allSceneFunctions {
       this.physics.add.existing(pile);
       pile.body.pushable = false;
       this.rockPiles.add(pile);
+
+    }
+
+    initSlimeSpike(x,y){
+      let slimeTrap = new slimeSpike(this,x,y);
+      this.physics.add.existing(slimeTrap);
+      slimeTrap.body.pushable = false;
+      this.slimeSpikes.add(slimeTrap);
+
+    }
+
+    initSlimeProjectile(x,y){
+      let slimeProj = new slimeProjectile(this,x,y);
+      this.physics.add.existing(slimeProj);
+      this.slimeProjectiles.add(slimeProj);
 
     }
     
@@ -775,6 +808,39 @@ class defaultScene extends allSceneFunctions {
         if (tempPile.hitboxOverlaps === true) {
           tempPile.activateRockPile();
         }
+      }, this);
+    }
+
+    checkSlimeSpikes(){
+      this.slimeSpikes.children.each(function (tempSpike) {
+
+         //checks if the attack hitbox is overlapping the tiger to deal damage.
+         //this.physics.add.overlap(tempPile, this.player1, function () {
+        if(this.objectsInRangeX(tempSpike,this.player1,40)){
+          tempSpike.inRange = true;
+        }
+        //});
+        
+        if (tempSpike.inRange === true) {
+          tempSpike.activateSlimeSpike();
+          tempSpike.inRange = false;
+        }
+      }, this);
+    }
+
+    checkSlimeProjectiles(){
+      this.slimeProjectiles.children.each(function (tempProjectile) {
+        //ensures gravity is applied,
+        tempProjectile.body.setGravityY(600);
+        console.log("tempProjectile.body.blocked.down: ",tempProjectile.body.blocked.down,"tempProjectile.hitTheGround: ",tempProjectile.hitTheGround)
+        //if projectile hits the ground then
+        if(tempProjectile.body.blocked.down && !tempProjectile.hitTheGround ){
+          console.log("slime projectile hit ground!")
+          //call slime projectile to destroy its self 
+          tempProjectile.destroySlimeProjectile();
+          tempProjectile.hitTheGround = true;
+        }
+      
       }, this);
     }
 
@@ -1526,6 +1592,14 @@ class defaultScene extends allSceneFunctions {
 
       if(this.usingRockPiles === true){
         this.checkRockPiles();
+      }
+
+      if(this.usingSlimeSpikes === true){
+        this.checkSlimeSpikes();
+      }
+
+      if(this.usingSlimeProjectiles === true){
+        this.checkSlimeProjectiles();
       }
 
       if(this.usingLocker === true){

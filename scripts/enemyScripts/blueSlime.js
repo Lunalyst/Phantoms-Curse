@@ -281,7 +281,7 @@ class blueSlime extends enemy {
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
-    grab() {
+    grab(){
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();

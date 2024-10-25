@@ -40,11 +40,18 @@ class level extends Phaser.Tilemaps.Tilemap{
                 //sets up the image of the tileset to the json map using the specifications below. tile size and extrusion settings which is one pixel by 2pixel boarder around the tiles.
                 this.myTileSet = this.addTilesetImage(this.tilesetNameInTiled,sourceMap,96,96,1,2); 
 
+                console.log("this.myTileSet: ",this.myTileSet );
+
                 //sets up each layer using the json layers.
                 this.layer3 = this.createLayer("Tile Layer 3", this.myTileSet, 0, 0);
                 this.layer2 = this.createLayer("Tile Layer 2", this.myTileSet, 0, 0);
                 this.layer1 = this.createLayer("Tile Layer 1", this.myTileSet, 0, 0);
                 this.layer0 = this.createLayer("Tile Layer 0", this.myTileSet, 0, 0);
+
+                console.log("this.layer3: ",this.layer3 );
+                console.log("this.layer2: ",this.layer2 );
+                console.log("this.layer1: ",this.layer1 );
+                console.log("this.layer0: ",this.layer0 );
 
                 //scales the layers back down so 96 tiles becomes 32. done to improve resolution of tiles so they dont look fuzzy and low rez
                 this.layer0.scale = 1/3;

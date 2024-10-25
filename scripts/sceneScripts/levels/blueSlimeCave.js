@@ -31,6 +31,12 @@ class blueSlimeCave extends defaultScene {
       
       this.defaultPreload();
 
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+
+      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+      ]);
 
       this.load.audioSprite('slimeCaveSFX','audio/used-audio/slime-cave-sounds/slime-cave-sounds.json',[
         "audio/used-audio/slime-cave-sounds/slime-cave-sounds.mp3"
@@ -89,7 +95,7 @@ class blueSlimeCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSavePoints(2196,1117-14);
+      this.initSavePoints(1669,573-14);
 
       this.initPortals(1753,573-13,2088,1117,"warpCaveOutside","batCave");
 
@@ -180,7 +186,7 @@ class blueSlimeCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-
+          thisScene.initEnemy(1210, 600,thisScene.playerSex,'blueSlime',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

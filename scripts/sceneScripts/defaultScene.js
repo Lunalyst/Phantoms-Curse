@@ -149,6 +149,13 @@ class defaultScene extends allSceneFunctions {
         this.playerDefeated = false;
 
         this.gaveoverCalled = false;
+        //handle player self grab.
+        this.playerStuckGrab = false;
+        this.playerStuckGrabActivated = false;
+        this.playerStuckGrabbedBy = "";
+        this.playerStuckGrabCap = 0;
+        
+        
 
     }
 
@@ -816,7 +823,7 @@ class defaultScene extends allSceneFunctions {
 
          //checks if the attack hitbox is overlapping the tiger to deal damage.
          //this.physics.add.overlap(tempPile, this.player1, function () {
-        if(this.objectsInRangeX(tempSpike,this.player1,40)){
+        if(this.objectsInRangeX(tempSpike,this.player1,40) &&this.isPaused === false &&this.playerStuckGrab === false && this.grabbed === false){
           tempSpike.inRange = true;
         }
         //});
@@ -832,15 +839,27 @@ class defaultScene extends allSceneFunctions {
       this.slimeProjectiles.children.each(function (tempProjectile) {
         //ensures gravity is applied,
         tempProjectile.body.setGravityY(600);
-        console.log("tempProjectile.body.blocked.down: ",tempProjectile.body.blocked.down,"tempProjectile.hitTheGround: ",tempProjectile.hitTheGround)
+
         //if projectile hits the ground then
-        if(tempProjectile.body.blocked.down && !tempProjectile.hitTheGround ){
+        if(tempProjectile.body.blocked.down && !tempProjectile.hitTheGround){
           console.log("slime projectile hit ground!")
           //call slime projectile to destroy its self 
           tempProjectile.destroySlimeProjectile();
           tempProjectile.hitTheGround = true;
         }
-      
+
+        let tempScene = this;
+        //if projectile overlaps with player then
+        this.physics.add.overlap(this.player1, tempProjectile, function () {
+
+          tempScene.playerStuckGrab = true;
+          tempScene.playerStuckGrabbedBy = "slime_projectile";
+          tempScene.playerStuckGrabCap = 100;
+          tempProjectile.destroy();
+
+
+        });
+
       }, this);
     }
 
@@ -1031,7 +1050,13 @@ class defaultScene extends allSceneFunctions {
     checkEnemyGrab() {
       this.enemys.children.each(function (tempEnemy) {
         if (tempEnemy.playerGrabbed === true) {
-          
+            
+            //reset stuck grab values incase the player is in a stuck grab when grabbed
+            this.playerStuckGrab = false;
+            this.playerStuckGrabActivated = false;
+            this.playerStuckGrabbedBy = "";
+            this.playerStuckGrabCap = 0;
+
             //focus on the tiger that grabbed the player
             this.mycamera.startFollow(tempEnemy);
             this.cameras.main.zoom = 4;
@@ -1050,6 +1075,54 @@ class defaultScene extends allSceneFunctions {
             tempEnemy.moveIdle();
         }
       }, this);
+    }
+
+    //contains the logic for self grabs, or when the player is grabbed/stuck by a projectile 
+    checkStuckGrab() {
+
+      //if the player did get self grabbeda
+      console.log("this.playerStuckGrab: ", this.playerStuckGrab, " this.playerGrabbed: ",this.playerGrabbed);
+     if(this.playerStuckGrab === true && this.grabbed === false){
+
+      //then do set up for that grab
+      if(this.playerStuckGrabActivated === false){
+        this.cameras.main.zoom = 4;
+
+        this.KeyDisplay.visible = true;
+        this.KeyDisplay.playWKey();
+
+        //makes the struggle bar visible
+        struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+        struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.playerStuckGrabCap);
+        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
+        this.playerStuckGrabActivated = true;
+
+        //stops the players velocity during the initial grab.
+        this.player1.setVelocityX(0);
+        this.player1.setVelocityY(0);
+      }
+      //makes sure the key display follows the player incase they where grabbed in air.
+      this.KeyDisplay.x = this.player1.x;
+      this.KeyDisplay.y = this.player1.y-50;
+      
+      //if the player is w then
+      if(Phaser.Input.Keyboard.JustDown(this.keyW) === true && this.playerStuckGrabCap > 0){
+        //reduce the stuck cap counter
+        this.playerStuckGrabCap-=20;
+        //update the struggle bar
+        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
+      }
+      // if the player broke free, then
+      if(this.playerStuckGrabCap <= 0 ){
+        //reset the grab values
+        this.playerStuckGrab = false;
+        this.playerStuckGrabActivated = false;
+        this.playerStuckGrabbedBy = "";
+        this.playerStuckGrabCap = 0;
+        this.KeyDisplay.visible = false;
+        struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+      }
+     }  
     }
 
     //pauses enemy animations when the player is paused. calles function in enemy base class
@@ -1620,7 +1693,7 @@ class defaultScene extends allSceneFunctions {
       }
 
       //if tab is press while the player isnt grabbed or in the pause menue then
-      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+      if(this.keyTAB.isDown && this.grabbed === false &&this.playerStuckGrab === false && this.pausedInTextBox === false){
         //activate inventory
         inventoryKeyEmitter.emit(inventoryKey.activateWindow,this); 
       }
@@ -1663,7 +1736,7 @@ class defaultScene extends allSceneFunctions {
       if(this.isPaused === false){
 
         //and the player isnt grabbed
-        if(this.grabbed === false){ 
+        if(this.grabbed === false && this.playerStuckGrab === false){ 
 
           //and the player isnt using shift to attack
           if(!this.shift.isDown){
@@ -1681,7 +1754,11 @@ class defaultScene extends allSceneFunctions {
           this.player1.attackPlayer(this);
 
         //however if the player is grabbed
-        }else if(this.grabbed === true){
+        }else if(this.grabbed === true || this.playerStuckGrab === true){
+
+          if(this.playerStuckGrab === true){
+            this.checkStuckGrab();
+          }
           
           //make a temp object
           let isWindowObject = {

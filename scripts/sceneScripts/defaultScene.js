@@ -974,6 +974,11 @@ class defaultScene extends allSceneFunctions {
           console.log("adding bats group");
           this.bats = this.physics.add.group();
         }
+        if(enemyGroupArray[counter] === 'blueSlimeHSs'){
+
+          console.log("adding blueSlimeHSs group");
+          this.blueSlimeHSs = this.physics.add.group();
+        }
       }
       //creates enemys group that can apply geberic functions to all enemys
       this.enemys = this.physics.add.group();
@@ -1052,7 +1057,19 @@ class defaultScene extends allSceneFunctions {
         this.enemyId++;
         this.enemys.add(bat1);  
         this.bats.add(bat1);
+      }if(enemyType === 'blueSlimeHS'){
+        
+        //creates a secondary group to handle enemy specific interactions which we will use later
+        let slime1 = new blueSlimeHS(this, startX, startY, playerSex,this.enemyId,inSafeMode);
+
+        console.log("blueSlimeHS.enemyId: ",slime1.enemyId);
+        this.enemyId++;
+        //adds the enemy to both groups.
+        this.enemys.add(slime1);
+        this.blueSlimeHSs.add(slime1);
+
       }else{
+        console.log("UNKNOWN enemyType: ",enemyType);
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
         console.log("enemy.enemyId: ",enemy.enemyId);
         this.enemyId++;
@@ -1293,6 +1310,71 @@ class defaultScene extends allSceneFunctions {
           //deincriments the grabcooldown on any slime that grabbed the player.
           tempSlime.mitosisDelayCheck();
           // creates a overlap between the damage hitbox and the slime so that slime can take damage
+        }else if(this.objectsInRangeX(tempSlime,scene.player1,30) && this.objectsInRangeY(tempSlime,scene.player1,30)){
+
+          this.viewAnimationLogic(tempSlime);
+        // otherwise hid the prompt from the player.
+        }else{
+          tempSlime.setVelocityY(0);
+          tempSlime.setVelocityX(0);
+          tempSlime.safePrompts.visible = false;
+          tempSlime.playedSafePrompts = false;
+        }
+      }, this);
+
+    }
+
+    //function keeps track of slime interactions
+    checkBlueSlimeHSInteractions(scene) {
+
+      //console.log("checking slime interactions");
+      //applies functions to all slimes in the group.
+      scene.blueSlimeHSs.children.each(function (tempSlime) {
+
+        //safty check to improve performance. only does overlap if in range.
+        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
+          //calls to make each instance of a slime move.
+          tempSlime.move(scene.player1,scene);
+          scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
+            tempSlime.hitboxOverlaps = true;
+          });
+          if(tempSlime.hitboxOverlaps === true) {
+            console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
+            tempSlime.damage(scene);
+            tempSlime.hitboxOverlaps = false;
+          }
+          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          scene.physics.add.overlap(scene.player1, tempSlime, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              //scene.playerInventory.setView(scene);
+            }
+            //console.log("player overlaps slime");
+            //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            if (tempSlime.grabCoolDown === false && tempSlime.mitosing === false && scene.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempSlime.setVelocityX(0);
+              scene.player1.setVelocityX(0);
+              //calls the grab function
+              tempSlime.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempSlime.playerGrabbed = true;
+              tempSlime.grabCoolDown = true;
+              scene.grabbed = true;
+              scene.grabCoolDown = true;
+              console.log('player grabbed by slime');
+            }
+          });
+          
+        //function for animation viewer logic.
         }else if(this.objectsInRangeX(tempSlime,scene.player1,30) && this.objectsInRangeY(tempSlime,scene.player1,30)){
 
           this.viewAnimationLogic(tempSlime);
@@ -1871,6 +1953,9 @@ class defaultScene extends allSceneFunctions {
               }
               if(enemyGroupArray[counter] === 'bats'){
                 this.checkBatInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'blueSlimeHSs'){
+                this.checkBlueSlimeHSInteractions(this);
               }
             }
 

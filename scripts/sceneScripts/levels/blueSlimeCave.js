@@ -37,6 +37,10 @@ class blueSlimeCave extends defaultScene {
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
 
+      this.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
+      this.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
+
+
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
@@ -117,7 +121,7 @@ class blueSlimeCave extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes"];
+      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //set up slimeSpikes
@@ -194,6 +198,8 @@ class blueSlimeCave extends defaultScene {
       setTimeout(function(){
           thisScene.initEnemy(1210, 600,thisScene.playerSex,'blueSlime',false);
           thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
+
+          thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -203,7 +209,7 @@ class blueSlimeCave extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

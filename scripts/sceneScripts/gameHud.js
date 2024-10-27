@@ -399,8 +399,9 @@ class gameHud extends allSceneFunctions {
           inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
             console.log("after emitterchecking if flag exists. : ",object);
 
-            for (let [key, value] of Object.entries(this.playerBestiaryData)) {
-              if (key === object.flagToFind && value === 1) {
+            for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
+              //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
+              if (object.flagToFind  === value) {
                   object.foundFlag = true;
               }
               }

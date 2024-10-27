@@ -38,6 +38,8 @@ class rabbit extends enemy {
         // sets the rabbits hp value
         this.enemyHP = 35;
 
+        
+
         //defines rabbit animations based on the players sex.
         if(this.enemySex === 0) {
             this.anims.create({ key: 'rabbitIdle', frames: this.anims.generateFrameNames('rabbitMale', { start: 1, end: 4 }), frameRate: 8, repeat: -1 });

@@ -32,10 +32,10 @@ class blueSlimeHS extends enemy {
             this.anims.create({ key: 'slimeJumpUpInAir', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 6, end: 6 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 7, end: 11 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeStruggle', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 12, end: 16 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 17, end: 20 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 21, end: 23 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 16, end: 20 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 21, end: 24 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 24, end: 28 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 29, end: 31 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 28, end: 31 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 32, end: 38 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 39, end: 42 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 43, end: 60 }), frameRate: 8, repeat: 0 });
@@ -47,8 +47,8 @@ class blueSlimeHS extends enemy {
             this.anims.create({ key: 'slimeJumpUpInAir', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 6, end: 6 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 7, end: 11 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeStruggle', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 12, end: 16 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 17, end: 20 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 21, end: 23 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 16, end: 20 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 21, end: 24 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 24, end: 35 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 36, end: 39 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
@@ -63,7 +63,7 @@ class blueSlimeHS extends enemy {
         this.anims.play("slimeIdle",true);
 
         //if the slime is of size 1 then set its hit box to the correct size
-        this.setSize(90, 65, true);
+        this.setSize(90, 60, true);
         this.setOffset(105, 233);
 
         this.body.setGravityY(600);
@@ -74,7 +74,7 @@ class blueSlimeHS extends enemy {
     move() {
 
         //if the slime is of size 1 then set its hit box to the correct size
-        this.setSize(90, 65, true);
+        this.setSize(90, 60, true);
         this.setOffset(105, 233);
 
         this.body.setGravityY(600);
@@ -119,7 +119,7 @@ class blueSlimeHS extends enemy {
                         setTimeout(function () {
                             currentSlime.moveCycleTimer = true;
                             currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
+                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100)  + 200);
                         }, 200);
                     });
                 }
@@ -150,7 +150,7 @@ class blueSlimeHS extends enemy {
                         setTimeout(function () {
                             currentSlime.moveCycleTimer = true;
                             currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
+                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 200);
                         }, 200);
                     });
                 }
@@ -293,7 +293,7 @@ class blueSlimeHS extends enemy {
 
             // check to make sure animations dont conflict with eachother.
             if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                this.anims.play("slimeGrab", true);
+                this.anims.play("slimeStruggle", true);
             }
             // when entering grabs sets offset correctly so play isn't clipping through the ground. or clips through the ground falling nito the void
             //this.setOffset(40,129);
@@ -411,9 +411,9 @@ class blueSlimeHS extends enemy {
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
-                    this.playerDefeatedAnimationStage !== 5 &&
-                     this.playerDefeatedAnimationStage !== 6 &&
-                      this.playerDefeatedAnimationStage !== 8) {
+                    this.playerDefeatedAnimationStage !== 1 &&
+                    this.playerDefeatedAnimationStage !==3 &&
+                     this.playerDefeatedAnimationStage !== 5 ) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -431,7 +431,7 @@ class blueSlimeHS extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 8 && this.scene.keyD.isDown)) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -453,10 +453,10 @@ class blueSlimeHS extends enemy {
                 // handles the breaking free animation.
                 if (!this.animationPlayed) {
                     this.animationPlayed = true;
-                    this.anims.play('slimeGrabBreak').once('animationcomplete', () => {
+                    //this.anims.play('slimeGrabBreak').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         currentSlime.struggleFree = true;
-                    });
+                    //});
                 }
                 // if the player if freed do the following to reset the player.
             } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
@@ -566,14 +566,14 @@ class blueSlimeHS extends enemy {
 
             if (!this.animationPlayed) {
 
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"GLORP!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(700);
                 this.scene.onomat.textFadeOutAndDestroy(1000);
             
                 this.animationPlayed = true;
-                this.anims.play('slimeGrabFallingDefeated').once('animationcomplete', () => {
+                this.anims.play('slimeDefeatedPlayer').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -597,11 +597,30 @@ class blueSlimeHS extends enemy {
                 }, 800);
             }
            
-        } else if (this.playerDefeatedAnimationStage === 3) {
-            this.anims.play('slimeGrabDefeated2', true);
+        } else if(this.playerDefeatedAnimationStage === 3) {
+
+            this.playSlimeSound('5',600);
+            if (!this.animationPlayed) {
+
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+30,'charBubble',"SWELL...");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated2').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+        } else if (this.playerDefeatedAnimationStage === 4) {
+            this.anims.play('slimeGrabDefeated3', true);
             let thisSlime = this;
 
-            this.playPlapSound('plap10',2000);
+            this.playPlapSound('plap10',1000);
             
             //plays onomat 
             if (this.onomatPlayed === false) {
@@ -621,11 +640,23 @@ class blueSlimeHS extends enemy {
                 }, 600);
             }
             
-        } else if (this.playerDefeatedAnimationStage === 4) {
-            this.anims.play('slimeGrabDefeated3', true);
-            this.playSlimeSound('3',600);
-            this.playPlapSound('plap9',1000);
+        } else if (this.playerDefeatedAnimationStage === 5) {
+            this.playSlimeSound('5',600);
+            if (!this.animationPlayed) {
+                this.animationPlayed = true;
+                
+                this.anims.play('slimeGrabDefeated4').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                });
+            }
+        } else if (this.playerDefeatedAnimationStage === 6) {
+            this.anims.play('slimeGrabDefeated5', true);
+            let thisSlime = this;
 
+            this.playPlapSound('plap9',1200);
+            
+            //plays onomat 
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
@@ -642,196 +673,33 @@ class blueSlimeHS extends enemy {
                     
                 }, 600);
             }
-
-        } else if (this.playerDefeatedAnimationStage === 5) {
+            
+        }else if (this.playerDefeatedAnimationStage === 7) {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
 
                 this.scene.onomat.destroy();
-                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"SPURT!");
+                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"GURRGGGLEEE!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.increaseRight(700);
                 this.scene.onomat.textFadeOutAndDestroy(900);
 
-                this.anims.play('slimeGrabDefeated4').once('animationcomplete', () => {
+                this.anims.play('slimeGrabDefeated6').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
                 });
             }
-        } else if (this.playerDefeatedAnimationStage === 6) {
-            this.playSlimeSound('4',600);
-            if (!this.animationPlayed) {
-                this.animationPlayed = true;
-
-                this.scene.onomat.destroy();
-                this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"SQUEEEZZZEE!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(900);
-
-                this.anims.play('slimeGrabDefeated5').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.scene.onomat.destroy();
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 7) {
-            this.playSlimeSound('3',600);
-            this.anims.play('slimeGrabDefeated6', true);
-
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-
-                this.scene.onomat = new makeText(this.scene,this.x-13,this.y+20,'charBubble',"WOBBLE...");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.textSlosh();
-                this.scene.onomat.textFadeOutAndDestroy(900);
-                let thisSlime = this;
-                setTimeout(function () {
-                    thisSlime.onomatPlayed = false;
-                    
-                }, 1000);
-            }
-        } else if (this.playerDefeatedAnimationStage === 8) {
-            this.playSlimeSound('5',600);
-            if (!this.animationPlayed) {
-                //plays curse sound effect
-                this.scene.initSoundEffect('curseSFX','curse',0.3);
-                this.animationPlayed = true;
-                this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
+        }else if (this.playerDefeatedAnimationStage === 8) {
+            this.playSlimeSound('3',700);
+            this.anims.play('slimeGameOver', true);
         }
 
 
     }
-    // plays the large slime defeated player animations.
-    largeSlimeDefeatedPlayerAnimation() {
-        let currentSlime = this;
-        if (this.playerDefeatedAnimationStage === 1) {
-
-            this.playerDefeatedAnimationStageMax = 8;
-            if (!this.animationPlayed) {
-
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-
-                this.playSlimeSound('5',800);
-                this.animationPlayed = true;
-                this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                    this.scene.onomat.destroy();
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('largeSlimeGrabDefeated1', true);
-            this.playSlimeSound('2',800);
-
-            
-            
-
-        } else if (this.playerDefeatedAnimationStage === 3) {
-            if (!this.animationPlayed) {
-                this.playSlimeSound('4',800);
-                this.animationPlayed = true;
-                this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 4) {
-            this.playSlimeSound('1',600);
-            this.playPlapSound('plap10',1800);
-            this.anims.play('largeSlimeGrabDefeated3', true);
-
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 15));
-                let randY = Math.floor((Math.random() * 15));
-
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
-                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat1.setScale(1/4);
-                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-
-                let thisSlime = this;
-                setTimeout(function () {
-                    thisSlime.onomatPlayed = false;
-                    
-                }, 600);
-            }
-
-        } else if (this.playerDefeatedAnimationStage === 5) {
-            this.playSlimeSound('1',400);
-            this.playPlapSound('plap11',500);
-            this.anims.play('largeSlimeGrabDefeated4', true);
-
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 15));
-                let randY = Math.floor((Math.random() * 15));
-
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
-                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat1.setScale(1/4);
-                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-
-                randX = Math.floor((Math.random() * 30));
-                randY = Math.floor((Math.random() * 30));
-
-                this.scene.heartOnomat2 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
-                this.scene.heartOnomat2.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat2.setScale(1/4);
-                this.scene.heartOnomat2.textFadeOutAndDestroy(600);
-
-                let thisSlime = this;
-                setTimeout(function () {
-                    thisSlime.onomatPlayed = false;
-                    
-                }, 600);
-            }
-        } else if (this.playerDefeatedAnimationStage === 6) {
-            this.playSlimeSound('5',2000);
-            if (!this.animationPlayed) {
-                //plays curse sound effect
-                currentSlime = this;
-                setTimeout(function () {
-                    currentSlime.scene.sound.get('plapSFX').stop();
-                    currentSlime.scene.initSoundEffect('curseSFX','curse',0.3);
-                }, 2000);
-
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SQUIRT!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-               
-                this.animationPlayed = true;
-                this.anims.play('largeSlimeGrabDefeated5').once('animationcomplete', () => {
-                    this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 7) {
-            this.anims.play('largeSlimeGrabDefeated6', true);
-
-        }
-
-
-    }
+    
     //plays slime sound based in type input being 1-5 and a time delay
     playSlimeSound(type,delay){
         if(this.slimeSoundCoolDown === false){

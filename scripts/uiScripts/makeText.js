@@ -34,7 +34,7 @@ class makeText extends Phaser.GameObjects.Container{
           }else if(this.letterString.charAt(counter) === '@' && specialCharacter === false){
             specialCharText += this.letterString.charAt(counter);
             specialCharacter = true;
-            console.log("special char found!");
+            //console.log("special char found!");
 
           //if we wind a @ and special char is true then set it to false and play animation of special char. 
           }else if(this.letterString.charAt(counter) === '@' && specialCharacter === true){
@@ -46,7 +46,7 @@ class makeText extends Phaser.GameObjects.Container{
             this.letters[this.letters.length-1].setScale(1/3);
            
             
-            console.log("special char completed! ",specialCharText );
+            //console.log("special char completed! ",specialCharText );
             specialCharText = "";
           }
           
@@ -358,7 +358,7 @@ class makeText extends Phaser.GameObjects.Container{
 
     //removes this object
     remove(timeDelay){
-      console.log('destroying text');
+      //console.log('destroying text');
       let text = this;
       setTimeout(function(){
         text.destroy();

@@ -1358,7 +1358,7 @@ class defaultScene extends allSceneFunctions {
             //console.log("player overlaps slime");
             //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
             //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-            if (tempSlime.grabCoolDown === false && tempSlime.mitosing === false && scene.grabCoolDown === false) {
+            if (tempSlime.grabCoolDown === false && scene.grabCoolDown === false) {
               //stop the velocity of the player
               tempSlime.setVelocityX(0);
               scene.player1.setVelocityX(0);

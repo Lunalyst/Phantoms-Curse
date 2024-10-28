@@ -46,7 +46,7 @@ class blueSlimeHS extends enemy {
             this.anims.create({ key: 'slimeJumpUp', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 4, end: 6 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeJumpUpInAir', frames: this.anims.generateFrameNames('blue-slime-HNM', { start: 6, end: 6 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 7, end: 11 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeStruggle', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 12, end: 16 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'slimeStruggle', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 12, end: 15 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 16, end: 20 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 21, end: 24 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HNF', { start: 24, end: 35 }), frameRate: 8, repeat: 0 });
@@ -601,16 +601,9 @@ class blueSlimeHS extends enemy {
 
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
-
-                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+30,'charBubble',"SWELL...");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
             
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated2').once('animationcomplete', () => {
-                    this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
@@ -644,7 +637,7 @@ class blueSlimeHS extends enemy {
             this.playSlimeSound('5',600);
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
-                
+
                 this.anims.play('slimeGrabDefeated4').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

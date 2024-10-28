@@ -58,7 +58,7 @@ class blueSlimeCave extends defaultScene {
     create(){
 
       //sets up gameover location
-      this.setupGameoverLocation("caveGameover");
+      this.setupGameoverLocation("blueSlimeGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -140,9 +140,11 @@ class blueSlimeCave extends defaultScene {
       this.setUpEnemyBarriers();
 
       this.initBarrier(2734,605-30,30,180);
-      this.initBarrier(1899,573-30,30,200);
+      this.initBarrier(2348,573-30,20,300);
+      this.initBarrier(1863,573-30,20,250);
       this.initBarrier(1605,573-30,30,180);
       this.initBarrier(661,669-30,30,180);
+     
 
       //make a temp object
       let object1 = {
@@ -200,6 +202,7 @@ class blueSlimeCave extends defaultScene {
           thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
 
           thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
+          thisScene.initEnemy(930, 660,thisScene.playerSex,'blueSlimeHS',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -209,7 +212,7 @@ class blueSlimeCave extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

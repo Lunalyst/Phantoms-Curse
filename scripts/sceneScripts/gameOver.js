@@ -49,6 +49,8 @@ class gameOver extends allSceneFunctions {
             this.load.image('backgroundBeachLevel', 'assets/backgrounds/beach_background.png');
 
             this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
+            this.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
+            
             this.load.spritesheet("gameOverSignCursed" , "assets/gameover/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/gameover/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
@@ -59,6 +61,7 @@ class gameOver extends allSceneFunctions {
             this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");
             this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
             this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Gameover.json");
+            this.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Gameover.json");
             
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
@@ -144,8 +147,13 @@ class gameOver extends allSceneFunctions {
             //creates a new level object which is used to display map. sends scene and mapdata
             this.processMap = new level(this,myMap);
             //calls function that loads the tiles from the json
-            this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
-            this.processMap.setTiles('source_map',this);
+            if(this.gameoverLocation === 'blueSlimeGameover'){
+                this.processMap.tilesetNameInTiled = "Blue_Slime_Cave_Tileset";
+                this.processMap.setTiles('blue_slime_source_map',this);
+            }else{
+                this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
+                this.processMap.setTiles('source_map',this);
+            }
 
             //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){

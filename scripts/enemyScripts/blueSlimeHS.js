@@ -64,7 +64,7 @@ class blueSlimeHS extends enemy {
 
         //if the slime is of size 1 then set its hit box to the correct size
         this.setSize(90, 60, true);
-        this.setOffset(105, 233);
+        this.setOffset(80, 233);
 
         this.body.setGravityY(600);
 
@@ -75,25 +75,27 @@ class blueSlimeHS extends enemy {
 
         //if the slime is of size 1 then set its hit box to the correct size
         this.setSize(90, 60, true);
-        this.setOffset(105, 233);
+        this.setOffset(80, 233);
 
         this.body.setGravityY(600);
         //else if the slime is size 2 then set its hit box to the correct size
         
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
+        //console.log("this.moveCycleTimer: ",this.moveCycleTimer," this.activatedCycleTimer: ",this.activatedCycleTimer," this.jumpAnimationPlayed: ",this.jumpAnimationPlayed);
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
             let currentSlime = this;
             //controls the random delay between the slimes movements.
             setTimeout(function () {
                 currentSlime.moveCycleTimer = false;
                 currentSlime.activatedCycleTimer = false;
-                currentSlime.randomMoveTimer = Math.floor((Math.random() * 3000) + 2000);
+                currentSlime.randomMoveTimer = Math.floor((Math.random() * 1000) + 1000);
             }, this.randomMoveTimer);
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
         if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y + 400) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
+
             if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
 
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
@@ -118,8 +120,8 @@ class blueSlimeHS extends enemy {
                         let currentSlime = this;
                         setTimeout(function () {
                             currentSlime.moveCycleTimer = true;
-                            currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100)  + 200);
+                            currentSlime.randomXVelocity = Math.floor(Math.random() * (300-150) + 150);
+                            currentSlime.randomYVelocity = Math.floor(Math.random() * (310-250) + 250);
                         }, 200);
                     });
                 }
@@ -144,13 +146,13 @@ class blueSlimeHS extends enemy {
                         // jumps the slime to the left
                         this.setVelocityX(this.randomXVelocity * -1);
                         this.setVelocityY(this.randomYVelocity * -1);
-                        
+
                         // this creates a random x and y velocity for the slimes next jump
                         let currentSlime = this;
                         setTimeout(function () {
                             currentSlime.moveCycleTimer = true;
-                            currentSlime.randomXVelocity = Math.floor((Math.random() * 50) + 150);
-                            currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 200);
+                            currentSlime.randomXVelocity = Math.floor(Math.random() * (300-150) + 150);
+                            currentSlime.randomYVelocity = Math.floor(Math.random() * (310-250) + 250);
                         }, 200);
                     });
                 }
@@ -188,21 +190,6 @@ class blueSlimeHS extends enemy {
         this.setSize(100, 150, true);
         this.setOffset(90, 150);
         this.anims.play('slimeGameOver', true);
-    }
-
-    // functioned called to play animation when the player is defeated by the large slime in gameover.
-    largeSlimeGameOver() {
-        this.setSize(130, 90, true);
-        this.setOffset(82, 209);
-        this.anims.play('slimeGameOver1', true);
-        this.y - 500;
-        let currentSlime = this;
-
-        this.anims.play('slimeGameOver2').once('animationcomplete', () => {
-
-            this.anims.play('slimeGameOver3', true);
-        });
-
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
@@ -472,6 +459,7 @@ class blueSlimeHS extends enemy {
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+                this.jumpAnimationPlayed = false;
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe

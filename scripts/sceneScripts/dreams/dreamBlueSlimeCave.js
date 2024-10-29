@@ -1,13 +1,13 @@
 //forest dream zone which shows off lockwood forests enemys.
-class dreamForest extends defaultScene {
+class dreamBlueSlimeCave extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'DreamForest',active: false ,physics:{default:'arcade'}});
+    super({key: 'dreamBlueSlimeCave',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "DreamForest";
+    this.playerLocation = "dreamBlueSlimeCave";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -22,22 +22,19 @@ class dreamForest extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("dream_forest_map" , "assets/tiledMap/Dream/Dream_Forest.json");
+      this.load.tilemapTiledJSON("dream_blue_slime_map" , "assets/tiledMap/Dream/Dream_Blue_Slime_Cave.json");
 
-      this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
+      this.load.image("blue_slime_cave_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
       
       this.defaultPreload();
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
-      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 270 });
-      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
-      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
+      this.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
+
 
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
@@ -51,8 +48,8 @@ class dreamForest extends defaultScene {
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
+      this.load.audioSprite('slimeCaveSFX','audio/used-audio/slime-cave-sounds/slime-cave-sounds.json',[
+        "audio/used-audio/slime-cave-sounds/slime-cave-sounds.mp3"
       ]);
 
     }
@@ -60,7 +57,7 @@ class dreamForest extends defaultScene {
     create(){
 
       //sets up gameover location
-      this.setupGameoverLocation("forestGameover");
+      this.setupGameoverLocation("blueSlimeGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -73,7 +70,7 @@ class dreamForest extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("dream_forest_map","Forest_Tileset","forest_source_map");
+      this.setUpTileSet("dream_blue_slime_map","Blue_Slime_Cave_Tileset","blue_slime_cave_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -94,7 +91,7 @@ class dreamForest extends defaultScene {
       this.setUpGameplayEmitters();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestThemeSFX','bertsz',0.01);
+      this.initLoopingSound('slimeCaveSFX','slimeCave', 0.02);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -105,9 +102,7 @@ class dreamForest extends defaultScene {
       this.setUpTextBox();
 
       //
-      this.initPortals(881,925-13,1388,925,"warpCaveOutside","DreamHub");
-
-      this.initPortals(681,925-13,458,669,"warpCaveOutside","dreamBlueSlimeCave");
+      this.initPortals(463,669-13,681,925,"warpCaveOutside","DreamForest");
 
       this.initSavePoints(801,925-15);
       
@@ -119,7 +114,7 @@ class dreamForest extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["bats","beeDrones","rabbits","tigers"];
+      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -130,82 +125,42 @@ class dreamForest extends defaultScene {
       setTimeout(function(){
         
         let object = {
-          flagToFind: 'femaleTiger',
+          flagToFind: 'blueSlime',
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
   
-        if(object.foundFlag === true && object.flagToFind === 'femaleTiger'){
-          thisScene.initEnemy(1251,883,thisScene.playerSex,'tiger',true);
+        if(object.foundFlag === true && object.flagToFind === 'blueSlime'){
+          thisScene.initEnemy(825,657,thisScene.playerSex,'blueSlime',true);
+        }
+        
+        object = {
+          flagToFind: 'largeBlueSlime',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
+  
+        if(object.foundFlag === true && object.flagToFind === 'largeBlueSlime'){
+          thisScene.initEnemy(926,657,thisScene.playerSex,'blueSlimeLarge',true);
         }
 
         object = {
-          flagToFind: 'femaleTigerBooba',
+          flagToFind: 'blueSlimeHS',
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
   
-        if(object.foundFlag === true && object.flagToFind === 'femaleTigerBooba'){
-          thisScene.initEnemy(1384,883,thisScene.playerSex,'tigerBooba',true);
+        if(object.foundFlag === true){
+          thisScene.initEnemy(1008,669,thisScene.playerSex,'blueSlimeHS',true);
         }
 
-        let object1 = {
-          flagToFind: 'maleRabbit',
-          foundFlag: false,
-        };
-
-        let object2 = {
-          flagToFind: 'femaleRabbit',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleRabbit' || object2.flagToFind === 'femaleRabbit')){
-          thisScene.initEnemy(1534,881,thisScene.playerSex,'rabbit',true);
-        }
-
-        object1 = {
-          flagToFind: 'maleBeeDrone',
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: 'femaleBeeDrone',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
-          thisScene.initEnemy(1680,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
-        }
-
-        object1 = {
-          flagToFind: 'maleBat',
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: 'femaleBat',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBat' || object2.flagToFind === 'femaleBat')){
-          thisScene.initEnemy(445,925,thisScene.playerSex,'bat',true,'wingFlapSFX1');
-        }
+        
         
         thisScene.spawnedEnemys = true;
       },1000);

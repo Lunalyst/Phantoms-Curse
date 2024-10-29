@@ -1,13 +1,13 @@
 
-class blueSlimeCave extends defaultScene {
+class blueSlimeCave1 extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'blueSlimeCave',active: false ,physics:{default:'arcade'}});
+    super({key: 'blueSlimeCave1',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "blueSlimeCave";
+    this.playerLocation = "blueSlimeCave1";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -22,7 +22,7 @@ class blueSlimeCave extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("blue_slime_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave.json");
+      this.load.tilemapTiledJSON("blue_slime_map1" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave1.json");
       this.load.image("blue_slime_cave_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
       
       this.load.spritesheet('slimeSpike', 'assets/gameObjects/slimeSpike.png',{frameWidth: 93, frameHeight: 162 });
@@ -71,7 +71,7 @@ class blueSlimeCave extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("blue_slime_map","Blue_Slime_Cave_Tileset","blue_slime_cave_source_map");
+      this.setUpTileSet("blue_slime_map1","Blue_Slime_Cave_Tileset","blue_slime_cave_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -105,13 +105,18 @@ class blueSlimeCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSavePoints(1669,573-14);
+      this.initSavePoints(494,1245-14);
 
-      this.initPortals(1753,573-13,2088,1117,"warpCaveOutside","batCave");
+      this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
 
-      this.initPortals(449,669-13,388,1789,"warpCaveOutside","blueSlimeCave1");
+      this.fakeWarp1 = new fakeWarp(this,1250,1565-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp1 = new fakeWarp(this,2849,605-13,'warpCaveOutsideRubble');
+      this.fakeWarp2 = new fakeWarp(this,1779,1149-13,'warpCaveOutsideRubble');
+
+      this.fakeWarp3 = new fakeWarp(this,1796,573-13,'warpCaveOutsideRubble');
+
+      
+ 
 
       //sets up containers
       this.setUpContainers();
@@ -129,81 +134,31 @@ class blueSlimeCave extends defaultScene {
       this.setUpSlimeProjectilesBarriers();
 
       //for positioning increment byx32
-      this.initSlimeSpike(2703,539);
-      this.initSlimeSpike(2000,475);
-      this.initSlimeSpike(1328,507);
-      this.initSlimeSpike(976,443);
+      //this.initSlimeSpike(2703,539);
+      //this.initSlimeSpike(2000,475);
+      //this.initSlimeSpike(1328,507);
+      //this.initSlimeSpike(976,443);
 
 
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
 
-      this.initBarrier(2734,605-30,30,180);
-      this.initBarrier(2549,637-30,20,180);
-      this.initBarrier(2348,573-30,20,300);
-      this.initBarrier(1863,573-30,20,250);
-      this.initBarrier(1605,573-30,30,180);
-      this.initBarrier(661,669-30,30,180);
-     
-
-      //make a temp object
-      let object1 = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-
-      let object2 = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-
-      // call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
-
-      if(object1.foundFlag === true && object2.foundFlag === false){
-        let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(2009,1117,
-        dialogue,
-        ['lunaNeutral','lunaHappy'],
-      'lunaProtoDialogue1'
-      );
-      }else if(object2.foundFlag === true){
-        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
-        let dialogue = line1 + line2;
-        this.initLunalyst(2009,1117,
-        dialogue,
-        ['lunaFingerTouch','lunaHappy'],
-      'lunaProtoDialogue2'
-      );
-      }else{
-        let line1 = 'OH, A HUMAN!                                                                ';
-        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
-        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
-        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
-        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
-        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
-        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
-        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(2009,1117,
-          dialogue,
-          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
-        'lunaProtoDialogue'
-        );
-     }                                                        
-      
-    
+      this.initBarrier(533,1245-30,30,180);
+      this.initBarrier(1623,1117-30,20,200);
+      this.initBarrier(593,893-30,20,300);
+      this.initBarrier(644,573-30,20,250);
+      this.initBarrier(1676,573-30,30,180);
+      //this.initBarrier(661,669-30,30,180);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          thisScene.initEnemy(1210, 600,thisScene.playerSex,'blueSlime',false);
-          thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
+          //thisScene.initEnemy(1210, 600,thisScene.playerSex,'blueSlime',false);
+          //thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
 
-          thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
-          thisScene.initEnemy(2591, 701,thisScene.playerSex,'blueSlimeHS',false);
-          thisScene.initEnemy(930, 660,thisScene.playerSex,'blueSlimeHS',false);
+          //thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
+          //thisScene.initEnemy(2591, 701,thisScene.playerSex,'blueSlimeHS',false);
+          //thisScene.initEnemy(930, 660,thisScene.playerSex,'blueSlimeHS',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

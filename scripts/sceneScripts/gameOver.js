@@ -218,6 +218,10 @@ class gameOver extends allSceneFunctions {
                 this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "blueSlimeHS"){
+                this.enemy = new blueSlimeHS(this,450, 580,this.playerSex);
+                this.enemy.slimeGameOver();
+                this.defeatedTitle = 'eaten';
             }
             
             

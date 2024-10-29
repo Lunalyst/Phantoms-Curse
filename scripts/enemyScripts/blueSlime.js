@@ -1105,7 +1105,6 @@ class blueSlime extends enemy {
             this.isViewingAnimation = true;
             this.playerProgressingAnimation = false;
 
-            this.scene.gameoverLocation = "caveGameover";
         //if the player is grabbed then.
         } else if(this.playerGrabbed === true) {
 

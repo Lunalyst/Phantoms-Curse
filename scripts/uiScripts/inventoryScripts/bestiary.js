@@ -25,6 +25,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -95,6 +96,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       femaleBat: {
         title: "FEMALE BAT",
         summary: "IF THEY ARE SpOOKED WHILE SLEEPING THIS NOCTERNAL PREDATOR WITH CHASE DOWN WHAT EVER SPOOKED IT AND TRY TO DEVOWER THEM WITH THERE REAR END. THESE VORACIOUS BATS ARE QUICK TO DIGEST THERE PREY IN THIS STATE, ADDING THEM TO THERE PUDGE. ",
+      },
+      blueSlimeHS: {
+        title: "BLUE SLIME HS",
+        summary: "THESE VARIATIONS OF THE BLUE SLIME TAKE THE APPEARANCE OF A PERSON, AS BEST THEY CAN WITH THE MASS THEY HAVE. MORE AGRESSIVE THAN THE REGULAR COUNTERPART. THESE SLIMES SEEK HUMANOIDS TO ABSORB SO THAT THEY CAN GROW THERE MASS AND SHAPE.",
       },
 
       back: {

@@ -187,8 +187,8 @@ class blueSlimeHS extends enemy {
 
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
-        this.setSize(100, 150, true);
-        this.setOffset(90, 150);
+        this.setSize(90, 60, true);
+        this.setOffset(80, 233);
         this.anims.play('slimeGameOver', true);
     }
 
@@ -370,7 +370,7 @@ class blueSlimeHS extends enemy {
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-            this.scene.enemyThatDefeatedPlayer = "blueSlime";
+            this.scene.enemyThatDefeatedPlayer = "blueSlimeHS";
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {
                 this.scene.KeyDisplay.playDKey();
@@ -711,8 +711,7 @@ class blueSlimeHS extends enemy {
             this.slimeGrabFalse();
             this.isViewingAnimation = true;
             this.playerProgressingAnimation = false;
-
-            this.scene.gameoverLocation = "caveGameover";
+            
         //if the player is grabbed then.
         } else if(this.playerGrabbed === true) {
 

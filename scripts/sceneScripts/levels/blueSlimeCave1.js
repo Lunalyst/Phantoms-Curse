@@ -40,6 +40,9 @@ class blueSlimeCave1 extends defaultScene {
       this.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
       this.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
 
+      this.load.spritesheet('blue-slime-HM', 'assets/enemys/blue-slime-humanoid-male-all.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HF', 'assets/enemys/blue-slime-humanoid-female-all.png',{frameWidth: 243, frameHeight: 393 });
+
 
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
@@ -125,7 +128,7 @@ class blueSlimeCave1 extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs"];
+      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs","blueSlimeHMs"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //set up slimeSpikes
@@ -153,7 +156,7 @@ class blueSlimeCave1 extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          //thisScene.initEnemy(1210, 600,thisScene.playerSex,'blueSlime',false);
+          thisScene.initEnemy(695, 1321,thisScene.playerSex,'blueSlimeHM',false);
           //thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
 
           //thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
@@ -168,7 +171,7 @@ class blueSlimeCave1 extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

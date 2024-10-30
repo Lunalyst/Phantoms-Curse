@@ -644,8 +644,10 @@ class defaultScene extends allSceneFunctions {
 
     }
 
-    initSlimeProjectile(x,y){
-      let slimeProj = new slimeProjectile(this,x,y);
+    initSlimeProjectile(x,y,velocityX,savedGravity){
+
+      let slimeProj = new slimeProjectile(this,x,y,velocityX,savedGravity);
+
       this.physics.add.existing(slimeProj);
       this.slimeProjectiles.add(slimeProj);
 
@@ -849,8 +851,15 @@ class defaultScene extends allSceneFunctions {
     checkSlimeProjectiles(){
       this.slimeProjectiles.children.each(function (tempProjectile) {
         //ensures gravity is applied,
-        tempProjectile.body.setGravityY(600);
+        tempProjectile.body.setGravityY(tempProjectile.savedGravity);
 
+        //applies velocity of projectile if predefined but only if it hasn't hit the ground.
+        if(!tempProjectile.body.blocked.down){
+          tempProjectile.setVelocityX(tempProjectile.savedVelocityX);
+        }else{
+          tempProjectile.setVelocityX(0);
+        }
+        
         //if projectile hits the ground then
         if(tempProjectile.body.blocked.down && !tempProjectile.hitTheGround){
           console.log("slime projectile hit ground!")

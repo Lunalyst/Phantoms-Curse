@@ -40,7 +40,7 @@ class slimeSpike extends Phaser.Physics.Arcade.Sprite{
         this.anims.play('slimeSpikeDrip1',false).once('animationcomplete', () => { 
 
           //once drip finishes spawn slime projectile
-          this.scene.initSlimeProjectile(this.x,this.y+20);
+          this.scene.initSlimeProjectile(this.x,this.y+20,0,700);
           //then play finishing animation to static
           this.anims.play('slimeSpikeDrip2',false).once('animationcomplete', () => { 
 

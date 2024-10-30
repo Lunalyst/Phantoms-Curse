@@ -222,6 +222,11 @@ class gameOver extends allSceneFunctions {
                 this.enemy = new blueSlimeHS(this,450, 580,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "blueSlimeFemaleHM"){
+                this.preferance = 1;
+                this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
+                this.enemy.slimeGameOver();
+                this.defeatedTitle = 'eaten';
             }
             
             

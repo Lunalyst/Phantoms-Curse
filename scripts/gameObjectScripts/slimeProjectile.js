@@ -1,7 +1,7 @@
 //once the player has the double jump skill, they create this platform under them as a visual effect to show they jumped off something during the double jump.
 class slimeProjectile extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
-    constructor(scene, xPos, yPos){
+    constructor(scene, xPos, yPos,savedVelocityX,savedGravity){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos, 'slimeProjectile');
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -18,7 +18,8 @@ class slimeProjectile extends Phaser.Physics.Arcade.Sprite{
       this.setScale(1/3,1/3);
       this.setSize(50,50,true);
       this.anims.play("slimeProjectileDown");
-
+      this.savedVelocityX = savedVelocityX;
+      this.savedGravity = savedGravity;
       this.hitTheGround = false;
       
     }

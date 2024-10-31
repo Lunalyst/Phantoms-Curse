@@ -55,23 +55,43 @@ class blueSlimeHM extends enemy {
         this.throwSlimeTimer = false;
         this.throwingSlime = false;
 
+        this.enemyHP = 50;
+
         console.log("this.enemySex: ",this.enemySex," sex ", sex);
 
         //defines Slime animations based on the players sex.
         if (this.enemySex === 0) {
-            this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'slimeHidingAmbushStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 20, end: 31 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'slimeHidingAmbushMiss', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
-            
+                this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeHiding', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 17, end: 17 }), frameRate: 3.5, repeat: 0 });
+                this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeHidingAmbushGrab', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 20, end: 31 }), frameRate: 15, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 28, end: 31 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabMiss', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
+            console.log("this.enemySex: ",this.enemySex," sex ", sex);
             if(sex === 0 ){
-
+                
             }else{
-  
+                console.log("this.enemySex: ",this.enemySex," sex ", sex);
+                this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 44, end: 54 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 55, end: 58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 59, end: 66 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 67, end: 70 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 71, end: 73 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 74, end: 77 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 78, end: 82 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 83, end: 86 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 86, end:  115}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 116, end: 119}), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated11', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 121, end:  124}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated12', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 125, end: 128}), frameRate: 8, repeat: -1 });
+                
             }
+            this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 129, end: 132 }), frameRate: 8, repeat: -1 }); 
 
             } else {
                 console.log("creating female slime animations");
@@ -511,7 +531,11 @@ class blueSlimeHM extends enemy {
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-            this.scene.enemyThatDefeatedPlayer = "blueSlimeFemaleHM";
+            if(this.enemySex === 0){
+                this.scene.enemyThatDefeatedPlayer = "blueSlimeMaleHM";
+            }else{
+                this.scene.enemyThatDefeatedPlayer = "blueSlimeFemaleHM";
+            }
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {
                 this.scene.KeyDisplay.playDKey();
@@ -529,10 +553,8 @@ class blueSlimeHM extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            /*console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
-            " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
-            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);*/
-
+            //based on the enemys sex, play different animations. 
+        if(this.enemySex === 0){
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
             if (this.scene.keyD.isDown &&
@@ -544,7 +566,8 @@ class blueSlimeHM extends enemy {
                     this.playerDefeatedAnimationStage !== 4 &&
                     this.playerDefeatedAnimationStage !== 6 &&
                     this.playerDefeatedAnimationStage !== 8 &&
-                    this.playerDefeatedAnimationStage !== 10) {
+                    this.playerDefeatedAnimationStage !== 10&&
+                    this.playerDefeatedAnimationStage !== 12) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -562,14 +585,53 @@ class blueSlimeHM extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 11 && this.scene.keyD.isDown)) {
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 13 && this.scene.keyD.isDown)) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
             }
 
             //function to play the defeated animation
-            this.femaleSlimeDefeatedPlayerAnimation();
+            this.maleSlimeDefeatedPlayerAnimation();
+        }else{
+            //may be able to set a bool to true or false to tell what animations have the key skip
+            //that way we dont need tons of if checks for numbers
+            if (this.scene.keyD.isDown &&
+                this.playerDefeatedAnimationCooldown === false &&
+                 this.inStartDefeatedLogic === false &&
+                  this.scene.KeyDisplay.visible === true &&
+                   this.playerDefeatedAnimationStage !== 1 &&
+                   this.playerDefeatedAnimationStage !== 2 &&
+                   this.playerDefeatedAnimationStage !== 4 &&
+                   this.playerDefeatedAnimationStage !== 6 &&
+                   this.playerDefeatedAnimationStage !== 8 &&
+                   this.playerDefeatedAnimationStage !== 10) {
+
+               this.scene.KeyDisplay.visible = false;
+               //this.stageTimer = 0;
+               this.playerDefeatedAnimationCooldown = true;
+               this.playerDefeatedAnimationStage++;
+               let currentSlime = this;
+               console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
+
+               this.currentSlime = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+               setTimeout(function () {
+                   console.log("defeated animation delay.");
+                   currentSlime.scene.KeyDisplay.visible = true;
+                   currentSlime.scene.KeyDisplay.playDKey();
+                   currentSlime.playerDefeatedAnimationCooldown = false;
+               }, 3000);
+           }
+           // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+           if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 11 && this.scene.keyD.isDown)) {
+               this.scene.KeyDisplay.visible = false;
+               console.log("changing scene");
+               this.scene.changeToGameover();
+           }
+
+           //function to play the defeated animation
+           this.femaleSlimeDefeatedPlayerAnimation();
+        }
         
     }
 
@@ -603,6 +665,12 @@ class blueSlimeHM extends enemy {
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+
+                this.grabTimer = false;
+                this.attemptingGrab = false;
+                this.throwingSlime = false;
+                this.throwSlimeTimer = false;
+
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
@@ -690,6 +758,126 @@ class blueSlimeHM extends enemy {
     }
 
     // plays the slime defeated player animations.
+    maleSlimeDefeatedPlayerAnimation() {
+        console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+
+        let currentSlime = this;
+        if (this.playerDefeatedAnimationStage === 1) {
+
+            this.playerDefeatedAnimationStageMax = 13;
+
+            if (!this.animationPlayed) {
+
+               
+                this.animationPlayed = true;
+                this.anims.play('slimeDefeatedPlayer').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+
+        }else if(this.playerDefeatedAnimationStage === 2) {
+            //this.playSlimeSound('5',600);
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated1').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 3) {
+
+            this.anims.play('slimeGrabDefeated2', true);
+            
+        }else if(this.playerDefeatedAnimationStage === 4) {
+
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated3').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 5) {
+
+            this.anims.play('slimeGrabDefeated4', true);
+            
+        }else if(this.playerDefeatedAnimationStage === 6) {
+
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated5').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 7) {
+
+            this.anims.play('slimeGrabDefeated6', true);
+            
+        }else if(this.playerDefeatedAnimationStage === 8) {
+
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 9) {
+
+            this.anims.play('slimeGrabDefeated8', true);
+            
+        }else if(this.playerDefeatedAnimationStage === 10) {
+
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated9').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 11) {
+
+            this.anims.play('slimeGrabDefeated10', true);
+            
+        }else if(this.playerDefeatedAnimationStage === 12) {
+
+            if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('slimeGrabDefeated11').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 13) {
+
+            this.anims.play('slimeGrabDefeated12', true);
+            
+        }
+
+
+    }
+
     femaleSlimeDefeatedPlayerAnimation() {
         console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
 
@@ -790,8 +978,6 @@ class blueSlimeHM extends enemy {
             this.anims.play('slimeGrabDefeated10', true);
             
         }
-
-
     }
     
     //plays slime sound based in type input being 1-5 and a time delay

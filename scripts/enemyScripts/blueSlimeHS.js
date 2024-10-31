@@ -81,7 +81,7 @@ class blueSlimeHS extends enemy {
         //else if the slime is size 2 then set its hit box to the correct size
         
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
-        //console.log("this.moveCycleTimer: ",this.moveCycleTimer," this.activatedCycleTimer: ",this.activatedCycleTimer," this.jumpAnimationPlayed: ",this.jumpAnimationPlayed);
+        console.log("this.moveCycleTimer: ",this.moveCycleTimer," this.activatedCycleTimer: ",this.activatedCycleTimer," this.jumpAnimationPlayed: ",this.jumpAnimationPlayed);
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
             let currentSlime = this;
             //controls the random delay between the slimes movements.
@@ -93,7 +93,7 @@ class blueSlimeHS extends enemy {
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y + 400) {
+        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 1000 && this.scene.player1.y < this.y + 1000) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
 
             if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {

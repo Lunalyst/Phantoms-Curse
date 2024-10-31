@@ -21,7 +21,7 @@ class slimeSpike extends Phaser.Physics.Arcade.Sprite{
     
         //warp sprite animations
         this.anims.create({key: 'slimeSpikeStatic',frames: this.anims.generateFrameNames('slimeSpike', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'slimeSpikeDrip1',frames: this.anims.generateFrameNames('slimeSpike', { start: 0, end: 3}),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'slimeSpikeDrip1',frames: this.anims.generateFrameNames('slimeSpike', { start: 0, end: 3}),frameRate: 15,repeat: 0});
         this.anims.create({key: 'slimeSpikeDrip2',frames: this.anims.generateFrameNames('slimeSpike', { start: 4, end: 5}),frameRate: 7,repeat: 0});
         
         this.anims.play('slimeSpikeStatic',true);

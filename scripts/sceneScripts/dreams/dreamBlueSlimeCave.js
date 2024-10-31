@@ -34,6 +34,8 @@ class dreamBlueSlimeCave extends defaultScene {
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
       this.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
+      this.load.spritesheet('blue-slime-HM', 'assets/enemys/blue-slime-humanoid-male-all.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HF', 'assets/enemys/blue-slime-humanoid-female-all.png',{frameWidth: 243, frameHeight: 393 });
 
 
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
@@ -114,7 +116,7 @@ class dreamBlueSlimeCave extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs"];
+      this.enemyGroupArray = ["blueSlimes","blueSlimeHSs","blueSlimeHMs"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -158,6 +160,24 @@ class dreamBlueSlimeCave extends defaultScene {
   
         if(object.foundFlag === true){
           thisScene.initEnemy(1008,669,thisScene.playerSex,'blueSlimeHS',true);
+        }
+
+        let object1 = {
+          flagToFind: 'blueSlimeMaleHM',
+          foundFlag: false,
+        };
+
+        let object2 = {
+          flagToFind: 'blueSlimeFemaleHM',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(1108,669,thisScene.playerSex,'blueSlimeHM',true);
         }
 
         

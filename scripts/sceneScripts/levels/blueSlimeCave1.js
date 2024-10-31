@@ -137,9 +137,9 @@ class blueSlimeCave1 extends defaultScene {
       this.setUpSlimeProjectilesBarriers();
 
       //for positioning increment byx32
-      //this.initSlimeSpike(2703,539);
-      //this.initSlimeSpike(2000,475);
-      //this.initSlimeSpike(1328,507);
+      this.initSlimeSpike(1232,891);
+      this.initSlimeSpike(848,827);
+      this.initSlimeSpike(1136,1147);
       //this.initSlimeSpike(976,443);
 
 
@@ -151,17 +151,18 @@ class blueSlimeCave1 extends defaultScene {
       this.initBarrier(593,893-30,20,300);
       this.initBarrier(644,573-30,20,250);
       this.initBarrier(1676,573-30,30,180);
+      this.initBarrier(950,1021-30,20,180);
+      this.initBarrier(1195,1021-30,20,180);
+      this.initBarrier(776,982-30,20,180);
       //this.initBarrier(661,669-30,30,180);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          thisScene.initEnemy(695, 1321,thisScene.playerSex,'blueSlimeHM',false);
-          //thisScene.initEnemy(1110, 600,thisScene.playerSex,'blueSlime',false);
-
-          //thisScene.initEnemy(2223, 573,thisScene.playerSex,'blueSlimeHS',false);
-          //thisScene.initEnemy(2591, 701,thisScene.playerSex,'blueSlimeHS',false);
-          //thisScene.initEnemy(930, 660,thisScene.playerSex,'blueSlimeHS',false);
+          //thisScene.initEnemy(934, 1341,thisScene.playerSex,'blueSlimeHM',false);
+          //thisScene.initEnemy(1037, 1021,thisScene.playerSex,'blueSlimeHM',false);
+          thisScene.initEnemy(1377, 1085,thisScene.playerSex,'blueSlimeHS',false);
+          
           thisScene.spawnedEnemys = true;
         },1000);
 

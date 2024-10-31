@@ -836,7 +836,7 @@ class defaultScene extends allSceneFunctions {
 
          //checks if the attack hitbox is overlapping the tiger to deal damage.
          //this.physics.add.overlap(tempPile, this.player1, function () {
-        if(this.objectsInRangeX(tempSpike,this.player1,40) &&this.isPaused === false &&this.playerStuckGrab === false && this.grabbed === false){
+        if(this.objectsInRangeX(tempSpike,this.player1,60) &&this.isPaused === false &&this.playerStuckGrab === false && this.grabbed === false){
           tempSpike.inRange = true;
         }
         //});
@@ -1175,7 +1175,7 @@ class defaultScene extends allSceneFunctions {
       //if the player is w then
       if(Phaser.Input.Keyboard.JustDown(this.keyW) === true && this.playerStuckGrabCap > 0){
         //reduce the stuck cap counter
-        this.playerStuckGrabCap-=20;
+        this.playerStuckGrabCap-=5;
         //update the struggle bar
         struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
       }
@@ -1356,7 +1356,7 @@ class defaultScene extends allSceneFunctions {
       scene.blueSlimeHSs.children.each(function (tempSlime) {
 
         //safty check to improve performance. only does overlap if in range.
-        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
+        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,700) && tempSlime.inSafeMode === false){
           //calls to make each instance of a slime move.
           tempSlime.move(scene.player1,scene);
           scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {

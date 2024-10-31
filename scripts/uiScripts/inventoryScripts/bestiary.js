@@ -26,6 +26,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeMaleHM', frames: this.anims.generateFrameNames('bestiary', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary', { start: 15, end: 15 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -98,8 +100,16 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
         summary: "IF THEY ARE SpOOKED WHILE SLEEPING THIS NOCTERNAL PREDATOR WITH CHASE DOWN WHAT EVER SPOOKED IT AND TRY TO DEVOWER THEM WITH THERE REAR END. THESE VORACIOUS BATS ARE QUICK TO DIGEST THERE PREY IN THIS STATE, ADDING THEM TO THERE PUDGE. ",
       },
       blueSlimeHS: {
-        title: "BLUE SLIME HS",
+        title: "BLUE SLIME HUMANOID",
         summary: "THESE VARIATIONS OF THE BLUE SLIME TAKE THE APPEARANCE OF A PERSON, AS BEST THEY CAN WITH THE MASS THEY HAVE. MORE AGRESSIVE THAN THE REGULAR COUNTERPART. THESE SLIMES SEEK HUMANOIDS TO ABSORB SO THAT THEY CAN GROW THERE MASS AND SHAPE.",
+      },
+      blueSlimeMaleHM: {
+        title: "BLUE SLIME MALE",
+        summary: "AFTER GROWING TO ITS SECOND STAGE, IT TAKE ON A MASCULINE APPEARANCE BASED ON THE LARGEST THING IT ABSORBED. WITH ITS NEW MALE FORM, IT IS ABLE TO USE ITS SLIME PHALLUS TO CONSUME MORE PREY. WHILE IT DOES NOT EXCLISIVELY DO THIS, IT SEEMS TO PREFER THIS FORM OF INGESTION.",
+      },
+      blueSlimeFemaleHM: {
+        title: "BLUE SLIME FEMALE",
+        summary: "AFTER GROWING TO ITS SECOND STAGE, IT TAKE ON A FEMININE APPEARANCE BASED ON THE LARGEST THING IT ABSORBED. WITH ITS NEW FEMALE FORM, IT IS NOT AS RAVINOUS AND PREFERS TO PLAY WITH ITS FOOD. IF THIS SLIME GROWS LARGE ENOUGH IT CAN PRODUCE SMALLER SLIMES TO SPREAD THERE CURSE.",
       },
 
       back: {
@@ -346,65 +356,6 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
   }
 
-  // function which formats the text string so that it properly fits within the summary character lines.
-  /*formatSummary() {
-    let tempString = "";
-    let formatingCounter = 0;
-    let BackPetal = 0;
-    let BackPetalString = "";
-    let spacing = "";
-    let FrontPetalString = "";
-    let backString = "";
-    for (let counter = 0; counter < this.formattedString.length; counter++) {
-
-      // if the line has letters or symbols that get cut of to the next line we want to add spaces.
-      //
-      if (formatingCounter === 15 && this.formattedString.charAt(counter) !== ' ') {
-        for (let index = tempString.length; index > 0; index--) {
-          if (tempString.charAt(index) !== ' ') {
-            BackPetal++;
-            BackPetalString = tempString.charAt(index) + BackPetalString;
-            if (index === 1) {
-
-            }
-          } else if (tempString.charAt(index) === ' ') {
-            for (let coun = 0; coun < BackPetal - 1; coun++) {
-              spacing += " ";
-
-            }
-            for (let coun = counter; coun < this.formattedString.length; coun++) {
-              FrontPetalString += this.formattedString.charAt(coun);
-            }
-            for (let coun = counter - BackPetal; coun >= 0; coun--) {
-              backString = this.formattedString.charAt(coun) + backString;
-            }
-
-            this.formattedString = backString + spacing + BackPetalString + FrontPetalString;
-           
-            BackPetal = 0;
-            BackPetalString = "";
-            backString = "";
-            spacing = "";
-            FrontPetalString = "";
-
-
-            break;
-          }
-
-        }
-
-        tempString = "";
-        formatingCounter = 0;
-      } else if (formatingCounter === 15) {
-        formatingCounter = 0;
-      }
-      
-      formatingCounter++;
-      tempString += this.formattedString.charAt(counter);
-    }
-
-
-  }*/
 
   formatSummary(){
     //temp array for testing used to check if all the line align with each other.

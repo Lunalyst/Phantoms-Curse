@@ -181,7 +181,7 @@ class blueSlimeCave1 extends defaultScene {
 
       if(object1.foundFlag === true && object2.foundFlag === false){
         let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(2009,1117,
+      this.initLunalyst(1730,573,
         dialogue,
         ['lunaNeutral','lunaHappy'],
       'lunaProtoDialogue1'
@@ -190,7 +190,7 @@ class blueSlimeCave1 extends defaultScene {
         let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
         let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
         let dialogue = line1 + line2;
-        this.initLunalyst(2009,1117,
+        this.initLunalyst(1730,573,
         dialogue,
         ['lunaFingerTouch','lunaHappy'],
       'lunaProtoDialogue2'

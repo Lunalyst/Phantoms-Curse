@@ -250,6 +250,7 @@ class blueSlime extends enemy {
         }
         this.body.setGravityY(600);
         this.setVelocityX(0);
+        this.setDepth(4);
 
     }
 
@@ -289,6 +290,8 @@ class blueSlime extends enemy {
             this.slimeGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+            this.setDepth(5);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {

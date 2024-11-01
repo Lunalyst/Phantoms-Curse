@@ -57,71 +57,96 @@ class blueSlimeHM extends enemy {
 
         this.enemyHP = 50;
 
-        console.log("this.enemySex: ",this.enemySex," sex ", sex);
+        //console.log("this.enemySex: ",this.enemySex," sex ", sex);
 
         //defines Slime animations based on the players sex.
         if (this.enemySex === 0) {
-                this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeHiding', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 17, end: 17 }), frameRate: 3.5, repeat: 0 });
-                this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeHidingAmbushGrab', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 20, end: 31 }), frameRate: 15, repeat: 0 });
-                this.anims.create({ key: 'slimeAttemptingGrabStart', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 28, end: 31 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeAttemptingGrabMiss', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeHiding', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 17, end: 17 }), frameRate: 3.5, repeat: 0 });
+                this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeHidingAmbushGrab', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 20, end: 31 }), frameRate: 15, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabStart', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 28, end: 31 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabMiss', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
             console.log("this.enemySex: ",this.enemySex," sex ", sex);
             if(sex === 0 ){
+                this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 44, end: 54 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 55, end: 58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 59, end: 66 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 67, end: 70 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 71, end: 73 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 74, end: 77 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 78, end: 82 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 83, end: 86 }), frameRate: 12, repeat: -1 }); 
+                this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 86, end:  116}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 117, end: 120}), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated11', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 121, end:  124}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated12', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 125, end: 128}), frameRate: 8, repeat: -1 });
                 
             }else{
-                console.log("this.enemySex: ",this.enemySex," sex ", sex);
-                this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
-                this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 44, end: 54 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 55, end: 58 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 59, end: 66 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 67, end: 70 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 71, end: 73 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 74, end: 77 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 78, end: 82 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 83, end: 86 }), frameRate: 8, repeat: -1 }); 
-                this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 86, end:  115}), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 116, end: 119}), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeGrabDefeated11', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 121, end:  124}), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeGrabDefeated12', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 125, end: 128}), frameRate: 8, repeat: -1 });
+                //console.log("this.enemySex: ",this.enemySex," sex ", sex);
+                this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 44, end: 54 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 55, end: 58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 59, end: 66 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 67, end: 70 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 71, end: 73 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 74, end: 77 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 78, end: 82 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 83, end: 86 }), frameRate: 12, repeat: -1 }); 
+                this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 86, end:  116}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 117, end: 120}), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeGrabDefeated11', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 121, end:  124}), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeGrabDefeated12', frames: this.anims.generateFrameNames('blue-slime-HM-F', { start: 125, end: 128}), frameRate: 8, repeat: -1 });
                 
             }
-            this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('blue-slime-HM', { start: 129, end: 132 }), frameRate: 8, repeat: -1 }); 
+            this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('blue-slime-HM-M', { start: 129, end: 132 }), frameRate: 8, repeat: -1 }); 
 
             } else {
-                console.log("creating female slime animations");
-                this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeHiding', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 17, end: 17 }), frameRate: 3.5, repeat: 0 });
-                this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'slimeHidingAmbushGrab', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 20, end: 31 }), frameRate: 15, repeat: 0 });
-                this.anims.create({ key: 'slimeAttemptingGrabStart', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 28, end: 31 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'slimeAttemptingGrabMiss', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
+                //console.log("creating female slime animations");
+                this.anims.create({ key: 'slimeIdle', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeMove', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 4, end: 9 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeThrowSlimeStart', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 10, end: 12 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeThrowSlimeEnd', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 13, end: 16 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeHiding', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 17, end: 17 }), frameRate: 3.5, repeat: 0 });
+                this.anims.create({ key: 'slimeMoveHiding', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 17, end: 20 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'slimeHidingAmbushGrab', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 20, end: 31 }), frameRate: 15, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabStart', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 28, end: 31 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'slimeAttemptingGrabMiss', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 32, end: 35 }), frameRate: 8, repeat: 0 });
                 if(sex === 0 ){
-                    this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
-                    this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 44, end: 51 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 52, end: 55 }), frameRate: 8, repeat: -1 });
-                    this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 56, end: 60 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 61, end: 64 }), frameRate: 8, repeat: -1 });
-                    this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 65, end: 68 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 69, end: 83 }), frameRate: 8, repeat: -1 });
-                    this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 84, end: 96 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 97, end: 100 }), frameRate: 8, repeat: -1 }); 
-                    this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 101, end: 107 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 108, end: 111 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 44, end: 51 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 52, end: 55 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 56, end: 60 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 61, end: 64 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 65, end: 68 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 69, end: 83 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 84, end: 96 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 97, end: 100 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 101, end: 107 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 108, end: 111 }), frameRate: 8, repeat: -1 });
                 }else{
-                    
+                    this.anims.create({ key: 'slimeGrab', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 36, end: 39 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'slimeDefeatedPlayer', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated1', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 44, end: 51 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated2', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 52, end: 55 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated3', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 56, end: 60 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated4', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 61, end: 64 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated5', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 65, end: 68 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated6', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 69, end: 83 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'slimeGrabDefeated7', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 84, end: 96 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated8', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 97, end: 100 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'slimeGrabDefeated9', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 101, end: 107 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'slimeGrabDefeated10', frames: this.anims.generateFrameNames('blue-slime-HF-F', { start: 108, end: 111 }), frameRate: 8, repeat: -1 });
                 }
 
-                this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('blue-slime-HF', { start: 112, end: 115 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'slimeGameOver', frames: this.anims.generateFrameNames('blue-slime-HF-M', { start: 112, end: 115 }), frameRate: 8, repeat: -1 }); 
             }
 
         this.inSafeMode = inSafeMode;
@@ -189,7 +214,7 @@ class blueSlimeHM extends enemy {
                     }
 
                 }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false&& this.grabTimer === false) {
-                    console.log("moving slime right");            
+                    //console.log("moving slime right");            
                     this.direction = "right";
                     this.jumpAnimationPlayed = false; 
                     
@@ -199,7 +224,7 @@ class blueSlimeHM extends enemy {
             
                 //if the player is to the right then move enemy to the left
                 } else if (this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false) {
-                    console.log("moving slime left");   
+                    //console.log("moving slime left");   
                     this.direction = "left";
                     this.jumpAnimationPlayed = false;
                     this.flipX = true;
@@ -210,7 +235,7 @@ class blueSlimeHM extends enemy {
                 }
 
             }else if(this.isLurking === false){
-                console.log("this.attemptingGrab: ",this.attemptingGrab," this.grabTimer: ",this.grabTimer," this.throwingSlime: ",this.throwingSlime," this.throwSlimeTimer: ",this.throwSlimeTimer); 
+                //console.log("this.attemptingGrab: ",this.attemptingGrab," this.grabTimer: ",this.grabTimer," this.throwingSlime: ",this.throwingSlime," this.throwSlimeTimer: ",this.throwSlimeTimer); 
 
                 if((this.scene.player1.x + 10 > this.x   && this.scene.player1.x - 10 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingSlime === false){
                         
@@ -338,15 +363,28 @@ class blueSlimeHM extends enemy {
     moveIdle() {
         //this.setSize(90, 65, true);
         //this.setOffset(105, 233);
-        this.anims.play('slimeIdle', true);
+        if(this.isLurking === false){
+            this.anims.play('slimeIdle',true);
+        }else{
+            this.anims.play('slimeHiding',true);  
+        }
+
         //this.setSize(90, 65, true);
         this.body.setGravityY(600);
         this.setVelocityX(0);
+        this.attemptingGrab = false;
+        this.grabTimer = false;
+        this.isPlayingMissedAnims = false; 
+        this.hitboxActive = false; 
+        this.throwingSlime = false;
+        this.throwSlimeTimer = false;
+        this.setDepth(4);
 
     }
 
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
+        //this.playSlimeSound('3',800);
         this.setSize(90, 100, true);
         this.setOffset(80, 210);
         this.lurking = false;
@@ -367,6 +405,8 @@ class blueSlimeHM extends enemy {
             this.slimeGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+            this.setDepth(5);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -457,7 +497,7 @@ class blueSlimeHM extends enemy {
         this.scene.player1.y = this.y - 150;
         this.scene.player1.body.setGravityY(0);
         //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
+        //this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
@@ -480,7 +520,7 @@ class blueSlimeHM extends enemy {
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyA) === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 25;
+                    this.struggleCounter += 15;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
@@ -503,7 +543,7 @@ class blueSlimeHM extends enemy {
             // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
             setTimeout(function () {
                 currentSlime.struggleCounterTick = false;
-            }, 10);
+            }, 8);
                 //console.log('strugglecounter: '+this.struggleCounter);
         }
 
@@ -682,7 +722,7 @@ class blueSlimeHM extends enemy {
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
                 this.scene.player1.visible = true;
-                this.scene.player1.setSize(23, 68, true);
+                //this.scene.player1.setSize(23, 68, true);
                 this.scene.player1.body.setGravityY(600);
                 this.body.setGravityY(600);
                 this.scene.player1.x = this.x;
@@ -763,12 +803,12 @@ class blueSlimeHM extends enemy {
 
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
+            this.playSlimeSound('2',800);
 
             this.playerDefeatedAnimationStageMax = 13;
 
             if (!this.animationPlayed) {
 
-               
                 this.animationPlayed = true;
                 this.anims.play('slimeDefeatedPlayer').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -778,9 +818,16 @@ class blueSlimeHM extends enemy {
             }
 
         }else if(this.playerDefeatedAnimationStage === 2) {
-            //this.playSlimeSound('5',600);
+
+            this.playSlimeSound('2',800);
             if (!this.animationPlayed) {
-            
+                
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated1').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -791,12 +838,35 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 3) {
 
+            this.playSlimeSound('4',800);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-20,'charBubble',"SQUISH!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
+
             this.anims.play('slimeGrabDefeated2', true);
+
             
         }else if(this.playerDefeatedAnimationStage === 4) {
+            this.playSlimeSound('5',800);
 
             if (!this.animationPlayed) {
-            
+                
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated3').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -807,9 +877,27 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 5) {
 
+            this.playSlimeSound('3',800);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+30,'charBubble',"WOBBLE");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
+
             this.anims.play('slimeGrabDefeated4', true);
             
         }else if(this.playerDefeatedAnimationStage === 6) {
+
+            this.playSlimeSound('5',800);
+
 
             if (!this.animationPlayed) {
             
@@ -823,9 +911,26 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 7) {
 
+            this.playSlimeSound('3',700);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+30,this.y+30,'charBubble',"WOBBLE");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
+
             this.anims.play('slimeGrabDefeated6', true);
             
         }else if(this.playerDefeatedAnimationStage === 8) {
+
+            this.playSlimeSound('3',700);
 
             if (!this.animationPlayed) {
             
@@ -839,9 +944,38 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 9) {
 
+            this.playSlimeSound('3',700);
+
+            this.playPlapSound('plap10',700);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+
+                let thisSlime = this;
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                    
+                }, 600);
+            }
+
             this.anims.play('slimeGrabDefeated8', true);
             
         }else if(this.playerDefeatedAnimationStage === 10) {
+            
+
+            this.playPlapSound('plap8',1000);
+            let thisSlime = this;
+                setTimeout(function () {
+                    thisSlime.playPlapSound('plap6',1000);
+                    
+                }, 1000);
 
             if (!this.animationPlayed) {
             
@@ -854,13 +988,20 @@ class blueSlimeHM extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 11) {
-
+            this.playSlimeSound('3',700);
             this.anims.play('slimeGrabDefeated10', true);
             
         }else if(this.playerDefeatedAnimationStage === 12) {
+            this.playSlimeSound('5',700);
 
+   
             if (!this.animationPlayed) {
-            
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-20,'charBubble',"GROAN....");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated11').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -871,6 +1012,8 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 13) {
 
+            this.playSlimeSound('3',700);
+
             this.anims.play('slimeGrabDefeated12', true);
             
         }
@@ -880,15 +1023,16 @@ class blueSlimeHM extends enemy {
 
     femaleSlimeDefeatedPlayerAnimation() {
         console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
-
+        
         let currentSlime = this;
         if (this.playerDefeatedAnimationStage === 1) {
+
+            this.playSlimeSound('2',800);
 
             this.playerDefeatedAnimationStageMax = 11;
 
             if (!this.animationPlayed) {
 
-               
                 this.animationPlayed = true;
                 this.anims.play('slimeDefeatedPlayer').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -898,8 +1042,14 @@ class blueSlimeHM extends enemy {
             }
 
         }else if(this.playerDefeatedAnimationStage === 2) {
-            //this.playSlimeSound('5',600);
+            this.playSlimeSound('5',800);
             if (!this.animationPlayed) {
+
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
             
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated1').once('animationcomplete', () => {
@@ -911,12 +1061,35 @@ class blueSlimeHM extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 3) {
 
+            this.playSlimeSound('3',800);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+20,'charBubble',"SQUISH!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
+
             this.anims.play('slimeGrabDefeated2', true);
             
         }else if(this.playerDefeatedAnimationStage === 4) {
 
+            this.playSlimeSound('5',800);
+ 
             if (!this.animationPlayed) {
-            
+                
+                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated3').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -926,10 +1099,26 @@ class blueSlimeHM extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 5) {
+            this.playSlimeSound('3',800);
+
+            let thisSlime = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+20,'charBubble',"SQUISH!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                }, 800);
+            }
 
             this.anims.play('slimeGrabDefeated4', true);
             
         }else if(this.playerDefeatedAnimationStage === 6) {
+
+            this.playSlimeSound('5',800);
 
             if (!this.animationPlayed) {
             
@@ -942,13 +1131,37 @@ class blueSlimeHM extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 7) {
+            this.playSlimeSound('3',800);
 
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY-10,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+
+                let thisSlime = this;
+                setTimeout(function () {
+                    thisSlime.onomatPlayed = false;
+                    
+                }, 600);
+            }
+                
             this.anims.play('slimeGrabDefeated6', true);
             
         }else if(this.playerDefeatedAnimationStage === 8) {
-
+            this.playSlimeSound('5',800);
             if (!this.animationPlayed) {
-            
+
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-20,'charBubble',"GLOOORRRPP");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -958,13 +1171,19 @@ class blueSlimeHM extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 9) {
-
+            this.playSlimeSound('3',800);
             this.anims.play('slimeGrabDefeated8', true);
             
         }else if(this.playerDefeatedAnimationStage === 10) {
-
+            this.playSlimeSound('5',800);
             if (!this.animationPlayed) {
-            
+                
+                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-10,'charBubble',"GROAN...");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.increaseRight(700);
+                this.scene.onomat.textFadeOutAndDestroy(700);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated9').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -974,7 +1193,7 @@ class blueSlimeHM extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 11) {
-
+            this.playSlimeSound('3',800);
             this.anims.play('slimeGrabDefeated10', true);
             
         }
@@ -1029,7 +1248,7 @@ class blueSlimeHM extends enemy {
             this.scene.player1.y = this.y - 150;
             this.scene.player1.body.setGravityY(0);
             //this.body.setGravityY(0);
-            this.scene.player1.setSize(10, 10, true);
+            //this.scene.player1.setSize(10, 10, true);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;

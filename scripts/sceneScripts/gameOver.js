@@ -361,7 +361,13 @@ class gameOver extends allSceneFunctions {
             //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
 
             //plays sound effects for blueSlime.
-            if(this.enemy.slimeSoundCoolDown === false &&(this.enemyThatDefeatedPlayer === "blueSlime" || this.enemyThatDefeatedPlayer === "largeBlueSlime" )){
+            if(this.enemy.slimeSoundCoolDown === false &&(
+                this.enemyThatDefeatedPlayer === "blueSlime" ||
+                this.enemyThatDefeatedPlayer === "largeBlueSlime"||
+                this.enemyThatDefeatedPlayer === "blueSlimeHS" || 
+                this.enemyThatDefeatedPlayer === "blueSlimeFemaleHM" || 
+                this.enemyThatDefeatedPlayer === "blueSlimeMaleHM" 
+                )){
                 this.initSoundEffect('blueSlimeSFX','2',0.3);
                 
                 this.enemy.slimeSoundCoolDown = true;

@@ -182,6 +182,7 @@ class blueSlimeHS extends enemy {
         //this.setSize(90, 65, true);
         this.body.setGravityY(600);
         this.setVelocityX(0);
+        this.setDepth(4);
 
     }
 
@@ -206,6 +207,8 @@ class blueSlimeHS extends enemy {
             this.slimeGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+            this.setDepth(5);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -296,7 +299,7 @@ class blueSlimeHS extends enemy {
         this.scene.player1.y = this.y - 150;
         this.scene.player1.body.setGravityY(0);
         //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
+        //this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
@@ -471,7 +474,7 @@ class blueSlimeHS extends enemy {
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
                 this.scene.player1.visible = true;
-                this.scene.player1.setSize(23, 68, true);
+                //this.scene.player1.setSize(23, 68, true);
                 this.scene.player1.body.setGravityY(600);
                 this.body.setGravityY(600);
                 this.scene.player1.x = this.x;
@@ -730,7 +733,7 @@ class blueSlimeHS extends enemy {
             this.scene.player1.y = this.y - 150;
             this.scene.player1.body.setGravityY(0);
             //this.body.setGravityY(0);
-            this.scene.player1.setSize(10, 10, true);
+            //this.scene.player1.setSize(10, 10, true);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;

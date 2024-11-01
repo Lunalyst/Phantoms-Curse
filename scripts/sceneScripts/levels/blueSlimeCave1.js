@@ -40,9 +40,13 @@ class blueSlimeCave1 extends defaultScene {
       this.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
       this.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
 
-      this.load.spritesheet('blue-slime-HM', 'assets/enemys/blue-slime-humanoid-male-all.png',{frameWidth: 243, frameHeight: 393 });
-      this.load.spritesheet('blue-slime-HF', 'assets/enemys/blue-slime-humanoid-female-all.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HM-F', 'assets/enemys/blue-slime-humanoid-male-female.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HM-M', 'assets/enemys/blue-slime-humanoid-male-male.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HF-M', 'assets/enemys/blue-slime-humanoid-female-male.png',{frameWidth: 243, frameHeight: 393 });
+      this.load.spritesheet('blue-slime-HF-F', 'assets/enemys/blue-slime-humanoid-female-female.png',{frameWidth: 243, frameHeight: 393 });
 
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      
 
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
@@ -108,6 +112,10 @@ class blueSlimeCave1 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initSigns(406,1341+12,
+        "DANGER! beware slime nest ahead, try to stay outside of the slime as the nesting slimes dont like to leave there slime. ",
+        ['signLoop']);
+
       this.initSavePoints(494,1245-14);
 
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
@@ -156,11 +164,59 @@ class blueSlimeCave1 extends defaultScene {
       this.initBarrier(776,982-30,20,180);
       //this.initBarrier(661,669-30,30,180);
 
+      //make a temp object
+      let object1 = {
+        flagToFind: "lunaProtoDialogue1",
+        foundFlag: false,
+      };
+
+      let object2 = {
+        flagToFind: "lunaProtoDialogue2",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
+
+      if(object1.foundFlag === true && object2.foundFlag === false){
+        let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
+      this.initLunalyst(2009,1117,
+        dialogue,
+        ['lunaNeutral','lunaHappy'],
+      'lunaProtoDialogue1'
+      );
+      }else if(object2.foundFlag === true){
+        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
+        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
+        let dialogue = line1 + line2;
+        this.initLunalyst(2009,1117,
+        dialogue,
+        ['lunaFingerTouch','lunaHappy'],
+      'lunaProtoDialogue2'
+      );
+      }else{
+        let line1 = 'OH, A HUMAN!                                                                ';
+        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
+        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
+        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
+        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
+        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
+        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
+        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
+        this.initLunalyst(1730,573,
+          dialogue,
+          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
+        'lunaProtoDialogue'
+        );
+     }  
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          //thisScene.initEnemy(934, 1341,thisScene.playerSex,'blueSlimeHM',false);
-          //thisScene.initEnemy(1037, 1021,thisScene.playerSex,'blueSlimeHM',false);
+          thisScene.initEnemy(934, 1341,thisScene.playerSex,'blueSlimeHM',false);
+          thisScene.initEnemy(1037, 1331,thisScene.playerSex,'blueSlimeLarge',false);
+          thisScene.initEnemy(1037, 1021,thisScene.playerSex,'blueSlimeHM',false);
           thisScene.initEnemy(1377, 1085,thisScene.playerSex,'blueSlimeHS',false);
           
           thisScene.spawnedEnemys = true;

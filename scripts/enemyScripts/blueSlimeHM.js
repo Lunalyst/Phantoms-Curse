@@ -31,10 +31,8 @@ class blueSlimeHM extends enemy {
         this.body.setGravityY(600); 
 
         //randomizes variables
-        this.randomMoveTimer = Math.floor((Math.random() * 5000) + 2000);
-        this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
-        this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
-        this.randomInput = Math.floor((Math.random() * 2));
+        this.randomInput = Math.floor((Math.random() * 3));
+        this.randomInputCooldown = false;
 
         this.largeSlimeDamageCounter = false;
         this.body.bounce.x = 1;
@@ -516,21 +514,63 @@ class blueSlimeHM extends enemy {
 
         let currentSlime = this;
 
-            // important anims.play block so that the animation can player properly.
+        if (this.randomInput === 0) {
             if (Phaser.Input.Keyboard.JustDown(this.scene.keyA) === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 15;
+                    this.struggleCounter += 20;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
             }
-    
-            if (this.keyAnimationPlayed === false) {
+        } else if (this.randomInput === 1 ) {
+            // important anims.play block so that the animation can player properly.
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += 20;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            }
+        }else if (this.randomInput === 2 ) {
+            // important anims.play block so that the animation can player properly.
+            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
+                console.log('Phaser.Input.Keyboard.JustDown(keyW) ');
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += 20;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            }
+        }
+
+        // randomizing input
+        if (this.randomInputCooldown === false) {
+
+            this.randomInputCooldown = true;
+            this.randomInput = Math.floor((Math.random() * 3));
+            console.log("randomizing the key prompt " + this.randomInput);
+            // important anims.play block so that the animation can player properly.
+            if (this.keyAnimationPlayed === false && this.randomInput === 0) {
                 console.log(" setting keyA display");
                 this.scene.KeyDisplay.playAKey();
                 this.keyAnimationPlayed = true;
+            } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                console.log(" setting keyD display");
+                this.scene.KeyDisplay.playDKey();
+                this.keyAnimationPlayed = true;
+            }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
+                console.log(" setting keyW display");
+                this.scene.KeyDisplay.playWKey();
+                this.keyAnimationPlayed = true;
             }
+            setTimeout(function () {
+                currentSlime.randomInputCooldown = false;
+                // resets the animation block.
+                currentSlime.keyAnimationPlayed = false;
+            }, 1000);
+        } 
         
 
         // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?

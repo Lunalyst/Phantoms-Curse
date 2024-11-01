@@ -116,7 +116,7 @@ class blueSlimeCave1 extends defaultScene {
         "DANGER! beware slime nest ahead, try to stay outside of the slime as the nesting slimes dont like to leave there slime. ",
         ['signLoop']);
 
-      this.initSavePoints(494,1245-14);
+      //this.initSavePoints(494,1245-14);
 
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
 

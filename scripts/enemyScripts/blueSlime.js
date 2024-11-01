@@ -16,12 +16,13 @@ class blueSlime extends enemy {
         this.randomXVelocity = Math.floor((Math.random() * 50) + 100);
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
         this.randomInput = Math.floor((Math.random() * 2));
-
+        this.randomInputCooldown = false;
+        
         this.mitosing = false;
         this.mitosisCounter = false;
         this.largeSlimeDamageCounter = false;
         this.body.bounce.x = 1;
-        this.randomInputCooldown = false;
+        
 
         this.slimeSoundCoolDown = false;
 

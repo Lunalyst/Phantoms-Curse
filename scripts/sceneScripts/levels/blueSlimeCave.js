@@ -105,7 +105,7 @@ class blueSlimeCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSavePoints(1669,573-14);
+      //this.initSavePoints(1669,573-14);
 
       this.initPortals(1753,573-13,2088,1117,"warpCaveOutside","batCave");
 

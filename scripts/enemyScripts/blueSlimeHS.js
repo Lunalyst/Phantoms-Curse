@@ -81,7 +81,7 @@ class blueSlimeHS extends enemy {
         //else if the slime is size 2 then set its hit box to the correct size
         
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
-        console.log("this.moveCycleTimer: ",this.moveCycleTimer," this.activatedCycleTimer: ",this.activatedCycleTimer," this.jumpAnimationPlayed: ",this.jumpAnimationPlayed);
+        //console.log("this.moveCycleTimer: ",this.moveCycleTimer," this.activatedCycleTimer: ",this.activatedCycleTimer," this.jumpAnimationPlayed: ",this.jumpAnimationPlayed);
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
             let currentSlime = this;
             //controls the random delay between the slimes movements.
@@ -93,7 +93,7 @@ class blueSlimeHS extends enemy {
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 1000 && this.scene.player1.y < this.y + 1000) {
+        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 200 && this.scene.player1.y > this.y - 1000 && this.scene.player1.y < this.y + 1000) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
 
             if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
@@ -273,11 +273,10 @@ class blueSlimeHS extends enemy {
     }
 
     slimeGrabFalse(){
-        // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-        //console.log("this slime did not grab the player this.slimeID: " + this.enemyId);
+        
+        //hides player sprite
         this.scene.player1.visible = false;
-        // puts the player hitbox out of the way and locked to a specific location.
-        this.scene.player1.y = this.y - 150;
+       
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
 
@@ -294,15 +293,10 @@ class blueSlimeHS extends enemy {
 
     slimeGrabTrue(playerHealthObject){
 
-        //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
-        // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-        this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        //this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
+
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
@@ -473,12 +467,9 @@ class blueSlimeHS extends enemy {
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
+                //unhide the player.
                 this.scene.player1.visible = true;
-                //this.scene.player1.setSize(23, 68, true);
-                this.scene.player1.body.setGravityY(600);
-                this.body.setGravityY(600);
-                this.scene.player1.x = this.x;
-                this.scene.player1.y = this.y;
+                
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.

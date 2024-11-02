@@ -1277,7 +1277,7 @@ class defaultScene extends allSceneFunctions {
       scene.blueSlimes.children.each(function (tempSlime) {
 
         //safty check to improve performance. only does overlap if in range.
-        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
+        if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
           //calls to make each instance of a slime move.
           tempSlime.move(scene.player1,scene);
           scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
@@ -1356,7 +1356,7 @@ class defaultScene extends allSceneFunctions {
       scene.blueSlimeHSs.children.each(function (tempSlime) {
 
         //safty check to improve performance. only does overlap if in range.
-        if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,400) && tempSlime.inSafeMode === false){
+        if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
           //calls to make each instance of a slime move.
           tempSlime.move(scene.player1,scene);
           scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
@@ -1483,7 +1483,7 @@ class defaultScene extends allSceneFunctions {
       //applys a function to all tigers
       scene.tigers.children.each(function (tempTiger) {
 
-        if(scene.objectsInRangeX(tempTiger,scene.player1,300) && scene.objectsInRangeY(tempTiger,scene.player1,150) && tempTiger.inSafeMode === false ){
+        if(scene.objectsInRangeX(tempTiger,scene.player1,600) && scene.objectsInRangeY(tempTiger,scene.player1,150) && tempTiger.inSafeMode === false ){
         //function to check rabbits and see if the tiger can grab one
         scene.rabbits.children.each(function (tempRabbit) {
 

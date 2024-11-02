@@ -17,7 +17,7 @@ class blueSlime extends enemy {
         this.randomYVelocity = Math.floor((Math.random() * 100) + 100);
         this.randomInput = Math.floor((Math.random() * 2));
         this.randomInputCooldown = false;
-        
+
         this.mitosing = false;
         this.mitosisCounter = false;
         this.largeSlimeDamageCounter = false;
@@ -125,6 +125,7 @@ class blueSlime extends enemy {
             this.setOffset(82, 209);
             this.body.setGravityY(700);
         }
+
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
             let currentSlime = this;
@@ -137,7 +138,7 @@ class blueSlime extends enemy {
             this.activatedCycleTimer = true;
         }
         //checks to see if slime should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400 && this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y + 400) {
+        if (this.scene.player1.x > this.x - 150 && this.scene.player1.x < this.x + 150 && this.scene.player1.y > this.y - 150 && this.scene.player1.y < this.y + 150) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
             if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
                 //console.log("player is to the right of the slime");
@@ -230,7 +231,11 @@ class blueSlime extends enemy {
             let currentSlime = this;
         } else {
             //player is not in range of slime so slime is in idle animation.
-            this.anims.play('slimeIdle', true);
+            if (this.slimeSize === 1) {
+                this.anims.play('slimeIdle', true);
+            } else if (this.slimeSize === 2 && this.mitosing === false) {
+                this.anims.play('slimeLargeIdle', true);
+            }
             this.setVelocityX(0);
 
         }
@@ -357,11 +362,10 @@ class blueSlime extends enemy {
     }
 
     slimeGrabFalse(){
-        // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-        //console.log("this slime did not grab the player this.slimeID: " + this.enemyId);
+
+        //hides player object during grab.
         this.scene.player1.visible = false;
-        // puts the player hitbox out of the way and locked to a specific location.
-        this.scene.player1.y = this.y - 150;
+        
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
 
@@ -384,12 +388,6 @@ class blueSlime extends enemy {
 
     slimeGrabTrue(playerHealthObject){
 
-        //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
-        // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-        this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
@@ -663,6 +661,7 @@ class blueSlime extends enemy {
                 } else if (this.slimeSize === 2) {
                     this.anims.play("slimeLargeIdle", true);
                 }
+
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
                 this.setSize(90, 65, true);
@@ -677,15 +676,13 @@ class blueSlime extends enemy {
                 this.scene.grabCoolDown = true;
 
                 this.scene.startGrabCoolDown();
+
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
+                //unhide the player
                 this.scene.player1.visible = true;
-                this.scene.player1.setSize(23, 68, true);
-                this.scene.player1.body.setGravityY(600);
-                this.body.setGravityY(600);
-                this.scene.player1.x = this.x;
-                this.scene.player1.y = this.y;
+               
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.

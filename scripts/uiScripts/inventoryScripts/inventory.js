@@ -323,10 +323,12 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
       this.inventoryArray[index].clearTint();
+      index++;
       
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
+          console.log("slot: ", )
           this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
           this.inventoryArray[index].clearTint();
           index++;

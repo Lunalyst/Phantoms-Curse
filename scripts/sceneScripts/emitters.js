@@ -25,6 +25,16 @@ controlKeyEvent = {
     activateDKey: 'activate_d_key',
     activateSpaceKey: 'activate_space_key',
     activateATKKey: 'activate_atk_key',
+
+    activateSkipIndicatorKey: 'activate_skip_indicator_key',
+    activateGiveUpIndicatorKey: 'activate_give_up_indicator_key',
+
+    justDownWKey: 'just_down_w_key',
+    justDownAKey: 'just_down_a_key',
+    justDownSKey: 'just_down_s_key',
+    justDownDKey: 'just_down_d_key',
+    justDownSpaceKey:'just_down_space_key',
+    justDownATKKey: 'just_down_atk_key',
 };
 
 controlKeyEmitter = new Phaser.Events.EventEmitter();

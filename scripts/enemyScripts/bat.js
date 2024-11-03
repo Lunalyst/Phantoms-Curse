@@ -456,8 +456,8 @@ class bat extends enemy {
         let currentbat = this;
 
             // handles input for escaping.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+            if (this.scene.checkWPressed() === true) {
+                
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
@@ -539,7 +539,7 @@ class bat extends enemy {
         }
 
        
-            if (this.scene.keyD.isDown &&
+            if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
@@ -563,8 +563,10 @@ class bat extends enemy {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.keyD.isDown)) {
-                
+            //if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
+            
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
+                console.log("activating game over by hitting tab")
                 if(this.enemySex === 0){
                     this.scene.enemyThatDefeatedPlayer = "maleBat";
                 }else{
@@ -861,7 +863,8 @@ class bat extends enemy {
             if (this.playerProgressingAnimation === false) {
 
             // handles input for progressing animation
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+            console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
+            if (this.scene.checkDPressed() === true) {
                 this.playerProgressingAnimation = true;
                 }
 

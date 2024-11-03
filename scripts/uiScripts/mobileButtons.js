@@ -19,12 +19,14 @@ class mobileButton extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'atkButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 10, end: 10 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'jmpButtonInactive',frames: this.anims.generateFrameNames('mobileButtons', { start: 11, end: 11 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'jmpButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 12, end: 12 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'inventoryButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 13, end: 13 }),frameRate: 7,repeat: -1});
         
         //connects the sprite to the camera so that it sticks with the player.
         //this.setScrollFactor(0);
         this.setDepth(6);
 
         this.IsPressed = false;
+        this.isJustDown = false;
         console.log("this.IsPressed: ",this.IsPressed);
         //sets scale
         //aathis.setScale(1/3);

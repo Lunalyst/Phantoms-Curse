@@ -188,10 +188,9 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownWKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -212,7 +211,6 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
@@ -237,7 +235,7 @@ class defaultScene extends allSceneFunctions {
           isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -283,7 +281,7 @@ class defaultScene extends allSceneFunctions {
           isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownSKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -326,10 +324,9 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownDKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -375,7 +372,7 @@ class defaultScene extends allSceneFunctions {
           isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownSpaceKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -421,7 +418,7 @@ class defaultScene extends allSceneFunctions {
           isJustDown:true
         };
         //pass to emitter
-        controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
+        controlKeyEmitter.emit(controlKeyEvent.justDownATKKey,keyObject);
 
         if(keyObject.isDown === true){
           return true;
@@ -442,7 +439,6 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
@@ -453,6 +449,52 @@ class defaultScene extends allSceneFunctions {
           return false;
         }
       } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkSkipIndicatorIsDown(){
+      //temp object
+      if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        let keyObject = {
+          isDown:false,
+        };
+
+        controlKeyEmitter.emit(controlKeyEvent.activateSkipIndicatorKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+
+        }else{
+          return false;
+        }
+      }
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkGiveUpIndicatorIsDown(){
+      //temp object
+      if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        console.log("testing to see if giveup indicator is active due tomobile press" )
+        let keyObject = {
+          isDown:false,
+        };
+        controlKeyEmitter.emit(controlKeyEvent.activateGiveUpIndicatorKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+
+        }else{
+          return false;
+        }
+      }
     }
 
     //function called to laod tilesets.

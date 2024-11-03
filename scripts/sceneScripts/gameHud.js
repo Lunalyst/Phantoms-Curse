@@ -108,17 +108,6 @@ class gameHud extends allSceneFunctions {
         }, 1000);*/
 
         this.struggleEventBar = new sceneStruggleBar(this, 340, 580);
-
-        //when player dies the prompt to skip animations need to pop up.
-        this.skipIndicator = this.add.sprite(750, 780,'TABToSkip');
-        this.skipIndicator.visible = false;
-        this.skipIndicator.setScrollFactor(0);
-
-        //when player dies the prompt to skip animations need to pop up.
-        this.giveUpIndicator = this.add.sprite(750, 780,'TABToGiveUp');
-        this.giveUpIndicator.setScale(1/3);
-        this.giveUpIndicator.visible = false;
-        this.giveUpIndicator.setScrollFactor(0);
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
@@ -203,30 +192,45 @@ class gameHud extends allSceneFunctions {
           this.mobileW.playWKey(0);
 
           //define a emitter so that the gameplay scene can check if the key is being used
-          controlKeyEmitter.on(controlKeyEvent.activateWKey,() =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileA.IsPressed = false;
-                gamehudtemp.mobileA.playWKey(0);
-              },500);
-            }
+          controlKeyEmitter.on(controlKeyEvent.activateWKey,(object) =>{
             object.isDown = this.mobileW.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownWKey,(object) =>{
+
+            if(gamehudtemp.mobileW.isJustDown === true){
+              
+              gamehudtemp.mobileW.isJustDown = false;
+              gamehudtemp.mobileW.IsPressed = false;
+              gamehudtemp.mobileW.playWKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileW.on('pointerdown', function (pointer) {
             gamehudtemp.mobileW.IsPressed = true;
+            gamehudtemp.mobileW.isJustDown = true;
             gamehudtemp.mobileW.playWKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileW.on('pointerup',function(pointer){
             gamehudtemp.mobileW.IsPressed = false;
+            gamehudtemp.mobileW.isJustDown = false;
             gamehudtemp.mobileW.playWKey(0);
           });
 
           this.mobileW.on('pointerout',function(pointer){
             gamehudtemp.mobileW.IsPressed = false;
+            gamehudtemp.mobileW.isJustDown = false;
             gamehudtemp.mobileW.playWKey(0);
           });
 
@@ -235,13 +239,25 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateAKey,(object) =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileA.IsPressed = false;
-                gamehudtemp.mobileA.playAKey(0);
-              },500);
-            }
             object.isDown = this.mobileA.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownAKey,(object) =>{
+
+            if(gamehudtemp.mobileA.isJustDown === true){
+              
+              gamehudtemp.mobileA.isJustDown = false;
+              gamehudtemp.mobileA.IsPressed = false;
+              gamehudtemp.mobileA.playAKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
@@ -267,13 +283,25 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateSKey,(object) =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileS.IsPressed = false;
-                gamehudtemp.mobileS.playSKey(0);
-              },500);
-            }
             object.isDown = this.mobileS.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownSKey,(object) =>{
+
+            if(gamehudtemp.mobileS.isJustDown === true){
+              
+              gamehudtemp.mobileS.isJustDown = false;
+              gamehudtemp.mobileS.IsPressed = false;
+              gamehudtemp.mobileS.playSKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
@@ -299,13 +327,25 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateDKey,(object) =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileD.IsPressed = false;
-                gamehudtemp.mobileD.playDKey(0);
-              },500);
-            }
             object.isDown = this.mobileD.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownDKey,(object) =>{
+
+            if(gamehudtemp.mobileD.isJustDown === true){
+              
+              gamehudtemp.mobileD.isJustDown = false;
+              gamehudtemp.mobileD.IsPressed = false;
+              gamehudtemp.mobileD.playDKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
@@ -326,18 +366,30 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileD.playDKey(0);
           });
 
-          this.mobileJMP = new mobileButton(this,780,mobileY-65).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP = new mobileButton(this,820,mobileY-20).setInteractive(this.input.makePixelPerfect());
           this.mobileJMP.playJMPKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateJMPKey,(object) =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileJMP.IsPressed = false;
-                gamehudtemp.mobileJMP.playJMPKey(0);
-              },500);
-            }
             object.isDown = this.mobileJMP.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownSpaceKey,(object) =>{
+
+            if(gamehudtemp.mobileJMP.isJustDown === true){
+              
+              gamehudtemp.mobileJMP.isJustDown = false;
+              gamehudtemp.mobileJMP.IsPressed = false;
+              gamehudtemp.mobileJMP.playJMPKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
@@ -358,20 +410,31 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileJMP.playJMPKey(0);
           });
 
-          this.mobileATK = new mobileButton(this,780,mobileY+35).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK = new mobileButton(this,680,mobileY-20).setInteractive(this.input.makePixelPerfect());
           this.mobileATK.playATKKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateATKKey,(object) =>{
-            if(object.isJustDown === true){
-              setTimeout(function(){
-                gamehudtemp.mobileATK.IsPressed = false;
-                gamehudtemp.mobileATK.playATKKey(0);
-              },500);
-            }
             object.isDown = this.mobileATK.IsPressed;
           });
 
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownATKKey,(object) =>{
+
+            if(gamehudtemp.mobileATK.isJustDown === true){
+              
+              gamehudtemp.mobileATK.isJustDown = false;
+              gamehudtemp.mobileATK.IsPressed = false;
+              gamehudtemp.mobileATK.playATKKey(0);
+
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+            
+          });
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileATK.on('pointerdown', function (pointer) {
             gamehudtemp.mobileATK.IsPressed = true;
@@ -388,6 +451,60 @@ class gameHud extends allSceneFunctions {
           this.mobileATK.on('pointerout',function(pointer){
             gamehudtemp.mobileATK.IsPressed = false;
             gamehudtemp.mobileATK.playATKKey(0);
+          });
+
+          //when player dies the prompt to skip animations need to pop up.
+          this.skipIndicator = this.add.sprite(750, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());
+          this.skipIndicator.visible = false;
+          this.skipIndicatorIsPressed = false;
+          this.skipIndicator.setScrollFactor(0);
+
+          //if tabtoskip is clicked then 
+          this.skipIndicator.on('pointerdown', function (pointer) {
+            console.log("pressing skip indicator button")
+            gamehudtemp.skipIndicatorIsPressed = true;
+          });
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateSkipIndicatorKey,(object) =>{
+            console.log("gamehudtemp.skipIndicatorIsPressed: ",gamehudtemp.skipIndicatorIsPressed)
+            if(this.skipIndicatorIsPressed === true){
+              
+              this.skipIndicatorIsPressed = false;
+              
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
+          });
+
+          //when player dies the prompt to skip animations need to pop up.
+          this.giveUpIndicator = this.add.sprite(750, 840,'TABToGiveUp').setInteractive(this.input.makePixelPerfect());
+          this.giveUpIndicator.setScale(1/3);
+          this.giveUpIndicator.visible = false;
+          this.giveUpIndicatorIsPressed = false;
+          this.giveUpIndicator.setScrollFactor(0);
+
+          //if tabtoskip is clicked then 
+          this.giveUpIndicator.on('pointerdown', function (pointer) {
+            console.log("pressing skipindicator button")
+            gamehudtemp.giveUpIndicatorIsPressed = true;
+          });
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateGiveUpIndicatorKey,(object) =>{
+            if(this.giveUpIndicatorIsPressed === true){
+              
+              this.giveUpIndicatorIsPressed = false;
+              
+              object.isDown = true;
+
+            }else{
+
+              object.isDown = false;
+            }
           });
 
           //emitter to return the save slot

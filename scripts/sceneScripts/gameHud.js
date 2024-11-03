@@ -193,8 +193,8 @@ class gameHud extends allSceneFunctions {
           this.input.mouse.capture = true;
 
           //sets up the mobile control mobile buttons
-          let mobileX = 200;
-          let mobileY = 800;
+          let mobileX = 130;
+          let mobileY = 780;
 
           let gamehudtemp = this;
           
@@ -220,6 +220,11 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileW.playWKey(0);
           });
 
+          this.mobileW.on('pointerout',function(pointer){
+            gamehudtemp.mobileW.IsPressed = false;
+            gamehudtemp.mobileW.playWKey(0);
+          });
+
           this.mobileA = new mobileButton(this,mobileX-70,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileA.playAKey();
 
@@ -236,6 +241,12 @@ class gameHud extends allSceneFunctions {
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileA.on('pointerup',function(pointer){
+            gamehudtemp.mobileA.IsPressed = false;
+            gamehudtemp.mobileA.playAKey(0);
+          });
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileA.on('pointerout',function(pointer){
             gamehudtemp.mobileA.IsPressed = false;
             gamehudtemp.mobileA.playAKey(0);
           });
@@ -260,6 +271,12 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileS.playSKey(0);
           });
 
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileS.on('pointerout',function(pointer){
+            gamehudtemp.mobileS.IsPressed = false;
+            gamehudtemp.mobileS.playSKey(0);
+          });
+
           this.mobileD = new mobileButton(this,mobileX+70,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileD.playDKey();
 
@@ -280,7 +297,13 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileD.playDKey(0);
           });
 
-          this.mobileJMP = new mobileButton(this,770,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileD.on('pointerout',function(pointer){
+            gamehudtemp.mobileD.IsPressed = false;
+            gamehudtemp.mobileD.playDKey(0);
+          });
+
+          this.mobileJMP = new mobileButton(this,780,mobileY-65).setInteractive(this.input.makePixelPerfect());
           this.mobileJMP.playJMPKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -300,7 +323,13 @@ class gameHud extends allSceneFunctions {
             gamehudtemp.mobileJMP.playJMPKey(0);
           });
 
-          this.mobileATK = new mobileButton(this,770,mobileY).setInteractive(this.input.makePixelPerfect());
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileJMP.on('pointerout',function(pointer){
+            gamehudtemp.mobileJMP.IsPressed = false;
+            gamehudtemp.mobileJMP.playJMPKey(0);
+          });
+
+          this.mobileATK = new mobileButton(this,780,mobileY+35).setInteractive(this.input.makePixelPerfect());
           this.mobileATK.playATKKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -316,6 +345,12 @@ class gameHud extends allSceneFunctions {
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileATK.on('pointerup',function(pointer){
+            gamehudtemp.mobileATK.IsPressed = false;
+            gamehudtemp.mobileATK.playATKKey(0);
+          });
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileATK.on('pointerout',function(pointer){
             gamehudtemp.mobileATK.IsPressed = false;
             gamehudtemp.mobileATK.playATKKey(0);
           });

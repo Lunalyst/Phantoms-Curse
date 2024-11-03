@@ -176,6 +176,10 @@ class defaultScene extends allSceneFunctions {
     }
 
     checkWPressed(){
+      //what to replicate the juastdown function for mobile users
+      //once we see its true once, then we want to set it false
+      //in the actual button object resenting the key and replicating the justdown
+      //functionality.
       if(Phaser.Input.Keyboard.JustDown(this.keyW)){
         return true;
 

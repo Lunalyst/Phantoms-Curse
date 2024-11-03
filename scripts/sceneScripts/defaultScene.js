@@ -175,6 +175,270 @@ class defaultScene extends allSceneFunctions {
 
     }
 
+    checkWPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.keyW)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkWIsDown(){
+
+      if(this.keyW.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    checkAPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.keyA)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkAIsDown(){
+
+      if(this.keyA.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    checkSPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.keyS)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkSIsDown(){
+
+      if(this.keyS.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    checkDPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.keyD)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkDIsDown(){
+
+      if(this.keyD.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    checkJMPPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.space)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkJMPIsDown(){
+
+      if(this.space.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    checkATKPressed(){
+      if(Phaser.Input.Keyboard.JustDown(this.shift)){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
+    checkATKIsDown(){
+
+      if(this.shift.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
     //function called to laod tilesets.
     setUpTileSet(map,tilesetImage,sourceMap){
         //creates a tilemap to be sent into the level class.the key value must match the key given to the json file. 

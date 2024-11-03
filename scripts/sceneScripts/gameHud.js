@@ -53,6 +53,9 @@ class gameHud extends allSceneFunctions {
       this.load.spritesheet('UIControls', 'assets/hudElements/UIControls.png',{frameWidth: 32, frameHeight: 32 });
       this.load.spritesheet('inventoryLabels', 'assets/hudElements/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });
+      this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
+
+
       //this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
       this.load.image('TABToSkip', 'assets/hudElements/tabToSkip.png');
       this.load.image('TABToGiveUp', 'assets/hudElements/tabToGiveUp.png');
@@ -116,8 +119,6 @@ class gameHud extends allSceneFunctions {
         this.giveUpIndicator.setScale(1/3);
         this.giveUpIndicator.visible = false;
         this.giveUpIndicator.setScrollFactor(0);
-
-            
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
@@ -190,6 +191,134 @@ class gameHud extends allSceneFunctions {
 
           //adds the only direct input the hud needs which is the mouse inputs.
           this.input.mouse.capture = true;
+
+          //sets up the mobile control mobile buttons
+          let mobileX = 200;
+          let mobileY = 800;
+
+          let gamehudtemp = this;
+          
+          //define a key and make it interactive
+          this.mobileW = new mobileButton(this,mobileX,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileW.playWKey(0);
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateWKey,() =>{
+            //return the bool is pressed in our mobilebutton object.
+            return this.mobileW.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileW.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileW.IsPressed = true;
+            gamehudtemp.mobileW.playWKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileW.on('pointerup',function(pointer){
+            gamehudtemp.mobileW.IsPressed = false;
+            gamehudtemp.mobileW.playWKey(0);
+          });
+
+          this.mobileA = new mobileButton(this,mobileX-70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileA.playAKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateAKey,(object) =>{
+            object.isDown = this.mobileA.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileA.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileA.IsPressed = true;
+            gamehudtemp.mobileA.playAKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileA.on('pointerup',function(pointer){
+            gamehudtemp.mobileA.IsPressed = false;
+            gamehudtemp.mobileA.playAKey(0);
+          });
+
+          this.mobileS = new mobileButton(this,mobileX,mobileY+70).setInteractive(this.input.makePixelPerfect());
+          this.mobileS.playSKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateSKey,(object) =>{
+            object.isDown = this.mobileS.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileS.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileS.IsPressed = true;
+            gamehudtemp.mobileS.playSKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileS.on('pointerup',function(pointer){
+            gamehudtemp.mobileS.IsPressed = false;
+            gamehudtemp.mobileS.playSKey(0);
+          });
+
+          this.mobileD = new mobileButton(this,mobileX+70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileD.playDKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateDKey,(object) =>{
+            object.isDown = this.mobileD.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileD.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileD.IsPressed = true;
+            gamehudtemp.mobileD.playDKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileD.on('pointerup',function(pointer){
+            gamehudtemp.mobileD.IsPressed = false;
+            gamehudtemp.mobileD.playDKey(0);
+          });
+
+          this.mobileJMP = new mobileButton(this,770,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP.playJMPKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateJMPKey,(object) =>{
+            object.isDown = this.mobileJMP.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileJMP.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileJMP.IsPressed = true;
+            gamehudtemp.mobileJMP.playJMPKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileJMP.on('pointerup',function(pointer){
+            gamehudtemp.mobileJMP.IsPressed = false;
+            gamehudtemp.mobileJMP.playJMPKey(0);
+          });
+
+          this.mobileATK = new mobileButton(this,770,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK.playATKKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateATKKey,(object) =>{
+            object.isDown = this.mobileATK.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileATK.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileATK.IsPressed = true;
+            gamehudtemp.mobileATK.playATKKey(1);
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileATK.on('pointerup',function(pointer){
+            gamehudtemp.mobileATK.IsPressed = false;
+            gamehudtemp.mobileATK.playATKKey(0);
+          });
 
           //emitter to return the save slot
           inventoryKeyEmitter.on(inventoryKey.getSaveSlot,(object) =>{
@@ -454,12 +583,14 @@ class gameHud extends allSceneFunctions {
           //test to see if the emitters are active
           this.printActiveEmitter();
         
+          
 
         console.log("create function in hud finished-------------------------------------------------------");
     }
 
     //update loop.
     update(){
+      
       //updates the display showing where the cursor is located.
       //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
     }

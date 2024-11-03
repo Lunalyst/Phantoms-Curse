@@ -689,6 +689,9 @@ printActiveEmitter(){
 
   keyArray.push(healthEvent);
   emitterArray.push(healthEmitter);
+
+  keyArray.push(controlKeyEvent);
+  emitterArray.push(controlKeyEmitter);
   
   keyArray.push(SceneTransitionLoad);
   emitterArray.push(loadSceneTransitionLoad);
@@ -738,6 +741,9 @@ clearAllEmmitters(){
 
   keyArray.push(healthEvent);
   emitterArray.push(healthEmitter);
+
+  keyArray.push(controlKeyEvent);
+  emitterArray.push(controlKeyEmitter);
 
   keyArray.push(struggleEvent);
   emitterArray.push(struggleEmitter);

@@ -18,6 +18,17 @@ struggleEvent = {
 
 struggleEmitter = new Phaser.Events.EventEmitter();
 
+controlKeyEvent = {
+    activateWKey: 'activate_w_key',
+    activateAKey: 'activate_a_key',
+    activateSKey: 'activate_s_key',
+    activateDKey: 'activate_d_key',
+    activateSpaceKey: 'activate_space_key',
+    activateATKKey: 'activate_atk_key',
+};
+
+controlKeyEmitter = new Phaser.Events.EventEmitter();
+
 SceneTransitionLoad = {
     loadValues: 'load_values',
     reloadGame: 'reload_game',

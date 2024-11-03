@@ -204,8 +204,13 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateWKey,() =>{
-            //return the bool is pressed in our mobilebutton object.
-            return this.mobileW.IsPressed;
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileA.IsPressed = false;
+                gamehudtemp.mobileA.playWKey(0);
+              },500);
+            }
+            object.isDown = this.mobileW.IsPressed;
           });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
@@ -230,6 +235,12 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateAKey,(object) =>{
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileA.IsPressed = false;
+                gamehudtemp.mobileA.playAKey(0);
+              },500);
+            }
             object.isDown = this.mobileA.IsPressed;
           });
 
@@ -256,6 +267,12 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateSKey,(object) =>{
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileS.IsPressed = false;
+                gamehudtemp.mobileS.playSKey(0);
+              },500);
+            }
             object.isDown = this.mobileS.IsPressed;
           });
 
@@ -282,6 +299,12 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateDKey,(object) =>{
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileD.IsPressed = false;
+                gamehudtemp.mobileD.playDKey(0);
+              },500);
+            }
             object.isDown = this.mobileD.IsPressed;
           });
 
@@ -308,6 +331,12 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateJMPKey,(object) =>{
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileJMP.IsPressed = false;
+                gamehudtemp.mobileJMP.playJMPKey(0);
+              },500);
+            }
             object.isDown = this.mobileJMP.IsPressed;
           });
 
@@ -334,6 +363,12 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateATKKey,(object) =>{
+            if(object.isJustDown === true){
+              setTimeout(function(){
+                gamehudtemp.mobileATK.IsPressed = false;
+                gamehudtemp.mobileATK.playATKKey(0);
+              },500);
+            }
             object.isDown = this.mobileATK.IsPressed;
           });
 

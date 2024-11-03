@@ -222,7 +222,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
 
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1){
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1){
           //console.log("activating double jump while aKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
@@ -254,7 +254,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityX(250 * this.speedBoost);
         this.animationInAir = true;
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
           //console.log("activating double jump while dKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
@@ -285,7 +285,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.idleTimer = 0;
         this.animationInAir = true;
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && Phaser.Input.Keyboard.JustDown(space) && playerSkillsObject.playerSkills.jump === 1 ){
+        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
           //console.log("activating double jump, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;

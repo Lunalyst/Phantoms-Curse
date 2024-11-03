@@ -187,7 +187,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
@@ -210,7 +211,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
@@ -231,7 +233,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
@@ -254,7 +257,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
@@ -275,7 +279,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
@@ -298,7 +303,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
@@ -319,7 +325,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
@@ -342,7 +349,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
@@ -363,7 +371,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
@@ -386,7 +395,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
@@ -407,7 +417,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
@@ -430,7 +441,8 @@ class defaultScene extends allSceneFunctions {
       }else{
         //temp object
         let keyObject = {
-          isDown:false
+          isDown:false,
+          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);

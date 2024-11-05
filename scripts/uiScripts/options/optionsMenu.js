@@ -331,8 +331,6 @@ class optionsMenu extends Phaser.GameObjects.Container{
             console.log("quiting game?")
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
         }else{
-            //restarts the game hud to reflect the changes as well.
-            console.log("updating game inventory with settings change!");
 
             //close all inventory related objects
             this.inventory.closeInventoryForSettings();
@@ -345,13 +343,14 @@ class optionsMenu extends Phaser.GameObjects.Container{
             this.optionsTextBox.visible = false;
             this.yes.visible = false;
             this.no.visible = false;
+
         }
         
         //temp object to update the onomat value
         let onomat = {
             value: this.currentOnomatValue
         };
-        console.log("activating onomat emitter ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        
         //updates the onomat variable using gameplay scene emitter.
         inventoryKeyEmitter.emit(inventoryKey.updateOnomat,onomat);
         

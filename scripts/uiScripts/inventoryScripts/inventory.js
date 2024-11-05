@@ -52,157 +52,6 @@ class inventory extends Phaser.GameObjects.Container{
       console.log('created the inevntory in the for the player');
     
     }
-    
-    // function opens the inventory. has a delay so that the player cant quickly open the inventory
-    setView(scene,hud){
-
-      console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
-        // if the player hasnt opened the inventory and the delay is false then
-        if(this.isOpen === false && this.openDelay === false){
-            //set variables to reflect it is now open
-            this.isOpen = true;
-            this.inventoryInterior.anims.play("open");
-            this.openDelay = true;
-            this.isOnScreen = true;
-            scene.isPaused = true;
-            this.visible = true;
-            this.settingsButton.visible = true;
-            this.settingsUI.visible = false;
-            
-
-            //calls the slots functions so the slots are displaying items correctly
-            //sets the elements of the ivnentory to ve visible
-            this.inventoryElements.toggleVisible();
-            console.log("setSlotView");
-            this.setSlotView(hud);
-            console.log("setSlots");
-            this.setSlots(hud);
-
-            //sets physics to stop? this may be redundant or obsolite code
-            scene.physics.pause();
-            scene.player1.anims.pause();
-
-            //set time out for delay.
-            let inventoryThat = this;
-            setTimeout(function(){
-                inventoryThat.openDelay = false; 
-                },1000);
-
-        // otherwise if inventory is open then
-        }else if(this.isOpen === true && this.openDelay === false){
-            //set variables to reflect that
-            this.isOpen = false;
-            this.inventoryInterior.anims.play("closed");
-            this.openDelay = true;
-            this.isOnScreen = false;
-            scene.isPaused = false;
-            this.settingsButton.visible = false;
-            this.settingsUI.visible = false;
-            //if the menu is closed the make sure to reset settings if its prematurely closed.
-            this.settingsUI.resetSettings();
-
-            //ensures that if thep layer closes inventory then the bestiary and
-            //settings can be re opened.
-            this.settingsOpen = false;
-            this.bestiaryOpen = false;
-
-            //resets active slot values so that activeslot does not linger between inventory opening, and closing.
-            this.activeSlot1 = -1;
-            this.activeSlot2 = -2;
-
-            //sets physics to start? this may be redundant or obsolite code
-            scene.physics.resume();
-            scene.player1.anims.resume();
-
-             //sets the elements of the ivnentory to ve visible
-             this.inventoryElements.toggleVisible();
-
-            //hides slots.
-            this.setSlotView(hud);
-            this.setSlots(hud);
-
-            //
-            if(this.scene.itemName !== undefined){
-              this.scene.itemName.destroy();
-            }
-
-            if(this.scene.itemDescription !== undefined){
-              this.scene.itemDescription.destroy();
-            }
-            
-            //set time out for delay.
-            let inventoryThat = this;
-            setTimeout(function(){
-              console.log("openDelay set to false");
-                inventoryThat.openDelay = false; 
-              },1000);
-
-        }
-        
-        //sets variables in bestiary to tell it that it can open.
-        this.bestiaryUI.isOpen =true;
-        this.bestiaryUI.openDelay = false;
-        this.bestiaryUI.openBestiary(scene);
-        this.bestiaryOpen = false;
-
-    }
-    
-    //special function to close the hud when the player when they save there new settings from options menu
-    closeInventoryForSettings(){
-
-      console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
-        // if the player hasnt opened the inventory and the delay is false then
-            //set variables to reflect that
-            this.openDelay = false;
-            this.isOpen = false;
-            this.isOnScreen = false;
-            this.scene.isPaused = false;
-            this.settingsButton.visible = false;
-            this.settingsUI.visible = false;
-            //if the menu is closed the make sure to reset settings if its prematurely closed.
-            this.settingsUI.resetSettings();
-
-            //ensures that if thep layer closes inventory then the bestiary and
-            //settings can be re opened.
-            this.settingsOpen = false;
-            this.bestiaryOpen = false;
-
-            //resets active slot values so that activeslot does not linger between inventory opening, and closing.
-            this.activeSlot1 = -1;
-            this.activeSlot2 = -2;
-
-            //hides slots.
-            this.isOnScreen = false;
-            this.setSlotView(this.scene);
-            this.setSlots(this.scene);
-
-            if(this.scene.itemName !== undefined){
-              this.scene.itemName.destroy();
-            }
-
-            if(this.scene.itemDescription !== undefined){
-              this.scene.itemDescription.destroy();
-            }
-            
-
-            this.inventoryElements.toggleVisible();
-
-            this.inventoryInterior.anims.play("closed");
-            //this.inventoryElements.toggleVisible();
-            this.inventoryInterior.visible = true;
-
-            //loops through all slots to hide there numbers on closing.
-            for(let counter = 0; counter < 26 ;counter++){
-              this.inventoryArray[counter].number1.visible = false;
-              this.inventoryArray[counter].number2.visible = false;
-            }
-
-            for (let counter = 0; counter < this.shellLetters.length; counter++) {
-              this.shellLetters[counter].visible = false;
-            }
-
-            
-    }
 
     //creates the intem slots displayed in the inventory.
     generateSlots(scene){ 
@@ -347,6 +196,157 @@ class inventory extends Phaser.GameObjects.Container{
 
 
     }
+    
+    // function opens the inventory. has a delay so that the player cant quickly open the inventory
+    setView(scene,hud){
+
+      console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
+        // if the player hasnt opened the inventory and the delay is false then
+        if(this.isOpen === false && this.openDelay === false){
+            //set variables to reflect it is now open
+            this.isOpen = true;
+            this.inventoryInterior.anims.play("open");
+            this.openDelay = true;
+            this.isOnScreen = true;
+            scene.isPaused = true;
+            this.visible = true;
+            this.settingsButton.visible = true;
+            this.settingsUI.visible = false;
+            
+
+            //calls the slots functions so the slots are displaying items correctly
+            //sets the elements of the ivnentory to ve visible
+            this.inventoryElements.toggleVisible();
+            console.log("setSlotView");
+            this.setSlotView(hud);
+            console.log("setSlots");
+            this.setSlots(hud);
+
+            //sets physics to stop? this may be redundant or obsolite code
+            scene.physics.pause();
+            scene.player1.anims.pause();
+
+            //set time out for delay.
+            let inventoryThat = this;
+            setTimeout(function(){
+                inventoryThat.openDelay = false; 
+                },1000);
+
+        // otherwise if inventory is open then
+        }else if(this.isOpen === true && this.openDelay === false){
+            //set variables to reflect that
+            this.isOpen = false;
+            this.inventoryInterior.anims.play("closed");
+            this.openDelay = true;
+            this.isOnScreen = false;
+            scene.isPaused = false;
+            this.settingsButton.visible = false;
+            this.settingsUI.visible = false;
+            //if the menu is closed the make sure to reset settings if its prematurely closed.
+            this.settingsUI.resetSettings();
+
+            //ensures that if thep layer closes inventory then the bestiary and
+            //settings can be re opened.
+            this.settingsOpen = false;
+            this.bestiaryOpen = false;
+
+            //resets active slot values so that activeslot does not linger between inventory opening, and closing.
+            this.activeSlot1 = -1;
+            this.activeSlot2 = -2;
+
+            //sets physics to start? this may be redundant or obsolite code
+            scene.physics.resume();
+            scene.player1.anims.resume();
+
+             //sets the elements of the ivnentory to ve visible
+             this.inventoryElements.toggleVisible();
+
+            //hides slots.
+            this.setSlotView(hud);
+            this.setSlots(hud);
+
+            //
+            if(this.scene.itemName !== undefined){
+              this.scene.itemName.destroy();
+            }
+
+            if(this.scene.itemDescription !== undefined){
+              this.scene.itemDescription.destroy();
+            }
+            
+            //set time out for delay.
+            let inventoryThat = this;
+            setTimeout(function(){
+              console.log("openDelay set to false");
+                inventoryThat.openDelay = false; 
+              },1000);
+
+        }
+        
+        //sets variables in bestiary to tell it that it can open.
+        this.bestiaryUI.isOpen =true;
+        this.bestiaryUI.openDelay = false;
+        this.bestiaryUI.openBestiary(scene);
+        this.bestiaryOpen = false;
+
+    }
+    
+    //special function to close the hud when the player when they save there new settings from options menu
+    closeInventoryForSettings(){
+      //console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
+  
+      //set variables to reflect that
+      this.openDelay = false;
+      this.isOpen = false;
+      this.isOnScreen = false;
+      this.scene.isPaused = false;
+      this.settingsButton.visible = false;
+      this.settingsUI.visible = false;
+      this.settingsOpen = false;
+      this.bestiaryOpen = false;
+
+      //resets active slot values so that activeslot does not linger between inventory opening, and closing.
+      this.activeSlot1 = -1;
+      this.activeSlot2 = -2;
+
+      //if the menu is closed the make sure to reset settings if its prematurely closed.
+      this.settingsUI.resetSettings();
+
+      //hides the inventory slots, takes a scene object, so we have to pass it the gamehud scene instead of the usual 
+      //gameplay scene. also applyes savefile inventory to the slots since we reset to the last save.   
+      this.setSlotView(this.scene);
+      this.setSlots(this.scene);
+
+      //removes the text if any is displayed.
+      if(this.scene.itemName !== undefined){
+        this.scene.itemName.destroy();
+      }
+
+      if(this.scene.itemDescription !== undefined){
+        this.scene.itemDescription.destroy();
+      }
+      
+      //toggles the vilisbility of the inventory elements group
+      this.inventoryElements.toggleVisible();
+
+      //after we toggle inventory elements we want to leave some specific elements present, or have to manually hide those elements
+      //displays closed inventory icon.
+      this.inventoryInterior.anims.play("closed");
+      this.inventoryInterior.visible = true;
+
+      //loops through all slots to hide there numbers on closing.
+      for(let counter = 0; counter < 26 ;counter++){
+        this.inventoryArray[counter].number1.visible = false;
+        this.inventoryArray[counter].number2.visible = false;
+      }
+
+      //hides the shell currency values.
+      for (let counter = 0; counter < this.shellLetters.length; counter++) {
+        this.shellLetters[counter].visible = false;
+      }      
+    }
+
+    
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){

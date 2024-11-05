@@ -181,7 +181,7 @@ class gameHud extends allSceneFunctions {
           //adds the only direct input the hud needs which is the mouse inputs.
           this.input.mouse.capture = true;
 
-          //sets up the mobile control mobile buttons
+          //variables for the positions of the mobile control buttons.
           let mobileX = 110;
           let mobileY = 650;
 
@@ -198,25 +198,22 @@ class gameHud extends allSceneFunctions {
 
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownWKey,(object) =>{
-            console.log("gamehudtemp.mobileW.isJustDown: ",this.mobileW.isJustDown);
+
             if(this.mobileW.isJustDown === true){
-              console.log("i am a true w press");
+
               this.mobileW.isJustDown = false;
               this.mobileW.IsPressed = false;
-              //this.mobileW.playWKey(1);
 
               object.isDown = true;
 
             }else{
-              console.log("no w press here?");
               object.isDown = false;
             }
             
-          },this);
+          });
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileW.on('pointerdown', function (pointer) {
-            console.log("pointerdown is on w")
             this.mobileW.IsPressed = true;
             this.mobileW.isJustDown = true;
             this.mobileW.playWKey(1);
@@ -224,18 +221,16 @@ class gameHud extends allSceneFunctions {
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileW.on('pointerup',function(pointer){
-            console.log("pointerup is on w")
-            gamehudtemp.mobileW.IsPressed = false;
-            gamehudtemp.mobileW.isJustDown = false;
-            gamehudtemp.mobileW.playWKey(0);
-          });
+            this.mobileW.IsPressed = false;
+            this.mobileW.isJustDown = false;
+            this.mobileW.playWKey(0);
+          },this);
 
           this.mobileW.on('pointerout',function(pointer){
-            console.log("pointerout is on w")
-            gamehudtemp.mobileW.IsPressed = false;
-            gamehudtemp.mobileW.isJustDown = false;
-            gamehudtemp.mobileW.playWKey(0);
-          });
+            this.mobileW.IsPressed = false;
+            this.mobileW.isJustDown = false;
+            this.mobileW.playWKey(0);
+          },this);
 
           this.mobileA = new mobileButton(this,mobileX-70,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileA.playAKey();
@@ -248,16 +243,14 @@ class gameHud extends allSceneFunctions {
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownAKey,(object) =>{
 
-            if(gamehudtemp.mobileA.isJustDown === true){
+            if(this.mobileA.isJustDown === true){
               
-              gamehudtemp.mobileA.isJustDown = false;
-              gamehudtemp.mobileA.IsPressed = false;
-              gamehudtemp.mobileA.playAKey(0);
+              this.mobileA.isJustDown = false;
+              this.mobileA.IsPressed = false;
 
               object.isDown = true;
 
             }else{
-
               object.isDown = false;
             }
             
@@ -265,24 +258,24 @@ class gameHud extends allSceneFunctions {
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileA.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileA.IsPressed = true;
-            gamehudtemp.mobileA.isJustDown = true;
-            gamehudtemp.mobileA.playAKey(1);
-          });
+            this.mobileA.IsPressed = true;
+            this.mobileA.isJustDown = true;
+            this.mobileA.playAKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileA.on('pointerup',function(pointer){
-            gamehudtemp.mobileA.IsPressed = false;
-            gamehudtemp.mobileA.isJustDown = false;
-            gamehudtemp.mobileA.playAKey(0);
-          });
+            this.mobileA.IsPressed = false;
+            this.mobileA.isJustDown = false;
+            this.mobileA.playAKey(0);
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileA.on('pointerout',function(pointer){
-            gamehudtemp.mobileA.IsPressed = false;
-            gamehudtemp.mobileA.isJustDown = false;
-            gamehudtemp.mobileA.playAKey(0);
-          });
+            this.mobileA.IsPressed = false;
+            this.mobileA.isJustDown = false;
+            this.mobileA.playAKey(0);
+          },this);
 
           this.mobileS = new mobileButton(this,mobileX,mobileY+70).setInteractive(this.input.makePixelPerfect());
           this.mobileS.playSKey();
@@ -295,11 +288,10 @@ class gameHud extends allSceneFunctions {
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownSKey,(object) =>{
 
-            if(gamehudtemp.mobileS.isJustDown === true){
+            if(this.mobileS.isJustDown === true){
               
-              gamehudtemp.mobileS.isJustDown = false;
-              gamehudtemp.mobileS.IsPressed = false;
-              gamehudtemp.mobileS.playSKey(0);
+              this.mobileS.isJustDown = false;
+              this.mobileS.IsPressed = false;
 
               object.isDown = true;
 
@@ -312,24 +304,24 @@ class gameHud extends allSceneFunctions {
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileS.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileS.IsPressed = true;
-            gamehudtemp.mobileS.isJustDown = true;
-            gamehudtemp.mobileS.playSKey(1);
-          });
+            this.mobileS.IsPressed = true;
+            this.mobileS.isJustDown = true;
+            this.mobileS.playSKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileS.on('pointerup',function(pointer){
-            gamehudtemp.mobileS.IsPressed = false;
-            gamehudtemp.mobileS.isJustDown = false;
-            gamehudtemp.mobileS.playSKey(0);
-          });
+            this.mobileS.IsPressed = false;
+            this.mobileS.isJustDown = false;
+            this.mobileS.playSKey(0);
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileS.on('pointerout',function(pointer){
-            gamehudtemp.mobileS.IsPressed = false;
-            gamehudtemp.mobileS.isJustDown = false;
-            gamehudtemp.mobileS.playSKey(0);
-          });
+            this.mobileS.IsPressed = false;
+            this.mobileS.isJustDown = false;
+            this.mobileS.playSKey(0);
+          },this);
 
           this.mobileD = new mobileButton(this,mobileX+70,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileD.playDKey();
@@ -342,11 +334,11 @@ class gameHud extends allSceneFunctions {
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownDKey,(object) =>{
 
-            if(gamehudtemp.mobileD.isJustDown === true){
+            if(this.mobileD.isJustDown === true){
               
-              gamehudtemp.mobileD.isJustDown = false;
-              gamehudtemp.mobileD.IsPressed = false;
-              gamehudtemp.mobileD.playDKey(0);
+              this.mobileD.isJustDown = false;
+              this.mobileD.IsPressed = false;
+              this.mobileD.playDKey(0);
 
               object.isDown = true;
 
@@ -359,24 +351,24 @@ class gameHud extends allSceneFunctions {
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileD.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileD.IsPressed = true;
-            gamehudtemp.mobileD.isJustDown = true;
-            gamehudtemp.mobileD.playDKey(1);
-          });
+            this.mobileD.IsPressed = true;
+            this.mobileD.isJustDown = true;
+            this.mobileD.playDKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileD.on('pointerup',function(pointer){
-            gamehudtemp.mobileD.IsPressed = false;
-            gamehudtemp.mobileD.isJustDown =false;
-            gamehudtemp.mobileD.playDKey(0);
-          });
+            this.mobileD.IsPressed = false;
+            this.mobileD.isJustDown =false;
+            this.mobileD.playDKey(0);
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileD.on('pointerout',function(pointer){
-            gamehudtemp.mobileD.IsPressed = false;
-            gamehudtemp.mobileD.isJustDown =false;
-            gamehudtemp.mobileD.playDKey(0);
-          });
+            this.mobileD.IsPressed = false;
+            this.mobileD.isJustDown =false;
+            this.mobileD.playDKey(0);
+          },this);
 
           this.mobileJMP = new mobileButton(this,840,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileJMP.playJMPKey();
@@ -389,17 +381,15 @@ class gameHud extends allSceneFunctions {
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownSpaceKey,(object) =>{
         
-            if(gamehudtemp.mobileJMP.isJustDown === true){
-              console.log("-----------------------mobileJMP.isDown: ",object.isDown)
-              gamehudtemp.mobileJMP.isJustDown = false;
-              //gamehudtemp.mobileJMP.IsPressed = false;
-              gamehudtemp.mobileJMP.playJMPKey(0);
+            if(this.mobileJMP.isJustDown === true){
+
+              this.mobileJMP.isJustDown = false;
+              this.mobileJMP.IsPressed = false;
+              this.mobileJMP.playJMPKey(0);
 
               object.isDown = true;
 
             }else{
-              console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxmobileJMP.isDown: ",object.isDown)
-
               object.isDown = false;
             }
             
@@ -407,24 +397,24 @@ class gameHud extends allSceneFunctions {
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileJMP.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileJMP.IsPressed = true;
-            gamehudtemp.mobileJMP.isJustDown = true;
-            gamehudtemp.mobileJMP.playJMPKey(1);
-          });
+            this.mobileJMP.IsPressed = true;
+            this.mobileJMP.isJustDown = true;
+            this.mobileJMP.playJMPKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileJMP.on('pointerup',function(pointer){
-            gamehudtemp.mobileJMP.IsPressed = false;
-            gamehudtemp.mobileJMP.isJustDown = false;
-            gamehudtemp.mobileJMP.playJMPKey(0);
-          });
+            this.mobileJMP.IsPressed = false;
+            this.mobileJMP.isJustDown = false;
+            this.mobileJMP.playJMPKey(0);
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileJMP.on('pointerout',function(pointer){
-            gamehudtemp.mobileJMP.IsPressed = false;
-            gamehudtemp.mobileJMP.isJustDown = false;
-            gamehudtemp.mobileJMP.playJMPKey(0);
-          });
+            this.mobileJMP.IsPressed = false;
+            this.mobileJMP.isJustDown = false;
+            this.mobileJMP.playJMPKey(0);
+          },this);
 
           this.mobileATK = new mobileButton(this,840,mobileY+70).setInteractive(this.input.makePixelPerfect());
           this.mobileATK.playATKKey();
@@ -437,40 +427,39 @@ class gameHud extends allSceneFunctions {
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownATKKey,(object) =>{
 
-            if(gamehudtemp.mobileATK.isJustDown === true){
+            if(this.mobileATK.isJustDown === true){
               
-              gamehudtemp.mobileATK.isJustDown = false;
-              gamehudtemp.mobileATK.IsPressed = false;
-              gamehudtemp.mobileATK.playATKKey(0);
+              this.mobileATK.isJustDown = false;
+              this.mobileATK.IsPressed = false;
+              this.mobileATK.playATKKey(0);
 
               object.isDown = true;
 
             }else{
-
               object.isDown = false;
             }
             
           });
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileATK.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileATK.IsPressed = true;
-            gamehudtemp.mobileATK.isJustDown =true;
-            gamehudtemp.mobileATK.playATKKey(1);
-          });
+            this.mobileATK.IsPressed = true;
+            this.mobileATK.isJustDown =true;
+            this.mobileATK.playATKKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileATK.on('pointerup',function(pointer){
-            gamehudtemp.mobileATK.IsPressed = false;
-            gamehudtemp.mobileATK.isJustDown =false;
-            gamehudtemp.mobileATK.playATKKey(0);
-          });
+            this.mobileATK.IsPressed = false;
+            this.mobileATK.isJustDown =false;
+            this.mobileATK.playATKKey(0);
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileATK.on('pointerout',function(pointer){
-            gamehudtemp.mobileATK.IsPressed = false;
-            gamehudtemp.mobileATK.isJustDown =false;
-            gamehudtemp.mobileATK.playATKKey(0);
-          });
+            this.mobileATK.IsPressed = false;
+            this.mobileATK.isJustDown =false;
+            this.mobileATK.playATKKey(0);
+          },this);
 
           this.mobileInventory = new mobileButton(this,840,mobileY-70).setInteractive(this.input.makePixelPerfect());
           this.mobileInventory.playInventoryKey();
@@ -482,18 +471,18 @@ class gameHud extends allSceneFunctions {
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileInventory.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileInventory.IsPressed = true;
-          });
+            this.mobileInventory.IsPressed = true;
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileInventory.on('pointerup',function(pointer){
-            gamehudtemp.mobileInventory.IsPressed = false;
-          });
+            this.mobileInventory.IsPressed = false;
+          },this);
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileInventory.on('pointerout',function(pointer){
-            gamehudtemp.mobileInventory.IsPressed = false;
-          });
+            this.mobileInventory.IsPressed = false;
+          },this);
 
           //when player dies the prompt to skip animations need to pop up.
           this.skipIndicator = this.add.sprite(750, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());

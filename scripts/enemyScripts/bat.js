@@ -457,7 +457,7 @@ class bat extends enemy {
 
             // handles input for escaping.
             //console.log("this.scene.checkWPressed(): ",this.scene.checkWPressed())
-            if (this.scene.checkWPressed() === true || this.scene.checkSPressed()) {
+            if (this.scene.checkWPressed() === true) {
                 
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;

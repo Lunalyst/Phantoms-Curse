@@ -174,26 +174,20 @@ class defaultScene extends allSceneFunctions {
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
     }
-
+    //mobile button control for expecting if the w key is pressed only once until it is released.
     checkWPressed(){
-      //what to replicate the juastdown function for mobile users
-      //once we see its true once, then we want to set it false
-      //in the actual button object resenting the key and replicating the justdown
-      //functionality.
+      
       if(Phaser.Input.Keyboard.JustDown(this.keyW)){
-        return true;
-
-      //call emitter to check if button is pressed.  
+        return true; 
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownWKey,keyObject);
-        console.log("keyObject.isDown: ",keyObject.isDown);
+
         if(keyObject.isDown === true){
-          console.log("w was pressed! returning true in checkWPressed");
           return true;
         }else{
           return false;
@@ -201,19 +195,18 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the w key is down and can be held down.
     checkWIsDown(){
 
       if(this.keyW.isDown){
-        return true;
 
-      //call emitter to check if button is pressed.  
+        return true;
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateWKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -224,18 +217,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
+    //mobile button control for expecting if the a key is pressed only once until it is released.
     checkAPressed(){
-      if(Phaser.Input.Keyboard.JustDown(this.keyA)){
-        return true;
 
-      //call emitter to check if button is pressed.  
+      if(Phaser.Input.Keyboard.JustDown(this.keyA)){
+        return true; 
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:true
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -246,20 +238,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the a key is down and can be held down.
     checkAIsDown(){
 
       if(this.keyA.isDown){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:false
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -270,18 +259,16 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
+    //mobile button control for expecting if the s key is pressed only once until it is released.
     checkSPressed(){
       if(Phaser.Input.Keyboard.JustDown(this.keyS)){
-        return true;
-
-      //call emitter to check if button is pressed.  
+        return true; 
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:true
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownSKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -292,20 +279,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the s key is down and can be held down.
     checkSIsDown(){
 
       if(this.keyS.isDown){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:false
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateSKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -316,17 +300,16 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
+    //mobile button control for expecting if the d key is pressed only once until it is released.
     checkDPressed(){
       if(Phaser.Input.Keyboard.JustDown(this.keyD)){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownDKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -337,20 +320,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the d key is down and can be held down.
     checkDIsDown(){
 
       if(this.keyD.isDown){
-        return true;
-
-      //call emitter to check if button is pressed.  
+        return true; 
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:false
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateDKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -361,20 +341,18 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
+    //mobile button control for expecting if the space key is pressed only once until it is released.
     checkJMPPressed(){
       if(Phaser.Input.Keyboard.JustDown(this.space)){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownSpaceKey,keyObject);
 
-        console.log("++++++++++++++++++++keyObject.isDown: ",keyObject.isDown)
         if(keyObject.isDown === true){
           return true;
         }else{
@@ -383,19 +361,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the space key is down and can be held down.
     checkJMPIsDown(){
 
       if(this.space.isDown){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -406,18 +382,16 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
+    //mobile button control for expecting if the shift key is pressed only once until it is released.
     checkATKPressed(){
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
-          isDown:false,
-          isJustDown:true
+          isDown:false
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.justDownATKKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -428,19 +402,18 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the shift key is down and can be held down.
     checkATKIsDown(){
 
       if(this.shift.isDown){
         return true;
-
-      //call emitter to check if button is pressed.  
+ 
       }else{
-        //temp object
+
         let keyObject = {
           isDown:false,
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateATKKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -451,19 +424,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the tab key is down and can be held down.
     checkInventoryIsDown(){
 
       if(this.keyTAB.isDown){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        //temp object
+
         let keyObject = {
           isDown:false,
         };
-        //pass to emitter
+
         controlKeyEmitter.emit(controlKeyEvent.activateInventoryIndicatorKey,keyObject);
 
         if(keyObject.isDown === true){
@@ -474,20 +445,17 @@ class defaultScene extends allSceneFunctions {
       } 
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the shift key is pressed which is specialized to the skip animation button.
     checkSkipIndicatorIsDown(){
-      //temp object
       if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
         return true;
-
-      //call emitter to check if button is pressed.  
+ 
       }else{
         let keyObject = {
           isDown:false,
         };
 
         controlKeyEmitter.emit(controlKeyEvent.activateSkipIndicatorKey,keyObject);
-        console.log("keyObject in checkSkipIndicatorIsDown: ",keyObject.isDown)
             
         if(keyObject.isDown === true){
           return true;
@@ -498,18 +466,17 @@ class defaultScene extends allSceneFunctions {
       }
     }
 
-    //new function to handle if the key w is pressed or the button.
+    //mobile button control for expecting if the shift key is pressed which is specialized to the give up button.
     checkGiveUpIndicatorIsDown(){
-      //temp object
+
       if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
         return true;
-
-      //call emitter to check if button is pressed.  
       }else{
-        console.log("testing to see if giveup indicator is active due tomobile press" )
+
         let keyObject = {
           isDown:false,
         };
+        
         controlKeyEmitter.emit(controlKeyEvent.activateGiveUpIndicatorKey,keyObject);
 
         if(keyObject.isDown === true){

@@ -85,7 +85,7 @@ class gameHud extends allSceneFunctions {
           location.reload();
         })
 
-        //set up to display the cursors location. used for debugging
+        //set up to display the cursors SceneTransitionLoad.reloadGame. used for debugging
         //this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
         
         // need this to keep track of pointer position
@@ -182,8 +182,8 @@ class gameHud extends allSceneFunctions {
           this.input.mouse.capture = true;
 
           //sets up the mobile control mobile buttons
-          let mobileX = 130;
-          let mobileY = 780;
+          let mobileX = 110;
+          let mobileY = 650;
 
           let gamehudtemp = this;
           
@@ -198,37 +198,40 @@ class gameHud extends allSceneFunctions {
 
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownWKey,(object) =>{
-
-            if(gamehudtemp.mobileW.isJustDown === true){
-              
-              gamehudtemp.mobileW.isJustDown = false;
-              gamehudtemp.mobileW.IsPressed = false;
-              gamehudtemp.mobileW.playWKey(0);
+            console.log("gamehudtemp.mobileW.isJustDown: ",this.mobileW.isJustDown);
+            if(this.mobileW.isJustDown === true){
+              console.log("i am a true w press");
+              this.mobileW.isJustDown = false;
+              this.mobileW.IsPressed = false;
+              //this.mobileW.playWKey(1);
 
               object.isDown = true;
 
             }else{
-
+              console.log("no w press here?");
               object.isDown = false;
             }
             
-          });
+          },this);
 
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileW.on('pointerdown', function (pointer) {
-            gamehudtemp.mobileW.IsPressed = true;
-            gamehudtemp.mobileW.isJustDown = true;
-            gamehudtemp.mobileW.playWKey(1);
-          });
+            console.log("pointerdown is on w")
+            this.mobileW.IsPressed = true;
+            this.mobileW.isJustDown = true;
+            this.mobileW.playWKey(1);
+          },this);
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileW.on('pointerup',function(pointer){
+            console.log("pointerup is on w")
             gamehudtemp.mobileW.IsPressed = false;
             gamehudtemp.mobileW.isJustDown = false;
             gamehudtemp.mobileW.playWKey(0);
           });
 
           this.mobileW.on('pointerout',function(pointer){
+            console.log("pointerout is on w")
             gamehudtemp.mobileW.IsPressed = false;
             gamehudtemp.mobileW.isJustDown = false;
             gamehudtemp.mobileW.playWKey(0);
@@ -263,18 +266,21 @@ class gameHud extends allSceneFunctions {
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileA.on('pointerdown', function (pointer) {
             gamehudtemp.mobileA.IsPressed = true;
+            gamehudtemp.mobileA.isJustDown = true;
             gamehudtemp.mobileA.playAKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileA.on('pointerup',function(pointer){
             gamehudtemp.mobileA.IsPressed = false;
+            gamehudtemp.mobileA.isJustDown = false;
             gamehudtemp.mobileA.playAKey(0);
           });
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileA.on('pointerout',function(pointer){
             gamehudtemp.mobileA.IsPressed = false;
+            gamehudtemp.mobileA.isJustDown = false;
             gamehudtemp.mobileA.playAKey(0);
           });
 
@@ -307,18 +313,21 @@ class gameHud extends allSceneFunctions {
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileS.on('pointerdown', function (pointer) {
             gamehudtemp.mobileS.IsPressed = true;
+            gamehudtemp.mobileS.isJustDown = true;
             gamehudtemp.mobileS.playSKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileS.on('pointerup',function(pointer){
             gamehudtemp.mobileS.IsPressed = false;
+            gamehudtemp.mobileS.isJustDown = false;
             gamehudtemp.mobileS.playSKey(0);
           });
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileS.on('pointerout',function(pointer){
             gamehudtemp.mobileS.IsPressed = false;
+            gamehudtemp.mobileS.isJustDown = false;
             gamehudtemp.mobileS.playSKey(0);
           });
 
@@ -351,22 +360,25 @@ class gameHud extends allSceneFunctions {
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileD.on('pointerdown', function (pointer) {
             gamehudtemp.mobileD.IsPressed = true;
+            gamehudtemp.mobileD.isJustDown = true;
             gamehudtemp.mobileD.playDKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileD.on('pointerup',function(pointer){
             gamehudtemp.mobileD.IsPressed = false;
+            gamehudtemp.mobileD.isJustDown =false;
             gamehudtemp.mobileD.playDKey(0);
           });
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileD.on('pointerout',function(pointer){
             gamehudtemp.mobileD.IsPressed = false;
+            gamehudtemp.mobileD.isJustDown =false;
             gamehudtemp.mobileD.playDKey(0);
           });
 
-          this.mobileJMP = new mobileButton(this,820,mobileY-20).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP = new mobileButton(this,840,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileJMP.playJMPKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -376,16 +388,17 @@ class gameHud extends allSceneFunctions {
 
           //function mimics functionality of justdown, so our button can only be pressed once until it is freed
           controlKeyEmitter.on(controlKeyEvent.justDownSpaceKey,(object) =>{
-
+        
             if(gamehudtemp.mobileJMP.isJustDown === true){
-              
+              console.log("-----------------------mobileJMP.isDown: ",object.isDown)
               gamehudtemp.mobileJMP.isJustDown = false;
-              gamehudtemp.mobileJMP.IsPressed = false;
+              //gamehudtemp.mobileJMP.IsPressed = false;
               gamehudtemp.mobileJMP.playJMPKey(0);
 
               object.isDown = true;
 
             }else{
+              console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxmobileJMP.isDown: ",object.isDown)
 
               object.isDown = false;
             }
@@ -395,22 +408,25 @@ class gameHud extends allSceneFunctions {
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileJMP.on('pointerdown', function (pointer) {
             gamehudtemp.mobileJMP.IsPressed = true;
+            gamehudtemp.mobileJMP.isJustDown = true;
             gamehudtemp.mobileJMP.playJMPKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileJMP.on('pointerup',function(pointer){
             gamehudtemp.mobileJMP.IsPressed = false;
+            gamehudtemp.mobileJMP.isJustDown = false;
             gamehudtemp.mobileJMP.playJMPKey(0);
           });
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileJMP.on('pointerout',function(pointer){
             gamehudtemp.mobileJMP.IsPressed = false;
+            gamehudtemp.mobileJMP.isJustDown = false;
             gamehudtemp.mobileJMP.playJMPKey(0);
           });
 
-          this.mobileATK = new mobileButton(this,680,mobileY-20).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK = new mobileButton(this,840,mobileY+70).setInteractive(this.input.makePixelPerfect());
           this.mobileATK.playATKKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -438,19 +454,45 @@ class gameHud extends allSceneFunctions {
           //pointer events when button is pressed to activate set pressed to true in the key object
           this.mobileATK.on('pointerdown', function (pointer) {
             gamehudtemp.mobileATK.IsPressed = true;
+            gamehudtemp.mobileATK.isJustDown =true;
             gamehudtemp.mobileATK.playATKKey(1);
           });
           
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileATK.on('pointerup',function(pointer){
             gamehudtemp.mobileATK.IsPressed = false;
+            gamehudtemp.mobileATK.isJustDown =false;
             gamehudtemp.mobileATK.playATKKey(0);
           });
 
           //pointer even so that when the button is not being pressed, set value to false.
           this.mobileATK.on('pointerout',function(pointer){
             gamehudtemp.mobileATK.IsPressed = false;
+            gamehudtemp.mobileATK.isJustDown =false;
             gamehudtemp.mobileATK.playATKKey(0);
+          });
+
+          this.mobileInventory = new mobileButton(this,840,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileInventory.playInventoryKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateInventoryIndicatorKey,(object) =>{
+            object.isDown = this.mobileInventory.IsPressed;
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileInventory.on('pointerdown', function (pointer) {
+            gamehudtemp.mobileInventory.IsPressed = true;
+          });
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileInventory.on('pointerup',function(pointer){
+            gamehudtemp.mobileInventory.IsPressed = false;
+          });
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileInventory.on('pointerout',function(pointer){
+            gamehudtemp.mobileInventory.IsPressed = false;
           });
 
           //when player dies the prompt to skip animations need to pop up.

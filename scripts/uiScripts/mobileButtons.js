@@ -80,5 +80,9 @@ class mobileButton extends Phaser.Physics.Arcade.Sprite{
         }
     }
 
+    playInventoryKey(){
+        this.anims.play("inventoryButtonActive");
+    }
+
 
 }

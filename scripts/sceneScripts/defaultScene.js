@@ -191,8 +191,9 @@ class defaultScene extends allSceneFunctions {
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.justDownWKey,keyObject);
-
+        console.log("keyObject.isDown: ",keyObject.isDown);
         if(keyObject.isDown === true){
+          console.log("w was pressed! returning true in checkWPressed");
           return true;
         }else{
           return false;
@@ -369,11 +370,11 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:true
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.justDownSpaceKey,keyObject);
 
+        console.log("++++++++++++++++++++keyObject.isDown: ",keyObject.isDown)
         if(keyObject.isDown === true){
           return true;
         }else{
@@ -393,7 +394,6 @@ class defaultScene extends allSceneFunctions {
         //temp object
         let keyObject = {
           isDown:false,
-          isJustDown:false
         };
         //pass to emitter
         controlKeyEmitter.emit(controlKeyEvent.activateJMPKey,keyObject);
@@ -452,6 +452,29 @@ class defaultScene extends allSceneFunctions {
     }
 
     //new function to handle if the key w is pressed or the button.
+    checkInventoryIsDown(){
+
+      if(this.keyTAB.isDown){
+        return true;
+
+      //call emitter to check if button is pressed.  
+      }else{
+        //temp object
+        let keyObject = {
+          isDown:false,
+        };
+        //pass to emitter
+        controlKeyEmitter.emit(controlKeyEvent.activateInventoryIndicatorKey,keyObject);
+
+        if(keyObject.isDown === true){
+          return true;
+        }else{
+          return false;
+        }
+      } 
+    }
+
+    //new function to handle if the key w is pressed or the button.
     checkSkipIndicatorIsDown(){
       //temp object
       if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
@@ -464,7 +487,8 @@ class defaultScene extends allSceneFunctions {
         };
 
         controlKeyEmitter.emit(controlKeyEvent.activateSkipIndicatorKey,keyObject);
-
+        console.log("keyObject in checkSkipIndicatorIsDown: ",keyObject.isDown)
+            
         if(keyObject.isDown === true){
           return true;
 
@@ -644,12 +668,17 @@ class defaultScene extends allSceneFunctions {
       loadSceneTransitionLoad.on(SceneTransitionLoad.reloadGame,(location) =>{
         console.log('reloading game, location: ',location);
         console.log('this, scene: ',this);
+
         this.destination = location;
+
         this.clearGameplayEmmitters();
         //for loop looks through all the looping music playing within a given scene and stops the music.
         for(let counter = 0; counter < this.sound.sounds.length; counter++){
           this.sound.get(this.sound.sounds[counter].key).stop();
         }
+        //this.scene.stop('gameHud');
+        //this.scene.launch('gameHud');
+        //this.scene.start('gameHud');
         this.cameras.main.fadeOut(500, 0, 0, 0);
       });
 
@@ -2225,7 +2254,7 @@ class defaultScene extends allSceneFunctions {
       }
 
       //if tab is press while the player isnt grabbed or in the pause menue then
-      if(this.keyTAB.isDown && this.grabbed === false &&this.playerStuckGrab === false && this.pausedInTextBox === false){
+      if(this.checkInventoryIsDown() && this.grabbed === false &&this.playerStuckGrab === false && this.pausedInTextBox === false){
         //activate inventory
         inventoryKeyEmitter.emit(inventoryKey.activateWindow,this); 
       }
@@ -2322,7 +2351,7 @@ class defaultScene extends allSceneFunctions {
     enemyUpdate(enemyGroupArray){
      
       //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
-      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+      if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false){
         //check to see if the slime animations need to be paused.
         this.checkEnemyAnimationPause();
       }else{
@@ -2388,7 +2417,7 @@ class defaultScene extends allSceneFunctions {
     enemyUpdateAnimationView(enemyGroupArray){
      
       //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
-      if(this.keyTAB.isDown && this.grabbed === false && this.pausedInTextBox === false){
+      if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false){
         //check to see if the slime animations need to be paused.
         this.checkEnemyAnimationPause();
       }else{

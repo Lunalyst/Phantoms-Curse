@@ -91,7 +91,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
   movePlayer(keyA,keyD,space,playerPreviousY,scene){
    
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
-    
+  //console.log("in player move, this.scene.checkWPressed(): ",this.scene.checkWPressed());
   //create a temp object to be sent to the emitter
   let playerSkillsObject = {
     playerSkills: null

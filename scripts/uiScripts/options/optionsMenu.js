@@ -328,10 +328,23 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //full reloads the game if exiting while settings are changed
         if(this.isQuiting === true){
             //calls the fadout for gamehud which reload the webpage.
+            console.log("quiting game?")
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
         }else{
             //restarts the game hud to reflect the changes as well.
-            this.scene.scene.restart();
+            console.log("reloading game with settings change!");
+
+            //close all inventory related objects
+            this.inventory.closeInventoryForSettings();
+
+            //reset inventory data to the last save.
+            this.scene.loadGameFile(this.scene.playerSaveSlotData.saveSlot);
+
+            this.scene.loadGameHudData();
+
+            //reset the inventory by loading the save file player inventory data.
+            //this.scene.load
+            //this.scene.scene.restart();
         }
         
         //temp object to update the onomat value

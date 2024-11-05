@@ -28,6 +28,7 @@ controlKeyEvent = {
 
     activateSkipIndicatorKey: 'activate_skip_indicator_key',
     activateGiveUpIndicatorKey: 'activate_give_up_indicator_key',
+    activateInventoryIndicatorKey: 'activate_inventory_indicator_key',
 
     justDownWKey: 'just_down_w_key',
     justDownAKey: 'just_down_a_key',

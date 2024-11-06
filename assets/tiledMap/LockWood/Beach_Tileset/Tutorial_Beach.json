@@ -69,8 +69,8 @@
          "columns":24,
          "firstgid":1,
          "image":"Beach_Tileset.png",
-         "imageheight":3072,
-         "imagewidth":2304,
+         "imageheight":3136,
+         "imagewidth":2352,
          "margin":0,
          "name":"Beach_Tileset",
          "spacing":0,
@@ -300,7 +300,13 @@
                  "id":57
                 }, 
                 {
-                 "id":58
+                 "id":58,
+                 "properties":[
+                        {
+                         "name":"collision",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "id":59

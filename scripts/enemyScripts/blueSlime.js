@@ -561,6 +561,7 @@ class blueSlime extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+            console.log()
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDPressed())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
@@ -595,7 +596,7 @@ class blueSlime extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            if (this.scene.checkDPressed() &&
+            if (this.scene.checkDIsDown() &&
              this.playerDefeatedAnimationCooldown === false &&
              this.inStartDefeatedLogic === false &&
              this.scene.KeyDisplay.visible === true &&
@@ -617,6 +618,7 @@ class blueSlime extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+            console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage, " ")
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDPressed())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");

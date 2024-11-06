@@ -27,8 +27,8 @@ class ForestRavineHome extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
-      this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Player_Home.json");
+      this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
+      this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Forest_Tileset/Player_Home.json");
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
@@ -53,7 +53,7 @@ class ForestRavineHome extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("home_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("home_map","Forest_Tileset","forest_source_map");
     
       //creates player object
       this.setUpPlayer();

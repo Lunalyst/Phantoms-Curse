@@ -242,6 +242,12 @@ class level extends Phaser.Tilemaps.Tilemap{
                                                 Tile.collideLeft = false;
                                                 Tile.collideRight = false;
                                                 break;
+                                                case 653: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
                                                 case 680: // <- this tile only colides top
                                                 Tile.collideUp = true;
                                                 Tile.collideDown = false;
@@ -266,6 +272,12 @@ class level extends Phaser.Tilemaps.Tilemap{
                                                 Tile.collideRight = false;
                                                 break;
                                                 case 684: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 685: // <- this tile only colides top
                                                 Tile.collideUp = true;
                                                 Tile.collideDown = false;
                                                 Tile.collideLeft = false;

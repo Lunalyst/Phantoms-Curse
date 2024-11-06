@@ -23,7 +23,7 @@
          "height":70,
          "id":3,
          "name":"Tile Layer 2",
-         "opacity":1,
+         "opacity":0.61,
          "type":"tilelayer",
          "visible":true,
          "width":90,
@@ -72,9 +72,9 @@
          "imageheight":9216,
          "imagewidth":1536,
          "margin":0,
-         "name":"Forest_Large_Tiles",
+         "name":"Forest_Tileset",
          "spacing":0,
-         "tilecount":1536,
+         "tilecount":1568,
          "tileheight":96,
          "tiles":[
                 {

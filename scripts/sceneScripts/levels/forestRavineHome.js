@@ -140,7 +140,7 @@ class ForestRavineHome extends defaultScene {
       
       //calls the built in update function
       this.defaultUpdate();
-
+      /*
        //updates the x value of the scrolling backround.
        if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x += 0.5;
@@ -159,7 +159,7 @@ class ForestRavineHome extends defaultScene {
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y += 0.1;
         this.backround.y += 0.3;
-      }
+      }*/
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

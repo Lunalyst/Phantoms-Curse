@@ -32,7 +32,7 @@ class ForestRavineHome extends defaultScene {
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
-      this.load.spritesheet('forestParallax', 'assets/parrallax/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
+      //this.load.spritesheet('forestParallax', 'assets/parrallax/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"

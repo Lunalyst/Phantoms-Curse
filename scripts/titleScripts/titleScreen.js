@@ -59,7 +59,7 @@ class titleScreen extends allSceneFunctions {
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
             this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
-            this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 1080 , frameHeight: 1140});
+            this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 522 , frameHeight: 614});
             this.load.spritesheet("maleSexSelectIcons" , "assets/titleScreen/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("femaleSexSelectIcons" , "assets/titleScreen/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -173,11 +173,11 @@ class titleScreen extends allSceneFunctions {
             this.backround = this.add.sprite(450, 450, "titleBackground");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(450, 550, "titleLogo");
+            this.titleLogo = this.add.sprite(450, 450, "titleLogo");
             this.elements.add(this.titleLogo);
 
             //title sprite
-            this.titleLogo.setScale(1/2+1/3);
+            //this.titleLogo.setScale();
             this.title =this.add.sprite(450, 50, "title");
             this.title.anims.play("titleLoop");
             this.title.setScale(1/3 + 1/7);

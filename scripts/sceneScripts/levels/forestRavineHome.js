@@ -32,7 +32,8 @@ class ForestRavineHome extends defaultScene {
 
       this.load.spritesheet('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
 
-      //this.load.spritesheet('forestParallax', 'assets/parrallax/Forest_Background.png',{frameWidth: 5760 , frameHeight: 4800});
+      this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
+      this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -130,23 +131,30 @@ class ForestRavineHome extends defaultScene {
         this.backround.setScale(1.2);
         //original pos - player pos * scrol factor
 
-        //this.parrallax1 = this.add.tileSprite(1000, 1200, 5*5000,4800, "forestParallax");
-        //this.parrallax1.setScale(1/3);
-        //this.parrallax1.setDepth(-50);
-        //this.parrallax1.setTint(0x808080);
+        this.parrallax1 = this.add.tileSprite(1500, 1100, 1920*4 ,1920, "tree_parrallax");
+        this.parrallax1.setScale(1/3);
+        this.parrallax1.setDepth(-50);
+        this.parrallax1.setTint(0x808080);
+
+        this.parrallax2 = this.add.tileSprite(1500, 1100+600, 1920*4 ,1920, "ground_parrallax");
+        this.parrallax2.setScale(1/3);
+        this.parrallax2.setDepth(-50);
+        this.parrallax2.setTint(0x808080);
     }
 
     update(){
       
       //calls the built in update function
       this.defaultUpdate();
-      /*
+      
        //updates the x value of the scrolling backround.
        if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x += 0.5;
+        this.parrallax2.x += 0.5;
         this.backround.x += 0.7;
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
         this.parrallax1.x -= 0.5;
+        this.parrallax2.x -= 0.5;
         this.backround.x -= 0.7;
       }
       //updates the x values stored every tick 
@@ -155,11 +163,13 @@ class ForestRavineHome extends defaultScene {
       //updates the y value of the scrolling backround.
       if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y -= 0.1;
+        this.parrallax2.y -= 0.1;
         this.backround.y -= 0.3;
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y += 0.1;
+        this.parrallax2.y += 0.1;
         this.backround.y += 0.3;
-      }*/
+      }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

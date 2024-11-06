@@ -1493,7 +1493,7 @@ class defaultScene extends allSceneFunctions {
       //if the player is w then
       if(this.checkWPressed() === true && this.playerStuckGrabCap > 0){
         //reduce the stuck cap counter
-        this.playerStuckGrabCap-=5;
+        this.playerStuckGrabCap-=10;
         //update the struggle bar
         struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
       }

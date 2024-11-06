@@ -39,7 +39,7 @@ class sign extends Phaser.Physics.Arcade.Sprite{
     //console.log("this.safeToSign: "+this.safeToSign+" activeId: "+activeId+" this.signId: "+this.signId+" this.promptCooldown: "+this.promptCooldown);
 
     //if the player meets activation requiements for the sign display the text box
-      if(this.safeToSign === true && keyW.isDown && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false){
+      if(this.safeToSign === true && scene1.checkWIsDown() && activeId === this.signId && scene1.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false){
           console.log("activating sign");
           // sets the activated to true so it isnt called multiple times.
           this.activated = true;

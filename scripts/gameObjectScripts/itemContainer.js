@@ -75,7 +75,7 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         //console.log("this.safeToOpen: ",this.safeToOpen, " keyW.isDown: ", keyW.isDown," this.openCoolDown: ",this.openCoolDown," scene1.isPaused: ",scene1.isPaused," this.allReadyOpened: ",this.alreadyOpened);
 
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
-        if( this.safeToOpen === true && keyW.isDown && this.openCoolDown === false && scene1.isPaused === false && this.alreadyOpened === false){
+        if( this.safeToOpen === true && scene1.checkWIsDown() && this.openCoolDown === false && scene1.isPaused === false && this.alreadyOpened === false){
             
             //make a temp object
             let object = {

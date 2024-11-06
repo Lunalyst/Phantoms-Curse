@@ -43,7 +43,7 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
         //console.log("this.safeToOpen: ",this.safeToOpen, " keyW.isDown: ", keyW.isDown," this.openCoolDown: ",this.openCoolDown);
 
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
-        if( this.safeToOpen === true && keyW.isDown && this.openCoolDown === false){
+        if( this.safeToOpen === true && this.scene.checkWIsDown() && this.openCoolDown === false){
             
             console.log('activating locker');
             // call the emitter to check if the value already was picked up.

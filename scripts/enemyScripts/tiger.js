@@ -671,7 +671,7 @@ class tiger extends enemy {
 
     playerIsNotDefeatedInputs(playerHealthObject){
         if (this.randomInput === 0) {
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
+            if (this.scene.checkSPressed() === true) {
                
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
@@ -681,7 +681,7 @@ class tiger extends enemy {
             }
         } else if (this.randomInput === 1) {
             // important anims.play block so that the animation can player properly.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
+            if (this.scene.checkWPressed() === true) {
                 
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
@@ -765,7 +765,7 @@ class tiger extends enemy {
          }
 
 
-                if (this.scene.keyW.isDown && 
+                if (this.scene.checkWIsDown() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
                     this.inStartDefeatedLogic === false &&
@@ -790,7 +790,7 @@ class tiger extends enemy {
                     }, 3000);
                 }
                 // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-                if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 8 && this.scene.keyW.isDown)) {
+                if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkWIsDown())) {
                     this.scene.KeyDisplay.visible = false;
                     console.log("changing scene");
                     this.scene.changeToGameover();
@@ -826,7 +826,7 @@ class tiger extends enemy {
          }
 
 
-                if (this.scene.keyW.isDown && 
+                if (this.scene.checkWIsDown() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
                     this.inStartDefeatedLogic === false &&
@@ -848,7 +848,7 @@ class tiger extends enemy {
                     }, 3000);
                 }
                 // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-                if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.keyW.isDown)) {
+                if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 6 && this.scene.checkWIsDown())) {
                     this.scene.KeyDisplay.visible = false;
                     console.log("changing scene");
                     this.scene.changeToGameover();
@@ -1325,7 +1325,7 @@ class tiger extends enemy {
             if (this.playerProgressingAnimation === false) {
 
             // handles input for progressing animation
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+            if (this.scene.checkDPressed() === true) {
                 this.playerProgressingAnimation = true;
                 }
 

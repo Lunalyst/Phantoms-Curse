@@ -55,6 +55,15 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.sexButton = new sexSelectButton(scene,this,-70,340);
         this.sexButton.setupSexButton();
         this.add(this.sexButton);
+
+        //exit button text
+        this.mobileToggle = new makeText(scene,-10*2,205*2,'charBubble',"MOBILE CONTROLS");
+        this.add(this.mobileToggle);
+
+        //exit button
+        this.mobileButton = new mobileSettingsButton(scene,this,-70,390);
+        this.mobileButton.setupMobileButton();
+        this.add(this.mobileButton);
         
         //exit button text
         this.exitText = new makeText(scene,-10*2,240*2,'charBubble',"EXIT GAME");
@@ -158,6 +167,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //settings values in object first two can be changed at any time
         this.currentSoundValue = playerDataObject.settings.volume;
         this.currentOnomatValue = playerDataObject.settings.onomatopoeia;
+        this.currentMobileControls = playerDataObject.settings.mobileControls;
 
         // the other two need a soft reload back to the players last save point
         this.currentPrefValue = playerDataObject.settings.preferance;
@@ -170,8 +180,17 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.volumeButton.setValue(this.currentSoundValue);
         this.volumeSlider.setValue(this.currentSoundValue);
         this.onomatButton.setValue(this.currentOnomatValue);
+        this.mobileButton.setValue(this.currentMobileControls);
         this.prefButton.setValue(this.currentPrefValue);
         this.sexButton.setValue(this.currentSexValue);
+
+        //hides mobile controls if they are not suppost to be on.
+        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+        console.log('this.currentMobileControls: ',this.currentMobileControls);
+        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+        if(!this.currentMobileControls){
+            this.scene.mobileGroup.toggleVisible();
+        }
 
         scene.add.existing(this);
 
@@ -196,6 +215,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.volumeButton.setValue(this.currentSoundValue);
         this.volumeSlider.setValue(this.currentSoundValue);
         this.onomatButton.setValue(this.currentOnomatValue);
+        this.mobileButton.setValue(this.currentMobileControls);
         this.prefButton.setValue(this.currentPrefValue);
         this.sexButton.setValue(this.currentSexValue);
 
@@ -231,6 +251,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //set the non game reset settings
         playerDataObject.settings.volume = this.currentSoundValue;
         playerDataObject.settings.onomatopoeia = this.currentOnomatValue;
+        playerDataObject.settings.mobileControls = this.currentMobileControls;
 
         //saves settings.
         this.scene.saveGameFile(playerDataObject);
@@ -286,6 +307,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //set the non game reset settings
         playerDataObject.settings.volume = this.currentSoundValue;
         playerDataObject.settings.onomatopoeia = this.currentOnomatValue;
+        playerDataObject.settings.mobileControls = this.currentMobileControls;
         playerDataObject.settings.preferance = this.currentPrefValue;
         playerDataObject.playerSex = this.currentSexValue;
 
@@ -316,6 +338,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.volumeButton.setValue(this.currentSoundValue);
         this.volumeSlider.setValue(this.currentSoundValue);
         this.onomatButton.setValue(this.currentOnomatValue);
+        this.mobileButton.setValue(this.currentMobileControls);
         this.prefButton.setValue(this.currentPrefValue);
         this.sexButton.setValue(this.currentSexValue);
 

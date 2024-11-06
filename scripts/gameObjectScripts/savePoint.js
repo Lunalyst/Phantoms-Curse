@@ -33,7 +33,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
     savePointSaveGame(scene1,keyW,activeId,saveX,saveY){
         
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
-        if( this.safeToSave === true && keyW.isDown && this.saveCoolDown === false && scene1.isPaused === false){
+        if( this.safeToSave === true && scene1.checkWPressed() && this.saveCoolDown === false && scene1.isPaused === false){
             
             //play save sound
             scene1.initSoundEffect('curseSFX','curse',0.3);

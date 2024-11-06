@@ -361,7 +361,7 @@ class rabbit extends enemy {
         let currentrabbit = this;
 
             // handles input for escaping.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyS) === true) {
+            if (this.scene.checkSPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 25;
@@ -431,7 +431,7 @@ class rabbit extends enemy {
 
         //based on the enemys sex, play different animations. 
         if(this.enemySex === 0){
-            if (this.scene.keyD.isDown &&
+            if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
@@ -455,7 +455,7 @@ class rabbit extends enemy {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 7 && this.scene.keyD.isDown)) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
 
                 //sets enemy that defeated the player based on rabbits sex.
@@ -472,7 +472,7 @@ class rabbit extends enemy {
             this.maleRabbitDefeatedPlayerAnimation();
 
         }else{
-            if (this.scene.keyD.isDown &&
+            if (this.scene.checkDIsDown() &&
                 this.playerDefeatedAnimationCooldown === false &&
                  this.inStartDefeatedLogic === false &&
                   this.scene.KeyDisplay.visible === true &&
@@ -494,7 +494,7 @@ class rabbit extends enemy {
                }, 3000);
            }
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-           if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 5 && this.scene.keyD.isDown)) {
+           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkDIsDown())) {
                 if(this.enemySex === 0){
                     this.scene.enemyThatDefeatedPlayer = "maleRabbit";
                 }else{
@@ -913,7 +913,7 @@ class rabbit extends enemy {
             if (this.playerProgressingAnimation === false) {
 
             // handles input for progressing animation
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+            if (this.scene.checkDPressed() === true) {
                 this.playerProgressingAnimation = true;
                 }
 

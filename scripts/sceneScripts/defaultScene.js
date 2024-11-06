@@ -1491,7 +1491,7 @@ class defaultScene extends allSceneFunctions {
       this.KeyDisplay.y = this.player1.y+50;
       
       //if the player is w then
-      if(Phaser.Input.Keyboard.JustDown(this.keyW) === true && this.playerStuckGrabCap > 0){
+      if(this.checkWPressed() === true && this.playerStuckGrabCap > 0){
         //reduce the stuck cap counter
         this.playerStuckGrabCap-=5;
         //update the struggle bar
@@ -1801,7 +1801,7 @@ class defaultScene extends allSceneFunctions {
       //applys a function to all tigers
       scene.tigers.children.each(function (tempTiger) {
 
-        if(scene.objectsInRangeX(tempTiger,scene.player1,600) && scene.objectsInRangeY(tempTiger,scene.player1,150) && tempTiger.inSafeMode === false ){
+        if(scene.objectsInRangeX(tempTiger,scene.player1,600) && scene.objectsInRangeY(tempTiger,scene.player1,250) && tempTiger.inSafeMode === false ){
         //function to check rabbits and see if the tiger can grab one
         scene.rabbits.children.each(function (tempRabbit) {
 

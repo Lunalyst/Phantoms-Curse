@@ -59,6 +59,7 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
             }
             
         })
+        
         this.on('pointerout',function(pointer){
            
             if(that.isOn){

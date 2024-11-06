@@ -87,7 +87,7 @@ class textBox extends Phaser.GameObjects.Container{
       }
       
       //if the player pressed w then
-      if(Phaser.Input.Keyboard.JustDown(keyW)){
+      if(scene1.checkWPressed()){
         
         //update position so we can display the next set of text.
         this.startPosition = this.endPosition;

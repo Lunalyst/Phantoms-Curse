@@ -506,7 +506,7 @@ class blueSlimeHM extends enemy {
         let currentSlime = this;
 
         if (this.randomInput === 0) {
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyA) === true) {
+            if (this.scene.checkAPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
@@ -516,7 +516,7 @@ class blueSlimeHM extends enemy {
             }
         } else if (this.randomInput === 1 ) {
             // important anims.play block so that the animation can player properly.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+            if (this.scene.checkDPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
@@ -526,7 +526,7 @@ class blueSlimeHM extends enemy {
             }
         }else if (this.randomInput === 2 ) {
             // important anims.play block so that the animation can player properly.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyW) === true) {
+            if (this.scene.checkWPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyW) ');
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;
@@ -628,7 +628,7 @@ class blueSlimeHM extends enemy {
         if(this.enemySex === 0){
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
-            if (this.scene.keyD.isDown &&
+            if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
@@ -637,7 +637,7 @@ class blueSlimeHM extends enemy {
                     this.playerDefeatedAnimationStage !== 4 &&
                     this.playerDefeatedAnimationStage !== 6 &&
                     this.playerDefeatedAnimationStage !== 8 &&
-                    this.playerDefeatedAnimationStage !== 10&&
+                    this.playerDefeatedAnimationStage !== 10 &&
                     this.playerDefeatedAnimationStage !== 12) {
 
                 this.scene.KeyDisplay.visible = false;
@@ -656,7 +656,7 @@ class blueSlimeHM extends enemy {
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 13 && this.scene.keyD.isDown)) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 13 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -667,7 +667,7 @@ class blueSlimeHM extends enemy {
         }else{
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
-            if (this.scene.keyD.isDown &&
+            if (this.scene.checkDIsDown() &&
                 this.playerDefeatedAnimationCooldown === false &&
                  this.inStartDefeatedLogic === false &&
                   this.scene.KeyDisplay.visible === true &&
@@ -694,7 +694,7 @@ class blueSlimeHM extends enemy {
                }, 3000);
            }
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-           if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 11 && this.scene.keyD.isDown)) {
+           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 11 && this.scene.checkDIsDown())) {
                this.scene.KeyDisplay.visible = false;
                console.log("changing scene");
                this.scene.changeToGameover();
@@ -1288,7 +1288,7 @@ class blueSlimeHM extends enemy {
             if (this.playerProgressingAnimation === false) {
 
             // handles input for progressing animation
-            if (Phaser.Input.Keyboard.JustDown(this.scene.keyD) === true) {
+            if (this.scene.checkDPressed() === true) {
                 this.playerProgressingAnimation = true;
                 }
 

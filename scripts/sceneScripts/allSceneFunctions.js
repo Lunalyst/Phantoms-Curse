@@ -4,7 +4,7 @@ class allSceneFunctions extends Phaser.Scene {
   //{Save AND lOAD Functions}===================================================================================================================
 
     //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
-    saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
+  saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
       //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
       console.log("calling saveGameoverFile============================");
       console.log("playerSex: " + playerSex);
@@ -388,7 +388,8 @@ makeSaveFile(playerObject,sex,saveslot){
  let settings = {
     preferance: 2,
     volume: 1,
-    onomatopoeia: true
+    onomatopoeia: true,
+    mobileControls:false
  };
 
  let dreamReturnLocation = {
@@ -661,10 +662,16 @@ validateSaveFile(dataObject){
     let settings = {
       preferance: 2,
       volume: 1,
-      onomatopoeia: true
+      onomatopoeia: true,
+      mobileControls
    };
    
     dataObject.settings = settings;
+
+  }
+
+  if(dataObject.settings.mobileControls == undefined || dataObject.settings.mobileControls == undefined ){
+    dataObject.settings.mobileControls = false;
 
   }
 

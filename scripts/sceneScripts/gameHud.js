@@ -185,10 +185,14 @@ class gameHud extends allSceneFunctions {
           let mobileX = 110;
           let mobileY = 650;
 
+          //make a group which has all the mobile controls in it except the inventory key.
+          this.mobileGroup = new Phaser.GameObjects.Group(this);
+
           let gamehudtemp = this;
           
           //define a key and make it interactive
           this.mobileW = new mobileButton(this,mobileX,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileW);
           this.mobileW.playWKey(0);
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -233,6 +237,7 @@ class gameHud extends allSceneFunctions {
           },this);
 
           this.mobileA = new mobileButton(this,mobileX-70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileA);
           this.mobileA.playAKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -278,6 +283,7 @@ class gameHud extends allSceneFunctions {
           },this);
 
           this.mobileS = new mobileButton(this,mobileX,mobileY+70).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileS);
           this.mobileS.playSKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -324,6 +330,7 @@ class gameHud extends allSceneFunctions {
           },this);
 
           this.mobileD = new mobileButton(this,mobileX+70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileD);
           this.mobileD.playDKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -371,6 +378,7 @@ class gameHud extends allSceneFunctions {
           },this);
 
           this.mobileJMP = new mobileButton(this,840,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileJMP);
           this.mobileJMP.playJMPKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -417,6 +425,7 @@ class gameHud extends allSceneFunctions {
           },this);
 
           this.mobileATK = new mobileButton(this,840,mobileY+70).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileATK);
           this.mobileATK.playATKKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used

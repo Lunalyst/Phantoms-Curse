@@ -48,7 +48,7 @@ class bedWarp extends Phaser.Physics.Arcade.Sprite{
       //console.log("this.safeToLoad: "+this.safeToLoad+" activeId: "+activeId+" this.warpPortalId: "+this.warpPortalId+" this.promptCooldown: "+this.promptCooldown+" keyW.isDown: "+keyW.isDown);
         
       // if the player is within range, and presses w then activate scene transition
-      if(this.safeToLoad === true && keyW.isDown && activeId === this.warpPortalId && scene1.isPaused === false&& this.activated === false){
+      if(this.safeToLoad === true && scene1.checkWIsDown() && activeId === this.warpPortalId && scene1.isPaused === false&& this.activated === false){
 
           console.log("warping scenes");
           

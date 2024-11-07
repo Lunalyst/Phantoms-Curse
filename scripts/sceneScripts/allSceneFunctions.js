@@ -448,6 +448,12 @@ validateSaveFile(dataObject){
     dataObject.playerLocation = 'tutorialBeachLevel';
   }
 
+  if(dataObject.playerLocation === "sunFlowerField" && dataObject.saveX > 4000){
+    dataObject.saveX = 759;
+    dataObject.saveY = 1021;
+    dataObject.playerLocation = 'sunFlowerField';
+  }
+
   if(dataObject.playerHpValue === undefined || dataObject.playerHpValue === null){
     dataObject.playerHpValue = 1;
   }

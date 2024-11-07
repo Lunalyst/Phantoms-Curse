@@ -146,8 +146,6 @@ class sunFlowerField extends defaultScene {
       //this.initSavePoints(759,1437-14);
       this.initSavePoints(759,1021-14);
 
-      this.initSavePoints(5490,893-14);
-
       this.initPortals(395,1053-13,661,829,"warpCaveOutside","caveToSunflowers1");
       //2109-1469 = 640
       this.initPortals(5119,1181-13,982,1597,"warpCaveOutside","sunFlowerCave");

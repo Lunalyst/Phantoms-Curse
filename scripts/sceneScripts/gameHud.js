@@ -184,8 +184,8 @@ class gameHud extends allSceneFunctions {
           this.input.mouse.capture = true;
 
           //variables for the positions of the mobile control buttons.
-          let mobileX = 110;
-          let mobileY = 650;
+          let mobileX = 150;
+          let mobileY = 750;
 
           //make a group which has all the mobile controls in it except the inventory key.
           this.mobileGroup = new Phaser.GameObjects.Group(this);
@@ -193,7 +193,7 @@ class gameHud extends allSceneFunctions {
           let gamehudtemp = this;
           
           //define a key and make it interactive
-          this.mobileW = new mobileButton(this,mobileX,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileW = new mobileButton(this,mobileX,mobileY-90).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileW);
           this.mobileW.playWKey(0);
 
@@ -238,7 +238,7 @@ class gameHud extends allSceneFunctions {
             this.mobileW.playWKey(0);
           },this);
 
-          this.mobileA = new mobileButton(this,mobileX-70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileA = new mobileButton(this,mobileX-90,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileA);
           this.mobileA.playAKey();
 
@@ -284,7 +284,7 @@ class gameHud extends allSceneFunctions {
             this.mobileA.playAKey(0);
           },this);
 
-          this.mobileS = new mobileButton(this,mobileX,mobileY+70).setInteractive(this.input.makePixelPerfect());
+          this.mobileS = new mobileButton(this,mobileX,mobileY+90).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileS);
           this.mobileS.playSKey();
 
@@ -331,7 +331,7 @@ class gameHud extends allSceneFunctions {
             this.mobileS.playSKey(0);
           },this);
 
-          this.mobileD = new mobileButton(this,mobileX+70,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileD = new mobileButton(this,mobileX+90,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileD);
           this.mobileD.playDKey();
 
@@ -379,7 +379,7 @@ class gameHud extends allSceneFunctions {
             this.mobileD.playDKey(0);
           },this);
 
-          this.mobileJMP = new mobileButton(this,840,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP = new mobileButton(this,800,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileJMP);
           this.mobileJMP.playJMPKey();
 
@@ -426,7 +426,7 @@ class gameHud extends allSceneFunctions {
             this.mobileJMP.playJMPKey(0);
           },this);
 
-          this.mobileATK = new mobileButton(this,840,mobileY+70).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK = new mobileButton(this,800,mobileY-100).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileATK);
           this.mobileATK.playATKKey();
 
@@ -472,7 +472,7 @@ class gameHud extends allSceneFunctions {
             this.mobileATK.playATKKey(0);
           },this);
 
-          this.mobileInventory = new mobileButton(this,840,mobileY-70).setInteractive(this.input.makePixelPerfect());
+          this.mobileInventory = new mobileButton(this,800,mobileY+100).setInteractive(this.input.makePixelPerfect());
           this.mobileInventory.playInventoryKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used

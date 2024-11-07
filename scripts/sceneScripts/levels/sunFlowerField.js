@@ -136,12 +136,6 @@ class sunFlowerField extends defaultScene {
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x808080);
-
-      this.parrallax2 = this.add.tileSprite(3000, 1290-416+600, 1920*10 ,1920, "ground_parrallax");
-      this.parrallax2.setScale(1/3);
-      this.parrallax2.setDepth(-50);
-      this.parrallax2.setTint(0x808080);
-
       
       //this.initSavePoints(759,1437-14);
       this.initSavePoints(759,1021-14);
@@ -184,7 +178,7 @@ class sunFlowerField extends defaultScene {
 
           thisScene.initEnemy(2850, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX2');
 
-          thisScene.initEnemy(3550, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX3');
+          //thisScene.initEnemy(3550, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX3');
 
           thisScene.initEnemy(4142, 1424-416,thisScene.playerSex,'beeDrone',false,"wingFlapSFX4");
 
@@ -213,12 +207,10 @@ class sunFlowerField extends defaultScene {
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
         this.parrallax1.x += 0.5;
-        this.parrallax2.x += 0.5;
         this.backround.x += 0.7;
         this.skybackround.x += 0.7;
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
         this.parrallax1.x -= 0.5;
-        this.parrallax2.x -= 0.5;
         this.backround.x -= 0.7;
         this.skybackround.x -= 0.7;
       }
@@ -228,12 +220,10 @@ class sunFlowerField extends defaultScene {
       //updates the y value of the scrolling backround.
       if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y -= 0.1;
-        this.parrallax2.y -= 0.1;
         this.backround.y -= 0.3;
         this.skybackround.y -= 0.3;
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.parrallax1.y += 0.1;
-        this.parrallax2.y += 0.1;
         this.backround.y += 0.3;
         this.skybackround.y += 0.3;
       }

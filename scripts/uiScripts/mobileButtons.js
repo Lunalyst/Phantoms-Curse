@@ -29,7 +29,7 @@ class mobileButton extends Phaser.Physics.Arcade.Sprite{
         this.isJustDown = false;
         console.log("this.IsPressed: ",this.IsPressed);
         //sets scale
-        //aathis.setScale(1/3);
+        this.setScale(1.5);
     }
     //simple function using if statements to update display using animations defined above.
     

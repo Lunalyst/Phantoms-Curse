@@ -49,6 +49,7 @@
   <script src="scripts/sceneScripts/levels/caveToSunflowers1.js"></script>
   <script src="scripts/sceneScripts/levels/caveToSunflowers2.js"></script>
   <script src="scripts/sceneScripts/levels/sunFlowerField.js"></script>
+  <script src="scripts/sceneScripts/levels/sunFlowerCave.js"></script>
   <script src="scripts/sceneScripts/levels/batCave.js"></script>
   <script src="scripts/sceneScripts/levels/blueSlimeCave.js"></script>
   <script src="scripts/sceneScripts/levels/blueSlimeCave1.js"></script>
@@ -146,7 +147,7 @@
           default: 'arcade',
           arcade: {
             // debug is excelent for testing velocity and hitboxes.
-            debug: false
+            debug: true
           }
         },
         // loads animated tile plugin?
@@ -170,6 +171,7 @@
           new caveToSunflowers1,
           new caveToSunflowers2,
           new sunFlowerField,
+          new sunFlowerCave,
           new batCave,
           new blueSlimeCave,
           new blueSlimeCave1,

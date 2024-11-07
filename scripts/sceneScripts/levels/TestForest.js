@@ -26,8 +26,8 @@ class TestForest extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
-      this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
-      this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Test_Forest.json");
+      this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
+      this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Forest_Tileset/Test_Forest.json");
 
       this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
       this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 270 });
@@ -61,7 +61,7 @@ class TestForest extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("TestForestMap","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("TestForestMap","Forest_Tileset","forest_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -113,12 +113,12 @@ class TestForest extends defaultScene {
       this.backround.setTint(0xd3d3d3);
 
       
-      this.parrallax1 = this.add.tileSprite(1000, 700, 1920*10 ,1920, "tree_parrallax");
+      this.parrallax1 = this.add.tileSprite(3000, 700, 1920*10 ,1920, "tree_parrallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x808080);
 
-      this.parrallax2 = this.add.tileSprite(1500, 700+600, 1920*4 ,1920, "ground_parrallax");
+      this.parrallax2 = this.add.tileSprite(3000, 700+600, 1920*10 ,1920, "ground_parrallax");
       this.parrallax2.setScale(1/3);
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0x808080);

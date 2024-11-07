@@ -1,14 +1,14 @@
 
 
-class sunFlowerField extends defaultScene {
+class sunFlowerCave extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'sunFlowerField',active: false ,physics:{default:'arcade'}});
+    super({key: 'sunFlowerCave',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "sunFlowerField";
+    this.playerLocation = "sunFlowerCave";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,19 +27,18 @@ class sunFlowerField extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Fields.json");
+      this.load.tilemapTiledJSON("Sun_Flower_Cave" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Cave.json");
       
+      
+      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
 
       this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
-      //this.load.spritesheet('sunflowerParallax', 'assets/parrallax/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
-      this.load.spritesheet('Sun_Flower_Parrallax', 'assets/parrallax/Sun_Flower_Parrallax.png',{frameWidth: 1920 , frameHeight: 1920});
-      this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
-
-      //this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
+      this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       
       /*this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -85,8 +84,7 @@ class sunFlowerField extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("Sun_Flower_Fields","Forest_Tileset","forest_source_map");
-    
+      this.setUpTileSet("Sun_Flower_Cave","Forest_Tileset","forest_source_map");
       //creates player object
       this.setUpPlayer();
 
@@ -118,77 +116,75 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(839,1149-416+13,
-          "THE WEIGHT OF MY HEART THREATENS TO TOPLE ME OVER. OVERFLOWING WITH MEMORYS OF LOST PROMISES AND SWEET SENTIMENTS UNFUFILLED. ITS ENOUGH TO DRIVE ME TO MY KNEES AND YET IM AM SPURNED TO KEEP MOVING FORWARD BY ACHING IN MY HEART.",
-          ['signLoop']);
+      this.initSigns(4666-4160,1085+13,
+        "WHAT DOES IT MEAN TO BE DRIVEN? EVERYDAY I FIND MY SELF CONTINUE TO FIGHTING, BUT A PART OF ME FEARS THAT I WONT LIVE UP TO THE EXPECTATION MY DESIRES HAVE SET.",
+        ['signLoop']);
 
-      this.skybackround = this.add.tileSprite(3000, -1940+616, 6*1024, 4*1024, "backgroundSkyLevel");
+      this.skybackround = this.add.tileSprite(1500, -1940, 7*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
 
-      this.backround = this.add.tileSprite(3000, 1370-416, 7*1152, 765, "backgroundSunflowerLevel");
+      this.backround = this.add.tileSprite(3000, 1370, 7*1152, 765, "backgroundSunflowerLevel");
       this.backround.setDepth(-51);
       this.backround.setScale(0.7);
       this.backround.setTint(0xd3d3d3);
 
+      this.initSavePoints(5490-4160,893-14);
 
-      this.parrallax1 = this.add.tileSprite(3000, 1290-416, 1920*10 ,1920, "Sun_Flower_Parrallax");
-      this.parrallax1.setScale(1/3);
-      this.parrallax1.setDepth(-50);
-      this.parrallax1.setTint(0x808080);
-
-      this.parrallax2 = this.add.tileSprite(3000, 1290-416+600, 1920*10 ,1920, "ground_parrallax");
-      this.parrallax2.setScale(1/3);
-      this.parrallax2.setDepth(-50);
-      this.parrallax2.setTint(0x808080);
-
-      
-      //this.initSavePoints(759,1437-14);
-      this.initSavePoints(759,1021-14);
-
-      this.initSavePoints(5490,893-14);
-
-      this.initPortals(395,1053-13,661,829,"warpCaveOutside","caveToSunflowers1");
+      this.initPortals(982,1597-13,5119,1181,"warpCaveOutside","sunFlowerField");
       //2109-1469 = 640
-      this.initPortals(5119,1181-13,982,1597,"warpCaveOutside","sunFlowerCave");
+      this.initPortals(6763-4160,1469-13,661,829,"warpCaveOutside","caveToSunflowers2");
 
-      this.initPortals(5601,893-13,4001,541,"warpCaveOutside","batCave");
+      this.initPortals(5601-4160,893-13,4001,541,"warpCaveOutside","batCave");
 
       //fake warps not implemented yet.
       
-      //this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp2 = new fakeWarp(this,885,1469-416-13,'warpCaveOutsideRubble');
+      //makes secret wall
+      this.secretWall1 = this.add.sprite(4943.6-4160, 1072.2, "secretWall1");
+      this.secretWall1.setDepth(7);
+      this.secretWall1.setScale(0.335);
       
       //sets up containers
       this.setUpContainers();
 
+      let thisScene = this;
+      setTimeout(function(){
+           
+        let knife = {
+          itemID: 4,
+          itemName: 'KNIFE',
+          itemDescription: 'GOOD FOR SLASHING MONSTERS.',
+          itemStackable: 0,
+          itemAmount: 1
+        };
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      thisScene.initItemContainer(5324-4160,1085-3,knife,true,"cave_chest_with_knife");
+        
+      },1000);
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //creates health upgrade object in level
+      this.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerField');
+
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["beeDrones"];
+      this.enemyGroupArray = ['blueSlimes'];
       this.setUpEnemyCollider(this.enemyGroupArray);
      
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
-      this.initBarrier(1103,1350-416,30,140);
-      this.initBarrier(4812,1350-416,30,140);
-      this.initBarrier(6665,1400,30,300);
-
-      let thisScene = this;
+      this.initBarrier(6665-4160,1400,30,300);
+      this.initBarrier(1548,1565,30,300);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
           
-          thisScene.initEnemy(1934, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX1');
+          thisScene.initEnemy(5580-4160, 1245,thisScene.playerSex,'blueSlime',false);
 
-          thisScene.initEnemy(2850, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX2');
-
-          thisScene.initEnemy(3550, 1424-416,thisScene.playerSex,'beeDrone',false,'wingFlapSFX3');
-
-          thisScene.initEnemy(4142, 1424-416,thisScene.playerSex,'beeDrone',false,"wingFlapSFX4");
+          thisScene.initEnemy(6194-4160, 1373,thisScene.playerSex,'blueSlime',false);
 
           thisScene.spawnedEnemys = true;
         },1000);
@@ -210,35 +206,7 @@ class sunFlowerField extends defaultScene {
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-
-      //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.parrallax1.x += 0.5;
-        this.parrallax2.x += 0.5;
-        this.backround.x += 0.7;
-        this.skybackround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.parrallax1.x -= 0.5;
-        this.parrallax2.x -= 0.5;
-        this.backround.x -= 0.7;
-        this.skybackround.x -= 0.7;
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.parrallax1.y -= 0.1;
-        this.parrallax2.y -= 0.1;
-        this.backround.y -= 0.3;
-        this.skybackround.y -= 0.3;
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.parrallax1.y += 0.1;
-        this.parrallax2.y += 0.1;
-        this.backround.y += 0.3;
-        this.skybackround.y += 0.3;
-      }
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;

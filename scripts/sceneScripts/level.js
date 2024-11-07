@@ -370,6 +370,18 @@ class level extends Phaser.Tilemaps.Tilemap{
                                                 Tile.collideLeft = false;
                                                 Tile.collideRight = false;
                                                 break;
+                                                case 117: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                case 141: // <- this tile only colides top
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
                                                 case 137: // <- this tile only colides top
                                                 Tile.collideUp = true;
                                                 Tile.collideDown = false;

@@ -27,8 +27,8 @@ class caveToSunflowers1 extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("cave_connector_map" , "assets/tiledMap/LockWood/Cave_Connecter.json");
-      
+      this.load.tilemapTiledJSON("cave_connector_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Connecter.json");
+      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       this.defaultPreload();
 
 
@@ -54,7 +54,7 @@ class caveToSunflowers1 extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("cave_connector_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("cave_connector_map","Cave_Tileset","cave_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -87,7 +87,7 @@ class caveToSunflowers1 extends defaultScene {
 
       this.initPortals(1570,829-13,281,1277,"warpCaveInside","ForestRavineHome");
 
-      this.initPortals(661,829-13,400,1469,"warpCaveInside","sunFlowerField");
+      this.initPortals(661,829-13,395,1053,"warpCaveInside","sunFlowerField");
       
       //sets up containers
       this.setUpContainers();

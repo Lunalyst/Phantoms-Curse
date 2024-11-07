@@ -110,7 +110,7 @@ class batCave extends defaultScene {
 
       this.initSavePoints(2196,1117-14);
 
-      this.initPortals(4001,541-13,5601,893,"warpCaveInside","sunFlowerField");
+      this.initPortals(4001,541-13,5601-4160,893,"warpCaveInside","sunFlowerCave");
 
       this.initPortals(2088,1117-13,1753,573,"warpCaveOutside","blueSlimeCave");
 

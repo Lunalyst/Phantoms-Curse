@@ -22,8 +22,9 @@ class HomeInterior2 extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("home_interior2_map" , "assets/tiledMap/LockWood/Player_Home_Interior2.json");
-
+      this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
+      this.load.tilemapTiledJSON("home_interior2_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Player_Home_Interior2.json");
+     
       this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
       this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
       this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
@@ -47,8 +48,8 @@ class HomeInterior2 extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("home_interior2_map","Forest_Large_Tiles","source_map");
-    
+      this.setUpTileSet("home_interior2_map","Home_Interior_Tileset","home_source_map");
+
       //creates player object
       this.setUpPlayer();
 

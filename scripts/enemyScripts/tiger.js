@@ -91,19 +91,19 @@ class tiger extends enemy {
         //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerFemale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
 
-        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemale', { start: 103, end: 106 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemale', { start: 107, end: 110 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemale', { start: 111, end: 114 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemale', { start: 115, end: 118 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemale', { start: 119, end: 129 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemale', { start: 130, end: 136 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemale', { start: 137, end: 151 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemale', { start: 152, end: 154 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemale', { start: 155, end: 166 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemale', { start: 167, end: 171 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemale', { start: 172, end: 173 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemale', { start: 174, end: 178 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemale', { start: 179, end: 186 }), frameRate: 5, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 103-103, end: 106-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 115-103, end: 118-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 119-103, end: 129-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 130-103, end: 136-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 137-103, end: 151-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 152-103, end: 154-103 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 155-103, end: 166-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 167-103, end: 171-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 179-103, end: 186-103 }), frameRate: 5, repeat: -1 });
 
         this.inSafeMode = inSafeMode;
 

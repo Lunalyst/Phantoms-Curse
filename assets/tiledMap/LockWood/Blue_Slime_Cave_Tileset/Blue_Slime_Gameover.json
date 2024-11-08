@@ -68,9 +68,9 @@
         {
          "columns":24,
          "firstgid":1,
-         "image":"Blue_Slime_Cave_Tileset\/Blue_Slime_Cave_Tileset.png",
-         "imageheight":3072,
-         "imagewidth":2304,
+         "image":"Blue_Slime_Cave_Tileset.png",
+         "imageheight":3136,
+         "imagewidth":2352,
          "margin":0,
          "name":"Blue_Slime_Cave_Tileset",
          "spacing":0,

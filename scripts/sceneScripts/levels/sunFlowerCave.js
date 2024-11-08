@@ -28,6 +28,7 @@ class sunFlowerCave extends defaultScene {
       this.defaultPreload();
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("Sun_Flower_Cave" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Cave.json");
+      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       
       
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });

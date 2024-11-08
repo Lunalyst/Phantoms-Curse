@@ -52,51 +52,51 @@ class beeDrone extends enemy {
 
         //defines beeDrone animations based on the players sex.
         if(this.enemySex === 0) {
-            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneMale', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneMale', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
 
-            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneMale', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
             if(sex === 0 ){
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale', { start: 40, end: 44 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 58, end: 69 }), frameRate: 8, repeat: 0 }); 
+                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 40, end: 44 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 58-58, end: 69-58 }), frameRate: 8, repeat: 0 }); 
                
             }else{
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 73, end: 78 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale', { start: 79, end: 85 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale', { start: 86, end: 91 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale', { start: 92, end: 96 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale', { start: 97, end: 108 }), frameRate: 8, repeat: 0 }); 
+                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 70-58, end: 72-58 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 73-58, end: 78-58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 79-58, end: 85-58 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 86-58, end: 91-58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 92-58, end: 96-58 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 97-58, end: 108-58 }), frameRate: 8, repeat: 0 }); 
             }
              
         }else{
-            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneGrab', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 12, end: 17 }), frameRate: 8, repeat: 0 });
 
-            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeDroneTailSwallow3', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 45, end: 50 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneTailJiggle', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 52, end: 57 }), frameRate: 8, repeat: -1 });
             if(sex === 0 ){
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 58, end: 69 }), frameRate: 8, repeat: 0 }); 
+                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 18, end: 20 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 21, end: 26 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 27, end: 33 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 40, end: 43 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 58-58, end: 69-58 }), frameRate: 8, repeat: 0 }); 
                
             }else{
-                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 70, end: 72 }), frameRate: 6, repeat: 0 });
-                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 73, end: 78 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 79, end: 85 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 86, end: 91 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 92, end: 96 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale', { start: 97, end: 108 }), frameRate: 8, repeat: 0 }); 
+                this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 70-58, end: 72-58 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 73-58, end: 78-58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow1', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 79-58, end: 85-58 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 86-58, end: 91-58 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 92-58, end: 96-58 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 97-58, end: 108-58 }), frameRate: 8, repeat: 0 }); 
             }
             
         }

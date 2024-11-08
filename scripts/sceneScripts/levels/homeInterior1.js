@@ -26,7 +26,8 @@ class HomeInterior1 extends defaultScene {
 
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
-      this.load.tilemapTiledJSON("home_interior1_map" , "assets/tiledMap/LockWood/Player_Home_Interior1.json");
+      this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
+      this.load.tilemapTiledJSON("home_interior1_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Player_Home_Interior1.json");
      
 
       this.defaultPreload();
@@ -48,7 +49,7 @@ class HomeInterior1 extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("home_interior1_map","Forest_Large_Tiles","source_map");
+      this.setUpTileSet("home_interior1_map","Home_Interior_Tileset","home_source_map");
     
       //creates player object
       this.setUpPlayer();

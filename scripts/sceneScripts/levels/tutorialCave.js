@@ -29,7 +29,7 @@ class tutorialCave extends defaultScene {
 
       this.load.tilemapTiledJSON("cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Tutorial_Cave.json");
 
-      this.load.image("tutorial_cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
+      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       this.defaultPreload();
 
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
@@ -63,7 +63,7 @@ class tutorialCave extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("cave_map","Cave_Tileset","tutorial_cave_source_map");
+      this.setUpTileSet("cave_map","Cave_Tileset","cave_source_map");
 
       //plays looping sound
       this.initLoopingSound('caveSFX','cave', 0.1);

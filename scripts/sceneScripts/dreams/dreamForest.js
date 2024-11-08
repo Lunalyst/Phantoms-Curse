@@ -31,11 +31,13 @@ class dreamForest extends defaultScene {
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
       this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
+      this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 270 });
       this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 270 });
       this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
+      this.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
       this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
 

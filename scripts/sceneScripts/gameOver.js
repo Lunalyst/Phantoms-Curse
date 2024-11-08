@@ -50,6 +50,7 @@ class gameOver extends allSceneFunctions {
 
             this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
             this.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
+            this.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
             
             this.load.spritesheet("gameOverSignCursed" , "assets/gameover/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
@@ -57,11 +58,11 @@ class gameOver extends allSceneFunctions {
             this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
             //fix
              //load in the JSON file for the bitmap
-            this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Gameover.json");
-            this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Gameover.json");
-            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Gameover.json");
-            this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Gameover.json");
-            this.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Gameover.json");
+            this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Gameover.json");
+            this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Gameover.json");
+            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
+            this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Grub_Hive_Gameover.json");
+            this.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
             
 
             this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
@@ -141,18 +142,29 @@ class gameOver extends allSceneFunctions {
 
             this.tryAgian.visible = false;
              
-            console.log("loading gameover tileset");
+            console.log("loading gameover tileset: ", this.gameoverLocation);
 
-            let myMap = this.make.tilemap({ key: this.gameoverLocation});
+            let myMap = this.make.tilemap({ key:this.gameoverLocation});
+
+            console.log("loading gameover tileset: ", this.gameoverLocation);
             //creates a new level object which is used to display map. sends scene and mapdata
             this.processMap = new level(this,myMap);
             //calls function that loads the tiles from the json
             if(this.gameoverLocation === 'blueSlimeGameover'){
                 this.processMap.tilesetNameInTiled = "Blue_Slime_Cave_Tileset";
                 this.processMap.setTiles('blue_slime_source_map',this);
+            }else if(this.gameoverLocation === 'caveGameover'){
+                this.processMap.tilesetNameInTiled = "Cave_Tileset";
+                this.processMap.setTiles('cave_source_map',this);
+            }else if(this.gameoverLocation === 'forestGameover'){
+                this.processMap.tilesetNameInTiled = "Forest_Tileset";
+                this.processMap.setTiles('forest_source_map',this);
+            }else if(this.gameoverLocation === 'hiveGameover'){
+                this.processMap.tilesetNameInTiled = "Hive_Tileset";
+                this.processMap.setTiles('hive_source_map',this);
             }else{
-                this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
-                this.processMap.setTiles('source_map',this);
+                //this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
+                //this.processMap.setTiles('source_map',this);
             }
 
             //uses the eneny string to determine what animation should be played.

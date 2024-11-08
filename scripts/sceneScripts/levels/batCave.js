@@ -22,10 +22,11 @@ class batCave extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("bat_cave_map" , "assets/tiledMap/LockWood/Bat_Cave.json");
+      this.load.tilemapTiledJSON("bat_cave_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bat_Cave.json");
 
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-     
+      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
+      
       this.load.spritesheet('woodBarrier', 'assets/gameObjects/woodBarrier.png',{frameWidth: 126, frameHeight: 288 });
       this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 126, frameHeight: 96 });
 

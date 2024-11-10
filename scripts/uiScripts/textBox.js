@@ -39,10 +39,10 @@ class textBox extends Phaser.GameObjects.Container{
           y += 20;
           spacing = -200;
         }
-
-      this.completedText = false;
  
       }
+      //variable to tell when text is complete.
+      this.completedText = false;
 
       //displays prtofile sprite meant to resemble what is currently talking to the player.
       this.textBoxProfileImage = new textBoxProfile(scene, -250, 0);
@@ -84,6 +84,10 @@ class textBox extends Phaser.GameObjects.Container{
         scene1.pausedInTextBox = true;
         //console.log("scene1.isPaused: "+ scene1.isPaused);
         this.completedText = false;
+
+        //use emmitter to hide the mobile controls if there on.
+        controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
+
       }
       
       //if the player pressed w then
@@ -128,15 +132,15 @@ class textBox extends Phaser.GameObjects.Container{
       this.profileArrayPosition = 0;
 
       this.completedText = true;
+      //use emmitter to show the mobile controls if there on.
+      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
 
-      //one second time out for activating this text.
+
+      let tempTextBox = this;
       setTimeout(function(){
-        console.log("delay end for text box");
-        currentTextBox.textBoxActivationCoolDown =  false;
-        //this.completedText = false;
-        },1000);
-
-      
+        tempTextBox.completedText = false;
+        tempTextBox.textBoxActivationCoolDown = false;
+      },1000); 
     }
   }
 }

@@ -75,7 +75,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.add(this.exitButton);
 
         //need textbox to display exit
-        this.optionsTextBox = new textBox(scene,-167,895,'charBlack');
+        this.optionsTextBox = new textBox(scene,-167,625,'charBlack');
         this.optionsTextBox.setScale(1.1);
         this.add(this.optionsTextBox);
 
@@ -85,13 +85,13 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.add(this.closingButton);
 
         //need yes button to boot to main menu
-        this.yes = new yes(scene,-297, 805);
+        this.yes = new yes(scene,-297, 535);
         this.yes.setupYesSettings();
         this.yes.setOptionsMenu(this);
         this.add(this.yes);
 
         //need no to close prompt
-        this.no = new no(scene,-37, 805);
+        this.no = new no(scene,-37, 535);
         this.no.setOptionsMenu(this);
         this.no.setupNoSettings();
         this.add(this.no);
@@ -185,9 +185,6 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.sexButton.setValue(this.currentSexValue);
 
         //hides mobile controls if they are not suppost to be on.
-        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-        console.log('this.currentMobileControls: ',this.currentMobileControls);
-        console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
         if(!this.currentMobileControls){
             this.scene.mobileGroup.toggleVisible();
         }
@@ -253,7 +250,10 @@ class optionsMenu extends Phaser.GameObjects.Container{
         playerDataObject.settings.onomatopoeia = this.currentOnomatValue;
         playerDataObject.settings.mobileControls = this.currentMobileControls;
 
-        //saves settings.
+        //update the settings variable a part of the gamehud, so that the settings dont get overwritten incorrectly later.
+        this.scene.settings = playerDataObject.settings;
+
+        //saves settings to our json save file
         this.scene.saveGameFile(playerDataObject);
 
         //resets the reload value

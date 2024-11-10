@@ -36,6 +36,9 @@ controlKeyEvent = {
     justDownDKey: 'just_down_d_key',
     justDownSpaceKey:'just_down_space_key',
     justDownATKKey: 'just_down_atk_key',
+
+    toggleForTextBox:'toggle_for_text_box',
+    toggleForInventory:'toggle_for_Settings'
 };
 
 controlKeyEmitter = new Phaser.Events.EventEmitter();

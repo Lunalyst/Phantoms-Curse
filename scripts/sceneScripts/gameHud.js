@@ -472,7 +472,7 @@ class gameHud extends allSceneFunctions {
             this.mobileATK.playATKKey(0);
           },this);
 
-          this.mobileInventory = new mobileButton(this,800,mobileY+100).setInteractive(this.input.makePixelPerfect());
+          this.mobileInventory = new mobileButton(this,840,mobileY+100).setInteractive(this.input.makePixelPerfect());
           this.mobileInventory.playInventoryKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -547,6 +547,25 @@ class gameHud extends allSceneFunctions {
 
               object.isDown = false;
             }
+          });
+
+          //emitter to hide the mobile controls if the player enters dialogue
+          controlKeyEmitter.on(controlKeyEvent.toggleForTextBox,(toggle) =>{
+
+            //check if the mobile controls are even visible.
+            if(this.settings.mobileControls === true){
+              //if so then set the visibility of A,D,S,ATK,JMP,and Inventory.
+              this.mobileA.visible = toggle;
+              this.mobileS.visible = toggle;
+              this.mobileD.visible = toggle;
+              this.mobileJMP.visible = toggle;
+              this.mobileATK.visible = toggle;
+              this.mobileInventory.visible = toggle;
+            //otherwise we only want to toggle the inventory button
+            }else{
+              this.mobileInventory.visible = toggle;
+            }
+            
           });
 
           //emitter to return the save slot

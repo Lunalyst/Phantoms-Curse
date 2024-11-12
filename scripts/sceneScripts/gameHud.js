@@ -568,6 +568,22 @@ class gameHud extends allSceneFunctions {
             
           });
 
+          //emitter to hide the mobile controls if the player enters dialogue
+          controlKeyEmitter.on(controlKeyEvent.toggleForStruggle,(toggle) =>{
+
+            //check if the mobile controls are even visible.
+            if(this.settings.mobileControls === true){
+              //if so then set the visibility of A,D,S,ATK,JMP,and Inventory.
+              this.mobileJMP.visible = toggle;
+              this.mobileATK.visible = toggle;
+              this.mobileInventory.visible = toggle;
+            //otherwise we only want to toggle the inventory button
+            }else{
+              this.mobileInventory.visible = toggle;
+            }
+            
+          });
+
           //emitter to return the save slot
           inventoryKeyEmitter.on(inventoryKey.getSaveSlot,(object) =>{
             object.saveSlot = this.playerSaveSlotData.saveSlot;

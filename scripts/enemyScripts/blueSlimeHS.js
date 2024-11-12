@@ -222,6 +222,9 @@ class blueSlimeHS extends enemy {
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
             struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
 
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
             //logic for when the player is grabbed
             this.slimeGrabTrue(playerHealthObject);
 
@@ -263,6 +266,9 @@ class blueSlimeHS extends enemy {
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
             
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
@@ -466,6 +472,9 @@ class blueSlimeHS extends enemy {
                 this.scene.startGrabCoolDown();
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
 
                 //unhide the player.
                 this.scene.player1.visible = true;

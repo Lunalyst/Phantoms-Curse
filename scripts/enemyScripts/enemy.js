@@ -122,6 +122,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
 
     tabToGiveUp(){
         console.log("activating give up function from enemy.js")
+        
         //if(Phaser.Input.Keyboard.JustDown(this.scene.keyTAB)){
         if(this.scene.checkGiveUpIndicatorIsDown()){
             healthEmitter.emit(healthEvent.loseHealth,9999);

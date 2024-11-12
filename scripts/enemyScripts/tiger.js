@@ -477,6 +477,9 @@ class tiger extends enemy {
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
             struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
 
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
             this.tigerGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
@@ -519,6 +522,9 @@ class tiger extends enemy {
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                 
                 //defeated animation logic.
                 this.playerIsDefeatedLogic(playerHealthObject);
@@ -534,6 +540,9 @@ class tiger extends enemy {
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                 
                 //defeated animation logic.
                 this. playerplayerIsDefeatedLogicBooba(playerHealthObject);
@@ -884,6 +893,9 @@ class tiger extends enemy {
                     this.scene.player1.visible = true;
                     //player1.setSize(23, 68, true);
                     struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                    //hides the mobile controls in the way of the tab/skip indicator.
+                    controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
 
                     this.scene.player1.body.setGravityY(600);
                     this.body.setGravityY(600);

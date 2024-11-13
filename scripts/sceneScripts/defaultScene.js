@@ -1558,7 +1558,7 @@ class defaultScene extends allSceneFunctions {
 
     viewAnimationLogic(enemy){
       //check if the player presses w while in range   
-      if(Phaser.Input.Keyboard.JustDown(this.keyW) === true){
+      if(this.checkWPressed() === true){
           
         //stop the velocity of the player
         enemy.setVelocityX(0);

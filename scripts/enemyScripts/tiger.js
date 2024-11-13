@@ -63,7 +63,7 @@ class tiger extends enemy {
         //male animations
         if (sex === 0) {
             this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 60, end: 64 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 60, end: 63 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 65, end: 71 }), frameRate: 7, repeat: 0 });
 
             this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 27, end: 30 }), frameRate: 7, repeat: -1 });
@@ -90,7 +90,6 @@ class tiger extends enemy {
         }
         //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerFemale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
-
         this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 103-103, end: 106-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
@@ -122,8 +121,8 @@ class tiger extends enemy {
         //sets the gravity for tiger
         this.body.setGravityY(600);
         //possitions her sprite box correctly along with her hitbox
-        this.setSize(100, 250, true);
-        this.setOffset(100, 20);
+        this.setSize(100, 253, true);
+        this.setOffset(120, 25);
 
         //if the tiger is hungry then
         if(this.tigerHasEatenRabbit === false){
@@ -390,8 +389,8 @@ class tiger extends enemy {
     gameOver(version) {
         
         //puts the sprite and hitbox in the correct locations.
-        this.setSize(100, 250, true);
-        this.setOffset(100, 20);
+        this.setSize(100, 253, true);
+        this.setOffset(120, 25);
         //plays game over animation
 
         if(version === 1){
@@ -1313,6 +1312,9 @@ class tiger extends enemy {
 
             //object is on view layer 5 so enemy is infront of others.
             this.setDepth(5);
+
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {

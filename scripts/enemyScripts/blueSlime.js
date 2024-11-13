@@ -1123,6 +1123,9 @@ class blueSlime extends enemy {
             //object is on view layer 5 so enemy is infront of others.
             this.setDepth(5);
 
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
                 playerHealth: null

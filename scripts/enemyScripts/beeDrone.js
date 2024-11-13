@@ -792,6 +792,9 @@ class beeDrone extends enemy {
             //object is on view layer 5 so enemy is infront of others.
             this.setDepth(5);
 
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
             //plays jumpy sound during grab.
             if (this.playerProgressingAnimation === false) {
                 this.playJumpySound('3',700);

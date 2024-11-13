@@ -845,6 +845,9 @@ class bat extends enemy {
             //object is on view layer 5 so enemy is infront of others.
             this.setDepth(5);
 
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
             //plays jumpy sound during grab.
             if (this.playerProgressingAnimation === false) {
                 this.playJumpySound('3',700);
@@ -873,7 +876,7 @@ class bat extends enemy {
             if (this.playerProgressingAnimation === false) {
 
             // handles input for progressing animation
-            console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
+            //console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
             if (this.scene.checkDPressed() === true) {
                 this.playerProgressingAnimation = true;
                 }
@@ -886,8 +889,8 @@ class bat extends enemy {
                 }      
             }
 
+            //console.log("this.playerProgressingAnimation: ",this.playerProgressingAnimation)
             if( this.playerProgressingAnimation === true){
-                
                 //calls animation grab code until the animation is finished
                 if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
                     //handle the defeated logic that plays defeated animations 

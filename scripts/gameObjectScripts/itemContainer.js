@@ -4,7 +4,7 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
     // is passed in the scene,x&y position for the scene, item id and its details,a flag to tell if it should be opened once, and a bool to tell if the chest can be opened up multiple times.
     constructor(scene, xPos, yPos,item,openOnlyOnce,flag){
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'chest');
+        super(scene, xPos, yPos-12, 'chest');
         //then we add new instance into the scene. 
         scene.add.existing(this);
         //then we call this next line to give it collision box

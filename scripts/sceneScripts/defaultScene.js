@@ -66,7 +66,7 @@ class defaultScene extends allSceneFunctions {
        this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
        this.load.spritesheet('sign', 'assets/gameObjects/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('itemDrops', 'assets/gameObjects/itemDrops.png',{frameWidth: 96, frameHeight: 96});
-       this.load.spritesheet('chest', 'assets/gameObjects/chest.png',{frameWidth: 249, frameHeight: 231});
+       this.load.spritesheet('chest', 'assets/gameObjects/chest.png',{frameWidth: 381, frameHeight: 303});
 
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
            

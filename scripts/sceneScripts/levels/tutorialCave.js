@@ -103,7 +103,7 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(671,1757+12,
+      this.initSigns(1075,1757+12,
         "you may find things on this island that can help you. when you open a container you may recieve a item. you can check your inventory by pressing tab. to move items around simply click them from there current slot to the slot you want it to be in. you have two special slots. weapon and ring. the weapon slot allows you to change your attack. rings help you more passively. if you have no weapon equipt you will simply flail about.  ",
         ['signLoop']);
 
@@ -140,7 +140,7 @@ class tutorialCave extends defaultScene {
         };
         
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-        thisScene.initItemContainer(780,1757-3,oar,true,"cave_tutorial_chest_with_oar");
+        thisScene.initItemContainer(1185,1757-3,oar,true,"cave_tutorial_chest_with_oar");
         
       },2000);
       
@@ -166,6 +166,8 @@ class tutorialCave extends defaultScene {
 
     update(){
       
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
       //calls the built in update function
       this.defaultUpdate();
 

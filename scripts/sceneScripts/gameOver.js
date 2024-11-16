@@ -244,6 +244,17 @@ class gameOver extends allSceneFunctions {
                 this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "femaleChestMimic"){
+                this.preferance = 1;
+                this.enemy = new chestMimic(this,450, 570,this.playerSex);
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "femaleChestMimicVore"){
+                this.preferance = 1;
+                this.enemy = new chestMimic(this,450, 570,this.playerSex);
+                this.enemy.angry = true;
+                this.enemy.gameOver();
+                this.defeatedTitle = 'eaten';
             }
             
             
@@ -411,7 +422,7 @@ class gameOver extends allSceneFunctions {
                         scene.enemy.beeDroneSoundCoolDown = false;
                     }, 1200);
                 }    
-            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger'){
+            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger' || this.enemyThatDefeatedPlayer === "femaleChestMimic"|| this.enemyThatDefeatedPlayer === "femaleChestMimicVore"){
                 this.enemy.playJumpySound('10',800);
             }
             

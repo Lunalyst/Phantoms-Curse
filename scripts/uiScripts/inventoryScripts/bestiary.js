@@ -28,6 +28,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary3', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'blueSlimeMaleHM', frames: this.anims.generateFrameNames('bestiary3', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary3', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleChestMimic', frames: this.anims.generateFrameNames('bestiary3', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary3', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -110,6 +112,14 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       blueSlimeFemaleHM: {
         title: "BLUE SLIME FEMALE",
         summary: "AFTER GROWING TO ITS SECOND STAGE, IT TAKE ON A FEMININE APPEARANCE BASED ON THE LARGEST THING IT ABSORBED. WITH ITS NEW FEMALE FORM, IT IS NOT AS RAVINOUS AND PREFERS TO PLAY WITH ITS FOOD. IF THIS SLIME GROWS LARGE ENOUGH IT CAN PRODUCE SMALLER SLIMES TO SPREAD THERE CURSE.",
+      },
+      femaleChestMimic: {
+        title: "CHEST MIMIC FEMALE",
+        summary: "LURKING INSIDE CHESTS, THESE SLUGS USE CONTAINERS AS HOMES THAT DOUBLE AS A TRAP TO AMBUSH PREY. WHEN PREY IS NEAR, THEY ARE KNOW TO GET IMPATIENT AND PEAK OUT OF THERE HOME IF IT GETS TOO QUIET. ",
+      },
+      femaleChestMimicVore: {
+        title: "CHEST MIMIC FEMALE LARGE",
+        summary: "A SLIGHTLY LARGE MIMIC AFTER SHE HAS DEVOWERED SOME PREY. THEY OFTEN ENJOY COVETING ITEMS THAT THERE PREY HAD. SPECIALLY IF IT EXCENTUATES HER FIGURE.",
       },
 
       back: {

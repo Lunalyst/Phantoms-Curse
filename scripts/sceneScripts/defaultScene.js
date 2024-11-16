@@ -1311,6 +1311,13 @@ class defaultScene extends allSceneFunctions {
           console.log("adding blueSlimeHMs group");
           this.blueSlimeHMs = this.physics.add.group();
         }
+        if(enemyGroupArray[counter] === 'chestMimics'){
+
+          console.log("adding chestMimics group");
+          this.chestMimics = this.physics.add.group();
+        }
+
+        //this.chestMimics
       }
       //creates enemys group that can apply geberic functions to all enemys
       this.enemys = this.physics.add.group();
@@ -1410,6 +1417,27 @@ class defaultScene extends allSceneFunctions {
         //adds the enemy to both groups.
         this.enemys.add(slime1);
         this.blueSlimeHMs.add(slime1);
+      }else if(enemyType === 'chestMimic'){
+        
+        //creates a secondary group to handle enemy specific interactions which we will use later
+        let mimic = new chestMimic(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
+
+        console.log("mimic.enemyId: ",mimic.enemyId);
+        this.enemyId++;
+        //adds the enemy to both groups.
+        this.enemys.add(mimic);
+        this.chestMimics.add(mimic);
+      }else if(enemyType === 'chestMimicAngry'){
+        
+        //creates a secondary group to handle enemy specific interactions which we will use later
+        let mimic = new chestMimic(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
+        mimic.angry = true;
+        mimic.anims.play('mimicAngryIdle',true);
+        console.log("mimic.enemyId: ",mimic.enemyId);
+        this.enemyId++;
+        //adds the enemy to both groups.
+        this.enemys.add(mimic);
+        this.chestMimics.add(mimic);
       }else{
         console.log("UNKNOWN enemyType: ",enemyType);
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
@@ -2170,6 +2198,77 @@ class defaultScene extends allSceneFunctions {
       
     }
 
+    checkChestMimicsInteractions(scene) {
+
+      //console.log("checking slime interactions");
+      //applies functions to all slimes in the group.
+      scene.chestMimics.children.each(function (tempMimic) {
+
+        //safty check to improve performance. only does overlap if in range.
+        if(this.objectsInRangeX(tempMimic,this.player1,300) && this.objectsInRangeY(tempMimic,this.player1,150) && tempMimic.inSafeMode === false){
+          //calls to make each instance of a chest mimic active
+          tempMimic.move(scene.player1,scene);
+
+          //damage fuctions
+          scene.physics.add.overlap(scene.attackHitBox, tempMimic, function () {
+            tempMimic.hitboxOverlaps = true;
+          });
+
+          if(tempMimic.hitboxOverlaps === true) {
+            console.log("mimic taking damage, mimic hp:" + tempMimic.enemyHP);
+            tempMimic.damage(scene);
+            tempMimic.hitboxOverlaps = false;
+
+            //if the mimic is attacked then set the value so it can jump out and get angry.
+            tempMimic.attacked = true;
+          }
+
+          //adds collider between player and mimic attack hitbox. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          scene.physics.add.overlap(scene.player1, tempMimic.grabHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              //scene.playerInventory.setView(scene);
+            }
+            //console.log("player overlaps slime");
+            //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            if (tempMimic.grabCoolDown === false && scene.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempMimic.setVelocityX(0);
+              scene.player1.setVelocityX(0);
+              //calls the grab function
+              tempMimic.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempMimic.playerGrabbed = true;
+              tempMimic.grabCoolDown = true;
+              scene.grabbed = true;
+              scene.grabCoolDown = true;
+              console.log('player grabbed by slime');
+            }
+          });
+          
+        //function for animation viewer logic.
+        }else if(this.objectsInRangeX(tempMimic,scene.player1,30) && this.objectsInRangeY(tempMimic,scene.player1,30)){
+
+          this.viewAnimationLogic(tempMimic);
+        // otherwise hid the prompt from the player.
+        }else{
+          tempMimic.setVelocityY(0);
+          tempMimic.setVelocityX(0);
+          tempMimic.safePrompts.visible = false;
+          tempMimic.playedSafePrompts = false;
+        }
+      }, this);
+
+    }
+
     //{Update functions}===================================================================================================================
 
     //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
@@ -2365,6 +2464,9 @@ class defaultScene extends allSceneFunctions {
               }
               if(enemyGroupArray[counter] === 'blueSlimeHMs'){
                 this.checkBlueSlimeHMInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'chestMimics'){
+                this.checkChestMimicsInteractions(this);
               }
             }
 

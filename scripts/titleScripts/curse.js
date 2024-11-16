@@ -10,9 +10,8 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.setScrollFactor(0);
       this.visible = true;
       this.animationComplete = false;
-
-      this.randomCurse = Math.floor((Math.random() * 4)+1);
-      
+      //total number of curses the phantom can display on the title.
+      this.maxVal = 6;
       
       this.anims.create({key: '0',frames: this.anims.generateFrameNames('curses', { start: 0, end: 0 }),frameRate: 4,repeat: -1});
       this.anims.create({key: '1',frames: this.anims.generateFrameNames('curses', { start: 1, end: 7 }),frameRate: 4,repeat: 0});
@@ -20,6 +19,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '3',frames: this.anims.generateFrameNames('curses', { start: 15, end: 21 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '4',frames: this.anims.generateFrameNames('curses', { start: 22, end: 28 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '5',frames: this.anims.generateFrameNames('curses', { start: 29, end: 35 }),frameRate: 4,repeat: 0});
+      this.anims.create({key: '6',frames: this.anims.generateFrameNames('curses', { start: 36, end: 42 }),frameRate: 4,repeat: 0});
 
       this.setScale(1);
       
@@ -27,14 +27,14 @@ class curse extends Phaser.Physics.Arcade.Sprite{
 
     switchCurse(){
 
-      this.randomCurse = Math.floor((Math.random() * 5)+1);
-       let temp = ''+ this.randomCurse;
-       //console.log("temp: ", temp);
+      this.randomCurse = Math.floor((Math.random() * this.maxVal)+1);
+      let temp = ''+ this.randomCurse;
+      console.log("temp: ", temp);
 
-        this.anims.play(temp).once('animationcomplete' , () =>{
+      this.anims.play(temp).once('animationcomplete' , () =>{
           this.visible = false;
           return false;
-        });
+      });
     }
 
       

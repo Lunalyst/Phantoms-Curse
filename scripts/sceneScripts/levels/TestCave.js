@@ -17,12 +17,6 @@ class TestCave extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
-    
-
     }
 
     preload(){
@@ -35,6 +29,11 @@ class TestCave extends defaultScene {
 
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+
+      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
       
 
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
@@ -43,6 +42,10 @@ class TestCave extends defaultScene {
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+      ]);
+
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
     }
@@ -104,32 +107,59 @@ class TestCave extends defaultScene {
       this.setUpContainers();
 
       let thisScene = this;
-      setTimeout(function(){
-           
-          let axe = {
-              itemID: 10,
-              itemName: 'AXE',
-              itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
-              itemStackable: 0,
-              itemAmount: 1
-          };
-          
-          //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-          thisScene.initItemContainer(1383,666,axe,true,"cave_chest_with_axe");  
-        
-      },2000);
-      //sets up containers
+      //sets up enemy colliders and groups
+      this.enemyGroupArray = ["blueSlimes","chestMimics"];
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
-   
+      //check container flag to see if a mimic could spawn.
+
+      //make a temp object
+      let object = {
+        flagToFind: "cave_chest_with_axe",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      //if the player has already opened the chest spawm a mimic half the time
+      this.randomInput = Math.floor((Math.random() * 3));
+      if(object.foundFlag === true && this.randomInput === 1){
+      //random number to determine if the mimic is spawned or a empty chest.
+
+
+      setTimeout(function(){
+          
+        thisScene.initEnemy(1383,666,thisScene.playerSex,'chestMimic',false);
+
+      },1000);
+      
+      //otherwise spawn the chest like normal.
+      }else{
+
+        setTimeout(function(){
+            
+            let axe = {
+                itemID: 10,
+                itemName: 'AXE',
+                itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
+                itemStackable: 0,
+                itemAmount: 1
+            };
+            
+            //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+            thisScene.initItemContainer(1383,666,axe,true,"cave_chest_with_axe");  
+          
+        },1000);
+
+      }
+  
       //sets up item drops for the scene
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","tigers"];
-      this.setUpEnemyCollider(this.enemyGroupArray);
-
+      
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
           

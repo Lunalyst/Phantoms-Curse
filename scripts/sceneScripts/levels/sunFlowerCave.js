@@ -33,9 +33,15 @@ class sunFlowerCave extends defaultScene {
       
       this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
       this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('beeDroneMale', 'assets/enemys/beeDroneMale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale', 'assets/enemys/beeDroneFemale.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
+      
+      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
+      
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+      ]);
 
       this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
@@ -150,30 +156,58 @@ class sunFlowerCave extends defaultScene {
       this.setUpContainers();
 
       let thisScene = this;
+
+        //sets up enemy colliders and groups
+      this.enemyGroupArray = ["blueSlimes","chestMimics"];
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
+      //make a temp object
+      let object = {
+        flagToFind: "cave_chest_with_knife",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      //if the player has already opened the chest spawm a mimic half the time
+      this.randomInput = Math.floor((Math.random() * 3));
+      if(object.foundFlag === true && this.randomInput === 1){
+      //random number to determine if the mimic is spawned or a empty chest.
+
+
       setTimeout(function(){
-           
-        let knife = {
-          itemID: 4,
-          itemName: 'KNIFE',
-          itemDescription: 'GOOD FOR SLASHING MONSTERS.',
-          itemStackable: 0,
-          itemAmount: 1
-        };
-      
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      thisScene.initItemContainer(5324-4160,1085-3,knife,true,"cave_chest_with_knife");
-        
+          
+        thisScene.initEnemy(5140-4160,1085-3,thisScene.playerSex,'chestMimic',false);
+
       },1000);
+      
+      //otherwise spawn the chest like normal.
+      }else{
+
+        setTimeout(function(){
+           
+          let knife = {
+            itemID: 4,
+            itemName: 'KNIFE',
+            itemDescription: 'GOOD FOR SLASHING MONSTERS.',
+            itemStackable: 0,
+            itemAmount: 1
+          };
+        
+        //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+        thisScene.initItemContainer(5140-4160,1085-3,knife,true,"cave_chest_with_knife");
+          
+        },1000);
+
+      }
+
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
       //creates health upgrade object in level
       this.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerField');
-
-      //sets up enemy colliders and groups
-      this.enemyGroupArray = ['blueSlimes'];
-      this.setUpEnemyCollider(this.enemyGroupArray);
      
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();

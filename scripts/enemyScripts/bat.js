@@ -244,13 +244,7 @@ class bat extends enemy {
 
             }
 
-            if(this.hitboxActive === true){
-                this.grabHitBox.x = this.x;
-                this.grabHitBox.y = this.y;
-            }else{
-                this.grabHitBox.x = this.x;
-                this.grabHitBox.y = this.y + 3000; 
-            }
+           
 
             // randomized bee velocity so they can keep up with the player without overlapping into eachother.
             if(this.randomizedXVelocity === false){

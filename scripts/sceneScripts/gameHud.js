@@ -509,7 +509,7 @@ class gameHud extends allSceneFunctions {
 
           //define a emitter so that the gameplay scene can check if the key is being used
           controlKeyEmitter.on(controlKeyEvent.activateSkipIndicatorKey,(object) =>{
-            console.log("gamehudtemp.skipIndicatorIsPressed: ",gamehudtemp.skipIndicatorIsPressed)
+            //console.log("gamehudtemp.skipIndicatorIsPressed: ",gamehudtemp.skipIndicatorIsPressed)
             if(this.skipIndicatorIsPressed === true){
               
               this.skipIndicatorIsPressed = false;

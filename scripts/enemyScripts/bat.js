@@ -244,7 +244,13 @@ class bat extends enemy {
 
             }
 
-           
+            if(this.hitboxActive === true){
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y;
+            }else{
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y + 3000; 
+            }
 
             // randomized bee velocity so they can keep up with the player without overlapping into eachother.
             if(this.randomizedXVelocity === false){
@@ -664,7 +670,8 @@ class bat extends enemy {
                     this.scene.player1.pierceDamage,
                     this.scene.player1.heatDamage,
                     this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage
+                    this.scene.player1.coldDamage,
+                    this.scene.player1.curseDamage
                 );
 
                 this.playJumpySound('2',700);
@@ -687,7 +694,7 @@ class bat extends enemy {
     }
 
     //handles damage types for blue bat. get these damage types from the attack that hits the enemy
-    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.enemyHP -= (slice);
@@ -706,6 +713,9 @@ class bat extends enemy {
         }
         if (cold > 0) {
             this.enemyHP -= (cold / 2);
+        }
+        if (curse > 0) {
+            this.enemyHP -= curse;
         }
     }
 

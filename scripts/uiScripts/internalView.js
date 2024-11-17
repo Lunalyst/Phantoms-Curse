@@ -35,7 +35,9 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'playerClimaxInRabbit',frames: this.anims.generateFrameNames('rabbitPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 
       }else if(type === "mimic"){
-        
+        this.anims.create({key: 'tongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 0, end: 9 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'playerClimaxInMimic',frames: this.anims.generateFrameNames('mimicPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
+
       }
 
      

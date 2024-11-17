@@ -37,7 +37,7 @@ class chestMimic extends enemy {
         this.grabHitBox.setSize(70,10,true);
         this.grabHitBox.body.enable = false;
         // sets the chestMimics hp value
-        this.enemyHP = 70;
+        this.enemyHP = 25;
 
         //this object creates its own key prompts which it uses to tell the play if it can be acessed
         this.containerKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -71,7 +71,7 @@ class chestMimic extends enemy {
             this.anims.create({ key: 'mimicChestJump', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 37, end: 45 }), frameRate: 7, repeat: 0 });
 
             this.anims.create({ key: 'mimicAngryIdle', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'mimicAngryIdleTwice', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 0, end: 3 }), frameRate: 7, repeat: 2 });
+            this.anims.create({ key: 'mimicAngryIdleTwice', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 0, end: 3 }), frameRate: 12, repeat: 2 });
             this.anims.create({ key: 'mimicAngryLeft', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'mimicAngryRight', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 8, end: 11 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'mimicAngryLeftGrabStart', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:12, end: 15 }), frameRate: 20, repeat: 0 });
@@ -139,8 +139,8 @@ class chestMimic extends enemy {
 
     //functions that move chestMimic objects.
     move(){
-        this.setSize(120,100,true);
-        this.setOffset(130, 200);
+        this.setSize(200,100,true);
+        this.setOffset(90, 200);
         console.log("this.hiding: ",this.hiding,"this.attacked: ",this.attacked)
 
         if(this.hiding === true){
@@ -263,9 +263,9 @@ class chestMimic extends enemy {
         
         //if the player dodged the initial grab, then she becomes angry and will now attempt to vore the player >:3
         }else if(this.angry === true){
-            if((this.scene.player1.x > this.x - 70 && this.scene.player1.x < this.x + 70) && (this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y+20 )){
+            if((this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 90) && (this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y+20 )){
                 //check if player is right 
-                if(this.scene.player1.x > this.x+20 && this.attackedGrabPlayed === false){
+                if(this.scene.player1.x > this.x+50 && this.attackedGrabPlayed === false){
 
                     if(this.attackedGrabPlayed === false){
                         this.attackedGrabPlayed = true;
@@ -275,8 +275,8 @@ class chestMimic extends enemy {
                         //attempt to grab them if in range
                         this.anims.play('mimicAngryRightGrabStart').once('animationcomplete', () => {
                             this.grabHitBox.body.enable = true;
-                            this.grabHitBox.setSize(40,10,true);
-                            this.grabHitBox.x = this.x+30;
+                            this.grabHitBox.setSize(64,10,true);
+                            this.grabHitBox.x = this.x+35;
                             this.grabHitBox.y = this.y;
                             
                             this.playJumpySound('3',700);
@@ -292,7 +292,7 @@ class chestMimic extends enemy {
                     }
                 
                 //else if thep layer is to the left.    
-                }else if(this.scene.player1.x < this.x-20 && this.attackedGrabPlayed === false){
+                }else if(this.scene.player1.x < this.x-50 && this.attackedGrabPlayed === false){
 
                     if(this.attackedGrabPlayed === false){
                         this.attackedGrabPlayed = true;
@@ -303,8 +303,8 @@ class chestMimic extends enemy {
                         this.anims.play('mimicAngryLeftGrabStart').once('animationcomplete', () => {
                             
                             this.grabHitBox.body.enable = true;
-                            this.grabHitBox.setSize(40,10,true);
-                            this.grabHitBox.x = this.x-30;
+                            this.grabHitBox.setSize(64,10,true);
+                            this.grabHitBox.x = this.x-35;
                             this.grabHitBox.y = this.y;
 
                             this.playJumpySound('3',700);
@@ -798,12 +798,87 @@ class chestMimic extends enemy {
                     this.scene.player1.pierceDamage,
                     this.scene.player1.heatDamage,
                     this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage
+                    this.scene.player1.coldDamage,
+                    this.scene.player1.curseDamage
                 );
                 
                 if (this.enemyHP <= 0) {
+
+                    if(this.scene.playerLocation === "TestCave"){
+                        //if the mimic dies, then add a special weapon to the player inventory if in specific place
+                        //make a temp object
+                        let object = {
+                            flagToFind: "obtained_mimic_rapier",
+                            foundFlag: false,
+                        };
+            
+                        // call the emitter to check if the value already was picked up.
+                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+                        if(object.foundFlag === false){
+                            //create a temp variable to hold our item that is passed to the player
+                        let item = {
+                            itemID: 3,
+                            itemName: 'MIMIC RAPIER',
+                            itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
+                            itemStackable: 0,
+                            itemAmount: 1
+                        };
+
+                        //used to tell if the item was added
+                        let addedToInventory = {
+                            added: false
+                        };
+
+                        //emitter to add object to inventory.
+                        inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                
+                        //now to add the flag to the player data so the player cant open this container multiple times.
+                        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+                        }
+                        
+                        //or give them a special ring.
+
+                    }else if(this.scene.playerLocation === "sunFlowerCave"){
+
+                        //if the mimic dies, then add a special weapon to the player inventory if in specific place
+                        //make a temp object
+                        let object = {
+                            flagToFind: "obtained_mimic_ring",
+                            foundFlag: false,
+                        };
+            
+                        // call the emitter to check if the value already was picked up.
+                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+                        if(object.foundFlag === false){
+
+                            //create a temp variable to hold our item that is passed to the player
+                            let item = {
+                                itemID: 6,
+                                itemName: 'MIMIC RING',
+                                itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
+                                itemStackable: 0,
+                                itemAmount: 1
+                            };
+
+                            //used to tell if the item was added
+                            let addedToInventory = {
+                                added: false
+                            };
+
+                            //emitter to add object to inventory.
+                            inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                    
+                            //now to add the flag to the player data so the player cant open this container multiple times.
+                            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+                            }
+
+                    }
+                    
                     this.scene.sound.get(this.chestMimicSFX).stop();
                     this.grabHitBox.destroy();
+                    this.containerKeyPrompts.destroy();
                     this.destroy();
                 }
             }
@@ -819,7 +894,7 @@ class chestMimic extends enemy {
     }
 
     //handles damage types for blue chestMimic. get these damage types from the attack that hits the enemy
-    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.enemyHP -= (slice / 2);
@@ -828,7 +903,7 @@ class chestMimic extends enemy {
             this.enemyHP -= (blunt / 2);
         }
         if (pierce > 0) {
-            this.enemyHP -= (pierce / 2);
+            this.enemyHP -=(pierce / 2);
         }
         if (heat > 0) {
             this.enemyHP -= (heat / 2);
@@ -838,6 +913,9 @@ class chestMimic extends enemy {
         }
         if (cold > 0) {
             this.enemyHP -= (cold / 2);
+        }
+        if (curse > 0) {
+            this.enemyHP -= curse;
         }
     }
 
@@ -878,6 +956,11 @@ class chestMimic extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    if(this.scene.playerSex === 0){
+                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic')
+                        this.scene.internalView.anims.play("pen1",true);
+                        this.scene.internalView.setRotation(3.14/3);
+                    }
                     
                 });
             }
@@ -909,6 +992,10 @@ class chestMimic extends enemy {
             this.playJumpySound('3',700);
             this.playPlapSound('plap9',1000);
 
+            if(this.scene.playerSex === 0){
+                this.scene.internalView.anims.play("pen2",true);
+            }
+
             let thischestMimic = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
@@ -926,6 +1013,13 @@ class chestMimic extends enemy {
         } else if (this.playerDefeatedAnimationStage === 5) {
             console.log("flag");
             if (!this.animationPlayed) {
+
+                if(this.scene.playerSex === 0){
+                    this.scene.internalView.anims.play("playerClimaxInMimic").once('animationcomplete', () => {
+                        this.scene.internalView.destroy();
+                    });
+                }
+
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.anims.play('mimicDefeatedTF4').once('animationcomplete', () => {
@@ -933,7 +1027,7 @@ class chestMimic extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-                    
+                 
                 });
             }
         }
@@ -959,6 +1053,9 @@ class chestMimic extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
+                    this.scene.internalView.anims.play("tongueIn",true);
+                    this.scene.internalView.setRotation(3.14/2);
                     
                 });
             }
@@ -972,6 +1069,7 @@ class chestMimic extends enemy {
         }else if (this.playerDefeatedAnimationStage === 3) {
 
             if (!this.animationPlayed) {
+                this.scene.internalView.destroy();
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('swallowSFX','3',0.6);
                 this.anims.play('mimicDefeatedVore3').once('animationcomplete', () => {

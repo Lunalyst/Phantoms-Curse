@@ -132,6 +132,21 @@ class blueSlimeCave1 extends defaultScene {
       //sets up containers
       this.setUpContainers();
 
+      setTimeout(function(){
+           
+        let rapier = {
+          itemID: 1,
+          itemName: 'RAPIER',
+          itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
+          itemStackable: 0,
+          itemAmount: 1
+        };
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      thisScene.initItemContainer(465,895-3,rapier,true,"cave_chest_with_rapier");
+        
+      },1000);
+
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
@@ -228,7 +243,7 @@ class blueSlimeCave1 extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

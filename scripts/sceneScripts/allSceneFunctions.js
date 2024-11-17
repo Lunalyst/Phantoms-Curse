@@ -492,7 +492,7 @@ validateSaveFile(dataObject){
   }else{
 
     // loop through inventory and apply correct item values
-    let dupes = [0,0,0,0]
+    let dupes = [0,0,0,0,0,0,0]
     for(let counter = 0; counter < 26; counter++){
       if(dataObject.inventoryArray[counter].itemID === 0 ){
 
@@ -552,6 +552,43 @@ validateSaveFile(dataObject){
           itemAmount: 1
        };
 
+      }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
+
+        dupes[4] = 1;
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 1,
+          itemName: 'RAPIER',
+          itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
+          itemStackable: 0,
+          itemAmount: 1
+        };
+
+      }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
+
+        dupes[5] = 1;
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 3,
+          itemName: 'MIMIC RAPIER',
+          itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
+          itemStackable: 0,
+          itemAmount: 1
+      };
+
+
+      }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 0){
+
+        dupes[6] = 1;
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 6,
+          itemName: 'MIMIC RING',
+          itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
+          itemStackable: 0,
+          itemAmount: 1
+      };
+
       }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
 
         dataObject.inventoryArray[counter] = {
@@ -583,6 +620,33 @@ validateSaveFile(dataObject){
         };
 
       }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+      }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+      }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 1){
+
+        dataObject.inventoryArray[counter] = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0 
+        };
+      }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 1){
 
         dataObject.inventoryArray[counter] = {
           itemID: 0,

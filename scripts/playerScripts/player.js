@@ -40,6 +40,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.heatDamage = 0;
     this.lightningDamage = 0;
     this.coldDamage = 0;
+    this.curseDamage = 0;
 
     //did the player use the doublejump skill?
     this.doubleJumpActivation = false;
@@ -71,7 +72,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('malePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('malePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
       this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('malePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
-    
+      this.anims.create({key: 'pAttackRapier',frames: this.anims.generateFrameNames('malePlayer', { start: 66, end: 71 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackMimicRapier',frames: this.anims.generateFrameNames('malePlayer', { start: 72, end: 77 }),frameRate: 12,repeat: 0});
     }else{
       this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
       this.anims.create({key: 'p',frames: this.anims.generateFrameNames('femalePlayer', { start: 9, end: 16 }),frameRate: 15,repeat: -1});
@@ -83,6 +85,8 @@ class player extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
       this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
+      this.anims.create({key: 'pAttackRapier',frames: this.anims.generateFrameNames('femalePlayer', { start: 66, end: 71 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'pAttackMimicRapier',frames: this.anims.generateFrameNames('femalePlayer', { start: 72, end: 77 }),frameRate: 12,repeat: 0});
     
     }
   }
@@ -398,6 +402,38 @@ class player extends Phaser.Physics.Arcade.Sprite{
             this.sliceDamage = 8;
             this.setAttackHitboxSize(20,30);
             this.HitBox(300,30);
+            break;
+            case (1):
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','high2',0.1);
+              this.anims.play("pAttackRapier").once('animationcomplete', () => {
+                this.isAttacking = false;
+                this.playedAttackAnimation = false;
+                console.log("attack is over so stoping");
+                this.pierceDamage = 0;
+            });
+            }
+            this.pierceDamage = 6;
+            this.setAttackHitboxSize(20,30);
+            this.HitBox(600,35);
+            break;
+            case (3):
+            if(this.playedAttackAnimation === false){
+              this.playedAttackAnimation = true;
+              this.scene.initSoundEffect('weaponSFX','high2',0.1);
+              this.anims.play("pAttackMimicRapier").once('animationcomplete', () => {
+                this.isAttacking = false;
+                this.playedAttackAnimation = false;
+                console.log("attack is over so stoping");
+                this.pierceDamage = 0;
+                this.curseDamage = 0;
+            });
+            }
+            this.pierceDamage = 4;
+            this.curseDamage = 4;
+            this.setAttackHitboxSize(20,30);
+            this.HitBox(600,35);
             break;
           default:
             if(this.playedAttackAnimation === false){

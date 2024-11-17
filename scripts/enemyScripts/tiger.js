@@ -928,7 +928,8 @@ class tiger extends enemy {
                     this.scene.player1.pierceDamage,
                     this.scene.player1.heatDamage,
                     this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage
+                    this.scene.player1.coldDamage,
+                    this.scene.player1.curseDamage
                 );
 
                 this.playJumpySound('2',700);
@@ -947,7 +948,7 @@ class tiger extends enemy {
         }
     }
    
-    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.enemyHP -= (slice / 2);
@@ -966,6 +967,9 @@ class tiger extends enemy {
         }
         if (cold > 0) {
             this.enemyHP -= (cold / 2);
+        }
+        if (curse > 0) {
+            this.enemyHP -= curse;
         }
     }
 

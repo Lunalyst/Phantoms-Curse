@@ -241,7 +241,7 @@ class sunFlowerCave extends defaultScene {
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;

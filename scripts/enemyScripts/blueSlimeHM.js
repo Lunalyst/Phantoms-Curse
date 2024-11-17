@@ -793,7 +793,8 @@ class blueSlimeHM extends enemy {
                     this.scene.player1.pierceDamage,
                     this.scene.player1.heatDamage,
                     this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage
+                    this.scene.player1.coldDamage,
+                    this.scene.player1.curseDamage
                 );
 
                 this.playSlimeSound('5',200);
@@ -813,7 +814,7 @@ class blueSlimeHM extends enemy {
         }
     }
     //handles damage types for blue slime. get these damage types from the attack that hits the enemy
-    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
+    calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.enemyHP -= (slice / 4);
@@ -832,6 +833,9 @@ class blueSlimeHM extends enemy {
         }
         if (cold > 0) {
             this.enemyHP -= (cold / 4);
+        }
+        if (curse > 0) {
+            this.enemyHP -= curse;
         }
     }
 

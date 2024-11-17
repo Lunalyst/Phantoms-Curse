@@ -396,7 +396,7 @@ class blueSlime extends enemy {
 
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
-        this.scene.KeyDisplay.y = this.y + 70;
+        this.scene.KeyDisplay.y = this.y + 100;
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
@@ -998,14 +998,23 @@ class blueSlime extends enemy {
 
         } else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
+
+                //handles internal view
+                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime')
+                this.scene.internalView.anims.play("slimePening");
+                this.scene.internalView.setRotation(3.14/2);
+
+                console.log("this.scene.internalView: ",this.scene.internalView)
                 this.playSlimeSound('4',800);
                 this.animationPlayed = true;
                 this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+                    this.scene.internalView.anims.play("slimeWiggle1");
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 4) {
+            console.log("this.scene.internalView: ",this.scene.internalView)
             this.playSlimeSound('1',600);
             this.playPlapSound('plap10',1800);
             this.anims.play('largeSlimeGrabDefeated3', true);
@@ -1032,7 +1041,10 @@ class blueSlime extends enemy {
             this.playPlapSound('plap11',500);
             this.anims.play('largeSlimeGrabDefeated4', true);
 
+            this.scene.internalView.anims.play("slimeWiggle2",true);
+
             if (this.onomatPlayed === false) {
+                
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
@@ -1060,6 +1072,15 @@ class blueSlime extends enemy {
             this.playSlimeSound('5',2000);
             if (!this.animationPlayed) {
                 //plays curse sound effect
+
+                this.scene.internalView.anims.play("slimeExpanding").once('animationcomplete', () => {
+                    this.scene.internalView.anims.play("slimeInflation");
+                        let thisSlime = this;
+                        setTimeout(function () {
+                            thisSlime.scene.internalView.destroy()     
+                        }, 1000);
+
+                });
                 currentSlime = this;
                 setTimeout(function () {
                     currentSlime.scene.sound.get('plapSFX').stop();
@@ -1077,6 +1098,7 @@ class blueSlime extends enemy {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {

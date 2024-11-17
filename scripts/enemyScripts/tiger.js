@@ -651,7 +651,7 @@ class tiger extends enemy {
         //this.body.setGravityY(0);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
-        this.scene.KeyDisplay.y = this.y + 70;
+        this.scene.KeyDisplay.y = this.y + 100;
         //console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay);
 
        
@@ -1198,6 +1198,16 @@ class tiger extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
 
+                    if(this.scene.playerSex === 0 && this.flipX === true){
+                        this.scene.internalView = new internalView(this.scene,this.x+10,this.y+60,'tiger')
+                        this.scene.internalView.anims.play("pen1",true);
+                        this.scene.internalView.setRotation((3.14)+(3.14)/3);
+                    }else if(this.scene.playerSex === 0){
+                        this.scene.internalView = new internalView(this.scene,this.x-10,this.y+60,'tiger')
+                        this.scene.internalView.anims.play("pen1",true);
+                        this.scene.internalView.setRotation(-(3.14)/3);
+                    }
+
                 });
                 
 
@@ -1232,6 +1242,10 @@ class tiger extends enemy {
             this.playPlapSound('plap3',700);
 
             this.playJumpySound('3',700);
+
+            if(this.scene.playerSex === 0){
+                this.scene.internalView.anims.play("pen2",true);
+            }
              
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
@@ -1258,6 +1272,10 @@ class tiger extends enemy {
 
             this.playJumpySound('4',500);
 
+            if(this.scene.playerSex === 0){
+                this.scene.internalView.anims.play("pen3",true);
+            }
+
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
@@ -1266,8 +1284,9 @@ class tiger extends enemy {
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(300);
+                let tempTiger = this;
                 setTimeout(function () {
-                    thisrabbit.onomatPlayed = false;
+                    tempTiger.onomatPlayed = false;
                 }, 300);
             }
 
@@ -1275,6 +1294,10 @@ class tiger extends enemy {
                  
         }else if (this.playerDefeatedAnimationStage === 5) {
             if (!this.animationPlayed) {
+
+                if(this.scene.playerSex === 0){
+                    this.scene.internalView.anims.play("playerClimaxInTiger");
+                 }
 
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                
@@ -1285,6 +1308,8 @@ class tiger extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+                    
                 });
             }
         }

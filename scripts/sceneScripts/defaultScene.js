@@ -69,9 +69,13 @@ class defaultScene extends allSceneFunctions {
        this.load.spritesheet('chest', 'assets/gameObjects/chest.png',{frameWidth: 381, frameHeight: 303});
 
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
-           
-       //loads a plugin to the heaa of the html to animate tiles in levels
-
+         
+       this.load.spritesheet('penning', 'assets/internalViews/penning.png',{frameWidth: 213, frameHeight: 213});
+       this.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
+       this.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
+       this.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
+       this.load.spritesheet('tigerPenned', 'assets/internalViews/tigerPenned.png',{frameWidth: 213, frameHeight: 213});
+       
     }
 
     //{scene setup Functions}===================================================================================================================

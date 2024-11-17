@@ -345,7 +345,7 @@ class rabbit extends enemy {
         this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
-        this.scene.KeyDisplay.y = this.y + 70;
+        this.scene.KeyDisplay.y = this.y + 100;
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
@@ -678,6 +678,8 @@ class rabbit extends enemy {
         } else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
 
+                
+
                 this.playPlapSound('plap1',1800);
 
                 this.scene.onomat = new makeText(this.scene,this.x+15,this.y+10,'charBubble',"SLOOORRRP!");
@@ -692,11 +694,14 @@ class rabbit extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'rabbit')
+                    this.scene.internalView.anims.play("rabbitPening1");
+                    this.scene.internalView.setRotation(3.14);
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 4) {
             this.anims.play('rabbitRail1', true);
-            
+            this.scene.internalView.anims.play("rabbitPening1",true);
             this.playPlapSound('plap3',800);
 
             let thisrabbit = this;
@@ -715,7 +720,7 @@ class rabbit extends enemy {
            
         } else if (this.playerDefeatedAnimationStage === 5) {
             this.anims.play('rabbitRail2', true);
-            
+            this.scene.internalView.anims.play("rabbitPening2",true);
             this.playPlapSound('plap9',1000);
 
             let thisrabbit = this;
@@ -734,7 +739,7 @@ class rabbit extends enemy {
            
         } else if (this.playerDefeatedAnimationStage === 6) {
             this.anims.play('rabbitRail3', true);
-            
+            this.scene.internalView.anims.play("rabbitPening3",true);
             this.playPlapSound('plap9',500);
 
             let thisrabbit = this;
@@ -756,6 +761,7 @@ class rabbit extends enemy {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.animationPlayed = true;
+                this.scene.internalView.anims.play("rabbitClimax");
 
                 this.scene.onomat = new makeText(this.scene,this.x+20,this.y+12,'charBubble',"SQUIRT");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
@@ -767,6 +773,7 @@ class rabbit extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
+                    this.scene.internalView.destroy();
                 });
             }
         }
@@ -795,7 +802,13 @@ class rabbit extends enemy {
 
                     this.jumpySoundCoolDown = false;
                     this.playJumpySound('3',700);
-                    
+
+                    if(this.scene.playerSex === 0){
+                        this.scene.internalView = new internalView(this.scene,this.x+35,this.y+60,'rabbit')
+                        this.scene.internalView.anims.play("pen1",true);
+                        this.scene.internalView.setRotation(3.14/3);
+                    }
+
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 2) {
@@ -822,6 +835,10 @@ class rabbit extends enemy {
 
             this.playPlapSound('plap9',1000);
 
+            if(this.scene.playerSex === 0){
+               this.scene.internalView.anims.play("pen2",true);
+            }
+
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
@@ -841,6 +858,10 @@ class rabbit extends enemy {
 
             this.playPlapSound('plap9',500);
 
+            if(this.scene.playerSex === 0){
+                this.scene.internalView.anims.play("pen3",true);
+            }
+
             let thisrabbit = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
@@ -858,6 +879,9 @@ class rabbit extends enemy {
         } else if (this.playerDefeatedAnimationStage === 5) {
             if (!this.animationPlayed) {
                 //plays curse sound effect
+                if(this.scene.playerSex === 0){
+                    this.scene.internalView.anims.play("playerClimaxInRabbit");
+                 }
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                 this.animationPlayed = true;
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
@@ -918,7 +942,7 @@ class rabbit extends enemy {
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 90;
+            this.scene.KeyDisplay.y = this.y + 100;
             // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
             
             //if the player is not defeated

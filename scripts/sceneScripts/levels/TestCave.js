@@ -124,7 +124,7 @@ class TestCave extends defaultScene {
 
       //if the player has already opened the chest spawm a mimic half the time
       this.randomInput = Math.floor((Math.random() * 3));
-      if(object.foundFlag === true /*&& this.randomInput === 1*/){
+      if(object.foundFlag === true && this.randomInput === 1){
       //random number to determine if the mimic is spawned or a empty chest.
 
 

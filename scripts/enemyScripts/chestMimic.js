@@ -5,25 +5,25 @@ class chestMimic extends enemy {
     constructor(scene, xPos, yPos, sex, id,inSafeMode,soundSprite) {
         
         //on set up, need to decide if chestMimic is make or female, using preference variable in settings.
-        /*if(scene.preferance === 0){
-            super(scene, xPos, yPos, sex, id, 20, 'chestMimicMale');
+        if(scene.preferance === 0){
+            super(scene, xPos, yPos-12, sex, id, 20, 'chestMimicMale');
             this.enemySex = 0;
-        }else if(scene.preferance === 1){*/
+        }else if(scene.preferance === 1){
             super(scene, xPos, yPos-12, sex, id, 20, 'mimicFemale-evelyn-TF');
             this.enemySex = 1;
         
         //if the pref is either, then we randomly pick a sex for the chestMimic.
-        /*}else{
+        }else{
             let randomPref = Math.floor((Math.random() * 2));
             console.log('randomPref',randomPref);
             if(randomPref === 1){
-                super(scene, xPos, yPos, sex, id, 20, 'chestMimicFemale');
+                super(scene, xPos, yPos-12, sex, id, 20, 'chestMimicFemale');
                 this.enemySex = 1;
             }else{
-                super(scene, xPos, yPos, sex, id, 20, 'chestMimicMale');
+                super(scene, xPos, yPos-12, sex, id, 20, 'chestMimicMale');
                 this.enemySex = 0;
             }
-        }*/
+        }
 
         // variables for movement
         this.chestMimicSoundCoolDown = false;
@@ -59,17 +59,71 @@ class chestMimic extends enemy {
 
         
         //defines chestMimic animations based on the players sex.
-        /*if(this.enemySex === 0) {
+        this.anims.create({ key: 'mimicChestJump', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 37, end: 45 }), frameRate: 7, repeat: 0 });
+        if(this.enemySex === 0) {
+            this.anims.create({ key: 'mimicHide', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'mimicPeak', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 0, end: 13 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'mimicFrontGrabStart', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 14, end: 18 }), frameRate: 14, repeat: 0 });
+            this.anims.create({ key: 'mimicFrontGrabMiss', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 19, end: 21 }), frameRate: 14, repeat: 0 });
+            this.anims.create({ key: 'mimicFrontIdle', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 22, end: 25 }), frameRate: 7, repeat: -1 });
+           
+            this.anims.create({ key: 'mimicAngryIdle', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'mimicAngryIdleTwice', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start: 0, end: 3 }), frameRate: 12, repeat: 2 });
+            this.anims.create({ key: 'mimicAngryLeft', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'mimicAngryRight', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start: 8, end: 11 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'mimicAngryLeftGrabStart', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:12, end: 15 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'mimicAngryLeftGrabMiss', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:16, end: 18 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'mimicAngryRightGrabStart', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:19, end: 22 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'mimicAngryRightGrabMiss', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:23, end: 25 }), frameRate: 7, repeat: 0 });
             
+            if(sex === 0 ){
+                this.anims.create({ key: 'mimicGrabbed', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 26, end: 36 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedTF1', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 46-9, end: 48-9 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedTF2', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 49-9, end: 52-9 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedTF3', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 49-9, end: 52-9 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedTF4', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 53-9, end: 69-9 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'gameoverTF', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 61, end: 64 }), frameRate: 7, repeat: -1 });
+
+                this.anims.create({ key: 'mimicAngryLeftGrabbedPlayer', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:26, end: 29 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicAngryRightGrabbedPlayer', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:30, end: 33 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedVore1', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:34, end: 36 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedVore2', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:37, end: 40 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedVore3', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:41, end: 45 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'gameoverVore', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:103, end: 106 }), frameRate: 7, repeat: -1 });
+                
+            }else{
+                this.anims.create({ key: 'mimicGrabbed', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedTF1', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 11, end: 13 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedTF2', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 14, end: 17 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedTF3', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 14, end: 17 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedTF4', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 18, end: 35 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'gameoverTF', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 38-1, end: 41-1 }), frameRate: 7, repeat: -1 });
+
+                this.anims.create({ key: 'mimicAngryLeftGrabbedPlayer', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:0, end: 3 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicAngryRightGrabbedPlayer', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:4, end: 7 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedVore1', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:8, end: 10 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'mimicDefeatedVore2', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:11, end: 14 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'mimicDefeatedVore3', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:15, end: 19 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'gameoverVore', frames: this.anims.generateFrameNames('mimicMale-evelyn-vore', { start:20, end: 23 }), frameRate: 7, repeat: -1 });
+                
+                
+            }
+
+        this.anims.create({ key: 'mimicDefeatedVore4', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:45, end: 51 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'mimicDefeatedVore5', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:52, end: 55 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'mimicDefeatedVore6', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:56, end: 69 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'mimicDefeatedVore7', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:70, end: 73 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'mimicDefeatedVore8', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:74, end: 92 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'mimicDefeatedVore9', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:93, end: 98 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'mimicDefeatedVore10', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:99, end: 102 }), frameRate: 7, repeat: -1 });
              
-        }else{*/
+        }else{
             this.anims.create({ key: 'mimicHide', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'mimicPeak', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 0, end: 13 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'mimicFrontGrabStart', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 14, end: 18 }), frameRate: 14, repeat: 0 });
             this.anims.create({ key: 'mimicFrontGrabMiss', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 19, end: 21 }), frameRate: 14, repeat: 0 });
             this.anims.create({ key: 'mimicFrontIdle', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 22, end: 25 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'mimicChestJump', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 37, end: 45 }), frameRate: 7, repeat: 0 });
-
+           
             this.anims.create({ key: 'mimicAngryIdle', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'mimicAngryIdleTwice', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 0, end: 3 }), frameRate: 12, repeat: 2 });
             this.anims.create({ key: 'mimicAngryLeft', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
@@ -120,7 +174,7 @@ class chestMimic extends enemy {
         this.anims.create({ key: 'mimicDefeatedVore9', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:93, end: 98 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'mimicDefeatedVore10', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:99, end: 102 }), frameRate: 7, repeat: -1 });
         
-        //}
+        }
 
         this.inSafeMode = inSafeMode;
         
@@ -672,7 +726,7 @@ class chestMimic extends enemy {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
-        console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+        //console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             if (this.scene.checkDIsDown() &&
                 this.playerDefeatedAnimationCooldown === false &&
                 this.inStartDefeatedLogic === false &&
@@ -956,10 +1010,14 @@ class chestMimic extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-                    if(this.scene.playerSex === 0){
+                    if(this.scene.playerSex === 0 && this.enemySex === 1){
                         this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic')
                         this.scene.internalView.anims.play("pen1",true);
                         this.scene.internalView.setRotation(3.14/3);
+                    }else if(this.enemySex === 0){
+                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic')
+                        this.scene.internalView.anims.play("mimicPening1",true);
+                        this.scene.internalView.setRotation(3.14+(3.14/3));
                     }
                     
                 });
@@ -992,8 +1050,10 @@ class chestMimic extends enemy {
             this.playJumpySound('3',700);
             this.playPlapSound('plap9',1000);
 
-            if(this.scene.playerSex === 0){
+            if(this.scene.playerSex === 0 && this.enemySex === 1){
                 this.scene.internalView.anims.play("pen2",true);
+            }else if(this.enemySex === 0){
+                this.scene.internalView.anims.play("mimicPening2",true);
             }
 
             let thischestMimic = this;
@@ -1016,6 +1076,10 @@ class chestMimic extends enemy {
 
                 if(this.scene.playerSex === 0){
                     this.scene.internalView.anims.play("playerClimaxInMimic").once('animationcomplete', () => {
+                        this.scene.internalView.destroy();
+                    });
+                }else if(this.enemySex === 0){
+                    this.scene.internalView.anims.play("mimicClimax").once('animationcomplete', () => {
                         this.scene.internalView.destroy();
                     });
                 }
@@ -1053,9 +1117,16 @@ class chestMimic extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-                    this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
-                    this.scene.internalView.anims.play("tongueIn",true);
-                    this.scene.internalView.setRotation(3.14/2);
+                    if(this.enemySex === 1){
+                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
+                        this.scene.internalView.anims.play("femaleTongueIn",true);
+                        this.scene.internalView.setRotation(3.14/2);
+                    }else{
+                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
+                        this.scene.internalView.anims.play("maleTongueIn",true);
+                        this.scene.internalView.setRotation(3.14/2);
+                    }
+                    
                     
                 });
             }
@@ -1197,7 +1268,7 @@ class chestMimic extends enemy {
         //stops the x velocity of the enemy
         this.setVelocityX(0);
        
-        console.log("this.playerGrabbed: ",this.playerGrabbed,"this.angry: ",this.angry,"this.playerProgressingAnimation: ",this.playerProgressingAnimation)
+        //console.log("this.playerGrabbed: ",this.playerGrabbed,"this.angry: ",this.angry,"this.playerProgressingAnimation: ",this.playerProgressingAnimation)
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         

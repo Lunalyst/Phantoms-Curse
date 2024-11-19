@@ -3,11 +3,11 @@ class dreamBlueSlimeCave extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'dreamBlueSlimeCave',active: false ,physics:{default:'arcade'}});
+    super({key: 'DreamBlueSlimeCave',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "dreamBlueSlimeCave";
+    this.playerLocation = "DreamBlueSlimeCave";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();

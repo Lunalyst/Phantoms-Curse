@@ -25,8 +25,7 @@ class dreamForest extends defaultScene {
       this.load.tilemapTiledJSON("dream_forest_map" , "assets/tiledMap/Dream/Dream_Forest.json");
 
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
-
+ 
       this.defaultPreload();
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
@@ -40,17 +39,6 @@ class dreamForest extends defaultScene {
       this.load.spritesheet('beeDroneMale2', 'assets/enemys/beeDroneMale2.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
-      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
-
-      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
 
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
@@ -120,7 +108,9 @@ class dreamForest extends defaultScene {
       //
       this.initPortals(881,925-13,1388,925,"warpCaveOutside","DreamHub");
 
-      this.initPortals(681,925-13,458,669,"warpCaveOutside","dreamBlueSlimeCave");
+      this.initPortals(681,925-13,458,669,"warpCaveOutside","DreamBlueSlimeCave");
+
+      this.initPortals(581,925-13,1166,605,"warpCaveOutside","DreamCave");
 
       this.initSavePoints(801,925-15);
       
@@ -132,7 +122,7 @@ class dreamForest extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["bats","beeDrones","rabbits","tigers","chestMimics"];
+      this.enemyGroupArray = ["beeDrones","rabbits","tigers"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -200,60 +190,6 @@ class dreamForest extends defaultScene {
 
         if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
           thisScene.initEnemy(1680,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
-        }
-
-        object1 = {
-          flagToFind: 'maleBat',
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: 'femaleBat',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBat' || object2.flagToFind === 'femaleBat')){
-          thisScene.initEnemy(370,925,thisScene.playerSex,'bat',true,'wingFlapSFX1');
-        }
-
-        object1 = {
-          flagToFind: 'maleChestMimic',
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: 'femaleChestMimic',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleChestMimic' || object2.flagToFind === 'femaleChestMimic')){
-          thisScene.initEnemy(470,925-4,thisScene.playerSex,'chestMimic',true,);
-        }
-
-        object1 = {
-          flagToFind: 'maleChestMimicVore',
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: 'femaleChestMimicVore',
-          foundFlag: false,
-        };
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleChestMimicVore' || object2.flagToFind === 'femaleChestMimicVore')){
-          thisScene.initEnemy(570,925-4,thisScene.playerSex,'chestMimicAngry',true);
         }
         
         thisScene.spawnedEnemys = true;

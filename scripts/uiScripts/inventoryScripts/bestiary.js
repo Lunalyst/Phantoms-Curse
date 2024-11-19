@@ -30,6 +30,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary3', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleChestMimic', frames: this.anims.generateFrameNames('bestiary3', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary3', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleChestMimic', frames: this.anims.generateFrameNames('bestiary4', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleChestMimicVore', frames: this.anims.generateFrameNames('bestiary4', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+    
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
 
@@ -76,27 +79,22 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
         title: "FEMALE RABBIT",
         summary: "THIS HERBAVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE FEMALES OF THIS GROUP OFTEN TACKLE THERE VICTIMS AND HUMP THEM TO APPLY THERE CURSE. ",
       },
-
       maleBeeDrone: {
         title: "MALE BEE DRONE",
         summary: "THIS LARGE INSECT OFTEN SPENDS IT TIME COLLECTING POLLEN IN PLACES WITH LARGE AMOUNTS OF FLOWERS.HOWEVER THIS INSECT WILL QUICKLY DEVOWER A UNSUSPECTING HUMAN WITH THERE MASSIVE ABDOMENS.",
       },
-
       femaleBeeDrone: {
         title: "FEMALE BEE DRONE",
         summary: "OFTEN THESE BEES WILL SWARM A HUMAN WHO IS NOT CURSED, HOWEVER THE ARE UNABLE TO PASS ON THERE CURSE DIRECTLY. INSTEAD USING THERE ABDOMEN TO CAPTURE HUMANS TO BRING BACK TO THERE NEST... ",
       },
-
       femaleTigerBooba: {
         title: "FED FEMALE TIGER",
         summary: "ONCE THE TIGER HAS HAD A GOOD MEAL THIS VORACIOUS PREDATOR SEEKS OUT HUMANS TO CURSE. ONCE THIS PREDATOR CURSES A UNSUSPECTING HUMAN, SHE WILL LOOK OVER THEM AS HER NEW CUB. ",
       },
-
       maleBat: {
         title: "MALE BAT",
         summary: "LURKING IN CAVES THIS MONSTER SLEEPS DURING THE DAY. WANDERING HUMANS SHOULD TRY TO BE QUIET AROUND THIS MONSTER, AS WAKING THEM IS NOT ADVISED UNLESS THEY WISH TO BE TURNED INTO PUDGE. ",
       },
-
       femaleBat: {
         title: "FEMALE BAT",
         summary: "IF THEY ARE SpOOKED WHILE SLEEPING THIS NOCTERNAL PREDATOR WITH CHASE DOWN WHAT EVER SPOOKED IT AND TRY TO DEVOWER THEM WITH THERE REAR END. THESE VORACIOUS BATS ARE QUICK TO DIGEST THERE PREY IN THIS STATE, ADDING THEM TO THERE PUDGE. ",
@@ -120,6 +118,14 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       femaleChestMimicVore: {
         title: "CHEST MIMIC FEMALE LARGE",
         summary: "A SLIGHTLY LARGE MIMIC AFTER SHE HAS DEVOWERED SOME PREY. THEY OFTEN ENJOY COVETING ITEMS THAT THERE PREY HAD. IF DEFEATED THEY MAY DROP AN ITEM, THOUGH IT MIGHT BE INFUSED WITH THERE CURSE...",
+      },
+      maleChestMimic: {
+        title: "CHEST MIMIC MALE",
+        summary: "THESE GASTROPODS ARE AMBUSH PREDATORS. HOWEVER THERE PREY IS NOT JUST FOR SUSTINANCE, AS THOSE CURSE BY THIS MONSTER, BECOME A ASSIMILATED TO THE CREATURES MASS. EVENTUALLY BUDDING OFF THE ORIGINAL WHEN A NEW HOME IS FOUND.",
+      },
+      maleChestMimicVore: {
+        title: "CHEST MIMIC MALE LARGE",
+        summary: "THE MIMICS CURSE WAS CREATED FROM THE DESIRES OF AVARICE. BECAUSE OF THIS THEY COVET THE ITEMS OF THERE PREY, AS WELL AS THERE NEW MASS THERE PREY BECOMES AFTER DIGESTION.",
       },
 
       back: {

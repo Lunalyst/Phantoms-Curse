@@ -255,6 +255,17 @@ class gameOver extends allSceneFunctions {
                 this.enemy.angry = true;
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "maleChestMimic"){
+                this.preferance = 0;
+                this.enemy = new chestMimic(this,450, 570,this.playerSex);
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
+                this.preferance = 0;
+                this.enemy = new chestMimic(this,450, 570,this.playerSex);
+                this.enemy.angry = true;
+                this.enemy.gameOver();
+                this.defeatedTitle = 'eaten';
             }
             
             
@@ -422,7 +433,12 @@ class gameOver extends allSceneFunctions {
                         scene.enemy.beeDroneSoundCoolDown = false;
                     }, 1200);
                 }    
-            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger' || this.enemyThatDefeatedPlayer === "femaleChestMimic"|| this.enemyThatDefeatedPlayer === "femaleChestMimicVore"){
+            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger' ||
+                 this.enemyThatDefeatedPlayer === "femaleChestMimic"||
+                 this.enemyThatDefeatedPlayer === "femaleChestMimicVore" ||
+                 this.enemyThatDefeatedPlayer === "maleChestMimic"||
+                 this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
+                    
                 this.enemy.playJumpySound('10',800);
             }
             

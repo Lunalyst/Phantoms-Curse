@@ -35,7 +35,12 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'playerClimaxInRabbit',frames: this.anims.generateFrameNames('rabbitPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 
       }else if(type === "mimic"){
-        this.anims.create({key: 'tongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 0, end: 9 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'femaleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 0, end: 9 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'maleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 10, end: 19 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'mimicPening1',frames: this.anims.generateFrameNames('mimicPenning', { start: 1, end: 7 }),frameRate: 10,repeat: -1});
+        this.anims.create({key: 'mimicPening2',frames: this.anims.generateFrameNames('mimicPenning', { start: 1, end: 7 }),frameRate: 16,repeat: -1});
+        this.anims.create({key: 'mimicPening3',frames: this.anims.generateFrameNames('mimicPenning', { start: 1, end: 7 }),frameRate: 20,repeat: -1});
+        this.anims.create({key: 'mimicClimax',frames: this.anims.generateFrameNames('mimicPenning', { start: 20, end: 28 }),frameRate: 6  ,repeat: 0});
         this.anims.create({key: 'playerClimaxInMimic',frames: this.anims.generateFrameNames('mimicPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 
       }

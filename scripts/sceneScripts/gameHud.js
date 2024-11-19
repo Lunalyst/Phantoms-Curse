@@ -52,6 +52,7 @@ class gameHud extends allSceneFunctions {
       this.load.spritesheet('bestiary1', 'assets/hudElements/bestiary1.png',{frameWidth: 924, frameHeight: 1260 });
       this.load.spritesheet('bestiary2', 'assets/hudElements/bestiary2.png',{frameWidth: 924, frameHeight: 1260 });
       this.load.spritesheet('bestiary3', 'assets/hudElements/bestiary3.png',{frameWidth: 924, frameHeight: 1260 });
+      this.load.spritesheet('bestiary4', 'assets/hudElements/bestiary4.png',{frameWidth: 924, frameHeight: 1260 });
       this.load.spritesheet('UIControls', 'assets/hudElements/UIControls.png',{frameWidth: 32, frameHeight: 32 });
       this.load.spritesheet('inventoryLabels', 'assets/hudElements/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });

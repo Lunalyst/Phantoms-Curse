@@ -106,7 +106,7 @@ class titleScreen extends allSceneFunctions {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,360*2,450*2,'charBubble',"ALPHA V0.27");
+            this.version = new makeText(this,360*2,450*2,'charBubble',"ALPHA V0.28");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);

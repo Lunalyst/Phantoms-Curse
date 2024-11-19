@@ -362,6 +362,13 @@ makeSaveFile(playerObject,sex,saveslot){
     femaleBeeDrone:0,
     maleBat:0,
     femaleBat:0,
+    blueSlimeHS: 0,
+    blueSlimeMaleHM: 0,
+    blueSlimeFemaleHM: 0,
+    femaleChestMimic: 0,
+    femaleChestMimicVore: 0,
+    maleChestMimic: 0,
+    maleChestMimicVore: 0
  };
 
  let playerSkillsData = {

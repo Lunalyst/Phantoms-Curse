@@ -436,7 +436,12 @@ class chestMimic extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this chestMimic.
     moveIdle() {
-        this.anims.play('mimicFrontIdle', true);
+        if(this.hiding === true){
+            this.anims.play('mimicHide', true);
+        }else{
+            this.anims.play('mimicFrontIdle', true);
+        }
+        
         this.setVelocityX(0);
         this.setVelocityY(0);
         this.setDepth(4);

@@ -555,10 +555,8 @@ class tiger extends enemy {
     tigerGrabFalse(){
          // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
             //console.log("this tiger did grab the player this.tigerId: " + this.tigerId);
-            console.log("this.playerGrabbed",this.playerGrabbed);
+            //console.log("this.playerGrabbed",this.playerGrabbed);
             this.scene.player1.visible = false;
-            // puts the player hitbox out of the way and locked to a specific location.
-            this.scene.player1.y = this.y - 150;
             // makes the key prompts visible.
             this.scene.KeyDisplay.visible = true;
 
@@ -1354,10 +1352,6 @@ class tiger extends enemy {
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            this.scene.player1.y = this.y - 150;
-            this.scene.player1.body.setGravityY(0);
-            //this.body.setGravityY(0);
-            this.scene.player1.setSize(10, 10, true);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;

@@ -608,12 +608,6 @@ class chestMimic extends enemy {
 
     chestMimicGrabTrue(playerHealthObject){
 
-        //console.log("this chestMimic did grab the player this.chestMimicID: "+ this.chestMimicId);
-        // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-        this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 100;

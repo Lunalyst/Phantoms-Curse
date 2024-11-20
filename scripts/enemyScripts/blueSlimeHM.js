@@ -1293,7 +1293,6 @@ class blueSlimeHM extends enemy {
             this.scene.player1.y = this.y - 150;
             this.scene.player1.body.setGravityY(0);
             //this.body.setGravityY(0);
-            //this.scene.player1.setSize(10, 10, true);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;

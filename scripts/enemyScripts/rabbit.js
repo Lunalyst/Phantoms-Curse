@@ -321,8 +321,6 @@ class rabbit extends enemy {
         // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
         //console.log("this rabbit did not grab the player this.rabbitID: " + this.enemyId);
         this.scene.player1.visible = false;
-        // puts the player hitbox out of the way and locked to a specific location.
-        this.scene.player1.y = this.y - 150;
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
         
@@ -339,10 +337,6 @@ class rabbit extends enemy {
 
         //console.log("this rabbit did grab the player this.rabbitID: "+ this.rabbitId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-        this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 100;
@@ -555,11 +549,7 @@ class rabbit extends enemy {
                 controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
 
                 this.scene.player1.visible = true;
-                this.scene.player1.setSize(23, 68, true);
-                this.scene.player1.body.setGravityY(600);
-                this.body.setGravityY(600);
-                this.scene.player1.x = this.x;
-                this.scene.player1.y = this.y;
+                
                 this.scene.KeyDisplay.visible = false;
                 // creates a window of time where the player cant be grabbed after being released.
                 // creates a cooldown window so the player does not get grabbed as they escape.
@@ -937,12 +927,7 @@ class rabbit extends enemy {
 
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-        
-            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            this.scene.player1.y = this.y - 150;
-            this.scene.player1.body.setGravityY(0);
-            //this.body.setGravityY(0);
-            this.scene.player1.setSize(10, 10, true);
+         
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;
             this.scene.KeyDisplay.x = this.x;

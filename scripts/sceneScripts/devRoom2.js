@@ -1,14 +1,13 @@
 
-
-class devRoom1 extends defaultScene {
+class devRoom2 extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'DevRoom1',active: false ,physics:{default:'arcade'}});
+    super({key: 'DevRoom2',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "DevRoom1";
+    this.playerLocation = "DevRoom2";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,11 +26,10 @@ class devRoom1 extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("dev_interior1_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/dev_room1.json");
+      this.load.tilemapTiledJSON("dev_interior2_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/dev_room2.json");
      
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-
+      
       this.defaultPreload();
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
@@ -51,7 +49,7 @@ class devRoom1 extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("dev_interior1_map","Home_Interior_Tileset","home_source_map");
+      this.setUpTileSet("dev_interior2_map","Home_Interior_Tileset","home_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -90,16 +88,9 @@ class devRoom1 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      /*this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
-         ['signLoop']);
-        */
+      this.initPortalsWithTransparency(419,605-13,864,605,"door1","DevRoom1",0.75);
       
-
-      this.initPortalsWithTransparency(637,605-13,1470,1725,"door1","ForestRavineHome",0.75);
-      
-      this.initPortals(864,605-13,419,605,"door2","DevRoom2");
-
+      this.initSavePoints(524,605-14);
 
       
       //sets up containers
@@ -126,58 +117,11 @@ class devRoom1 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
-        //make a temp object
-      let object1 = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-
-      let object2 = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-
-      // call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
-
-      if(object1.foundFlag === true && object2.foundFlag === false){
-        //let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(380,605,
-        dialogue,
-        ['lunaNeutral','lunaHappy'],
-      'lunaProtoDialogue1'
-      );
-      }else if(object2.foundFlag === true){
-        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
-        let dialogue = line1 + line2;
-        this.initLunalyst(380,605,
-        dialogue,
-        ['lunaFingerTouch','lunaHappy'],
-      'lunaProtoDialogue2'
-      );
-      }else{
-        let line1 = 'OH, A HUMAN!                                                                ';
-        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
-        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
-        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
-        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
-        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
-        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
-        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(380,605,
-          dialogue,
-          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
-        'lunaProtoDialogue'
-        );
-     }  
-
     }
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){

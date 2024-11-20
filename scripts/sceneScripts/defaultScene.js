@@ -154,6 +154,7 @@ class defaultScene extends allSceneFunctions {
         this.PlayerStuckSFXTimer = false;
         this.playerStuckGrabbedBy = "";
         this.playerStuckGrabCap = 0;
+        this.PlayerOutOfBounds = false;
         
         
 
@@ -603,7 +604,8 @@ class defaultScene extends allSceneFunctions {
       //creates fadeout when fadeout function is called in the camera object
       
       this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-        //warps player to the next scene
+
+         //warps player to the next scene
         console.log('sending player to: ',this.destination);
         console.log('this.playerDefeated: ',this.playerDefeated);
         if(this.playerDefeated === true){
@@ -619,6 +621,7 @@ class defaultScene extends allSceneFunctions {
         this.pausedInTextBox = false;
         this.isPaused = false;
         this.gameStartedDelay = false;
+        this.PlayerOutOfBounds = false;
 
         //should protect agianst the struggle bar lingering if the player gets grabbed while warping.
         struggleEmitter.emit(struggleEvent.activateStruggleBar,false);
@@ -719,6 +722,8 @@ class defaultScene extends allSceneFunctions {
 
     //sets up player collision
     setUpPlayerCollider(){
+        // resets out of bounds check.
+        this.PlayerOutOfBounds = false;
         this.physics.add.collider(this.player1,this.processMap.layer1);
         this.physics.add.collider(this.player1,this.processMap.layer0);
     }
@@ -1227,8 +1232,57 @@ class defaultScene extends allSceneFunctions {
     //special check to keep player from falling out of the world
     checkPlayerOutOfBounds(){
       if(this.player1.y > 3000){
-        this.player1.x = this.warpToX
-        this.player1.y = this.warpToY-2000
+
+        console.log("this.PlayerOutOfBounds: ",this.PlayerOutOfBounds);
+
+        if(this.PlayerOutOfBounds === false){
+
+          this.PlayerOutOfBounds = true;
+          //creates a object to hold data for scene transition
+          let playerDataObject = {
+            saveX: null,
+            saveY: null,
+            playerHpValue: null,
+            playerSex: null,
+            playerLocation: null,
+            inventoryArray: null,
+            playerBestiaryData: null,
+            playerSkillsData: null,
+            playerSaveSlotData: null,
+            flagValues: null,
+            settings:null,
+            dreamReturnLocation:null
+          };
+
+          //grabs the latests data values from the gamehud. also sets hp back to max hp.
+          inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+      
+          //then we set the correct location values to the scene transition data.
+          playerDataObject.saveX = 1486;
+          playerDataObject.saveY = 483;
+          playerDataObject.playerSex = this.playerSex;
+          playerDataObject.playerLocation = "DevRoom2";
+
+          // then we save the scene transition data.
+          this.saveGame(playerDataObject);
+
+          //kills gameplay emitters so they dont pile up between scenes
+          this.clearGameplayEmmitters();
+
+          this.portalId = 0;
+          //for loop looks through all the looping music playing within a given scene and stops the music.
+          for(let counter = 0; counter < this.sound.sounds.length; counter++){
+            this.sound.get(this.sound.sounds[counter].key).stop();
+          }
+
+          //warps player to the next scene
+          console.log(" teleporting player too: ",playerDataObject.playerLocation);
+          this.destination = "DevRoom2";
+          this.cameras.main.fadeOut(500, 0, 0, 0);
+          
+        }
+        
+
       }
 
     }

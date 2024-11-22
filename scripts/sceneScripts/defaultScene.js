@@ -123,6 +123,8 @@ class defaultScene extends allSceneFunctions {
         this.warpToY = 600;
         this.playerSex;
         this.settings;
+        //variable to tell when the dialogue should be interupted
+        this.textInterupt = false;
         
         this.preferance;
         this.onomatopoeia;
@@ -1042,7 +1044,7 @@ class defaultScene extends allSceneFunctions {
     checkNpc(scene) {
       //applies a function to each portal object in the scene
       scene.npcs.children.each(function (tempNpc) {
-        if ((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 50 && scene.player1.y < tempNpc.y + 50) && scene.grabbed === false) {
+        if ((scene.player1.x > tempNpc.x - 40 && scene.player1.x < tempNpc.x + 40) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40) && scene.grabbed === false) {
           //console.log("within luna's range tempNpc.npcId: ",tempNpc.npcId);
           tempNpc.safeToSpeak = true;
           scene.activatedNpcId = tempNpc.npcId;

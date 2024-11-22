@@ -10,6 +10,12 @@ class lunalyst extends npc{
       this.anims.create({key: 'lunalystChairSleep',frames: this.anims.generateFrameNames('lunalyst', { start: 11, end: 14 }),frameRate: 2,repeat: -1});
       this.anims.create({key: 'lunalystChairWakeUp',frames: this.anims.generateFrameNames('lunalyst', { start: 15, end: 17 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'lunalystChairIdle',frames: this.anims.generateFrameNames('lunalyst', { start: 17, end: 20 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunalystMaleHugStart',frames: this.anims.generateFrameNames('lunalyst', { start: 21, end: 24 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'lunalystMaleHug',frames: this.anims.generateFrameNames('lunalyst', { start: 24, end: 28 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunalystMaleHugEnd',frames: this.anims.generateFrameNames('lunalyst', { start: 29, end: 31 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'lunalystFemaleHugStart',frames: this.anims.generateFrameNames('lunalyst', { start: 32, end: 35 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'lunalystFemaleHug',frames: this.anims.generateFrameNames('lunalyst', { start: 35, end: 39 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunalystFemaleHugEnd',frames: this.anims.generateFrameNames('lunalyst', { start: 40, end: 42 }),frameRate: 5,repeat: 0});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
@@ -29,6 +35,7 @@ class lunalyst extends npc{
        this.dialogueCompleted = false;
        this.completedText = false;
 
+       this.animationPlayed = false;
        this.scene = scene;
  
        //createdfor use in textbox
@@ -36,6 +43,8 @@ class lunalyst extends npc{
 
        if(this.npcType === 'devRoom'){
           this.anims.play('lunalystChairSleep');
+       }else if(this.npcType === 'clearingTheWay'){
+          this.anims.play('lunalystIdle');
        }
 
   }
@@ -61,8 +70,9 @@ class lunalyst extends npc{
 
           //logic to decide what the npcs activated function is.
           if(this.npcType === 'devRoom'){
-            console.log("setting luna dev room mode")
             this.devRoom();
+          }else if(this.npcType === 'clearingTheWay'){
+            this.ClearingTheWay();
           }else{
             this.default();
           }
@@ -315,62 +325,161 @@ class lunalyst extends npc{
   }
 
   ClearingTheWay(){
+    //check to see if flag already exists
+    let lunaCTWDialogue1 = {
+      flagToFind: "lunaCTWDialogue1",
+      foundFlag: false,
+    };
 
-    if(this.completedText === true && this.flag === 'lunaProtoDialogue'){
-      //change dialogue flag
-      console.log("progressing dialogue once");
-      //now to add the flag to the player data so the gmae know player has talked to luna once.
-      
-      //check to see if flag already exists
-      let object = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+    let lunaCTWDialogue2 = {
+      flagToFind: "lunaCTWDialogue2",
+      foundFlag: false,
+    };
 
-      this.flag = 'lunaProtoDialogue1';
-      
-      //if flag is not present then add it.
-      if(object.foundFlag === false){
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue1);
+
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue2);
+    console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
+
+    if(lunaCTWDialogue1.foundFlag === false){
+
+      this.textToDisplay = 
+      'OH A HUMAN! HELLO!        '+
+      '                          '+
+      '                          '+
+
+      'MY NAME IS LUNALYST, AND  '+
+      'IM SURE YOU CAN TELL IM   '+
+      'NOT QUITE HUMAN ANYMORE.  '+
+
+      'HOWEVER IM NOT GONA TRY   '+
+      'AND EAT OR FORNICATE      '+
+      'WITH YOU, PROMISE.        '+
+
+      'IM JUST A HUMBLE MAID    '+
+      'TRYING TO GET BACK TO    '+
+      'LOCKWOOD VILLAGE.        '+
+
+      'LOTS OF CAVE INS         '+
+      'SO IM DOING MY BEST TO   '+
+      'CLEAR THE WAY.           '+
+
+      'ANYWAY, I GOT TO GET     '+
+      'BACK TO IT.              '+
+      'STAY SAFE OUT THERE. ^_^ ';
+
+      this.profileArray = ['lunaStarEyes','lunaHappy','lunaKO','lunaFingerTouch','lunaKO','lunaStarEyes']
+
+      if(this.scene.sceneTextBox.amountWIsPressed === 4){
+
+        this.anims.play('lunalystSkirtPull',true).once('animationcomplete', () => {
+          this.anims.play('lunalystIdle');
+
+        });
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 5){
+
+        //add dialogue flag.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaCTWDialogue1.flagToFind);
+      }else{
+        this.anims.play('lunalystIdle',true); 
       }
-      this.textToDisplay = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.profileArray =  ['lunaNeutral','lunaHappy'];
 
-      //once the player has talked to luna twice progress dialogue in scene and update value
-    }else if( this.completedText === true && this.flag === 'lunaProtoDialogue1'){
-      console.log("progressing dialogue twice");
-      
-      //check to see if flag already exists
-      let object = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+    }else if(lunaCTWDialogue1.foundFlag === true){
 
-      this.flag = 'lunaProtoDialogue2';
+      this.textToDisplay = 
+      'OH HELLO AGIAN!           '+
+      '                          '+
+      '                          '+
 
-      //if flag is not present then add it.
-      if(object.foundFlag === false){
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag);
+      'IM STILL BUSY OVER HERE   '+
+      'CLEARING THE WAY.         '+
+      '                          '+
+
+      'HOWEVER I CAN GIVE YOU    '+
+      'A HUG IF YOU LIKE.        '+
+      '                          '+
+
+      'COME HERE.                '+
+      'EVERYTHINGS GONIG TO BE   '+
+      'ALRIGHT.                  '+
+
+      '                          '+
+      '                          '+
+      '                          '+
+
+      '                          '+
+      '                          '+
+      '                          '+
+
+      'STAY SAFE OUT THERE. ^_^  '+
+      '                          '+
+      '                          ';
+
+      this.profileArray = ['lunaHappy','lunaKO','lunaFingerTouch','lunaHappy','lunaHappy','lunaHearts','lunaFingerTouch']
+
+      if(this.scene.sceneTextBox.amountWIsPressed === 2){
+        this.animationPlayed = false;
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 3){
+
+       this.scene.player1.visible = false;
+        if(this.animationPlayed === false){
+
+          this.animationPlayed = true;
+          if(this.scene.playerSex === 1){
+            this.anims.play('lunalystFemaleHugStart').once('animationcomplete', () => {
+              this.anims.play('lunalystFemaleHug',true);
+              this.animationPlayed = false;
+              //this.scene.textInterupt = false;
+            });
+           }else{
+            this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
+              this.anims.play('lunalystMaleHug',true);
+              this.animationPlayed = false;
+              //this.scene.textInterupt = false;
+            });
+           } 
+        }
+       
+      }else if(this.scene.sceneTextBox.amountWIsPressed > 3 && this.scene.sceneTextBox.amountWIsPressed < 6){
+        if(this.scene.playerSex === 1){
+          this.anims.play('lunalystFemaleHug',true);
+         }else{
+          this.anims.play('lunalystMaleHug',true);
+         } 
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
+
+        if(this.scene.playerSex === 1){
+          this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
+            this.anims.play('lunalystIdle',true);
+            this.scene.player1.x = this.x+20;
+            this.scene.player1.y = this.y;
+            this.scene.player1.visible = true;
+          });
+         }else{
+          this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
+            this.anims.play('lunalystIdle',true);
+            this.scene.player1.x = this.x+20;
+            this.scene.player1.y = this.y;
+            this.scene.player1.visible = true;
+          });
+         } 
+        
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 7){
+
+        this.anims.play('lunalystIdle',true);
+
+        this.scene.player1.x = this.x+20;
+        this.scene.player1.y = this.y;
+        this.scene.player1.visible = true;
       }
-      let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-      let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?'; 
-      this.textToDisplay = line1 + line2;
-      this.profileArray = ['lunaFingerTouch','lunaHappy'];
 
     }
 
-    this.anims.play('lunalystSkirtPull').once('animationcomplete', () => {
-      //activates textbox apart of the main scene
-
-    this.anims.play('lunalystIdle',true);
-
-  });
-
+    
   }
 
-  
 
 
 }

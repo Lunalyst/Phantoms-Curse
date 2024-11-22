@@ -100,7 +100,7 @@ class devRoom1 extends defaultScene {
         */
       
 
-      this.initPortalsWithTransparency(637,605-13,14700,1725,"devDoor","ForestRavineHome",0.75);
+      this.initPortalsWithTransparency(637,605-13,1470,1725,"devDoor","ForestRavineHome",0.75);
       
       this.initBedPortals(364, 592+29);
 
@@ -136,6 +136,7 @@ class devRoom1 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
+        //spawn luna with his dialogue
         this.initLunalyst(469,605,'devRoom');
    
      

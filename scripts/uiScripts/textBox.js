@@ -71,7 +71,7 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //function activates textbox and progresses text box when w is pressed
-    activateTextBox(scene1,keyW){
+    activateTextBox(scene1){
 
       //console.log("this.currentText: ",this.currentText);
       //console.log("this.profileArray: ",this.profileArray);
@@ -95,7 +95,7 @@ class textBox extends Phaser.GameObjects.Container{
       }
       
       //if the player pressed w then
-      if(scene1.checkWPressed()){
+      if(scene1.checkWPressed() && scene1.textInterupt === false){
 
         this.amountWIsPressed++;
         

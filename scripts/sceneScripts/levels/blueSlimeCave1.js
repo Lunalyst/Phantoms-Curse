@@ -192,41 +192,7 @@ class blueSlimeCave1 extends defaultScene {
         foundFlag: false,
       };
 
-      /*// call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
-
-      if(object1.foundFlag === true && object2.foundFlag === false){
-        let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(1730,573,
-        dialogue,
-        ['lunaNeutral','lunaHappy'],
-      'lunaProtoDialogue1'
-      );
-      }else if(object2.foundFlag === true){
-        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
-        let dialogue = line1 + line2;
-        this.initLunalyst(1730,573,
-        dialogue,
-        ['lunaFingerTouch','lunaHappy'],
-      'lunaProtoDialogue2'
-      );
-      }else{
-        let line1 = 'OH, A HUMAN!                                                                ';
-        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
-        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
-        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
-        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
-        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
-        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
-        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(1730,573,
-          dialogue,
-          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
-        'lunaProtoDialogue'
-        );
-     }  */
+      this.initLunalyst(1730,573,'clearingTheWay');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

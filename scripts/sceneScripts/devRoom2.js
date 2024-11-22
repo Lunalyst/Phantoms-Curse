@@ -26,10 +26,29 @@ class devRoom2 extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
+      this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       this.load.tilemapTiledJSON("dev_interior2_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/dev_room2.json");
      
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       
+      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
+      
+      this.load.spritesheet('mimicMale-evan-TF', 'assets/enemys/mimic_male_male1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicMale-evan-vore', 'assets/enemys/mimic_male_male2.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicMale-evelyn-TF', 'assets/enemys/mimic_male_female1.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('mimicMale-evelyn-vore', 'assets/enemys/mimic_male_female2.png',{frameWidth: 381, frameHeight: 303 });
+      
+      this.load.spritesheet('mimicTongue', 'assets/internalViews/mimicTongue.png',{frameWidth: 213, frameHeight: 213});
+      this.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
+      this.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
+        
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+      ]);
+
       this.defaultPreload();
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
@@ -39,6 +58,9 @@ class devRoom2 extends defaultScene {
     }
 
     create(){
+
+      //sets up gameover location
+      this.setupGameoverLocation("caveGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -88,9 +110,13 @@ class devRoom2 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(419,605-13,864,605,"door1","DevRoom1",0.75);
+      this.initSigns(525,605+14,
+        "I like ya, and I want ya. Now we can do this the easy way, or we can do this the hard way, The choice is yaaawws.",
+         ['signLoop']);
+
+      this.initPortalsWithTransparency(419,605-13,864,605,"door2","DevRoom1",0.75);
       
-      this.initSavePoints(524,605-14);
+      this.initSavePoints(1435,605-14);
 
       
       //sets up containers
@@ -99,13 +125,20 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+       //sets up enemy colliders and groups
+       this.enemyGroupArray = ["chestMimics"];
+       this.setUpEnemyCollider(this.enemyGroupArray);
+
+      //define barriers whee enemys cannot go.
+      this.setUpEnemyBarriers();
+      this.initBarrier(1355,605-30,20,300);
+      this.initBarrier(566,605-30,20,300);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
+          thisScene.initEnemy(1028,701-3,thisScene.playerSex,'chestMimic',false);
       
           thisScene.spawnedEnemys = true;
         },1000);
@@ -141,6 +174,9 @@ class devRoom2 extends defaultScene {
       
       //calls the built in update function
       this.defaultUpdate();
+
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
 
     }
 

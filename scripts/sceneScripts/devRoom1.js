@@ -32,6 +32,10 @@ class devRoom1 extends defaultScene {
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
+      this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
+      this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
+      this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
+      
       this.defaultPreload();
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
@@ -96,12 +100,18 @@ class devRoom1 extends defaultScene {
         */
       
 
-      this.initPortalsWithTransparency(637,605-13,1470,1725,"door1","ForestRavineHome",0.75);
+      this.initPortalsWithTransparency(637,605-13,14700,1725,"devDoor","ForestRavineHome",0.75);
       
+      this.initBedPortals(364, 592+29);
+
       this.initPortals(864,605-13,419,605,"door2","DevRoom2");
 
+      this.setUpPlayerStorage();
+      this.initStorage(721, 592);
 
-      
+      this.setUpPlayerCraftingBench();
+      this.initPlayerCraftingBench(790, 592);
+
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
@@ -126,52 +136,9 @@ class devRoom1 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
-        //make a temp object
-      let object1 = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-
-      let object2 = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-
-      // call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
-
-      if(object1.foundFlag === true && object2.foundFlag === false){
-        //let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(380,605,
-        dialogue,
-        ['lunaNeutral','lunaHappy'],
-      'lunaProtoDialogue1'
-      );
-      }else if(object2.foundFlag === true){
-        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
-        let dialogue = line1 + line2;
-        this.initLunalyst(380,605,
-        dialogue,
-        ['lunaFingerTouch','lunaHappy'],
-      'lunaProtoDialogue2'
-      );
-      }else{
-        let line1 = 'OH, A HUMAN!                                                                ';
-        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
-        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
-        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
-        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
-        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
-        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
-        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(380,605,
-          dialogue,
-          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
-        'lunaProtoDialogue'
-        );
-     }  
+        this.initLunalyst(469,605,'devRoom');
+   
+     
 
     }
 

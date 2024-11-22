@@ -1050,7 +1050,7 @@ class defaultScene extends allSceneFunctions {
           //console.log("outside save point");
           tempNpc.safeToSpeak = false;
         }
-        tempNpc.activateNpc(scene, scene.keyW, scene.activatedNpcId);
+        tempNpc.activateNpc();
   
       }, scene);
   }
@@ -1236,6 +1236,27 @@ class defaultScene extends allSceneFunctions {
         console.log("this.PlayerOutOfBounds: ",this.PlayerOutOfBounds);
 
         if(this.PlayerOutOfBounds === false){
+
+          //potentially add some flags for luna's dialogue
+          //check to see if flag already exists
+          let lunaDevDialogue1 = {
+            flagToFind: "lunaDevDialogue1",
+            foundFlag: false,
+          };
+
+          let lunaDevDialogue2 = {
+            flagToFind: "lunaDevDialogue2",
+            foundFlag: false,
+          };
+
+          inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue1);
+
+          inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue2);
+
+          //add flag if the player has managed to escape bound agian.
+          if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === false){
+            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue2.flagToFind);
+          }
 
           this.PlayerOutOfBounds = true;
           //creates a object to hold data for scene transition

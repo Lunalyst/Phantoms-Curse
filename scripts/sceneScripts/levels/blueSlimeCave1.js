@@ -192,7 +192,7 @@ class blueSlimeCave1 extends defaultScene {
         foundFlag: false,
       };
 
-      // call the emitter to check if the value already was picked up.
+      /*// call the emitter to check if the value already was picked up.
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
 
@@ -226,7 +226,7 @@ class blueSlimeCave1 extends defaultScene {
           ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
         'lunaProtoDialogue'
         );
-     }  
+     }  */
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

@@ -57,6 +57,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.textBoxActivationCoolDown = false;
       this.profileArray;
       this.profileArrayPosition = 0;
+      this.amountWIsPressed = 0;
 
     
       
@@ -71,7 +72,10 @@ class textBox extends Phaser.GameObjects.Container{
 
     //function activates textbox and progresses text box when w is pressed
     activateTextBox(scene1,keyW){
-      
+
+      //console.log("this.currentText: ",this.currentText);
+      //console.log("this.profileArray: ",this.profileArray);
+
       //if the cooldown is not true then
       if(this.textBoxActivationCoolDown === false){
 
@@ -92,6 +96,8 @@ class textBox extends Phaser.GameObjects.Container{
       
       //if the player pressed w then
       if(scene1.checkWPressed()){
+
+        this.amountWIsPressed++;
         
         //update position so we can display the next set of text.
         this.startPosition = this.endPosition;
@@ -130,6 +136,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.endPosition = 0;
       this.textBoxActivationCoolDown = true;
       this.profileArrayPosition = 0;
+      this.amountWIsPressed = 0;
 
       this.completedText = true;
       //use emmitter to show the mobile controls if there on.

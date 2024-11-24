@@ -30,16 +30,16 @@ class defaultScene extends allSceneFunctions {
         "audio/used-audio/bounce-sounds/bounce-sounds.mp3"
       ]);
 
+      this.load.audioSprite('jumpySFX','audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.json',[
+        "audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
+      ]);
+
       this.load.audioSprite('creakSFX','audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
         "audio/used-audio/wood-creak-sounds/wood-creak.mp3"
       ]);
 
       this.load.audioSprite('plapSFX','audio/used-audio/plap-sounds/plap-sounds.json',[
         "audio/used-audio/plap-sounds/plap.mp3"
-      ]);
-
-      this.load.audioSprite('jumpySFX','audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.json',[
-        "audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
       ]);
 
       this.load.audioSprite('burpSFX','audio/used-audio/burp-sounds/burp-sounds.json',[

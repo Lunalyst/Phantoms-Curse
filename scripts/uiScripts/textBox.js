@@ -59,6 +59,8 @@ class textBox extends Phaser.GameObjects.Container{
       this.profileArrayPosition = 0;
       this.amountWIsPressed = 0;
 
+      this.finishedDisplayingText = true;
+
     
       
     }
@@ -155,15 +157,46 @@ class textBox extends Phaser.GameObjects.Container{
     // this. line and two numbers representing the start and end location of the text to be display.
     displayText(start,end){
       let textPos = 0;
+      //clear the text character first.
       for(let counter = start;counter < end;counter++){
-        if(counter < this.currentText.length){
-          this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase());
-        }else{
-          this.lines[textPos].anims.play(' ');
-        }
+        this.lines[textPos].anims.play(' ');
         textPos++;
       }
+
+      textPos = 0;
+      //awsome wack ass recursion using anims complete to create text scrolling.
+      this.displayHelper(start,textPos,end,this.amountWIsPressed)
+
       this.textBoxProfileImage.anims.play(this.profileArray[this.profileArrayPosition]);
+    }
+
+    //function that makes delayed text 
+    displayHelper(counter,textPos,end,wPosition){
+
+      //if we arnt at the end of the text to be displayed
+      if(counter < end-1 && wPosition === this.amountWIsPressed){
+
+        //if there is a character in length of the texbox to be idsplayed
+        if(counter < this.currentText.length){
+          
+          //sound check for text scroll  only for characters not space and while the text is visible
+          if(this.visible && this.currentText.charAt(counter) !== ' '){
+            this.scene.initSoundEffect('buttonSFX','1',0.01);
+          }
+          this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase()).once('animationcomplete', () => {
+            this.displayHelper(counter+1,textPos+1,end,wPosition);
+          });
+         
+        }else{
+  
+          this.lines[textPos].anims.play(' ').once('animationcomplete', () => {
+          this.displayHelper(counter+1,textPos+1,end,wPosition);
+        });
+
+        }
+
+      }
+      
     }
 
     //formatting function so text properly fixts in textbox

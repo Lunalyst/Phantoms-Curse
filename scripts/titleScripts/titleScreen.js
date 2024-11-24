@@ -90,6 +90,9 @@ class titleScreen extends allSceneFunctions {
                 "audio/used-audio/curse-sounds/suntemple-curse.mp3"
               ]);
 
+            
+        
+
             this.load.scenePlugin({
                 key: 'rexuiplugin',
                 url: 'lib/vendors/rexuiplugin.min.js',

@@ -377,7 +377,7 @@ class lunalyst extends npc{
 
         });
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 5){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
 
         //add dialogue flag.
         inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaCTWDialogue1.flagToFind);
@@ -401,7 +401,7 @@ class lunalyst extends npc{
       '                          '+
 
       'COME HERE.                '+
-      'EVERYTHINGS GONIG TO BE   '+
+      'EVERYTHINGS GOING TO BE   '+
       'ALRIGHT.                  '+
 
       '                          '+
@@ -430,18 +430,21 @@ class lunalyst extends npc{
             this.anims.play('lunalystFemaleHugStart').once('animationcomplete', () => {
               this.anims.play('lunalystFemaleHug',true);
               this.animationPlayed = false;
-              //this.scene.textInterupt = false;
+              this.scene.player1.visible = false;
             });
            }else{
             this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
               this.anims.play('lunalystMaleHug',true);
               this.animationPlayed = false;
-              //this.scene.textInterupt = false;
+              this.scene.player1.visible = false;
             });
            } 
         }
        
       }else if(this.scene.sceneTextBox.amountWIsPressed > 3 && this.scene.sceneTextBox.amountWIsPressed < 6){
+
+        this.scene.player1.visible = false;
+
         if(this.scene.playerSex === 1){
           this.anims.play('lunalystFemaleHug',true);
          }else{

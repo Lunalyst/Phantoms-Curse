@@ -153,7 +153,7 @@ class devRoom2 extends defaultScene {
         this.backround.setTint(0xd3d3d3);
 
         //spawn test luna
-        //this.initLunalyst(1244,701,'clearingTheWay');
+        this.initLunalyst(1244,701,'clearingTheWay');
 
     }
 

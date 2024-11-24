@@ -98,7 +98,7 @@ class textBox extends Phaser.GameObjects.Container{
       
       //if the player pressed w then
       if(scene1.checkWPressed() && scene1.textInterupt === false){
-
+        console.log("this.amountWIsPressed: ",this.amountWIsPressed);
         this.amountWIsPressed++;
         
         //update position so we can display the next set of text.

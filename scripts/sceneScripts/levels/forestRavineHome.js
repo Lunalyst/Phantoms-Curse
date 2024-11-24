@@ -102,7 +102,7 @@ class ForestRavineHome extends defaultScene {
 
       this.initPortals(281,1277-13,1570,829,"warpCaveOutside","caveToSunflowers1");
 
-      this.initPortals(1470,1725-13,637,605,"door2","DevRoom1");
+      //this.initPortals(1470,1725-13,637,605,"door2","DevRoom1");
 
       //sets up containers
       this.setUpContainers();

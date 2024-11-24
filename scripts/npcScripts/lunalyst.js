@@ -377,7 +377,7 @@ class lunalyst extends npc{
 
         });
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 7){
 
         //add dialogue flag.
         inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaCTWDialogue1.flagToFind);

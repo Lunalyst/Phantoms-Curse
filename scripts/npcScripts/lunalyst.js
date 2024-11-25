@@ -186,7 +186,7 @@ class lunalyst extends npc{
         'HUMANS LIKE YOUR SELF.   '+
 
         'I WAS HUMAN ONCE WHEN I  '+
-        'WASHED UP WHERE.         '+
+        'WASHED UP HERE.          '+
         '                         '+
 
         'ONE OF THE BATS GOT ME A '+

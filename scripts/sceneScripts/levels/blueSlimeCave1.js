@@ -122,9 +122,12 @@ class blueSlimeCave1 extends defaultScene {
 
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
 
+      this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
+
       this.fakeWarp1 = new fakeWarp(this,1250,1565-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp2 = new fakeWarp(this,1779,1149-13,'warpCaveOutsideRubble');
+      this.initPortals(1779,1149-13,462,1245,"warpCaveOutside","istarasCave");
+      //this.fakeWarp2 = new fakeWarp(this,1779,1149-13,'warpCaveOutsideRubble');
 
       this.fakeWarp3 = new fakeWarp(this,1796,573-13,'warpCaveOutsideRubble');
 
@@ -211,7 +214,7 @@ class blueSlimeCave1 extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

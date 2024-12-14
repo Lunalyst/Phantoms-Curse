@@ -859,8 +859,8 @@ class defaultScene extends allSceneFunctions {
     }
 
     //creates a lunalyst NPC
-    initLunalyst(x, y, text, profileArray,flag) {
-      let luna = new lunalyst(this, x, y, text, profileArray,flag);
+    initLunalyst(x, y, text) {
+      let luna = new lunalyst(this, x, y, text);
       //gives portal a unique id so that scene can tell which warp object is being activated
       luna.npcId = this.npcId;
       this.npcId++;
@@ -870,6 +870,20 @@ class defaultScene extends allSceneFunctions {
       //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
       //console.log(" scene.portalId: "+ scene.portalId);
   }
+
+  initIstara(x, y, text, profileArray,flag) {
+
+    //sets up the special text box object for istara
+    this.sceneTextBox.textBoxProfileImage.setUpIstaraEmots();
+
+    //create istara npc
+    let Istara = new istara(this, x, y, text, profileArray,flag);
+
+    Istara.npcId = this.npcId;
+    this.npcId++;
+    this.npcs.add(Istara);
+
+}
 
     //creates a item drop object in the scene
     initItemDrop(x, y,itemID,itemStackable,itemAmount) {

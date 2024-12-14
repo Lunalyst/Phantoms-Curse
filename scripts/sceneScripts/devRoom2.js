@@ -117,7 +117,9 @@ class devRoom2 extends defaultScene {
          ['signLoop']);
 
       this.initPortalsWithTransparency(419,605-13,864,605,"door2","DevRoom1",0.75);
-      
+
+      this.initPortals(1068,541-13,462,1245,"door2","istarasCave");
+
       this.initSavePoints(1435,605-14);
 
       
@@ -159,7 +161,7 @@ class devRoom2 extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){

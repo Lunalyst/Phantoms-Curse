@@ -181,7 +181,7 @@ class textBox extends Phaser.GameObjects.Container{
           
           //sound check for text scroll  only for characters not space and while the text is visible
           if(this.visible && this.currentText.charAt(counter) !== ' '){
-            this.scene.initSoundEffect('buttonSFX','1',0.01);
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
           }
           this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase()).once('animationcomplete', () => {
             this.displayHelper(counter+1,textPos+1,end,wPosition);

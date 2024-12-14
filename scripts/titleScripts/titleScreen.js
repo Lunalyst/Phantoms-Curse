@@ -117,7 +117,11 @@ class titleScreen extends allSceneFunctions {
             this.creditsArray = [
                 'LUNALYST: LEAD DEVELOPER',
                 'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
-                'GANGSTALKA: SOUND COMPOSER',
+                'NOBODYS DEATH: SOUND COMPOSER',
+                'TRACKS:',
+                '- HARE-RAISING HARMONIES',
+                '- PAWS AND WAIT',
+                '- SLIME CAVE',
                 'ZEBBY: INSPIRATION, BUG TESTING',
                 'DRACHEN: INSPIRATION,  BUG TESTING',
                 'CIRME: INSPIRATION, BUG TESTING',

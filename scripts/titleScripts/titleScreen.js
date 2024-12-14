@@ -122,6 +122,7 @@ class titleScreen extends allSceneFunctions {
                 '- HARE-RAISING HARMONIES',
                 '- PAWS AND WAIT',
                 '- SLIME CAVE',
+                'ISTARA: COMMISSION AND INSPIRATION',
                 'ZEBBY: INSPIRATION, BUG TESTING',
                 'DRACHEN: INSPIRATION,  BUG TESTING',
                 'CIRME: INSPIRATION, BUG TESTING',

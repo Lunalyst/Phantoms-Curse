@@ -218,7 +218,10 @@ class istara extends npc{
           'istaraNeutral',
           'istaraSquish',
           'istaraNeutral',
-          'istaraStarEyes'
+          'istaraStarEyes',
+          'istaraHappy',
+          'istaraHappy',
+          'istaraHeartEyes'
         ];
 
         if(this.yes === true && this.decisionMade === false){

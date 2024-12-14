@@ -195,9 +195,21 @@ class istara extends npc{
         'THEY BECOME MY SWEET     '+
         'LOYAL COBRABOLDS.        '+
 
-        'HMMM. YOUR NOT CURSED.   '+
+        'HMMM. YOURE NOT CURSED.  '+
         'WOULD YOU LIKE TO BECOME '+
-        'ONE OF MY COBRABOLDS?    ';
+        'ONE OF MY COBRABOLDS?    '+
+        
+        'EVEN THOUGH YOU WILL     '+
+        'SERVE ME, I PROMISE THAT '+
+        'I WILL KEEP YOU SAFE.    '+
+        
+        'MY COBRABOLDS ARE VERY   '+
+        'PRECIOUS TO ME.          '+
+        '                         '+
+
+        'I PROMISE YOU WILL BE    '+
+        'WELL TAKEN CARE OF.      '+
+        '                         ';
 
         this.profileArray = [
           'istaraNeutral',
@@ -223,15 +235,15 @@ class istara extends npc{
           'YOU SHOULD GET           '+
           'UNDRESSED.               '+
 
-          'YOUR THE PERFECT SIDE TO '+
-          'FIT CONFORTABLY IN MY    '+
+          'YOURE THE PERFECT SIZE   '+
+          'TO FIT CONFORTABLY IN MY '+
           'WOMB.                    '+
 
           'JUST RELAX AND SLIDE     '+
           'INTO YOUR NEW MISTRESSES '+
-          'BELLY SO IT CAN WORK ITS '+
+          'BELLY.                   '+
 
-          'MAGIC.                   '+
+          'ITLL WORK ITS MAGIC AND  '+
           'YOU WILL BE A CUTE       '+
           'COBRABOLD IN NO TIME.    ';
         }else{
@@ -244,90 +256,17 @@ class istara extends npc{
           '                         '+
 
           'ILL BE HERE IF YOU       '+
-          'CHANGE YOUR MIND.        '+
+          'CHANGE YOUR MIND....     '+
           '                         ';
         }
 
       console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed);
 
       if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('istaraChairIdle',true); 
-      }
-    }else if(istaraCaveDialogue1.foundFlag === true && istaraCaveDialogue2.foundFlag === true && this.isSleeping === false){
-      this.textToDisplay = 
-      'OH? STILL STICKING       '+
-      'AROUND?                  '+
-      '                         '+
-      
-      'MAKE YOUR SELF           '+
-      'COMFORTABLE.             '+
-      '                          '+
-
-      'I HAVE BEEN TRYING TO    '+
-      'CLEAR A PATH TO LOCKWOOD '+
-      'IN MY SPARE TIME.        '+
-
-      'ITS A NICE TOWN IN THE   '+
-      'TREES. MOST CURSED HAVE  '+
-      'TOUGH TIME REACHING IT.  '+
-
-      'EVEN THOUGH IM CURSED    '+
-      'OTHER CURSED WHO DONT    '+
-      'RETAIN THERE SENSE OF    '+
-
-      'STILL TRY TO EAT ME.     '+
-      'ITS ALMOST AS IF THEY    '+
-      'KNOW IM NOT ONE OF THEM. ';
-
-      this.profileArray = ['istaraNeutral','istaraHappy','istaraKO','istaraHappy','istaraAngryEyes','istaraCry']
-
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('istaraChairIdle',true); 
-      }
-
-    }else if(istaraCaveDialogue1.foundFlag === true && istaraCaveDialogue2.foundFlag === true){
-      this.textToDisplay = 
-      '                         '+
-      '                         '+
-      '                         '+
-
-      'WHAT THE.....            '+
-      'OH NO YOUR BACK.         '+
-      '                         '+
-
-      'YOU SHOULD, PROBABLY     '+
-      'TELL ME HOW GOT IN HERE  '+
-      'AGIAN. IM WORRIED.       '+
-
-      'THIS PLACE SHOULD BE     '+
-      'HARD TO REACH, BUT MIGHT '+
-      'NOT BE CURRENTLY.        '+
-
-      'IF YOU CAN GET IN HERE   '+
-      'THE CURSED LIKELY CAN    '+
-      'AS WELL.                 '+
-
-      'ANYWAY, MAKE YOURSELF    '+
-      'CONFORTABLE IF YOU WISH. '+
-      'EXITS BY THE HEATER.     ';
-
-      this.profileArray = ['istaraSleeping','istaraNeutral','istaraKO','istaraHappy','istaraFingerTouch','istaraStarEyes']
-
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('istaraChairSleep',true);
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
-        this.anims.play('istaraChairIdle',true); 
-        //since dialogue is done update with a flag saying the player talked to istara.
-        //since the flag does not exist add it since the player has activated the first dialogue
-        this.isSleeping = false;
-      }else{
-        this.anims.play('istaraChairIdle',true); 
+        
       }
     }
     
-  
   }
 
 }

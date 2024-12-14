@@ -1,0 +1,19 @@
+links:
+
+//itch.io game page
+https://lunalyst.itch.io/phantoms-curse
+
+//snapshot build, playable through github.
+https://lunalyst.github.io/Phantoms-Curse/
+
+//discord community link
+https://discord.com/invite/fhqt4yPfdt
+
+//direct respoitory link
+https://github.com/Lunalyst/SnakeBit-PreAlpha
+
+//trello board where you can find out about new features.
+https://trello.com/b/3YwpiIz0/phantoms-curse
+
+//patreon
+https://www.patreon.com/c/Lunalyst

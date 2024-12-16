@@ -112,6 +112,7 @@ class istarasCave extends defaultScene {
     this.lights.enable().setAmbientColor(0x555555);
 
     this.player1.setPipeline('Light2D');
+    this.processMap.layer0.setPipeline('Light2D');
     this.processMap.layer1.setPipeline('Light2D');
     this.processMap.layer2.setPipeline('Light2D');
     this.processMap.layer3.setPipeline('Light2D');

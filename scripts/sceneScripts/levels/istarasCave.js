@@ -62,6 +62,9 @@ class istarasCave extends defaultScene {
       
       this.grabbed = false;
 
+      //sets up ambient lighting
+      this.setupLightingSystem(0x555555);
+
       //creates tileset
       this.setUpTileSet("istara_cave_map","Cave_Tileset","cave_source_map");
     
@@ -107,15 +110,9 @@ class istarasCave extends defaultScene {
 
       
 
-    this.light1 = this.lights.addLight(695,1245, 200);
-
-    this.lights.enable().setAmbientColor(0x555555);
+    //this.light1 = this.lights.addLight(695,1245, 200);
 
     this.player1.setPipeline('Light2D');
-    this.processMap.layer0.setPipeline('Light2D');
-    this.processMap.layer1.setPipeline('Light2D');
-    this.processMap.layer2.setPipeline('Light2D');
-    this.processMap.layer3.setPipeline('Light2D');
 
       //sets up enemy colliders and groups
       this.enemyGroupArray = [];

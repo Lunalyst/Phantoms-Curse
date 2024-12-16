@@ -24,9 +24,19 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         //variables use to protect the object from being called at the wrong time.
         this.safeToSave = false;
         this.saveCoolDown= false;
+
+        this.scene = scene;
+
+        this.curseLight;
         
         //sets scale
         this.setScale(1/3);
+
+        //if lighting system is on then
+        if(this.scene.lightingSystemActive === true){
+            this.curseLight = this.scene.lights.addLight(this.x,this.y+4, 65, 0xb317ff);
+            this.curseLight.visible = false;
+        }
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with
@@ -72,9 +82,23 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //makes graphic to show player the game is saved
             inventoryKeyEmitter.emit(inventoryKey.playGameSaved);
 
+            //if lighting system is on then
+            if(this.scene.lightingSystemActive === true){
+
+                //delay the light being turned on since it needs to line up with animation.
+                let thisSavePoint = this;
+                setTimeout(function(){
+                    thisSavePoint.curseLight.visible = true;
+                },600);
+                
+            }
+
             //once we play the save animation once, then we set the animation back to nothing.
             this.anims.play('saveStoneAnimation').once('animationcomplete', () => {
                 this.anims.play('saveStone',true);
+                if(this.scene.lightingSystemActive === true){
+                    this.curseLight.visible = false;
+                }
             });
 
             //heal the player back to full once they save

@@ -72,6 +72,9 @@ class blueSlimeCave extends defaultScene {
       
       this.grabbed = false;
 
+      //sets up ambient lighting
+      this.setupLightingSystem(0x555555);
+
       //creates tileset
       this.setUpTileSet("blue_slime_map","Blue_Slime_Cave_Tileset","blue_slime_cave_source_map");
     

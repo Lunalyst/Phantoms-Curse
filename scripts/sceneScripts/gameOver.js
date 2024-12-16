@@ -154,8 +154,20 @@ class gameOver extends allSceneFunctions {
                 this.processMap.tilesetNameInTiled = "Blue_Slime_Cave_Tileset";
                 this.processMap.setTiles('blue_slime_source_map',this);
             }else if(this.gameoverLocation === 'caveGameover'){
+
+                this.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                this.lights.enable().setAmbientColor(0x555555);
+
                 this.processMap.tilesetNameInTiled = "Cave_Tileset";
                 this.processMap.setTiles('cave_source_map',this);
+
+                this.processMap.layer0.setPipeline('Light2D');
+                this.processMap.layer1.setPipeline('Light2D');
+                this.processMap.layer2.setPipeline('Light2D');
+                this.processMap.layer3.setPipeline('Light2D');
+
             }else if(this.gameoverLocation === 'forestGameover'){
                 this.processMap.tilesetNameInTiled = "Forest_Tileset";
                 this.processMap.setTiles('forest_source_map',this);

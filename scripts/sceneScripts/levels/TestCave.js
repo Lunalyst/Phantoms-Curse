@@ -75,6 +75,9 @@ class TestCave extends defaultScene {
       
       this.grabbed = false;
 
+      //sets up ambient lighting
+      this.setupLightingSystem(0x555555);
+
       //creates tileset
       this.setUpTileSet("test_cave_map","Cave_Tileset","cave_source_map");
     

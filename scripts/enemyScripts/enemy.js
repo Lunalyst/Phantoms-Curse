@@ -66,6 +66,12 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         console.log("sex passed in enemy: " + sex);
 
         this.onomatPlayed = false;
+
+        //applys lighting to the enemy.
+        if(this.scene.lightingSystemActive === true){ 
+            this.setPipeline('Light2D');
+            
+          }
  
     }
 

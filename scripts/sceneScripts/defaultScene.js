@@ -129,6 +129,8 @@ class defaultScene extends allSceneFunctions {
         this.preferance;
         this.onomatopoeia;
 
+        this.lightingSystemActive = false;
+
 
         this.itemDrops;
 
@@ -500,6 +502,14 @@ class defaultScene extends allSceneFunctions {
         this.processMap.tilesetNameInTiled = tilesetImage;
         //calls function that loads the tiles from the json
         this.processMap.setTiles(sourceMap,this);
+
+        //if lighting system is active then apply it to the tile layers
+        if(this.lightingSystemActive){
+          this.processMap.layer0.setPipeline('Light2D');
+          this.processMap.layer1.setPipeline('Light2D');
+          this.processMap.layer2.setPipeline('Light2D');
+          this.processMap.layer3.setPipeline('Light2D');
+        }
     }
 
     //sets up player object
@@ -508,6 +518,11 @@ class defaultScene extends allSceneFunctions {
         this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
         //creates a hitbox which will be used to 
         this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
+
+        //apply lighting to player
+        if(this.lightingSystemActive){
+          this.player1.setPipeline('Light2D');
+        }
     }
 
     //sets up keyprompts in the scene for when the player is grabbed.
@@ -722,6 +737,16 @@ class defaultScene extends allSceneFunctions {
 
     //{collision Functions}===================================================================================================================
 
+    //sets up lighting system for levels that use it.
+    setupLightingSystem(hexColor){
+      this.lightingSystemActive = true;
+
+      //sets the ambient lighting color using a hex value.
+      this.lights.enable().setAmbientColor(hexColor);
+    }
+
+    
+
     //sets up player collision
     setUpPlayerCollider(){
         // resets out of bounds check.
@@ -767,6 +792,7 @@ class defaultScene extends allSceneFunctions {
 
     //creates warp portal objects in the scene
     initPortals(x, y, toX, toY, animation,destination) {
+
         let portal1 = new warp(this, x, y);
         //gives portal a unique id so that scene can tell which warp object is being activated
         portal1.warpPortalId = this.portalId;
@@ -775,6 +801,19 @@ class defaultScene extends allSceneFunctions {
         portal1.setLocationToSendPlayer(toX, toY, animation,destination);
         //adds portal object to the portal object in the scene
         this.portals.add(portal1);
+
+        //if we are using dark lighting
+        if(this.lightingSystemActive === true){  
+          //add the portal object to the lighting pipeline.
+          portal1.setPipeline('Light2D');
+
+          //if the door is a cave going from inside to outside then
+          if("warpCaveInside" == animation){
+            //add a door light
+            portal1.doorLight = this.lights.addLight(x,y+7, 300);
+          }
+         
+        }
         //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
         //console.log(" scene.portalId: "+ scene.portalId);
     }
@@ -789,6 +828,12 @@ class defaultScene extends allSceneFunctions {
       portal1.setLocationToSendPlayer(1018, 925,'DreamHub');
       //adds portal object to the portal object in the scene
       this.portals.add(portal1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        portal1.setPipeline('Light2D');
+      }
+
       //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
       //console.log(" scene.portalId: "+ scene.portalId);
   }
@@ -805,6 +850,12 @@ class defaultScene extends allSceneFunctions {
       portal1.setLocationToSendPlayer(toX, toY, animation,destination);
       //adds portal object to the portal object in the scene
       this.portals.add(portal1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        portal1.setPipeline('Light2D');
+      }
+
       //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
       //console.log(" scene.portalId: "+ scene.portalId);
     }
@@ -812,63 +863,78 @@ class defaultScene extends allSceneFunctions {
     //creates save point in the scene
     initSavePoints(x, y) {
         let savePoint1 = new savePoint(this, x, y);
-        //gives portal a unique id so that scene can tell which warp object is being activated
         savePoint1.saveStoneId = this.saveStoneId;
         this.saveStoneId++;
-        //sets the location given as to where the player will be sent in the next scene
-        //adds portal object to the portal object in the scene
+
         this.saveStonePoints.add(savePoint1);
-        //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
-        //console.log(" scene.portalId: "+ scene.portalId);
+
+        //if we are using dark lighting
+        if(this.lightingSystemActive === true){ 
+          savePoint1.setPipeline('Light2D');
+        }
+
     }
 
     //creates a sign object in the scene
     initSigns(x, y, text, profileArray) {
         let sign1 = new sign(this, x, y, text, profileArray);
-        //gives portal a unique id so that scene can tell which warp object is being activated
+        
         sign1.signId = this.signId;
         this.signId++;
-        //sets the location given as to where the player will be sent in the next scene
-        //adds portal object to the portal object in the scene
-        console.log("group signs",this.signPoints);
+
         this.signPoints.add(sign1);
-        console.log("added sign",this.signPoints);
+        //console.log("added sign",this.signPoints);
+
+        //if we are using dark lighting
+        if(this.lightingSystemActive === true){ 
+          sign1.setPipeline('Light2D');
+        }
         
     }
 
     //creates a sign object in the scene
     initStorage(x, y) {
       let storage = new storageLocker(this, x, y);
-      //sets the location given as to where the player will be sent in the next scene
-      //adds portal object to the portal object in the scene
-      console.log("group container",this.container);
+
       this.playerStorage.add(storage);
-      console.log("added container",this.container);
+      //console.log("added container",this.container);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        storage.setPipeline('Light2D');
+      }
       
     }
 
     //creates a sign object in the scene
     initPlayerCraftingBench(x, y) {
+
       let bench = new craftingBench(this, x, y);
-      //sets the location given as to where the player will be sent in the next scene
-      //adds portal object to the portal object in the scene
-      console.log("group bench",this.playerCraftingBench);
+
       this.playerCraftingBench.add(bench);
       console.log("added bench",this.playerCraftingBench);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        bench.setPipeline('Light2D');
+      }
       
     }
 
     //creates a lunalyst NPC
     initLunalyst(x, y, text) {
       let luna = new lunalyst(this, x, y, text);
-      //gives portal a unique id so that scene can tell which warp object is being activated
+
       luna.npcId = this.npcId;
       this.npcId++;
-      //sets the location given as to where the player will be sent in the next scene
-      //adds portal object to the portal object in the scene
+
       this.npcs.add(luna);
-      //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
-      //console.log(" scene.portalId: "+ scene.portalId);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        luna.setPipeline('Light2D');
+      }
+
   }
 
   initIstara(x, y, text, profileArray,flag) {
@@ -883,23 +949,33 @@ class defaultScene extends allSceneFunctions {
     this.npcId++;
     this.npcs.add(Istara);
 
+    //if we are using dark lighting
+    if(this.lightingSystemActive === true){ 
+      Istara.setPipeline('Light2D');
+    }
+
 }
 
-    //creates a item drop object in the scene
-    initItemDrop(x, y,itemID,itemStackable,itemAmount) {
-      //creates a item drop
-      let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount);
-      //adds it to the item drop group
-      //drop1.body.setGravityY(600);
-      this.itemDrops.add(drop1);
-      //adds gravity. dont know why defining it in the object itself didnt work. this is fine.
-      drop1.body.setGravityY(600);
+  //creates a item drop object in the scene
+  initItemDrop(x, y,itemID,itemStackable,itemAmount) {
+    //creates a item drop
+    let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount);
+    //adds it to the item drop group
+    //drop1.body.setGravityY(600);
+    this.itemDrops.add(drop1);
+    //adds gravity. dont know why defining it in the object itself didnt work. this is fine.
+    drop1.body.setGravityY(600);
       
-      drop1.body.setBounce(0.5 , 0.5);
+    drop1.body.setBounce(0.5 , 0.5);
 
-      console.log("adding new item drop: ",drop1)
-      
+    console.log("adding new item drop: ",drop1);
+
+    //if we are using dark lighting
+    if(this.lightingSystemActive === true){ 
+      drop1.setPipeline('Light2D');
     }
+
+  }
 
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
     initHealthUpgrade(x, y, flag) {
@@ -928,6 +1004,12 @@ class defaultScene extends allSceneFunctions {
         upgrade1.body.setBounce(0.5 , 0.5);
 
         console.log("adding new healthUpgrade: ",upgrade1)
+
+        //if we are using dark lighting
+        if(this.lightingSystemActive === true){ 
+          upgrade1.setPipeline('Light2D');
+
+        }
       }
       
     }
@@ -944,6 +1026,12 @@ class defaultScene extends allSceneFunctions {
       this.itemContainers.add(container);
       
       console.log("adding new item container: ",container)
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        container.setPipeline('Light2D');
+        
+      }
       
     }
 
@@ -964,6 +1052,11 @@ class defaultScene extends allSceneFunctions {
       woodWall.body.pushable = false;
       this.woodenBarriers.add(woodWall);
 
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        woodWall.setPipeline('Light2D');
+        
+      }
     }
 
     initRockPile(x,y){
@@ -971,6 +1064,12 @@ class defaultScene extends allSceneFunctions {
       this.physics.add.existing(pile);
       pile.body.pushable = false;
       this.rockPiles.add(pile);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        pile.setPipeline('Light2D');
+        
+      }
 
     }
 
@@ -980,6 +1079,12 @@ class defaultScene extends allSceneFunctions {
       slimeTrap.body.pushable = false;
       this.slimeSpikes.add(slimeTrap);
 
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        slimeTrap.setPipeline('Light2D');
+        
+      }
+
     }
 
     initSlimeProjectile(x,y,velocityX,savedGravity){
@@ -988,6 +1093,12 @@ class defaultScene extends allSceneFunctions {
 
       this.physics.add.existing(slimeProj);
       this.slimeProjectiles.add(slimeProj);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        slimeProj.setPipeline('Light2D');
+        
+      }
 
     }
     

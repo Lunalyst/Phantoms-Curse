@@ -54,6 +54,9 @@ class caveToSunflowers2 extends defaultScene {
       
       this.grabbed = false;
 
+      //sets up ambient lighting
+      this.setupLightingSystem(0x555555);
+
       //creates tileset
       this.setUpTileSet("cave_connector_map","Cave_Tileset","cave_source_map");
     

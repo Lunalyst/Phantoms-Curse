@@ -25,6 +25,12 @@ class fakeWarp extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'warpCaveInsideRubble',frames: this.anims.generateFrameNames('warpSprites', { start: 5, end: 5}),frameRate: 3.5,repeat: -1});
 
         this.anims.play(animation,true);
+
+        //if we are using dark lighting
+        if(scene.lightingSystemActive === true){ 
+            this.setPipeline('Light2D');
+  
+          }
         
     }
 

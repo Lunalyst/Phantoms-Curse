@@ -77,6 +77,9 @@ class batCave extends defaultScene {
       
       this.grabbed = false;
 
+      //sets up ambient lighting
+      this.setupLightingSystem(0x555555);
+
       //creates tileset
       this.setUpTileSet("bat_cave_map","Forest_Tileset","forest_source_map");
     

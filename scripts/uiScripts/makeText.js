@@ -1,6 +1,6 @@
 class makeText extends Phaser.GameObjects.Container{
 
-    constructor(scene, xPos, yPos,font,text){
+    constructor(scene, xPos, yPos,font,text,offset){
 
         super(scene, xPos, yPos);
 
@@ -10,9 +10,13 @@ class makeText extends Phaser.GameObjects.Container{
         // creates text
         let startingX = 0-xPos;
         let startingY = 0-yPos;
+
+        //slight shift for dialogue options so the container hitbox lines up a bit better
+        if(offset === true){
+          startingY += 30;
+        }
         let spacing = 0;
 
-    
         this.scene = scene;
 
         // creates a array of sprites which are letters
@@ -70,6 +74,19 @@ class makeText extends Phaser.GameObjects.Container{
         
         scene.add.existing(this);
       
+    }
+
+    //function to apply tint to text
+    setTextTint(hexColor){
+      for(let counter = 0; counter < this.letters.length; counter++){
+        this.letters[counter].setTint(hexColor);
+      }
+    }
+    //function to remove tint from text
+    clearTextTint(){
+      for(let counter = 0; counter < this.letters.length; counter++){
+        this.letters[counter].clearTint();
+      }
     }
 
     //function to apply a wave to text

@@ -24,15 +24,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'lunaSleeping',frames: this.anims.generateFrameNames('textBoxProfile', { start:49, end: 54 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('textBoxProfile', { start:55, end: 58 }),frameRate: 5,repeat: -1});
 
-      this.anims.create({key: 'lunaNeutral',frames: this.anims.generateFrameNames('istaraEmots', { start: 4, end: 13 }),frameRate: 5,repeat: -1});
-
-
-
-      
-      
       this.anims.play("signLoop",true);
-      
-
       
     }
 
@@ -42,7 +34,9 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'istaraKO',frames: this.anims.generateFrameNames('istaraEmots', { start: 11, end: 14 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'istaraStarEyes',frames: this.anims.generateFrameNames('istaraEmots', { start: 16, end: 21 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'istaraSquish',frames: this.anims.generateFrameNames('istaraEmots', { start: 23, end: 28 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'istaraAnnoyed',frames: this.anims.generateFrameNames('istaraEmots', { start: 23, end: 23 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'istaraHeartEyes',frames: this.anims.generateFrameNames('istaraEmots', { start: 30, end: 35 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'istaraSad',frames: this.anims.generateFrameNames('istaraEmots', { start: 37, end: 41 }),frameRate: 5,repeat: -1});
 
     }
 }

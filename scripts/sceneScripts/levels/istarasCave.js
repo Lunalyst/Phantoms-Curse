@@ -30,7 +30,8 @@ class istarasCave extends defaultScene {
       this.load.tilemapTiledJSON("istara_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/istaras_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
 
-      this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 753 , frameHeight: 432 });
+      this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istara-male-tf" , "assets/npcs/istara-male-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 75 , frameHeight: 66 });
 
       this.defaultPreload();
@@ -103,6 +104,17 @@ class istarasCave extends defaultScene {
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      
+
+    this.light1 = this.lights.addLight(695,1245, 200);
+
+    this.lights.enable().setAmbientColor(0x555555);
+
+    this.player1.setPipeline('Light2D');
+    this.processMap.layer1.setPipeline('Light2D');
+    this.processMap.layer2.setPipeline('Light2D');
+    this.processMap.layer3.setPipeline('Light2D');
 
       //sets up enemy colliders and groups
       this.enemyGroupArray = [];

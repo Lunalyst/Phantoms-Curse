@@ -8,6 +8,10 @@ class istara extends npc{
       this.anims.create({key: 'istaraUnderWater',frames: this.anims.generateFrameNames('istara', { start: 0, end: 0 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'istaraEmerge',frames: this.anims.generateFrameNames('istara', { start: 0, end: 15 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'istaraIdle',frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraStart',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 23 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'istaraBelly1',frames: this.anims.generateFrameNames('istara-male-tf', { start: 24, end: 27 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraBelly2',frames: this.anims.generateFrameNames('istara-male-tf', { start: 28, end: 31 }),frameRate: 7,repeat: -1});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
@@ -29,6 +33,9 @@ class istara extends npc{
 
        this.animationPlayed = false;
        this.scene = scene;
+
+       this.yes = false;
+       this.inDialogue = false;
  
        //createdfor use in textbox
        this.profileArray;
@@ -170,6 +177,15 @@ class istara extends npc{
 
     }else if(istaraCaveDialogue1.foundFlag === true && istaraCaveDialogue2.foundFlag === false){
 
+
+        
+      //sets up initial dialogue
+      if(this.scene.sceneTextBox.amountWIsPressed === 0){
+
+        //resets decision making variables incase the player asks agian.
+        this.yes = false;
+        this.inDialogue = false;
+
         this.textToDisplay = 
         'OH?                      '+
         '                         '+
@@ -220,15 +236,47 @@ class istara extends npc{
           'istaraNeutral',
           'istaraStarEyes',
           'istaraHappy',
-          'istaraHappy',
-          'istaraHeartEyes'
+          'istaraHeartEyes',
+          'istaraHappy'
         ];
 
-        if(this.yes === true && this.decisionMade === false){
+      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed);
+      
+      // halt dialogue so the player can answer the yest or no question.
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 10 && this.inDialogue === false){
+        
+        //create dialogue buttons for player choice
+        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
+        this.scene.npcChoice1.textWob();
+        this.scene.npcChoice1.setScrollFactor(0);
+        this.scene.npcChoice1.setSize(300,30);
+        this.scene.npcChoice1.setInteractive();
+        this.scene.npcChoice1.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice1.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice1.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice1.on('pointerout',function(pointer){
+            this.scene.npcChoice1.clearTextTint();
+        },this);
+
+        this.scene.npcChoice1.on('pointerdown', function (pointer) {
+        
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.yes = true;
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add new dialogue to the profile array based on the decision
           this.profileArray.push('istaraHeartEyes');
           this.profileArray.push('istaraHappy');
           this.profileArray.push('istaraHappy');
           this.profileArray.push('istaraHeartEyes');
+
           this.textToDisplay += 
           'EEEEEEE!                 '+
           '                         '+
@@ -249,9 +297,54 @@ class istara extends npc{
           'ITLL WORK ITS MAGIC AND  '+
           'YOU WILL BE A CUTE       '+
           'COBRABOLD IN NO TIME.    ';
-        }else{
-          this.profileArray.push('istaraSquish');
-          this.profileArray.push('istaraSquish');
+
+          console.log("this.textToDisplay: ",this.textToDisplay);
+
+          //update the dialogue in the next box.
+          this.scene.sceneTextBox.setText(this.textToDisplay);
+          //this.scene.sceneTextBox.formatText();
+          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+
+        },this);
+
+        //dialogue option for no.
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
+        this.scene.npcChoice2.textWob();
+        this.scene.npcChoice2.setScrollFactor(0);
+        this.scene.npcChoice2.setSize(300,30);
+        this.scene.npcChoice2.setInteractive();
+        this.scene.npcChoice2.setScale(.8);
+
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice2.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice2.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice2.on('pointerout',function(pointer){
+            this.scene.npcChoice2.clearTextTint();
+        },this);
+
+        this.scene.npcChoice2.on('pointerdown', function (pointer) {
+        
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.yes = false;
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add new dialogue to the profile array based on the decision
+          this.profileArray.push('istaraAnnoyed');
+          this.profileArray.push('istaraSad');
+          this.profileArray.push('istaraSad');
 
           this.textToDisplay += 
           'SUCH A SHAME...          '+
@@ -261,12 +354,125 @@ class istara extends npc{
           'ILL BE HERE IF YOU       '+
           'CHANGE YOUR MIND....     '+
           '                         ';
-        }
 
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed);
+          //update the dialogue in the next box.
+          this.scene.sceneTextBox.setText(this.textToDisplay);
+          this.scene.sceneTextBox.formatText();
+          this.scene.sceneTextBox.setProfileArray(this.profileArray);
 
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+
+        },this);
+
+        //call scene variable to create interupt.
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //let the npc know they are in dialogue
+        this.inDialogue = true;
         
+      // if the dialogue stage is at 14 and the player said yes, then add the unbirthing dialogue.
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 14 && this.yes === true){
+
+          this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraSquish');
+          this.profileArray.push('istaraKO');
+          this.profileArray.push('istaraHeartEyes');
+          this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraHeartEyes');
+          this.profileArray.push('istaraSquish');
+          this.profileArray.push('istaraSquish');
+          this.profileArray.push('istaraHappy');
+
+
+          this.textToDisplay += 
+          'AWWW YOUR SO CUTE DOWN   '+
+          'THERE.                   '+
+          '                         '+
+
+          'JUST RELAX, ILL PUSH YOU '+
+          'YOU INTO ME.             '+
+          '                         '+
+          
+          'HUFFFF SO FULL...        '+
+          '                         '+
+          '                         '+
+          
+          'OHHHHHHH......  HUFF...  '+
+          'I WAS A BIT TIGHTER THAN '+
+          'I THOUGHT.               '+
+          
+          'HUFFFFFF....             '+
+          '                         '+
+          '                         '+
+          
+          'AAAHHHHH.....            '+
+          'I FEEL YOU SETTLING      '+
+          'INTO MY WOMB.            '+
+          
+          'YOU LOOK SO CUTE ON ME   '+
+          'I MIGHT JUST KEEP YOU IN '+
+          'THERE A WHILE....        '
+          
+          'THATS IT GIVE YOURSELF   '+
+          'UP TO YOUR NEW MISTRESS  '+
+          'I CAN FEEL YOU CHANGING. '+
+          
+          'HUFFFFFF....             '+
+          '                         '+
+          '                         '+
+          
+          'OHHHHHHH......           '+
+          '                         '+
+          '                         '+ 
+
+          'ILL KEEP YOU SAFE MY     '+
+          'PRECIOUS CHILD.          '+
+          '                         ';
+      
+      //handle animation 
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 15 && this.yes === true){
+
+        //hide player
+        this.scene.player1.visible = false;
+        // start the animation to begin thep rocess
+        this.anims.play('istaraStart',true);
+
+        //follow istara and zoom the camera in
+        this.scene.mycamera.startFollow(this);
+        //this.scene.cameras.main.zoom = 3;
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 17 && this.yes === true && this.animationPlayed === false){
+        
+        //hide player
+        this.scene.player1.visible = false;
+        this.animationPlayed = true;
+
+        //apply interuption to dialogue
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //hide ui and dialogue box.
+        this.scene.sceneTextBox.visible = false;
+
+        //play animation and on complete allow w to be pressed.
+        this.anims.play('istaraEntering').once('animationcomplete', () => {
+          this.anims.play('istaraBelly1',true);
+          this.scene.sceneTextBox.amountWIsPressed++;
+          this.scene.sceneTextBox.textInterupt = false;
+          this.animationPlayed = false;
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+        });
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 19 && this.yes === true){
+        
+        this.anims.play('istaraBelly2',true);
+
       }
     }
     

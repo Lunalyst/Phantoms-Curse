@@ -19,6 +19,7 @@ class textBox extends Phaser.GameObjects.Container{
       //makes base sprite to boarder the text
       this.outSide = scene.add.sprite(0, 0, 'textBox');
       this.add(this.outSide);
+      this.blockVisiblity = false;
 
       
       this.lines = [];
@@ -60,6 +61,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.amountWIsPressed = 0;
 
       this.finishedDisplayingText = true;
+      this.textInterupt = false;
 
     
       
@@ -97,7 +99,7 @@ class textBox extends Phaser.GameObjects.Container{
       }
       
       //if the player pressed w then
-      if(scene1.checkWPressed() && scene1.textInterupt === false){
+      if((scene1.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
         console.log("this.amountWIsPressed: ",this.amountWIsPressed);
         this.amountWIsPressed++;
         
@@ -111,6 +113,7 @@ class textBox extends Phaser.GameObjects.Container{
         //increments profile position so we can display next profile
         if(this.profileArrayPosition < this.profileArray.length-1){
           this.profileArrayPosition++;
+          console.log("this.profileArrayPosition: ",this.profileArrayPosition)
         }
 
         this.textCoolDown = false;
@@ -152,6 +155,31 @@ class textBox extends Phaser.GameObjects.Container{
       },1000); 
     }
   }
+}
+
+progressDialogue(){
+
+    console.log("progressing dialogue once. ");
+    this.amountWIsPressed++;
+    
+    //update position so we can display the next set of text.
+    this.startPosition = this.endPosition;
+    this.endPosition = this.endPosition+textEnd;
+
+    this.profileArrayPosition++;
+
+    //calls function to display that next set of text
+    this.displayText(this.startPosition,this.endPosition);
+    
+    this.textCoolDown = false;
+
+    //time out function to set the cooldown to true in .3 seconds.
+    setTimeout(function(){
+      //console.log("delay end for text box");
+      
+      currentTextBox.textCoolDown =  true;
+      },300);
+
 }
 
     // this. line and two numbers representing the start and end location of the text to be display.
@@ -330,9 +358,12 @@ class textBox extends Phaser.GameObjects.Container{
             this.setProfileArray(profileArray);
             
             //makes the text box visible
-            this.visible = true;
-            this.textBoxProfileImage.visible = true;
-            this.hideText(true);
+            if(this.blockVisiblity === false){
+              this.visible = true;
+              this.textBoxProfileImage.visible = true;
+              this.hideText(true);
+            }
+            
            
             this.displayText(0,textEnd);
             this.visible = isVisible;    

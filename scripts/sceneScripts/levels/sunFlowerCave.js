@@ -102,7 +102,7 @@ class sunFlowerCave extends defaultScene {
       this.grabbed = false;
 
       //sets up ambient lighting
-      this.setupLightingSystem(0x555555);
+      //this.setupLightingSystem(0x555555);
 
       //creates tileset
       this.setUpTileSet("Sun_Flower_Cave","Forest_Tileset","forest_source_map");
@@ -165,7 +165,7 @@ class sunFlowerCave extends defaultScene {
       this.secretWall1 = this.add.sprite(4943.6-4160, 1072.2, "secretWall1");
       this.secretWall1.setDepth(7);
       this.secretWall1.setScale(0.335);
-      this.secretWall1.setPipeline('Light2D');
+      //this.secretWall1.setPipeline('Light2D');
       
       //sets up containers
       this.setUpContainers();
@@ -225,7 +225,7 @@ class sunFlowerCave extends defaultScene {
       this.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerField');
 
       // adds lighting effect for level background
-      this.light1 = this.lights.addLight(4642-4160, 605-30, 100);
+      //this.light1 = this.lights.addLight(4642-4160, 605-30, 100);
      
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();

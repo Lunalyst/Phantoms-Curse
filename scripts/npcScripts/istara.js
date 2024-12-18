@@ -417,7 +417,7 @@ class istara extends npc{
           
           'YOU LOOK SO CUTE ON ME   '+
           'I MIGHT JUST KEEP YOU IN '+
-          'THERE A WHILE....        '
+          'THERE A WHILE....        '+
           
           'THATS IT GIVE YOURSELF   '+
           'UP TO YOUR NEW MISTRESS  '+

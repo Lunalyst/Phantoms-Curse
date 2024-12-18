@@ -9,9 +9,9 @@ class istara extends npc{
       this.anims.create({key: 'istaraEmerge',frames: this.anims.generateFrameNames('istara', { start: 0, end: 15 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'istaraIdle',frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }),frameRate: 7,repeat: -1});
 
-      this.anims.create({key: 'istaraStart',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'istaraGameover',frames: this.anims.generateFrameNames('istara-male-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraStartMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraEnteringMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'istaraGameoverMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
       
       this.anims.create({key: 'istaraBelly1',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'istaraBelly2',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
@@ -54,7 +54,6 @@ class istara extends npc{
           this.anims.play('istaraUnderWater');
           this.underWater = true;
        }
-
   }
 
 //function which allows the player to use w to display textbox
@@ -188,6 +187,7 @@ class istara extends npc{
 
         
       //sets up initial dialogue
+      console.log("this.scene.sceneTextBox.amountWIsPressed: ",this.scene.sceneTextBox.amountWIsPressed,"this.inDialogue: ",this.inDialogue,"this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
       if(this.scene.sceneTextBox.amountWIsPressed === 0){
 
         //resets decision making variables incase the player asks agian.
@@ -195,9 +195,9 @@ class istara extends npc{
         this.inDialogue = false;
 
         this.textToDisplay = 
-        'OH?                      '+
-        '                         '+
-        '                         '+
+        'OH?                       '+
+        '                          '+
+        '                          '+
 
         'IM GLAD YOUR STICKING    '+
         'AROUND. ITS NICE TO HAVE '+
@@ -249,7 +249,7 @@ class istara extends npc{
         ];
 
       console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed);
-      
+
       // halt dialogue so the player can answer the yest or no question.
       }else if(this.scene.sceneTextBox.amountWIsPressed === 10 && this.inDialogue === false){
         
@@ -445,6 +445,10 @@ class istara extends npc{
 
           'ILL KEEP YOU SAFE MY     '+
           'PRECIOUS CHILD.          '+
+          '                         '+
+
+          '                         '+
+          '                         '+
           '                         ';
           
       
@@ -454,7 +458,7 @@ class istara extends npc{
         //hide player
         this.scene.player1.visible = false;
         // start the animation to begin thep rocess
-        this.anims.play('istaraStart',true);
+        this.anims.play('istaraStartMale',true);
 
         //follow istara and zoom the camera in
         this.scene.mycamera.startFollow(this);
@@ -473,7 +477,7 @@ class istara extends npc{
         this.scene.sceneTextBox.visible = false;
 
         //play animation and on complete allow w to be pressed.
-        this.anims.play('istaraEntering').once('animationcomplete', () => {
+        this.anims.play('istaraEnteringMale').once('animationcomplete', () => {
           this.anims.play('istaraBelly1',true);
           this.scene.sceneTextBox.amountWIsPressed++;
           this.scene.sceneTextBox.textInterupt = false;
@@ -530,8 +534,23 @@ class istara extends npc{
           this.scene.sceneTextBox.progressDialogue();
         });
 
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 29){
+        this.scene.gameoverLocation = "caveGameover";
+        this.scene.enemyThatDefeatedPlayer = "maleIstaraUnbirth";
+        this.scene.changeToGameover();
+        this.scene.sceneTextBox.textInterupt = true;
+        this.scene.sceneTextBox.textCoolDown = true;
+
       }
     }
+    
+  }
+
+  gameOver(){
+    console.log("PLAYING ISTARTA GAMEOVER!")
+
+      this.anims.play('istaraGameoverMale',true);
+    
     
   }
 

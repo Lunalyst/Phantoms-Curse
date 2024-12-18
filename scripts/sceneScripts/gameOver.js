@@ -278,6 +278,11 @@ class gameOver extends allSceneFunctions {
                 this.enemy.angry = true;
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "maleIstaraUnbirth"){
+                this.preferance = 0;
+                this.enemy = new istara(this,450, 570,"inCave");
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
             }
             
             
@@ -452,6 +457,8 @@ class gameOver extends allSceneFunctions {
                  this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
                     
                 this.enemy.playJumpySound('10',800);
+            }else if(this.enemyThatDefeatedPlayer === "maleIstaraUnbirth"){
+                this.enemy.gameOver();
             }
             
         }

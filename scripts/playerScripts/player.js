@@ -59,6 +59,11 @@ class player extends Phaser.Physics.Arcade.Sprite{
 
     //gives player a refrence to the scene.
     this.scene = scene;
+    if(scene.lightingSystemActive === true){ 
+
+      this.lightSource = scene.lights.addLight(this.x, this.y, 200,0xffc436, 0.5);
+
+    }
 
     //defines player animations. animations are define on startup based on the players sex
     if(sex === 0){

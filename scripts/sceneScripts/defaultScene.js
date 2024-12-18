@@ -2571,6 +2571,14 @@ class defaultScene extends allSceneFunctions {
 
           // then move the player
           this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+          
+          //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
+            if(this.lightingSystemActive === true){ 
+
+              this.player1.lightSource.x = this.player1.x;
+              this.player1.lightSource.y = this.player1.y;
+          
+            }
           }
           
           //sets the camera to follow the player and changes the scale as well

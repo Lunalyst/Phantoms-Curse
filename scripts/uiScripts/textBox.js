@@ -1,4 +1,3 @@
-let currentTextBox;
 
 const lineLength = 24;
 const textEnd = 75;
@@ -54,7 +53,6 @@ class textBox extends Phaser.GameObjects.Container{
       this.textCoolDown = true;
       this.startPostion = 0;
       this.endPosition = 0;
-      currentTextBox = this;
       this.textBoxActivationCoolDown = false;
       this.profileArray;
       this.profileArrayPosition = 0;
@@ -99,7 +97,8 @@ class textBox extends Phaser.GameObjects.Container{
       }
       
       //if the player pressed w then
-      if((scene1.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
+      console.log("this.textInterupt: ",this.textInterupt," this.textCoolDown: ",this.textCoolDown)
+      if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
         console.log("this.amountWIsPressed: ",this.amountWIsPressed);
         this.amountWIsPressed++;
         
@@ -113,16 +112,18 @@ class textBox extends Phaser.GameObjects.Container{
         //increments profile position so we can display next profile
         if(this.profileArrayPosition < this.profileArray.length-1){
           this.profileArrayPosition++;
-          console.log("this.profileArrayPosition: ",this.profileArrayPosition)
+          //console.log("this.profileArrayPosition: ",this.profileArrayPosition)
         }
 
         this.textCoolDown = false;
 
+        let currentTextBox = this;
         //time out function to set the cooldown to true in .3 seconds.
         setTimeout(function(){
           //console.log("delay end for text box");
           
           currentTextBox.textCoolDown =  true;
+          console.log("reseting current hitbox");
           },300);
 
           
@@ -173,6 +174,8 @@ progressDialogue(){
     
     this.textCoolDown = false;
 
+    let currentTextBox = this;
+    
     //time out function to set the cooldown to true in .3 seconds.
     setTimeout(function(){
       //console.log("delay end for text box");

@@ -8,10 +8,17 @@ class istara extends npc{
       this.anims.create({key: 'istaraUnderWater',frames: this.anims.generateFrameNames('istara', { start: 0, end: 0 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'istaraEmerge',frames: this.anims.generateFrameNames('istara', { start: 0, end: 15 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'istaraIdle',frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }),frameRate: 7,repeat: -1});
+
       this.anims.create({key: 'istaraStart',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 23 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'istaraBelly1',frames: this.anims.generateFrameNames('istara-male-tf', { start: 24, end: 27 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'istaraBelly2',frames: this.anims.generateFrameNames('istara-male-tf', { start: 28, end: 31 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'istaraGameover',frames: this.anims.generateFrameNames('istara-male-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      
+      this.anims.create({key: 'istaraBelly1',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraBelly2',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraEggTF',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 9, end: 15 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'istaraEggBelly',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 16, end: 19 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'istaraEggLaying',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 20, end: 27 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'istaraEggCovet',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 28, end: 31 }),frameRate: 7,repeat: -1});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
@@ -29,6 +36,7 @@ class istara extends npc{
 
        this.flag = "";
        this.dialogueCompleted = false;
+       this.dialogueAdded = false;
        this.completedText = false;
 
        this.animationPlayed = false;
@@ -376,8 +384,9 @@ class istara extends npc{
         this.inDialogue = true;
         
       // if the dialogue stage is at 14 and the player said yes, then add the unbirthing dialogue.
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 14 && this.yes === true){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 14 && this.yes === true && this.dialogueAdded === false){
 
+          this.dialogueAdded = true;
           this.profileArray.push('istaraHappy');
           this.profileArray.push('istaraHappy');
           this.profileArray.push('istaraSquish');
@@ -388,7 +397,10 @@ class istara extends npc{
           this.profileArray.push('istaraSquish');
           this.profileArray.push('istaraSquish');
           this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraHappy');
 
+          //note need to fix bug where the dialogue is added multiple times?
 
           this.textToDisplay += 
           'AWWW YOUR SO CUTE DOWN   '+
@@ -434,6 +446,7 @@ class istara extends npc{
           'ILL KEEP YOU SAFE MY     '+
           'PRECIOUS CHILD.          '+
           '                         ';
+          
       
       //handle animation 
       }else if(this.scene.sceneTextBox.amountWIsPressed === 15 && this.yes === true){
@@ -469,9 +482,53 @@ class istara extends npc{
           this.scene.sceneTextBox.progressDialogue();
         });
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 19 && this.yes === true){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 21 && this.yes === true){
         
         this.anims.play('istaraBelly2',true);
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 24 && this.yes === true && this.animationPlayed === false){
+        
+        //hide player
+        this.scene.player1.visible = false;
+        this.animationPlayed = true;
+
+        //apply interuption to dialogue
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //hide ui and dialogue box.
+        this.scene.sceneTextBox.visible = false;
+
+        //play animation and on complete allow w to be pressed.
+        this.anims.play('istaraEggTF').once('animationcomplete', () => {
+          this.anims.play('istaraEggBelly',true);
+          this.scene.sceneTextBox.amountWIsPressed++;
+          this.scene.sceneTextBox.textInterupt = false;
+          this.animationPlayed = false;
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+        });
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 26 && this.yes === true && this.animationPlayed === false){
+        
+        //hide player
+        this.scene.player1.visible = false;
+        this.animationPlayed = true;
+
+        //apply interuption to dialogue
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //hide ui and dialogue box.
+        this.scene.sceneTextBox.visible = false;
+
+        //play animation and on complete allow w to be pressed.
+        this.anims.play('istaraEggLaying').once('animationcomplete', () => {
+          this.anims.play('istaraEggCovet',true);
+          this.scene.sceneTextBox.amountWIsPressed++;
+          this.scene.sceneTextBox.textInterupt = false;
+          this.animationPlayed = false;
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+        });
 
       }
     }

@@ -560,6 +560,12 @@ class defaultScene extends allSceneFunctions {
       this.usingRockPiles = true;
     }
 
+    setUpWallLights(){
+      //set up the invisible barriers group
+      console.log('created wall light group');
+      this.wallLights = this.physics.add.group();
+    }
+
     setUpSlimeSpikes(){
       //set up the slime spikes group
       console.log('created slime spikes group');
@@ -1070,6 +1076,13 @@ class defaultScene extends allSceneFunctions {
         pile.setPipeline('Light2D');
         
       }
+
+    }
+
+    initWallLight(x,y,type){
+      console.log("creating wall light");
+      let light1 = new wallLight(this,x,y,type);
+      this.wallLights.add(light1);
 
     }
 

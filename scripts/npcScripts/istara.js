@@ -40,6 +40,7 @@ class istara extends npc{
        this.completedText = false;
 
        this.animationPlayed = false;
+       this.soundCoolDown = false;
        this.scene = scene;
 
        this.yes = false;
@@ -535,8 +536,7 @@ class istara extends npc{
         });
 
       }else if(this.scene.sceneTextBox.amountWIsPressed === 29){
-        this.scene.gameoverLocation = "caveGameover";
-        this.scene.enemyThatDefeatedPlayer = "maleIstaraUnbirth";
+        this.scene.enemyThatDefeatedPlayer = "istaraUnbirth";
         this.scene.changeToGameover();
         this.scene.sceneTextBox.textInterupt = true;
         this.scene.sceneTextBox.textCoolDown = true;
@@ -546,10 +546,14 @@ class istara extends npc{
     
   }
 
-  gameOver(){
+  gameOver(playerSex){
     console.log("PLAYING ISTARTA GAMEOVER!")
+      if(playerSex === 1){
 
-      this.anims.play('istaraGameoverMale',true);
+      }else{
+        this.anims.play('istaraGameoverMale',true);
+      }
+    
     
     
   }

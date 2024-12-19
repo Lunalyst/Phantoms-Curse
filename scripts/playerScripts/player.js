@@ -61,7 +61,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     this.scene = scene;
     if(scene.lightingSystemActive === true){ 
 
-      this.lightSource = scene.lights.addLight(this.x, this.y, 200,0xffc436, 0.5);
+      this.lightSource = scene.lights.addLight(this.x, this.y, 200,0x000000, 0.5);
 
     }
 

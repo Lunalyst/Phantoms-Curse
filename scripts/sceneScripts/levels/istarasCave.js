@@ -27,13 +27,15 @@ class istarasCave extends defaultScene {
 
     preload(){
 
-      this.load.tilemapTiledJSON("istara_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/istaras_Cave.json");
+      this.load.tilemapTiledJSON("istara_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Istaras_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
 
       this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-male-tf" , "assets/npcs/istara-male-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-gestate-tf" , "assets/npcs/istara-gestate-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+
+      this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
       this.defaultPreload();
 
@@ -51,7 +53,7 @@ class istarasCave extends defaultScene {
     create(){
 
       //sets up gameover location
-      this.setupGameoverLocation("caveGameover");
+      this.setupGameoverLocation("istaraGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -65,6 +67,9 @@ class istarasCave extends defaultScene {
 
       //sets up ambient lighting
       this.setupLightingSystem(0x555555);
+
+      //setup lights group.
+      this.setUpWallLights();
 
       //creates tileset
       this.setUpTileSet("istara_cave_map","Cave_Tileset","cave_source_map");
@@ -102,6 +107,11 @@ class istarasCave extends defaultScene {
       this.initPortals(462,1245-13,1779,1149,"warpCaveOutside","blueSlimeCave1");
 
       this.initSavePoints(695,1245-14);
+
+      //this.initWallLight(725,1245,'torch');
+
+      this.initWallLight(1334-32,1140,'torch');
+      this.initWallLight(1450+32,1140,'torch');
       
       //sets up containers
       this.setUpContainers();

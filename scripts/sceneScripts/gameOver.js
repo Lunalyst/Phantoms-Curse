@@ -60,6 +60,7 @@ class gameOver extends allSceneFunctions {
              //load in the JSON file for the bitmap
             this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Gameover.json");
             this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Gameover.json");
+            this.load.tilemapTiledJSON("istaraGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Istaras_Gameover.json");
             this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
             this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Grub_Hive_Gameover.json");
             this.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
@@ -151,8 +152,19 @@ class gameOver extends allSceneFunctions {
             this.processMap = new level(this,myMap);
             //calls function that loads the tiles from the json
             if(this.gameoverLocation === 'blueSlimeGameover'){
+
+                this.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                this.lights.enable().setAmbientColor(0x555555);
+
                 this.processMap.tilesetNameInTiled = "Blue_Slime_Cave_Tileset";
                 this.processMap.setTiles('blue_slime_source_map',this);
+
+                this.processMap.layer0.setPipeline('Light2D');
+                this.processMap.layer1.setPipeline('Light2D');
+                this.processMap.layer2.setPipeline('Light2D');
+                this.processMap.layer3.setPipeline('Light2D');
             }else if(this.gameoverLocation === 'caveGameover'){
 
                 this.lightingSystemActive = true;
@@ -174,6 +186,24 @@ class gameOver extends allSceneFunctions {
             }else if(this.gameoverLocation === 'hiveGameover'){
                 this.processMap.tilesetNameInTiled = "Hive_Tileset";
                 this.processMap.setTiles('hive_source_map',this);
+            }else if(this.gameoverLocation === 'istaraGameover'){
+
+                this.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                this.lights.enable().setAmbientColor(0x555555);
+
+                this.processMap.tilesetNameInTiled = "Cave_Tileset";
+                this.processMap.setTiles('cave_source_map',this);
+
+                this.processMap.layer0.setPipeline('Light2D');
+                this.processMap.layer1.setPipeline('Light2D');
+                this.processMap.layer2.setPipeline('Light2D');
+                this.processMap.layer3.setPipeline('Light2D');
+
+                this.light1 = new wallLight(this,410, 470,'torch');
+                this.light2 = new wallLight(this,585, 470,'torch');
+
             }else{
                 //this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
                 //this.processMap.setTiles('source_map',this);
@@ -278,10 +308,11 @@ class gameOver extends allSceneFunctions {
                 this.enemy.angry = true;
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "maleIstaraUnbirth"){
+            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
                 this.preferance = 0;
-                this.enemy = new istara(this,450, 570,"inCave");
-                this.enemy.gameOver();
+                this.enemy = new istara(this,450, 573,"inCave");
+                this.enemy.setPipeline('Light2D');
+                this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
             }
             
@@ -457,8 +488,8 @@ class gameOver extends allSceneFunctions {
                  this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
                     
                 this.enemy.playJumpySound('10',800);
-            }else if(this.enemyThatDefeatedPlayer === "maleIstaraUnbirth"){
-                this.enemy.gameOver();
+            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
+                this.enemy.gameOver(this.playerSex);
             }
             
         }

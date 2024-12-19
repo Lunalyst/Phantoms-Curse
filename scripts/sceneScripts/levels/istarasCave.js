@@ -108,10 +108,10 @@ class istarasCave extends defaultScene {
 
       this.initSavePoints(695,1245-14);
 
-      //this.initWallLight(725,1245,'torch');
-
+      this.initWallLight(1000,1140,'torch');
       this.initWallLight(1334-32,1140,'torch');
       this.initWallLight(1450+32,1140,'torch');
+      this.initWallLight(1750+32,1140,'torch');
       
       //sets up containers
       this.setUpContainers();

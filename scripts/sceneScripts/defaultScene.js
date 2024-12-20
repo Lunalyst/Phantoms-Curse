@@ -1080,7 +1080,7 @@ class defaultScene extends allSceneFunctions {
     }
 
     initWallLight(x,y,type){
-      console.log("creating wall light");
+      //console.log("creating wall light");
       let light1 = new wallLight(this,x,y,type);
       this.wallLights.add(light1);
 

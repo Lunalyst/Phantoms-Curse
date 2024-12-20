@@ -18,6 +18,36 @@
             "start": 2.3,
             "end": 4,
             "loop": false
+        },
+        "hit":{
+            "start": 4.8,
+            "end": 5.08,
+            "loop": false
+        },
+        "drum":{
+            "start": 5.08,
+            "end": 5.36,
+            "loop": false
+        },"trumpet":{
+            "start": 5.36,
+            "end": 5.64,
+            "loop": false
+        },"mediumVoice":{
+            "start": 5.36,
+            "end": 5.6,
+            "loop": false
+        },"lightVoice":{
+            "start": 6,
+            "end": 6.23,
+            "loop": false
+        },"mediumPiano":{
+            "start": 6.36,
+            "end": 6.7,
+            "loop": false
+        },"lightPiano":{
+            "start": 6.9,
+            "end": 7.47,
+            "loop": false
         }
     }
 }

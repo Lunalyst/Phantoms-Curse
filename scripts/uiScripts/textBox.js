@@ -58,8 +58,9 @@ class textBox extends Phaser.GameObjects.Container{
       this.profileArrayPosition = 0;
       this.amountWIsPressed = 0;
 
-      this.finishedDisplayingText = true;
       this.textInterupt = false;
+
+      this.soundType = "default";
 
     
       
@@ -143,6 +144,9 @@ class textBox extends Phaser.GameObjects.Container{
       this.textBoxActivationCoolDown = true;
       this.profileArrayPosition = 0;
       this.amountWIsPressed = 0;
+      
+      //reset sound type once dialogue is over.
+      this.soundType = "default";
 
       this.completedText = true;
       //use emmitter to show the mobile controls if there on.
@@ -212,12 +216,32 @@ progressDialogue(){
           
           //sound check for text scroll  only for characters not space and while the text is visible
           if(this.visible && this.currentText.charAt(counter) !== ' '){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            //decision making for sound that player during dialogue
+            //
+            if(this.soundType === "default"){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+            }else if(this.soundType === "hit"){
+              this.scene.initSoundEffect('buttonSFX','hit',0.05);
+            }else if(this.soundType === "drum"){
+              this.scene.initSoundEffect('buttonSFX','drum',0.05);
+            }else if(this.soundType === "trumpet"){
+              this.scene.initSoundEffect('buttonSFX','trumpet',0.05);
+            }else if(this.soundType === "mediumVoice"){
+              this.scene.initSoundEffect('buttonSFX','mediumVoice',0.05);
+            }else if(this.soundType === "lightVoice"){
+              this.scene.initSoundEffect('buttonSFX','lightVoice',0.05);
+            }else if(this.soundType === "mediumPiano"){
+              this.scene.initSoundEffect('buttonSFX','mediumPiano',0.05);
+            }else if(this.soundType === "lightPiano"){
+              this.scene.initSoundEffect('buttonSFX','lightPiano',0.05);
+            }
+
           }
           this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase()).once('animationcomplete', () => {
             this.displayHelper(counter+1,textPos+1,end,wPosition);
           });
-         
+        
+          //else we fill in the rest with spaces, dialogue over
         }else{
   
           this.lines[textPos].anims.play(' ').once('animationcomplete', () => {

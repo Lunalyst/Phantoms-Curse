@@ -9,9 +9,15 @@ class istara extends npc{
       this.anims.create({key: 'istaraEmerge',frames: this.anims.generateFrameNames('istara', { start: 0, end: 15 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'istaraIdle',frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }),frameRate: 7,repeat: -1});
 
-      this.anims.create({key: 'istaraStartMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'istaraEnteringMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'istaraGameoverMale',frames: this.anims.generateFrameNames('istara-male-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      if(scene.playerSex === 1){
+        this.anims.create({key: 'istaraStart',frames: this.anims.generateFrameNames('istara-female-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-female-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'istaraGameover',frames: this.anims.generateFrameNames('istara-female-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      }else{
+        this.anims.create({key: 'istaraStart',frames: this.anims.generateFrameNames('istara-male-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'istaraEntering',frames: this.anims.generateFrameNames('istara-male-tf', { start: 4, end: 22 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'istaraGameover',frames: this.anims.generateFrameNames('istara-male-tf', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      }
       
       this.anims.create({key: 'istaraBelly1',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'istaraBelly2',frames: this.anims.generateFrameNames('istara-gestate-tf', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
@@ -45,11 +51,17 @@ class istara extends npc{
 
        this.yes = false;
        this.inDialogue = false;
- 
+       this.jumpySoundCoolDown =false;
        //createdfor use in textbox
        this.profileArray;
 
        this.underWater = false;
+
+      //if lighting system is on then
+      if(this.scene.lightingSystemActive === true){
+        this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 65, 0xb317ff);
+        this.curseLight.visible = false;
+      }
 
        if(this.npcType === 'inCave'){
           this.anims.play('istaraUnderWater');
@@ -99,6 +111,7 @@ class istara extends npc{
             this.completedText = this.scene.sceneTextBox.completedText;
       
           }else{
+            this.scene.initSoundEffect('splashSFX','istaraGetUp',0.05);
             this.anims.play('istaraEmerge').once('animationcomplete', () => {
               this.anims.play('istaraIdle',true);
               this.underWater = false;
@@ -176,6 +189,10 @@ class istara extends npc{
 
       console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
       if(this.scene.sceneTextBox.amountWIsPressed === 0){
+
+        //sets the textbox voice for istara
+        this.scene.sceneTextBox.soundType = "mediumVoice";
+
         this.anims.play('istaraIdle',true);
       }else if(this.scene.sceneTextBox.amountWIsPressed === 5){
 
@@ -194,6 +211,9 @@ class istara extends npc{
         //resets decision making variables incase the player asks agian.
         this.yes = false;
         this.inDialogue = false;
+
+        //sets the textbox voice for istara
+        this.scene.sceneTextBox.soundType = "mediumVoice";
 
         this.textToDisplay = 
         'OH?                       '+
@@ -397,7 +417,7 @@ class istara extends npc{
           this.profileArray.push('istaraHeartEyes');
           this.profileArray.push('istaraSquish');
           this.profileArray.push('istaraSquish');
-          this.profileArray.push('istaraHappy');
+          this.profileArray.push('istaraSquish');
           this.profileArray.push('istaraHappy');
           this.profileArray.push('istaraHappy');
 
@@ -459,7 +479,7 @@ class istara extends npc{
         //hide player
         this.scene.player1.visible = false;
         // start the animation to begin thep rocess
-        this.anims.play('istaraStartMale',true);
+        this.anims.play('istaraStart',true);
 
         //follow istara and zoom the camera in
         this.scene.mycamera.startFollow(this);
@@ -477,19 +497,45 @@ class istara extends npc{
         //hide ui and dialogue box.
         this.scene.sceneTextBox.visible = false;
 
+        let enemy = this;
+        setTimeout(function () {
+            enemy.scene.initSoundEffect('plapSFX','plap4',0.5);;
+        }, 1000);
+
         //play animation and on complete allow w to be pressed.
-        this.anims.play('istaraEnteringMale').once('animationcomplete', () => {
+        this.anims.play('istaraEntering').once('animationcomplete', () => {
           this.anims.play('istaraBelly1',true);
           this.scene.sceneTextBox.amountWIsPressed++;
           this.scene.sceneTextBox.textInterupt = false;
           this.animationPlayed = false;
+
+          this.scene.initSoundEffect('stomachSFX','4',0.2);
+
           //progress the dialogue by one stage so the button moves dialogue forward.
           this.scene.sceneTextBox.progressDialogue();
         });
 
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 19 && this.yes === true){
+        
+        this.scene.initSoundEffect('stomachSFX','7',0.4);
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 20 && this.yes === true){
+        
+        this.scene.initSoundEffect('stomachSFX','4',0.4);
+
       }else if(this.scene.sceneTextBox.amountWIsPressed === 21 && this.yes === true){
         
+        this.scene.initSoundEffect('stomachSFX','10',0.3);
+
         this.anims.play('istaraBelly2',true);
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 22 && this.yes === true){
+        
+        this.scene.initSoundEffect('stomachSFX','8',0.8);
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 23 && this.yes === true){
+        
+        this.scene.initSoundEffect('stomachSFX','12',0.4);
 
       }else if(this.scene.sceneTextBox.amountWIsPressed === 24 && this.yes === true && this.animationPlayed === false){
         
@@ -503,6 +549,14 @@ class istara extends npc{
         //hide ui and dialogue box.
         this.scene.sceneTextBox.visible = false;
 
+        this.scene.initSoundEffect('stomachSFX','15',0.1);
+
+        if(this.scene.lightingSystemActive === true){
+          this.curseLight.visible = true;
+        }
+
+        this.scene.initSoundEffect('curseSFX','curse',0.3);
+
         //play animation and on complete allow w to be pressed.
         this.anims.play('istaraEggTF').once('animationcomplete', () => {
           this.anims.play('istaraEggBelly',true);
@@ -510,6 +564,12 @@ class istara extends npc{
           this.scene.sceneTextBox.textInterupt = false;
           this.animationPlayed = false;
           //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.initSoundEffect('stomachSFX','13',0.1);
+
+          if(this.scene.lightingSystemActive === true){
+            this.curseLight.visible = false;
+          }
+
           this.scene.sceneTextBox.progressDialogue();
         });
 
@@ -524,6 +584,8 @@ class istara extends npc{
 
         //hide ui and dialogue box.
         this.scene.sceneTextBox.visible = false;
+
+        this.scene.initSoundEffect('plapSFX','plap4',0.5);
 
         //play animation and on complete allow w to be pressed.
         this.anims.play('istaraEggLaying').once('animationcomplete', () => {
@@ -546,16 +608,25 @@ class istara extends npc{
     
   }
 
-  gameOver(playerSex){
-    console.log("PLAYING ISTARTA GAMEOVER!")
-      if(playerSex === 1){
+  gameOver(){
 
-      }else{
-        this.anims.play('istaraGameoverMale',true);
-      }
-    
-    
-    
+    this.anims.play('istaraGameover',true);
+     
   }
+
+  playJumpySound(type,delay){
+
+    if(this.jumpySoundCoolDown === false){
+
+        this.scene.initSoundEffect('jumpySFX',type,0.04);
+        this.jumpySoundCoolDown = true;
+
+        let enemy = this;
+        setTimeout(function () {
+            enemy.jumpySoundCoolDown = false;
+        }, delay);
+    }
+
+}
 
 }

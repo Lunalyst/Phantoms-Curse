@@ -32,6 +32,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary3', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleChestMimic', frames: this.anims.generateFrameNames('bestiary4', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleChestMimicVore', frames: this.anims.generateFrameNames('bestiary4', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'istaraUnbirth', frames: this.anims.generateFrameNames('bestiary4', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
@@ -126,6 +127,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       maleChestMimicVore: {
         title: "CHEST MIMIC MALE LARGE",
         summary: "THE MIMICS CURSE WAS CREATED FROM THE DESIRES OF AVARICE. BECAUSE OF THIS THEY COVET THE ITEMS OF THERE PREY, AS WELL AS THERE NEW MASS THERE PREY BECOMES AFTER DIGESTION.",
+      },
+      istaraUnbirth: {
+        title: "ISTARA",
+        summary: "A FRIENDLY COBRA DRAGON NAMED ISTARA, HAPPENS TO BE MAKING HER RESIDENCE IN ONE OF THE MANY CAVES ON THIS ISLAND.",
       },
 
       back: {
@@ -287,6 +292,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       if (bestiaryThat.pageNumber >= 0 && bestiaryThat.pageNumber < bestiaryThat.activeBestiaryPages.length) {
         bestiaryThat.pageNumber++;
         bestiaryThat.setBestiaryInfo();
+        
         bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
         if (bestiaryThat.pageNumber === bestiaryThat.activeBestiaryPages.length - 1) {
           console.log(" hiding right bestiary arrow");

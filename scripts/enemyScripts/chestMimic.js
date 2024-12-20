@@ -1085,8 +1085,29 @@ class chestMimic extends enemy {
 
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
+
+                let currentMimic = this;
+                setTimeout(function () {
+
+                    //display the curselight when player is cursed.
+                    if(currentMimic.scene.lightingSystemActive === true){
+                        currentMimic.curseLight.x = currentMimic.x;
+                        currentMimic.curseLight.y = currentMimic.y-5;
+                        currentMimic.curseLight.visible = true;
+                    }
+                }, 400);
+
+                setTimeout(function () {
+
+                    //display the curselight when player is cursed.
+                    if(currentMimic.scene.lightingSystemActive === true){
+                        currentMimic.curseLight.visible = false;
+                    }
+                }, 1500);
+
                 this.anims.play('mimicDefeatedTF4').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
+
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;

@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/splash-sounds/splash-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "istaraGetUp":{
+            "start":13,
+            "end": 14.9,
+            "loop": false
+        }
+    }
+}

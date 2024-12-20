@@ -51,6 +51,8 @@ class tutorialCave extends defaultScene {
        
       this.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
        
+      this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
+
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
@@ -86,6 +88,9 @@ class tutorialCave extends defaultScene {
 
       //sets up ambient lighting
       this.setupLightingSystem(0x555555);
+
+      //setup lights group.
+      this.setUpWallLights();
 
       //creates tileset
       this.setUpTileSet("cave_map","Cave_Tileset","cave_source_map");
@@ -145,6 +150,38 @@ class tutorialCave extends defaultScene {
           ['signLoop']);
 
       this.initSavePoints(896,1230);
+
+      this.initWallLight(699,469,'ghostMushroom4');
+
+      this.initWallLight(873,439,'ghostMushroom2');
+
+      this.initWallLight(1016,513,'ghostMushroom3');
+      this.initWallLight(1020,511,'ghostMushroom1');
+      this.initWallLight(1024,513,'ghostMushroom4');
+
+      this.initWallLight(1157,544,'ghostMushroom3');
+
+      this.initWallLight(625,955,'ghostMushroom3');
+
+      this.initWallLight(782+32,1093,'ghostMushroom3');
+      this.initWallLight(794+32,1090,'ghostMushroom1');
+      this.initWallLight(806+32,1093,'ghostMushroom4');
+
+      this.initWallLight(994+32,1130,'ghostMushroom2');
+
+      this.initWallLight(1104+32,1100,'ghostMushroom3');
+
+      this.initWallLight(1600+32,1086,'ghostMushroom1');
+      this.initWallLight(1602+32,1084,'ghostMushroom2');
+
+      this.initWallLight(1902+32,1134,'ghostMushroom2');
+
+      this.initWallLight(1719,1341,'ghostMushroom4');
+
+      this.initWallLight(1710,1540,'ghostMushroom1');
+
+      this.initWallLight(1958,1469,'ghostMushroom2');
+      this.initWallLight(1950,1467,'ghostMushroom4');
 
       this.initPortals(465,1808,3735,541,"warpCaveInside","tutorialBeachLevel");
 
@@ -219,7 +256,7 @@ class tutorialCave extends defaultScene {
 
     update(){
       
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

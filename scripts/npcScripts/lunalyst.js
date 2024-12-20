@@ -135,6 +135,9 @@ class lunalyst extends npc{
     //if the flag is not found then apply dialoge start
     if(lunaDevDialogue1.foundFlag === false){
 
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
+
       this.textToDisplay = 
       '                         '+
       '                         '+
@@ -170,6 +173,10 @@ class lunalyst extends npc{
       }
 
     }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === false){
+
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
+      
 
       if(this.scene.playerSex === 1){
         this.textToDisplay = 
@@ -249,6 +256,10 @@ class lunalyst extends npc{
         this.anims.play('lunalystChairIdle',true); 
       }
     }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === true && this.isSleeping === false){
+
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
+
       this.textToDisplay = 
       'OH? STILL STICKING       '+
       'AROUND?                  '+
@@ -267,12 +278,12 @@ class lunalyst extends npc{
       'TOUGH TIME REACHING IT.  '+
 
       'EVEN THOUGH IM CURSED    '+
-      'OTHER CURSED WHO DONT    '+
-      'RETAIN THERE SENSE OF    '+
-
+      'OTHER WILD CURSED        '+
       'STILL TRY TO EAT ME.     '+
+
       'ITS ALMOST AS IF THEY    '+
-      'KNOW IM NOT ONE OF THEM. ';
+      'KNOW IM NOT ONE OF THEM. '+
+      '                         ';
 
       this.profileArray = ['lunaNeutral','lunaHappy','lunaKO','lunaHappy','lunaAngryEyes','lunaCry']
 
@@ -281,6 +292,10 @@ class lunalyst extends npc{
         this.anims.play('lunalystChairIdle',true); 
       }
     }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === true){
+
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
+
       this.textToDisplay = 
       '                         '+
       '                         '+
@@ -343,6 +358,9 @@ class lunalyst extends npc{
 
     if(lunaCTWDialogue1.foundFlag === false){
 
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
+
       this.textToDisplay = 
       'OH A HUMAN! HELLO!        '+
       '                          '+
@@ -386,6 +404,9 @@ class lunalyst extends npc{
       }
 
     }else if(lunaCTWDialogue1.foundFlag === true){
+
+      //sets the textbox voice for luna
+      this.scene.sceneTextBox.soundType = "lightVoice";
 
       this.textToDisplay = 
       'OH HELLO AGIAN!           '+

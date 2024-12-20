@@ -35,41 +35,126 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
 
 
         if(type === 'torch'){
-            this.setupTorch();
+
+            console.log("seting up torch");
+            this.anims.play('torch');
+
+            //if we are using dark lighting
+            if(this.scene.lightingSystemActive === true){ 
+
+                this.lightSource = this.scene.lights.addLight(this.x,this.y, 100, 0xffffff);
+                
+                //adds a tween to yoyo the radius of the light giving it a flicker effect.
+                this.scene.tweens.add({
+                    targets: this.lightSource,
+                    props : {
+                        radius: {value : '+=' +20},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+    
+            }
+        }else if(type === 'ghostMushroom1'){
+
+            this.anims.play('ghostMushroom1');
+
+            //if we are using dark lighting
+            if(this.scene.lightingSystemActive === true){ 
+
+                this.lightSource = this.scene.lights.addLight(this.x,this.y, 90, 0xb317ff,0.6);
+                
+                //adds a tween to yoyo the radius of the light giving it a flicker effect.
+                this.scene.tweens.add({
+                    targets: this.lightSource,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+    
+            }
+
+        }else if(type === 'ghostMushroom2'){
+
+            this.anims.play('ghostMushroom2');
+
+            //if we are using dark lighting
+            if(this.scene.lightingSystemActive === true){ 
+
+                this.lightSource = this.scene.lights.addLight(this.x,this.y, 95, 0xb317ff,0.7);
+                
+                //adds a tween to yoyo the radius of the light giving it a flicker effect.
+                this.scene.tweens.add({
+                    targets: this.lightSource,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+    
+            }
+
+        }else if(type === 'ghostMushroom3'){
+
+            this.anims.play('ghostMushroom3');
+
+            //if we are using dark lighting
+            if(this.scene.lightingSystemActive === true){ 
+
+                this.lightSource = this.scene.lights.addLight(this.x,this.y, 70, 0xb317ff,0.6);
+                
+                //adds a tween to yoyo the radius of the light giving it a flicker effect.
+                this.scene.tweens.add({
+                    targets: this.lightSource,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+    
+            }
+
+        }else if(type === 'ghostMushroom4'){
+
+            this.anims.play('ghostMushroom4');
+
+            //if we are using dark lighting
+            if(this.scene.lightingSystemActive === true){ 
+
+                this.lightSource = this.scene.lights.addLight(this.x,this.y, 75, 0xb317ff,0.5);
+                
+                //adds a tween to yoyo the radius of the light giving it a flicker effect.
+                this.scene.tweens.add({
+                    targets: this.lightSource,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+    
+            }
+
         }
         
     }
 
-    setupMushroom(type){
 
 
-
-    }
-
-    setupTorch(){
-        console.log("seting up torch");
-        this.anims.play('torch');
-
-        //if we are using dark lighting
-        if(this.scene.lightingSystemActive === true){ 
-
-            this.lightSource = this.scene.lights.addLight(this.x,this.y, 100, 0xffffff);
-
-            this.scene.tweens.add({
-                targets: this.lightSource,
-                props : {
-                    radius: {value : '+=' +20},
-                }, 
-                ease: 'linear',
-                duration: 1000,
-                repeat: -1,
-                yoyo: true
-            });
-  
-        }
-
-
-    }
 
 
     

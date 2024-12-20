@@ -201,8 +201,11 @@ class gameOver extends allSceneFunctions {
                 this.processMap.layer2.setPipeline('Light2D');
                 this.processMap.layer3.setPipeline('Light2D');
 
-                this.light1 = new wallLight(this,410, 470,'torch');
-                this.light2 = new wallLight(this,585, 470,'torch');
+                this.initLoopingSound('waterfallSFX','waterfall', 0.03);
+
+                this.light1 = new wallLight(this,445, 470,'ghostMushroom2');
+                this.light2 = new wallLight(this,455, 472,'ghostMushroom3');
+                this.light2 = new wallLight(this,465, 468,'ghostMushroom4');
 
             }else{
                 //this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
@@ -310,9 +313,9 @@ class gameOver extends allSceneFunctions {
                 this.defeatedTitle = 'eaten';
             }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
                 this.preferance = 0;
-                this.enemy = new istara(this,450, 573,"inCave");
+                this.enemy = new istara(this,450, 549,"inCave");
                 this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver(this.playerSex);
+                this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
             }
             
@@ -334,14 +337,14 @@ class gameOver extends allSceneFunctions {
             
             
             //sets timeout for animations.
-            setTimeout(function(){
-                if(gameoverThat.defeatedTitle === 'eaten'){
-                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationEaten");
+            //setTimeout(function(){
+                if(this.defeatedTitle === 'eaten'){
+                    this.gameOverSign.anims.play("gameoverTitleAnimationEaten");
                 }else{
-                    gameoverThat.gameOverSign.anims.play("gameoverTitleAnimationCursed");
+                    this.gameOverSign.anims.play("gameoverTitleAnimationCursed");
                 }
                 
-              },100);
+              //},100);
            
               setTimeout(function(){
                 gameoverThat.tryAgian.visible = true;
@@ -486,10 +489,9 @@ class gameOver extends allSceneFunctions {
                  this.enemyThatDefeatedPlayer === "femaleChestMimicVore" ||
                  this.enemyThatDefeatedPlayer === "maleChestMimic"||
                  this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
-                    
                 this.enemy.playJumpySound('10',800);
             }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
-                this.enemy.gameOver(this.playerSex);
+                this.enemy.playJumpySound('10',600);
             }
             
         }

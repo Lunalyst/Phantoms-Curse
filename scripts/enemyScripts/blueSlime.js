@@ -960,8 +960,24 @@ class blueSlime extends enemy {
             if (!this.animationPlayed) {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
+
+                if(this.scene.lightingSystemActive === true){
+                    this.curseLight.x = this.x-5;
+                    this.curseLight.y = this.y+5;
+                    this.curseLight.visible = true;
+                }
+
+                currentSlime = this;
+                setTimeout(function () {
+                    //display the curselight when player is cursed.
+                    if(currentSlime.scene.lightingSystemActive === true){
+                        currentSlime.curseLight.visible = false;
+                    }
+                }, 1000);
+
                 this.animationPlayed = true;
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
+
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                 });
@@ -1089,6 +1105,13 @@ class blueSlime extends enemy {
                 setTimeout(function () {
                     currentSlime.scene.sound.get('plapSFX').stop();
                     currentSlime.scene.initSoundEffect('curseSFX','curse',0.3);
+
+                    //display the curselight when player is cursed.
+                    if(currentSlime.scene.lightingSystemActive === true){
+                        currentSlime.curseLight.x = currentSlime.x;
+                        currentSlime.curseLight.y = currentSlime.y-20;
+                        currentSlime.curseLight.visible = true;
+                    }
                 }, 2000);
 
                 this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SQUIRT!");
@@ -1102,6 +1125,11 @@ class blueSlime extends enemy {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+
+                    //after cursing is over hide the light.
+                    if(this.scene.lightingSystemActive === true){
+                        this.curseLight.visible = false;
+                      }
 
                 });
             }

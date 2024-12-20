@@ -32,6 +32,7 @@ class istarasCave extends defaultScene {
 
       this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-male-tf" , "assets/npcs/istara-male-tf.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istara-female-tf" , "assets/npcs/istara-female-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-gestate-tf" , "assets/npcs/istara-gestate-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 75 , frameHeight: 66 });
 
@@ -46,6 +47,10 @@ class istarasCave extends defaultScene {
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
+      ]);
+
+      this.load.audioSprite('splashSFX','audio/used-audio/splash-sounds/splash-sounds.json',[
+        "audio/used-audio/splash-sounds/splash-sounds.mp3"
       ]);
 
     }
@@ -108,10 +113,35 @@ class istarasCave extends defaultScene {
 
       this.initSavePoints(695,1245-14);
 
+      this.initPortals(595,1245-13,637,605,"door2","DevRoom1");
+
+      this.initWallLight(712+32,1163,'ghostMushroom3');
+      this.initWallLight(700+32,1160,'ghostMushroom1');
+
+      this.initWallLight(812+32,1063,'ghostMushroom3');
+      this.initWallLight(824+32,1060,'ghostMushroom1');
+      this.initWallLight(836+32,1063,'ghostMushroom4');
+
+      this.initWallLight(904+32,930,'ghostMushroom1');
+      this.initWallLight(1024+32,980,'ghostMushroom2');
+      
       this.initWallLight(1000,1140,'torch');
       this.initWallLight(1334-32,1140,'torch');
       this.initWallLight(1450+32,1140,'torch');
-      this.initWallLight(1750+32,1140,'torch');
+      //this.initWallLight(1750+32,1140,'torch');
+      this.initWallLight(1750+32,1140,'ghostMushroom2');
+      this.initWallLight(1760+32,1142,'ghostMushroom3');
+      this.initWallLight(1770+32,1138,'ghostMushroom4');
+
+      this.initWallLight(1800+32,1002,'ghostMushroom3');
+
+      this.initWallLight(1650+32,950,'ghostMushroom1');
+
+      this.initWallLight(1450+32,950,'ghostMushroom2');
+      this.initWallLight(1440+32,948,'ghostMushroom4');
+
+      this.initWallLight(1290+32,900,'ghostMushroom1');
+      this.initWallLight(1300+32,892,'ghostMushroom2');
       
       //sets up containers
       this.setUpContainers();

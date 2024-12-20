@@ -113,7 +113,7 @@ class istarasCave extends defaultScene {
 
       this.initSavePoints(695,1245-14);
 
-      //this.initPortals(595,1245-13,637,605,"door2","DevRoom1");
+      this.initPortals(595,1245-13,637,605,"door2","DevRoom1");
 
       this.initWallLight(712+32,1163,'ghostMushroom3');
       this.initWallLight(700+32,1160,'ghostMushroom1');

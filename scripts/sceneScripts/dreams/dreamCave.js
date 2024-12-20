@@ -26,6 +26,8 @@ class dreamCave extends defaultScene {
 
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
 
+      this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
+
       this.defaultPreload();
 
       this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
@@ -45,6 +47,12 @@ class dreamCave extends defaultScene {
       this.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
       this.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
        
+      this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istara-male-tf" , "assets/npcs/istara-male-tf.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istara-female-tf" , "assets/npcs/istara-female-tf.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istara-gestate-tf" , "assets/npcs/istara-gestate-tf.png" , {frameWidth: 783 , frameHeight: 432 });
+      this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
@@ -109,6 +117,9 @@ class dreamCave extends defaultScene {
       this.initLoopingSound('caveSFX','cave', 0.1);
       this.initLoopingSound('waterfallSFX','waterfall', 0.03);
 
+      //this sets up the text box which will be used by the signs to display text.
+      this.setUpTextBox();
+
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
@@ -118,6 +129,10 @@ class dreamCave extends defaultScene {
       this.setUpTextBox();
 
       this.initPortals(1166,605-13,581,925,"warpCaveInside","DreamForest");
+
+      this.initSigns(1066,605+12,
+        "STUPID LEVEL DO YOUR DAM JOB! ",
+        ['signLoop']);
       
       //sets up containers
       this.setUpContainers();
@@ -190,6 +205,18 @@ class dreamCave extends defaultScene {
         if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleChestMimicVore' || object2.flagToFind === 'femaleChestMimicVore')){
           thisScene.initEnemy(581,605-4,thisScene.playerSex,'chestMimicAngry',true);
         }
+
+        object1 = {
+          flagToFind: 'istaraUnbirth',
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+
+        if(object1.foundFlag === true){
+          thisScene.initIstara(451,605,'dreamView');
+        }
+
         
         thisScene.spawnedEnemys = true;
       },1000);
@@ -209,8 +236,6 @@ class dreamCave extends defaultScene {
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
     
     }
-
-    
 
 }
   

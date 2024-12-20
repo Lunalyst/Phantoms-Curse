@@ -943,13 +943,13 @@ class defaultScene extends allSceneFunctions {
 
   }
 
-  initIstara(x, y, text, profileArray,flag) {
+  initIstara(x, y, type) {
 
     //sets up the special text box object for istara
     this.sceneTextBox.textBoxProfileImage.setUpIstaraEmots();
 
     //create istara npc
-    let Istara = new istara(this, x, y, text, profileArray,flag);
+    let Istara = new istara(this, x, y, type);
 
     Istara.npcId = this.npcId;
     this.npcId++;

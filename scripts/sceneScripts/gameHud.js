@@ -794,7 +794,7 @@ class gameHud extends allSceneFunctions {
             console.log("after emitterchecking if flag exists. : ",object);
 
             for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
-              //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
+              console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
               if (object.flagToFind  === value) {
                   object.foundFlag = true;
               }

@@ -108,6 +108,14 @@ class blueSlime extends enemy {
             this.setOffset(82, 209);
             this.body.setGravityY(700);
         }
+
+        //applys lighting to the enemy.
+        if(this.scene.lightingSystemActive === true){ 
+            this.setPipeline('Light2D');
+            //also sets up the curse light for if the player is ucrsed.
+            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 65, 0xb317ff);
+            this.curseLight.visible = false;
+          }
     }
 
     //functions that move slime objects.

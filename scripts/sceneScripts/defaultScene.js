@@ -986,6 +986,8 @@ class defaultScene extends allSceneFunctions {
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
     initHealthUpgrade(x, y, flag) {
 
+      console.log("checking if upgrade should be spawned! -----------------------------");
+
       //make a temp object
       let object = {
         flagToFind: flag,
@@ -994,9 +996,11 @@ class defaultScene extends allSceneFunctions {
 
       // call the emitter to check if the value already was picked up.
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
+      
       //if it has not then spawn it in the level
       if(object.foundFlag === false){
+
+        console.log("sspawning in health upgrade! -----------------------------");
 
         //creates a item drop
         let upgrade1 = new healthUpgrade(this, x, y,flag);

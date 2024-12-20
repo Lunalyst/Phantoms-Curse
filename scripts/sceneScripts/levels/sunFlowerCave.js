@@ -221,9 +221,6 @@ class sunFlowerCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      //creates health upgrade object in level
-      this.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerField');
-
       // adds lighting effect for level background
       //this.light1 = this.lights.addLight(4642-4160, 605-30, 100);
      
@@ -234,6 +231,9 @@ class sunFlowerCave extends defaultScene {
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
+
+          //creates health upgrade object in level
+          thisScene.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerField');
           
           thisScene.initEnemy(5580-4160, 1245,thisScene.playerSex,'blueSlime',false);
 

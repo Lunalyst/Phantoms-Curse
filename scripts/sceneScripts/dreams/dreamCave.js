@@ -129,10 +129,6 @@ class dreamCave extends defaultScene {
       this.setUpTextBox();
 
       this.initPortals(1166,605-13,581,925,"warpCaveInside","DreamForest");
-
-      this.initSigns(1066,605+12,
-        "STUPID LEVEL DO YOUR DAM JOB! ",
-        ['signLoop']);
       
       //sets up containers
       this.setUpContainers();

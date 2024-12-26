@@ -1,14 +1,14 @@
 
 
-class TestForest extends defaultScene {
+class PondForest extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'TestForest',active: false ,physics:{default:'arcade'}});
+    super({key: 'PondForest',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "TestForest";
+    this.playerLocation = "PondForest";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,22 +27,12 @@ class TestForest extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Forest_Tileset/Test_Forest.json");
-
-      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+      this.load.tilemapTiledJSON("ForestPondMap" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond.json");
 
       this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
-
-      this.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('tigerPenned', 'assets/internalViews/tigerPenned.png',{frameWidth: 213, frameHeight: 213});
-       
+      this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -66,7 +56,7 @@ class TestForest extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("TestForestMap","Forest_Tileset","forest_source_map");
+      this.setUpTileSet("ForestPondMap","Forest_Tileset","forest_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -96,23 +86,19 @@ class TestForest extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
-      //this.initSavePoints(2050,558);
-        // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(2997,1021+13,
-        "FEELINGS OF FEAR ARE POWERFUL TOOLS FOR DRIVING SOMEONE FORWARD. DONT LET YOUR NEGITIVE EMOTIONS HOLD YOU BACK. USE THEM AS A TOOL TO REACH YOUR DESIRES...  ",
+      this.initSigns(2145,829+13,
+        "ALL THAT YOU ARE, AND ALL THAT YOU COULD BE. YOUR HEART BECOMES APART OF ME. FROM YOUR SEED SPROUTED A GREAT TREE. WITH BRANCHES SO WIDE, THAT IN ITS SHADE, OUR NIGHTMARES COULD HIDE.",
         ['signLoop']);
 
       /*this.skybackround = this.add.tileSprite(1500, 800, 8*1377,918, "backgroundForestStaticLevel");
       this.skybackround.setDepth(-51);
       this.skybackround.setTint(0xd3d3d3);*/
 
-      this.backround = this.add.tileSprite(1500, 800, 10*1377 ,918, "backgroundForestStaticLevel");
+      this.backround = this.add.tileSprite(1500, 600, 10*1377 ,918, "backgroundForestStaticLevel");
       this.backround.setDepth(-50);
       this.backround.setScale(.9);
       this.backround.setTint(0xd3d3d3);
@@ -123,55 +109,38 @@ class TestForest extends defaultScene {
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x444444);
 
-      this.parrallax2 = this.add.tileSprite(3000, 700+600, 1920*10 ,1920, "ground_parrallax");
+      this.parrallax2 = this.add.tileSprite(3000, 700+900, 1920*10 ,1920*2, "ground_parrallax");
       this.parrallax2.setScale(1/3);
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0x444444);
 
-      this.initSavePoints(761,989-14);
-      this.initSavePoints(4230,1085-14);
+      this.initSavePoints(4802,1053-14);
 
-      console.log("this.test4: ",this.test4 );
+      this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
+      this.initPortals(906,1533-13,637,605,"door2","DevRoom1");
 
-      this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
-//5812,1181 1570,829
-      this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");
+
+      this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
+      this.secretWall1.setDepth(7);
+      this.secretWall1.setScale(1/3);
+
+      //this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");
 
       //sets up containers
       this.setUpContainers();
-
-      setTimeout(function(){
-       
-        let speedRing = {
-          itemID: 8,
-          itemName: 'SPEED RING',
-          itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
-          itemStackable: 0,
-          itemAmount: 1
-        };
-    
-        //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-        thisScene.initItemContainer(3421,1021-3,speedRing,true,"cave_chest_with_speedRing");
-      
-      },2000);
 
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["tigers",'rabbits'];
+      this.enemyGroupArray = [];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
           
-          thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
-          //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit');
-          thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
-          thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
-          thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -185,6 +154,9 @@ class TestForest extends defaultScene {
     }
 
     update(){
+
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
       
       //calls the built in update function
       this.defaultUpdate();

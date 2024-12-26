@@ -580,12 +580,31 @@ class defaultScene extends allSceneFunctions {
       this.usingSlimeProjectiles = true;
     }
 
+    setUpCursedHeartProjectiles(){
+      //set up the slime projectile group
+      console.log('created curse hearts group');
+      this.CursedHearts = this.physics.add.group();
+      this.usingCursedHearts = true;
+    }
+
     setupSlimeStucks(){
       //sets up stuck animations so they are defined in the scope of the scenes that need them.
       if(this.playerSex === 0){
         this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
       }else{
         this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+      }
+
+    }
+
+    setupCursedHeartStucks(){
+      //sets up stuck animations so they are defined in the scope of the scenes that need them.
+      if(this.playerSex === 0){
+        this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+        this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+      }else{
+        this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+        this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
       }
 
     }
@@ -792,6 +811,10 @@ class defaultScene extends allSceneFunctions {
 
     setUpSlimeProjectilesBarriers(){
       this.physics.add.collider(this.processMap.layer1, this.slimeProjectiles);
+    }
+
+    setUpCursedHeartsProjectilesBarriers(){
+      this.physics.add.collider(this.processMap.layer1, this.CursedHearts);
     }
 
     //{itit object Functions}===================================================================================================================
@@ -1118,6 +1141,21 @@ class defaultScene extends allSceneFunctions {
       }
 
     }
+
+    initCursedHeartProjectile(x,y,velocityX,enemy,direction){
+
+      let cursedHeartProj = new cursedHeartProjectile(this,x,y,velocityX,enemy,direction);
+
+      this.physics.add.existing(cursedHeartProj);
+      this.CursedHearts.add(cursedHeartProj);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        cursedHeartProj.setPipeline('Light2D');
+        
+      }
+
+    }
     
     //{check object Functions}===================================================================================================================
 
@@ -1353,6 +1391,89 @@ class defaultScene extends allSceneFunctions {
       }, this);
     }
 
+    checkCursedHeartProjectiles(){
+      this.CursedHearts.children.each(function (tempProjectile) {
+        //ensures gravity is applied,
+        //tempProjectile.body.setGravityY(tempProjectile.savedGravity);
+
+        //applies velocity of projectile if predefined but only if it hasn't hit the ground or a wall
+        if(!tempProjectile.body.blocked.down||!tempProjectile.body.blocked.left || !tempProjectile.body.blocked.right || !tempProjectile.body.blocked.up){
+
+          //if the projectile should still be following the player.
+          if(tempProjectile.followingPlayer === true){
+            //if the projectile is to the left of the player
+            if(this.player1.x > tempProjectile.x ){
+              //apply velocity going towars the player.
+              tempProjectile.setVelocityX(tempProjectile.savedVelocityX);
+
+            //otherwise send it the opisite direction.
+            }else if(this.player1.x <= tempProjectile.x){
+              tempProjectile.setVelocityX(tempProjectile.savedVelocityX *-1);
+            }
+
+            //if thep rojectile is to the left of the player
+            if(this.player1.y-10 > tempProjectile.y ){
+              //apply velocity going towars the player.
+              tempProjectile.setVelocityY(tempProjectile.savedVelocityX);
+
+            //otherwise send it the opisite direction.
+            }else if(this.player1.y+10 <= tempProjectile.y){
+
+              tempProjectile.setVelocityY(tempProjectile.savedVelocityX *-1);
+            }else{
+              tempProjectile.setVelocityY(0);
+            }
+            //slowly accelerate the projectile
+            if(tempProjectile.accelerateCoolDown === false){
+
+              //increase control variable
+              tempProjectile.accelerateCoolDown = true;
+              tempProjectile.savedVelocityX += 10;
+
+              //every 0.1 seconds 
+              setTimeout(function(){
+                console.log("tempProjectile.savedVelocityX: ",tempProjectile.savedVelocityX);
+
+                tempProjectile.accelerateCoolDown = false;
+              },100);
+
+            }
+          }
+          
+        }else{
+          tempProjectile.setVelocityX(0);
+        }
+        
+        //if projectile hits the ground or a wall
+        if(tempProjectile.body.blocked.down||tempProjectile.body.blocked.left || tempProjectile.body.blocked.right || tempProjectile.body.blocked.up){
+          console.log("curse projectile hit ground/wall!")
+
+          //call slime projectile to destroy its self 
+          tempProjectile.destroy();
+        }
+
+        let tempScene = this;
+        //if projectile overlaps with player then
+        this.physics.add.overlap(this.player1, tempProjectile, function () {
+
+          if(tempProjectile.body.blocked.down === false){
+            //set up player stuck grab and 
+            tempScene.playerStuckGrab = true;
+            tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
+            tempScene.playerStuckGrabCap = 120;
+            //creates a refrence to the enemy that infatuaged the player
+            tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
+
+            tempScene.player1.anims.play("cursedHeartInfatuated",true);
+            tempProjectile.destroy();
+          }
+
+
+        });
+
+      }, this);
+    }
+
     checkLocker(){
       this.playerStorage.children.each(function (tempStorage) {
 
@@ -1533,6 +1654,10 @@ class defaultScene extends allSceneFunctions {
 
           console.log("adding chestMimics group");
           this.chestMimics = this.physics.add.group();
+        }if(enemyGroupArray[counter] === 'whiteCats'){
+
+          console.log("adding whiteCats group");
+          this.whiteCats = this.physics.add.group();
         }
 
         //this.chestMimics
@@ -1656,6 +1781,16 @@ class defaultScene extends allSceneFunctions {
         //adds the enemy to both groups.
         this.enemys.add(mimic);
         this.chestMimics.add(mimic);
+      }else if(enemyType === 'whiteCat'){
+        
+        //creates a secondary group to handle enemy specific interactions which we will use later
+        let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
+        cat.angry = true;
+        console.log("cat.enemyId: ",cat.enemyId);
+        this.enemyId++;
+        //adds the enemy to both groups.
+        this.enemys.add(cat);
+        this.whiteCats.add(cat);
       }else{
         console.log("UNKNOWN enemyType: ",enemyType);
         /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
@@ -1716,12 +1851,16 @@ class defaultScene extends allSceneFunctions {
         struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
         this.playerStuckGrabActivated = true;
 
-        //stops the players velocity during the initial grab.
-        this.player1.setVelocityX(0);
-        this.player1.setVelocityY(0);
         //plays sfx for player being stuck
+        console.log("this.PlayerStuckSFXTimer: ",this.PlayerStuckSFXTimer);
         if(this.PlayerStuckSFXTimer === false){
+          console.log("this.playerStuckGrabbedBy: ",this.playerStuckGrabbedBy);
           if(this.playerStuckGrabbedBy === "slime_projectile"){
+
+            //stops the players velocity during the initial grab.
+            this.player1.setVelocityX(0);
+            this.player1.setVelocityY(0);
+
             this.initSoundEffect('blueSlimeSFX','1',0.3);
             this.PlayerStuckSFXTimer = true;
 
@@ -1729,7 +1868,9 @@ class defaultScene extends allSceneFunctions {
             setTimeout(function(){
               thisScene.PlayerStuckSFXTimer = false;
             },800);
-          } 
+
+          //otherwise if projectile is a cursed heart.
+          }
         }
       }
       //makes sure the key display follows the player incase they where grabbed in air.
@@ -1753,6 +1894,34 @@ class defaultScene extends allSceneFunctions {
         this.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
       }
+
+      //apply movement logic if there is any.
+      if(this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
+
+          //set velocity of player to the correct direction.
+          //tempScene.enemyThatInfatuatedPlayer
+          //if the player is on the ground and the enemy is to the left
+          if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x+10 < this.player1.x){
+
+            console.log("infatuated player moving left?");
+            //apply velocity to the left
+            this.player1.setVelocityX(-250 * this.player1.speedBoost/2);
+            this.player1.anims.play('cursedHeartInfatuatedWalk',true);
+            this.player1.flipX = true;
+
+          }else if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x-10 >= this.player1.x){
+
+            console.log("infatuated player moving right?");
+            this.player1.setVelocityX(250 * this.player1.speedBoost/2);
+            this.player1.anims.play('cursedHeartInfatuatedWalk',true);
+            this.player1.flipX = false;
+
+          }else{
+            this.player1.setVelocityX(0);
+            this.player1.anims.play('cursedHeartInfatuated',true);
+
+          }
+        }
 
       //plays sfx for player being stuck
       if(this.PlayerStuckSFXTimer === false){
@@ -2487,6 +2656,70 @@ class defaultScene extends allSceneFunctions {
 
     }
 
+    checkWhiteCatInteractions(scene) {
+
+      //console.log("checking slime interactions");
+      //applies functions to all slimes in the group.
+      scene.whiteCats.children.each(function (tempCat) {
+
+        //safty check to improve performance. only does overlap if in range.
+        if(this.objectsInRangeX(tempCat,this.player1,400) && this.objectsInRangeY(tempCat,this.player1,300) && tempCat.inSafeMode === false){
+          //calls to make each instance of a slime move.
+          tempCat.move(scene.player1,scene);
+          scene.physics.add.overlap(scene.attackHitBox, tempCat, function () {
+            tempCat.hitboxOverlaps = true;
+          });
+          if(tempCat.hitboxOverlaps === true) {
+            console.log("slime taking damage, slime hp:" + tempCat.slimeHp);
+            tempCat.damage(scene);
+            tempCat.hitboxOverlaps = false;
+          }
+          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          scene.physics.add.overlap(scene.player1, tempCat.grabHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              //scene.playerInventory.setView(scene);
+            }
+            //console.log("player overlaps slime");
+            //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
+            //console.log("tempCat.grabCoolDown:"+tempCat.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            if (tempCat.grabCoolDown === false && scene.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempCat.setVelocityX(0);
+              scene.player1.setVelocityX(0);
+              //calls the grab function
+              tempCat.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempCat.playerGrabbed = true;
+              tempCat.grabCoolDown = true;
+              scene.grabbed = true;
+              scene.grabCoolDown = true;
+              console.log('player grabbed by slime');
+            }
+          });
+          
+        //function for animation viewer logic.
+        }else if(this.objectsInRangeX(tempCat,scene.player1,30) && this.objectsInRangeY(tempCat,scene.player1,30)){
+
+          this.viewAnimationLogic(tempCat);
+        // otherwise hid the prompt from the player.
+        }else{
+          tempCat.setVelocityY(0);
+          tempCat.setVelocityX(0);
+          tempCat.safePrompts.visible = false;
+          tempCat.playedSafePrompts = false;
+        }
+      }, this);
+
+    }
+
     //{Update functions}===================================================================================================================
 
     //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
@@ -2518,6 +2751,10 @@ class defaultScene extends allSceneFunctions {
 
       if(this.usingSlimeProjectiles === true){
         this.checkSlimeProjectiles();
+      }
+
+      if(this.usingCursedHearts === true){
+        this.checkCursedHeartProjectiles();
       }
 
       if(this.usingLocker === true){
@@ -2693,6 +2930,9 @@ class defaultScene extends allSceneFunctions {
               }
               if(enemyGroupArray[counter] === 'chestMimics'){
                 this.checkChestMimicsInteractions(this);
+              }
+              if(enemyGroupArray[counter] === 'whiteCats'){
+                this.checkWhiteCatInteractions(this);
               }
             }
 

@@ -229,7 +229,7 @@ progressDialogue(){
             }else if(this.soundType === "mediumVoice"){
               this.scene.initSoundEffect('buttonSFX','mediumVoice',0.05);
             }else if(this.soundType === "lightVoice"){
-              this.scene.initSoundEffect('buttonSFX','lightVoice',0.05);
+              this.scene.initSoundEffect('buttonSFX','lightVoice',0.1);
             }else if(this.soundType === "mediumPiano"){
               this.scene.initSoundEffect('buttonSFX','mediumPiano',0.05);
             }else if(this.soundType === "lightPiano"){

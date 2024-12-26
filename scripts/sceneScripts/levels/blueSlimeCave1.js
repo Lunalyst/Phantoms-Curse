@@ -126,13 +126,14 @@ class blueSlimeCave1 extends defaultScene {
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
 
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
-
+        
       this.fakeWarp1 = new fakeWarp(this,1250,1565-13,'warpCaveOutsideRubble');
 
       this.initPortals(1779,1149-13,462,1245,"warpCaveOutside","istarasCave");
       //this.fakeWarp2 = new fakeWarp(this,1779,1149-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp3 = new fakeWarp(this,1796,573-13,'warpCaveOutsideRubble');
+      this.initPortals(1796,573-13,381,1661,"warpCaveInside","PondForest");
+      //this.fakeWarp3 = new fakeWarp(this,1796,573-13,'warpCaveOutsideRubble');
 
       
  

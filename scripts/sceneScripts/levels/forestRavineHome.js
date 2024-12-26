@@ -136,12 +136,12 @@ class ForestRavineHome extends defaultScene {
         this.parrallax1 = this.add.tileSprite(1500, 1100, 1920*4 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
-        this.parrallax1.setTint(0x808080);
+        this.parrallax1.setTint(0x444444);
 
         this.parrallax2 = this.add.tileSprite(1500, 1100+600, 1920*4 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
-        this.parrallax2.setTint(0x808080);
+        this.parrallax2.setTint(0x444444);
     }
 
     update(){

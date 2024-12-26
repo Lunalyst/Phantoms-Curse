@@ -31,20 +31,14 @@ class devRoom2 extends defaultScene {
      
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       
-      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
+      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+
+      this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
+      this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
       
-      this.load.spritesheet('mimicMale-evan-TF', 'assets/enemys/mimic_male_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evan-vore', 'assets/enemys/mimic_male_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-TF', 'assets/enemys/mimic_male_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-vore', 'assets/enemys/mimic_male_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.spritesheet('mimicTongue', 'assets/internalViews/mimicTongue.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
-        
+      this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
+
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
@@ -77,6 +71,9 @@ class devRoom2 extends defaultScene {
     
       //creates player object
       this.setUpPlayer();
+
+      // sets up slime gooed animation.
+      this.setupCursedHeartStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);
@@ -118,7 +115,7 @@ class devRoom2 extends defaultScene {
 
       this.initPortalsWithTransparency(419,605-13,864,605,"door2","DevRoom1",0.75);
 
-      this.initPortals(1068,541-13,462,1245,"door2","istarasCave");
+      this.initPortals(1068,541-13,906,1533,"door2","PondForest");
 
       this.initSavePoints(1435,605-14);
 
@@ -130,8 +127,12 @@ class devRoom2 extends defaultScene {
       this.setUpItemDropCollider();
 
        //sets up enemy colliders and groups
-       this.enemyGroupArray = ["chestMimics"];
+       this.enemyGroupArray = ["whiteCats"];
        this.setUpEnemyCollider(this.enemyGroupArray);
+
+       //needed to use cursed heart projectiles.
+       this.setUpCursedHeartProjectiles();
+       this.setUpCursedHeartsProjectilesBarriers()
 
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
@@ -142,7 +143,7 @@ class devRoom2 extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          thisScene.initEnemy(1028,701-3,thisScene.playerSex,'chestMimic',false);
+          thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
       
           thisScene.spawnedEnemys = true;
         },1000);
@@ -154,14 +155,11 @@ class devRoom2 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
-        //spawn test luna
-        //this.initLunalyst(1244,701,'clearingTheWay');
-
     }
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){

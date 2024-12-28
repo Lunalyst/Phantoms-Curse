@@ -317,6 +317,12 @@ class gameOver extends allSceneFunctions {
                 this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleTF"){
+                this.preferance = 1;
+                this.enemy = new whiteCat(this,450, 570,this.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                this.enemy.gameOver();
+                this.defeatedTitle = 'cursed';
             }
             
             

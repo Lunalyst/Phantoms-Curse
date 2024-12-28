@@ -36,6 +36,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.damageCoolDown = false;
         this.hitboxOverlaps = false;
         this.animationPlayed = false;
+        this.startAnimationPlayed = false;
         this.keyAnimationPlayed = false;
         this.struggleCounterTick = false;
         this.inStartDefeatedLogic = false;

@@ -33,7 +33,7 @@ class whiteCat extends enemy {
         this.body.setGravityY(600); 
 
         //randomizes variables
-        this.randomInput = Math.floor((Math.random() * 3));
+        this.randomInput = Math.floor((Math.random() * 2));
         this.randomInputCooldown = false;
 
         this.largecatDamageCounter = false;
@@ -46,7 +46,7 @@ class whiteCat extends enemy {
 
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
-        this.grabHitBox.setSize(20,10,true);
+        this.grabHitBox.setSize(30,10,true);
 
         this.attemptingGrab = false;
         this.isPlayingMissedAnims = false;
@@ -56,6 +56,8 @@ class whiteCat extends enemy {
         this.throwingcat = false;
 
         this.enemyHP = 70;
+
+        this.angry = false;
 
         //console.log("this.enemySex: ",this.enemySex," sex ", sex);
 
@@ -72,28 +74,48 @@ class whiteCat extends enemy {
             } else {
                 //console.log("creating female cat animations");
                 this.anims.create({ key: 'catIdle', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'catMove', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 9, end: 18 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catMove', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 9, end: 18 }), frameRate: 10, repeat: -1 });
+                this.anims.create({ key: 'catSideIdle', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 19, end: 22 }), frameRate: 8, repeat: -1 });
 
-                this.anims.create({ key: 'catThrowcatStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 0, end: 4 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'catThrowcatEnd', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 5, end: 8 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catThrowStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 0, end: 4 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catThrowEnd', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 5, end: 8 }), frameRate: 8, repeat: 0 });
 
-                this.anims.create({ key: 'catAttemptingGrabStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 19, end: 22 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'catAttemptingGrabMiss', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 23, end: 25 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catAttemptingGrabStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 19+3, end: 22+3 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catAttemptingGrabMiss', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 23+3, end: 25+3 }), frameRate: 8, repeat: 0 });
+
+                this.anims.create({ key: 'catAngryidle', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catAngryMove', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 9, end: 18 }), frameRate: 10, repeat: -1 });
+
+                this.anims.create({ key: 'catAttackStart', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 20, end: 23 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catAttackEnd', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 24, end: 26 }), frameRate: 8, repeat: 0 });
+
                 if(sex === 0 ){
 
-                    this.anims.create({ key: 'catGrabStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 26, end: 31 }), frameRate: 8, repeat: 0 }); 
-                    this.anims.create({ key: 'catGrab', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 32, end: 41 }), frameRate: 8, repeat: -1 }); 
-                    this.anims.create({ key: 'catDefeatedPlayer', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 42, end: 48 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'catGrabDefeated1', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 49, end: 52 }), frameRate: 8, repeat: -1 });
-                    this.anims.create({ key: 'catGrabDefeated2', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 53, end: 56 }), frameRate: 8, repeat: -1 });
-                    this.anims.create({ key: 'catGrabDefeated3', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 57, end: 63 }), frameRate: 8, repeat: 0 });
-                    this.anims.create({ key: 'catGrabDefeated4', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 64, end: 67 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'catGrabStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 26+3, end: 31+3 }), frameRate: 8, repeat: 0 }); 
+                    this.anims.create({ key: 'catGrab', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 32+3, end: 41+3 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'catDefeatedPlayer', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 42+3, end: 48+3 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeated1', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 49+3, end: 52+3 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeated2', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 53+3, end: 56+3 }), frameRate: 12, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeated3', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 57+3, end: 63+3 }), frameRate: 6, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeated4', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 64+3, end: 67+3 }), frameRate: 5, repeat: -1 });
 
-                    this.anims.create({ key: 'catGameoverTF', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 68, end: 71 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catGameoverTF', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 68+3, end: 71+3 }), frameRate: 5, repeat: -1 });
+
+                    this.anims.create({ key: 'catBeginFaceSit', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 27, end: 31 }), frameRate: 8, repeat: 0 });
+
+                    this.anims.create({ key: 'catFaceSit', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 32, end: 35 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catDefeatedPlayerVore', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 36, end: 41 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeatedVore1', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 42, end: 45 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeatedVore2', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 46, end: 58 }), frameRate: 8, repeat: 0 });
+
                     
                 }else{
 
                 }
+
+                this.anims.create({ key: 'catGrabDefeatedVore3', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 59, end: 62 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catGrabDefeatedVore4', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 63, end: 76 }), frameRate: 8, repeat: -1 });
+                    
 
             }
 
@@ -111,28 +133,36 @@ class whiteCat extends enemy {
     }
 
     //functions that move cat objects.
-    move() {
-
+    move() {  
         this.setSize(90, 100, true);
         this.setOffset(80, 180);
 
         this.body.setGravityY(600);
 
-        if(this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400){
+        if(this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400){  
             //checks to see if enemy is in range of player
-            //console.log("player within range");
 
                 //console.log("this.attemptingGrab: ",this.attemptingGrab," this.grabTimer: ",this.grabTimer," this.throwingcat: ",this.throwingcat," this.throwcatTimer: ",this.throwcatTimer); 
-
-                if((this.scene.player1.x + 10 > this.x   && this.scene.player1.x - 10 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
+            if(this.enemyHP > 60){
+                if((this.scene.player1.x + 40 > this.x   && this.scene.player1.x - 40 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
                         
                     //play animation
                     this.setVelocityX(0);
                     this.grabTimer = true;
                     this.throwingcat = false;
+
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                    this.setDepth(7);
                     this.anims.play('catAttemptingGrabStart').once('animationcomplete', () => {
                         
-                        
+                        this.playJumpySound('3',700);
+
                         this.hitboxActive = true;
                         this.grabHitBox.body.enable = true;
                         this.attemptingGrab = true;
@@ -147,17 +177,16 @@ class whiteCat extends enemy {
                         this.isPlayingMissedAnims = true;
                         //set value to play missed grabb animation
                         
-                        this.isLurking = false;
                         this.anims.play('catAttemptingGrabMiss').once('animationcomplete', () => {
-                        
+                            this.setDepth(5);
                             this.hitboxActive = false;
                             this.attemptingGrab = false;
                             this.grabTimer = false;
                             this.isPlayingMissedAnims = false;    
                         });
                     }
-                }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false) {
-                    console.log("moving cat right");            
+                }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat right");            
                     this.direction = "right";
                     this.jumpAnimationPlayed = false; 
                     
@@ -168,13 +197,26 @@ class whiteCat extends enemy {
                         this.throwingcat = true;
                         this.throwcatTimer = true;
                         this.setVelocityX(0);
+
+                        let randomInput = Math.floor((Math.random() * 2));
+                        randomInput++;
+                        let randomHoridMoan = Math.floor((Math.random() * 100)+1);
+                        if(randomHoridMoan === 69){
+                            this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+                        }else {
+                            this.scene.initSoundEffect("whiteCatSFX",randomInput.toString(),0.1);
+                        }
+                       
+
+                        console.log("randomInput: ",randomInput, "randomHoridMoan: ",randomHoridMoan);
+
                         //play starting animation
-                        this.anims.play('catThrowcatStart').once('animationcomplete', () => {
+                        this.anims.play('catThrowStart').once('animationcomplete', () => {
                             
                             //spawn projectile
-                            this.scene.initCursedHeartProjectile(this.x,this.y-30,70,this,this.direction);
+                            this.scene.initCursedHeartProjectile(this.x,this.y-20,70,this,this.direction);
                             //play finishing animation
-                            this.anims.play('catThrowcatEnd').once('animationcomplete', () => {
+                            this.anims.play('catThrowEnd').once('animationcomplete', () => {
 
                                 this.throwingcat = false;
                                 this.throwingcatTimer = true;
@@ -193,8 +235,8 @@ class whiteCat extends enemy {
                     }
             
                 //if the player is to the right then move enemy to the left
-                } else if (this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false) {
-                    console.log("moving cat left");   
+                }else if(this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat left");   
                     this.direction = "left";
                     this.jumpAnimationPlayed = false;
                     this.flipX = true;
@@ -203,13 +245,25 @@ class whiteCat extends enemy {
                         this.throwingcat = true;
                         this.throwcatTimer = true;
                         this.setVelocityX(0);
+
+                        let randomInput = Math.floor((Math.random() * 2));
+                        randomInput++;
+                        let randomHoridMoan = Math.floor((Math.random() * 100)+1);
+                        if(randomHoridMoan === 69){
+                            this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+                        }else {
+                            this.scene.initSoundEffect("whiteCatSFX",randomInput.toString(),0.1);
+                        }
+
+                        console.log("randomInput: ",randomInput, "randomHoridMoan: ",randomHoridMoan);
+
                         //play starting animation
-                        this.anims.play('catThrowcatStart').once('animationcomplete', () => {
+                        this.anims.play('catThrowStart').once('animationcomplete', () => {
                             
                             //spawn projectile
-                            this.scene.initCursedHeartProjectile(this.x,this.y-30,70,this,this.direction);
+                            this.scene.initCursedHeartProjectile(this.x,this.y-20,70,this,this.direction);
                             //play finishing animation
-                            this.anims.play('catThrowcatEnd').once('animationcomplete', () => {
+                            this.anims.play('catThrowEnd').once('animationcomplete', () => {
 
                                 this.throwingcat = false;
                                 this.throwingcatTimer = true;
@@ -227,15 +281,137 @@ class whiteCat extends enemy {
                         this.setVelocityX(-140); 
                     }
                     
-                //if the medium humanoid cat is within range to grabb the player, then 
+                //cases for when the player is above the cat on a ledge. pulls the cat away from a ledge so that the infatuated player can walk off the ledge to be grabbed.
+                }else if(this.scene.player1.x < this.x  && this.scene.player1.y < this.y-40 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
+                    console.log("cat below player who is on the left");
+                    this.anims.play('catMove', true);
+                    this.flipX = false;
+                    this.setVelocityX(140); 
+
+                //cases for when the player is above the cat on a ledge. pulls the cat away from a ledge so that the infatuated player can walk off the ledge to be grabbed.
+                }else if(this.scene.player1.x > this.x && this.scene.player1.y < this.y-40 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
+                    console.log("cat below player who is on the right");
+                    this.anims.play('catMove', true);
+                    this.flipX = true;
+                    this.setVelocityX(-140); 
+
+                //cases to have the enemy face the player when they are walking towards the enemy
+                }else if(this.scene.player1.x < this.x  && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
+                    console.log("cat below player who is on the left");
+                    this.anims.play('catSideIdle', true);
+                    this.flipX = true;
+                    this.setVelocityX(0); 
+
+                }else if(this.scene.player1.x > this.x  && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
+                    console.log("cat below player who is on the right");
+                    this.anims.play('catSideIdle', true);
+                    this.flipX = false;
+                    this.setVelocityX(0); 
+
+                }else{
+                    console.log("cat has lost the plot.")
                 }
                 
-            }
-        
+            //if the cats hp is below the threshold, then transition to angry ai.
+            }else if(this.angry === false && this.enemyHP > 60){
+                this.setDepth(5);
+                this.hitboxActive = false;
+                this.attemptingGrab = false;
+                this.grabTimer = false;
+                this.isPlayingMissedAnims = false; 
 
+                this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+
+                this.anims.play('catAngryidle').once('animationcomplete', () => {
+                    this.angry = true;
+                });
+            //now that the animation has played use angry logic on this enemy from now on.
+            }else if(this.angry === true){
+
+                if((this.scene.player1.x + 40 > this.x   && this.scene.player1.x - 40 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
+                        
+                    //play animation
+                    this.setVelocityX(0);
+                    this.grabTimer = true;
+                    this.throwingcat = false;
+
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                    this.setDepth(7);
+                    this.anims.play('catAttackStart').once('animationcomplete', () => {
+                        
+                        this.playJumpySound('3',700);
+
+                        //this.hitboxActive = true;
+                        //this.grabHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+
+                        //controls the x velocity when the bee ischarging to grab the player
+                        
+                    });
+
+                }else if(this.attemptingGrab === true){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+                        
+                        this.anims.play('catAttackEnd').once('animationcomplete', () => {
+                            this.setDepth(5);
+                            this.hitboxActive = false;
+                            this.attemptingGrab = false;
+                            this.grabTimer = false;
+                            this.isPlayingMissedAnims = false;    
+                        });
+                    }
+                }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat right");            
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    
+                    this.flipX = false;
+
+                    this.anims.play('catAngryMove', true);
+                    this.setVelocityX(140); 
+                    
+            
+                //if the player is to the right then move enemy to the left
+                }else if(this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat left");   
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    
+                    this.anims.play('catAngryMove', true);
+                    this.setVelocityX(-140); 
+                    
+                }else{
+                    console.log("cat has lost the plot.")
+                }
+
+            }
+        }
+        
+        //handles hit box positioning
         if(this.hitboxActive === true){
-            this.grabHitBox.x = this.x;
+
+            //hitbox should be to left if player is to the left
+            if(this.scene.player1.x < this.x){
+                console.log("moving cat hitbox to the left");
+                this.grabHitBox.x = this.x-15;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.grabHitBox.x = this.x+15;
+            }
             this.grabHitBox.y = this.y;
+
         }else{
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
@@ -250,11 +426,8 @@ class whiteCat extends enemy {
     moveIdle() {
         //this.setSize(90, 65, true);
         //this.setOffset(105, 233);
-        if(this.isLurking === false){
-            this.anims.play('catIdle',true);
-        }else{
-            this.anims.play('catHiding',true);  
-        }
+        this.anims.play('catIdle',true);
+        console.log("cat not grabbed player");
 
         //this.setSize(90, 65, true);
         this.body.setGravityY(600);
@@ -265,17 +438,16 @@ class whiteCat extends enemy {
         this.hitboxActive = false; 
         this.throwingcat = false;
         this.throwcatTimer = false;
-        this.setDepth(4);
+        this.setDepth(5);
 
     }
 
     // functioned called to play animation when the player is defeated by the cat in gameover.
-    catGameOver() {
-        //this.playcatSound('3',800);
+    gameOver() {
+
         this.setSize(90, 100, true);
-        this.setOffset(80, 210);
-        this.lurking = false;
-        this.anims.play('catGameOver', true);
+        this.setOffset(80, 180);
+        this.anims.play('catGameoverTF', true);
     }
 
     //the grab function. is called when player has overlaped with an enemy cat.
@@ -286,13 +458,15 @@ class whiteCat extends enemy {
         // moves player attackhitbox out of the way.
 
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+
+        console.log("this.playerGrabbed: ",this.playerGrabbed);
+
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
 
             this.catGrabFalse();
 
-        } else if (this.playerGrabbed === true) {
-
+        }else if (this.playerGrabbed === true){
             this.setDepth(5);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
@@ -369,15 +543,6 @@ class whiteCat extends enemy {
         // display key prompts
         this.scene.KeyDisplay.visible = true;
 
-            // check to make sure animations dont conflict with eachother.
-            if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                this.anims.play("catGrab", true);
-            }
-            // when entering grabs sets offset correctly so play isn't clipping through the ground. or clips through the ground falling nito the void
-            //this.setOffset(40,129);
-        
-        this.playerGrabbed = true;
-        //if the player is grabbed then do the following.
     }
 
     catGrabTrue(playerHealthObject){
@@ -385,7 +550,23 @@ class whiteCat extends enemy {
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
+
+        //player the intro grab sequence
+        if(this.animationPlayed === false && this.startAnimationPlayed === false){
+            this.animationPlayed = true;
+            this.anims.play("catGrabStart").once('animationcomplete', () => {
+                //play struggle animation afterward.
+                this.anims.play("catGrab", true);
+                this.startAnimationPlayed = true;
+                this.animationPlayed = false;
+            });
+        }else if(this.startAnimationPlayed === true && playerHealthObject.playerHealth > 0){
+            this.playJumpySound('3',700);
+        }
+        
+        
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+        console.log("playerHealthObject.playerHealth: ",playerHealthObject.playerHealth);
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
             healthEmitter.emit(healthEvent.loseHealth,1)
@@ -400,34 +581,53 @@ class whiteCat extends enemy {
 
         let currentcat = this;
 
+        //randominputs change as the player trys to esacape.
         if (this.randomInput === 0) {
             if (this.scene.checkAPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 20;
+                    this.struggleCounter += 15;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+            // if the player spams other keys, then subtract there project toprevent button mashing of other keys that are not the slected one.
+            }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                    
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+
             }
         } else if (this.randomInput === 1 ) {
             // important anims.play block so that the animation can player properly.
             if (this.scene.checkDPressed() === true) {
                 console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 20;
+                    this.struggleCounter += 15;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
-            }
-        }else if (this.randomInput === 2 ) {
-            // important anims.play block so that the animation can player properly.
-            if (this.scene.checkWPressed() === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyW) ');
+            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true){
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 20;
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+
             }
         }
 
@@ -435,7 +635,7 @@ class whiteCat extends enemy {
         if (this.randomInputCooldown === false) {
 
             this.randomInputCooldown = true;
-            this.randomInput = Math.floor((Math.random() * 3));
+            this.randomInput = Math.floor((Math.random() * 2));
             console.log("randomizing the key prompt " + this.randomInput);
             // important anims.play block so that the animation can player properly.
             if (this.keyAnimationPlayed === false && this.randomInput === 0) {
@@ -446,16 +646,12 @@ class whiteCat extends enemy {
                 console.log(" setting keyD display");
                 this.scene.KeyDisplay.playDKey();
                 this.keyAnimationPlayed = true;
-            }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
-                console.log(" setting keyW display");
-                this.scene.KeyDisplay.playWKey();
-                this.keyAnimationPlayed = true;
             }
             setTimeout(function () {
                 currentcat.randomInputCooldown = false;
                 // resets the animation block.
                 currentcat.keyAnimationPlayed = false;
-            }, 1000);
+            }, 1500);
         } 
         
 
@@ -469,12 +665,12 @@ class whiteCat extends enemy {
             // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
             setTimeout(function () {
                 currentcat.struggleCounterTick = false;
-            }, 8);
+            }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
         }
 
         //handles sound effect diring grab struggle
-        this.playcatSound('3',800);
+        //this.playcatSound('3',800);
     }
 
     playerIsStrugglingLogic(){
@@ -498,9 +694,9 @@ class whiteCat extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
             if(this.enemySex === 0){
-                this.scene.enemyThatDefeatedPlayer = "bluecatMaleHM";
+                this.scene.enemyThatDefeatedPlayer = "whiteCatMaleTF";
             }else{
-                this.scene.enemyThatDefeatedPlayer = "bluecatFemaleHM";
+                this.scene.enemyThatDefeatedPlayer = "whiteCatFemaleTF";
             }
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {
@@ -519,7 +715,7 @@ class whiteCat extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            //based on the enemys sex, play different animations. 
+            //based on the enemys sex, play different animations. this one is for male enemys
         if(this.enemySex === 0){
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
@@ -566,12 +762,8 @@ class whiteCat extends enemy {
                 this.playerDefeatedAnimationCooldown === false &&
                  this.inStartDefeatedLogic === false &&
                   this.scene.KeyDisplay.visible === true &&
-                   this.playerDefeatedAnimationStage !== 1 &&
-                   this.playerDefeatedAnimationStage !== 2 &&
-                   this.playerDefeatedAnimationStage !== 4 &&
-                   this.playerDefeatedAnimationStage !== 6 &&
-                   this.playerDefeatedAnimationStage !== 8 &&
-                   this.playerDefeatedAnimationStage !== 10) {
+                  this.playerDefeatedAnimationStage !== 1 &&
+                   this.playerDefeatedAnimationStage !== 4 ) {
 
                this.scene.KeyDisplay.visible = false;
                //this.stageTimer = 0;
@@ -589,7 +781,7 @@ class whiteCat extends enemy {
                }, 3000);
            }
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 11 && this.scene.checkDIsDown())) {
+           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkDIsDown())) {
                this.scene.KeyDisplay.visible = false;
                console.log("changing scene");
                this.scene.changeToGameover();
@@ -631,6 +823,8 @@ class whiteCat extends enemy {
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+                //resets initial grab animation var
+                this.startAnimationPlayed = false;
 
                 this.grabTimer = false;
                 this.attemptingGrab = false;
@@ -686,7 +880,7 @@ class whiteCat extends enemy {
                     this.scene.player1.curseDamage
                 );
 
-                this.playcatSound('5',200);
+                //this.playcatSound('5',200);
                 
                 if (this.enemyHP <= 0) {
                     this.destroy();
@@ -734,7 +928,7 @@ class whiteCat extends enemy {
 
         let currentcat = this;
         if (this.playerDefeatedAnimationStage === 1) {
-            this.playcatSound('2',800);
+            //this.playcatSound('2',800);
 
             this.playerDefeatedAnimationStageMax = 13;
 
@@ -750,7 +944,7 @@ class whiteCat extends enemy {
 
         }else if(this.playerDefeatedAnimationStage === 2) {
 
-            this.playcatSound('2',800);
+            //this.playcatSound('2',800);
             if (!this.animationPlayed) {
                 
                 this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
@@ -769,7 +963,7 @@ class whiteCat extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 3) {
 
-            this.playcatSound('4',800);
+            //this.playcatSound('4',800);
 
             let thiscat = this;
             if (this.onomatPlayed === false) {
@@ -788,7 +982,7 @@ class whiteCat extends enemy {
 
             
         }else if(this.playerDefeatedAnimationStage === 4) {
-            this.playcatSound('5',800);
+            //this.playcatSound('5',800);
 
             if (!this.animationPlayed) {
                 
@@ -808,7 +1002,7 @@ class whiteCat extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 5) {
 
-            this.playcatSound('3',800);
+            //this.playcatSound('3',800);
 
             let thiscat = this;
             if (this.onomatPlayed === false) {
@@ -827,7 +1021,7 @@ class whiteCat extends enemy {
             
         }else if(this.playerDefeatedAnimationStage === 6) {
 
-            this.playcatSound('5',800);
+            //this.playcatSound('5',800);
 
 
             if (!this.animationPlayed) {
@@ -842,7 +1036,7 @@ class whiteCat extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 7) {
 
-            this.playcatSound('3',700);
+            //this.playcatSound('3',700);
 
             let thiscat = this;
             if (this.onomatPlayed === false) {
@@ -861,7 +1055,7 @@ class whiteCat extends enemy {
             
         }else if(this.playerDefeatedAnimationStage === 8) {
 
-            this.playcatSound('3',700);
+            //this.playcatSound('3',700);
 
             if (!this.animationPlayed) {
             
@@ -875,7 +1069,7 @@ class whiteCat extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 9) {
 
-            this.playcatSound('3',700);
+            //this.playcatSound('3',700);
 
             this.playPlapSound('plap10',700);
 
@@ -919,11 +1113,11 @@ class whiteCat extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 11) {
-            this.playcatSound('3',700);
+            //this.playcatSound('3',700);
             this.anims.play('catGrabDefeated10', true);
             
         }else if(this.playerDefeatedAnimationStage === 12) {
-            this.playcatSound('5',700);
+            //this.playcatSound('5',700);
 
    
             if (!this.animationPlayed) {
@@ -943,7 +1137,7 @@ class whiteCat extends enemy {
            
         }else if(this.playerDefeatedAnimationStage === 13) {
 
-            this.playcatSound('3',700);
+            //this.playcatSound('3',700);
 
             this.anims.play('catGrabDefeated12', true);
             
@@ -958,68 +1152,90 @@ class whiteCat extends enemy {
         let currentcat = this;
         if (this.playerDefeatedAnimationStage === 1) {
 
-            this.playcatSound('2',800);
-
-            this.playerDefeatedAnimationStageMax = 11;
+            this.playerDefeatedAnimationStageMax = 5;
 
             if (!this.animationPlayed) {
+
+                this.playPlapSound('plap4',800);
 
                 this.animationPlayed = true;
                 this.anims.play('catDefeatedPlayer').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+
+                    this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.increaseRight(700);
+                    this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                    if(this.scene.playerSex === 0){
+                        this.scene.internalView = new internalView(this.scene,this.x+35,this.y+60,'rabbit')
+                        this.scene.internalView.anims.play("pen1",true);
+                        this.scene.internalView.setRotation(3.14/3);
+                    }
                 });
             }
 
         }else if(this.playerDefeatedAnimationStage === 2) {
-            this.playcatSound('5',800);
-            if (!this.animationPlayed) {
+            //this.playcatSound('5',800);
 
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-            
-                this.animationPlayed = true;
-                this.anims.play('catGrabDefeated1').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                });
-            }
-           
-        }else if(this.playerDefeatedAnimationStage === 3) {
-
-            this.playcatSound('3',800);
+            this.playPlapSound('plap5',600);
+            this.playJumpySound('3',600);
 
             let thiscat = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+20,'charBubble',"SQUISH!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
                 setTimeout(function () {
                     thiscat.onomatPlayed = false;
-                }, 800);
+                }, 600);
+            }
+
+            this.anims.play('catGrabDefeated1', true);
+            
+        
+        }else if(this.playerDefeatedAnimationStage === 3) {
+
+            this.playPlapSound('plap5',500);
+            this.playJumpySound('3',500);
+
+            if(this.scene.playerSex === 0){
+                this.scene.internalView.anims.play("pen2",true);
+             }
+
+            let thiscat = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                setTimeout(function () {
+                    thiscat.onomatPlayed = false;
+                }, 600);
             }
 
             this.anims.play('catGrabDefeated2', true);
             
         }else if(this.playerDefeatedAnimationStage === 4) {
 
-            this.playcatSound('5',800);
- 
+            this.scene.initSoundEffect('curseSFX','curse',0.3);
+
             if (!this.animationPlayed) {
-                
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                if(this.scene.playerSex === 0){
+
+                    //this.scene.internalView.anims.play("playerClimaxInRabbit");
+                 }
 
                 this.animationPlayed = true;
                 this.anims.play('catGrabDefeated3').once('animationcomplete', () => {
@@ -1030,110 +1246,16 @@ class whiteCat extends enemy {
             }
            
         }else if(this.playerDefeatedAnimationStage === 5) {
-            this.playcatSound('3',800);
 
-            let thiscat = this;
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+20,this.y+20,'charBubble',"SQUISH!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
-                setTimeout(function () {
-                    thiscat.onomatPlayed = false;
-                }, 800);
-            }
-
+            this.playJumpySound('3',700);
             this.anims.play('catGrabDefeated4', true);
-            
-        }else if(this.playerDefeatedAnimationStage === 6) {
-
-            this.playcatSound('5',800);
-
-            if (!this.animationPlayed) {
-            
-                this.animationPlayed = true;
-                this.anims.play('catGrabDefeated5').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                });
-            }
-           
-        }else if(this.playerDefeatedAnimationStage === 7) {
-            this.playcatSound('3',800);
-
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 15));
-                let randY = Math.floor((Math.random() * 15));
-
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY-10,'charBubble',"@heart@");
-                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat1.setScale(1/4);
-                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-
-                let thiscat = this;
-                setTimeout(function () {
-                    thiscat.onomatPlayed = false;
-                    
-                }, 600);
-            }
-                
-            this.anims.play('catGrabDefeated6', true);
-            
-        }else if(this.playerDefeatedAnimationStage === 8) {
-            this.playcatSound('5',800);
-            if (!this.animationPlayed) {
-
-                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-20,'charBubble',"GLOOORRRPP");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
-
-                this.animationPlayed = true;
-                this.anims.play('catGrabDefeated7').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                });
-            }
-           
-        }else if(this.playerDefeatedAnimationStage === 9) {
-            this.playcatSound('3',800);
-            this.anims.play('catGrabDefeated8', true);
-            
-        }else if(this.playerDefeatedAnimationStage === 10) {
-            this.playcatSound('5',800);
-            if (!this.animationPlayed) {
-                
-                this.scene.onomat = new makeText(this.scene,this.x+20,this.y-10,'charBubble',"GROAN...");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
-
-                this.animationPlayed = true;
-                this.anims.play('catGrabDefeated9').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                });
-            }
-           
-        }else if(this.playerDefeatedAnimationStage === 11) {
-            this.playcatSound('3',800);
-            this.anims.play('catGrabDefeated10', true);
-            
         }
     }
     
     //plays cat sound based in type input being 1-5 and a time delay
     playcatSound(type,delay){
         if(this.catSoundCoolDown === false){
-            this.scene.initSoundEffect('bluecatSFX',type,0.3);
+            //this.scene.initSoundEffect('bluecatSFX',type,0.3);
             this.catSoundCoolDown = true;
     
             let currentcat = this;

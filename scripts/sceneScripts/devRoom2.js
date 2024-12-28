@@ -45,6 +45,11 @@ class devRoom2 extends defaultScene {
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
+      this.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
+        "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
+      ]);
+
+
       this.defaultPreload();
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[

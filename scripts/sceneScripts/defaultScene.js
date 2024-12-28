@@ -601,7 +601,9 @@ class defaultScene extends allSceneFunctions {
       //sets up stuck animations so they are defined in the scope of the scenes that need them.
       if(this.playerSex === 0){
         this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+        this.player1.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
         this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+        this.player1.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
       }else{
         this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
         this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
@@ -1412,12 +1414,12 @@ class defaultScene extends allSceneFunctions {
             }
 
             //if thep rojectile is to the left of the player
-            if(this.player1.y-10 > tempProjectile.y ){
+            if(this.player1.y-10-10 > tempProjectile.y ){
               //apply velocity going towars the player.
               tempProjectile.setVelocityY(tempProjectile.savedVelocityX);
 
             //otherwise send it the opisite direction.
-            }else if(this.player1.y+10 <= tempProjectile.y){
+            }else if(this.player1.y+10-10 <= tempProjectile.y){
 
               tempProjectile.setVelocityY(tempProjectile.savedVelocityX *-1);
             }else{
@@ -1432,7 +1434,7 @@ class defaultScene extends allSceneFunctions {
 
               //every 0.1 seconds 
               setTimeout(function(){
-                console.log("tempProjectile.savedVelocityX: ",tempProjectile.savedVelocityX);
+                //console.log("tempProjectile.savedVelocityX: ",tempProjectile.savedVelocityX);
 
                 tempProjectile.accelerateCoolDown = false;
               },100);
@@ -1449,18 +1451,21 @@ class defaultScene extends allSceneFunctions {
           console.log("curse projectile hit ground/wall!")
 
           //call slime projectile to destroy its self 
-          tempProjectile.destroy();
+          tempProjectile.destroycursedHeartProjectile();
         }
 
         let tempScene = this;
         //if projectile overlaps with player then
         this.physics.add.overlap(this.player1, tempProjectile, function () {
 
-          if(tempProjectile.body.blocked.down === false){
+          if(tempProjectile.body.blocked.down === false && tempProjectile.destroying === false){
             //set up player stuck grab and 
             tempScene.playerStuckGrab = true;
             tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
             tempScene.playerStuckGrabCap = 120;
+
+            tempScene.initSoundEffect('curseSFX','curse',0.3);
+
             //creates a refrence to the enemy that infatuaged the player
             tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
 
@@ -1470,6 +1475,17 @@ class defaultScene extends allSceneFunctions {
 
 
         });
+
+        //cool functionality, if the players attack hitbox overlaps the projectile.
+        this.physics.add.overlap(this.attackHitBox, tempProjectile, function () {
+          tempProjectile.hitboxOverlaps = true;
+        });
+
+        if(tempProjectile.hitboxOverlaps === true) {
+          console.log("player destroyed cursed heart projectile.");
+          tempProjectile.destroycursedHeartProjectile();
+          tempProjectile.hitboxOverlaps = false;
+        }
 
       }, this);
     }
@@ -1851,6 +1867,12 @@ class defaultScene extends allSceneFunctions {
         struggleEmitter.emit(struggleEvent.updateStruggleBar,this.playerStuckGrabCap);
         this.playerStuckGrabActivated = true;
 
+        //sets the delay to fals upon stucklgrabactivation for cursed heart
+        if(this.playerStuckGrabbedBy === "cursed_heart_projectile"){
+          this.cursedHeartDelay = false;
+          this.cursedHeartDelayPlayed = false
+        }
+
         //plays sfx for player being stuck
         console.log("this.PlayerStuckSFXTimer: ",this.PlayerStuckSFXTimer);
         if(this.PlayerStuckSFXTimer === false){
@@ -1895,33 +1917,53 @@ class defaultScene extends allSceneFunctions {
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
       }
 
-      //apply movement logic if there is any.
-      if(this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
+      //apply movement logic if there is any. controls player movement to have them walk toward the enemy that they got infatuated by.
+      //only use this logic if we are done having the player huff and puff.
+      if(this.playerStuckGrabbedBy ==="cursed_heart_projectile" && this.cursedHeartDelay === true){
 
-          //set velocity of player to the correct direction.
-          //tempScene.enemyThatInfatuatedPlayer
           //if the player is on the ground and the enemy is to the left
-          if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x+10 < this.player1.x){
+          if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x+20 < this.player1.x){
 
             console.log("infatuated player moving left?");
             //apply velocity to the left
-            this.player1.setVelocityX(-250 * this.player1.speedBoost/2);
+            this.player1.setVelocityX(-200 * this.player1.speedBoost/2);
             this.player1.anims.play('cursedHeartInfatuatedWalk',true);
             this.player1.flipX = true;
 
-          }else if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x-10 >= this.player1.x){
+
+          }else if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x-20 >= this.player1.x){
 
             console.log("infatuated player moving right?");
-            this.player1.setVelocityX(250 * this.player1.speedBoost/2);
+            this.player1.setVelocityX(200 * this.player1.speedBoost/2);
             this.player1.anims.play('cursedHeartInfatuatedWalk',true);
             this.player1.flipX = false;
 
+          
+          //otherwise if the player is falling
+          }else if(!this.player1.body.blocked.down ){
+            //play falling animation.
+            this.player1.anims.play('cursedHeartInfatuatedFalling');
           }else{
             this.player1.setVelocityX(0);
             this.player1.anims.play('cursedHeartInfatuated',true);
 
           }
+      //otherwise have the player huff and puff.
+      }else if(this.playerStuckGrabbedBy ==="cursed_heart_projectile" && this.cursedHeartDelay === false){
+        this.player1.setVelocityX(0);
+
+        //simple stopper so the huff puff animation plays.
+        if(this.cursedHeartDelayPlayed === false && this.player1.body.blocked.down){
+
+          this.cursedHeartDelayPlayed = true;
+          this.player1.anims.play('cursedHeartInfatuatedRepeat').once('animationcomplete', () => {
+            this.cursedHeartDelay = true;
+          });
+        }else if(!this.player1.body.blocked.down){
+          this.player1.anims.play('cursedHeartInfatuatedFalling');
         }
+
+      }
 
       //plays sfx for player being stuck
       if(this.PlayerStuckSFXTimer === false){
@@ -2697,11 +2739,11 @@ class defaultScene extends allSceneFunctions {
               tempCat.grab();
               //sets the scene grab value to true since the player has been grabbed
               // tells instance of slime that it has grabbed player
-              tempCat.playerGrabbed = true;
               tempCat.grabCoolDown = true;
+              tempCat.playerGrabbed = true;
               scene.grabbed = true;
               scene.grabCoolDown = true;
-              console.log('player grabbed by slime');
+              console.log('player grabbed by cat');
             }
           });
           

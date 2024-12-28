@@ -33,6 +33,16 @@ class PondForest extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
+      
+      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+
+      this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
+      this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
+      
+      this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
+
+
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -40,6 +50,11 @@ class PondForest extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
+
+      this.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
+        "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -60,6 +75,9 @@ class PondForest extends defaultScene {
     
       //creates player object
       this.setUpPlayer();
+
+      // sets up slime gooed animation.
+      this.setupCursedHeartStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
@@ -117,7 +135,8 @@ class PondForest extends defaultScene {
       this.initSavePoints(4802,1053-14);
 
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
-      this.initPortals(906,1533-13,637,605,"door2","DevRoom1");
+
+      this.initPortals(794,1501-13,637,605,"door2","DevRoom1");
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
@@ -134,13 +153,19 @@ class PondForest extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = [];
+      this.enemyGroupArray = ["whiteCats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
+
+      //needed to use cursed heart projectiles.
+      this.setUpCursedHeartProjectiles();
+      this.setUpCursedHeartsProjectilesBarriers()
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
-          
+
+          thisScene.initEnemy(1497,1789,thisScene.playerSex,'whiteCat',false); 
+          thisScene.initEnemy(3689,1693,thisScene.playerSex,'whiteCat',false);         
           thisScene.spawnedEnemys = true;
         },1000);
 

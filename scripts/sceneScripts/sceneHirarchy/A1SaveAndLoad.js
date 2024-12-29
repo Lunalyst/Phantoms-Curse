@@ -1,9 +1,12 @@
-//class is used mainly to store functions that should be shared across all game scenes. mainly loading and saving functions.
-class allSceneFunctions extends Phaser.Scene {
-  
-  //{Save AND lOAD Functions}===================================================================================================================
+/****************************************************************************** 
+description:this class contains crutial load and save function used for many 
+different gameplay scenes. its needed not only for the main gameplay scene,
+but also that the titlescreen, gameover, and gamehud scenes have acess to these
+functions. this class is the beginning of our inheritance class chain as all.
+*******************************************************************************/
+class A1SaveAndLoad extends Phaser.Scene {
 
-    //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
+  //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
   saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
       //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene
       console.log("calling saveGameoverFile============================");
@@ -313,9 +316,9 @@ class allSceneFunctions extends Phaser.Scene {
         console.log("dataObject.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("=======================================================");
 
-}
+  }
 
-returnSave(dataObject){
+  returnSave(dataObject){
     //sets variable to the stored data
     var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
     //retrieves data from the file object and gives it to the current scene
@@ -347,10 +350,10 @@ returnSave(dataObject){
     console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
     console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
     console.log("=======================================================");
-}
+  }
 
-//convenient function to reset the player save data to the beginning of the game. declutters some classes.
-makeSaveFile(playerObject,sex,saveslot){
+  //convenient function to reset the player save data to the beginning of the game. declutters some classes.
+  makeSaveFile(playerObject,sex,saveslot){
 
   let playerBestiaryData = {
     blueSlime:0,
@@ -436,562 +439,332 @@ for(let counter = 0; counter < 50; counter++){
   playerObject.flagValues = gameFlags;
   playerObject.settings = settings;
   playerObject.dreamReturnLocation = dreamReturnLocation;
-}
-
-//function to fix dave file if the file is broken or outdated.
-validateSaveFile(dataObject){
-
-  console.log("[validateSaveFile]==============================================");
-
-  if(dataObject.saveX === undefined || dataObject.saveX === null){
-    dataObject.saveX = 441;
-    dataObject.saveY = 926;
-    dataObject.playerLocation = 'tutorialBeachLevel';
   }
 
-  if(dataObject.saveY === undefined || dataObject.saveY === null){
-    dataObject.saveX = 441;
-    dataObject.saveY = 926;
-    dataObject.playerLocation = 'tutorialBeachLevel';
-  }
+  //function to fix dave file if the file is broken or outdated.
+  validateSaveFile(dataObject){
 
-  if(dataObject.playerLocation === "sunFlowerField" && dataObject.saveX > 4000){
-    dataObject.saveX = 759;
-    dataObject.saveY = 1021;
-    dataObject.playerLocation = 'sunFlowerField';
-  }
+    console.log("[validateSaveFile]==============================================");
 
-  if(dataObject.playerHpValue === undefined || dataObject.playerHpValue === null){
-    dataObject.playerHpValue = 1;
-  }
+    if(dataObject.saveX === undefined || dataObject.saveX === null){
+      dataObject.saveX = 441;
+      dataObject.saveY = 926;
+      dataObject.playerLocation = 'tutorialBeachLevel';
+    }
 
-  if(dataObject.playerSex === undefined || dataObject.playerSex === null){
-    dataObject.playerSex = 1;
-  }
+    if(dataObject.saveY === undefined || dataObject.saveY === null){
+      dataObject.saveX = 441;
+      dataObject.saveY = 926;
+      dataObject.playerLocation = 'tutorialBeachLevel';
+    }
 
-  if(dataObject.playerLocation === undefined || dataObject.playerLocation === null){
-    dataObject.saveX = 441;
-    dataObject.saveY = 926;
-    dataObject.playerLocation = 'tutorialBeachLevel';
-  }
+    if(dataObject.playerLocation === "sunFlowerField" && dataObject.saveX > 4000){
+      dataObject.saveX = 759;
+      dataObject.saveY = 1021;
+      dataObject.playerLocation = 'sunFlowerField';
+    }
 
-  if(dataObject.inventoryArray === undefined || dataObject.inventoryArray === null){
-    //creates a array to be filled my objects
-    let inventoryArray  = [];
+    if(dataObject.playerHpValue === undefined || dataObject.playerHpValue === null){
+      dataObject.playerHpValue = 1;
+    }
 
-    //fills the array with objects
-    for(let counter = 0; counter < 26; counter++){
+    if(dataObject.playerSex === undefined || dataObject.playerSex === null){
+      dataObject.playerSex = 1;
+    }
 
-        //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
-        //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-        let item = {
+    if(dataObject.playerLocation === undefined || dataObject.playerLocation === null){
+      dataObject.saveX = 441;
+      dataObject.saveY = 926;
+      dataObject.playerLocation = 'tutorialBeachLevel';
+    }
+
+    if(dataObject.inventoryArray === undefined || dataObject.inventoryArray === null){
+      //creates a array to be filled my objects
+      let inventoryArray  = [];
+
+      //fills the array with objects
+      for(let counter = 0; counter < 26; counter++){
+
+          //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+          //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+          let item = {
+              itemID: 0,
+              itemName: ' ',
+              itemDescription: ' ',
+              itemStackable: 1,
+              itemAmount: 0 
+          };
+
+          inventoryArray.push(item);
+      }
+      dataObject.inventoryArray = inventoryArray;
+    // otherwise if the inventory data does exist
+    }else{
+
+      // loop through inventory and apply correct item values
+      let dupes = [0,0,0,0,0,0,0]
+      for(let counter = 0; counter < 26; counter++){
+        if(dataObject.inventoryArray[counter].itemID === 0 ){
+
+          dataObject.inventoryArray[counter] = {
             itemID: 0,
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
             itemAmount: 0 
-         };
+          };
 
-        inventoryArray.push(item);
-    }
-    dataObject.inventoryArray = inventoryArray;
-  // otherwise if the inventory data does exist
-  }else{
+        }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
 
-    // loop through inventory and apply correct item values
-    let dupes = [0,0,0,0,0,0,0]
-    for(let counter = 0; counter < 26; counter++){
-      if(dataObject.inventoryArray[counter].itemID === 0 ){
+          dupes[0] = 1;
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
+          dataObject.inventoryArray[counter] = {
+            itemID: 2,
+            itemName: 'OAR',
+            itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
+            itemStackable: 0,
+            itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
 
-        dupes[0] = 1;
+          dupes[1] = 1;
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 2,
-          itemName: 'OAR',
-          itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
-          itemStackable: 0,
-          itemAmount: 1
-      };
+          dataObject.inventoryArray[counter] = {
+            itemID: 4,
+            itemName: 'KNIFE',
+            itemDescription: 'GOOD FOR SLASHING MONSTERS.',
+            itemStackable: 0,
+            itemAmount: 1
+          };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
 
-        dupes[1] = 1;
+          dupes[2] = 1;
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 4,
-          itemName: 'KNIFE',
-          itemDescription: 'GOOD FOR SLASHING MONSTERS.',
-          itemStackable: 0,
-          itemAmount: 1
+          dataObject.inventoryArray[counter] = {
+            itemID: 8,
+            itemName: 'SPEED RING',
+            itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
+            itemStackable: 0,
+            itemAmount: 1
+          };
+
+        }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
+
+          dupes[3] = 1;
+
+          dataObject.inventoryArray[counter] = {
+            itemID: 10,
+            itemName: 'AXE',
+            itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
+            itemStackable: 0,
+            itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
 
-        dupes[2] = 1;
+          dupes[4] = 1;
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 8,
-          itemName: 'SPEED RING',
-          itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
-          itemStackable: 0,
-          itemAmount: 1
+          dataObject.inventoryArray[counter] = {
+            itemID: 1,
+            itemName: 'RAPIER',
+            itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
+            itemStackable: 0,
+            itemAmount: 1
+          };
+
+        }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
+
+          dupes[5] = 1;
+
+          dataObject.inventoryArray[counter] = {
+            itemID: 3,
+            itemName: 'MIMIC RAPIER',
+            itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
+            itemStackable: 0,
+            itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
 
-        dupes[3] = 1;
+        }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 0){
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 10,
-          itemName: 'AXE',
-          itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
-          itemStackable: 0,
-          itemAmount: 1
-       };
+          dupes[6] = 1;
 
-      }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
-
-        dupes[4] = 1;
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 1,
-          itemName: 'RAPIER',
-          itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
-          itemStackable: 0,
-          itemAmount: 1
+          dataObject.inventoryArray[counter] = {
+            itemID: 6,
+            itemName: 'MIMIC RING',
+            itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
+            itemStackable: 0,
+            itemAmount: 1
         };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
 
-        dupes[5] = 1;
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 3,
-          itemName: 'MIMIC RAPIER',
-          itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
-          itemStackable: 0,
-          itemAmount: 1
-      };
+        }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 1){
 
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
 
-      }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 1){
 
-        dupes[6] = 1;
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 6,
-          itemName: 'MIMIC RING',
-          itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
-          itemStackable: 0,
-          itemAmount: 1
-      };
+        }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
 
-      }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
+        }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 1){
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
+        }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 1){
 
-      }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 1){
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
+        }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 1){
 
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
-
-      }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 1){
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
-
-      }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
-      }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 1){
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
-      }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 1){
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
-      }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 1){
-
-        dataObject.inventoryArray[counter] = {
-          itemID: 0,
-          itemName: ' ',
-          itemDescription: ' ',
-          itemStackable: 1,
-          itemAmount: 0 
-        };
+          dataObject.inventoryArray[counter] = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 
+          };
+        }
       }
     }
-  }
 
-  //adds empty inventory slots to the storage.
-  let inventoryPages = 2+(24*4)+1;
-  while(dataObject.inventoryArray.length < inventoryPages ){
-    console.log("dataObject.inventoryArray.length",dataObject.inventoryArray.length);
-    let item = {
-      itemID: 0,
-      itemName: ' ',
-      itemDescription: ' ',
-      itemStackable: 1,
-      itemAmount: 0 
-   };
-    dataObject.inventoryArray.push(item);
-  }
-
-
-  if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){
-    let playerBestiaryData = {
-      blueSlime:0,
-      largeBlueSlime:0,
-      axolotlMale:0,
-      axolotlfemale:0,
-      largePurpleSlugFemale:0,
-      largePurpleSlugMale:0,
-      rabbitfemale:0,
-      rabbitMale:0,
-      cowFemale:0,
-      cowMale:0,
-      blueSlimeHumanoidFemale:0,
-      blueSlimeHumanoidFemaleLarge:0,
-      sharkFemale:0,
-      sharkMale:0
+    //adds empty inventory slots to the storage.
+    let inventoryPages = 2+(24*4)+1;
+    while(dataObject.inventoryArray.length < inventoryPages ){
+      console.log("dataObject.inventoryArray.length",dataObject.inventoryArray.length);
+      let item = {
+        itemID: 0,
+        itemName: ' ',
+        itemDescription: ' ',
+        itemStackable: 1,
+        itemAmount: 0 
     };
+      dataObject.inventoryArray.push(item);
+    }
 
-    dataObject.playerBestiaryData = playerBestiaryData;
-  }
 
-  if(dataObject.playerSkillsData === undefined || dataObject.playerSkillsData === null){
-    let playerSkillsData = {
-      jump:1,
-      dash:0,
-      strength:0,
-      mimic:0,
-      looting:0
-   };
-    
-    dataObject.playerSkillsData = playerSkillsData;
-  }
+    if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){
+      let playerBestiaryData = {
+        blueSlime:0,
+        largeBlueSlime:0,
+        axolotlMale:0,
+        axolotlfemale:0,
+        largePurpleSlugFemale:0,
+        largePurpleSlugMale:0,
+        rabbitfemale:0,
+        rabbitMale:0,
+        cowFemale:0,
+        cowMale:0,
+        blueSlimeHumanoidFemale:0,
+        blueSlimeHumanoidFemaleLarge:0,
+        sharkFemale:0,
+        sharkMale:0
+      };
 
-  if(dataObject.playerSaveSlotData === undefined || dataObject.playerSaveSlotData === null){
-    let saveSlotData = {
-      saveSlot:that.scene.tempNewGameSlotID,
-      currency: 0,
-      bestiaryCompletionPercent: 0,
-      playerHealthUpgrades: 0,
-      PlayerStorage: [],
-   };
-    
-    dataObject.playerSaveSlotData = saveSlotData;
-  }
+      dataObject.playerBestiaryData = playerBestiaryData;
+    }
 
-  if(dataObject.flagValues === undefined || dataObject.flagValues === null){
-    let gameFlags = {
-      containerFlags: []
-
-   };
-    
-    dataObject.flagValues = gameFlags;
-  }
-
-  if(dataObject.settings === undefined || dataObject.settings === null){
-    let settings = {
-      preferance: 2,
-      volume: 1,
-      onomatopoeia: true,
-      mobileControls
-   };
-   
-    dataObject.settings = settings;
-
-  }
-
-  if(dataObject.settings.mobileControls == undefined || dataObject.settings.mobileControls == undefined ){
-    dataObject.settings.mobileControls = false;
-
-  }
-
-  if(dataObject.dreamReturnLocation === undefined || dataObject.dreamReturnLocation === null){
-    let dreamReturnLocation = {
-      location: '',
-      x: null,
-      y:null
+    if(dataObject.playerSkillsData === undefined || dataObject.playerSkillsData === null){
+      let playerSkillsData = {
+        jump:1,
+        dash:0,
+        strength:0,
+        mimic:0,
+        looting:0
     };
-   
-    dataObject.dreamReturnLocation = dreamReturnLocation;
-
-    }
-}
-
-//function that prints listeners
-printActiveEmitter(){
-
-  //creates two arrays to hold keys and emitters, same code is in gameover function in default scene.
-  let emitterArray = [];
-  let keyArray = [];
-
-  keyArray.push(healthEvent);
-  emitterArray.push(healthEmitter);
-
-  keyArray.push(controlKeyEvent);
-  emitterArray.push(controlKeyEmitter);
-  
-  keyArray.push(SceneTransitionLoad);
-  emitterArray.push(loadSceneTransitionLoad);
-
-  keyArray.push(tabKey);
-  emitterArray.push(accessTabKey);
-
-  keyArray.push(inventoryKey);
-  emitterArray.push(inventoryKeyEmitter);
-
-  keyArray.push(playerSkills);
-  emitterArray.push(playerSkillsEmitter);
-
-  keyArray.push(playerSaveSlot);
-  emitterArray.push(playerSaveSlotEmitter);
-
-  keyArray.push(skipIndicator);
-  emitterArray.push(skipIndicatorEmitter);
-
-  keyArray.push(hudDepth);
-  emitterArray.push(hudDepthEmitter);
-  
-
-  let emitterTotal = 0;
-  //loops through the arrays
-  for(let counter = 0; counter < emitterArray.length; counter++){
-    //for each key add the emitter totals
-    for(const property in keyArray[counter]){
-      //console.log(`emitter: ${property}: ${healthEvent[property]}`);
-      emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
-      //healthEmitter.removeAllListeners(healthEvent[property]);
-    }
-    //print the emitter listeners
-    //console.log(keyArray[counter]," current listeners: ",emitterTotal);
-    emitterTotal = 0;
-
-  }  
-}
-
-//clears all emitters
-clearAllEmmitters(){
-
-  console.log("removing listeners");
-
-  let emitterArray = [];
-  let keyArray = [];
-
-  keyArray.push(healthEvent);
-  emitterArray.push(healthEmitter);
-
-  keyArray.push(controlKeyEvent);
-  emitterArray.push(controlKeyEmitter);
-
-  keyArray.push(struggleEvent);
-  emitterArray.push(struggleEmitter);
-  
-  keyArray.push(SceneTransitionLoad);
-  emitterArray.push(loadSceneTransitionLoad);
-
-  keyArray.push(tabKey);
-  emitterArray.push(accessTabKey);
-
-  keyArray.push(inventoryKey);
-  emitterArray.push(inventoryKeyEmitter);
-
-  keyArray.push(playerSkills);
-  emitterArray.push(playerSkillsEmitter);
-
-  keyArray.push(playerSaveSlot);
-  emitterArray.push(playerSaveSlotEmitter);
-
-  keyArray.push(skipIndicator);
-  emitterArray.push(skipIndicatorEmitter);
-
-  keyArray.push(giveUpIndicator);
-  emitterArray.push(giveUpIndicatorEmitter);
-
-  keyArray.push(hudDepth);
-  emitterArray.push(hudDepthEmitter);
-  
-
-  //same code is in gameover function in default scene.
-
-  for(let counter = 0; counter < emitterArray.length; counter++){
-
-    for(const property in keyArray[counter]){
       
-     emitterArray[counter].removeAllListeners(keyArray[counter][property]);
-      
+      dataObject.playerSkillsData = playerSkillsData;
     }
 
-  }  
-
-  
-
-}
-
-//clears all emitters
-clearGameplayEmmitters(){
-
-  console.log("removing gameplay listeners");
-
-  let emitterArray = [];
-  let keyArray = [];
-
-  keyArray.push(SceneTransitionLoad);
-  emitterArray.push(loadSceneTransitionLoad);
-
-  //same code is in gameover function in default scene.
-
-  for(let counter = 0; counter < emitterArray.length; counter++){
-
-    for(const property in keyArray[counter]){
+    if(dataObject.playerSaveSlotData === undefined || dataObject.playerSaveSlotData === null){
+      let saveSlotData = {
+        saveSlot:that.scene.tempNewGameSlotID,
+        currency: 0,
+        bestiaryCompletionPercent: 0,
+        playerHealthUpgrades: 0,
+        PlayerStorage: [],
+    };
       
-     emitterArray[counter].removeAllListeners(keyArray[counter][property]);
-      
+      dataObject.playerSaveSlotData = saveSlotData;
     }
 
-  }  
+    if(dataObject.flagValues === undefined || dataObject.flagValues === null){
+      let gameFlags = {
+        containerFlags: []
 
-  
-
-}
-
-  initLoopingSound(soundID,soundName,volume){
-    //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
-    let createSound = true;
-
-    //so we loop through the sounds to see if any sounds match our key
-    //this is important as we do not want to create duplicate sounds with the same key.
-    for(let counter = 0; counter < this.sound.sounds.length;counter++){
-      //if a key matches the given sound then set bool to false.
-      if(this.sound.sounds[counter].key === soundID){
-        //console.log("found key: ",soundID,"so we wont create the sound object");
-        createSound = false;
-      }
-
-    }
-
-    //if we should create the sound because the key does not exist make it
-    if(createSound === true){
-      //console.log("key not found making ",soundID);
-      this.sound.playAudioSprite(soundID,soundName);
+    };
       
-    }else{ // otherwise play the sound from the keys and set its config to true so it loops.
-      this.sound.get(soundID).play();
+      dataObject.flagValues = gameFlags;
     }
-  //this line of code sets the whole volume
-  //this.sound.setVolume(volume);
+
+    if(dataObject.settings === undefined || dataObject.settings === null){
+      let settings = {
+        preferance: 2,
+        volume: 1,
+        onomatopoeia: true,
+        mobileControls
+    };
     
-  //set the volume of the specific sound.
-    this.sound.get(soundID).volume = volume;
-    //ensures that the sound is looping
-    this.sound.get(soundID).config.loop = true;
+      dataObject.settings = settings;
 
-  }
-
-  initSoundEffect(soundID,soundName,volume){
-  //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
-  let createSound = true;
-
-  //so we loop through the sounds to see if any sounds match our key
-  //this is important as we do not want to create duplicate sounds with the same key.
-  for(let counter = 0; counter < this.sound.sounds.length;counter++){
-    //if a key matches the given sound then set bool to false.
-    if(this.sound.sounds[counter].key === soundID){
-      //console.log("found key: ",soundID,"so we wont create the sound object");
-      createSound = false;
     }
 
-  }
+    if(dataObject.settings.mobileControls == undefined || dataObject.settings.mobileControls == undefined ){
+      dataObject.settings.mobileControls = false;
 
-  //if we should create the sound because the key does not exist make it
-  if(createSound === true){
-      //console.log("key not found making ",soundID);
-      this.sound.playAudioSprite(soundID,soundName);
+    }
+
+    if(dataObject.dreamReturnLocation === undefined || dataObject.dreamReturnLocation === null){
+      let dreamReturnLocation = {
+        location: '',
+        x: null,
+        y:null
+      };
     
-  }else if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){ // otherwise play the sound from the keys and set its config to true so it loops.
-      this.sound.get(soundID).play(soundName);
-  }
-  //this line of code sets the whole volume
-  //this.sound.setVolume(volume);
-  
-  //set the volume of the specific sound.
-  if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){
-    this.sound.get(soundID).volume = volume;
-  }
-  //ensures that the sound is looping
-  }
+      dataObject.dreamReturnLocation = dreamReturnLocation;
 
-  //function to see if sfx is playing or not.
-  isSoundEffectPlaying(soundID){
-
-    //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
-    let findSound = false;
-  
-    //so we loop through the sounds to see if any sounds match our key
-    //this is important as we do not want to create duplicate sounds with the same key.
-    for(let counter = 0; counter < this.sound.sounds.length;counter++){
-      //if a key matches the given sound then set bool to false.
-      if(this.sound.sounds[counter].key === soundID){
-        //console.log("found key: ",soundID,"so we wont create the sound object");
-        findSound = true;
       }
-  
-    }
-    //console.log("this.sound.get(soundID) ",this.sound.get(soundID));
-    // if we found the sfx then we return its isplaying value in that sounds object.
-    if(findSound === true){
-       //console.log("found sound but is it playing? ", this.sound.get(soundID).isPlaying);
-         return this.sound.get(soundID).isPlaying;
-      
-    }else{
-      return false;
-    }
   }
-
 
 }

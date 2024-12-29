@@ -12,17 +12,34 @@
 <body>
   <script src="lib/phaser.js"></script>
   
-  <script src="scripts/sceneScripts/allSceneFunctions.js"></script>
-  <script src="scripts/sceneScripts/defaultScene.js"></script>
-  <script src="scripts/sceneScripts/gameHud.js"></script>
-  <script src="scripts/sceneScripts/gameOver.js"></script>
-  <script src="scripts/sceneScripts/transitionLoad.js"></script>
-  <script src="scripts/sceneScripts/level.js"></script>
-  <script src="scripts/sceneScripts/emitters.js"></script>
+  
+
+  <script src="scripts/sceneScripts/sceneHirarchy/A1SaveAndLoad.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/A2Emitters.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/A3SoundEffects.js"></script>
+ 
+  <script src="scripts/sceneScripts/sceneHirarchy/G1PlayerInputs.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G2levelSetupFunctions.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G3SetupCollisionFunctions.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G4InitGameObjects.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G5InitNPCs.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G6InitEnemys.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G7CheckGameObjects.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G8CheckNPCS.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G9CheckEnemys.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G10UpdateLoops.js"></script>
+
+  <script src="scripts/sceneScripts/sceneHeads/defaultScene.js"></script>
+  <script src="scripts/sceneScripts/sceneHeads/gameHud.js"></script>
+  <script src="scripts/sceneScripts/sceneHeads/level.js"></script>
+  <script src="scripts/sceneScripts/sceneHeads/emitters.js"></script>
+  <script src="scripts/sceneScripts/sceneHeads/titleScreen.js"></script>
+
   <script src="scripts/sceneScripts/devRoom1.js"></script>
   <script src="scripts/sceneScripts/devRoom2.js"></script>
 
-  <script src="scripts/titleScripts/titleScreen.js"></script>
+  <script src="scripts/gameoverScripts/gameOver.js"></script>
+
   <script src="scripts/titleScripts/newGame.js"></script>
   <script src="scripts/titleScripts/loadGame.js"></script>
   <script src="scripts/titleScripts/options.js"></script>
@@ -37,27 +54,27 @@
   <script src="scripts/titleScripts/credits.js"></script>
   <script src="scripts/titleScripts/creditsButton.js"></script>
 
-  <script src="scripts/sceneScripts/dreams/dreamHub.js"></script>
-  <script src="scripts/sceneScripts/dreams/dreamForest.js"></script>
-  <script src="scripts/sceneScripts/dreams/dreamCave.js"></script>
-  <script src="scripts/sceneScripts/dreams/dreamBlueSlimeCave.js"></script>
+  <script src="scripts/levelScripts/dreams/dreamHub.js"></script>
+  <script src="scripts/levelScripts/dreams/dreamForest.js"></script>
+  <script src="scripts/levelScripts/dreams/dreamCave.js"></script>
+  <script src="scripts/levelScripts/dreams/dreamBlueSlimeCave.js"></script>
 
-  <script src="scripts/sceneScripts/levels/tutorialBeach.js"></script>
-  <script src="scripts/sceneScripts/levels/tutorialCave.js"></script>
-  <script src="scripts/sceneScripts/levels/forestRavineHome.js"></script>
-  <script src="scripts/sceneScripts/levels/homeInterior1.js"></script>
-  <script src="scripts/sceneScripts/levels/homeInterior2.js"></script>
-  <script src="scripts/sceneScripts/levels/TestCave.js"></script>
-  <script src="scripts/sceneScripts/levels/TestForest.js"></script>
-  <script src="scripts/sceneScripts/levels/PondForest.js"></script>
-  <script src="scripts/sceneScripts/levels/caveToSunflowers1.js"></script>
-  <script src="scripts/sceneScripts/levels/caveToSunflowers2.js"></script>
-  <script src="scripts/sceneScripts/levels/sunFlowerField.js"></script>
-  <script src="scripts/sceneScripts/levels/sunFlowerCave.js"></script>
-  <script src="scripts/sceneScripts/levels/batCave.js"></script>
-  <script src="scripts/sceneScripts/levels/blueSlimeCave.js"></script>
-  <script src="scripts/sceneScripts/levels/blueSlimeCave1.js"></script>
-  <script src="scripts/sceneScripts/levels/istarasCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/tutorialBeach.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/tutorialCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/forestRavineHome.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/homeInterior1.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/homeInterior2.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/TestCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/TestForest.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/PondForest.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/caveToSunflowers1.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/caveToSunflowers2.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/sunFlowerField.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/sunFlowerCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/batCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/blueSlimeCave.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/blueSlimeCave1.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/istarasCave.js"></script>
   
 
   <script src="scripts/playerScripts/doubleJumpEffect.js"></script>
@@ -123,7 +140,6 @@
   <script src="scripts/enemyScripts/enemy.js"></script>
   <script src="scripts/enemyScripts/enemyTemplate.js"></script>
   <script src="scripts/enemyScripts/blueSlime.js"></script>
-  <script src="scripts/enemyScripts/blueSlimeHS.js"></script>
   <script src="scripts/enemyScripts/tiger.js"></script>
   <script src="scripts/enemyScripts/rabbit.js"></script>
   <script src="scripts/enemyScripts/beeDrone.js"></script>
@@ -168,12 +184,24 @@
           ]
         },
         scene: [
+          new A1SaveAndLoad,
+          new A2Emitters,
+          new A3SoundEffects,
+          new G10UpdateLoops,
+          new G9CheckEnemys,
+          new G8CheckNPCS,
+          new G7CheckGameObjects,
+          new G6InitEnemys,
+          new G5InitNPCs,
+          new G4InitGameObjects,
+          new G3SetupCollisionFunctions,
+          new G2levelSetupFunctions,
+          new G1PlayerInputs,
           new titleScreen,
           new gameHud,
           new gameOver,
           new devRoom1,
           new devRoom2,
-          new transitionLoad,
           new tutorialBeach,
           new tutorialCave,
           new ForestRavineHome,

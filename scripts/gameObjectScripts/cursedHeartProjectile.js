@@ -13,7 +13,7 @@ class cursedHeartProjectile extends Phaser.Physics.Arcade.Sprite{
   
       this.setDepth(50);
       this.anims.create({key: 'cursedHeartBeat',frames: this.anims.generateFrameNames('cursedHeartProjectile', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-      this.anims.create({key: 'cursedHeartDestroy',frames: this.anims.generateFrameNames('cursedHeartProjectile', { start: 4, end: 6 }),frameRate: 8,repeat: 0});
+      this.anims.create({key: 'cursedHeartDestroy',frames: this.anims.generateFrameNames('cursedHeartProjectile', { start: 4, end: 6 }),frameRate: 20,repeat: 0});
 
       this.setScale(1/3,1/3);
       this.setSize(50,50,true);

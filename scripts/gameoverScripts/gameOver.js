@@ -1,5 +1,5 @@
 let gameoverThat;
-class gameOver extends allSceneFunctions {
+class gameOver extends A3SoundEffects {
 
     constructor(){
         // scene settings

@@ -44,14 +44,19 @@ class whiteCat extends enemy {
         this.catSoundsArray = ['1','2','3','4','5'];
         this.randomcatSound = Math.floor((Math.random() * 4));
 
-        //make a hitbox so the bee can grab the player.
+        //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
+        this.hitboxActive = false;
+
+        //make a hitbox so the cat can attack the player.
+        this.attackHitBox = new hitBoxes(scene,this.x,this.y);
+        this.attackHitBox.setSize(30,10,true);
+        this.attackHitboxActive = false;
 
         this.attemptingGrab = false;
         this.isPlayingMissedAnims = false;
         this.grabTimer = false;
-        this.hitboxActive = false;
         this.throwcatTimer = false;
         this.throwingcat = false;
 
@@ -83,8 +88,9 @@ class whiteCat extends enemy {
                 this.anims.create({ key: 'catAttemptingGrabStart', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 19+3, end: 22+3 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'catAttemptingGrabMiss', frames: this.anims.generateFrameNames('whitecat-female-male-tf', { start: 23+3, end: 25+3 }), frameRate: 8, repeat: 0 });
 
-                this.anims.create({ key: 'catAngryidle', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catAngryidle', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 0, end: 8 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'catAngryMove', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 9, end: 18 }), frameRate: 10, repeat: -1 });
+                this.anims.create({ key: 'catAngryMoveSlow', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 9, end: 18 }), frameRate: 5, repeat: -1 });
 
                 this.anims.create({ key: 'catAttackStart', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 20, end: 23 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'catAttackEnd', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 24, end: 26 }), frameRate: 8, repeat: 0 });
@@ -139,12 +145,14 @@ class whiteCat extends enemy {
 
         this.body.setGravityY(600);
 
+        //console.log("this.enemyHP: ",this.enemyHP," this.angry: ",this.angry );
+
         if(this.scene.player1.x > this.x - 400 && this.scene.player1.x < this.x + 400){  
             //checks to see if enemy is in range of player
 
                 //console.log("this.attemptingGrab: ",this.attemptingGrab," this.grabTimer: ",this.grabTimer," this.throwingcat: ",this.throwingcat," this.throwcatTimer: ",this.throwcatTimer); 
             if(this.enemyHP > 60){
-                if((this.scene.player1.x + 40 > this.x   && this.scene.player1.x - 40 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
+                if((this.scene.player1.x + 30 > this.x   && this.scene.player1.x - 30 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
                         
                     //play animation
                     this.setVelocityX(0);
@@ -313,23 +321,34 @@ class whiteCat extends enemy {
                 }
                 
             //if the cats hp is below the threshold, then transition to angry ai.
-            }else if(this.angry === false && this.enemyHP > 60){
+            }else if(this.angry === false && this.enemyHP <= 60){
                 this.setDepth(5);
                 this.hitboxActive = false;
                 this.attemptingGrab = false;
                 this.grabTimer = false;
                 this.isPlayingMissedAnims = false; 
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y + 3000; 
+                this.hitboxActive = false;
 
-                this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+                console.log("cat beginning enemy logic");
+                if(this.animationPlayed === false){
+                    this.animationPlayed = true;
+                    this.scene.initSoundEffect("whiteCatSFX","sad",0.3);
 
-                this.anims.play('catAngryidle').once('animationcomplete', () => {
-                    this.angry = true;
-                });
+                    this.anims.play('catAngryidle').once('animationcomplete', () => {
+                        console.log("cat now angry");
+                        this.angry = true;
+                        this.animationPlayed = false;
+                        this.hitboxActive = false;
+                    });
+                }
+                
             //now that the animation has played use angry logic on this enemy from now on.
             }else if(this.angry === true){
+                
 
-                if((this.scene.player1.x + 40 > this.x   && this.scene.player1.x - 40 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false){
-                        
+                if((this.scene.player1.x + 40 > this.x   && this.scene.player1.x - 40 < this.x && (this.scene.player1.y > this.y - 30 && this.scene.player1.y < this.y + 30) && this.grabTimer === false) && this.throwingcat === false && this.scene.playerStuckGrab === false){
                     //play animation
                     this.setVelocityX(0);
                     this.grabTimer = true;
@@ -343,15 +362,16 @@ class whiteCat extends enemy {
                     }
 
                     this.setDepth(7);
+
+                    this.scene.initSoundEffect('weaponSFX1','high1',0.1);
+                    
                     this.anims.play('catAttackStart').once('animationcomplete', () => {
                         
-                        this.playJumpySound('3',700);
+                        //this.playJumpySound('3',700);
 
-                        //this.hitboxActive = true;
-                        //this.grabHitBox.body.enable = true;
+                        this.attackHitboxActive = true;
+                        this.attackHitBox.body.enable = true;
                         this.attemptingGrab = true;
-
-                        //controls the x velocity when the bee ischarging to grab the player
                         
                     });
 
@@ -363,7 +383,7 @@ class whiteCat extends enemy {
                         
                         this.anims.play('catAttackEnd').once('animationcomplete', () => {
                             this.setDepth(5);
-                            this.hitboxActive = false;
+                            this.attackHitboxActive = false;
                             this.attemptingGrab = false;
                             this.grabTimer = false;
                             this.isPlayingMissedAnims = false;    
@@ -373,7 +393,7 @@ class whiteCat extends enemy {
                     //console.log("moving cat right");            
                     this.direction = "right";
                     this.jumpAnimationPlayed = false; 
-                    
+                    this.hitboxActive = false;
                     this.flipX = false;
 
                     this.anims.play('catAngryMove', true);
@@ -386,10 +406,39 @@ class whiteCat extends enemy {
                     this.direction = "left";
                     this.jumpAnimationPlayed = false;
                     this.flipX = true;
-                    
+                    this.hitboxActive = false;
                     this.anims.play('catAngryMove', true);
                     this.setVelocityX(-140); 
                     
+                }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat right");            
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    this.anims.play('catAngryMoveSlow', true);
+                    this.setVelocityX(70); 
+                    
+            
+                //if the player is to the right then move enemy to the left
+                }else if(this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat left");   
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    this.hitboxActive = false;
+                    this.anims.play('catAngryMoveSlow', true);
+                    this.setVelocityX(-70); 
+                
+                //if the cat is above the knocked down player, then grab them
+                }else if((this.scene.player1.x + 3 > this.x   && this.scene.player1.x - 3 < this.x && this.grabTimer === false) && this.throwingcat === false){
+                        this.hitboxActive = true;
+                        this.grabHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+
+                        //alligns the orientation of the cat to the player.
+                        this.flipX = this.scene.player1.flipX;
                 }else{
                     console.log("cat has lost the plot.")
                 }
@@ -401,7 +450,7 @@ class whiteCat extends enemy {
         if(this.hitboxActive === true){
 
             //hitbox should be to left if player is to the left
-            if(this.scene.player1.x < this.x){
+            if(this.flipX === true){
                 console.log("moving cat hitbox to the left");
                 this.grabHitBox.x = this.x-15;
 
@@ -415,6 +464,26 @@ class whiteCat extends enemy {
         }else{
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
+        }
+
+        //handles attack hit box positioning
+        if(this.attackHitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.attackHitBox.x = this.x-15;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.attackHitBox.x = this.x+15;
+            }
+            this.attackHitBox.y = this.y;
+
+        }else{
+            this.attackHitBox.x = this.x;
+            this.attackHitBox.y = this.y + 3000; 
         }
 
         //updates the previous y value to tell if cat is falling or going up in its jump.
@@ -459,7 +528,7 @@ class whiteCat extends enemy {
 
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
 
-        console.log("this.playerGrabbed: ",this.playerGrabbed);
+        //console.log("this.playerGrabbed: ",this.playerGrabbed);
 
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
@@ -528,9 +597,15 @@ class whiteCat extends enemy {
 
                 //hides the mobile controls in the way of the tab/skip indicator.
                 controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-            
-                //handle the defeated logic that plays defeated animations
-                this.playerIsDefeatedLogic(playerHealthObject);
+                
+                if(this.angry === true){
+                    //handle the defeated logic that plays defeated animations for vore
+                   this.playerIsDefeatedLogicVore(playerHealthObject);
+                }else{
+                    //handle the defeated logic that plays defeated animations
+                   this.playerIsDefeatedLogic(playerHealthObject);
+                }
+                
             }
             
         }
@@ -551,22 +626,35 @@ class whiteCat extends enemy {
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
 
+        //stops the player from moving away during a grab?
+        this.scene.player1.setVelocityX(0);
+
         //player the intro grab sequence
         if(this.animationPlayed === false && this.startAnimationPlayed === false){
             this.animationPlayed = true;
-            this.anims.play("catGrabStart").once('animationcomplete', () => {
-                //play struggle animation afterward.
-                this.anims.play("catGrab", true);
-                this.startAnimationPlayed = true;
-                this.animationPlayed = false;
-            });
+            if(this.angry === true){
+                this.anims.play("catBeginFaceSit").once('animationcomplete', () => {
+                    //play struggle animation afterward.
+                    this.anims.play("catFaceSit", true);
+                    this.startAnimationPlayed = true;
+                    this.animationPlayed = false;
+                });   
+            }else{
+                this.anims.play("catGrabStart").once('animationcomplete', () => {
+                    //play struggle animation afterward.
+                    this.anims.play("catGrab", true);
+                    this.startAnimationPlayed = true;
+                    this.animationPlayed = false;
+                });   
+            }
+            
         }else if(this.startAnimationPlayed === true && playerHealthObject.playerHealth > 0){
             this.playJumpySound('3',700);
         }
         
         
         // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-        console.log("playerHealthObject.playerHealth: ",playerHealthObject.playerHealth);
+        //console.log("playerHealthObject.playerHealth: ",playerHealthObject.playerHealth);
         if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
             //hpBar.calcDamage(1);
             healthEmitter.emit(healthEvent.loseHealth,1)
@@ -790,6 +878,141 @@ class whiteCat extends enemy {
            //function to play the defeated animation
            this.femalecatDefeatedPlayerAnimation();
         }
+        
+    }
+
+    playerEscaped(playerHealthObject){
+
+        let currentcat = this;
+
+            this.scene.KeyDisplay.visible = false;
+            // can we replace this with a settimeout function? probbably. lets make a backup first.
+            if (this.struggleFree === false) {
+                console.log("Free counter: " + this.struggleFree);
+                // handles the breaking free animation.
+                if (!this.animationPlayed) {
+                    this.animationPlayed = true;
+                    //this.anims.play('catGrabBreak').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        currentcat.struggleFree = true;
+                    //});
+                }
+                // if the player if freed do the following to reset the player.
+            } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
+                console.log("player has broken free" );
+                this.struggleFree = false;
+                this.playerBrokeFree = 0;
+                this.anims.play("catIdle", true);
+                
+                this.struggleCounter = 0;
+                this.animationPlayed = false;
+                this.setSize(90, 65, true);
+                this.playerDamaged = false;
+                this.playerGrabbed = false;
+                this.keyAnimationPlayed = false;
+                this.scene.grabbed = false;
+                //resets initial grab animation var
+                this.startAnimationPlayed = false;
+
+                this.grabTimer = false;
+                this.attemptingGrab = false;
+                this.throwingcat = false;
+                this.throwcatTimer = false;
+
+
+                //sets the cooldown to true, then calls the built in function of the scene to 
+                //set it to false in 3 seconds. need to do this in scene to be safe
+                // if the enemy is destroyed then the timeout function wont have a refrence if done here.
+                this.scene.grabCoolDown = true;
+
+                this.scene.startGrabCoolDown();
+
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+
+                //unhide the player
+                this.scene.player1.visible = true;
+                
+                this.scene.KeyDisplay.visible = false;
+                // creates a window of time where the player cant be grabbed after being released.
+                // creates a cooldown window so the player does not get grabbed as they escape.
+                currentcat = this;
+                setTimeout(function () {
+
+                    currentcat.grabCoolDown = false;
+                    console.log("grab cooldown has ended. player can be grabbed agian.");
+                }, 1500);
+            }
+
+        
+    }
+
+    playerIsDefeatedLogicVore(){
+
+        // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the cat.
+            this.playerDefeated = true;
+            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+            if(this.enemySex === 0){
+                this.scene.enemyThatDefeatedPlayer = "whiteCatMaleVore";
+            }else{
+                this.scene.enemyThatDefeatedPlayer = "whiteCatFemaleVore";
+            }
+
+            // if we start the player defeated animation then we need to set a few things.
+            if (this.playerDefeatedAnimationStage === 0) {
+                this.scene.KeyDisplay.playDKey();
+                let currentcat = this; // important, sets currentcat to the current object so that we can use variables attached to this current cat object in our set timeout functions.
+                //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+                // delay the button prompt so the animation can play.
+                setTimeout(function () {
+                    currentcat.scene.KeyDisplay.visible = true;
+                    currentcat.scene.KeyDisplay.playDKey();
+                    //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                    console.log("currentcat.playerDefeatedAnimationStage: " + currentcat.playerDefeatedAnimationStage);
+                }, 1000);
+                this.inStartDefeatedLogic = true;
+                this.playerDefeatedAnimationStage++;
+                console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+            }
+
+        
+            //may be able to set a bool to true or false to tell what animations have the key skip
+            //that way we dont need tons of if checks for numbers
+            if (this.scene.checkDIsDown() &&
+                this.playerDefeatedAnimationCooldown === false &&
+                 this.inStartDefeatedLogic === false &&
+                  this.scene.KeyDisplay.visible === true &&
+                  this.playerDefeatedAnimationStage !== 1 &&
+                   this.playerDefeatedAnimationStage !== 3 ) {
+
+               this.scene.KeyDisplay.visible = false;
+               //this.stageTimer = 0;
+               this.playerDefeatedAnimationCooldown = true;
+               this.playerDefeatedAnimationStage++;
+               let currentcat = this;
+               console.log("currentcat.playerDefeatedAnimationStage: " + currentcat.playerDefeatedAnimationStage);
+
+               this.currentcat = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+               setTimeout(function () {
+                   console.log("defeated animation delay.");
+                   currentcat.scene.KeyDisplay.visible = true;
+                   currentcat.scene.KeyDisplay.playDKey();
+                   currentcat.playerDefeatedAnimationCooldown = false;
+               }, 3000);
+           }
+           // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkDIsDown())) {
+               this.scene.KeyDisplay.visible = false;
+               console.log("changing scene");
+               this.scene.changeToGameover();
+           }
+
+           //function to play the defeated animation
+           this.catDefeatedPlayerAnimationVore();
+        
         
     }
 
@@ -1171,9 +1394,14 @@ class whiteCat extends enemy {
                     this.scene.onomat.textFadeOutAndDestroy(1000);
 
                     if(this.scene.playerSex === 0){
-                        this.scene.internalView = new internalView(this.scene,this.x+35,this.y+60,'rabbit')
+                        if(this.flipX === false){
+                            this.scene.internalView = new internalView(this.scene,this.x+30,this.y+50,'rabbit')
+                        }else{
+                            this.scene.internalView = new internalView(this.scene,this.x-30,this.y+50,'rabbit')
+                        }
+                        
                         this.scene.internalView.anims.play("pen1",true);
-                        this.scene.internalView.setRotation(3.14/3);
+                        this.scene.internalView.setRotation(3.14/4);
                     }
                 });
             }
@@ -1249,6 +1477,81 @@ class whiteCat extends enemy {
 
             this.playJumpySound('3',700);
             this.anims.play('catGrabDefeated4', true);
+        }
+    }
+
+    catDefeatedPlayerAnimationVore() {
+        console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+        
+        let currentcat = this;
+        if (this.playerDefeatedAnimationStage === 1) {
+
+            this.playerDefeatedAnimationStageMax = 5;
+
+            if (!this.animationPlayed) {
+
+                this.playPlapSound('plap4',800);
+
+                this.animationPlayed = true;
+                this.anims.play('catDefeatedPlayerVore').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+
+                    this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLLORRRP!");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.increaseRight(700);
+                    this.scene.onomat.textFadeOutAndDestroy(1000);
+                });
+            }
+
+        }else if(this.playerDefeatedAnimationStage === 2) {
+            //this.playcatSound('5',800);
+
+            this.playPlapSound('plap5',600);
+            this.playJumpySound('3',600);
+
+            let thiscat = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                setTimeout(function () {
+                    thiscat.onomatPlayed = false;
+                }, 600);
+            }
+
+            this.anims.play('catGrabDefeatedVore1', true);
+            
+        
+        }else if(this.playerDefeatedAnimationStage === 3) {
+
+            this.scene.initSoundEffect('curseSFX','curse',0.3);
+
+            if (!this.animationPlayed) {
+
+                if(this.scene.playerSex === 0){
+
+                    //this.scene.internalView.anims.play("playerClimaxInRabbit");
+                 }
+
+                this.animationPlayed = true;
+                this.anims.play('catGrabDefeatedVore2').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 5) {
+
+            this.playJumpySound('3',700);
+            //this.anims.play('catGrabDefeated4', true);
         }
     }
     

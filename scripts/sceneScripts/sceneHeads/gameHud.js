@@ -1,5 +1,5 @@
 //this class is to factor out ui elements that we want to keep inbetween scenes by making a scene that is active and overlayed over the current scene
-class gameHud extends allSceneFunctions {
+class gameHud extends A3SoundEffects {
   
     constructor(){
       // scene settings

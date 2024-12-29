@@ -49,6 +49,15 @@ class devRoom2 extends defaultScene {
         "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
       ]);
 
+      //weapon sound effects
+      this.load.audioSprite('weaponSFX1','audio/used-audio/player-sounds/weapon-swings.json',[
+        "audio/used-audio/player-sounds/weapon-swings.mp3"
+      ]);
+
+      //hit sfx for when player gets hit.
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+      ]);
 
       this.defaultPreload();
 
@@ -77,8 +86,10 @@ class devRoom2 extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      // sets up slime gooed animation.
+      
       this.setupCursedHeartStucks();
+
+      this.setupKnockDownStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);

@@ -1,6 +1,6 @@
 let playerUI;
 
-class titleScreen extends allSceneFunctions {
+class titleScreen extends A3SoundEffects {
     constructor(){
         // scene settings
         super({key: 'titleScreen',active: true,physics:{default:'arcade'}});

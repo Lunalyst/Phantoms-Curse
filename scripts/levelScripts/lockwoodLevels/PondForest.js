@@ -76,8 +76,11 @@ class PondForest extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      // sets up slime gooed animation.
+      //setup cursed heart animations
       this.setupCursedHeartStucks();
+
+      //setup knockdown animations
+      this.setupKnockDownStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);

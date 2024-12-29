@@ -670,55 +670,108 @@ class whiteCat extends enemy {
         let currentcat = this;
 
         //randominputs change as the player trys to esacape.
-        if (this.randomInput === 0) {
-            if (this.scene.checkAPressed() === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
-                if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 15;
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
-                }
-            // if the player spams other keys, then subtract there project toprevent button mashing of other keys that are not the slected one.
-            }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
-                if (playerHealthObject.playerHealth >= 1) {
-
-                    //makes sure the struggle bar does not go into the negitives
-                    if(this.struggleCounter - 5 > 0){
-                        this.struggleCounter -= 5;
-                    }else{
-                        this.struggleCounter = 0;
+        if(this.angry === true){
+            if (this.randomInput === 0) {
+                if (this.scene.checkWPressed() === true) {
+                    console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
+                    if (playerHealthObject.playerHealth >= 1) {
+                        this.struggleCounter += 15;
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
                     }
-                    
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
-                }
-
-            }
-        } else if (this.randomInput === 1 ) {
-            // important anims.play block so that the animation can player properly.
-            if (this.scene.checkDPressed() === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
-                if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 15;
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
-                }
-            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true){
-                if (playerHealthObject.playerHealth >= 1) {
-
-                    //makes sure the struggle bar does not go into the negitives
-                    if(this.struggleCounter - 5 > 0){
-                        this.struggleCounter -= 5;
-                    }else{
-                        this.struggleCounter = 0;
+                // if the player spams other keys, then subtract there project toprevent button mashing of other keys that are not the slected one.
+                }else if(this.scene.checkDPressed() === true || this.scene.checkAPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+    
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
                     }
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
+    
                 }
-
+            } else if (this.randomInput === 1 ) {
+                // important anims.play block so that the animation can player properly.
+                if (this.scene.checkSPressed() === true) {
+                    console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                    if (playerHealthObject.playerHealth >= 1) {
+                        this.struggleCounter += 15;
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+                }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkDPressed() === true){
+                    if (playerHealthObject.playerHealth >= 1) {
+    
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+    
+                }
             }
+
+        }else{
+            if (this.randomInput === 0) {
+                if (this.scene.checkAPressed() === true) {
+                    console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
+                    if (playerHealthObject.playerHealth >= 1) {
+                        this.struggleCounter += 15;
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+                // if the player spams other keys, then subtract there project toprevent button mashing of other keys that are not the slected one.
+                }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+    
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 2 > 0){
+                            this.struggleCounter -= 2;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+    
+                }
+            } else if (this.randomInput === 1 ) {
+                // important anims.play block so that the animation can player properly.
+                if (this.scene.checkDPressed() === true) {
+                    console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
+                    if (playerHealthObject.playerHealth >= 1) {
+                        this.struggleCounter += 15;
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+                }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true){
+                    if (playerHealthObject.playerHealth >= 1) {
+    
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 2 > 0){
+                            this.struggleCounter -= 2;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+    
+                }
+            }
+
         }
-
+        
         // randomizing input
         if (this.randomInputCooldown === false) {
 
@@ -726,15 +779,28 @@ class whiteCat extends enemy {
             this.randomInput = Math.floor((Math.random() * 2));
             console.log("randomizing the key prompt " + this.randomInput);
             // important anims.play block so that the animation can player properly.
-            if (this.keyAnimationPlayed === false && this.randomInput === 0) {
-                console.log(" setting keyA display");
-                this.scene.KeyDisplay.playAKey();
-                this.keyAnimationPlayed = true;
-            } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
-                console.log(" setting keyD display");
-                this.scene.KeyDisplay.playDKey();
-                this.keyAnimationPlayed = true;
+            if(this.angry === true){
+                if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                    console.log(" setting keyA display");
+                    this.scene.KeyDisplay.playWKey();
+                    this.keyAnimationPlayed = true;
+                } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                    console.log(" setting keyD display");
+                    this.scene.KeyDisplay.playSKey();
+                    this.keyAnimationPlayed = true;
+                }
+            }else{
+                if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                    console.log(" setting keyA display");
+                    this.scene.KeyDisplay.playAKey();
+                    this.keyAnimationPlayed = true;
+                } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                    console.log(" setting keyD display");
+                    this.scene.KeyDisplay.playDKey();
+                    this.keyAnimationPlayed = true;
+                }
             }
+            
             setTimeout(function () {
                 currentcat.randomInputCooldown = false;
                 // resets the animation block.
@@ -1016,74 +1082,7 @@ class whiteCat extends enemy {
         
     }
 
-    playerEscaped(playerHealthObject){
-
-        let currentcat = this;
-
-            this.scene.KeyDisplay.visible = false;
-            // can we replace this with a settimeout function? probbably. lets make a backup first.
-            if (this.struggleFree === false) {
-                console.log("Free counter: " + this.struggleFree);
-                // handles the breaking free animation.
-                if (!this.animationPlayed) {
-                    this.animationPlayed = true;
-                    //this.anims.play('catGrabBreak').once('animationcomplete', () => {
-                        this.animationPlayed = false;
-                        currentcat.struggleFree = true;
-                    //});
-                }
-                // if the player if freed do the following to reset the player.
-            } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
-                console.log("player has broken free" );
-                this.struggleFree = false;
-                this.playerBrokeFree = 0;
-                this.anims.play("catIdle", true);
-                
-                this.struggleCounter = 0;
-                this.animationPlayed = false;
-                this.setSize(90, 65, true);
-                this.playerDamaged = false;
-                this.playerGrabbed = false;
-                this.keyAnimationPlayed = false;
-                this.scene.grabbed = false;
-                //resets initial grab animation var
-                this.startAnimationPlayed = false;
-
-                this.grabTimer = false;
-                this.attemptingGrab = false;
-                this.throwingcat = false;
-                this.throwcatTimer = false;
-
-
-                //sets the cooldown to true, then calls the built in function of the scene to 
-                //set it to false in 3 seconds. need to do this in scene to be safe
-                // if the enemy is destroyed then the timeout function wont have a refrence if done here.
-                this.scene.grabCoolDown = true;
-
-                this.scene.startGrabCoolDown();
-
-                //makes the struggle bar invisible
-                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
-
-                //unhide the player
-                this.scene.player1.visible = true;
-                
-                this.scene.KeyDisplay.visible = false;
-                // creates a window of time where the player cant be grabbed after being released.
-                // creates a cooldown window so the player does not get grabbed as they escape.
-                currentcat = this;
-                setTimeout(function () {
-
-                    currentcat.grabCoolDown = false;
-                    console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 1500);
-            }
-
-        
-    }
+    
    
     // controls the damage resistance of the cat.
     damage() {

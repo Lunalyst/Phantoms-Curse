@@ -321,8 +321,14 @@ class gameOver extends A3SoundEffects {
                 this.preferance = 1;
                 this.enemy = new whiteCat(this,450, 570,this.playerSex);
                 //this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver();
+                this.enemy.gameOver(0);
                 this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleVore"){
+                this.preferance = 1;
+                this.enemy = new whiteCat(this,450, 570,this.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                this.enemy.gameOver(1);
+                this.defeatedTitle = 'eaten';
             }
             
             
@@ -496,7 +502,7 @@ class gameOver extends A3SoundEffects {
                  this.enemyThatDefeatedPlayer === "maleChestMimic"||
                  this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
                 this.enemy.playJumpySound('10',800);
-            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
+            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth" || this.enemyThatDefeatedPlayer === "whiteCatFemaleVore"){
                 this.enemy.playJumpySound('10',600);
             }
             

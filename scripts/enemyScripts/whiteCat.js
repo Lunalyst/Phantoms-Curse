@@ -113,6 +113,7 @@ class whiteCat extends enemy {
                     this.anims.create({ key: 'catDefeatedPlayerVore', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 36, end: 41 }), frameRate: 8, repeat: 0 });
                     this.anims.create({ key: 'catGrabDefeatedVore1', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 42, end: 45 }), frameRate: 8, repeat: -1 });
                     this.anims.create({ key: 'catGrabDefeatedVore2', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 46, end: 58 }), frameRate: 8, repeat: 0 });
+                    
 
                     
                 }else{
@@ -120,8 +121,14 @@ class whiteCat extends enemy {
                 }
 
                 this.anims.create({ key: 'catGrabDefeatedVore3', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 59, end: 62 }), frameRate: 8, repeat: -1 });
-                this.anims.create({ key: 'catGrabDefeatedVore4', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 63, end: 76 }), frameRate: 8, repeat: -1 });
-                    
+                this.anims.create({ key: 'catGrabDefeatedVore4', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 63, end: 75 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeatedVore5', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 75, end: 80 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeatedVore6', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 81, end: 84 }), frameRate: 8, repeat: 1 });
+                this.anims.create({ key: 'catGrabDefeatedVore7', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 85, end: 96 }), frameRate: 8, repeat: 0 });  
+                this.anims.create({ key: 'catGrabDefeatedVore8', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 97, end: 109 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeatedVore9', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 110, end: 115 }), frameRate: 8, repeat: -1 }); 
+
+                this.anims.create({ key: 'catGameoverVore', frames: this.anims.generateFrameNames('whitecat-female-male-vore', { start: 116, end: 121 }), frameRate: 7, repeat: -1 });
 
             }
 
@@ -512,11 +519,17 @@ class whiteCat extends enemy {
     }
 
     // functioned called to play animation when the player is defeated by the cat in gameover.
-    gameOver() {
+    gameOver(version) {
 
         this.setSize(90, 100, true);
         this.setOffset(80, 180);
-        this.anims.play('catGameoverTF', true);
+
+        if(version === 1){
+            this.anims.play('catGameoverVore', true);
+        }else{
+            this.anims.play('catGameoverTF', true);
+        }
+        
     }
 
     //the grab function. is called when player has overlaped with an enemy cat.
@@ -1052,7 +1065,9 @@ class whiteCat extends enemy {
                  this.inStartDefeatedLogic === false &&
                   this.scene.KeyDisplay.visible === true &&
                   this.playerDefeatedAnimationStage !== 1 &&
-                   this.playerDefeatedAnimationStage !== 3 ) {
+                   this.playerDefeatedAnimationStage !== 3 &&
+                   this.playerDefeatedAnimationStage !== 6 &&
+                   this.playerDefeatedAnimationStage !== 7 ) {
 
                this.scene.KeyDisplay.visible = false;
                //this.stageTimer = 0;
@@ -1070,7 +1085,7 @@ class whiteCat extends enemy {
                }, 3000);
            }
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkDIsDown())) {
+           if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDIsDown())) {
                this.scene.KeyDisplay.visible = false;
                console.log("changing scene");
                this.scene.changeToGameover();
@@ -1530,14 +1545,7 @@ class whiteCat extends enemy {
         
         }else if(this.playerDefeatedAnimationStage === 3) {
 
-            this.scene.initSoundEffect('curseSFX','curse',0.3);
-
             if (!this.animationPlayed) {
-
-                if(this.scene.playerSex === 0){
-
-                    //this.scene.internalView.anims.play("playerClimaxInRabbit");
-                 }
 
                 this.animationPlayed = true;
                 this.anims.play('catGrabDefeatedVore2').once('animationcomplete', () => {
@@ -1547,10 +1555,95 @@ class whiteCat extends enemy {
                 });
             }
            
-        }else if(this.playerDefeatedAnimationStage === 5) {
+        }else if(this.playerDefeatedAnimationStage === 4) {
 
             this.playJumpySound('3',700);
-            //this.anims.play('catGrabDefeated4', true);
+            this.anims.play('catGrabDefeatedVore3', true)
+            
+        }else if(this.playerDefeatedAnimationStage === 5) {
+
+            //this.playJumpySound('3',700);
+
+            //console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
+            let randomInt = Math.floor(Math.random() * 3);
+            //console.log("randomInt", randomInt)
+            if (!this.animationPlayed) {
+               
+                this.animationPlayed = true;
+                if(randomInt === 0){
+
+                    /*this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);*/
+
+                    this.scene.initSoundEffect('stomachSFX','3',0.1);
+                    this.anims.play('catGrabDefeatedVore4').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
+                    this.animationPlayed = false;
+
+                    });
+                }else if(randomInt === 1){
+
+                    /*this.scene.onomat = new makeText(this.scene,this.x-9,this.y+35,'charBubble',"GURGLE");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textBuldgeDown(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);*/
+
+                    this.scene.initSoundEffect('stomachSFX','5',0.1);
+                    this.anims.play('catGrabDefeatedVore5').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.scene.onomat.destroy();
+                    });
+
+                }else if(randomInt === 2){
+
+                    /*this.scene.onomat = new makeText(this.scene,this.x-9,this.y+18,'charBubble',"WOBBLE");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.textSquishLeft(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);*/
+
+                    this.scene.initSoundEffect('stomachSFX','6',0.1);
+                    this.anims.play('catGrabDefeatedVore6').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.scene.onomat.destroy();
+                    });
+                    
+                }
+                
+            }
+        }else if(this.playerDefeatedAnimationStage === 6) {
+
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+                this.anims.play('catGrabDefeatedVore7').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 7) {
+
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+                this.anims.play('catGrabDefeatedVore8').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+            }
+           
+        }else if(this.playerDefeatedAnimationStage === 8) {
+
+            this.playJumpySound('3',800);
+            this.anims.play('catGrabDefeatedVore9', true)
+            
         }
     }
     

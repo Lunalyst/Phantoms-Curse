@@ -43,6 +43,16 @@ class dreamForest extends defaultScene {
       this.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
       this.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
 
+      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+
+      this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+
+      this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
+      this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
+      
+
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
@@ -125,7 +135,7 @@ class dreamForest extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["beeDrones","rabbits","tigers"];
+      this.enemyGroupArray = ["beeDrones","rabbits","tigers","whiteCats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -194,6 +204,44 @@ class dreamForest extends defaultScene {
         if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
           thisScene.initEnemy(1680,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
         }
+
+        object1 = {
+          flagToFind: 'whiteCatMaleTF',
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: 'whiteCatFemaleTF',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'whiteCatMaleTF' || object2.flagToFind === 'whiteCatFemaleTF')){
+          thisScene.initEnemy(1000,888,thisScene.playerSex,'whiteCat',true);
+        }
+
+        object1 = {
+          flagToFind: 'whiteCatMaleVore',
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: 'whiteCatFemaleVore',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'whiteCatMaleVore' || object2.flagToFind === 'whiteCatFemaleVore')){
+          thisScene.initEnemy(1110,888,thisScene.playerSex,'angryWhiteCat',true);
+        }
+
+        
         
         thisScene.spawnedEnemys = true;
       },1000);

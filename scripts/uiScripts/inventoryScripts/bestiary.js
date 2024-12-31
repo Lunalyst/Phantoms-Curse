@@ -18,21 +18,25 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary1', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary2', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary2', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary2', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleBeeDrone', frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary2', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary3', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary3', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeMaleHM', frames: this.anims.generateFrameNames('bestiary3', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary3', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleChestMimic', frames: this.anims.generateFrameNames('bestiary3', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary3', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleChestMimic', frames: this.anims.generateFrameNames('bestiary4', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleChestMimicVore', frames: this.anims.generateFrameNames('bestiary4', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'istaraUnbirth', frames: this.anims.generateFrameNames('bestiary4', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary1', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleBeeDrone', frames: this.anims.generateFrameNames('bestiary1', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary1', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary1', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary1', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary1', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeMaleHM', frames: this.anims.generateFrameNames('bestiary1', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary1', { start: 15, end: 15 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleChestMimic', frames: this.anims.generateFrameNames('bestiary1', { start: 16, end: 16 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary1', { start: 17, end: 17 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleChestMimic', frames: this.anims.generateFrameNames('bestiary1', { start: 18, end:  18 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleChestMimicVore', frames: this.anims.generateFrameNames('bestiary1', { start: 19, end: 19 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'istaraUnbirth', frames: this.anims.generateFrameNames('bestiary2', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'whiteCatMaleTF', frames: this.anims.generateFrameNames('bestiary2', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'whiteCatFemaleTF', frames: this.anims.generateFrameNames('bestiary2', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'whiteCatMaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'whiteCatFemaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
@@ -56,7 +60,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
     bestiaryThat = this;
     this.pageNumber = 0;
-    this.setScale(1/6);
+    this.setScale(.45);
 
     //object contains the text data for the bestiary.
     this.bestiaryTextList = {
@@ -131,6 +135,22 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       istaraUnbirth: {
         title: "ISTARA",
         summary: "A FRIENDLY COBRA DRAGON NAMED ISTARA, HAPPENS TO BE MAKING HER RESIDENCE IN ONE OF THE MANY CAVES ON THIS ISLAND. CURRENTLY SHE IS LOOKING TO EXPAND HER HOARD OF PLUSHIES AND COBRABOLDS. ",
+      },
+      whiteCatMaleTF: {
+        title: "WHITE CAT MALE",
+        summary: "THIS KITTY CAN BUILD UP CURSED ENERGY WHICH IT CAN RELEASE IN ITS ROAR FORMING CURSE HEART. THE HEART PRODUCED BY THIS ROAR WILL SLOWLY TRACK CREATURES IT FINDS SUTABLE TO KISS AND TRANSFORM. YOUR A SILLY LITTLE BOY KISSER ARNT YOU? ",
+      },
+      whiteCatFemaleTF: {
+        title: "WHITE CAT FEMALE",
+        summary: "THOSE WHO COME IN CONTACT WITH THIS CATS CURSED HEARTS WILL BE INFATUATED AND COMPELLED TO MAKE OUT WITH THE CAT WHO CREATED THE CURSED HEART. ITS AS IF THE DESIRES OF THE CAT ARE BEING IMPRINTED ONTO ITS TARGETED CREATURE. YOUR A SILLY LITTLE GIRL KISSER ARNT YOU?",
+      },
+      whiteCatMaleVore: {
+        title: "CHUBBY CAT MALE",
+        summary: "WHEN A CAT BECOMES FRUSTRATED WITH A CREATURE ITS TRYING TO CURSE, IT WILL GET FED UP AND ATTEMPT TO CONSUME THE CREATURE. USING ITS POWERFUL PAWS TO KNOCK ITS PREY DOWN. YOU LIKE BEING BOY BELLY FAT DONT YOU? :3",
+      },
+      whiteCatFemaleVore: {
+        title: "CHUBBY CAT FEMALE",
+        summary: "ONCE ITS PREY HAS BEEN COMPLETELY SWALLOWED, IT LOVES RUBBING ITS ENGOURGED TUMMY UNTIL ITS PREY IS NOTHING MORE THAN BELLY FAT. YOU LIKE BEING GIRL BELLY FAT DONT YOU? :3 ",
       },
 
       back: {
@@ -224,7 +244,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       console.log("this.isOpen from bestiary " + this.isOpen);
       this.anims.play(this.activeBestiaryPages[this.pageNumber]);
       this.openDelay = true;
-      this.setScale(0.45);
+      this.setScale(.9);
       this.setDepth(60);
 
       this.x = this.openX;
@@ -262,7 +282,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
-      this.setScale(.21);
+      this.setScale(.45);
       this.setDepth(52);
 
       this.x = this.originalX;

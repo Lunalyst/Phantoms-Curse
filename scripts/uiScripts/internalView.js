@@ -43,6 +43,13 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'mimicClimax',frames: this.anims.generateFrameNames('mimicPenning', { start: 20, end: 28 }),frameRate: 6  ,repeat: 0});
         this.anims.create({key: 'playerClimaxInMimic',frames: this.anims.generateFrameNames('mimicPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 
+      }else if(type === "whitecat"){
+        this.anims.create({key: 'whitecatPening1',frames: this.anims.generateFrameNames('whitecatPenning', { start: 1, end: 7 }),frameRate: 10,repeat: -1});
+        this.anims.create({key: 'whitecatPening2',frames: this.anims.generateFrameNames('whitecatPenning', { start: 1, end: 7 }),frameRate: 16,repeat: -1});
+        this.anims.create({key: 'whitecatPening3',frames: this.anims.generateFrameNames('whitecatPenning', { start: 1, end: 7 }),frameRate: 20,repeat: -1});
+        this.anims.create({key: 'whitecatClimax',frames: this.anims.generateFrameNames('whitecatPenning', { start: 20, end: 28 }),frameRate: 6  ,repeat: 0});
+        this.anims.create({key: 'playerClimaxInWhitecat',frames: this.anims.generateFrameNames('whitecatPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
+
       }
 
      

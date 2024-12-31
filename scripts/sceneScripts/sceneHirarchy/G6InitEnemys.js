@@ -179,7 +179,18 @@ class G6InitEnemys extends G5InitNPCs{
     }else if(enemyType === 'whiteCat'){
       
       //creates a secondary group to handle enemy specific interactions which we will use later
-      let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
+      let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode);
+      console.log("cat.enemyId: ",cat.enemyId);
+      this.enemyId++;
+      //adds the enemy to both groups.
+      this.enemys.add(cat);
+      this.whiteCats.add(cat);
+    }else if(enemyType === 'angryWhiteCat'){
+      
+      //creates a secondary group to handle enemy specific interactions which we will use later
+      let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode);
+      cat.angry = true;
+      cat.anims.play('catAngryidleViewer',true);
       console.log("cat.enemyId: ",cat.enemyId);
       this.enemyId++;
       //adds the enemy to both groups.

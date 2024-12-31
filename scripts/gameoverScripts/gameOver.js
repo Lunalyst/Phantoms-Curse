@@ -329,6 +329,18 @@ class gameOver extends A3SoundEffects {
                 //this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver(1);
                 this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleTF"){
+                this.preferance = 0;
+                this.enemy = new whiteCat(this,450, 570,this.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                this.enemy.gameOver(0);
+                this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleVore"){
+                this.preferance = 0;
+                this.enemy = new whiteCat(this,450, 570,this.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                this.enemy.gameOver(1);
+                this.defeatedTitle = 'eaten';
             }
             
             
@@ -500,9 +512,12 @@ class gameOver extends A3SoundEffects {
                  this.enemyThatDefeatedPlayer === "femaleChestMimic"||
                  this.enemyThatDefeatedPlayer === "femaleChestMimicVore" ||
                  this.enemyThatDefeatedPlayer === "maleChestMimic"||
-                 this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
+                 this.enemyThatDefeatedPlayer === "maleChestMimicVore"||
+                this.enemyThatDefeatedPlayer === "whiteCatFemaleVore" ||
+                this.enemyThatDefeatedPlayer === "whiteCatMaleVore"){
+                    
                 this.enemy.playJumpySound('10',800);
-            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth" || this.enemyThatDefeatedPlayer === "whiteCatFemaleVore"){
+            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
                 this.enemy.playJumpySound('10',600);
             }
             

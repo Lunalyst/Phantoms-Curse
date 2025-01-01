@@ -371,7 +371,12 @@ class A1SaveAndLoad extends Phaser.Scene {
     femaleChestMimic: 0,
     femaleChestMimicVore: 0,
     maleChestMimic: 0,
-    maleChestMimicVore: 0
+    maleChestMimicVore: 0,
+    whiteCatMaleTF: 0,
+    whiteCatMaleVore: 0,
+    whiteCatFemaleTF: 0,
+    whiteCatFemaleVore: 0
+
  };
 
  let playerSkillsData = {
@@ -688,19 +693,26 @@ for(let counter = 0; counter < 50; counter++){
       let playerBestiaryData = {
         blueSlime:0,
         largeBlueSlime:0,
-        axolotlMale:0,
-        axolotlfemale:0,
-        largePurpleSlugFemale:0,
-        largePurpleSlugMale:0,
-        rabbitfemale:0,
-        rabbitMale:0,
-        cowFemale:0,
-        cowMale:0,
-        blueSlimeHumanoidFemale:0,
-        blueSlimeHumanoidFemaleLarge:0,
-        sharkFemale:0,
-        sharkMale:0
-      };
+        femaleTiger:0,
+        maleRabbit:0,
+        femaleRabbit:0,
+        maleBeeDrone:0,
+        femaleBeeDrone:0,
+        maleBat:0,
+        femaleBat:0,
+        blueSlimeHS: 0,
+        blueSlimeMaleHM: 0,
+        blueSlimeFemaleHM: 0,
+        femaleChestMimic: 0,
+        femaleChestMimicVore: 0,
+        maleChestMimic: 0,
+        maleChestMimicVore: 0,
+        whiteCatMaleTF: 0,
+        whiteCatMaleVore: 0,
+        whiteCatFemaleTF: 0,
+        whiteCatFemaleVore: 0
+    
+     };
 
       dataObject.playerBestiaryData = playerBestiaryData;
     }

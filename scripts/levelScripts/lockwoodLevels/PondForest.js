@@ -52,6 +52,8 @@ class PondForest extends defaultScene {
       
       this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
 
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      
 
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -129,6 +131,8 @@ class PondForest extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -169,6 +173,8 @@ class PondForest extends defaultScene {
 
       //this.initPortals(794,1501-13,637,605,"door2","DevRoom1");
 
+      this.fakeWarp1 = new fakeWarp(this,5039,1149-13,'warpCaveOutsideRubble');
+
 
       this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
       this.secretWall1.setDepth(7);
@@ -191,6 +197,19 @@ class PondForest extends defaultScene {
       this.setUpCursedHeartProjectiles();
       this.setUpCursedHeartsProjectilesBarriers()
 
+      //make a temp object
+      let object1 = {
+        flagToFind: "lunaProtoDialogue1",
+        foundFlag: false,
+      };
+
+      let object2 = {
+        flagToFind: "lunaProtoDialogue2",
+        foundFlag: false,
+      };
+
+      this.initLunalyst(4966,1149,'clearingTheWay');
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
@@ -211,7 +230,7 @@ class PondForest extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       
       //calls the built in update function

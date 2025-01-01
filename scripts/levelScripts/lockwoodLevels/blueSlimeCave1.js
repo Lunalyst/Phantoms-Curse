@@ -27,7 +27,6 @@ class blueSlimeCave1 extends defaultScene {
       
       this.load.spritesheet('slimeSpike', 'assets/gameObjects/slimeSpike.png',{frameWidth: 93, frameHeight: 162 });
       this.load.spritesheet('slimeProjectile', 'assets/gameObjects/slimeBall.png',{frameWidth: 99, frameHeight: 99 });
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
@@ -46,9 +45,6 @@ class blueSlimeCave1 extends defaultScene {
       this.load.spritesheet('blue-slime-HF-F', 'assets/enemys/blue-slime-humanoid-female-female.png',{frameWidth: 243, frameHeight: 393 });
 
       this.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
-       
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-      
 
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
@@ -188,18 +184,7 @@ class blueSlimeCave1 extends defaultScene {
       this.initBarrier(776,982-30,20,180);
       //this.initBarrier(661,669-30,30,180);
 
-      //make a temp object
-      let object1 = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-
-      let object2 = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-
-      this.initLunalyst(1730,573,'clearingTheWay');
+      
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

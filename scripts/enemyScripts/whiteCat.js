@@ -1486,7 +1486,9 @@ class whiteCat extends enemy {
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
 
                 if(this.scene.playerSex === 0){
-                    this.scene.internalView.anims.play("playerClimaxInWhitecat");
+                    this.scene.internalView.anims.play("playerClimaxInWhitecat").once('animationcomplete', () => {
+                        this.scene.internalView.destroy();
+                    });
                  }
 
                 this.animationPlayed = true;
@@ -1494,9 +1496,7 @@ class whiteCat extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-                    if(this.scene.playerSex === 0){
-                        this.scene.internalView.destroy();
-                    }
+                   
                 });
             }
            

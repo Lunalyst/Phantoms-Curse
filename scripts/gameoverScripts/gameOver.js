@@ -181,9 +181,12 @@ class gameOver extends A3SoundEffects {
                 this.processMap.layer3.setPipeline('Light2D');
 
             }else if(this.gameoverLocation === 'forestGameover'){
+                this.lightingSystemActive = false;
+
                 this.processMap.tilesetNameInTiled = "Forest_Tileset";
                 this.processMap.setTiles('forest_source_map',this);
             }else if(this.gameoverLocation === 'hiveGameover'){
+                this.lightingSystemActive = false;
                 this.processMap.tilesetNameInTiled = "Hive_Tileset";
                 this.processMap.setTiles('hive_source_map',this);
             }else if(this.gameoverLocation === 'istaraGameover'){

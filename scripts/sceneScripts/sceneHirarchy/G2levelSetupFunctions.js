@@ -99,7 +99,9 @@ class G2levelSetupFunctions extends G1PlayerInputs {
       this.player1.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
     }else{
       this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+      this.player1.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
       this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+      this.player1.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
     }
 
   }

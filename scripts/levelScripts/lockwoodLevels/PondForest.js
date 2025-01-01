@@ -34,13 +34,24 @@ class PondForest extends defaultScene {
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
       
+      this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
       this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
+      
       this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
 
+      this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
+      this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
+      
       this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
       
       this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
+
 
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -53,6 +64,20 @@ class PondForest extends defaultScene {
 
       this.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
         "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
+        "audio/used-audio/waterfall-sounds/waterfall.mp3"
+      ]);
+
+      //weapon sound effects
+      this.load.audioSprite('weaponSFX1','audio/used-audio/player-sounds/weapon-swings.json',[
+        "audio/used-audio/player-sounds/weapon-swings.mp3"
+      ]);
+
+      //hit sfx for when player gets hit.
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
     }
@@ -84,6 +109,9 @@ class PondForest extends defaultScene {
 
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1);
+
+      this.initLoopingSound('waterfallSFX','waterfall', 0.01);
+      //
 
       this.initLoopingSound('forestThemeSFX','bertsz',0.01);
 
@@ -139,7 +167,7 @@ class PondForest extends defaultScene {
 
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
 
-      this.initPortals(794,1501-13,637,605,"door2","DevRoom1");
+      //this.initPortals(794,1501-13,637,605,"door2","DevRoom1");
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
@@ -168,7 +196,7 @@ class PondForest extends defaultScene {
       setTimeout(function(){
 
           thisScene.initEnemy(1497,1789,thisScene.playerSex,'whiteCat',false); 
-          thisScene.initEnemy(3689,1693,thisScene.playerSex,'whiteCat',false);         
+          thisScene.initEnemy(4089,1693,thisScene.playerSex,'whiteCat',false);         
           thisScene.spawnedEnemys = true;
         },1000);
 

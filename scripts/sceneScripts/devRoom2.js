@@ -31,11 +31,15 @@ class devRoom2 extends defaultScene {
      
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       
-      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-
       this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
+      
+      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
       this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+      this.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
 
       this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
       this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
@@ -101,9 +105,6 @@ class devRoom2 extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
-
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 
@@ -166,7 +167,7 @@ class devRoom2 extends defaultScene {
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
+          //thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
       
           thisScene.spawnedEnemys = true;
         },1000);

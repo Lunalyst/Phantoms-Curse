@@ -287,8 +287,17 @@ class G6InitEnemys extends G5InitNPCs{
         //play hit sound effect for when the enemy hits the player
         this.initSoundEffect('woodBarrierSFX','woodHit',0.5);
 
-        healthEmitter.emit(healthEvent.loseHealth,5);
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+          playerHealth: null
+      };
 
+      //gets the hp value using a emitter
+      healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+        if(playerHealthObject.playerHealth-5 > 0){
+          healthEmitter.emit(healthEvent.loseHealth,5);
+        }
       }
 
       //plays sfx for player being stuck

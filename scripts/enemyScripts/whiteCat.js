@@ -63,7 +63,9 @@ class whiteCat extends enemy {
         this.enemyHP = 70;
 
         this.angry = false;
-        this.angerThreshold = 60;
+        this.angryTransition = false;
+        this.angerThreshold = 30;
+
 
         //console.log("this.enemySex: ",this.enemySex," sex ", sex);
 
@@ -91,7 +93,6 @@ class whiteCat extends enemy {
             this.anims.create({ key: 'catAttackEnd', frames: this.anims.generateFrameNames('whitecat-male-male-vore', { start: 24, end: 26 }), frameRate: 8, repeat: 0 });
 
             if(sex === 0 ){
-
                 this.anims.create({ key: 'catGrabStart', frames: this.anims.generateFrameNames('whitecat-male-male-tf', { start: 26+3, end: 31+3 }), frameRate: 8, repeat: 0 }); 
                 this.anims.create({ key: 'catGrab', frames: this.anims.generateFrameNames('whitecat-male-male-tf', { start: 32+3, end: 41+3 }), frameRate: 8, repeat: -1 }); 
                 this.anims.create({ key: 'catDefeatedPlayer', frames: this.anims.generateFrameNames('whitecat-male-male-tf', { start: 45, end: 49 }), frameRate: 8, repeat: 0 });
@@ -111,7 +112,23 @@ class whiteCat extends enemy {
                     
 
             }else{
+                this.anims.create({ key: 'catGrabStart', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 26+3-29, end: 31+3-29 }), frameRate: 8, repeat: 0 }); 
+                this.anims.create({ key: 'catGrab', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 32+3-29, end: 41+3-29 }), frameRate: 8, repeat: -1 }); 
+                this.anims.create({ key: 'catDefeatedPlayer', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 45-29, end: 49-29 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeated1', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 50-29, end: 53-29 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catGrabDefeated2', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 53-29, end: 56-29 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'catGrabDefeated3', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 57-29, end: 64-29 }), frameRate: 5, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeated4', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 65-29, end: 68-29 }), frameRate: 8, repeat: -1 });
+    
+                this.anims.create({ key: 'catGameoverTF', frames: this.anims.generateFrameNames('whitecat-male-female-tf', { start: 69-29, end: 72-29 }), frameRate: 5, repeat: -1 });
 
+                this.anims.create({ key: 'catBeginFaceSit', frames: this.anims.generateFrameNames('whitecat-male-female-vore', { start: 27-27, end: 31-27 }), frameRate: 8, repeat: 0 });
+
+                this.anims.create({ key: 'catFaceSit', frames: this.anims.generateFrameNames('whitecat-male-female-vore', { start: 32-27, end: 35-27 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catDefeatedPlayerVore', frames: this.anims.generateFrameNames('whitecat-male-female-vore', { start: 36-27, end: 41-27 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'catGrabDefeatedVore1', frames: this.anims.generateFrameNames('whitecat-male-female-vore', { start: 42-27, end: 45-27 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'catGrabDefeatedVore2', frames: this.anims.generateFrameNames('whitecat-male-female-vore', { start: 46-27, end: 58-27 }), frameRate: 8, repeat: 0 });
+                    
             }
 
             this.anims.create({ key: 'catGrabDefeatedVore3', frames: this.anims.generateFrameNames('whitecat-male-male-vore', { start: 59, end: 62 }), frameRate: 8, repeat: -1 });
@@ -167,6 +184,23 @@ class whiteCat extends enemy {
 
                     
                 }else{
+                    this.anims.create({ key: 'catGrabStart', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 26+3-29, end: 31+3-29 }), frameRate: 8, repeat: 0 }); 
+                    this.anims.create({ key: 'catGrab', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 32+3-29, end: 41+3-29 }), frameRate: 8, repeat: -1 }); 
+                    this.anims.create({ key: 'catDefeatedPlayer', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 42+3-29, end: 48+3-29 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeated1', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 49+3-29, end: 52+3-29 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeated2', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 53+3-29, end: 56+3-29 }), frameRate: 12, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeated3', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 57+3-29, end: 63+3-29 }), frameRate: 6, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeated4', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 64+3-29, end: 67+3-29 }), frameRate: 5, repeat: -1 });
+
+                    this.anims.create({ key: 'catGameoverTF', frames: this.anims.generateFrameNames('whitecat-female-female-tf', { start: 68+3-29, end: 71+3-29 }), frameRate: 5, repeat: -1 });
+
+                    this.anims.create({ key: 'catBeginFaceSit', frames: this.anims.generateFrameNames('whitecat-female-female-vore', { start: 27-27, end: 31-27 }), frameRate: 8, repeat: 0 });
+
+                    this.anims.create({ key: 'catFaceSit', frames: this.anims.generateFrameNames('whitecat-female-female-vore', { start: 32-27, end: 35-27 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catDefeatedPlayerVore', frames: this.anims.generateFrameNames('whitecat-female-female-vore', { start: 36-27, end: 41-27 }), frameRate: 8, repeat: 0 });
+                    this.anims.create({ key: 'catGrabDefeatedVore1', frames: this.anims.generateFrameNames('whitecat-female-female-vore', { start: 42-27, end: 45-27 }), frameRate: 8, repeat: -1 });
+                    this.anims.create({ key: 'catGrabDefeatedVore2', frames: this.anims.generateFrameNames('whitecat-female-female-vore', { start: 46-27, end: 58-27 }), frameRate: 8, repeat: 0 });
+                    
 
                 }
 
@@ -399,9 +433,11 @@ class whiteCat extends enemy {
                 if(this.animationPlayed === false){
                     this.animationPlayed = true;
                     this.scene.initSoundEffect("whiteCatSFX","sad",0.3);
+                    this.angryTransition = true;
 
                     this.anims.play('catAngryidle').once('animationcomplete', () => {
                         console.log("cat now angry");
+                        this.angryTransition = false;
                         this.angry = true;
                         this.animationPlayed = false;
                         this.hitboxActive = false;
@@ -1172,7 +1208,7 @@ class whiteCat extends enemy {
     // controls the damage resistance of the cat.
     damage() {
         this.setVelocityX(0);
-        if (this.damageCoolDown === false) {
+        if (this.damageCoolDown === false && this.angryTransition === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
@@ -1458,7 +1494,9 @@ class whiteCat extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-                    this.scene.internalView.destroy();
+                    if(this.scene.playerSex === 0){
+                        this.scene.internalView.destroy();
+                    }
                 });
             }
            

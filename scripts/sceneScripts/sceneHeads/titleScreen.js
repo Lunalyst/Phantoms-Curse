@@ -122,6 +122,7 @@ class titleScreen extends A3SoundEffects {
                 '- HARE-RAISING HARMONIES',
                 '- PAWS AND WAIT',
                 '- WHATS GOOD SLIME',
+                'KASHINDOLLY: ORTHOGRAPHER',
                 'ISTARA: COMMISSION AND INSPIRATION',
                 'ZEBBY: INSPIRATION, BUG TESTING',
                 'DRACHEN: INSPIRATION,  BUG TESTING',

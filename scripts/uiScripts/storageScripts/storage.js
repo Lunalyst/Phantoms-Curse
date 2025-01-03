@@ -21,7 +21,7 @@ class storage extends Phaser.GameObjects.Container{
       this.activeSlot2 = -2;
       //value for determining what the slot offset should be, we currently have weapon, and ring slot, so we 
       // should have 2 as the offset.
-      this.slotOffset = 2
+      this.slotOffset = 4
       this.storageArray = [];
 
       //when adding new pages, we need this variable to tell what page we are on.
@@ -64,6 +64,26 @@ class storage extends Phaser.GameObjects.Container{
       console.log('created the inevntory in the for the player');
       
       this.visible = false;
+
+      //creates the buttons on the left and right of the storage so we can navigate the pages
+      this.bestiaryLeft;
+      this.bestiaryRight;
+      this.bestiaryLeft = new UIControls(scene, 45,  170, "UIControls").setInteractive();
+      this.bestiaryLeft.anims.play("pointLeft");
+      this.bestiaryLeft.visible = false;
+      this.add(this.bestiaryLeft);
+
+      this.bestiaryRight = new UIControls(scene,45 + 350, 170, "UIControls").setInteractive();
+      this.bestiaryRight.anims.play("pointRight");
+      this.bestiaryRight.visible = false;
+      this.add(this.bestiaryRight);
+
+      this.pageNumber = 0;
+      this.maxPageNumber = (scene.inventoryDataArray.length - 3) / 24;
+
+      this.storageLabel = new makeText(scene,45 + (350)/2,170+35,'charBubble',""+this.pageNumber);
+      this.storageLabel.setScale(1.5);
+      this.add(this.storageLabel);
     }
     
     // function opens the storage ui. has a delay so that the player cant quickly open the inventory
@@ -98,6 +118,19 @@ class storage extends Phaser.GameObjects.Container{
             setTimeout(function(){
                 storageThat.openDelay = false; 
               },1000);
+
+              //code to handle storage page button visibility
+              if (this.pageNumber === 0) {
+                //this.bestiaryLeft.visible = false;
+                this.bestiaryLeft.visible = true;
+                this.bestiaryRight.visible = true;
+              }/* else if (this.pageNumber === this.activeBestiaryPages.length - 1) {
+                this.bestiaryLeft.visible = true;
+                this.bestiaryRight.visible = false;
+              } else {
+                this.bestiaryLeft.visible = true;
+                this.bestiaryRight.visible = true;
+              }*/
 
         // otherwise if inventory is open then
         }else if(this.isOpen === true && this.openDelay === false){
@@ -137,6 +170,9 @@ class storage extends Phaser.GameObjects.Container{
               console.log("openDelay set to false");
                 storageThat.openDelay = false; 
               },1000);
+
+              this.bestiaryLeft.visible = false;
+              this.bestiaryRight.visible = false;
 
         }
 
@@ -235,7 +271,7 @@ class storage extends Phaser.GameObjects.Container{
       }
 
        //loops through all slots to set the correct number 
-       for(let counter = 0; counter < 47 ;counter++){
+       for(let counter = 0; counter <= 47 ;counter++){
         this.storageArray[counter].number1.visible = this.isOnScreen;
         this.storageArray[counter].number2.visible = this.isOnScreen;
 
@@ -291,7 +327,7 @@ class storage extends Phaser.GameObjects.Container{
     setPageValue(number){
 
       //if number is above 26, then we are working with storage, so modify based on page.
-      if(number > 23){
+      if(number > 24){
         return (number + this.slotOffset)+ (this.itemPage * 24);
 
       //otherwise return the value + the offset.

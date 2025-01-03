@@ -417,7 +417,7 @@ class A1SaveAndLoad extends Phaser.Scene {
 this.inventoryArray  = [];
 
 //fills the array with objects
-for(let counter = 0; counter < 50; counter++){
+for(let counter = 0; counter <=100; counter++){
 
     //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
     //are not refrencing the same object like it would be if this variable was defined outside this for loop.
@@ -426,7 +426,8 @@ for(let counter = 0; counter < 50; counter++){
         itemName: ' ',
         itemDescription: ' ',
         itemStackable: 1,
-        itemAmount: 0 
+        itemAmount: 0 ,
+        itemType: ""
      };
 
     this.inventoryArray.push(item);
@@ -681,6 +682,23 @@ for(let counter = 0; counter < 50; counter++){
             itemAmount: 0 
           };
         }
+      }
+
+      //if inventory does not have 100 slots, then add those slots.
+      for(let counter = dataObject.inventoryArray.length; counter < 100 ; counter++){
+
+        //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+        //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+        let item = {
+            itemID: 0,
+            itemName: ' ',
+            itemDescription: ' ',
+            itemStackable: 1,
+            itemAmount: 0 ,
+            itemType: ""
+        };
+
+        dataObject.inventoryArray.push(item);
       }
     }
 

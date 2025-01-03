@@ -277,7 +277,6 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
         this.bestiaryRight.visible = true;
         this.setBestiaryInfo();
         this.displayBestiaryText(true);
-
       }
       //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {

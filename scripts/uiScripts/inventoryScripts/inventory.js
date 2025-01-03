@@ -23,6 +23,8 @@ class inventory extends Phaser.GameObjects.Container{
       //setting inventory objects
       this.weaponLabel;
       this.ringLabel;
+      this.ammoLabel;
+      this.costumeLabel;
       this.bestiaryLabel;
       this.skillLabel;
       this.inventoryBorder;
@@ -37,6 +39,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.scene = scene;
 
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+
+      this.numberOfInventorySlots = 28;
 
       //setting the interior object of the inventory as a back drop for other objects.
       this.inventoryInterior.setScale(0.26);
@@ -61,10 +65,12 @@ class inventory extends Phaser.GameObjects.Container{
       let row = 0;
 
       //weapon slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-120,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y-125-3,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.weaponLabel = new inventoryLabels(scene,this.x+180,this.y-75, 'inventoryLabels');
+      this.weaponLabel = new makeText(scene,this.x+160,this.y-145,'charBubble',"WEAPON");
+      this.weaponLabel.visible = false;
+      this.weaponLabel.setScale(2/3);
       this.inventoryElements.add(this.weaponLabel);
       this.add(this.weaponLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
@@ -76,18 +82,51 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
 
       //ring slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+180,this.y-50,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y-60-3,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ringLabel = new inventoryLabels(scene,this.x+180,this.y-5,'Labels');
+      this.ringLabel = new makeText(scene,this.x+170,this.y-77-3,'charBubble',"RING");
+      this.ringLabel.visible = false;
+      this.ringLabel.setScale(2/3);
       this.inventoryElements.add(this.ringLabel);
       this.add(this.ringLabel);
-      this.ringLabel.anims.play('ring');
       this.inventoryElements.add(this.inventoryArray[index].number1);
       this.add(this.inventoryArray[index].number1);
       this.inventoryElements.add(this.inventoryArray[index].number2);
       this.add(this.inventoryArray[index].number2);
+      
+      index++;
 
+      //ammo slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y+5-3,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.ammoLabel = new makeText(scene,this.x+170,this.y-15,'charBubble',"AMMO");
+      this.ammoLabel.visible = false;
+      this.ammoLabel.setScale(2/3);
+      this.inventoryElements.add(this.ammoLabel);
+      this.add(this.ammoLabel);
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+      
+      index++;
+
+      //ammo slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y+65,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.costumeLabel = new makeText(scene,this.x+160,this.y+50-3,'charBubble',"VANITY");
+      this.costumeLabel.visible = false;
+      this.costumeLabel.setScale(2/3);
+      this.inventoryElements.add(this.costumeLabel);
+      this.add(this.costumeLabel);
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+      
       index++;
       
       //nested for loop that generates rows and collums of the inventory slots.
@@ -383,6 +422,12 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
       this.inventoryArray[index].clearTint();
       index++;
+      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
+      index++;
+      this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
+      this.inventoryArray[index].clearTint();
+      index++;
       
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
@@ -396,7 +441,7 @@ class inventory extends Phaser.GameObjects.Container{
       
 
        //loops through all slots to set the correct number 
-       for(let counter = 0; counter < 26 ;counter++){
+       for(let counter = 0; counter < this.numberOfInventorySlots ;counter++){
         this.inventoryArray[counter].number1.visible = this.isOnScreen;
         this.inventoryArray[counter].number2.visible = this.isOnScreen;
 
@@ -414,7 +459,7 @@ class inventory extends Phaser.GameObjects.Container{
       console.log("this.inventoryArray: ", this.inventoryArray);
       let activeSlot = 0;
       // applys  lightupslot function to slots when clicked.
-      for(let counter = 0; counter <= 25;counter++){
+      for(let counter = 0; counter <= this.numberOfInventorySlots-1;counter++){
         // code that handles applying interaction on slots
         this.inventoryArray[counter].on('pointerdown', function (pointer) {
           activeSlot = counter;
@@ -464,24 +509,96 @@ class inventory extends Phaser.GameObjects.Container{
           //if the current slot is not highlighted and there is no slots selected for either of the two active slots, then
           if(this.inventoryArray[activeSlot].isLitUp === false && this.activeSlot1 === -1 || this.activeSlot2 === -2){
 
-            //light up slot by setting bool to true.
-            this.inventoryArray[activeSlot].isLitUp = true;
-
-            //light up slot animation which is always item id + 1
-            this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
-            this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+            
 
             //if the player selects a slot and there is no slot in active lost 1, and the slot does not equal the second slot, then
             if(this.activeSlot1 === -1 && this.activeSlot1 !== activeSlot && activeSlot !== this.activeSlot2){
+              //light up slot by setting bool to true.
+              this.inventoryArray[activeSlot].isLitUp = true;
 
+              //light up slot animation which is always item id + 1
+              this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+              //here as well, maybe?
+              //yese we need the inverse of  the case below.
               //then set the selected slot equal to the active slot.
               this.activeSlot1 = activeSlot;
 
             //if the second slot is empty and does not equal the active slot and the active slot does not equal the first switching slot, then
             }else if(this.activeSlot2 === -2 && this.activeSlot2 !== activeSlot && activeSlot !== this.activeSlot1){
+              //console.log("second slot logic this.activeSlot1: ",this.activeSlot1);
+             // console.log("second slot logic this.inventoryArray: ",this.inventoryArray);
+              console.log("second slot logic scene.inventoryDataArray[this.activeSlot1].itemType: ",scene.inventoryDataArray[this.activeSlot1].itemType);
 
-              // then set the current activeslot2 to the active slot so that they can be switched with the activeslot1
-              this.activeSlot2 = activeSlot;
+              //here is where we need protection logic to stop items going in equip slots that arnt of the equip slot type.
+              //this is half the solution, as this only covers when the protected slot is selected second.
+              //if the active slot is the weapon slot and the item in this.activeslot1 is a weapon
+              if(
+                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "weapon") || // case where the first slot is a weapon object, and the second slot is the weapon slot.
+                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "weapon") || // case where the first slot is the weapon slot, and the second slot is a weapon object
+                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "") || // case where first slot is the weapon slot and the second is a blank slot.
+                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "")    //case where first los is blank and second slot is weapon.
+              ){
+
+                //then set active slot 2, and allow for the swap to occur
+                //light up slot by setting bool to true.
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+
+              //same logic for ring
+              }else if(
+                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "ring") ||
+                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "ring") ||
+                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "") || 
+                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "")    
+                 ){
+
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+
+              //same logic for ammo
+              }else if(
+                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "ammo") || 
+                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "ammo") ||
+                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "") || 
+                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "")  
+              ){
+
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+
+              //same logic for vanity
+              }else if(
+                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "vanity") ||
+                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "vanity") ||
+                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "") || 
+                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "")  
+              ){
+
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+              
+              //if we arnt trying to move a item into the equip slots, then highlight the correct slot.
+              //case needs to ensure the active slot is not 0,1,2, or 3
+              }else if((activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) && (this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)){
+
+                console.log(" non protected slot swap detected.");
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+
+              //lastly if we fail all cases above, then a invalid item swap was attempted, so do nothing.
+              }else{
+                console.log(" invalid swap detected! ");
+              }
+
+              //light up slot animation which is always item id + 1
+              this.inventoryArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              
 
             //if the active slot matches the activeslot1 then
             }else if(activeSlot === this.activeSlot1){
@@ -525,7 +642,8 @@ class inventory extends Phaser.GameObjects.Container{
               itemName: ' ',
               itemDescription: ' ',
               itemStackable: 1,
-              itemAmount: 0 
+              itemAmount: 0,
+              itemType:""
            };
 
            //adds the amount to the second object

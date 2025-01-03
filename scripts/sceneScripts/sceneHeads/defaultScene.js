@@ -34,6 +34,10 @@ class defaultScene extends G10UpdateLoops {
         "audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
       ]);
 
+      this.load.audioSprite('jumpySFX1','audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.json',[
+        "audio/used-audio/jumpy-anime-sounds/jumpy-anime-sounds.mp3"
+      ]);
+
       this.load.audioSprite('creakSFX','audio/used-audio/wood-creak-sounds/wood-creak-sounds.json',[
         "audio/used-audio/wood-creak-sounds/wood-creak.mp3"
       ]);

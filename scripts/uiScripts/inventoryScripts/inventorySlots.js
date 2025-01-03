@@ -24,6 +24,11 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '13',frames: this.anims.generateFrameNames('inventorySlots', { start: 13, end: 13 }),frameRate: 10,repeat: -1});
       this.anims.create({key: '14',frames: this.anims.generateFrameNames('inventorySlots', { start: 14, end: 14 }),frameRate: 10,repeat: -1});
       this.anims.create({key: '15',frames: this.anims.generateFrameNames('inventorySlots', { start: 15, end: 15 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '16',frames: this.anims.generateFrameNames('inventorySlots', { start: 16, end: 16 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '17',frames: this.anims.generateFrameNames('inventorySlots', { start: 17, end: 17 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '18',frames: this.anims.generateFrameNames('inventorySlots', { start: 18, end: 18 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '19',frames: this.anims.generateFrameNames('inventorySlots', { start: 19, end: 19 }),frameRate: 10,repeat: -1});
+
       this.anims.play("empty");
       this.animsNumber = 0;
       this.slotId = 0;

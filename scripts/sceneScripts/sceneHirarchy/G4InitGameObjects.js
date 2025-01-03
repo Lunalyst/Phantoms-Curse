@@ -135,9 +135,10 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
   }
 
   //creates a item drop object in the scene
-  initItemDrop(x, y,itemID,itemStackable,itemAmount) {
+  initItemDrop(x, y,itemID,itemStackable,itemAmount,itemName,itemDescription,itemType) {
     //creates a item drop
-    let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount);
+    console.log("itemType: ",itemType);
+    let drop1 = new itemDrop(this, x, y,itemID,itemStackable,itemAmount,itemName,itemDescription,itemType);
     //adds it to the item drop group
     //drop1.body.setGravityY(600);
     this.itemDrops.add(drop1);

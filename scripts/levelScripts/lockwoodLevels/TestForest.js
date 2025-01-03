@@ -147,7 +147,8 @@ class TestForest extends defaultScene {
           itemName: 'SPEED RING',
           itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
           itemStackable: 0,
-          itemAmount: 1
+          itemAmount: 1,
+          itemType: "ring"
         };
     
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.

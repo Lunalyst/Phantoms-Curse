@@ -150,6 +150,13 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop");
+      this.initItemDrop(1038,670,13,1,2,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop");
+      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop");
+      this.initItemDrop(1058,650,15,1,10,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop");
+      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo");
+      this.initItemDrop(1078,630,17,1,32,"STINGER","FULL OFF BEE VENOM.","drop");
+
        //sets up enemy colliders and groups
        this.enemyGroupArray = ["whiteCats"];
        this.setUpEnemyCollider(this.enemyGroupArray);

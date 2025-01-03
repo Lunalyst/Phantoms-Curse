@@ -507,8 +507,10 @@ for(let counter = 0; counter < 50; counter++){
     }else{
 
       // loop through inventory and apply correct item values
+      //also can be used to update attributes of some item values
       let dupes = [0,0,0,0,0,0,0]
-      for(let counter = 0; counter < 26; counter++){
+      for(let counter = 0; counter < dataObject.inventoryArray.length; counter++){
+
         if(dataObject.inventoryArray[counter].itemID === 0 ){
 
           dataObject.inventoryArray[counter] = {
@@ -516,7 +518,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0,
+            itemType: "",
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
@@ -528,7 +531,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'OAR',
             itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "weapon"
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
@@ -540,7 +544,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'KNIFE',
             itemDescription: 'GOOD FOR SLASHING MONSTERS.',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "weapon"
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
@@ -552,7 +557,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'SPEED RING',
             itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "ring"
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
@@ -564,7 +570,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'AXE',
             itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "weapon"
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
@@ -576,7 +583,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'RAPIER',
             itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "weapon"
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
@@ -588,7 +596,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'MIMIC RAPIER',
             itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "weapon"
         };
 
 
@@ -601,7 +610,8 @@ for(let counter = 0; counter < 50; counter++){
             itemName: 'MIMIC RING',
             itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
             itemStackable: 0,
-            itemAmount: 1
+            itemAmount: 1,
+            itemType: "ring"
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){

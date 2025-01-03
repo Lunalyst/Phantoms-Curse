@@ -159,6 +159,15 @@ class storage extends Phaser.GameObjects.Container{
           //adds this to a group to set sprite visibility.
           this.inventoryElements.add(this.storageArray[index]);
 
+          //adds the numbers in each slot to the visibility group
+          this.inventoryElements.add(this.storageArray[index].number1);
+          this.add(this.storageArray[index].number1);
+          this.inventoryElements.add(this.storageArray[index].number2);
+          this.add(this.storageArray[index].number2);
+
+          //console.log("this.inventoryArray[index].number1: ",this.storageArray[index].number1);
+          //console.log("this.inventoryArray ",this.inventoryArray);
+
           index++;
         }
       }
@@ -172,6 +181,15 @@ class storage extends Phaser.GameObjects.Container{
           this.add(this.storageArray[index]);
           //adds this to a group to set sprite visibility.
           this.inventoryElements.add(this.storageArray[index]);
+
+          //adds the numbers in each slot to the visibility group
+          this.inventoryElements.add(this.storageArray[index].number1);
+          this.add(this.storageArray[index].number1);
+          this.inventoryElements.add(this.storageArray[index].number2);
+          this.add(this.storageArray[index].number2);
+
+          //console.log("this.inventoryArray[index].number1: ",this.storageArray[index].number1);
+          //console.log("this.inventoryArray ",this.inventoryArray);
 
           index++;
         }
@@ -199,6 +217,7 @@ class storage extends Phaser.GameObjects.Container{
           console.log('first loop scene.inventoryDataArray[',this.setPageValue(index),']: ',scene.inventoryDataArray[this.setPageValue(index)].itemID)
           this.storageArray[index].anims.play(""+scene.inventoryDataArray[this.setPageValue(index)].itemID);
           this.storageArray[index].clearTint();
+          
           index++;
         }
       }
@@ -209,6 +228,8 @@ class storage extends Phaser.GameObjects.Container{
           console.log('second loop scene.inventoryDataArray[',this.setPageValue(index),']: ',scene.inventoryDataArray[this.setPageValue(index)].itemID);
           this.storageArray[index].anims.play(""+scene.inventoryDataArray[this.setPageValue(index)].itemID);
           this.storageArray[index].clearTint();
+          this.storageArray[index].number1.visible = this.isOnScreen;
+          this.storageArray[index].number2.visible = this.isOnScreen;
           index++;
         }
       }

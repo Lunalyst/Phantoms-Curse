@@ -882,7 +882,8 @@ class chestMimic extends enemy {
                             itemName: 'MIMIC RAPIER',
                             itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
                             itemStackable: 0,
-                            itemAmount: 1
+                            itemAmount: 1,
+                            itemType: "weapon"
                         };
 
                         //used to tell if the item was added
@@ -919,7 +920,8 @@ class chestMimic extends enemy {
                                 itemName: 'MIMIC RING',
                                 itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
                                 itemStackable: 0,
-                                itemAmount: 1
+                                itemAmount: 1,
+                                itemType: "ring"
                             };
 
                             //used to tell if the item was added

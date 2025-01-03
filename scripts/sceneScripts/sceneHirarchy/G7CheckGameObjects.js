@@ -85,6 +85,15 @@ class G7CheckGameObjects extends G6InitEnemys {
   checkItemPickUp() {
       
     this.itemDrops.children.each(function (tempItemDrop) {
+
+      //apply bounce effect if hits the ground. is above loop whee object can be destroyed so it doesnt cause an error 
+      if(tempItemDrop.body.blocked.down && tempItemDrop.soundPlayed === false){
+        this.initSoundEffect('jumpySFX1',"3",0.04);
+        tempItemDrop.soundPlayed = true;
+      }else if(!tempItemDrop.body.blocked.down){
+        tempItemDrop.soundPlayed = false;
+      }
+
     //if player overlaps with item then they pick it up
     if ((this.player1.x > tempItemDrop.x - 20 && this.player1.x < tempItemDrop.x + 20) && (this.player1.y > tempItemDrop.y - 20 && this.player1.y < tempItemDrop.y + 20) && this.grabbed === false) {
         console.log("picked up item");
@@ -100,10 +109,13 @@ class G7CheckGameObjects extends G6InitEnemys {
         inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
         console.log("addedToInventory : ", addedToInventory);
         if(addedToInventory.added === true){
+            this.initSoundEffect('jumpySFX1',"2",0.04);
             tempItemDrop.destroy();
         }
 
       } 
+
+      
 
       }, this);
 

@@ -719,9 +719,9 @@ class gameHud extends A3SoundEffects {
             console.log("this.inventoryDataArray: ",this.inventoryDataArray)
             let itemAdded = false;
             //loop through inventory item array to see if the item added already been picked up.
-              for(let counter = 0; counter < 25 ;counter++){
+              for(let counter = 4; counter < this.inventoryDataArray.length ;counter++){
 
-                  //console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.itemID);
+                  console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.itemID);
                   //console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
                   //console.log("this.inventoryDataArray[counter].itemAmount ",this.inventoryDataArray[counter].itemAmount," + item.itemAmount: ",item.itemAmount);
 
@@ -754,9 +754,10 @@ class gameHud extends A3SoundEffects {
               //if the item doesnt exist in the players inventory or that item slot is full, then add it to the nearest item slot that is empty.
               if(itemAdded === false){
                 //loop through inventory item array
-                for(let counter = 0; counter < 25;counter++){
+                for(let counter = 4; counter < this.inventoryDataArray.length;counter++){
 
                   //if the item id is empty then add the new item to that id.
+                  //note, add here a check for the first and second item slot so things that arnt, a weapon, ring, clothing item, or ammo end dont end up in those slots.
                   if(this.inventoryDataArray[counter].itemID === 0 ){
                     //adds the item to the item in the inventory.
                     this.inventoryDataArray[counter] = item;
@@ -768,6 +769,9 @@ class gameHud extends A3SoundEffects {
                   }
                 }
               }
+
+              //if the player inventory is full, then place the item in the players storage.
+              //but first you have to check if the players storage has space.
 
               addedToInventory.added = itemAdded;
               console.log("addedToInventory.added: ",addedToInventory.added)

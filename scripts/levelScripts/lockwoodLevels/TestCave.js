@@ -157,7 +157,8 @@ class TestCave extends defaultScene {
                 itemName: 'AXE',
                 itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
                 itemStackable: 0,
-                itemAmount: 1
+                itemAmount: 1,
+                itemType: "weapon"
             };
             
             //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.

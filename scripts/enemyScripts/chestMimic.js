@@ -896,6 +896,10 @@ class chestMimic extends enemy {
                 
                         //now to add the flag to the player data so the player cant open this container multiple times.
                         inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+                        //show item drop like a chest
+                        //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+                        this.scene.initFakeItemDrop(this.x , this.y+16 ,3); 
                         }
                         
                         //or give them a special ring.
@@ -934,6 +938,10 @@ class chestMimic extends enemy {
                     
                             //now to add the flag to the player data so the player cant open this container multiple times.
                             inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+                            //show item drop like a chest
+                            //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+                            this.scene.initFakeItemDrop(this.x , this.y+16 ,6); 
                             }
 
                     }

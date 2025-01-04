@@ -65,6 +65,8 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
         //item that the container holds.
         this.containerItemObject = item;
+
+        this.scene = scene;
         
         
     }
@@ -96,7 +98,12 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
             //plays creek sound effect 
             scene1.initSoundEffect('creakSFX','wood',0.05);
-            console.log("this.itemRecieved: ",this.itemRecieved, "object.foundFlag: ",object.foundFlag)
+            console.log("this.itemRecieved: ",this.itemRecieved, "object.foundFlag: ",object.foundFlag);
+
+            //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+            this.scene.initFakeItemDrop(this.x , this.y+16 ,this.containerItemObject.itemID); 
+
+
             if(this.itemRecieved === false && object.foundFlag === false){
 
                 //if within this scope then player has recieved the item.

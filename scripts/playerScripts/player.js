@@ -200,7 +200,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
       
     //if space is pressed and the player is on the ground then jump
     //special note, always have the checkpressed at the end if the if statement. programming trick
-    //if the first statement evaluated are false in and logic, then rest of bool expression is not evaluated.
     //first check if the player is down.
     if (this.body.blocked.down){
       //console.log("player is down.")

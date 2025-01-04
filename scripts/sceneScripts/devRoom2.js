@@ -168,9 +168,11 @@ class devRoom2 extends defaultScene {
       this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
 

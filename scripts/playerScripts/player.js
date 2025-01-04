@@ -188,23 +188,6 @@ class player extends Phaser.Physics.Arcade.Sprite{
         }    
       }
 
-    //checks to see if player space is down and player is on the ground to activate jump 
-    //some notes, inorder to implement double jump use this.jumped to block out the first jump functions, then make a one where it is available.
-    if(this.scene.checkJMPIsDown()){
-      let that = this;
-      console.log("this.spaceDelay: ",this.spaceDelay);
-      if(this.spaceDelay === false){
-        this.spaceDelay = true;
-        console.log("this.spaceDelay: ",this.spaceDelay);
-        setTimeout(function(){
-          that.spaceWasPressed = true;
-          that.spaceDelay = false;
-          console.log("that.spaceWasPressed: ",that.spaceWasPressed);
-        },200);
-        console.log("this.spaceWasPressed: ",this.spaceWasPressed);
-      }
-    }
-
     //if the player is down, then reset variables.   
     if(this.body.blocked.down){
       this.animationPlayedGoingUp = false;
@@ -216,22 +199,34 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }
       
     //if space is pressed and the player is on the ground then jump
-    if (this.scene.checkJMPIsDown() && this.body.blocked.down){
-      this.idleTimer = 0;
-      this.setVelocityY(-350);
-      let that = this;
+    //special note, always have the checkpressed at the end if the if statement. programming trick
+    //if the first statement evaluated are false in and logic, then rest of bool expression is not evaluated.
+    //first check if the player is down.
+    if (this.body.blocked.down){
+      //console.log("player is down.")
+      // then we have to check if jump was pressed once. we have to structure it this way so that the jump doesnt get locked out.
+      if(this.scene.checkJMPPressed()){
+
+        //console.log("first jump")
+        this.idleTimer = 0;
+        this.setVelocityY(-350);
+        let that = this;
+
       }
+      
+    }
 
     //if the player is  in the air and moving to the left
     if(this.scene.checkAIsDown() && !this.body.blocked.down){
-    //console.log("IN AIR AND MOVING LEFT");
+    console.log("IN AIR AND MOVING LEFT");
       this.setVelocityX(-250 * this.speedBoost);
       this.animationInAir = true;
       let that = this;
 
 
+        console.log("this.spaceWasPressed: ",this.spaceWasPressed," this.doubleJumpActivation: ",this.doubleJumpActivation," playerSkillsObject.playerSkills.jump: ",playerSkillsObject.playerSkills.jump);
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1){
+        if(this.doubleJumpActivation === false && this.scene.checkJMPPressed()  && playerSkillsObject.playerSkills.jump === 1){
           //console.log("activating double jump while aKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
@@ -263,7 +258,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityX(250 * this.speedBoost);
         this.animationInAir = true;
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
+        if(this.doubleJumpActivation === false && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
           //console.log("activating double jump while dKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
@@ -294,7 +289,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
         this.idleTimer = 0;
         this.animationInAir = true;
         //if the player has the double jump ability, allow them to jupm agian.
-        if(this.spaceWasPressed === true && this.doubleJumpActivation === false && this.scene.checkJMPIsDown() && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
+        if(this.doubleJumpActivation === false  && this.scene.checkJMPPressed() && playerSkillsObject.playerSkills.jump === 1 ){
           //console.log("activating double jump, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;

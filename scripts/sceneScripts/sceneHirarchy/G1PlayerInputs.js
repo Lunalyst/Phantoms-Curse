@@ -208,6 +208,7 @@ setUpKeyPrompts(){
   //mobile button control for expecting if the space key is pressed only once until it is released.
   checkJMPPressed(){
     if(Phaser.Input.Keyboard.JustDown(this.space)){
+      console.log("pressed jump is true");
       return true;
     }else{
 
@@ -218,8 +219,10 @@ setUpKeyPrompts(){
       controlKeyEmitter.emit(controlKeyEvent.justDownSpaceKey,keyObject);
 
       if(keyObject.isDown === true){
+        console.log("pressed jump is true");
         return true;
       }else{
+        console.log("pressed jump is false");
         return false;
       }
     } 

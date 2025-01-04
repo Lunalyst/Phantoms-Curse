@@ -139,7 +139,7 @@ class devRoom2 extends defaultScene {
 
       this.initPortalsWithTransparency(419,605-13,864,605,"door2","DevRoom1",0.75);
 
-      //this.initPortals(1068,541-13,906,1533,"door2","PondForest");
+      this.initPortals(1068,541-13,906,1533,"door2","PondForest");
 
       this.initSavePoints(1435,605-14);
 

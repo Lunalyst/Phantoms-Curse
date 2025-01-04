@@ -145,7 +145,9 @@ class blueSlimeCave1 extends defaultScene {
           itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
           itemStackable: 0,
           itemAmount: 1,
-          itemType: "weapon"
+          itemType: "weapon",
+          sellValue: 35
+          
         };
       
       //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.

@@ -208,7 +208,8 @@ class sunFlowerCave extends defaultScene {
             itemDescription: 'GOOD FOR SLASHING MONSTERS.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 15
           };
         
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.

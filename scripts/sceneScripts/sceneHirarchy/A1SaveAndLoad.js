@@ -427,7 +427,9 @@ for(let counter = 0; counter <=100; counter++){
         itemDescription: ' ',
         itemStackable: 1,
         itemAmount: 0 ,
-        itemType: ""
+        itemType: "",
+        sellValue: 35
+        
      };
 
     this.inventoryArray.push(item);
@@ -498,7 +500,8 @@ for(let counter = 0; counter <=100; counter++){
               itemName: ' ',
               itemDescription: ' ',
               itemStackable: 1,
-              itemAmount: 0 
+              itemAmount: 0,
+              sellValue: 35 
           };
 
           inventoryArray.push(item);
@@ -521,6 +524,8 @@ for(let counter = 0; counter <=100; counter++){
             itemStackable: 1,
             itemAmount: 0,
             itemType: "",
+            sellValue: 0
+            
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
@@ -533,7 +538,9 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 5
+            
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
@@ -546,7 +553,9 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'GOOD FOR SLASHING MONSTERS.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 15
+            
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
@@ -559,7 +568,8 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "ring"
+            itemType: "ring",
+            sellValue: 30
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
@@ -572,7 +582,9 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 20
+
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
@@ -585,7 +597,9 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 35
+            
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
@@ -598,7 +612,8 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "weapon"
+            itemType: "weapon",
+            sellValue: 75
         };
 
 
@@ -612,7 +627,9 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
             itemStackable: 0,
             itemAmount: 1,
-            itemType: "ring"
+            itemType: "ring",
+            sellValue: 50
+            
         };
 
         }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
@@ -622,7 +639,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 1){
@@ -632,7 +651,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 1){
@@ -642,7 +663,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
 
         }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
@@ -652,7 +675,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
         }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 1){
 
@@ -661,7 +686,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
         }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 1){
 
@@ -670,7 +697,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
         }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 1){
 
@@ -679,7 +708,9 @@ for(let counter = 0; counter <=100; counter++){
             itemName: ' ',
             itemDescription: ' ',
             itemStackable: 1,
-            itemAmount: 0 
+            itemAmount: 0 ,
+            itemType: "",
+            sellValue: 0
           };
         }
       }
@@ -695,7 +726,8 @@ for(let counter = 0; counter <=100; counter++){
             itemDescription: ' ',
             itemStackable: 1,
             itemAmount: 0 ,
-            itemType: ""
+            itemType: "",
+            sellValue: 0
         };
 
         dataObject.inventoryArray.push(item);
@@ -711,7 +743,8 @@ for(let counter = 0; counter <=100; counter++){
         itemName: ' ',
         itemDescription: ' ',
         itemStackable: 1,
-        itemAmount: 0 
+        itemAmount: 0,
+        sellValue: 0 
     };
       dataObject.inventoryArray.push(item);
     }

@@ -645,6 +645,7 @@ class gameHud extends A3SoundEffects {
 
           //adds player storage ui
           this.playerStorage = new storage(this,450,300);
+          this.playerStorage.applyUIControlElements();
 
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
@@ -768,7 +769,47 @@ class gameHud extends A3SoundEffects {
                     break;
                   }
                 }
+
+                //if the item still has not been added, then we need to expand the storage array, so add a new page to the storage.
+                //if inventory does not have 100 slots, then add those slots.
+                if(itemAdded === false) {
+                  for(let counter = 0; counter < 24; counter++){
+
+                    //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
+                    //are not refrencing the same object like it would be if this variable was defined outside this for loop.
+                    let item = {
+                        itemID: 0,
+                        itemName: ' ',
+                        itemDescription: ' ',
+                        itemStackable: 1,
+                        itemAmount: 0 ,
+                        itemType: "",
+                        sellValue: 0
+                    };
+            
+                    this.inventoryDataArray.push(item);
+                  }
+                  //attemot to add the item after space increase.
+                  for(let counter = 4; counter < this.inventoryDataArray.length;counter++){
+
+                    //if the item id is empty then add the new item to that id.
+                    //note, add here a check for the first and second item slot so things that arnt, a weapon, ring, clothing item, or ammo end dont end up in those slots.
+                    if(this.inventoryDataArray[counter].itemID === 0 ){
+                      //adds the item to the item in the inventory.
+                      this.inventoryDataArray[counter] = item;
+  
+                      itemAdded = true;
+  
+                      //item added so break out of the loop.
+                      break;
+                    }
+                  }
+                }         
+
+
               }
+
+            
 
               //if the player inventory is full, then place the item in the players storage.
               //but first you have to check if the players storage has space.

@@ -1,7 +1,7 @@
 //item drop that the player can pick up. generic class.
 class itemDrop extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, xPos, yPos,setItemID,setItemStackable,setItemAmount,itemName,itemDescription,type){
+    constructor(scene, xPos, yPos,setItemID,setItemStackable,setItemAmount,itemName,itemDescription,type,sell){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, 'itemDrops');
         //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -41,7 +41,8 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
             itemAmount: setItemAmount,
             itemName: itemName,
             itemDescription:itemDescription,
-            itemType: type
+            itemType: type,
+            sellValue: sell
         };
         console.log("this.itemDropObject: ",this.itemDropObject);
 

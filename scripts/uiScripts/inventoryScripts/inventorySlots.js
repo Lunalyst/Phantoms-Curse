@@ -50,7 +50,7 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
     setSlotNumber(number){
 
       //convert incoming number to a string
-      console.log("number : ", number)
+      //console.log("number : ", number)
 
       // if number is less than one hide both numbers
       if(number < 1){

@@ -150,12 +150,32 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop");
-      this.initItemDrop(1038,670,13,1,2,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop");
-      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop");
-      this.initItemDrop(1058,650,15,1,10,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop");
-      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo");
-      this.initItemDrop(1078,630,17,1,32,"STINGER","FULL OFF BEE VENOM.","drop");
+      this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",5);
+      this.initItemDrop(1038,670,13,1,2,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",10);
+      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop",3);
+      this.initItemDrop(1058,650,15,1,10,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",30);
+      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1078,630,17,1,32,"STINGER","FULL OFF BEE VENOM.","drop",15);
+      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      
+      this.initItemDrop(1078,650,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      
+      this.initItemDrop(1088,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1098,650,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      
+      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+
+      
+
 
        //sets up enemy colliders and groups
        this.enemyGroupArray = ["whiteCats"];

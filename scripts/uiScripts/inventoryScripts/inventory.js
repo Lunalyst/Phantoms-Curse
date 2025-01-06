@@ -43,7 +43,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.numberOfInventorySlots = 28;
 
       //setting the interior object of the inventory as a back drop for other objects.
-      this.inventoryInterior.setScale(0.26);
+      this.inventoryInterior.setScale(1/2);
       this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
       this.inventoryInterior.anims.play("closed");
@@ -51,6 +51,12 @@ class inventory extends Phaser.GameObjects.Container{
 
       //object for turning of and on the visiblity of our inventory.
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
+
+      //makes the label for the inventory
+      this.inventoryLabel = new makeText(scene,-90,-35,'charBubble',"INVENTORY");
+      this.inventoryLabel.setScale(2/3);
+      this.inventoryLabel.visible = false;
+      this.add(this.inventoryLabel);
 
       //this.inventoryElements.add(this); 
       console.log('created the inevntory in the for the player');
@@ -63,12 +69,14 @@ class inventory extends Phaser.GameObjects.Container{
       let index = 0;
       let col = 0;
       let row = 0;
+      
+      let equipX = 200;
 
       //weapon slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y-125-3,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-125+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.weaponLabel = new makeText(scene,this.x+160,this.y-145,'charBubble',"WEAPON");
+      this.weaponLabel = new makeText(scene,this.x+175,this.y-145+10,'charBubble',"WEAPON");
       this.weaponLabel.visible = false;
       this.weaponLabel.setScale(2/3);
       this.inventoryElements.add(this.weaponLabel);
@@ -82,10 +90,10 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
 
       //ring slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y-60-3,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-60+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ringLabel = new makeText(scene,this.x+170,this.y-77-3,'charBubble',"RING");
+      this.ringLabel = new makeText(scene,this.x+185,this.y-77+8,'charBubble',"RING");
       this.ringLabel.visible = false;
       this.ringLabel.setScale(2/3);
       this.inventoryElements.add(this.ringLabel);
@@ -98,10 +106,10 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
 
       //ammo slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y+5-3,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+5+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ammoLabel = new makeText(scene,this.x+170,this.y-15,'charBubble',"AMMO");
+      this.ammoLabel = new makeText(scene,this.x+185,this.y-4,'charBubble',"AMMO");
       this.ammoLabel.visible = false;
       this.ammoLabel.setScale(2/3);
       this.inventoryElements.add(this.ammoLabel);
@@ -114,10 +122,10 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
 
       //ammo slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+185,this.y+65,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+65+11,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.costumeLabel = new makeText(scene,this.x+160,this.y+50-3,'charBubble',"VANITY");
+      this.costumeLabel = new makeText(scene,this.x+175,this.y+50+9,'charBubble',"VANITY");
       this.costumeLabel.visible = false;
       this.costumeLabel.setScale(2/3);
       this.inventoryElements.add(this.costumeLabel);
@@ -134,7 +142,7 @@ class inventory extends Phaser.GameObjects.Container{
         for(row = 0; row < 6; row++){
           
           //creates the slots as the loop generats the slots
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-180) + (row*60), (this.y-125) +(col*60),'inventorySlots').setInteractive();
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-190) + (row*60), (this.y-115) +(col*60),'inventorySlots').setInteractive();
           //adds the object to this container.
           this.add(this.inventoryArray[index]);
           //adds this to a group to set sprite visibility.
@@ -166,7 +174,7 @@ class inventory extends Phaser.GameObjects.Container{
 
       //sets up bestiary and its label
       console.log("activated bestiary controls");
-      this.bestiaryUI = new bestiary(scene,this.x-183,this.y+120,this.x+445,this.y+40).setInteractive(scene.input.makePixelPerfect());
+      this.bestiaryUI = new bestiary(scene,this.x-193,this.y+130,this.x+705,this.y+60).setInteractive(scene.input.makePixelPerfect());
       this.inventoryElements.add(this.bestiaryUI);
       this.add(this.bestiaryUI);
 
@@ -183,51 +191,49 @@ class inventory extends Phaser.GameObjects.Container{
         this.add(this.bestiaryUI.bestiarySummary[counter]);
       }
 
-
-      this.bestiaryLabel = new inventoryLabels(scene,this.x-183,this.y+150,'Labels');
+      this.bestiaryLabel = new makeText(scene,this.x-230,this.y+175,'charBubble',"BESTIARY");
+      this.bestiaryLabel.visible = false;
+      this.bestiaryLabel.setScale(2/3);
       this.inventoryElements.add(this.bestiaryLabel);
       this.add(this.bestiaryLabel);
-      this.bestiaryLabel.anims.play('bestiary');
       this.bestiaryUI.visible = this.isOnScreen;
       this.bestiaryUI.applyUIControlElements();
       
       //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
-      this.inventoryBorder.setScale(0.26);
+      this.inventoryBorder.setScale(1/2);
       this.inventoryElements.add(this.inventoryBorder);
       this.add(this.inventoryBorder);
 
      
       //adds currency counter
-      this.shellIcon = new shellMark(scene,this.x-110,this.y+120);
+      this.shellIcon = new shellMark(scene,this.x-120,this.y+130);
       this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
       this.add(this.shellIcon);
-      let startingX = 25;
-      let startingY = 0;
+      let startingX = 29;
+      let startingY = 22;
       let spacing = 0;
 
       //adds currency letters
-      this.shellLetters = [];
-      let shellString = "000";
-      for (let counter = 0; counter < shellString.length; counter++) {
-        this.shellLetters.push(new textBoxCharacter(scene, this.shellIcon.x + startingX, this.shellIcon.y + startingY,'charBlack'));
-        this.inventoryElements.add(this.shellLetters[counter]);
-        this.add(this.shellLetters[counter]);
-        this.shellLetters[counter].setScale(1/6);
-        this.shellLetters[counter].anims.play(shellString.charAt(counter));
-        this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
-        this.shellLetters[counter].y = this.shellLetters[counter].y ;
-        spacing = spacing + 13;
+      //sets the currency icon and number in the inventory.
+      if (scene.playerSaveSlotData !== undefined) {
+        let animationNumber = "";
+        animationNumber += scene.playerSaveSlotData.currency;
+        console.log("animationNumber for currency: " + animationNumber);
+        this.shellLetters = new makeText(scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
+        this.shellLetters.visible = false;
+        this.inventoryElements.add(this.shellLetters);
+        this.add(this.shellLetters);
   
       }
 
       //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this,this.x+500,this.y-200);
+      this.settingsUI = new optionsMenu(scene,this,this.x+840,this.y-200);
       //this.add(this.settingsUI);
 
       //adds settings menu button
-      this.settingsButton = new settingsButton(scene,this.x+5,this.y+125,this.settingsUI,this);
+      this.settingsButton = new settingsButton(scene,this.x-193,this.y+210,this.settingsUI,this);
       this.settingsButton.setupSettingsButton();
       this.add(this.settingsButton);
 
@@ -252,12 +258,13 @@ class inventory extends Phaser.GameObjects.Container{
             this.settingsButton.visible = true;
             this.settingsUI.visible = false;
             
+            this.inventoryLabel.visible = true;
 
             //calls the slots functions so the slots are displaying items correctly
             //sets the elements of the ivnentory to ve visible
             this.inventoryElements.toggleVisible();
             console.log("setSlotView");
-            this.setSlotView(hud);
+            this.updateCurrency(hud);
             console.log("setSlots");
             this.setSlots(hud);
 
@@ -284,6 +291,8 @@ class inventory extends Phaser.GameObjects.Container{
             //if the menu is closed the make sure to reset settings if its prematurely closed.
             this.settingsUI.resetSettings();
 
+            this.inventoryLabel.visible = false;
+
             //ensures that if thep layer closes inventory then the bestiary and
             //settings can be re opened.
             this.settingsOpen = false;
@@ -301,7 +310,7 @@ class inventory extends Phaser.GameObjects.Container{
              this.inventoryElements.toggleVisible();
 
             //hides slots.
-            this.setSlotView(hud);
+            this.updateCurrency(hud);
             this.setSlots(hud);
 
             //
@@ -353,7 +362,7 @@ class inventory extends Phaser.GameObjects.Container{
 
       //hides the inventory slots, takes a scene object, so we have to pass it the gamehud scene instead of the usual 
       //gameplay scene. also applyes savefile inventory to the slots since we reset to the last save.   
-      this.setSlotView(this.scene);
+      this.updateCurrency(this.scene);
       this.setSlots(this.scene);
 
       //removes the text if any is displayed.
@@ -388,25 +397,23 @@ class inventory extends Phaser.GameObjects.Container{
     
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
-    setSlotView(scene){
+    updateCurrency(scene){
 
-      console.log("scene.inventoryDataArray: ", scene.inventoryDataArray)
-        
-      //sets the currency icon and number in the inventory.
-       if (scene.playerSaveSlotData !== undefined) {
+      let startingX = 29;
+      let startingY = 22;
+
+      this.shellLetters.destroy();
+
+      if(this.isOpen === true){
         let animationNumber = "";
         animationNumber += scene.playerSaveSlotData.currency;
         console.log("animationNumber for currency: " + animationNumber);
-        for (let counter = 0; counter < this.shellLetters.length; counter++) {
-          if (counter < animationNumber.length) {
-            this.shellLetters[counter].anims.play(animationNumber.charAt(counter));
-          } else {
-            this.shellLetters[counter].visible = false;
-          }
-        }
-  
+        this.shellLetters = new makeText(this.scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
+        this.inventoryElements.add(this.shellLetters);
+        this.add(this.shellLetters);
       }
       
+        
     }
 
     // applies the correct animation to the inventory slot based on the inventory data
@@ -534,12 +541,13 @@ class inventory extends Phaser.GameObjects.Container{
               //this is half the solution, as this only covers when the protected slot is selected second.
               //if the active slot is the weapon slot and the item in this.activeslot1 is a weapon
               if(
-                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "weapon") || // case where the first slot is a weapon object, and the second slot is the weapon slot.
-                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "weapon") || // case where the first slot is the weapon slot, and the second slot is a weapon object
-                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "") || // case where first slot is the weapon slot and the second is a blank slot.
-                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "")    //case where first los is blank and second slot is weapon.
+                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "weapon" && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3) || // case where the first slot is a weapon object, and the second slot is the weapon slot.
+                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "weapon" && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) || // case where the first slot is the weapon slot, and the second slot is a weapon object
+                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) || // case where first slot is the weapon slot and the second is a blank slot.
+                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)    //case where first los is blank and second slot is weapon.
               ){
 
+                console.log(" weapon swap.");
                 //then set active slot 2, and allow for the swap to occur
                 //light up slot by setting bool to true.
                 this.inventoryArray[activeSlot].isLitUp = true;
@@ -548,11 +556,13 @@ class inventory extends Phaser.GameObjects.Container{
 
               //same logic for ring
               }else if(
-                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "ring") ||
-                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "ring") ||
-                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "") || 
-                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "")    
+                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "ring" && this.activeSlot1 !== 0 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3) ||
+                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "ring" && activeSlot !== 0 && activeSlot !== 2 && activeSlot !== 3) ||
+                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 2 && activeSlot !== 3) || 
+                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)   
                  ){
+
+                  console.log(" ring swap.");
 
                 this.inventoryArray[activeSlot].isLitUp = true;
                 this.inventoryArray[activeSlot].setTint(0xd3d3d3);
@@ -560,23 +570,26 @@ class inventory extends Phaser.GameObjects.Container{
 
               //same logic for ammo
               }else if(
-                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "ammo") || 
-                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "ammo") ||
-                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "") || 
-                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "")  
+                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "ammo" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 3) || 
+                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "ammo" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 3) ||
+                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 3) || 
+                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 3)  
               ){
 
+                console.log(" ammo swap.");
                 this.inventoryArray[activeSlot].isLitUp = true;
                 this.inventoryArray[activeSlot].setTint(0xd3d3d3);
                 this.activeSlot2 = activeSlot;
 
               //same logic for vanity
               }else if(
-                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "vanity") ||
-                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "vanity") ||
-                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "") || 
-                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "")  
+                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "vanity" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2) ||
+                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "vanity" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2) ||
+                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2) || 
+                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2)  
               ){
+
+                console.log(" vanity swap.");
 
                 this.inventoryArray[activeSlot].isLitUp = true;
                 this.inventoryArray[activeSlot].setTint(0xd3d3d3);

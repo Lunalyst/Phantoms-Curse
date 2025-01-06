@@ -1409,12 +1409,14 @@ class whiteCat extends enemy {
                     if(this.scene.playerSex === 0){
                         if(this.flipX === false){
                             this.scene.internalView = new internalView(this.scene,this.x+30,this.y+50,'whitecat')
+                            this.scene.internalView.setRotation(3.14/4);
                         }else{
                             this.scene.internalView = new internalView(this.scene,this.x-30,this.y+50,'whitecat')
+                            this.scene.internalView.setRotation(3.14/4 + 3.14/2);
                         }
                         
                         this.scene.internalView.anims.play("pen1",true);
-                        this.scene.internalView.setRotation(3.14/4);
+                        
                     }
                 });
             }

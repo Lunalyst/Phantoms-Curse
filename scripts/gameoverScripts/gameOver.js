@@ -215,6 +215,8 @@ class gameOver extends A3SoundEffects {
                 //this.processMap.setTiles('source_map',this);
             }
 
+            console.log("map:",this.processMap);
+
             //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
@@ -353,9 +355,13 @@ class gameOver extends A3SoundEffects {
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
             //this.mycamera.startFollow(this.enemy);
-            this.mycamera.setBounds( 0, 55, myMap.widthInPixels, myMap.HeightInPixels); 
+            this.mycamera.setBounds( 0, 0, myMap.widthInPixels, myMap.HeightInPixels);
             this.cameras.main.zoom = 3;
-            this.cameras.main.followOffset.set(0,50);
+            //this.cameras.main.followOffset.set(-450,-100);
+          
+            this.mycamera.setScroll(-135, 60);
+
+            //this.mycamera.x = 450;
 
             //game over sign.
             this.gameOverSign = this.add.sprite(450,410,"gameOverSign");

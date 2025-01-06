@@ -141,7 +141,7 @@ class sunFlowerCave extends defaultScene {
         "WHAT DOES IT MEAN TO BE DRIVEN? EVERYDAY I FIND MY SELF CONTINUE TO FIGHTING, BUT A PART OF ME FEARS THAT I WONT LIVE UP TO THE EXPECTATION MY DESIRES HAVE SET.",
         ['signLoop']);
 
-      this.skybackround = this.add.tileSprite(1500, -1940, 7*1024, 6*1024, "backgroundSkyLevel");
+      this.skybackround = this.add.tileSprite(1500, -1740, 7*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
 

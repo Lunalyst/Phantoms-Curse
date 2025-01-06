@@ -164,11 +164,6 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     console.log("adding new fake item drop: ",drop1);
 
-    //if we are using dark lighting
-    if(this.lightingSystemActive === true){ 
-      drop1.setPipeline('Light2D');
-    }
-
   }
 
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.

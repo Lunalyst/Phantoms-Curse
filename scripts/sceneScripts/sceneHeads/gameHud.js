@@ -32,14 +32,18 @@ class gameHud extends A3SoundEffects {
       this.skipIndicator; 
       this.saveGraphicDelay = false; 
       this.isStorageOpen = false;
+
+      this.screenWidth = 1200;
+      this.screenHeight = 900;
+
     }
 
     //loads gamehud sprites
     preload(){
            
       //hud specific 
-      this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 1788 , frameHeight: 1338 });
-      this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 1788 , frameHeight: 1338 });
+      this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 969 , frameHeight: 714 });
+      this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 969 , frameHeight: 714 });
       this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 825 , frameHeight: 564 });
       this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
 
@@ -108,7 +112,7 @@ class gameHud extends A3SoundEffects {
           that.struggleEventBar = new sceneStruggleBar(this, 450, 450);
         }, 1000);*/
 
-        this.struggleEventBar = new sceneStruggleBar(this, 340, 580);
+        this.struggleEventBar = new sceneStruggleBar(this,this.screenWidth/2-145, 580);
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
@@ -378,7 +382,7 @@ class gameHud extends A3SoundEffects {
             this.mobileD.playDKey(0);
           },this);
 
-          this.mobileJMP = new mobileButton(this,800,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP = new mobileButton(this,this.screenWidth-100,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileJMP);
           this.mobileJMP.playJMPKey();
 
@@ -425,7 +429,7 @@ class gameHud extends A3SoundEffects {
             this.mobileJMP.playJMPKey(0);
           },this);
 
-          this.mobileATK = new mobileButton(this,800,mobileY-100).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK = new mobileButton(this,this.screenWidth-100,mobileY-100).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileATK);
           this.mobileATK.playATKKey();
 
@@ -471,7 +475,7 @@ class gameHud extends A3SoundEffects {
             this.mobileATK.playATKKey(0);
           },this);
 
-          this.mobileInventory = new mobileButton(this,840,mobileY+100).setInteractive(this.input.makePixelPerfect());
+          this.mobileInventory = new mobileButton(this,this.screenWidth-60,mobileY+100).setInteractive(this.input.makePixelPerfect());
           this.mobileInventory.playInventoryKey();
 
           //define a emitter so that the gameplay scene can check if the key is being used
@@ -495,7 +499,7 @@ class gameHud extends A3SoundEffects {
           },this);
 
           //when player dies the prompt to skip animations need to pop up.
-          this.skipIndicator = this.add.sprite(750, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());
+          this.skipIndicator = this.add.sprite(this.screenWidth-150, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());
           this.skipIndicator.visible = false;
           this.skipIndicatorIsPressed = false;
           this.skipIndicator.setScrollFactor(0);
@@ -522,7 +526,7 @@ class gameHud extends A3SoundEffects {
           });
 
           //when player dies the prompt to skip animations need to pop up.
-          this.giveUpIndicator = this.add.sprite(750, 840,'TABToGiveUp').setInteractive(this.input.makePixelPerfect());
+          this.giveUpIndicator = this.add.sprite(this.screenWidth-150, 840,'TABToGiveUp').setInteractive(this.input.makePixelPerfect());
           this.giveUpIndicator.setScale(1/3);
           this.giveUpIndicator.visible = false;
           this.giveUpIndicatorIsPressed = false;
@@ -625,7 +629,7 @@ class gameHud extends A3SoundEffects {
           });
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,117,115);
+          this.playerInventory = new inventory(this,130,115);
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
@@ -644,7 +648,7 @@ class gameHud extends A3SoundEffects {
           this.playerInventory.applyInteractionToSlots(this);
 
           //adds player storage ui
-          this.playerStorage = new storage(this,450,300);
+          this.playerStorage = new storage(this,this.screenWidth/2,215);
           this.playerStorage.applyUIControlElements();
 
           //makes a tween for the inventory object so the interior is see through

@@ -48,6 +48,9 @@ class titleScreen extends A3SoundEffects {
 
         //array to check if there is a file defined 
         this.savedFileArray = [false,false,false];
+
+        this.screenWidth = 1200;
+        this.screenHeight = 900;
        
         }
 
@@ -109,7 +112,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,360*2,450*2,'charBubble',"ALPHA V0.29");
+            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"ALPHA V0.29");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);
@@ -141,7 +144,7 @@ class titleScreen extends A3SoundEffects {
                 'ADORABLETYPHLOSION: INSPIRATION',
             ];
 
-            this.credits = new credits(this,20,200,this.creditsArray);
+            this.credits = new credits(this,this.screenWidth/2-400,200,this.creditsArray);
             this.credits.setDepth(51);
             this.credits.activateCredits(true);
 
@@ -179,24 +182,24 @@ class titleScreen extends A3SoundEffects {
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 6 }),frameRate: 3,repeat: -1});
 
             //background definition.
-            this.backround = this.add.sprite(450, 450, "titleBackground");
+            this.backround = this.add.sprite(this.screenWidth/2, 450, "titleBackground");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(450, 450, "titleLogo");
+            this.titleLogo = this.add.sprite(this.screenWidth/2, 450, "titleLogo");
             this.elements.add(this.titleLogo);
 
             //title sprite
             //this.titleLogo.setScale();
-            this.title =this.add.sprite(450, 50, "title");
+            this.title =this.add.sprite(this.screenWidth/2, 50, "title");
             this.title.anims.play("titleLoop");
             this.title.setScale(1/3 + 1/7);
             
             //curse sprite that changes
-            this.curse = new curse(this, 275,175);
+            this.curse = new curse(this, this.screenWidth/2 - 180,175);
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.sceneTextBox = new textBox(this,450,600,'charBlack');
+            this.sceneTextBox = new textBox(this,this.screenWidth/2,600,'charBlack');
             this.sceneTextBox.setScale(1.2);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -209,21 +212,21 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.sceneTextBox);
 
             //sets up the three save slots
-            this.saveslot1 = new saveSlot(this, 450, 220);
+            this.saveslot1 = new saveSlot(this, this.screenWidth/2, 220);
             this.elements.add(this.saveslot1);
 
             this.trashCan1 = new removeSlot(this, this.saveslot1.x+350, this.saveslot1.y);
             this.trashCan1.setupRemoveSlot(1);
             this.elements.add(this.trashCan1);
             
-            this.saveslot2 = new saveSlot(this, 450, 440);
+            this.saveslot2 = new saveSlot(this, this.screenWidth/2, 440);
             this.elements.add(this.saveslot2);
 
             this.trashCan2 = new removeSlot(this, this.saveslot2.x+350, this.saveslot2.y);
             this.trashCan2.setupRemoveSlot(2);
             this.elements.add(this.trashCan2);
 
-            this.saveslot3 = new saveSlot(this, 450, 660);
+            this.saveslot3 = new saveSlot(this, this.screenWidth/2, 660);
             this.elements.add(this.saveslot3);
 
             this.trashCan3 = new removeSlot(this, this.saveslot3.x+350, this.saveslot3.y);

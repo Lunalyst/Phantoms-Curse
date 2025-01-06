@@ -160,6 +160,103 @@ class inventory extends Phaser.GameObjects.Container{
         }
       }
 
+       //create text button which can be used to split a stack
+       this.split = new makeText(this.scene,45,-55,'charBubble',"SPLIT",true);
+       this.split.addHitbox();
+       this.split.clicked = false;
+       this.split.setScrollFactor(0);
+       this.split.setScale(.8);
+       this.split.visible = false;
+       this.inventoryElements.add(this.split);
+       this.add(this.split);
+
+      //set up button functionality for split button
+      this.split.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          if(this.split.clicked === true){
+          this.split.setTextTint(0xff0000);
+          }else{
+          this.split.setTextTint(0xff7a7a);
+          }
+       },this);
+
+       this.split.on('pointerout',function(pointer){
+
+        if(this.split.clicked === true){
+          this.split.setTextTint(0xff0000);
+        }else{
+          this.split.clearTextTint();
+        }
+           
+       },this);
+
+       this.split.on('pointerdown', function (pointer) {
+        if(this.split.clicked === true){
+          this.split.clicked = false;
+          this.split.setTextTint(0xff7a7a);
+        }else{
+          this.split.clicked = true;
+          this.split.setTextTint(0xff0000);
+
+        }
+
+        if(this.single.clicked === true){
+          this.single.clicked = false;
+          this.single.clearTextTint();
+        }
+       
+         this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+       },this);
+       
+       //create text button which can be used to split a stack
+       this.single = new makeText(this.scene,155,-55,'charBubble',"SINGLE",true);
+       this.single.addHitbox();
+       this.single.clicked = false;
+       this.single.setScrollFactor(0);
+       this.single.setScale(.8);
+       this.single.visible = false;
+       this.inventoryElements.add(this.single);
+       this.add(this.single);
+
+      //set up button functionality for single button
+      this.single.on('pointerover',function(pointer){
+        this.scene.initSoundEffect('buttonSFX','1',0.05);
+        if(this.single.clicked === true){
+        this.single.setTextTint(0xff0000);
+        }else{
+        this.single.setTextTint(0xff7a7a);
+        }
+     },this);
+
+     this.single.on('pointerout',function(pointer){
+
+      if(this.single.clicked === true){
+        this.single.setTextTint(0xff0000);
+      }else{
+        this.single.clearTextTint();
+      }
+         
+     },this);
+
+     this.single.on('pointerdown', function (pointer) {
+      if(this.single.clicked === true){
+        this.single.clicked = false;
+        this.single.setTextTint(0xff7a7a);
+      }else{
+        this.single.clicked = true;
+        this.single.setTextTint(0xff0000);
+
+      }
+
+      if(this.split.clicked === true){
+        this.split.clicked = false;
+        this.split.clearTextTint();
+      }
+     
+       this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+     },this);
     /*
             - | -
               |
@@ -641,9 +738,94 @@ class inventory extends Phaser.GameObjects.Container{
             }
 
           }
+
+
           console.log("this.activeSlot1: ",this.activeSlot1," this.activeSlot2: ",this.activeSlot2);
-          //if the player some how gets two seperate stacks of the same item then allow them to stack it. firs is if the two stacks add up to less than 64
-          if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
+          //handle button functionality for split and single
+          if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && // if the slots are selected
+            (this.split.clicked || this.single.clicked ) && //and on of the buttons is pressed
+            scene.inventoryDataArray[this.activeSlot1].itemID !== 0 && // and the first slot is a item
+            scene.inventoryDataArray[this.activeSlot2].itemID === 0  &&// and the second is a blank slot.
+            scene.inventoryDataArray[this.activeSlot1].itemAmount > 1 //and the item in question has an amount larger than 1
+            ){ 
+
+            //if we are splitting
+            if(this.split.clicked){
+
+              // determine the value amount to be split. if the item amount is even
+              if(scene.inventoryDataArray[this.activeSlot1].itemAmount % 2 === 0){
+                this.splitAmount1 = scene.inventoryDataArray[this.activeSlot1].itemAmount / 2;
+                this.splitAmount2 = this.splitAmount1;
+
+              //otherwise use floor function to get proper split amount.
+              }else{
+                this.splitAmount1 = Math.floor(scene.inventoryDataArray[this.activeSlot1].itemAmount / 2) + 1;
+                this.splitAmount2 = Math.floor(scene.inventoryDataArray[this.activeSlot1].itemAmount / 2);
+              }
+
+              //make a temp object which represents the split  of the stack
+              let temp = {
+                itemID: scene.inventoryDataArray[this.activeSlot1].itemID,
+                itemName: scene.inventoryDataArray[this.activeSlot1].itemName,
+                itemDescription: scene.inventoryDataArray[this.activeSlot1].itemDescription,
+                itemStackable: scene.inventoryDataArray[this.activeSlot1].itemStackable,
+                itemAmount: this.splitAmount2,
+                itemType: scene.inventoryDataArray[this.activeSlot1].itemType,
+                sellValue: scene.inventoryDataArray[this.activeSlot1].sellValue
+              };
+
+              //update item amount inside the first object.
+              scene.inventoryDataArray[this.activeSlot1].itemAmount = this.splitAmount1;
+
+              //set the empty slot to the other half of the stack.
+              scene.inventoryDataArray[this.activeSlot2] = temp;
+
+
+            }else if(this.single.clicked){
+
+                //split values set.
+                this.splitAmount1 = scene.inventoryDataArray[this.activeSlot1].itemAmount - 1;
+                this.splitAmount2 = 1;
+
+
+              //make a temp object which represents the split  of the stack
+              let temp = {
+                itemID: scene.inventoryDataArray[this.activeSlot1].itemID,
+                itemName: scene.inventoryDataArray[this.activeSlot1].itemName,
+                itemDescription: scene.inventoryDataArray[this.activeSlot1].itemDescription,
+                itemStackable: scene.inventoryDataArray[this.activeSlot1].itemStackable,
+                itemAmount: this.splitAmount2,
+                itemType: scene.inventoryDataArray[this.activeSlot1].itemType,
+                sellValue: scene.inventoryDataArray[this.activeSlot1].sellValue
+              };
+
+              //update item amount inside the first object.
+              scene.inventoryDataArray[this.activeSlot1].itemAmount = this.splitAmount1;
+
+              //set the empty slot to the other half of the stack.
+              scene.inventoryDataArray[this.activeSlot2] = temp;
+            }
+
+           //set animation for activeSlot1
+           this.inventoryArray[this.activeSlot1].isLitUp = false;
+           this.inventoryArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.activeSlot1].itemID;
+           this.inventoryArray[this.activeSlot1].anims.play(''+this.inventoryArray[this.activeSlot1].animsNumber);
+           this.inventoryArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.activeSlot1].itemAmount);
+           this.inventoryArray[this.activeSlot1].clearTint();
+
+           //set animation for activeSlot2
+           this.inventoryArray[this.activeSlot2].isLitUp = false;
+           this.inventoryArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.activeSlot2].itemID;
+           this.inventoryArray[this.activeSlot2].anims.play(''+this.inventoryArray[this.activeSlot2].animsNumber);
+           this.inventoryArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.activeSlot2].itemAmount);
+           this.inventoryArray[this.activeSlot2].clearTint();
+
+           //clear both slots.
+           this.activeSlot1 = -1;
+           this.activeSlot2 = -2;
+
+          //if the player some how gets two seperate stacks of the same item then allow them to stack it. first is if the two stacks add up to less than 64
+          }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
             scene.inventoryDataArray[this.activeSlot1].itemStackable === 1 && scene.inventoryDataArray[this.activeSlot2].itemStackable === 1 &&
             (scene.inventoryDataArray[this.activeSlot1].itemID === scene.inventoryDataArray[this.activeSlot2].itemID ) &&
             (scene.inventoryDataArray[this.activeSlot1].itemAmount + scene.inventoryDataArray[this.activeSlot2].itemAmount < 65)){
@@ -656,7 +838,8 @@ class inventory extends Phaser.GameObjects.Container{
               itemDescription: ' ',
               itemStackable: 1,
               itemAmount: 0,
-              itemType:""
+              itemType:"",
+              sellValue: 0
            };
 
            //adds the amount to the second object

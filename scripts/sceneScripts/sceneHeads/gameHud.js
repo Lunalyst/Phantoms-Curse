@@ -59,6 +59,7 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('inventoryLabels', 'assets/hudElements/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });
       this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
+      this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
 
       //this.load.spritesheet('skill', 'assets/skillsBook.png',{frameWidth: 462, frameHeight: 630 });
@@ -648,7 +649,7 @@ class gameHud extends A3SoundEffects {
           this.playerInventory.applyInteractionToSlots(this);
 
           //adds player storage ui
-          this.playerStorage = new storage(this,this.screenWidth/2,215);
+          this.playerStorage = new storage(this,this.screenWidth/2-160,190);
           this.playerStorage.applyUIControlElements();
 
           //makes a tween for the inventory object so the interior is see through

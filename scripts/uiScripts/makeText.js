@@ -25,6 +25,10 @@ class makeText extends Phaser.GameObjects.Container{
         let specialCharacter = false;
         let specialCharText = "";
 
+        this.middle = Math.floor(this.letterString.length/2);
+        this.middleX = 0;
+
+
         //fills the array fill of textboxcharacters
         for (let counter = 0; counter < this.letterString.length; counter++) {
           //set the character like normal unless we have a @ to denote a special character
@@ -58,7 +62,6 @@ class makeText extends Phaser.GameObjects.Container{
           if(specialCharacter === true && this.letterString.charAt(counter) !== '@'){
             specialCharText += this.letterString.charAt(counter);
           }
-
           
         }
 
@@ -69,6 +72,12 @@ class makeText extends Phaser.GameObjects.Container{
             this.letters[counter].visible = true;
             this.add(this.letters[counter]);
             spacing = spacing + 15;
+
+            //code to find middle position of text.
+            if(counter === this.middle){
+              this.middleX = Math.floor((this.letters[counter].x + spacing)/2);
+              //console.log("setting middle x",this.middleX);
+            }
 
         }
         
@@ -87,6 +96,23 @@ class makeText extends Phaser.GameObjects.Container{
       for(let counter = 0; counter < this.letters.length; counter++){
         this.letters[counter].clearTint();
       }
+    }
+
+    //function to make a hitbox for the text entity
+    addHitbox(){
+
+      let padding = 10;
+      //set interactive so it can be clicked on.
+      this.setInteractive({
+         hitArea: new Phaser.Geom.Rectangle(
+        - padding,
+        - padding,
+        this.middleX*2,
+        30 ),
+        hitAreaCallback: function(hitArea, x, y){
+          return Phaser.Geom.Rectangle.Contains(hitArea, x, y);
+        }
+      });
     }
 
     //function to apply a wave to text

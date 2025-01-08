@@ -31,12 +31,16 @@ https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-textbox/
 how to extrude tileset to avoid tile bleeding
 https://github.com/sporadic-labs/tile-extruder
 
+//odd way of setting up a hitbox witout my hitbox class. useful for maketext object.
+https://stackoverflow.com/questions/71600390/phaser-3-increase-drag-click-area-size-of-sprite
+
 use classes tab as a guide for how to set up the header. each object has different phaser.physics.arcade
 // important. to fix tile bleeding we follow the guide here using tile extruder.
 https://github.com/sporadic-labs/tile-extruder
 //use this code in cmd
 // dont forget our tiles are 96 by 96 then downscaled by a third
 //tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
+
 
 for new tileset, 
 Orthogonal

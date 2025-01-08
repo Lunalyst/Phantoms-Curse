@@ -76,7 +76,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-125+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.weaponLabel = new makeText(scene,this.x+175,this.y-145+10,'charBubble',"WEAPON");
+      this.weaponLabel = new makeText(scene,this.x+175,this.y-145+10,'charBlack',"WEAPON");
       this.weaponLabel.visible = false;
       this.weaponLabel.setScale(2/3);
       this.inventoryElements.add(this.weaponLabel);
@@ -93,7 +93,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-60+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ringLabel = new makeText(scene,this.x+185,this.y-77+8,'charBubble',"RING");
+      this.ringLabel = new makeText(scene,this.x+185,this.y-77+8,'charBlack',"RING");
       this.ringLabel.visible = false;
       this.ringLabel.setScale(2/3);
       this.inventoryElements.add(this.ringLabel);
@@ -109,7 +109,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+5+8,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ammoLabel = new makeText(scene,this.x+185,this.y-4,'charBubble',"AMMO");
+      this.ammoLabel = new makeText(scene,this.x+185,this.y-4,'charBlack',"AMMO");
       this.ammoLabel.visible = false;
       this.ammoLabel.setScale(2/3);
       this.inventoryElements.add(this.ammoLabel);
@@ -125,7 +125,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+65+11,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.costumeLabel = new makeText(scene,this.x+175,this.y+50+9,'charBubble',"VANITY");
+      this.costumeLabel = new makeText(scene,this.x+175,this.y+50+9,'charBlack',"VANITY");
       this.costumeLabel.visible = false;
       this.costumeLabel.setScale(2/3);
       this.inventoryElements.add(this.costumeLabel);
@@ -580,12 +580,22 @@ class inventory extends Phaser.GameObjects.Container{
           scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter].itemDescription);
           scene.itemDescription.setScale(0.7);
           scene.itemDescription.setDepth(21);
+          if(scene.inventoryDataArray[counter].itemID !== 0){
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
+            scene.itemValue.setScale(0.7);
+            scene.itemValue.setDepth(21);
+          }
+          
         });
 
         // removes name and discription.
         this.inventoryArray[counter].on('pointerout',function(pointer){
           tempInventory.scene.itemName.destroy();
           tempInventory.scene.itemDescription.destroy();
+          
+          if(scene.inventoryDataArray[counter].itemID !== 0){
+            tempInventory.scene.itemValue.destroy();
+          }
         });
       }
 

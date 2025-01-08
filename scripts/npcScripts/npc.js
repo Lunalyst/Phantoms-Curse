@@ -11,6 +11,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       scene.physics.add.existing(this);
       //make it unpussable in any way. potentially unnessary.
       this.setPushable(false);
+
+      this.inDialogue = false;
+      this.animationPlayed = false;
       
      //sets scale of object
      this.setScale(1/3);

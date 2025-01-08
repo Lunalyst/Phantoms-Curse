@@ -280,11 +280,12 @@ class istara extends npc{
       }else if(this.scene.sceneTextBox.amountWIsPressed === 10 && this.inDialogue === false){
         
         //create dialogue buttons for player choice
-        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
+        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
         this.scene.npcChoice1.textWob();
         this.scene.npcChoice1.setScrollFactor(0);
-        this.scene.npcChoice1.setSize(300,30);
-        this.scene.npcChoice1.setInteractive();
+        //this.scene.npcChoice1.setSize(300,30);
+        //this.scene.npcChoice1.setInteractive();
+        this.scene.npcChoice1.addHitbox();
         this.scene.npcChoice1.setScale(.8);
 
         //set up dialogue option functionality so they work like buttons
@@ -349,11 +350,12 @@ class istara extends npc{
         },this);
 
         //dialogue option for no.
-        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
         this.scene.npcChoice2.textWob();
         this.scene.npcChoice2.setScrollFactor(0);
-        this.scene.npcChoice2.setSize(300,30);
-        this.scene.npcChoice2.setInteractive();
+        this.scene.npcChoice2.addHitbox();
+        //this.scene.npcChoice2.setSize(300,30);
+        //this.scene.npcChoice2.setInteractive();
         this.scene.npcChoice2.setScale(.8);
 
 
@@ -641,11 +643,12 @@ class istara extends npc{
     }else if(this.scene.sceneTextBox.amountWIsPressed === 10-9 && this.inDialogue === false){
       
       //create dialogue buttons for player choice
-      this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
+      this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
       this.scene.npcChoice1.textWob();
       this.scene.npcChoice1.setScrollFactor(0);
-      this.scene.npcChoice1.setSize(300,30);
-      this.scene.npcChoice1.setInteractive();
+      this.scene.npcChoice1.addHitbox();
+      //this.scene.npcChoice1.setSize(300,30);
+      //this.scene.npcChoice1.setInteractive();
       this.scene.npcChoice1.setScale(.8);
 
       //set up dialogue option functionality so they work like buttons
@@ -710,11 +713,12 @@ class istara extends npc{
       },this);
 
       //dialogue option for no.
-      this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-210,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
+      this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
       this.scene.npcChoice2.textWob();
       this.scene.npcChoice2.setScrollFactor(0);
-      this.scene.npcChoice2.setSize(300,30);
-      this.scene.npcChoice2.setInteractive();
+      this.scene.npcChoice2.addHitbox();
+      //this.scene.npcChoice2.setSize(300,30);
+      //this.scene.npcChoice2.setInteractive();
       this.scene.npcChoice2.setScale(.8);
 
 

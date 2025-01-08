@@ -208,6 +208,10 @@ class defaultScene extends G10UpdateLoops {
 
   //default title incase one is not declared during gameover.
   this.defeatedTitle = "cursed";
+
+  //screen width and height definitions
+  this.screenWidth = 1200;
+  this.screenHeight = 900;
         
 
     }

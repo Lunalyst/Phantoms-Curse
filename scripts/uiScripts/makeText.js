@@ -25,6 +25,7 @@ class makeText extends Phaser.GameObjects.Container{
         let specialCharacter = false;
         let specialCharText = "";
 
+        //variable to get how long the hitbox should be if needed.
         this.middle = Math.floor(this.letterString.length/2);
         this.middleX = 0;
 
@@ -76,7 +77,6 @@ class makeText extends Phaser.GameObjects.Container{
             //code to find middle position of text.
             if(counter === this.middle){
               this.middleX = Math.floor((this.letters[counter].x + spacing)/2);
-              //console.log("setting middle x",this.middleX);
             }
 
         }
@@ -102,7 +102,8 @@ class makeText extends Phaser.GameObjects.Container{
     addHitbox(){
 
       let padding = 10;
-      //set interactive so it can be clicked on.
+
+      //set interactive so it can be clicked on. interesting way to manually make a hitbox for the text.
       this.setInteractive({
          hitArea: new Phaser.Geom.Rectangle(
         - padding,

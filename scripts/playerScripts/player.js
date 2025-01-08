@@ -540,6 +540,7 @@ class player extends Phaser.Physics.Arcade.Sprite{
     }
   }
 
+  //sets size of hitbox while attacking.
   setAttackHitboxSize(width,height){
     this.scene.attackHitBox.setSize(width,height);
   }

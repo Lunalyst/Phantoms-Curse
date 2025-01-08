@@ -47,6 +47,9 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 825 , frameHeight: 564 });
       this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
 
+      this.load.spritesheet('shop', 'assets/hudElements/shop-ui.png',{frameWidth: 630 , frameHeight: 750 });
+      
+
       this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
 
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
@@ -649,12 +652,41 @@ class gameHud extends A3SoundEffects {
           this.playerInventory.applyInteractionToSlots(this);
 
           //adds player storage ui
-          this.playerStorage = new storage(this,this.screenWidth/2-160,190);
-          this.playerStorage.applyUIControlElements();
+        this.playerStorage = new storage(this,this.screenWidth/2-160,190);
+        this.playerStorage.applyUIControlElements();
+
+        //makes a tween for the inventory object so the interior is see through
+        this.inventoryTween = this.tweens.add({
+          targets:this.playerStorage.storageInterior,
+          alpha: { from: 1, to: 0.8 },
+          ease: 'Sine.InOut',
+          duration: 500,
+          yoyo: false
+        });
+
+      //makes a tween for the inventory object so the interior is see through
+      this.inventoryTween = this.tweens.add({
+        targets:this.playerStorage.playerInventoryInterior,
+        alpha: { from: 1, to: 0.8 },
+        ease: 'Sine.InOut',
+        duration: 500,
+        yoyo: false
+      });
+
+      //makes the player inventory slot
+      this.playerStorage.generateSlots(this);
+
+      // applys interactions to the object apart of the inventory. 
+      this.playerStorage.applyInteractionToSlots(this);
+
+      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          //adds player storage ui
+          this.playerShop = new shop(this,this.screenWidth/2-160,190);
+          this.playerShop.applyUIControlElements();
 
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
-            targets:this.playerStorage.storageInterior,
+            targets:this.playerShop.shopInterior,
             alpha: { from: 1, to: 0.8 },
             ease: 'Sine.InOut',
             duration: 500,
@@ -663,7 +695,7 @@ class gameHud extends A3SoundEffects {
 
         //makes a tween for the inventory object so the interior is see through
         this.inventoryTween = this.tweens.add({
-          targets:this.playerStorage.playerInventoryInterior,
+          targets:this.playerShop.playerInventoryInterior,
           alpha: { from: 1, to: 0.8 },
           ease: 'Sine.InOut',
           duration: 500,
@@ -671,11 +703,13 @@ class gameHud extends A3SoundEffects {
         });
 
         //makes the player inventory slot
-        this.playerStorage.generateSlots(this);
+        this.playerShop.generateSlots(this);
 
         // applys interactions to the object apart of the inventory. 
-        this.playerStorage.applyInteractionToSlots(this);
+        this.playerShop.applyInteractionToSlots(this);
 
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        
           //emitter to opem and close the inventory when the tab input is recieved from the scene
           inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
               //opens inventory so long as the storage locker isnt open.
@@ -688,6 +722,12 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.activateStorage,(scene) =>{
             console.log("activating storage emitter");
             this.playerStorage.setView(scene,this);
+          });
+
+           //emitter to opem and close the inventory when the tab input is recieved from the scene
+           inventoryKeyEmitter.on(inventoryKey.activateShop,(scene) =>{
+            console.log("activating storage emitter");
+            this.playerShop.setView(scene,this);
           });
 
           //activates storage locker ui

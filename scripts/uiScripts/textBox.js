@@ -193,14 +193,14 @@ progressDialogue(){
     displayText(start,end){
       let textPos = 0;
       //clear the text character first.
-      for(let counter = start;counter < end;counter++){
+      for(let counter = start;counter < end+1;counter++){
         this.lines[textPos].anims.play(' ');
         textPos++;
       }
 
       textPos = 0;
       //awsome wack ass recursion using anims complete to create text scrolling.
-      this.displayHelper(start,textPos,end,this.amountWIsPressed)
+      this.displayHelper(start,textPos,end+1,this.amountWIsPressed)
 
       this.textBoxProfileImage.anims.play(this.profileArray[this.profileArrayPosition]);
     }

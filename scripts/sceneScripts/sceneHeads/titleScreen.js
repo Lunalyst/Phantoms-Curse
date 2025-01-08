@@ -67,7 +67,8 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("femaleSexSelectIcons" , "assets/titleScreen/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet('textBox', 'assets/hudElements/textBox.png',{frameWidth: 600, frameHeight: 100 });
-            this.load.spritesheet('charBlack', 'assets/hudElements/characterSetBlack.png',{frameWidth: 84, frameHeight: 108});
+            //notice, the charcters sprites are x12 there normal size since they are so small.
+            this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
             this.load.spritesheet('saveSlot', 'assets/titleScreen/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });

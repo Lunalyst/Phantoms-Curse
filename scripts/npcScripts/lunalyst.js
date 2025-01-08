@@ -37,6 +37,12 @@ class lunalyst extends npc{
 
        this.animationPlayed = false;
        this.scene = scene;
+
+       this.trading = false;
+       this.activatedTradeUI = false;
+       this.hugging = false; 
+
+       this.formattingText = false;
  
        //createdfor use in textbox
        this.profileArray;
@@ -82,7 +88,9 @@ class lunalyst extends npc{
           if(this.scene.sceneTextBox.completedText === false){
             this.scene.pausedInTextBox = true;
             this.scene.sceneTextBox.setText(this.textToDisplay);
-            this.scene.sceneTextBox.formatText();
+            if(this.formattingText === true){
+              this.scene.sceneTextBox.formatText();
+            }
             this.scene.sceneTextBox.setProfileArray(this.profileArray);
             this.scene.sceneTextBox.activateTextBox(this.scene);
             this.activationDelay = true;
@@ -113,6 +121,7 @@ class lunalyst extends npc{
       'SOMETHING HAS GONE       '+
       'WRONG!                   '+
       '                         ';
+      
   }
 
   devRoom(){
@@ -157,6 +166,7 @@ class lunalyst extends npc{
       'ANYWAY, I GOT TO GET     '+
       'BACK TO MY RESEARCH.     '+
       'EXITS BY THE HEATER.     ';
+      
 
       this.profileArray = ['lunaSleeping','lunaNeutral','lunaKO','lunaHappy','lunaFingerTouch','lunaStarEyes']
 
@@ -211,7 +221,7 @@ class lunalyst extends npc{
         'WONDER WHY THAT IS.      '+
         '                         '+
         '                         ';
-
+        
       }else{
         this.textToDisplay = 
         'OH? STILL STICKING       '+
@@ -284,6 +294,7 @@ class lunalyst extends npc{
       'ITS ALMOST AS IF THEY    '+
       'KNOW IM NOT ONE OF THEM. '+
       '                         ';
+      
 
       this.profileArray = ['lunaNeutral','lunaHappy','lunaKO','lunaHappy','lunaAngryEyes','lunaCry']
 
@@ -320,6 +331,7 @@ class lunalyst extends npc{
       'ANYWAY, MAKE YOURSELF    '+
       'CONFORTABLE IF YOU WISH. '+
       'EXITS BY THE HEATER.     ';
+      
 
       this.profileArray = ['lunaSleeping','lunaNeutral','lunaKO','lunaHappy','lunaFingerTouch','lunaStarEyes']
 
@@ -362,17 +374,17 @@ class lunalyst extends npc{
       this.scene.sceneTextBox.soundType = "lightVoice";
 
       this.textToDisplay = 
-      'OH A HUMAN! HELLO!        '+
-      '                          '+
-      '                          '+
+      'OH A HUMAN! HELLO!       '+
+      '                         '+
+      '                         '+
 
-      'MY NAME IS LUNALYST, AND  '+
-      'IM SURE YOU CAN TELL IM   '+
-      'NOT QUITE HUMAN ANYMORE.  '+
+      'MY NAME IS LUNALYST, AND '+
+      'IM SURE YOU CAN TELL IM  '+
+      'NOT QUITE HUMAN ANYMORE. '+
 
-      'HOWEVER IM NOT GONA TRY   '+
-      'AND EAT OR FORNICATE      '+
-      'WITH YOU, PROMISE.        '+
+      'HOWEVER IM NOT GONA TRY  '+
+      'AND EAT OR FORNICATE     '+
+      'WITH YOU, PROMISE.       '+
 
       'IM JUST A HUMBLE MAID    '+
       'TRYING TO GET BACK TO    '+
@@ -385,6 +397,7 @@ class lunalyst extends npc{
       'ANYWAY, I GOT TO GET     '+
       'BACK TO IT.              '+
       'STAY SAFE OUT THERE. ^_^ ';
+      
 
       this.profileArray = ['lunaStarEyes','lunaHappy','lunaKO','lunaFingerTouch','lunaKO','lunaStarEyes']
 
@@ -404,44 +417,229 @@ class lunalyst extends npc{
       }
 
     }else if(lunaCTWDialogue1.foundFlag === true){
+      //console.log("this.hugging: ",this.hugging, " this.trading: ", this.trading , )
+      if(this.scene.sceneTextBox.amountWIsPressed === 0){
+
+      this.hugging = false;
+      this.trading = false;
+      this.inDialogue = false;
 
       //sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
 
       this.textToDisplay = 
-      'OH HELLO AGIAN!           '+
-      '                          '+
-      '                          '+
+      'HELLO AGIAN.             '+
+      '                         '+
+      '                         '+
 
-      'IM STILL BUSY OVER HERE   '+
-      'CLEARING THE WAY.         '+
-      '                          '+
+      'IM STILL BUSY OVER HERE  '+
+      'CLEARING THE WAY.        '+
+      '                         '+
 
-      'HOWEVER I CAN GIVE YOU    '+
-      'A HUG IF YOU LIKE.        '+
-      '                          '+
+      'THOUGH I COULD USE A     '+
+      'BREAK.                   '+
+      '                         '+
 
-      'COME HERE.                '+
-      'EVERYTHINGS GOING TO BE   '+
-      'ALRIGHT.                  '+
+      'HOW CAN I ASSIST YOU?    '+
+      '                         '+
+      '                         ';
 
-      '                          '+
-      '                          '+
-      '                          '+
+      this.profileArray = ['lunaHappy','lunaKO','lunaFingerTouch','lunaHappy'];
 
-      '                          '+
-      '                          '+
-      '                          '+
-
-      'STAY SAFE OUT THERE. ^_^  '+
-      '                          '+
-      '                          ';
-
-      this.profileArray = ['lunaHappy','lunaKO','lunaFingerTouch','lunaHappy','lunaHappy','lunaHearts','lunaFingerTouch']
-
-      if(this.scene.sceneTextBox.amountWIsPressed === 2){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 2){
         this.animationPlayed = false;
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 3){
+
+      //handle dialogue choice option.
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 4 && this.inDialogue === false){
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"CAN I GET HUG? ",true);
+        this.scene.npcChoice1.textWob();
+        this.scene.npcChoice1.setScrollFactor(0);
+        this.scene.npcChoice1.addHitbox();
+        this.scene.npcChoice1.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice1.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice1.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice1.on('pointerout',function(pointer){
+            this.scene.npcChoice1.clearTextTint();
+        },this);
+
+        this.scene.npcChoice1.on('pointerdown', function (pointer) {
+        
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add new dialogue to the profile array based on the decision
+          this.profileArray.push('lunaHappy');
+          this.profileArray.push('lunaHappy');
+          this.profileArray.push('lunaHearts');
+          this.profileArray.push('lunaFingerTouch');
+          this.profileArray.push('lunaHappy');
+
+          this.textToDisplay += 
+        'OH? OF COURSE!           '+
+        '                         '+
+        '                         '+
+
+        'COME HERE.               '+
+        'EVERYTHINGS GOING TO BE  '+
+        'ALRIGHT.                 '+
+
+        '                         '+
+        '                         '+
+        '                         '+
+
+        '                         '+
+        '                         '+
+        '                         '+
+
+        'STAY SAFE OUT THERE. ^_^ '+
+        '                         '+
+        '                         ';
+        
+
+          console.log("this.textToDisplay: ",this.textToDisplay);
+
+          //update the dialogue in the next box.
+          this.scene.sceneTextBox.setText(this.textToDisplay);
+          //this.scene.sceneTextBox.formatText();
+          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+
+          this.hugging = true;
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"GOT ANY SUPPPLIES? ",true);
+        this.scene.npcChoice2.textWob();
+        this.scene.npcChoice2.setScrollFactor(0);
+        this.scene.npcChoice2.addHitbox();
+        this.scene.npcChoice2.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice2.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice2.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice2.on('pointerout',function(pointer){
+            this.scene.npcChoice2.clearTextTint();
+        },this);
+
+        this.scene.npcChoice2.on('pointerdown', function (pointer) {
+        
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.trading = true;
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add new dialogue to the profile array based on the decision
+          this.profileArray.push('lunaHappy');
+          this.profileArray.push('lunaNeutral');
+
+
+          this.textToDisplay += 
+          'SUPPLIES?                '+
+          'SURE WE CAN DO SOME      '+
+          'TRADING.                 '+
+
+          'HERES WHAT I GOT.        '+
+          '                         '+
+          '                         ';
+
+        console.log("this.textToDisplay: ",this.textToDisplay);
+
+          //update the dialogue in the next box.
+          this.scene.sceneTextBox.setText(this.textToDisplay);
+          //this.scene.sceneTextBox.formatText();
+          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"SEE YOU LATER. ",true);
+        this.scene.npcChoice3.textWob();
+        this.scene.npcChoice3.setScrollFactor(0);
+        this.scene.npcChoice3.addHitbox();
+        this.scene.npcChoice3.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice3.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice3.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice3.on('pointerout',function(pointer){
+            this.scene.npcChoice3.clearTextTint();
+        },this);
+
+        this.scene.npcChoice3.on('pointerdown', function (pointer) {
+        
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.yes = true;
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add new dialogue to the profile array based on the decision
+          this.profileArray.push('lunaHappy');
+
+
+
+          this.textToDisplay += 
+          'GOODBYE ^_^              '+
+          '                         '+
+          '                         ';
+        
+        console.log("this.textToDisplay: ",this.textToDisplay);
+
+          //update the dialogue in the next box.
+          this.scene.sceneTextBox.setText(this.textToDisplay);
+          //this.scene.sceneTextBox.formatText();
+          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+          //progress the dialogue by one stage so the button moves dialogue forward.
+          this.scene.sceneTextBox.progressDialogue();
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+
+        },this);
+
+
+        //call scene variable to create interupt.
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //let the npc know they are in dialogue
+        this.inDialogue = true;
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 5 && this.hugging){
 
        this.scene.player1.visible = false;
         if(this.animationPlayed === false){
@@ -462,7 +660,7 @@ class lunalyst extends npc{
            } 
         }
        
-      }else if(this.scene.sceneTextBox.amountWIsPressed > 3 && this.scene.sceneTextBox.amountWIsPressed < 6){
+      }else if(this.scene.sceneTextBox.amountWIsPressed > 5 && this.scene.sceneTextBox.amountWIsPressed < 8 && this.hugging){
 
         this.scene.player1.visible = false;
 
@@ -471,14 +669,23 @@ class lunalyst extends npc{
          }else{
           this.anims.play('lunalystMaleHug',true);
          } 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 8 && this.hugging && this.animationPlayed === false){
+
+        this.animationPlayed = true;
+        //apply interuption to dialogue
+        this.scene.sceneTextBox.textInterupt = true;
 
         if(this.scene.playerSex === 1){
+
           this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
             this.anims.play('lunalystIdle',true);
             this.scene.player1.x = this.x+20;
             this.scene.player1.y = this.y;
             this.scene.player1.visible = true;
+            this.animationPlayed = false
+            this.scene.sceneTextBox.textInterupt = false;
+            //progress the dialogue by one stage so the button moves dialogue forward.
+            this.scene.sceneTextBox.progressDialogue();
           });
          }else{
           this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
@@ -486,17 +693,35 @@ class lunalyst extends npc{
             this.scene.player1.x = this.x+20;
             this.scene.player1.y = this.y;
             this.scene.player1.visible = true;
+            this.animationPlayed = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            //progress the dialogue by one stage so the button moves dialogue forward.
+            this.scene.sceneTextBox.progressDialogue();
           });
          } 
         
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 7){
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 9 && this.hugging){
 
         this.anims.play('lunalystIdle',true);
 
         this.scene.player1.x = this.x+20;
         this.scene.player1.y = this.y;
         this.scene.player1.visible = true;
+        this.hugging = false;
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 6 && this.trading){
+
+        // call the emitter to check if the value already was picked up.
+        console.log('activating shop');
+        inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene);
+
+        this.scene.sceneTextBox.textInterupt = true;
+        if(this.scene.checkInventoryIsDown()){
+          this.scene.sceneTextBox.textInterupt = false;
+          inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene);
+        }
+           
+
       }
 
     }

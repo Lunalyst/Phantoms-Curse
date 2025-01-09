@@ -141,6 +141,7 @@ class shop extends Phaser.GameObjects.Container{
 
             //hides slots.
             this.setSlotView(hud);
+            console.log("saving and copying back element in scene inventory from shop ui");
             this.SaveAndClearSlots(hud);
 
             //
@@ -194,7 +195,7 @@ class shop extends Phaser.GameObjects.Container{
       }
 
       //adds currency counter
-      this.shellIcon = new shellMark(scene,this.x-120,this.y+130);
+      this.shellIcon = new shellMark(scene,-320,160);
       this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
       this.add(this.shellIcon);
@@ -330,8 +331,10 @@ class shop extends Phaser.GameObjects.Container{
 
         //adds the numbers in each slot to the visibility group
         this.inventoryElements.add(this.shopArray[index].number1);
+        this.sellElements.add(this.shopArray[index].number1);
         this.add(this.shopArray[index].number1);
         this.inventoryElements.add(this.shopArray[index].number2);
+        this.sellElements.add(this.shopArray[index].number2);
         this.add(this.shopArray[index].number2);
 
         index++;
@@ -343,7 +346,6 @@ class shop extends Phaser.GameObjects.Container{
       this.sellSwitch.addHitbox();
       this.sellSwitch.clicked = false;
       this.sellSwitch.setScrollFactor(0);
-      //this.sellSwitch.setScale(.8);
       this.sellSwitch.visible = false;
       this.inventoryElements.add(this.sellSwitch);
       this.add(this.sellSwitch);
@@ -351,38 +353,42 @@ class shop extends Phaser.GameObjects.Container{
     //set up button functionality for SELL button
     this.sellSwitch.on('pointerover',function(pointer){
       this.scene.initSoundEffect('buttonSFX','1',0.05);
-      if(this.sellSwitch.clicked === true){
-      this.sellSwitch.setTextTint(0xff0000);
-      }else{
-      this.sellSwitch.setTextTint(0xff7a7a);
-      }
-    },this);
-
-    this.sellSwitch.on('pointerout',function(pointer){
-
-    if(this.sellSwitch.clicked === true){
-      this.sellSwitch.setTextTint(0xff0000);
-    }else{
-      this.sellSwitch.clearTextTint();
-    }
-        
+      
     },this);
 
     this.sellSwitch.on('pointerdown', function (pointer) {
-    if(this.sellSwitch.clicked === true){
-      this.sellSwitch.clicked = false;
-      this.sellSwitch.setTextTint(0xff7a7a);
-    }else{
-      this.sellSwitch.clicked = true;
-      this.sellSwitch.setTextTint(0xff0000);
 
-    }
+     //if the button is clicked while it is blank 
+      if(this.sellSwitch.clicked === false){
+        //set this.clicked to true, then set the tint
+        this.sellSwitch.clicked = true;
+        this.sellSwitch.setTextTint(0xff0000);
+        
+        //toggle visibility. this case should have the buy inventory hidden and the sell inventory appear.
+        this.buyElements.toggleVisible();
+        this.sellElements.toggleVisible();
 
-    if(this.buySwitch.clicked === true){
-      this.buySwitch.clicked = false;
-      this.buySwitch.clearTextTint();
-    }
-    
+        //loop through sell slots
+        for(let counter = 24; counter < 33;counter++){
+
+          //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
+          this.shopArray[counter].isLitUp = false;
+          this.shopArray[counter].animsNumber = this.copyDataArray[this.getDataLocation(counter)].itemID;
+          this.shopArray[counter].anims.play(''+this.shopArray[counter].animsNumber);
+          this.shopArray[counter].setSlotNumber(this.copyDataArray[this.getDataLocation(counter)].itemAmount);
+          this.shopArray[counter].clearTint();
+
+           //clear both slots.
+           this.activeSlot1 = -1;
+           this.activeSlot2 = -2;
+        }
+
+        //set buyswitch clicked to false
+        this.buySwitch.clicked = false;
+        this.buySwitch.clearTextTint();
+        
+      }
+  
       this.scene.initSoundEffect('buttonSFX','2',0.05);
 
     },this);
@@ -437,23 +443,38 @@ class shop extends Phaser.GameObjects.Container{
       let animationNumber = "";
       animationNumber += this.scene.playerSaveSlotData.currency;
       console.log("animationNumber for currency: " + animationNumber);
-      this.shellLetters = new makeText(scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
-      this.shellLetters.visible = false;
+      this.shellLetters.destroy();
+      this.shellLetters = new makeText(this.scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ this.scene.playerSaveSlotData.currency);
       this.inventoryElements.add(this.shellLetters);
+      this.sellElements.add(this.shellLetters);
       this.add(this.shellLetters);
       
-      //clear sell slots
-
-      //clear amount sell value.
-
       //reset sellprice
       this.sellNumber = 0;
 
       //loop through the nine slots
       for(let counter = 24; counter < 33; counter++){
 
-        //add the price of the items in the sell slots to the sellnumber by multiplying the item amount by its sell value.
-        this.sellNumber += this.copyDataArray[this.getDataLocation(counter)].itemAmount * this.copyDataArray[this.getDataLocation(counter)].sellValue;
+        // temp item to clear the slot
+        let temp = {
+          itemID: 0,
+          itemName: ' ',
+          itemDescription: ' ',
+          itemStackable: 1,
+          itemAmount: 0,
+          itemType:"",
+          sellValue: 0
+       };
+
+       this.copyDataArray[this.getDataLocation(counter)] = temp;
+
+       //set animation for activeSlot1
+       this.shopArray[counter].isLitUp = false;
+       this.shopArray[counter].animsNumber = this.copyDataArray[this.getDataLocation(counter)].itemID;
+       this.shopArray[counter].anims.play(''+this.shopArray[counter].animsNumber);
+       this.shopArray[counter].setSlotNumber(this.copyDataArray[this.getDataLocation(counter)].itemAmount);
+       this.shopArray[counter].clearTint();
+
 
       }
 
@@ -461,63 +482,79 @@ class shop extends Phaser.GameObjects.Container{
       this.sellText.destroy();
       this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
       this.sellText.setScrollFactor(0);
+      if(this.sellSwitch.clicked === false){
+        this.sellText.visible = false;
+      }
       this.inventoryElements.add(this.sellText);
+      this.sellElements.add(this.sellText);
       this.add(this.sellText);
 
 
 
     },this);
 
+    //by default the visibility of the sell inventoy should be false
+    this.sellElements.toggleVisible();
+
     //buy, and buy related objects ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //create text button which can be used to buySwitch a stack
     this.buySwitch = new makeText(this.scene,220-95,-170,'charBubble',"BUY",true);
     this.buySwitch.addHitbox();
-    this.buySwitch.clicked = false;
+    this.buySwitch.clicked = true;
+    this.buySwitch.setTextTint(0xff0000);
     this.buySwitch.setScrollFactor(0);
-    //this.buySwitch.setScale(.8);
     this.buySwitch.visible = false;
     this.inventoryElements.add(this.buySwitch);
     this.add(this.buySwitch);
 
-   //set up button functionality for buySwitch button
-   this.buySwitch.on('pointerover',function(pointer){
-       this.scene.initSoundEffect('buttonSFX','1',0.05);
-       if(this.buySwitch.clicked === true){
-       this.buySwitch.setTextTint(0xff0000);
-       }else{
-       this.buySwitch.setTextTint(0xff7a7a);
-       }
+    //set up button functionality for SELL button
+    this.buySwitch.on('pointerover',function(pointer){
+      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      
     },this);
 
-    this.buySwitch.on('pointerout',function(pointer){
+    this.buySwitch.on('pointerdown', function (pointer) {
 
-     if(this.buySwitch.clicked === true){
-       this.buySwitch.setTextTint(0xff0000);
-     }else{
-       this.buySwitch.clearTextTint();
-     }
-        
-    },this);
-
-      this.buySwitch.on('pointerdown', function (pointer) {
-      if(this.buySwitch.clicked === true){
-        this.buySwitch.clicked = false;
-        this.buySwitch.setTextTint(0xff7a7a);
-      }else{
+    //if the button is clicked while it is blank 
+      if(this.buySwitch.clicked === false){
+        //set this.clicked to true, then set the tint
         this.buySwitch.clicked = true;
         this.buySwitch.setTextTint(0xff0000);
+        
+        //toggle visibility. this case should have the buy inventory hidden and the sell inventory appear.
+        this.buyElements.toggleVisible();
+        this.sellElements.toggleVisible();
 
-      }
+        //loop through sell slots
+        for(let counter = 24; counter < 33;counter++){
 
-      if(this.sellSwitch.clicked === true){
+          //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
+          this.shopArray[counter].isLitUp = false;
+          this.shopArray[counter].animsNumber = this.copyDataArray[this.getDataLocation(counter)].itemID;
+          this.shopArray[counter].anims.play(''+this.shopArray[counter].animsNumber);
+          this.shopArray[counter].setSlotNumber(this.copyDataArray[this.getDataLocation(counter)].itemAmount);
+          this.shopArray[counter].clearTint();
+
+          //making sure to hide the slot numbers while in buy tab
+          this.shopArray[counter].number1.visible = false;
+          this.shopArray[counter].number2.visible = false;
+
+        }
+
+        //clear both slots.
+        this.activeSlot1 = -1;
+        this.activeSlot2 = -2;
+
+        //set buyswitch clicked to false
         this.sellSwitch.clicked = false;
         this.sellSwitch.clearTextTint();
+        
       }
-      
-        this.scene.initSoundEffect('buttonSFX','2',0.05);
 
-      },this);
+      this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+    },this);
         
   }
 
@@ -587,6 +624,55 @@ class shop extends Phaser.GameObjects.Container{
 
           index++;
         }
+  
+        //destroy and reset the sell text on aditional shop opens.
+        this.sellNumber = 0;
+        this.sellText.destroy();
+        this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+        if(this.sellSwitch.clicked === false){
+          this.sellText.visible = false;
+        }
+        this.sellText.setScrollFactor(0);
+        this.inventoryElements.add(this.sellText);
+        this.sellElements.add(this.sellText);
+        this.add(this.sellText);
+
+      }
+
+      //ensures that the buy tab is always the open tab anytime you re enter the shop ui.
+      if(this.buySwitch.clicked === false){
+        //set this.clicked to true, then set the tint
+        this.buySwitch.clicked = true;
+        this.buySwitch.setTextTint(0xff0000);
+        
+        //toggle visibility. this case should have the buy inventory hidden and the sell inventory appear.
+        this.buyElements.toggleVisible();
+        this.sellElements.toggleVisible();
+
+        //loop through sell slots
+        for(let counter = 24; counter < 33;counter++){
+
+          //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
+          this.shopArray[counter].isLitUp = false;
+          this.shopArray[counter].animsNumber = this.copyDataArray[this.getDataLocation(counter)].itemID;
+          this.shopArray[counter].anims.play(''+this.shopArray[counter].animsNumber);
+          this.shopArray[counter].setSlotNumber(this.copyDataArray[this.getDataLocation(counter)].itemAmount);
+          this.shopArray[counter].clearTint();
+
+          //making sure to hide the slot numbers while in buy tab
+          this.shopArray[counter].number1.visible = false;
+          this.shopArray[counter].number2.visible = false;
+
+        }
+
+        //clear both slots.
+        this.activeSlot1 = -1;
+        this.activeSlot2 = -2;
+
+        //set buyswitch clicked to false
+        this.sellSwitch.clicked = false;
+        this.sellSwitch.clearTextTint();
+        
       }
 
       console.log("setting copyDataArray");
@@ -598,11 +684,30 @@ class shop extends Phaser.GameObjects.Container{
     SaveAndClearSlots(){
       
       //overwrite the values from 3-27 in the original storage array with the current copy.
+      for(let counter = 0; counter < 28;counter++){
+        //overwrite slots in memory with new data
+        this.scene.inventoryDataArray[counter] = this.copyDataArray[counter];
+      }
+
+      //used to tell if the item was added
+      let addedToInventory = {
+        added: true
+      };
 
       //afterward check to see if anything is left in the sell slots.
+      for(let counter = 28; counter < 37;counter++){
+        //if so then add them back to the player inventory using our built in emitter. that way items cant be lost.
+        //if the inventory is full as an example, then the items left in the sell slots will end up in the storage locker.
+        //emitter to add object to inventory.
+        if(this.copyDataArray[counter].itemID !== 0){
+          
+          inventoryKeyEmitter.emit(inventoryKey.addItem,this.copyDataArray[counter], addedToInventory);
+        }
+        
 
-      //if so then add them back to the player inventory using our built in emitter. that way items cant be lost.
-      //if the inventory is full as an example, then the items left in the sell slots will end up in the storage locker.
+      }
+
+     
       
   }
     
@@ -650,11 +755,6 @@ class shop extends Phaser.GameObjects.Container{
       }
 
     }
-
-    //takes a number representing place in data array. as an example 0
-    //then it adds the offset to it where the offset resembles the first 4 slots that shouldnt be showing.
-
-   
 
     //uses the activate slot number and the page number to get the position in dataaray which has the item we want to move.
     getDataLocation(activatedSlot){
@@ -933,8 +1033,12 @@ class shop extends Phaser.GameObjects.Container{
           //destroy and reset the sell text.
           this.sellText.destroy();
           this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+          if(this.sellSwitch.clicked === false){
+            this.sellText.visible = false;
+          }
           this.sellText.setScrollFactor(0);
           this.inventoryElements.add(this.sellText);
+          this.sellElements.add(this.sellText);
           this.add(this.sellText);
 
           

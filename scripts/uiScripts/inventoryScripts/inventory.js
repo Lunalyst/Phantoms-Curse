@@ -593,7 +593,7 @@ class inventory extends Phaser.GameObjects.Container{
           tempInventory.scene.itemName.destroy();
           tempInventory.scene.itemDescription.destroy();
           
-          if(scene.inventoryDataArray[counter].itemID !== 0){
+          if(tempInventory.scene.itemValue !== null && tempInventory.scene.itemValue !== undefined){
             tempInventory.scene.itemValue.destroy();
           }
         });

@@ -410,12 +410,22 @@ class storage extends Phaser.GameObjects.Container{
           scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter + tempStorage.slotOffset].itemDescription);
           scene.itemDescription.setScale(0.7);
           scene.itemDescription.setDepth(21);
+          console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + tempStorage.slotOffset].itemID);
+          if(scene.inventoryDataArray[counter + tempStorage.slotOffset].itemID > 0){
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter + tempStorage.slotOffset].sellValue);
+            scene.itemValue.setScale(0.7);
+            scene.itemValue.setDepth(21);
+          }
         });
 
         // removes name and discription.
         this.storageArray[counter].on('pointerout',function(pointer){
           tempStorage.scene.itemName.destroy();
           tempStorage.scene.itemDescription.destroy();
+
+          if(tempStorage.scene.itemValue !== null && tempStorage.scene.itemValue !== undefined){
+            tempStorage.scene.itemValue.destroy();
+          }
         });
       }
 

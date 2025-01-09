@@ -75,7 +75,7 @@ class shop extends Phaser.GameObjects.Container{
       //group for the elements that are in the sell tab
       this.sellElements = new Phaser.GameObjects.Group(scene); 
 
-      //this.scene.inventoryDataArray is our location in memory we want to set after we are done 
+      //this.this.copyDataArray is our location in memory we want to set after we are done 
       this.copyDataArray = [];
 
       //this.inventoryElements.add(this); 
@@ -165,6 +165,7 @@ class shop extends Phaser.GameObjects.Container{
     //creates the intem slots displayed in the inventory.
     generateSlots(scene){ 
 
+      //inventory slots and objects==============================================================================================
       let index = 0;
       let col = 0;
       let row = 0;
@@ -192,30 +193,26 @@ class shop extends Phaser.GameObjects.Container{
         }
       }
 
-      //nested for loop that generates rows and columns of the sell slots.
-      for(col = 0; col < 3; col++){
-        for(row = 0; row < 3; row++){
-          //creates the slots as the loop generats the slots
-          this.shopArray.push(new inventorySlots(scene,(70) + (row*60), (-80) +(col*60),'inventorySlots').setInteractive());
-          //adds the object to this container.
-          this.add(this.shopArray[index]);
-          //adds this to a group to set sprite visibility.
-          this.inventoryElements.add(this.shopArray[index]);
+      //adds currency counter
+      this.shellIcon = new shellMark(scene,this.x-120,this.y+130);
+      this.shellIcon.setScale(.6);
+      this.inventoryElements.add(this.shellIcon);
+      this.add(this.shellIcon);
+      let startingX = 29;
+      let startingY = 22;
+      let spacing = 0;
 
-          //adds the numbers in each slot to the visibility group
-          this.inventoryElements.add(this.shopArray[index].number1);
-          this.add(this.shopArray[index].number1);
-          this.inventoryElements.add(this.shopArray[index].number2);
-          this.add(this.shopArray[index].number2);
-
-          //console.log("this.storageArray[index].number1: ",this.storageArray[index].number1);
-          //console.log("this.storageArray ",this.storageArray);
-
-          index++;
-        }
-      } 
-
-      console.log("this.shopArray: ", this.shopArray);
+      //sets the currency icon and number in the inventory.
+      if (scene.playerSaveSlotData !== undefined) {
+        let animationNumber = "";
+        animationNumber += scene.playerSaveSlotData.currency;
+        console.log("animationNumber for currency: " + animationNumber);
+        this.shellLetters = new makeText(scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
+        this.shellLetters.visible = false;
+        this.inventoryElements.add(this.shellLetters);
+        this.add(this.shellLetters);
+  
+      }
 
       //create text button which can be used to split a stack
       this.split = new makeText(this.scene,-70,-140,'charBubble',"SPLIT",true);
@@ -315,12 +312,170 @@ class shop extends Phaser.GameObjects.Container{
 
     },this);
 
+    //sell slots and related objects------------------------------------------------------------------------------------------------------
+      
+    //nested for loop that generates rows and columns of the sell slots.
+    for(col = 0; col < 3; col++){
+       for(row = 0; row < 3; row++){
+        //creates the slots as the loop generats the slots
+        let temp = new inventorySlots(scene,(160) + (row*60), (-60) +(col*60),'inventorySlots').setInteractive();
+        this.shopArray.push(temp);
+        //adds the object to this container.
+        this.add(this.shopArray[index]);
+        //adds this to a group to set sprite visibility.
+        this.inventoryElements.add(this.shopArray[index]);
+
+        //add the sell slots to the sellelements group.
+        this.sellElements.add(temp)
+
+        //adds the numbers in each slot to the visibility group
+        this.inventoryElements.add(this.shopArray[index].number1);
+        this.add(this.shopArray[index].number1);
+        this.inventoryElements.add(this.shopArray[index].number2);
+        this.add(this.shopArray[index].number2);
+
+        index++;
+      }
+    } 
+
+      //create text button which can be used to split a stack
+      this.sellSwitch = new makeText(this.scene,220+65,-170,'charBubble',"SELL",true);
+      this.sellSwitch.addHitbox();
+      this.sellSwitch.clicked = false;
+      this.sellSwitch.setScrollFactor(0);
+      //this.sellSwitch.setScale(.8);
+      this.sellSwitch.visible = false;
+      this.inventoryElements.add(this.sellSwitch);
+      this.add(this.sellSwitch);
+
+    //set up button functionality for SELL button
+    this.sellSwitch.on('pointerover',function(pointer){
+      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      if(this.sellSwitch.clicked === true){
+      this.sellSwitch.setTextTint(0xff0000);
+      }else{
+      this.sellSwitch.setTextTint(0xff7a7a);
+      }
+    },this);
+
+    this.sellSwitch.on('pointerout',function(pointer){
+
+    if(this.sellSwitch.clicked === true){
+      this.sellSwitch.setTextTint(0xff0000);
+    }else{
+      this.sellSwitch.clearTextTint();
+    }
+        
+    },this);
+
+    this.sellSwitch.on('pointerdown', function (pointer) {
+    if(this.sellSwitch.clicked === true){
+      this.sellSwitch.clicked = false;
+      this.sellSwitch.setTextTint(0xff7a7a);
+    }else{
+      this.sellSwitch.clicked = true;
+      this.sellSwitch.setTextTint(0xff0000);
+
+    }
+
+    if(this.buySwitch.clicked === true){
+      this.buySwitch.clicked = false;
+      this.buySwitch.clearTextTint();
+    }
+    
+      this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+    },this);
+
+    //adds currency counter
+    this.shellSellIcon = new shellMark(scene,180,-110);
+    this.shellSellIcon.setScale(.6);
+    this.inventoryElements.add(this.shellSellIcon);
+    this.sellElements.add(this.shellSellIcon);
+    this.add(this.shellSellIcon);
+
+    //text to display value amount in sell slots.
+    this.sellNumber = 0;
+    this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+    this.sellText.setScrollFactor(0);
+    this.sellText.visible = false;
+    this.inventoryElements.add(this.sellText);
+    this.sellElements.add(this.sellText);
+    this.add(this.sellText);
+
+    //create text button which can be used to split a stack
+    this.sellButton = new makeText(this.scene,150,100,'charBubble',"SELL ITEMS",true);
+    this.sellButton.addHitbox();
+    this.sellButton.setScrollFactor(0);
+    this.sellButton.visible = false;
+    this.inventoryElements.add(this.sellButton);
+    this.sellElements.add(this.sellButton);
+    this.add(this.sellButton);
+
+    //set up button functionality for SELL button
+    this.sellButton.on('pointerover',function(pointer){
+
+      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      this.sellButton.setTextTint(0xff0000);
+
+    },this);
+
+    this.sellButton.on('pointerout',function(pointer){
+
+      this.sellButton.clearTextTint();
+    
+        
+    },this);
+
+    this.sellButton.on('pointerdown', function (pointer) {
+
+      this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+      //add currency to players currency in file
+      //sets the currency icon and number in the inventory.
+      this.scene.playerSaveSlotData.currency += this.sellNumber;
+      let animationNumber = "";
+      animationNumber += this.scene.playerSaveSlotData.currency;
+      console.log("animationNumber for currency: " + animationNumber);
+      this.shellLetters = new makeText(scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
+      this.shellLetters.visible = false;
+      this.inventoryElements.add(this.shellLetters);
+      this.add(this.shellLetters);
+      
+      //clear sell slots
+
+      //clear amount sell value.
+
+      //reset sellprice
+      this.sellNumber = 0;
+
+      //loop through the nine slots
+      for(let counter = 24; counter < 33; counter++){
+
+        //add the price of the items in the sell slots to the sellnumber by multiplying the item amount by its sell value.
+        this.sellNumber += this.copyDataArray[this.getDataLocation(counter)].itemAmount * this.copyDataArray[this.getDataLocation(counter)].sellValue;
+
+      }
+
+      //destroy and reset the sell text.
+      this.sellText.destroy();
+      this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+      this.sellText.setScrollFactor(0);
+      this.inventoryElements.add(this.sellText);
+      this.add(this.sellText);
+
+
+
+    },this);
+
+    //buy, and buy related objects ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     //create text button which can be used to buySwitch a stack
     this.buySwitch = new makeText(this.scene,220-95,-170,'charBubble',"BUY",true);
     this.buySwitch.addHitbox();
     this.buySwitch.clicked = false;
     this.buySwitch.setScrollFactor(0);
-    this.buySwitch.setScale(.8);
+    //this.buySwitch.setScale(.8);
     this.buySwitch.visible = false;
     this.inventoryElements.add(this.buySwitch);
     this.add(this.buySwitch);
@@ -345,73 +500,25 @@ class shop extends Phaser.GameObjects.Container{
         
     },this);
 
-    this.buySwitch.on('pointerdown', function (pointer) {
-     if(this.buySwitch.clicked === true){
-       this.buySwitch.clicked = false;
-       this.buySwitch.setTextTint(0xff7a7a);
-     }else{
-       this.buySwitch.clicked = true;
-       this.buySwitch.setTextTint(0xff0000);
+      this.buySwitch.on('pointerdown', function (pointer) {
+      if(this.buySwitch.clicked === true){
+        this.buySwitch.clicked = false;
+        this.buySwitch.setTextTint(0xff7a7a);
+      }else{
+        this.buySwitch.clicked = true;
+        this.buySwitch.setTextTint(0xff0000);
 
-     }
+      }
 
-     if(this.sellSwitch.clicked === true){
-       this.sellSwitch.clicked = false;
-       this.sellSwitch.clearTextTint();
-     }
-    
-      this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-    },this);
-    
-    //create text button which can be used to split a stack
-    this.sellSwitch = new makeText(this.scene,220+65,-170,'charBubble',"SELL",true);
-    this.sellSwitch.addHitbox();
-    this.sellSwitch.clicked = false;
-    this.sellSwitch.setScrollFactor(0);
-    this.sellSwitch.setScale(.8);
-    this.sellSwitch.visible = false;
-    this.inventoryElements.add(this.sellSwitch);
-    this.add(this.sellSwitch);
-
-   //set up button functionality for SELL button
-   this.sellSwitch.on('pointerover',function(pointer){
-     this.scene.initSoundEffect('buttonSFX','1',0.05);
-     if(this.sellSwitch.clicked === true){
-     this.sellSwitch.setTextTint(0xff0000);
-     }else{
-     this.sellSwitch.setTextTint(0xff7a7a);
-     }
-  },this);
-
-  this.sellSwitch.on('pointerout',function(pointer){
-
-   if(this.sellSwitch.clicked === true){
-     this.sellSwitch.setTextTint(0xff0000);
-   }else{
-     this.sellSwitch.clearTextTint();
-   }
+      if(this.sellSwitch.clicked === true){
+        this.sellSwitch.clicked = false;
+        this.sellSwitch.clearTextTint();
+      }
       
-  },this);
+        this.scene.initSoundEffect('buttonSFX','2',0.05);
 
-  this.sellSwitch.on('pointerdown', function (pointer) {
-   if(this.sellSwitch.clicked === true){
-     this.sellSwitch.clicked = false;
-     this.sellSwitch.setTextTint(0xff7a7a);
-   }else{
-     this.sellSwitch.clicked = true;
-     this.sellSwitch.setTextTint(0xff0000);
-
-   }
-
-   if(this.buySwitch.clicked === true){
-     this.buySwitch.clicked = false;
-     this.buySwitch.clearTextTint();
-   }
-  
-    this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-  },this);
+      },this);
+        
   }
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
@@ -430,13 +537,11 @@ class shop extends Phaser.GameObjects.Container{
       this.copyDataArray = [];
 
       //fill the copydataarray with the item object from 3 to 27
-      for(let counter = 0; counter < 29;counter++){
+      for(let counter = 0; counter < 28;counter++){
         //note its easier to just grab the first 0-27 inventory items. since we call.getDataLocation
+        //tagtofix
         this.copyDataArray.push(this.scene.inventoryDataArray[counter])
       }
-
-      console.log("setting copyDataArray");
-      console.log("this.copyDataArray: ",this.copyDataArray);
       
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots
       let index = 0;
@@ -483,41 +588,22 @@ class shop extends Phaser.GameObjects.Container{
           index++;
         }
       }
-    }
-
-    // applies the correct animation to the inventory slot based on the inventory data
-    // this version also had a double purpose.
-    //when this is called also copys the player inventory to this ui
-    SaveAndClearSlots(){
-
-      //clears and sets the copy array.
-      this.copyDataArray = [];
-
-      //fill the copydataarray with the item object from 3 to 27
-      for(let counter = 0; counter < 27;counter++){
-        //note its easier to just grab the first 0-27 inventory items. since we call.getDataLocation
-        this.copyDataArray.push(this.scene.inventoryDataArray[counter])
-      }
 
       console.log("setting copyDataArray");
       console.log("this.copyDataArray: ",this.copyDataArray);
-      
-      //index keeps track of the lost, we skip the first two slots as they are the equipment slots
-      let index = 0;
-      //nested loop to loop through all the rows and columns of the inventory slots
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
-          console.log('first loop this.scene.inventoryDataArray[',this.getDataLocation(index),']: ',this.scene.inventoryDataArray[this.getDataLocation(index)].itemID)
-          this.shopArray[index].anims.play(""+this.scene.inventoryDataArray[this.getDataLocation(index)].itemID);
-          this.shopArray[index].clearTint();
-          this.shopArray[index].number1.visible = this.isOnScreen;
-          this.shopArray[index].number2.visible = this.isOnScreen;
+      console.log("this.shopArray: ", this.shopArray);
+    }
 
-          this.shopArray[index].setSlotNumber(this.scene.inventoryDataArray[this.getDataLocation(index)].itemAmount);
-          
-          index++;
-        }
-      }    
+    //function takes the copyed array for the shop and overwrites the original array with the new data.
+    SaveAndClearSlots(){
+      
+      //overwrite the values from 3-27 in the original storage array with the current copy.
+
+      //afterward check to see if anything is left in the sell slots.
+
+      //if so then add them back to the player inventory using our built in emitter. that way items cant be lost.
+      //if the inventory is full as an example, then the items left in the sell slots will end up in the storage locker.
+      
   }
     
     //applies interactive click events on all inventory slots
@@ -526,7 +612,7 @@ class shop extends Phaser.GameObjects.Container{
       let activeSlot = 0;
 
       // applys  lightupslot function to slots when clicked.
-      for(let counter = 0; counter <= 23;counter++){
+      for(let counter = 0; counter < 33;counter++){
         console.log("counter: ",counter);
         // code that handles applying interaction on slots
         this.shopArray[counter].on('pointerdown', function (pointer) {
@@ -539,14 +625,14 @@ class shop extends Phaser.GameObjects.Container{
         let tempshop = this;
         this.shopArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter + tempshop.slotOffset].itemName);
+          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
           scene.itemName.setScale(0.7);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter + tempshop.slotOffset].itemDescription);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
           scene.itemDescription.setScale(0.7);
           scene.itemDescription.setDepth(21);
-          if(scene.inventoryDataArray[counter+ tempshop.slotOffset].itemID !== 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter + tempshop.slotOffset].sellValue);
+          if(tempshop.copyDataArray[counter+ tempshop.slotOffset].itemID !== 0){
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
             scene.itemValue.setScale(0.7);
             scene.itemValue.setDepth(21);
           }
@@ -557,7 +643,7 @@ class shop extends Phaser.GameObjects.Container{
           tempshop.scene.itemName.destroy();
           tempshop.scene.itemDescription.destroy();
 
-          if(scene.inventoryDataArray[counter+tempshop.slotOffset].itemID !== 0){
+          if(tempshop.scene.itemValue !== null && tempshop.scene.itemValue !== undefined){
             tempshop.scene.itemValue.destroy();
           }
         });
@@ -580,7 +666,7 @@ class shop extends Phaser.GameObjects.Container{
     //is called when click event on a slot to handle what happens. if one is selected then highlight slot. if two then switch items.
     lightUpSlot(scene,activeSlot){
       console.log("this.getDataLocation(activeSlot): ",this.getDataLocation(activeSlot), " activeSlot: ",activeSlot);
-      console.log("printing scene.inventoryDataArray[activeSlot]: ",scene.inventoryDataArray[this.getDataLocation(activeSlot)]);
+      console.log("printing this.copyDataArray[activeSlot]: ",this.copyDataArray[this.getDataLocation(activeSlot)]);
 
           //if the current slot is not highlighted and there is no slots selected for either of the two active slots, then
           if(this.shopArray[activeSlot].isLitUp === false && this.activeSlot1 === -1 || this.activeSlot2 === -2){
@@ -589,7 +675,7 @@ class shop extends Phaser.GameObjects.Container{
             this.shopArray[activeSlot].isLitUp = true;
 
             //light up slot animation which is always item id + 1
-            this.shopArray[activeSlot].animsNumber = scene.inventoryDataArray[this.getDataLocation(activeSlot)].itemID;
+            this.shopArray[activeSlot].animsNumber = this.copyDataArray[this.getDataLocation(activeSlot)].itemID;
             this.shopArray[activeSlot].setTint(0xd3d3d3);
 
             //if the player selects a slot and there is no slot in active lost 1, and the slot does not equal the second slot, then
@@ -597,6 +683,8 @@ class shop extends Phaser.GameObjects.Container{
 
              //activeslot
                 this.activeSlot1 = activeSlot;
+
+                
 
                 console.log("this.getDataLocation(activeSlot): ",this.getDataLocation(activeSlot));
 
@@ -614,7 +702,7 @@ class shop extends Phaser.GameObjects.Container{
               //slot is no longer lit up
               this.shopArray[activeSlot].isLitUp = false;
               //play default darken animation.
-              //this.shopArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+              //this.shopArray[activeSlot].animsNumber = this.copyDataArray[activeSlot].itemID;
               this.shopArray[activeSlot].clearTint();
               //reset activeslot1
               this.activeSlot1 = -1;
@@ -626,7 +714,7 @@ class shop extends Phaser.GameObjects.Container{
             //darken active slot
             this.shopArray[activeSlot].isLitUp = false;
             //switch the id of the items by seting the animation number to the inventorydata at that slot in the inventorydataarray.
-            this.shopArray[activeSlot].animsNumber = scene.inventoryDataArray[this.getDataLocation(activeSlot)].itemID;
+            this.shopArray[activeSlot].animsNumber = this.copyDataArray[this.getDataLocation(activeSlot)].itemID;
 
             //resets activeslots1 and activeslots2
             if(this.activeSlot1 !== -1 && activeSlot === this.activeSlot1){
@@ -636,93 +724,84 @@ class shop extends Phaser.GameObjects.Container{
             }
 
           }
-          if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
-            console.log("this.getDataLocation(this.activeSlot1): ",this.getDataLocation(this.activeSlot1)," this.getDataLocation(this.activeSlot2): ",this.getDataLocation(this.activeSlot2));
-          console.log("this.split.clicked: ",this.split.clicked," this.single.clicked: ",this.single.clicked);
-          console.log("scene.inventoryDataArray: ",scene.inventoryDataArray);
-          console.log("this.activeSlot1 !== -1: ",this.activeSlot1 !== -1, " this.activeSlot2 !== -2: ",this.activeSlot2 !== -2," (this.split.clicked || this.single.clicked ): ",(this.split.clicked || this.single.clicked ));
-          console.log("scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID !== 0: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID !== 0, " scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID === 0: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID === 0);
-          console.log("scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount > 1: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount > 1);
-          
 
-          }
           //handle button functionality for split and single
           if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && // if the slots are selected
             (this.split.clicked || this.single.clicked ) && //and on of the buttons is pressed
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID !== 0 && // and the first slot is a item
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID === 0  &&// and the second is a blank slot.
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount > 1 //and the item in question has an amount larger than 1
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID !== 0 && // and the first slot is a item
+            this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID === 0  &&// and the second is a blank slot.
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount > 1 //and the item in question has an amount larger than 1
             ){ 
 
             //if we are splitting
             if(this.split.clicked){
 
               // determine the value amount to be split. if the item amount is even
-              if(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount % 2 === 0){
-                this.splitAmount1 = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2;
+              if(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount % 2 === 0){
+                this.splitAmount1 = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2;
                 this.splitAmount2 = this.splitAmount1;
 
               //otherwise use floor function to get proper split amount.
               }else{
-                this.splitAmount1 = Math.floor(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2) + 1;
-                this.splitAmount2 = Math.floor(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2);
+                this.splitAmount1 = Math.floor(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2) + 1;
+                this.splitAmount2 = Math.floor(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount / 2);
               }
 
               //make a temp object which represents the split  of the stack
               let temp = {
-                itemID: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID,
-                itemName: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemName,
-                itemDescription: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemDescription,
-                itemStackable: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemStackable,
+                itemID: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID,
+                itemName: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemName,
+                itemDescription: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemDescription,
+                itemStackable: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemStackable,
                 itemAmount: this.splitAmount2,
-                itemType: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemType,
-                sellValue: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].sellValue
+                itemType: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemType,
+                sellValue: this.copyDataArray[this.getDataLocation(this.activeSlot1)].sellValue
               };
 
               //update item amount inside the first object.
-              scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = this.splitAmount1;
+              this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = this.splitAmount1;
 
               //set the empty slot to the other half of the stack.
-              scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)] = temp;
+              this.copyDataArray[this.getDataLocation(this.activeSlot2)] = temp;
 
 
             }else if(this.single.clicked){
 
                 //split values set.
-                this.splitAmount1 = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount - 1;
+                this.splitAmount1 = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount - 1;
                 this.splitAmount2 = 1;
 
 
               //make a temp object which represents the split  of the stack
               let temp = {
-                itemID: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID,
-                itemName: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemName,
-                itemDescription: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemDescription,
-                itemStackable: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemStackable,
+                itemID: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID,
+                itemName: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemName,
+                itemDescription: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemDescription,
+                itemStackable: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemStackable,
                 itemAmount: this.splitAmount2,
-                itemType: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemType,
-                sellValue: scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].sellValue
+                itemType: this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemType,
+                sellValue: this.copyDataArray[this.getDataLocation(this.activeSlot1)].sellValue
               };
 
               //update item amount inside the first object.
-              scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = this.splitAmount1;
+              this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = this.splitAmount1;
 
               //set the empty slot to the other half of the stack.
-              scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)] = temp;
+              this.copyDataArray[this.getDataLocation(this.activeSlot2)] = temp;
             }
 
            //set animation for activeSlot1
            this.shopArray[this.activeSlot1].isLitUp = false;
-           this.shopArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID;
+           this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
            this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
-           this.shopArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
+           this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
            this.shopArray[this.activeSlot1].clearTint();
 
            //set animation for activeSlot2
            this.shopArray[this.activeSlot2].isLitUp = false;
-           this.shopArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID;
+           this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
            this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
-           this.shopArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
+           this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
            this.shopArray[this.activeSlot2].clearTint();
 
            //clear both slots.
@@ -731,11 +810,11 @@ class shop extends Phaser.GameObjects.Container{
 
           //if the player some how gets two seperate stacks of the same item then allow them to stack it. first is if the two stacks add up to less than 64
           }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemStackable === 1 && scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemStackable === 1 &&
-            (scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID === scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID ) &&
-            (scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount + scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount < 65)){
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemStackable === 1 && this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemStackable === 1 &&
+            (this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID === this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID ) &&
+            (this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount + this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount < 65)){
             
-            console.log("scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount," scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID",scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)]);
+            console.log("this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID: ",this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount," this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID",this.copyDataArray[this.getDataLocation(this.activeSlot2)]);
             // temp item to clear the slot
             let temp = {
               itemID: 0,
@@ -748,24 +827,24 @@ class shop extends Phaser.GameObjects.Container{
            };
 
            //adds the amount to the second object
-           scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount + scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount;
+           this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount + this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount;
            
            //set activeSlot1 to a empty object.
-           scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)] = temp;
+           this.copyDataArray[this.getDataLocation(this.activeSlot1)] = temp;
 
            
            //set animation for activeSlot1
            this.shopArray[this.activeSlot1].isLitUp = false;
-           this.shopArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID;
+           this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
            this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
-           this.shopArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
+           this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
            this.shopArray[this.activeSlot1].clearTint();
 
            //set animation for activeSlot2
            this.shopArray[this.activeSlot2].isLitUp = false;
-           this.shopArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID;
+           this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
            this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
-           this.shopArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
+           this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
            this.shopArray[this.activeSlot2].clearTint();
 
            //clear both slots.
@@ -774,35 +853,35 @@ class shop extends Phaser.GameObjects.Container{
            
           //if the items amount add to larger than 64, make a full stack and update the first stack with the new amount.
           }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2 && 
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemStackable === 1 && 
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemStackable === 1 &&
-             (scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID === scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID ) && 
-             (scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount + scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount > 64) &&
-              scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount !== 64 && scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount !== 64){
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemStackable === 1 && 
+            this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemStackable === 1 &&
+             (this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID === this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID ) && 
+             (this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount + this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount > 64) &&
+              this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount !== 64 && this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount !== 64){
 
-            console.log("scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID: ",
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID,
-            " scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID",
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID);
+            console.log("this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID: ",
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID,
+            " this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID",
+            this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID);
             
             //set activeSlot1 to a empty object.
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = (scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount + scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount) - 64 ;
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount = (this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount + this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount) - 64 ;
 
             //adds the amount to the second object
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount = 64 ;
+            this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount = 64 ;
 
             //set animation for activeSlot1
             this.shopArray[this.activeSlot1].isLitUp = false;
-            this.shopArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID;
+            this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
             this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
-            this.shopArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
+            this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
             this.shopArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.shopArray[this.activeSlot2].isLitUp = false;
-            this.shopArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID;
+            this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
             this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
-            this.shopArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
+            this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
             this.shopArray[this.activeSlot2].clearTint();
 
             //clear both slots.
@@ -812,32 +891,55 @@ class shop extends Phaser.GameObjects.Container{
           //if both slots are defined then switch the two items.
           }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
 
-            console.log("switching items, scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)]: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)],"switching items, scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)]: ",scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)]);
+            console.log("switching items, this.copyDataArray[this.getDataLocation(this.activeSlot1)]: ",this.copyDataArray[this.getDataLocation(this.activeSlot1)],"switching items, this.copyDataArray[this.getDataLocation(this.activeSlot2)]: ",this.copyDataArray[this.getDataLocation(this.activeSlot2)]);
             //set temp to the item id in activeSlot1
-            let temp = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)];
+            let temp = this.copyDataArray[this.getDataLocation(this.activeSlot1)];
             //set activeSlot1 to activeslot2 
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)] = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)];
+            this.copyDataArray[this.getDataLocation(this.activeSlot1)] = this.copyDataArray[this.getDataLocation(this.activeSlot2)];
             //set activeslot2 to temp
-            scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)] = temp;
+            this.copyDataArray[this.getDataLocation(this.activeSlot2)] = temp;
 
             //set animation for activeSlot1
             this.shopArray[this.activeSlot1].isLitUp = false;
-            this.shopArray[this.activeSlot1].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemID;
+            this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
             this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
-            this.shopArray[this.activeSlot1].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
+            this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
             this.shopArray[this.activeSlot1].clearTint();
 
             //set animation for activeSlot2
             this.shopArray[this.activeSlot2].isLitUp = false;
-            this.shopArray[this.activeSlot2].animsNumber = scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemID;
+            this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
             this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
-            this.shopArray[this.activeSlot2].setSlotNumber(scene.inventoryDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
+            this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
             this.shopArray[this.activeSlot2].clearTint();
 
             //clear both slots.
             this.activeSlot1 = -1;
             this.activeSlot2 = -2;
           }
+
+
+          //reset sellprice
+           this.sellNumber = 0;
+
+          //loop through the nine slots
+          for(let counter = 24; counter < 33; counter++){
+
+            //add the price of the items in the sell slots to the sellnumber by multiplying the item amount by its sell value.
+            this.sellNumber += this.copyDataArray[this.getDataLocation(counter)].itemAmount * this.copyDataArray[this.getDataLocation(counter)].sellValue;
+
+          }
+
+          //destroy and reset the sell text.
+          this.sellText.destroy();
+          this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+          this.sellText.setScrollFactor(0);
+          this.inventoryElements.add(this.sellText);
+          this.add(this.sellText);
+
+          
+          
+
           this.shopArray[activeSlot].anims.play(''+this.shopArray[activeSlot].animsNumber);
           //console.log("detecting click on inventory slot: "+ activeSlot +" this.activeSlot1: "+ this.activeSlot1 +" this.activeSlot2: "+this.activeSlot2);
     }

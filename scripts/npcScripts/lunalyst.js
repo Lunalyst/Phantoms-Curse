@@ -713,12 +713,17 @@ class lunalyst extends npc{
 
         // call the emitter to check if the value already was picked up.
         console.log('activating shop');
-        inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene);
+
+        let object = {
+          NPCRef: this,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
 
         this.scene.sceneTextBox.textInterupt = true;
         if(this.scene.checkInventoryIsDown()){
           this.scene.sceneTextBox.textInterupt = false;
-          inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene);
+          inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
         }
            
 
@@ -727,6 +732,41 @@ class lunalyst extends npc{
     }
 
     
+  }
+
+  //called by the shop ui.
+  sellText(){
+    console.log("activating npc");
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'I CAN TAKE THOSE OFF YOUR'+
+    'HANDS.                   '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('lunaStarEyes');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+
+    
+
+    /*//removes the new text added and profile so it doesnt grow large if dialogue happens multiple times.
+    this.textToDisplay = this.textToDisplay.substr(1, this.textToDisplay.length-75);
+
+    this.profileArray.pop();*/
+
+          
   }
 
 

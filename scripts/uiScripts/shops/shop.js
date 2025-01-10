@@ -91,6 +91,7 @@ class shop extends Phaser.GameObjects.Container{
         //updates max page number on opening or closing.
 
         console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay);
+        console.log("this.npc: ",this.npc);
         // if the player hasnt opened the inventory and the delay is false then
         if(this.isOpen === false && this.openDelay === false){
   
@@ -161,6 +162,11 @@ class shop extends Phaser.GameObjects.Container{
               },1000);
         }
 
+    }
+
+    //sets a refrence to the npc which opened the shop ui.
+    setNPCRef(npc){
+      this.npc = npc;
     }
 
     //creates the intem slots displayed in the inventory.
@@ -489,7 +495,8 @@ class shop extends Phaser.GameObjects.Container{
       this.sellElements.add(this.sellText);
       this.add(this.sellText);
 
-
+      //call npc to play next in the text box.
+      this.npc.sellText();
 
     },this);
 
@@ -1054,5 +1061,7 @@ class shop extends Phaser.GameObjects.Container{
       
 
     }
+
+    
     
 }

@@ -174,6 +174,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
       this.isPaused = false;
       this.gameStartedDelay = false;
       this.PlayerOutOfBounds = false;
+      this.playerWarping = false;
 
       //should protect agianst the struggle bar lingering if the player gets grabbed while warping.
       struggleEmitter.emit(struggleEvent.activateStruggleBar,false);

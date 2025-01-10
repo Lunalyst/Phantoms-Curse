@@ -97,8 +97,16 @@ class G10UpdateLoops extends G9CheckEnemys{
           //and the player isnt using shift to attack
           if(!this.shift.isDown){
 
-          // then move the player
-          this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+          //as long as thep layer isnt wapring.
+          //console.log("player warping: ",this.playerWarping);
+          if(this.playerWarping === false){
+            // then move the player
+            this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+          //otherwise kill player x velocity
+          }else{
+            this.player1.setVelocityX(0);
+            this.player1.anims.play('pIdle',true);
+          }
           
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
             if(this.lightingSystemActive === true){ 

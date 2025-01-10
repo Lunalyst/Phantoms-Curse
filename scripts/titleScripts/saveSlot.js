@@ -76,6 +76,10 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
 
     }
 
+    for (let counter = 0; counter < this.skillMarks.length; counter++) {
+      this.skillMarks[counter].visible = false;
+    }
+
     // controls the skill letters on saveslot.
     startingX = -120;
     startingY = -40;
@@ -97,33 +101,19 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     }
 
     // controls the shell currency numbers on saveslot.
-    startingX = -220;
-    startingY = 70;
-    spacing = 0;
-    rows = 0;
-
-    this.shellLetters = [];
-    let shellString = "000";
-    for (let counter = 0; counter < shellString.length; counter++) {
-      this.shellLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
-      //this.slotElements.add(this.shellLetters[counter]);
-      this.shellLetters[counter].setScale(1/6);
-      this.shellLetters[counter].anims.play(shellString.charAt(counter));
-      this.shellLetters[counter].x = this.shellLetters[counter].x + spacing;
-      this.shellLetters[counter].y = this.shellLetters[counter].y - 23;
-      spacing = spacing + 25;
-
-    }
-
+    this.shellLetters = new makeText(scene,this.x -220,this.y + 30,'charBubble',""+0,true);
+    this.shellLetters.visible = false;
     // controls the bestiary characters on saveslot.
     startingX = -220;
     startingY = 12;
     spacing = 0;
     rows = 0;
 
-   
+   // controls the shell currency numbers on saveslot.
+   this.bestiaryLetters = new makeText(scene,this.x -220,this.y + 12,'charBubble',"000%",true);
+   this.bestiaryLetters.visible = false;
 
-    this.bestiaryLetters = [];
+    /*this.bestiaryLetters = [];
     let bestiaryString = "000%";
     for (let counter = 0; counter < bestiaryString.length; counter++) {
       this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
@@ -134,7 +124,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       this.bestiaryLetters[counter].y = this.bestiaryLetters[counter].y - 23;
       spacing = spacing + 25;
 
-    }
+    }*/
     
 
     //this.setDepth(70);
@@ -150,22 +140,15 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.slotElements.toggleVisible();
     if (this.visible === true) {
      
-      for (let counter = 0; counter < this.shellLetters.length; counter++) {
-        this.shellLetters[counter].visible = true;
-      }
-      for (let counter = 0; counter < this.bestiaryLetters.length; counter++) {
-        this.bestiaryLetters[counter].visible = true;
-      }
+      this.shellLetters.visible = true;
+      this.bestiaryLetters.visible = true
+
     } else {
+      this.shellLetters.visible = false;
       for (let counter = 0; counter < this.skillMarks.length; counter++) {
         this.skillMarks[counter].visible = false;
       }
-      for (let counter = 0; counter < this.shellLetters.length; counter++) {
-        this.shellLetters[counter].visible = false;
-      }
-      for (let counter = 0; counter < this.bestiaryLetters.length; counter++) {
-        this.bestiaryLetters[counter].visible = false;
-      }
+      this.bestiaryLetters.visible = false;
     }
   }
 
@@ -178,10 +161,13 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       let skillCounter = 0;
       for(let [key,value] of Object.entries(this.scene.playerSkillsData)){
         if(value !== 0){
+          console.log("value: ",value);
           this.skillMarks[skillCounter].anims.play(value.toString());
           this.skillMarks[skillCounter].visible = true;
         }else{
+          
           this.skillMarks[skillCounter].visible = false;
+          console.log("this.skillMarks[skillCounter].visible: ",this.skillMarks[skillCounter].visible);
         }
         skillCounter++;
       }
@@ -216,42 +202,19 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       animationNumber = "";
       animationNumber += this.scene.playerSaveSlotData.currency;
       console.log("animationNumber for currency: " + animationNumber);
-      for (let counter = 0; counter < this.shellLetters.length; counter++) {
-        if (counter < animationNumber.length) {
-          this.shellLetters[counter].anims.play(animationNumber.charAt(counter));
-        } else {
-          this.shellLetters[counter].visible = false;
-        }
-      }
+      this.shellLetters.destroy();
+      this.shellLetters = new makeText(this.scene,this.x -220,this.y + 40,'charBubble',""+animationNumber,true);
+      this.shellLetters.setScale(1.1);
 
     }
     // displays
     if (this.scene.playerSaveSlotData !== undefined) {
       animationNumber = "";
-      animationNumber += this.scene.playerSaveSlotData.bestiaryCompletionPercent;
+      animationNumber += Math.floor(this.scene.playerSaveSlotData.bestiaryCompletionPercent);
       //console.log("animationNumber for bestiary percent: " +animationNumber);
-      if (this.scene.playerSaveSlotData.bestiaryCompletionPercent > 9 && this.scene.playerSaveSlotData.bestiaryCompletionPercent < 100 ) {
-        for (let counter = 0; counter < this.bestiaryLetters.length - 1; counter++) {
-
-          this.bestiaryLetters[counter].anims.play(animationNumber.charAt(counter));
-
-        }
-        this.bestiaryLetters[3].visible = false;
-        this.bestiaryLetters[2].anims.play("%");
-      } else if (this.scene.playerSaveSlotData.bestiaryCompletionPercent < 10) {
-        this.bestiaryLetters[3].visible = false;
-        this.bestiaryLetters[2].visible = false;
-        this.bestiaryLetters[1].anims.play("%");
-        this.bestiaryLetters[0].anims.play(animationNumber.charAt(0));
-       
-      }else if(this.scene.playerSaveSlotData.bestiaryCompletionPercent === 100){
-        this.bestiaryLetters[3].anims.play("%");
-        this.bestiaryLetters[2].anims.play("0");
-        this.bestiaryLetters[1].anims.play("0");
-        this.bestiaryLetters[0].anims.play("1");
-        
-      }
-
+      this.bestiaryLetters.destroy();
+      this.bestiaryLetters = new makeText(this.scene,this.x -220,this.y -15,'charBubble',animationNumber + "%",true);
+      this.bestiaryLetters.setScale(1.1);
     }
 
   }

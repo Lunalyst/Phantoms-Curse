@@ -212,10 +212,12 @@ class defaultScene extends G10UpdateLoops {
   //screen width and height definitions
   this.screenWidth = 1200;
   this.screenHeight = 900;
-        
 
-    }
+  //variable for preventing player from moving if they warp.
+  this.playerWarping = false;
+
+  }
 
      
   
-  }
+}

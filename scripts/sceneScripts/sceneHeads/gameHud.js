@@ -725,8 +725,9 @@ class gameHud extends A3SoundEffects {
           });
 
            //emitter to opem and close the inventory when the tab input is recieved from the scene
-           inventoryKeyEmitter.on(inventoryKey.activateShop,(scene) =>{
-            console.log("activating storage emitter");
+           inventoryKeyEmitter.on(inventoryKey.activateShop,(scene,object) =>{
+            console.log("activating shop emitter",object);
+            this.playerShop.setNPCRef(object.NPCRef);
             this.playerShop.setView(scene,this);
           });
 

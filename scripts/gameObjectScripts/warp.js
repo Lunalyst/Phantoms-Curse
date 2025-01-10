@@ -84,6 +84,9 @@ class warp extends Phaser.Physics.Arcade.Sprite{
             //kills gameplay emitters so they dont pile up between scenes
             scene1.clearGameplayEmmitters();
 
+            //stops player momentum in update loop.
+            scene1.playerWarping = true;
+
             scene1.portalId = 0;
             //for loop looks through all the looping music playing within a given scene and stops the music.
             for(let counter = 0; counter < scene1.sound.sounds.length; counter++){

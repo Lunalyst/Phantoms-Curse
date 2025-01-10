@@ -219,10 +219,10 @@ setUpKeyPrompts(){
       controlKeyEmitter.emit(controlKeyEvent.justDownSpaceKey,keyObject);
 
       if(keyObject.isDown === true){
-        console.log("pressed jump is true");
+        //console.log("pressed jump is true");
         return true;
       }else{
-        console.log("pressed jump is false");
+        //console.log("pressed jump is false");
         return false;
       }
     } 

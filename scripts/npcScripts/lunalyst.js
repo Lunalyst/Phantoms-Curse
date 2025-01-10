@@ -735,8 +735,7 @@ class lunalyst extends npc{
   }
 
   //called by the shop ui.
-  sellText(){
-    console.log("activating npc");
+  sellButton(){
 
     //defines a line of dialogue to be displayed while in the shop ui
     this.scene.sceneTextBox.soundType = "lightVoice";
@@ -758,17 +757,85 @@ class lunalyst extends npc{
 
     //progress the dialogue by one stage so the button moves dialogue forward.
     this.scene.sceneTextBox.progressDialogue();
-
-    
-
-    /*//removes the new text added and profile so it doesnt grow large if dialogue happens multiple times.
-    this.textToDisplay = this.textToDisplay.substr(1, this.textToDisplay.length-75);
-
-    this.profileArray.pop();*/
-
-          
+           
   }
 
+  //called by the shop ui.
+  buyButton(){
 
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'ENJOY!                   '+
+    'THANKS FOR THE PURCHASE. '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('lunaNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  sellSwitch(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'LETS SEE WHAT YOU GOT.   '+
+    '                         '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('lunaNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  buySwitch(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'HERES WHAT I GOT.        '+
+    'SEE ANYTHING YOU LIKE?   '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('lunaNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
 
 }

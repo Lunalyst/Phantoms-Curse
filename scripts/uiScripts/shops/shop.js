@@ -47,9 +47,9 @@ class shop extends Phaser.GameObjects.Container{
       this.shopInterior = scene.add.sprite(-220, 0, 'storage');
       this.shopInterior.setScale(1/2);
       this.add(this.shopInterior);
-      this.inventoryBorder = new shopBorder(scene,-220,0);
+      this.inventoryBorder = new storageBorder(scene,-220,0);
       this.inventoryBorder.setScale(1/2);
-      this.add(this.inventoryBorder);
+      //this.add(this.inventoryBorder);
 
       //makes the label for the inventory
       this.inventoryLabel = new makeText(scene,-405,-112,'charBubble',"INVENTORY");
@@ -60,9 +60,7 @@ class shop extends Phaser.GameObjects.Container{
       this.playerInventoryInterior = scene.add.sprite(220, 0, 'shop');
       this.playerInventoryInterior.setScale(1/2);
       this.add(this.playerInventoryInterior);
-      this.playerInventoryBorder = new shopBorder(scene,220,0);
-      this.playerInventoryBorder.setScale(1/2);
-      this.add(this.playerInventoryBorder);
+      
 
       this.scene = scene;
 
@@ -233,7 +231,7 @@ class shop extends Phaser.GameObjects.Container{
 
      //set up button functionality for split button
      this.split.on('pointerover',function(pointer){
-         this.scene.initSoundEffect('buttonSFX','1',0.05);
+         this.scene.initSoundEffect('buttonSFX1','1',0.05);
          if(this.split.clicked === true){
          this.split.setTextTint(0xff0000);
          }else{
@@ -266,7 +264,7 @@ class shop extends Phaser.GameObjects.Container{
          this.single.clearTextTint();
        }
       
-        this.scene.initSoundEffect('buttonSFX','2',0.05);
+        this.scene.initSoundEffect('buttonSFX1','2',0.05);
 
       },this);
       
@@ -282,7 +280,7 @@ class shop extends Phaser.GameObjects.Container{
 
      //set up button functionality for single button
      this.single.on('pointerover',function(pointer){
-       this.scene.initSoundEffect('buttonSFX','1',0.05);
+       this.scene.initSoundEffect('buttonSFX1','1',0.05);
        if(this.single.clicked === true){
        this.single.setTextTint(0xff0000);
        }else{
@@ -315,7 +313,7 @@ class shop extends Phaser.GameObjects.Container{
        this.split.clearTextTint();
      }
     
-      this.scene.initSoundEffect('buttonSFX','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','2',0.05);
 
     },this);
 
@@ -358,7 +356,7 @@ class shop extends Phaser.GameObjects.Container{
 
     //set up button functionality for SELL button
     this.sellSwitch.on('pointerover',function(pointer){
-      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      this.scene.initSoundEffect('buttonSFX1','1',0.05);
       
     },this);
 
@@ -395,7 +393,12 @@ class shop extends Phaser.GameObjects.Container{
         
       }
   
-      this.scene.initSoundEffect('buttonSFX','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+
+      //call npc to play next in the text box.
+      if(this.npc !== undefined && this.npc !== null){
+        this.npc.sellSwitch();
+      }
 
     },this);
 
@@ -427,7 +430,7 @@ class shop extends Phaser.GameObjects.Container{
     //set up button functionality for SELL button
     this.sellButton.on('pointerover',function(pointer){
 
-      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      this.scene.initSoundEffect('buttonSFX1','1',0.05);
       this.sellButton.setTextTint(0xff0000);
 
     },this);
@@ -441,7 +444,7 @@ class shop extends Phaser.GameObjects.Container{
 
     this.sellButton.on('pointerdown', function (pointer) {
 
-      this.scene.initSoundEffect('buttonSFX','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','2',0.05);
 
       //add currency to players currency in file
       //sets the currency icon and number in the inventory.
@@ -454,6 +457,11 @@ class shop extends Phaser.GameObjects.Container{
       this.inventoryElements.add(this.shellLetters);
       this.sellElements.add(this.shellLetters);
       this.add(this.shellLetters);
+
+      //call npc to play next in the text box.
+      if(this.npc !== undefined && this.npc !== null && this.sellNumber !== 0){
+        this.npc.sellButton();
+      }
       
       //reset sellprice
       this.sellNumber = 0;
@@ -495,9 +503,6 @@ class shop extends Phaser.GameObjects.Container{
       this.sellElements.add(this.sellText);
       this.add(this.sellText);
 
-      //call npc to play next in the text box.
-      this.npc.sellText();
-
     },this);
 
     //by default the visibility of the sell inventoy should be false
@@ -517,7 +522,7 @@ class shop extends Phaser.GameObjects.Container{
 
     //set up button functionality for SELL button
     this.buySwitch.on('pointerover',function(pointer){
-      this.scene.initSoundEffect('buttonSFX','1',0.05);
+      this.scene.initSoundEffect('buttonSFX1','1',0.05);
       
     },this);
 
@@ -559,7 +564,12 @@ class shop extends Phaser.GameObjects.Container{
         
       }
 
-      this.scene.initSoundEffect('buttonSFX','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+
+      //call npc to play next in the text box.
+      if(this.npc !== undefined && this.npc !== null){
+        this.npc.buySwitch();
+      }
 
     },this);
         

@@ -411,8 +411,8 @@ class storage extends Phaser.GameObjects.Container{
           scene.itemDescription.setScale(0.7);
           scene.itemDescription.setDepth(21);
           console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + tempStorage.slotOffset].itemID);
-          if(scene.inventoryDataArray[counter + tempStorage.slotOffset].itemID > 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter + tempStorage.slotOffset].sellValue);
+          if(tempStorage.inventoryDataArray[counter + tempStorage.slotOffset].itemID > 0){
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+tempStorage.inventoryDataArray[counter + tempStorage.slotOffset].sellValue);
             scene.itemValue.setScale(0.7);
             scene.itemValue.setDepth(21);
           }

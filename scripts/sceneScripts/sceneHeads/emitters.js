@@ -72,7 +72,9 @@ inventoryKey = {
     checkContainerFlag: 'check_container_flag',
     checkBestiaryFlag: 'check_bestiary_flag',
     updateOnomat: 'update_onomat',
-    playGameSaved: 'play_game_saved'
+    playGameSaved: 'play_game_saved',
+    isItemInInventory: 'is_item_in_inventory'
+
 };
 
 inventoryKeyEmitter = new Phaser.Events.EventEmitter();
@@ -109,6 +111,82 @@ hudDepth = {
 
 hudDepthEmitter = new Phaser.Events.EventEmitter();
 
+//ultimate object key for one time drops. key is the flag
+//uses as a easy way to set the onetime object in levels as well as special enemy drops
+//but main use is a conviernient place to acess the item data for buyback shop functionality.
+const oneTimeItemArray = {
+    cave_tutorial_chest_with_oar: {
+        itemID: 2,
+        itemName: 'OAR',
+        itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 5
+    },
+
+    cave_chest_with_axe: axe = {
+        itemID: 10,
+        itemName: 'AXE',
+        itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 20
+    },
+
+    cave_chest_with_knife: {
+        itemID: 4,
+        itemName: 'KNIFE',
+        itemDescription: 'GOOD FOR SLASHING MONSTERS.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 15
+      }, 
+
+    cave_chest_with_speedRing: {
+        itemID: 8,
+        itemName: 'SPEED RING',
+        itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "ring",
+        sellValue: 30
+      },
+
+    cave_chest_with_rapier: {
+        itemID: 1,
+        itemName: 'RAPIER',
+        itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 35
+        
+      },
+
+    obtained_mimic_ring:{
+        itemID: 6,
+        itemName: 'MIMIC RING',
+        itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "ring",
+        sellValue: 50
+    },
+
+    obtained_mimic_rapier: {
+        itemID: 3,
+        itemName: 'MIMIC RAPIER',
+        itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 75
+    }
+    
+    };
 
 
 

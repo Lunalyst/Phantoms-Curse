@@ -221,16 +221,8 @@ class tutorialCave extends defaultScene {
       }else{
 
         setTimeout(function(){
-          let oar = {
-              itemID: 2,
-              itemName: 'OAR',
-              itemDescription: 'A WOOD PADDLE WHICH CAN BE USED AS A CLUB.',
-              itemStackable: 0,
-              itemAmount: 1,
-              itemType: "weapon",
-              sellValue: 5
-              
-          };
+          //new way to handle one time drops. calls const object defined in emitter.
+          let oar = oneTimeItemArray.cave_tutorial_chest_with_oar;
           
           //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
           thisScene.initItemContainer(1185,1757-3,oar,true,"cave_tutorial_chest_with_oar");

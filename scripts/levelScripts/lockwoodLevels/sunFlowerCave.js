@@ -202,15 +202,7 @@ class sunFlowerCave extends defaultScene {
 
         setTimeout(function(){
            
-          let knife = {
-            itemID: 4,
-            itemName: 'KNIFE',
-            itemDescription: 'GOOD FOR SLASHING MONSTERS.',
-            itemStackable: 0,
-            itemAmount: 1,
-            itemType: "weapon",
-            sellValue: 15
-          };
+          let knife = oneTimeItemArray.cave_chest_with_knife;
         
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
         thisScene.initItemContainer(5140-4160,1085-3,knife,true,"cave_chest_with_knife");

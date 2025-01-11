@@ -142,15 +142,7 @@ class TestForest extends defaultScene {
 
       setTimeout(function(){
        
-        let speedRing = {
-          itemID: 8,
-          itemName: 'SPEED RING',
-          itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
-          itemStackable: 0,
-          itemAmount: 1,
-          itemType: "ring",
-          sellValue: 30
-        };
+        let speedRing = oneTimeItemArray.cave_chest_with_speedRing;
     
         //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
         thisScene.initItemContainer(3421,1021-3,speedRing,true,"cave_chest_with_speedRing");

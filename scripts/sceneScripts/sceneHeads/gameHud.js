@@ -595,6 +595,25 @@ class gameHud extends A3SoundEffects {
             
           });
 
+          //emitter to search the inventory, to see if a item is present.
+          inventoryKeyEmitter.on(inventoryKey.isItemInInventory,(object) =>{
+
+            //then we need to search the inventory to see if the player has the object in there inventory.
+            for(let counter = 0; counter < this.inventoryDataArray.length;counter++){
+
+              //if the item exists in the inventory
+              if(this.scene.inventoryDataArray[counter].itemID === oneTimeItemArray[object.oneTimeKey].itemID){
+                object.foundKey = true;
+                console.log("player has flag for (",object.oneTimeKey,") but doesnt have item in inventory");
+                //one we find one instance stop looking.
+                break;
+              }
+
+            }
+
+          });
+
+
           //emitter to return the save slot
           inventoryKeyEmitter.on(inventoryKey.getSaveSlot,(object) =>{
             object.saveSlot = this.playerSaveSlotData.saveSlot;
@@ -887,7 +906,7 @@ class gameHud extends A3SoundEffects {
             console.log("after emitterchecking if flag exists. : ",object);
 
             for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
-              console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
+              //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
               if (object.flagToFind  === value) {
                   object.foundFlag = true;
               }

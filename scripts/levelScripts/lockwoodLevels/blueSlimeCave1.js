@@ -139,16 +139,7 @@ class blueSlimeCave1 extends defaultScene {
 
       setTimeout(function(){
            
-        let rapier = {
-          itemID: 1,
-          itemName: 'RAPIER',
-          itemDescription: 'GOOD AT POKING HOLES IN THINGS.',
-          itemStackable: 0,
-          itemAmount: 1,
-          itemType: "weapon",
-          sellValue: 35
-          
-        };
+        let rapier = oneTimeItemArray.cave_chest_with_rapier;
       
       //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
       thisScene.initItemContainer(465,895-3,rapier,true,"cave_chest_with_rapier");

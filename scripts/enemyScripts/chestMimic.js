@@ -877,14 +877,7 @@ class chestMimic extends enemy {
 
                         if(object.foundFlag === false){
                             //create a temp variable to hold our item that is passed to the player
-                        let item = {
-                            itemID: 3,
-                            itemName: 'MIMIC RAPIER',
-                            itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
-                            itemStackable: 0,
-                            itemAmount: 1,
-                            itemType: "weapon"
-                        };
+                        let item = oneTimeItemArray.obtained_mimic_rapier;
 
                         //used to tell if the item was added
                         let addedToInventory = {
@@ -919,14 +912,7 @@ class chestMimic extends enemy {
                         if(object.foundFlag === false){
 
                             //create a temp variable to hold our item that is passed to the player
-                            let item = {
-                                itemID: 6,
-                                itemName: 'MIMIC RING',
-                                itemDescription: 'COVETED BY THOSE CURSED BY AVARICE...',
-                                itemStackable: 0,
-                                itemAmount: 1,
-                                itemType: "ring"
-                            };
+                            let item = oneTimeItemArray.obtained_mimic_ring;
 
                             //used to tell if the item was added
                             let addedToInventory = {

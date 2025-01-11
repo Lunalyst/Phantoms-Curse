@@ -152,15 +152,7 @@ class TestCave extends defaultScene {
 
         setTimeout(function(){
             
-            let axe = {
-                itemID: 10,
-                itemName: 'AXE',
-                itemDescription: 'CAN BE USED TO CUT MONSTERS AND WOOD.',
-                itemStackable: 0,
-                itemAmount: 1,
-                itemType: "weapon",
-                sellValue: 20
-            };
+            let axe = oneTimeItemArray.cave_chest_with_axe;
             
             //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
             thisScene.initItemContainer(1383,666,axe,true,"cave_chest_with_axe");  

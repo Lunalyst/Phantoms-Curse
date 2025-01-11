@@ -718,6 +718,8 @@ class lunalyst extends npc{
           NPCRef: this,
         };
 
+        this.generateBuyBack();
+
         inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
 
         this.scene.sceneTextBox.textInterupt = true;
@@ -837,5 +839,7 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.progressDialogue();
            
   }
+
+  
 
 }

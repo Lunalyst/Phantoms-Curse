@@ -12,7 +12,17 @@ counter point. what if we do a check to see if the slots for selling are not ite
 when the bottom and up arrows are pressed its scrolls through the item list. hide the arrows if the size is less than the scroll amount.
  otherwise show them like the bestiary book but vertical
 
- 5) sell buy and exit button triggers dialogue?
+ containter, which has 
+ 1) fake item prop to show visual of item.
+ 2) text displaying the item name
+ 3) interactive button which when clicked adds the item, and subtracts the currency value.
+ -note. if the player doesnt have enough money, have dialogue for it.
+ 4) most important, a position to a array of buy objects  letting the container know what the player is buying.
+
+ then. have a array of x of these container objects.
+
+ where we have two buttons that cycle through the objects if there are more than x. if not hide both buttons.
+
 
 */
 class shop extends Phaser.GameObjects.Container{
@@ -82,6 +92,13 @@ class shop extends Phaser.GameObjects.Container{
       this.visible = false;
 
       let pageVal = this.pageNumber+1;
+
+      this.buyArray;
+    }
+
+    //function to set up the buy inventory.
+    setUpBuyArray(buyArray){
+
     }
     
     // function opens the shop ui. has a delay so that the player cant quickly open the inventory
@@ -594,7 +611,7 @@ class shop extends Phaser.GameObjects.Container{
       for(let counter = 0; counter < 28;counter++){
         //note its easier to just grab the first 0-27 inventory items. since we call.getDataLocation
         //tagtofix
-        this.copyDataArray.push(this.scene.inventoryDataArray[counter])
+        this.copyDataArray.push(this.scene.inventoryDataArray[counter]);
       }
       
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots

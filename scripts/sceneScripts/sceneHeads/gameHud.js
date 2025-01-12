@@ -595,6 +595,22 @@ class gameHud extends A3SoundEffects {
             
           });
 
+          //sets the buy array in the shop ui
+          inventoryKeyEmitter.on(inventoryKey.setUpBuyArray,(object) =>{
+            console.log("sending buyarray to shop array.",)
+            
+            //set the buy array in the shop ui
+            this.playerShop.setBuyArray(object.array);
+
+            //sets the cost multiplier in the shop ui
+            this.playerShop.setUpCostMultiplier(object.sellMultiplier);
+
+            //sets up shop ui buy containers.
+            this.playerShop.setUpBuyContainers();
+
+
+          });
+
           //emitter to search the inventory, to see if a item is present.
           inventoryKeyEmitter.on(inventoryKey.isItemInInventory,(object) =>{
 
@@ -786,7 +802,7 @@ class gameHud extends A3SoundEffects {
                       itemAmount: 0 
                   };
               */
-            console.log("this.inventoryDataArray: ",this.inventoryDataArray)
+                  console.log("ADDING item to inventory: ",item);
             let itemAdded = false;
             //loop through inventory item array to see if the item added already been picked up.
               for(let counter = 4; counter < this.inventoryDataArray.length ;counter++){
@@ -873,7 +889,11 @@ class gameHud extends A3SoundEffects {
                       break;
                     }
                   }
-                }         
+                }  
+
+                console.log("this.inventoryDataArray: ",this.inventoryDataArray);
+                
+                
 
 
               }

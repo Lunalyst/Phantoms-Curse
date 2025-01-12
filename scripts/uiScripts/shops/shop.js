@@ -94,6 +94,9 @@ class shop extends Phaser.GameObjects.Container{
       let pageVal = this.pageNumber+1;
 
       this.buyArray;
+      this.multiplier;
+
+      this.buyContainerArray = [];
     }
 
     //function to set up the buy inventory.
@@ -123,7 +126,7 @@ class shop extends Phaser.GameObjects.Container{
             console.log("setSlotView");
             this.setSlotView(hud);
             console.log("copying dataArray to slots");
-            this.copyAndSetSlots(hud);
+            this.copyAndSetSlots();
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
@@ -158,7 +161,7 @@ class shop extends Phaser.GameObjects.Container{
             //hides slots.
             this.setSlotView(hud);
             console.log("saving and copying back element in scene inventory from shop ui");
-            this.SaveAndClearSlots(hud);
+            this.SaveAndClearSlots();
 
             //
             if(this.scene.itemName !== undefined){
@@ -466,14 +469,7 @@ class shop extends Phaser.GameObjects.Container{
       //add currency to players currency in file
       //sets the currency icon and number in the inventory.
       this.scene.playerSaveSlotData.currency += this.sellNumber;
-      let animationNumber = "";
-      animationNumber += this.scene.playerSaveSlotData.currency;
-      console.log("animationNumber for currency: " + animationNumber);
-      this.shellLetters.destroy();
-      this.shellLetters = new makeText(this.scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ this.scene.playerSaveSlotData.currency);
-      this.inventoryElements.add(this.shellLetters);
-      this.sellElements.add(this.shellLetters);
-      this.add(this.shellLetters);
+      this.updatePlayerCurrency();
 
       //call npc to play next in the text box.
       if(this.npc !== undefined && this.npc !== null && this.sellNumber !== 0){
@@ -619,7 +615,7 @@ class shop extends Phaser.GameObjects.Container{
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < 4; col++){
         for(let row = 0; row < 6; row++){
-          console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
+          //console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
           this.shopArray[index].anims.play(""+this.copyDataArray[this.getDataLocation(index)].itemID);
           this.shopArray[index].clearTint();
           this.shopArray[index].number1.visible = this.isOnScreen;
@@ -738,11 +734,7 @@ class shop extends Phaser.GameObjects.Container{
           inventoryKeyEmitter.emit(inventoryKey.addItem,this.copyDataArray[counter], addedToInventory);
         }
         
-
-      }
-
-     
-      
+      } 
   }
     
     //applies interactive click events on all inventory slots
@@ -752,7 +744,7 @@ class shop extends Phaser.GameObjects.Container{
 
       // applys  lightupslot function to slots when clicked.
       for(let counter = 0; counter < 33;counter++){
-        console.log("counter: ",counter);
+        //console.log("counter: ",counter);
         // code that handles applying interaction on slots
         this.shopArray[counter].on('pointerdown', function (pointer) {
           activeSlot = counter;
@@ -1082,12 +1074,72 @@ class shop extends Phaser.GameObjects.Container{
           //console.log("detecting click on inventory slot: "+ activeSlot +" this.activeSlot1: "+ this.activeSlot1 +" this.activeSlot2: "+this.activeSlot2);
     }
 
+    //sets the buyback array.
+    setBuyArray(buyArray){
+      this.buyArray = buyArray;
+    }
+
+    setUpCostMultiplier(multiplier){
+      this.multiplier = multiplier;
+    }
+
+    //makes buy buttons.
+    setUpBuyContainers(){
+
+      //loop through the buyback array
+      let startX = 220-70;
+      let startY = -50;
+
+      //loop through and make new container
+      for(let counter = 0; counter < this.buyArray.length; counter++){
+        console.log("this.buyArray[counter]",this.buyArray[counter]);
+        this.buyContainerArray.push(new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]));
+        startY += 50;
+      }
+  
+    }
+
+    updatePlayerCurrency(){
+      let startingX = 29;
+      let startingY = 22;
+
+      let animationNumber = "";
+      animationNumber += this.scene.playerSaveSlotData.currency;
+      console.log("animationNumber for currency: " + animationNumber);
+      this.shellLetters.destroy();
+      this.shellLetters = new makeText(this.scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ this.scene.playerSaveSlotData.currency);
+      this.inventoryElements.add(this.shellLetters);
+      this.sellElements.add(this.shellLetters);
+      this.add(this.shellLetters);
+    }
+
+    updatePlayerInventoryView(){
+      //index keeps track of the lost, we skip the first two slots as they are the equipment slots
+      let index = 0;
+      //nested loop to loop through all the rows and columns of the inventory slots
+      for(let col = 0; col < 4; col++){
+        for(let row = 0; row < 6; row++){
+          //console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
+          this.shopArray[index].anims.play(""+this.copyDataArray[this.getDataLocation(index)].itemID);
+          this.shopArray[index].clearTint();
+          this.shopArray[index].number1.visible = this.isOnScreen;
+          this.shopArray[index].number2.visible = this.isOnScreen;
+
+          this.shopArray[index].setSlotNumber(this.copyDataArray[this.getDataLocation(index)].itemAmount);
+          
+          index++;
+        }
+      }
+    }
+
     // applys functionality to the buttons for the shop.
     applyUIControlElements() {
 
       
 
     }
+
+    
 
     
     

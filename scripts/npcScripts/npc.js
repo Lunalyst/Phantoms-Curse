@@ -64,6 +64,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     }
 
     console.log("buyBack: ",buyBack);
+    return buyBack;
 
     
   }

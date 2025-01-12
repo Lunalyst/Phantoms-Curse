@@ -73,7 +73,8 @@ inventoryKey = {
     checkBestiaryFlag: 'check_bestiary_flag',
     updateOnomat: 'update_onomat',
     playGameSaved: 'play_game_saved',
-    isItemInInventory: 'is_item_in_inventory'
+    isItemInInventory: 'is_item_in_inventory',
+    setUpBuyArray: 'set_up_buy_array'
 
 };
 

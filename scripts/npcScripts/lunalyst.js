@@ -718,17 +718,61 @@ class lunalyst extends npc{
           NPCRef: this,
         };
 
-        this.generateBuyBack();
+        this.buyBack = this.generateBuyBack();
+
+        this.buyBack.push(
+          {
+            itemID: 16,
+            itemName: 'FUEL ICHOR',
+            itemDescription: 'FUEL FOR A LANTURN.',
+            itemStackable: 1,
+            itemAmount: 1,
+            itemType: "ammo",
+            sellValue: 5
+          }
+        );
+
+        this.buyBack.push(
+          {
+            itemID: 14,
+            itemName: 'COCONUT',
+            itemDescription: 'APPLE OF THE SEA.',
+            itemStackable: 1,
+            itemAmount: 1,
+            itemType: "drop",
+            sellValue: 5
+          }
+        );
+
+        //make a special object to pass to the listener
+        let buyArray = {
+          array: this.buyBack,
+          sellMultiplier: 1.5
+        };
+
+        //send that object to the emiter so it can be set in the gamehud
+        inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
+
+        //call emitter to tell if the onetime item is present in the inventory.
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
 
         inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
 
         this.scene.sceneTextBox.textInterupt = true;
+
+           
+
+      }else if(this.trading){
+        let object = {
+          NPCRef: this,
+        };
+
         if(this.scene.checkInventoryIsDown()){
           this.scene.sceneTextBox.textInterupt = false;
           inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
         }
            
-
       }
 
     }
@@ -772,6 +816,33 @@ class lunalyst extends npc{
     'ENJOY!                   '+
     'THANKS FOR THE PURCHASE. '+
     '                         ';
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('lunaNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  buyButtonFail(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'SORRY, BUT IT LOOKS LIKE '+
+    'YOU DONT HAVE ENOUGH     '+
+    'SHELL.                   ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -841,5 +912,4 @@ class lunalyst extends npc{
   }
 
   
-
 }

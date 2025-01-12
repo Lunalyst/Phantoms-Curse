@@ -65,11 +65,11 @@ class buyContainer extends Phaser.GameObjects.Container{
         this.scene.initSoundEffect('buttonSFX1','2',0.05);
 
         //if the player has the money
-        if(this.scene.playerSaveSlotData.currency >= this.sellValue){
+        if(this.scene.playerSaveSlotData.currency >= Math.floor(this.sellValue * this.shopUI.multiplier)){
 
 
           //subtract the currency from the player.
-          this.scene.playerSaveSlotData.currency = this.scene.playerSaveSlotData.currency - this.sellValue;
+          this.scene.playerSaveSlotData.currency = this.scene.playerSaveSlotData.currency - Math.floor(this.sellValue * this.shopUI.multiplier);
 
           //update the player currency
           this.shopUI.updatePlayerCurrency();

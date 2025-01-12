@@ -747,7 +747,7 @@ class lunalyst extends npc{
         //make a special object to pass to the listener
         let buyArray = {
           array: this.buyBack,
-          sellMultiplier: 1.5
+          sellMultiplier: 1.8
         };
 
         //send that object to the emiter so it can be set in the gamehud
@@ -824,7 +824,7 @@ class lunalyst extends npc{
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
-    
+
     //this.scene.sceneTextBox.formatText();
     this.scene.sceneTextBox.setProfileArray(this.profileArray);
 

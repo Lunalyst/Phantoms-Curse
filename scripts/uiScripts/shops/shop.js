@@ -410,6 +410,8 @@ class shop extends Phaser.GameObjects.Container{
         //set buyswitch clicked to false
         this.buySwitch.clicked = false;
         this.buySwitch.clearTextTint();
+
+        this.updatePlayerCurrency();
         
       }
   
@@ -469,7 +471,6 @@ class shop extends Phaser.GameObjects.Container{
       //add currency to players currency in file
       //sets the currency icon and number in the inventory.
       this.scene.playerSaveSlotData.currency += this.sellNumber;
-      this.updatePlayerCurrency();
 
       //call npc to play next in the text box.
       if(this.npc !== undefined && this.npc !== null && this.sellNumber !== 0){
@@ -501,6 +502,8 @@ class shop extends Phaser.GameObjects.Container{
        this.shopArray[counter].anims.play(''+this.shopArray[counter].animsNumber);
        this.shopArray[counter].setSlotNumber(this.copyDataArray[this.getDataLocation(counter)].itemAmount);
        this.shopArray[counter].clearTint();
+
+       this.updatePlayerCurrency();
 
 
       }
@@ -574,6 +577,8 @@ class shop extends Phaser.GameObjects.Container{
         //set buyswitch clicked to false
         this.sellSwitch.clicked = false;
         this.sellSwitch.clearTextTint();
+
+        this.updatePlayerCurrency();
         
       }
 
@@ -1088,14 +1093,18 @@ class shop extends Phaser.GameObjects.Container{
 
       //loop through the buyback array
       let startX = 220-70;
-      let startY = -50;
+      let startY = -85;
 
       //loop through and make new container
       for(let counter = 0; counter < this.buyArray.length; counter++){
         console.log("this.buyArray[counter]",this.buyArray[counter]);
-        this.buyContainerArray.push(new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]));
+        let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
+        this.buyElements.add(temp);
+        this.buyContainerArray.push(temp);
         startY += 50;
       }
+
+      
   
     }
 

@@ -48,6 +48,7 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
 
       this.load.spritesheet('shop', 'assets/hudElements/shop-ui.png',{frameWidth: 630 , frameHeight: 750 });
+      this.load.spritesheet('shopSlot', 'assets/hudElements/shop-slot-ui.png',{frameWidth: 594 , frameHeight: 159 });
       
 
       this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });

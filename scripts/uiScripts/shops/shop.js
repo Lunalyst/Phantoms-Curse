@@ -54,12 +54,13 @@ class shop extends Phaser.GameObjects.Container{
       this.itemPage = 0;
 
       //defines the inventory border and background
-      this.shopInterior = scene.add.sprite(-220, 0, 'storage');
-      this.shopInterior.setScale(1/2);
-      this.add(this.shopInterior);
-      this.inventoryBorder = new storageBorder(scene,-220,0);
+      this.playerInventoryInterior = scene.add.sprite(-220, 0, 'storage');
+      this.playerInventoryInterior.setScale(1/2);
+      this.add(this.playerInventoryInterior);
+
+      this.inventoryBorder = scene.add.sprite(-220, 0, 'storageBorder');
       this.inventoryBorder.setScale(1/2);
-      //this.add(this.inventoryBorder);
+      this.add(this.inventoryBorder);
 
       //makes the label for the inventory
       this.inventoryLabel = new makeText(scene,-405,-112,'charBubble',"INVENTORY");
@@ -67,9 +68,15 @@ class shop extends Phaser.GameObjects.Container{
       this.add(this.inventoryLabel);
 
       // defines the shop background and border.
-      this.playerInventoryInterior = scene.add.sprite(220, 0, 'shop');
-      this.playerInventoryInterior.setScale(1/2);
-      this.add(this.playerInventoryInterior);
+      this.shopInterior = scene.add.sprite(220, 0, 'shop');
+      this.shopInterior.setScale(1/2);
+      this.add(this.shopInterior);
+
+      this.shopBorder = scene.add.sprite(220, 0, 'shop');
+      this.shopBorder.anims.create({key: 'shopBorder',frames: this.shopBorder.anims.generateFrameNames('shop', { start: 1, end: 1 }),frameRate: 0,repeat: -1});
+      this.shopBorder.anims.play("shopBorder",true);
+      this.shopBorder.setScale(1/2);
+      this.add(this.shopBorder);
       
 
       this.scene = scene;
@@ -98,6 +105,8 @@ class shop extends Phaser.GameObjects.Container{
 
       this.buyContainerArray = [];
       this.buyIndexStart = 0;
+
+      this.amountOfBuyContainers = 3;
     }
     
     // function opens the shop ui. has a delay so that the player cant quickly open the inventory
@@ -285,7 +294,7 @@ class shop extends Phaser.GameObjects.Container{
          this.single.clearTextTint();
        }
       
-        this.scene.initSoundEffect('buttonSFX1','2',0.05);
+        this.scene.initSoundEffect('buttonSFX1','drum',0.05);
 
       },this);
       
@@ -334,7 +343,7 @@ class shop extends Phaser.GameObjects.Container{
        this.split.clearTextTint();
      }
     
-      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','drum',0.05);
 
     },this);
 
@@ -420,7 +429,7 @@ class shop extends Phaser.GameObjects.Container{
         
       }
   
-      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','hit',0.05);
 
       //call npc to play next in the text box.
       if(this.npc !== undefined && this.npc !== null){
@@ -471,8 +480,6 @@ class shop extends Phaser.GameObjects.Container{
 
     this.sellButton.on('pointerdown', function (pointer) {
 
-      this.scene.initSoundEffect('buttonSFX1','2',0.05);
-
       //add currency to players currency in file
       //sets the currency icon and number in the inventory.
       this.scene.playerSaveSlotData.currency += this.sellNumber;
@@ -480,6 +487,7 @@ class shop extends Phaser.GameObjects.Container{
       //call npc to play next in the text box.
       if(this.npc !== undefined && this.npc !== null && this.sellNumber !== 0){
         this.npc.sellButton();
+        this.scene.initSoundEffect('buttonSFX1','2',0.05);
       }
       
       //reset sellprice
@@ -587,14 +595,14 @@ class shop extends Phaser.GameObjects.Container{
 
       
         //if the buy index is zero and there are more than 5 items
-        if(this.buyIndexStart === 0 && this.buyArray.length > 5){
+        if(this.buyIndexStart === 0 && this.buyArray.length > this.amountOfBuyContainers){
           this.buyIndexDown.visible = true;
           this.buyIndexUp.visible = false;
           //otherwise if we are at the end of the buy array
-        }else if(this.buyIndexStart + 5 === this.buyArray.length && this.buyArray.length > 5){
+        }else if(this.buyIndexStart + this.amountOfBuyContainers  === this.buyArray.length && this.buyArray.length > this.amountOfBuyContainers ){
           this.buyIndexDown.visible = false;
           this.buyIndexUp.visible = true;
-        }else if(this.buyArray.length > 5){
+        }else if(this.buyArray.length > this.amountOfBuyContainers ){
           this.buyIndexDown.visible = true;
           this.buyIndexUp.visible = true;
         }else{
@@ -605,7 +613,7 @@ class shop extends Phaser.GameObjects.Container{
         
       }
 
-      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','hit',0.05);
 
       //call npc to play next in the text box.
       if(this.npc !== undefined && this.npc !== null){
@@ -615,7 +623,7 @@ class shop extends Phaser.GameObjects.Container{
     },this);
 
     //define up button for buy inventory
-    this.buyIndexUp = new UIControls(this.scene, 220,-120, "UIControls").setInteractive();
+    this.buyIndexUp = new UIControls(this.scene, 220,-126, "UIControls").setInteractive();
     this.buyIndexUp.setScale(0.9);
     this.buyIndexUp.anims.play("pointRight");
     this.buyIndexUp.setRotation(3.14/2+3.14/2+3.14/2)
@@ -646,9 +654,11 @@ class shop extends Phaser.GameObjects.Container{
         this.buyIndexUp.visible = true;
       }
 
+      this.scene.initSoundEffect('buttonSFX1','hit',0.05);
+
     },this);
 
-    this.buyIndexDown = new UIControls(this.scene, 220, 160, "UIControls").setInteractive();
+    this.buyIndexDown = new UIControls(this.scene, 220, 166, "UIControls").setInteractive();
     this.buyIndexDown.setScale(0.9);
     this.buyIndexDown.anims.play("pointRight");
     this.buyIndexDown.setRotation(3.14/2)
@@ -660,7 +670,7 @@ class shop extends Phaser.GameObjects.Container{
     this.buyIndexDown.on('pointerdown', function (pointer) {
       //if buyindex start greater than zero
       
-      if(this.buyIndexStart+5 < this.buyArray.length){
+      if(this.buyIndexStart+this.amountOfBuyContainers  < this.buyArray.length){
         //subtract the index
         this.buyIndexStart++; 
         console.log("this.buyIndexStart: ",this.buyIndexStart," this.buyArray.length: ",this.buyArray.length);
@@ -673,14 +683,14 @@ class shop extends Phaser.GameObjects.Container{
 
       //if we are at the end of the sell array hide the button.
      
-      if(this.buyIndexStart+5 >= this.buyArray.length){
+      if(this.buyIndexStart+this.amountOfBuyContainers  >= this.buyArray.length){
         this.buyIndexDown.visible = false;
         this.buyIndexUp.visible = true;
       }else{
         this.buyIndexUp.visible = true;
       }
 
-      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+      this.scene.initSoundEffect('buttonSFX1','hit',0.05);
     },this);
 
 
@@ -1185,12 +1195,12 @@ class shop extends Phaser.GameObjects.Container{
     setUpBuyContainers(){
 
       //loop through the buyback array
-      let startX = 220-70;
-      let startY = -85;
+      let startX = 220-60;
+      let startY = -70;
 
       
       //if the buy array is defined, and we have 5 or less elements.
-      if(this.buyArray !== undefined && this.buyArray !== null && this.buyArray.length <= 5){
+      if(this.buyArray !== undefined && this.buyArray !== null && this.buyArray.length <= this.amountOfBuyContainers){
 
         //loop through and make new container
         for(let counter = 0; counter < this.buyArray.length; counter++){
@@ -1198,7 +1208,7 @@ class shop extends Phaser.GameObjects.Container{
           let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
           this.buyElements.add(temp);
           this.buyContainerArray.push(temp);
-          startY += 50;
+          startY += 85;
         }
 
         //hide both index buttons
@@ -1209,12 +1219,12 @@ class shop extends Phaser.GameObjects.Container{
       }else if(this.buyArray !== undefined && this.buyArray !== null){
 
         //loop through and make new container
-        for(let counter = this.buyIndexStart; counter < this.buyIndexStart+5; counter++){
+        for(let counter = this.buyIndexStart; counter < this.buyIndexStart+this.amountOfBuyContainers ; counter++){
           //console.log("this.buyArray[counter]",this.buyArray[counter]);
           let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
           this.buyElements.add(temp);
           this.buyContainerArray.push(temp);
-          startY += 50;
+          startY += 85;
         }
 
         //hide both index buttons

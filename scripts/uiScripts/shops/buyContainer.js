@@ -2,7 +2,7 @@ class buyContainer extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,shopUI, item){
       //super() calls the constructor() from the parent class we are extending
-      super(scene, xPos+10, yPos);
+      super(scene, xPos, yPos);
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
@@ -29,23 +29,42 @@ class buyContainer extends Phaser.GameObjects.Container{
 
       this.scene = scene;
 
-      //define fake item drop as a display for the item.
-      this.buyDropDisplay = new itemDrop(scene, 0,-10,item.itemID,0,1,"","","",0);
-      this.buyDropDisplay.setScale(.6);
-      this.add(this.buyDropDisplay);
-
-      //define make text object with the items name.
-      let value = Math.floor(item.sellValue *this.shopUI.multiplier);
-      this.buyNameDisplay = new makeText(scene,30,20,'charBubble',""+item.itemName+": "+value);
-      this.buyNameDisplay.setScale(.8);
-      this.add(this.buyNameDisplay);
+      this.buySlotBackground = scene.add.sprite(60, 5, 'shopSlot');
+      this.buySlotBackground.setScale(.49);
+      this.add(this.buySlotBackground);
 
       //define the buy button
       //create text button which can be used to buyButtonDisplay a stack
       this.buyButtonDisplay = new makeText(scene,-60,-5,'charBubble',"BUY",true);
       this.buyButtonDisplay.addHitbox();
-      this.buyButtonDisplay.setScale(.8);
+      this.buyButtonDisplay.setScale(1.2);
       this.add(this.buyButtonDisplay);
+
+      //define fake item drop as a display for the item.
+      this.buyDropDisplay = new itemDrop(scene, 10,-10,item.itemID,0,1,"","","",0);
+      this.buyDropDisplay.setScale(.7);
+      this.add(this.buyDropDisplay);
+
+      
+      this.buyNameDisplay = new makeText(scene,60,0,'charBubble',""+item.itemName);
+      this.buyNameDisplay.setScale(.8);
+      this.add(this.buyNameDisplay);
+
+      this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT: "+item.itemAmount);
+      this.buyAmountDisplay.setScale(.8);
+      this.add(this.buyAmountDisplay);
+
+       //shell currency icon
+       this.shellIcon = new shellMark(scene,60,20);
+       this.shellIcon.setScale(.4);
+       this.shellIcon.visible = true;
+       this.add(this.shellIcon);
+ 
+       //define make text object with the items name.
+       let value = Math.floor(item.sellValue * this.shopUI.multiplier * item.itemAmount);
+       this.buyPriceDisplay = new makeText(scene,80,40,'charBubble',""+value);
+       this.buyPriceDisplay.setScale(.8);
+       this.add(this.buyPriceDisplay);
 
      //set up button functionality for buyButtonDisplay button
      this.buyButtonDisplay.on('pointerover',function(pointer){

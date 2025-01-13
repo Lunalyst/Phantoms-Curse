@@ -732,18 +732,6 @@ class lunalyst extends npc{
           }
         );
 
-        this.buyBack.push(
-          {
-            itemID: 14,
-            itemName: 'COCONUT',
-            itemDescription: 'APPLE OF THE SEA.',
-            itemStackable: 1,
-            itemAmount: 1,
-            itemType: "drop",
-            sellValue: 5
-          }
-        );
-
         //make a special object to pass to the listener
         let buyArray = {
           array: this.buyBack,

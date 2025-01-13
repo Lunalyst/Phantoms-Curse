@@ -2,7 +2,7 @@ class buyContainer extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,shopUI, item){
       //super() calls the constructor() from the parent class we are extending
-      super(scene, xPos, yPos);
+      super(scene, xPos+10, yPos);
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
@@ -30,8 +30,8 @@ class buyContainer extends Phaser.GameObjects.Container{
       this.scene = scene;
 
       //define fake item drop as a display for the item.
-      this.buyDropDisplay = new itemDrop(scene, 0,0,item.itemID,0,1,"","","",0);
-      this.buyDropDisplay.setScale(.7);
+      this.buyDropDisplay = new itemDrop(scene, 0,-10,item.itemID,0,1,"","","",0);
+      this.buyDropDisplay.setScale(.6);
       this.add(this.buyDropDisplay);
 
       //define make text object with the items name.
@@ -42,7 +42,7 @@ class buyContainer extends Phaser.GameObjects.Container{
 
       //define the buy button
       //create text button which can be used to buyButtonDisplay a stack
-      this.buyButtonDisplay = new makeText(scene,60,20,'charBubble',"BUY",true);
+      this.buyButtonDisplay = new makeText(scene,-60,-5,'charBubble',"BUY",true);
       this.buyButtonDisplay.addHitbox();
       this.buyButtonDisplay.setScale(.8);
       this.add(this.buyButtonDisplay);

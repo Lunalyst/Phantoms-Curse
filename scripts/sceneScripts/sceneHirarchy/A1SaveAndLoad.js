@@ -530,7 +530,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
 
-          dupes[0] = 1;
+          //dupes[0] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 2,
@@ -545,7 +545,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
 
-          dupes[1] = 1;
+          //dupes[1] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 4,
@@ -560,7 +560,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
 
-          dupes[2] = 1;
+          //dupes[2] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 8,
@@ -574,7 +574,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
 
-          dupes[3] = 1;
+          //dupes[3] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 10,
@@ -589,7 +589,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
 
-          dupes[4] = 1;
+          //dupes[4] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 1,
@@ -604,7 +604,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
 
-          dupes[5] = 1;
+          //dupes[5] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 3,
@@ -619,7 +619,7 @@ for(let counter = 0; counter <=100; counter++){
 
         }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 0){
 
-          dupes[6] = 1;
+          //dupes[6] = 1;
 
           dataObject.inventoryArray[counter] = {
             itemID: 6,
@@ -632,86 +632,6 @@ for(let counter = 0; counter <=100; counter++){
             
         };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-
-        }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-
-        }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-
-        }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-        }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-        }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
-        }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 1){
-
-          dataObject.inventoryArray[counter] = {
-            itemID: 0,
-            itemName: ' ',
-            itemDescription: ' ',
-            itemStackable: 1,
-            itemAmount: 0 ,
-            itemType: "",
-            sellValue: 0
-          };
         }
       }
 

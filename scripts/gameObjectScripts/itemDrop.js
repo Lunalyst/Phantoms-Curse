@@ -44,7 +44,7 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
             itemType: type,
             sellValue: sell
         };
-        console.log("this.itemDropObject: ",this.itemDropObject);
+        //console.log("this.itemDropObject: ",this.itemDropObject);
 
         //plays animation of item.
         this.anims.play(""+setItemID);

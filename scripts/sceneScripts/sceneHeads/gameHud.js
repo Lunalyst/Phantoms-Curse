@@ -605,10 +605,6 @@ class gameHud extends A3SoundEffects {
             //sets the cost multiplier in the shop ui
             this.playerShop.setUpCostMultiplier(object.sellMultiplier);
 
-            //sets up shop ui buy containers.
-            this.playerShop.setUpBuyContainers();
-
-
           });
 
           //emitter to search the inventory, to see if a item is present.

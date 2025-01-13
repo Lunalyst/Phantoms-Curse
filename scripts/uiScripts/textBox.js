@@ -98,7 +98,7 @@ class textBox extends Phaser.GameObjects.Container{
       }
       
       //if the player pressed w then
-      console.log("this.textInterupt: ",this.textInterupt," this.textCoolDown: ",this.textCoolDown)
+      //console.log("this.textInterupt: ",this.textInterupt," this.textCoolDown: ",this.textCoolDown)
       if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
         console.log("this.amountWIsPressed: ",this.amountWIsPressed);
         this.amountWIsPressed++;

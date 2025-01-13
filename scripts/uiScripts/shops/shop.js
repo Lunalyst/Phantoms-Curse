@@ -97,11 +97,7 @@ class shop extends Phaser.GameObjects.Container{
       this.multiplier;
 
       this.buyContainerArray = [];
-    }
-
-    //function to set up the buy inventory.
-    setUpBuyArray(buyArray){
-
+      this.buyIndexStart = 0;
     }
     
     // function opens the shop ui. has a delay so that the player cant quickly open the inventory
@@ -127,6 +123,9 @@ class shop extends Phaser.GameObjects.Container{
             this.setSlotView(hud);
             console.log("copying dataArray to slots");
             this.copyAndSetSlots();
+
+            //set up buyslots
+            this.setUpBuyContainers();
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
@@ -162,6 +161,8 @@ class shop extends Phaser.GameObjects.Container{
             this.setSlotView(hud);
             console.log("saving and copying back element in scene inventory from shop ui");
             this.SaveAndClearSlots();
+
+            this.destroyBuyContainers();
 
             //
             if(this.scene.itemName !== undefined){
@@ -411,6 +412,10 @@ class shop extends Phaser.GameObjects.Container{
         this.buySwitch.clicked = false;
         this.buySwitch.clearTextTint();
 
+        //hide both index buttons
+        this.buyIndexUp.visible = false;
+        this.buyIndexDown.visible = false;
+
         this.updatePlayerCurrency();
         
       }
@@ -579,6 +584,24 @@ class shop extends Phaser.GameObjects.Container{
         this.sellSwitch.clearTextTint();
 
         this.updatePlayerCurrency();
+
+      
+        //if the buy index is zero and there are more than 5 items
+        if(this.buyIndexStart === 0 && this.buyArray.length > 5){
+          this.buyIndexDown.visible = true;
+          this.buyIndexUp.visible = false;
+          //otherwise if we are at the end of the buy array
+        }else if(this.buyIndexStart + 5 === this.buyArray.length && this.buyArray.length > 5){
+          this.buyIndexDown.visible = false;
+          this.buyIndexUp.visible = true;
+        }else if(this.buyArray.length > 5){
+          this.buyIndexDown.visible = true;
+          this.buyIndexUp.visible = true;
+        }else{
+          this.buyIndexDown.visible = false;
+          this.buyIndexUp.visible = false;
+        }
+        
         
       }
 
@@ -590,7 +613,77 @@ class shop extends Phaser.GameObjects.Container{
       }
 
     },this);
-        
+
+    //define up button for buy inventory
+    this.buyIndexUp = new UIControls(this.scene, 220,-120, "UIControls").setInteractive();
+    this.buyIndexUp.setScale(0.9);
+    this.buyIndexUp.anims.play("pointRight");
+    this.buyIndexUp.setRotation(3.14/2+3.14/2+3.14/2)
+    this.buyIndexUp.visible = false;
+    this.inventoryElements.add(this.buyIndexUp);
+    this.buyElements.add(this.buyIndexUp);
+    this.add(this.buyIndexUp);
+
+    this.buyIndexUp.on('pointerdown', function (pointer) {
+      //if buyindex start greater than zero
+      if(this.buyIndexStart > 0){
+        //subtract the index
+        this.buyIndexStart--; 
+
+        //destroy buttons
+        this.destroyBuyContainers();
+        //reinstanciate the buttons with new indexes
+        this.setUpBuyContainers();
+      }
+
+      //if we are at the end of the sell array hide the button.
+      console.log("this.buyIndexStart: ",this.buyIndexStart);
+      if(this.buyIndexStart === 0){
+        this.buyIndexUp.visible = false;
+        this.buyIndexDown.visible = true;
+      }else{
+        this.buyIndexDown.visible = true;
+        this.buyIndexUp.visible = true;
+      }
+
+    },this);
+
+    this.buyIndexDown = new UIControls(this.scene, 220, 160, "UIControls").setInteractive();
+    this.buyIndexDown.setScale(0.9);
+    this.buyIndexDown.anims.play("pointRight");
+    this.buyIndexDown.setRotation(3.14/2)
+    this.buyIndexDown.visible = false;
+    this.inventoryElements.add(this.buyIndexDown);
+    this.buyElements.add(this.buyIndexDown);
+    this.add(this.buyIndexDown);
+
+    this.buyIndexDown.on('pointerdown', function (pointer) {
+      //if buyindex start greater than zero
+      
+      if(this.buyIndexStart+5 < this.buyArray.length){
+        //subtract the index
+        this.buyIndexStart++; 
+        console.log("this.buyIndexStart: ",this.buyIndexStart," this.buyArray.length: ",this.buyArray.length);
+      }
+        //destroy buttons
+        this.destroyBuyContainers();
+        //reinstanciate the buttons with new indexes
+        this.setUpBuyContainers();
+      
+
+      //if we are at the end of the sell array hide the button.
+     
+      if(this.buyIndexStart+5 >= this.buyArray.length){
+        this.buyIndexDown.visible = false;
+        this.buyIndexUp.visible = true;
+      }else{
+        this.buyIndexUp.visible = true;
+      }
+
+      this.scene.initSoundEffect('buttonSFX1','2',0.05);
+    },this);
+
+
   }
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
@@ -1095,17 +1188,60 @@ class shop extends Phaser.GameObjects.Container{
       let startX = 220-70;
       let startY = -85;
 
-      //loop through and make new container
-      for(let counter = 0; counter < this.buyArray.length; counter++){
-        console.log("this.buyArray[counter]",this.buyArray[counter]);
-        let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
-        this.buyElements.add(temp);
-        this.buyContainerArray.push(temp);
-        startY += 50;
-      }
-
       
-  
+      //if the buy array is defined, and we have 5 or less elements.
+      if(this.buyArray !== undefined && this.buyArray !== null && this.buyArray.length <= 5){
+
+        //loop through and make new container
+        for(let counter = 0; counter < this.buyArray.length; counter++){
+          console.log("this.buyArray[counter]",this.buyArray[counter]);
+          let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
+          this.buyElements.add(temp);
+          this.buyContainerArray.push(temp);
+          startY += 50;
+        }
+
+        //hide both index buttons
+        this.buyIndexUp.visible = false;
+        this.buyIndexDown.visible = false;
+
+      //otherwise if we have a buyarray larger than 5 display the first 5 elements.
+      }else if(this.buyArray !== undefined && this.buyArray !== null){
+
+        //loop through and make new container
+        for(let counter = this.buyIndexStart; counter < this.buyIndexStart+5; counter++){
+          //console.log("this.buyArray[counter]",this.buyArray[counter]);
+          let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
+          this.buyElements.add(temp);
+          this.buyContainerArray.push(temp);
+          startY += 50;
+        }
+
+        //hide both index buttons
+        this.buyIndexUp.visible = false;
+        this.buyIndexDown.visible = true;
+      }
+      
+    }
+
+    //destroy container buttons
+    destroyBuyContainers(){
+
+      //loop through our buy containers.
+      for(let counter = 0; counter < this.buyContainerArray.length; counter++){
+
+        //destroy container
+        this.buyContainerArray[counter].destroy();
+        //this.buyContainerArray.pop();
+
+
+      } 
+
+      //clears memory of buyarray;
+      this.buyContainerArray = [];
+
+      console.log(" this.buyContainerArray", this.buyContainerArray);
+      
     }
 
     updatePlayerCurrency(){

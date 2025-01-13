@@ -78,6 +78,9 @@ class shop extends Phaser.GameObjects.Container{
       this.shopBorder.setScale(1/2);
       this.add(this.shopBorder);
       
+      this.closingButton = new closingButton(scene,this,null,220+135,-124);
+      this.closingButton.setupClosingButtonShop();
+      this.add(this.closingButton);
 
       this.scene = scene;
 

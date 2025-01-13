@@ -173,20 +173,49 @@ progressDialogue(){
 
     this.profileArrayPosition++;
 
-    //calls function to display that next set of text
-    this.displayText(this.startPosition,this.endPosition);
-    
-    this.textCoolDown = false;
-
-    let currentTextBox = this;
-    
-    //time out function to set the cooldown to true in .3 seconds.
-    setTimeout(function(){
-      //console.log("delay end for text box");
+    if(this.endPosition-textEnd > this.currentText.length-1){
+      //resets values in scene, and this object
+      this.scene.isPaused = false;
+      this.scene.pausedInTextBox = false;
+      this.visible = false;
+      this.textBoxProfileImage.visible = false;
+      this.hideText(false);
+      this.startPosition = 0;
+      this.endPosition = 0;
+      this.textBoxActivationCoolDown = true;
+      this.profileArrayPosition = 0;
+      this.amountWIsPressed = 0;
       
-      currentTextBox.textCoolDown =  true;
-      },300);
+      //reset sound type once dialogue is over.
+      this.soundType = "default";
 
+      this.completedText = true;
+      //use emmitter to show the mobile controls if there on.
+      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
+
+
+      let tempTextBox = this;
+      setTimeout(function(){
+        tempTextBox.completedText = false;
+        tempTextBox.textBoxActivationCoolDown = false;
+      },1000); 
+    
+    }else{
+
+      //calls function to display that next set of text
+      this.displayText(this.startPosition,this.endPosition);
+
+      this.textCoolDown = false;
+
+      let currentTextBox = this;
+      
+      //time out function to set the cooldown to true in .3 seconds.
+      setTimeout(function(){
+        //console.log("delay end for text box");
+        
+        currentTextBox.textCoolDown =  true;
+        },300);
+    }
 }
 
     // this. line and two numbers representing the start and end location of the text to be display.

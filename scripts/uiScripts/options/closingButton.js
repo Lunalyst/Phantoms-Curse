@@ -67,4 +67,35 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
         });
 
     }
+
+    setupClosingButtonShop(){
+
+        this.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.anims.play("closingButtonActive");  
+        },this);
+
+        this.on('pointerout',function(pointer){
+            this.anims.play("closingButtonInActive");
+        },this);
+
+        this.on('pointerdown', function (pointer) {
+            //plays button sound
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+            
+            let object = {
+                NPCRef: this.inventory.npc,
+              };
+
+            //call emitter to close shop
+            inventoryKeyEmitter.emit(inventoryKey.activateShop,this.inventory.npc.scene,object);
+
+            //call npc to progress dialogue
+            this.inventory.npc.scene.sceneTextBox.progressDialogue();
+            this.inventory.npc.scene.sceneTextBox.textInterupt = false;
+
+
+        },this);
+
+    }
 }

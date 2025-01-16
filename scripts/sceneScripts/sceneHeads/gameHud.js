@@ -596,17 +596,65 @@ class gameHud extends A3SoundEffects {
             
           });
 
+          this.playerShop = null;
+
           //sets the buy array in the shop ui
           inventoryKeyEmitter.on(inventoryKey.setUpBuyArray,(object) =>{
             console.log("sending buyarray to shop array.",)
-            
+            //if the shop ui isnt already created.
+            if(this.playerShop === null){
+              //adds player storage ui
+              this.playerShop = new shop(this,this.screenWidth/2-160,190);
+              this.playerShop.applyUIControlElements();
+
+              //makes a tween for the inventory object so the interior is see through
+              this.playerShopTween1 = this.tweens.add({
+                targets:this.playerShop.shopInterior,
+                alpha: { from: 1, to: 0.8 },
+                ease: 'Sine.InOut',
+                duration: 500,
+                yoyo: false
+              });
+
+            //makes a tween for the inventory object so the interior is see through
+            this.playerShopTween2  = this.tweens.add({
+              targets:this.playerShop.playerInventoryInterior,
+              alpha: { from: 1, to: 0.8 },
+              ease: 'Sine.InOut',
+              duration: 500,
+              yoyo: false
+            });
+
+            //makes the player inventory slot
+            this.playerShop.generateSlots(this);
+
+            // applys interactions to the object apart of the inventory. 
+            this.playerShop.applyInteractionToSlots(this);
+
             //set the buy array in the shop ui
             this.playerShop.setBuyArray(object.array);
 
             //sets the cost multiplier in the shop ui
             this.playerShop.setUpCostMultiplier(object.sellMultiplier);
+            }
+             
 
           });
+
+          inventoryKeyEmitter.on(inventoryKey.destroyBuyArray,() =>{
+
+            console.log("destroying shop inventory ui since we are done using it.",)
+            //destroy the shop ui container
+            this.playerShop.destroy();
+            this.playerShop = null;
+
+            //stop the tweens for the containers.
+            this.playerShopTween1.stop();
+            this.playerShopTween2.stop();
+            
+          });
+
+          
 
           //emitter to search the inventory, to see if a item is present.
           inventoryKeyEmitter.on(inventoryKey.isItemInInventory,(object) =>{
@@ -716,34 +764,6 @@ class gameHud extends A3SoundEffects {
       this.playerStorage.applyInteractionToSlots(this);
 
       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-          //adds player storage ui
-          this.playerShop = new shop(this,this.screenWidth/2-160,190);
-          this.playerShop.applyUIControlElements();
-
-          //makes a tween for the inventory object so the interior is see through
-          this.inventoryTween = this.tweens.add({
-            targets:this.playerShop.shopInterior,
-            alpha: { from: 1, to: 0.8 },
-            ease: 'Sine.InOut',
-            duration: 500,
-            yoyo: false
-          });
-
-        //makes a tween for the inventory object so the interior is see through
-        this.inventoryTween = this.tweens.add({
-          targets:this.playerShop.playerInventoryInterior,
-          alpha: { from: 1, to: 0.8 },
-          ease: 'Sine.InOut',
-          duration: 500,
-          yoyo: false
-        });
-
-        //makes the player inventory slot
-        this.playerShop.generateSlots(this);
-
-        // applys interactions to the object apart of the inventory. 
-        this.playerShop.applyInteractionToSlots(this);
-
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         
           //emitter to opem and close the inventory when the tab input is recieved from the scene
@@ -760,7 +780,7 @@ class gameHud extends A3SoundEffects {
             this.playerStorage.setView(scene,this);
           });
 
-           //emitter to opem and close the inventory when the tab input is recieved from the scene
+           //emitter to open and close the inventory when the tab input is recieved from the scene
            inventoryKeyEmitter.on(inventoryKey.activateShop,(scene,object) =>{
             console.log("activating shop emitter",object);
             this.playerShop.setNPCRef(object.NPCRef);
@@ -913,7 +933,7 @@ class gameHud extends A3SoundEffects {
             console.log("containerString: ",containerString);
             this.flagValues.containerFlags.push(containerString);
 
-            console.log("adding flag to players flag data: ",this.flagValues);
+            //console.log("adding flag to players flag data: ",this.flagValues);
 
           });
 

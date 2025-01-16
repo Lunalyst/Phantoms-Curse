@@ -1,4 +1,40 @@
-//player entity.
+/*
+//player entity./*
+//i have a idea.
+//start my making the player a container, which holds various layers of sprites.
+//have the base layer which is the player nude.
+//may need to have the player be the same height,
+//so that when we have a layer above the player, like clothing, and weapon use, that those layer line up
+//this is huge as it allows for alt outfits during gameplay, as well as
+//less sprites overal
+//because weapons could be a third sprite which is overlayed. meaning we dont need to make duplicate frames for every weapon.
+//  when making new weapons.
+// layer 1 player body. options of far : human, cobrabold.
+// layer 2 cloths. default, grey jacket, maidoutfit.
+layer 3 weapons: 
+slashing animation: knife, hand,
+thrusting: rapiers, spears ect
+clobering: oar, clubs hammers
+rock throw:
+bow:
+
+animation keys:
+idler side
+walk/run
+
+//player keys
+0) weapon back this.setDepth(6);
+1)player back this.setDepth(7);
+2)player middle this.setDepth(8);
+3)player front this.setDepth(9);
+4)cloths, front middle and back this.setDepth(10);
+5)weapon front this.setDepth(11);
+
+*note* to save on if cases, use the vanity itemslot id or name and add that to the name of regular animations.
+ that way there is no need for a if statement when deciding animations.
+
+
+// */
 class player extends Phaser.Physics.Arcade.Sprite{
   // every class needs constructor
   constructor(scene, xPos, yPos,sex){

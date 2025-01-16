@@ -423,6 +423,7 @@ class lunalyst extends npc{
       this.hugging = false;
       this.trading = false;
       this.inDialogue = false;
+      this.activatedTradeUI = false;
 
       //sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
@@ -709,10 +710,13 @@ class lunalyst extends npc{
         this.scene.player1.y = this.y;
         this.scene.player1.visible = true;
         this.hugging = false;
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6 && this.trading){
+
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 6 && this.trading && this.activatedTradeUI === false){
 
         // call the emitter to check if the value already was picked up.
         console.log('activating shop');
+
+        this.activatedTradeUI = true;
 
         let object = {
           NPCRef: this,
@@ -749,18 +753,6 @@ class lunalyst extends npc{
 
         this.scene.sceneTextBox.textInterupt = true;
 
-           
-
-      }else if(this.trading){
-        let object = {
-          NPCRef: this,
-        };
-
-        if(this.scene.checkInventoryIsDown()){
-          this.scene.sceneTextBox.textInterupt = false;
-          inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
-        }
-           
       }
 
     }

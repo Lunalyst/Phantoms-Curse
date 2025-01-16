@@ -404,37 +404,32 @@ class storage extends Phaser.GameObjects.Container{
         let tempStorage = this;
         this.storageArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter + tempStorage.slotOffset].itemName);
+          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemName);
           scene.itemName.setScale(0.7);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter + tempStorage.slotOffset].itemDescription);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
           scene.itemDescription.setScale(0.7);
           scene.itemDescription.setDepth(21);
-          console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + tempStorage.slotOffset].itemID);
-          if(tempStorage.inventoryDataArray[counter + tempStorage.slotOffset].itemID > 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+tempStorage.inventoryDataArray[counter + tempStorage.slotOffset].sellValue);
+          console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + this.slotOffset].itemID);
+          if(scene.inventoryDataArray[counter + this.slotOffset].itemID > 0){
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
             scene.itemValue.setScale(0.7);
             scene.itemValue.setDepth(21);
           }
-        });
+        },this);
 
         // removes name and discription.
         this.storageArray[counter].on('pointerout',function(pointer){
-          tempStorage.scene.itemName.destroy();
-          tempStorage.scene.itemDescription.destroy();
+          this.scene.itemName.destroy();
+          this.scene.itemDescription.destroy();
 
-          if(tempStorage.scene.itemValue !== null && tempStorage.scene.itemValue !== undefined){
-            tempStorage.scene.itemValue.destroy();
+          if(this.scene.itemValue !== null && this.scene.itemValue !== undefined){
+            this.scene.itemValue.destroy();
           }
-        });
+        },this);
       }
 
     }
-
-    //takes a number representing place in data array. as an example 0
-    //then it adds the offset to it where the offset resembles the first 4 slots that shouldnt be showing.
-
-   
 
     //uses the activate slot number and the page number to get the position in dataaray which has the item we want to move.
     getDataLocation(activatedSlot){

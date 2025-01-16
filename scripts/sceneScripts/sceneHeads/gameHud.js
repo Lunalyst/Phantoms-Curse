@@ -734,37 +734,6 @@ class gameHud extends A3SoundEffects {
 
           // applys interactions to the object apart of the inventory. 
           this.playerInventory.applyInteractionToSlots(this);
-
-          //adds player storage ui
-        this.playerStorage = new storage(this,this.screenWidth/2-160,190);
-        this.playerStorage.applyUIControlElements();
-
-        //makes a tween for the inventory object so the interior is see through
-        this.inventoryTween = this.tweens.add({
-          targets:this.playerStorage.storageInterior,
-          alpha: { from: 1, to: 0.8 },
-          ease: 'Sine.InOut',
-          duration: 500,
-          yoyo: false
-        });
-
-      //makes a tween for the inventory object so the interior is see through
-      this.inventoryTween = this.tweens.add({
-        targets:this.playerStorage.playerInventoryInterior,
-        alpha: { from: 1, to: 0.8 },
-        ease: 'Sine.InOut',
-        duration: 500,
-        yoyo: false
-      });
-
-      //makes the player inventory slot
-      this.playerStorage.generateSlots(this);
-
-      // applys interactions to the object apart of the inventory. 
-      this.playerStorage.applyInteractionToSlots(this);
-
-      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         
           //emitter to opem and close the inventory when the tab input is recieved from the scene
           inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
@@ -772,6 +741,58 @@ class gameHud extends A3SoundEffects {
               if(this.isStorageOpen === false){
             this.playerInventory.setView(scene,this);
               }
+          });
+
+
+          this.playerStorage = null;
+
+          //emitter to setup the storage ui
+          inventoryKeyEmitter.on(inventoryKey.makeStorage,() =>{
+            if(this.playerStorage === null){
+                        //adds player storage ui
+              this.playerStorage = new storage(this,this.screenWidth/2-160,190);
+              this.playerStorage.applyUIControlElements();
+
+                //makes a tween for the inventory object so the interior is see through
+                this.storageTween1 = this.tweens.add({
+                  targets:this.playerStorage.storageInterior,
+                  alpha: { from: 1, to: 0.8 },
+                  ease: 'Sine.InOut',
+                  duration: 500,
+                  yoyo: false
+                });
+
+              //makes a tween for the inventory object so the interior is see through
+              this.storageTween2 = this.tweens.add({
+                targets:this.playerStorage.playerInventoryInterior,
+                alpha: { from: 1, to: 0.8 },
+                ease: 'Sine.InOut',
+                duration: 500,
+                yoyo: false
+              });
+
+              //makes the player inventory slot
+              this.playerStorage.generateSlots(this);
+
+              // applys interactions to the object apart of the inventory. 
+              this.playerStorage.applyInteractionToSlots(this);
+
+            }
+          });
+
+          //emitter to destroy the storage ui
+          inventoryKeyEmitter.on(inventoryKey.destroyStorage,() =>{
+            if(this.playerStorage !== null){
+              console.log("destroying shop inventory ui since we are done using it.",)
+              //destroy the shop ui container
+              this.playerStorage.destroy();
+              this.playerStorage = null;
+
+              //stop the tweens for the containers.
+              this.storageTween1.stop();
+              this.storageTween2.stop();
+
+            }
           });
 
           //emitter to opem and close the inventory when the tab input is recieved from the scene

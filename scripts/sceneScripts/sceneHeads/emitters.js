@@ -58,6 +58,8 @@ accessTabKey = new Phaser.Events.EventEmitter();
 
 inventoryKey = {
     activateWindow: 'activate_window',
+    makeStorage: 'make_storage',
+    destroyStorage: 'destroy_storage',
     activateStorage: 'activate_storage',
     activateShop: 'activate_shop',
     activateWindowWithContainer: 'activate_window_with_container',

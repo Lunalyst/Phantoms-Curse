@@ -45,22 +45,38 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
         if( this.safeToOpen === true && this.scene.checkWIsDown() && this.openCoolDown === false){
             
-            console.log('activating locker');
-            // call the emitter to check if the value already was picked up.
-            inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
            
-            // functions been activated so create set save cooldown to true
-            this.openCoolDown = true; 
-
+            //tells this object to play locker opening animation, and weather or not we need to make the ui or destroy it.
             if(this.isOpen === false){
 
                 this.isOpen = true;
 
                 this.anims.play('opening');
+
+                console.log('activating locker');
+
+                //call emitter to make the storage ui
+                inventoryKeyEmitter.emit(inventoryKey.makeStorage);
+
+                // call the emitter to activate the storage ui
+                inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
             }else{
                 this.isOpen = false;
                 this.anims.play('closing');
+
+                console.log('closing locker');
+
+                // call the emitter to activate the storage ui
+                inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
+
+                //call emitter to destroy the storage ui
+                inventoryKeyEmitter.emit(inventoryKey.destroyStorage);
             }
+
+            
+           
+            // functions been activated so create set save cooldown to true
+            this.openCoolDown = true; 
             
              let thisLocker = this;
              setTimeout(function () {

@@ -226,6 +226,8 @@ class PondForest extends defaultScene {
         //sets the previous x for scrolling
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
+
+        //endTimeTest()
     }
 
     update(){

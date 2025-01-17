@@ -55,6 +55,7 @@ class titleScreen extends A3SoundEffects {
         }
 
         preload(){
+            startTimeTest("loading title screen.");
             this.load.spritesheet('titleBackground', 'assets/titleScreen/title-backround.png',{frameWidth: 1000 , frameHeight: 667});
             this.load.spritesheet("newGame" , "assets/titleScreen/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
@@ -174,6 +175,7 @@ class titleScreen extends A3SoundEffects {
                 setTimeout(function () {
                     console.log("now Loading main scene ",that.playerLocation);
                     that.scene.start(that.playerLocation);
+                    //startTimeTest("titlescreen load time.");
                 }, 100);
             })
 
@@ -298,6 +300,7 @@ class titleScreen extends A3SoundEffects {
                 
             });
            
+            endTimeTest();
         }
 
         update(){

@@ -4,6 +4,7 @@ class defaultScene extends G10UpdateLoops {
 
     //loads all the sprites for a current default scene. may make more specalized preload function in the future.
     defaultPreload(){
+      startTimeTest("testing load time for loading in default scene sprite assets.");
         
        //loads the image with the tiles and the .json file of the tilemap
       this.load.image("source_map" , "assets/tiledMap/LockWood/Forest_Large_Tiles.png");
@@ -13,6 +14,22 @@ class defaultScene extends G10UpdateLoops {
       this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
+      /*
+      //male specific parts
+      this.load.spritesheet("1-male-back-leg" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("2-male-back-leg-cloths" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("3-male-back-arm" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("4-male-back-arm-cloths" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("5-male-main-body" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("6-male-main-cloths" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("7-male-front-arm" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("9-male-front-arm-cloths" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("10-weapon-hand" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+
+      //neutral parts
+      this.load.spritesheet("10-weapon-hand" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("weapon-layer" , "assets/player/even_base1.png" , {frameWidth: 393 , frameHeight: 243});
+      */
       this.load.spritesheet('keyPrompts', 'assets/hudElements/KeyPrompts.png',{frameWidth: 96, frameHeight: 96 });
       this.load.spritesheet('healthUpgrade', 'assets/gameObjects/healthUpgrade.png',{frameWidth: 99, frameHeight: 99 });
       this.load.spritesheet('barrier', 'assets/gameObjects/barrier.png',{frameWidth: 96, frameHeight: 96 });
@@ -75,13 +92,15 @@ class defaultScene extends G10UpdateLoops {
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
          
        this.load.spritesheet('penning', 'assets/internalViews/penning.png',{frameWidth: 213, frameHeight: 213});
-    }
+       endTimeTest();
+      }
 
     //{scene setup Functions}===================================================================================================================
 
     //sets up default scene variables that every scene should need. could be factored out into multiple varialbe set ups for different scenes
     constructStockSceneVariables(){
 
+      //startTimeTest();
     //G1
     //input variable setup
     this.keyA;
@@ -215,7 +234,6 @@ class defaultScene extends G10UpdateLoops {
 
   //variable for preventing player from moving if they warp.
   this.playerWarping = false;
-
   }
 
      

@@ -1,5 +1,24 @@
-// here are the event emmiter definitions and key definitions
+//timer function to test runtime of 
+let startTime;
+let endTime;
+let storedLabel;
 
+function startTimeTest(label){
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    console.log("starting time test for "+label);
+    storedLabel = label;
+    startTime = performance.now();
+}
+
+function endTimeTest(){
+    endTime = performance.now();
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    console.log("ending time test for"+storedLabel);
+    console.log(`Execution time: ${endTime - startTime} milliseconds`);
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+}
+
+// here are the event emmiter definitions and key definitions
 healthEvent = {
     loseHealth: 'lose_health',
     gainHealth: 'gain_health',

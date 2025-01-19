@@ -62,7 +62,7 @@ class G10UpdateLoops extends G9CheckEnemys{
         //pause physics of scene
         this.physics.pause();
         //pauses the player animations
-        this.player1.anims.pause();
+        //this.player1.anims.pause();
 
         //makes a temp object
         let isWindowObject = {
@@ -85,7 +85,7 @@ class G10UpdateLoops extends G9CheckEnemys{
         //resume physics
         this.physics.resume();
         //and the player animations
-        this.player1.anims.resume();
+        this.player1.mainBody5.anims.resume();
       }
 
       //if we arnt paused
@@ -104,8 +104,8 @@ class G10UpdateLoops extends G9CheckEnemys{
             this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
           //otherwise kill player x velocity
           }else{
-            this.player1.setVelocityX(0);
-            this.player1.anims.play('pIdle',true);
+            this.player1.mainBody5.setVelocityX(0);
+            //this.player1.mainBody5.anims.play('pIdle',true);
           }
           
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.

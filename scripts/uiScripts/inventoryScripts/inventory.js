@@ -367,7 +367,7 @@ class inventory extends Phaser.GameObjects.Container{
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
-            scene.player1.anims.pause();
+            //scene.player1.anims.pause();
 
             //set time out for delay.
             let inventoryThat = this;
@@ -401,7 +401,7 @@ class inventory extends Phaser.GameObjects.Container{
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
-            scene.player1.anims.resume();
+            //scene.player1.anims.resume();
 
              //sets the elements of the ivnentory to ve visible
              this.inventoryElements.toggleVisible();

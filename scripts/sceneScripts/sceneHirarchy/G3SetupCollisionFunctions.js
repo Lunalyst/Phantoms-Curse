@@ -7,8 +7,8 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
   setUpPlayerCollider(){
     // resets out of bounds check.
     this.PlayerOutOfBounds = false;
-    this.physics.add.collider(this.player1,this.processMap.layer1);
-    this.physics.add.collider(this.player1,this.processMap.layer0);
+    this.physics.add.collider(this.player1.mainBody5,this.processMap.layer1);
+    this.physics.add.collider(this.player1.mainBody5,this.processMap.layer0);
   }
 
   //sets up itemDrop collision

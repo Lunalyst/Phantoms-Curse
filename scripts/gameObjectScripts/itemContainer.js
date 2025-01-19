@@ -20,10 +20,6 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         this.alreadyOpened = false;
         this.setScale(1/3);
 
-        
-
-
-        
         //defines animations
         this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 0, end: 4}),frameRate: 7,repeat: 0});
@@ -67,8 +63,7 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         this.containerItemObject = item;
 
         this.scene = scene;
-        
-        
+    
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with

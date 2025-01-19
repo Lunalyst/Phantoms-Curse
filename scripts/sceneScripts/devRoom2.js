@@ -98,9 +98,9 @@ class devRoom2 extends defaultScene {
       this.setUpPlayer();
 
       
-      this.setupCursedHeartStucks();
+      //this.setupCursedHeartStucks();
 
-      this.setupKnockDownStucks();
+      //this.setupKnockDownStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);
@@ -184,8 +184,8 @@ class devRoom2 extends defaultScene {
        this.setUpEnemyCollider(this.enemyGroupArray);
 
        //needed to use cursed heart projectiles.
-       this.setUpCursedHeartProjectiles();
-       this.setUpCursedHeartsProjectilesBarriers()
+       //this.setUpCursedHeartProjectiles();
+       //this.setUpCursedHeartsProjectilesBarriers()
 
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();

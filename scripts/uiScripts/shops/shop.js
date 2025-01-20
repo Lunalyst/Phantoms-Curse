@@ -141,7 +141,6 @@ class shop extends Phaser.GameObjects.Container{
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
-            scene.player1.anims.pause();
 
             //set time out for delay.
 
@@ -167,7 +166,6 @@ class shop extends Phaser.GameObjects.Container{
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
-            scene.player1.anims.resume();
 
             //hides slots.
             this.setSlotView(hud);

@@ -63,7 +63,7 @@ class lunalyst extends npc{
 
     //if the player meets activation requiements for the sign display the text box
     //console.log('this.safeToSpeak: ', this.safeToSpeak , "this.scene.checkWPressed(): ",this.scene.checkWPressed(), "this.scene.sceneTextBox.textBoxActivationCoolDown:",this.scene.sceneTextBox.textBoxActivationCoolDown);
-      if(this.safeToSpeak === true && this.scene.checkWIsDown() && this.scene.activatedNpcId === this.npcId && this.scene.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false){
+      if(this.safeToSpeak === true && this.scene.checkWIsDown() && this.scene.activatedNpcId === this.npcId && this.scene.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false && this.scene.player1.mainHitbox.body.blocked.down){
           console.log("activating npc");
           // sets the activated to true so it isnt called multiple times.
           this.activated = true;
@@ -73,6 +73,11 @@ class lunalyst extends npc{
           setTimeout(function(){
             sign.activated = false;
           },200);
+
+          //sets the player sprite to its hitbox incase player was jumping.
+          this.scene.player1.x = this.scene.player1.mainHitbox.x;
+          this.scene.player1.y = this.scene.player1.mainHitbox.y;
+
 
           //logic to decide what the npcs activated function is.
           if(this.npcType === 'devRoom'){
@@ -352,6 +357,7 @@ class lunalyst extends npc{
   }
 
   ClearingTheWay(){
+    
     //check to see if flag already exists
     let lunaCTWDialogue1 = {
       flagToFind: "lunaCTWDialogue1",
@@ -425,6 +431,8 @@ class lunalyst extends npc{
       this.inDialogue = false;
       this.activatedTradeUI = false;
 
+      this.scene.player1.playerIdleAnimation();
+
       //sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
 
@@ -483,6 +491,10 @@ class lunalyst extends npc{
           this.profileArray.push('lunaHearts');
           this.profileArray.push('lunaFingerTouch');
           this.profileArray.push('lunaHappy');
+          
+          //sets position of player for the hug.
+          this.scene.player1.mainHitbox.x = this.x+20;
+          this.scene.player1.mainHitbox.y = this.y;
 
           this.textToDisplay += 
         'OH? OF COURSE!           '+
@@ -526,7 +538,7 @@ class lunalyst extends npc{
         },this);
 
         //create dialogue buttons for player choice
-        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"GOT ANY SUPPPLIES? ",true);
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"GOT ANY SUPPPLIES? ",true);
         this.scene.npcChoice2.textWob();
         this.scene.npcChoice2.setScrollFactor(0);
         this.scene.npcChoice2.addHitbox();
@@ -582,7 +594,7 @@ class lunalyst extends npc{
         },this);
 
         //create dialogue buttons for player choice
-        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"SEE YOU LATER. ",true);
+        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"SEE YOU LATER. ",true);
         this.scene.npcChoice3.textWob();
         this.scene.npcChoice3.setScrollFactor(0);
         this.scene.npcChoice3.addHitbox();
@@ -680,8 +692,12 @@ class lunalyst extends npc{
 
           this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
             this.anims.play('lunalystIdle',true);
-            this.scene.player1.x = this.x+20;
-            this.scene.player1.y = this.y;
+
+            //position the player to the correct place when they leave the animation.
+
+            this.scene.player1.mainHitbox.x = this.x+20;
+            this.scene.player1.mainHitbox.y = this.y;
+
             this.scene.player1.visible = true;
             this.animationPlayed = false
             this.scene.sceneTextBox.textInterupt = false;
@@ -691,8 +707,10 @@ class lunalyst extends npc{
          }else{
           this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
             this.anims.play('lunalystIdle',true);
-            this.scene.player1.x = this.x+20;
-            this.scene.player1.y = this.y;
+
+            this.scene.player1.mainHitbox.x = this.x+20;
+            this.scene.player1.mainHitbox.y = this.y;
+
             this.scene.player1.visible = true;
             this.animationPlayed = false;
             this.scene.sceneTextBox.textInterupt = false;
@@ -706,8 +724,7 @@ class lunalyst extends npc{
 
         this.anims.play('lunalystIdle',true);
 
-        this.scene.player1.x = this.x+20;
-        this.scene.player1.y = this.y;
+        
         this.scene.player1.visible = true;
         this.hugging = false;
 
@@ -733,6 +750,30 @@ class lunalyst extends npc{
             itemAmount: 1,
             itemType: "ammo",
             sellValue: 5
+          }
+        );
+
+        this.buyBack.push(
+          {
+            itemID: 20,
+            itemName: 'PLAIN CLOTHS',
+            itemDescription: 'SIMPLE COMFY OUTFIT.',
+            itemStackable: 0,
+            itemAmount: 1,
+            itemType: "vanity",
+            sellValue: 10
+          }
+        );
+
+        this.buyBack.push(
+          {
+            itemID: 21,
+            itemName: 'LANTURN',
+            itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
+            itemStackable: 0,
+            itemAmount: 1,
+            itemType: "ring",
+            sellValue: 40
           }
         );
 

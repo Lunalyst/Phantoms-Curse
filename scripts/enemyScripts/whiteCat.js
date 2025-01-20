@@ -753,7 +753,7 @@ class whiteCat extends enemy {
         this.scene.KeyDisplay.y = this.y + 70;
 
         //stops the player from moving away during a grab?
-        this.scene.player1.setVelocityX(0);
+        this.scene.player1.mainHitbox.setVelocityX(0);
 
         //player the intro grab sequence
         if(this.animationPlayed === false && this.startAnimationPlayed === false){
@@ -1723,7 +1723,7 @@ class whiteCat extends enemy {
         
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
             this.scene.player1.y = this.y - 150;
-            this.scene.player1.body.setGravityY(0);
+            //this.scene.player1.body.setGravityY(0);
             //this.body.setGravityY(0);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;

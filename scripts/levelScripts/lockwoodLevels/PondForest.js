@@ -47,9 +47,6 @@ class PondForest extends defaultScene {
       this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
       this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
       
-      this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
-      this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
-      
       this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
 
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
@@ -208,7 +205,7 @@ class PondForest extends defaultScene {
         foundFlag: false,
       };
 
-      this.initLunalyst(4966,1149,'clearingTheWay');
+      this.initLunalyst(4966,1147,'clearingTheWay');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

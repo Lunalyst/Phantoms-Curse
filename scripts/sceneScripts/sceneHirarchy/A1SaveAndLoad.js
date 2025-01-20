@@ -421,18 +421,34 @@ for(let counter = 0; counter <=100; counter++){
 
     //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
     //are not refrencing the same object like it would be if this variable was defined outside this for loop.
-    let item = {
+  
+
+    if(counter === 3){
+      let item = {
+        itemID: 20,
+        itemName: 'PLAIN CLOTHS',
+        itemDescription: 'SIMPLE COMFY OUTFIT.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "vanity",
+        sellValue: 10
+      };
+
+      this.inventoryArray.push(item);
+    }else{
+
+      let item = {
         itemID: 0,
         itemName: ' ',
         itemDescription: ' ',
         itemStackable: 1,
         itemAmount: 0 ,
         itemType: "",
-        sellValue: 35
-        
-     };
+        sellValue: 0  
+      };
 
-    this.inventoryArray.push(item);
+      this.inventoryArray.push(item);
+    }
 }
 
   playerObject.saveX = 441;

@@ -65,10 +65,9 @@ class player extends Phaser.GameObjects.Container{
     this.add(this.mainBodySprite5);
     this.mainBodySprite5.setScale(1/3);
 
-    this.mainBody5 = scene.physics.add.sprite(xPos, yPos, 'hitbox');
-
+    this.mainHitbox = scene.physics.add.sprite(xPos, yPos, 'hitbox');
     //then we call this next line to give it collision
-    scene.physics.add.existing(this.mainBody5);
+    scene.physics.add.existing(this.mainHitbox);
 
     this.mainBodyCloths6 = scene.add.sprite(0, 0, '6-evan-main-body-cloths');
     this.add(this.mainBodyCloths6);
@@ -106,9 +105,9 @@ class player extends Phaser.GameObjects.Container{
     this.animationPlayedGoingDown = false;
     this.animationInAir = false;
     //sets player gravity in the scene
-    this.mainBody5.body.setGravityY(600); 
+    this.mainHitbox.body.setGravityY(600); 
     //player not pushable. may cause a problem if i want a enemy that throws player
-    //this.mainBody5.setPushable(false);
+    //this.mainHitbox.setPushable(false);
     //object is on view layer 6
     this.setDepth(6);
     // hitbox cooldown.
@@ -143,9 +142,17 @@ class player extends Phaser.GameObjects.Container{
 
     //gives player a refrence to the scene.
     this.scene = scene;
+
     if(scene.lightingSystemActive === true){ 
-      this.lightSource = scene.lights.addLight(this.x, this.y, 200,0x000000, 0.5);
+
+      this.lightSource = scene.lights.addLight(this.x, this.y, 0,0x000000, 1);
+      //this.lightSource.setColor(0xDE591C);
+      this.lightSource.setColor(0xfffff0);
+
+      this.lanturnFlicker = null;
+      this.fuelActivated = false;
     }
+
     /*
       playeridle: frames: 6 layer: 8 7 6 5 4 3
       playerWalk: frames: 15 layer: 1 2 3 4 5 6 7 8
@@ -154,19 +161,7 @@ class player extends Phaser.GameObjects.Container{
       playerSleep frames: 1.5 layers: 5 6 7 8
       playerUnarmed frames: layers: 1 2 3 4 5 6 7 8 9
 
-      template
-      this.backLeg1.anims.create({key: 'back-leg-walk',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.backLegCloths2.anims.create({key: 'back-leg-cloths-walk',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.backArm3.anims.create({key: 'back-arm-walk',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-walk',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.frontArm7.anims.create({key: 'front-arm-walk',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-walk',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.weaponLayer9.anims.create({key: 'weapon-walk',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.weaponHand10.anims.create({key: 'weapon-hand-walk',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-
-    */ 
+    */
 
     this.clothed = false;
 
@@ -267,51 +262,52 @@ class player extends Phaser.GameObjects.Container{
       //rapier
       this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
 
-
-
+      //stuck animations
+      this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
+    
 
 
     }else{
+
+      //stuck animations
+      this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
+      this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
 
     }
     
     
-    //defines player animations. animations are define on startup based on the players sex
-    /*if(sex === 0){
-      this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('malePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
-      this.anims.create({key: 'p',frames: this.anims.generateFrameNames('malePlayer', { start: 9, end: 16 }),frameRate: 15,repeat: -1});
-      this.anims.create({key: 'pJumpUp',frames: this.anims.generateFrameNames('malePlayer', { start: 17, end: 19 }),frameRate: 10 ,repeat: 0});
-      this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('malePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
-      this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('malePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
-      
-      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('malePlayer', { start: 42, end: 47 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('malePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('malePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
-      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('malePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
-      this.anims.create({key: 'pAttackRapier',frames: this.anims.generateFrameNames('malePlayer', { start: 66, end: 71 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackMimicRapier',frames: this.anims.generateFrameNames('malePlayer', { start: 72, end: 77 }),frameRate: 12,repeat: 0});
-    }else{
-      this.anims.create({key: 'pIdle',frames: this.anims.generateFrameNames('femalePlayer', { start: 1, end: 8 }),frameRate: 6,repeat: -1});
-      this.anims.create({key: 'p',frames: this.anims.generateFrameNames('femalePlayer', { start: 9, end: 16 }),frameRate: 15,repeat: -1});
-      this.anims.create({key: 'pJumpUp',frames: this.anims.generateFrameNames('femalePlayer', { start: 17, end: 19 }),frameRate: 10 ,repeat: 0});
-      this.anims.create({key: 'pJumpDown',frames: this.anims.generateFrameNames('femalePlayer', { start: 20, end: 21 }),frameRate: 10 ,repeat: 0});
-      this.anims.create({key: 'pSleep',frames: this.anims.generateFrameNames('femalePlayer', { start: 22, end: 41 }),frameRate: 1.5,repeat: -1});
     
-      this.anims.create({key: 'pAttackUnarmed',frames: this.anims.generateFrameNames('femalePlayer', { start: 42, end: 47 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackKnife',frames: this.anims.generateFrameNames('femalePlayer', { start: 48, end: 53 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackAxe',frames: this.anims.generateFrameNames('femalePlayer', { start: 54, end: 59 }),frameRate: 9,repeat: 0});
-      this.anims.create({key: 'pAttackOar',frames: this.anims.generateFrameNames('femalePlayer', { start: 60, end: 65 }),frameRate: 8,repeat: 0});
-      this.anims.create({key: 'pAttackRapier',frames: this.anims.generateFrameNames('femalePlayer', { start: 66, end: 71 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'pAttackMimicRapier',frames: this.anims.generateFrameNames('femalePlayer', { start: 72, end: 77 }),frameRate: 12,repeat: 0});
-    
-    }*/
+  }
+  //sets up lighting for each layer
+  setLighting(){
+    this.backLeg1.setPipeline('Light2D');
+    this.backLegCloths2.setPipeline('Light2D');
+    this.backArm3.setPipeline('Light2D');
+    this.backArmCloths4.setPipeline('Light2D');
+    this.mainBodySprite5.setPipeline('Light2D');
+    this.mainBodyCloths6.setPipeline('Light2D');
+    this.frontArm7.setPipeline('Light2D');
+    this.frontArmCloths8.setPipeline('Light2D');
+    this.weaponLayer9.setPipeline('Light2D');
+    this.weaponHand10.setPipeline('Light2D');
   }
     
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
   movePlayer(keyA,keyD,space,playerPreviousY,scene){
 
-    this.x= this.mainBody5.x;
-    this.y= this.mainBody5.y;
+    this.x= this.mainHitbox.x;
+    this.y= this.mainHitbox.y;
    
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
   //console.log("in player move, this.scene.checkWPressed(): ",this.scene.checkWPressed());
@@ -340,32 +336,109 @@ class player extends Phaser.GameObjects.Container{
     }else{
       this.speedBoost = 1;
     }
+
+    if(playerDataObject.playerInventoryData[3].itemID === 20){
+      this.clothed = true;
+    }else{
+      this.clothed = false;
+    }
+
+    //if the player has the lanturn equipt and the lighting system is used.
+    if(playerDataObject.playerInventoryData[1].itemID === 21 && scene.lightingSystemActive === true){ 
+
+      //then check to see if the player has fuel.
+      if(playerDataObject.playerInventoryData[2].itemID === 16){
+
+        //set a tween on the light source to make the lanturn flicker
+        if(this.lanturnFlicker === undefined || this.lanturnFlicker === null ){
+
+          this.lightSource.setRadius(100);
+
+          this.lanturnFlicker = this.scene.tweens.add({
+            targets: this.lightSource,
+            props : {
+                radius: {value : '+=' +8},
+                intensity: {value : '+=' +.15},
+  
+            }, 
+            ease: 'linear',
+            duration: 800,
+            repeat: -1,
+            yoyo: true
+          });
+        }
+        console.log("this.fuelActivated: ", this.fuelActivated);
+        //apply timer to fuel source and reduce fuel amount by 1 every 45 seconds.
+        if(this.fuelActivated === false){
+
+          this.fuelActivated = true;
+
+          let tempPlayer = this;
+          setTimeout(function(){
+            if(tempPlayer !== undefined && tempPlayer !== null){
+
+              //calls emitter to reduce item amount at specific location
+              // in this case reduce slot 2 by 1.
+              inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,2,1);
+        
+              tempPlayer.fuelActivated = false;
+
+
+            }
+
+          },2000);
+  
+        }
+
+
+      //otherwise if there is no fuel to burn, set lanturn to be off.
+      }else{
+        this.lightSource.setRadius(0);
+        if(this.lanturnFlicker !== undefined && this.lanturnFlicker !== null ){
+          this.lanturnFlicker.stop();
+          this.lanturnFlicker = null;
+        }
+
+      }
+
+    //otherwise turn the lightsource off
+    }else if(scene.lightingSystemActive === true){
+
+      this.lightSource.setRadius(0);
+
+      if(this.lanturnFlicker !== undefined && this.lanturnFlicker !== null ){
+          this.lanturnFlicker.stop();
+          this.lanturnFlicker = null;
+      }
+    }
   }
+
+
   
   if(this.isAttacking === false){
     //move the player left
     
     //console.log("this.scene.checkAIsDown()",this.scene.checkAIsDown());
-    if(this.scene.checkAIsDown() && this.mainBody5.body.blocked.down){
-      this.mainBody5.setSize(10,60,true);
-      this.mainBody5.setOffset(12, -4);
+    if(this.scene.checkAIsDown() && this.mainHitbox.body.blocked.down){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
         this.lastKey = "a";
         this.idleTimer = 0;
-        this.mainBody5.setVelocityX(-250 * this.speedBoost);
-        if(this.mainBody5.body.blocked.down){
+        this.mainHitbox.setVelocityX(-250 * this.speedBoost);
+        if(this.mainHitbox.body.blocked.down){
           this.playerWalkAnimation();
           this.flipXcontainer(true);
           //console.log("moving left");
         }
 
     //moves the player right
-    } else if(this.scene.checkDIsDown() && this.mainBody5.body.blocked.down){
-      this.mainBody5.setSize(10,60,true);
-      this.mainBody5.setOffset(12, -4);
+    } else if(this.scene.checkDIsDown() && this.mainHitbox.body.blocked.down){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
         this.lastKey = "d";
         this.idleTimer = 0;
-        this.mainBody5.setVelocityX(250 * this.speedBoost);
-        if(this.mainBody5.body.blocked.down){
+        this.mainHitbox.setVelocityX(250 * this.speedBoost);
+        if(this.mainHitbox.body.blocked.down){
           this.playerWalkAnimation();
           this.flipXcontainer(false);
           //console.log("moving Right");
@@ -373,14 +446,14 @@ class player extends Phaser.GameObjects.Container{
 
     //if the player doesnt move for long enough, play idle animation
     }else if(this.idleTimer === 2000){
-        this.mainBody5.setVelocityX(0);
+        this.mainHitbox.setVelocityX(0);
         this.playersleepAnimation();
 
     //otherwise we play idle animation
     }else{
-      this.mainBody5.setSize(10,60,true);
-      this.mainBody5.setOffset(12, -4);
-        this.mainBody5.setVelocityX(0);
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
+        this.mainHitbox.setVelocityX(0);
 
         if(this.animationInAir === false){
           if(this.lastKey === "d"){
@@ -406,7 +479,7 @@ class player extends Phaser.GameObjects.Container{
       }
 
     //if the player is down, then reset variables.   
-    if(this.mainBody5.body.blocked.down){
+    if(this.mainHitbox.body.blocked.down){
       this.animationPlayedGoingUp = false;
       this.animationPlayedGoingDown = false;
       this.animationInAir = false;
@@ -418,14 +491,14 @@ class player extends Phaser.GameObjects.Container{
     //if space is pressed and the player is on the ground then jump
     //special note, always have the checkpressed at the end if the if statement. programming trick
     //first check if the player is down.
-    if (this.mainBody5.body.blocked.down){
+    if (this.mainHitbox.body.blocked.down){
       //console.log("player is down.")
       // then we have to check if jump was pressed once. we have to structure it this way so that the jump doesnt get locked out.
       if(this.scene.checkJMPPressed()){
 
         //console.log("first jump")
         this.idleTimer = 0;
-        this.mainBody5.setVelocityY(-350);
+        this.mainHitbox.setVelocityY(-350);
         let that = this;
 
       }
@@ -433,9 +506,9 @@ class player extends Phaser.GameObjects.Container{
     }
 
     //if the player is  in the air and moving to the left
-    if(this.scene.checkAIsDown() && !this.mainBody5.body.blocked.down){
+    if(this.scene.checkAIsDown() && !this.mainHitbox.body.blocked.down){
     console.log("IN AIR AND MOVING LEFT");
-      this.mainBody5.setVelocityX(-250 * this.speedBoost);
+      this.mainHitbox.setVelocityX(-250 * this.speedBoost);
       this.animationInAir = true;
       this.flipXcontainer(true);
       let that = this;
@@ -448,7 +521,7 @@ class player extends Phaser.GameObjects.Container{
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
           this.animationPlayedGoingDown = false;
-          this.mainBody5.setVelocityY(-350);
+          this.mainHitbox.setVelocityY(-350);
           this.scene.initSoundEffect('playerJumpSFX','1',0.1);
           scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
           
@@ -470,9 +543,9 @@ class player extends Phaser.GameObjects.Container{
       //checks to see if player is moving right and not touching the ground.
 
     //if the player is  in the air and moving to the right
-    }else if(this.scene.checkDIsDown() && !this.mainBody5.body.blocked.down){
+    }else if(this.scene.checkDIsDown() && !this.mainHitbox.body.blocked.down){
         //console.log("IN AIR AND MOVING RIGHT");
-        this.mainBody5.setVelocityX(250 * this.speedBoost);
+        this.mainHitbox.setVelocityX(250 * this.speedBoost);
         this.animationInAir = true;
         this.flipXcontainer(false);
         //if the player has the double jump ability, allow them to jupm agian.
@@ -481,7 +554,7 @@ class player extends Phaser.GameObjects.Container{
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
           this.animationPlayedGoingDown = false;
-          this.mainBody5.setVelocityY(-350);
+          this.mainHitbox.setVelocityY(-350);
           this.scene.initSoundEffect('playerJumpSFX','1',0.1);
           scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
         }
@@ -503,7 +576,7 @@ class player extends Phaser.GameObjects.Container{
         }
 
     //if the player is in the air.
-    }else if(!this.mainBody5.body.blocked.down){
+    }else if(!this.mainHitbox.body.blocked.down){
         this.idleTimer = 0;
         this.animationInAir = true;
         //if the player has the double jump ability, allow them to jupm agian.
@@ -512,7 +585,7 @@ class player extends Phaser.GameObjects.Container{
           this.doubleJumpActivation = true;
           this.animationPlayedGoingUp = false;
           this.animationPlayedGoingDown = false;
-          this.mainBody5.setVelocityY(-350);
+          this.mainHitbox.setVelocityY(-350);
           this.scene.initSoundEffect('playerJumpSFX','1',0.1);
           scene.tempPlatform = new doubleJumpEffect(scene,scene.player1.x,scene.player1.y+40,'doubleJumpEffect');
         }
@@ -550,11 +623,11 @@ class player extends Phaser.GameObjects.Container{
   attackPlayer(scene){
     //temp variable of this object to be used my timeout functions
     let that = this;
-    this.mainBody5.setSize(10,60,true);
-    this.mainBody5.setOffset(12, -4 );
+    this.mainHitbox.setSize(10,60,true);
+    this.mainHitbox.setOffset(12, -4 );
 
-    this.x= this.mainBody5.x;
-    this.y= this.mainBody5.y; 
+    this.x = this.mainHitbox.x;
+    this.y = this.mainHitbox.y; 
 
     //temp object sent to be sent to a emitter
     let playerDataObject = {
@@ -564,11 +637,11 @@ class player extends Phaser.GameObjects.Container{
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
     //if shift is pressed then force the player to attacks, no animation cancel
-    if(this.mainBody5.body.blocked.down && this.scene.checkATKIsDown() && this.isAttacking === false){
+    if(this.mainHitbox.body.blocked.down && this.scene.checkATKIsDown() && this.isAttacking === false){
       this.isAttacking = true;
 
     //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
-    }else if(this.mainBody5.body.blocked.down && this.isAttacking === true){
+    }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
@@ -576,6 +649,9 @@ class player extends Phaser.GameObjects.Container{
       }else if(this.lastKey === 'a'){
         this.flipXcontainer(true);
       }
+
+      //wakes up player if they are sleeping.
+      this.idleTimer = 0;
 
         //case to determine attack animation
         switch(playerDataObject.playerInventoryData[0].itemID) {
@@ -594,7 +670,7 @@ class player extends Phaser.GameObjects.Container{
               });
             }
             this.bluntDamage = 3;
-            this.setAttackHitboxSize(20,30);
+            this.setAttackHitboxSize(20,40);
             this.HitBox(600,35);
             break;
           case (4):
@@ -663,8 +739,8 @@ class player extends Phaser.GameObjects.Container{
 
             }
             this.pierceDamage = 6;
-            this.setAttackHitboxSize(20,30);
-            this.HitBox(600,35);
+            this.setAttackHitboxSize(60,30);
+            this.HitBox(800,35);
             break;
             case (3):
             if(this.playedAttackAnimation === false){
@@ -681,8 +757,8 @@ class player extends Phaser.GameObjects.Container{
             }
             this.pierceDamage = 4;
             this.curseDamage = 4;
-            this.setAttackHitboxSize(20,30);
-            this.HitBox(600,35);
+            this.setAttackHitboxSize(60,30);
+            this.HitBox(800,35);
             break;
           default:
             if(this.playedAttackAnimation === false){
@@ -738,7 +814,7 @@ class player extends Phaser.GameObjects.Container{
   HitBox(delay,distance){
 
     //stop the players velocity
-    this.mainBody5.setVelocityX(0);
+    this.mainHitbox.setVelocityX(0);
     
     //start by having the player press shift state should be false
     if(this.hitboxState === false){
@@ -761,13 +837,13 @@ class player extends Phaser.GameObjects.Container{
 
             //has the player move forward slightly
             if(!tempPlayer.scene.playerGrabbed){
-              tempPlayer.mainBody5.setVelocityX(20);
+              tempPlayer.mainHitbox.setVelocityX(20);
             }
           }else{
             tempPlayer.scene.attackHitBox.x = tempPlayer.x-distance;
 
             if(!tempPlayer.scene.playerGrabbed){
-              tempPlayer.mainBody5.setVelocityX(-20);
+              tempPlayer.mainHitbox.setVelocityX(-20);
             }
           }
           tempPlayer.scene.attackHitBox.y = tempPlayer.y
@@ -808,6 +884,35 @@ class player extends Phaser.GameObjects.Container{
   setAttackHitboxSize(width,height){
     this.scene.attackHitBox.setSize(width,height);
   }
+
+  //function to pause all out layers
+  pausePlayerAnimations(){
+    this.backLeg1.anims.pause();
+    this.backLegCloths2.anims.pause();
+    this.backArm3.anims.pause();
+    this.backArmCloths4.anims.pause();
+    this.mainBodySprite5.anims.pause();
+    this.mainBodyCloths6.anims.pause();
+    this.frontArm7.anims.pause();
+    this.frontArmCloths8.anims.pause();
+    this.weaponLayer9.anims.pause();
+    this.weaponHand10.anims.pause();
+  }
+
+  //function to resume all of our layers.
+  resumePlayerAnimations(){
+    this.backLeg1.anims.resume();
+    this.backLegCloths2.anims.resume();
+    this.backArm3.anims.resume();
+    this.backArmCloths4.anims.resume();
+    this.mainBodySprite5.anims.resume();
+    this.mainBodyCloths6.anims.resume();
+    this.frontArm7.anims.resume();
+    this.frontArmCloths8.anims.resume();
+    this.weaponLayer9.anims.resume();
+    this.weaponHand10.anims.resume();
+  }
+
 
   //flips the sprites 
   flipXcontainer(flip){
@@ -1132,7 +1237,6 @@ class player extends Phaser.GameObjects.Container{
 
     //set visibility of layers needed for the animation
     this.backLeg1.visible = true;
-    this.backLegCloths2.visible = true;
     this.backArm3.visible = false;
     this.backArmCloths4.visible = false;
     this.mainBodySprite5.visible = true;
@@ -1170,7 +1274,6 @@ class player extends Phaser.GameObjects.Container{
 
     //set visibility of layers needed for the animation
     this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
     this.backArm3.visible = false;
     this.backArmCloths4.visible = false;
     this.mainBodySprite5.visible = true;
@@ -1204,7 +1307,76 @@ class player extends Phaser.GameObjects.Container{
     this.weaponHand10.anims.play('weapon-hand-poke-12fps');
   }
 
-}
+  StuckRepeat(stuckString){
 
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backLegCloths2.visible = false;
+    this.backArm3.visible = false;
+    this.backArmCloths4.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.mainBodyCloths6.visible = false;
+    this.frontArm7.visible = false;
+    this.frontArmCloths8.visible = false;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    //play repeating animations.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop();
+    this.backArmCloths4.anims.stop();
+    this.mainBodySprite5.anims.play(stuckString,true);
+    this.mainBodyCloths6.anims.stop();
+    this.frontArm7.anims.stop();
+    this.frontArmCloths8.anims.stop();
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+  }
+
+  Stuck(stuckString){
+
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backLegCloths2.visible = false;
+    this.backArm3.visible = false;
+    this.backArmCloths4.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.mainBodyCloths6.visible = false;
+    this.frontArm7.visible = false;
+    this.frontArmCloths8.visible = false;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    //play repeating animations.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop();
+    this.backArmCloths4.anims.stop();
+    this.mainBodySprite5.anims.play(stuckString);
+    this.mainBodyCloths6.anims.stop();
+    this.frontArm7.anims.stop();
+    this.frontArmCloths8.anims.stop();
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+  }
+
+  setStuckVisiblity(){
+    
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backLegCloths2.visible = false;
+    this.backArm3.visible = false;
+    this.backArmCloths4.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.mainBodyCloths6.visible = false;
+    this.frontArm7.visible = false;
+    this.frontArmCloths8.visible = false;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+  
+  }
+  
+}
 
 

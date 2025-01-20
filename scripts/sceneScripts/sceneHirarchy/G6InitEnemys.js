@@ -307,8 +307,9 @@ class G6InitEnemys extends G5InitNPCs{
         if(this.playerStuckGrabbedBy === "slime_projectile"){
 
           //stops the players velocity during the initial grab.
-          this.player1.setVelocityX(0);
-          this.player1.setVelocityY(0);
+          this.player1.mainHitbox.setVelocityX(0);
+
+          
 
           this.initSoundEffect('blueSlimeSFX','1',0.3);
           this.PlayerStuckSFXTimer = true;
@@ -325,6 +326,9 @@ class G6InitEnemys extends G5InitNPCs{
     //makes sure the key display follows the player incase they where grabbed in air.
     this.KeyDisplay.x = this.player1.x;
     this.KeyDisplay.y = this.player1.y+50;
+
+    this.player1.x = this.player1.mainHitbox.x;
+    this.player1.y = this.player1.mainHitbox.y; 
     
     //if the player is w then
     if(this.checkWPressed() === true && this.playerStuckGrabCap > 0){
@@ -343,36 +347,42 @@ class G6InitEnemys extends G5InitNPCs{
       this.KeyDisplay.visible = false;
       struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
     }
+    //if this is a slime projectile, then.
+    if(this.playerStuckGrabbedBy === "slime_projectile"){
+
+      //stops the players velocity during the initial grab.
+      this.player1.mainHitbox.setVelocityX(0);
+    }
 
     //apply movement logic if there is any. controls player movement to have them walk toward the enemy that they got infatuated by.
     //only use this logic if we are done having the player huff and puff.
     if(this.playerStuckGrabbedBy ==="cursed_heart_projectile" && this.cursedHeartDelay === true){
 
         //if the player is on the ground and the enemy is to the left
-        if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x+20 < this.player1.x){
+        if(this.player1.mainHitbox.body.blocked.down && this.enemyThatInfatuatedPlayer.x+20 < this.player1.x){
 
           console.log("infatuated player moving left?");
           //apply velocity to the left
-          this.player1.setVelocityX(-200 * this.player1.speedBoost/2);
-          this.player1.anims.play('cursedHeartInfatuatedWalk',true);
-          this.player1.flipX = true;
+          this.player1.mainHitbox.setVelocityX(-200 * this.player1.speedBoost/2);
+          this.player1.StuckRepeat('cursedHeartInfatuatedWalk');
+          this.player1.flipXcontainer(true);
 
 
-        }else if(this.player1.body.blocked.down && this.enemyThatInfatuatedPlayer.x-20 >= this.player1.x){
+        }else if(this.player1.mainHitbox.body.blocked.down && this.enemyThatInfatuatedPlayer.x-20 >= this.player1.x){
 
           console.log("infatuated player moving right?");
-          this.player1.setVelocityX(200 * this.player1.speedBoost/2);
-          this.player1.anims.play('cursedHeartInfatuatedWalk',true);
-          this.player1.flipX = false;
+          this.player1.mainHitbox.setVelocityX(200 * this.player1.speedBoost/2);
+          this.player1.StuckRepeat('cursedHeartInfatuatedWalk');
+          this.player1.flipXcontainer(false);
 
         
         //otherwise if the player is falling
-        }else if(!this.player1.body.blocked.down && this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
+        }else if(!this.player1.mainHitbox.body.blocked.down && this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
           //play falling animation.
-          this.player1.anims.play('cursedHeartInfatuatedFalling');
+          this.player1.Stuck('cursedHeartInfatuatedFalling');
         }else if(this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
-          this.player1.setVelocityX(0);
-          this.player1.anims.play('cursedHeartInfatuated',true);
+          this.player1.mainHitbox.setVelocityX(0);
+          this.player1.StuckRepeat('cursedHeartInfatuated');
 
         }
 
@@ -389,10 +399,10 @@ class G6InitEnemys extends G5InitNPCs{
 
     //otherwise have the player huff and puff.
     }else if(this.playerStuckGrabbedBy ==="cursed_heart_projectile" && this.cursedHeartDelay === false){
-      this.player1.setVelocityX(0);
+      this.player1.mainHitbox.setVelocityX(0);
 
       //simple stopper so the huff puff animation plays.
-      if(this.cursedHeartDelayPlayed === false && this.player1.body.blocked.down){
+      if(this.cursedHeartDelayPlayed === false && this.player1.mainHitbox.body.blocked.down){
 
         //special case. if cat gets mad while player is infatuated, release the cursed heart stuckgrab.
         if(this.enemyThatInfatuatedPlayer.angry === true){
@@ -407,12 +417,13 @@ class G6InitEnemys extends G5InitNPCs{
         
         //play animation of player infatuated and standing still.
         this.cursedHeartDelayPlayed = true;
-        this.player1.anims.play('cursedHeartInfatuatedRepeat').once('animationcomplete', () => {
+        this.player1.setStuckVisiblity();
+        this.player1.mainBodySprite5.anims.play('cursedHeartInfatuatedRepeat').once('animationcomplete', () => {
           this.cursedHeartDelay = true;
         });
 
-      }else if(!this.player1.body.blocked.down && this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
-        this.player1.anims.play('cursedHeartInfatuatedFalling');
+      }else if(!this.player1.mainHitbox.body.blocked.down && this.playerStuckGrabbedBy ==="cursed_heart_projectile"){
+        this.player1.Stuck('cursedHeartInfatuatedFalling');
       }
 
     }
@@ -420,33 +431,34 @@ class G6InitEnemys extends G5InitNPCs{
     //apply movement logic if there is any. controls player movement to have them walk toward the enemy that they got infatuated by.
     //only use this logic if we are done having the player huff and puff.
     if(this.playerStuckGrabbedBy ==="knockdown" && this.knockdownDelay === true){
-      this.player1.anims.play('knockdownStruggle',true);
+      this.player1.StuckRepeat('knockdownStruggle');
 
-    //otherwise have the player huff and puff.
+
     }else if(this.playerStuckGrabbedBy ==="knockdown" && this.knockdownDelay === false){
 
       if(this.knockdownLaunchedUp === false){
         this.knockdownLaunchedUp = true;
-        this.player1.setVelocityY(-200);
+        this.player1.mainHitbox.setVelocityY(-200);
 
       }
       //use the enemy to tell where the player should be flung
-      //console.log("this.enemyThatknockdownPlayer.flipX: ",this.enemyThatknockdownPlayer.flipX, " this.player1.isDown: ",this.player1.body.blocked.down);
-      if(this.enemyThatknockdownPlayer.flipX === true && this.player1.body.blocked.down === false){
+      //console.log("this.enemyThatknockdownPlayer.flipX: ",this.enemyThatknockdownPlayer.flipX, " this.player1.isDown: ",this.player1.mainHitbox.body.blocked.down);
+      if(this.enemyThatknockdownPlayer.flipX === true && this.player1.mainHitbox.body.blocked.down === false){
         //fling player left
-        this.player1.setVelocityX(-140);
-      }if(this.enemyThatknockdownPlayer.flipX === false && this.player1.body.blocked.down === false){
+        this.player1.mainHitbox.setVelocityX(-140);
+      }if(this.enemyThatknockdownPlayer.flipX === false && this.player1.mainHitbox.body.blocked.down === false){
         //fling player left
-        this.player1.setVelocityX(140);
-      }else if(this.player1.body.blocked.down === true && this.knockdownLaunchedUp === true){
-        this.player1.setVelocityX(0);
+        this.player1.mainHitbox.setVelocityX(140);
+      }else if(this.player1.mainHitbox.body.blocked.down === true && this.knockdownLaunchedUp === true){
+        this.player1.mainHitbox.setVelocityX(0);
       }
 
       //simple stopper so the huff puff animation plays.
-      if(this.knockdownDelayPlayed === false && this.player1.body.blocked.down){
+      if(this.knockdownDelayPlayed === false && this.player1.mainHitbox.body.blocked.down){
 
         this.knockdownDelayPlayed = true;
-        this.player1.anims.play('knockdown').once('animationcomplete', () => {
+        this.player1.setStuckVisiblity();
+        this.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
           this.knockdownDelay = true;
         });
 
@@ -510,7 +522,7 @@ class G6InitEnemys extends G5InitNPCs{
       //stop the velocity of the player
       enemy.setVelocityX(0);
       enemy.setVelocityY(0);
-      this.player1.setVelocityX(0);
+      this.player1.mainHitbox.setVelocityX(0);
       //calls the grab function
       enemy.animationGrab();
     

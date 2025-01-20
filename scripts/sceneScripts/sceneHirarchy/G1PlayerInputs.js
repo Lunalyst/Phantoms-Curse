@@ -28,7 +28,7 @@ class G1PlayerInputs extends A3SoundEffects {
 
     //apply lighting to player
     if(this.lightingSystemActive){
-      this.player1.setPipeline('Light2D');
+      this.player1.setLighting();
     }
 }
 

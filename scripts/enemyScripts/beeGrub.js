@@ -335,9 +335,9 @@ class beeGrub extends enemy {
         //console.log("this beeGrub did grab the player this.beeGrubID: "+ this.beeGrubId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
         this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
+        //this.scene.player1.body.setGravityY(0);
         //this.body.setGravityY(0);
-        this.scene.player1.setSize(10, 10, true);
+        //this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 70;
@@ -509,8 +509,8 @@ class beeGrub extends enemy {
                 this.beeHover.stop();
 
                 this.scene.player1.visible = true;
-                this.scene.player1.setSize(23, 68, true);
-                this.scene.player1.body.setGravityY(600);
+                //this.scene.player1.setSize(23, 68, true);
+                //this.scene.player1.body.setGravityY(600);
                 this.scene.player1.x = this.x;
                 this.scene.player1.y = this.y;
                 this.scene.KeyDisplay.visible = false;

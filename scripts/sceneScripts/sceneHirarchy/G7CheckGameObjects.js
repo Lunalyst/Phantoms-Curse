@@ -95,7 +95,7 @@ class G7CheckGameObjects extends G6InitEnemys {
       }
 
     //if player overlaps with item then they pick it up
-    if ((this.player1.x > tempItemDrop.x - 20 && this.player1.x < tempItemDrop.x + 20) && (this.player1.y > tempItemDrop.y - 20 && this.player1.y < tempItemDrop.y + 20) && this.grabbed === false) {
+    if ((this.player1.x > tempItemDrop.x - 20 && this.player1.x < tempItemDrop.x + 20) && (this.player1.y > tempItemDrop.y - 50 && this.player1.y < tempItemDrop.y + 50) && this.grabbed === false) {
         console.log("picked up item");
         //create a temp item to pass to emitter
         let item = tempItemDrop.itemDropObject;
@@ -122,7 +122,7 @@ class G7CheckGameObjects extends G6InitEnemys {
       //checks to see if a health upgrade should be added.
       this.healthUpgrades.children.each(function (tempUpgrade) {
         //if player overlaps with item then they pick it up
-        if ((this.player1.x > tempUpgrade.x - 20 && this.player1.x < tempUpgrade.x + 20) && (this.player1.y > tempUpgrade.y - 20 && this.player1.y < tempUpgrade.y + 20) && this.grabbed === false) {
+        if ((this.player1.x > tempUpgrade.x - 20 && this.player1.x < tempUpgrade.x + 20) && (this.player1.y > tempUpgrade.y - 50 && this.player1.y < tempUpgrade.y + 50) && this.grabbed === false) {
             console.log("picked up healthUpgrade");
 
             
@@ -230,14 +230,14 @@ class G7CheckGameObjects extends G6InitEnemys {
 
       let tempScene = this;
       //if projectile overlaps with player then
-      this.physics.add.overlap(this.player1, tempProjectile, function () {
+      this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
 
         if(tempProjectile.body.blocked.down === false){
           //set up player stuck grab and 
           tempScene.playerStuckGrab = true;
           tempScene.playerStuckGrabbedBy = "slime_projectile";
           tempScene.playerStuckGrabCap = 100;
-          tempScene.player1.anims.play("blueSlimeStuck",true);
+          tempScene.player1.StuckRepeat("blueSlimeStuck");
           tempProjectile.destroy();
         }
 
@@ -310,7 +310,7 @@ class G7CheckGameObjects extends G6InitEnemys {
 
       let tempScene = this;
       //if projectile overlaps with player then
-      this.physics.add.overlap(this.player1, tempProjectile, function () {
+      this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
 
         if(tempProjectile.body.blocked.down === false && tempProjectile.destroying === false){
           //set up player stuck grab and 
@@ -323,7 +323,7 @@ class G7CheckGameObjects extends G6InitEnemys {
           //creates a refrence to the enemy that infatuaged the player
           tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
 
-          tempScene.player1.anims.play("cursedHeartInfatuated",true);
+          tempScene.player1.StuckRepeat("cursedHeartInfatuated");
           tempProjectile.destroy();
         }
 

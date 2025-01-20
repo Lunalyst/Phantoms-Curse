@@ -275,7 +275,7 @@ class blueSlimeHM extends enemy {
                             this.isPlayingMissedAnims = false;    
                         });
                     }
-                }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingSlime === false) {
+                }else if(this.scene.player1.x > this.x+ 20 && this.attemptingGrab === false && this.grabTimer === false && this.throwingSlime === false) {
                     console.log("moving slime right");            
                     this.direction = "right";
                     this.jumpAnimationPlayed = false; 
@@ -312,7 +312,7 @@ class blueSlimeHM extends enemy {
                     }
             
                 //if the player is to the right then move enemy to the left
-                } else if (this.scene.player1.x < this.x-30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingSlime === false) {
+                } else if (this.scene.player1.x < this.x-20 && this.attemptingGrab === false && this.grabTimer === false && this.throwingSlime === false) {
                     console.log("moving slime left");   
                     this.direction = "left";
                     this.jumpAnimationPlayed = false;

@@ -96,7 +96,8 @@ inventoryKey = {
     playGameSaved: 'play_game_saved',
     isItemInInventory: 'is_item_in_inventory',
     setUpBuyArray: 'set_up_buy_array',
-    destroyBuyArray: 'destroy_buy_array'
+    destroyBuyArray: 'destroy_buy_array',
+    reduceItemAmount: 'reduce_item_amount'
 
 };
 

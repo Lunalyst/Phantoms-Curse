@@ -82,40 +82,18 @@ class G2levelSetupFunctions extends G1PlayerInputs {
 
   setupSlimeStucks(){
     //sets up stuck animations so they are defined in the scope of the scenes that need them.
-    if(this.playerSex === 0){
-      this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-    }else{
-      this.player1.anims.create({key: 'blueSlimeStuck',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-    }
+
 
   }
 
   setupCursedHeartStucks(){
     //sets up stuck animations so they are defined in the scope of the scenes that need them.
-    if(this.playerSex === 0){
-      this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-    }else{
-      this.player1.anims.create({key: 'cursedHeartInfatuated',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-      this.player1.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-    }
+
 
   }
 
   setupKnockDownStucks(){
     //sets up stuck animations so they are defined in the scope of the scenes that need them.
-    if(this.playerSex === 0){
-      this.player1.anims.create({key: 'knockdown',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-      this.player1.anims.create({key: 'knockdownStruggle',frames: this.anims.generateFrameNames('malePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
-    }else{
-      this.player1.anims.create({key: 'knockdown',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-      this.player1.anims.create({key: 'knockdownStruggle',frames: this.anims.generateFrameNames('femalePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
-
-    }
 
   }
 

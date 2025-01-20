@@ -1,0 +1,37 @@
+{
+    "characters":{
+        "lunalyst":{
+            "devRoom":{
+                "flags":{
+                    "children": ["flag1", "flag2"]
+                },
+                "flag1":{
+                    "node1":{
+                        "dialogue1": "OH A HUMAN! HELLO!",
+                        "profile":"",
+                        "textvoice":"",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "MY NAME IS LUNALYST, AND IM SURE YOU CAN TELL IM NOT QUITE HUMAN ANYMORE. ",
+                        "profile":"",
+                        "textvoice":"",
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "",
+                        "profile":"",
+                        "textvoice":"",
+                        "children":["node4","node5","node6"]
+                    }
+                }
+               
+
+                
+
+            },
+            "clearingTheWay":{
+                
+            }
+
+        }
+    }
+}

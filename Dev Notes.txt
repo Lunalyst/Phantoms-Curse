@@ -73,6 +73,37 @@ https://stackoverflow.com/questions/71266893/phaser-3-change-hitbox-interactive-
 health bars example 
 https://phaser.io/examples/v3/view/game-objects/graphics/health-bars-demo
 
+dialogue manager example.
+//make a node class, that has a array of nodes as children, and use that for dialogue so it isnt a nightmare.
+//what is our node class made of?
+//this data is in  text file, or some other sotrage location.
+
+//node class traversed dialogue, then generates a tree structure with dialogue in it.
+//parses through a json file.
+
+ 1) dialogue specifically 3 lines of text.
+ 2) profile picture
+ 3) text voice
+
+
+
+ //need a class which traverses the dialogue tree, using the nodes as states for a state machine.
+ if the traversal finds a node that has a dialogue length that is greater than our character limit of 3 lines,
+ have a way to dynamically add a new node between this one, and the next that shares the same profile, textboxvoice
+
+pares through, using charactername->dataforScene->flag
+in this flag value holds the nodes.
+we traverse these nodes adding them to an dictionary which had indexes
+
+if(dict[key] === 0){
+
+
+}
+
+ //flagging system
+
+https://phreaknation.github.io/plugin.dialogmanager/
+
 when making a container and adding object keep in mind the graph above for where it should be placed when setting up its x and y position.
         - | -
           |

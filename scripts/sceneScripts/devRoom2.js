@@ -150,7 +150,7 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",5);
+      /*this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",5);
       this.initItemDrop(1038,670,13,1,2,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",10);
       this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop",3);
       this.initItemDrop(1058,650,15,1,10,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",30);
@@ -173,7 +173,7 @@ class devRoom2 extends defaultScene {
       this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
       this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);*/
       this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
 
       
@@ -212,7 +212,7 @@ class devRoom2 extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){

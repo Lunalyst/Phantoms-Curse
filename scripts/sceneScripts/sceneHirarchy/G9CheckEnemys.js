@@ -24,7 +24,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           tempSlime.hitboxOverlaps = false;
         }
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1, tempSlime, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -41,7 +41,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           if (tempSlime.grabCoolDown === false && tempSlime.mitosing === false && scene.grabCoolDown === false) {
             //stop the velocity of the player
             tempSlime.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempSlime.grab();
             //sets the scene grab value to true since the player has been grabbed
@@ -103,7 +103,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           tempSlime.hitboxOverlaps = false;
         }
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1, tempSlime, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -120,7 +120,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           if (tempSlime.grabCoolDown === false && scene.grabCoolDown === false) {
             //stop the velocity of the player
             tempSlime.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempSlime.grab();
             //sets the scene grab value to true since the player has been grabbed
@@ -167,7 +167,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           tempSlime.hitboxOverlaps = false;
         }
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1, tempSlime.grabHitBox, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime.grabHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -184,7 +184,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           if (tempSlime.grabCoolDown === false && scene.grabCoolDown === false) {
             //stop the velocity of the player
             tempSlime.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempSlime.grab();
             //sets the scene grab value to true since the player has been grabbed
@@ -270,7 +270,7 @@ class G9CheckEnemys extends G8CheckNPCS {
       
 
       //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1, tempTiger, function () {
+      scene.physics.add.overlap(scene.player1.mainHitbox, tempTiger, function () {
         if(tempTiger.tigerIsEating === false){
           //make a temp object
           let isWindowObject = {
@@ -295,7 +295,7 @@ class G9CheckEnemys extends G8CheckNPCS {
             console.log(" grabing the player?");
             //stop the velocity of the player
             tempTiger.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempTiger.grab();
           
@@ -356,7 +356,7 @@ class G9CheckEnemys extends G8CheckNPCS {
       
       }
       //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1, tempRabbits, function () {
+      scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits, function () {
       
         //make a temp object
         let isWindowObject = {
@@ -381,7 +381,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           console.log(" grabing the player?");
           //stop the velocity of the player
           tempRabbits.setVelocityX(0);
-          scene.player1.setVelocityX(0);
+          scene.player1.mainHitbox.setVelocityX(0);
           //calls the grab function
           tempRabbits.grab();
         
@@ -441,7 +441,7 @@ class G9CheckEnemys extends G8CheckNPCS {
     if(tempBeeDrone.grabTimer === true){
 
       //checks to see if the beedrones attack hitbox overlaps the players hitbox
-      scene.physics.add.overlap(scene.player1, tempBeeDrone.grabHitBox, function () {
+      scene.physics.add.overlap(scene.player1.mainHitbox, tempBeeDrone.grabHitBox, function () {
       
         //make a temp object
         let isWindowObject = {
@@ -467,7 +467,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           //stop the velocity of the player
           tempBeeDrone.setVelocityX(0);
           tempBeeDrone.setVelocityY(0);
-          scene.player1.setVelocityX(0);
+          scene.player1.mainHitbox.setVelocityX(0);
           //calls the grab function
           tempBeeDrone.grab();
         
@@ -532,7 +532,7 @@ class G9CheckEnemys extends G8CheckNPCS {
       //if the bat is trying to grab the player then check overlap
       if(bat.grabTimer === true){
         //checks to see if the beedrones attack hitbox overlaps the players hitbox
-        scene.physics.add.overlap(scene.player1, bat.grabHitBox, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, bat.grabHitBox, function () {
           
           //make a temp object
           let isWindowObject = {
@@ -558,7 +558,7 @@ class G9CheckEnemys extends G8CheckNPCS {
             //stop the velocity of the player
             bat.setVelocityX(0);
             bat.setVelocityY(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             bat.grab();
           
@@ -613,7 +613,7 @@ class G9CheckEnemys extends G8CheckNPCS {
         }
 
         //adds collider between player and mimic attack hitbox. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1, tempMimic.grabHitBox, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempMimic.grabHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -630,7 +630,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           if (tempMimic.grabCoolDown === false && scene.grabCoolDown === false) {
             //stop the velocity of the player
             tempMimic.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempMimic.grab();
             //sets the scene grab value to true since the player has been grabbed
@@ -677,7 +677,7 @@ class G9CheckEnemys extends G8CheckNPCS {
         }
 
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1, tempCat.grabHitBox, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempCat.grabHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -692,7 +692,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           if (tempCat.grabCoolDown === false && scene.grabCoolDown === false) {
             //stop the velocity of the player
             tempCat.setVelocityX(0);
-            scene.player1.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
             //calls the grab function
             tempCat.grab();
             //sets the scene grab value to true since the player has been grabbed
@@ -706,7 +706,7 @@ class G9CheckEnemys extends G8CheckNPCS {
         });
 
         //attack hitbox logic
-        scene.physics.add.overlap(scene.player1, tempCat.attackHitBox, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempCat.attackHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };

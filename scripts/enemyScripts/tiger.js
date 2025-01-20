@@ -645,7 +645,7 @@ class tiger extends enemy {
         //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
         this.scene.player1.y = this.y - 150;
-        this.scene.player1.body.setGravityY(0);
+        //this.scene.player1.body.setGravityY(0);
         //this.body.setGravityY(0);
         //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
@@ -894,7 +894,7 @@ class tiger extends enemy {
                     //hides the mobile controls in the way of the tab/skip indicator.
                     controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
 
-                    this.scene.player1.body.setGravityY(600);
+                    //this.scene.player1.body.setGravityY(600);
                     this.body.setGravityY(600);
                     this.scene.player1.x = this.x;
                     this.scene.player1.y = this.y;

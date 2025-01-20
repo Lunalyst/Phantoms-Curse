@@ -149,12 +149,6 @@ class istarasCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      
-
-    //this.light1 = this.lights.addLight(695,1245, 200);
-
-    this.player1.setPipeline('Light2D');
-
       //sets up enemy colliders and groups
       this.enemyGroupArray = [];
       this.setUpEnemyCollider(this.enemyGroupArray);

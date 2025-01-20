@@ -645,6 +645,9 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.destroyBuyArray,() =>{
 
             console.log("destroying shop inventory ui since we are done using it.",)
+            //clears slots, but also importantly, updates the players real data array.
+            this.playerShop.SaveAndClearSlots();
+
             //destroy the shop ui container
             this.playerShop.destroy();
             this.playerShop = null;
@@ -652,6 +655,34 @@ class gameHud extends A3SoundEffects {
             //stop the tweens for the containers.
             this.playerShopTween1.stop();
             this.playerShopTween2.stop();
+            
+          });
+
+
+          //emitter to reduce item amount in inventory takes a reduction number, and slotLocation.
+          inventoryKeyEmitter.on(inventoryKey.reduceItemAmount,(slotLocation, reduction) =>{
+             console.log("reducing slot ", slotLocation, "reduction ",reduction);
+            //reduces item amount by redcution amount.
+            this.inventoryDataArray[slotLocation].itemAmount = this.inventoryDataArray[slotLocation].itemAmount - reduction;
+            
+            //check to see if the value is at or below zero,
+            if(this.inventoryDataArray[slotLocation].itemAmount <= 0){
+
+              //if so then sent that item to a blank slot.
+              let temp = {
+                itemID: 0,
+                itemName: ' ',
+                itemDescription: ' ',
+                itemStackable: 1,
+                itemAmount: 0,
+                itemType: "",
+                sellValue: 0
+              } 
+
+              this.inventoryDataArray[slotLocation] = temp;
+
+            }
+              
             
           });
 

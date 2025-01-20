@@ -117,7 +117,7 @@ class storage extends Phaser.GameObjects.Container{
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
-            scene.player1.anims.pause();
+            scene.player1.pausePlayerAnimations();
 
             //set time out for delay.
 
@@ -155,7 +155,7 @@ class storage extends Phaser.GameObjects.Container{
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
-            scene.player1.anims.resume();
+            scene.player1.resumePlayerAnimations();
 
             //hides slots.
             this.setSlotView(hud);

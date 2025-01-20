@@ -367,7 +367,7 @@ class inventory extends Phaser.GameObjects.Container{
 
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
-            //scene.player1.anims.pause();
+            scene.player1.pausePlayerAnimations();
 
             //set time out for delay.
             let inventoryThat = this;
@@ -401,7 +401,7 @@ class inventory extends Phaser.GameObjects.Container{
 
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
-            //scene.player1.anims.resume();
+            scene.player1.resumePlayerAnimations();
 
              //sets the elements of the ivnentory to ve visible
              this.inventoryElements.toggleVisible();
@@ -568,11 +568,16 @@ class inventory extends Phaser.GameObjects.Container{
         this.inventoryArray[counter].on('pointerdown', function (pointer) {
           activeSlot = counter;
           scene.playerInventory.lightUpSlot(scene,activeSlot);
+
+          console.log("pointer: ",pointer);
+          console.log("pointer.button: ",pointer.button);
+          
         });
 
         // applies logic to slot to display item name and description?
         let tempInventory = this;
         this.inventoryArray[counter].on('pointerover',function(pointer){
+          
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
           scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter].itemName);
           scene.itemName.setScale(0.7);

@@ -62,7 +62,7 @@ class G10UpdateLoops extends G9CheckEnemys{
         //pause physics of scene
         this.physics.pause();
         //pauses the player animations
-        //this.player1.anims.pause();
+        //this.player1.pausePlayerAnimations();
 
         //makes a temp object
         let isWindowObject = {
@@ -85,7 +85,7 @@ class G10UpdateLoops extends G9CheckEnemys{
         //resume physics
         this.physics.resume();
         //and the player animations
-        this.player1.mainBody5.anims.resume();
+        //this.player1.resumePlayerAnimations()
       }
 
       //if we arnt paused
@@ -104,8 +104,8 @@ class G10UpdateLoops extends G9CheckEnemys{
             this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
           //otherwise kill player x velocity
           }else{
-            this.player1.mainBody5.setVelocityX(0);
-            //this.player1.mainBody5.anims.play('pIdle',true);
+            this.player1.mainHitbox.setVelocityX(0);
+            this.player1.playerIdleAnimation();
           }
           
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
@@ -127,7 +127,7 @@ class G10UpdateLoops extends G9CheckEnemys{
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){
-
+  
           if(this.playerStuckGrab === true){
             this.checkStuckGrab();
           }
@@ -220,7 +220,9 @@ class G10UpdateLoops extends G9CheckEnemys{
 
           //otherwise if the player has been grabbed then
           }else if(this.grabbed === true){
-            //call check function for slimes.
+            //stops the player from moving. saftey check if the player was attacking and then got grabbed in the attack animation.
+            this.player1.mainHitbox.setVelocityX(0);
+            //calls grab function.
             this.checkEnemyGrab();
           }
     

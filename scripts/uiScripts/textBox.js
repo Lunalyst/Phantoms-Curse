@@ -1,6 +1,6 @@
 
-const lineLength = 24;
-const textEnd = 75;
+//const lineLength = 24;
+//const textEnd = 75;
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,font){

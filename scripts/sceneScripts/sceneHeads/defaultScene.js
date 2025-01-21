@@ -237,6 +237,7 @@ class defaultScene extends G10UpdateLoops {
 
   //variable for preventing player from moving if they warp.
   this.playerWarping = false;
+
   }
 
      

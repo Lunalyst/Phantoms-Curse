@@ -208,6 +208,13 @@ class devRoom2 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
+        //testing treenode structure
+        this.npcDialogue = require('./dialogue/npcDialogue.json');
+        console.log(data);
+
+        this.test = new dictParser("lunalyst","devRoom","lunaCTWDialogue2");
+        console.log("dictParser tests: ",test);
+
     }
 
     update(){

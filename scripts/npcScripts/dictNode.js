@@ -22,7 +22,7 @@ class dictNode {
         this.extensionIndex = 0;
 
         //reference to parent node
-        this.parent = null;
+        //this.parent = null;
 
         //array of nodes, that are children to this node.
         this.children = [];
@@ -33,9 +33,9 @@ class dictNode {
     addChild(node) {
 
         //pushes the new node to the node array 
-        parentNode.children.push(node);
+        this.children.push(node);
         //sets the new nodes parent to be this node.
-        node.parent = parentNode;
+        //node.parent = this;
 
         //return node?
         return node;
@@ -75,9 +75,14 @@ class dictNode {
                     tempString+= ' ';
                 }
 
+                //pads the tempstring if nessary.
+                if(tempString.length < lineLength+1){
+                    tempString = tempString.padEnd(lineLength+1,' ');  
+                }
+
                 //array for testing purposes
                 tempArray.push(tempString);
-                console.log("tempString: ",tempString);
+                //console.log("tempString: ",tempString);
 
                 formattedString += tempString;
                 //reset the templinecounter variable
@@ -86,6 +91,7 @@ class dictNode {
                 tempString = "";
                 //moves the counter forward one so it doesnt pick up the space at the end of the line.
                 counter+=2;
+
                 //kills loop
                 tempStringPosition = 0;
                 }
@@ -99,6 +105,11 @@ class dictNode {
             //add spaces back to the tempstring until it is the correct line size
             while(tempString.length < lineLength+1){
                 tempString+= ' ';
+            }
+
+            //pads the tempstring if nessary.
+            if(tempString.length < lineLength+1){
+                tempString = tempString.padEnd(lineLength+1,' ');  
             }
 
             //array for testing purposes
@@ -117,41 +128,51 @@ class dictNode {
         tempString += this.dialogue.charAt(counter);
         //increment line every character.
         tempLineCounter++;
-      }
+        }
 
-      //for testing purposes
-      tempArray.push(tempString);
-      console.log("tempArray: ", tempArray);
+        //pads the tempstring if nessary.
+        if(tempString.length < lineLength+1){
+            tempString = tempString.padEnd(lineLength+1,' ');  
+        }
 
-      //adds the last line to the string and sets our text object to it.
-      formattedString += tempString;
-      this.dialogue = tempArray[0] + tempArray[1] + tempArray[2];
+        //for testing purposes
+        tempArray.push(tempString);
 
-      //if the dialogue has more than three lines,
-      if(tempArray.length > 3){
-
+        //adds the last line to the string and sets our text object to it.
+        formattedString += tempString;
 
         //if its a multiple of 3, then dont add any padding
         if(tempArray.length % 3 === 0){
             console.log("array length is a multiple of 3 : ",tempArray.length);
-
+    
         //if the tempArray is not a multiple of 3
         }else if(tempArray.length % 2 === 0){
             console.log("array length is a multiple of 2 : ",tempArray.length);
             tempArray.push("                         ");
             console.log("array length should now be a multiple of 3 : ",tempArray.length);
-        
-        }else if(tempArray.length % 1 === 0){
+            
+        }else{
             console.log("array length is a multiple of 1 : ",tempArray.length);
             tempArray.push("                         ");
             tempArray.push("                         ");
             console.log("array length should now be a multiple of 3 : ",tempArray.length);
         }
 
-        //call our dialogue overflow function,
-        //passing it our formated array 
-        dialogueOverflow(tempArray,2);
+        console.log("tempArray: ", tempArray);
 
+        //adds up the array chunks.
+        this.dialogue = tempArray[0] + tempArray[1] + tempArray[2];
+
+      //if the dialogue has more than three lines,
+      if(tempArray.length > 3){
+
+        //passing it our formated array 
+        return this.dialogueOverflow(tempArray,2);
+
+    //otherwise, return this node.
+      }else{
+
+        return this;
       }
     }
 
@@ -160,20 +181,28 @@ class dictNode {
 
         let lines = 0;
 
-        let first = false;
+        let first = true;
         let tempNode = null;
 
-        //loop through the text array
-        for(let i = index;index < textArray.length;i++){
+        let nodeArray = [];
+        let nodeArrayPosition = 0;
 
+        console.log("textArray:",textArray);
+        console.log("textArray:",textArray.length);
+        console.log("index: ",index)
+
+        //loop through the text array
+        for(let i = index; i < textArray.length;i++){
+
+            //console.log("i:",i);
             //for every 3 lines, create a new node
             if(lines === 3){
                 
                 //temp dialogue which is made from the 3 lines we last traversed.
-                let dialogue = textArray[counter-2]+textArray[counter-1]+textArray[counter];
+                let dialogue = textArray[i-2]+textArray[i-1]+textArray[i];
 
                 //if the tempnode is blank, that means its our first extension.
-                if(first === false){
+                if(first === true){
 
                     //define new node with dialogue and same profile as this node. as well as the original children array.
                     tempNode = new dictNode(
@@ -184,10 +213,14 @@ class dictNode {
                         this.textVoice,
                         this.originalChildrenArray
                     );
-
+                    
+                    //add this node to the base nodes children
                     this.addChild(tempNode);
 
+                    //push the node to the temp array so we can keep track of the additional array to keep track of where we are for each extension.
+                    nodeArray.push(tempNode);
 
+                    first = false;
                 }else{
 
                     //make a extra temp node
@@ -201,7 +234,9 @@ class dictNode {
                     );
 
                     //add this new node to the previous temp nodes children.
-                    this.tempNode.addChild(tempNode);
+                    nodeArray[nodeArrayPosition].addChild(tempNode1);
+
+                    this.nodeArrayPosition++;
 
                     //overwrite our tempnode with the newest node.
                     tempNode = tempNode1;
@@ -217,6 +252,8 @@ class dictNode {
 
             lines++;
         }
+
+        return tempNode;
 
     }
 

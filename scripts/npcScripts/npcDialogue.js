@@ -1,5 +1,4 @@
-{
-    "characters":{
+const npcDialogue = {
         "lunalyst":{
             "devRoom":{
                 "flags":{
@@ -79,5 +78,4 @@
             }
 
         }
-    }
 }

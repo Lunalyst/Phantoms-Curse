@@ -127,7 +127,14 @@ class G10UpdateLoops extends G9CheckEnemys{
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){
-  
+          
+           //saftey reset incase grabbed or stuck grabbed while attacking
+           //stop the player from attacking after escaping animation.
+           console.log("this.player1.isAttacking: ", this.player1.isAttacking);
+          if(this.player1.isAttacking === true){
+            this.player1.isAttacking = false;
+          }
+
           if(this.playerStuckGrab === true){
             this.checkStuckGrab();
           }

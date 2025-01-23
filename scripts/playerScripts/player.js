@@ -514,7 +514,7 @@ class player extends Phaser.GameObjects.Container{
       let that = this;
 
 
-        console.log("this.spaceWasPressed: ",this.spaceWasPressed," this.doubleJumpActivation: ",this.doubleJumpActivation," playerSkillsObject.playerSkills.jump: ",playerSkillsObject.playerSkills.jump);
+        //console.log("this.spaceWasPressed: ",this.spaceWasPressed," this.doubleJumpActivation: ",this.doubleJumpActivation," playerSkillsObject.playerSkills.jump: ",playerSkillsObject.playerSkills.jump);
         //if the player has the double jump ability, allow them to jupm agian.
         if(this.doubleJumpActivation === false && this.scene.checkJMPPressed()  && playerSkillsObject.playerSkills.jump === 1){
           //console.log("activating double jump while aKey is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.playerSkillsData.jump: ",scene.playerSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
@@ -643,6 +643,7 @@ class player extends Phaser.GameObjects.Container{
     //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
     }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
+      console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
         this.flipXcontainer(false);
@@ -789,6 +790,7 @@ class player extends Phaser.GameObjects.Container{
             this.setAttackHitboxSize(10,20);
             this.HitBox(200,20);
           }
+          console.log("isattacking: ", this.isAttacking);
 
     //otherwise is the player isnt attacking anymore then reset all values
     }else{

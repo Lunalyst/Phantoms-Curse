@@ -5,8 +5,13 @@ class dictParser{
 
     constructor(name,behavior,flag) {
         //create a object which will function as our dictionary.
-        //pushs a object that contains a refrence to the node associated with that 
+        //contains a dictionary of node1 keys.
+        //format: index,node
+        //notes:
+        //we need the start node aka node1, node2... ect
+        //also need the key of the last subnode aka if there is node1,node1-0,node1-1 then we need node1-1 as a key
         this.dict = {};
+        this.dictInc = 0;
 
         this.rootSet = false;
         this.root;
@@ -30,14 +35,23 @@ class dictParser{
             npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]["node1"].children
         );
 
-        //console.log("root: ", this.root);
+        //add first node name to the dictionary with value 0
+        this.dict["node1"] = this.dictInc;
+        this.dictInc++;
 
         //call format function of node which will return either this node, or a child it generated to fit dialogue.
         let potentialExtensionNode = this.root.formatDialogue();
 
-        //console.log("potentialExtensionNode: ", potentialExtensionNode);
+        //add the potential extension node to the dictionary key, but only if its name doesnt match the original node1,s name.
+        if(potentialExtensionNode.nodeName !== "node1"){
+            this.dict[potentialExtensionNode.nodeName] = this.dictInc;
+            this.dictInc++;
+        }
+        
 
         this.parseHelper(potentialExtensionNode);
+
+        console.log("this.dict: ",this.dict);
     }
 
     //recursive helper. takes in a node and adds its children based on the keys it has within its children array.
@@ -45,9 +59,6 @@ class dictParser{
 
         //loop through the children array in the given starting node.
         for(let i = 0; i < prevNode.originalChildrenArray.length;i++){
-
-            //recurively call our helper to generate more nodes, using potentialextensionnode as the parent node.
-            //console.log("npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]: ",npcDialogue[this.npcName][this.npcBehavior][this.npcFlag][prevNode.originalChildrenArray[i]]);
 
             //make a new node that is the child of the previous node.
             let nextNode = new dictNode(
@@ -58,7 +69,9 @@ class dictParser{
                 npcDialogue[this.npcName][this.npcBehavior][this.npcFlag][prevNode.originalChildrenArray[i]].children
             );
 
-            //console.log("root: ", this.root);
+            //add the next nodes name to the dictionary.
+            this.dict[prevNode.originalChildrenArray[i]] = this.dictInc;
+            this.dictInc++;
 
             //call format function of node which will return either this node, or a child it generated to fit dialogue.
             let potentialExtensionNode = nextNode.formatDialogue();
@@ -66,7 +79,11 @@ class dictParser{
             //adds new node to the prevnode sets next node as child so that node doesnt get lost.
             prevNode.addChild(nextNode);
 
-            //console.log("potentialExtensionNode: ", potentialExtensionNode);
+            //add the potential extension node to the dictionary key, but only if its name doesnt match the original node1,s name.
+            if(potentialExtensionNode.nodeName !== prevNode.originalChildrenArray[i]){
+                this.dict[potentialExtensionNode.nodeName] = this.dictInc;
+                this.dictInc++;
+            }
 
             //recursively call with potential extension node.
             this.parseHelper(potentialExtensionNode);

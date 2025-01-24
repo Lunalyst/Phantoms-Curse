@@ -182,7 +182,6 @@ class dictNode {
         let lines = 0;
 
         let first = true;
-        let tempNode = null;
 
         let nodeArray = [];
         let nodeArrayPosition = 0;
@@ -194,7 +193,6 @@ class dictNode {
         //loop through the text array
         for(let i = index; i < textArray.length;i++){
 
-            //console.log("i:",i);
             //for every 3 lines, create a new node
             if(lines === 3){
                 
@@ -205,7 +203,7 @@ class dictNode {
                 if(first === true){
 
                     //define new node with dialogue and same profile as this node. as well as the original children array.
-                    tempNode = new dictNode(
+                    let tempNode = new dictNode(
 
                         this.nodeName + '-'+this.extensionIndex,
                         dialogue,
@@ -223,8 +221,8 @@ class dictNode {
                     first = false;
                 }else{
 
-                    //make a extra temp node
-                    let tempNode1 = new dictNode(
+                    //make a temp node
+                    let tempNode = new dictNode(
 
                         this.nodeName + '-'+this.extensionIndex,
                         dialogue,
@@ -234,14 +232,14 @@ class dictNode {
                     );
 
                     //add this new node to the previous temp nodes children.
-                    nodeArray[nodeArrayPosition].addChild(tempNode1);
+                    nodeArray[nodeArrayPosition].addChild(tempNode);
 
-                    this.nodeArrayPosition++;
+                    //push the new node to our node array.
+                    nodeArray.push(tempNode);
 
-                    //overwrite our tempnode with the newest node.
-                    tempNode = tempNode1;
+                    //increment the node array position by one.
+                    nodeArrayPosition++;
 
-                    this.extensionIndex++;
 
                 }
 
@@ -252,8 +250,8 @@ class dictNode {
 
             lines++;
         }
-
-        return tempNode;
+        console.log("nodeArray: ",nodeArray);
+        return nodeArray[ nodeArrayPosition];
 
     }
 

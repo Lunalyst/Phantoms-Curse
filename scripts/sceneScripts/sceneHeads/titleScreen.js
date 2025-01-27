@@ -209,7 +209,7 @@ class titleScreen extends A3SoundEffects {
             this.sceneTextBox.activateTitleScreenTextbox(
                 this,//scene
                 false,// is the text box visible?
-                ["sign"],// sets profile array
+                [],// sets profile array
                 "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
                 );
             this.elements.add(this.sceneTextBox);

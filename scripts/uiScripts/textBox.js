@@ -1,6 +1,18 @@
 
 //const lineLength = 24;
 //const textEnd = 75;
+
+//need to rework textboxes because of the new system in place with nodes.
+//the main issue is that if the w key is spammed, then the node position and the npcs position get miss aligned.
+//this causes wierd brreaks in dialogue and things happening at the wrong time.
+//the solution to this could be to rework this entity
+//reason being is that passing the nodes data through a string from the npc to this object is janky.
+//my solution, have the textbox read the nodes. if the textbox is given the tree structure, then
+//it canp rogress through the nodes without closing prematurely, or breaking sequence.
+//since the player pressing w determinesthe node position anyway. 
+//the trick part is to align the npcs state machine with the w presses. and that can be more easily done if the textbox is handling the text box pace
+//instead of the npc handling the pace.
+//save a refrence to the npc.
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,font){
@@ -56,14 +68,50 @@ class textBox extends Phaser.GameObjects.Container{
       this.textBoxActivationCoolDown = false;
       this.profileArray;
       this.profileArrayPosition = 0;
-      this.amountWIsPressed = 0;
+      this.progressionAmount = 0;
 
       this.textInterupt = false;
 
       this.soundType = "default";
 
-    
-      
+      //set when talking with a npc.
+      this.npcRef = null;
+    }
+
+    //function to give textbox a refrence to the npc.
+    setNPCRef(npc){
+      this.npcRef = npc;
+    }
+
+    //delay to hault both the textbox, and the progression of the npc dialogue, with the same sewttime out.,
+    setNPCandTextboxDelay(){
+      if(this.npcRef !== null){
+        console.log("activating npc and textbox delay");
+        console.log("this.npcRef",this.npcRef);
+        let tempTextbox = this;
+        let tempNPC = this.npcRef;
+        this.textCoolDown = false;
+        this.npcRef.nodeDelay = true;
+
+        setTimeout(function(){
+          console.log("node npc delay currentNPC.nodeDelay: ", tempNPC.nodeDelay);
+          tempNPC.nodeDelay = false;
+          tempTextbox.textCoolDown = true;
+          },500);
+      }else{
+        this.textCoolDown = false;
+
+        let currentTextBox = this;
+        //time out function to set the cooldown to true in .3 seconds.
+        setTimeout(function(){
+          //console.log("delay end for text box");
+          
+          currentTextBox.textCoolDown =  true;
+          console.log("reseting current hitbox");
+          },500);
+
+      }
+
     }
     
     //function to hide the text of a text box. used to clear text lines.
@@ -74,7 +122,7 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //function activates textbox and progresses text box when w is pressed
-    activateTextBox(scene1){
+  activateTextBox(){
 
       //console.log("this.currentText: ",this.currentText);
       //console.log("this.profileArray: ",this.profileArray);
@@ -87,9 +135,9 @@ class textBox extends Phaser.GameObjects.Container{
         this.visible = true;
         this.textBoxProfileImage.visible = true;
         this.hideText(true);
-        scene1.isPaused = true;
-        scene1.pausedInTextBox = true;
-        //console.log("scene1.isPaused: "+ scene1.isPaused);
+        this.scene.isPaused = true;
+        this.scene.pausedInTextBox = true;
+        //console.log("this.scene.isPaused: "+ this.scene.isPaused);
         this.completedText = false;
 
         //use emmitter to hide the mobile controls if there on.
@@ -100,8 +148,8 @@ class textBox extends Phaser.GameObjects.Container{
       //if the player pressed w then
       //console.log("this.textInterupt: ",this.textInterupt," this.textCoolDown: ",this.textCoolDown)
       if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
-        console.log("this.amountWIsPressed: ",this.amountWIsPressed);
-        this.amountWIsPressed++;
+        console.log("this.amountWIsPressed: ",this.progressionAmount);
+        this.progressionAmount++;
         
         //update position so we can display the next set of text.
         this.startPosition = this.endPosition;
@@ -110,40 +158,91 @@ class textBox extends Phaser.GameObjects.Container{
         //calls function to display that next set of text
         this.displayText(this.startPosition,this.endPosition);
 
-        //increments profile position so we can display next profile
-        if(this.profileArrayPosition < this.profileArray.length-1){
-          this.profileArrayPosition++;
-          //console.log("this.profileArrayPosition: ",this.profileArrayPosition)
-        }
-
-        this.textCoolDown = false;
-
-        let currentTextBox = this;
-        //time out function to set the cooldown to true in .3 seconds.
-        setTimeout(function(){
-          //console.log("delay end for text box");
-          
-          currentTextBox.textCoolDown =  true;
-          console.log("reseting current hitbox");
-          },300);
-
-          
+        this.setNPCandTextboxDelay(); 
         }
 
     //once we reach the end of the text, we release the player back into the scene
     if(this.endPosition-textEnd > this.currentText.length-1){
       
       //resets values in scene, and this object
-      scene1.isPaused = false;
-      scene1.pausedInTextBox = false;
+      this.scene.isPaused = false;
+      this.scene.pausedInTextBox = false;
       this.visible = false;
       this.textBoxProfileImage.visible = false;
       this.hideText(false);
       this.startPosition = 0;
       this.endPosition = 0;
       this.textBoxActivationCoolDown = true;
-      this.profileArrayPosition = 0;
-      this.amountWIsPressed = 0;
+      this.progressionAmount = 0;
+      
+      //reset sound type once dialogue is over.
+      this.soundType = "default";
+
+      this.completedText = true;
+      //use emmitter to show the mobile controls if there on.
+      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
+
+
+      let tempTextBox = this;
+      setTimeout(function(){
+        tempTextBox.completedText = false;
+        tempTextBox.textBoxActivationCoolDown = false;
+      },1000); 
+    }
+  }
+  }
+
+
+  //special activation function, giving the npc more control of the textbox.
+  activateNPCTextBox(){
+
+  //if the nodeProgressionDelay is not true then
+  if(this.npcRef.nodeProgressionDelay === false){
+
+    //textbox cooldown check.
+    if(this.textCoolDown){
+    this.visible = true;
+    this.textBoxProfileImage.visible = true;
+    this.hideText(true);
+    this.scene.isPaused = true;
+    this.scene.pausedInTextBox = true;
+    //console.log("this.scene.isPaused: "+ this.scene.isPaused);
+    this.completedText = false;
+
+    //use emmitter to hide the mobile controls if there on.
+    controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
+
+  }
+  
+  //same as regular activation function, but, it depends on the delay for the nodeProgressionDelay in the npc to be finished
+  console.log("this.npcRef",this.npcRef)
+    if((this.textInterupt === false && this.npcRef.nodeProgressionDelay === false)){
+      console.log("this.amountWIsPressed: ",this.progressionAmount);
+      this.progressionAmount++;
+      
+      //update position so we can display the next set of text.
+      this.startPosition = this.endPosition;
+      this.endPosition = this.endPosition+textEnd;
+
+      //calls function to display that next set of text
+      this.displayText(this.startPosition,this.endPosition);
+
+      this.setNPCandTextboxDelay(); 
+      }
+
+    //once we reach the end of the text, we release the player back into the scene
+    if(this.endPosition-textEnd > this.currentText.length-1){
+      
+      //resets values in scene, and this object
+      this.scene.isPaused = false;
+      this.scene.pausedInTextBox = false;
+      this.visible = false;
+      this.textBoxProfileImage.visible = false;
+      this.hideText(false);
+      this.startPosition = 0;
+      this.endPosition = 0;
+      this.textBoxActivationCoolDown = true;
+      this.progressionAmount = 0;
       
       //reset sound type once dialogue is over.
       this.soundType = "default";
@@ -165,13 +264,11 @@ class textBox extends Phaser.GameObjects.Container{
 progressDialogue(){
 
     console.log("progressing dialogue once. ");
-    this.amountWIsPressed++;
+    this.progressionAmount++;
     
     //update position so we can display the next set of text.
     this.startPosition = this.endPosition;
     this.endPosition = this.endPosition+textEnd;
-
-    this.profileArrayPosition++;
 
     if(this.endPosition-textEnd > this.currentText.length-1){
       //resets values in scene, and this object
@@ -183,8 +280,7 @@ progressDialogue(){
       this.startPosition = 0;
       this.endPosition = 0;
       this.textBoxActivationCoolDown = true;
-      this.profileArrayPosition = 0;
-      this.amountWIsPressed = 0;
+      this.progressionAmount = 0;
       
       //reset sound type once dialogue is over.
       this.soundType = "default";
@@ -205,21 +301,12 @@ progressDialogue(){
       //calls function to display that next set of text
       this.displayText(this.startPosition,this.endPosition);
 
-      this.textCoolDown = false;
-
-      let currentTextBox = this;
-      
-      //time out function to set the cooldown to true in .3 seconds.
-      setTimeout(function(){
-        //console.log("delay end for text box");
-        
-        currentTextBox.textCoolDown =  true;
-        },300);
+      this.setNPCandTextboxDelay();
     }
 }
 
-    // this. line and two numbers representing the start and end location of the text to be display.
-    displayText(start,end){
+  // this. line and two numbers representing the start and end location of the text to be display.
+  displayText(start,end){
       let textPos = 0;
       //clear the text character first.
       for(let counter = start;counter < end+1;counter++){
@@ -229,16 +316,20 @@ progressDialogue(){
 
       textPos = 0;
       //awsome wack ass recursion using anims complete to create text scrolling.
-      this.displayHelper(start,textPos,end+1,this.amountWIsPressed)
-
-      this.textBoxProfileImage.anims.play(this.profileArray[this.profileArrayPosition]);
-    }
+      this.displayHelper(start,textPos,end+1,this.progressionAmount)
+      if(this.profileArray.length > 0){
+        this.textBoxProfileImage.anims.play(this.profileArray[this.profileArray.length-1]);
+      }
+      
+      
+      
+  }
 
     //function that makes delayed text 
     displayHelper(counter,textPos,end,wPosition){
 
       //if we arnt at the end of the text to be displayed
-      if(counter < end-1 && wPosition === this.amountWIsPressed){
+      if(counter < end-1 && wPosition === this.progressionAmount){
 
         //if there is a character in length of the texbox to be idsplayed
         if(counter < this.currentText.length){

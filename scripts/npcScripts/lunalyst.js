@@ -25,9 +25,7 @@ class lunalyst extends npc{
        //more variables which help the sign object tell when to display prompts and textbox
        this.playerOverlapingNpc = false;
        this.safeToSpeak = false;
-       this.textToDisplay ="";
        this.npcId = 0;
-       this.activationDelay = false;
        this.activated = false;
        this.npcType = npcType;
 
@@ -44,8 +42,6 @@ class lunalyst extends npc{
 
        this.formattingText = false;
  
-       //createdfor use in textbox
-       this.profileArray;
 
        if(this.npcType === 'devRoom'){
           this.anims.play('lunalystChairSleep');
@@ -55,78 +51,17 @@ class lunalyst extends npc{
 
   }
 
-//function which allows the player to use w to display textbox
-  activateNpc(){
-
-    //console.log("activating lunas function");
-    //console.log("this.safeToSpeak: ",this.safeToSpeak," this.profileArray: ",this.profileArray);
-
-    //if the player meets activation requiements for the sign display the text box
-    //console.log('this.safeToSpeak: ', this.safeToSpeak , "this.scene.checkWPressed(): ",this.scene.checkWPressed(), "this.scene.sceneTextBox.textBoxActivationCoolDown:",this.scene.sceneTextBox.textBoxActivationCoolDown);
-      if(this.safeToSpeak === true && this.scene.checkWIsDown() && this.scene.activatedNpcId === this.npcId && this.scene.sceneTextBox.textBoxActivationCoolDown === false && this.activated === false && this.scene.player1.mainHitbox.body.blocked.down){
-          console.log("activating npc");
-          // sets the activated to true so it isnt called multiple times.
-          this.activated = true;
-
-          //sets activated to false after half a second.
-          let sign = this;
-          setTimeout(function(){
-            sign.activated = false;
-          },200);
-
-          //sets the player sprite to its hitbox incase player was jumping.
-          this.scene.player1.x = this.scene.player1.mainHitbox.x;
-          this.scene.player1.y = this.scene.player1.mainHitbox.y;
-
-
-          //logic to decide what the npcs activated function is.
-          if(this.npcType === 'devRoom'){
-            this.devRoom();
-          }else if(this.npcType === 'clearingTheWay'){
-            this.ClearingTheWay();
-          }else{
-            this.default();
-          }
-          //once the player has talked to luna once progress dialogue in scene4 and update value
-
-          //while there is text to display display it.
-          if(this.scene.sceneTextBox.completedText === false){
-            this.scene.pausedInTextBox = true;
-            this.scene.sceneTextBox.setText(this.textToDisplay);
-            if(this.formattingText === true){
-              this.scene.sceneTextBox.formatText();
-            }
-            this.scene.sceneTextBox.setProfileArray(this.profileArray);
-            this.scene.sceneTextBox.activateTextBox(this.scene);
-            this.activationDelay = true;
-          }
-          // updates the npc so that it knows when the dialogue is completed.
-          this.completedText = this.scene.sceneTextBox.completedText;
-          
-          
-        //otherwise we want to display the key prompts 
-        }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
-            this.npcKeyPrompts.visible = true;
-            this.npcKeyPrompts.playWKey();
-            this.promptCooldown = true;
-            //this.activated = false;
-            
-        }
-        
-        // resets variables.
-        if(this.safeToSpeak === false){
-          this.npcKeyPrompts.visible = false;
-          this.promptCooldown = false;
-          //this.activated = false;
-        }
-  }
-
-  default(){
-    this.textToDisplay = 
-      'SOMETHING HAS GONE       '+
-      'WRONG!                   '+
-      '                         ';
-      
+  //overwrites base npc classes function with flagging logic specific to lunalyst.
+  flagLogic(){
+    
+    //logic to decide what the npcs activated function is.
+    if(this.npcType === 'devRoom'){
+      this.devRoom();
+    }else if(this.npcType === 'clearingTheWay'){
+      this.ClearingTheWay();
+    }else{
+      this.default();
+    }
   }
 
   devRoom(){
@@ -375,7 +310,6 @@ class lunalyst extends npc{
     console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
 
     if(lunaCTWDialogue1.foundFlag === false){
-
       //sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
 
@@ -422,44 +356,60 @@ class lunalyst extends npc{
         this.anims.play('lunalystIdle',true); 
       }
 
+
     }else if(lunaCTWDialogue1.foundFlag === true){
-      //console.log("this.hugging: ",this.hugging, " this.trading: ", this.trading , )
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
 
-      this.hugging = false;
-      this.trading = false;
-      this.inDialogue = false;
-      this.activatedTradeUI = false;
+      //check if the dialogue node is set.
+      if(this.dialogueDictSet === false){
 
-      this.scene.player1.playerIdleAnimation();
+        this.setUpDialogueDict("lunalyst","Behavior2","lunaCTWDialogue2");
 
-      //sets the textbox voice for luna
-      this.scene.sceneTextBox.soundType = "lightVoice";
+        this.activatedTradeUI = false;
 
-      this.textToDisplay = 
-      'HELLO AGIAN.             '+
-      '                         '+
-      '                         '+
+        this.scene.player1.playerIdleAnimation();
 
-      'IM STILL BUSY OVER HERE  '+
-      'CLEARING THE WAY.        '+
-      '                         '+
+      //if the node has been set that use the main progression function
+      }else if(this.scene.sceneTextBox.textInterupt === false &&// while the text box is not paused.
+         this.animationPlayed === false// and this npc isnt in the middle of playing a animation.
+        ){
 
-      'THOUGH I COULD USE A     '+
-      'BREAK.                   '+
-      '                         '+
+          //block to stop the node from progressing too quickly.
+          if(this.nodeProgressionDelay === false){
 
-      'HOW CAN I ASSIST YOU?    '+
-      '                         '+
-      '                         ';
+            //if the length is greater than zero then progress pass the next node
+            if(this.currentDictNode.children.length > 0){
+              console.log(this.currentDictNode.children[0].nodeName);
+              this.progressNode(this.currentDictNode.children[0].nodeName);
 
-      this.profileArray = ['lunaHappy','lunaKO','lunaFingerTouch','lunaHappy'];
+            //otherwise progress with blank node.
+            }else {
+              this.progressNode("");
+            }
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 2){
-        this.animationPlayed = false;
+            this.nodeProgressionDelay = true;
+            let currNPC = this;
+            setTimeout(function(){
+              currNPC.nodeProgressionDelay = false;
+              },500);
+          }
+          
 
-      //handle dialogue choice option.
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 4 && this.inDialogue === false){
+
+      }
+
+      
+      
+      
+    
+
+
+      //state machine for dialogue 
+      console.log("this.currentDictNode:", this.currentDictNode);
+      if(this.currentDictNode.nodeName === "node4" && this.inDialogue ===false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
 
         //create dialogue buttons for player choice
         this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"CAN I GET HUG? ",true);
@@ -484,49 +434,18 @@ class lunalyst extends npc{
 
           //set variable approperiately
           this.scene.sceneTextBox.textInterupt = false;
-
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaHearts');
-          this.profileArray.push('lunaFingerTouch');
-          this.profileArray.push('lunaHappy');
           
           //sets position of player for the hug.
           this.scene.player1.mainHitbox.x = this.x+20;
-          this.scene.player1.mainHitbox.y = this.y;
+          this.scene.player1.mainHitbox.y = this.y-3;
+          this.scene.player1.x = this.scene.player1.mainHitbox.x;
+          this.scene.player1.y = this.scene.player1.mainHitbox.y;
 
-          this.textToDisplay += 
-        'OH? OF COURSE!           '+
-        '                         '+
-        '                         '+
-
-        'COME HERE.               '+
-        'EVERYTHINGS GOING TO BE  '+
-        'ALRIGHT.                 '+
-
-        '                         '+
-        '                         '+
-        '                         '+
-
-        '                         '+
-        '                         '+
-        '                         '+
-
-        'STAY SAFE OUT THERE. ^_^ '+
-        '                         '+
-        '                         ';
-        
-
-          console.log("this.textToDisplay: ",this.textToDisplay);
-
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+          //progress to node branch with state name node5
+          this.progressNode("node5");
 
           //progress the dialogue by one stage so the button moves dialogue forward.
-          this.scene.sceneTextBox.progressDialogue();
+          //this.scene.sceneTextBox.progressDialogue();
 
           this.hugging = true;
 
@@ -559,29 +478,11 @@ class lunalyst extends npc{
           this.scene.initSoundEffect('buttonSFX','2',0.05);
 
           //set variable approperiately
-          this.trading = true;
           this.scene.sceneTextBox.textInterupt = false;
 
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaNeutral');
 
-
-          this.textToDisplay += 
-          'SUPPLIES?                '+
-          'SURE WE CAN DO SOME      '+
-          'TRADING.                 '+
-
-          'HERES WHAT I GOT.        '+
-          '                         '+
-          '                         ';
-
-        console.log("this.textToDisplay: ",this.textToDisplay);
-
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
+          //progress to node branch with state name node5
+          this.progressNode("node10");
 
           //progress the dialogue by one stage so the button moves dialogue forward.
           this.scene.sceneTextBox.progressDialogue();
@@ -612,31 +513,15 @@ class lunalyst extends npc{
 
         this.scene.npcChoice3.on('pointerdown', function (pointer) {
         
-          this.scene.initSoundEffect('buttonSFX','2',0.05);
+        this.scene.initSoundEffect('buttonSFX','2',0.05);
 
-          //set variable approperiately
-          this.yes = true;
-          this.scene.sceneTextBox.textInterupt = false;
-
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-
-
-
-          this.textToDisplay += 
-          'GOODBYE ^_^              '+
-          '                         '+
-          '                         ';
+        this.scene.sceneTextBox.textInterupt = false;
         
-        console.log("this.textToDisplay: ",this.textToDisplay);
+        //progress to node branch with state name node5
+        this.progressNode("node12");
 
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
-
-          //progress the dialogue by one stage so the button moves dialogue forward.
-          this.scene.sceneTextBox.progressDialogue();
+        //progress the dialogue by one stage so the button moves dialogue forward.
+        this.scene.sceneTextBox.progressDialogue();
 
           //destroy itself and other deciosions
           this.scene.npcChoice1.destroy();
@@ -652,11 +537,12 @@ class lunalyst extends npc{
         //let the npc know they are in dialogue
         this.inDialogue = true;
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 5 && this.hugging){
-
-       this.scene.player1.visible = false;
+      }else if(this.currentDictNode.nodeName === "node6"&& this.animationPlayed === false){
+        console.log("activating node6 state machine ")
+        this.scene.player1.visible = false;
+    
         if(this.animationPlayed === false){
-
+    
           this.animationPlayed = true;
           if(this.scene.playerSex === 1){
             this.anims.play('lunalystFemaleHugStart').once('animationcomplete', () => {
@@ -664,142 +550,61 @@ class lunalyst extends npc{
               this.animationPlayed = false;
               this.scene.player1.visible = false;
             });
-           }else{
-            this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
-              this.anims.play('lunalystMaleHug',true);
-              this.animationPlayed = false;
-              this.scene.player1.visible = false;
+          }else{
+              this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
+                this.anims.play('lunalystMaleHug',true);
+                this.animationPlayed = false;
+                this.scene.player1.visible = false;
+              });
+            } 
+          }
+      }if(this.currentDictNode.nodeName === "node7"&& this.animationPlayed === false){
+
+          this.scene.player1.visible = false;
+
+          if(this.scene.playerSex === 1){
+            this.anims.play('lunalystFemaleHug',true);
+          }else{
+            this.anims.play('lunalystMaleHug',true);
+          } 
+        }else if(this.currentDictNode.nodeName === "node8" && this.animationPlayed === false){
+          this.animationPlayed = true;
+          //apply interuption to dialogue
+          this.scene.sceneTextBox.textInterupt = true;
+
+          if(this.scene.playerSex === 1){
+
+            this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
+              this.anims.play('lunalystIdle',true);
+
+              //position the player to the correct place when they leave the animation.
+
+              this.scene.player1.mainHitbox.x = this.x+20;
+          this.scene.player1.mainHitbox.y = this.y-3;
+
+              this.scene.player1.visible = true;
+              this.animationPlayed = false
+              this.scene.sceneTextBox.textInterupt = false;
+
             });
-           } 
+          }else{
+              this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
+              this.anims.play('lunalystIdle',true);
+
+              this.scene.player1.mainHitbox.x = this.x+20;
+              this.scene.player1.mainHitbox.y = this.y-3;
+
+              this.scene.player1.visible = true;
+              this.animationPlayed = false;
+              this.scene.sceneTextBox.textInterupt = false;
+            });
+          } 
+        }else if(this.currentDictNode.nodeName === "node9"){
+          this.anims.play('lunalystIdle',true);
+          this.scene.player1.visible = true;
         }
-       
-      }else if(this.scene.sceneTextBox.amountWIsPressed > 5 && this.scene.sceneTextBox.amountWIsPressed < 8 && this.hugging){
-
-        this.scene.player1.visible = false;
-
-        if(this.scene.playerSex === 1){
-          this.anims.play('lunalystFemaleHug',true);
-         }else{
-          this.anims.play('lunalystMaleHug',true);
-         } 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 8 && this.hugging && this.animationPlayed === false){
-
-        this.animationPlayed = true;
-        //apply interuption to dialogue
-        this.scene.sceneTextBox.textInterupt = true;
-
-        if(this.scene.playerSex === 1){
-
-          this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
-            this.anims.play('lunalystIdle',true);
-
-            //position the player to the correct place when they leave the animation.
-
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y;
-
-            this.scene.player1.visible = true;
-            this.animationPlayed = false
-            this.scene.sceneTextBox.textInterupt = false;
-            //progress the dialogue by one stage so the button moves dialogue forward.
-            this.scene.sceneTextBox.progressDialogue();
-          });
-         }else{
-          this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
-            this.anims.play('lunalystIdle',true);
-
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y;
-
-            this.scene.player1.visible = true;
-            this.animationPlayed = false;
-            this.scene.sceneTextBox.textInterupt = false;
-            //progress the dialogue by one stage so the button moves dialogue forward.
-            this.scene.sceneTextBox.progressDialogue();
-          });
-         } 
-        
-
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 9 && this.hugging){
-
-        this.anims.play('lunalystIdle',true);
-
-        
-        this.scene.player1.visible = true;
-        this.hugging = false;
-
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6 && this.trading && this.activatedTradeUI === false){
-
-        // call the emitter to check if the value already was picked up.
-        console.log('activating shop');
-
-        this.activatedTradeUI = true;
-
-        let object = {
-          NPCRef: this,
-        };
-
-        this.buyBack = this.generateBuyBack();
-
-        this.buyBack.push(
-          {
-            itemID: 16,
-            itemName: 'FUEL ICHOR',
-            itemDescription: 'FUEL FOR A LANTURN.',
-            itemStackable: 1,
-            itemAmount: 1,
-            itemType: "ammo",
-            sellValue: 5
-          }
-        );
-
-        this.buyBack.push(
-          {
-            itemID: 20,
-            itemName: 'PLAIN CLOTHS',
-            itemDescription: 'SIMPLE COMFY OUTFIT.',
-            itemStackable: 0,
-            itemAmount: 1,
-            itemType: "vanity",
-            sellValue: 10
-          }
-        );
-
-        this.buyBack.push(
-          {
-            itemID: 21,
-            itemName: 'LANTURN',
-            itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
-            itemStackable: 0,
-            itemAmount: 1,
-            itemType: "ring",
-            sellValue: 40
-          }
-        );
-
-        //make a special object to pass to the listener
-        let buyArray = {
-          array: this.buyBack,
-          sellMultiplier: 1.8
-        };
-
-        //send that object to the emiter so it can be set in the gamehud
-        inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
-
-        //call emitter to tell if the onetime item is present in the inventory.
-        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
-
-        inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
-
-        this.scene.sceneTextBox.textInterupt = true;
-
-      }
-
+      }   
     }
-
-    
-  }
 
   //called by the shop ui.
   sellButton(){

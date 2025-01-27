@@ -23,8 +23,9 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'lunaAngryEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:45, end: 48 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunaSleeping',frames: this.anims.generateFrameNames('textBoxProfile', { start:49, end: 54 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('textBoxProfile', { start:55, end: 58 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'blank',frames: this.anims.generateFrameNames('textBoxProfile', { start:59, end: 59 }),frameRate: 5,repeat: -1});
 
-      this.anims.play("signLoop",true);
+      this.anims.play("blank",true);
       
     }
 

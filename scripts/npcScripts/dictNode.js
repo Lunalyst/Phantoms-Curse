@@ -162,6 +162,8 @@ class dictNode {
 
         //adds up the array chunks.
         this.dialogue = tempArray[0] + tempArray[1] + tempArray[2];
+        console.log("tempArray[0](",tempArray[0],")");
+        console.log("this.dialogue(",this.dialogue,")");
 
       //if the dialogue has more than three lines,
       if(tempArray.length > 3){

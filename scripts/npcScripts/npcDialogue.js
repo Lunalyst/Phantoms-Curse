@@ -1,13 +1,13 @@
 const npcDialogue = {
         "lunalyst":{
-            "devRoom":{
+            "Behavior2":{
                 "flags":{
                     "children": ["lunaCTWDialogue1", "lunaCTWDialogue2"]
                     },
 
                 "lunaCTWDialogue2":{
                     "node1":{
-                        "dialogue": "HELLO AGIAN. THIS IS SOME STUFF. LOTS OF CRAZY STUFF HAPPENING. TRYING TO MAKE THIS SOPER LONG. FOR TESTING PURPOSES. I PROMISE. ITS NOT LIKE I LOVE LONG THINGS OR ANYTHING. BAKCA. LIKE ITS CRAZY HOW LONG I CAN MAKE THIS. IM RAMBLING ABOUT ALL SORTS OF BS THAT DOESNT MATER. CAUSE IM SUPER CRAZY. DERANGED EVEN. LIKE TOTALLY. ",
+                        "dialogue": "HELLO AGIAN. ",
                         "profile":"lunaHappy",
                         "textvoice":"lightVoice",
                         "children":["node2"]

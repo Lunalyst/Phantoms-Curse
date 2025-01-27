@@ -983,7 +983,7 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.addContainerFlag,(containerString) =>{
 
             //pushes a value to the containerflags array in the flags object apart of player data.
-            console.log("containerString: ",containerString);
+            //console.log("containerString: ",containerString);
             this.flagValues.containerFlags.push(containerString);
 
             //console.log("adding flag to players flag data: ",this.flagValues);
@@ -993,7 +993,7 @@ class gameHud extends A3SoundEffects {
           //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
           
           inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
-            console.log("after emitterchecking if flag exists. : ",object);
+            //console.log("after emitterchecking if flag exists. : ",object);
 
             for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
               //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
@@ -1002,7 +1002,7 @@ class gameHud extends A3SoundEffects {
               }
               }
 
-            console.log("search for flag complete: ",object);
+            //console.log("search for flag complete: ",object);
 
           });
 

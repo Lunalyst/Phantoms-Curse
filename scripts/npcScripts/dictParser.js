@@ -4,12 +4,6 @@
 class dictParser{
 
     constructor(name,behavior,flag) {
-        //create a object which will function as our dictionary.
-        //contains a dictionary of node1 keys.
-        //format: index,node
-        //notes:
-        //we need the start node aka node1, node2... ect
-        //also need the key of the last subnode aka if there is node1,node1-0,node1-1 then we need node1-1 as a key
         this.dict = {};
         this.dictInc = 0;
 
@@ -25,11 +19,7 @@ class dictParser{
 
     //given the correct location, parse through the nodes and return a tree structure, and dictionary of relivant keys.
     parse(){
-        //console.log("this.npcName",this.npcName,"this.npcBehavior",this.npcBehavior,"this.npcFlag",this.npcFlag);
         //console.log("npcDialogue: ",npcDialogue);
-        //console.log("npcDialogue[this.npcName]: ",npcDialogue[this.npcName]);
-        //console.log("npcDialogue[this.npcName][this.npcBehavior]: ",npcDialogue[this.npcName][this.npcBehavior]);
-        //console.log("npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]: ",npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]);
         //define the root of the tree
         this.root = new dictNode(
             "node1",

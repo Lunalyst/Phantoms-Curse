@@ -17,24 +17,28 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
       this.npcDelay = false;
       
-     //sets scale of object
-     this.setScale(1/3);
+      //sets scale of object
+      this.setScale(1/3);
 
-     //dialogue object which holds node tree and dictionary object of node keys.
-     this.dialogueDict = null;
-     this.dialogueDictSet = false;
+      //dialogue object which holds node tree and dictionary object of node keys.
+      this.dialogueDict = null;
+      this.dialogueDictSet = false;
 
-     //current node position in our node tree.
-     this.currentDictNode = null;
-     this.nodeProgressionDelay = false;
+      //current node position in our node tree.
+      this.currentDictNode = null;
+      this.nodeProgressionDelay = false;
 
-     //createdfor use in textbox
-     this.profileArray = [];
-     this.textToDisplay ="";
+      //createdfor use in textbox
+      this.profileArray = [];
+      this.textToDisplay ="";
 
-     this.finished = false;
+      //value to tell when we have finished dialogue.
+      this.finished = false;
 
-     this.scene = scene;
+      //variable to catch dialogue so that we do not finish before we are supost to. useful for haulting dialogue for shop npcs as an example.
+      this.dialogueCatch = false;
+      
+      this.scene = scene;
   }
 
   //controls the activation delay of the dialogue
@@ -47,13 +51,23 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   }
 
   //npc flag logic function. meant to be overwriten by the npc building of this class.
-  //by default has default logic since if this isnt set, then something has gone horribly wrong.
   flagLogic(){
     this.default();
   }
 
+  //function takes in a npc name, a npc logic, and a npc flag string to tell where in our const npc global object what dialogue should be played.
   setUpDialogueDict(npcName,npcLogic,npcFlag){
-    //lock out while dialogue is set.
+
+    //reset finished, and other variables
+    this.dialogueDict = null;
+    this.inDialogue = false;
+    this.scene.sceneTextBox.soundType = "default";
+    this.currentDictNode = null;
+    this.profileArray = [];
+    this.textToDisplay = "";
+
+    this.nodeProgressionDelay = false;
+
     this.dialogueDictSet = true;
 
     //parse the correct dialogue sequence, filling our dict parser class so it has a root node and a dictionary of important nodes.
@@ -91,7 +105,6 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     //safty case, if the length of the currnodes array is one, then progress that node.
     if(this.currentDictNode.children.length === 1){
 
-      console.log("currnode only has one child: ",this.currentDictNode.children[0])
       //sets current node to the only child node.
       this.currentDictNode = this.currentDictNode.children[0];
 
@@ -107,15 +120,11 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
     }else{
 
-      console.log("currnode searched: ",nextNodeName);
-
       //search the currentNodes children
       for(let counter = 0; counter < this.currentDictNode.children.length;counter++){
 
         //if the child name matches the name we are looknig for.
         if(this.currentDictNode.children[counter].nodeName === nextNodeName){
-
-          console.log("node found: ",this.currentDictNode.children[counter]);
 
           //set the current node to the child that matches
           this.currentDictNode = this.currentDictNode.children[counter];
@@ -138,10 +147,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     
   }
 
+  //logic the occurs after every dialogue progression.
   dialogueLogicEnd(){
-
-    //after the npc's logic, the dictionary node should be set,so add the current nodes data to the correct places. 
-    //then set the name of the next node.
 
     //while there is text to display display it.
     if(this.scene.sceneTextBox.completedText === false){
@@ -151,67 +158,118 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.completedText = this.scene.sceneTextBox.completedText;
 
     //if we find the end of our tree structure
-     if(this.finished === false && this.currentDictNode.children.length === 0){
+     if(this.finished === false && this.currentDictNode !== null && this.currentDictNode.children.length === 0 && this.dialogueCatch === false){
       //est the finished value to true
       this.finished = true;
     //so the next call kills the dialogue
-     }else if(this.currentDictNode.children.length === 0){
-      
-      //reset finished, and other variables
-      console.log("finished dialogue!");
-      this.finished = false;
-      this.dialogueDictSet = false;
-      this.dialogueDict = null;
-      this.inDialogue = false;
-      this.scene.sceneTextBox.soundType = "default";
+     }else if(this.currentDictNode !== null && this.currentDictNode.children.length === 0 && this.dialogueCatch === false){
 
-      this.currentDictNode = null;
-      this.profileArray = [];
-      this.textToDisplay = "";
-
+      //resets this npc's values.
+      this.resetVariables();
+    
       //progress the dialogue so the textbox goes through its finishing procedure.
-      this.scene.sceneTextBox.progressDialogue();
+      this.scene.sceneTextBox.activateNPCTextBox();
 
     }
 
   }
 
-  
+  //generic reset function for variables.
+  resetVariables(){
+    //reset finished, and other variables
+    console.log("finished dialogue!");
+    this.dialogueDictSet = false;
+    this.dialogueDict = null;
+    this.inDialogue = false;
+    this.currentDictNode = null;
+    this.profileArray = [];
+    this.textToDisplay = "";
+    this.nodeProgressionDelay = false;
 
+    //resets catch so dialogue can end. useful for shop ui.
+    this.dialogueCatch = false;
+    
+    this.scene.sceneTextBox.soundType = "default";
+    
+  }
+
+  //function that is called to activate the npc logic.
   activateNpc(){
 
-    
-    //console.log("this.safeToSpeak: ",this.safeToSpeak," this.profileArray: ",this.profileArray);
-
     //if the player meets activation requiements for the sign display the text box
-    //console.log('this.safeToSpeak: ', this.safeToSpeak , "this.scene.checkWPressed(): ",this.scene.checkWPressed(), "this.scene.sceneTextBox.textBoxActivationCoolDown:",this.scene.sceneTextBox.textBoxActivationCoolDown);
-      if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
+    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
 
-        console.log("activating npc");
-        console.log("this.currentDictNode: ",this.currentDictNode);
-        this.dialogueLogicStart();
+      //console.log("this.currentDictNode: ",this.currentDictNode);
 
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      this.flagLogic();
         
-        this.flagLogic();
-        
-      
-        this.dialogueLogicEnd();
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
           
-        //otherwise we want to display the key prompts 
-        }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
+      //otherwise we want to display the key prompts 
+    }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
 
-          console.log("case1");
-            this.npcKeyPrompts.visible = true;
-            this.npcKeyPrompts.playWKey();
-            this.promptCooldown = true;        
-        }
+      this.npcKeyPrompts.visible = true;
+      this.npcKeyPrompts.playWKey();
+      this.promptCooldown = true;        
+  
+    }
         
-        // resets variables.
-        if(this.safeToSpeak === false){
-          this.npcKeyPrompts.visible = false;
-          this.promptCooldown = false;
+    // resets variables.
+    if(this.safeToSpeak === false){
+      this.npcKeyPrompts.visible = false;
+      this.promptCooldown = false;
 
+    }
+  }
+
+  //
+  nodeHandler(npc,behavior,flag){
+
+    //check if the dialogue node is set.
+    this.scene.sceneTextBox.npcReset();
+
+    //if the dialogue isnt set and we arnt finished with dialogue
+    if(this.dialogueDictSet === false && this.finished === false ){
+
+      //set up dialogue function
+      this.setUpDialogueDict(npc,behavior,flag);
+
+      //have the player idle while talking.
+      this.scene.player1.playerIdleAnimation();
+
+    //if the node has been set that use the main progression function
+    }else if(this.scene.sceneTextBox.textInterupt === false &&// while the text box is not paused.
+       this.animationPlayed === false &&// and this npc isnt in the middle of playing a animation.
+       this.scene.sceneTextBox.textBoxActivationCoolDown === false && // and the scene textbox isnt on cooldown.
+       this.finished === false // and we are not finished with the dialogue.
+      ){
+
+        //block to stop the node from progressing too quickly.
+        if(this.nodeProgressionDelay === false){
+
+          //if the length is greater than zero then progress pass the next node
+          if(this.currentDictNode.children.length > 0){
+            console.log(this.currentDictNode.children[0].nodeName);
+            this.progressNode(this.currentDictNode.children[0].nodeName);
+
+          //otherwise progress with blank node.
+          }else {
+            this.progressNode("");
+          }
+
+          //time out for our node progression.
+          this.nodeProgressionDelay = true;
+          let currNPC = this;
+          setTimeout(function(){
+            currNPC.nodeProgressionDelay = false;
+          },500);
         }
+    }
   }
 
   //function to generate a shop array for the items that can be bought back.

@@ -1,12 +1,3 @@
-const lineLength = 24;
-const textEnd = 75;
-/*note to self., when we generate extra nodes inside our node class, its a good idea, to give them the key nodename + "-"+index
-    this is important, so we can figure out the important state positions for game logic. as and example if node1 was extended twice
-    then it would have 1 child being node1-1 and that node has a child node1-2, which has the original children of node 1. as an example,
-    node 1 originally had nodes node2, and node3 as children, so node node1-2 has node2 and node 3 as its children. this allows us to index the node
-    since the generation formula for the state is nodename + "-"+lastindex. could save the last index, as a variable in the first node?
-    */ 
-
 //node class to make our dialogue dictionary tree.
 class dictNode {
 
@@ -258,3 +249,10 @@ class dictNode {
     }
 
   }
+  
+/*note to self., when we generate extra nodes inside our node class, its a good idea, to give them the key nodename + "-"+index
+    this is important, so we can figure out the important state positions for game logic. as and example if node1 was extended twice
+    then it would have 1 child being node1-1 and that node has a child node1-2, which has the original children of node 1. as an example,
+    node 1 originally had nodes node2, and node3 as children, so node node1-2 has node2 and node 3 as its children. this allows us to index the node
+    since the generation formula for the state is nodename + "-"+lastindex. could save the last index, as a variable in the first node?
+*/ 

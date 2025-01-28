@@ -1,373 +1,45 @@
-else if(lunaCTWDialogue1.foundFlag === true){
-      //console.log("this.hugging: ",this.hugging, " this.trading: ", this.trading , )
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-
-      this.hugging = false;
-      this.trading = false;
-      this.inDialogue = false;
-      this.activatedTradeUI = false;
-
-      this.scene.player1.playerIdleAnimation();
-
-      //sets the textbox voice for luna
+ //sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
 
       this.textToDisplay = 
-      'HELLO AGIAN.             '+
+      'OH A HUMAN! HELLO!       '+
       '                         '+
       '                         '+
 
-      'IM STILL BUSY OVER HERE  '+
-      'CLEARING THE WAY.        '+
-      '                         '+
+      'MY NAME IS LUNALYST, AND '+
+      'IM SURE YOU CAN TELL IM  '+
+      'NOT QUITE HUMAN ANYMORE. '+
 
-      'THOUGH I COULD USE A     '+
-      'BREAK.                   '+
-      '                         '+
+      'HOWEVER IM NOT GONA TRY  '+
+      'AND EAT OR FORNICATE     '+
+      'WITH YOU, PROMISE.       '+
 
-      'HOW CAN I ASSIST YOU?    '+
-      '                         '+
-      '                         ';
+      'IM JUST A HUMBLE MAID    '+
+      'TRYING TO GET BACK TO    '+
+      'LOCKWOOD VILLAGE.        '+
 
-      this.profileArray = ['lunaHappy','lunaKO','lunaFingerTouch','lunaHappy'];
+      'LOTS OF CAVE INS         '+
+      'SO IM DOING MY BEST TO   '+
+      'CLEAR THE WAY.           '+
 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 2){
-        this.animationPlayed = false;
+      'ANYWAY, I GOT TO GET     '+
+      'BACK TO IT.              '+
+      'STAY SAFE OUT THERE. ^_^ ';
+      
 
-      //handle dialogue choice option.
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 4 && this.inDialogue === false){
+      this.profileArray = ['lunaStarEyes','lunaHappy','lunaKO','lunaFingerTouch','lunaKO','lunaStarEyes']
 
-        //create dialogue buttons for player choice
-        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"CAN I GET HUG? ",true);
-        this.scene.npcChoice1.textWob();
-        this.scene.npcChoice1.setScrollFactor(0);
-        this.scene.npcChoice1.addHitbox();
-        this.scene.npcChoice1.setScale(.8);
+      if(this.scene.sceneTextBox.amountWIsPressed === 4){
 
-        //set up dialogue option functionality so they work like buttons
-        this.scene.npcChoice1.on('pointerover',function(pointer){
-          this.scene.initSoundEffect('buttonSFX','1',0.05);
-          this.scene.npcChoice1.setTextTint(0xff7a7a);
-        },this);
+        this.anims.play('lunalystSkirtPull',true).once('animationcomplete', () => {
+          this.anims.play('lunalystIdle');
 
-        this.scene.npcChoice1.on('pointerout',function(pointer){
-            this.scene.npcChoice1.clearTextTint();
-        },this);
+        });
 
-        this.scene.npcChoice1.on('pointerdown', function (pointer) {
-        
-          this.scene.initSoundEffect('buttonSFX','2',0.05);
+      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
 
-          //set variable approperiately
-          this.scene.sceneTextBox.textInterupt = false;
-
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaHearts');
-          this.profileArray.push('lunaFingerTouch');
-          this.profileArray.push('lunaHappy');
-          
-          //sets position of player for the hug.
-          this.scene.player1.mainHitbox.x = this.x+20;
-          this.scene.player1.mainHitbox.y = this.y;
-
-          this.textToDisplay += 
-        'OH? OF COURSE!           '+
-        '                         '+
-        '                         '+
-
-        'COME HERE.               '+
-        'EVERYTHINGS GOING TO BE  '+
-        'ALRIGHT.                 '+
-
-        '                         '+
-        '                         '+
-        '                         '+
-
-        '                         '+
-        '                         '+
-        '                         '+
-
-        'STAY SAFE OUT THERE. ^_^ '+
-        '                         '+
-        '                         ';
-        
-
-          console.log("this.textToDisplay: ",this.textToDisplay);
-
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
-
-          //progress the dialogue by one stage so the button moves dialogue forward.
-          this.scene.sceneTextBox.progressDialogue();
-
-          this.hugging = true;
-
-          //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
-          this.scene.npcChoice2.destroy();
-          this.scene.npcChoice3.destroy();
-
-        },this);
-
-        //create dialogue buttons for player choice
-        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"GOT ANY SUPPPLIES? ",true);
-        this.scene.npcChoice2.textWob();
-        this.scene.npcChoice2.setScrollFactor(0);
-        this.scene.npcChoice2.addHitbox();
-        this.scene.npcChoice2.setScale(.8);
-
-        //set up dialogue option functionality so they work like buttons
-        this.scene.npcChoice2.on('pointerover',function(pointer){
-          this.scene.initSoundEffect('buttonSFX','1',0.05);
-          this.scene.npcChoice2.setTextTint(0xff7a7a);
-        },this);
-
-        this.scene.npcChoice2.on('pointerout',function(pointer){
-            this.scene.npcChoice2.clearTextTint();
-        },this);
-
-        this.scene.npcChoice2.on('pointerdown', function (pointer) {
-        
-          this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-          //set variable approperiately
-          this.trading = true;
-          this.scene.sceneTextBox.textInterupt = false;
-
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-          this.profileArray.push('lunaNeutral');
-
-
-          this.textToDisplay += 
-          'SUPPLIES?                '+
-          'SURE WE CAN DO SOME      '+
-          'TRADING.                 '+
-
-          'HERES WHAT I GOT.        '+
-          '                         '+
-          '                         ';
-
-        console.log("this.textToDisplay: ",this.textToDisplay);
-
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
-
-          //progress the dialogue by one stage so the button moves dialogue forward.
-          this.scene.sceneTextBox.progressDialogue();
-
-          //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
-          this.scene.npcChoice2.destroy();
-          this.scene.npcChoice3.destroy();
-
-        },this);
-
-        //create dialogue buttons for player choice
-        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"SEE YOU LATER. ",true);
-        this.scene.npcChoice3.textWob();
-        this.scene.npcChoice3.setScrollFactor(0);
-        this.scene.npcChoice3.addHitbox();
-        this.scene.npcChoice3.setScale(.8);
-
-        //set up dialogue option functionality so they work like buttons
-        this.scene.npcChoice3.on('pointerover',function(pointer){
-          this.scene.initSoundEffect('buttonSFX','1',0.05);
-          this.scene.npcChoice3.setTextTint(0xff7a7a);
-        },this);
-
-        this.scene.npcChoice3.on('pointerout',function(pointer){
-            this.scene.npcChoice3.clearTextTint();
-        },this);
-
-        this.scene.npcChoice3.on('pointerdown', function (pointer) {
-        
-          this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-          //set variable approperiately
-          this.yes = true;
-          this.scene.sceneTextBox.textInterupt = false;
-
-          //add new dialogue to the profile array based on the decision
-          this.profileArray.push('lunaHappy');
-
-
-
-          this.textToDisplay += 
-          'GOODBYE ^_^              '+
-          '                         '+
-          '                         ';
-        
-        console.log("this.textToDisplay: ",this.textToDisplay);
-
-          //update the dialogue in the next box.
-          this.scene.sceneTextBox.setText(this.textToDisplay);
-          //this.scene.sceneTextBox.formatText();
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
-
-          //progress the dialogue by one stage so the button moves dialogue forward.
-          this.scene.sceneTextBox.progressDialogue();
-
-          //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
-          this.scene.npcChoice2.destroy();
-          this.scene.npcChoice3.destroy();
-
-        },this);
-
-
-        //call scene variable to create interupt.
-        this.scene.sceneTextBox.textInterupt = true;
-
-        //let the npc know they are in dialogue
-        this.inDialogue = true;
-
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 5 && this.hugging){
-
-       this.scene.player1.visible = false;
-        if(this.animationPlayed === false){
-
-          this.animationPlayed = true;
-          if(this.scene.playerSex === 1){
-            this.anims.play('lunalystFemaleHugStart').once('animationcomplete', () => {
-              this.anims.play('lunalystFemaleHug',true);
-              this.animationPlayed = false;
-              this.scene.player1.visible = false;
-            });
-           }else{
-            this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
-              this.anims.play('lunalystMaleHug',true);
-              this.animationPlayed = false;
-              this.scene.player1.visible = false;
-            });
-           } 
-        }
-       
-      }else if(this.scene.sceneTextBox.amountWIsPressed > 5 && this.scene.sceneTextBox.amountWIsPressed < 8 && this.hugging){
-
-        this.scene.player1.visible = false;
-
-        if(this.scene.playerSex === 1){
-          this.anims.play('lunalystFemaleHug',true);
-         }else{
-          this.anims.play('lunalystMaleHug',true);
-         } 
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 8 && this.hugging && this.animationPlayed === false){
-
-        this.animationPlayed = true;
-        //apply interuption to dialogue
-        this.scene.sceneTextBox.textInterupt = true;
-
-        if(this.scene.playerSex === 1){
-
-          this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
-            this.anims.play('lunalystIdle',true);
-
-            //position the player to the correct place when they leave the animation.
-
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y;
-
-            this.scene.player1.visible = true;
-            this.animationPlayed = false
-            this.scene.sceneTextBox.textInterupt = false;
-            //progress the dialogue by one stage so the button moves dialogue forward.
-            this.scene.sceneTextBox.progressDialogue();
-          });
-         }else{
-          this.anims.play('lunalystMaleHugEnd',true).once('animationcomplete', () => {
-            this.anims.play('lunalystIdle',true);
-
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y;
-
-            this.scene.player1.visible = true;
-            this.animationPlayed = false;
-            this.scene.sceneTextBox.textInterupt = false;
-            //progress the dialogue by one stage so the button moves dialogue forward.
-            this.scene.sceneTextBox.progressDialogue();
-          });
-         } 
-        
-
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 9 && this.hugging){
-
-        this.anims.play('lunalystIdle',true);
-
-        
-        this.scene.player1.visible = true;
-        this.hugging = false;
-
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6 && this.trading && this.activatedTradeUI === false){
-
-        // call the emitter to check if the value already was picked up.
-        console.log('activating shop');
-
-        this.activatedTradeUI = true;
-
-        let object = {
-          NPCRef: this,
-        };
-
-        this.buyBack = this.generateBuyBack();
-
-        this.buyBack.push(
-          {
-            itemID: 16,
-            itemName: 'FUEL ICHOR',
-            itemDescription: 'FUEL FOR A LANTURN.',
-            itemStackable: 1,
-            itemAmount: 1,
-            itemType: "ammo",
-            sellValue: 5
-          }
-        );
-
-        this.buyBack.push(
-          {
-            itemID: 20,
-            itemName: 'PLAIN CLOTHS',
-            itemDescription: 'SIMPLE COMFY OUTFIT.',
-            itemStackable: 0,
-            itemAmount: 1,
-            itemType: "vanity",
-            sellValue: 10
-          }
-        );
-
-        this.buyBack.push(
-          {
-            itemID: 21,
-            itemName: 'LANTURN',
-            itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
-            itemStackable: 0,
-            itemAmount: 1,
-            itemType: "ring",
-            sellValue: 40
-          }
-        );
-
-        //make a special object to pass to the listener
-        let buyArray = {
-          array: this.buyBack,
-          sellMultiplier: 1.8
-        };
-
-        //send that object to the emiter so it can be set in the gamehud
-        inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
-
-        //call emitter to tell if the onetime item is present in the inventory.
-        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
-
-        inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
-
-        this.scene.sceneTextBox.textInterupt = true;
-
+        //add dialogue flag.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaCTWDialogue1.flagToFind);
+      }else{
+        this.anims.play('lunalystIdle',true); 
       }

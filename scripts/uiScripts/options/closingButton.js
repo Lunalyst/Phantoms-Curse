@@ -91,8 +91,13 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
             //call emiter to destroy shop and free up some resources.
             inventoryKeyEmitter.emit(inventoryKey.destroyBuyArray);
 
-            //call npc to progress dialogue
+            //reset finished, and other variables
+            this.inventory.npc.scene.sceneTextBox.npcRef.resetVariables();
+
+            //progress the dialogue so the textbox goes through its finishing procedure.
+            this.inventory.npc.scene.sceneTextBox.activateNPCTextBox();
             this.inventory.npc.scene.sceneTextBox.progressDialogue();
+
             this.inventory.npc.scene.sceneTextBox.textInterupt = false;
 
 

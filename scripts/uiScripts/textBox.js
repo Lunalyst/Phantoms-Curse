@@ -1,18 +1,6 @@
 
-//const lineLength = 24;
-//const textEnd = 75;
 
-//need to rework textboxes because of the new system in place with nodes.
-//the main issue is that if the w key is spammed, then the node position and the npcs position get miss aligned.
-//this causes wierd brreaks in dialogue and things happening at the wrong time.
-//the solution to this could be to rework this entity
-//reason being is that passing the nodes data through a string from the npc to this object is janky.
-//my solution, have the textbox read the nodes. if the textbox is given the tree structure, then
-//it canp rogress through the nodes without closing prematurely, or breaking sequence.
-//since the player pressing w determinesthe node position anyway. 
-//the trick part is to align the npcs state machine with the w presses. and that can be more easily done if the textbox is handling the text box pace
-//instead of the npc handling the pace.
-//save a refrence to the npc.
+
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,font){
@@ -68,6 +56,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.textBoxActivationCoolDown = false;
       this.profileArray;
       this.profileArrayPosition = 0;
+      //progression amount is important so we know when to interupt recursive displaytexthelper.
       this.progressionAmount = 0;
 
       this.textInterupt = false;
@@ -84,33 +73,19 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //delay to hault both the textbox, and the progression of the npc dialogue, with the same sewttime out.,
-    setNPCandTextboxDelay(){
-      if(this.npcRef !== null){
-        console.log("activating npc and textbox delay");
-        console.log("this.npcRef",this.npcRef);
-        let tempTextbox = this;
-        let tempNPC = this.npcRef;
-        this.textCoolDown = false;
-        this.npcRef.nodeDelay = true;
+    activateTextboxDelay(){
 
-        setTimeout(function(){
-          console.log("node npc delay currentNPC.nodeDelay: ", tempNPC.nodeDelay);
-          tempNPC.nodeDelay = false;
-          tempTextbox.textCoolDown = true;
-          },500);
-      }else{
+        //lock out variable
         this.textCoolDown = false;
 
-        let currentTextBox = this;
         //time out function to set the cooldown to true in .3 seconds.
+        let currentTextBox = this;
         setTimeout(function(){
           //console.log("delay end for text box");
           
           currentTextBox.textCoolDown =  true;
           console.log("reseting current hitbox");
-          },500);
-
-      }
+        },500);
 
     }
     
@@ -122,208 +97,222 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //function activates textbox and progresses text box when w is pressed
-  activateTextBox(){
-
-      //console.log("this.currentText: ",this.currentText);
-      //console.log("this.profileArray: ",this.profileArray);
+    activateTextBox(){
 
       //if the cooldown is not true then
       if(this.textBoxActivationCoolDown === false){
 
         //textbox cooldown check.
         if(this.textCoolDown){
+          this.visible = true;
+          this.textBoxProfileImage.visible = true;
+          this.hideText(true);
+          this.scene.isPaused = true;
+          this.scene.pausedInTextBox = true;
+          //console.log("this.scene.isPaused: "+ this.scene.isPaused);
+          this.completedText = false;
+
+          //use emmitter to hide the mobile controls if there on.
+          controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
+
+        }
+        
+        //if the player pressed w then
+        if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
+          //progression amount is important so we know when to interupt recursive displaytexthelper.
+          this.progressionAmount++;
+            
+          //update position so we can display the next set of text.
+          this.startPosition = this.endPosition;
+          this.endPosition = this.endPosition+textEnd;
+
+          //calls function to display that next set of text
+          this.displayText(this.startPosition,this.endPosition);
+
+          this.activateTextboxDelay(); 
+        }
+
+        //once we reach the end of the text, we release the player back into the scene
+        if(this.endPosition-textEnd > this.currentText.length-1){
+              
+          //resets values in scene, and this object
+          this.scene.isPaused = false;
+          this.scene.pausedInTextBox = false;
+          this.visible = false;
+          this.textBoxProfileImage.visible = false;
+          this.hideText(false);
+          this.startPosition = 0;
+          this.endPosition = 0;
+          this.textBoxActivationCoolDown = true;
+          this.progressionAmount = 0;
+              
+          //reset sound type once dialogue is over.
+          this.soundType = "default";
+
+          this.completedText = true;
+          //use emmitter to show the mobile controls if there on.
+          controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
+
+
+          let tempTextBox = this;
+          setTimeout(function(){
+            tempTextBox.completedText = false;
+            tempTextBox.textBoxActivationCoolDown = false;
+          },1000); 
+        }
+      }
+    }
+
+    //special activation function, giving the npc more control of the textbox.
+    activateNPCTextBox(){
+
+      //if the nodeProgressionDelay is not true then
+      if(this.npcRef.nodeProgressionDelay === false){
+
+        //case is check every press, to ensure textbox is visible 
+        if(this.textCoolDown){
+
+        //sets visibility of this text box entity
         this.visible = true;
         this.textBoxProfileImage.visible = true;
         this.hideText(true);
         this.scene.isPaused = true;
         this.scene.pausedInTextBox = true;
-        //console.log("this.scene.isPaused: "+ this.scene.isPaused);
         this.completedText = false;
 
         //use emmitter to hide the mobile controls if there on.
         controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
 
-      }
-      
-      //if the player pressed w then
-      //console.log("this.textInterupt: ",this.textInterupt," this.textCoolDown: ",this.textCoolDown)
-      if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
-        console.log("this.amountWIsPressed: ",this.progressionAmount);
-        this.progressionAmount++;
+        }
         
-        //update position so we can display the next set of text.
-        this.startPosition = this.endPosition;
-        this.endPosition = this.endPosition+textEnd;
+        //same as regular activation function, but, it depends on the delay for the nodeProgressionDelay in the npc to be finished.
+        if((this.textInterupt === false && this.npcRef.nodeProgressionDelay === false)){
+          //progression amount is important so we know when to interupt recursive displaytexthelper.
+          this.progressionAmount++;
+            
+          //update position so we can display the next set of text.
+          this.startPosition = this.endPosition;
+          this.endPosition = this.endPosition+textEnd;
 
-        //calls function to display that next set of text
-        this.displayText(this.startPosition,this.endPosition);
+          //calls function to display that next set of text
+          this.displayText(this.startPosition,this.endPosition);
 
-        this.setNPCandTextboxDelay(); 
+          this.activateTextboxDelay(); 
         }
 
-    //once we reach the end of the text, we release the player back into the scene
-    if(this.endPosition-textEnd > this.currentText.length-1){
-      
-      //resets values in scene, and this object
-      this.scene.isPaused = false;
-      this.scene.pausedInTextBox = false;
-      this.visible = false;
-      this.textBoxProfileImage.visible = false;
-      this.hideText(false);
-      this.startPosition = 0;
-      this.endPosition = 0;
-      this.textBoxActivationCoolDown = true;
-      this.progressionAmount = 0;
-      
-      //reset sound type once dialogue is over.
-      this.soundType = "default";
+        //once we reach the end of the text, we release the player back into the scene
+        console.log("this.npcRef.finished: ",this.npcRef.finished);
+        if(this.npcRef.finished === true && this.textInterupt === false){
+            
+          //resets values in scene, and this object
+          this.scene.isPaused = false;
+          this.scene.pausedInTextBox = false;
+          this.visible = false;
+          this.textBoxProfileImage.visible = false;
+          this.hideText(false);
+          this.startPosition = 0;
+          this.endPosition = 0;
+          this.textBoxActivationCoolDown = true;
+          this.progressionAmount = 0;
+          
+          //since we just closed the text box set a short time out shorter then the dialogue array that resets the finished value in that npc.
+          let tempNPC = this.npcRef;
+            setTimeout(function(){
+              tempNPC.finished = false;
+          },300);
+            
+          //reset sound type once dialogue is over.
+          this.soundType = "default";
 
-      this.completedText = true;
-      //use emmitter to show the mobile controls if there on.
-      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
+          this.completedText = true;
+          //use emmitter to show the mobile controls if there on.
+          controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
 
-
-      let tempTextBox = this;
-      setTimeout(function(){
-        tempTextBox.completedText = false;
-        tempTextBox.textBoxActivationCoolDown = false;
-      },1000); 
+          let tempTextBox = this;
+          setTimeout(function(){
+            tempTextBox.completedText = false;
+            tempTextBox.textBoxActivationCoolDown = false;
+          },1000); 
+        }
+      }
     }
-  }
-  }
 
+    //reset function 
+    npcReset(){
+      //if the visibility of the textbox is false, then completele reset the npc dict node, just in case it was set in the last dialogue tree traversal
+      if(this.npcRef !== null && this.visible === false && this.npcRef.finished === true){
+        //reset npc dictionary. 
+        this.npcRef.dialogueDictSet = false;
+        this.npcRef.dialogueDict = null;
+        this.npcRef.currentDictNode = null;
+        this.npcRef = null;
+      }
+    }
 
-  //special activation function, giving the npc more control of the textbox.
-  activateNPCTextBox(){
-
-  //if the nodeProgressionDelay is not true then
-  if(this.npcRef.nodeProgressionDelay === false){
-
-    //textbox cooldown check.
-    if(this.textCoolDown){
-    this.visible = true;
-    this.textBoxProfileImage.visible = true;
-    this.hideText(true);
-    this.scene.isPaused = true;
-    this.scene.pausedInTextBox = true;
-    //console.log("this.scene.isPaused: "+ this.scene.isPaused);
-    this.completedText = false;
-
-    //use emmitter to hide the mobile controls if there on.
-    controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
-
-  }
-  
-  //same as regular activation function, but, it depends on the delay for the nodeProgressionDelay in the npc to be finished
-  console.log("this.npcRef",this.npcRef)
-    if((this.textInterupt === false && this.npcRef.nodeProgressionDelay === false)){
-      console.log("this.amountWIsPressed: ",this.progressionAmount);
+    //function to skip forward in dialogue. used when we have a dialogue choice.
+    progressDialogue(){
+      
+      //progression amount is important so we know when to interupt recursive displaytexthelper.
       this.progressionAmount++;
       
       //update position so we can display the next set of text.
       this.startPosition = this.endPosition;
       this.endPosition = this.endPosition+textEnd;
 
-      //calls function to display that next set of text
-      this.displayText(this.startPosition,this.endPosition);
+      if(this.endPosition-textEnd > this.currentText.length-1){
+        //resets values in scene, and this object
+        this.scene.isPaused = false;
+        this.scene.pausedInTextBox = false;
+        this.visible = false;
+        this.textBoxProfileImage.visible = false;
+        this.hideText(false);
+        this.startPosition = 0;
+        this.endPosition = 0;
+        this.textBoxActivationCoolDown = true;
+        this.progressionAmount = 0;
+        
+        //reset sound type once dialogue is over.
+        this.soundType = "default";
 
-      this.setNPCandTextboxDelay(); 
+        this.completedText = true;
+        //use emmitter to show the mobile controls if there on.
+        controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
+
+
+        let tempTextBox = this;
+        setTimeout(function(){
+          tempTextBox.completedText = false;
+          tempTextBox.textBoxActivationCoolDown = false;
+        },1000); 
+      
+      }else{
+
+        //calls function to display that next set of text
+        this.displayText(this.startPosition,this.endPosition);
+
+        this.activateTextboxDelay();
       }
-
-    //once we reach the end of the text, we release the player back into the scene
-    if(this.endPosition-textEnd > this.currentText.length-1){
-      
-      //resets values in scene, and this object
-      this.scene.isPaused = false;
-      this.scene.pausedInTextBox = false;
-      this.visible = false;
-      this.textBoxProfileImage.visible = false;
-      this.hideText(false);
-      this.startPosition = 0;
-      this.endPosition = 0;
-      this.textBoxActivationCoolDown = true;
-      this.progressionAmount = 0;
-      
-      //reset sound type once dialogue is over.
-      this.soundType = "default";
-
-      this.completedText = true;
-      //use emmitter to show the mobile controls if there on.
-      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
-
-
-      let tempTextBox = this;
-      setTimeout(function(){
-        tempTextBox.completedText = false;
-        tempTextBox.textBoxActivationCoolDown = false;
-      },1000); 
     }
-  }
-}
 
-progressDialogue(){
+    //displays text to textbox.
+    displayText(start,end){
+        let textPos = 0;
+        //clear the text character first.
+        for(let counter = start;counter < end+1;counter++){
+          this.lines[textPos].anims.play(' ');
+          textPos++;
+        }
 
-    console.log("progressing dialogue once. ");
-    this.progressionAmount++;
-    
-    //update position so we can display the next set of text.
-    this.startPosition = this.endPosition;
-    this.endPosition = this.endPosition+textEnd;
-
-    if(this.endPosition-textEnd > this.currentText.length-1){
-      //resets values in scene, and this object
-      this.scene.isPaused = false;
-      this.scene.pausedInTextBox = false;
-      this.visible = false;
-      this.textBoxProfileImage.visible = false;
-      this.hideText(false);
-      this.startPosition = 0;
-      this.endPosition = 0;
-      this.textBoxActivationCoolDown = true;
-      this.progressionAmount = 0;
-      
-      //reset sound type once dialogue is over.
-      this.soundType = "default";
-
-      this.completedText = true;
-      //use emmitter to show the mobile controls if there on.
-      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,true);
-
-
-      let tempTextBox = this;
-      setTimeout(function(){
-        tempTextBox.completedText = false;
-        tempTextBox.textBoxActivationCoolDown = false;
-      },1000); 
-    
-    }else{
-
-      //calls function to display that next set of text
-      this.displayText(this.startPosition,this.endPosition);
-
-      this.setNPCandTextboxDelay();
+        textPos = 0;
+        //awsome wack ass recursion using anims complete to create text scrolling.
+        this.displayHelper(start,textPos,end+1,this.progressionAmount)
+        if(this.profileArray.length > 0){
+          this.textBoxProfileImage.anims.play(this.profileArray[this.profileArray.length-1]);
+        }
+        
+        
+        
     }
-}
-
-  // this. line and two numbers representing the start and end location of the text to be display.
-  displayText(start,end){
-      let textPos = 0;
-      //clear the text character first.
-      for(let counter = start;counter < end+1;counter++){
-        this.lines[textPos].anims.play(' ');
-        textPos++;
-      }
-
-      textPos = 0;
-      //awsome wack ass recursion using anims complete to create text scrolling.
-      this.displayHelper(start,textPos,end+1,this.progressionAmount)
-      if(this.profileArray.length > 0){
-        this.textBoxProfileImage.anims.play(this.profileArray[this.profileArray.length-1]);
-      }
-      
-      
-      
-  }
 
     //function that makes delayed text 
     displayHelper(counter,textPos,end,wPosition){
@@ -459,15 +448,18 @@ progressDialogue(){
 
     }
 
+    //simple setter function to set text string.
     setText(text){
       this.currentText = text;
     }
-    
+
+    //simple setter for profile array.
     setProfileArray(profileArray){
       this.profileArray = profileArray;
 
     }
 
+    //specialized view for titlescreen.
     setTitleScreenView(){
       this.setScale(1);
       let offset = -98; 
@@ -498,6 +490,7 @@ progressDialogue(){
 
     }
 
+    //specialized activation function for titlescreen.
     activateTitleScreenTextbox(scene,isVisible,profileArray,text){
 
             this.setText(text);

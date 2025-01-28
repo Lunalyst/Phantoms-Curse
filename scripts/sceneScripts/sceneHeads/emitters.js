@@ -5,6 +5,11 @@ let startTime;
 let endTime;
 let storedLabel;
 
+//const variables for textbox entities.
+const lineLength = 24;
+const textEnd = 75;
+
+//simple time tester functions.
 function startTimeTest(label){
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     console.log("starting time test for "+label);

@@ -41,9 +41,11 @@ class lunalyst extends npc{
        this.hugging = false; 
 
        this.formattingText = false;
+
+       this.sleeping = true;
  
 
-       if(this.npcType === 'devRoom'){
+       if(this.npcType === 'devRoom1' || this.npcType === 'devRoom2'){
           this.anims.play('lunalystChairSleep');
        }else if(this.npcType === 'clearingTheWay'){
           this.anims.play('lunalystIdle');
@@ -55,8 +57,10 @@ class lunalyst extends npc{
   flagLogic(){
     
     //logic to decide what the npcs activated function is.
-    if(this.npcType === 'devRoom'){
-      this.devRoom();
+    if(this.npcType === 'devRoom1'){
+      this.devRoom1();
+    }else if(this.npcType === 'devRoom2'){
+      this.devRoom2();
     }else if(this.npcType === 'clearingTheWay'){
       this.ClearingTheWay();
     }else{
@@ -64,259 +68,103 @@ class lunalyst extends npc{
     }
   }
 
-  devRoom(){
+  devRoom1(){
+    console.log("this.sleeping: ",this.sleeping);
 
-    //check to see if flag already exists
-    let lunaDevDialogue1 = {
-      flagToFind: "lunaDevDialogue1",
-      foundFlag: false,
-    };
+    //if luna isnt sleeping
+    if(this.sleeping === true){
 
-    let lunaDevDialogue2 = {
-      flagToFind: "lunaDevDialogue2",
-      foundFlag: false,
-    };
-
-    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue1);
-
-    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue2);
-
-    //if the flag is not found then apply dialoge start
-    if(lunaDevDialogue1.foundFlag === false){
-
-      //sets the textbox voice for luna
-      this.scene.sceneTextBox.soundType = "lightVoice";
-
-      this.textToDisplay = 
-      '                         '+
-      '                         '+
-      '                         '+
-      'WHAT THE.....            '+
-      'HOW DID YOU GET IN HERE? '+
-      '                         '+
-      'YOU SHOULD, PROBABLY     '+
-      'TELL ME HOW GOT IN HERE. '+
-      '                         '+
-      'THIS PLACE IS A LITTLE   '+
-      'HARD TO REACH.           '+
-      '                         '+
-      'OH AND DONT WORRY, IM    '+
-      'NOT IM NOT OPPOSED TO    '+
-      'VISITERS THOUGH.         '+
-      'ANYWAY, I GOT TO GET     '+
-      'BACK TO MY RESEARCH.     '+
-      'EXITS BY THE HEATER.     ';
+      this.nodeHandler("lunalyst","Behavior1","lunaDevDialogue1Start");
       
+      if(this.currentDictNode !== null){
+        if(this.currentDictNode.nodeName === "node1"){
+          this.anims.play('lunalystChairSleep',true);
+        }else if(this.currentDictNode.nodeName === "node6"){
+          this.sleeping = false;
+        }else{
 
-      this.profileArray = ['lunaSleeping','lunaNeutral','lunaKO','lunaHappy','lunaFingerTouch','lunaStarEyes']
+          this.anims.play('lunalystChairIdle',true); 
+        }
+      }
 
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('lunalystChairSleep',true);
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
-        this.anims.play('lunalystChairIdle',true); 
-        //since dialogue is done update with a flag saying the player talked to luna.
-        //since the flag does not exist add it since the player has activated the first dialogue
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue1.flagToFind);
+    }else{
+
+      if(this.scene.playerSex === 0){
+        this.nodeHandler("lunalyst","Behavior1","lunaDevDialogueMale1");
+
       }else{
-        this.anims.play('lunalystChairIdle',true); 
+        this.nodeHandler("lunalyst","Behavior1","lunaDevDialogueFemale1");
       }
-
-    }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === false){
-
-      //sets the textbox voice for luna
-      this.scene.sceneTextBox.soundType = "lightVoice";
       
+      this.anims.play('lunalystChairIdle',true); 
+    }   
+  }
 
-      if(this.scene.playerSex === 1){
-        this.textToDisplay = 
-        'OH? STILL STICKING       '+
-        'AROUND?                  '+
-        '                         '+
+  devRoom2(){
 
-        'YOUR QUITE THE CUTE GIRL '+
-        'YOU SHOULD BE CAREFUL.   '+
-        '                         '+
+    //if luna isnt sleeping
+    if(this.sleeping === false){
 
-        'THE CURSED LOVE EATING   '+
-        'AND TRANSFORMING         '+
-        'HUMANS LIKE YOUR SELF.   '+
-
-        'I WAS HUMAN ONCE WHEN I  '+
-        'WASHED UP HERE.          '+
-        '                         '+
-
-        'ONE OF THE BATS GOT ME A '+
-        'WHILE BACK. BUT          '+
-        'THANKFULLY I MANAGED TO  '+
-
-        'GET LUCKY, AND NOT LOSE  '+
-        'MY MIND.                 '+
-        '                         '+
-
-        'MY APPEARANCE IS ALSO    '+
-        'SLIGHTLY DIFFERENT       '+
-        'FROM THEM.               '+
-
-        'WONDER WHY THAT IS.      '+
-        '                         '+
-        '                         ';
-        
-      }else{
-        this.textToDisplay = 
-        'OH? STILL STICKING       '+
-        'AROUND?                  '+
-        '                         '+
-
-        'YOUR QUITE THE CUTE BOY  '+
-        'YOU SHOULD BE CAREFUL.   '+
-        '                         '+
-
-        'THE CURSED LOVE EATING   '+
-        'AND TRANSFORMING         '+
-        'HUMANS LIKE YOUR SELF.   '+
-
-        'I WAS HUMAN ONCE WHEN I  '+
-        'WASHED UP HERE.          '+
-        '                         '+
-
-        'ONE OF THE BATS GOT ME A '+
-        'WHILE BACK. BUT          '+
-        'THANKFULLY I MANAGED TO  '+
-
-        'GET LUCKY, AND NOT LOSE  '+
-        'MY MIND.                 '+
-        '                         '+
-
-        'MY APPEARANCE IS ALSO    '+
-        'SLIGHTLY DIFFERENT       '+
-        'FROM THEM.               '+
-
-        'WONDER WHY THAT IS.      '+
-        '                         '+
-        '                         ';
-
-      }
-
-      this.profileArray = ['lunaNeutral','lunaFingerTouch','lunaNeutral','lunaNeutral','lunaFingerTouch','lunaStarEyes','lunaNeutral','lunaHappy']
-
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed);
-
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('lunalystChairIdle',true); 
-      }
-    }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === true && this.isSleeping === false){
-
-      //sets the textbox voice for luna
-      this.scene.sceneTextBox.soundType = "lightVoice";
-
-      this.textToDisplay = 
-      'OH? STILL STICKING       '+
-      'AROUND?                  '+
-      '                         '+
+      this.nodeHandler("lunalyst","Behavior1","lunaDevDialogue2");
+    
+      this.anims.play('lunalystChairIdle',true); 
       
-      'MAKE YOUR SELF           '+
-      'COMFORTABLE.             '+
-      '                          '+
+    
+      //otherwise do the sleeping logic.
+    }else{
 
-      'I HAVE BEEN TRYING TO    '+
-      'CLEAR A PATH TO LOCKWOOD '+
-      'IN MY SPARE TIME.        '+
+      this.nodeHandler("lunalyst","Behavior1","lunaDevDialogue2Start");
 
-      'ITS A NICE TOWN IN THE   '+
-      'TREES. MOST CURSED HAVE  '+
-      'TOUGH TIME REACHING IT.  '+
+      if(this.currentDictNode !== null){
+        if(this.currentDictNode.nodeName === "node2"){
+          this.anims.play('lunalystChairIdle',true); 
 
-      'EVEN THOUGH IM CURSED    '+
-      'OTHER WILD CURSED        '+
-      'STILL TRY TO EAT ME.     '+
-
-      'ITS ALMOST AS IF THEY    '+
-      'KNOW IM NOT ONE OF THEM. '+
-      '                         ';
-      
-
-      this.profileArray = ['lunaNeutral','lunaHappy','lunaKO','lunaHappy','lunaAngryEyes','lunaCry']
-
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('lunalystChairIdle',true); 
-      }
-    }else if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === true){
-
-      //sets the textbox voice for luna
-      this.scene.sceneTextBox.soundType = "lightVoice";
-
-      this.textToDisplay = 
-      '                         '+
-      '                         '+
-      '                         '+
-
-      'WHAT THE.....            '+
-      'OH NO YOUR BACK.         '+
-      '                         '+
-
-      'YOU SHOULD, PROBABLY     '+
-      'TELL ME HOW GOT IN HERE  '+
-      'AGIAN. IM WORRIED.       '+
-
-      'THIS PLACE SHOULD BE     '+
-      'HARD TO REACH, BUT MIGHT '+
-      'NOT BE CURRENTLY.        '+
-
-      'IF YOU CAN GET IN HERE   '+
-      'THE CURSED LIKELY CAN    '+
-      'AS WELL.                 '+
-
-      'ANYWAY, MAKE YOURSELF    '+
-      'CONFORTABLE IF YOU WISH. '+
-      'EXITS BY THE HEATER.     ';
-      
-
-      this.profileArray = ['lunaSleeping','lunaNeutral','lunaKO','lunaHappy','lunaFingerTouch','lunaStarEyes']
-
-      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
-      if(this.scene.sceneTextBox.amountWIsPressed === 0){
-        this.anims.play('lunalystChairSleep',true);
-      }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
-        this.anims.play('lunalystChairIdle',true); 
-        //since dialogue is done update with a flag saying the player talked to luna.
-        //since the flag does not exist add it since the player has activated the first dialogue
-        this.isSleeping = false;
-      }else{
-        this.anims.play('lunalystChairIdle',true); 
+        }if(this.currentDictNode.nodeName === "node6"){
+          this.sleeping = false;
+        }else{
+          
+        } 
       }
     }
-    
-  
+
   }
 
   ClearingTheWay(){
     
     //check to see if flag already exists
-    let lunaCTWDialogue1 = {
-      flagToFind: "lunaCTWDialogue1",
-      foundFlag: false,
-    };
-
-    let lunaCTWDialogue2 = {
-      flagToFind: "lunaCTWDialogue2",
-      foundFlag: false,
-    };
-
-    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue1);
-
-    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue2);
-    console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
+      let lunaCTWDialogue1 = {
+        flagToFind: "lunaCTWDialogue1",
+        foundFlag: false,
+      };
+  
+      let lunaCTWDialogue2 = {
+        flagToFind: "lunaCTWDialogue2",
+        foundFlag: false,
+      };
+  
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue1);
+  
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue2);
+      console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
 
     if(lunaCTWDialogue1.foundFlag === false){
 
       this.nodeHandler("lunalyst","Behavior2","lunaCTWDialogue1");
+      if(this.currentDictNode !== null){
+        if(this.currentDictNode.nodeName === "node1"){
 
-      //if(){
+          //pass the flag value and search to the textbox. flag is added after the text box is closed.
+          this.scene.sceneTextBox.storeFlag(lunaCTWDialogue1);
 
-      //}
+        }else if(this.currentDictNode.nodeName === "node4" && this.animationPlayed === false){
+          this.anims.play('lunalystSkirtPull',true).once('animationcomplete', () => {
+            this.anims.play('lunalystIdle');
 
+          });
+        }else{
+          this.anims.play('lunalystIdle',true); 
+        }
+      }
 
     }else if(lunaCTWDialogue1.foundFlag === true){
 

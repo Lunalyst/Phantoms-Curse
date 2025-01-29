@@ -37,6 +37,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
       //variable to catch dialogue so that we do not finish before we are supost to. useful for haulting dialogue for shop npcs as an example.
       this.dialogueCatch = false;
+
+      //variable to lock out the flag search during dialogue.
+      this.flagLockout = false;
       
       this.scene = scene;
   }

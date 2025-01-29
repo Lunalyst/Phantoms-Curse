@@ -391,6 +391,8 @@ class G7CheckGameObjects extends G6InitEnemys {
         //add flag if the player has managed to escape bound agian.
         if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === false){
           inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue2.flagToFind);
+        }else if(lunaDevDialogue1.foundFlag === false){
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue1.flagToFind);
         }
 
         this.PlayerOutOfBounds = true;

@@ -136,8 +136,32 @@ class devRoom1 extends defaultScene {
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
 
-        //spawn luna with his dialogue
-        this.initLunalyst(469,605,'devRoom');
+        //check to see if flag already exists
+        let lunaDevDialogue1 = {
+          flagToFind: "lunaDevDialogue1",
+          foundFlag: false,
+        };
+
+        let lunaDevDialogue2 = {
+          flagToFind: "lunaDevDialogue2",
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue1);
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue2);
+
+        console.log("lunaDevDialogue1.foundFlag: ",lunaDevDialogue1.foundFlag," lunaDevDialogue2: ",lunaDevDialogue2.foundFlag);
+
+
+        if(lunaDevDialogue2.foundFlag === true){
+
+          //spawn luna with his dialogue
+          this.initLunalyst(469,605,'devRoom2');
+        }else{
+          //spawn luna with his dialogue
+          this.initLunalyst(469,605,'devRoom1');
+        }
    
      
 

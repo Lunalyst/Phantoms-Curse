@@ -1002,7 +1002,7 @@ class gameHud extends A3SoundEffects {
               }
               }
 
-            //console.log("search for flag complete: ",object);
+          console.log("search for flag complete: ",object);
 
           });
 

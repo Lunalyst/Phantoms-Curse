@@ -65,6 +65,7 @@ class textBox extends Phaser.GameObjects.Container{
 
       //set when talking with a npc.
       this.npcRef = null;
+      this.flag = null;
     }
 
     //function to give textbox a refrence to the npc.
@@ -214,11 +215,15 @@ class textBox extends Phaser.GameObjects.Container{
           this.endPosition = 0;
           this.textBoxActivationCoolDown = true;
           this.progressionAmount = 0;
+
+          //attempt to add flag to player data if its set. 
+          this.addFlag();
           
           //since we just closed the text box set a short time out shorter then the dialogue array that resets the finished value in that npc.
           let tempNPC = this.npcRef;
             setTimeout(function(){
               tempNPC.finished = false;
+              
           },300);
             
           //reset sound type once dialogue is over.
@@ -235,6 +240,29 @@ class textBox extends Phaser.GameObjects.Container{
           },1000); 
         }
       }
+    }
+
+    //set flag to add. store flag to the value
+    storeFlag(flag){
+      this.flag = flag;
+    }
+
+    // function to add a flag to the player once the dialogue finishes.
+    addFlag(){
+
+      //call emitter to add flag to data
+      if(this.flag !== null){
+        console.log(" adding flag through textbox.");
+        console.log("this.flag.flagToFind: ",this.flag.flagToFind);
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag.flagToFind);
+
+         //then wipe flag value so it does not linger.
+        this.flag = null;
+      }else{
+        console.log(" attempted to add flag but flag was not set!");
+      }
+      
+     
     }
 
     //reset function 

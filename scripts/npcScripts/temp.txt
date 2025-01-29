@@ -1,45 +1,42 @@
- //sets the textbox voice for luna
+//sets the textbox voice for luna
       this.scene.sceneTextBox.soundType = "lightVoice";
 
       this.textToDisplay = 
-      'OH A HUMAN! HELLO!       '+
       '                         '+
       '                         '+
+      '                         '+
 
-      'MY NAME IS LUNALYST, AND '+
-      'IM SURE YOU CAN TELL IM  '+
-      'NOT QUITE HUMAN ANYMORE. '+
+      'WHAT THE.....            '+
+      'OH NO YOUR BACK.         '+
+      '                         '+
 
-      'HOWEVER IM NOT GONA TRY  '+
-      'AND EAT OR FORNICATE     '+
-      'WITH YOU, PROMISE.       '+
+      'YOU SHOULD, PROBABLY     '+
+      'TELL ME HOW GOT IN HERE  '+
+      'AGIAN. IM WORRIED.       '+
 
-      'IM JUST A HUMBLE MAID    '+
-      'TRYING TO GET BACK TO    '+
-      'LOCKWOOD VILLAGE.        '+
+      'THIS PLACE SHOULD BE     '+
+      'HARD TO REACH, BUT MIGHT '+
+      'NOT BE CURRENTLY.        '+
 
-      'LOTS OF CAVE INS         '+
-      'SO IM DOING MY BEST TO   '+
-      'CLEAR THE WAY.           '+
+      'IF YOU CAN GET IN HERE   '+
+      'THE CURSED LIKELY CAN    '+
+      'AS WELL.                 '+
 
-      'ANYWAY, I GOT TO GET     '+
-      'BACK TO IT.              '+
-      'STAY SAFE OUT THERE. ^_^ ';
+      'ANYWAY, MAKE YOURSELF    '+
+      'CONFORTABLE IF YOU WISH. '+
+      'EXITS BY THE HEATER.     ';
       
 
-      this.profileArray = ['lunaStarEyes','lunaHappy','lunaKO','lunaFingerTouch','lunaKO','lunaStarEyes']
+      this.profileArray = ['lunaSleeping','lunaNeutral','lunaKO','lunaHappy','lunaFingerTouch','lunaStarEyes']
 
-      if(this.scene.sceneTextBox.amountWIsPressed === 4){
-
-        this.anims.play('lunalystSkirtPull',true).once('animationcomplete', () => {
-          this.anims.play('lunalystIdle');
-
-        });
-
+      console.log('this.scene.sceneTextBox.amountWIsPressed: ',this.scene.sceneTextBox.amountWIsPressed)
+      if(this.scene.sceneTextBox.amountWIsPressed === 0){
+        this.anims.play('lunalystChairSleep',true);
       }else if(this.scene.sceneTextBox.amountWIsPressed === 6){
-
-        //add dialogue flag.
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaCTWDialogue1.flagToFind);
+        this.anims.play('lunalystChairIdle',true); 
+        //since dialogue is done update with a flag saying the player talked to luna.
+        //since the flag does not exist add it since the player has activated the first dialogue
+        this.isSleeping = false;
       }else{
-        this.anims.play('lunalystIdle',true); 
+        this.anims.play('lunalystChairIdle',true); 
       }

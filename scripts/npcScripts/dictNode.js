@@ -134,28 +134,21 @@ class dictNode {
 
         //if its a multiple of 3, then dont add any padding
         if(tempArray.length % 3 === 0){
-            console.log("array length is a multiple of 3 : ",tempArray.length);
     
         //if the tempArray is not a multiple of 3
         }else if(tempArray.length % 2 === 0){
-            console.log("array length is a multiple of 2 : ",tempArray.length);
-            tempArray.push("                         ");
-            console.log("array length should now be a multiple of 3 : ",tempArray.length);
-            
-        }else{
-            console.log("array length is a multiple of 1 : ",tempArray.length);
-            tempArray.push("                         ");
-            tempArray.push("                         ");
-            console.log("array length should now be a multiple of 3 : ",tempArray.length);
-        }
 
-        console.log("tempArray: ", tempArray);
+            tempArray.push("                         ");   
+        }else{
+            
+            tempArray.push("                         ");
+            tempArray.push("                         ");
+
+        }
 
         //adds up the array chunks.
         this.dialogue = tempArray[0] + tempArray[1] + tempArray[2];
-        console.log("tempArray[0](",tempArray[0],")");
-        console.log("this.dialogue(",this.dialogue,")");
-
+        
       //if the dialogue has more than three lines,
       if(tempArray.length > 3){
 
@@ -178,10 +171,6 @@ class dictNode {
 
         let nodeArray = [];
         let nodeArrayPosition = 0;
-
-        console.log("textArray:",textArray);
-        console.log("textArray:",textArray.length);
-        console.log("index: ",index)
 
         //loop through the text array
         for(let i = index; i < textArray.length;i++){
@@ -243,7 +232,7 @@ class dictNode {
 
             lines++;
         }
-        console.log("nodeArray: ",nodeArray);
+        
         return nodeArray[ nodeArrayPosition];
 
     }

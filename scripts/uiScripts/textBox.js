@@ -17,6 +17,10 @@ class textBox extends Phaser.GameObjects.Container{
 
       //makes base sprite to boarder the text
       this.outSide = scene.add.sprite(0, 0, 'textBox');
+      this.outSide.anims.create({key: 'blank',frames: this.outSide.anims.generateFrameNames('textBox', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+      this.outSide.anims.create({key: 'default',frames: this.outSide.anims.generateFrameNames('textBox', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+      this.outSide.anims.create({key: 'cursed',frames: this.outSide.anims.generateFrameNames('textBox', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
+
       this.add(this.outSide);
       this.blockVisiblity = false;
 
@@ -66,6 +70,13 @@ class textBox extends Phaser.GameObjects.Container{
       //set when talking with a npc.
       this.npcRef = null;
       this.flag = null;
+
+      this.textTint = null;
+    }
+
+    //function to change outside of text box.
+    setTextboxBackground(type){
+      this.outSide.anims.play(type,true);
     }
 
     //function to give textbox a refrence to the npc.
@@ -371,11 +382,19 @@ class textBox extends Phaser.GameObjects.Container{
               this.scene.initSoundEffect('buttonSFX','mediumPiano',0.05);
             }else if(this.soundType === "lightPiano"){
               this.scene.initSoundEffect('buttonSFX','lightPiano',0.05);
+            }else if(this.soundType === "digest"){
+              this.scene.initSoundEffect('stomachSFX','2',0.03);
             }
 
           }
+          if(this.textTint !== null){
+            this.lines[textPos].setTint(this.textTint);
+          }else{
+            this.lines[textPos].clearTint();
+          }
+          this.lines[textPos].settint
           this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase()).once('animationcomplete', () => {
-            this.displayHelper(counter+1,textPos+1,end,wPosition);
+          this.displayHelper(counter+1,textPos+1,end,wPosition);
           });
         
           //else we fill in the rest with spaces, dialogue over

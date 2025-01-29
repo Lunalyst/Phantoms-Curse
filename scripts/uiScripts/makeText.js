@@ -398,8 +398,6 @@ class makeText extends Phaser.GameObjects.Container{
       }
     }
 
-    
-
     //removes this object
     remove(timeDelay){
       //console.log('destroying text');

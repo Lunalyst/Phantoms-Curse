@@ -202,7 +202,7 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.sceneTextBox = new textBox(this,this.screenWidth/2,600,'charBlack');
+            this.sceneTextBox = new textBox(this,this.screenWidth/2,600,'charBubble');
             this.sceneTextBox.setScale(1.2);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -210,8 +210,10 @@ class titleScreen extends A3SoundEffects {
                 this,//scene
                 false,// is the text box visible?
                 [],// sets profile array
-                "Select your player Sex. this can be changed later if you desire."//text sent to the text box.
+                ""//text sent to the text box.
                 );
+            this.sceneTextBox.setTextboxBackground("blank");
+            this.sceneTextBox.textTint = 0x9d00e0;
             this.elements.add(this.sceneTextBox);
 
             //sets up the three save slots
@@ -249,16 +251,16 @@ class titleScreen extends A3SoundEffects {
             this.back = new back(this, 80, 850);
             this.elements.add(this.back);
 
-            this.maleIcon = new maleIcon(this,350, 500);
+            this.maleIcon = new maleIcon(this,this.screenWidth/2+75, 500);
             this.elements.add(this.maleIcon);
 
-            this.femaleIcon = new femaleIcon(this,550, 500);
+            this.femaleIcon = new femaleIcon(this,this.screenWidth/2-75, 500);
             this.elements.add(this.femaleIcon);
 
-            this.yes = new yes(this,550, 500);
+            this.yes = new yes(this,this.screenWidth/2+75, 500);
             this.elements.add(this.yes);
 
-            this.no = new no(this,350, 500);
+            this.no = new no(this,this.screenWidth/2-75, 500);
             this.elements.add(this.no);
 
             //sets up mouse detection

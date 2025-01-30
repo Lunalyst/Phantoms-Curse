@@ -142,13 +142,6 @@ class istara extends npc{
         }
   }
 
-  default(){
-    this.textToDisplay = 
-      'SOMETHING HAS GONE       '+
-      'WRONG!                   '+
-      '                         ';
-  }
-
   inCave(){
 
     //check to see if flag already exists
@@ -616,7 +609,6 @@ class istara extends npc{
   }
 
   DreamView(){
-
     //sets up initial dialogue
     console.log("this.scene.sceneTextBox.amountWIsPressed: ",this.scene.sceneTextBox.amountWIsPressed,"this.inDialogue: ",this.inDialogue,"this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
     if(this.scene.sceneTextBox.amountWIsPressed === 0){

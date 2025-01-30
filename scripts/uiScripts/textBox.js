@@ -20,7 +20,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.outSide.anims.create({key: 'blank',frames: this.outSide.anims.generateFrameNames('textBox', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
       this.outSide.anims.create({key: 'default',frames: this.outSide.anims.generateFrameNames('textBox', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
       this.outSide.anims.create({key: 'cursed',frames: this.outSide.anims.generateFrameNames('textBox', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
-
+      this.outSide.play("default",true);
       this.add(this.outSide);
       this.blockVisiblity = false;
 

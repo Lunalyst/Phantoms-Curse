@@ -33,9 +33,11 @@ class dictParser{
         this.dict["node1"] = this.dictInc;
         this.dictInc++;
 
+        
         //call format function of node which will return either this node, or a child it generated to fit dialogue.
         let potentialExtensionNode = this.root.formatDialogue();
-
+        console.log("this.root: ",this.root);
+        console.log("potentialExtensionNode: ",potentialExtensionNode);
         //add the potential extension node to the dictionary key, but only if its name doesnt match the original node1,s name.
         if(potentialExtensionNode.nodeName !== "node1"){
             this.dict[potentialExtensionNode.nodeName] = this.dictInc;

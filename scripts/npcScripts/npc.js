@@ -230,7 +230,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     }
   }
 
-  //
+  //handles the node progression 
   nodeHandler(npc,behavior,flag){
 
     //check if the dialogue node is set.
@@ -243,7 +243,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.setUpDialogueDict(npc,behavior,flag);
 
       //have the player idle while talking.
-      this.scene.player1.playerIdleAnimation();
+      if(this.scene.player1 !== null && this.scene.player1 !== undefined){
+        this.scene.player1.playerIdleAnimation();
+      }
 
     //if the node has been set that use the main progression function
     }else if(this.scene.sceneTextBox.textInterupt === false &&// while the text box is not paused.

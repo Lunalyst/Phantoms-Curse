@@ -95,6 +95,31 @@ class gameOver extends A3SoundEffects {
         create(){
 
             //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
+            this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+            //define a key and make it interactive
+            this.mobileW = new mobileButton(this,330,640).setInteractive(this.input.makePixelPerfect());
+            this.mobileW.playWKey(0);
+            this.mobileW.setScale(1/3);
+
+            //pointer events when button is pressed to activate set pressed to true in the key object
+            this.mobileW.on('pointerdown', function (pointer) {
+                this.mobileW.IsPressed = true;
+                this.mobileW.isJustDown = true;
+                this.mobileW.playWKey(1);
+            },this);
+            
+            //pointer even so that when the button is not being pressed, set value to false.
+            this.mobileW.on('pointerup',function(pointer){
+                this.mobileW.IsPressed = false;
+                this.mobileW.isJustDown = false;
+                this.mobileW.playWKey(0);
+            },this);
+
+            this.mobileW.on('pointerout',function(pointer){
+                this.mobileW.IsPressed = false;
+                this.mobileW.isJustDown = false;
+                this.mobileW.playWKey(0);
+            },this);
 
             //load gameoverFile data to this scene
             this.loadGameoverFile();
@@ -148,6 +173,10 @@ class gameOver extends A3SoundEffects {
             this.sceneTextBox.setScale(1/3);
             this.sceneTextBox.setTextboxBackground("cursed");
             this.sceneTextBox.textTint = 0x9d00e0;
+
+            //npc to progress dialogue
+            this.npcGameover = new npc(this, 0, 0, 'hitbox');
+           
             
              
             console.log("loading gameover tileset: ", this.gameoverLocation);
@@ -224,50 +253,51 @@ class gameOver extends A3SoundEffects {
 
             console.log("map:",this.processMap);
 
+            this.sceneTextBox.activateTitleScreenTextbox(
+                this,//scene
+                true,// is the text box visible?
+                [],// sets profile array
+                ""//text sent to the text box.
+                );
+
+            this.dialogueFlag = "default";
+
             //uses the eneny string to determine what animation should be played.
             if(this.enemyThatDefeatedPlayer === "blueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "largeBlueSlime"){
                 this.enemy = new blueSlime(this,450, 560,this.playerSex);
                 this.enemy.slimeSize = 2;
                 this.enemy.largeSlimeGameOver();
                 this.enemy.y-500;
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "femaleTiger"){
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.enemy.y-500;
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "femaleTigerBooba"){
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver(1);
                 this.enemy.y-500;
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "maleRabbit"){
                 this.preferance = 0;
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "femaleRabbit"){
                 this.preferance = 1;
                 this.enemy = new rabbit(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "maleBeeDrone"){
                 this.preferance = 0;
                 this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
 
                 this.stopFlapping = false;
                 let scene = this;
@@ -279,7 +309,6 @@ class gameOver extends A3SoundEffects {
                 this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver(this.playerSex);
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
 
                 this.stopFlapping = false;
                 let scene = this;
@@ -291,92 +320,71 @@ class gameOver extends A3SoundEffects {
                 this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "femaleBat"){
                 this.preferance = 1;
                 this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "blueSlimeHS"){
                 this.enemy = new blueSlimeHS(this,450, 580,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "blueSlimeFemaleHM"){
                 this.preferance = 1;
                 this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "blueSlimeMaleHM"){
                 this.preferance = 0;
                 this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
                 this.enemy.slimeGameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "femaleChestMimic"){
                 this.preferance = 1;
                 this.enemy = new chestMimic(this,450, 570,this.playerSex);
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "femaleChestMimicVore"){
                 this.preferance = 1;
                 this.enemy = new chestMimic(this,450, 570,this.playerSex);
                 this.enemy.angry = true;
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "maleChestMimic"){
                 this.preferance = 0;
                 this.enemy = new chestMimic(this,450, 570,this.playerSex);
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
                 this.preferance = 0;
                 this.enemy = new chestMimic(this,450, 570,this.playerSex);
                 this.enemy.angry = true;
                 this.enemy.gameOver();
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
                 this.preferance = 0;
                 this.enemy = new istara(this,450, 549,"inCave");
                 this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver();
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleTF"){
                 this.preferance = 1;
                 this.enemy = new whiteCat(this,450, 570,this.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver(0);
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
             }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleVore"){
                 this.preferance = 1;
                 this.enemy = new whiteCat(this,450, 570,this.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver(1);
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleTF"){
                 this.preferance = 0;
                 this.enemy = new whiteCat(this,450, 570,this.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver(0);
                 this.defeatedTitle = 'cursed';
-                this.sceneTextBox.textTint = 0x9d00e0;
                 
             }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleVore"){
                 this.preferance = 0;
@@ -384,20 +392,29 @@ class gameOver extends A3SoundEffects {
                 //this.enemy.setPipeline('Light2D');
                 this.enemy.gameOver(1);
                 this.defeatedTitle = 'eaten';
-                this.sceneTextBox.textTint = 0x9d0000;
-                this.sceneTextBox.soundType = "digest";
             }
-
-            this.sceneTextBox.activateTitleScreenTextbox(
-                this,//scene
-                true,// is the text box visible?
-                [],// sets profile array
-                "testing testing. this is a test. hopefully this is the best?"//text sent to the text box.
-                );
             
+            if(this.defeatedTitle === 'eaten'){
+                this.sceneTextBox.soundType = "digest";
+                this.sceneTextBox.textTint = 0x9d0000;
+            }else{
+                this.sceneTextBox.soundType = "lightPiano";
+                this.sceneTextBox.textTint = 0x9d00e0;
+            }
+ 
+            if(npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === null || npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === undefined){
+                this.dialogueFlag = "default";
+            }else{
+                this.dialogueFlag = this.enemyThatDefeatedPlayer;
+            }
             
+            //actiaves dialogue node with above specifications
+            this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+            
+  
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
+            this.physics.add.collider(this.processMap.layer1, this.npcGameover);
 
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
@@ -521,6 +538,22 @@ class gameOver extends A3SoundEffects {
         }
 
         update(){
+
+            if(Phaser.Input.Keyboard.JustDown(this.keyW)){
+                this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+              }else{
+          
+                if(this.mobileW.isJustDown === true){
+
+                    this.mobileW.isJustDown = false;
+                    this.mobileW.IsPressed = false;
+
+                    this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+      
+                  }
+          
+              } 
+
 
             //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
 

@@ -38,7 +38,6 @@ class lunalyst extends npc{
 
        this.trading = false;
        this.activatedTradeUI = false;
-       this.hugging = false; 
 
        this.formattingText = false;
 
@@ -212,8 +211,6 @@ class lunalyst extends npc{
             //progress to node branch with state name node5
             this.progressNode("node5");
 
-            this.hugging = true;
-
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
@@ -244,7 +241,6 @@ class lunalyst extends npc{
 
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = false;
-
 
             //progress to node branch with state name node10
             this.progressNode("node10");

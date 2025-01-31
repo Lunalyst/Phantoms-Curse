@@ -4,51 +4,323 @@ const npcDialogue = {
                 "istaraCaveDialogue1":{
                     "node1":{
                         "dialogue": "OH? ",
-                        "profile":"lunaSleeping",
+                        "profile":"istaraNeutral",
                         "textvoice":"mediumVoice",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "LUCKY ME, IT SEEMS I HAVE A UNINVITED GUEST TO MY LAIR.",
-                        "profile":"lunaSleeping",
+                        "profile":"istaraStarEyes",
                         "textvoice":"mediumVoice",
                         "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "FEEL FREE TO STAY A WHILE, ITS NICE TO HAVE SOME COMPANY.  ",
-                        "profile":"lunaSleeping",
+                        "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node4"]
                     },
                     "node4":{
                         "dialogue": "I HOPE YOU DONT FIND ME TOO INTIMIDATING.",
-                        "profile":"lunaSleeping",
+                        "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node5"]
                     },
                     "node5":{
                         "dialogue": "SHAME MY LAIR IS QUITE SPARSE. IM IN THE PROCESS OF MOVING IN.  ",
-                        "profile":"lunaSleeping",
+                        "profile":"istaraKO",
                         "textvoice":"mediumVoice",
                         "children":[]
                     },
 
-                },"istaraCaveDialogue2":{
+                },
+                "istaraCaveDialogue2":{
                     "node1":{
-                        "dialogue": "",
-                        "profile":"lunaSleeping",
-                        "textvoice":"lightVoice",
+                        "dialogue": "OH? ",
+                        "profile":"istaraNeutral",
+                        "textvoice":"mediumVoice",
                         "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "IM GLAD YOUR STICKING AROUND. ITS NICE TO HAVE SOME COMPANY. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "IM IN THE PROCESS OF MOVING WHICH IS A PAIN.",
+                        "profile":"istaraKO",
+                        "textvoice":"mediumVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "I REALLY WISH I HAD SOME LOYAL COBRABOLDS TO HELP ME GET SETTLED.",
+                        "profile":"istaraNeutral",
+                        "textvoice":"mediumVoice",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "SADDLY I HAVENT HAD TIME TO GO ON A HUNT FOR FERAL CURSED. ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "I CAN CURSE THEM SO THAT THEY BECOME MY SWEET LOYAL COBRABOLDS.   ",
+                        "profile":"istaraNeutral",
+                        "textvoice":"mediumVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "HMMM. YOURE NOT CURSED. WOULD YOU LIKE TO BECOME ONE OF MY COBRABOLDS? ",
+                        "profile":"istaraStarEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "EVEN THOUGH YOU WILL SERVE ME, I PROMISE THAT I WILL KEEP YOU SAFE. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "MY COBRABOLDS ARE VERY PRECIOUS TO ME. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "I PROMISE YOU WILL BE WELL TAKEN CARE OF.  ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[ "node11","node27"]
+                    },
+                    "node11":{
+                        "dialogue": "EEEEEEE! ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "IM SO HAPPY TO HEAR THAT YOU SHOULD GET UNDRESSED. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[ "node13"]
+                    },
+                    "node13":{
+                        "dialogue": "YOURE THE PERFECT SIZE TO FIT CONFORTABLY IN MY WOMB.",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "JUST RELAX AND SLIDE INTO YOUR NEW MISTRESSES BELLY. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "ITLL WORK ITS MAGIC AND YOU WILL BE A CUTE COBRABOLD IN NO TIME. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "AWWW YOUR SO CUTE DOWN THERE. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "JUST RELAX, ILL PUSH YOU YOU INTO ME.",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node18"]
+                    },
+                    "node18":{
+                        "dialogue": "HUFFFF SO FULL... ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node19"]
+                    },
+                    "node19":{
+                        "dialogue": "OHHHHHHH...... HUFF... I WAS A BIT TIGHTER THAN I THOUGHT. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node20"]
+                    },
+                    "node20":{
+                        "dialogue": "HUFFFFFF....",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node21"]
+                    },
+                    "node21":{
+                        "dialogue": "AAAHHHHH..... I FEEL YOU SETTLING INTO MY WOMB. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node22"]
+                    },
+                    "node22":{
+                        "dialogue": "YOU LOOK SO CUTE ON ME I MIGHT JUST KEEP YOU IN THERE A WHILE....",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node23"]
+                    },
+                    "node23":{
+                        "dialogue": "THATS IT GIVE YOURSELF UP TO YOUR NEW MISTRESS I CAN FEEL YOU CHANGING. ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node24"]
+                    },
+                    "node24":{
+                        "dialogue": "HUFFFFFF.... ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node25"]
+                    },
+                    "node25":{
+                        "dialogue": "OHHHHHHH...... ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node26"]
+                    },
+                    "node26":{
+                        "dialogue": "ILL KEEP YOU SAFE MY PRECIOUS CHILD. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[]
+                    },
+                    "node27":{
+                        "dialogue": "SUCH A SHAME...  ",
+                        "profile":"istaraAnnoyed",
+                        "textvoice":"mediumVoice",
+                        "children":["node28"]
+                    },
+                    "node28":{
+                        "dialogue": "ILL BE HERE IF YOU CHANGE YOUR MIND.... ",
+                        "profile":"istaraSad",
+                        "textvoice":"mediumVoice",
+                        "children":[]
                     },
                 }
             },
             "Behavior2":{
+                
                 "dreamView":{
                     "node1":{
-                        "dialogue": "",
-                        "profile":"lunaSleeping",
-                        "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "dialogue": "HMMM. YOURE NOT CURSED. WOULD YOU LIKE TO BECOME ONE OF MY COBRABOLDS? ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[ "node11","node27"]
+                    },
+                    "node11":{
+                        "dialogue": "EEEEEEE! ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "IM SO HAPPY TO HEAR THAT YOU SHOULD GET UNDRESSED. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[ "node13"]
+                    },
+                    "node13":{
+                        "dialogue": "YOURE THE PERFECT SIZE TO FIT CONFORTABLY IN MY WOMB.",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "JUST RELAX AND SLIDE INTO YOUR NEW MISTRESSES BELLY. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "ITLL WORK ITS MAGIC AND YOU WILL BE A CUTE COBRABOLD IN NO TIME. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "AWWW YOUR SO CUTE DOWN THERE. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "JUST RELAX, ILL PUSH YOU YOU INTO ME.",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node18"]
+                    },
+                    "node18":{
+                        "dialogue": "HUFFFF SO FULL... ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node19"]
+                    },
+                    "node19":{
+                        "dialogue": "OHHHHHHH...... HUFF... I WAS A BIT TIGHTER THAN I THOUGHT. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node20"]
+                    },
+                    "node20":{
+                        "dialogue": "HUFFFFFF....",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node21"]
+                    },
+                    "node21":{
+                        "dialogue": "AAAHHHHH..... I FEEL YOU SETTLING INTO MY WOMB. ",
+                        "profile":"istaraHeartEyes",
+                        "textvoice":"mediumVoice",
+                        "children":["node22"]
+                    },
+                    "node22":{
+                        "dialogue": "YOU LOOK SO CUTE ON ME I MIGHT JUST KEEP YOU IN THERE A WHILE....",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node23"]
+                    },
+                    "node23":{
+                        "dialogue": "THATS IT GIVE YOURSELF UP TO YOUR NEW MISTRESS I CAN FEEL YOU CHANGING. ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node24"]
+                    },
+                    "node24":{
+                        "dialogue": "HUFFFFFF.... ",
+                        "profile":"istaraSquish",
+                        "textvoice":"mediumVoice",
+                        "children":["node25"]
+                    },
+                    "node25":{
+                        "dialogue": "OHHHHHHH...... ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":["node26"]
+                    },
+                    "node26":{
+                        "dialogue": "ILL KEEP YOU SAFE MY PRECIOUS CHILD. ",
+                        "profile":"istaraHappy",
+                        "textvoice":"mediumVoice",
+                        "children":[]
+                    },
+                    "node27":{
+                        "dialogue": "SUCH A SHAME...  ",
+                        "profile":"istaraAnnoyed",
+                        "textvoice":"mediumVoice",
+                        "children":["node28"]
+                    },
+                    "node28":{
+                        "dialogue": "ILL BE HERE IF YOU CHANGE YOUR MIND.... ",
+                        "profile":"istaraSad",
+                        "textvoice":"mediumVoice",
+                        "children":[]
                     },
                 }
             }

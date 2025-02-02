@@ -41,6 +41,9 @@ class player extends Phaser.GameObjects.Container{
     //then we add new instance into the scene. 
     scene.add.existing(this);
 
+    //save sex value in the player object
+    this.sex = sex;
+
     //add the ten layers that make up the sprite
     this.backLeg1 = scene.add.sprite(0, 0, '1-evan-back-leg');
     this.add(this.backLeg1);
@@ -59,17 +62,21 @@ class player extends Phaser.GameObjects.Container{
     this.add(this.backArmCloths4);
     this.backArmCloths4.setScale(1/3);
 
-
     //the main player body layer is the layer with physics which has velocity, hitbox and gravity.
-    this.mainBodySprite5 = scene.add.sprite(0, 0, '5-evan-main-body');
-    this.add(this.mainBodySprite5);
-    this.mainBodySprite5.setScale(1/3);
-
     this.mainHitbox = scene.physics.add.sprite(xPos, yPos, 'hitbox');
     //then we call this next line to give it collision
     scene.physics.add.existing(this.mainHitbox);
 
-    this.mainBodyCloths6 = scene.add.sprite(0, 0, '6-evan-main-body-cloths');
+    if(sex === 0){
+      this.mainBodySprite5 = scene.add.sprite(0, 0, '5-evan-main-body');
+      this.mainBodyCloths6 = scene.add.sprite(0, 0, '6-evan-main-body-cloths');
+    }else{
+      this.mainBodySprite5 = scene.add.sprite(0, 0, '5-evelyn-main-body');
+      this.mainBodyCloths6 = scene.add.sprite(0, 0, '6-evelyn-main-body-cloths');
+    }
+
+    this.add(this.mainBodySprite5);
+    this.mainBodySprite5.setScale(1/3);
     this.add(this.mainBodyCloths6);
     this.mainBodyCloths6.setScale(1/3);
 
@@ -80,6 +87,17 @@ class player extends Phaser.GameObjects.Container{
     this.frontArmCloths8 = scene.add.sprite(0, 0, '8-evan-front-arm-cloths');
     this.add(this.frontArmCloths8);
     this.frontArmCloths8.setScale(1/3);
+
+    //if the player is female, add booba layers.
+    if(sex === 1){
+      this.booba8 = scene.add.sprite(0, 0, '8-1-evelyn-booba');
+      this.add(this.booba8);
+      this.booba8.setScale(1/3);
+
+      this.boobaCloths8 = scene.add.sprite(0, 0, '8-2-evelyn-booba-cloths');
+      this.add(this.boobaCloths8);
+      this.boobaCloths8.setScale(1/3);
+    }
 
     this.weaponLayer9 = scene.add.sprite(0, 0, '9-weapon-layer');
     this.add(this.weaponLayer9);
@@ -106,8 +124,6 @@ class player extends Phaser.GameObjects.Container{
     this.animationInAir = false;
     //sets player gravity in the scene
     this.mainHitbox.body.setGravityY(600); 
-    //player not pushable. may cause a problem if i want a enemy that throws player
-    //this.mainHitbox.setPushable(false);
     //object is on view layer 6
     this.setDepth(6);
     // hitbox cooldown.
@@ -131,8 +147,6 @@ class player extends Phaser.GameObjects.Container{
     this.spaceWasPressed = false;
     this.jumped = false;
 
-    //shrinks the sprite by 1/3 since the sprites are 3 times as big to improve resolution.
-    //this.setScale(1/3);
 
     //is used to increase players speed via items or skills.
     this.speedBoost = 1;
@@ -146,13 +160,11 @@ class player extends Phaser.GameObjects.Container{
     if(scene.lightingSystemActive === true){ 
 
       this.lightSource = scene.lights.addLight(this.x, this.y, 0,0x000000, 1);
-      //this.lightSource.setColor(0xDE591C);
       this.lightSource.setColor(0xfffff0);
 
       this.lanturnFlicker = null;
       this.fuelActivated = false;
     }
-
     /*
       playeridle: frames: 6 layer: 8 7 6 5 4 3
       playerWalk: frames: 15 layer: 1 2 3 4 5 6 7 8
@@ -165,13 +177,9 @@ class player extends Phaser.GameObjects.Container{
 
     this.clothed = false;
 
-    if(sex === 0){
-
       //composit idle animation 
       this.backArm3.anims.create({key: 'back-arm-idle',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
       this.backArmCloths4.anims.create({key: 'back-arm-cloths-idle',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
       this.frontArm7.anims.create({key: 'front-arm-idle',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-idle',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
 
@@ -180,26 +188,18 @@ class player extends Phaser.GameObjects.Container{
       this.backLegCloths2.anims.create({key: 'back-leg-cloths-walk',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 0, end: 7 }),frameRate: 15,repeat: -1});
       this.backArm3.anims.create({key: 'back-arm-walk',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
       this.backArmCloths4.anims.create({key: 'back-arm-cloths-walk',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
       this.frontArm7.anims.create({key: 'front-arm-walk',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 8, end: 15}),frameRate: 15,repeat: -1});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-walk',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
       
       //jump up animation
-      this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpUp',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
       this.frontArm7.anims.create({key: 'front-arm-jumpUp',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 16, end: 18}),frameRate: 10,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-jumpUp',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
 
       //down animation
-      this.mainBodySprite5.anims.create({key: 'main-body-jumpDown',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpDown',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
       this.frontArm7.anims.create({key: 'front-arm-jumpDown',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 19, end: 20}),frameRate: 10,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-jumpDown',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
 
       //sleep animation
-      this.mainBodySprite5.anims.create({key: 'main-body-sleep',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 22, end: 30 }),frameRate: 3,repeat: -1});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-sleep',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 22, end: 30  }),frameRate: 3,repeat: -1});
       this.frontArm7.anims.create({key: 'front-arm-sleep',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 22, end: 30 }),frameRate: 3,repeat: -1});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-sleep',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 22, end: 30 }),frameRate: 3,repeat: -1});
 
@@ -208,8 +208,6 @@ class player extends Phaser.GameObjects.Container{
       this.backLegCloths2.anims.create({key: 'back-leg-cloths-swipe-12fps',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 8, end: 13 }),frameRate: 12,repeat: 0});
       this.backArm3.anims.create({key: 'back-arm-swipe-12fps',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 22, end: 27 }),frameRate: 12,repeat: 0});
       this.backArmCloths4.anims.create({key: 'back-arm-cloths-swipe-12fps',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'main-body-swipe-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
       this.frontArm7.anims.create({key: 'front-arm-swipe-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 31, end: 37 }),frameRate: 12,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 37 }),frameRate: 12,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-swipe-12fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 5 }),frameRate: 12,repeat: -1});
@@ -219,24 +217,18 @@ class player extends Phaser.GameObjects.Container{
       this.backLegCloths2.anims.create({key: 'back-leg-cloths-swipe-9fps',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 8, end: 13 }),frameRate: 9,repeat: 0});
       this.backArm3.anims.create({key: 'back-arm-swipe-9fps',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 22, end: 27 }),frameRate: 9,repeat: 0});
       this.backArmCloths4.anims.create({key: 'back-arm-cloths-swipe-9fps',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 16, end: 21 }),frameRate: 9,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'main-body-swipe-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 37 }),frameRate: 9,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 37 }),frameRate: 9,repeat: 0});
-      this.frontArm7.anims.create({key: 'front-arm-swipe-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 31, end: 37 }),frameRate: 9,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 37 }),frameRate: 9,repeat: 0});
+      this.frontArm7.anims.create({key: 'front-arm-swipe-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 31, end: 36 }),frameRate: 9,repeat: 0});
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 36 }),frameRate: 9,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-swipe-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 5 }),frameRate: 9,repeat: -1});
 
       //weapon swipe animation used for unarmed, knife and axe
-      this.mainBodySprite5.anims.create({key: 'main-body-bonk-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 43, end: 48 }),frameRate: 9,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-bonk-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 43, end: 48 }),frameRate: 9,repeat: 0});
-      this.frontArm7.anims.create({key: 'front-arm-bonk-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 43, end: 48 }),frameRate: 9,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-bonk-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 43, end: 48 }),frameRate: 9,repeat: 0});
+      this.frontArm7.anims.create({key: 'front-arm-bonk-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-bonk-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 37, end: 42 }),frameRate: 9,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-bonk-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 6, end: 11 }),frameRate: 9,repeat: -1});
 
       //weapon swipe animation used for unarmed, knife and axe
-      this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 49, end: 54 }),frameRate: 12,repeat: 0});
-      this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 49, end: 54 }),frameRate: 12,repeat: 0});
-      this.frontArm7.anims.create({key: 'front-arm-poke-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 49, end: 54 }),frameRate: 12,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-poke-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 49, end: 54 }),frameRate: 12,repeat: 0});
+      this.frontArm7.anims.create({key: 'front-arm-poke-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-poke-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 43, end: 48}),frameRate: 12,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-poke-12fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 12, end: 17 }),frameRate: 12,repeat: -1});
 
 
@@ -261,34 +253,132 @@ class player extends Phaser.GameObjects.Container{
 
       //rapier
       this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
-
-      //stuck animations
-      this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
     
+      if(sex === 0){
+        //this.booba8
+        //idle male specific frames
+        this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        
+        //walk frames
+        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        
+        //jump frames
+        this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpUp',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
 
 
-    }else{
+        //jump down
+        this.mainBodySprite5.anims.create({key: 'main-body-jumpDown',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpDown',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
 
-      //stuck animations
-      this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-      this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-      this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
+        //sleep
+        this.mainBodySprite5.anims.create({key: 'main-body-sleep',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-sleep',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 21, end: 30  }),frameRate: 3,repeat: -1});
+
+        //weapon swipe start
+        this.mainBodySprite5.anims.create({key: 'main-body-swipe-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
+        
+        //weapon swipe end 
+        this.mainBodySprite5.anims.create({key: 'main-body-swipe-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
+        
+        //weapon bonk 
+        this.mainBodySprite5.anims.create({key: 'main-body-bonk-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-bonk-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
+        
+        //weapon poke
+        this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
+        
+
+        //stuck animations
+        this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
+      
+      }else{
+
+        //idle male specific frames
+        this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
+      
+        //idle male specific frames
+        this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.booba8.anims.create({key: 'booba-idle',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-idle',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
+        
+        //walk frames
+        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        
+        //jump frames
+        this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpUp',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
+        
+        //jump down
+        this.mainBodySprite5.anims.create({key: 'main-body-jumpDown',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpDown',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
+
+        //sleep
+        this.mainBodySprite5.anims.create({key: 'main-body-sleep',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-sleep',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 21, end: 30  }),frameRate: 3,repeat: -1});
+        this.booba8.anims.create({key: 'booba-sleep',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 8, end: 17  }),frameRate: 3,repeat: -1});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-sleep',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 8, end: 17  }),frameRate: 3,repeat: -1});
+        
+        //weapon swipe start
+        this.mainBodySprite5.anims.create({key: 'main-body-swipe-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
+        this.booba8.anims.create({key: 'booba-sleep-swipe-12fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 19, end: 23  }),frameRate: 12,repeat: 0});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-sleep-swipe-12fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 19, end: 23  }),frameRate: 12,repeat: 0});
+        
+        //weapon swipe end 
+        this.mainBodySprite5.anims.create({key: 'main-body-swipe-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
+        this.booba8.anims.create({key: 'booba-sleep-swipe-9fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 19, end: 23  }),frameRate: 9,repeat: 0});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-sleep-swipe-9fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 19, end: 23  }),frameRate: 9,repeat: 0});
+        
+        //weapon bonk 
+        this.mainBodySprite5.anims.create({key: 'main-body-bonk-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-bonk-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
+        
+        //weapon poke
+        this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
+        this.booba8.anims.create({key: 'booba-sleep-poke-12fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-sleep-poke-12fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
+        
+        //shift some layers down by two pixels to align with the female sprite.
+        this.backArm3.y = 2;
+        this.backArmCloths4.anims.y = 2;
+        this.frontArm7.y = 2;
+        this.frontArmCloths8.y = 2;
+        this.weaponLayer9.y = 2;
+        this.weaponHand10.y = 2;
+
+        //stuck animations
+        this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
+
+      }
 
     }
     
-    
-    
-  }
+
   //sets up lighting for each layer
   setLighting(){
     this.backLeg1.setPipeline('Light2D');
@@ -899,6 +989,11 @@ class player extends Phaser.GameObjects.Container{
     this.frontArmCloths8.anims.pause();
     this.weaponLayer9.anims.pause();
     this.weaponHand10.anims.pause();
+
+    if(this.sex === 1){
+      this.booba8.anims.pause();
+      this.boobaCloths8.anims.pause();
+    }
   }
 
   //function to resume all of our layers.
@@ -913,6 +1008,11 @@ class player extends Phaser.GameObjects.Container{
     this.frontArmCloths8.anims.resume();
     this.weaponLayer9.anims.resume();
     this.weaponHand10.anims.resume();
+
+    if(this.sex === 1){
+      this.booba8.anims.resume();
+      this.boobaCloths8.anims.resume();
+    }
   }
 
 
@@ -931,14 +1031,25 @@ class player extends Phaser.GameObjects.Container{
     this.weaponLayer9.flipX = flip;
     this.weaponHand10.flipX = flip;
 
-
+    if(this.sex === 1){
+      this.booba8.flipX = flip;
+      this.boobaCloths8.flipX = flip;
+    }
   }
 
   //moves the weapon layer  x times
   moveUpXTimes(moves){
-    for(let i = 0; i < moves;i++){
-      this.moveUp(this.weaponLayer9);
+
+    if(this.sex === 1){
+      for(let i = 0; i < moves+2;i++){
+        this.moveUp(this.weaponLayer9);
+      }
+    }else{
+      for(let i = 0; i < moves;i++){
+        this.moveUp(this.weaponLayer9);
+      }
     }
+    
   }
 
 
@@ -952,6 +1063,9 @@ class player extends Phaser.GameObjects.Container{
     this.frontArm7.visible = true;
     this.weaponLayer9.visible = false;
     this.weaponHand10.visible = false;
+    if(this.sex === 1){
+      this.booba8.visible = true;
+    }
     
     //if player should be clothed then make those layers visible.
     if(this.clothed === true){
@@ -959,11 +1073,17 @@ class player extends Phaser.GameObjects.Container{
       this.backArmCloths4.visible = true;
       this.mainBodyCloths6.visible = true;
       this.frontArmCloths8.visible = true;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = true;
+      }
     }else{
       this.backLegCloths2.visible = false;
       this.backArmCloths4.visible = false;
       this.mainBodyCloths6.visible = false;
       this.frontArmCloths8.visible = false;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = false;
+      }
     }
 
     //play repeating animations.
@@ -979,6 +1099,12 @@ class player extends Phaser.GameObjects.Container{
     this.frontArmCloths8.anims.play('front-arm-cloths-idle',true);
     this.weaponLayer9.anims.stop();
     this.weaponHand10.anims.stop();
+
+    if(this.sex === 1){
+      this.booba8.anims.play('booba-idle',true);
+      this.boobaCloths8.anims.play('booba-cloths-idle',true);
+    }
+
   }
 
   playerWalkAnimation(){

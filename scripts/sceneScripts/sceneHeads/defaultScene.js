@@ -24,6 +24,12 @@ class defaultScene extends G10UpdateLoops {
       this.load.spritesheet("6-evan-main-body-cloths" , "assets/player/6-evan-main-body-cloths.png" , {frameWidth: 393 , frameHeight: 243});
       this.load.spritesheet("7-evan-front-arm" , "assets/player/7-evan-front-arm.png" , {frameWidth: 393 , frameHeight: 243});
       this.load.spritesheet("8-evan-front-arm-cloths" , "assets/player/8-evan-front-arm-cloths.png" , {frameWidth: 393 , frameHeight: 243});
+
+      this.load.spritesheet("5-evelyn-main-body" , "assets/player/5-evelyn-main-body.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("6-evelyn-main-body-cloths" , "assets/player/6-evelyn-main-body-cloths.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("8-1-evelyn-booba" , "assets/player/8-1-evelyn-booba.png" , {frameWidth: 393 , frameHeight: 243});
+      this.load.spritesheet("8-2-evelyn-booba-cloths" , "assets/player/8-2-evelyn-booba-cloths.png" , {frameWidth: 393 , frameHeight: 243});
+
       this.load.spritesheet("10-weapon-hand" , "assets/player/10-weapon-hand.png" , {frameWidth: 393 , frameHeight: 243});
 
       //neutral parts

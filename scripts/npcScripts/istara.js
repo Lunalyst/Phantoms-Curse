@@ -576,9 +576,7 @@ class istara extends npc{
   }
 
   gameOver(){
-
     this.anims.play('istaraGameover',true);
-     
   }
 
   playJumpySound(type,delay){

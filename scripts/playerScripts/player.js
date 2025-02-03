@@ -396,6 +396,10 @@ class player extends Phaser.GameObjects.Container{
     this.frontArmCloths8.setPipeline('Light2D');
     this.weaponLayer9.setPipeline('Light2D');
     this.weaponHand10.setPipeline('Light2D');
+    if(this.sex === 1){
+      this.booba8.setPipeline('Light2D');
+      this.boobaCloths8.setPipeline('Light2D');
+    }
   }
     
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
@@ -734,7 +738,7 @@ class player extends Phaser.GameObjects.Container{
     //if shift is pressed then force the player to attacks, no animation cancel
     if(this.mainHitbox.body.blocked.down && this.scene.checkATKIsDown() && this.isAttacking === false){
       this.isAttacking = true;
-
+      console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
     //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
     }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
@@ -858,6 +862,8 @@ class player extends Phaser.GameObjects.Container{
             this.HitBox(800,35);
             break;
           default:
+            console.log("falling into default case which should be a arm swing.");
+            console.log("this.playedAttackAnimation",this.playedAttackAnimation);
             if(this.playedAttackAnimation === false){
               this.playedAttackAnimation = true;
               this.scene.initSoundEffect('weaponSFX','high1',0.1);

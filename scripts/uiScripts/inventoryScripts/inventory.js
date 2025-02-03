@@ -470,6 +470,7 @@ class inventory extends Phaser.GameObjects.Container{
       if(this.scene.itemDescription !== undefined){
         this.scene.itemDescription.destroy();
       }
+      this.inventoryLabel.visible = false;
       
       //toggles the vilisbility of the inventory elements group
       this.inventoryElements.toggleVisible();
@@ -480,7 +481,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryInterior.visible = true;
 
       //loops through all slots to hide there numbers on closing.
-      for(let counter = 0; counter < 26 ;counter++){
+      for(let counter = 0; counter < 28 ;counter++){
         this.inventoryArray[counter].number1.visible = false;
         this.inventoryArray[counter].number2.visible = false;
       }

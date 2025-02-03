@@ -771,7 +771,7 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
               //opens inventory so long as the storage locker isnt open.
               if(this.isStorageOpen === false){
-            this.playerInventory.setView(scene,this);
+                this.playerInventory.setView(scene,this);
               }
           });
 

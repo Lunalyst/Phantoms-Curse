@@ -383,7 +383,6 @@ class player extends Phaser.GameObjects.Container{
 
     }
     
-
   //sets up lighting for each layer
   setLighting(){
     this.backLeg1.setPipeline('Light2D');
@@ -742,7 +741,6 @@ class player extends Phaser.GameObjects.Container{
     //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
     }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
-      console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
       //depending on the key, decide which switch to enter for correctly oriented hitbox 
       if(this.lastKey === 'd'){
         this.flipXcontainer(false);
@@ -862,22 +860,25 @@ class player extends Phaser.GameObjects.Container{
             this.HitBox(800,35);
             break;
           default:
-            console.log("falling into default case which should be a arm swing.");
-            console.log("this.playedAttackAnimation",this.playedAttackAnimation);
+            console.log("attacking animation unarmed");
             if(this.playedAttackAnimation === false){
+
               this.playedAttackAnimation = true;
               this.scene.initSoundEffect('weaponSFX','high1',0.1);
               this.playerUnarmedAnimation();
-
+              console.log("this.playedAttackAnimation: ",this.playedAttackAnimation);
               this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
 
                 //sends the weapon layer to the back
                 this.sendToBack(this.weaponLayer9);
                 this.moveUpXTimes(this.weaponPositionBack);
+                console.log("unarmed half way point SHOULD BE STARTING FINISHED HALF OF THE ANIMATION/");
+                this.playedAttackAnimation = true;
 
                 this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
                   //sends weapon layer back to front -1
                   this.moveUpXTimes(this.weaponPositionfront);
+                  console.log("unarmed finished way point");
 
                   this.backLeg1.visible = false;
                   this.backLegCloths2.visible = false;
@@ -892,7 +893,7 @@ class player extends Phaser.GameObjects.Container{
             this.setAttackHitboxSize(10,20);
             this.HitBox(200,20);
           }
-          console.log("isattacking: ", this.isAttacking);
+          //console.log("isattacking: ", this.isAttacking);
 
     //otherwise is the player isnt attacking anymore then reset all values
     }else{
@@ -1057,6 +1058,22 @@ class player extends Phaser.GameObjects.Container{
 
     }
   
+  }
+
+  resetAttack(){
+    console.log("reseting attack animation values.")
+    this.moveUpXTimes(this.weaponPositionfront);
+    this.isAttacking = false;
+    this.playedAttackAnimation = false;
+    this.sliceDamage = 0;
+    this.bluntDamage = 0;
+    this.pierceDamage = 0;
+    this.heatDamage = 0;
+    this.lightningDamage = 0;
+    this.coldDamage = 0;
+    this.curseDamage = 0;
+
+
   }
 
 

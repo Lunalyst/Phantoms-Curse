@@ -107,7 +107,7 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         })
 
         this.on('pointerdown', function (pointer) {
-            
+            console.log("activating settings yes to reset game.")
             //calls the save function in the options menue which reloads the scene after saving
             if(that.optionsMenu.reloadNeeded === true){
                 

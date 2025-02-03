@@ -215,6 +215,7 @@ class G6InitEnemys extends G5InitNPCs{
           this.playerStuckGrab = false;
           this.playerStuckGrabActivated = false;
           this.playerStuckGrabbedBy = "";
+          this.player1.resetAttack();
           this.playerStuckGrabCap = 0;
 
           //focus on the tiger that grabbed the player
@@ -343,6 +344,7 @@ class G6InitEnemys extends G5InitNPCs{
       this.playerStuckGrab = false;
       this.playerStuckGrabActivated = false;
       this.playerStuckGrabbedBy = "";
+      this.player1.resetAttack();
       this.playerStuckGrabCap = 0;
       this.KeyDisplay.visible = false;
       struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -392,6 +394,7 @@ class G6InitEnemys extends G5InitNPCs{
           this.playerStuckGrab = false;
           this.playerStuckGrabActivated = false;
           this.playerStuckGrabbedBy = "";
+          this.player1.resetAttack();
           this.playerStuckGrabCap = 0;
           this.KeyDisplay.visible = false;
           struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -410,6 +413,7 @@ class G6InitEnemys extends G5InitNPCs{
           this.playerStuckGrab = false;
           this.playerStuckGrabActivated = false;
           this.playerStuckGrabbedBy = "";
+          this.player1.resetAttack();
           this.playerStuckGrabCap = 0;
           this.KeyDisplay.visible = false;
           struggleEmitter.emit(struggleEvent.activateStruggleBar, false);

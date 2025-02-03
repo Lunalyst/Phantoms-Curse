@@ -320,7 +320,7 @@ class G7CheckGameObjects extends G6InitEnemys {
           tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
           console.log("tempScene.player1: ",tempScene.player1 );
           tempScene.player1.attacking = false;
-          tempScene.player1.playedAttackAnimation = false;
+          tempScene.player1.resetAttack();
           tempScene.playerStuckGrabCap = 120;
 
           tempScene.initSoundEffect('curseSFX','curse',0.3);

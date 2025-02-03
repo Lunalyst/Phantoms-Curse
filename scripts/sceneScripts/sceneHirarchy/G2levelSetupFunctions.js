@@ -171,6 +171,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
 
       this.destination = location;
 
+      
       this.clearGameplayEmmitters();
       //for loop looks through all the looping music playing within a given scene and stops the music.
       for(let counter = 0; counter < this.sound.sounds.length; counter++){
@@ -179,6 +180,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
       //this.scene.stop('gameHud');
       //this.scene.launch('gameHud');
       //this.scene.start('gameHud');
+
       this.cameras.main.fadeOut(500, 0, 0, 0);
     });
 

@@ -237,6 +237,7 @@ class G7CheckGameObjects extends G6InitEnemys {
           tempScene.playerStuckGrab = true;
           tempScene.playerStuckGrabbedBy = "slime_projectile";
           tempScene.playerStuckGrabCap = 100;
+          tempScene.player1.resetAttack();
           tempScene.player1.StuckRepeat("blueSlimeStuck");
           tempProjectile.destroy();
 
@@ -318,6 +319,7 @@ class G7CheckGameObjects extends G6InitEnemys {
           //set up player stuck grab and 
           tempScene.playerStuckGrab = true;
           tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
+          tempScene.player1.resetAttack();
           console.log("tempScene.player1: ",tempScene.player1 );
           tempScene.player1.attacking = false;
           tempScene.player1.resetAttack();

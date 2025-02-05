@@ -1,4 +1,18 @@
 const npcDialogue = {
+        "sign":{
+            "soul":{
+                "rejection":{
+                    "node1":{
+                        "dialogue": "Ever since i was young, this world has rejected me. I have always felt like a outcast. even despite the thing i have acomplished, it all feels meaningless. but that not true. because what i have achieved here... is more than they could ever imagine. on this island,I can make my own future. what give them the right",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[""]
+                    },
+                }
+            }
+
+        },
+
         "istara":{
             "Behavior1":{
                 "istaraCaveDialogue1":{

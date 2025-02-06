@@ -1,4 +1,65 @@
 const npcDialogue = {
+
+        "cutscenes":{
+            "intro":{
+                "intro1":{
+                    "node1":{
+                        "dialogue": "Its finally time to begin...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "You awake in your bed knowing that todays special...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Your leaving home, In search of an adventure...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Your destination, the Ruinous Rombus...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "A dangerous stretch of ocean close to home, Where many have disappeared Over the past two centuries...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "On the edges of this sea, it's calm and peaceful.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "But stray towards the center and a powerful Storm always seems to be brewing...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "Many believe it to be a cursed By evil spirits...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "But you believe there's something special hiding Past the malestrom... something worth Risking your life for...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                }
+            }
+        },
+
         "sign":{
             "soul":{
                 "rejection":{
@@ -805,6 +866,14 @@ const npcDialogue = {
                 "maleChestMimic":{
                     "node1":{
                         "dialogue": "As you open the chest, youre immediately grabbed by the mimic that was waiting for you. You can only hear the lid closing as youre faced down, surrounded by pink flesh. It actually feels comfy, but you dont have time to enjoy it as you feel something being inserted into your butt. Of course, the mimic is here with you, and he proceeds to violate your rear rhythmically to the pulsating flesh around you. It doesnt take long to start enjoying as you then become a loving member of the mimics family. Dont worry, hes very proud of you.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "istaraUnbirth":{
+                    "node1":{
+                        "dialogue": "The little human willingly gives themselves to the cobra dragoness to forever feel the joys of being close to their mistress, adored by her for all eternity, and always looking to please. Occasionally going out to get whatever mistress deems them to, sometimes these requests require the rare human or common beast to grow her following. The new followers having different features to their Cobrabold selves retaining some small semblance of their former selves. It fills the former human with pride that they look the most like mistress the most pure the closest to mistress her main Cobold. The little Cobrabold knows that they will always be the first and most cherished. Forever safe in her ever expanding lair among their new brothers and sisters that are growing in number as the weeks go on. All hail Istara the Cobra Queen",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

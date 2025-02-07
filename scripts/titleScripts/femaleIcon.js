@@ -52,6 +52,9 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
                 settings:null
               };
 
+            //sets value to true, so scene knows to send the player through the intro cutscene
+            that.scene.newGameActivated = true;
+
             that.scene.makeSaveFile(playerDataObject,1,that.scene.tempNewGameSlotID);
             //saves data to the temp data location
             that.scene.saveGame(playerDataObject);

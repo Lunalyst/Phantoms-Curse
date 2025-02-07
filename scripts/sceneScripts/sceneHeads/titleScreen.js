@@ -46,6 +46,8 @@ class titleScreen extends A3SoundEffects {
         this.flagValues;
         this.settings;
 
+        this.newGameActivated = false;
+
         //array to check if there is a file defined 
         this.savedFileArray = [false,false,false];
 
@@ -169,14 +171,27 @@ class titleScreen extends A3SoundEffects {
                 console.log("now stoping this scene",);
                 this.scene.stop();
 
-                console.log("now loading game ui",);
-                this.scene.start('gameHud');
-
+                if(this.newGameActivated === false){
+                    console.log("now loading game ui",);
+                    this.scene.start('gameHud');
+    
+                }
+                
                 let that = this;
                 setTimeout(function () {
-                    console.log("now Loading main scene ",that.playerLocation);
-                    that.scene.start(that.playerLocation);
-                    //startTimeTest("titlescreen load time.");
+                    //if we are making a new game
+                    if(that.newGameActivated === true){
+                        //send the player through the intro cutscene
+                        that.scene.start("intro");
+                    //otherwise load there saved location. 
+                    }else{
+
+                        console.log("now Loading main scene ",that.playerLocation);
+                        that.scene.start(that.playerLocation);
+
+                    }
+
+                //startTimeTest("titlescreen load time.");
                 }, 100);
             })
 

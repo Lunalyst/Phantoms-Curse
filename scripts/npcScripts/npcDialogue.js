@@ -27,19 +27,19 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "A dangerous stretch of ocean close to home, Where many have disappeared Over the past two centuries...",
+                        "dialogue": "Where many have disappeared Over the past two centuries...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "On the edges of this sea, it's calm and peaceful.",
+                        "dialogue": "On the edges of this sea, it is calm and peaceful.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "But stray towards the center and a powerful Storm always seems to be brewing...",
+                        "dialogue": "But Towards the center a powerful Storm always seems to be brewing...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node8"]
@@ -51,7 +51,25 @@ const npcDialogue = {
                         "children":["node9"]
                     },
                     "node9":{
-                        "dialogue": "But you believe there's something special hiding Past the malestrom... something worth Risking your life for...",
+                        "dialogue": "But you believe there is something special hiding Past the malestrom... ",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "something worth Risking your life for...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

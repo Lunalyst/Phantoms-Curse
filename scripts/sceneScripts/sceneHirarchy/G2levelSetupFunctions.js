@@ -35,7 +35,11 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     //set up the invisible barriers group
     this.invisibleBarriers = this.physics.add.group();
 
+    //sets npc group.
     this.npcs = this.add.group();
+
+    //sets up npc triggers for dialoge that activates when the player overlaps the dialogue npc.
+    this.npcTriggers = this.add.group();
 
   }
   // sets up wood barriers group

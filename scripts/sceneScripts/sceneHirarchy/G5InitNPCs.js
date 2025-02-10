@@ -3,6 +3,22 @@ description: set up functions for npcs
 *******************************************************************************/
 class G5InitNPCs extends G4InitGameObjects {
 
+  //creates a tutorial NPC
+  initTutorialPrompt(x, y,text) {
+
+    //create generic npc for tutorial object
+    let tutorial = new Tutorial(this, x, y, text);
+
+    //increment npcid
+    tutorial.npcId = this.npcId;
+    this.npcId++;
+
+    //need to set up the tutorial dialogue from file.
+
+    this.npcTriggers.add(tutorial);
+
+  }
+
   //creates a lunalyst NPC
   initLunalyst(x, y, text) {
     let luna = new lunalyst(this, x, y, text);

@@ -110,7 +110,7 @@ class Intro extends A3SoundEffects {
     },this);
 
     //when player dies the prompt to skip animations need to pop up.
-    this.skipIndicator = this.add.sprite(1140, 840,'skip').setInteractive(this.input.makePixelPerfect());
+    this.skipIndicator = this.add.sprite(1135, 840,'skip').setInteractive(this.input.makePixelPerfect());
     this.skipIndicator.setScale(1/3);
     this.skipIndicator.visible = false;
     this.skipIndicatorIsPressed = false;

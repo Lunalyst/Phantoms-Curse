@@ -64,23 +64,6 @@ class G7CheckGameObjects extends G6InitEnemys {
       }, scene);
   }
 
-  //checks to see if the player can activate a npc object
-  checkNpc(scene) {
-    //applies a function to each portal object in the scene
-    scene.npcs.children.each(function (tempNpc) {
-      if ((scene.player1.x > tempNpc.x - 40 && scene.player1.x < tempNpc.x + 40) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40) && scene.grabbed === false) {
-        //console.log("within luna's range tempNpc.npcId: ",tempNpc.npcId);
-        tempNpc.safeToSpeak = true;
-        scene.activatedNpcId = tempNpc.npcId;
-      } else {
-        //console.log("outside save point");
-        tempNpc.safeToSpeak = false;
-      }
-      tempNpc.activateNpc();
-
-    }, scene);
-  }
-
   //checks to see if the items should be picked up
   checkItemPickUp() {
       

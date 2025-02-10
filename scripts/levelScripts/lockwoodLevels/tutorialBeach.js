@@ -93,9 +93,6 @@ class tutorialBeach extends defaultScene {
       this.setUpTextBox();
 
       //is 12 units plus player position.
-      this.initSigns(606,937,
-      "To Any Who Have Washed Up On This cursed beach, you can move with a and d, and jump with space bar. if something is interactable, then a Key prompt will apear below it. Dialogue can also be progressed with w. ",
-       ['signLoop']);
 
       this.initSigns(1928,713,
         "some surfaces can be jumped through but not back down. so be careful. ",
@@ -107,18 +104,16 @@ class tutorialBeach extends defaultScene {
 
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
-      //sets up item drops for the scene
+      //sets up item drops for the scene and som other useful groups.
       this.setUpItemDrops();
+
       this.setUpItemDropCollider();
 
-      //adds items that the player can pick up in the scene.
-      /*this.initItemDrop(506,900,12,1,2);
-      this.initItemDrop(516,900,12,1,2);
-      this.initItemDrop(526,900,12,1,2);
-      this.initItemDrop(536,900,12,1,2);
-      this.initItemDrop(546,900,12,1,2);
-      this.initItemDrop(556,900,12,1,2);
-      this.initItemDrop(566,900,12,1,2);*/
+      this.initTutorialPrompt(538,937,"movement");
+
+      this.initTutorialPrompt(1728,713,"platforms");
+
+      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop",3);
 
       //sets up containers
       this.setUpContainers();
@@ -144,6 +139,9 @@ class tutorialBeach extends defaultScene {
     }
 
     update(){
+
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      
       
       //calls the built in update function
       this.defaultUpdate();

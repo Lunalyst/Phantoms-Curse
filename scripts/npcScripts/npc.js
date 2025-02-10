@@ -41,6 +41,10 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //variable to lock out the flag search during dialogue.
       this.flagLockout = false;
       
+      //value to tell if a triggernpc has caught the player.
+      this.triggerNpcActivated = false;
+      this.triggerNpcFinished = false;
+      
       this.scene = scene;
   }
 
@@ -227,6 +231,49 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.npcKeyPrompts.visible = false;
       this.promptCooldown = false;
 
+    }
+  }
+
+  //function called when a trigger npc overlaps  
+  overlapActivateNpc(){
+
+    //if the id matches and we havent activated the trigger yet.
+    if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
+
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      this.flagLogic();
+        
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
+
+      //lock out starting logic.
+      this.triggerNpcActivated = true;
+
+      //special lockout so the trigger npc can only happen once. checks if dialogue is done, if so set the trigger finished value to true.
+      if(this.completedText === true){
+        this.triggerNpcFinished = true;
+      }
+
+    //otherwise if the trigger was activated, and the player is in dialogue, then have w progress dialogue.
+    }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId){
+
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      this.flagLogic();
+        
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
+
+      //special lockout so the trigger npc can only happen once. checks if dialogue is done, if so set the trigger finished value to true.
+      if(this.completedText === true){
+        this.triggerNpcFinished = true;
+      }
+          
     }
   }
 

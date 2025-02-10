@@ -46,6 +46,7 @@ class G10UpdateLoops extends G9CheckEnemys{
       if(this.signCoolDown === true){
         this.checkSign(this);
         this.checkNpc(this);
+        this.checkNpcTriggers(this);
       }
 
       //if tab is press while the player isnt grabbed or in the pause menue then

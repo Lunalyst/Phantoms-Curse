@@ -78,6 +78,63 @@ const npcDialogue = {
             }
         },
 
+        "tutorial":{
+            "beach":{
+                "movement":{
+                    "node1":{
+                        "dialogue": "Welcome to the island beyond the storm. you can progress dialogue with W button on screen.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "to move left or right use the a or d key.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "if something is interactable, then a Key prompt will apear below it.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "platforms":{
+                    "node1":{
+                        "dialogue": "some surfaces can be jumped through but not back down. so be careful.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "worldDrops":{
+                    "node1":{
+                        "dialogue": "sometimes items will appear on the ground, or be dropped by a monster. you can walk over these items to pick them up and add them to your inventory. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "you can open the inventory with tab.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                  
+                },
+                "warps":{
+                    "node1":{
+                        "dialogue": "interactable doors, and passages will lead to new places. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                }
+            }
+
+        },
+
         "sign":{
             "soul":{
                 "rejection":{
@@ -85,7 +142,7 @@ const npcDialogue = {
                         "dialogue": "Ever since i was young, this world has rejected me. I have always felt like a outcast. even despite the thing i have acomplished, it all feels meaningless. but that not true. because what i have achieved here... is more than they could ever imagine. on this island,I can make my own future. what give them the right",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":[""]
+                        "children":[]
                     },
                 }
             }

@@ -63,6 +63,68 @@ class tutorialBeach extends defaultScene {
       //creates tileset
       this.setUpTileSet("beach_map","Beach_Tileset","beach_source_map");
 
+      //sets up item drops for the scene and som other useful groups.
+      this.setUpItemDrops();
+
+      this.setUpItemDropCollider();
+
+      //make a temp object
+      let object = {
+        flagToFind: "movement_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+        this.initTutorialPrompt(578,920,"movement");
+      }
+
+      //make a temp object
+      object = {
+        flagToFind: "platforms_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+        this.initTutorialPrompt(1728,792,"platforms");
+      }
+
+      //make a temp object
+      object = {
+        flagToFind: "worldDrops_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+        this.initTutorialPrompt(2811,568,"worldDrops");
+        this.initItemDrop(2901,568,14,1,1,"COCONUT"," APPLE OF THE SEA. ","drop",1);
+      //otherwise, random drop chance for coconut.
+      }else{
+
+      }
+
+
+      //make a temp object
+      object = {
+        flagToFind: "warps_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+        this.initTutorialPrompt(3569,504,"warps");
+      }
+
       //adds looping sound effect.
       this.initLoopingSound('oceanSFX','ocean',0.1);
 
@@ -92,28 +154,7 @@ class tutorialBeach extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //is 12 units plus player position.
-
-      this.initSigns(1928,713,
-        "some surfaces can be jumped through but not back down. so be careful. ",
-         ['signLoop']);
-
-      this.initSigns(3489,521,
-          "some interactables will take you to new places. ",
-           ['signLoop']);
-
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
-
-      //sets up item drops for the scene and som other useful groups.
-      this.setUpItemDrops();
-
-      this.setUpItemDropCollider();
-
-      this.initTutorialPrompt(538,937,"movement");
-
-      this.initTutorialPrompt(1728,713,"platforms");
-
-      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop",3);
 
       //sets up containers
       this.setUpContainers();

@@ -116,6 +116,9 @@ when making a container and adding object keep in mind the graph above for where
 ideas about how to implement inventory and crafting based on this video without paying for course
 https://www.youtube.com/watch?v=ZlhbcrePgak
 
+glow effect documentation
+https://docs.phaser.io/api-documentation/class/fx-glow
+
 Bugs:
 
 tiles not showing up?

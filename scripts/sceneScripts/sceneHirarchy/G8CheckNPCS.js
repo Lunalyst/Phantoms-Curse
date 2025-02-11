@@ -26,8 +26,8 @@ class G8CheckNPCS extends G7CheckGameObjects {
     //applies a function to each trigger npc object in the scene
     scene.npcTriggers.children.each(function (tempNpc) {
         //if the player is within x range., the trigger wasnt already finished, and that the player isnt grabbed?
-      if ((scene.player1.x > tempNpc.x - 20 && scene.player1.x < tempNpc.x + 20) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
-        console.log("tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished);
+      if ((scene.player1.x > tempNpc.x - 20 && scene.player1.x < tempNpc.x + 20) && (scene.player1.y > tempNpc.y - 300 && scene.player1.y < tempNpc.y +70) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
+        
         //set id to this object.
         this.activatedNpcId = tempNpc.npcId;
         tempNpc.overlapActivateNpc();

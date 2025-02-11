@@ -48,6 +48,10 @@
             "start": 6.9,
             "end": 7.47,
             "loop": false
+        },"bellJingle":{
+            "start": 8,
+            "end": 10,
+            "loop": false
         }
     }
 }

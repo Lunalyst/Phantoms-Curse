@@ -116,16 +116,110 @@ const npcDialogue = {
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "you can open the inventory with tab.",
+                        "dialogue": "so keep an eye out for items that glow.",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":["node3"]
+                        "children":[]
                     },
                   
                 },
                 "warps":{
                     "node1":{
                         "dialogue": "interactable doors, and passages will lead to new places. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+
+                "warps":{
+                    "node1":{
+                        "dialogue": "interactable doors, and passages will lead to new places. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                }
+
+                ,"containers":{
+                    "node1":{
+                        "dialogue": "some interactables will give you a item.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "you can open your inventory with tab, or used the inventory button on the right of the screen.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "your inventory has equip slots which allow you to change your equipment.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "your weapon slot allows you to use active items with shift. by default your attack is a weak hand swipe.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "your ring slot allows you to have a special effect. what that special effect is depend on the item.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "if your ever confused about what a item does, simply hover over the item in your inventory, as it displays the item name, info, and sell price.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "try opening that chest, and testing out the weapon by putting it in your weapon slot, then use shift to attack, or the atk button on the right.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                }
+
+                ,"saveStones":{
+
+                    "node1":{
+                        "dialogue": "use these shrines to save your progress. you will find them scattered all over the island.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "these shrines are special and will restore your strength as well.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "in your inventory you have a settings button. by clicking on it, it opens up the setting menu. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "here you can change various aspect of phantoms curse such as volume, and turning off or on the mobile control buttons.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "but most importantly you can change your sexual preference so enemys reflect your desires.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "as well as your player sex. just be aware that changing some setting requires the game to reload, so make sure to save at a save stone.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

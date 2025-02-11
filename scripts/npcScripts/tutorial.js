@@ -44,8 +44,20 @@ class Tutorial extends npc{
       this.platforms();
     }else if(this.npcType === 'worldDrops'){
       this.worldDrops();
+    }else if(this.npcType === 'warps'){
+      this.warps();
+    }else if(this.npcType === 'containers'){
+      this.containers();
+    }else if(this.npcType === 'saveStones'){
+      this.saveStones();
     }else{
       this.default();
+    }
+  }
+  //function to activat tutorial bell.
+  activateBell(){
+    if(this.currentDictNode !== null && this.currentDictNode.nodeName === "node1"){
+      this.scene.initSoundEffect('buttonSFX1','bellJingle',0.05);
     }
   }
 
@@ -53,21 +65,147 @@ class Tutorial extends npc{
   //tutorial prompt explaining movement.
   movement(){
 
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "movement_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
     this.nodeHandler("tutorial","beach","movement");
+
+    this.activateBell();
 
   }
 
   platforms(){
 
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "platforms_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
     this.nodeHandler("tutorial","beach","platforms");
 
+    this.activateBell();
   }
 
   worldDrops(){
 
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+     //make a temp object
+     let object = {
+      flagToFind: "worldDrops_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
     this.nodeHandler("tutorial","beach","worldDrops");
+
+    this.activateBell();
     
   }
+
+  warps(){
+
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "warps_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
+    this.nodeHandler("tutorial","beach","warps");
+
+    this.activateBell();  
+  }
+
+  containers(){
+
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "containers_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
+    this.nodeHandler("tutorial","beach","containers");
+
+    this.activateBell();
+    
+  }
+
+  saveStones(){
+
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "saveStones_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
+    this.nodeHandler("tutorial","beach","saveStones");
+
+    this.activateBell();
+    
+  }
+
+
 
 
 

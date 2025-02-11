@@ -95,6 +95,37 @@ class tutorialCave extends defaultScene {
       //creates tileset
       this.setUpTileSet("cave_map","Cave_Tileset","cave_source_map");
 
+      //sets up item drops for the scene and som other useful groups.
+      this.setUpItemDrops();
+
+      this.setUpItemDropCollider();
+
+      //tutorials
+      let object1 = {
+        flagToFind: "containers_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+      if(object1.foundFlag === false){
+        this.initTutorialPrompt(1068,1752,"containers");
+      }
+
+      //tutorials
+      object1 = {
+        flagToFind: "saveStones_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+      if(object1.foundFlag === false){
+        this.initTutorialPrompt(997,1240,"saveStones");
+      }
+
       //plays looping sound
       this.initLoopingSound('caveSFX','cave', 0.1);
       this.initLoopingSound('waterfallSFX','waterfall', 0.03);
@@ -133,13 +164,7 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(1075,1757+12,
-        "you may find things on this island that can help you. when you open a container you may recieve a item. you can check your inventory by pressing tab. to move items around simply click them from there current slot to the slot you want it to be in. you have two special slots. weapon and ring. the weapon slot allows you to change your attack. rings help you more passively. if you have no weapon equipt you will simply flail about.  ",
-        ['signLoop']);
-
-      this.initSigns(1077,1257,
-        "use these shrines to save your progress. you will find them scattered all over the island. these shrines are special and will restore your strength as well. ",
-         ['signLoop']);
+      
 
       this.initSigns(788,541+12,
         "This Island is host to many monsters. tread carefully! they will try and turn you into one of us....  ",
@@ -230,11 +255,6 @@ class tutorialCave extends defaultScene {
         },2000);
 
       }
-      
-      
-      //sets up item drops for the scene
-      this.setUpItemDrops();
-      this.setUpItemDropCollider();
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
         setTimeout(function(){
@@ -251,7 +271,7 @@ class tutorialCave extends defaultScene {
 
     update(){
       
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

@@ -119,6 +119,9 @@ https://www.youtube.com/watch?v=ZlhbcrePgak
 glow effect documentation
 https://docs.phaser.io/api-documentation/class/fx-glow
 
+sprite sheet maker for tutorial sprite
+https://www.finalparsec.com/tools/sprite_sheet_maker
+
 Bugs:
 
 tiles not showing up?

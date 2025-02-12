@@ -27,6 +27,8 @@ class tutorialBeach extends defaultScene {
 
       //preload of object which are scene specific
       this.load.spritesheet('backgroundBeachLevel', 'assets/backgrounds/beach_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
+      this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
 
       this.load.image("beach_source_map" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Tileset.png");
       
@@ -156,6 +158,14 @@ class tutorialBeach extends defaultScene {
 
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
+      this.initSigns(877,888+18,
+        "to anyone who wash up here, head towards the cave west from here.",
+        ['signLoop']);
+
+      
+      //make a sprite 
+      this.tutorialSprite = new TutorialSprite(this, 600, 380);
+
       //sets up containers
       this.setUpContainers();
       
@@ -181,7 +191,7 @@ class tutorialBeach extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       
       //calls the built in update function

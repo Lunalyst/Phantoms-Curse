@@ -125,23 +125,16 @@ const npcDialogue = {
                 },
                 "warps":{
                     "node1":{
-                        "dialogue": "interactable doors, and passages will lead to new places. ",
+                        "dialogue": "interactable doors, and passages will lead to new places. keep an eye out for them.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
                     },
                 },
 
-                "warps":{
-                    "node1":{
-                        "dialogue": "interactable doors, and passages will lead to new places. ",
-                        "profile":"signLoop",
-                        "textvoice":"default",
-                        "children":[]
-                    },
-                }
+            
 
-                ,"containers":{
+                "containers":{
                     "node1":{
                         "dialogue": "some interactables will give you a item.",
                         "profile":"signLoop",
@@ -210,15 +203,15 @@ const npcDialogue = {
                         "dialogue": "here you can change various aspect of phantoms curse such as volume, and turning off or on the mobile control buttons.",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":["node4"]
-                    },
-                    "node4":{
-                        "dialogue": "but most importantly you can change your sexual preference so enemys reflect your desires.",
-                        "profile":"signLoop",
-                        "textvoice":"default",
                         "children":["node5"]
                     },
                     "node5":{
+                        "dialogue": "but most importantly you can change your sexual preference so enemys reflect your desires.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },
+                    "node6":{
                         "dialogue": "as well as your player sex. just be aware that changing some setting requires the game to reload, so make sure to save at a save stone.",
                         "profile":"signLoop",
                         "textvoice":"default",

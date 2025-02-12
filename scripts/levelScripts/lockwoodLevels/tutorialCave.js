@@ -53,6 +53,8 @@ class tutorialCave extends defaultScene {
        
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
+      this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
+
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
@@ -211,6 +213,9 @@ class tutorialCave extends defaultScene {
       this.initPortals(465,1808,3735,541,"warpCaveInside","tutorialBeachLevel");
 
       this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
+
+      //make a sprite 
+      this.tutorialSprite = new TutorialSprite(this, 600, 380);
 
       //sets up containers
       this.setUpContainers();

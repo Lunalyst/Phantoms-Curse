@@ -149,10 +149,12 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     console.log("adding new item drop: ",drop1);
 
+    //NOTE, CANT ADD ITEM DROP TO LIGHTING, AS IT CANCELS THE GLOW EFFECT.
+    //probably better since it helps the item stand out more in the dark scenes.
     //if we are using dark lighting
-    if(this.lightingSystemActive === true){ 
+    /*if(this.lightingSystemActive === true){ 
       drop1.setPipeline('Light2D');
-    }
+    }*/
 
   }
 

@@ -61,18 +61,17 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
         this.setScale(1/3);
 
         this.itemGlow = this.preFX.addGlow();
-        console.log("this.itemGlow", this.itemGlow);
         this.itemGlow.outerStrength = 1;
         this.glowTween = this.scene.tweens.add({
             targets: this.itemGlow,
-            outerStrength: 10, // Target tint color
+            outerStrength: 7, // Target tint color
             duration: 1000, // Duration in milliseconds
             ease: 'linear', // Ease type
             repeat: -1, // Repeat the tween 0 times
             yoyo: true // Do not reverse the tween
         });
 
-  
+        console.log("this.itemGlow", this.itemGlow);
     }
 
     activateFakeDrop(){

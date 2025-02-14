@@ -28,6 +28,11 @@ class blueSlime extends enemy {
 
         this.slimeSoundsArray = ['1','2','3','4','5'];
         this.randomSlimeSound = Math.floor((Math.random() * 4));
+
+        //make a hitbox so the cat can grab the player.
+        this.grabHitBox = new hitBoxes(scene,this.x,this.y);
+        this.grabHitBox.setSize(30,10,true);
+        this.hitboxActive = false;
           
         //defines Slime animations based on the players sex.
         if (sex === 0) {
@@ -91,6 +96,8 @@ class blueSlime extends enemy {
             this.anims.create({ key: 'slimeGameOver2', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 149, end: 152 }), frameRate: 7, repeat: -0 });
             this.anims.create({ key: 'slimeGameOver3', frames: this.anims.generateFrameNames('CommonBlueSlime-evelyn', { start: 152, end: 155 }), frameRate: 7, repeat: -1 });
         }
+        this.anims.create({ key: 'smallSlimeDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 156, end: 164 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'largeSlimeDefeated', frames: this.anims.generateFrameNames('CommonBlueSlime-evan', { start: 165, end: 172 }), frameRate: 7, repeat: 0 });
 
         this.inSafeMode = inSafeMode;
 
@@ -125,9 +132,9 @@ class blueSlime extends enemy {
         if (this.slimeSize === 1) {
             this.setSize(90, 65, true);
             this.setOffset(105, 233);
-
             this.body.setGravityY(600);
-            //else if the slime is size 2 then set its hit box to the correct size
+
+        //else if the slime is size 2 then set its hit box to the correct size
         } else if (this.slimeSize === 2) {
             this.setSize(130, 90, true);
             this.setOffset(82, 209);
@@ -145,10 +152,29 @@ class blueSlime extends enemy {
             }, this.randomMoveTimer);
             this.activatedCycleTimer = true;
         }
+
+        //if the slimes body is on the ground and not dying
+        if(this.body.blocked.down && this.enemyHP > 0){
+            //put hitbox where it needs to be 
+            this.grabHitBox.x = this.x;
+            this.grabHitBox.y = this.y+30;
+            this.grabHitBox.body.enable = true;
+            if(this.slimeSize === 1){
+                this.grabHitBox.setSize(30,10,true);
+            }else{
+                this.grabHitBox.setSize(40,10,true);
+            }
+        //otherwise hide grab hitbox.
+        }else{
+            this.grabHitBox.x = this.x;
+            this.grabHitBox.y = this.y + 3000; 
+            this.grabHitBox.body.enable = false;
+        }
+
         //checks to see if slime should jump to move if the player is in range
-        if (this.scene.player1.x > this.x - 150 && this.scene.player1.x < this.x + 150 && this.scene.player1.y > this.y - 150 && this.scene.player1.y < this.y + 150) {
+        if (this.checkXRangeFromPlayer(250, 250) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
-            if (this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+            if (!this.checkXRangeFromPlayer(80, 80) && this.scene.player1.x > this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false && this.body.blocked.down) {
                 //console.log("player is to the right of the slime");
                 //this if statement checks where the slime is in its jump cycle. if its going up then it plays the up animation
                 if (this.enemyPreviousY > this.y) {
@@ -188,7 +214,7 @@ class blueSlime extends enemy {
                 }, 200);
 
 
-            } else if (this.scene.player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false) {
+            }else if(!this.checkXRangeFromPlayer(80, 80) && this.scene.player1.x < this.x && this.moveCycleTimer === false && this.activatedCycleTimer === false && this.body.blocked.down) {
                 //console.log("player is to the left of the slime");
                 if (this.enemyPreviousY < this.y) {
                     //console.log("slime in left up animation");
@@ -227,17 +253,27 @@ class blueSlime extends enemy {
                     currentSlime.randomYVelocity = Math.floor((Math.random() * 100) + 150);
                 }, 200);
 
-            } else if (this.moveCycleTimer === true && this.activatedCycleTimer === true && this.body.blocked.down) {
+            }else if(this.checkXRangeFromPlayer(30, 30) || this.moveCycleTimer === true && this.activatedCycleTimer === true && this.body.blocked.down) {
+
                 if (this.slimeSize === 1) {
                     this.anims.play('slimeIdle', true);
+                    if(this.scene.player1.x < this.x){
+                        this.setVelocityX(10 * -1);
+                    }else{
+                        this.setVelocityX(10 * 1);
+                    }
+
                 } else if (this.slimeSize === 2 && this.mitosing === false) {
                     this.anims.play('slimeLargeIdle', true);
+                    if(this.scene.player1.x < this.x){
+                        this.setVelocityX(30 * -1);
+                    }else{
+                        this.setVelocityX(30 * 1);
+                    }
                 }
-                this.setVelocityX(0);
-
             }
             let currentSlime = this;
-        } else {
+        } else if(this.enemyDefeated === false) {
             //player is not in range of slime so slime is in idle animation.
             if (this.slimeSize === 1) {
                 this.anims.play('slimeIdle', true);
@@ -428,6 +464,20 @@ class blueSlime extends enemy {
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+            }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                    
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+
             }
         } else if (this.randomInput === 1 && this.slimeSize === 2) {
             // important anims.play block so that the animation can player properly.
@@ -438,6 +488,20 @@ class blueSlime extends enemy {
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                    
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+
             }
         } else if (this.slimeSize === 1) {
             // important anims.play block so that the animation can player properly.
@@ -449,6 +513,20 @@ class blueSlime extends enemy {
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+            }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                    
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+
             }
 
         }
@@ -521,7 +599,7 @@ class blueSlime extends enemy {
         }
     }
 
-    playerIsDefeatedLogic(playerHealthObject){
+    playerIsDefeatedLogic(){
 
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
         if (this.slimeSize === 1) {
@@ -725,6 +803,7 @@ class blueSlime extends enemy {
                 //console.log("slime overlap with its self detected;");
                 return;
             } else if (this.enemyId < otherSlime.enemyId) {
+                this.setVelocityX(0);
                 console.log("this slime with Id: "+ this.enemyId+" is living")
                 this.setSize(130, 90, true);
                 this.setOffset(82, 209);
@@ -736,6 +815,7 @@ class blueSlime extends enemy {
                 this.mitosisCounter = true;
                 //console.log("this.mitosisCounter: "+ this.mitosisCounter);
                 otherSlime.destroy();
+                otherSlime.grabHitBox.destroy();
                 let currentSlime = this;
                 setTimeout(function () {
                     currentSlime.mitosisCounter = false;
@@ -752,6 +832,7 @@ class blueSlime extends enemy {
             this.mitosisCounter = false;
         }
     }
+
     // checks to see if a slime can combine.
     mitosisDelayCheck() {
         if (this.slimeSize === 2 && this.mitosisCounter === false) {
@@ -764,6 +845,7 @@ class blueSlime extends enemy {
             //console.log("this.mitosisCounter: " + this.mitosisCounter);
         }
     }
+
     // controls the damage resistance of the slime.
     damage() {
         this.setVelocityX(0);
@@ -784,8 +866,45 @@ class blueSlime extends enemy {
 
                 this.playSlimeSound('5',200);
                 
+                //if the slimes hp is at zero
                 if (this.enemyHP <= 0) {
-                    this.destroy();
+                    //set enemy defeated to true, so the move behavior cant interupt the game over animations.
+                    this.enemyDefeated = true;
+                    this.setVelocityX(0);
+
+                    //calculate item drtop chance
+                    let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                    //decides amount of slime drops based on size
+                    if(this.slimeSize === 1){
+                        if( dropChance > 0){
+                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,13,1,dropAmount,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",5);
+                        }
+
+                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
+                        //play defeated animation.
+
+                        this.anims.play('smallSlimeDefeated').once('animationcomplete', () => {
+                            //then destroy slime.
+                            this.destroy();
+                            this.grabHitBox.destroy();
+                        });
+                    }else{
+                        if( dropChance > 0){
+                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,13,1,dropAmount+3,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",5);
+                        }
+                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
+                        //play defeated animation.
+                        this.anims.play('largeSlimeDefeated').once('animationcomplete', () => {
+                            //then destroy slime.
+                            this.destroy();
+                            this.grabHitBox.destroy();
+                        });
+                    }
+                    //play animation of slime defeated based on size.
+
+                    
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);
@@ -798,6 +917,7 @@ class blueSlime extends enemy {
             }, 100);
         }
     }
+
     //handles damage types for blue slime. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
@@ -823,6 +943,7 @@ class blueSlime extends enemy {
             this.enemyHP -= curse;
         }
     }
+
     // plays the slime defeated player animations.
     smallSlimeDefeatedPlayerAnimation() {
         let currentSlime = this;
@@ -994,6 +1115,7 @@ class blueSlime extends enemy {
 
 
     }
+
     // plays the large slime defeated player animations.
     largeSlimeDefeatedPlayerAnimation() {
         let currentSlime = this;
@@ -1148,6 +1270,7 @@ class blueSlime extends enemy {
 
 
     }
+
     //plays slime sound based in type input being 1-5 and a time delay
     playSlimeSound(type,delay){
         if(this.slimeSoundCoolDown === false){

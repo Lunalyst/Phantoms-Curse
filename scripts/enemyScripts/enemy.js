@@ -67,6 +67,10 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         console.log("sex passed in enemy: " + sex);
 
         this.onomatPlayed = false;
+
+        this.enemyDefeated = false;
+
+        this.StruggleAnimationStage = 0;
  
     }
 
@@ -170,6 +174,26 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
 
         // bounds check defined by x and y parameters
         if((this.scene.player1.x > this.x  - xLeftThresh && this.scene.player1.x < this.x + XRightThresh) &&this.scene.player1.y > this.y  - yLeftThresh && this.scene.player1.y < this.y + yRightThresh){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    checkXRangeFromPlayer(xLeftThresh, XRightThresh){
+
+        // bounds check defined by x  parameters
+        if((this.scene.player1.x > this.x  - xLeftThresh && this.scene.player1.x < this.x + XRightThresh)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    checkYRangeFromPlayer(yTopThresh, yBottomThresh){
+
+        // bounds check defined  y parameters
+        if((this.scene.player1.y > this.y  - yTopThresh && this.scene.player1.y < this.y + yBottomThresh)){
             return true;
         }else{
             return false;

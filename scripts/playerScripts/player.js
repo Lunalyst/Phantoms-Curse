@@ -162,6 +162,9 @@ class player extends Phaser.GameObjects.Container{
     //is used to increase players speed via items or skills.
     this.speedBoost = 1;
 
+    this.dropChance = 1;
+    this.dropAmount = 1;
+
     //sound effect cooldown
     this.soundCoolDown = false;
 
@@ -435,10 +438,25 @@ class player extends Phaser.GameObjects.Container{
       this.speedBoost = 1;
     }
 
+    //if the player is clothed.
     if(playerDataObject.playerInventoryData[3].itemID === 20){
       this.clothed = true;
     }else{
       this.clothed = false;
+    }
+
+    //if the mimic ring is equipt
+    if(playerDataObject.playerInventoryData[2].itemID === 6){
+      this.dropAmount = 2;
+    }else{
+      this.dropAmount = 1;
+    }
+
+    //if the mimic ring is equipt
+    if(playerDataObject.playerInventoryData[1].itemID === 3){
+      this.dropChance = 2;
+    }else{
+      this.dropChance = 1;
     }
 
     //if the player has the lanturn equipt and the lighting system is used.

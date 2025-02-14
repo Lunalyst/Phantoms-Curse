@@ -24,7 +24,7 @@ class G9CheckEnemys extends G8CheckNPCS {
           tempSlime.hitboxOverlaps = false;
         }
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime, function () {
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime.grabHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };

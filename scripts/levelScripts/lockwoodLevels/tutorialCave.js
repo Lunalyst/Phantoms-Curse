@@ -166,8 +166,6 @@ class tutorialCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      
-
       this.initSigns(788,541+12,
         "This Island is host to many monsters. tread carefully! they will try and turn you into one of us....  ",
         ['signLoop']);
@@ -276,7 +274,7 @@ class tutorialCave extends defaultScene {
 
     update(){
       
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

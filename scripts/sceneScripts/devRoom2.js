@@ -146,35 +146,9 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      /*this.initItemDrop(1028,680,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",5);
-      this.initItemDrop(1038,670,13,1,2,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",10);
-      this.initItemDrop(1048,660,14,1,3,"COCONUT"," APPLE OF THE SEA. ","drop",3);
-      this.initItemDrop(1058,650,15,1,10,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",30);
-      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1078,630,17,1,32,"STINGER","FULL OFF BEE VENOM.","drop",15);
-      this.initItemDrop(1068,640,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      
-      this.initItemDrop(1078,650,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      
-      this.initItemDrop(1088,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1098,650,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      
-      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1108,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
-      this.initItemDrop(1118,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);*/
       this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
 
       
-
-
        //sets up enemy colliders and groups
        this.enemyGroupArray = ["whiteCats"];
        this.setUpEnemyCollider(this.enemyGroupArray);
@@ -203,20 +177,6 @@ class devRoom2 extends defaultScene {
         this.backround = this.add.tileSprite(1500, -1940, 7*1024, 6*1024, "backgroundSkyLevel");
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
-
-        thisScene.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerFiel');
-
-        thisScene.initHealthUpgrade(4642-4160+100, 605, 'healthUpgradeInSunflowerFie');
-
-        thisScene.initHealthUpgrade(4642-4160+200, 605, 'healthUpgradeInSunflowerFi');
-        thisScene.initHealthUpgrade(4642-4160+300, 605, 'healthUpgradeInSunflowerF');
-        thisScene.initHealthUpgrade(4642-4160+400, 605, 'healthUpgradeInSunflower');
-        thisScene.initHealthUpgrade(4642-4160+500, 605, 'healthUpgradeInSunflowe');
-        thisScene.initHealthUpgrade(4642-4160+600, 605, 'healthUpgradeInSunflow');
-        thisScene.initHealthUpgrade(4642-4160+700, 605, 'healthUpgradeInSunflo');
-        thisScene.initHealthUpgrade(4642-4160+800, 605, 'healthUpgradeInSunfl');
-
-        
 
     }
 

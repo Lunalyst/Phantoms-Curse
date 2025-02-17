@@ -711,16 +711,55 @@ class blueSlime extends enemy {
                 this.anims.play("largeSlimefallingDefeated", true).once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.playerDefeatedAnimationStage++;
+                    //this.playerDefeatedAnimationStage++;
                 });
-            }else if(this.playerDefeatedAnimationStage === 3){
+            }else if(this.playerDefeatedAnimationStage === 2){
                 this.anims.play("largeSlimeGrabDefeated1", true);
                 this.playSlimeSound('2',800);
                 
+            }else if(this.playerDefeatedAnimationStage === 3 && this.animationPlayed === false){
+                //handles internal view
+                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime')
+                this.scene.internalView.anims.play("slimePening");
+                this.scene.internalView.setRotation(3.14/2);
+
+                console.log("this.scene.internalView: ",this.scene.internalView)
+                this.playSlimeSound('4',800);
+                this.animationPlayed = true;
+                this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.scene.internalView.anims.play("slimeWiggle1");
+                });
+            }else if(this.playerDefeatedAnimationStage === 4){
+                console.log("this.scene.internalView: ",this.scene.internalView)
+                this.playSlimeSound('1',600);
+                this.playPlapSound('plap10',1800);
+                this.anims.play('largeSlimeGrabDefeated3', true);
+    
+                if (this.onomatPlayed === false) {
+                    this.onomatPlayed = true;
+                    let randX = Math.floor((Math.random() * 15));
+                    let randY = Math.floor((Math.random() * 15));
+    
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
+                    this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                    this.scene.heartOnomat1.setScale(1/4);
+                    this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+    
+                    let thisSlime = this;
+                    setTimeout(function () {
+                        thisSlime.onomatPlayed = false;
+                        
+                    }, 600);
+                }     
             }
 
             //progression for grab stages
             if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth/2 && this.playerDefeatedAnimationStage === 0){
+                //increment the stage so behavior changes.
+                this.playerDefeatedAnimationStage++;
+            }else if(playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax)/2 && this.playerDefeatedAnimationStage === 2){
                 //increment the stage so behavior changes.
                 this.playerDefeatedAnimationStage++;
             }
@@ -793,6 +832,7 @@ class blueSlime extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDPressed())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
+                this.scene.sound.get("plapSFX").stop();
                 this.scene.changeToGameover();
             }
 
@@ -850,6 +890,7 @@ class blueSlime extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDPressed())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
+                this.scene.sound.get("plapSFX").stop();
                 this.scene.changeToGameover();
             }
 
@@ -901,6 +942,12 @@ class blueSlime extends enemy {
                 this.scene.grabbed = false;
                 this.playerDefeatedAnimationStage = 0;
 
+                if( this.scene.internalView !== null && this.scene.internalView !== undefined){
+                    this.scene.internalView.destroy();
+                }
+
+                this.scene.sound.get("plapSFX").stop();
+               
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
                 // if the enemy is destroyed then the timeout function wont have a refrence if done here.

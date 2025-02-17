@@ -108,6 +108,8 @@ class G10UpdateLoops extends G9CheckEnemys{
             this.player1.mainHitbox.setVelocityX(0);
             this.player1.playerIdleAnimation();
           }
+
+          
           
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
             if(this.lightingSystemActive === true){ 
@@ -131,7 +133,7 @@ class G10UpdateLoops extends G9CheckEnemys{
           
            //saftey reset incase grabbed or stuck grabbed while attacking
            //stop the player from attacking after escaping animation.
-           console.log("this.player1.isAttacking: ", this.player1.isAttacking);
+           //console.log("this.player1.isAttacking: ", this.player1.isAttacking);
           if(this.player1.isAttacking === true){
             this.player1.isAttacking = false;
           }

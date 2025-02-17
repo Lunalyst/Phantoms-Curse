@@ -426,7 +426,8 @@ class titleScreen extends A3SoundEffects {
                         playerSaveSlotData: this.playerSaveSlotData,
                         flagValues: this.flagValues,
                         settings:this.settings,
-                        dreamReturnLocation:this.dreamReturnLocation
+                        dreamReturnLocation:this.dreamReturnLocation,
+                        playerCurseValue: 0
                     };
 
                     this.validateSaveFile(playerDataObject);

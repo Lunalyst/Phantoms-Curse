@@ -55,7 +55,7 @@ class gameHud extends A3SoundEffects {
 
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
-      this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 99 });
+      this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 129 });
       this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('bestiary1', 'assets/hudElements/bestiary1.png',{frameWidth: 462, frameHeight: 630 });
       this.load.spritesheet('bestiary2', 'assets/hudElements/bestiary2.png',{frameWidth:  462, frameHeight: 630 });
@@ -127,6 +127,7 @@ class gameHud extends A3SoundEffects {
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
 
+
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
         healthEmitter.on(healthEvent.loseHealth,(damage) =>{
             console.log('emitter activating damage to health: ', damage)
@@ -134,21 +135,50 @@ class gameHud extends A3SoundEffects {
             this.healthDisplay.calcDamage(damage)
             console.log('health is now:  ', this.healthDisplay.playerHealth)            
         });
+
+        //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
+        healthEmitter.on(healthEvent.reduceCurse,(damage) =>{
+          console.log('emitter reducing curse by: ', damage)
+          this.healthDisplay.calcCurseReduction(damage);
+          console.log('curse is now:  ', this.healthDisplay.playerCurse);        
+        });
         
         healthEmitter.on(healthEvent.gainHealth,(healing) =>{
             console.log('emitter activating healing')
             this.healthDisplay.calcHealing(healing)
         });
+
+        healthEmitter.on(healthEvent.curseBuildUp,(healing) =>{
+          console.log('building up curse: ',healing)
+          this.healthDisplay.calcCurseBuildUp(healing);
+        });
         
         healthEmitter.on(healthEvent.maxHealth,() =>{
           console.log('emitter activating health to max')
-          this.healthDisplay.maxHealth()
+          this.healthDisplay.maxHealth();
+        });
+
+        healthEmitter.on(healthEvent.maxCurse,() =>{
+          console.log('emitter activating curse to max')
+          this.healthDisplay.maxCurse();
+        });
+
+        healthEmitter.on(healthEvent.clearCurse,() =>{
+          console.log('emitter activating curse cleared')
+          this.healthDisplay.clearCurse();
         });
 
         healthEmitter.on(healthEvent.returnHealth,(healthObject) =>{
             //console.log('emitter returning health value')
             healthObject.playerHealth = this.healthDisplay.playerHealth;
+            healthObject.playerMaxHealth = this.healthDisplay.playerHealthMax;
+            healthObject.playerCurse = this.healthDisplay.playerCurse;
+            healthObject.playerCurseMax = this.healthDisplay.playerCurseMax;
+
         });
+
+       
+
 
         healthEmitter.on(healthEvent.upgradeHealth,() =>{
 
@@ -723,6 +753,7 @@ class gameHud extends A3SoundEffects {
             object.flagValues = this.flagValues;
             object.settings = this.settings;
             object.dreamReturnLocation = this.dreamReturnLocation;
+            object.playerCurseValue = this.playerCurseValue;
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;

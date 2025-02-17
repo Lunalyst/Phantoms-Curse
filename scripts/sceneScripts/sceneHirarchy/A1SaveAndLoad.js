@@ -105,7 +105,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       file = JSON.parse(localStorage.getItem('saveFile2'));
       } else if (slot === 3) {
       file = JSON.parse(localStorage.getItem('saveFile3'));
-      } else {
+      }else{
       console.log(" something went wrong with loading a save file. location: " + slot);
       file = undefined;
       }
@@ -141,6 +141,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         this.flagValues = file.flags;
         this.settings = file.settings;
         this.dreamReturnLocation = file.dreamReturnLocation;
+        this.playerCurseValue = 0;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
         
         console.log("[loadGameFile]============================================");
@@ -246,7 +247,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       pssd: dataObject.playerSaveSlotData,
       flags: dataObject.flagValues,
       settings: dataObject.settings,
-      dreamReturnLocation: dataObject.dreamReturnLocation
+      dreamReturnLocation: dataObject.dreamReturnLocation,
+      playerCurseValue: dataObject.playerCurseValue
       }
 
       console.log("[saveGame]============================================");
@@ -262,6 +264,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
+      console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.playerCurseValue: ",file.playerCurseValue);
       console.log("=======================================================");
 
       localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
@@ -293,6 +296,8 @@ class A1SaveAndLoad extends Phaser.Scene {
     var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
 
     this.healthDisplay.playerHealth = file.playerHpValue;
+    this.healthDisplay.playerCurse = file.playerCurseValue;
+
     this.playerSex = file.sex;
     this.playerLocation = file.locationName;
     this.inventoryDataArray = file.id;
@@ -302,6 +307,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     this.flagValues = file.flags;
     this.settings = file.settings;
     this.dreamReturnLocation = file.dreamReturnLocation;
+   
 
     console.log("[loadGameHudData]============================================");
         console.log("this.healthDisplay.playerHealth:",this.healthDisplay.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
@@ -314,6 +320,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
         console.log("dataObject.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
+        console.log("dataObject.playerCurseValue:",this.healthDisplay.playerCurse," <-- file.playerCurseValue: ",file.playerCurseValue);
         console.log("=======================================================");
 
   }

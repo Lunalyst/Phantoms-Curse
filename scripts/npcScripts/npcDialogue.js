@@ -218,6 +218,68 @@ const npcDialogue = {
                         "children":[]
                     },
                 }
+                ,"combat":{
+
+                    "node1":{
+                        "dialogue": "be wary of monsters on this island. they are dangerous, and will try to curse, or eat you.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "enemys will try to grab you, and if they do then you need to struggle free, based on the button prompts.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "some enemys will reduce your hp while others will build up your cursed energy. in most cases cursed energy is built up from sexual acts.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "if your curse bar maxes out, then the monster will transform you intro a monster, resulting in a gameover.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "if you run out of health, then your probably going to get trapped in a monsters stomach or digested.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "when monsters are defeated, they will drop items.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "some enemys might even have special animations if you defeat them, which can reduce your cursed energy.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "slowly over time your cursed energy will be expelled.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "if your defeated by a enemy, then check the bestiary.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "its full if useful information about what damage types an enemy is weak too, along with some information about that enemy.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },
+                }
             }
 
         },

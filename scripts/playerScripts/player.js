@@ -178,6 +178,8 @@ class player extends Phaser.GameObjects.Container{
 
       this.lanturnFlicker = null;
       this.fuelActivated = false;
+
+      this.curseReductiontimer = false;
     }
     /*
       playeridle: frames: 6 layer: 8 7 6 5 4 3
@@ -427,7 +429,14 @@ class player extends Phaser.GameObjects.Container{
   //console.log("ACTIVATING GET INVENTORY EMITTER FROM PLAYER MOVEMENT FUNCTION");
   inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
-  
+  //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+  let playerHealthObject = {
+    playerHealth: null
+};
+
+//gets the hp value using a emitter
+healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
   //console.log("playerDataObject.playerInventoryData", playerDataObject.playerInventoryData);
   //if the player has speed ring equipt change speed multiplier.
   if(playerDataObject.playerInventoryData !== null){
@@ -458,6 +467,20 @@ class player extends Phaser.GameObjects.Container{
     }else{
       this.dropChance = 1;
     }
+
+    //if the cursed energyi snt zero
+    if(playerHealthObject.playerCurse > 0 && this.curseReductiontimer === false){
+
+      //reduce it by one every two seconds.
+      this.curseReductiontimer = true;
+      let tempPlayer = this;
+      setTimeout(function () {
+        tempPlayer.curseReductiontimer = false;
+        healthEmitter.emit(healthEvent.reduceCurse,1);
+      }, 2000);
+      
+    }
+    
 
     //if the player has the lanturn equipt and the lighting system is used.
     if(playerDataObject.playerInventoryData[1].itemID === 21 && scene.lightingSystemActive === true){ 
@@ -1079,7 +1102,7 @@ class player extends Phaser.GameObjects.Container{
   }
 
   resetAttack(){
-    console.log("reseting attack animation values.")
+    //console.log("reseting attack animation values.")
     this.moveUpXTimes(this.weaponPositionfront);
     this.isAttacking = false;
     this.playedAttackAnimation = false;

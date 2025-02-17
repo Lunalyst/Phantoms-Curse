@@ -66,7 +66,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               playerSaveSlotData: null,
               flagValues: null,
               settings:null,
-              dreamReturnLocation:null
+              dreamReturnLocation:null,
+              playerCurseValue:null
             };
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.

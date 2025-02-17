@@ -100,7 +100,7 @@ class devRoom1 extends defaultScene {
         */
       
 
-      this.initPortalsWithTransparency(637,605-13,1470,1725,"devDoor","ForestRavineHome",0.75);
+      this.initPortalsWithTransparency(637,605-13,1470 ,1725,"devDoor","ForestRavineHome",0.75);
       
       this.initBedPortals(364, 592+29);
 

@@ -44,10 +44,6 @@ class devRoom2 extends defaultScene {
       this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
       this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
       
-
-      this.load.spritesheet("malePlayerStucks" , "assets/player/evan_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
-      this.load.spritesheet("femalePlayerStucks" , "assets/player/eveyln_self_grabs.png" , {frameWidth: 273 , frameHeight: 270 });
-      
       this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
 
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
@@ -207,6 +203,20 @@ class devRoom2 extends defaultScene {
         this.backround = this.add.tileSprite(1500, -1940, 7*1024, 6*1024, "backgroundSkyLevel");
         this.backround.setDepth(-50);
         this.backround.setTint(0xd3d3d3);
+
+        thisScene.initHealthUpgrade(4642-4160, 605, 'healthUpgradeInSunflowerFiel');
+
+        thisScene.initHealthUpgrade(4642-4160+100, 605, 'healthUpgradeInSunflowerFie');
+
+        thisScene.initHealthUpgrade(4642-4160+200, 605, 'healthUpgradeInSunflowerFi');
+        thisScene.initHealthUpgrade(4642-4160+300, 605, 'healthUpgradeInSunflowerF');
+        thisScene.initHealthUpgrade(4642-4160+400, 605, 'healthUpgradeInSunflower');
+        thisScene.initHealthUpgrade(4642-4160+500, 605, 'healthUpgradeInSunflowe');
+        thisScene.initHealthUpgrade(4642-4160+600, 605, 'healthUpgradeInSunflow');
+        thisScene.initHealthUpgrade(4642-4160+700, 605, 'healthUpgradeInSunflo');
+        thisScene.initHealthUpgrade(4642-4160+800, 605, 'healthUpgradeInSunfl');
+
+        
 
     }
 

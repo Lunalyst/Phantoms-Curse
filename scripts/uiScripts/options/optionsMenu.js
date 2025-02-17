@@ -328,7 +328,8 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSaveSlotData: playerDataObject.playerSaveSlotData,
             flagValues: playerDataObject.flagValues,
             settings:playerDataObject.settings,
-            dreamReturnLocation:playerDataObject.dreamReturnLocation
+            dreamReturnLocation:playerDataObject.dreamReturnLocation,
+            playerCurseValue:playerDataObject.playerCurseValue
 
           };
 

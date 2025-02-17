@@ -31,7 +31,12 @@ healthEvent = {
     gainHealth: 'gain_health',
     returnHealth: 'return_health',
     maxHealth:'max_health',
-    upgradeHealth:'upgrade_Health'
+    upgradeHealth:'upgrade_Health',
+    reduceCurse:'reduce_curse',
+    curseBuildUp:'curse_build_up',
+    maxCurse:'max_curse',
+    clearCurse:'clear_curse',
+
 };
 
 healthEmitter = new Phaser.Events.EventEmitter();

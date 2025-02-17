@@ -71,6 +71,12 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.enemyDefeated = false;
 
         this.StruggleAnimationStage = 0;
+
+        this.struggleProgressingStage = false;
+        this.playerDamageTimer = false;
+        
+
+
  
     }
 
@@ -131,6 +137,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         //if(Phaser.Input.Keyboard.JustDown(this.scene.keyTAB)){
         if(this.scene.checkGiveUpIndicatorIsDown()){
             healthEmitter.emit(healthEvent.loseHealth,9999);
+            healthEmitter.emit(healthEvent.curseBuildUp,9999);
         }
     }
 

@@ -20,7 +20,6 @@ class blueSlime extends enemy {
 
         this.mitosing = false;
         this.mitosisCounter = false;
-        this.largeSlimeDamageCounter = false;
         this.body.bounce.x = 1;
         
 
@@ -289,14 +288,13 @@ class blueSlime extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this slime.
     moveIdle() {
-        //this.setSize(90, 65, true);
-        //this.setOffset(105, 233);
+
         if (this.slimeSize === 1) {
             this.anims.play('slimeIdle', true);
-            //this.setSize(90, 65, true);
+
         } else if (this.slimeSize === 2) {
             this.anims.play('slimeLargeIdle', true);
-            //this.setSize(40, 34, true);
+
         }
         this.body.setGravityY(600);
         this.setVelocityX(0);
@@ -327,7 +325,7 @@ class blueSlime extends enemy {
     }
 
     //the grab function. is called when player has overlaped with an enemy slime.
-    grab(){
+    grab(){ 
         let currentSlime = this;
         //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
@@ -345,7 +343,8 @@ class blueSlime extends enemy {
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
-                playerHealth: null
+                playerHealth: null,
+                playerMaxHealth: null
             };
 
             //gets the hp value using a emitter
@@ -358,8 +357,9 @@ class blueSlime extends enemy {
             //hides the mobile controls in the way of the tab/skip indicator.
             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
 
-            //logic for when the player is grabbed
-            this.slimeGrabTrue(playerHealthObject);
+            //puts the key display in the correct location.
+            this.scene.KeyDisplay.x = this.x;
+            this.scene.KeyDisplay.y = this.y + 100;
 
             //displays the give up option on screen
             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
@@ -376,14 +376,14 @@ class blueSlime extends enemy {
             }
 
             //logic for if the player is not defeated and struggling
-            if(playerHealthObject.playerHealth >= 1 && this.struggleCounter <= 100){
+            if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100){
 
             //calls a function to handle the player taking damage
-            this.playerIsStrugglingLogic();
+            this.playerIsStrugglingLogic(playerHealthObject);
 
             //logic for if the player escapes the grab
-            }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
-
+            }else if(this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+                
                 //if the player escapes hide the give up indicator.
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
@@ -392,7 +392,7 @@ class blueSlime extends enemy {
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
-            }else  if(playerHealthObject.playerHealth === 0){
+            }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax){
 
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -406,53 +406,26 @@ class blueSlime extends enemy {
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
             }
+            //console.log("playerHealthObject",playerHealthObject);
             
         }
 
     }
 
+    //simple function to set a few thing when grab is started
     slimeGrabFalse(){
-
         //hides player object during grab.
         this.scene.player1.visible = false;
         
         // makes the key prompts visible.
         this.scene.KeyDisplay.visible = true;
 
-        // if its a small slime then play the small slime grab animation.
-        if (this.slimeSize === 1) {
-            // check to make sure animations dont conflict with eachother.
-            if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                this.anims.play("slimeGrab", true);
-            }
-            // when entering grabs sets offset correctly so play isn't clipping through the ground. or clips through the ground falling nito the void
-            //this.setOffset(40,129);
-        } else if (this.slimeSize === 2) {
-            if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-                this.anims.play("largeSlimeStruggle", true);
-            }
-        }
+        //set the player grabbed in this enemy to true
         this.playerGrabbed = true;
-        //if the player is grabbed then do the following.
     }
 
-    slimeGrabTrue(playerHealthObject){
-
-        //puts the key display in the correct location.
-        this.scene.KeyDisplay.x = this.x;
-        this.scene.KeyDisplay.y = this.y + 100;
-        // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
-            //hpBar.calcDamage(1);
-            healthEmitter.emit(healthEvent.loseHealth,1)
-            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
-            this.playerDamaged = true;
-        }
-    }
-
+    //function handles the player struggle buttons
     playerIsNotDefeatedInputs(playerHealthObject){
-        //logic handles random key imputs display to player and there interactability.
-        //checks if the player is struggleing free by pressing the right buttons.
 
         let currentSlime = this;
 
@@ -530,6 +503,7 @@ class blueSlime extends enemy {
             }
 
         }
+
         // randomizing input
         if (this.randomInputCooldown === false && this.slimeSize === 2) {
 
@@ -560,7 +534,6 @@ class blueSlime extends enemy {
         }
 
         // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
-        // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
         if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
             // this case subtracts from the struggle free counter if the value is not pressed fast enough.
             this.struggleCounter--;
@@ -577,26 +550,184 @@ class blueSlime extends enemy {
         this.playSlimeSound('3',800);
     }
 
-    playerIsStrugglingLogic(){
+    //function to handle player health loss.
+    playerIsStrugglingLogic(playerHealthObject){
 
         let currentSlime = this;
 
-        if (this.slimeSize === 2 && this.largeSlimeDamageCounter === false ) {
-            this.largeSlimeDamageCounter = true;
-            //hpBar.calcDamage(4);
-            healthEmitter.emit(healthEvent.loseHealth,4)
-            setTimeout(function () {
-                currentSlime.largeSlimeDamageCounter = false;
-            }, 1500);
-        } else if (this.slimeSize === 1  && this.largeSlimeDamageCounter === false ) {
-            this.largeSlimeDamageCounter = true;
-            //hpBar.calcDamage(2);
-            healthEmitter.emit(healthEvent.loseHealth,2)
-            setTimeout(function () {
-                currentSlime.largeSlimeDamageCounter = false;
-            }, 2000);
+        //apply damage functions based on slime size
+        if (this.slimeSize === 2 && this.playerDamageTimer === false ) {
+            //variable to lock out damage
+            this.playerDamageTimer = true;
+
+            //if the players health is above half, then deal hp damage.
+            if(playerHealthObject.playerHealth >= playerHealthObject.playerMaxHealth/2){
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.loseHealth,4);
+                }
+                
+                //time out for 1.5 seconds
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 1500);
+            }else if(playerHealthObject.playerCurse <= (playerHealthObject.playerCurseMax)/2){
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.curseBuildUp,3);
+                }
+    
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 1500);
+            }else{
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.curseBuildUp,4);
+                }
+    
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 1000);
+            }
+
+        }else if (this.slimeSize === 1  && this.playerDamageTimer === false ) {
+
+            this.playerDamageTimer = true;
+
+            //if the players health is above half, then deal hp damage.
+            if(playerHealthObject.playerHealth >= playerHealthObject.playerMaxHealth/2){
+
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.loseHealth,2);
+                }
+    
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 2000);
+
+            }else if(playerHealthObject.playerCurse <= (playerHealthObject.playerCurseMax)/2){
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.curseBuildUp,2);
+                }
+    
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 1500);
+            }else{
+                //case to stop the damage function from being applied if the 
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.curseBuildUp,2);
+                }
+    
+                setTimeout(function () {
+                    currentSlime.playerDamageTimer = false;
+                }, 1000);
+            }
+            
             // if the player has been defeated the do the following steps.
         }
+
+        // if its a small slime then play the small slime grab animation.
+        if (this.slimeSize === 1) {
+
+            //if the player isnt defeated.
+            if(this.playerDefeated == false ){
+
+                // check to make sure animations dont conflict with eachother.
+                if (this.playerDefeatedAnimationStage === 0  ) {
+                    this.anims.play("slimeGrab", true);
+
+                //if the defeated stage is incremented, then play the animation of the player falling. need to pause damage, as well as the player ability to struggle.
+                }else if(this.playerDefeatedAnimationStage === 1 && this.animationPlayed === false){
+                    this.animationPlayed = true;
+                    this.anims.play("slimeGrabFallingDefeated", true).once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.playerDefeatedAnimationStage++;
+                    });
+                }else if(this.playerDefeatedAnimationStage === 3){
+                    this.anims.play("slimeGrabDefeated2", true);
+                    this.playPlapSound('plap10',2000);
+                    
+                    if (this.onomatPlayed === false) {
+                        this.onomatPlayed = true;
+                        let randX = Math.floor((Math.random() * 15));
+                        let randY = Math.floor((Math.random() * 15));
+        
+                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                        this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                        this.scene.heartOnomat1.setScale(1/4);
+                        this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+        
+                        let thisSlime = this;
+                        setTimeout(function () {
+                            thisSlime.onomatPlayed = false;
+                            
+                        }, 600);
+                    }
+                    
+                }else if(this.playerDefeatedAnimationStage === 4){
+                    this.anims.play('slimeGrabDefeated3', true);
+                    this.playSlimeSound('3',600);
+                    this.playPlapSound('plap9',1000);
+        
+                    if (this.onomatPlayed === false) {
+                        this.onomatPlayed = true;
+                        let randX = Math.floor((Math.random() * 15));
+                        let randY = Math.floor((Math.random() * 15));
+        
+                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                        this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                        this.scene.heartOnomat1.setScale(1/4);
+                        this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+        
+                        let thisSlime = this;
+                        setTimeout(function () {
+                            thisSlime.onomatPlayed = false;
+                            
+                        }, 600);
+                    }
+                }
+
+                //case to progress defeated stage, soo that we can have different struggle animations.
+                //in this case, if the player health is less than half there max health and the stage is 0
+                if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth/2 && this.playerDefeatedAnimationStage === 0){
+                    //increment the stage so behavior changes.
+                    this.playerDefeatedAnimationStage++;
+                }else if(playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax)/2 && this.playerDefeatedAnimationStage === 3){
+                    this.playerDefeatedAnimationStage++;
+                }
+            }
+            
+        }else if(this.slimeSize === 2) {
+
+            if (this.playerDefeatedAnimationStage === 0  )  {
+                this.anims.play("largeSlimeStruggle", true);
+            }else if(this.playerDefeatedAnimationStage === 1 && this.animationPlayed === false){
+                this.animationPlayed = true;
+                this.anims.play("largeSlimefallingDefeated", true).once('animationcomplete', () => {
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.playerDefeatedAnimationStage++;
+                });
+            }else if(this.playerDefeatedAnimationStage === 3){
+                this.anims.play("largeSlimeGrabDefeated1", true);
+                this.playSlimeSound('2',800);
+                
+            }
+
+            //progression for grab stages
+            if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth/2 && this.playerDefeatedAnimationStage === 0){
+                //increment the stage so behavior changes.
+                this.playerDefeatedAnimationStage++;
+            }
+        }
+        
+
+        
     }
 
     playerIsDefeatedLogic(){
@@ -605,9 +736,14 @@ class blueSlime extends enemy {
         if (this.slimeSize === 1) {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
             this.scene.enemyThatDefeatedPlayer = "blueSlime";
+
             // if we start the player defeated animation then we need to set a few things.
-            if (this.playerDefeatedAnimationStage === 0) {
+            ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
+            //CANT USE STAGE TO CHECK BECAUSE IF WE PROGRESS THEN IT WILL BREAK THINGS IF THIS ACTIVATES CONSTANTLY. LIKE WHAT HAPPENED WHEN I TRYED.
+            if (this.inStartDefeatedLogic === false) {
+
                 this.scene.KeyDisplay.playDKey();
                 let currentSlime = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
                 //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
@@ -623,15 +759,15 @@ class blueSlime extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            /*console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
+            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
             " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
-            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);*/
+            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);
 
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
             if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
-                  this.inStartDefeatedLogic === false &&
+                  this.inStartDefeatedLogic === true &&
                    this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationStage !== 5 &&
                      this.playerDefeatedAnimationStage !== 6 &&
@@ -732,13 +868,13 @@ class blueSlime extends enemy {
             if (this.slimeSize === 1 && this.struggleFree === false) {
                 console.log("Free counter: " + this.struggleFree);
                 // handles the breaking free animation.
-                if (!this.animationPlayed) {
-                    this.animationPlayed = true;
-                    this.anims.play('slimeGrabBreak').once('animationcomplete', () => {
+                //if (!this.animationPlayed) {
+                    //this.animationPlayed = true;
+                    //this.anims.play('slimeGrabBreak').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         currentSlime.struggleFree = true;
-                    });
-                }
+                    //});
+                //}
             } else if (this.slimeSize === 2 && this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
                 setTimeout(function () {
@@ -763,6 +899,7 @@ class blueSlime extends enemy {
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+                this.playerDefeatedAnimationStage = 0;
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
@@ -1035,7 +1172,7 @@ class blueSlime extends enemy {
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
 
-                this.scene.onomat.destroy();
+                //this.scene.onomat.destroy();
                 this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"SPURT!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);

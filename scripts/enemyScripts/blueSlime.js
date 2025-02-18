@@ -946,7 +946,11 @@ class blueSlime extends enemy {
                     this.scene.internalView.destroy();
                 }
 
-                this.scene.sound.get("plapSFX").stop();
+                //stops sound effect if it exists
+                if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                    this.scene.sound.get("plapSFX").stop();
+                }
+                
                
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe

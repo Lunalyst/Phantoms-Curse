@@ -138,9 +138,6 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         if(this.scene.checkGiveUpIndicatorIsDown()){
             healthEmitter.emit(healthEvent.loseHealth,9999);
             healthEmitter.emit(healthEvent.curseBuildUp,9999);
-            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
-                this.scene.sound.get("plapSFX").stop();
-            }
         }
     }
 

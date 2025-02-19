@@ -25,12 +25,9 @@ class Tutorial extends npc{
        this.animationPlayed = false;
        this.scene = scene;
 
-       this.trading = false;
        this.activatedTradeUI = false;
 
        this.formattingText = false;
-
-       this.sleeping = true;
 
   }
 

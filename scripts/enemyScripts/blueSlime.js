@@ -546,8 +546,6 @@ class blueSlime extends enemy {
                 //console.log('strugglecounter: '+this.struggleCounter);
         }
 
-        //handles sound effect diring grab struggle
-        this.playSlimeSound('3',800);
     }
 
     //function to handle player health loss.
@@ -639,6 +637,8 @@ class blueSlime extends enemy {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeatedAnimationStage === 0  ) {
                     this.anims.play("slimeGrab", true);
+                    //handles sound effect diring grab struggle
+                    this.playSlimeSound('3',800);
 
                 //if the defeated stage is incremented, then play the animation of the player falling. need to pause damage, as well as the player ability to struggle.
                 }else if(this.playerDefeatedAnimationStage === 1 && this.animationPlayed === false){
@@ -706,6 +706,7 @@ class blueSlime extends enemy {
 
             if (this.playerDefeatedAnimationStage === 0  )  {
                 this.anims.play("largeSlimeStruggle", true);
+                this.playSlimeSound('2',800);
             }else if(this.playerDefeatedAnimationStage === 1 && this.animationPlayed === false){
                 this.animationPlayed = true;
                 this.anims.play("largeSlimefallingDefeated", true).once('animationcomplete', () => {
@@ -798,13 +799,9 @@ class blueSlime extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage,
-            " this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown,
-            " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic);
-
             //may be able to set a bool to true or false to tell what animations have the key skip
             //that way we dont need tons of if checks for numbers
-            if (this.scene.checkDIsDown() &&
+            if (this.scene.checkDPressed() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === true &&
                    this.scene.KeyDisplay.visible === true &&
@@ -829,10 +826,12 @@ class blueSlime extends enemy {
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             console.log()
-            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDPressed())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
-                this.scene.sound.get("plapSFX").stop();
+                if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                    this.scene.sound.get("plapSFX").stop();
+                }
                 this.scene.changeToGameover();
             }
 
@@ -848,7 +847,7 @@ class blueSlime extends enemy {
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
             this.scene.enemyThatDefeatedPlayer = "largeBlueSlime";
             // if we start the player defeated animation then we need to set a few things.
-            if (this.playerDefeatedAnimationStage === 0) {
+            if (this.inStartDefeatedLogic === false) {
                 this.scene.KeyDisplay.playDKey();
                 let currentSlime = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
                 //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
@@ -864,9 +863,9 @@ class blueSlime extends enemy {
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
-            if (this.scene.checkDIsDown() &&
-             this.playerDefeatedAnimationCooldown === false &&
-             this.inStartDefeatedLogic === false &&
+            if (this.scene.checkDPressed() &&
+            this.playerDefeatedAnimationCooldown === false &&
+            this.inStartDefeatedLogic === true &&
              this.scene.KeyDisplay.visible === true &&
               this.playerDefeatedAnimationStage !== 3 &&
                this.playerDefeatedAnimationStage !== 6) {
@@ -887,10 +886,12 @@ class blueSlime extends enemy {
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage, " ")
-            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDPressed())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
-                this.scene.sound.get("plapSFX").stop();
+                if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                    this.scene.sound.get("plapSFX").stop();
+                }
                 this.scene.changeToGameover();
             }
 
@@ -1140,7 +1141,7 @@ class blueSlime extends enemy {
             this.playerDefeatedAnimationStageMax = 9;
 
             if (!this.animationPlayed) {
-
+                this.playSlimeSound('2',800);
                 this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);
@@ -1152,7 +1153,6 @@ class blueSlime extends enemy {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 2) {
@@ -1323,7 +1323,6 @@ class blueSlime extends enemy {
                 this.anims.play('largeSlimefallingDefeated').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
                     this.scene.onomat.destroy();
                 });
             }
@@ -1508,18 +1507,32 @@ class blueSlime extends enemy {
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            //puts the key display in the correct location.
-            this.scene.KeyDisplay.visible = true;
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 100;
+            
             // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
             
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-            // handles input for progressing animation
-            if (this.scene.checkDPressed() === true) {
-                this.playerProgressingAnimation = true;
+                //puts the key display in the correct location.
+                this.scene.KeyDisplay.visible = true;
+                this.scene.KeyDisplay.x = this.x;
+                this.scene.KeyDisplay.y = this.y + 100;
+                
+                //here is where animation for grab and grab sf should be played for grab animation.
+                if(this.slimeSize === 1){
+                    //play struggle animation and sounds.
+                    this.anims.play("slimeGrab",true);
+                }else{
+                    this.anims.play("largeSlimeStruggle", true);
+                }
+                //handles sound effect diring grab struggle
+                this.playSlimeSound('3',800);
+                
+
+                // handles input for progressing animation
+                if (this.scene.checkDPressed() === true) {
+                    this.playerProgressingAnimation = true;
+                    this.playerDefeatedAnimationStage = 0;
                 }
 
                 // displays inputs while in the first stage of the animation viewing.
@@ -1530,7 +1543,7 @@ class blueSlime extends enemy {
                 }      
             }
 
-            if( this.playerProgressingAnimation === true){
+            if(this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
                 if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){

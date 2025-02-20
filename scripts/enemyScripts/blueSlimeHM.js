@@ -1299,7 +1299,7 @@ class blueSlimeHM extends enemy {
         
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
             this.scene.player1.y = this.y - 150;
-            this.scene.player1.body.setGravityY(0);
+            //this.scene.player1.body.setGravityY(0);
             //this.body.setGravityY(0);
             //puts the key display in the correct location.
             this.scene.KeyDisplay.visible = true;

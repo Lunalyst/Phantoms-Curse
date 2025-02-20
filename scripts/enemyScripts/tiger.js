@@ -241,7 +241,7 @@ class tiger extends enemy {
                                 let currentTiger = this;
                                 setTimeout(function () {
                                     currentTiger.jumped = false;
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false){
                                         currentTiger.setVelocityX(310);
                                     }
                                 }, 160);
@@ -274,7 +274,7 @@ class tiger extends enemy {
                                 this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false){
                                         currentTiger.setVelocityX(310*-1);
                                     }
                                     currentTiger.jumped = false;
@@ -508,7 +508,8 @@ class tiger extends enemy {
 
     //function called to play tiger eating animations.
     tigerEatsRabbit(rabbitSex){
-       // console.log("");
+       //sets velocity to zero since the enemy should not be moving.
+       this.setVelocityX(0);
 
         // decides if the male or female rabbit is being eaten.
         this.tigerIsEating = true;

@@ -229,16 +229,19 @@ class G9CheckEnemys extends G8CheckNPCS {
 
           //safty check to improve performance. only does overlap if in range.
           if(scene.objectsInRangeX(tempTiger,tempRabbit,200) && scene.objectsInRangeY(tempTiger,tempRabbit,200)){
-            //checks if the tiger overlaps a rabbit
-            scene.physics.add.overlap(tempTiger, tempRabbit, function () {
-              
-              //if neither party has grabbed the player, then tiger eats the rabbit.
-              if(tempTiger.playerGrabbed === false && tempRabbit.playerGrabbed === false){
-                tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
-                tempRabbit.destroy();
-              
-              }   
-            });
+            //if the tiger isnt in the air. 
+            if(tempTiger.body.blocked.down){
+              //checks if the tiger overlaps a rabbit
+              scene.physics.add.overlap(tempTiger, tempRabbit, function () {
+                
+                //if neither party has grabbed the player, then tiger eats the rabbit.
+                if(tempTiger.playerGrabbed === false && tempRabbit.playerGrabbed === false){
+                  tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
+                  tempRabbit.destroy();
+                
+                }   
+              });
+            }
           }
         }
       });

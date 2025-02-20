@@ -665,7 +665,7 @@ class tiger extends enemy {
             // makes the key prompts visible.
             this.scene.KeyDisplay.visible = true;
 
-            // if its a small slime then play the small slime grab animation.
+            //if the tiger is facing left.
             if (this.direction === "left") {
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {

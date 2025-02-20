@@ -350,6 +350,8 @@ class blueSlime extends enemy {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
+            console.log("playerHealthObject: ",playerHealthObject);
+
             //makes the struggle bar visible
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
             struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
@@ -1420,7 +1422,9 @@ class blueSlime extends enemy {
                 });
                 currentSlime = this;
                 setTimeout(function () {
-                    currentSlime.scene.sound.get('plapSFX').stop();
+                    if(currentSlime.scene.sound.get("plapSFX") !== null && currentSlime.scene.sound.get("plapSFX") !== undefined){
+                        currentSlime.scene.sound.get("plapSFX").stop();
+                    }
                     currentSlime.scene.initSoundEffect('curseSFX','curse',0.3);
 
                     //display the curselight when player is cursed.
@@ -1506,10 +1510,6 @@ class blueSlime extends enemy {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         
-            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            
-            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-            
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 

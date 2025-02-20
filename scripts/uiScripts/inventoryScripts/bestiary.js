@@ -350,7 +350,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
   }
   //function that sets the visibility of the text character groups correctly.
   displayBestiaryText(isVisible) {
-    console.log("setting text tovisible: ", isVisible);
+    //console.log("setting text tovisible: ", isVisible);
 
     if (isVisible === true && this.bestiaryTitle[0].visible === false || isVisible === false && this.bestiaryTitle[0].visible === true) {
       this.titleCharacters.toggleVisible();

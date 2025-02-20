@@ -880,7 +880,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
             }
             this.pierceDamage = 6;
             this.setAttackHitboxSize(60,30);
-            this.HitBox(800,35);
+            this.HitBox(400,35);
             break;
             case (3):
             if(this.playedAttackAnimation === false){
@@ -898,7 +898,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
             this.pierceDamage = 4;
             this.curseDamage = 4;
             this.setAttackHitboxSize(60,30);
-            this.HitBox(800,35);
+            this.HitBox(400,35);
             break;
           default:
             console.log("attacking animation unarmed");

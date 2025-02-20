@@ -37,6 +37,15 @@ class tiger extends enemy {
 
         this.tigerIsEating = false;
         this.tigerHasEatenRabbit = false;
+
+        this.grabTimer = false;
+
+         //make a hitbox so the cat can grab the player.
+         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
+         this.grabHitBox.setSize(45,10,true);
+         this.hitboxActive = false;
+         this.attemptingGrab = false;
+         this.isPlayingMissedAnims = false;
         
     
         //defines tiger animations based on the players sex.
@@ -60,6 +69,10 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerSwallowFemaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 61, end: 67 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'tigerSwallowRabbitMiddle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 17, end: 26 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'tigerDigestRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 102, end: 116 }), frameRate: 7, repeat: 0 });
+
+        this.anims.create({ key: 'tigerStartGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 113, end: 115}), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'tigerMissGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 116, end: 118}), frameRate: 8, repeat: 0 });
+
         //male animations
         if (sex === 0) {
             this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
@@ -73,6 +86,8 @@ class tiger extends enemy {
             this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 44, end: 47 }), frameRate: 12, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 48, end: 56 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 57, end: 60 }), frameRate: 7, repeat: -1 });
+
+            this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 85, end: 98}), frameRate: 7, repeat: 0 });
         //female animations    
         } else if(sex === 1) {
             this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
@@ -86,6 +101,8 @@ class tiger extends enemy {
             this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 85, end: 88 }), frameRate: 12, repeat: -1 });
             this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 89, end: 97 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 98, end: 101 }), frameRate: 7, repeat: -1 });
+
+            this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 99, end: 112}), frameRate: 7, repeat: 0 });
         
         }
         //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
@@ -103,6 +120,7 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 179-103, end: 186-103 }), frameRate: 5, repeat: -1 });
+        
 
         this.inSafeMode = inSafeMode;
 
@@ -126,19 +144,71 @@ class tiger extends enemy {
 
         //if the tiger is hungry then
         if(this.tigerHasEatenRabbit === false){
+
             if(this.tigerIsEating === true){
                 this.setVelocityX(0);
     
             }else if(this.isHidding === false && this.tigerIsEating === false){
-    
+                
+                //console.log("this.grabTimer: ",this.grabTimer," this.attemptingGrab:",this.attemptingGrab );
                 //console.log("this.body.blocked.down: ",this.body.blocked.down,"this.jumped: ",this.jumped,"this.jumpAnimationPlayed: ",this.jumpAnimationPlayed,);
     
                 //checks to see if enemy is in range of player
-                if (this.scene.player1.x > this.x - 600 && this.scene.player1.x < this.x + 600) {
+                if (this.checkXRangeFromPlayer(600, 600)) {
                     
+                    if(this.body.blocked.down && (this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,50) && this.grabTimer === false && this.jumped === false)){
+                        
+                        console.log("starting grab animation");
+                        //play animation
+                        this.setVelocityX(0);
+                        this.grabTimer = true;
         
+                        //if player to the left move the grab hitbox to the left
+                        if(this.scene.player1.x < this.x){
+                            this.flipX = true;
+                        }else{
+                            this.flipX = false;
+                        }
+    
+                        this.setDepth(7);
+                        if (!this.jumpAnimationPlayed) {
+                            this.jumpAnimationPlayed = true;
+                            this.anims.play('tigerStartGrab').once('animationcomplete', () => {
+                                
+                                this.playJumpySound('3',700);
+        
+                                this.hitboxActive = true;
+                                this.grabHitBox.body.enable = true;
+                                this.attemptingGrab = true;
+                                
+                                this.jumpAnimationPlayed = false;
+                                //controls the x velocity when the bee ischarging to grab the player
+                                
+                            });
+                        }
+    
+                    }else if(this.body.blocked.down && this.attemptingGrab === true  && this.jumped === false ){
+
+                        console.log("grab animation missed");
+    
+                        if(this.isPlayingMissedAnims === false){
+                            this.isPlayingMissedAnims = true;
+                            //set value to play missed grabb animation
+                            
+                            this.anims.play('tigerMissGrab').once('animationcomplete', () => {
+                                this.setDepth(5);
+                                this.hitboxActive = false;
+                                this.attemptingGrab = false;
+                                this.grabTimer = false;
+                                this.isPlayingMissedAnims = false;    
+                            });
+                        }
+                    
                     //if the player is out of range of the player in the y axis, then taunt player.
-                    if(this.body.blocked.down && this.y-100 > this.scene.player1.y && this.taunting === false){
+                    }else if(this.body.blocked.down && this.y-100 > this.scene.player1.y && this.taunting === false && this.grabTimer === false){
+
+                        console.log("player too high so tiger is taunting");
+
                         //set taunting to true
                         this.taunting = true;
                         //stop velocity
@@ -149,9 +219,11 @@ class tiger extends enemy {
                         });
     
                     //if the player is to the right and above tiger then jump towards the player
-                    }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false) {
+                    }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false) {
                         //console.log("jumping right")
-                        
+
+                        console.log("tiger is jumping right");
+
                         this.jumped = true;
                           
                         if (!this.jumpAnimationPlayed) {
@@ -165,11 +237,13 @@ class tiger extends enemy {
                                 if(this.tigerIsEating === false){
                                 this.setVelocityY(250*-1);
                                 }
-                            
+                                this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
                                     currentTiger.jumped = false;
-                                    currentTiger.setVelocityX(310);
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false){
+                                        currentTiger.setVelocityX(310);
+                                    }
                                 }, 160);
     
                                 this.anims.play('tigerInAir');
@@ -179,9 +253,11 @@ class tiger extends enemy {
                         }
     
                     //if the player is to the right and above tiger then jump towards the player
-                    }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false) {
+                    }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false ) {
                         //console.log("jumping left")
                         
+                        console.log("tiger is jumping left");
+
                         this.jumped = true;
                            
                         if (!this.jumpAnimationPlayed) {
@@ -194,11 +270,14 @@ class tiger extends enemy {
                                 if(this.tigerIsEating === false){
                                     this.setVelocityY(250*-1);
                                 }
-                            
+                                
+                                this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false){
+                                        currentTiger.setVelocityX(310*-1);
+                                    }
                                     currentTiger.jumped = false;
-                                    currentTiger.setVelocityX(310*-1);
                                 }, 160);
     
                                 this.anims.play('tigerInAir');
@@ -208,8 +287,10 @@ class tiger extends enemy {
                         }
     
                     //if the player is to the right then move enemy to the right
-                    }else if(this.body.blocked.down && this.scene.player1.x > this.x+10 && this.taunting === false) {
-                            
+                    }else if(this.body.blocked.down && this.scene.player1.x > this.x+10 && this.taunting === false && this.grabTimer === false) {
+                        
+                        console.log("tiger is walking right");
+
                         this.direction = "right";
                         this.jumpAnimationPlayed = false; 
                         
@@ -218,8 +299,10 @@ class tiger extends enemy {
                         this.setVelocityX(310); 
                 
                     //if the player is to the right then move enemy to the left
-                    } else if (this.body.blocked.down && this.scene.player1.x < this.x-10 && this.taunting === false) {
+                    } else if (this.body.blocked.down && this.scene.player1.x < this.x-10 && this.taunting === false && this.grabTimer === false) {
                             
+                        console.log("tiger is walking left");
+
                         this.direction = "left";
                         this.jumpAnimationPlayed = false;
                         this.flipX = true;
@@ -227,8 +310,9 @@ class tiger extends enemy {
                         this.setVelocityX(310*-1); 
                         
                     //otherwise if the enemy is on the ground then
-                    } else if (this.body.blocked.down && this.taunting === false) {
-    
+                    } else if (this.body.blocked.down && this.taunting === false && this.grabTimer === false) {
+                        
+                        console.log("tiger is idling");
                         //player idle animation in the correct direction
                         if(this.direction === "left"){
                             this.flipX = true;
@@ -361,6 +445,26 @@ class tiger extends enemy {
                 this.setVelocityX(0);
             }
         }
+
+        //handles hit box positioning
+        if(this.hitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.grabHitBox.x = this.x-20;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.grabHitBox.x = this.x+20;
+            }
+            this.grabHitBox.y = this.y;
+
+        }else{
+            this.grabHitBox.x = this.x;
+            this.grabHitBox.y = this.y + 3000; 
+        }
         
         //updates the previous y value to tell if slime is falling or going up in its jump.
         this.tigerPreviousY = this.y;
@@ -369,6 +473,7 @@ class tiger extends enemy {
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
         this.setVelocityX(0);
+        this.grabTimer = false;
         if(this.isHidding === false){
             //player idle animation in the correct direction 
             if(this.tigerHasEatenRabbit === false){
@@ -888,6 +993,8 @@ class tiger extends enemy {
                     this.playerGrabbed = false;
                     this.keyAnimationPlayed = false;
                     this.scene.player1.visible = true;
+                    this.isPlayingMissedAnims = false;
+                    this.grabTimer = false;
                     //player1.setSize(23, 68, true);
                     struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 

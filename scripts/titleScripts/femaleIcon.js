@@ -49,7 +49,8 @@ class femaleIcon extends Phaser.Physics.Arcade.Sprite{
                 playerSkillsData:  null,
                 playerSaveSlotData: null,
                 flagValues: null,
-                settings:null
+                settings:null,
+                playerCurseValue:null
               };
 
             //sets value to true, so scene knows to send the player through the intro cutscene

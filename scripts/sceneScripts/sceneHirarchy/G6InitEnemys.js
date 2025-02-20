@@ -434,9 +434,10 @@ class G6InitEnemys extends G5InitNPCs{
 
     //apply movement logic if there is any. controls player movement to have them walk toward the enemy that they got infatuated by.
     //only use this logic if we are done having the player huff and puff.
+    //console.log("this.player1.mainHitbox.body.blocked.down :",this.player1.mainHitbox.body.blocked.down,"this.knockdownDelay: ",this.knockdownDelay );
     if(this.playerStuckGrabbedBy ==="knockdown" && this.knockdownDelay === true){
       this.player1.StuckRepeat('knockdownStruggle');
-
+      this.player1.mainHitbox.setVelocityX(0);
 
     }else if(this.playerStuckGrabbedBy ==="knockdown" && this.knockdownDelay === false){
 
@@ -446,7 +447,6 @@ class G6InitEnemys extends G5InitNPCs{
 
       }
       //use the enemy to tell where the player should be flung
-      //console.log("this.enemyThatknockdownPlayer.flipX: ",this.enemyThatknockdownPlayer.flipX, " this.player1.isDown: ",this.player1.mainHitbox.body.blocked.down);
       if(this.enemyThatknockdownPlayer.flipX === true && this.player1.mainHitbox.body.blocked.down === false){
         //fling player left
         this.player1.mainHitbox.setVelocityX(-140);

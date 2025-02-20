@@ -470,6 +470,7 @@ for(let counter = 0; counter < 100; counter++){
   playerObject.flagValues = gameFlags;
   playerObject.settings = settings;
   playerObject.dreamReturnLocation = dreamReturnLocation;
+  playerObject.playerCurseValue = 0;
   }
 
   //function to fix dave file if the file is broken or outdated.

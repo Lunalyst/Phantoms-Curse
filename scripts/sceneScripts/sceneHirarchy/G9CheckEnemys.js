@@ -270,7 +270,7 @@ class G9CheckEnemys extends G8CheckNPCS {
       
 
       //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1.mainHitbox, tempTiger, function () {
+      scene.physics.add.overlap(scene.player1.mainHitbox, tempTiger.grabHitBox, function () {
         if(tempTiger.tigerIsEating === false){
           //make a temp object
           let isWindowObject = {

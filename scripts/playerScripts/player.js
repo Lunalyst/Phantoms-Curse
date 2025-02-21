@@ -646,7 +646,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
     //if the player is  in the air and moving to the left
     if(this.scene.checkAIsDown() && !this.mainHitbox.body.blocked.down){
-    console.log("IN AIR AND MOVING LEFT");
+    //console.log("IN AIR AND MOVING LEFT");
       this.mainHitbox.setVelocityX(-250 * this.speedBoost);
       this.animationInAir = true;
       this.flipXcontainer(true);
@@ -778,7 +778,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //if shift is pressed then force the player to attacks, no animation cancel
     if(this.mainHitbox.body.blocked.down && this.scene.checkATKIsDown() && this.isAttacking === false){
       this.isAttacking = true;
-      console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
+      //console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
     //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
     }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 

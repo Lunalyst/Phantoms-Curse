@@ -14,7 +14,11 @@
             "loop": false
         },"3":{
             "start": 2.4,
-            "end": 3,
+            "end": 2.7,
+            "loop": false
+        },"4":{
+            "start": 2.9,
+            "end": 3.9,
             "loop": false
         }
     }

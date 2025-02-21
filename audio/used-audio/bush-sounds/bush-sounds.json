@@ -1,0 +1,17 @@
+{
+    "resources":[
+        "../audio/used-audio/bush-sounds/bush-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 3,
+            "end": 1.2,
+            "loop": false
+        },"2":{
+            "start": 3.5,
+            "end": 4.2,
+            "loop": false
+        }
+    }
+}

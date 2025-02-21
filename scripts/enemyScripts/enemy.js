@@ -43,6 +43,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.playerDefeatedAnimationCooldown = false;
         this.plapSoundCoolDown = false;
         this.jumpySoundCoolDown = false;
+        this.stomachSoundCoolDown = false;
         
         this.playerProgressingAnimation = false;
         this.isViewingAnimation = false;
@@ -54,6 +55,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.playerDefeatedAnimationStageMax = 0;
 
         this.scene = scene;
+
+        this.startedGrab = false;
 
         //shrinks prite back down to a third of its size since we upscale sprites.
         this.setScale(1 / 3);
@@ -171,6 +174,20 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
             let enemy = this;
             setTimeout(function () {
                 enemy.jumpySoundCoolDown = false;
+            }, delay);
+        }
+
+    }
+
+    playStomachSound(type,delay){
+
+        if(this.stomachSoundCoolDown === false){
+            this.scene.initSoundEffect('stomachSFX',type,0.1);
+            this.stomachSoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.stomachSoundCoolDown = false;
             }, delay);
         }
 

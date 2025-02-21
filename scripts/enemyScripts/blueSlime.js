@@ -634,7 +634,7 @@ class blueSlime extends enemy {
         if (this.slimeSize === 1) {
 
             //if the player isnt defeated.
-            if(this.playerDefeated == false ){
+            if(this.playerDefeated === false ){
 
                 // check to make sure animations dont conflict with eachother.
                 if (this.playerDefeatedAnimationStage === 0  ) {

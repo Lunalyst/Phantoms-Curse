@@ -40,6 +40,10 @@ class tiger extends enemy {
 
         this.grabTimer = false;
 
+        this.struggleAnimationInterupt = false;
+
+        this.spitUp = false;
+
          //make a hitbox so the cat can grab the player.
          this.grabHitBox = new hitBoxes(scene,this.x,this.y);
          this.grabHitBox.setSize(45,10,true);
@@ -111,10 +115,11 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 115-103, end: 118-103 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerTummyWobbleIdle', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 118-103 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 119-103, end: 129-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 130-103, end: 136-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 137-103, end: 151-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 152-103, end: 154-103 }), frameRate: 7, repeat: -1 });
+        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 151-103, end: 154-103 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 155-103, end: 166-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 167-103, end: 171-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
@@ -190,7 +195,9 @@ class tiger extends enemy {
                     }else if(this.body.blocked.down && this.attemptingGrab === true  && this.jumped === false ){
 
                         console.log("grab animation missed");
-    
+
+                        this.setVelocityX(0);
+
                         if(this.isPlayingMissedAnims === false){
                             this.isPlayingMissedAnims = true;
                             //set value to play missed grabb animation
@@ -205,7 +212,7 @@ class tiger extends enemy {
                         }
                     
                     //if the player is out of range of the player in the y axis, then taunt player.
-                    }else if(this.body.blocked.down && this.y-100 > this.scene.player1.y && this.taunting === false && this.grabTimer === false){
+                    }else if(this.body.blocked.down && this.y-100 > this.scene.player1.y && this.taunting === false && this.grabTimer === false && this.scene.grabbed === false){
 
                         console.log("player too high so tiger is taunting");
 
@@ -219,29 +226,30 @@ class tiger extends enemy {
                         });
     
                     //if the player is to the right and above tiger then jump towards the player
-                    }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false) {
+                    }else if(this.body.blocked.down && this.y > this.scene.player1.y && this.x < this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false && this.scene.grabbed === false) {
                         //console.log("jumping right")
 
                         console.log("tiger is jumping right");
 
                         this.jumped = true;
+
+                        this.setVelocityX(0);
                           
                         if (!this.jumpAnimationPlayed) {
                             this.jumpAnimationPlayed = true;
-                            this.setVelocityX(0);
     
                             //animation getting interupted causing things to break.
                             this.flipX = false;
                             this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                                 this.jumpAnimationPlayed = false;
-                                if(this.tigerIsEating === false){
+                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false){
                                 this.setVelocityY(250*-1);
                                 }
                                 this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
                                     currentTiger.jumped = false;
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false){
                                         currentTiger.setVelocityX(310);
                                     }
                                 }, 160);
@@ -253,28 +261,29 @@ class tiger extends enemy {
                         }
     
                     //if the player is to the right and above tiger then jump towards the player
-                    }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false ) {
+                    }else if(this.body.blocked.down && this.y > this.scene.player1.y  && this.x > this.scene.player1.x && this.jumped === false && this.taunting === false && this.grabTimer === false && this.scene.grabbed === false ) {
                         //console.log("jumping left")
                         
                         console.log("tiger is jumping left");
 
                         this.jumped = true;
+
+                        this.setVelocityX(0);
                            
                         if (!this.jumpAnimationPlayed) {
                             this.jumpAnimationPlayed = true;
-                            this.setVelocityX(0);
     
                             this.flipX = true;
                             this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                                 this.jumpAnimationPlayed = false;
-                                if(this.tigerIsEating === false){
+                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false){
                                     this.setVelocityY(250*-1);
                                 }
                                 
                                 this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false){
                                         currentTiger.setVelocityX(310*-1);
                                     }
                                     currentTiger.jumped = false;
@@ -287,7 +296,7 @@ class tiger extends enemy {
                         }
     
                     //if the player is to the right then move enemy to the right
-                    }else if(this.body.blocked.down && this.scene.player1.x > this.x+10 && this.taunting === false && this.grabTimer === false) {
+                    }else if(this.body.blocked.down && this.scene.player1.x > this.x+10 && this.taunting === false && this.grabTimer === false && this.attemptingGrab === false) {
                         
                         console.log("tiger is walking right");
 
@@ -299,7 +308,7 @@ class tiger extends enemy {
                         this.setVelocityX(310); 
                 
                     //if the player is to the right then move enemy to the left
-                    } else if (this.body.blocked.down && this.scene.player1.x < this.x-10 && this.taunting === false && this.grabTimer === false) {
+                    } else if (this.body.blocked.down && this.scene.player1.x < this.x-10 && this.taunting === false && this.grabTimer === false && this.attemptingGrab === false) {
                             
                         console.log("tiger is walking left");
 
@@ -349,8 +358,10 @@ class tiger extends enemy {
                     //play animation of tiger emerging from bush
                     if (!this.animationPlayed) {
                         this.animationPlayed = true;
+                        this.scene.initSoundEffect('bushSFX','1',1);
                         this.anims.play('suprise').once('animationcomplete', () => {
                             this.animationPlayed = false;
+                            this.scene.initSoundEffect('bushSFX','2',1);
                             //start logic for tiger chasing player.
                             this.isHidding = false;
                         });
@@ -362,6 +373,7 @@ class tiger extends enemy {
                     this.peakActivated = true;
                     if (!this.animationPlayed) {
                         this.animationPlayed = true;
+                        this.scene.initSoundEffect('bushSFX','1',1);
                         this.anims.play('hidingPeak').once('animationcomplete', () => {
                             this.animationPlayed = false;
                             this.noticedPlayer =true;
@@ -373,6 +385,7 @@ class tiger extends enemy {
     
                     //keep tiger hidden
                     this.flipX = false;
+                    this.scene.initSoundEffect('bushSFX','1',1);
                     this.anims.play('hiding', true);
     
                 //if the player has been noticed and is to the right, look at them
@@ -380,6 +393,7 @@ class tiger extends enemy {
     
                     this.flipX = false;
                     this.anims.play('hidingCheckRight', true);
+                    //this.scene.initSoundEffect('bushSFX','2',1);
                     this.playerInOuterRange = false;
     
                 //if the player has been noticed and is to the left, look at them
@@ -387,6 +401,7 @@ class tiger extends enemy {
     
                     this.flipX = false;
                     this.anims.play('hidingCheckLeft', true);
+                    //this.scene.initSoundEffect('bushSFX','2',1);
                     this.playerInOuterRange = false;
     
                 //once the player is spotted, hide agian
@@ -396,9 +411,11 @@ class tiger extends enemy {
                     if (!this.animationPlayed && this.playerInOuterRange === false) {
                         this.animationPlayed = true;
                         this.flipX = false;
+                        this.scene.initSoundEffect('bushSFX','2',1);
                         this.anims.play('hide').once('animationcomplete', () => {
                             this.animationPlayed = false;
                             this.playerInOuterRange = true;
+                            this.scene.initSoundEffect('bushSFX','1',1);
                         });
                     //if hiding animation has been played, play hide animation
                     }else if (this.playerInOuterRange === true && this.activatedSuprise === false){
@@ -451,12 +468,12 @@ class tiger extends enemy {
 
             //hitbox should be to left if player is to the left
             if(this.flipX === true){
-                console.log("moving cat hitbox to the left");
+                //console.log("moving cat hitbox to the left");
                 this.grabHitBox.x = this.x-20;
 
             //otherwise put it to the right.
             }else{
-                console.log("moving cat hitbox to the right");
+                //console.log("moving cat hitbox to the right");
                 this.grabHitBox.x = this.x+20;
             }
             this.grabHitBox.y = this.y;
@@ -485,7 +502,7 @@ class tiger extends enemy {
             //sets velocity to zero since the enemy should not be moving.
             this.body.setGravityY(600);
         }
-
+        this.setVelocityX(0);
         //object is on view layer 4 so idling enemys dont overlap current one.
         this.setDepth(4);
     }
@@ -553,8 +570,6 @@ class tiger extends enemy {
     
     //the grab function. is called when player has overlaped with an enemy.
     grab() {
-        let currentTiger = this;
-        //first checks if slime object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
 
         this.clearTint();
         //console.log("this.playerGrabbed: ",this.playerGrabbed);
@@ -572,7 +587,8 @@ class tiger extends enemy {
 
              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
              let playerHealthObject = {
-                playerHealth: null
+                playerHealth: null,
+                playerMaxHealth: null
             };
 
             //gets the hp value using a emitter
@@ -601,7 +617,7 @@ class tiger extends enemy {
             // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
             if (playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
                 
-                this.playerIsStrugglingLogic();
+                this.playerIsStrugglingLogic(playerHealthObject);
 
             } 
             
@@ -659,77 +675,14 @@ class tiger extends enemy {
     }
 
     tigerGrabFalse(){
-         // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-            //console.log("this tiger did grab the player this.tigerId: " + this.tigerId);
-            //console.log("this.playerGrabbed",this.playerGrabbed);
-            this.scene.player1.visible = false;
-            // makes the key prompts visible.
-            this.scene.KeyDisplay.visible = true;
 
-            //if the tiger is facing left.
-            if (this.direction === "left") {
-                // check to make sure animations dont conflict with eachother.
-                if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
+        //console.log("this.playerGrabbed",this.playerGrabbed);
+        this.scene.player1.visible = false;
+        // makes the key prompts visible.
+        this.scene.KeyDisplay.visible = true;
 
-                    this.flipX = true;
-
-                    if(this.tigerHasEatenRabbit === false){
-                        this.scene.initSoundEffect('lickSFX','3',0.01);
-
-                        this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
-                        this.scene.onomat.visible = this.scene.onomatopoeia;
-                        this.scene.onomat.setScale(1/4);
-                        this.scene.onomat.textWave();
-                        this.scene.onomat.textFadeOutAndDestroy(1000);
-
-                        this.anims.play('tigerGrab').once('animationcomplete', () => {
-                            this.anims.play("tigerStruggle", true);
-                            this.scene.onomat.destroy();
-                        });
-                    }else{
-
-                        this.scene.onomat = new makeText(this.scene,this.x-11,this.y+15,'charBubble',"BOUNCE!");
-                        this.scene.onomat.visible = this.scene.onomatopoeia;
-                        this.scene.onomat.setScale(1/4);
-                        this.scene.onomat.textWave();
-                        this.scene.onomat.textFadeOutAndDestroy(1000);
-
-                        if (this.onomatPlayed === false) {
-                            this.onomatPlayed = true;
-                            let randX = Math.floor((Math.random() * 15));
-                            let randY = Math.floor((Math.random() * 15));
-                            this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
-                            this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                            this.scene.heartOnomat1.setScale(1/4);
-                            this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-            
-                            let thisTiger = this;
-                            setTimeout(function () {
-                                thisTiger.onomatPlayed = false;
-                            }, 600);
-                        }
-
-                        this.anims.play('tigerBoobaGrab');
-                    }
-                }
-                
-            } else if (this.direction === "right") {
-                if (this.playerDefeated == false && this.playerBrokeFree == 0 && !this.animationPlayed) {
-
-                    this.flipX = false;
-
-                    if(this.tigerHasEatenRabbit === false){
-                        this.anims.play('tigerGrab').once('animationcomplete', () => {
-                            this.anims.play("tigerStruggle", true);
-                        });
-                    }else{
-                        this.anims.play('tigerBoobaGrab');
-                    }
-                    
-                }
-            }
-            this.playerGrabbed = true;
-            //if the player is grabbed then do the following.
+        this.playerGrabbed = true;
+        //if the player is grabbed then do the following.
 
     }
 
@@ -751,105 +704,451 @@ class tiger extends enemy {
         //console.log("this slime did grab the player this.slimeID: "+ this.slimeId);
         // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
         this.scene.player1.y = this.y - 150;
-        //this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        //puts the key display in the correct location.
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 100;
         //console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay);
 
-       
-        // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-        //console.log("this.playerDamaged: ",this.playerDamaged,"playerHealthObject.playerHealth: ",playerHealthObject.playerHealth)
-        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0 && this.tigerHasEatenRabbit === false) {
-            //hpBar.calcDamage(1);
-            healthEmitter.emit(healthEvent.loseHealth,1)
-            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
-            this.playerDamaged = true;
-
-
-            
-        }else if (this.playerDamaged === false && playerHealthObject.playerHealth > 0 && this.tigerHasEatenRabbit === true) {
-            //hpBar.calcDamage(1);
-            healthEmitter.emit(healthEvent.loseHealth,4)
-            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
-            this.playerDamaged = true;
-            
-        }
-
-       
-
     }
 
     playerIsNotDefeatedInputs(playerHealthObject){
-        if (this.randomInput === 0) {
-            if (this.scene.checkSPressed() === true) {
-               
-                if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 20;
+        //if we arnt actively phase tranistioning.
+        if(this.animationPlayed === false){
+
+            //show struggle button, and bar
+            this.scene.KeyDisplay.visible = true;
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+
+            // if the player has not eaten the rabbit
+            if(this.tigerHasEatenRabbit === false){
+                //handle random inputs
+                if (this.randomInput === 0) {
+                    //if s is the key to be pressed then play animation and increase the struggle bar
+                    if (this.scene.checkSPressed() === true) {
+                        
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1) {
+                            this.struggleCounter += 20;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                            this.scene.onomat.visible = true;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+        
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('tigerTummySquish1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','3',0.1);
+                            this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
+                                this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkAPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-9,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','5',0.1);
+                            this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkWPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
+                            this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }
+                } else if (this.randomInput === 1) {
+                    // important anims.play block so that the animation can player properly.
+                    if (this.scene.checkWPressed() === true) {
+                        
+                        if (playerHealthObject.playerHealth >= 1) {
+                            this.struggleCounter += 20;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            this.struggleAnimationInterupt = true;
+
+                            //play the down animation for the struggle event
+                            this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
+                            this.anims.play('tigerTummyRumble1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }else if (this.scene.checkSPressed() === true) {
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                            this.scene.onomat.visible = true;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+        
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('tigerTummySquish1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','3',0.1);
+                            this.anims.play('tigerTummyPush1').once('animationcomplete', () => {
+                                this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkAPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 2){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-9,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','5',0.1);
+                            this.anims.play('tigerTummyPush2').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }
+                }
+
+                // randomizing input
+                if (this.randomInputCooldown === false) {
+        
+                    this.randomInputCooldown = true;
+                    this.randomInput = Math.floor((Math.random() * 2));
+                    console.log("randomizing the key prompt " + this.randomInput);
+                    // important anims.play block so that the animation can player properly.
+                    if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                        console.log(" setting keyS display");
+                        this.scene.KeyDisplay.playSKey();
+                        this.keyAnimationPlayed = true;
+                    } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                        console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    }
+        
+                    let currentTiger = this;
+                    setTimeout(function () {
+                        currentTiger.randomInputCooldown = false;
+                        // resets the animation block.
+                        currentTiger.keyAnimationPlayed = false;
+                    }, 2000);
+                } 
+
+                // reduces the struggle counter over time.
+                if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
+                    // this case subtracts from the struggle free counter if the value is not pressed fast enough.
+                    this.struggleCounter--;
+                    this.struggleCounterTick = true;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    console.log('strugglecounter: ' + this.struggleCounter);
+                    // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
+                    let currentTiger =this;
+                    setTimeout(function () {
+                        currentTiger.struggleCounterTick = false;
+                    }, 10);
+                    //console.log('strugglecounter: '+this.struggleCounter);
                 }
             }
-        } else if (this.randomInput === 1) {
-            // important anims.play block so that the animation can player properly.
-            if (this.scene.checkWPressed() === true) {
-                
-                if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 20;
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    console.log('strugglecounter: ' + this.struggleCounter);
-                }
-            }
+        //otherwise we are in a phase transition so hide the keyprompts.
+        }else{
+
+            //hide struggle bar and button
+            this.scene.KeyDisplay.visible = false;
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+            //reset struggle progress between phases.
+            this.struggleCounter = 0;
         }
-        // randomizing input
-        if (this.randomInputCooldown === false) {
-
-            this.randomInputCooldown = true;
-            this.randomInput = Math.floor((Math.random() * 2));
-            console.log("randomizing the key prompt " + this.randomInput);
-            // important anims.play block so that the animation can player properly.
-            if (this.keyAnimationPlayed === false && this.randomInput === 0) {
-                console.log(" setting keyS display");
-                this.scene.KeyDisplay.playSKey();
-                this.keyAnimationPlayed = true;
-            } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
-                console.log(" setting keyW display");
-                this.scene.KeyDisplay.playWKey();
-                this.keyAnimationPlayed = true;
-            }
-
-            let currentTiger = this;
-            setTimeout(function () {
-                currentTiger.randomInputCooldown = false;
-                // resets the animation block.
-                currentTiger.keyAnimationPlayed = false;
-            }, 2000);
-        } 
-
-        // reduces the struggle counter over time.
-        if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
-            // this case subtracts from the struggle free counter if the value is not pressed fast enough.
-            this.struggleCounter--;
-            this.struggleCounterTick = true;
-            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-            // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
-            let currentTiger =this;
-            setTimeout(function () {
-                currentTiger.struggleCounterTick = false;
-            }, 10);
-            //console.log('strugglecounter: '+this.struggleCounter);
-        }
+    
     }
 
-    playerIsStrugglingLogic(){
-        this.TigerDamageCounter = true;
-                //hpBar.calcDamage(4);
-                healthEmitter.emit(healthEvent.loseHealth,4)
-                let currentTiger = this;
+    playerIsStrugglingLogic(playerHealthObject){
+
+        let currentTiger = this;
+
+        //damage functions for tiger having eaten rabbit
+        if(this.tigerHasEatenRabbit === true && this.playerDamageTimer === false){
+
+            this.playerDamageTimer = true;
+
+        //if the tiger hasnt eaten a rabbit
+        }else if(this.tigerHasEatenRabbit === false && this.playerDamageTimer === false && this.startedGrab === true){
+
+            this.playerDamageTimer = true;
+
+            //if the player is above 75% health
+            if(playerHealthObject.playerHealth >= (playerHealthObject.playerMaxHealth/4) * 3){
+
+                //deal 2 hp damager everys second.
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.loseHealth,1);
+                }
                 setTimeout(function () {
-                    currentTiger.TigerDamageCounter = false;
-                }, 1500);
+                        currentTiger.playerDamageTimer = false;
+                }, 1000);
+
+            } else if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3){
+
+                //deal 3 hp damager everys second.
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.loseHealth,1);
+                }
+
+                setTimeout(function () {
+                    currentTiger.playerDamageTimer = false;
+                }, 800);
+            }
+            
+
+        }
+
+        //function for tiger has eaten, so handle animations for that
+        if(this.tigerHasEatenRabbit === true){
+
+            if(this.startedGrab === false){
+
+                this.scene.onomat = new makeText(this.scene,this.x-11,this.y+15,'charBubble',"BOUNCE!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textWave();
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                if (this.onomatPlayed === false) {
+                    this.onomatPlayed = true;
+                    let randX = Math.floor((Math.random() * 15));
+                    let randY = Math.floor((Math.random() * 15));
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                    this.scene.heartOnomat1.setScale(1/4);
+                    this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+    
+                    let thisTiger = this;
+                    setTimeout(function () {
+                        thisTiger.onomatPlayed = false;
+                    }, 600);
+                }
+
+                this.anims.play('tigerBoobaGrab');
+        
+            }
+        //otherwise perform tiger logic with rabbit not eaten.
+        }else if(this.tigerHasEatenRabbit === false){
+
+            //start of grab does licking animation
+            if(this.startedGrab === false && this.animationPlayed === false){
+
+                this.animationPlayed = true;
+
+                this.scene.initSoundEffect('lickSFX','5',0.5);
+
+                this.scene.onomat = new makeText(this.scene,this.x-11,this.y-30,'charBubble',"LICK!");
+                this.scene.onomat.visible = this.scene.onomatopoeia;
+                this.scene.onomat.setScale(1/4);
+                this.scene.onomat.textWave();
+                this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                this.anims.play('tigerGrab').once('animationcomplete', () => {
+                    this.scene.onomat.destroy();
+                    this.startedGrab = true;
+                    this.animationPlayed = false;
+                });
+            
+
+            }else if(this.playerDefeatedAnimationStage === 0 && this.startedGrab === true){
+                this.anims.play("tigerStruggle", true);
+                this.playJumpySound('2',700);
+
+            }else if(this.playerDefeatedAnimationStage === 1){
+
+                if (!this.animationPlayed && this.struggleAnimationInterupt === false) {
+
+                    console.log("the animation has not been played");
+                    this.animationPlayed = true;
+                    this.scene.initSoundEffect('swallowSFX','2',0.6);
+                    
+                    //this.scene.onomat.destroy();
+                    this.scene.onomat = new makeText(this.scene,this.x,this.y-50,'charBubble',"GULP!");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.increaseRight(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+                    
+                    this.anims.play('tigerSwallow1').once('animationcomplete', () => {
+                        console.log("animation finished");
+                        this.scene.initSoundEffect('swallowSFX','3',0.6);
+
+                        this.anims.play('tigerSwallow2').once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                            this.inStartDefeatedLogic = false;
+                            console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+    
+                        });
+                    });
+                    
+                }
+            }else if(this.playerDefeatedAnimationStage === 2 && this.struggleAnimationInterupt === false){
+                this.anims.play("tigerTummyWobbleIdle", true);
+                this.playStomachSound('3',800); 
+            }
+
+            //apply phase transitions based on player hp
+
+            //case to progress defeated stage, soo that we can have different struggle animations.
+            //in this case, if the player health is less than half there max health and the stage is 0
+            if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3 && this.playerDefeatedAnimationStage === 0 && this.startedGrab === true){
+                //increment the stage so behavior changes.
+                this.playerDefeatedAnimationStage++;
+            }
+
+        }
+
     }
 
     playerIsDefeatedLogic(playerHealthObject){
@@ -859,7 +1158,7 @@ class tiger extends enemy {
         this.scene.enemyThatDefeatedPlayer = "femaleTiger";
 
         // if we start the player defeated animation then we need to set a few things.
-        if (this.playerDefeatedAnimationStage === 0) {
+        if (this.inStartDefeatedLogic === false) {
                 this.scene.KeyDisplay.playWKey();
                 let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
                 //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
@@ -880,7 +1179,7 @@ class tiger extends enemy {
                 if (this.scene.checkWIsDown() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
-                    this.inStartDefeatedLogic === false &&
+                    this.inStartDefeatedLogic === true &&
                      this.playerDefeatedAnimationStage !== 1 &&
                       this.playerDefeatedAnimationStage !== 3 &&
                        this.playerDefeatedAnimationStage !== 5 &&
@@ -972,14 +1271,33 @@ class tiger extends enemy {
     }
 
     playerEscaped(playerHealthObject){
-        this.scene.KeyDisplay.visible = false;
+            this.scene.KeyDisplay.visible = false;
+            console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
                 // can we replace this with a settimeout function? probbably. lets make a backup first.
                 if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
+                    //if the palyer is grabbed, and in the tiger stomach
+                    if(this.playerDefeatedAnimationStage === 2 && this.spitUp === false){
 
-                    let currentTiger = this;
-                    setTimeout(function () {
-                        currentTiger.struggleFree = true;
-                    }, 100);
+                        this.spitUp = true;
+
+                        //spit up sound effect.
+                        this.scene.initSoundEffect('swallowSFX','4',0.02);
+
+                        //play spitup animation
+                        this.anims.play("tigerSplitUpPlayer").once('animationcomplete', () => {
+                            //then free player.
+                            this.struggleFree = true;
+                        });
+
+                    }else if(this.playerDefeatedAnimationStage === 0){
+    
+                    this.struggleFree = true;
+                        
+                    }
+
+                    //hides the mobile controls in the way of the tab/skip indicator.
+                    controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+                    
 
                     // if the player if freed do the following to reset the player.
                 } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
@@ -996,14 +1314,17 @@ class tiger extends enemy {
                     this.scene.player1.visible = true;
                     this.isPlayingMissedAnims = false;
                     this.grabTimer = false;
+
+                    this.startedGrab = false;
+                    this.playerDefeatedAnimationStage = 0;
+                    this.struggleAnimationInterupt = false;
+                    this.spitUp = false;
                     //player1.setSize(23, 68, true);
                     struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
 
                     //hides the mobile controls in the way of the tab/skip indicator.
                     controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
 
-                    //this.scene.player1.body.setGravityY(600);
-                    this.body.setGravityY(600);
                     this.scene.player1.x = this.x;
                     this.scene.player1.y = this.y;
                     this.scene.grabbed = false;
@@ -1251,6 +1572,7 @@ class tiger extends enemy {
 
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('stomachSFX','2',0.03);
+                this.scene.initSoundEffect('burpSFX','3',0.3);
                 this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;

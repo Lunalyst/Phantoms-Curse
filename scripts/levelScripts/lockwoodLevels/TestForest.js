@@ -50,6 +50,11 @@ class TestForest extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
+
+      this.load.audioSprite('bushSFX','audio/used-audio/bush-sounds/bush-sounds.json',[
+        "audio/used-audio/bush-sounds/bush-sounds.mp3"
+      ]);
+      
     }
 
     create(){

@@ -596,7 +596,7 @@ class whiteCat extends enemy {
         //this.setSize(90, 65, true);
         //this.setOffset(105, 233);
         this.anims.play('catIdle',true);
-        console.log("cat not grabbed player");
+        //console.log("cat not grabbed player");
 
         //this.setSize(90, 65, true);
         this.body.setGravityY(600);

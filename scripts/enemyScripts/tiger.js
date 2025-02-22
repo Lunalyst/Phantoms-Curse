@@ -1159,6 +1159,7 @@ class tiger extends enemy {
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.inStartDefeatedLogic === false) {
+
                 this.scene.KeyDisplay.playWKey();
                 let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
                 //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
@@ -1170,13 +1171,20 @@ class tiger extends enemy {
                      console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
                 }, 1000);
                 this.inStartDefeatedLogic = true;
-                this.playerDefeatedAnimationStage++;
+                //if()
+                console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+                
+                //case to make sure defeated stage 2 is not skipped during animation view
+                if(this.playerDefeatedAnimationStage !== 2 || this.inSafeMode === false){
+                    this.playerDefeatedAnimationStage++;
+                }
+                
                 console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                 
          }
 
 
-                if (this.scene.checkWIsDown() && 
+                if (this.scene.checkWPressed() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
                     this.inStartDefeatedLogic === true &&
@@ -1212,7 +1220,7 @@ class tiger extends enemy {
     }
 
     //players defeated animation for when the a rabbit has been eaten.
-    playerplayerIsDefeatedLogicBooba(playerHealthObject){
+    playerplayerIsDefeatedLogicBooba(){
         this.playerDefeated = true;
         
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
@@ -1231,13 +1239,17 @@ class tiger extends enemy {
                      console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
                 }, 1000);
                 this.inStartDefeatedLogic = true;
-                this.playerDefeatedAnimationStage++;
+
+                if(this.playerDefeatedAnimationStage !== 2){
+                    this.playerDefeatedAnimationStage++;
+                }
+
                 console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                 
          }
 
 
-                if (this.scene.checkWIsDown() && 
+                if (this.scene.checkWIsPressed() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
                     this.inStartDefeatedLogic === false &&
@@ -1781,27 +1793,39 @@ class tiger extends enemy {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         
-            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            //puts the key display in the correct location.
-            this.scene.KeyDisplay.visible = true;
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 100;
-            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
             
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-            // handles input for progressing animation
-            if (this.scene.checkDPressed() === true) {
-                this.playerProgressingAnimation = true;
-                }
+                // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+                //puts the key display in the correct location.
+                this.scene.KeyDisplay.visible = true;
+                this.scene.KeyDisplay.x = this.x;
+                this.scene.KeyDisplay.y = this.y + 100;
+                // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
+                
+                //this.inStartDefeatedLogic = true;
 
-                // displays inputs while in the first stage of the animation viewing.
-                if (this.keyAnimationPlayed === false) {
-                    //console.log(" setting keyW display");
-                    this.scene.KeyDisplay.playDKey();
-                    this.keyAnimationPlayed = true;
-                }      
+                if(this.tigerHasEatenRabbit === true){
+                    //play struggle animation and sounds.
+                    this.anims.play("tigerBoobaGrab", true);
+                }else{
+                    this.anims.play("tigerStruggle",true);
+                }
+                //handles sound effect diring grab struggle
+                this.playJumpySound('2',700);
+
+                // handles input for progressing animation
+                if (this.scene.checkDPressed() === true) {
+                    this.playerProgressingAnimation = true;
+                    }
+
+                    // displays inputs while in the first stage of the animation viewing.
+                    if (this.keyAnimationPlayed === false) {
+                        //console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playDKey();
+                        this.keyAnimationPlayed = true;
+                    }      
             }
 
             if( this.playerProgressingAnimation === true){

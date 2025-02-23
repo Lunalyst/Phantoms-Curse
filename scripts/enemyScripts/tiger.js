@@ -76,6 +76,8 @@ class tiger extends enemy {
 
         this.anims.create({ key: 'tigerStartGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 113, end: 115}), frameRate: 8, repeat: 0 });
         this.anims.create({ key: 'tigerMissGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 116, end: 118}), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'tigerStartBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 117, end: 119 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'tigerMissBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 120, end: 122 }), frameRate: 8, repeat: 0 });
 
         //male animations
         if (sex === 0) {
@@ -179,7 +181,6 @@ class tiger extends enemy {
                         if (!this.jumpAnimationPlayed) {
                             this.jumpAnimationPlayed = true;
                             this.anims.play('tigerStartGrab').once('animationcomplete', () => {
-                                
                                 this.playJumpySound('3',700);
         
                                 this.hitboxActive = true;
@@ -428,7 +429,57 @@ class tiger extends enemy {
         //else the tiger has eaten so do different logic
         }else{
 
-            if(this.body.blocked.down && this.scene.player1.x > this.x && this.taunting === false) {
+            if(this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,50) && this.grabTimer === false){
+                        
+                console.log("starting booba grab animation");
+                //play animation
+                this.setVelocityX(0);
+                this.grabTimer = true;
+
+                //if player to the left move the grab hitbox to the left
+                if(this.scene.player1.x < this.x){
+                    this.flipX = true;
+                }else{
+                    this.flipX = false;
+                }
+
+                this.setDepth(7);
+                if (!this.jumpAnimationPlayed) {
+                    this.jumpAnimationPlayed = true;
+                    this.anims.play('tigerStartBoobaGrab').once('animationcomplete', () => {
+                        this.playJumpySound('3',700);
+
+                        this.hitboxActive = true;
+                        this.grabHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+                        
+                        this.jumpAnimationPlayed = false;
+                        //controls the x velocity when the bee ischarging to grab the player
+                        
+                    });
+                }
+
+            }else if(this.attemptingGrab === true){
+
+                console.log("grab booba animation missed");
+
+                this.setVelocityX(0);
+
+                if(this.isPlayingMissedAnims === false){
+                    this.isPlayingMissedAnims = true;
+                    //set value to play missed grabb animation
+                    
+                    this.anims.play('tigerMissBoobaGrab').once('animationcomplete', () => {
+                        this.setDepth(5);
+                        this.hitboxActive = false;
+                        this.attemptingGrab = false;
+                        this.grabTimer = false;
+                        this.isPlayingMissedAnims = false;    
+                    });
+                }
+            
+            
+            }else if(this.body.blocked.down && this.scene.player1.x > this.x && this.attemptingGrab === false && this.grabTimer === false) {
                             
                 this.direction = "right";
                 this.jumpAnimationPlayed = false; 
@@ -438,7 +489,7 @@ class tiger extends enemy {
                 this.setVelocityX(70); 
         
             //if the player is to the right then move enemy to the left
-            } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.taunting === false) {
+            } else if (this.body.blocked.down && this.scene.player1.x < this.x && this.attemptingGrab === false && this.grabTimer === false) {
                     
                 this.direction = "left";
                 this.jumpAnimationPlayed = false;
@@ -447,7 +498,7 @@ class tiger extends enemy {
                 this.setVelocityX(70*-1); 
                 
             //otherwise if the enemy is on the ground then
-            } else if (this.body.blocked.down && this.taunting === false) {
+            } else if (this.body.blocked.down && this.attemptingGrab === false && this.grabTimer === false) {
 
                 //player idle animation in the correct direction
                 if(this.direction === "left"){
@@ -615,14 +666,14 @@ class tiger extends enemy {
             }
 
             // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
-            if (playerHealthObject.playerHealth >= 1 && this.TigerDamageCounter === false && this.struggleCounter <= 100) {
+            if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100 && this.TigerDamageCounter === false) {
                 
                 this.playerIsStrugglingLogic(playerHealthObject);
 
             } 
             
             //if player escapes then do escape logic.
-            if (this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1) {
+            if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter >= 100 ) {
 
                 //if the player escapes hide the give up indicator.
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -649,7 +700,7 @@ class tiger extends enemy {
                 
                 //defeated animation logic.
                 this.playerIsDefeatedLogic(playerHealthObject);
-            }else if (playerHealthObject.playerHealth === 0 && this.tigerHasEatenRabbit === true) {
+            }else if (playerHealthObject.playerCurse === playerHealthObject.playerCurseMax && this.tigerHasEatenRabbit === true) {
 
                 // changes the title to reflect the game over.
                 if(this.scene.defeatedTitle !== "cursed"){
@@ -692,11 +743,11 @@ class tiger extends enemy {
         this.setVelocityX(0);
         
         //plays bouncy sound during the struggle animation if the tiger has eaten.
-        if(this.tigerHasEatenRabbit === true && playerHealthObject.playerHealth > 0 ){
+        if(this.tigerHasEatenRabbit === true && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
             let randomInt = Math.ceil(Math.random() * (10 - 6) + 6);
             let sound = ''+randomInt;
-            console.log("randomInt: ", randomInt);
-            console.log("sound: ", sound);
+            //console.log("randomInt: ", randomInt);
+            //console.log("sound: ", sound);
             this.playJumpySound(sound,700);
         }
         
@@ -982,19 +1033,48 @@ class tiger extends enemy {
                     }, 2000);
                 } 
 
-                // reduces the struggle counter over time.
-                if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
-                    // this case subtracts from the struggle free counter if the value is not pressed fast enough.
-                    this.struggleCounter--;
-                    this.struggleCounterTick = true;
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
-                    let currentTiger =this;
-                    setTimeout(function () {
-                        currentTiger.struggleCounterTick = false;
-                    }, 10);
-                    //console.log('strugglecounter: '+this.struggleCounter);
+            }else if(this.tigerHasEatenRabbit === true){
+                console.log('TIGER HAS HEATED RABBIT STRUGGLE LOGIC.');
+                if (this.scene.checkAPressed() === true) {
+                    console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
+                    if (playerHealthObject.playerHealth >= 1) {
+                        this.struggleCounter += 20;
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+                }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                            
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }
+        
                 }
+
+                console.log(" setting keyA display flipx:", this.flipX);
+                this.scene.KeyDisplay.playAKey();
+                this.keyAnimationPlayed = true;    
+            }
+
+            // reduces the struggle counter over time.
+            if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
+                // this case subtracts from the struggle free counter if the value is not pressed fast enough.
+                this.struggleCounter--;
+                this.struggleCounterTick = true;
+                struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
+                let currentTiger =this;
+                setTimeout(function () {
+                    currentTiger.struggleCounterTick = false;
+                }, 10);
+                //console.log('strugglecounter: '+this.struggleCounter);
             }
         //otherwise we are in a phase transition so hide the keyprompts.
         }else{
@@ -1016,6 +1096,14 @@ class tiger extends enemy {
         if(this.tigerHasEatenRabbit === true && this.playerDamageTimer === false){
 
             this.playerDamageTimer = true;
+
+            if(this.animationPlayed === false){
+                healthEmitter.emit(healthEvent.curseBuildUp,3);
+            }
+
+            setTimeout(function () {
+                currentTiger.playerDamageTimer = false;
+            }, 1500);
 
         //if the tiger hasnt eaten a rabbit
         }else if(this.tigerHasEatenRabbit === false && this.playerDamageTimer === false && this.startedGrab === true){
@@ -1053,13 +1141,8 @@ class tiger extends enemy {
 
             if(this.startedGrab === false){
 
-                this.scene.onomat = new makeText(this.scene,this.x-11,this.y+15,'charBubble',"BOUNCE!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.textWave();
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-
                 if (this.onomatPlayed === false) {
+
                     this.onomatPlayed = true;
                     let randX = Math.floor((Math.random() * 15));
                     let randY = Math.floor((Math.random() * 15));
@@ -1074,7 +1157,7 @@ class tiger extends enemy {
                     }, 600);
                 }
 
-                this.anims.play('tigerBoobaGrab');
+                this.anims.play('tigerBoobaGrab',true);
         
             }
         //otherwise perform tiger logic with rabbit not eaten.
@@ -1249,7 +1332,7 @@ class tiger extends enemy {
          }
 
 
-                if (this.scene.checkWIsPressed() && 
+                if (this.scene.checkWPressed() && 
                     this.scene.KeyDisplay.visible === true &&
                     this.playerDefeatedAnimationCooldown === false &&
                     this.inStartDefeatedLogic === false &&
@@ -1370,7 +1453,6 @@ class tiger extends enemy {
                     this.scene.player1.coldDamage,
                     this.scene.player1.curseDamage
                 );
-
                 this.playJumpySound('2',700);
 
                 if (this.enemyHP <= 0) {
@@ -1674,7 +1756,6 @@ class tiger extends enemy {
                     thisTiger.onomatPlayed = false;
                 }, 600);
             }
-
             this.playJumpySound('2',700);
 
             this.anims.play('tigerBoobaSnuggle',true);
@@ -1684,7 +1765,6 @@ class tiger extends enemy {
             console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
 
             this.playPlapSound('plap3',700);
-
             this.playJumpySound('3',700);
 
             if(this.scene.playerSex === 0){

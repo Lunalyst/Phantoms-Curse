@@ -86,7 +86,7 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('curses', 'assets/titleScreen/curses.png',{frameWidth: 96, frameHeight: 96 });
 
             this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
-                "audio/used-audio/titlescreen-sounds/kickhat-ambient-drone.mp3"
+                "audio/used-audio/titlescreen-sounds/In Defiance Of The Curse by Gangstalka.mp3"
               ]);
             
             this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
@@ -129,6 +129,7 @@ class titleScreen extends A3SoundEffects {
                 '- HARE-RAISING HARMONIES',
                 '- PAWS AND WAIT',
                 '- WHATS GOOD SLIME',
+                '- IN DEFIANCE OF THE CURSE',
                 'KASHINDOLLY: ORTHOGRAPHER',
                 'OTPFURRY1: DONATION',
                 'TYLER RITCHIE: PATREON',
@@ -142,7 +143,7 @@ class titleScreen extends A3SoundEffects {
                 'CIRME: INSPIRATION, BUG TESTING',
                 'DARKGAMER22263: INSPIRATION, BUG TESTING',
                 'RAT PROFILE PICTURE: INSPIRATION, BUG TESTING',
-                'VIK(OF THE VIRTUOUS KIND):GAMEOVER DIALOGUE, INSPIRATION, BUG TESTING',
+                'VIK :GAMEOVER DIALOGUE, INSPIRATION, BUG TESTING',
                 'SCARLET: INSPIRATION, BUG TESTING',
                 'LIT_KALE_CHIP: BUG TESTING',
                 'GAMERSGATE123: BUG TESTING',
@@ -158,6 +159,11 @@ class titleScreen extends A3SoundEffects {
                 'TURTWAG: INSPIRATION',
                 'ADORABLETYPHLOSION: INSPIRATION',
             ];
+            /*this.creditsArray = [
+                'LUNALYST: LEAD DEVELOPER',
+                'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
+                'NOBODYS DEATH: SOUND COMPOSER',
+            ];*/
 
             this.credits = new credits(this,this.screenWidth/2-400,200,this.creditsArray);
             this.credits.setDepth(51);

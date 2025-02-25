@@ -28,6 +28,7 @@ class makeText extends Phaser.GameObjects.Container{
         //variable to get how long the hitbox should be if needed.
         this.middle = Math.floor(this.letterString.length/2);
         this.middleX = 0;
+        this.creditschoke = false;
 
 
         //fills the array fill of textboxcharacters
@@ -377,7 +378,7 @@ class makeText extends Phaser.GameObjects.Container{
       }
     }
 
-    textCredits(time,distanceDown){
+    textCredits(time,distanceDown,isLast){
       //loop to apply tween to text
       for(let counter = 0; counter < this.letters.length; counter++){
           this.scene.tweens.add({
@@ -392,10 +393,32 @@ class makeText extends Phaser.GameObjects.Container{
             duration: time,
             repeat: 0,
             yoyo: false,
-            onComplete: this.remove(time)
+            onComplete: this.removeCredits(time,isLast)
         });
         
       }
+    }
+
+    //removes this object
+    removeCredits(timeDelay,isLast){
+      let text = this;
+      let tempScene = this.scene;
+      setTimeout(function(){
+        text.destroy();
+        console.log("tempScene: ",tempScene)
+        //if this object was the last credit to be played, then set finished playing credits true in our credits object.
+        if(isLast === true && text.creditschoke === false){
+          console.log("credits finished playing so resetting credits. ")
+          tempScene.credits.activateCredits();
+
+          text.creditschoke = true;
+          setTimeout(function(){
+            text.creditschoke = false;
+          },2000);
+        }
+      },timeDelay);
+
+      
     }
 
     //removes this object

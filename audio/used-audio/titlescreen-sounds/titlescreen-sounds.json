@@ -1,12 +1,12 @@
 {
     "resources":[
-        "../audio/used-audio/titlescreen-sounds/kickhat-ambient-drone.mp3"
+        "../audio/used-audio/titlescreen-sounds/In Defiance Of The Curse by Gangstalka.mp3"
         
     ],
     "spritemap": {
         "titleTheme":{
             "start": 0,
-            "end": 116,
+            "end": 51,
             "loop": true
         }
         

@@ -77,6 +77,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.struggleProgressingStage = false;
         this.playerDamageTimer = false;
+
+        this.enemyInDefeatedLogic = false;
         
 
 
@@ -109,6 +111,10 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     damage(scene) {
+        
+    }
+
+    enemyDefeatedLogic(){
         
     }
 

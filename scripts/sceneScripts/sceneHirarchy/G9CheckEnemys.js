@@ -246,8 +246,13 @@ class G9CheckEnemys extends G8CheckNPCS {
         }
       });
       
-      //calls tiger function to move
-      tempTiger.move(scene.player1,scene);
+      if(tempTiger.enemyInDefeatedLogic === true){
+        tempTiger.enemyDefeatedLogic();
+      }else{
+        //calls tiger function to move
+        tempTiger.move(scene.player1,scene);
+      }
+      
       
         //checks if the attack hitbox is overlapping the tiger to deal damage.
         scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {

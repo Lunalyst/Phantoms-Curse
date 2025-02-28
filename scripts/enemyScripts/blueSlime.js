@@ -271,6 +271,7 @@ class blueSlime extends enemy {
                     }
                 }
             }
+            
             let currentSlime = this;
         } else if(this.enemyDefeated === false) {
             //player is not in range of slime so slime is in idle animation.

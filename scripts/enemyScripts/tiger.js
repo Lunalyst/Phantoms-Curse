@@ -50,6 +50,8 @@ class tiger extends enemy {
          this.hitboxActive = false;
          this.attemptingGrab = false;
          this.isPlayingMissedAnims = false;
+
+        this.enemyHP = 45;
         
     
         //defines tiger animations based on the players sex.
@@ -127,6 +129,8 @@ class tiger extends enemy {
         this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
         this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 179-103, end: 186-103 }), frameRate: 5, repeat: -1 });
+        this.anims.create({ key: 'tigerDefeatedFall', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 0, end: 3}), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'tigerDefeatedLoop', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 4, end: 7}), frameRate: 7, repeat: -1 });
         
 
         this.inSafeMode = inSafeMode;
@@ -150,18 +154,18 @@ class tiger extends enemy {
         this.setOffset(120, 25);
 
         //if the tiger is hungry then
-        if(this.tigerHasEatenRabbit === false){
+        if(this.tigerHasEatenRabbit === false && this.enemyDefeated === false){
 
             if(this.tigerIsEating === true){
                 this.setVelocityX(0);
     
-            }else if(this.isHidding === false && this.tigerIsEating === false){
+            }else if(this.isHidding === false && this.tigerIsEating === false ){
                 
                 //console.log("this.grabTimer: ",this.grabTimer," this.attemptingGrab:",this.attemptingGrab );
                 //console.log("this.body.blocked.down: ",this.body.blocked.down,"this.jumped: ",this.jumped,"this.jumpAnimationPlayed: ",this.jumpAnimationPlayed,);
     
                 //checks to see if enemy is in range of player
-                if (this.checkXRangeFromPlayer(600, 600)) {
+                if (this.checkXRangeFromPlayer(600, 600) ) {
                     
                     if(this.body.blocked.down && (this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,50) && this.grabTimer === false && this.jumped === false)){
                         
@@ -427,7 +431,7 @@ class tiger extends enemy {
                 }  
             }
         //else the tiger has eaten so do different logic
-        }else{
+        }else if(this.enemyDefeated === false){
 
             if(this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,50) && this.grabTimer === false){
                         
@@ -605,7 +609,7 @@ class tiger extends enemy {
                                         this.anims.play('tigerTummyrelax2').once('animationcomplete', () => {
                                             this.tigerIsEating = false;
                                             this.tigerHasEatenRabbit = true;
-                                            this.enemyHP = 120;
+                                            this.enemyHP = 60;
             
                                         });
                                     });
@@ -1456,7 +1460,32 @@ class tiger extends enemy {
                 this.playJumpySound('2',700);
 
                 if (this.enemyHP <= 0) {
-                    this.destroy();
+
+                    //set enemy defeated to true, so the move behavior cant interupt the game over animations.
+                    this.enemyDefeated = true;
+                    this.setVelocityX(0);
+
+                    //calculate item drtop chance
+                    let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                    //decides amount of slime drops based on size
+                    if( dropChance > 0){
+                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,15,1,dropAmount,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",5);
+                    }
+
+                    this.anims.play('tigerDefeatedFall').once('animationcomplete', () => {
+
+                        this.enemyInDefeatedLogic = true;
+
+                        this.setDepth(4);
+                        //delete enemy hit box since they have been defeated.
+                        this.grabHitBox.destroy();
+                    });
+                    
+                    //play animation of slime defeated based on size.
+
+
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);
@@ -1467,6 +1496,10 @@ class tiger extends enemy {
                 that.clearTint();
             }, 100);
         }
+    }
+
+    enemyDefeatedLogic(){
+        this.anims.play('tigerDefeatedLoop', true);
     }
    
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {

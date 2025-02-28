@@ -405,7 +405,6 @@ class makeText extends Phaser.GameObjects.Container{
       let tempScene = this.scene;
       setTimeout(function(){
         text.destroy();
-        console.log("tempScene: ",tempScene)
         //if this object was the last credit to be played, then set finished playing credits true in our credits object.
         if(isLast === true && text.creditschoke === false){
           console.log("credits finished playing so resetting credits. ")

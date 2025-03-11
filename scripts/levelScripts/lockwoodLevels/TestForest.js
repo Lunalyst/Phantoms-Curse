@@ -110,10 +110,6 @@ class TestForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(2997,1021+13,
-        "FEELINGS OF FEAR ARE POWERFUL TOOLS FOR DRIVING SOMEONE FORWARD. DONT LET YOUR NEGITIVE EMOTIONS HOLD YOU BACK. USE THEM AS A TOOL TO REACH YOUR DESIRES...  ",
-        ['signLoop']);
-
       /*this.skybackround = this.add.tileSprite(1500, 800, 8*1377,918, "backgroundForestStaticLevel");
       this.skybackround.setDepth(-51);
       this.skybackround.setTint(0xd3d3d3);*/

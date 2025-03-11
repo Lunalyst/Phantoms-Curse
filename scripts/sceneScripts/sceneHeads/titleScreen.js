@@ -73,6 +73,7 @@ class titleScreen extends A3SoundEffects {
             //notice, the charcters sprites are x12 there normal size since they are so small.
             this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('ercus', 'assets/hudElements/ercus.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
             this.load.spritesheet('saveSlot', 'assets/titleScreen/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
             this.load.spritesheet('skillSaveSlotIcon', 'assets/titleScreen/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
@@ -121,6 +122,9 @@ class titleScreen extends A3SoundEffects {
             this.version.setDepth(51);
             this.elements.add(this.version);
 
+            this.form = new makeEcrus(this,this.screenWidth-1000,this.screenHeight-70,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
+            this.form.visible = false;
+            
             this.creditsArray = [
                 'LUNALYST: LEAD DEVELOPER',
                 'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',

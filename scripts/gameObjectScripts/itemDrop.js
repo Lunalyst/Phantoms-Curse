@@ -60,6 +60,8 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
         //sets scale
         this.setScale(1/3);
 
+        this.setDepth(7);
+
         this.itemGlow = this.preFX.addGlow();
         this.itemGlow.outerStrength = 1;
         this.glowTween = this.scene.tweens.add({

@@ -213,6 +213,17 @@ class tutorialCave extends defaultScene {
 
       this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
 
+      let random = Math.floor((Math.random() * 100)+1);
+      console.log(random);
+      if(random === 39){
+        this.form = new makeEcrus(this,1300,830,"@0100@ @1100@ @10001@ @0101@ @111@ @1001@ @1101@ @111@ @0011@ @1101@ @0010@ @111@ @0101@ @1100@ @000@ @0111@ @10110@ @111@ @0011@ @1101@ @0010@ @111@ @0100@ @000@ @0110@ @0110@ @111@ @10000@ @000@ @0111@ @1001@ @111@ @1100@ @10111@ @10101@ @10111@ @10100@");
+        this.form1 = new makeEcrus(this,1300,842,"@100@ @1111@ @1111@ @01@ @1100@ @00010@ @100@ @1100@ @01@ @00011@ @1011@ @00001@ @01@ @100@ @11010@ @1110@ @01@ @00111@ @00110@ @1111@ @1111@ @01@ @00000@ @1110@ @10101@ @1011@ @0010@ @1110@ @01@ @100@ @01@ @110111@ @100@ @11010@ @1100@ @01@ @1011@ @10100@ @01@ @0010@ @1110@ @110110@");
+        this.form.setScale(0.3);
+        this.form1.setScale(0.3);
+      }
+      
+      //this.form.visible = false;
+
       //make a sprite 
       this.tutorialSprite = new TutorialSprite(this, 600, 380);
 

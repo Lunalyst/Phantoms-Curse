@@ -87,10 +87,6 @@ class defaultScene extends G10UpdateLoops {
       this.load.audioSprite('lickSFX','audio/used-audio/lick-sounds/lick-sounds.json',[
         "audio/used-audio/lick-sounds/lick.mp3"
       ]);
-
-      /*this.load.audioSprite('tigerSFX','audio/used-audio/tiger-sounds/tiger-sounds.json',[
-        "audio/used-audio/tiger-sounds/tiger.mp3"
-      ]);*/
   
        this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });

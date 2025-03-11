@@ -84,6 +84,12 @@ class textBoxCharacter extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '@heart@',frames: this.anims.generateFrameNames(font, { start: 67, end: 67 }),frameRate: this.frames,repeat: this.repeats});
       this.anims.create({key: '@star@',frames: this.anims.generateFrameNames(font, { start: 68, end: 68 }),frameRate: this.frames,repeat: this.repeats});
       this.anims.create({key: '@drop@',frames: this.anims.generateFrameNames(font, { start: 69, end: 69 }),frameRate: this.frames,repeat: this.repeats});
+      /*this.anims.create({key: '@0@',frames: this.anims.generateFrameNames("ecrus", { start: 0, end: 0 }),frameRate: this.frames,repeat: this.repeats});
+      this.anims.create({key: '@1@',frames: this.anims.generateFrameNames("ecrus", { start: 1, end: 1 }),frameRate: this.frames,repeat: this.repeats});
+      this.anims.create({key: '@00@',frames: this.anims.generateFrameNames("ecrus", { start: 2, end: 2 }),frameRate: this.frames,repeat: this.repeats});
+      this.anims.create({key: '@01@',frames: this.anims.generateFrameNames("ecrus", { start: 3, end: 3 }),frameRate: this.frames,repeat: this.repeats});
+      this.anims.create({key: '@10@',frames: this.anims.generateFrameNames("ecrus", { start: 4, end: 4 }),frameRate: this.frames,repeat: this.repeats});
+      this.anims.create({key: '@11@',frames: this.anims.generateFrameNames("ecrus", { start: 5, end: 5 }),frameRate: this.frames,repeat: this.repeats});*/
 
 
       this.anims.play(' ');

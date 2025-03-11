@@ -42,6 +42,13 @@ class creditsButton extends Phaser.Physics.Arcade.Sprite{
             that.scene.isInCredits = true;
             that.scene.curse.visible = false;
             that.scene.credits.visible = true;
+
+            let random = Math.floor((Math.random() * 100)+1);
+            console.log(random);
+            if(random === 39){
+                that.scene.form.visible = true;
+            }
+            
            
         });
 

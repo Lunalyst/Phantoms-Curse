@@ -181,7 +181,7 @@ class tiger extends enemy {
                             this.flipX = false;
                         }
     
-                        this.setDepth(7);
+                        this.setDepth(6);
                         if (!this.jumpAnimationPlayed) {
                             this.jumpAnimationPlayed = true;
                             this.anims.play('tigerStartGrab').once('animationcomplete', () => {
@@ -447,7 +447,7 @@ class tiger extends enemy {
                     this.flipX = false;
                 }
 
-                this.setDepth(7);
+                this.setDepth(6);
                 if (!this.jumpAnimationPlayed) {
                     this.jumpAnimationPlayed = true;
                     this.anims.play('tigerStartBoobaGrab').once('animationcomplete', () => {
@@ -548,8 +548,10 @@ class tiger extends enemy {
         this.grabTimer = false;
         if(this.isHidding === false){
             //player idle animation in the correct direction 
-            if(this.tigerHasEatenRabbit === false){
+            if(this.tigerHasEatenRabbit === false && this.enemyDefeated === false){
                 this.anims.play('tigerTaunt', true);
+            }else if(this.tigerHasEatenRabbit === false && this.enemyDefeated === true){
+                this.anims.play('tigerDefeatedLoop', true);
             }else{
                 this.anims.play('tigerTummybreastSquish', true);
             }
@@ -605,7 +607,6 @@ class tiger extends enemy {
                                 this.anims.play('tigerDigestRabbit').once('animationcomplete', () => {
                                     this.scene.initSoundEffect('stomachSFX','2',0.03);
                                     this.anims.play('tigerTummyDigestion2').once('animationcomplete', () => {
-
                                         this.anims.play('tigerTummyrelax2').once('animationcomplete', () => {
                                             this.tigerIsEating = false;
                                             this.tigerHasEatenRabbit = true;
@@ -1469,6 +1470,8 @@ class tiger extends enemy {
                     let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
 
+                    this.setDepth(4);
+
                     //decides amount of slime drops based on size
                     if( dropChance > 0){
                         this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,15,1,dropAmount,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",5);
@@ -1478,7 +1481,7 @@ class tiger extends enemy {
 
                         this.enemyInDefeatedLogic = true;
 
-                        this.setDepth(4);
+                        
                         //delete enemy hit box since they have been defeated.
                         this.grabHitBox.destroy();
                     });

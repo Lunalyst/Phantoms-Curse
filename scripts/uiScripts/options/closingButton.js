@@ -44,6 +44,8 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
         this.on('pointerdown', function (pointer) {
             //plays button sound
             that.scene.initSoundEffect('buttonSFX','2',0.05);
+            //check to see if a reload is really needed.
+            this.optionsMenu.checkReload();
             //if the player alters a setting that needs a game reload, then
             if(this.optionsMenu.reloadNeeded === true){
                 //calls textbox and displays text

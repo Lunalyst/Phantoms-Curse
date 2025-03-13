@@ -159,7 +159,7 @@ class tutorialBeach extends defaultScene {
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
       this.initSigns(877,888+18,
-        "to anyone who wash up here, head towards the cave west from here.",
+        "to anyone who wash up here, head towards the cave to the right.",
         ['signLoop']);
 
       
@@ -191,7 +191,7 @@ class tutorialBeach extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       
       //calls the built in update function

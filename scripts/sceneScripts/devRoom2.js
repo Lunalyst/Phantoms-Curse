@@ -146,7 +146,7 @@ class devRoom2 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTURN.","ammo",5);
+      this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
 
       
        //sets up enemy colliders and groups

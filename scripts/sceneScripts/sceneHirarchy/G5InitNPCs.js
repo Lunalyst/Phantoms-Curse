@@ -14,7 +14,6 @@ class G5InitNPCs extends G4InitGameObjects {
     this.npcId++;
 
     //need to set up the tutorial dialogue from file.
-
     this.npcTriggers.add(tutorial);
 
   }

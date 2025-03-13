@@ -132,6 +132,23 @@ class tutorialCave extends defaultScene {
       //plays looping sound
       this.initLoopingSound('caveSFX','cave', 0.1);
       this.initLoopingSound('waterfallSFX','waterfall', 0.03);
+
+      //tutorials
+      object1 = {
+        flagToFind: "combat_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+      if(object1.foundFlag === false){
+        this.initTutorialPrompt(788,536,"combat");
+      }
+
+      //plays looping sound
+      this.initLoopingSound('caveSFX','cave', 0.1);
+      this.initLoopingSound('waterfallSFX','waterfall', 0.03);
     
       //creates player object
       this.setUpPlayer();
@@ -166,14 +183,6 @@ class tutorialCave extends defaultScene {
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
-
-      this.initSigns(788,541+12,
-        "This Island is host to many monsters. tread carefully! they will try and turn you into one of us....  ",
-        ['signLoop']);
-
-      this.initSigns(1642,573+12,
-        "monsters might drop items if you defeat them. ",
-          ['signLoop']);
 
       this.initSavePoints(896,1230);
 
@@ -270,6 +279,11 @@ class tutorialCave extends defaultScene {
         },2000);
 
       }
+
+      //define barriers whee enemys cannot go.
+      this.setUpEnemyBarriers();
+      this.initBarrier(828,480,30,300);
+      this.initBarrier(1610,510,30,300);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
         setTimeout(function(){

@@ -229,7 +229,7 @@ class textBox extends Phaser.GameObjects.Container{
 
           //attempt to add flag to player data if its set. 
           this.addFlag();
-          
+
           //since we just closed the text box set a short time out shorter then the dialogue array that resets the finished value in that npc.
           let tempNPC = this.npcRef;
             setTimeout(function(){
@@ -251,6 +251,10 @@ class textBox extends Phaser.GameObjects.Container{
           },1000); 
         }
       }
+    }
+
+    triggerComplete(){
+
     }
 
     //set flag to add. store flag to the value

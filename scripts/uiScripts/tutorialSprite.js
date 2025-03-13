@@ -31,6 +31,14 @@ class TutorialSprite extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'save1',frames: this.anims.generateFrameNames('tutorialSprite', { start: 11, end: 11 }),frameRate: 1,repeat: -1});
       this.anims.create({key: 'save2',frames: this.anims.generateFrameNames('tutorialSprite', { start: 12, end: 12 }),frameRate: 1,repeat: -1});
       this.anims.create({key: 'save3',frames: this.anims.generateFrameNames('tutorialSprite', { start: 13, end: 13 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'combat1',frames: this.anims.generateFrameNames('tutorialSprite', { start: 14, end: 14 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'combat2',frames: this.anims.generateFrameNames('tutorialSprite', { start: 15, end: 15 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'combat3',frames: this.anims.generateFrameNames('tutorialSprite', { start: 16, end: 16 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'combat4',frames: this.anims.generateFrameNames('tutorialSprite', { start: 17, end: 17 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'combat5',frames: this.anims.generateFrameNames('tutorialSprite', { start: 18, end: 18 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'safe1',frames: this.anims.generateFrameNames('tutorialSprite', { start: 19, end: 19 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'safe2',frames: this.anims.generateFrameNames('tutorialSprite', { start: 20, end: 20 }),frameRate: 1,repeat: -1});
+      this.anims.create({key: 'safe3',frames: this.anims.generateFrameNames('tutorialSprite', { start: 21, end: 21 }),frameRate: 1,repeat: -1});
 
       
     }

@@ -418,6 +418,10 @@ class inventory extends Phaser.GameObjects.Container{
             if(this.scene.itemDescription !== undefined){
               this.scene.itemDescription.destroy();
             }
+
+            if(this.scene.itemValue !== undefined ){
+              this.scene.itemValue.destroy();
+            }
             
             //set time out for delay.
             let inventoryThat = this;
@@ -470,6 +474,11 @@ class inventory extends Phaser.GameObjects.Container{
       if(this.scene.itemDescription !== undefined){
         this.scene.itemDescription.destroy();
       }
+
+      if(this.scene.itemValue !== undefined ){
+        this.scene.itemValue.destroy();
+      }
+
       this.inventoryLabel.visible = false;
       
       //toggles the vilisbility of the inventory elements group

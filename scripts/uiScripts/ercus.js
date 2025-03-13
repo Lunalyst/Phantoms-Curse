@@ -20,7 +20,7 @@ class ercus extends Phaser.GameObjects.Container{
       this.one = 1;
 
       //loop through the length of the digit string.
-      console.log("digit: ", digit );
+      //console.log("digit: ", digit );
       for(let counter = 0; counter < digit.length; counter++){
 
         //this.backround = scene.add.sprite(600, 600, "ercusParts");

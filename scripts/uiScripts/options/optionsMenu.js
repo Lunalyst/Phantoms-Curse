@@ -201,6 +201,14 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.isQuiting = false;
     }
 
+    checkReload(){
+        if(this.newPrefValue === this.currentPrefValue && 
+            this.newSexValue === this.currentSexValue
+        ){
+            this.reloadNeeded = false;
+        }
+    }
+
     //if the menu is closed without saving then, reset changes.
     resetSettings(){
 

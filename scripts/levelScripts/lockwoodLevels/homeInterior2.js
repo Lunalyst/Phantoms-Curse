@@ -28,6 +28,10 @@ class HomeInterior2 extends defaultScene {
       this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
       this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
       this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
+      
+      this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
+      this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
+
       //storageLocker with a lower case s
       this.defaultPreload();
 
@@ -38,6 +42,9 @@ class HomeInterior2 extends defaultScene {
     }
 
     create(){
+
+      //sets up gameover location
+      this.setupGameoverLocation("caveGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -50,11 +57,32 @@ class HomeInterior2 extends defaultScene {
       //creates tileset
       this.setUpTileSet("home_interior2_map","Home_Interior_Tileset","home_source_map");
 
-      //creates player object
-      this.setUpPlayer();
+      //sets up item drops for the scene and som other useful groups.
+      this.setUpItemDrops();
+
+      this.setUpItemDropCollider();
+
+      //make a sprite 
+      this.tutorialSprite = new TutorialSprite(this, 600, 380);
+
+      //tutorials
+      let object1 = {
+        flagToFind: "save_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+      if(object1.foundFlag === false){
+        this.initTutorialPrompt(400,592+8,"safe");
+      }
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);
+
+      //creates player object
+      this.setUpPlayer();
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -97,9 +125,6 @@ class HomeInterior2 extends defaultScene {
       this.initBedPortals(598, 592+29);
       //sets up containers
       this.setUpContainers();
-      //sets up item drops for the scene
-      this.setUpItemDrops();
-      this.setUpItemDropCollider();
 
       this.setUpPlayerStorage();
       this.initStorage(516, 592);

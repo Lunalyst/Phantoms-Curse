@@ -47,6 +47,10 @@ class Tutorial extends npc{
       this.containers();
     }else if(this.npcType === 'saveStones'){
       this.saveStones();
+    }else if(this.npcType === 'combat'){
+      this.combat();
+    }else if(this.npcType === 'safe'){
+      this.safe();
     }else{
       this.default();
     }
@@ -279,6 +283,91 @@ class Tutorial extends npc{
     
   }
 
+  combat(){
+
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "combat_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
+    this.nodeHandler("tutorial","beach","combat");
+
+    if(this.currentDictNode !== null){
+      if(this.currentDictNode.nodeName === "node1"){
+        this.scene.tutorialSprite.anims.play("combat1", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node2"){
+        this.scene.tutorialSprite.anims.play("combat2", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node3"){
+        this.scene.tutorialSprite.anims.play("combat3", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node6"){
+        this.scene.tutorialSprite.anims.play("combat4", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node7"){
+        this.scene.tutorialSprite.tutorialVisibility(false);
+      }else if(this.currentDictNode.nodeName === "node8-0"){
+        this.scene.tutorialSprite.anims.play("combat5", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node8-1"){
+        this.scene.tutorialSprite.tutorialVisibility(false);
+      }
+    }
+
+    this.activateBell();
+
+  }
+
+  safe(){
+
+    this.scene.player1.x = this.x; 
+    this.scene.player1.y = this.y; 
+    this.scene.player1.mainHitbox.x = this.scene.player1.x;
+    this.scene.player1.mainHitbox.y = this.scene.player1.y;
+    this.scene.player1.mainHitbox.setVelocityX(0);
+    this.scene.player1.mainHitbox.setVelocityY(0);
+
+    //make a temp object
+    let object = {
+      flagToFind: "safe_tutorial",
+      foundFlag: false,
+    };
+
+    //stores the flag in the text box so it can be set after dialogue is done.
+    this.scene.sceneTextBox.storeFlag(object);
+
+    this.nodeHandler("tutorial","beach","safe");
+
+    if(this.currentDictNode !== null){
+      if(this.currentDictNode.nodeName === "node2"){
+        this.scene.tutorialSprite.anims.play("safe1", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node3"){
+        this.scene.tutorialSprite.anims.play("safe2", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node4-0"){
+        this.scene.tutorialSprite.anims.play("safe3", true);
+        this.scene.tutorialSprite.tutorialVisibility(true);
+      }else if(this.currentDictNode.nodeName === "node4-1"){
+        this.scene.tutorialSprite.tutorialVisibility(false);
+      }
+    }
+
+    this.activateBell();
+
+  }
 
 
 

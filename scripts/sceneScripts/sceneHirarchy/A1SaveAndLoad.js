@@ -536,7 +536,6 @@ for(let counter = 0; counter < 100; counter++){
 
       // loop through inventory and apply correct item values
       //also can be used to update attributes of some item values
-      let dupes = [0,0,0,0,0,0,0]
       for(let counter = 0; counter < dataObject.inventoryArray.length; counter++){
 
         if(dataObject.inventoryArray[counter].itemID === 0 ){
@@ -552,7 +551,7 @@ for(let counter = 0; counter < 100; counter++){
             
           };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 2 && dupes[0] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 2 ){
 
           //dupes[0] = 1;
 
@@ -567,7 +566,7 @@ for(let counter = 0; counter < 100; counter++){
             
         };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 4 && dupes[1] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 4 ){
 
           //dupes[1] = 1;
 
@@ -582,7 +581,7 @@ for(let counter = 0; counter < 100; counter++){
             
           };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 8 && dupes[2] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 8 ){
 
           //dupes[2] = 1;
 
@@ -596,7 +595,7 @@ for(let counter = 0; counter < 100; counter++){
             sellValue: 30
           };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 10 && dupes[3] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 10 ){
 
           //dupes[3] = 1;
 
@@ -611,7 +610,7 @@ for(let counter = 0; counter < 100; counter++){
 
         };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 1 && dupes[4] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 1 ){
 
           //dupes[4] = 1;
 
@@ -626,7 +625,7 @@ for(let counter = 0; counter < 100; counter++){
             
           };
 
-        }else if(dataObject.inventoryArray[counter].itemID === 3 && dupes[5] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 3 ){
 
           //dupes[5] = 1;
 
@@ -641,7 +640,7 @@ for(let counter = 0; counter < 100; counter++){
         };
 
 
-        }else if(dataObject.inventoryArray[counter].itemID === 6 && dupes[6] === 0){
+        }else if(dataObject.inventoryArray[counter].itemID === 6 ){
 
           //dupes[6] = 1;
 
@@ -655,8 +654,22 @@ for(let counter = 0; counter < 100; counter++){
             sellValue: 50
             
         };
+        }else if(dataObject.inventoryArray[counter].itemID === 16){
 
-        }
+          //dupes[6] = 1;
+
+          dataObject.inventoryArray[counter] = {
+            itemID: 16,
+            itemName: 'FUEL ICHOR',
+            itemDescription: 'FUEL FOR A LANTERN.',
+            itemStackable: 1,
+            itemAmount: dataObject.inventoryArray[counter].itemAmount,
+            itemType: "ammo",
+            sellValue: 5
+            
+        };
+      }
+
       }
 
       //if inventory does not have 100 slots, then add those slots.

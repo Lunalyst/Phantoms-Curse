@@ -43,6 +43,7 @@ class G10UpdateLoops extends G9CheckEnemys{
         this.checkSave(this.playerLocation);
       }
       
+      //console.log("signCoolDown: ",this.signCoolDown);
       if(this.signCoolDown === true){
         this.checkSign(this);
         this.checkNpc(this);

@@ -131,9 +131,6 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
-
-            
-
                 "containers":{
                     "node1":{
                         "dialogue": "some interactables will give you a item.",
@@ -142,7 +139,7 @@ const npcDialogue = {
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "you can open your inventory with tab, or used the inventory button on the right of the screen.",
+                        "dialogue": "you can open your inventory with tab, or use the inventory button on the right of the screen.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node3"]
@@ -160,13 +157,13 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "your ring slot allows you to have a special effect. what that special effect is depend on the item.",
+                        "dialogue": "your ring slot allows you to have a special effect. what that special effect is depends on the item.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "if your ever confused about what a item does, simply hover over the item in your inventory, as it displays the item name, info, and sell price.",
+                        "dialogue": "if youre ever confused about what an item does, simply hover over the item in your inventory, as it displays the item name, info, and sell price.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node7"]
@@ -178,7 +175,6 @@ const npcDialogue = {
                         "children":[]
                     },
                 }
-
                 ,"saveStones":{
 
                     "node1":{
@@ -194,7 +190,7 @@ const npcDialogue = {
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "in your inventory you have a settings button. by clicking on it, it opens up the setting menu. ",
+                        "dialogue": "in your inventory you have a settings button. by clicking on it, it opens up the game settings. ",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node4"]
@@ -245,7 +241,7 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "if you run out of health, then your probably going to get trapped in a monsters stomach or digested.",
+                        "dialogue": "if you run out of health, then your probably going to get trapped in a monsters stomach and digested.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node6"]
@@ -261,24 +257,36 @@ const npcDialogue = {
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node8"]
-                    },"node8":{
-                        "dialogue": "slowly over time your cursed energy will be expelled.",
+                    },
+                    "node8":{
+                        "dialogue": "if your defeated by a enemy, then check the bestiary. its full if useful information about what damage types an enemy is weak too, along with some information about that enemy.",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":["node9"]
+                        "children":[]
                     },
-                    "node9":{
-                        "dialogue": "if your defeated by a enemy, then check the bestiary.",
+                }
+                ,"safe":{
+                    "node1":{
+                        "dialogue": "safe zones usually contain a bed, and a storage container.",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":["node10"]
-                    },
-                    "node10":{
-                        "dialogue": "its full if useful information about what damage types an enemy is weak too, along with some information about that enemy.",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "the storage locker can be used to store your items. it is open and closed with w",
                         "profile":"signLoop",
                         "textvoice":"default",
-                        "children":["node9"]
-                    },
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "it can expand if you fill it up, and can be acessed from any storage locker.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "the bed is a place for you to rest. when you lay down you enter the dreamscape, a place where you can re experience memorys of your victory, and defeat.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    }
                 }
             }
 
@@ -289,32 +297,6 @@ const npcDialogue = {
                 "rejection":{
                     "node1":{
                         "dialogue": "Ever since i was young, this world has rejected me. I have always felt like a outcast. even despite the thing i have acomplished, it all feels meaningless. but that not true. because what i have achieved here... is more than they could ever imagine. on this island,I can make my own future. what give them the right",
-                        "profile":"signLoop",
-                        "textvoice":"default",
-                        "children":[]
-                    },
-                }
-            }
-
-        },
-
-        "ecrus":{
-            "ecrus":{
-                "1":{
-                    "node1":{
-                        "dialogue": " 11001 1110 11110 01 11111 000 11000 01 11011 101 101 01 1110 100 100 01 000 11010 01 0010 101 0011 011 110 1000 000 010 110 001 1011 1001 1111 1110 1010",
-                        "profile":"signLoop",
-                        "textvoice":"default",
-                        "children":["node2"]
-                    },
-                    "node2":{
-                        "dialogue": " 000 101 100 110 100 101 000 001 001 110 101 01 01 110 100 01 01 11110 11111 11100 11101 110 1011 001 0101 1000 111 01000 1001 1101 01111 1000 1001 1101 111 110001 001 0101 1000 01111 1101 0001 111 0110 1011 111 0000 001 1000 0110 01110 111 01001 0101 11001 111 0110 1011 111 0000 1010 1001 1101 0001 111 0001 110000 1101 111 1011 1001 11001 111 11001 001 111 0000 0101 1010 1010 1011 111 01001 1010 001 001 0110 01110 ",
-                        "profile":"signLoop",
-                        "textvoice":"default",
-                        "children":["node3"]
-                    },
-                    "node3":{
-                        "dialogue": "0001 001 11011 111 01011 001 0110 110011 111 0000 10110 0100 111 0001 11011 10001 100000 11000 0100 01011 0000 10011 111 001 0001 111 11000 1010 111 01010 001 100100 1010 111 0110 101111 0111 0111 111 0110 10001 0000 11010 10110 111 1010 001 101110 111 11010 0111 001 10011 0100 0111 1010 100101 110010 100001 111 ",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

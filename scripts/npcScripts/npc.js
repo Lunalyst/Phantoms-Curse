@@ -252,13 +252,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //lock out starting logic.
       this.triggerNpcActivated = true;
 
-      //special lockout so the trigger npc can only happen once. checks if dialogue is done, if so set the trigger finished value to true.
-      if(this.completedText === true){
-        this.triggerNpcFinished = true;
-      }
-
     //otherwise if the trigger was activated, and the player is in dialogue, then have w progress dialogue.
-    }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId){
+    }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.triggerNpcFinished === false){
 
       //logic to start dialogue
       this.dialogueLogicStart();
@@ -269,8 +264,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //ending dialoguce logic.
       this.dialogueLogicEnd();
 
-      //special lockout so the trigger npc can only happen once. checks if dialogue is done, if so set the trigger finished value to true.
-      if(this.completedText === true){
+      //choke to make sure this cant be activated agian.
+      if(!this.scene.sceneTextBox.visible){
         this.triggerNpcFinished = true;
       }
           

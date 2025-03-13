@@ -351,7 +351,7 @@ class blueSlime extends enemy {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-            console.log("playerHealthObject: ",playerHealthObject);
+            //console.log("playerHealthObject: ",playerHealthObject);
 
             //makes the struggle bar visible
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);

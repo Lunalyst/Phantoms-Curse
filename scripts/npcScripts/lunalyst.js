@@ -374,7 +374,7 @@ class lunalyst extends npc{
               {
                 itemID: 16,
                 itemName: 'FUEL ICHOR',
-                itemDescription: 'FUEL FOR A LANTURN.',
+                itemDescription: 'FUEL FOR A LANTERN.',
                 itemStackable: 1,
                 itemAmount: 1,
                 itemType: "ammo",

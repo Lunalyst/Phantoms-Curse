@@ -143,10 +143,11 @@ class hpBar extends Phaser.GameObjects.Container{
             this.playerCurse = this.playerCurseMax;
             this.updateDisplay();
         }
-          //used to fix hp value if it overflows past max hp value
+        //used to fix hp value if it overflows past max hp value
         if(this.playerCurse > this.playerCurseMax){
             this.playerCurse = this.playerCurseMax;
         }
+        console.log("this.playerCurse: ", this.playerCurse);
     }
 
     maxHealth(){

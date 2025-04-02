@@ -150,6 +150,7 @@ class gameHud extends A3SoundEffects {
 
         healthEmitter.on(healthEvent.curseBuildUp,(healing) =>{
           console.log('building up curse: ',healing)
+          
           this.healthDisplay.calcCurseBuildUp(healing);
         });
         

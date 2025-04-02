@@ -943,7 +943,7 @@ const npcDialogue = {
             "eaten":{
                 "default":{
                     "node1":{
-                        "dialogue": "you where eaten, but i have no clue what ate you or how it happened x3.",
+                        "dialogue": "you were eaten, but i have no clue what ate you or how it happened x3.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -952,6 +952,14 @@ const npcDialogue = {
                 "femaleTiger":{
                     "node1":{
                         "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tigers powerful stomach quickly sloshed you into a nutritious stew like the weak meal you were. The good news is, the tiger enjoyed you very much. In fact, she thought you were grrrrrrrrrreat!",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                "maleTiger":{
+                    "node1":{
+                        "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tigers powerful stomach quickly sloshed you into a nutritious stew like the weak meal you were. as your body melted, you could feel yourself being absorbed into the tigers body. the rest of your existance will be spent as padding on the tigers torso. at least on the bright side, when the tiger pleaures himself, you feel it too.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -967,7 +975,7 @@ const npcDialogue = {
                 },
                 "blueSlimeHS":{
                     "node1":{
-                        "dialogue": "the face should have been a dead give away that this slime was different. as it latched on to your face, you struggled to break free. once you where exausted, it coated your body with its slime.  now  you where under its control. it enjoyed playing with you intul you climaxed.",
+                        "dialogue": "the face should have been a dead give away that this slime was different. as it latched on to your face, you struggled to break free. once you were exausted, it coated your body with its slime.  now you were under its control. it enjoyed playing with you intul you climaxed.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -1025,7 +1033,7 @@ const npcDialogue = {
             "cursed":{
                 "default":{
                     "node1":{
-                        "dialogue": "you where cursed, but i have no clue what got you or how it happened x3.",
+                        "dialogue": "you were cursed, but i have no clue what got you or how it happened x3.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -1073,7 +1081,7 @@ const npcDialogue = {
                 },
                 "maleBeeDrone":{
                     "node1":{
-                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you where lifted of the ground, struggling agianst the streangth of the cursed insect. when it could tell you where exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
+                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling agianst the streangth of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -1081,7 +1089,7 @@ const npcDialogue = {
                 },
                 "femaleBeeDrone":{
                     "node1":{
-                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you where lifted of the ground, struggling agianst the strength of the cursed insect. when it could tell you where exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
+                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling agianst the strength of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

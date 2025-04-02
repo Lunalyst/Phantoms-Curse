@@ -156,11 +156,13 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSkillsData: null,
             playerSaveSlotData: null,
             flagValues: null,
-            settings:null
+            settings:null,
+            dreamReturnLocation:null
         };
         
         // then we call the built in returnfile function from our custom scene class
         scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
+        console.log("playerDataObject",playerDataObject);
 
         //now that we have the data we need we can now set correct balues on start up.
 
@@ -246,12 +248,14 @@ class optionsMenu extends Phaser.GameObjects.Container{
             playerSaveSlotData: null,
             flagValues: null,
             settings:null,
-            dreamReturnLocation:null
+            dreamReturnLocation:null,
+            
         };
         
         // then we call the built in returnfile function from our custom scene class
         console.log("getting saveslot data for settings.")
         this.scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
+        console.log("playerDataObject",playerDataObject);
         
         //set the non game reset settings
         playerDataObject.settings.volume = this.currentSoundValue;
@@ -311,6 +315,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         // then we call the built in returnfile function from our custom scene class
         console.log("getting saveslot data for settings.")
         this.scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
+        console.log("playerDataObject",playerDataObject);
         
         //set the non game reset settings
         playerDataObject.settings.volume = this.currentSoundValue;

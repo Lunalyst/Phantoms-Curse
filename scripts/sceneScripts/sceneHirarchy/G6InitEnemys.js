@@ -108,7 +108,11 @@ class G6InitEnemys extends G5InitNPCs{
       console.log("tiger1.enemyId: ",tiger1.enemyId);
       this.enemyId++;
       tiger1.tigerHasEatenRabbit = true;
-      tiger1.anims.play('tigerTummybreastSquish',true);
+      if(tiger1.enemySex ===1){
+        tiger1.anims.play('tigerTummybreastSquish',true);
+      }else{
+        tiger1.anims.play('tigerTummyShaftStroke',true);
+      }
       this.enemys.add(tiger1);  
       this.tigers.add(tiger1);
 

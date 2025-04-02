@@ -17,7 +17,7 @@ class whiteCat extends enemy {
         
         //if the pref is either, then we randomly pick a sex for the bat.
         
-    }else{
+        }else{
             let randomPref = Math.floor((Math.random() * 2));
             console.log('randomPref',randomPref);
             if(randomPref === 1){

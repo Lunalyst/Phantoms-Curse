@@ -4,7 +4,27 @@ class tiger extends enemy {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, sex, id, 100, 'tiger');
+        //console.log("scene.preferance: ",scene.preferance);
+        if(scene.preferance === 0){
+            super(scene, xPos, yPos, sex, id, 100, 'tigerMale');
+            this.enemySex = 0;
+        }else if(scene.preferance === 1){
+            super(scene, xPos, yPos, sex, id, 100, 'tigerFemale');
+            this.enemySex = 1;
+        
+        //if the pref is either, then we randomly pick a sex for the bat.
+        
+        }else{
+            let randomPref = Math.floor((Math.random() * 2));
+            console.log('randomPref',randomPref);
+            if(randomPref === 1){
+                super(scene, xPos, yPos, sex, id, 100, 'tigerMale');
+                this.enemySex = 1;
+            }else{
+                super(scene, xPos, yPos, sex, id, 100, 'tigerFemale');
+                this.enemySex = 0;
+            }
+        }
         
         this.body.setGravityY(600); // sets gravity 
        
@@ -44,6 +64,9 @@ class tiger extends enemy {
 
         this.spitUp = false;
 
+        this.maleTigerGameoverCheck = false;
+        this.maleTigerStroking = false;
+
          //make a hitbox so the cat can grab the player.
          this.grabHitBox = new hitBoxes(scene,this.x,this.y);
          this.grabHitBox.setSize(45,10,true);
@@ -52,86 +75,171 @@ class tiger extends enemy {
          this.isPlayingMissedAnims = false;
 
         this.enemyHP = 45;
-        
-    
-        //defines tiger animations based on the players sex.
-        this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('tigerFemale', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingPeak', frames: this.anims.generateFrameNames('tigerFemale', { start: 1, end: 3 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'hidingCheckLeft', frames: this.anims.generateFrameNames('tigerFemale', { start: 4, end: 4 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingCheckMiddle', frames: this.anims.generateFrameNames('tigerFemale', { start: 3, end: 3 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hidingCheckRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'hide', frames: this.anims.generateFrameNames('tigerFemale', { start: 6, end: 9 }), frameRate: 20, repeat: 0 });
-        this.anims.create({ key: 'suprise', frames: this.anims.generateFrameNames('tigerFemale', { start: 9, end: 19 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'tigerIdle', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 20 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'tigerWalk', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerRun', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 13, repeat: -1 });
-        this.anims.create({ key: 'tigerJumpStart', frames: this.anims.generateFrameNames('tigerFemale', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerFemale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTauntLoop', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: -1 });
-        //adding enemy sprite extension to prevent loading issues.
-        this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 0, end: 9 }), frameRate: 9, repeat: -1 });
-        this.anims.create({ key: 'tigerSwallowMaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 10, end: 16 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'tigerSwallowFemaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 61, end: 67 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'tigerSwallowRabbitMiddle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 17, end: 26 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'tigerDigestRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 102, end: 116 }), frameRate: 7, repeat: 0 });
+        console.log("this.enemySex: ",this.enemySex);
+        if(this.enemySex === 1) {
+            //defines tiger animations based on the players sex.
+            this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('tigerFemale', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingPeak', frames: this.anims.generateFrameNames('tigerFemale', { start: 1, end: 3 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'hidingCheckLeft', frames: this.anims.generateFrameNames('tigerFemale', { start: 4, end: 4 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingCheckMiddle', frames: this.anims.generateFrameNames('tigerFemale', { start: 3, end: 3 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingCheckRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hide', frames: this.anims.generateFrameNames('tigerFemale', { start: 6, end: 9 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'suprise', frames: this.anims.generateFrameNames('tigerFemale', { start: 9, end: 19 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerIdle', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 20 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'tigerWalk', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerRun', frames: this.anims.generateFrameNames('tigerFemale', { start: 20, end: 29 }), frameRate: 13, repeat: -1 });
+            this.anims.create({ key: 'tigerJumpStart', frames: this.anims.generateFrameNames('tigerFemale', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerFemale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTauntLoop', frames: this.anims.generateFrameNames('tigerFemale', { start: 34, end: 45 }), frameRate: 7, repeat: -1 });
+            //adding enemy sprite extension to prevent loading issues.
+            this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 0, end: 9 }), frameRate: 9, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallowMaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 10, end: 16 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerSwallowFemaleRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 61, end: 67 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerSwallowRabbitMiddle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 17, end: 26 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerDigestRabbit', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 102, end: 116 }), frameRate: 7, repeat: 0 });
 
-        this.anims.create({ key: 'tigerStartGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 113, end: 115}), frameRate: 8, repeat: 0 });
-        this.anims.create({ key: 'tigerMissGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 116, end: 118}), frameRate: 8, repeat: 0 });
-        this.anims.create({ key: 'tigerStartBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 117, end: 119 }), frameRate: 8, repeat: 0 });
-        this.anims.create({ key: 'tigerMissBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 120, end: 122 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerStartGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 113, end: 115}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerMissGrab', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 116, end: 118}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerStartBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 117, end: 119 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerMissBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 120, end: 122 }), frameRate: 8, repeat: 0 });
 
-        //male animations
-        if (sex === 0) {
-            this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 60, end: 63 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 65, end: 71 }), frameRate: 7, repeat: 0 });
+            //male animations
+            if (sex === 0) {
+                this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 60, end: 63 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 65, end: 71 }), frameRate: 7, repeat: 0 });
 
-            this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 27, end: 30 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 31, end: 39 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 40, end: 43 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 44, end: 47 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 44, end: 47 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 48, end: 56 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 57, end: 60 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 27, end: 30 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 31, end: 39 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 40, end: 43 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 44, end: 47 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 44, end: 47 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 48, end: 56 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 57, end: 60 }), frameRate: 7, repeat: -1 });
 
-            this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 85, end: 98}), frameRate: 7, repeat: 0 });
-        //female animations    
-        } else if(sex === 1) {
-            this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 86, end: 89 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 90, end: 97 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 85, end: 98}), frameRate: 7, repeat: 0 });
+            //female animations    
+            } else if(sex === 1) {
 
-            this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 68, end: 71 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 72, end: 80 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 81, end: 84 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 85, end: 88 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 85, end: 88 }), frameRate: 12, repeat: -1 });
-            this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 89, end: 97 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 98, end: 101 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerFemale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerFemale', { start: 86, end: 89 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerFemale', { start: 90, end: 97 }), frameRate: 7, repeat: 0 });
 
-            this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 99, end: 112}), frameRate: 7, repeat: 0 });
-        
+                this.anims.create({ key: 'tigerBoobaGrab', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 68, end: 71 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaLayDown', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 72, end: 80 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerBoobaSnuggle', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 81, end: 84 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaHump1', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 85, end: 88 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaHump2', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 85, end: 88 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'tigerBoobaCurse', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 89, end: 97 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerFemaleExtension', { start: 98, end: 101 }), frameRate: 7, repeat: -1 });
+
+                this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 99, end: 112}), frameRate: 7, repeat: 0 });
+            
+            }
+            //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerFemale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 103-103, end: 106-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 115-103, end: 118-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobbleIdle', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 118-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 119-103, end: 129-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 130-103, end: 136-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 137-103, end: 151-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 151-103, end: 154-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 155-103, end: 166-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 167-103, end: 171-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 179-103, end: 186-103 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'tigerDefeatedFall', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 0, end: 3}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerDefeatedLoop', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 4, end: 7}), frameRate: 7, repeat: -1 });
+            
+        }else{
+
+            this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('tigerMale', { start: 0, end: 0 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingPeak', frames: this.anims.generateFrameNames('tigerMale', { start: 1, end: 3 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'hidingCheckLeft', frames: this.anims.generateFrameNames('tigerMale', { start: 4, end: 4 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingCheckMiddle', frames: this.anims.generateFrameNames('tigerMale', { start: 3, end: 3 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hidingCheckRight', frames: this.anims.generateFrameNames('tigerMale', { start: 5, end: 5 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'hide', frames: this.anims.generateFrameNames('tigerMale', { start: 6, end: 9 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'suprise', frames: this.anims.generateFrameNames('tigerMale', { start: 9, end: 19 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerIdle', frames: this.anims.generateFrameNames('tigerMale', { start: 20, end: 20 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'tigerWalk', frames: this.anims.generateFrameNames('tigerMale', { start: 20, end: 29 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerRun', frames: this.anims.generateFrameNames('tigerMale', { start: 20, end: 29 }), frameRate: 13, repeat: -1 });
+            this.anims.create({ key: 'tigerJumpStart', frames: this.anims.generateFrameNames('tigerMale', { start: 30, end: 32 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerInAir', frames: this.anims.generateFrameNames('tigerMale', { start: 33, end: 33 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTaunt', frames: this.anims.generateFrameNames('tigerMale', { start: 34, end: 45 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTauntLoop', frames: this.anims.generateFrameNames('tigerMale', { start: 34, end: 45 }), frameRate: 7, repeat: -1 });
+
+
+            //adding enemy sprite extension to prevent loading issues.
+            this.anims.create({ key: 'tigerWalkBigBooba', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 0, end: 9 }), frameRate: 9, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallowMaleRabbit', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 10, end: 16 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerSwallowFemaleRabbit', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 63, end: 69 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerSwallowRabbitMiddle', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 17, end: 26 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'tigerDigestRabbit', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 107, end: 120 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'tigerStartGrab', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 122, end: 124}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerMissGrab', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 125, end: 127}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerStartBoobaGrab', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 122, end: 124 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'tigerMissBoobaGrab', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 125, end: 126 }), frameRate: 8, repeat: 0 });
+
+            //male animations
+            if (sex === 0) {
+                this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerMale', { start: 46, end: 59 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerMale', { start: 60, end: 63 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerMale', { start: 65, end: 71 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'tigerBenisRide', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 27, end: 30 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBenisPen', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 31, end: 38 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerBenisSmash1', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 39, end: 42 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBenisSmash2', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 43, end: 46 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'tigerClimaxCurse', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 47, end: 54 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerInflatedPlayer', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 55, end: 58 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 59, end: 62 }), frameRate: 7, repeat: -1 });
+
+                this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 94, end: 107}), frameRate: 7, repeat: 0 });
+            //female animations    
+            } else if(sex === 1) {
+                this.anims.create({ key: 'tigerGrab', frames: this.anims.generateFrameNames('tigerMale', { start: 72, end: 85 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerStruggle', frames: this.anims.generateFrameNames('tigerMale', { start: 86, end: 89 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerSwallow1', frames: this.anims.generateFrameNames('tigerMale', { start: 90, end: 97 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'tigerBenisRide', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 70, end: 73 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBenisPen', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 74, end: 82 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerBenisSmash1', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 82, end: 85 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerBenisSmash2', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 86, end: 89 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'tigerClimaxCurse', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 90, end: 97 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'tigerInflatedPlayer', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 98, end: 101 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'tigerCubGameover', frames: this.anims.generateFrameNames('tigerMaleExtension', { start: 102, end: 105 }), frameRate: 7, repeat: -1 });
+
+                this.anims.create({ key: 'tigerSplitUpPlayer', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 108, end: 121}), frameRate: 7, repeat: 0 });
+            
+            }
+            //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerMale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerMale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 103-103, end: 106-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 115-103, end: 118-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyWobbleIdle', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 111-103, end: 118-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 119-103, end: 129-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 130-103, end: 136-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 137-103, end: 151-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 151-103, end: 154-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 155-103, end: 166-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 167-103, end: 171-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'tigerTummyBallSquish', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 76, end: 83 }), frameRate: 5, repeat: 3 });
+            this.anims.create({ key: 'tigerTummyShaftGrab', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 84, end: 85}), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'tigerTummyShaftStroke', frames: this.anims.generateFrameNames('tigerMaleDigestion', { start: 86, end: 93}), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'tigerDefeatedFall', frames: this.anims.generateFrameNames('tigerMaleDefeated', { start: 0, end: 3}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'tigerDefeatedLoop', frames: this.anims.generateFrameNames('tigerMaleDefeated', { start: 4, end: 7}), frameRate: 7, repeat: -1 });
+           
         }
-        //this.anims.create({ key: 'tigerStruggleBreakRight', frames: this.anims.generateFrameNames('tigerFemale', { start: 58, end: 62 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerSwallow2', frames: this.anims.generateFrameNames('tigerFemale', { start: 98, end: 102 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyPush1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 103-103, end: 106-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyPush2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 107-103, end: 110-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 114-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobble2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 115-103, end: 118-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyWobbleIdle', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 111-103, end: 118-103 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummySquish1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 119-103, end: 129-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRumble1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 130-103, end: 136-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyDigestion1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 137-103, end: 151-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax1', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 151-103, end: 154-103 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummyDigestion2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 155-103, end: 166-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax2', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 167-103, end: 171-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyRestArms', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 172-103, end: 173-103 }), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerTummyrelax3', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 174-103, end: 178-103 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'tigerTummybreastSquish', frames: this.anims.generateFrameNames('tigerFemaleDigestion', { start: 179-103, end: 186-103 }), frameRate: 5, repeat: -1 });
-        this.anims.create({ key: 'tigerDefeatedFall', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 0, end: 3}), frameRate: 7, repeat: 0 });
-        this.anims.create({ key: 'tigerDefeatedLoop', frames: this.anims.generateFrameNames('tigerFemaleDefeated', { start: 4, end: 7}), frameRate: 7, repeat: -1 });
-        
 
         this.inSafeMode = inSafeMode;
 
@@ -570,13 +678,38 @@ class tiger extends enemy {
         //puts the sprite and hitbox in the correct locations.
         this.setSize(100, 253, true);
         this.setOffset(120, 25);
-        //plays game over animation
 
-        if(version === 1){
-            this.anims.play('tigerCubGameover',true);
+        //plays game over animation
+        if(this.enemySex === 1){
+            if(version === 1){
+                this.anims.play('tigerCubGameover',true);
+            }else{
+                if(this.enemySex === 1){
+                    this.anims.play('tigerTummybreastSquish',true);
+                }else{
+                    this.anims.play('tigerTummyShaftStroke',true);
+                }
+            }
         }else{
-            this.anims.play('tigerTummybreastSquish',true);
+            if(version === 1){
+                this.anims.play('tigerCubGameover',true);
+            }else{
+                if(this.maleTigerGameoverCheck === false){
+                    this.maleTigerGameoverCheck = true;
+
+                    this.anims.play('tigerTummyBallSquish').once('animationcomplete', () => {
+                        this.anims.play('tigerTummyShaftGrab').once('animationcomplete', () => {
+                            this.maleTigerStroking = true;
+                            this.anims.play('tigerTummyShaftStroke',true);
+                        });
+                    });
+
+
+                }
+                
+            } 
         }
+        
         
     }
 
@@ -722,7 +855,11 @@ class tiger extends enemy {
                 controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                 
                 //defeated animation logic.
-                this. playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                if(this.enemySex === 1){
+                    this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                }else{
+                    this.playerplayerIsDefeatedLogicBenis(playerHealthObject);
+                }
             }
             // if the player breaks free then do the following
             
@@ -772,6 +909,13 @@ class tiger extends enemy {
 
             //show struggle button, and bar
             this.scene.KeyDisplay.visible = true;
+
+            if (this.keyAnimationPlayed === false) {
+                console.log(" setting keyA display");
+                this.scene.KeyDisplay.playAKey();
+                this.keyAnimationPlayed = true;
+            }
+
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
 
             // if the player has not eaten the rabbit
@@ -1039,7 +1183,7 @@ class tiger extends enemy {
                 } 
 
             }else if(this.tigerHasEatenRabbit === true){
-                console.log('TIGER HAS HEATED RABBIT STRUGGLE LOGIC.');
+                //console.log('TIGER HAS HEATED RABBIT STRUGGLE LOGIC.');
                 if (this.scene.checkAPressed() === true) {
                     console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
                     if (playerHealthObject.playerHealth >= 1) {
@@ -1063,8 +1207,6 @@ class tiger extends enemy {
         
                 }
 
-                console.log(" setting keyA display flipx:", this.flipX);
-                this.scene.KeyDisplay.playAKey();
                 this.keyAnimationPlayed = true;    
             }
 
@@ -1092,7 +1234,7 @@ class tiger extends enemy {
         }
     
     }
-
+    
     playerIsStrugglingLogic(playerHealthObject){
 
         let currentTiger = this;
@@ -1161,9 +1303,11 @@ class tiger extends enemy {
                         thisTiger.onomatPlayed = false;
                     }, 600);
                 }
-
-                this.anims.play('tigerBoobaGrab',true);
-        
+                if(this.enemySex === 1){
+                    this.anims.play('tigerBoobaGrab',true);
+                }else{
+                    this.anims.play('tigerBenisRide',true);
+                }
             }
         //otherwise perform tiger logic with rabbit not eaten.
         }else if(this.tigerHasEatenRabbit === false){
@@ -1243,7 +1387,12 @@ class tiger extends enemy {
         this.playerDefeated = true;
         
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-        this.scene.enemyThatDefeatedPlayer = "femaleTiger";
+        if(this.enemySex === 1){
+            this.scene.enemyThatDefeatedPlayer = "femaleTiger";
+        }else{
+            this.scene.enemyThatDefeatedPlayer = "maleTiger";
+        }
+        
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.inStartDefeatedLogic === false) {
@@ -1367,6 +1516,69 @@ class tiger extends enemy {
 
                 //console.log("player defeated by small slime");
                 this.defeatedPlayerAnimationBooba();
+
+    }
+
+    playerplayerIsDefeatedLogicBenis(){
+
+        this.playerDefeated = true;
+
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+        this.scene.enemyThatDefeatedPlayer = "maleTigerBenis";
+
+        // if we start the player defeated animation then we need to set a few things.
+        if (this.playerDefeatedAnimationStage === 0) {
+                this.scene.KeyDisplay.playWKey();
+                let currentTiger = this; // important, sets currentSlime to the current object so that we can use variables attached to this current slime object in our set timeout functions.
+                //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+                // delay the button prompt so the animation can play.
+                setTimeout(function () {
+                    currentTiger.scene.KeyDisplay.visible = true;
+                    currentTiger.scene.KeyDisplay.playWKey();
+                    //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                     console.log("currentTiger.playerDefeatedAnimationStage: " + currentTiger.playerDefeatedAnimationStage);
+                }, 1000);
+                this.inStartDefeatedLogic = true;
+
+                if(this.playerDefeatedAnimationStage !== 2){
+                    this.playerDefeatedAnimationStage++;
+                }
+
+                console.log(" in main this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+                
+         }
+
+
+                if (this.scene.checkWPressed() && 
+                    this.scene.KeyDisplay.visible === true &&
+                    this.playerDefeatedAnimationCooldown === false &&
+                    this.inStartDefeatedLogic === false &&
+                     this.playerDefeatedAnimationStage !== 1 &&
+                    this.playerDefeatedAnimationStage !== 4) {
+
+                    this.scene.KeyDisplay.visible = false;
+                    //this.stageTimer = 0;
+                    this.playerDefeatedAnimationCooldown = true;
+                    this.playerDefeatedAnimationStage++;
+                    console.log(" in check this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+
+                    let currentTiger = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+                    setTimeout(function () {
+                        console.log("defeated animation delay.");
+                        currentTiger.scene.KeyDisplay.visible = true;
+                        currentTiger.scene.KeyDisplay.playWKey();
+                        currentTiger.playerDefeatedAnimationCooldown = false
+                    }, 3000);
+                }
+                // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+                if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkWIsDown())) {
+                    this.scene.KeyDisplay.visible = false;
+                    console.log("changing scene");
+                    this.scene.changeToGameover();
+                }
+
+                //console.log("player defeated by small slime");
+                this.defeatedPlayerAnimationBenis();
 
     }
 
@@ -1740,7 +1952,6 @@ class tiger extends enemy {
         }
     }
 
-
     defeatedPlayerAnimationBooba() {
         if (this.playerDefeatedAnimationStage === 1) {
             //this.animationPlayed = false;
@@ -1875,6 +2086,101 @@ class tiger extends enemy {
         }
     }
 
+    defeatedPlayerAnimationBenis() {
+        if (this.playerDefeatedAnimationStage === 1) {
+            //this.animationPlayed = false;
+
+            this.playerDefeatedAnimationStageMax = 6;
+
+            if (!this.animationPlayed) {
+                console.log("the animation has not been played");
+                this.animationPlayed = true;
+
+                this.playPlapSound('plap1',1800);
+                
+                console.log("this.scene.onomat: ",this.scene.onomat);
+                
+                this.anims.play('tigerBenisPen').once('animationcomplete', () => {
+
+                    console.log("animation finished");
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    this.inStartDefeatedLogic = false;
+                });
+                
+            }
+            
+        } else if (this.playerDefeatedAnimationStage === 2) {
+
+            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage)
+
+            this.playPlapSound('plap9',500);
+            this.playJumpySound('3',700);
+             
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+
+                let thisTiger = this;
+                setTimeout(function () {
+                    thisTiger.onomatPlayed = false;
+                }, 600);
+            }
+
+            this.anims.play('tigerBenisSmash1',true);
+
+        }else if (this.playerDefeatedAnimationStage === 3) {
+               
+            console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+            this.playPlapSound('plap10',500);
+
+            this.playJumpySound('4',500);
+
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(1/4);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
+                let tempTiger = this;
+                setTimeout(function () {
+                    tempTiger.onomatPlayed = false;
+                }, 300);
+            }
+
+            this.anims.play('tigerBenisSmash2',true);
+                 
+        }else if (this.playerDefeatedAnimationStage === 4) {
+
+            if (!this.animationPlayed) {
+
+                this.scene.initSoundEffect('curseSFX','curse',0.3);
+               
+                this.animationPlayed = true;
+                //this.scene.initSoundEffect('stomachSFX','2',0.03);
+                this.anims.play('tigerClimaxCurse').once('animationcomplete', () => {
+                    //this.scene.onomat.destroy();
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+                    
+                });
+            }
+        }else if(this.playerDefeatedAnimationStage === 5){
+            this.anims.play('tigerInflatedPlayer',true);
+            this.playPlapSound('plap3',1000);
+        }
+    }
+
     //function to show off animation 
     animationGrab(){
 
@@ -1924,7 +2230,11 @@ class tiger extends enemy {
 
                 if(this.tigerHasEatenRabbit === true){
                     //play struggle animation and sounds.
-                    this.anims.play("tigerBoobaGrab", true);
+                    if(this.enemySex === 1){
+                        this.anims.play("tigerBoobaGrab", true);
+                    }else{
+                        this.anims.play("tigerBenisRide", true);
+                    }
                 }else{
                     this.anims.play("tigerStruggle",true);
                 }
@@ -1950,7 +2260,12 @@ class tiger extends enemy {
                 if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
                     //handle the defeated logic that plays defeated animations
                     if(this.tigerHasEatenRabbit === true){
-                        this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                        //defeated animation logic.
+                        if(this.enemySex === 1){
+                            this.playerplayerIsDefeatedLogicBooba(playerHealthObject);
+                        }else{
+                            this.playerplayerIsDefeatedLogicBenis(playerHealthObject);
+                        }
                     } else{
                         this.playerIsDefeatedLogic(playerHealthObject);
                     }

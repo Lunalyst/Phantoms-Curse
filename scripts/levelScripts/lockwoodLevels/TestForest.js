@@ -33,6 +33,12 @@ class TestForest extends defaultScene {
       this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
       this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
       this.load.spritesheet('tigerFemaleDefeated', 'assets/enemys/tigerFemaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+
+      this.load.spritesheet('tigerMale', 'assets/enemys/tigerMaleAll.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleDigestion', 'assets/enemys/tigerMaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleExtension', 'assets/enemys/tigerMaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleDefeated', 'assets/enemys/tigerMaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+
       this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
 
@@ -164,7 +170,7 @@ class TestForest extends defaultScene {
       setTimeout(function(){
           
           thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
-          //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit');
+          thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);

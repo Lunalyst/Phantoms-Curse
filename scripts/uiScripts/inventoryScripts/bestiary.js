@@ -18,7 +18,9 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary1', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-	this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary1', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+	  this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary1', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'maleTiger', frames: this.anims.generateFrameNames('bestiary2', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+	  this.anims.create({ key: 'maleTigerBenis', frames: this.anims.generateFrameNames('bestiary2', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary1', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
@@ -79,6 +81,14 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       femaleTigerBooba: {
         title: "FED FEMALE TIGER",
         summary: "ONCE THE TIGER HAS HAD A GOOD MEAL THIS VORACIOUS PREDATOR SEEKS OUT HUMANS TO CURSE. ONCE THIS PREDATOR CURSES AN UNSUSPECTING HUMAN, SHE WILL LOOK OVER THEM AS HER NEW CUB. ",
+      },
+      maleTiger: {
+        title: "MALE TIGER",
+        summary: "THIS HUNGRY PREDATOR OFTEN LIES IN WAIT TO SUPRISE PREY. AFTER THERE PREY HAS BEEN WEAKENED IT WILL SWALLOW THEM WHOLE. SOME TOUGH PREY MIGHT BE ABLE TO STRUGGLE FREE, BUT WEAKER PREY ARLE LIKELY TO END UP AS PADDING FOR THIS STRONG CARNIVORE. ",
+      },
+      maleTigerBenis: {
+        title: "FED MALE TIGER",
+        summary: "AFTER FINDING A FILLING MEAL THIS TIGER BECOMES INCREDABLY HORNY. SEEKING TO PENETRATE HUMANS AND RELEASE LARGE AMOUNTS OF THERE SEED INTO THEM. THE NEWLY FORMED CURSE ARE LIKELY TO GROW BIG FROM THE EXTRA NOURISHMENT AFTER THE CURSING PROCESS. ",
       },
       maleRabbit: {
         title: "MALE RABBIT",

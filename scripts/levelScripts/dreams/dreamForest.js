@@ -34,6 +34,12 @@ class dreamForest extends defaultScene {
       this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
       this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
       this.load.spritesheet('tigerFemaleDefeated', 'assets/enemys/tigerFemaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+
+      this.load.spritesheet('tigerMale', 'assets/enemys/tigerMaleAll.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleDigestion', 'assets/enemys/tigerMaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleExtension', 'assets/enemys/tigerMaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
+      this.load.spritesheet('tigerMaleDefeated', 'assets/enemys/tigerMaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+      
       this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
       this.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
@@ -149,36 +155,48 @@ class dreamForest extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
         
-        let object = {
+        let object1 = {
+          flagToFind: 'maleTiger',
+          foundFlag: false,
+        };
+
+        let object2 = {
           flagToFind: 'femaleTiger',
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if(object.foundFlag === true && object.flagToFind === 'femaleTiger'){
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleTiger' || object2.flagToFind === 'femaleTiger')){
           thisScene.initEnemy(1251,883,thisScene.playerSex,'tiger',true);
         }
 
-        object = {
+        object1 = {
+          flagToFind: 'maleTigerBenis',
+          foundFlag: false,
+        };
+
+        object2 = {
           flagToFind: 'femaleTigerBooba',
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if(object.foundFlag === true && object.flagToFind === 'femaleTigerBooba'){
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleTigerBenis' || object2.flagToFind === 'femaleTigerBooba')){
           thisScene.initEnemy(1384,883,thisScene.playerSex,'tigerBooba',true);
         }
 
-        let object1 = {
+        object1 = {
           flagToFind: 'maleRabbit',
           foundFlag: false,
         };
 
-        let object2 = {
+        object2 = {
           flagToFind: 'femaleRabbit',
           foundFlag: false,
         };

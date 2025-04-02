@@ -274,11 +274,25 @@ class gameOver extends A3SoundEffects {
                 this.enemy.y-500;
                 this.defeatedTitle = 'cursed';
             }else if(this.enemyThatDefeatedPlayer === "femaleTiger"){
+                this.preferance = 1;
+                this.enemy = new tiger(this,450, 560,this.playerSex);
+                this.enemy.gameOver();
+                this.enemy.y-500;
+                this.defeatedTitle = 'eaten';
+            }else if(this.enemyThatDefeatedPlayer === "maleTiger"){
+                this.preferance = 0;
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver();
                 this.enemy.y-500;
                 this.defeatedTitle = 'eaten';
             }else if(this.enemyThatDefeatedPlayer === "femaleTigerBooba"){
+                this.preferance = 1;
+                this.enemy = new tiger(this,450, 560,this.playerSex);
+                this.enemy.gameOver(1);
+                this.enemy.y-500;
+                this.defeatedTitle = 'cursed';
+            }else if(this.enemyThatDefeatedPlayer === "maleTigerBenis"){
+                this.preferance = 0;
                 this.enemy = new tiger(this,450, 560,this.playerSex);
                 this.enemy.gameOver(1);
                 this.enemy.y-500;
@@ -533,7 +547,7 @@ class gameOver extends A3SoundEffects {
             })
 
             this.initSoundEffect('gameoverSFX','gameover',0.05);
-
+             console.log("this.enemy: ", this.enemy);
             this.enemy.soundCoolDown = false;
 
         }
@@ -597,7 +611,19 @@ class gameOver extends A3SoundEffects {
                         scene.enemy.beeDroneSoundCoolDown = false;
                     }, 1200);
                 }    
+            }
+            else if(this.enemyThatDefeatedPlayer === 'maleTiger'){
+                if(this.enemy.maleTigerStroking === false){
+                    this.enemy.playJumpySound('10',800);
+                }else{
+
+                    this.enemy.playPlapSound('plap5',1000);
+                }
+                
+            
             }else if(this.enemyThatDefeatedPlayer === 'femaleTiger' ||
+                this.enemyThatDefeatedPlayer === 'femaleTigerBooba' ||
+                this.enemyThatDefeatedPlayer === 'maleTigerBenis' ||
                  this.enemyThatDefeatedPlayer === "femaleChestMimic"||
                  this.enemyThatDefeatedPlayer === "femaleChestMimicVore" ||
                  this.enemyThatDefeatedPlayer === "maleChestMimic"||

@@ -157,6 +157,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("this.flagValues:",this.flagValues," <-- file.flags: ",file.flags);
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
         console.log("this.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
+        console.log("this.dreamReturnLocation:",this.playerCurseValue);
         console.log("=======================================================");
 
         }
@@ -296,7 +297,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     var file = JSON.parse(localStorage.getItem('saveBetweenScenes'));
 
     this.healthDisplay.playerHealth = file.playerHpValue;
-    this.healthDisplay.playerCurse = file.playerCurseValue;
+    this.healthDisplay.playerCurse = 0;
 
     this.playerSex = file.sex;
     this.playerLocation = file.locationName;

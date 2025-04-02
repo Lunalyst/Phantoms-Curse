@@ -67,7 +67,7 @@ class HomeInterior2 extends defaultScene {
 
       //tutorials
       let object1 = {
-        flagToFind: "save_tutorial",
+        flagToFind: "safe_tutorial",
         foundFlag: false,
       };
 

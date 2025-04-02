@@ -170,7 +170,7 @@ class TestForest extends defaultScene {
       setTimeout(function(){
           
           thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
-          thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit',false);
+          //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);

@@ -39,10 +39,11 @@ class rabbit extends enemy {
         this.enemyHP = 35;
 
         
-
+        
         //defines rabbit animations based on the players sex.
         if(this.enemySex === 0) {
             this.anims.create({ key: 'rabbitIdle', frames: this.anims.generateFrameNames('rabbitMale', { start: 1, end: 4 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'rabbitIdleRailed', frames: this.anims.generateFrameNames('rabbitMale', { start: 117, end: 120 }), frameRate: 6, repeat: -1 });
             this.anims.create({ key: 'rabbitHopRightStart', frames: this.anims.generateFrameNames('rabbitMale', { start: 5, end: 7 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'rabbitHopRightInAir', frames: this.anims.generateFrameNames('rabbitMale', { start: 8, end: 10 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'rabbitHopLeftStart', frames: this.anims.generateFrameNames('rabbitMale', { start: 11, end: 13 }), frameRate: 8, repeat: 0 });
@@ -55,8 +56,10 @@ class rabbit extends enemy {
                 this.anims.create({ key: 'rabbitRail1', frames: this.anims.generateFrameNames('rabbitMale', { start: 39, end: 42 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'rabbitRail2', frames: this.anims.generateFrameNames('rabbitMale', { start: 39, end: 42 }), frameRate: 12, repeat: -1 });
                 this.anims.create({ key: 'rabbitRail3', frames: this.anims.generateFrameNames('rabbitMale', { start: 39, end: 42 }), frameRate: 14, repeat: -1 });
-                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitMale', { start: 42, end: 55 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'rabbitRail4', frames: this.anims.generateFrameNames('rabbitMale', { start: 109, end: 112}), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitMale', { start: 42, end: 51 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitMale', { start: 56, end: 59 }), frameRate: 6, repeat: -1 }); 
+                this.anims.create({ key: 'rabbitsRailing', frames: this.anims.generateFrameNames('rabbitMale', { start: 113, end: 116}), frameRate: 8, repeat: -1 });
             }else{
                 this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbitMale', { start: 60, end: 63 }), frameRate: 6, repeat: -1 });
                 this.anims.create({ key: 'rabbitShove', frames: this.anims.generateFrameNames('rabbitMale', { start: 64, end: 68 }), frameRate: 8, repeat: 0 });
@@ -68,7 +71,7 @@ class rabbit extends enemy {
                 this.anims.create({ key: 'rabbitClimax', frames: this.anims.generateFrameNames('rabbitMale', { start: 85, end: 100 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'rabbitGameover', frames: this.anims.generateFrameNames('rabbitMale', { start: 101, end: 104 }), frameRate: 6, repeat: -1 }); 
             }
-             
+            
         }else{
             this.anims.create({ key: 'rabbitIdle', frames: this.anims.generateFrameNames('rabbitFemale', { start: 1, end: 4 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'rabbitHopRightStart', frames: this.anims.generateFrameNames('rabbitFemale', { start: 5, end: 7 }), frameRate: 8, repeat: 0 });
@@ -221,9 +224,40 @@ class rabbit extends enemy {
 
     // functioned called to play animation when the player is defeated by the rabbit in gameover.
     gameOver() {
+        const femalePreferance = this.scene.preferance !== 0
+
         this.setSize(70, 180, true);
         this.setOffset(180, 110);
         this.anims.play('rabbitGameover', true);
+
+        const rabbit1 = new rabbit(this.scene, this.x + 150, this.y - 30, 0, 99)
+        const rabbit2 = new rabbit(this.scene, this.x - 150, this.y - 30, 0, 101)
+        rabbit1.anims.play(femalePreferance ? 'rabbitIdle' : 'rabbitIdleRailed')
+        rabbit2.anims.play(femalePreferance ? 'rabbitIdle' : 'rabbitIdleRailed')
+        rabbit1.setGravityY(0)
+        rabbit2.setGravityY(0)
+        
+        if (femalePreferance) {
+            return
+        } 
+        
+        const railingRabbitsXCoor = this.x + 45
+        const railingRabbitsYCoor = this.y + 2
+        const railingRabbits = new rabbit(this.scene, railingRabbitsXCoor, railingRabbitsYCoor, 0, 100)
+        railingRabbits.anims.play('rabbitsRailing').on('animationrepeat', () => {
+            if (!this.onomatPlayed) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,railingRabbitsXCoor-randX+30,railingRabbitsYCoor-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.setScale(.25);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
+                setTimeout(() => {
+                    this.onomatPlayed = false;
+                }, 500);
+            }
+        })
+        railingRabbits.setGravityY(0)
     }
 
 
@@ -455,7 +489,7 @@ class rabbit extends enemy {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
 
                 //sets enemy that defeated the player based on rabbits sex.
@@ -688,6 +722,9 @@ class rabbit extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    if (this.scene.internalView) {
+                        this.scene.internalView.destroy();
+                    }
                     this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'rabbit')
                     this.scene.internalView.anims.play("rabbitPening1");
                     this.scene.internalView.setRotation(3.14);
@@ -764,11 +801,38 @@ class rabbit extends enemy {
                 this.scene.onomat.textFadeOutAndDestroy(1000);
 
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
+                    
+                    if (this.scene.playerSex === 0) {
+                        return setTimeout(() => {
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                        }, 2000)
+                    }
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage += 2;
                     this.scene.internalView.destroy();
+                    
+                    //this.scene.internalView.destroy();
                 });
+            }
+        } else if (this.playerDefeatedAnimationStage === 8) {
+            this.anims.play('rabbitRail4', true);
+            this.scene.internalView.anims.play("rabbitPening4",true);
+            this.playPlapSound('plap3', 850);
+
+            let thisrabbit = this;
+            if (this.onomatPlayed === false) {
+                this.onomatPlayed = true;
+                let randX = Math.floor((Math.random() * 15));
+                let randY = Math.floor((Math.random() * 15));
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                this.scene.heartOnomat1.setScale(.25);
+                this.scene.heartOnomat1.textFadeOutAndDestroy(300);
+                setTimeout(function () {
+                    thisrabbit.onomatPlayed = false;
+                }, 500);
             }
         }
     }

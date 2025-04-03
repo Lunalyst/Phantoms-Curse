@@ -134,6 +134,7 @@ class titleScreen extends A3SoundEffects {
                 '- PAWS AND WAIT',
                 '- WHATS GOOD SLIME',
                 '- IN DEFIANCE OF THE CURSE',
+                'STIEFELJACKAL: RABBIT GAMEOVER MODDIFICATION',
                 'KASHINDOLLY: ORTHOGRAPHER',
                 'OTPFURRY1: DONATION',
                 'TYLER RITCHIE: PATREON',

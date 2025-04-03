@@ -31,6 +31,7 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'rabbitPening1',frames: this.anims.generateFrameNames('rabbitPenning', { start: 1, end: 7 }),frameRate: 10,repeat: -1});
         this.anims.create({key: 'rabbitPening2',frames: this.anims.generateFrameNames('rabbitPenning', { start: 1, end: 7 }),frameRate: 16,repeat: -1});
         this.anims.create({key: 'rabbitPening3',frames: this.anims.generateFrameNames('rabbitPenning', { start: 1, end: 7 }),frameRate: 20,repeat: -1});
+        this.anims.create({key: 'rabbitPening4',frames: this.anims.generateFrameNames('rabbitPenning', { start: 1, end: 7 }),frameRate: 13,repeat: -1});
         this.anims.create({key: 'rabbitClimax',frames: this.anims.generateFrameNames('rabbitPenning', { start: 20, end: 28 }),frameRate: 6  ,repeat: 0});
         this.anims.create({key: 'playerClimaxInRabbit',frames: this.anims.generateFrameNames('rabbitPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 

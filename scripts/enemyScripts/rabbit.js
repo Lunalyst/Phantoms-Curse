@@ -1016,8 +1016,9 @@ class rabbit extends enemy {
 
             if( this.playerProgressingAnimation === true){
                 
-                //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                //calls animation grab code until the animation is finished                     //additional case since the female has one less animation stage with the male rabbit.
+                console.log("this.scene.playerSex: ",this.scene.playerSex,"  this.playerDefeatedAnimationStage: ", this.playerDefeatedAnimationStage, " this.playerDefeatedAnimationStageMax: ",this.playerDefeatedAnimationStageMax);
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax || ( this.enemySex === 0 && this.scene.playerSex === 1 && this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1)){
                     //handle the defeated logic that plays defeated animations 
                     this.playerIsDefeatedLogic(playerHealthObject);
                 }else{

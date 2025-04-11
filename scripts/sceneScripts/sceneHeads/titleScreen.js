@@ -122,6 +122,7 @@ class titleScreen extends A3SoundEffects {
             this.version.setDepth(51);
             this.elements.add(this.version);
 
+            
             this.form = new makeEcrus(this,this.screenWidth-1000,this.screenHeight-70,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
             this.form.visible = false;
 
@@ -164,17 +165,14 @@ class titleScreen extends A3SoundEffects {
                 'TURTWAG: INSPIRATION',
                 'ADORABLETYPHLOSION: INSPIRATION',
             ];
-            /*this.creditsArray = [
-                'LUNALYST: LEAD DEVELOPER',
-                'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
-                'NOBODYS DEATH: SOUND COMPOSER',
-            ];*/
+            
 
             this.credits = new credits(this,this.screenWidth/2-400,200,this.creditsArray);
             this.credits.setDepth(51);
             this.credits.activateCredits(true);
 
             //adds looping sound effect.
+
             this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
 
             //dramatic fade in.

@@ -36,6 +36,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'door1',frames: this.anims.generateFrameNames('warpSprites', { start: 2, end: 2}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'devDoor',frames: this.anims.generateFrameNames('warpSprites', { start: 6, end: 6}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'warpCaveShadow',frames: this.anims.generateFrameNames('warpSprites', { start: 7, end: 10}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'warpCaveShadowMenace',frames: this.anims.generateFrameNames('warpSprites', { start: 11, end: 14}),frameRate: 7,repeat: -1});
         
     }
 

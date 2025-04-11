@@ -170,7 +170,7 @@ class PondForest extends defaultScene {
 
       this.initPortals(4702,1053-13,637,605,"door2","DevRoom1");
 
-      this.fakeWarp1 = new fakeWarp(this,5039,1149-13,'warpCaveOutsideRubble');
+      this.initPortals(5039,1149-13,368,1080,"warpCaveOutside","ShadowCave");
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
@@ -230,7 +230,6 @@ class PondForest extends defaultScene {
     update(){
 
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-
       
       //calls the built in update function
       this.defaultUpdate();

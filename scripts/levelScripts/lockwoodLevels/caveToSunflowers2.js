@@ -92,6 +92,8 @@ class caveToSunflowers2 extends defaultScene {
       this.initPortals(1570,829-13,5812,1181,"warpCaveInside","TestForest");
 
       this.initPortals(661,829-13,6763-4160,1469,"warpCaveInside","sunFlowerCave");
+
+      this.initPortals(1123,888-8,2815,1368,"warpCaveShadowMenace","ShadowCave");
       
       //sets up containers
       this.setUpContainers();
@@ -120,7 +122,7 @@ class caveToSunflowers2 extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

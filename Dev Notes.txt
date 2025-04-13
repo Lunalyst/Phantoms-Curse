@@ -122,6 +122,14 @@ https://docs.phaser.io/api-documentation/class/fx-glow
 sprite sheet maker for tutorial sprite
 https://www.finalparsec.com/tools/sprite_sheet_maker
 
+APK setup information
+https://gamedevacademy.org/creating-mobile-games-with-phaser-3-and-cordova/
+
+https://cordova.apache.org/#getstarted
+
+notes: use cmd to work on this. directory is users in C:
+having trouble getting ios  android package to work. may need to downgrade cordova version 
+
 Bugs:
 
 tiles not showing up?

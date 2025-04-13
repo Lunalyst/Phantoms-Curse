@@ -171,6 +171,8 @@ class player extends Phaser.GameObjects.Container{
     //gives player a refrence to the scene.
     this.scene = scene;
 
+    this.lanturnFlicker = null;
+
     if(scene.lightingSystemActive === true){ 
 
       this.lightSource = scene.lights.addLight(this.x, this.y, 0,0x000000, 1);
@@ -506,7 +508,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
             yoyo: true
           });
         }
-        console.log("this.fuelActivated: ", this.fuelActivated);
+        //console.log("this.fuelActivated: ", this.fuelActivated);
         //apply timer to fuel source and reduce fuel amount by 1 every 45 seconds.
         if(this.fuelActivated === false){
 

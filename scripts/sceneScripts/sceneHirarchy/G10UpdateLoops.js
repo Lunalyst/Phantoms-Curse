@@ -227,6 +227,10 @@ class G10UpdateLoops extends G9CheckEnemys{
               if(enemyGroupArray[counter] === 'whiteCats'){
                 this.checkWhiteCatInteractions(this);
               }
+              if(enemyGroupArray[counter] === 'curseShadows'){
+                //console.log("shadow test");
+                this.checkCurseShadowInteractions(this);
+              }
             }
 
           //otherwise if the player has been grabbed then

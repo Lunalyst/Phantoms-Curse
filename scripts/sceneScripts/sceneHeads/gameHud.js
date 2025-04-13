@@ -692,7 +692,7 @@ class gameHud extends A3SoundEffects {
 
           //emitter to reduce item amount in inventory takes a reduction number, and slotLocation.
           inventoryKeyEmitter.on(inventoryKey.reduceItemAmount,(slotLocation, reduction) =>{
-             console.log("reducing slot ", slotLocation, "reduction ",reduction);
+             //console.log("reducing slot ", slotLocation, "reduction ",reduction);
             //reduces item amount by redcution amount.
             this.inventoryDataArray[slotLocation].itemAmount = this.inventoryDataArray[slotLocation].itemAmount - reduction;
             

@@ -27,6 +27,8 @@ class ShadowCave extends defaultScene {
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
+      this.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
+      
       this.defaultPreload();
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
@@ -59,7 +61,8 @@ class ShadowCave extends defaultScene {
       this.grabbed = false;
 
       //sets up ambient lighting
-      this.setupLightingSystem(0x000000);
+      //this.setupLightingSystem(0x000008);
+      this.setupLightingSystem(0x222227);
 
        //setup lights group.
        this.setUpWallLights();
@@ -136,6 +139,9 @@ class ShadowCave extends defaultScene {
       this.initWallLight(2842,1311,'ghostMushroom4');
 
       //FLOOR 2 MUSHROOMS FROM LEFT TO RIGHT
+
+      this.initWallLight(650,1004,'ghostMushroom1');
+
       this.initWallLight(880,886,'ghostMushroom1');
       this.initWallLight(882,881,'ghostMushroom2');
 
@@ -163,6 +169,21 @@ class ShadowCave extends defaultScene {
       this.initWallLight(2622,647,'ghostMushroom1');
       this.initWallLight(2632,639,'ghostMushroom2');
 
+      //section 3 
+      this.initWallLight(1045,641,'ghostMushroom1');
+      this.initWallLight(1055,634,'ghostMushroom2');
+
+      this.initWallLight(526,593,'ghostMushroom3');
+      this.initWallLight(536,603,'ghostMushroom1');
+      this.initWallLight(546,610,'ghostMushroom4');
+
+      this.initWallLight(667,408,'ghostMushroom3');
+
+      this.initWallLight(971,367,'ghostMushroom2');
+      
+      this.initWallLight(1353,502,'ghostMushroom2');
+      this.initWallLight(1343,495,'ghostMushroom4');
+
 
       this.initSavePoints(443,1080-10);
 
@@ -177,7 +198,7 @@ class ShadowCave extends defaultScene {
 
       let thisScene = this;
       //sets up enemy colliders and groups
-      this.enemyGroupArray = [];
+      this.enemyGroupArray = ["curseShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
   
       //sets up item drops for the scene
@@ -189,7 +210,7 @@ class ShadowCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
                
-          //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
+          thisScene.initEnemy(883,1560,thisScene.playerSex,'curseShadow',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -199,7 +220,7 @@ class ShadowCave extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

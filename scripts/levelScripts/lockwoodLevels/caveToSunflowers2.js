@@ -93,7 +93,15 @@ class caveToSunflowers2 extends defaultScene {
 
       this.initPortals(661,829-13,6763-4160,1469,"warpCaveInside","sunFlowerCave");
 
-      this.initPortals(1123,888-8,2815,1368,"warpCaveShadowMenace","ShadowCave");
+      let random = Math.floor((Math.random() * 4)+1);
+      console.log(random);
+      if(random === 3){
+        this.initPortals(1123,888-8,2815,1368,"warpCaveShadowMenace","ShadowCave");
+      }else{
+        this.initPortals(1123,888-8,2815,1368,"warpCaveShadow","ShadowCave");
+      
+      }
+
       
       //sets up containers
       this.setUpContainers();

@@ -776,7 +776,7 @@ class G9CheckEnemys extends G8CheckNPCS {
             //scene.playerInventory.setView(scene);
           }
 
-          if (tempShadows.grabCoolDown === false && scene.grabCoolDown === false) {
+          if (tempShadows.grabCoolDown === false && scene.grabCoolDown === false && scene.player1.lanturnFlicker === null) {
             //stop the velocity of the player
             tempShadows.setVelocityX(0);
             scene.player1.mainHitbox.setVelocityX(0);

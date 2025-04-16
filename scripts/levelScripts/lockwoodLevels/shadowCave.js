@@ -61,11 +61,11 @@ class ShadowCave extends defaultScene {
       this.grabbed = false;
 
       //sets up ambient lighting
-      //this.setupLightingSystem(0x000008);
-      this.setupLightingSystem(0x222227);
+      this.setupLightingSystem(0x000008);
+      //this.setupLightingSystem(0x222227);
 
-       //setup lights group.
-       this.setUpWallLights();
+      //setup lights group.
+      this.setUpWallLights();
 
       //creates tileset
       this.setUpTileSet("shadow_cave_map","Cave_Tileset","cave_source_map");
@@ -115,8 +115,11 @@ class ShadowCave extends defaultScene {
 
       this.initWallLight(1124+32,1365,'ghostMushroom2');
 
-      this.initWallLight(1461,1204,'ghostMushroom2');
-      this.initWallLight(1450,1202,'ghostMushroom4');
+      this.initWallLight(1316,1016,'ghostMushroom1');
+      this.initWallLight(1318,1016,'ghostMushroom2');
+
+      this.initWallLight(1918,920,'ghostMushroom2');
+      this.initWallLight(1914,914,'ghostMushroom4');
 
       this.initWallLight(1610+32,1385,'ghostMushroom3');
       this.initWallLight(1620+32,1378,'ghostMushroom1');
@@ -150,15 +153,6 @@ class ShadowCave extends defaultScene {
       this.initWallLight(1457,844,'ghostMushroom2');
       this.initWallLight(1448,842,'ghostMushroom4');
 
-      this.initWallLight(1696,724,'ghostMushroom3');
-      this.initWallLight(1705,720,'ghostMushroom2');
-
-      this.initWallLight(1773,898,'ghostMushroom4');
-
-      this.initWallLight(1926,735,'ghostMushroom3');
-      this.initWallLight(1936,729,'ghostMushroom1');
-      this.initWallLight(1946,720,'ghostMushroom4');
-
       this.initWallLight(2151,843,'ghostMushroom2');
       this.initWallLight(2140,837,'ghostMushroom4');
 
@@ -174,15 +168,19 @@ class ShadowCave extends defaultScene {
       this.initWallLight(1055,634,'ghostMushroom2');
 
       this.initWallLight(526,593,'ghostMushroom3');
-      this.initWallLight(536,603,'ghostMushroom1');
+      //this.initWallLight(536,603,'ghostMushroom1');
       this.initWallLight(546,610,'ghostMushroom4');
 
       this.initWallLight(667,408,'ghostMushroom3');
 
       this.initWallLight(971,367,'ghostMushroom2');
       
-      this.initWallLight(1353,502,'ghostMushroom2');
+      //this.initWallLight(1353,502,'ghostMushroom2');
       this.initWallLight(1343,495,'ghostMushroom4');
+
+      this.initWallLight(2426,925,'ghostMushroom3');
+      //this.initWallLight(2422,921,'ghostMushroom2');
+
 
 
       this.initSavePoints(443,1080-10);
@@ -200,6 +198,9 @@ class ShadowCave extends defaultScene {
       //sets up enemy colliders and groups
       this.enemyGroupArray = ["curseShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
+
+      //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
+      this.setUpShadowLightCollider();
   
       //sets up item drops for the scene
 
@@ -211,6 +212,10 @@ class ShadowCave extends defaultScene {
       setTimeout(function(){
                
           thisScene.initEnemy(883,1560,thisScene.playerSex,'curseShadow',false);
+
+          thisScene.initEnemy(1100,1560,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(2197,1464,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -220,7 +225,7 @@ class ShadowCave extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

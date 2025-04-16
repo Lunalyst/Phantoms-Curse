@@ -79,6 +79,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.playerDamageTimer = false;
 
         this.enemyInDefeatedLogic = false;
+
+        this.struggleAnimationInterupt = false;
         
 
 
@@ -128,6 +130,12 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
     //is to be over written by child class
     defeatedPlayerAnimation() {
         
+    }
+
+    increaseStruggleBar(Amount){
+        this.struggleCounter += Amount;
+        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+        console.log('strugglecounter: ' + this.struggleCounter);
     }
 
     //pauses the animations of the enemys.

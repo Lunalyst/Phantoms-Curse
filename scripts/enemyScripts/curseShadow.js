@@ -15,7 +15,7 @@ class curseShadow extends enemy {
 
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
-        this.grabHitBox.setSize(30,10,true);
+        this.grabHitBox.setSize(55,30,true);
         this.hitboxActive = false;
 
         this.attemptingGrab = false;
@@ -25,6 +25,9 @@ class curseShadow extends enemy {
         this.defeatedActivated = false;
 
         this.enemyDefaultSpeed = 300;
+
+        this.randomInput = Math.floor((Math.random() * 3));
+        this.randomInputCooldown = false;
           
         //defines Enemy animations based on the players sex.
         this.anims.create({ key: 'shadowIdle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
@@ -34,8 +37,9 @@ class curseShadow extends enemy {
         this.anims.create({ key: 'shadowDefeated', frames: this.anims.generateFrameNames('curseShadowMale', { start: 15, end: 22 }), frameRate: 7, repeat: 0 });
         if (sex === 0) {
             this.anims.create({ key: 'playerSuckedIn', frames: this.anims.generateFrameNames('curseShadowMale', { start: 23, end: 28 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'playerStruggle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 29, end: 31 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'playerStruggle1', frames: this.anims.generateFrameNames('curseShadowMale', { start: 32, end: 35 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerStruggleIdle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 28, end: 31 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerStruggle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 28, end: 31 }), frameRate: 9, repeat: 0 });
+            this.anims.create({ key: 'playerStruggle1', frames: this.anims.generateFrameNames('curseShadowMale', { start: 32, end: 35 }), frameRate: 9, repeat: 0 });
             this.anims.create({ key: 'playerSuckedDown', frames: this.anims.generateFrameNames('curseShadowMale', { start: 36, end: 46 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerConsumed', frames: this.anims.generateFrameNames('curseShadowMale', { start: 47, end: 50 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'playerPumpGrab', frames: this.anims.generateFrameNames('curseShadowMale', { start: 51, end: 52 }), frameRate: 7, repeat: 0 });
@@ -43,7 +47,7 @@ class curseShadow extends enemy {
             this.anims.create({ key: 'playerGettingPumped', frames: this.anims.generateFrameNames('curseShadowMale', { start: 57, end: 78 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerMostlyTransformed', frames: this.anims.generateFrameNames('curseShadowMale', { start: 79, end: 83 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'playerFinishTransformation', frames: this.anims.generateFrameNames('curseShadowMale', { start: 84, end: 86 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'playerShadowUnderground', frames: this.anims.generateFrameNames('curseShadowMale', { start: 87, end: 90 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerShadowUnderground', frames: this.anims.generateFrameNames('curseShadowMale', { start: 87, end: 90 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerShadowRise', frames: this.anims.generateFrameNames('curseShadowMale', { start: 91, end: 97 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerShadowIdle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 98, end: 101 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'playerShadowPleasureStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 102, end: 102 }), frameRate: 7, repeat: 0 });
@@ -64,11 +68,12 @@ class curseShadow extends enemy {
 
         this.anims.play("shadowIdle",true);
 
-        //applys lighting to the enemy.
+
+        //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
             //also sets up the curse light for if the player is cursed.
-            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 65, 0xb317ff);
+            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 100, 0x444444);
             this.curseLight.visible = false;
           }
     }
@@ -89,14 +94,20 @@ class curseShadow extends enemy {
         if(this.enemyDefeated === false){
             
             //if the player is within range
-            console.log("this.scene.player1.lanturnFlicker; ",this.scene.player1.lanturnFlicker," this.grabTimer: ",this.grabTimer," this.attemptingGrab: ",this.attemptingGrab)
+            //console.log("this.scene.player1.lanturnFlicker; ",this.scene.player1.lanturnFlicker," this.grabTimer: ",this.grabTimer," this.attemptingGrab: ",this.attemptingGrab)
             if(this.checkXRangeFromPlayer(400, 400) && this.checkYRangeFromPlayer(200,60)){  
+
+                //special check, to manage the velocity of the shadow while its trying to grab the player
+                if(this.grabTimer === true && this.attemptingGrab === false){
+                    if(this.scene.player1.mainHitbox.body.velocity.x === 0){ 
+                        this.setVelocityX(0); 
+                    }
+                }
                 
                 //if the player is close enough to grab, and there lanturn is not on,
-                if((this.checkXRangeFromPlayer(20, 20)&& this.checkYRangeFromPlayer(40,40) && this.grabTimer === false && this.scene.player1.lanturnFlicker === null)){
+                if((this.checkXRangeFromPlayer(50, 50)&& this.checkYRangeFromPlayer(40,40) && this.grabTimer === false && this.scene.player1.lanturnFlicker === null)){
                             
                     //play animation
-                    //this.setVelocityX(0);
                     this.grabTimer = true;
 
                     //if player to the left move the grab hitbox to the left
@@ -119,6 +130,7 @@ class curseShadow extends enemy {
 
                 }else if(this.attemptingGrab === true){
                     console.log("grab missed!");
+                    this.setVelocityX(0); 
                     if(this.isPlayingMissedAnims === false){
                         this.isPlayingMissedAnims = true;
                         //set value to play missed grabb animation
@@ -144,7 +156,7 @@ class curseShadow extends enemy {
             
                 //move left if the players lanturn is not active
                 }else if(this.scene.player1.x < this.x  && this.attemptingGrab === false && this.grabTimer === false && this.scene.player1.lanturnFlicker === null) {
-                    console.log("moving shadow left");   
+                    //console.log("moving shadow left");   
                     this.direction = "left";
                     this.flipX = true;
                     //if we can throw cat
@@ -158,13 +170,13 @@ class curseShadow extends enemy {
                     //if player in range, then  move closer
                     if(!this.checkXRangeFromPlayer(110, 110)){
                         if(this.x < this.scene.player1.x ){
-                            console.log("moving shadow right");            
+                            //console.log("moving shadow right");            
                             this.direction = "right";
                             this.flipX = false;
                             this.anims.play('shadowMove', true);
                             this.setVelocityX(this.enemyDefaultSpeed); 
                         }else if(this.x > this.scene.player1.x ){
-                            console.log("moving shadow left");          
+                            //console.log("moving shadow left");          
                             this.direction = "left";
                             this.flipX = true;
                             //if we can throw cat
@@ -173,18 +185,18 @@ class curseShadow extends enemy {
                         }
                     //but if the player is too close, then move away
                     }else if(this.checkXRangeFromPlayer(35, 35) && this.checkYRangeFromPlayer(60, 60)){
-                        console.log("shadow should be dying")
+                        //console.log("shadow should be dying")
                         this.enemyDefeated = true;
                     }else if(this.checkXRangeFromPlayer(100, 100)){
 
                         if(this.x > this.scene.player1.x ){
-                            console.log("moving shadow right");            
+                            //console.log("moving shadow right");            
                             this.direction = "right";
                             this.flipX = false;
                             this.anims.play('shadowMove', true);
                             this.setVelocityX(this.enemyDefaultSpeed); 
                         }else if(this.x < this.scene.player1.x ){
-                            console.log("moving shadow left");          
+                            //console.log("moving shadow left");          
                             this.direction = "left";
                             this.flipX = true;
                             //if we can throw cat
@@ -193,7 +205,7 @@ class curseShadow extends enemy {
                         }
                     //otherwise idle on the edge of the light.
                     }else{
-                        console.log("idling");
+                        //console.log("idling");
                         this.anims.play('shadowIdle', true);
                         this.setVelocityX(0);
                     }
@@ -280,7 +292,7 @@ class curseShadow extends enemy {
                 console.log("moving shadow hitbox to the right");
                 this.grabHitBox.x = this.x+15;
             }
-            this.grabHitBox.y = this.y;
+            this.grabHitBox.y = this.y-50;
         
         }else{
             this.grabHitBox.x = this.x;
@@ -313,6 +325,7 @@ class curseShadow extends enemy {
         //first checks if enemy object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         // moves player attackhitbox out of the way.
+        this.setVelocityX(0);
 
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
@@ -364,7 +377,7 @@ class curseShadow extends enemy {
             if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100){
 
             //calls a function to handle the player taking damage
-            this.playerIsStrugglingLogic(playerHealthObject);
+            this.playerIsStrugglingLogic();
 
             //logic for if the player escapes the grab
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
@@ -407,174 +420,339 @@ class curseShadow extends enemy {
 
         //set the player grabbed in this enemy to true
         this.playerGrabbed = true;
+
+        //show light so the player can see the animation
+        if(this.scene.lightingSystemActive === true){ 
+            this.curseLight.x = this.x;
+            this.curseLight.y = this.y-20;
+            this.curseLight.visible = true;
+        }
     }
 
     //function handles the player struggle buttons
     playerIsNotDefeatedInputs(playerHealthObject){
 
-        let currentEnemy = this;
+        if(this.animationPlayed === false){
 
-            // important anims.play block so that the animation can player properly.
-
-            if (this.scene.checkAPressed() === true) {
-                console.log('Phaser.Input.Keyboard.JustDown(keyD) ');
-                if (this.enemySize === 1 && playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 25;
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
-                }
-            }else if(this.scene.checkDPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
-                if (playerHealthObject.playerHealth >= 1) {
-
-                    //makes sure the struggle bar does not go into the negitives
-                    if(this.struggleCounter - 5 > 0){
-                        this.struggleCounter -= 5;
-                    }else{
-                        this.struggleCounter = 0;
-                    }
-                    
-                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                    //console.log('strugglecounter: ' + this.struggleCounter);
-                }
-
-        }
-
-        // randomizing input
-            if (this.keyAnimationPlayed === false) {
+            //show struggle button, and bar
+            this.scene.KeyDisplay.visible = true;
+            console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage," this.struggleAnimationInterupt: ",this.struggleAnimationInterupt);
+            /*if (this.keyAnimationPlayed === false) {
                 console.log(" setting keyA display");
                 this.scene.KeyDisplay.playAKey();
                 this.keyAnimationPlayed = true;
-            }
+            }*/
+
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+
+                //handle random inputs
+                if (this.randomInput === 0) {
+                    //if W is the key to be pressed then play animation and increase the struggle bar
+                    if (this.scene.checkWPressed() === true) {
+                        
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax ) {
+                            this.increaseStruggleBar(20);
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+                            
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.anims.play('playerStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = false;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkAPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = true;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }
+                }else if (this.randomInput === 1) {
+                    // important anims.play block so that the animation can player properly.
+                    if (this.scene.checkWPressed() === true) {
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+                            
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.anims.play('playerStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax ) {
+                            this.increaseStruggleBar(20);
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = false;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkAPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = true;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }
+                }else if (this.randomInput === 2) {
+                    // important anims.play block so that the animation can player properly.
+                    if (this.scene.checkWPressed() === true) {
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+                            
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.anims.play('playerStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = false;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkAPressed() === true){
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax ) {
+                            this.increaseStruggleBar(20);
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.playPlapSound('plap10',2000);
+                            this.flipX = true;
+                            this.anims.play('playerStruggle1').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }
+                }
+
+                // randomizing input
+                if (this.randomInputCooldown === false) {
         
+                    this.randomInputCooldown = true;
+                    this.randomInput = Math.floor((Math.random() * 3));
+                    console.log("randomizing the key prompt " + this.randomInput);
+                    // important anims.play block so that the animation can player properly.
+                    if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                        console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                        console.log(" setting keyD display");
+                        this.scene.KeyDisplay.playDKey();
+                        this.keyAnimationPlayed = true;
+                    }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
+                        console.log(" setting keyA display");
+                        this.scene.KeyDisplay.playAKey();
+                        this.keyAnimationPlayed = true;
+                    }
+        
+                    let currentShadow = this;
+                    setTimeout(function () {
+                        currentShadow.randomInputCooldown = false;
+                        // resets the animation block.
+                        currentShadow.keyAnimationPlayed = false;
+                    }, 2000);
+                } 
 
-        // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
-        if (this.struggleCounter > 0 && this.struggleCounter < 100 && this.struggleCounterTick !== true) {
-            // this case subtracts from the struggle free counter if the value is not pressed fast enough.
-            this.struggleCounter--;
-            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-            this.struggleCounterTick = true;
-            // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
-            setTimeout(function () {
-                currentEnemy.struggleCounterTick = false;
-            }, 10);
+            
+
+            // reduces the struggle counter over time.
+            if (this.struggleCounter > 0 && this.struggleCounter < 200 && this.struggleCounterTick !== true) {
+                // this case subtracts from the struggle free counter if the value is not pressed fast enough.
+                this.struggleCounter--;
+                this.struggleCounterTick = true;
+                struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
+                let currentShadow =this;
+                setTimeout(function () {
+                    currentShadow.struggleCounterTick = false;
+                }, 10);
                 //console.log('strugglecounter: '+this.struggleCounter);
-        }
+            }
+        //otherwise we are in a phase transition so hide the keyprompts.
+        }else{
 
+            //hide struggle bar and button
+            this.scene.KeyDisplay.visible = false;
+            struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+            //reset struggle progress between phases.
+            this.struggleCounter = 0;
+        }
     }
 
     //function to handle player health loss.
-    playerIsStrugglingLogic(playerHealthObject){
+    playerIsStrugglingLogic(){
 
         let currentEnemy = this;
 
+        //case to stop the damage function from being applied if the 
+        if(this.animationPlayed === false && this.playerDamageTimer === false){
+            //healthEmitter.emit(healthEvent.loseHealth,2);
+            //healthEmitter.emit(healthEvent.curseBuildUp,3);
             this.playerDamageTimer = true;
 
-            //if the players health is above half, then deal hp damage.
-            if(playerHealthObject.playerHealth >= playerHealthObject.playerMaxHealth/2){
+            setTimeout(function () {
+                currentEnemy.playerDamageTimer = false;
+            }, 700);
+        }
 
-                //case to stop the damage function from being applied if the 
-                if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,2);
-                }
-    
-                setTimeout(function () {
-                    currentEnemy.playerDamageTimer = false;
-                }, 2000);
-
-            }else if(playerHealthObject.playerCurse <= (playerHealthObject.playerCurseMax)/2){
-                //case to stop the damage function from being applied if the 
-                if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.curseBuildUp,2);
-                }
-    
-                setTimeout(function () {
-                    currentEnemy.playerDamageTimer = false;
-                }, 1500);
-            }else{
-                //case to stop the damage function from being applied if the 
-                if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.curseBuildUp,2);
-                }
-    
-                setTimeout(function () {
-                    currentEnemy.playerDamageTimer = false;
-                }, 1000);
-            }
-            
-            // if the player has been defeated the do the following steps.
-
-        // if its a small enemy then play the small enemy grab animation.
-        
-
+  
             //if the player isnt defeated.
             if(this.playerDefeated === false ){
 
-                // check to make sure animations dont conflict with eachother.
-                if (this.playerDefeatedAnimationStage === 0  ) {
-                    this.anims.play("enemyGrab", true);
-                    //handles sound effect diring grab struggle
-                    this.playEnemySound('3',800);
-
-                //if the defeated stage is incremented, then play the animation of the player falling. need to pause damage, as well as the player ability to struggle.
-                }else if(this.playerDefeatedAnimationStage === 1 && this.animationPlayed === false){
+                if(this.playerDefeatedAnimationStage === 0 && this.animationPlayed === false){
                     this.animationPlayed = true;
-                    this.anims.play("enemyGrabFallingDefeated", true).once('animationcomplete', () => {
+                    this.anims.play("playerSuckedIn", true).once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
-                        this.playerDefeatedAnimationStage++;
                     });
-                }else if(this.playerDefeatedAnimationStage === 3){
-                    this.anims.play("enemyGrabDefeated2", true);
+
+                }else if(this.playerDefeatedAnimationStage === 1 && this.struggleAnimationInterupt === false){
+                    this.anims.play("playerStruggleIdle", true);
                     this.playPlapSound('plap10',2000);
                     
-                    if (this.onomatPlayed === false) {
-                        this.onomatPlayed = true;
-                        let randX = Math.floor((Math.random() * 15));
-                        let randY = Math.floor((Math.random() * 15));
-        
-                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
-                        this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                        this.scene.heartOnomat1.setScale(1/4);
-                        this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-        
-                        let thisEnemy = this;
-                        setTimeout(function () {
-                            thisEnemy.onomatPlayed = false;
-                            
-                        }, 600);
-                    }
-                    
-                }else if(this.playerDefeatedAnimationStage === 4){
-                    this.anims.play('enemyGrabDefeated3', true);
-                    this.playEnemySound('3',600);
-                    this.playPlapSound('plap9',1000);
-        
-                    if (this.onomatPlayed === false) {
-                        this.onomatPlayed = true;
-                        let randX = Math.floor((Math.random() * 15));
-                        let randY = Math.floor((Math.random() * 15));
-        
-                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
-                        this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                        this.scene.heartOnomat1.setScale(1/4);
-                        this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-        
-                        let thisEnemy = this;
-                        setTimeout(function () {
-                            thisEnemy.onomatPlayed = false;
-                            
-                        }, 600);
-                    }
                 }
 
                 //case to progress defeated stage, soo that we can have different struggle animations.
                 //in this case, if the player health is less than half there max health and the stage is 0
-                if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth/2 && this.playerDefeatedAnimationStage === 0){
+                /*if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth/2 && this.playerDefeatedAnimationStage === 0){
                     //increment the stage so behavior changes.
                     this.playerDefeatedAnimationStage++;
-                }else if(playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax)/2 && this.playerDefeatedAnimationStage === 3){
-                    this.playerDefeatedAnimationStage++;
-                }
+                }*/
             }
                
     }
@@ -602,8 +780,11 @@ class curseShadow extends enemy {
                     //incriment the animation prompt since we want to move on to the next animation after the current one finishes
                     console.log("currentEnemy.playerDefeatedAnimationStage: " + currentEnemy.playerDefeatedAnimationStage);
                 }, 1000);
+
+                if(this.playerDefeatedAnimationStage === 1 || this.inSafeMode === false){
+                    //this.playerDefeatedAnimationStage++;
+                }
                 this.inStartDefeatedLogic = true;
-                this.playerDefeatedAnimationStage++;
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             }
 
@@ -613,9 +794,11 @@ class curseShadow extends enemy {
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === true &&
                    this.scene.KeyDisplay.visible === true &&
-                    this.playerDefeatedAnimationStage !== 5 &&
+                    this.playerDefeatedAnimationStage !== 2 &&
+                     this.playerDefeatedAnimationStage !== 4 &&
                      this.playerDefeatedAnimationStage !== 6 &&
-                      this.playerDefeatedAnimationStage !== 8) {
+                     this.playerDefeatedAnimationStage !== 8 &&
+                     this.playerDefeatedAnimationStage !== 10) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -634,7 +817,7 @@ class curseShadow extends enemy {
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             console.log()
-            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDIsDown())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 11 && this.scene.checkDIsDown())) {
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
@@ -672,12 +855,18 @@ class curseShadow extends enemy {
 
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
-                this.setSize(90, 65, true);
                 this.playerDamaged = false;
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
                 this.playerDefeatedAnimationStage = 0;
+
+                //hide light if the player gets away
+                if(this.scene.lightingSystemActive === true){ 
+                    this.curseLight.x = this.x;
+                    this.curseLight.y = this.y;
+                    this.curseLight.visible = false;
+                }
 
                 if( this.scene.internalView !== null && this.scene.internalView !== undefined){
                     this.scene.internalView.destroy();
@@ -736,8 +925,6 @@ class curseShadow extends enemy {
                     this.scene.player1.coldDamage,
                     this.scene.player1.curseDamage
                 );
-
-                this.playEnemySound('5',200);
                 
                 //if the enemys hp is at zero
                 if (this.enemyHP <= 0) {
@@ -808,42 +995,134 @@ class curseShadow extends enemy {
     // plays the enemy defeated player animations.
     enemyDefeatedPlayerAnimation() {
         let currentEnemy = this;
-        if (this.playerDefeatedAnimationStage === 1) {
 
-            this.playerDefeatedAnimationStageMax = 2;
-
-            if (!this.animationPlayed) {
-                this.playEnemySound('2',800);
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-            
+        switch(this.playerDefeatedAnimationStage) {
+            case 1:
+                this.playerDefeatedAnimationStageMax = 12;
+                if (!this.animationPlayed) {
                 this.animationPlayed = true;
-                this.anims.play('enemyGrabFallingDefeated').once('animationcomplete', () => {
-                    this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('enemyGrabDefeated1', true);
-            this.playEnemySound('2',800);
+                        let random = Math.floor((Math.random() * 3)+1);
+                        console.log(random);
+                    if(random === 3){
+                        this.anims.play("playerStruggle", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        });  
+                    }else if(random === 2){
+                        this.flipX = false;
+                        this.anims.play("playerStruggle1", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        }); 
+                    }else{
+                        this.flipX = true;
+                        this.anims.play("playerStruggle1", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        });
+                    
+                    }
+                }
+              break;
+            case 2:
+                if (!this.animationPlayed) {
 
-            let thisEnemy = this;
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
-                setTimeout(function () {
-                    thisEnemy.onomatPlayed = false;
-                }, 800);
-            }
-        } 
+                    this.animationPlayed = true;
+                    this.scene.initSoundEffect('swallowSFX','2',0.6);
+
+                    this.curseLight.y = this.curseLight.y+30;
+
+                    this.anims.play('playerSuckedDown').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.inStartDefeatedLogic = false;
+                        this.scene.initSoundEffect('swallowSFX','3',0.6);
+                        console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+                        this.curseLight.y = this.curseLight.y+30;
+                    });
+                }
+              break;
+            case 3:
+                this.anims.play("playerConsumed", true);
+                break;
+            case 4:
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+
+                    this.anims.play('playerPumpGrab').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.inStartDefeatedLogic = false;
+                        console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+        
+                    });
+                }
+                break;
+            case 5:
+                this.anims.play("playerPump", true);
+                break;
+            case 6:
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+                    
+                    this.anims.play('playerGettingPumped').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.inStartDefeatedLogic = false;
+                        console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+        
+                    });
+                }
+                break;
+            case 7:
+                this.anims.play("playerMostlyTransformed", true);
+                break;
+            case 8:
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+                    
+                    this.anims.play('playerFinishTransformation').once('animationcomplete', () => {
+
+                        this.anims.play('playerShadowUnderground').once('animationcomplete', () => {
+                            this.curseLight.y = this.curseLight.y-30;
+                            this.anims.play('playerShadowRise').once('animationcomplete', () => {
+                                this.curseLight.y = this.curseLight.y-30;
+                                this.animationPlayed = false;
+                                this.playerDefeatedAnimationStage++;
+                                this.inStartDefeatedLogic = false;
+                                console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+            
+                            });
+                        });
+                    });
+                }
+                break;
+            case 9:
+                this.anims.play("playerShadowIdle", true);
+                break;
+            case 10:
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+                    
+                    this.anims.play('playerShadowPleasureStart').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.inStartDefeatedLogic = false;
+                        console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+        
+                    });
+                }
+                break;
+            case 11:
+                this.anims.play("playerShadowPleasure", true);
+                break;
+                
+            default:
+              // code block
+          }
+
+        
 
 
     }
@@ -893,11 +1172,7 @@ class curseShadow extends enemy {
                 //here is where animation for grab and grab sf should be played for grab animation.
                
                 //play struggle animation and sounds.
-                this.anims.play("enemyGrab",true);
-                
-                //handles sound effect diring grab struggle
-                this.playEnemySound('3',800);
-                
+                this.anims.play("enemyGrab",true);  
 
                 // handles input for progressing animation
                 if (this.scene.checkDPressed() === true) {

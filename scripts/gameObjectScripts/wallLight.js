@@ -17,6 +17,8 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
 
         this.scene = scene;
 
+        this.collision = 170;
+
         this.lightSource;
    
 
@@ -61,6 +63,8 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
 
             this.anims.play('ghostMushroom1');
 
+            this.setSize(this.collision, this.collision, true);
+       
             //if we are using dark lighting
             if(this.scene.lightingSystemActive === true){ 
 
@@ -84,6 +88,7 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
 
             this.anims.play('ghostMushroom2');
 
+            this.setSize(this.collision, this.collision, true);
             //if we are using dark lighting
             if(this.scene.lightingSystemActive === true){ 
 
@@ -107,6 +112,8 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
 
             this.anims.play('ghostMushroom3');
 
+            this.setSize(this.collision, this.collision, true);
+
             //if we are using dark lighting
             if(this.scene.lightingSystemActive === true){ 
 
@@ -129,6 +136,8 @@ class wallLight extends Phaser.Physics.Arcade.Sprite{
         }else if(type === 'ghostMushroom4'){
 
             this.anims.play('ghostMushroom4');
+
+            this.setSize(this.collision, this.collision, true);
 
             //if we are using dark lighting
             if(this.scene.lightingSystemActive === true){ 

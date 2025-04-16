@@ -48,6 +48,10 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     this.physics.add.collider(this.processMap.layer1, this.CursedHearts);
   }
 
+  setUpShadowLightCollider(){
+    this.physics.add.collider(this.curseShadows,this.wallLights);
+}
+
   
 
 }

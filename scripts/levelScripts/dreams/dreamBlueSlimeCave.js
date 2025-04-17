@@ -153,7 +153,7 @@ class dreamBlueSlimeCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
   
         if(object.foundFlag === true){
-          thisScene.initEnemy(1008,669,thisScene.playerSex,'blueSlimeHS',true);
+          thisScene.initEnemy(1008,667,thisScene.playerSex,'blueSlimeHS',true);
         }
 
         let object1 = {
@@ -171,7 +171,7 @@ class dreamBlueSlimeCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(1108,669,thisScene.playerSex,'blueSlimeHM',true);
+          thisScene.initEnemy(1108,666,thisScene.playerSex,'blueSlimeHM',true);
         }
 
         

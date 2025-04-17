@@ -1,5 +1,5 @@
-let gameoverThat;
-class gameOver extends A3SoundEffects {
+let gameoverThat = this;
+class gameOver extends gameoverManager {
 
     constructor(){
         // scene settings
@@ -44,29 +44,19 @@ class gameOver extends A3SoundEffects {
 
         //loads sprites for game over.
         preload(){
+            //call built in function to obtain gameover data. is the earliest location in which the data can be loaded.
+            this.loadGameoverFile();
 
-            this.load.image('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png');
-            this.load.image('backgroundBeachLevel', 'assets/backgrounds/beach_background.png');
+            //function to create a map of functions to preload the correct map needed based in the location string.
+            this.preloadMapOfTileMaps();
 
-            this.load.image("source_map" , "assets/tiledMap/Forest_Large_Tiles.png");
-            this.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
-            this.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
+            //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON[this.gameoverLocation]());
+            this.mapOfTileMapsJSON[this.gameoverLocation]();
+
             
             this.load.spritesheet("gameOverSignCursed" , "assets/gameover/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/gameover/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
-            this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-            //fix
-             //load in the JSON file for the bitmap
-            this.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Gameover.json");
-            this.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Gameover.json");
-            this.load.tilemapTiledJSON("istaraGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Istaras_Gameover.json");
-            this.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
-            this.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Grub_Hive_Gameover.json");
-            this.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
-            
-
-            this.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
 
             this.load.audioSprite('gameoverSFX','audio/used-audio/gameover-sounds/gameover-sounds.json',[
                 "audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
@@ -74,10 +64,6 @@ class gameOver extends A3SoundEffects {
 
             this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
                 "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
-              ]);
-
-            this.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-                "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
               ]);
 
             this.load.audioSprite('plapSFX','audio/used-audio/plap-sounds/plap-sounds.json',[
@@ -94,47 +80,28 @@ class gameOver extends A3SoundEffects {
 
         create(){
 
-            //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
-            this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-            //define a key and make it interactive
-            this.mobileW = new mobileButton(this,330,640).setInteractive(this.input.makePixelPerfect());
-            this.mobileW.playWKey(0);
-            this.mobileW.setScale(1/3);
-
-            //pointer events when button is pressed to activate set pressed to true in the key object
-            this.mobileW.on('pointerdown', function (pointer) {
-                this.mobileW.IsPressed = true;
-                this.mobileW.isJustDown = true;
-                this.mobileW.playWKey(1);
-            },this);
-            
-            //pointer even so that when the button is not being pressed, set value to false.
-            this.mobileW.on('pointerup',function(pointer){
-                this.mobileW.IsPressed = false;
-                this.mobileW.isJustDown = false;
-                this.mobileW.playWKey(0);
-            },this);
-
-            this.mobileW.on('pointerout',function(pointer){
-                this.mobileW.IsPressed = false;
-                this.mobileW.isJustDown = false;
-                this.mobileW.playWKey(0);
-            },this);
+            this.setUpPlayerControls();
 
             //load gameoverFile data to this scene
-            this.loadGameoverFile();
+            //this.loadGameoverFile();
 
             console.log("this.playersex: "+ this.playerSex);
             console.log("now in gameover scene");
 
-            //creates backround object
-            if(this.gameoverLocation === "forestGameover"){
-                let backround = this.add.sprite(450, 380, "backgroundForestRavineLevel");
+            //creates map of function for preloads of different scenes
+            this.preloadMapOfLocationPreloads();
 
-            }else if(this.gameoverLocation === "beachGameover"){
-                let backround = this.add.sprite(450, 380, "backgroundBeachLevel");
+            //small function to set up the tilemap level using the data provided.
+            let myMap = this.make.tilemap({ key:this.gameoverLocation});
 
-            }
+            //creates a new level object which is used to display map. sends scene and mapdata
+            this.processMap = new level(this,myMap); 
+
+            //activates preload of correct type based on gameover location
+            this.mapOfLocationPreloads[this.gameoverLocation]();
+
+            console.log("loading gameover tileset: ", this.gameoverLocation);
+            console.log("this.processMap: ",this.processMap);
 
             //handles scene transition and fade out for scene transition
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -149,109 +116,6 @@ class gameOver extends A3SoundEffects {
                 this.scene.start(this.playerLocation);
 
             })
-            
-
-            //creates try again button
-            this.tryAgian = this.add.sprite(610, 640, "tryAgianSign").setInteractive();
-
-            //creates animations for try agian button
-            this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-            this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
-            this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
-            this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
-            this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
-
-            this.tryAgian.anims.play('tryAgianInActive');
-            this.tryAgian.setScale(.5);
-            this.tryAgian.setDepth(7);
-
-            this.tryAgian.visible = false;
-
-            //textbox for new character 
-            this.sceneTextBox = new textBox(this,1200/2-30,580,'charBubble');
-            this.sceneTextBox.setScale(1/3);
-            this.sceneTextBox.setTextboxBackground("cursed");
-            this.sceneTextBox.textTint = 0x9d00e0;
-
-            //npc to progress dialogue
-            this.npcGameover = new npc(this, 0, 0, 'hitbox');
-           
-            
-             
-            console.log("loading gameover tileset: ", this.gameoverLocation);
-
-            let myMap = this.make.tilemap({ key:this.gameoverLocation});
-
-            console.log("loading gameover tileset: ", this.gameoverLocation);
-            //creates a new level object which is used to display map. sends scene and mapdata
-            this.processMap = new level(this,myMap);
-            //calls function that loads the tiles from the json
-            if(this.gameoverLocation === 'blueSlimeGameover'){
-
-                this.lightingSystemActive = true;
-
-                //sets the ambient lighting color using a hex value.
-                this.lights.enable().setAmbientColor(0x555555);
-
-                this.processMap.tilesetNameInTiled = "Blue_Slime_Cave_Tileset";
-                this.processMap.setTiles('blue_slime_source_map',this);
-
-                this.processMap.layer0.setPipeline('Light2D');
-                this.processMap.layer1.setPipeline('Light2D');
-                this.processMap.layer2.setPipeline('Light2D');
-                this.processMap.layer3.setPipeline('Light2D');
-            }else if(this.gameoverLocation === 'caveGameover'){
-
-                this.lightingSystemActive = true;
-
-                //sets the ambient lighting color using a hex value.
-                this.lights.enable().setAmbientColor(0x555555);
-
-                this.processMap.tilesetNameInTiled = "Cave_Tileset";
-                this.processMap.setTiles('cave_source_map',this);
-
-                this.processMap.layer0.setPipeline('Light2D');
-                this.processMap.layer1.setPipeline('Light2D');
-                this.processMap.layer2.setPipeline('Light2D');
-                this.processMap.layer3.setPipeline('Light2D');
-
-            }else if(this.gameoverLocation === 'forestGameover'){
-                this.lightingSystemActive = false;
-
-                this.processMap.tilesetNameInTiled = "Forest_Tileset";
-                this.processMap.setTiles('forest_source_map',this);
-            }else if(this.gameoverLocation === 'hiveGameover'){
-                this.lightingSystemActive = false;
-                this.processMap.tilesetNameInTiled = "Hive_Tileset";
-                this.processMap.setTiles('hive_source_map',this);
-            }else if(this.gameoverLocation === 'istaraGameover'){
-
-                this.lightingSystemActive = true;
-
-                //sets the ambient lighting color using a hex value.
-                this.lights.enable().setAmbientColor(0x555555);
-
-                this.processMap.tilesetNameInTiled = "Cave_Tileset";
-                this.processMap.setTiles('cave_source_map',this);
-
-                this.processMap.layer0.setPipeline('Light2D');
-                this.processMap.layer1.setPipeline('Light2D');
-                this.processMap.layer2.setPipeline('Light2D');
-                this.processMap.layer3.setPipeline('Light2D');
-
-                this.initLoopingSound('waterfallSFX','waterfall', 0.03);
-
-                this.light1 = new wallLight(this,445, 470,'ghostMushroom2');
-                this.light2 = new wallLight(this,455, 472,'ghostMushroom3');
-                this.light2 = new wallLight(this,465, 468,'ghostMushroom4');
-
-            }else{
-                //this.processMap.tilesetNameInTiled = "Forest_Large_Tiles";
-                //this.processMap.setTiles('source_map',this);
-            }
-
-            console.log("map:",this.processMap);
 
             this.sceneTextBox.activateTitleScreenTextbox(
                 this,//scene
@@ -260,154 +124,11 @@ class gameOver extends A3SoundEffects {
                 ""//text sent to the text box.
                 );
 
-            this.dialogueFlag = "default";
-
-            //uses the eneny string to determine what animation should be played.
-            if(this.enemyThatDefeatedPlayer === "blueSlime"){
-                this.enemy = new blueSlime(this,450, 560,this.playerSex);
-                this.enemy.slimeGameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "largeBlueSlime"){
-                this.enemy = new blueSlime(this,450, 560,this.playerSex);
-                this.enemy.slimeSize = 2;
-                this.enemy.largeSlimeGameOver();
-                this.enemy.y-500;
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "femaleTiger"){
-                this.preferance = 1;
-                this.enemy = new tiger(this,450, 560,this.playerSex);
-                this.enemy.gameOver();
-                this.enemy.y-500;
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "maleTiger"){
-                this.preferance = 0;
-                this.enemy = new tiger(this,450, 560,this.playerSex);
-                this.enemy.gameOver();
-                this.enemy.y-500;
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "femaleTigerBooba"){
-                this.preferance = 1;
-                this.enemy = new tiger(this,450, 560,this.playerSex);
-                this.enemy.gameOver(1);
-                this.enemy.y-500;
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "maleTigerBenis"){
-                this.preferance = 0;
-                this.enemy = new tiger(this,450, 560,this.playerSex);
-                this.enemy.gameOver(1);
-                this.enemy.y-500;
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "maleRabbit"){
-                this.preferance = 0;
-                this.enemy = new rabbit(this,450, 560,this.playerSex);
-                this.enemy.gameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "femaleRabbit"){
-                this.preferance = 1;
-                this.enemy = new rabbit(this,450, 560,this.playerSex);
-                this.enemy.gameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "maleBeeDrone"){
-                this.preferance = 0;
-                this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
-                this.enemy.gameOver(this.playerSex);
-                this.defeatedTitle = 'cursed';
-
-                this.stopFlapping = false;
-                let scene = this;
-                setTimeout(function () {
-                    scene.stopFlapping = true;
-                }, 3000);
-            }else if(this.enemyThatDefeatedPlayer === "femaleBeeDrone"){
-                this.preferance = 1;
-                this.enemy = new beeDrone(this,430, 570,this.playerSex,1,'wingFlapSFX');
-                this.enemy.gameOver(this.playerSex);
-                this.defeatedTitle = 'cursed';
-
-                this.stopFlapping = false;
-                let scene = this;
-                setTimeout(function () {
-                    scene.stopFlapping = true;
-                }, 6000);
-            }else if(this.enemyThatDefeatedPlayer === "maleBat"){
-                this.preferance = 0;
-                this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
-                this.enemy.gameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "femaleBat"){
-                this.preferance = 1;
-                this.enemy = new bat(this,450, 600,this.playerSex,1,'wingFlapSFX');
-                this.enemy.gameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "blueSlimeHS"){
-                this.enemy = new blueSlimeHS(this,450, 580,this.playerSex);
-                this.enemy.slimeGameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "blueSlimeFemaleHM"){
-                this.preferance = 1;
-                this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
-                this.enemy.slimeGameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "blueSlimeMaleHM"){
-                this.preferance = 0;
-                this.enemy = new blueSlimeHM(this,450, 580,this.playerSex);
-                this.enemy.slimeGameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "femaleChestMimic"){
-                this.preferance = 1;
-                this.enemy = new chestMimic(this,450, 570,this.playerSex);
-                this.enemy.gameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "femaleChestMimicVore"){
-                this.preferance = 1;
-                this.enemy = new chestMimic(this,450, 570,this.playerSex);
-                this.enemy.angry = true;
-                this.enemy.gameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "maleChestMimic"){
-                this.preferance = 0;
-                this.enemy = new chestMimic(this,450, 570,this.playerSex);
-                this.enemy.gameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "maleChestMimicVore"){
-                this.preferance = 0;
-                this.enemy = new chestMimic(this,450, 570,this.playerSex);
-                this.enemy.angry = true;
-                this.enemy.gameOver();
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
-                this.preferance = 0;
-                this.enemy = new istara(this,450, 549,"inCave");
-                this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver();
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleTF"){
-                this.preferance = 1;
-                this.enemy = new whiteCat(this,450, 570,this.playerSex);
-                //this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver(0);
-                this.defeatedTitle = 'cursed';
-            }else if(this.enemyThatDefeatedPlayer === "whiteCatFemaleVore"){
-                this.preferance = 1;
-                this.enemy = new whiteCat(this,450, 570,this.playerSex);
-                //this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver(1);
-                this.defeatedTitle = 'eaten';
-            }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleTF"){
-                this.preferance = 0;
-                this.enemy = new whiteCat(this,450, 570,this.playerSex);
-                //this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver(0);
-                this.defeatedTitle = 'cursed';
-                
-            }else if(this.enemyThatDefeatedPlayer === "whiteCatMaleVore"){
-                this.preferance = 0;
-                this.enemy = new whiteCat(this,450, 570,this.playerSex);
-                //this.enemy.setPipeline('Light2D');
-                this.enemy.gameOver(1);
-                this.defeatedTitle = 'eaten';
-            }
+            //sets up map of enemy preloads
+            this.preloadMapOfEnemys();
+            this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
             
+            //set up textbox sound type.
             if(this.defeatedTitle === 'eaten'){
                 this.sceneTextBox.soundType = "digest";
                 this.sceneTextBox.textTint = 0x9d0000;
@@ -415,7 +136,8 @@ class gameOver extends A3SoundEffects {
                 this.sceneTextBox.soundType = "lightPiano";
                 this.sceneTextBox.textTint = 0x9d00e0;
             }
- 
+            
+            //gets dialogue from 
             if(npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === null || npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === undefined){
                 this.dialogueFlag = "default";
             }else{
@@ -425,7 +147,6 @@ class gameOver extends A3SoundEffects {
             //actiaves dialogue node with above specifications
             this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
             
-  
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
             this.physics.add.collider(this.processMap.layer1, this.npcGameover);
@@ -439,115 +160,21 @@ class gameOver extends A3SoundEffects {
           
             this.mycamera.setScroll(-135, 60);
 
-            //this.mycamera.x = 450;
-
             //game over sign.
             this.gameOverSign = this.add.sprite(450,410,"gameOverSign");
             this.gameOverSign.setScale(.3);
             this.gameOverSign.setDepth(7);
             
-            //sets timeout for animations.
-            //setTimeout(function(){
-                if(this.defeatedTitle === 'eaten'){
-                    this.gameOverSign.anims.play("gameoverTitleAnimationEaten");
-                }else{
-                    this.gameOverSign.anims.play("gameoverTitleAnimationCursed");
-                }
+            if(this.defeatedTitle === 'eaten'){
+                this.gameOverSign.anims.play("gameoverTitleAnimationEaten");
+            }else{
+                this.gameOverSign.anims.play("gameoverTitleAnimationCursed");
+            }
                 
-              //},100);
-           
-              setTimeout(function(){
-                gameoverThat.tryAgian.visible = true;
-              },1000);
-            
-            //logic for try agian button
-            //allow acess to scene in settimeout functions.
-            gameoverThat = this;
-
-            this.tryAgian.on('pointerdown', function (pointer) {
-
-                //sets a few variables
-                let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
-                let tempPlayerSex = gameoverThat.playerSex;
-                
-                //grabs current saveslot
-                let slot = gameoverThat.playerSaveSlotData.saveSlot;
-
-                //loads player info from hard save
-                gameoverThat.loadGameFile(slot);
-                console.log("attempting to load slot:" + slot);
-                // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
-                
-                //for loop looks through all the looping music playing within a given scene and stops the music.
-                for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
-                    gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
-                }
-
-                //if the player has data in thee save file then load them back to there last save
-                console.log("gameoverThat.playerLocation: ",gameoverThat.playerLocation," gameoverThat.playerBestiaryData: ",gameoverThat.playerBestiaryData);
-                if(gameoverThat.playerLocation !== null && gameoverThat.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
-
-                    console.log("save file detected, now setting player back to correct scene.");
-                    console.log("gameoverThat.playerLocation",gameoverThat.playerLocation);
-
-                    let entryAdded = false;
-                    //loop through of entrys the player has that was loaded from file
-                    for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
-
-                        // if the key can be found then we set the entry to 1 to represent the player having the entry.
-                        if(gameoverThat.enemyThatDefeatedPlayer === key){
-                            console.log("found bestiary entry : ", key);
-                            gameoverThat.playerBestiaryData[key] = 1;
-                            entryAdded = true;
-                        }
-                
-                    }
-
-                    if(entryAdded === false){
-                        gameoverThat.playerBestiaryData[gameoverThat.enemyThatDefeatedPlayer] = 1;
-                    }
-
-                      //creates a object to hold data for scene transition
-                        let playerDataObject = {
-                            saveX: gameoverThat.warpToX,
-                            saveY: gameoverThat.warpToY,
-                            playerHpValue: gameoverThat.playerHealth,
-                            playerSex:gameoverThat.playerSex,
-                            playerLocation: gameoverThat.playerLocation,
-                            inventoryArray: gameoverThat.inventoryDataArray,
-                            playerBestiaryData: gameoverThat.playerBestiaryData,
-                            playerSkillsData: gameoverThat.playerSkillsData,
-                            playerSaveSlotData: gameoverThat.playerSaveSlotData,
-                            flagValues: gameoverThat.flagValues,
-                            settings:gameoverThat.settings,
-                            dreamReturnLocation:gameoverThat.dreamReturnLocation,
-                            playerCurseValue:gameoverThat.playerCurseValue
-                        };
-
-                    //call save function for temp save so when we start the scene agian, it has the correct data.
-                    gameoverThat.saveGame(playerDataObject);
-
-                    //call save function for temp save so when we start the scene agian, it has the correct data.
-                    gameoverThat.saveGameFile(playerDataObject);
-                    
-                    // calls the fadout function which loads back to the last save on fadeout complete
-                    gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
-
-                //if the player has not saved, send them back to the beginning of the game
-                }
-        
-            });
-
-            //plays animation for pointer lighting up when mouse hovers over it.
-            this.tryAgian.on('pointerover',function(pointer){
-                gameoverThat.tryAgian.anims.play("tryAgianActive");
-            })
-            this.tryAgian.on('pointerout',function(pointer){
-                gameoverThat.tryAgian.anims.play("tryAgianInActive");
-            })
-
             this.initSoundEffect('gameoverSFX','gameover',0.05);
-             console.log("this.enemy: ", this.enemy);
+
+            console.log("this.enemy: ", this.enemy);
+            
             this.enemy.soundCoolDown = false;
 
         }

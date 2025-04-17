@@ -7,6 +7,7 @@ class blueSlime extends enemy {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, sex, id, 20, 'blueSlime');
 
+        console.log("making a blueslime!")
         // sets gravity 
         this.body.setGravityY(600); 
         this.slimeSize = 1;

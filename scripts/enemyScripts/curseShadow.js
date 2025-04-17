@@ -73,7 +73,7 @@ class curseShadow extends enemy {
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
             //also sets up the curse light for if the player is cursed.
-            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 100, 0x444444);
+            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 100, 0x666666);
             this.curseLight.visible = false;
           }
     }

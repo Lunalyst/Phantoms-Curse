@@ -315,6 +315,7 @@ class gameoverManager extends A3SoundEffects {
 
     }
     
+    //sets up map of function for enemy preload logic
     preloadMapOfEnemys(){
 
         let tempSceneRef = this;
@@ -496,15 +497,167 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-
-            
-
-        
- 
         }
     }
-    //update functions based on gameover file.
 
+    //update functions based on gameover file.
+    updateMapOfEnemys(){
+
+        let tempSceneRef = this;
+
+        this.mapOfEnemyUpdates = {
+            blueSlime: function blueSlimeFunction() {
+                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                tempSceneRef.enemy.slimeSoundCoolDown = true;
+                setTimeout(function () {
+                    tempSceneRef.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            },
+            
+            largeBlueSlime: function largeBlueSlimeFunction() {
+                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                tempSceneRef.enemy.slimeSoundCoolDown = true;
+                setTimeout(function () {
+                    tempSceneRef.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            },
+            femaleTiger: function femaleTigerFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800); 
+            },
+            maleTiger: function maleTigerFunction() {
+
+                if(tempSceneRef.enemy.maleTigerStroking === false){
+                    tempSceneRef.enemy.playJumpySound('10',800);
+                }else{
+
+                    tempSceneRef.enemy.playPlapSound('plap5',1000);
+                }
+            },
+            femaleTigerBooba: function femaleTigerBoobaFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            maleTigerBenis: function maleTigerBenisFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            maleRabbit: function maleRabbitFunction() {
+
+            },
+            femaleRabbit: function femaleRabbitFunction() {
+
+            },
+            maleBeeDrone: function maleBeeDroneFunction() {
+                if(tempSceneRef.enemy.beeDroneSoundCoolDown === false ){
+                    if(tempSceneRef.enemy.gameoverAnimationComplete === true){
+                        tempSceneRef.initSoundEffect('plapSFX','plap2',1);
+    
+                        if(tempSceneRef.stopFlapping === false){
+                            tempSceneRef.initSoundEffect('wingFlapSFX','1',0.3);
+                        }else{
+                        tempSceneRef.sound.get('wingFlapSFX').stop();  
+                        }
+                        tempSceneRef.enemy.beeDroneSoundCoolDown = true;
+                        
+                        setTimeout(function () {
+                            tempSceneRef.enemy.beeDroneSoundCoolDown = false;
+                        }, 800);
+                    }else if(tempSceneRef.enemy.gameoverAnimationComplete === false){
+                        tempSceneRef.initSoundEffect('plapSFX','plap5',1);
+                        tempSceneRef.initSoundEffect('wingFlapSFX','1',0.3);
+                    
+                        tempSceneRef.enemy.beeDroneSoundCoolDown = true;
+                
+                        setTimeout(function () {
+                            tempSceneRef.enemy.beeDroneSoundCoolDown = false;
+                        }, 1200);
+                    }    
+                }
+            },
+            femaleBeeDrone: function femaleBeeDroneFunction() {
+                if(tempSceneRef.enemy.beeDroneSoundCoolDown === false ){
+                    if(tempSceneRef.enemy.gameoverAnimationComplete === true){
+                        tempSceneRef.initSoundEffect('plapSFX','plap2',1);
+    
+                        if(tempSceneRef.stopFlapping === false){
+                            tempSceneRef.initSoundEffect('wingFlapSFX','1',0.3);
+                        }else{
+                        tempSceneRef.sound.get('wingFlapSFX').stop();  
+                        }
+                        tempSceneRef.enemy.beeDroneSoundCoolDown = true;
+                       
+                        setTimeout(function () {
+                            tempSceneRef.enemy.beeDroneSoundCoolDown = false;
+                        }, 800);
+                    }else if(tempSceneRef.enemy.gameoverAnimationComplete === false){
+                        tempSceneRef.initSoundEffect('plapSFX','plap5',1);
+                        tempSceneRef.initSoundEffect('wingFlapSFX','1',0.3);
+                    
+                        tempSceneRef.enemy.beeDroneSoundCoolDown = true;
+                        
+                        setTimeout(function () {
+                            tempSceneRef.enemy.beeDroneSoundCoolDown = false;
+                        }, 1200);
+                    }    
+                }
+            },
+            maleBat: function maleBatFunction() {
+
+            },
+            femaleBat: function femaleBatFunction() {
+
+            },
+            blueSlimeHS: function blueSlimeHSFunction() {
+                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                tempSceneRef.enemy.slimeSoundCoolDown = true;
+                
+                setTimeout(function () {
+                    tempSceneRef.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            },
+            blueSlimeFemaleHM: function blueSlimeFemaleHMFunction() {
+                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                tempSceneRef.enemy.slimeSoundCoolDown = true;
+                
+                setTimeout(function () {
+                    tempSceneRef.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            },
+            blueSlimeMaleHM: function blueSlimeMaleHMFunction() {
+                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                tempSceneRef.enemy.slimeSoundCoolDown = true;
+                
+                setTimeout(function () {
+                    tempSceneRef.enemy.slimeSoundCoolDown = false;
+                }, 700);
+            },
+            femaleChestMimic: function femaleChestMimicFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            femaleChestMimicVore: function femaleChestMimicVoreFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);    
+            },
+            maleChestMimic: function femaleChestMimicFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            maleChestMimicVore: function femaleChestMimicVoreFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            istaraUnbirth: function istaraUnbirthFunction() {
+
+            },
+            whiteCatFemaleTF: function whiteCatFemaleTFFunction() {
+ 
+            },
+            whiteCatFemaleVore: function whiteCatFemaleVoreFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            whiteCatMaleTF: function whiteCatMaleTFFunction() {
+
+            },
+            whiteCatMaleVore: function whiteCatMaleVoreFunction() {
+                tempSceneRef.enemy.playJumpySound('10',800);
+            },
+        }
+    }
         
 
              

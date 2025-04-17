@@ -174,13 +174,17 @@ class gameOver extends gameoverManager {
             this.initSoundEffect('gameoverSFX','gameover',0.05);
 
             console.log("this.enemy: ", this.enemy);
-            
+
             this.enemy.soundCoolDown = false;
+
+            //sets up the update functions each enemy uses.
+            this.updateMapOfEnemys();
 
         }
 
         update(){
 
+            //input to progress gameover dialogue during scene.
             if(Phaser.Input.Keyboard.JustDown(this.keyW)){
                 this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
               }else{
@@ -196,72 +200,8 @@ class gameOver extends gameoverManager {
           
               } 
 
-
-            //console.log("this.enemy.x",this.enemy.x," this.enemy.y", this.enemy.y)
-
-            //plays sound effects for blueSlime.
-            if(this.enemy.slimeSoundCoolDown === false &&(
-                this.enemyThatDefeatedPlayer === "blueSlime" ||
-                this.enemyThatDefeatedPlayer === "largeBlueSlime"||
-                this.enemyThatDefeatedPlayer === "blueSlimeHS" || 
-                this.enemyThatDefeatedPlayer === "blueSlimeFemaleHM" || 
-                this.enemyThatDefeatedPlayer === "blueSlimeMaleHM" 
-                )){
-                this.initSoundEffect('blueSlimeSFX','2',0.3);
-                
-                this.enemy.slimeSoundCoolDown = true;
-                let scene = this;
-                setTimeout(function () {
-                    scene.enemy.slimeSoundCoolDown = false;
-                }, 700);
-            }else if(this.enemy.beeDroneSoundCoolDown === false && (this.enemyThatDefeatedPlayer === "maleBeeDrone" || this.enemyThatDefeatedPlayer === "femaleBeeDrone")){
-                if(this.enemy.gameoverAnimationComplete === true){
-                    this.initSoundEffect('plapSFX','plap2',1);
-
-                    if(this.stopFlapping === false){
-                        this.initSoundEffect('wingFlapSFX','1',0.3);
-                    }else{
-                    this.sound.get('wingFlapSFX').stop();  
-                    }
-                    this.enemy.beeDroneSoundCoolDown = true;
-                    let scene = this;
-                    setTimeout(function () {
-                        scene.enemy.beeDroneSoundCoolDown = false;
-                    }, 800);
-                }else if(this.enemy.gameoverAnimationComplete === false){
-                    this.initSoundEffect('plapSFX','plap5',1);
-                    this.initSoundEffect('wingFlapSFX','1',0.3);
-                
-                    this.enemy.beeDroneSoundCoolDown = true;
-                    let scene = this;
-                    setTimeout(function () {
-                        scene.enemy.beeDroneSoundCoolDown = false;
-                    }, 1200);
-                }    
-            }
-            else if(this.enemyThatDefeatedPlayer === 'maleTiger'){
-                if(this.enemy.maleTigerStroking === false){
-                    this.enemy.playJumpySound('10',800);
-                }else{
-
-                    this.enemy.playPlapSound('plap5',1000);
-                }
-                
+              this.mapOfEnemyUpdates[this.enemyThatDefeatedPlayer]();
             
-            }else if(this.enemyThatDefeatedPlayer === 'femaleTiger' ||
-                this.enemyThatDefeatedPlayer === 'femaleTigerBooba' ||
-                this.enemyThatDefeatedPlayer === 'maleTigerBenis' ||
-                 this.enemyThatDefeatedPlayer === "femaleChestMimic"||
-                 this.enemyThatDefeatedPlayer === "femaleChestMimicVore" ||
-                 this.enemyThatDefeatedPlayer === "maleChestMimic"||
-                 this.enemyThatDefeatedPlayer === "maleChestMimicVore"||
-                this.enemyThatDefeatedPlayer === "whiteCatFemaleVore" ||
-                this.enemyThatDefeatedPlayer === "whiteCatMaleVore"){
-                    
-                this.enemy.playJumpySound('10',800);
-            }else if(this.enemyThatDefeatedPlayer === "istaraUnbirth"){
-                //this.enemy.playJumpySound('10',600);
-            }
             
         }      
 }

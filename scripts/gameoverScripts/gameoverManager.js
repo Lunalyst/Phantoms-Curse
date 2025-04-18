@@ -127,6 +127,9 @@ class gameoverManager extends A3SoundEffects {
 
     //set up player control logic
     setUpPlayerControls(){
+
+        this.dialogueInterupt = false;
+        
         //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         //define a key and make it interactive
@@ -178,9 +181,9 @@ class gameoverManager extends A3SoundEffects {
         },1000);
 
         this.tryAgian.on('pointerdown', function (pointer) {
-
-            gameoverThat.tryAgianLoad(gameoverThat);
-    
+            if(gameoverThat.dialogueInterupt === false){
+                gameoverThat.tryAgianLoad(gameoverThat);
+            }
         });
 
         //plays animation for pointer lighting up when mouse hovers over it.

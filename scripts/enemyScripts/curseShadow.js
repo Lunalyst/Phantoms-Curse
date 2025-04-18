@@ -59,7 +59,7 @@ class curseShadow extends enemy {
             this.anims.create({ key: 'shadowGameover4', frames: this.anims.generateFrameNames('curseShadowMale', { start: 115, end: 131 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'shadowGameover5', frames: this.anims.generateFrameNames('curseShadowMale', { start: 132, end: 135 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'shadowGameover6', frames: this.anims.generateFrameNames('curseShadowMale', { start: 136, end: 138 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'shadowGameover7', frames: this.anims.generateFrameNames('curseShadowMale', { start: 139, end: 141 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'shadowGameover7', frames: this.anims.generateFrameNames('curseShadowMale', { start: 138, end: 141 }), frameRate: 7, repeat: -1 });
         }else{
             
         }
@@ -313,10 +313,56 @@ class curseShadow extends enemy {
     }
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.
-    enemyGameOver() {
-        this.setSize(100, 150, true);
-        this.setOffset(90, 150);
-        this.anims.play('enemyGameOver', true);
+    gameOver() {
+        //sets the size and gravity of the enemy
+        this.setSize(270, 100, true);
+        this.setOffset(15, 125);
+        this.body.setGravityY(600);
+        //play gameover 1 animation
+        this.anims.play('shadowGameover1', true);
+
+        let currentEnemy = this;
+        setTimeout(function () {
+            currentEnemy.anims.play('shadowGameover2', true);   
+
+            setTimeout(function () {
+                currentEnemy.anims.play('shadowGameover3', true);  
+
+                setTimeout(function () {
+                    //interupt dialogue by reseting objects, and hiding buttons
+                    currentEnemy.scene.dialogueInterupt = true;
+                    currentEnemy.scene.resetGameoverText();
+                    currentEnemy.scene.mobileW.visible = false;
+                    currentEnemy.scene.gameOverSign.visible = false;
+                    currentEnemy.scene.tryAgian.visible = false;
+
+                    currentEnemy.anims.play('shadowGameover4').once('animationcomplete', () => {
+                        //set camera to the enemy
+                        currentEnemy.scene.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                        //let the update loop know to move the enemy.
+                        currentEnemy.gameoverMove = true;
+                        currentEnemy.scene.mycamera.startFollow(currentEnemy );
+                        currentEnemy.scene.mycamera.setFollowOffset(0,93); 
+                        //currentEnemy.scene.mycamera.setLerp(.05, .05);
+
+                        currentEnemy.anims.play('shadowGameover5', true); 
+
+                        setTimeout(function () {
+                            currentEnemy.scene.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                            setTimeout(function () {
+                                currentEnemy.scene.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                                setTimeout(function () {
+                                    currentEnemy.scene.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+        
+                                },8000);
+                            },5000);
+                        },2000);
+                    });
+                }, 15000);
+               
+            }, 45000);
+
+        }, 60000);
     }
 
     //the grab function. is called when player has overlaped with an enemy enemy.
@@ -818,6 +864,11 @@ class curseShadow extends enemy {
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             console.log()
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 11 && this.scene.checkDIsDown())) {
+
+                this.scene.enemyThatDefeatedPlayer = "curseShadow";
+                
+                this.scene.gameoverLocation = "shadowGameover";
+
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){

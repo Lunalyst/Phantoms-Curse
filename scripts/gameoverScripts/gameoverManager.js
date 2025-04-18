@@ -37,7 +37,11 @@ class gameoverManager extends A3SoundEffects {
             blueSlimeGameover: function blueSlimeGameover() {
                 tempGameover.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
-                tempGameover.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
+            },
+            shadowGameover: function shadowGameover() {
+                tempGameover.load.tilemapTiledJSON("shadowGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave_Gameover.json");
+                tempGameover.load.spritesheet('shadow', 'assets/enemys/shadowFront.png',{frameWidth: 303, frameHeight: 429 });
+                tempGameover.load.spritesheet('shadowJaw', 'assets/enemys/shadowJaw.png',{frameWidth: 303, frameHeight: 429 });
             },
 
         
@@ -45,6 +49,80 @@ class gameoverManager extends A3SoundEffects {
         }
 
 
+    }
+
+    tryAgianLoad(gameoverThat){
+        //sets a few variables
+        let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
+        let tempPlayerSex = gameoverThat.playerSex;
+        
+        //grabs current saveslot
+        let slot = gameoverThat.playerSaveSlotData.saveSlot;
+
+        //loads player info from hard save
+        gameoverThat.loadGameFile(slot);
+        console.log("attempting to load slot:" + slot);
+        // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
+        
+        //for loop looks through all the looping music playing within a given scene and stops the music.
+        for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
+            gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
+        }
+
+        //if the player has data in thee save file then load them back to there last save
+        console.log("gameoverThat.playerLocation: ",gameoverThat.playerLocation," gameoverThat.playerBestiaryData: ",gameoverThat.playerBestiaryData);
+        
+
+        if(gameoverThat.playerLocation !== null && gameoverThat.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
+
+            console.log("save file detected, now setting player back to correct scene.");
+            console.log("gameoverThat.playerLocation",gameoverThat.playerLocation);
+
+            let entryAdded = false;
+            //loop through of entrys the player has that was loaded from file
+            for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
+
+                // if the key can be found then we set the entry to 1 to represent the player having the entry.
+                if(gameoverThat.enemyThatDefeatedPlayer === key){
+                    console.log("found bestiary entry : ", key);
+                    gameoverThat.playerBestiaryData[key] = 1;
+                    entryAdded = true;
+                }
+        
+            }
+
+            if(entryAdded === false){
+                gameoverThat.playerBestiaryData[gameoverThat.enemyThatDefeatedPlayer] = 1;
+            }
+
+              //creates a object to hold data for scene transition
+                let playerDataObject = {
+                    saveX: gameoverThat.warpToX,
+                    saveY: gameoverThat.warpToY,
+                    playerHpValue: gameoverThat.playerHealth,
+                    playerSex:gameoverThat.playerSex,
+                    playerLocation: gameoverThat.playerLocation,
+                    inventoryArray: gameoverThat.inventoryDataArray,
+                    playerBestiaryData: gameoverThat.playerBestiaryData,
+                    playerSkillsData: gameoverThat.playerSkillsData,
+                    playerSaveSlotData: gameoverThat.playerSaveSlotData,
+                    flagValues: gameoverThat.flagValues,
+                    settings:gameoverThat.settings,
+                    dreamReturnLocation:gameoverThat.dreamReturnLocation,
+                    playerCurseValue:gameoverThat.playerCurseValue
+                };
+
+            //call save function for temp save so when we start the scene agian, it has the correct data.
+            gameoverThat.saveGame(playerDataObject);
+
+            //call save function for temp save so when we start the scene agian, it has the correct data.
+            gameoverThat.saveGameFile(playerDataObject);
+            
+            // calls the fadout function which loads back to the last save on fadeout complete
+            gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
+
+        //if the player has not saved, send them back to the beginning of the game
+        }
     }
 
     //set up player control logic
@@ -101,75 +179,7 @@ class gameoverManager extends A3SoundEffects {
 
         this.tryAgian.on('pointerdown', function (pointer) {
 
-            //sets a few variables
-            let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
-            let tempPlayerSex = gameoverThat.playerSex;
-            
-            //grabs current saveslot
-            let slot = gameoverThat.playerSaveSlotData.saveSlot;
-
-            //loads player info from hard save
-            gameoverThat.loadGameFile(slot);
-            console.log("attempting to load slot:" + slot);
-            // attempts to parse savedata from one of the three save slots based on the slot passed in by function call.
-            
-            //for loop looks through all the looping music playing within a given scene and stops the music.
-            for(let counter = 0; counter < gameoverThat.sound.sounds.length; counter++){
-                gameoverThat.sound.get(gameoverThat.sound.sounds[counter].key).stop();
-            }
-
-            //if the player has data in thee save file then load them back to there last save
-            console.log("gameoverThat.playerLocation: ",gameoverThat.playerLocation," gameoverThat.playerBestiaryData: ",gameoverThat.playerBestiaryData);
-            if(gameoverThat.playerLocation !== null && gameoverThat.playerLocation !== undefined && gameoverThat.playerBestiaryData !== undefined && gameoverThat.playerBestiaryData !== null){
-
-                console.log("save file detected, now setting player back to correct scene.");
-                console.log("gameoverThat.playerLocation",gameoverThat.playerLocation);
-
-                let entryAdded = false;
-                //loop through of entrys the player has that was loaded from file
-                for(let [key,value] of Object.entries(gameoverThat.playerBestiaryData)){
-
-                    // if the key can be found then we set the entry to 1 to represent the player having the entry.
-                    if(gameoverThat.enemyThatDefeatedPlayer === key){
-                        console.log("found bestiary entry : ", key);
-                        gameoverThat.playerBestiaryData[key] = 1;
-                        entryAdded = true;
-                    }
-            
-                }
-
-                if(entryAdded === false){
-                    gameoverThat.playerBestiaryData[gameoverThat.enemyThatDefeatedPlayer] = 1;
-                }
-
-                  //creates a object to hold data for scene transition
-                    let playerDataObject = {
-                        saveX: gameoverThat.warpToX,
-                        saveY: gameoverThat.warpToY,
-                        playerHpValue: gameoverThat.playerHealth,
-                        playerSex:gameoverThat.playerSex,
-                        playerLocation: gameoverThat.playerLocation,
-                        inventoryArray: gameoverThat.inventoryDataArray,
-                        playerBestiaryData: gameoverThat.playerBestiaryData,
-                        playerSkillsData: gameoverThat.playerSkillsData,
-                        playerSaveSlotData: gameoverThat.playerSaveSlotData,
-                        flagValues: gameoverThat.flagValues,
-                        settings:gameoverThat.settings,
-                        dreamReturnLocation:gameoverThat.dreamReturnLocation,
-                        playerCurseValue:gameoverThat.playerCurseValue
-                    };
-
-                //call save function for temp save so when we start the scene agian, it has the correct data.
-                gameoverThat.saveGame(playerDataObject);
-
-                //call save function for temp save so when we start the scene agian, it has the correct data.
-                gameoverThat.saveGameFile(playerDataObject);
-                
-                // calls the fadout function which loads back to the last save on fadeout complete
-                gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
-
-            //if the player has not saved, send them back to the beginning of the game
-            }
+            gameoverThat.tryAgianLoad(gameoverThat);
     
         });
 
@@ -193,50 +203,18 @@ class gameoverManager extends A3SoundEffects {
         this.npcGameover = new npc(this, 0, 0, 'hitbox');
     }
 
-    //function to determine what tile map that should be used.
-    preloadMapOfTileMaps(){
-        console.log("making map of tilemap preload functions");
+    resetGameoverText(){
 
-        //note, "this" keyword works differently inside a map of functions. it refrences the map object insteas od the scene, so to acess the scene
-        //we need to leave a refrence to it in the function call that creat4es it.
-        let tempGameover = this;
+        this.sceneTextBox.destroy();
+        //textbox for new character 
+        this.sceneTextBox = new textBox(this,1200/2-30,580,'charBubble');
+        this.sceneTextBox.setScale(1/3);
+        this.sceneTextBox.setTextboxBackground("cursed");
+        this.sceneTextBox.textTint = 0x9d00e0;
         
-        this.mapOfTileMapsJSON = {
-            forestGameover: function forestGameover() {
-                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png');
-                tempGameover.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
-            },
-            caveGameover: function caveGameover() {
-                tempGameover.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Gameover.json");
-                tempGameover.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
-            },
-            istaraGameover: function istaraGameover() {
-                tempGameover.load.tilemapTiledJSON("istaraGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Istaras_Gameover.json");
-            },
-            beachGameover: function beachGameover() {
-                tempGameover.load.image('backgroundBeachLevel', 'assets/backgrounds/beach_background.png');
-                tempGameover.load.tilemapTiledJSON("beachGameover" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Gameover.json");
-            },
-            hiveGameover: function hiveGameover() {
-                tempGameover.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
-                tempGameover.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Grub_Hive_Gameover.json");
-                tempGameover.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-
-                tempGameover.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-                    "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-                  ]);
-            },
-            blueSlimeGameover: function blueSlimeGameover() {
-                tempGameover.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
-                tempGameover.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
-                tempGameover.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
-            },
-
-        
- 
-        }
-
-
+        //npc to progress dialogue
+        this.npcGameover.destroy();
+        this.npcGameover = new npc(this, 0, 0, 'hitbox');
     }
 
     //create functions based on game over file.
@@ -309,6 +287,20 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.layer2.setPipeline('Light2D');
                 tempSceneRef.processMap.layer3.setPipeline('Light2D');
 
+            },
+            shadowGameover: function shadowGameover() {
+                tempSceneRef.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                tempSceneRef.lights.enable().setAmbientColor(0x555555);
+
+                tempSceneRef.processMap.tilesetNameInTiled = "Cave_Tileset";
+                tempSceneRef.processMap.setTiles('cave_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer0.setPipeline('Light2D');
+                tempSceneRef.processMap.layer1.setPipeline('Light2D');
+                tempSceneRef.processMap.layer2.setPipeline('Light2D');
+                tempSceneRef.processMap.layer3.setPipeline('Light2D');
             },
 
         }
@@ -497,6 +489,29 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';
             },
+            curseShadow: function curseShadowFunction() {
+
+                tempSceneRef.phantomShadow = tempSceneRef.add.sprite(1221,530,"shadow");
+                tempSceneRef.phantomShadow.setScale(1/3);
+                tempSceneRef.phantomShadow.setDepth(7);
+                tempSceneRef.phantomShadow.setPipeline('Light2D');
+                tempSceneRef.phantomShadow.visible = false;
+                tempSceneRef.anims.create({key: 'shadowConsume',frames: tempSceneRef.phantomShadow.anims.generateFrameNames('shadow', { start: 0, end: 9 }),frameRate: 9,repeat: 0});
+
+                tempSceneRef.phantomShadowJaw = tempSceneRef.add.sprite(1221,530,"shadowJaw");
+                tempSceneRef.phantomShadowJaw.setScale(1/3);
+                tempSceneRef.phantomShadowJaw.setDepth(7);
+                tempSceneRef.phantomShadowJaw.setPipeline('Light2D');
+                tempSceneRef.phantomShadowJaw.visible = false;
+                tempSceneRef.anims.create({key: 'shadowConsumeJaw',frames: tempSceneRef.phantomShadow.anims.generateFrameNames('shadowJaw', { start: 0, end: 9 }),frameRate: 9,repeat: 0});
+
+                
+
+                tempSceneRef.enemy = new curseShadow(tempSceneRef,450, 570+32,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.gameOver();
+                tempSceneRef.defeatedTitle = 'eaten';
+            },
         }
     }
 
@@ -655,6 +670,40 @@ class gameoverManager extends A3SoundEffects {
             },
             whiteCatMaleVore: function whiteCatMaleVoreFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
+            },
+            curseShadow: function curseShadowFunction() {
+                
+                if(tempSceneRef.enemy.gameoverMove === true && tempSceneRef.enemy.x < 1220){
+                    //console.log("tempSceneRef.enemy.x: ",tempSceneRef.enemy.x," tempSceneRef.enemy.y: ",tempSceneRef.enemy.y);
+                    tempSceneRef.enemy.setVelocityX(50);
+                }else if(tempSceneRef.enemy.gameoverMove === true && tempSceneRef.enemy.x >= 1220){
+                    tempSceneRef.enemy.gameoverMove = false;
+                    tempSceneRef.enemy.gameoverIdle = true;
+                    tempSceneRef.enemy.setVelocityX(0);
+                    tempSceneRef.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                }else if(tempSceneRef.enemy.gameoverIdle === true){
+                    tempSceneRef.enemy.gameoverIdle = false;
+                    tempSceneRef.enemy.anims.play('shadowGameover6', true).once('animationcomplete', () => {
+                        tempSceneRef.enemy.anims.play('shadowGameover7', true)
+                        setTimeout(function () {
+                            tempSceneRef.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                            setTimeout(function () {
+                                tempSceneRef.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
+                                setTimeout(function () {
+                                    tempSceneRef.phantomShadow.visible = true; 
+                                    tempSceneRef.phantomShadow.anims.play("shadowConsume",true); 
+                                    
+                                    tempSceneRef.phantomShadowJaw.visible = true; 
+                                    tempSceneRef.phantomShadowJaw.anims.play("shadowConsume",true); 
+                                    setTimeout(function () {
+                                        tempSceneRef.tryAgianLoad(tempSceneRef);
+                                    },1000);
+        
+                                },1000);
+                            },1000);
+                        },3000);
+                    });
+                }
             },
         }
     }

@@ -39,6 +39,8 @@ class gameOver extends gameoverManager {
 
         //value to store string of location the player was defeated
         this.gameoverLocation;
+        //variable used to tell if dialogue should be interupted.
+        this.dialogueInterupt = false;
         
         }
 
@@ -50,7 +52,7 @@ class gameOver extends gameoverManager {
             //function to create a map of functions to preload the correct map needed based in the location string.
             this.preloadMapOfTileMaps();
 
-            //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON[this.gameoverLocation]());
+            //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON);
             this.mapOfTileMapsJSON[this.gameoverLocation]();
 
             
@@ -81,9 +83,6 @@ class gameOver extends gameoverManager {
         create(){
 
             this.setUpPlayerControls();
-
-            //load gameoverFile data to this scene
-            //this.loadGameoverFile();
 
             console.log("this.playersex: "+ this.playerSex);
             console.log("now in gameover scene");
@@ -185,20 +184,23 @@ class gameOver extends gameoverManager {
         update(){
 
             //input to progress gameover dialogue during scene.
-            if(Phaser.Input.Keyboard.JustDown(this.keyW)){
-                this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
-              }else{
-          
-                if(this.mobileW.isJustDown === true){
-
-                    this.mobileW.isJustDown = false;
-                    this.mobileW.IsPressed = false;
-
+            if(this.dialogueInterupt === false){
+                if(Phaser.Input.Keyboard.JustDown(this.keyW)){
                     this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
-      
-                  }
+                  }else{
+              
+                    if(this.mobileW.isJustDown === true){
+    
+                        this.mobileW.isJustDown = false;
+                        this.mobileW.IsPressed = false;
+    
+                        this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
           
-              } 
+                      }
+              
+                  } 
+            }
+            
 
               this.mapOfEnemyUpdates[this.enemyThatDefeatedPlayer]();
             

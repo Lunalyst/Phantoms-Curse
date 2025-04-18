@@ -983,7 +983,7 @@ const npcDialogue = {
                 },
                 "blueSlimeFemaleHM":{
                     "node1":{
-                        "dialogue": "",
+                        "dialogue": "you where caught of guard, the strength of the slime overpowered you. helpless to stop it, the slime engulfed you with there chest. enjoying playing with you, it squished you into her stomache, then moved you to here now engourged breasts. moving you between the now massive sacks of soft slime.once she had her fun, you where absorbed into her body. now you will spend the rest of your days padding out the breasts of a engourged slime girl.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -991,7 +991,7 @@ const npcDialogue = {
                 },
                 "blueSlimeMaleHM":{
                     "node1":{
-                        "dialogue": "",
+                        "dialogue": "you where caught of guard, the strength of the slime overpowered you. helpless to stop it, the slime engulfed you with there engourged penis. quickly squeesing you through its urithra and into its large balls. as the slime began to pleasure itsself you felt your body throbbing with pleasure as you melted. when the slime climaxed you could feel what little of you was left rise quickly out the slimes massive cock. only to be swalled and reabsorbed. now you will spend the rest of your days as slimey pudge on this engourged slime boy. ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -1016,6 +1016,14 @@ const npcDialogue = {
                 "whiteCatMaleVore":{
                     "node1":{
                         "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, ending. You were quickly overpowered by an angry feline, forcefully shoved into its ravinous rear. Your exploratory trip into a cat’s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you really are a boy kisser, or at least, you’re part of one.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                "curseShadow":{
+                    "node1":{
+                        "dialogue": "the darkiness of the cave didnt dicourage you at all from entering. as you stubbled around something grabbed the lowe half of your body. pulling you partially into the floor this creature began to suck you in. despite your best efforts to struggle free, it tired you out, and sucked you completely inside is dark body. as you wiggled you could feel the shadow restrain you, with tendrils of black shadow. more tendrils formed with the inten of filling your body with some unknown substance. as it began to pump your body full, you could feel your chest become heavier, and your genitalia swell. once it had spread its self completely through you body, it was finally able to fully absorb you into its form. now that you became one with the shadow, it began to pleasure itself... ",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -1135,6 +1143,45 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "curseShadowSecret1":{
+                    "node1":{
+                        "dialogue": "Oh?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Where do you think your going?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "ahhh... i see. a gift for me?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "I happily accept...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "i will consume all of your desires...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                
                 "template":{
                     "node1":{
                         "dialogue": "",

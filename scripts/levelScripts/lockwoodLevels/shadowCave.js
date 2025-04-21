@@ -43,6 +43,10 @@ class ShadowCave extends defaultScene {
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
+      this.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
+        "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -225,7 +229,7 @@ class ShadowCave extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

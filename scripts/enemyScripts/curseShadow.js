@@ -32,7 +32,7 @@ class curseShadow extends enemy {
         //defines Enemy animations based on the players sex.
         this.anims.create({ key: 'shadowIdle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'shadowMove', frames: this.anims.generateFrameNames('curseShadowMale', { start: 4, end: 8 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 9, end: 12 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 9, end: 11 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('curseShadowMale', { start: 12, end: 14 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowDefeated', frames: this.anims.generateFrameNames('curseShadowMale', { start: 15, end: 22 }), frameRate: 7, repeat: 0 });
         if (sex === 0) {
@@ -320,13 +320,17 @@ class curseShadow extends enemy {
         this.body.setGravityY(600);
         //play gameover 1 animation
         this.anims.play('shadowGameover1', true);
-
+        this.gameoverLoopingSounds = 0;
         let currentEnemy = this;
         setTimeout(function () {
             currentEnemy.anims.play('shadowGameover2', true);   
 
+            currentEnemy.gameoverLoopingSounds++;
+
             setTimeout(function () {
                 currentEnemy.anims.play('shadowGameover3', true);  
+
+                currentEnemy.gameoverLoopingSounds++;
 
                 setTimeout(function () {
                     //interupt dialogue by reseting objects, and hiding buttons
@@ -336,7 +340,16 @@ class curseShadow extends enemy {
                     currentEnemy.scene.gameOverSign.visible = false;
                     currentEnemy.scene.tryAgian.visible = false;
                     //start earie sound loop
+
+                    currentEnemy.scene.initSoundEffect('curseSFX','curse',0.3);
+
                     currentEnemy.scene.initLoopingSound('earieSFX','earieCave', 0.5);
+
+                    currentEnemy.gameoverLoopingSounds++;
+                    if(currentEnemy.scene.sound.get("plapSFX") !== null && currentEnemy.scene.sound.get("plapSFX") !== undefined){
+                        currentEnemy.scene.sound.get("plapSFX").stop();
+                    }
+
 
                     currentEnemy.anims.play('shadowGameover4').once('animationcomplete', () => {
                         //set camera to the enemy
@@ -360,11 +373,11 @@ class curseShadow extends enemy {
                             },5000);
                         },2000);
                     });
-                }, 150);
+                }, 15000);
                
-            }, 450);
+            }, 45000);
 
-        }, 600);
+        }, 60000);
     }
 
     //the grab function. is called when player has overlaped with an enemy enemy.
@@ -422,13 +435,13 @@ class curseShadow extends enemy {
             }
 
             //logic for if the player is not defeated and struggling
-            if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100){
+            if(playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100){
 
             //calls a function to handle the player taking damage
             this.playerIsStrugglingLogic();
 
             //logic for if the player escapes the grab
-            }else if(this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+            }else if(playerHealthObject.playerHealth >= 1 && this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
                 
                 //if the player escapes hide the give up indicator.
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -438,7 +451,7 @@ class curseShadow extends enemy {
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
-            }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax){
+            }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax || playerHealthObject.playerHealth < 1){
 
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -509,7 +522,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.anims.play('playerStruggle').once('animationcomplete', () => {
                                 this.animationPlayed = false;
                                 this.struggleAnimationInterupt = false;
@@ -532,7 +545,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = false;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -555,7 +568,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = true;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -581,7 +594,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.anims.play('playerStruggle').once('animationcomplete', () => {
                                 this.animationPlayed = false;
                                 this.struggleAnimationInterupt = false;
@@ -602,7 +615,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = false;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -625,7 +638,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = true;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -651,7 +664,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.anims.play('playerStruggle').once('animationcomplete', () => {
                                 this.animationPlayed = false;
                                 this.struggleAnimationInterupt = false;
@@ -675,7 +688,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = false;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -696,7 +709,7 @@ class curseShadow extends enemy {
                             //play the down animation for the struggle event
                             this.struggleAnimationInterupt = true;
 
-                            this.playPlapSound('plap10',2000);
+                            this.playPlapSound('plap10',1000);
                             this.flipX = true;
                             this.anims.play('playerStruggle1').once('animationcomplete', () => {
                                 this.animationPlayed = false;
@@ -784,6 +797,7 @@ class curseShadow extends enemy {
 
                 if(this.playerDefeatedAnimationStage === 0 && this.animationPlayed === false){
                     this.animationPlayed = true;
+                    this.scene.initSoundEffect('swallowSFX','2',0.6);
                     this.anims.play("playerSuckedIn", true).once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
@@ -791,7 +805,7 @@ class curseShadow extends enemy {
 
                 }else if(this.playerDefeatedAnimationStage === 1 && this.struggleAnimationInterupt === false){
                     this.anims.play("playerStruggleIdle", true);
-                    this.playPlapSound('plap10',2000);
+                    this.playPlapSound('plap10',1000);
                     
                 }
 
@@ -1051,11 +1065,16 @@ class curseShadow extends enemy {
 
         switch(this.playerDefeatedAnimationStage) {
             case 1:
+                
                 this.playerDefeatedAnimationStageMax = 12;
+
+                this.playPlapSound('plap10',1000);
+
                 if (!this.animationPlayed) {
-                this.animationPlayed = true;
-                        let random = Math.floor((Math.random() * 3)+1);
-                        console.log(random);
+                    this.animationPlayed = true;
+                    
+                    let random = Math.floor((Math.random() * 3)+1);
+                    console.log(random);
                     if(random === 3){
                         this.anims.play("playerStruggle", true).once('animationcomplete', () => {
                             this.animationPlayed = false;
@@ -1077,6 +1096,8 @@ class curseShadow extends enemy {
             case 2:
                 if (!this.animationPlayed) {
 
+                    this.scene.sound.get('plapSFX').stop();  
+
                     this.animationPlayed = true;
                     this.scene.initSoundEffect('swallowSFX','2',0.6);
 
@@ -1094,11 +1115,15 @@ class curseShadow extends enemy {
               break;
             case 3:
                 this.anims.play("playerConsumed", true);
+                this.playStomachSound('3',800); 
                 break;
             case 4:
+                this.playStomachSound('3',800); 
                 if (!this.animationPlayed) {
 
+                    
                     this.animationPlayed = true;
+                    this.playPlapSound('plap2',1000);
 
                     this.anims.play('playerPumpGrab').once('animationcomplete', () => {
                         this.animationPlayed = false;
@@ -1111,12 +1136,19 @@ class curseShadow extends enemy {
                 break;
             case 5:
                 this.anims.play("playerPump", true);
+
+                this.playPlapSound('plap1',1000);
+                this.playStomachSound('4',800); 
                 break;
             case 6:
+                this.playStomachSound('4',800); 
                 if (!this.animationPlayed) {
 
                     this.animationPlayed = true;
                     
+                    this.playPumpSound("pumpingShort",3000);
+                    //this.scene.initSoundEffect('pumpingSFX','pumpingFull',1);
+
                     this.anims.play('playerGettingPumped').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
@@ -1127,12 +1159,16 @@ class curseShadow extends enemy {
                 }
                 break;
             case 7:
+                this.playStomachSound('10',800); 
                 this.anims.play("playerMostlyTransformed", true);
                 break;
             case 8:
+                
                 if (!this.animationPlayed) {
 
                     this.animationPlayed = true;
+
+                    this.scene.initSoundEffect('stomachSFX','8',0.3);
                     
                     this.anims.play('playerFinishTransformation').once('animationcomplete', () => {
 
@@ -1168,6 +1204,7 @@ class curseShadow extends enemy {
                 }
                 break;
             case 11:
+                this.playPlapSound('plap5',1000);
                 this.anims.play("playerShadowPleasure", true);
                 break;
                 

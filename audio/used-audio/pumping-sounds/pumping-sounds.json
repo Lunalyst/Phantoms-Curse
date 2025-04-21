@@ -1,0 +1,19 @@
+{
+    "resources":[
+        "../audio/used-audio/pumping-sounds/pumping-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "pumpingShort":{
+            "start": 1.1,
+            "end": 3.5,
+            "loop": false
+        },
+        "pumpingFull":{
+            "start": 0.2,
+            "end": 8,
+            "loop": false
+        }
+
+    }
+}

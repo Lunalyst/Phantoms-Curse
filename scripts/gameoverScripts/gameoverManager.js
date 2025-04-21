@@ -691,6 +691,7 @@ class gameoverManager extends A3SoundEffects {
             },
             curseShadow: function curseShadowFunction() {
                 
+                //handle special gameover process
                 if(tempSceneRef.enemy.gameoverMove === true && tempSceneRef.enemy.x < 1220){
                     //console.log("tempSceneRef.enemy.x: ",tempSceneRef.enemy.x," tempSceneRef.enemy.y: ",tempSceneRef.enemy.y);
                     tempSceneRef.enemy.setVelocityX(50);
@@ -733,6 +734,22 @@ class gameoverManager extends A3SoundEffects {
                         },3000);
                     });
                 }
+
+                if(tempSceneRef.enemy.gameoverMove === null || tempSceneRef.enemy.gameoverMove === undefined){
+
+                    //sound state machine for ifferent stages.
+                    if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
+                        console.log("playing sound 1")
+                        tempSceneRef.enemy.playPlapSound('plap3',800);
+                    }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                        console.log("playing sound 2")
+                        tempSceneRef.enemy.playPlapSound('plap9',1000);
+                    }else if(tempSceneRef.enemy.gameoverLoopingSounds === 2){
+                        console.log("playing sound 3")
+                        tempSceneRef.enemy.playPlapSound('plap9',500);
+                    }
+                }
+                
             },
         }
     }

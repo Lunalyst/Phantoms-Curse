@@ -6,11 +6,11 @@
     "spritemap": {
         "earieCave":{
             "start": 0,
-            "end":73 ,
+            "end":70 ,
             "loop": true
         },
         "spook":{
-            "start": 73.6,
+            "start": 72.5,
             "end":77 ,
             "loop": false
         }

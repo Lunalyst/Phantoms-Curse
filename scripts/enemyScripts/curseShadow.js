@@ -45,7 +45,7 @@ class curseShadow extends enemy {
             this.anims.create({ key: 'playerPumpGrab', frames: this.anims.generateFrameNames('curseShadowMale', { start: 51, end: 52 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerPump', frames: this.anims.generateFrameNames('curseShadowMale', { start: 53, end: 56 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'playerGettingPumped', frames: this.anims.generateFrameNames('curseShadowMale', { start: 57, end: 78 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'playerMostlyTransformed', frames: this.anims.generateFrameNames('curseShadowMale', { start: 79, end: 83 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerMostlyTransformed', frames: this.anims.generateFrameNames('curseShadowMale', { start: 79, end: 82 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'playerFinishTransformation', frames: this.anims.generateFrameNames('curseShadowMale', { start: 84, end: 86 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerShadowUnderground', frames: this.anims.generateFrameNames('curseShadowMale', { start: 87, end: 90 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'playerShadowRise', frames: this.anims.generateFrameNames('curseShadowMale', { start: 91, end: 97 }), frameRate: 7, repeat: 0 });
@@ -335,6 +335,8 @@ class curseShadow extends enemy {
                     currentEnemy.scene.mobileW.visible = false;
                     currentEnemy.scene.gameOverSign.visible = false;
                     currentEnemy.scene.tryAgian.visible = false;
+                    //start earie sound loop
+                    currentEnemy.scene.initLoopingSound('earieSFX','earieCave', 0.5);
 
                     currentEnemy.anims.play('shadowGameover4').once('animationcomplete', () => {
                         //set camera to the enemy
@@ -358,11 +360,11 @@ class curseShadow extends enemy {
                             },5000);
                         },2000);
                     });
-                }, 15000);
+                }, 150);
                
-            }, 45000);
+            }, 450);
 
-        }, 60000);
+        }, 600);
     }
 
     //the grab function. is called when player has overlaped with an enemy enemy.
@@ -767,8 +769,8 @@ class curseShadow extends enemy {
 
         //case to stop the damage function from being applied if the 
         if(this.animationPlayed === false && this.playerDamageTimer === false){
-            //healthEmitter.emit(healthEvent.loseHealth,2);
-            //healthEmitter.emit(healthEvent.curseBuildUp,3);
+            healthEmitter.emit(healthEvent.loseHealth,2);
+            healthEmitter.emit(healthEvent.curseBuildUp,3);
             this.playerDamageTimer = true;
 
             setTimeout(function () {
@@ -827,8 +829,8 @@ class curseShadow extends enemy {
                     console.log("currentEnemy.playerDefeatedAnimationStage: " + currentEnemy.playerDefeatedAnimationStage);
                 }, 1000);
 
-                if(this.playerDefeatedAnimationStage === 1 || this.inSafeMode === false){
-                    //this.playerDefeatedAnimationStage++;
+                if(this.playerDefeatedAnimationStage === 1 && this.inSafeMode === false){
+                    this.playerDefeatedAnimationStage++;
                 }
                 this.inStartDefeatedLogic = true;
                 console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);

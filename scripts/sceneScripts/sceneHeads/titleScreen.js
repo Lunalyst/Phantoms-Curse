@@ -65,7 +65,6 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
             this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
-            this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 522 , frameHeight: 614});
             this.load.spritesheet("maleSexSelectIcons" , "assets/titleScreen/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("femaleSexSelectIcons" , "assets/titleScreen/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -85,10 +84,34 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('no', 'assets/hudElements/no.png',{frameWidth: 60, frameHeight: 33 });
             this.load.spritesheet('yes', 'assets/hudElements/yes.png',{frameWidth: 78, frameHeight: 33 });
             this.load.spritesheet('curses', 'assets/titleScreen/curses.png',{frameWidth: 96, frameHeight: 96 });
+            
+            this.secretLoad();
 
-            this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
-                "audio/used-audio/titlescreen-sounds/In Defiance Of The Curse by Gangstalka.mp3"
-              ]);
+            if(this.titleLogoType === undefined || this.titleLogoType === null){
+
+                let tempObject = {
+                    titleLogoType: "default"
+                };
+
+                secretSave(tempObject);
+                this.titleLogoType = "default";
+            }
+
+            if(this.titleLogoType === "default"){
+                this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 720 , frameHeight: 760});
+
+                this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
+                    "audio/used-audio/titlescreen-sounds/In Defiance Of The Curse by Gangstalka.mp3"
+                  ]);
+
+            }else if(this.titleLogoType === "shadow"){
+                this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo shadow.png" , {frameWidth: 720 , frameHeight: 760});
+
+                this.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
+                    "audio/used-audio/earie-sounds/earie-sounds.mp3"
+                    ]);
+            }
+           
             
             this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
                 "audio/used-audio/button-sounds/button-sounds.mp3"
@@ -173,7 +196,12 @@ class titleScreen extends A3SoundEffects {
 
             //adds looping sound effect.
 
-            this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
+            if(this.titleLogoType === "shadow"){
+                this.initLoopingSound('earieSFX','earieCave', 0.1);
+            }else{
+                this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
+            }
+            
 
             //dramatic fade in.
             this.cameras.main.fadeIn(500, 0, 0, 0);
@@ -223,7 +251,7 @@ class titleScreen extends A3SoundEffects {
             this.backround = this.add.sprite(this.screenWidth/2, 450, "titleBackground");
             this.backround.setScale(1.6);
             this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(this.screenWidth/2, 450, "titleLogo");
+            this.titleLogo = this.add.sprite(this.screenWidth/2, 500, "titleLogo");
             this.elements.add(this.titleLogo);
 
             //title sprite
@@ -233,7 +261,7 @@ class titleScreen extends A3SoundEffects {
             this.title.setScale(1/3 + 1/7);
             
             //curse sprite that changes
-            this.curse = new curse(this, this.screenWidth/2 - 180,175);
+            this.curse = new curse(this, this.screenWidth/2 - 140,175);
             this.elements.add(this.curse);
 
             //textbox for new character 

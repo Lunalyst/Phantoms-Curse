@@ -910,7 +910,7 @@ class tiger extends enemy {
             //show struggle button, and bar
             this.scene.KeyDisplay.visible = true;
 
-            if (this.keyAnimationPlayed === false) {
+            if (this.keyAnimationPlayed === false && this.tigerHasEatenRabbit === true) {
                 console.log(" setting keyA display");
                 this.scene.KeyDisplay.playAKey();
                 this.keyAnimationPlayed = true;

@@ -42,6 +42,9 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.tilemapTiledJSON("shadowGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave_Gameover.json");
                 tempGameover.load.spritesheet('shadow', 'assets/enemys/shadowFront.png',{frameWidth: 303, frameHeight: 429 });
                 tempGameover.load.spritesheet('shadowJaw', 'assets/enemys/shadowJaw.png',{frameWidth: 303, frameHeight: 429 });
+                tempGameover.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
+                    "audio/used-audio/earie-sounds/earie-sounds.mp3"
+                ]);
             },
 
         
@@ -525,23 +528,29 @@ class gameoverManager extends A3SoundEffects {
 
         this.mapOfEnemyUpdates = {
             blueSlime: function blueSlimeFunction() {
-                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
-                tempSceneRef.enemy.slimeSoundCoolDown = true;
-                setTimeout(function () {
-                    tempSceneRef.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                if(tempSceneRef.enemy.slimeSoundCoolDown === false){
+                    tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                    tempSceneRef.enemy.slimeSoundCoolDown = true;
+                    setTimeout(function () {
+                        tempSceneRef.enemy.slimeSoundCoolDown = false;
+                    }, 700);
+                }
+                
             },
             
             largeBlueSlime: function largeBlueSlimeFunction() {
-                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
-                tempSceneRef.enemy.slimeSoundCoolDown = true;
-                setTimeout(function () {
-                    tempSceneRef.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                if(tempSceneRef.enemy.slimeSoundCoolDown === false){
+                    tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                    tempSceneRef.enemy.slimeSoundCoolDown = true;
+                    setTimeout(function () {
+                        tempSceneRef.enemy.slimeSoundCoolDown = false;
+                    }, 700);
+                }
             },
             femaleTiger: function femaleTigerFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800); 
             },
+
             maleTiger: function maleTigerFunction() {
 
                 if(tempSceneRef.enemy.maleTigerStroking === false){
@@ -624,28 +633,34 @@ class gameoverManager extends A3SoundEffects {
 
             },
             blueSlimeHS: function blueSlimeHSFunction() {
-                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
-                tempSceneRef.enemy.slimeSoundCoolDown = true;
-                
-                setTimeout(function () {
-                    tempSceneRef.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                if(tempSceneRef.enemy.slimeSoundCoolDown === false){
+                    tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                    tempSceneRef.enemy.slimeSoundCoolDown = true;
+                    
+                    setTimeout(function () {
+                        tempSceneRef.enemy.slimeSoundCoolDown = false;
+                    }, 700);
+                }
             },
             blueSlimeFemaleHM: function blueSlimeFemaleHMFunction() {
-                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
-                tempSceneRef.enemy.slimeSoundCoolDown = true;
-                
-                setTimeout(function () {
-                    tempSceneRef.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                if(tempSceneRef.enemy.slimeSoundCoolDown === false){
+                    tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                    tempSceneRef.enemy.slimeSoundCoolDown = true;
+                    
+                    setTimeout(function () {
+                        tempSceneRef.enemy.slimeSoundCoolDown = false;
+                    }, 700);
+                }
             },
             blueSlimeMaleHM: function blueSlimeMaleHMFunction() {
-                tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
-                tempSceneRef.enemy.slimeSoundCoolDown = true;
-                
-                setTimeout(function () {
-                    tempSceneRef.enemy.slimeSoundCoolDown = false;
-                }, 700);
+                if(tempSceneRef.enemy.slimeSoundCoolDown === false){
+                    tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
+                    tempSceneRef.enemy.slimeSoundCoolDown = true;
+                    
+                    setTimeout(function () {
+                        tempSceneRef.enemy.slimeSoundCoolDown = false;
+                    }, 700);
+                }
             },
             femaleChestMimic: function femaleChestMimicFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
@@ -693,11 +708,22 @@ class gameoverManager extends A3SoundEffects {
                             setTimeout(function () {
                                 tempSceneRef.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
                                 setTimeout(function () {
+                                    
+                                    let secret = {
+                                        titleLogoType: "shadow"
+                                    };
+                                    tempSceneRef.secretSave(secret);
+
                                     tempSceneRef.phantomShadow.visible = true; 
                                     tempSceneRef.phantomShadow.anims.play("shadowConsume",true); 
                                     
                                     tempSceneRef.phantomShadowJaw.visible = true; 
                                     tempSceneRef.phantomShadowJaw.anims.play("shadowConsume",true); 
+
+                                    setTimeout(function () {
+                                        
+                                        tempSceneRef.initSoundEffect('earieSFX',"spook",0.6);
+                                    },400);
                                     setTimeout(function () {
                                         tempSceneRef.tryAgianLoad(tempSceneRef);
                                     },1000);

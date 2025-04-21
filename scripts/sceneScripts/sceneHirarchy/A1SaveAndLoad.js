@@ -6,6 +6,32 @@ functions. this class is the beginning of our inheritance class chain as all.
 *******************************************************************************/
 class A1SaveAndLoad extends Phaser.Scene {
 
+  secretLoad(){
+    const file = JSON.parse(localStorage.getItem('secretSave'));
+    console.log("file: ",file);
+  if(file !== null && file !== undefined){
+    this.titleLogoType = file.titleLogoType;
+    console.log("this.titleLogoType: ",this.titleLogoType," <- ",file.titleLogoType);
+  }else{
+    this.titleLogoType = "default";
+    console.log("setting logo type to default");
+  }
+    
+    
+  }
+
+  secretSave(dataObject){
+
+    //create file variable to store data
+    const file = {
+      titleLogoType: dataObject.titleLogoType,
+      
+      };
+
+      //store data in file
+      localStorage.setItem('secretSave', JSON.stringify(file));
+  }
+
   //this function saves data when the player is defeated so that the gameover scene can tell what enemy defeated the player.
   saveGameoverFile(playerSex,gameoverLocation, enemyThatDefeatedPlayer, playerSaveSlotData,defeatedTitle) {
       //creates a compound object that contains x and y possitions which tell the scene where to playce the player when warping to a new scene

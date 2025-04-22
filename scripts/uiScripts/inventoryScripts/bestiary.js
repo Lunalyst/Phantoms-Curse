@@ -39,6 +39,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'whiteCatFemaleTF', frames: this.anims.generateFrameNames('bestiary2', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'whiteCatMaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'whiteCatFemaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'curseShadow', frames: this.anims.generateFrameNames('bestiary2', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
@@ -161,6 +162,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       whiteCatFemaleVore: {
         title: "CHUBBY CAT FEMALE",
         summary: "ONCE ITS PREY HAS BEEN COMPLETELY SWALLOWED, IT LOVES RUBBING ITS ENGORGED TUMMY UNTIL ITS PREY IS NOTHING MORE THAN BELLY FAT. YOU LIKE BEING GIRL BELLY FAT DON`T YOU? :3 ",
+      },
+      curseShadow: {
+        title: "STRANGE SHADOW",
+        summary: "THIS STRANGE ENEMY, LURKS IN CAVES CONSUMED BY DENSE SHADOW. SUCKING UNSUSPECTING PREY INTO ITS BODY, WHERE IT ABSORBS THEM FOR A UNKNOWN PURPOSE...",
       },
 
       back: {

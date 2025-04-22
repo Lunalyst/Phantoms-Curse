@@ -15,7 +15,7 @@ class curseShadow extends enemy {
 
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
-        this.grabHitBox.setSize(55,30,true);
+        this.grabHitBox.setSize(56,30,true);
         this.hitboxActive = false;
 
         this.attemptingGrab = false;
@@ -32,8 +32,8 @@ class curseShadow extends enemy {
         //defines Enemy animations based on the players sex.
         this.anims.create({ key: 'shadowIdle', frames: this.anims.generateFrameNames('curseShadowMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
         this.anims.create({ key: 'shadowMove', frames: this.anims.generateFrameNames('curseShadowMale', { start: 4, end: 8 }), frameRate: 7, repeat: -1 });
-        this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 9, end: 11 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('curseShadowMale', { start: 12, end: 14 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 9, end: 10 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('curseShadowMale', { start: 11, end: 14 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowDefeated', frames: this.anims.generateFrameNames('curseShadowMale', { start: 15, end: 22 }), frameRate: 7, repeat: 0 });
         if (sex === 0) {
             this.anims.create({ key: 'playerSuckedIn', frames: this.anims.generateFrameNames('curseShadowMale', { start: 23, end: 28 }), frameRate: 7, repeat: 0 });
@@ -257,11 +257,8 @@ class curseShadow extends enemy {
 
                     //decides amount of enemy drops based on size
                         if( dropChance > 0){
-                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,13,1,dropAmount,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",5);
+                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,22,1,dropAmount,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
                         }
-
-                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
-                        //play defeated animation.
 
                         this.anims.play('shadowDefeated').once('animationcomplete', () => {
                             //then destroy enemy.
@@ -825,7 +822,7 @@ class curseShadow extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-            this.scene.enemyThatDefeatedPlayer = "curseShadowMale";
+            this.scene.enemyThatDefeatedPlayer = "curseShadow";
 
             // if we start the player defeated animation then we need to set a few things.
             ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 

@@ -218,7 +218,8 @@ class ShadowCave extends defaultScene {
           thisScene.initEnemy(883,1560,thisScene.playerSex,'curseShadow',false);
 
           thisScene.initEnemy(1100,1560,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(2197,1464,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(2197,1444,thisScene.playerSex,'curseShadow',false);
+
           thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
           thisScene.spawnedEnemys = true;
         },1000);

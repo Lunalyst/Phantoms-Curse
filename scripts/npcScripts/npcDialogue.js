@@ -1181,6 +1181,50 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "curseShadowSecret2":{
+                    "node2":{
+                        "dialogue": "your all mine now....",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "i can feel you squirming inside me....",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "lets fix that.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "much better. im going to enjoy playing with you.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    }, 
+                    "node3":{
+                        "dialogue": "but I do wonder why you decided to come here.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "is this what your heart desired? to be endlessly devowered and transformed by my children?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "how interesting...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                },
                 
                 "template":{
                     "node1":{

@@ -27,7 +27,7 @@ class EarieCave extends defaultScene {
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
-      this.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
+      this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 303, frameHeight: 429 });
       
       this.defaultPreload();
 
@@ -61,6 +61,9 @@ class EarieCave extends defaultScene {
       this.setupLightingSystem(0x000111);
       //this.setupLightingSystem(0x222227);
 
+       //setup lights group.
+       this.setUpWallLights();
+
       //creates tileset
       this.setUpTileSet("earie_cave_map","Cave_Tileset","cave_source_map");
     
@@ -93,11 +96,18 @@ class EarieCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initWallLight(552,527,'ghostMushroom3');
+      this.initWallLight(562,524,'ghostMushroom1');
+      this.initWallLight(572,527,'ghostMushroom4');
+
+      this.initWallLight(2349,523,'ghostMushroom1');
+
       this.initSavePoints(443,1080-10);
 
-      this.initPortals(482,568-8,2849,605,"warpCaveOutside","blueSlimeCave");
+      //this.initPortals(482,568-8,2849,605,"warpCaveOutside","blueSlimeCave");
+      this.fakeWarp1 = new fakeWarp(this,489,568-12,'shadowBars');
 
-      this.initPortals(2435,568-8,438,1464,"warpCaveOutside","ShadowCave");
+      this.initPortals(2435,568-10,438,1464,"warpCaveOutsideRaised","ShadowCave");
 
       //creates container objects.
       this.setUpContainers();

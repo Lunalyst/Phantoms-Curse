@@ -23,6 +23,7 @@ class fakeWarp extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'door2',frames: this.anims.generateFrameNames('warpSprites', { start: 3, end: 3}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveOutsideRubble',frames: this.anims.generateFrameNames('warpSprites', { start: 4, end: 4}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'warpCaveInsideRubble',frames: this.anims.generateFrameNames('warpSprites', { start: 5, end: 5}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'shadowBars',frames: this.anims.generateFrameNames('warpSprites', { start: 16, end: 19}),frameRate: 7,repeat: -1});
 
         this.anims.play(animation,true);
 

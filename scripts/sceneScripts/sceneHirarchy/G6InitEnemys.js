@@ -58,6 +58,10 @@ class G6InitEnemys extends G5InitNPCs{
         console.log("adding curseShadows group");
         this.curseShadows = this.physics.add.group();
       }
+      if(enemyGroupArray[counter] === 'earieShadow'){
+        console.log("adding earieShadow group");
+        this.earieShadows = this.physics.add.group();
+      }
 
       //this.chestMimics
     }
@@ -213,6 +217,14 @@ class G6InitEnemys extends G5InitNPCs{
       //adds the enemy to both groups.
       this.enemys.add(shadow);
       this.curseShadows.add(shadow);
+    }else if(enemyType === 'earieShadow'){
+      //creates a secondary group to handle enemy specific interactions which we will use later
+      let earieShadow = new earieShadow(this, startX, startY, playerSex,this.enemyId);
+      
+      this.enemyId++;
+      //adds the enemy to both groups.
+      this.enemys.add(earieShadow);
+      this.earieShadow.add(earieShadow);
     }else{
       console.log("UNKNOWN enemyType: ",enemyType);
       /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);

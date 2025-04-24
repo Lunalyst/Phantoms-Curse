@@ -1182,47 +1182,47 @@ const npcDialogue = {
                     }
                 },
                 "curseShadowSecret2":{
-                    "node2":{
+                    "node1":{
                         "dialogue": "your all mine now....",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node2"]
                     },
-                    "node3":{
+                    "node2":{
                         "dialogue": "i can feel you squirming inside me....",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "lets fix that.",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":["node4"]
                     },
-                    "node3":{
+                    "node4":{
                         "dialogue": "much better. im going to enjoy playing with you.",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":["node5"]
                     }, 
-                    "node3":{
+                    "node5":{
                         "dialogue": "but I do wonder why you decided to come here.",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":["node6"]
                     },
-                    "node3":{
+                    "node6":{
                         "dialogue": "is this what your heart desired? to be endlessly devowered and transformed by my children?",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":["node7"]
                     },
-                    "node3":{
+                    "node7":{
                         "dialogue": "how interesting...",
                         "profile":"",
                         "textvoice":"lightPiano",
-                        "children":["node2"]
+                        "children":[]
                     },
                 },
                 

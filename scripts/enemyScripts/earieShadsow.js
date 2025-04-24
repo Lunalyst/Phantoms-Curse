@@ -3,7 +3,7 @@
 //implementation for the blue enemy.
 class earieShadow extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id,inSafeMode) {
+    constructor(scene, xPos, yPos, sex, id) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, sex, id, 40, 'TShadow');
 
@@ -27,7 +27,6 @@ class earieShadow extends enemy {
         this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 0, end: 10 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('curseShadowMale', { start: 11, end: 14 }), frameRate: 12, repeat: 0 });
         
-
         this.inSafeMode = inSafeMode;
 
         //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
@@ -36,7 +35,7 @@ class earieShadow extends enemy {
             //also sets up the curse light for if the player is cursed.
             this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 100, 0x666666);
             this.curseLight.visible = false;
-          }
+        }
     }
 
     //functions that move enemy objects.

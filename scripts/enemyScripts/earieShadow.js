@@ -26,7 +26,8 @@ class earieShadow extends enemy {
           
         this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('curseShadowMale', { start: 0, end: 10 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('curseShadowMale', { start: 11, end: 14 }), frameRate: 12, repeat: 0 });
-        
+
+        this.anims.play("shadowGrabStart");
         this.inSafeMode = inSafeMode;
 
         //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
@@ -50,11 +51,12 @@ class earieShadow extends enemy {
         // x:744-2227
         //this.setSize(270, 100, true);
         this.setOffset(15, 125);
+        console.log("moving earie shadow");
         //this.body.setGravityY(600);
 
         //if player doesnt have lanturn active
         if(this.scene.player1.lanturnFlicker === null){
-            this.x = player.x
+            this.x = player1.x;
 
             //decide orientation of grab.
 

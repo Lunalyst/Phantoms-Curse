@@ -227,6 +227,7 @@ class lunalyst extends npc{
 
           //set up dialogue option functionality so they work like buttons
           this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.activatedTradeUI = false;
             this.scene.initSoundEffect('buttonSFX','1',0.05);
             this.scene.npcChoice2.setTextTint(0xff7a7a);
           },this);

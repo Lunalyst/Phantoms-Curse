@@ -21,7 +21,6 @@ class EarieCave extends defaultScene {
 
     preload(){
 
-      
       this.load.tilemapTiledJSON("earie_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Earie_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       
@@ -128,7 +127,10 @@ class EarieCave extends defaultScene {
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
+
+          thisScene.initEnemy(489,568,thisScene.playerSex,'earieShadow',false);
           thisScene.spawnedEnemys = true;
+
         },1000);
 
         //calls the time outs for various things.
@@ -137,7 +139,7 @@ class EarieCave extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

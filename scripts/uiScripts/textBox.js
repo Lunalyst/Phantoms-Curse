@@ -176,10 +176,14 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //special activation function, giving the npc more control of the textbox.
-    activateNPCTextBox(){
+    activateNPCTextBox(bypass){
+
+      console.log("bypass: ",bypass);
 
       //if the nodeProgressionDelay is not true then
-      if(this.npcRef.nodeProgressionDelay === false){
+      //also have a variable called bypass which allows the node progression delay to be ignored.
+      //only used in cases where a dialogue button needs to progress a node, so that way, dialogue doesnt get behind because the delay locked out the progression of that dialogue.
+      if(this.npcRef.nodeProgressionDelay === false || bypass === true){
 
         //case is check every press, to ensure textbox is visible 
         if(this.textCoolDown){
@@ -196,9 +200,8 @@ class textBox extends Phaser.GameObjects.Container{
         controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
 
         }
-        
         //same as regular activation function, but, it depends on the delay for the nodeProgressionDelay in the npc to be finished.
-        if((this.textInterupt === false && this.npcRef.nodeProgressionDelay === false)){
+        if(this.textInterupt === false){
           //progression amount is important so we know when to interupt recursive displaytexthelper.
           this.progressionAmount++;
             
@@ -208,8 +211,6 @@ class textBox extends Phaser.GameObjects.Container{
 
           //calls function to display that next set of text
           this.displayText(this.startPosition,this.endPosition);
-
-          this.activateTextboxDelay(); 
         }
 
         //once we reach the end of the text, we release the player back into the scene
@@ -409,6 +410,20 @@ class textBox extends Phaser.GameObjects.Container{
         });
 
         }
+
+        //case to tell when dialogue is finished displaying.
+        if(this.npcRef !== null){
+          if(counter === end-20){
+            console.log("text display finished");
+            console.log("counter: ",counter," end ",end-2);
+            this.npcRef.nodeProgressionDelay = false;
+            console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+            
+          }
+
+          console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+        }
+        
 
       }
       

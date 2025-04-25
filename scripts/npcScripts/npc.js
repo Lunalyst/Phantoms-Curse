@@ -72,6 +72,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.currentDictNode = null;
     this.profileArray = [];
     this.textToDisplay = "";
+    this.bypass = false;
 
     this.nodeProgressionDelay = false;
 
@@ -93,7 +94,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.scene.sceneTextBox.setText(this.textToDisplay);
     this.scene.sceneTextBox.setProfileArray(this.profileArray);
     this.scene.sceneTextBox.setNPCRef(this);
-    this.scene.sceneTextBox.activateNPCTextBox();
+    this.scene.sceneTextBox.activateNPCTextBox(this.bypass);
 
   }
 
@@ -105,10 +106,10 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       '                         ';
       
   }
-
+  
   //dialogue node progression function. take in the nodes name to be progressed.
-  progressNode(nextNodeName){
-
+  progressNode(nextNodeName,bypass){
+    console.log("attempting to progress node: ",nextNodeName);
     //safty case, if the length of the currnodes array is one, then progress that node.
     if(this.currentDictNode.children.length === 1){
 
@@ -123,7 +124,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //activates textbox since we progressed to the next node
       this.scene.sceneTextBox.setText(this.textToDisplay);
       this.scene.sceneTextBox.setProfileArray(this.profileArray);
-      this.scene.sceneTextBox.activateNPCTextBox();
+      this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
     }else{
 
@@ -132,6 +133,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
         //if the child name matches the name we are looknig for.
         if(this.currentDictNode.children[counter].nodeName === nextNodeName){
+
+          console.log("Found node: ",nextNodeName);
 
           //set the current node to the child that matches
           this.currentDictNode = this.currentDictNode.children[counter];
@@ -144,8 +147,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           //activates textbox since we progressed to the next node
           this.scene.sceneTextBox.setText(this.textToDisplay);
           this.scene.sceneTextBox.setProfileArray(this.profileArray);
-          this.scene.sceneTextBox.activateNPCTextBox();
+          this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
+          
           //break free of the loop.
           break;
         }
@@ -267,6 +271,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //choke to make sure this cant be activated agian.
       if(!this.scene.sceneTextBox.visible){
         this.triggerNpcFinished = true;
+
       }
           
     }
@@ -301,6 +306,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
+
             console.log(this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
@@ -311,10 +317,11 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
           //time out for our node progression.
           this.nodeProgressionDelay = true;
-          let currNPC = this;
+
+          /*let currNPC = this;
           setTimeout(function(){
             currNPC.nodeProgressionDelay = false;
-          },500);
+          },1300);*/
         }
     }
   }

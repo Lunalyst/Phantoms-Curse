@@ -132,13 +132,13 @@ class dictNode {
         //adds the last line to the string and sets our text object to it.
         formattedString += tempString;
 
-        console.log("tempArray.length: ",tempArray.length);
+        //console.log("tempArray.length: ",tempArray.length);
         //if its a multiple of 3, then dont add any padding
         if(tempArray.length % 3 === 0){
     
         //if the tempArray is not a multiple of 3
         }else if(tempArray.length % 2 === 0){
-            console.log(" % 2 found");
+            //console.log(" % 2 found");
             tempArray.push("                         "); 
             if(tempArray.length % 3 !== 0){
                 tempArray.push("                         "); 
@@ -155,7 +155,7 @@ class dictNode {
         
       //if the dialogue has more than three lines,
       if(tempArray.length > 3){
-        console.log("node overflowing, making extra nodes.");
+        //console.log("node overflowing, making extra nodes.");
         //passing it our formated array 
         return this.dialogueOverflow(tempArray,2);
 

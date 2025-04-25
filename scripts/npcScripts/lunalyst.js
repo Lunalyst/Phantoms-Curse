@@ -38,6 +38,7 @@ class lunalyst extends npc{
 
        this.trading = false;
        this.activatedTradeUI = false;
+       this.inDialogue = false;
 
        this.formattingText = false;
 
@@ -144,14 +145,13 @@ class lunalyst extends npc{
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue1);
   
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue2);
-      console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
+      //console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
 
     if(lunaCTWDialogue1.foundFlag === false){
 
       this.nodeHandler("lunalyst","Behavior2","lunaCTWDialogue1");
       if(this.currentDictNode !== null){
         if(this.currentDictNode.nodeName === "node1"){
-
           //pass the flag value and search to the textbox. flag is added after the text box is closed.
           this.scene.sceneTextBox.storeFlag(lunaCTWDialogue1);
 
@@ -172,6 +172,8 @@ class lunalyst extends npc{
       if(this.currentDictNode !== null){
         //state machine for dialogue 
         console.log("this.currentDictNode:", this.currentDictNode);
+        console.log("this.inDialogue", this.inDialogue);
+        console.log(" this.activatedTradeUI: ", this.activatedTradeUI);
         if(this.currentDictNode.nodeName === "node4" && this.inDialogue ===false){
 
           this.inDialogue = true;
@@ -196,7 +198,9 @@ class lunalyst extends npc{
           },this);
 
           this.scene.npcChoice1.on('pointerdown', function (pointer) {
-          
+            
+            this.inDialogue = false;
+
             this.scene.initSoundEffect('buttonSFX','2',0.05);
 
             //set variable approperiately
@@ -227,7 +231,6 @@ class lunalyst extends npc{
 
           //set up dialogue option functionality so they work like buttons
           this.scene.npcChoice2.on('pointerover',function(pointer){
-            this.activatedTradeUI = false;
             this.scene.initSoundEffect('buttonSFX','1',0.05);
             this.scene.npcChoice2.setTextTint(0xff7a7a);
           },this);
@@ -237,14 +240,15 @@ class lunalyst extends npc{
           },this);
 
           this.scene.npcChoice2.on('pointerdown', function (pointer) {
-          
+            
+            this.inDialogue = false;
             this.scene.initSoundEffect('buttonSFX','2',0.05);
 
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = false;
 
-            //progress to node branch with state name node10
-            this.progressNode("node10");
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node10",true);
 
             //sets the dialogue catch so the textbox stays open during the shop ui interactions.
             this.dialogueCatch = true;
@@ -275,6 +279,7 @@ class lunalyst extends npc{
 
           this.scene.npcChoice3.on('pointerdown', function (pointer) {
           
+            this.inDialogue = false;
           this.scene.initSoundEffect('buttonSFX','2',0.05);
 
           this.scene.sceneTextBox.textInterupt = false;
@@ -362,7 +367,7 @@ class lunalyst extends npc{
               this.anims.play('lunalystIdle',true);
               this.scene.player1.visible = true;
         }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
-            
+
             this.activatedTradeUI = true;
             
             let object = {

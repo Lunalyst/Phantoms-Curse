@@ -198,7 +198,7 @@ class istara extends npc{
             this.scene.sceneTextBox.textInterupt = false;
 
             //progress to node branch with state name node5
-            this.progressNode("node11");
+            this.progressNode("node11",true);
 
             //sets the dialogue catch so the textbox stays open during the shop ui interactions.
             this.dialogueCatch = true;
@@ -235,7 +235,7 @@ class istara extends npc{
             this.scene.sceneTextBox.textInterupt = false;
 
             //progress to node branch with state name node10
-            this.progressNode("node27");
+            this.progressNode("node27",true);
 
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
@@ -285,7 +285,7 @@ class istara extends npc{
             this.scene.sceneTextBox.textInterupt = false;
             this.animationPlayed = false;
             //hide ui and dialogue box.
-            this.progressNode();
+            this.progressNode("",true);
             this.scene.sceneTextBox.visible = true;
 
             this.scene.initSoundEffect('stomachSFX','4',0.2);
@@ -491,7 +491,7 @@ class istara extends npc{
             this.scene.sceneTextBox.textInterupt = false;
             this.animationPlayed = false;
             //hide ui and dialogue box.
-            this.progressNode();
+            this.progressNode("",true);
             this.scene.sceneTextBox.visible = true;
 
             this.scene.initSoundEffect('stomachSFX','4',0.2);

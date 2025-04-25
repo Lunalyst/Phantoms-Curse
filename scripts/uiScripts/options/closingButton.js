@@ -96,6 +96,9 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
             //reset finished, and other variables
             this.inventory.npc.scene.sceneTextBox.npcRef.resetVariables();
 
+            //reset the trading value in the npc 
+            this.inventory.npc.activatedTradeUI = false;
+
             //progress the dialogue so the textbox goes through its finishing procedure.
             this.inventory.npc.scene.sceneTextBox.activateNPCTextBox();
             this.inventory.npc.scene.sceneTextBox.progressDialogue();

@@ -231,6 +231,10 @@ class G10UpdateLoops extends G9CheckEnemys{
                 //console.log("shadow test");
                 this.checkCurseShadowInteractions(this);
               }
+              if(enemyGroupArray[counter] === 'earieShadows'){
+                //console.log("shadow test");
+                this.checkEarieShadowInteractions(this);
+              }
             }
 
           //otherwise if the player has been grabbed then

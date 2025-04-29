@@ -1181,7 +1181,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "curseShadowSecret2":{
+                "earieShadow":{
                     "node1":{
                         "dialogue": "your all mine now....",
                         "profile":"",
@@ -1195,31 +1195,43 @@ const npcDialogue = {
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "lets fix that.",
+                        "dialogue": "lets fix that. ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "much better. im going to enjoy playing with you.",
+                        "dialogue": "much better. im going to enjoy playing with you. ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node5"]
                     }, 
                     "node5":{
-                        "dialogue": "but I do wonder why you decided to come here.",
+                        "dialogue": "is this what your heart desired? to be pleasured by me for the rest of your existance? ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "is this what your heart desired? to be endlessly devowered and transformed by my children?",
+                        "dialogue": "how interesting...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "how interesting...",
+                        "dialogue": "my cute toy, i will enjoy consuming your every desire...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "now cum for me...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "very good...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

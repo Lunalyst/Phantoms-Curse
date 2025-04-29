@@ -26,7 +26,7 @@ class EarieCave extends defaultScene {
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
-      this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 303, frameHeight: 429 });
+      this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
       
       this.defaultPreload();
 
@@ -101,7 +101,7 @@ class EarieCave extends defaultScene {
 
       this.initWallLight(2349,523,'ghostMushroom1');
 
-      this.initSavePoints(443,1080-10);
+      this.initSavePoints(559,568-10);
 
       //this.initPortals(482,568-8,2849,605,"warpCaveOutside","blueSlimeCave");
       this.fakeWarp1 = new fakeWarp(this,489,568-12,'shadowBars');
@@ -113,7 +113,7 @@ class EarieCave extends defaultScene {
 
       let thisScene = this;
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["curseShadows"];
+      this.enemyGroupArray = ["curseShadows","earieShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
@@ -128,7 +128,7 @@ class EarieCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
 
-          thisScene.initEnemy(489,568,thisScene.playerSex,'earieShadow',false);
+          thisScene.initEnemy(1000,1000,thisScene.playerSex,'earieShadows',false);
           thisScene.spawnedEnemys = true;
 
         },1000);

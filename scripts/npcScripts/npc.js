@@ -307,7 +307,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
 
-            console.log(this.currentDictNode.children[0].nodeName);
+            //console.log(this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
           //otherwise progress with blank node.

@@ -13,6 +13,12 @@
             "start": 72.5,
             "end":77 ,
             "loop": false
+        },
+        "spookShort":{
+            "start": 72.5,
+            "end":73.5 ,
+            "loop": false
         }
+        
     }
 }

@@ -40,6 +40,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'whiteCatMaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'whiteCatFemaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'curseShadow', frames: this.anims.generateFrameNames('bestiary2', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'earieShadow', frames: this.anims.generateFrameNames('bestiary2', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
@@ -166,6 +167,10 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       curseShadow: {
         title: "STRANGE SHADOW",
         summary: "THIS STRANGE ENEMY, LURKS IN CAVES CONSUMED BY DENSE SHADOW. SUCKING UNSUSPECTING PREY INTO ITS BODY, WHERE IT ABSORBS THEM FOR A UNKNOWN PURPOSE...",
+      },
+      earieShadow:{
+        title: "",
+        summary: "WHERE THE WATER FLOWS AND THE ROOTS CREEP, THE SEELS KEEP ME PRISONER IN THE DEEP. COME FIND ME,COME SET ME FREE, SO YOU CAN BECOME APART OF ME...",
       },
 
       back: {

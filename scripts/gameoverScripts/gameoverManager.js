@@ -46,6 +46,15 @@ class gameoverManager extends A3SoundEffects {
                     "audio/used-audio/earie-sounds/earie-sounds.mp3"
                 ]);
             },
+            abyssGameover: function abyssGameover() {
+                tempGameover.load.tilemapTiledJSON("abyssGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Abyss_Gameover.json");
+                if(tempGameover.playerSex === 0){
+                    tempGameover.load.spritesheet('curseShadowSecret', 'assets/enemys/curseShadowMaleSecret.png',{frameWidth: 303, frameHeight: 219 });
+                }else{
+                    tempGameover.load.spritesheet('curseShadowSecret', 'assets/enemys/curseShadowMaleSecret.png',{frameWidth: 303, frameHeight: 219 });
+                }
+                
+            },
 
         
  
@@ -308,6 +317,20 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.layer2.setPipeline('Light2D');
                 tempSceneRef.processMap.layer3.setPipeline('Light2D');
             },
+            abyssGameover: function abyssGameover() {
+                tempSceneRef.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                tempSceneRef.lights.enable().setAmbientColor(0x555555);
+
+                tempSceneRef.processMap.tilesetNameInTiled = "Cave_Tileset";
+                tempSceneRef.processMap.setTiles('cave_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer0.setPipeline('Light2D');
+                tempSceneRef.processMap.layer1.setPipeline('Light2D');
+                tempSceneRef.processMap.layer2.setPipeline('Light2D');
+                tempSceneRef.processMap.layer3.setPipeline('Light2D');
+            },
 
         }
 
@@ -517,6 +540,28 @@ class gameoverManager extends A3SoundEffects {
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
+            },
+            earieShadow: function earieShadowFunction() {
+                tempSceneRef.shadowPlayer = tempSceneRef.add.sprite(450,520, "curseShadowSecret");
+                tempSceneRef.shadowPlayer.setScale(1/3);
+                //creates animations for try agian button
+                tempSceneRef.anims.create({key: 'struggle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+                tempSceneRef.anims.create({key: 'grab',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
+                tempSceneRef.anims.create({key: 'restrained',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
+                tempSceneRef.anims.create({key: 'mostlyTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 12, end: 32 }),frameRate: 7,repeat: 0});
+                tempSceneRef.anims.create({key: 'mostlyTransformedIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 33, end: 36 }),frameRate: 7,repeat: -1});
+                tempSceneRef.anims.create({key: 'finishedTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 37, end: 41 }),frameRate: 7,repeat: 0});
+                tempSceneRef.anims.create({key: 'beginSucking',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 42, end: 51 }),frameRate: 7,repeat: 0});
+                tempSceneRef.anims.create({key: 'pleasure1',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 52, end: 55 }),frameRate: 7,repeat: -1});
+                tempSceneRef.anims.create({key: 'pleasure2',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 52, end: 55 }),frameRate: 12,repeat: -1});
+                tempSceneRef.anims.create({key: 'pleasure3',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 56, end: 59 }),frameRate: 12,repeat: -1});
+                tempSceneRef.anims.create({key: 'finish',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 60, end: 71 }),frameRate: 7,repeat: 0});
+                tempSceneRef.anims.create({key: 'finishIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 72, end: 75 }),frameRate: 7,repeat: -1});
+
+                //tempSceneRef.shadowPlayer.anims.play("struggle",true);
+                tempSceneRef.earieShadowState = 0;
+                tempSceneRef.earieshadowLockout = false;
+                tempSceneRef.defeatedTitle = 'cursed';
             },
         }
     }
@@ -751,6 +796,105 @@ class gameoverManager extends A3SoundEffects {
                 }
                 
             },
+            earieShadow: function earieShadowFunction() {
+                if(tempSceneRef.earieshadowLockout === false){
+                    switch(tempSceneRef.earieShadowState) {
+                        case 0:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            tempSceneRef.shadowPlayer.anims.play("struggle",true);
+                            setTimeout(function () {
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                setTimeout(function () {
+                                tempSceneRef.earieshadowLockout = false;
+                                },2000);
+                            },4000);
+                            break;
+                        case 1:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+
+                            tempSceneRef.shadowPlayer.anims.play("grab").once('animationcomplete', () => {
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                tempSceneRef.shadowPlayer.anims.play("restrained",true);
+                                setTimeout(function () {
+
+                                    tempSceneRef.earieshadowLockout = false;
+                                },4000);
+                            });
+                            break;
+                        case 2:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                           
+                            tempSceneRef.shadowPlayer.anims.play("mostlyTransformed").once('animationcomplete', () => {
+                                tempSceneRef.shadowPlayer.anims.play("mostlyTransformedIdle",true);
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                tempSceneRef.earieshadowLockout = false;
+                            });
+                            break;
+                        case 3:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            tempSceneRef.shadowPlayer.anims.play("finishedTransformed").once('animationcomplete', () => {
+                               
+                                
+                                tempSceneRef.shadowPlayer.anims.play("beginSucking").once('animationcomplete', () => {
+                                    
+                                    tempSceneRef.earieshadowLockout = false;
+                                    tempSceneRef.shadowPlayer.anims.play("pleasure1",true);  
+                                    tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                    tempSceneRef.earieshadowLockout = false;
+                                });
+                            });
+                            break;
+                        case 4:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            setTimeout(function () {
+                                tempSceneRef.shadowPlayer.anims.play("pleasure2",true);  
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                tempSceneRef.earieshadowLockout = false;
+                            },3000);
+                            break;
+                        case 5:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            setTimeout(function () {
+                                tempSceneRef.shadowPlayer.anims.play("pleasure3",true);  
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                tempSceneRef.earieshadowLockout = false;
+                            },3000);
+                            break;
+                        case 6:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            setTimeout(function () {
+                                tempSceneRef.shadowPlayer.anims.play("pleasure3",true);  
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                setTimeout(function () {
+                                    tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                    tempSceneRef.earieshadowLockout = false;
+                                },4000);
+                           
+                            },3000);
+                            break;
+                        case 7:
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.earieShadowState++;
+                            tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
+                                tempSceneRef.shadowPlayer.anims.play("finishIdle",true);            
+                                tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                tempSceneRef.earieshadowLockout = false;
+                            },3000);
+                            break;
+                    
+                        default:
+                          // code block
+                      }
+                }
+            }
         }
     }
         

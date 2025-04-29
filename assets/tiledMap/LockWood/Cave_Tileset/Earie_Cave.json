@@ -69,8 +69,8 @@
          "columns":24,
          "firstgid":1,
          "image":"Cave_Tileset.png",
-         "imageheight":2304,
-         "imagewidth":2304,
+         "imageheight":2352,
+         "imagewidth":2352,
          "margin":0,
          "name":"Cave_Tileset",
          "spacing":0,
@@ -1714,7 +1714,13 @@
                         }]
                 }, 
                 {
-                 "id":330
+                 "id":330,
+                 "properties":[
+                        {
+                         "name":"collision",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "animation":[

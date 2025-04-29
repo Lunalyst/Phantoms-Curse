@@ -115,11 +115,11 @@ class blueSlimeCave extends defaultScene {
 
       let random = Math.floor((Math.random() * 4)+1);
       console.log(random);
-      if(random === 3){
+      //if(random === 3){
         this.initPortals(2849,605-13,482,568,"warpCaveShadowMenace","EarieCave");
-      }else{
-        this.initPortals(2849,605-13,438,1464,"warpCaveShadow","ShadowCave");
-      }
+      //}else{
+        //this.initPortals(2849,605-13,438,1464,"warpCaveShadow","ShadowCave");
+      //}
 
       //this.fakeWarp1 = new fakeWarp(this,2849,605-13,'warpCaveOutsideRubble');
 

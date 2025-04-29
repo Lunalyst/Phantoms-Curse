@@ -413,15 +413,15 @@ class textBox extends Phaser.GameObjects.Container{
 
         //case to tell when dialogue is finished displaying.
         if(this.npcRef !== null){
-          if(counter === end-20){
-            console.log("text display finished");
-            console.log("counter: ",counter," end ",end-2);
+          if(counter === end-40){
+            //console.log("text display finished");
+            //console.log("counter: ",counter," end ",end-2);
             this.npcRef.nodeProgressionDelay = false;
-            console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+            //console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
             
           }
 
-          console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+          //console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
         }
         
 

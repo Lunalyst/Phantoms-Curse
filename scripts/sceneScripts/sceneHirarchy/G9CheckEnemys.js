@@ -803,19 +803,20 @@ class G9CheckEnemys extends G8CheckNPCS {
         tempShadows.safePrompts.visible = false;
         tempShadows.playedSafePrompts = false;
       }
+        
     }, this);
 
   }
 
   checkEarieShadowInteractions(scene) {
 
-    //console.log("checking slime interactions");
     //applies functions to all slimes in the group.
-    scene.earieShadow.children.each(function (tempShadows) {
+    scene.earieShadows.children.each(function (tempShadows) {
 
       //console.log("tempShadows.inSafeMode: ",tempShadows.inSafeMode);
       //safty check to improve performance. only does overlap if in range.
-      if(this.objectsInRangeX(tempShadows,this.player1,600) && this.objectsInRangeY(tempShadows,this.player1,600) && tempShadows.inSafeMode === false){
+      //744-2227
+      if((this.player1.x > 744 && this.player1.x < 2227)  && tempShadows.inSafeMode === false){
         //calls to make each instance of a slime move.
         tempShadows.move(scene.player1,scene);
 
@@ -854,6 +855,17 @@ class G9CheckEnemys extends G8CheckNPCS {
         this.viewAnimationLogic(tempShadows);
       // otherwise hid the prompt from the player.
       }else{
+        tempShadows.hitboxActive = false;
+        tempShadows.visible = false;
+        tempShadows.curseLight.visible = false;
+        tempShadows.grabTimer = false;
+        tempShadows.attemptingGrab = false;
+        tempShadows.isPlayingMissedAnims = false;
+        tempShadows.movementState = 0;
+        tempShadows.hitboxActive = false;
+        tempShadows.activatedCycleTimer = false;
+        tempShadows.grabHitBox.body.enable = false;
+        //reset shadows variables
         tempShadows.setVelocityY(0);
         tempShadows.setVelocityX(0);
         tempShadows.safePrompts.visible = false;

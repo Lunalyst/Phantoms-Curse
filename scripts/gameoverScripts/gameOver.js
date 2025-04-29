@@ -137,6 +137,7 @@ class gameOver extends gameoverManager {
             }
             
             //gets dialogue from 
+            console.log(npcDialogue["gameover"][this.defeatedTitle]);
             if(npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === null || npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === undefined){
                 this.dialogueFlag = "default";
             }else{
@@ -174,8 +175,10 @@ class gameOver extends gameoverManager {
 
             console.log("this.enemy: ", this.enemy);
 
-            this.enemy.soundCoolDown = false;
-
+            if(this.enemy !== null && this.enemy !== undefined){
+                this.enemy.soundCoolDown = false;
+            }
+            
             //sets up the update functions each enemy uses.
             this.updateMapOfEnemys();
 

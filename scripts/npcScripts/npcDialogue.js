@@ -1207,7 +1207,7 @@ const npcDialogue = {
                         "children":["node5"]
                     }, 
                     "node5":{
-                        "dialogue": "is this what your heart desired? to be pleasured by me for the rest of your existance? ",
+                        "dialogue": "is this what your heart desired? ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node6"]

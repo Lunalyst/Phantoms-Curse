@@ -219,7 +219,7 @@ class G6InitEnemys extends G5InitNPCs{
       this.curseShadows.add(shadow);
     }else if(enemyType === 'earieShadows'){
       //creates a secondary group to handle enemy specific interactions which we will use later
-      let earieS = new EarieShadow(this, startX, startY, playerSex,this.enemyId);
+      let earieS = new EarieShadow(this, startX, startY, playerSex,this.enemyId,inSafeMode);
       
       this.enemyId++;
       //adds the enemy to both groups.

@@ -189,7 +189,12 @@ class gameoverManager extends A3SoundEffects {
         let gameoverThat = this;
 
         setTimeout(function(){
-            gameoverThat.tryAgian.visible = true;
+            if(gameoverThat.showTryAgain === false){
+                gameoverThat.tryAgian.visible = false;
+            }else{
+                gameoverThat.tryAgian.visible = true;
+            }
+            
         },1000);
 
         this.tryAgian.on('pointerdown', function (pointer) {
@@ -542,8 +547,18 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'eaten';
             },
             earieShadow: function earieShadowFunction() {
+
+                tempSceneRef.enemy = new curseShadow(tempSceneRef,450, 570+32,tempSceneRef.playerSex);
+                tempSceneRef.enemy.visible = false;
+
                 tempSceneRef.shadowPlayer = tempSceneRef.add.sprite(450,520, "curseShadowSecret");
                 tempSceneRef.shadowPlayer.setScale(1/3);
+                //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
+                if(tempSceneRef.lightingSystemActive === true){ 
+                    tempSceneRef.shadowPlayer.setPipeline('Light2D');
+                    //also sets up the curse light for if the player is cursed.
+                    tempSceneRef.shadowPlayer.curseLight = tempSceneRef.lights.addLight(tempSceneRef.shadowPlayer.x,tempSceneRef.shadowPlayer.y, 100, 0x666666);
+                }
                 //creates animations for try agian button
                 tempSceneRef.anims.create({key: 'struggle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
                 tempSceneRef.anims.create({key: 'grab',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecret', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
@@ -562,6 +577,10 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.earieShadowState = 0;
                 tempSceneRef.earieshadowLockout = false;
                 tempSceneRef.defeatedTitle = 'cursed';
+
+                tempSceneRef.mobileW.visible = false;
+                tempSceneRef.showTryAgain = false;
+
             },
         }
     }
@@ -827,7 +846,7 @@ class gameoverManager extends A3SoundEffects {
                         case 2:
                             tempSceneRef.earieshadowLockout = true;
                             tempSceneRef.earieShadowState++;
-                           
+                            tempSceneRef.enemy.playPumpSound("pumpingShort",3000);
                             tempSceneRef.shadowPlayer.anims.play("mostlyTransformed").once('animationcomplete', () => {
                                 tempSceneRef.shadowPlayer.anims.play("mostlyTransformedIdle",true);
                                 tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
@@ -837,6 +856,8 @@ class gameoverManager extends A3SoundEffects {
                         case 3:
                             tempSceneRef.earieshadowLockout = true;
                             tempSceneRef.earieShadowState++;
+                            tempSceneRef.initSoundEffect('stomachSFX','8',0.3);
+
                             tempSceneRef.shadowPlayer.anims.play("finishedTransformed").once('animationcomplete', () => {
                                
                                 
@@ -886,13 +907,85 @@ class gameoverManager extends A3SoundEffects {
                             tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
                                 tempSceneRef.shadowPlayer.anims.play("finishIdle",true);            
                                 tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
+                                
+                                tempSceneRef.tryAgian.visible = true;
+
                                 tempSceneRef.earieshadowLockout = false;
                             },3000);
                             break;
-                    
+                        case 8:
+                            //loop animation 
+                            tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.shadowPlayer.anims.play("pleasure1",true);
+                            setTimeout(function () {
+                                tempSceneRef.shadowPlayer.anims.play("pleasure2",true);
+
+                                setTimeout(function () {
+                                    tempSceneRef.shadowPlayer.anims.play("pleasure3",true);
+                                    
+                                    tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
+                                        tempSceneRef.shadowPlayer.anims.play("finishIdle",true);
+
+                                        setTimeout(function () {
+                                            tempSceneRef.earieshadowLockout = false;
+                                        },2000);
+                                    });
+                                },10000);
+                            },10000);
+                            
+
+                            break;
                         default:
-                          // code block
-                      }
+
+                    }
+
+                    //manages sound effects for each state.
+                    switch(tempSceneRef.earieShadowState) {
+                        case 0:
+                            tempSceneRef.enemy.playStomachSound('3',800);
+                            break;
+                        case 1:
+                            tempSceneRef.enemy.playPlapSound('plap2',1000);
+                            break;
+                        case 2:
+                            tempSceneRef.enemy.playPlapSound('plap1',1000);
+                            tempSceneRef.enemy.playStomachSound('4',800); 
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            tempSceneRef.enemy.playStomachSound('10',800); 
+                            break;
+                        case 5:
+                            
+                            break;
+                        case 6:
+                            
+                            break;
+                        case 7:
+                            
+                            break;
+                        case 8:
+                            
+                            break;
+                        default:
+
+                        if(tempSceneRef.earieShadowState === 8){
+
+                            //sound state machine for ifferent stages.
+                            if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
+                                console.log("playing sound 1")
+                                tempSceneRef.enemy.playPlapSound('plap3',800);
+                            }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                                console.log("playing sound 2")
+                                tempSceneRef.enemy.playPlapSound('plap9',1000);
+                            }else if(tempSceneRef.enemy.gameoverLoopingSounds === 2){
+                                console.log("playing sound 3")
+                                tempSceneRef.enemy.playPlapSound('plap9',500);
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -135,6 +135,8 @@ class dreamForest extends defaultScene {
 
       this.initPortals(581,925-13,1166,605,"warpCaveOutside","DreamCave");
 
+      this.initPortals(481,925-13,1166,605,"warpCaveOutside","DreamShadowCave");
+
       this.initSavePoints(801,925-15);
       
       //sets up containers

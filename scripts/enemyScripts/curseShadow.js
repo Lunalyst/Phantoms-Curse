@@ -1254,17 +1254,41 @@ class curseShadow extends enemy {
                 //puts the key display in the correct location.
                 this.scene.KeyDisplay.visible = true;
                 this.scene.KeyDisplay.x = this.x;
-                this.scene.KeyDisplay.y = this.y + 100;
+                this.scene.KeyDisplay.y = this.y + 90;
                 
                 //here is where animation for grab and grab sf should be played for grab animation.
                
                 //play struggle animation and sounds.
-                this.anims.play("enemyGrab",true);  
+                this.playPlapSound('plap10',1000);
+
+                if (!this.animationPlayed) {
+                    this.animationPlayed = true;
+                    
+                    let random = Math.floor((Math.random() * 3)+1);
+                    console.log(random);
+                    if(random === 3){
+                        this.anims.play("playerStruggle", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        });  
+                    }else if(random === 2){
+                        this.flipX = false;
+                        this.anims.play("playerStruggle1", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        }); 
+                    }else{
+                        this.flipX = true;
+                        this.anims.play("playerStruggle1", true).once('animationcomplete', () => {
+                            this.animationPlayed = false;
+                        });
+                    
+                    }
+                }
 
                 // handles input for progressing animation
                 if (this.scene.checkDPressed() === true) {
                     this.playerProgressingAnimation = true;
-                    this.playerDefeatedAnimationStage = 0;
+                    this.playerDefeatedAnimationStage = 1;
+                    this.playerDefeatedAnimationStageMax = 12;
                 }
 
                 // displays inputs while in the first stage of the animation viewing.

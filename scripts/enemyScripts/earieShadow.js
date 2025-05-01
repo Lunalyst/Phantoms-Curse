@@ -2,13 +2,14 @@
 //implementation for the blue enemy.
 class EarieShadow extends enemy {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos, sex, id, 40, 'TShadow');
 
 
         //randomizes variables
         this.scene = scene;
+
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(70,20,true);
@@ -27,16 +28,21 @@ class EarieShadow extends enemy {
 
         this.movementState = 0;
 
-
+        this.inSafeMode = inSafeMode;
         this.randomInput = Math.floor((Math.random() * 3));
         this.randomInputCooldown = false;
           
         this.anims.create({ key: 'shadowGrabStart', frames: this.anims.generateFrameNames('TShadow', { start: 0, end: 7 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowGrabmiddle', frames: this.anims.generateFrameNames('TShadow', { start: 8, end: 9 }), frameRate: 12, repeat: 0 });
         this.anims.create({ key: 'shadowGrabMiss', frames: this.anims.generateFrameNames('TShadow', { start: 10, end: 19 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'shadowIdle', frames: this.anims.generateFrameNames('TShadow', { start: 20, end: 23 }), frameRate: 7, repeat: -1 });
         
-
-        this.anims.play("shadowGrabStart",true);
+        if(inSafeMode === true){
+            this.anims.play("shadowIdle",true);
+        }else{
+            this.anims.play("shadowGrabStart",true);
+        }
+        
 
         //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
         if(this.scene.lightingSystemActive === true){ 
@@ -49,14 +55,7 @@ class EarieShadow extends enemy {
 
     //functions that move enemy objects.
     move() {
-        ///behavior
-        //if player has lanturn off
-        //spawn either to the left or right or above the player,
-        //play spook sound effect
-        //attempt to grab the player
-        //if the hitbox lands imediately go to game over
-        //if player activates light during the grab animation, have it not grab, and fade out.
-        // x:744-2227
+
         this.setSize(10, 50, true);
         
         //if player doesnt have lanturn active
@@ -145,7 +144,7 @@ class EarieShadow extends enemy {
 
             this.setDepth(7);
 
-            this.scene.initSoundEffect('earieSFX',"spookShort",0.1);
+            this.scene.initSoundEffect('buttonSFX',"soulHit",0.5);
 
             this.curseLight.visible = true;   
 
@@ -165,6 +164,7 @@ class EarieShadow extends enemy {
 
             if(this.isPlayingMissedAnims === false){
                 this.isPlayingMissedAnims = true;
+                this.hitboxActive = false;
                 //set value to play missed grabb animation
                 
                 this.anims.play('shadowGrabMiss').once('animationcomplete', () => {
@@ -173,7 +173,6 @@ class EarieShadow extends enemy {
                     this.movementState = 0;
 
                     this.setDepth(5);
-                    this.hitboxActive = false;
                     this.attemptingGrab = false;
                     this.grabTimer = false;
                     this.isPlayingMissedAnims = false;    
@@ -237,6 +236,38 @@ class EarieShadow extends enemy {
         this.scene.KeyDisplay.visible = false;
 
         this.scene.changeToGameover();
+    }
+
+    animationGrab(){
+
+        if (!this.animationPlayed) {
+            this.visible = true;
+            this.animationPlayed = true;
+            
+            //this.player1.
+            this.scene.initSoundEffect('buttonSFX',"soulHit",0.5);
+
+            this.anims.play('shadowGrabStart').once('animationcomplete', () => {
+
+                this.scene.player1.visible = false;
+
+                this.anims.play('shadowGrabmiddle').once('animationcomplete', () => {
+                
+                    this.playerDefeated = true;
+                    this.playerGrabbed = true;
+                    this.scene.player1.visible = false;
+
+                    this.scene.enemyThatDefeatedPlayer = "earieShadow";
+                    this.scene.gameoverLocation = "abyssGameover";
+                    this.scene.KeyDisplay.visible = false;
+
+                    this.scene.changeToGameover();
+
+                });
+            
+            });
+        }
+
     }
     
 }

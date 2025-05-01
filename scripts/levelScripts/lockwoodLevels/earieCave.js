@@ -101,7 +101,7 @@ class EarieCave extends defaultScene {
 
       this.initWallLight(2349,523,'ghostMushroom1');
 
-      this.initSavePoints(559,568-10);
+      //this.initSavePoints(559,568-10);
 
       //this.initPortals(482,568-8,2849,605,"warpCaveOutside","blueSlimeCave");
       this.fakeWarp1 = new fakeWarp(this,489,568-12,'shadowBars');

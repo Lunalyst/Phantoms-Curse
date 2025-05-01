@@ -113,15 +113,14 @@ class blueSlimeCave extends defaultScene {
 
       this.initPortals(449,669-13,388,1789,"warpCaveOutside","blueSlimeCave1");
 
-      let random = Math.floor((Math.random() * 4)+1);
+      let random = Math.floor((Math.random() * 5)+1);
       console.log(random);
-      //if(random === 3){
+      
+      if(random === 5){
         this.initPortals(2849,605-13,482,568,"warpCaveShadowMenace","EarieCave");
-      //}else{
-        //this.initPortals(2849,605-13,438,1464,"warpCaveShadow","ShadowCave");
-      //}
-
-      //this.fakeWarp1 = new fakeWarp(this,2849,605-13,'warpCaveOutsideRubble');
+      }else{
+        this.initPortals(2849,605-13,438,1464,"warpCaveShadow","ShadowCave");
+      }
 
       //sets up containers
       this.setUpContainers();
@@ -155,56 +154,6 @@ class blueSlimeCave extends defaultScene {
       this.initBarrier(1605,573-30,30,180);
       this.initBarrier(661,669-30,30,180);
      
-
-      //make a temp object
-      let object1 = {
-        flagToFind: "lunaProtoDialogue1",
-        foundFlag: false,
-      };
-
-      let object2 = {
-        flagToFind: "lunaProtoDialogue2",
-        foundFlag: false,
-      };
-
-      // call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object2);
-
-      if(object1.foundFlag === true && object2.foundFlag === false){
-        let dialogue = 'OH, HELLO AGIAN HUMAN. IM STILL BUSY CLEARING THIS RUBBLE. JUST GIVE ME A LITTLE BIT OK? ';
-      this.initLunalyst(2009,1117,
-        dialogue,
-        ['lunaNeutral','lunaHappy'],
-      'lunaProtoDialogue1'
-      );
-      }else if(object2.foundFlag === true){
-        let line1 = 'QUITE PERSISTANT ARNT YOU?                                             ';
-        let line2 = 'THATS KINDA CUTE ^_^ JUST GIVE ME A LITTLE BIT OK?';
-        let dialogue = line1 + line2;
-        this.initLunalyst(2009,1117,
-        dialogue,
-        ['lunaFingerTouch','lunaHappy'],
-      'lunaProtoDialogue2'
-      );
-      }else{
-        let line1 = 'OH, A HUMAN!                                                                ';
-        let line2 = 'ITS BEEN A LONG TIME SINCE I HAVE SEEN ONE OF YOUR KIND HERE. I AM LUNALYST. ';
-        let line3 = 'I BET YOU HAVE ALREADY ENCOUNTERED SOME OF THE CURSED. ';
-        let line4 = 'TRY TO STAY SAFE, SINCE THEY WILL TRY AN TURN YOU INTO THEM. ';
-        let line5 = 'ANYWAY THE WAY BACK TO LOCKWOODS THROUGH THIS CAVE. ';
-        let line6 = 'UNFORTUNATELY THE WAYS A LITTLE BLOCKED RIGHT NOW. ';
-        let line7 = 'IM WORKING ON CLEARING ON IT. FOR NOW JUST GIVE ME SOME TIME. ';
-        let dialogue = line1 + line2 + line3 + line4 + line5 + line6 + line7;
-        this.initLunalyst(2009,1117,
-          dialogue,
-          ['lunaStarEyes','lunaHappy','lunaNeutral','lunaHappy','lunaNeutral','lunaFingerTouch'],
-        'lunaProtoDialogue'
-        );
-     }                                                        
-      
-    
-
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){

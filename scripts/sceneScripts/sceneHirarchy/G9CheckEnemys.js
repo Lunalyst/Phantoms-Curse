@@ -793,7 +793,7 @@ class G9CheckEnemys extends G8CheckNPCS {
         });
        
       // creates a overlap between the damage hitbox and the slime so that slime can take damage
-      }else if(this.objectsInRangeX(tempShadows,scene.player1,30) && this.objectsInRangeY(tempShadows,scene.player1,30)){
+      }else if(this.objectsInRangeX(tempShadows,scene.player1,50) && this.objectsInRangeY(tempShadows,scene.player1,80)){
 
         this.viewAnimationLogic(tempShadows);
       // otherwise hid the prompt from the player.
@@ -813,7 +813,6 @@ class G9CheckEnemys extends G8CheckNPCS {
     //applies functions to all slimes in the group.
     scene.earieShadows.children.each(function (tempShadows) {
 
-      //console.log("tempShadows.inSafeMode: ",tempShadows.inSafeMode);
       //safty check to improve performance. only does overlap if in range.
       //744-2227
       if((this.player1.x > 744 && this.player1.x < 2227)  && tempShadows.inSafeMode === false){
@@ -850,13 +849,19 @@ class G9CheckEnemys extends G8CheckNPCS {
         });
        
       // creates a overlap between the damage hitbox and the slime so that slime can take damage
-      }else if(this.objectsInRangeX(tempShadows,scene.player1,30) && this.objectsInRangeY(tempShadows,scene.player1,30)){
-
+      }else if(this.objectsInRangeX(tempShadows,scene.player1,10) && this.objectsInRangeY(tempShadows,scene.player1,80)){
+        tempShadows.visible = true;
         this.viewAnimationLogic(tempShadows);
       // otherwise hid the prompt from the player.
       }else{
         tempShadows.hitboxActive = false;
-        tempShadows.visible = false;
+
+        if(tempShadows.inSafeMode === true){
+          tempShadows.visible = true;
+        }else{
+          tempShadows.visible = false;
+        }
+
         tempShadows.curseLight.visible = false;
         tempShadows.grabTimer = false;
         tempShadows.attemptingGrab = false;
@@ -865,6 +870,7 @@ class G9CheckEnemys extends G8CheckNPCS {
         tempShadows.hitboxActive = false;
         tempShadows.activatedCycleTimer = false;
         tempShadows.grabHitBox.body.enable = false;
+
         //reset shadows variables
         tempShadows.setVelocityY(0);
         tempShadows.setVelocityX(0);

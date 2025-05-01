@@ -41,6 +41,9 @@ class gameOver extends gameoverManager {
         this.gameoverLocation;
         //variable used to tell if dialogue should be interupted.
         this.dialogueInterupt = false;
+
+        //variable to stop try agian button from appearing if we dont want it too. currently set to always show after delay.
+        gameoverThat.showTryAgain = true;
         
         }
 

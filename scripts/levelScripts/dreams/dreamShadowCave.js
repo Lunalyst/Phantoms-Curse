@@ -31,6 +31,8 @@ class dreamShadowCave extends defaultScene {
       this.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
       
       this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
+
+      this.load.spritesheet('secretRemover', 'assets/gameObjects/secretRemover.png',{frameWidth: 99, frameHeight: 99 });
       
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
 
@@ -80,6 +82,7 @@ class dreamShadowCave extends defaultScene {
 
       //creates tileset
       this.setUpTileSet("dream_cave_shadow_map","Cave_Tileset","cave_source_map");
+      
       //creates player object
       this.setUpPlayer();
 
@@ -97,6 +100,9 @@ class dreamShadowCave extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      //load secret values for use.
+      this.secretLoad();
 
       //plays looping sound
       this.initLoopingSound('caveSFX','cave', 0.1);
@@ -159,7 +165,14 @@ class dreamShadowCave extends defaultScene {
   
         if((object1.foundFlag === true) && (object1.flagToFind === 'earieShadow')){
           thisScene.initEnemy(1708,485,thisScene.playerSex,'earieShadows',true)
+
+          if(thisScene.titleLogoType === "shadow"){
+            thisScene.initSecretRemover(1628,485);
+          }
+          
         }
+
+        
 
         thisScene.spawnedEnemys = true;
       },1000);

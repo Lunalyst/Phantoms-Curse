@@ -84,23 +84,6 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.usingCursedHearts = true;
   }
 
-  setupSlimeStucks(){
-    //sets up stuck animations so they are defined in the scope of the scenes that need them.
-
-
-  }
-
-  setupCursedHeartStucks(){
-    //sets up stuck animations so they are defined in the scope of the scenes that need them.
-
-
-  }
-
-  setupKnockDownStucks(){
-    //sets up stuck animations so they are defined in the scope of the scenes that need them.
-
-  }
-
   //creates a container object to hold items.
   setUpContainers(){
     //sets up the group for items in the scene

@@ -78,9 +78,6 @@ class blueSlimeCave extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
-      // sets up slime gooed animation.
-      this.setupSlimeStucks();
-
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 

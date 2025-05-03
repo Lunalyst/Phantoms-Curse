@@ -780,6 +780,23 @@ class gameHud extends A3SoundEffects {
             
           });
 
+          inventoryKeyEmitter.on(inventoryKey.playCustomMessage,(message) =>{
+
+            if(this.saveGraphicDelay === false){
+              this.saveGraphicDelay = true;
+              this.savedText = new makeText(this,20,895,'charBubble',message);
+              this.savedText.textWave();
+              this.savedText.textFadeOutAndDestroy(3000);
+              let scene = this;
+              setTimeout(function(){
+                scene.savedText.destroy();
+                scene.saveGraphicDelay = false;
+              },3000);
+              this.savedText.visible = true;
+              this.savedText.setDepth(51);
+            }
+          });
+
           // create inventory hub object
           this.playerInventory = new inventory(this,130,115);
           

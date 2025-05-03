@@ -20,7 +20,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         //defines player animations
         this.anims.create({key: 'saveStone',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
         this.anims.create({key: 'saveStoneAnimation',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 15}),frameRate: 7,repeat: 0});
-
+        
         //variables use to protect the object from being called at the wrong time.
         this.safeToSave = false;
         this.saveCoolDown= false;

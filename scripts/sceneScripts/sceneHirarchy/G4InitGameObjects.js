@@ -88,6 +88,20 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  initSecretRemover(x, y) {
+    let savePoint1 = new secretRemover(this, x, y);
+    savePoint1.saveStoneId = this.saveStoneId;
+    this.saveStoneId++;
+
+    this.saveStonePoints.add(savePoint1);
+
+    //if we are using dark lighting
+    if(this.lightingSystemActive === true){ 
+      savePoint1.setPipeline('Light2D');
+    }
+
+}
+
   //creates a sign object in the scene
   initSigns(x, y, text, profileArray) {
       let sign1 = new sign(this, x, y, text, profileArray);

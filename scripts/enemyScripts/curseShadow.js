@@ -61,7 +61,31 @@ class curseShadow extends enemy {
             this.anims.create({ key: 'shadowGameover6', frames: this.anims.generateFrameNames('curseShadowMale', { start: 136, end: 138 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'shadowGameover7', frames: this.anims.generateFrameNames('curseShadowMale', { start: 138, end: 141 }), frameRate: 7, repeat: -1 });
         }else{
-            
+            this.anims.create({ key: 'playerSuckedIn', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 23-23, end: 28-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerStruggleIdle', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 28-23, end: 31-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerStruggle', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 28-23, end: 31-23 }), frameRate: 9, repeat: 0 });
+            this.anims.create({ key: 'playerStruggle1', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 32-23, end: 35-23 }), frameRate: 9, repeat: 0 });
+            this.anims.create({ key: 'playerSuckedDown', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 36-23, end: 46-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerConsumed', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 47-23, end: 50-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerPumpGrab', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 51-23, end: 52-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerPump', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 53-23, end: 56-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerGettingPumped', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 57-23, end: 78-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerMostlyTransformed', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 79-23, end: 82-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerFinishTransformation', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 84-23, end: 86-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerShadowUnderground', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 87-23, end: 90-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerShadowRise', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 91-23, end: 97-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerShadowIdle', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 98-23, end: 101-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'playerShadowPleasureStart', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 102-23, end: 102-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'playerShadowPleasure', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 103-23, end: 106-23 }), frameRate: 7, repeat: -1 });
+
+            this.anims.create({ key: 'shadowGameover1', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 107-23, end: 110-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'shadowGameover2', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 107-23, end: 110-23 }), frameRate: 9, repeat: -1 });
+            this.anims.create({ key: 'shadowGameover3', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 111-23, end: 114-23 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'shadowGameover4', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 115-23, end: 131-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shadowGameover5', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 132-23, end: 135-23 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'shadowGameover6', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 136-23, end: 138-23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shadowGameover7', frames: this.anims.generateFrameNames('curseShadowFemale', { start: 138-23, end: 141-23 }), frameRate: 7, repeat: -1 });
+        
         }
 
         this.inSafeMode = inSafeMode;

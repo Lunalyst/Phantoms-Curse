@@ -244,6 +244,7 @@ class EarieShadow extends enemy {
             this.visible = true;
             this.animationPlayed = true;
             
+            this.scene.player1.playerIdleAnimation();
             //this.player1.
             this.scene.initSoundEffect('buttonSFX',"soulHit",0.5);
 

@@ -696,6 +696,7 @@ class gameoverManager extends A3SoundEffects {
             femaleBat: function femaleBatFunction() {
 
             },
+            
             blueSlimeHS: function blueSlimeHSFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
@@ -853,6 +854,7 @@ class gameoverManager extends A3SoundEffects {
                                 tempSceneRef.earieshadowLockout = false;
                             });
                             break;
+
                         case 3:
                             tempSceneRef.earieshadowLockout = true;
                             tempSceneRef.earieShadowState++;
@@ -904,6 +906,10 @@ class gameoverManager extends A3SoundEffects {
                         case 7:
                             tempSceneRef.earieshadowLockout = true;
                             tempSceneRef.earieShadowState++;
+                            tempSceneRef.sound.get('plapSFX').stop();  
+                            setTimeout(function () {
+                                tempSceneRef.enemy.playPlapSound('squirt1',1000);
+                            },450);
                             tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
                                 tempSceneRef.shadowPlayer.anims.play("finishIdle",true);            
                                 tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
@@ -916,20 +922,29 @@ class gameoverManager extends A3SoundEffects {
                         case 8:
                             //loop animation 
                             tempSceneRef.earieshadowLockout = true;
+                            tempSceneRef.enemy.gameoverLoopingSounds = 0;
                             tempSceneRef.shadowPlayer.anims.play("pleasure1",true);
                             setTimeout(function () {
                                 tempSceneRef.shadowPlayer.anims.play("pleasure2",true);
-
+                                tempSceneRef.enemy.gameoverLoopingSounds++;
                                 setTimeout(function () {
                                     tempSceneRef.shadowPlayer.anims.play("pleasure3",true);
-                                    
-                                    tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
-                                        tempSceneRef.shadowPlayer.anims.play("finishIdle",true);
-
+                                    tempSceneRef.enemy.gameoverLoopingSounds++;
+                                    setTimeout(function () {
+                                        
+                                        tempSceneRef.enemy.gameoverLoopingSounds++;
+                                        tempSceneRef.sound.get('plapSFX').stop();  
                                         setTimeout(function () {
-                                            tempSceneRef.earieshadowLockout = false;
-                                        },2000);
-                                    });
+                                            tempSceneRef.enemy.playPlapSound('squirt1',1000);
+                                        },450);
+                                        tempSceneRef.shadowPlayer.anims.play("finish").once('animationcomplete', () => {
+                                            tempSceneRef.shadowPlayer.anims.play("finishIdle",true);
+                                           
+                                            setTimeout(function () {
+                                                tempSceneRef.earieshadowLockout = false;
+                                            },2000);
+                                        });
+                                    },5000);
                                 },10000);
                             },10000);
                             
@@ -938,41 +953,70 @@ class gameoverManager extends A3SoundEffects {
                         default:
 
                     }
+                    
+                    
+                }
+
+                //manages sound effects for each state.
+                switch(tempSceneRef.earieShadowState) {
+                    case 0:
+                        tempSceneRef.enemy.playStomachSound('4',800); 
+                        break;
+                    case 1:
+                        
+                        break;
+                    case 2:
+                        tempSceneRef.enemy.playPlapSound('plap2',1000);
+                        break;
+                    case 3:
+                        tempSceneRef.enemy.playStomachSound('10',500); 
+                        break;
+                    case 4:
+                        tempSceneRef.enemy.playPlapSound('plap3',200);
+                        break;
+                    case 5:
+                        tempSceneRef.enemy.playPlapSound('plap9',700);
+                        break;
+                    case 6:
+                        tempSceneRef.enemy.playPlapSound('plap9',500);
+                        break;
+                    case 7:
+                        tempSceneRef.enemy.playPlapSound('plap10',500);
+                        break;
+                    case 8:
+                        break;
+                    default:
+                }
+                
+                if(tempSceneRef.earieShadowState === 8){
 
                     //manages sound effects for each state.
                     switch(tempSceneRef.earieShadowState) {
                         case 0:
-                            tempSceneRef.enemy.playStomachSound('3',800);
+                           
                             break;
                         case 1:
                             tempSceneRef.enemy.playPlapSound('plap2',1000);
                             break;
                         case 2:
-                            tempSceneRef.enemy.playPlapSound('plap1',1000);
                             tempSceneRef.enemy.playStomachSound('4',800); 
                             break;
                         case 3:
-                            
+                            tempSceneRef.enemy.playStomachSound('10',500); 
                             break;
                         case 4:
-                            tempSceneRef.enemy.playStomachSound('10',800); 
+                            tempSceneRef.enemy.playPlapSound('plap3',200);
                             break;
                         case 5:
-                            
+                            tempSceneRef.enemy.playPlapSound('plap9',700);
                             break;
                         case 6:
-                            
+                            tempSceneRef.enemy.playPlapSound('plap9',500);
                             break;
                         case 7:
-                            
+                            tempSceneRef.enemy.playPlapSound('plap10',500);
                             break;
                         case 8:
-                            
-                            break;
-                        default:
-
-                        if(tempSceneRef.earieShadowState === 8){
-
                             //sound state machine for ifferent stages.
                             if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
                                 console.log("playing sound 1")
@@ -984,8 +1028,10 @@ class gameoverManager extends A3SoundEffects {
                                 console.log("playing sound 3")
                                 tempSceneRef.enemy.playPlapSound('plap9',500);
                             }
-                        }
+                            break;
+                        default:
                     }
+                    
                 }
             }
         }

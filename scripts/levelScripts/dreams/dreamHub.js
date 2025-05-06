@@ -56,6 +56,7 @@ class dreamHub extends defaultScene {
 
       //creates tileset
       this.setUpTileSet("dream_hub_map","Dream_Tileset","dream_source_map");
+      this.processMap.layer0.setDepth(9);
     
       //creates player object
       this.setUpPlayer();

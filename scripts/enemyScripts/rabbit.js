@@ -1,6 +1,19 @@
 
 //implementation for the rabbit enemy.
 class rabbit extends enemy {
+
+    /*
+    rabbit rework road map
+    - leaping grab / some sort of grab animation that doesnt cause the hitbox to leave the ground, just astetic.
+    - add changes to other enemys, drops, seperate hitbox ect
+    - if player is wearing the carrot ring, change rabbits ai have the rabbit pant and drewl at the player when out of range
+    - if player is close, have the rabbit run after them,
+    - rabbit trys to knock down the player similiar to the white cat, running shove?
+    - if the player is grabbed while down, the struggle is the rabbit trying to eat the player
+    - struggle progresses to the player struggling in the belly while the rabbit humps them
+    - if player breaks free they come out of the back end of the rabbit? fun mix up?
+    - if the player gets digested, then the rabbit grows larger. becomes a futa if sex is different to enemy.
+    */
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         

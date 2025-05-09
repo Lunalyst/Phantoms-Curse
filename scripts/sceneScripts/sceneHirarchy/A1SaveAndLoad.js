@@ -614,8 +614,8 @@ for(let counter = 0; counter < 100; counter++){
 
           dataObject.inventoryArray[counter] = {
             itemID: 8,
-            itemName: 'SPEED RING',
-            itemDescription: 'INCREASES YOUR MOVEMENT SPEED SLIGHTLY.',
+            itemName: 'CARROT RING',
+            itemDescription: '1.2X MOVEMENT SPEED, BUT MAKES SOME CURSED HUNGRY.',
             itemStackable: 0,
             itemAmount: 1,
             itemType: "ring",

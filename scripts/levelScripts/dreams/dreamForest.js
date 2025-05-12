@@ -22,57 +22,26 @@ class dreamForest extends defaultScene {
 
     preload(){
 
+      this.defaultPreload();
+      
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["beeDrones","rabbits","tigers","whiteCats"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.tilemapTiledJSON("dream_forest_map" , "assets/tiledMap/Dream/Dream_Forest.json");
 
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
- 
-      this.defaultPreload();
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleDefeated', 'assets/enemys/tigerFemaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
-
-      this.load.spritesheet('tigerMale', 'assets/enemys/tigerMaleAll.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleDigestion', 'assets/enemys/tigerMaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleExtension', 'assets/enemys/tigerMaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleDefeated', 'assets/enemys/tigerMaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
-      
-      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('tigerPenned', 'assets/internalViews/tigerPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('beeDroneMale1', 'assets/enemys/beeDroneMale1.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneMale2', 'assets/enemys/beeDroneMale2.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
-
-      this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
-      
-      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-
-      this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
-  
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
 
       this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
         "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[

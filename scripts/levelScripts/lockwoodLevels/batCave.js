@@ -21,6 +21,14 @@ class batCave extends defaultScene {
     }
 
     preload(){
+      
+      this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["bats"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
 
       this.load.tilemapTiledJSON("bat_cave_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bat_Cave.json");
 
@@ -29,12 +37,6 @@ class batCave extends defaultScene {
       
       this.load.spritesheet('woodBarrier', 'assets/gameObjects/woodBarrier.png',{frameWidth: 126, frameHeight: 288 });
       this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 126, frameHeight: 96 });
-
-      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
-      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
-
-      this.defaultPreload();
-
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
@@ -130,7 +132,6 @@ class batCave extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["bats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //set up wooden barriers in the scene

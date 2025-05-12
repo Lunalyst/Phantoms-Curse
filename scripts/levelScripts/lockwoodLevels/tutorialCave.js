@@ -27,51 +27,32 @@ class tutorialCave extends defaultScene {
 
     preload(){
 
+      this.defaultPreload();
+      
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes","chestMimics"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.tilemapTiledJSON("cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Tutorial_Cave.json");
 
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
-      this.defaultPreload();
 
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-
-      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.spritesheet('mimicMale-evan-TF', 'assets/enemys/mimic_male_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evan-vore', 'assets/enemys/mimic_male_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-TF', 'assets/enemys/mimic_male_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-vore', 'assets/enemys/mimic_male_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.spritesheet('mimicTongue', 'assets/internalViews/mimicTongue.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
-       
-      this.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
-       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
       this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
       this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
 
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
+
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
       ]);
 
-      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
-      ]);
-
-      
     }
 
     create(){
@@ -242,7 +223,6 @@ class tutorialCave extends defaultScene {
       let thisScene = this;
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","chestMimics"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //make a temp object

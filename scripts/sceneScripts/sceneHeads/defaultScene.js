@@ -241,7 +241,4 @@ class defaultScene extends G10UpdateLoops {
   this.playerWarping = false;
 
   }
-
-     
-  
 }

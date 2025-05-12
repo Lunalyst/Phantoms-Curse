@@ -174,10 +174,6 @@ class tutorialBeach extends defaultScene {
         setTimeout(function(){
           //generates enemys
                 926,
-          //thisScene.initSlimes(606,937, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
-      
           thisScene.spawnedEnemys = true;
         },1000);
 

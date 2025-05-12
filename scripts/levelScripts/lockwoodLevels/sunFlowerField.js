@@ -26,34 +26,23 @@ class sunFlowerField extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["beeDrones"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Fields.json");
       
-      this.load.spritesheet('beeDroneMale1', 'assets/enemys/beeDroneMale1.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneMale2', 'assets/enemys/beeDroneMale2.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
-      this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-      //save
       this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
-      //this.load.spritesheet('sunflowerParallax', 'assets/parrallax/flowerfield.png',{frameWidth: 5760 , frameHeight: 4800});
       this.load.spritesheet('Sun_Flower_Parrallax', 'assets/parrallax/Sun_Flower_Parrallax.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-      //this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-      
-      /*this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
-        "audio/used-audio/forest-sounds/birds4.mp3"
-      ]);*/
-
       this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
         "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
-      ]);
-
-      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);
 
       this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
@@ -162,7 +151,6 @@ class sunFlowerField extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["beeDrones"];
       this.setUpEnemyCollider(this.enemyGroupArray);
      
       //define barriers whee enemys cannot go.

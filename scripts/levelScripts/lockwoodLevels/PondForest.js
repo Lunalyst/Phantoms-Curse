@@ -26,6 +26,12 @@ class PondForest extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      this.enemyGroupArray = ["whiteCats"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+      
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("ForestPondMap" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond.json");
 
@@ -34,35 +40,15 @@ class PondForest extends defaultScene {
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
       
-      this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
       
-      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-
-      this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
-      
-      this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
-
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       
-
-
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
-      ]);
-
-      this.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
-        "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
@@ -72,11 +58,6 @@ class PondForest extends defaultScene {
       //weapon sound effects
       this.load.audioSprite('weaponSFX1','audio/used-audio/player-sounds/weapon-swings.json',[
         "audio/used-audio/player-sounds/weapon-swings.mp3"
-      ]);
-
-      //hit sfx for when player gets hit.
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
     }
@@ -181,7 +162,6 @@ class PondForest extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["whiteCats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //needed to use cursed heart projectiles.

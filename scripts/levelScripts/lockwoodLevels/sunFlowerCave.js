@@ -26,66 +26,26 @@ class sunFlowerCave extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes","chestMimics"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("Sun_Flower_Cave" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
-      
-      
-      this.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-      this.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
-      
-      this.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
-  
-      this.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.spritesheet('mimicMale-evan-TF', 'assets/enemys/mimic_male_male1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evan-vore', 'assets/enemys/mimic_male_male2.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-TF', 'assets/enemys/mimic_male_female1.png',{frameWidth: 381, frameHeight: 303 });
-      this.load.spritesheet('mimicMale-evelyn-vore', 'assets/enemys/mimic_male_female2.png',{frameWidth: 381, frameHeight: 303 });
-      
-      this.load.spritesheet('mimicTongue', 'assets/internalViews/mimicTongue.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
-        
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
 
       this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
       this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-      
-      /*this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
-        "audio/used-audio/forest-sounds/birds4.mp3"
-      ]);*/
 
       this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
         "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
       ]);
 
-      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX3','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX4','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
     }
 
     create(){
@@ -172,8 +132,7 @@ class sunFlowerCave extends defaultScene {
 
       let thisScene = this;
 
-        //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","chestMimics"];
+      //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //make a temp object

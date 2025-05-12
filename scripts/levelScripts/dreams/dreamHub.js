@@ -30,12 +30,14 @@ class dreamHub extends defaultScene {
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-
       this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
 
       this.load.audioSprite('andrewknSFX','audio/used-audio/dream-sounds/dream-sounds.json',[
         "audio/used-audio/dream-sounds/andrewkn-not-to-notice.mp3"
       ]);
+
+      // define array of enemys, so we can preload the correct assets.
+      this.enemyGroupArray = [];
 
     }
 
@@ -104,7 +106,6 @@ class dreamHub extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = [""];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.

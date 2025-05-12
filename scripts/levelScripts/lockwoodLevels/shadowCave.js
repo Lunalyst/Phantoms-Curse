@@ -21,15 +21,20 @@ class ShadowCave extends defaultScene {
 
     preload(){
 
+      //define an array of enemys we are using
+      this.defaultPreload();
+      
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["curseShadows"];
+
+       //call built in function to preload enemys assets.
+       this.setUpEnemyPreload(this.enemyGroupArray);
       
       this.load.tilemapTiledJSON("shadow_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
-      this.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
-      this.load.spritesheet('curseShadowFemale', 'assets/enemys/curseShadowFemale.png',{frameWidth: 303, frameHeight: 429 });
-      
       this.defaultPreload();
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
@@ -38,14 +43,6 @@ class ShadowCave extends defaultScene {
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
-      ]);
-
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
-        "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
       ]);
 
     }
@@ -201,7 +198,6 @@ class ShadowCave extends defaultScene {
 
       let thisScene = this;
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["curseShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.

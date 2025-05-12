@@ -4,234 +4,437 @@ behavior.
 *******************************************************************************/
 class G6InitEnemys extends G5InitNPCs{
 
-  //sets up colliders for enemys. enemys have the same colliders at the player.
+  //powerful function to set up enemy spritesheet preload, by using the enemy array 
+  setUpEnemyPreloads(){
+
+    let tempSceneRef = this;
+
+    this.mapOfEnemyPreloadFunctions = {
+
+      blueSlimes: function blueSlimesFunction() {
+
+        tempSceneRef.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
+        tempSceneRef.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+
+        tempSceneRef.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
+        
+        tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+          "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        ]);
+      },
+      tigers: function tigersFunction() {
+
+        tempSceneRef.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerFemaleDefeated', 'assets/enemys/tigerFemaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+
+        tempSceneRef.load.spritesheet('tigerMale', 'assets/enemys/tigerMaleAll.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerMaleDigestion', 'assets/enemys/tigerMaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerMaleExtension', 'assets/enemys/tigerMaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
+        tempSceneRef.load.spritesheet('tigerMaleDefeated', 'assets/enemys/tigerMaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
+
+        tempSceneRef.load.spritesheet('tigerPenned', 'assets/internalViews/tigerPenned.png',{frameWidth: 213, frameHeight: 213});
+        
+        tempSceneRef.load.audioSprite('bushSFX','audio/used-audio/bush-sounds/bush-sounds.json',[
+          "audio/used-audio/bush-sounds/bush-sounds.mp3"
+        ]);
+
+      },
+      rabbits: function rabbitsFunction() {
+        
+        tempSceneRef.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
+        
+      },
+      beeDrones: function beeDronesFunction() {
+
+        tempSceneRef.load.spritesheet('beeDroneMale1', 'assets/enemys/beeDroneMale1.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneMale2', 'assets/enemys/beeDroneMale2.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
+        
+        tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+          "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        ]);
+
+      },
+      bats: function batsFunction() {
+
+        tempSceneRef.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
+        tempSceneRef.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
+
+
+      },
+      blueSlimeHSs: function blueSlimeHSsFunction() {
+
+        tempSceneRef.load.spritesheet('blue-slime-HNM', 'assets/enemys/blue-slime-humanoid-neutral-male.png',{frameWidth: 243, frameHeight: 363 });
+        tempSceneRef.load.spritesheet('blue-slime-HNF', 'assets/enemys/blue-slime-humanoid-neutral-female.png',{frameWidth: 243, frameHeight: 363 });
+        
+        tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+          "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        ]);
+ 
+      },
+      blueSlimeHMs: function blueSlimeHMsFunction() {
+
+        tempSceneRef.load.spritesheet('blue-slime-HM-F', 'assets/enemys/blue-slime-humanoid-male-female.png',{frameWidth: 243, frameHeight: 393 });
+        tempSceneRef.load.spritesheet('blue-slime-HM-M', 'assets/enemys/blue-slime-humanoid-male-male.png',{frameWidth: 243, frameHeight: 393 });
+        tempSceneRef.load.spritesheet('blue-slime-HF-M', 'assets/enemys/blue-slime-humanoid-female-male.png',{frameWidth: 243, frameHeight: 393 });
+        tempSceneRef.load.spritesheet('blue-slime-HF-F', 'assets/enemys/blue-slime-humanoid-female-female.png',{frameWidth: 243, frameHeight: 393 });
+
+        tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
+          "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
+        ]);
+        
+      },
+      chestMimics: function chestMimicsFunction() {
+
+        tempSceneRef.load.spritesheet('mimicFemale-evan-TF', 'assets/enemys/mimic_female_male1.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicFemale-evan-vore', 'assets/enemys/mimic_female_male2.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicFemale-evelyn-TF', 'assets/enemys/mimic_female_female1.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicFemale-evelyn-vore', 'assets/enemys/mimic_female_female2.png',{frameWidth: 381, frameHeight: 303 });
+        
+        tempSceneRef.load.spritesheet('mimicMale-evan-TF', 'assets/enemys/mimic_male_male1.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicMale-evan-vore', 'assets/enemys/mimic_male_male2.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicMale-evelyn-TF', 'assets/enemys/mimic_male_female1.png',{frameWidth: 381, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mimicMale-evelyn-vore', 'assets/enemys/mimic_male_female2.png',{frameWidth: 381, frameHeight: 303 });
+        
+        tempSceneRef.load.spritesheet('mimicTongue', 'assets/internalViews/mimicTongue.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('mimicPenned', 'assets/internalViews/mimicPenned.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('mimicPenning', 'assets/internalViews/mimicPenning.png',{frameWidth: 213, frameHeight: 213});
+        
+        tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+
+      },
+      whiteCats: function whiteCatsFunction() {
+
+        tempSceneRef.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
+          
+        tempSceneRef.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
+        tempSceneRef.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
+
+        tempSceneRef.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
+      
+        tempSceneRef.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
+
+        //hit sfx for when player gets hit.
+        tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
+          "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
+        ]);
+
+      },
+      curseShadows: function curseShadowFunction() {
+
+        tempSceneRef.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
+        tempSceneRef.load.spritesheet('curseShadowFemale', 'assets/enemys/curseShadowFemale.png',{frameWidth: 303, frameHeight: 429 });
+        
+        tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+  
+        tempSceneRef.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
+          "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
+        ]);
+
+      },
+      earieShadows: function earieShadowsFunction() {
+        
+        tempSceneRef.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
+
+        tempSceneRef.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
+          "audio/used-audio/earie-sounds/earie-sounds.mp3"
+        ]);
+  
+        tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+  
+        tempSceneRef.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
+          "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
+        ]);
+      },
+
+    };
+
+  }
+
+  //sets up enemy collision functions.
+  setUpEnemyCollisionFunctions(){
+
+    let tempSceneRef = this;
+
+        /* note about map of functions. make sure name of function is unique as it will
+         overwrite any other function or class with the same name and cause a recursive loop that crashes the browser */
+        this.mapOfEnemyCollisionFunctions = {
+          blueSlimes: function blueSlimesFunction() {
+            console.log("adding blueSlimes group");
+            tempSceneRef.blueSlimes = tempSceneRef.physics.add.group();
+          },
+          tigers: function tigersFunction() {
+            console.log("adding Tigers group");
+            tempSceneRef.tigers = tempSceneRef.physics.add.group();
+          },
+          rabbits: function rabbitsFunction() {
+            console.log("adding rabbits group");
+            tempSceneRef.rabbits = tempSceneRef.physics.add.group();
+          },
+          beeDrones: function beeDronesFunction() {
+            console.log("adding beeDrones group");
+            tempSceneRef.beeDrones = tempSceneRef.physics.add.group();
+          },
+          bats: function batsFunction() {
+            console.log("adding bats group");
+            tempSceneRef.bats = tempSceneRef.physics.add.group();
+          },
+          blueSlimeHSs: function blueSlimeHSsFunction() {
+            console.log("adding blueSlimeHSs group");
+            tempSceneRef.blueSlimeHSs = tempSceneRef.physics.add.group();
+          },
+          blueSlimeHMs: function blueSlimeHMsFunction() {
+            console.log("adding blueSlimeHMs group");
+            tempSceneRef.blueSlimeHMs = tempSceneRef.physics.add.group();
+          },
+          chestMimics: function chestMimicsFunction() {
+            console.log("adding chestMimics group");
+            tempSceneRef.chestMimics = tempSceneRef.physics.add.group();
+          },
+          whiteCats: function whiteCatsFunction() {
+            console.log("adding whiteCats group");
+            tempSceneRef.whiteCats = tempSceneRef.physics.add.group();
+          },
+          curseShadows: function curseShadowsFunction() {
+            console.log("adding curseShadows group");
+            tempSceneRef.curseShadows = tempSceneRef.physics.add.group();
+          },
+          earieShadows: function earieShadowsFunction() {
+            console.log("adding earieShadows group");
+            tempSceneRef.earieShadows = tempSceneRef.physics.add.group();
+          },
+          
+        };
+  }
+  
+  //sets up enemy init functions to be called.
+  setUpInitEnemyFunctions(){
+
+    let tempSceneRef = this;
+
+    this.mapOfInitEnemyFunctions = {
+      blueSlime: function blueSlimeFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let slime1 = new blueSlime(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blue slime small id: ",slime1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(slime1);
+        tempSceneRef.blueSlimes.add(slime1);
+      },
+      blueSlimeLarge: function blueSlimeLargeFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let slime1 = new blueSlime(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blue slime large id: ",slime1.enemyId);
+        tempSceneRef.enemyId++;
+        slime1.slimeSize = 2;
+        slime1.anims.play("slimeLargeIdle",true);
+        tempSceneRef.enemys.add(slime1);
+        tempSceneRef.blueSlimes.add(slime1);
+      },
+      tiger: function tigerFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let tiger1 = new tiger(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created tiger id: ",tiger1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(tiger1);  
+        tempSceneRef.tigers.add(tiger1);
+      },
+      tigerBooba: function tigerBoobaFunction(startX, startY, playerSex, inSafeMode,soundSFX) {
+        let tiger1 = new tiger(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created tiger ate rabbit id:",tiger1.enemyId);
+        tempSceneRef.enemyId++;
+        tiger1.tigerHasEatenRabbit = true;
+        if(tiger1.enemySex ===1){
+          tiger1.anims.play('tigerTummybreastSquish',true);
+        }else{
+          tiger1.anims.play('tigerTummyShaftStroke',true);
+        }
+        tempSceneRef.enemys.add(tiger1);  
+        tempSceneRef.tigers.add(tiger1);
+      },
+      rabbit: function rabbitFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let rabbit1 = new rabbit(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created rabbit id: ",rabbit1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(rabbit1);  
+        tempSceneRef.rabbits.add(rabbit1);
+      },
+      beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        console.log("created beeDrone id: ",beeDrone1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(beeDrone1);  
+        tempSceneRef.beeDrones.add(beeDrone1);
+      },
+      bat: function batFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        console.log("inSafeMode: ",inSafeMode)
+        let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        console.log("created bat id: ",bat1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(bat1);  
+        tempSceneRef.bats.add(bat1);
+      },
+      blueSlimeHS: function blueSlimeHSFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let slime1 = new blueSlimeHS(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blueSlimeHS id: ",slime1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(slime1);
+        tempSceneRef.blueSlimeHSs.add(slime1);
+      },
+      blueSlimeHM: function blueSlimeHMFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let slime1 = new blueSlimeHM(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blueSlimeHM id: ",slime1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(slime1);
+        tempSceneRef.blueSlimeHMs.add(slime1);
+      },
+      chestMimic: function chestMimicFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let mimic = new chestMimic(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        console.log("created chestMimic id: ",mimic.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(mimic);
+        tempSceneRef.chestMimics.add(mimic);
+      },
+      chestMimicAngry: function chestMimicAngryFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let mimic = new chestMimic(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        mimic.angry = true;
+        mimic.anims.play('mimicAngryIdle',tempSceneRef);
+        console.log("created chestMimicAngry id: ",mimic.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(mimic);
+        tempSceneRef.chestMimics.add(mimic);
+      },
+      whiteCat: function whiteCatFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let cat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created whiteCat id: ",cat.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(cat);
+        tempSceneRef.whiteCats.add(cat);
+      },
+      angryWhiteCat: function angryWhiteCatFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let cat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        cat.angry = true;
+        cat.anims.play('catAngryidleViewer',true);
+        console.log("created angryWhiteCat id: ",cat.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(cat);
+        tempSceneRef.whiteCats.add(cat);
+      },
+      curseShadow: function curseShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let shadow = new curseShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        tempSceneRef.enemyId++;
+        console.log("created curseShadow id: ",shadow.enemyId);
+        tempSceneRef.enemys.add(shadow);
+        tempSceneRef.curseShadows.add(shadow);
+      },
+      earieShadow: function earieShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let earieS = new EarieShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        tempSceneRef.enemyId++;
+        console.log("created earieShadows id: ",earieS.enemyId);
+        tempSceneRef.enemys.add(earieS);
+        tempSceneRef.earieShadows.add(earieS);
+      },
+      
+    };
+  }
+
+  //sets up colliders for enemys using a map of collider functions
+  setUpEnemyPreload(enemyGroupArray){
+
+    //if the enemyGroupArray is not defined
+    if(enemyGroupArray === null || enemyGroupArray === undefined){
+      this.enemyGroupArray = [];
+    }
+
+    //call function to create a map of enemy collider functions if its not define, so i dont need to define it in every scene.
+    if(this.mapOfEnemyPreloadFunctions === null || this.mapOfEnemyPreloadFunctions === undefined){
+      console.log("enemy preload map missing, calling function to create");
+      this.setUpEnemyPreloads();
+    }
+
+    if(enemyGroupArray.length > 0){
+      console.log("enemyGroupArray: ",enemyGroupArray);
+        //array storing all the enemy groups present. currently empty
+        //loop which searches array of enemys, then allocates those groups.
+        for(let counter = 0; counter < enemyGroupArray.length; counter++){
+          
+          //call our map of enemy collision functions.
+          this.mapOfEnemyPreloadFunctions[enemyGroupArray[counter]]();
+        }
+      
+    }
+
+  }
+
+  //sets up colliders for enemys using a map of collider functions
   setUpEnemyCollider(enemyGroupArray){
 
-    //array storing all the enemy groups present. currently empty
-    //loop which searches array of enemys, then allocates those groups.
-    for(let counter = 0; counter < enemyGroupArray.length; counter++){
-      if(enemyGroupArray[counter] === 'blueSlimes'){
-
-        console.log("adding blueSlimes group");
-        this.blueSlimes = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'tigers'){
-
-        console.log("adding Tigers group");
-        this.tigers = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'rabbits'){
-
-        console.log("adding rabbits group");
-        this.rabbits = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'beeDrones'){
-
-        console.log("adding beeDrones group");
-        this.beeDrones = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'bats'){
-
-        console.log("adding bats group");
-        this.bats = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'blueSlimeHSs'){
-
-        console.log("adding blueSlimeHSs group");
-        this.blueSlimeHSs = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'blueSlimeHMs'){
-
-        console.log("adding blueSlimeHMs group");
-        this.blueSlimeHMs = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'chestMimics'){
-
-        console.log("adding chestMimics group");
-        this.chestMimics = this.physics.add.group();
-      }if(enemyGroupArray[counter] === 'whiteCats'){
-
-        console.log("adding whiteCats group");
-        this.whiteCats = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'curseShadows'){
-        console.log("adding curseShadows group");
-        this.curseShadows = this.physics.add.group();
-      }
-      if(enemyGroupArray[counter] === 'earieShadows'){
-        console.log("adding earieShadows group");
-        this.earieShadows = this.physics.add.group();
-      }
-
-      //this.chestMimics
+    //call function to create a map of enemy collider functions if its not define, so i dont need to define it in every scene.
+    if(this.mapOfEnemyCollisionFunctions === null || this.mapOfEnemyCollisionFunctions === undefined){
+      console.log("enemy collider map missing, calling function to create");
+      this.setUpEnemyCollisionFunctions();
     }
+
+    //if the enemyGroupArray is not defined
+    if(enemyGroupArray === null || enemyGroupArray === undefined){
+      this.enemyGroupArray = [];
+    }
+
+    if(enemyGroupArray.length > 0){
+      console.log("enemyGroupArray: ",enemyGroupArray);
+        //array storing all the enemy groups present. currently empty
+        //loop which searches array of enemys, then allocates those groups.
+        for(let counter = 0; counter < enemyGroupArray.length; counter++){
+          
+          //call our map of enemy collision functions.
+          this.mapOfEnemyCollisionFunctions[enemyGroupArray[counter]]();
+        }
+      
+      }
+
     //creates enemys group that can apply geberic functions to all enemys
     this.enemys = this.physics.add.group();
+      
 
-    //this.tigers = this.physics.add.group();
-    //this.blueSlimes = this.physics.add.group();
     //creates id so scene can work with multiple enemys
     this.enemyId = 0;
     this.physics.add.collider(this.processMap.layer1, this.enemys);
     this.physics.add.collider(this.processMap.layer0, this.enemys); 
+
   }
-  
+
   //creates a enemy. enemytype determines what enemy is spawned
   initEnemy(startX, startY, playerSex, enemyType,inSafeMode,soundSFX) {
     console.log("enemy spawned: ",enemyType);
 
-  
-    //creates a enemy based on enemyType passed in.
-    if(enemyType === 'blueSlime'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let slime1 = new blueSlime(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("blueSlime.enemyId: ",slime1.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(slime1);
-      this.blueSlimes.add(slime1);
-
-    }else if(enemyType === 'blueSlimeLarge'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let slime1 = new blueSlime(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("blueSlime.enemyId: ",slime1.enemyId);
-      this.enemyId++;
-      slime1.slimeSize = 2;
-      slime1.anims.play("slimeLargeIdle",true);
-      //adds the enemy to both groups.
-      this.enemys.add(slime1);
-      this.blueSlimes.add(slime1);
-
-    }else if(enemyType === 'tiger'){
-      let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("tiger1.enemyId: ",tiger1.enemyId);
-      this.enemyId++;
-      this.enemys.add(tiger1);  
-      this.tigers.add(tiger1);
-
-    }else if(enemyType === 'tigerBooba'){
-      let tiger1 = new tiger(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("tiger1.enemyId: ",tiger1.enemyId);
-      this.enemyId++;
-      tiger1.tigerHasEatenRabbit = true;
-      if(tiger1.enemySex ===1){
-        tiger1.anims.play('tigerTummybreastSquish',true);
-      }else{
-        tiger1.anims.play('tigerTummyShaftStroke',true);
-      }
-      this.enemys.add(tiger1);  
-      this.tigers.add(tiger1);
-
-    }else if(enemyType === 'rabbit'){
-      
-      let rabbit1 = new rabbit(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("rabbit1.enemyId: ",rabbit1.enemyId);
-      this.enemyId++;
-      this.enemys.add(rabbit1);  
-      this.rabbits.add(rabbit1);
-
-    }else if(enemyType === 'beeDrone'){
-      
-      let beeDrone1 = new beeDrone(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
-      console.log("beeDrone.enemyId: ",beeDrone1.enemyId);
-      this.enemyId++;
-      this.enemys.add(beeDrone1);  
-      this.beeDrones.add(beeDrone1);
-    }else if(enemyType === 'bat'){
-      console.log("inSafeMode: ",inSafeMode)
-      let bat1 = new bat(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
-      console.log("bat1.enemyId: ",bat1.enemyId);
-      this.enemyId++;
-      this.enemys.add(bat1);  
-      this.bats.add(bat1);
-    }else if(enemyType === 'blueSlimeHS'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let slime1 = new blueSlimeHS(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-
-      console.log("blueSlimeHS.enemyId: ",slime1.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(slime1);
-      this.blueSlimeHSs.add(slime1);
-
-    }else if(enemyType === 'blueSlimeHM'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let slime1 = new blueSlimeHM(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-
-      console.log("blueSlimeHM.enemyId: ",slime1.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(slime1);
-      this.blueSlimeHMs.add(slime1);
-    }else if(enemyType === 'chestMimic'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let mimic = new chestMimic(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
-
-      console.log("mimic.enemyId: ",mimic.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(mimic);
-      this.chestMimics.add(mimic);
-    }else if(enemyType === 'chestMimicAngry'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let mimic = new chestMimic(this, startX, startY, playerSex,this.enemyId,inSafeMode,soundSFX);
-      mimic.angry = true;
-      mimic.anims.play('mimicAngryIdle',true);
-      console.log("mimic.enemyId: ",mimic.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(mimic);
-      this.chestMimics.add(mimic);
-    }else if(enemyType === 'whiteCat'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      console.log("cat.enemyId: ",cat.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(cat);
-      this.whiteCats.add(cat);
-    }else if(enemyType === 'angryWhiteCat'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let cat = new whiteCat(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      cat.angry = true;
-      cat.anims.play('catAngryidleViewer',true);
-      console.log("cat.enemyId: ",cat.enemyId);
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(cat);
-      this.whiteCats.add(cat);
-    }else if(enemyType === 'curseShadow'){
-      
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let shadow = new curseShadow(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(shadow);
-      this.curseShadows.add(shadow);
-    }else if(enemyType === 'earieShadows'){
-      //creates a secondary group to handle enemy specific interactions which we will use later
-      let earieS = new EarieShadow(this, startX, startY, playerSex,this.enemyId,inSafeMode);
-      
-      this.enemyId++;
-      //adds the enemy to both groups.
-      this.enemys.add(earieS);
-      this.earieShadows.add(earieS);
-    }else{
-      console.log("UNKNOWN enemyType: ",enemyType);
-      /*let enemy = new enemyTemplate(this, startX, startY, playerSex,this.enemyId);
-      console.log("enemy.enemyId: ",enemy.enemyId);
-      this.enemyId++;
-      this.enemys.add(enemy); */
+    if(this.mapOfInitEnemyFunctions === null || this.mapOfInitEnemyFunctions === undefined){
+      console.log("enemy init map not created, now creating it.");
+      this.setUpInitEnemyFunctions();
     }
+
+    this.mapOfInitEnemyFunctions[enemyType](startX, startY, playerSex,inSafeMode,soundSFX);
+
+    
     
   }
 

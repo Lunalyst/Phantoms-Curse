@@ -21,26 +21,18 @@ class EarieCave extends defaultScene {
 
     preload(){
 
+      this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["curseShadows","earieShadows"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.tilemapTiledJSON("earie_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Earie_Cave.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
-
-      this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
-      
-      this.defaultPreload();
-
-      this.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
-        "audio/used-audio/earie-sounds/earie-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
-        "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
-      ]);
 
     }
 
@@ -113,7 +105,6 @@ class EarieCave extends defaultScene {
 
       let thisScene = this;
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["curseShadows","earieShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
@@ -128,7 +119,7 @@ class EarieCave extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
 
-          thisScene.initEnemy(1000,1000,thisScene.playerSex,'earieShadows',false);
+          thisScene.initEnemy(1000,1000,thisScene.playerSex,'earieShadow',false);
           thisScene.spawnedEnemys = true;
 
         },1000);

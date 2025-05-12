@@ -17,12 +17,6 @@ class caveToSunflowers1 extends defaultScene {
     this.processMap;
     this.myMap;
 
-    //definition for enemy variables
-    //this.slimes;
-    //this.slimeId = 0;
-
-    
-
     }
 
     preload(){

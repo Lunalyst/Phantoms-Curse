@@ -24,42 +24,29 @@ class TestForest extends defaultScene {
     }
 
     preload(){
+      
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["tigers",'rabbits'];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Forest_Tileset/Test_Forest.json");
-
-      this.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleDigestion', 'assets/enemys/tigerFemaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleExtension', 'assets/enemys/tigerFemaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerFemaleDefeated', 'assets/enemys/tigerFemaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
-
-      this.load.spritesheet('tigerMale', 'assets/enemys/tigerMaleAll.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleDigestion', 'assets/enemys/tigerMaleAllDigestion.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleExtension', 'assets/enemys/tigerMaleAllExtension.png',{frameWidth: 345, frameHeight: 279 });
-      this.load.spritesheet('tigerMaleDefeated', 'assets/enemys/tigerMaleDefeated.png',{frameWidth: 345, frameHeight: 279 });
-
-      this.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-      this.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
 
       this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-      this.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('tigerPenned', 'assets/internalViews/tigerPenned.png',{frameWidth: 213, frameHeight: 213});
-       
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
-      ]);
-
-      this.load.audioSprite('bushSFX','audio/used-audio/bush-sounds/bush-sounds.json',[
-        "audio/used-audio/bush-sounds/bush-sounds.mp3"
       ]);
       
     }
@@ -162,7 +149,6 @@ class TestForest extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["tigers",'rabbits'];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.

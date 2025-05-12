@@ -22,33 +22,23 @@ class dreamShadowCave extends defaultScene {
 
     preload(){
 
+      this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["curseShadows","earieShadows"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.tilemapTiledJSON("dream_cave_shadow_map" , "assets/tiledMap/Dream/Dream_Shadow_Cave.json");
 
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
 
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
 
-      this.load.spritesheet('curseShadowMale', 'assets/enemys/curseShadowMale.png',{frameWidth: 303, frameHeight: 429 });
-      this.load.spritesheet('curseShadowFemale', 'assets/enemys/curseShadowFemale.png',{frameWidth: 303, frameHeight: 429 });
-      
-      this.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
-
       this.load.spritesheet('secretRemover', 'assets/gameObjects/secretRemover.png',{frameWidth: 99, frameHeight: 99 });
       
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
-
-      this.defaultPreload();
-
-      this.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
-      this.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
-
-      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
-        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
-        "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
-      ]);
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
@@ -56,11 +46,6 @@ class dreamShadowCave extends defaultScene {
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
       ]);
-
-      this.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
-        "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
-      ]);
-
 
     }
 
@@ -134,7 +119,6 @@ class dreamShadowCave extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["curseShadows","earieShadows"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -165,15 +149,13 @@ class dreamShadowCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
   
         if((object1.foundFlag === true) && (object1.flagToFind === 'earieShadow')){
-          thisScene.initEnemy(1708,485,thisScene.playerSex,'earieShadows',true)
+          thisScene.initEnemy(1708,485,thisScene.playerSex,'earieShadow',true)
 
           if(thisScene.titleLogoType === "shadow"){
             thisScene.initSecretRemover(1628,485);
           }
           
         }
-
-        
 
         thisScene.spawnedEnemys = true;
       },1000);

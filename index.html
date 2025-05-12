@@ -25,11 +25,14 @@
   <script src="scripts/sceneScripts/sceneHirarchy/G3SetupCollisionFunctions.js"></script>
   <script src="scripts/sceneScripts/sceneHirarchy/G4InitGameObjects.js"></script>
   <script src="scripts/sceneScripts/sceneHirarchy/G5InitNPCs.js"></script>
-  <script src="scripts/sceneScripts/sceneHirarchy/G6InitEnemys.js"></script>
-  <script src="scripts/sceneScripts/sceneHirarchy/G7CheckGameObjects.js"></script>
-  <script src="scripts/sceneScripts/sceneHirarchy/G8CheckNPCS.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G6PreloadEnemys.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G7EnemyCollisions.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G8InitEnemys.js"></script>
   <script src="scripts/sceneScripts/sceneHirarchy/G9CheckEnemys.js"></script>
-  <script src="scripts/sceneScripts/sceneHirarchy/G10UpdateLoops.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G10CheckNPCS.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G11CheckGameObjects.js"></script>
+  <script src="scripts/sceneScripts/sceneHirarchy/G12UpdateLoops.js"></script>
+
 
   <script src="scripts/sceneScripts/sceneHeads/emitters.js"></script>
   <script src="scripts/sceneScripts/sceneHeads/defaultScene.js"></script>
@@ -210,11 +213,13 @@
           new A1SaveAndLoad,
           new A2Emitters,
           new A3SoundEffects,
-          new G10UpdateLoops,
+          new G12UpdateLoops,
+          new G11CheckGameObjects,
+          new G10CheckNPCS,
           new G9CheckEnemys,
-          new G8CheckNPCS,
-          new G7CheckGameObjects,
-          new G6InitEnemys,
+          new G8InitEnemys,
+          new G7EnemyCollisions,
+          new G6PreloadEnemys,
           new G5InitNPCs,
           new G4InitGameObjects,
           new G3SetupCollisionFunctions,

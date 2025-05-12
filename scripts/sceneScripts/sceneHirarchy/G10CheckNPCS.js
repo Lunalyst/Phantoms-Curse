@@ -1,7 +1,7 @@
 /****************************************************************************** 
 description: handles gameplay logic for npc during gameplay?
 *******************************************************************************/
-class G8CheckNPCS extends G7CheckGameObjects {
+class G10CheckNPCS extends G9CheckEnemys {
 
   //checks to see if the player can activate a npc object
   checkNpc(scene) {

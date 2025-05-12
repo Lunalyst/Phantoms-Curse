@@ -1,4 +1,4 @@
-class defaultScene extends G10UpdateLoops {
+class defaultScene extends G12UpdateLoops {
 
     //{preload Functions}===================================================================================================================
 
@@ -14,7 +14,6 @@ class defaultScene extends G10UpdateLoops {
       this.load.spritesheet("femalePlayer" , "assets/player/evelyn_master.png" , {frameWidth: 273 , frameHeight: 270 });
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
-      
       //male specific parts
       this.load.spritesheet("1-evan-back-leg" , "assets/player/1-evan-back-leg.png" , {frameWidth: 393 , frameHeight: 243});
       this.load.spritesheet("2-evan-back-leg-cloths" , "assets/player/2-evan-back-leg-cloths.png" , {frameWidth: 393 , frameHeight: 243});

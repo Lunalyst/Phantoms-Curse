@@ -1,7 +1,7 @@
 /****************************************************************************** 
 description: function to handle gameobject logic during the update loop
 *******************************************************************************/
-class G7CheckGameObjects extends G6InitEnemys {
+class G11CheckGameObjects extends G10CheckNPCS {
 
   //test to see if the player should be warped
   checkWarp(location) {

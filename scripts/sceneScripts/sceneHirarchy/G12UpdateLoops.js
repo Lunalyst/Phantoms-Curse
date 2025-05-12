@@ -1,4 +1,4 @@
-class G10UpdateLoops extends G9CheckEnemys{
+class G12UpdateLoops extends G11CheckGameObjects{
 
   //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
   defaultUpdate(){

@@ -2,7 +2,7 @@
 description: check enemy logic during gameplay. handles checks for hitboxes, 
 and other collisions.
 *******************************************************************************/
-class G9CheckEnemys extends G8CheckNPCS {
+class G9CheckEnemys extends G8InitEnemys {
 
   //function keeps track of slime interactions
   checkBlueSlimeInteractions(scene) {

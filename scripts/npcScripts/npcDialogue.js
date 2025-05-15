@@ -9,19 +9,19 @@ const npcDialogue = {
                         "textvoice":"lightPiano",
                         "children":["node2"]
                     },"node2":{
-                        "dialogue": "You awake in your bed knowing that todays special...",
+                        "dialogue": "You awake in you re bed knowing that todays special...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "Your leaving home, In search of an adventure...",
+                        "dialogue": "You re leaving home, In search of an adventure...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "Your destination, the Ruinous Rombus...",
+                        "dialogue": "You re destination, the Ruinous Rombus...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node5"]
@@ -57,7 +57,7 @@ const npcDialogue = {
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "something worth Risking your life for...",
+                        "dialogue": "something worth Risking You re life for...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node11"]
@@ -110,7 +110,7 @@ const npcDialogue = {
                 },
                 "worldDrops":{
                     "node1":{
-                        "dialogue": "sometimes items will appear on the ground, or be dropped by a monster. you can walk over these items to pick them up and add them to your inventory. ",
+                        "dialogue": "sometimes items will appear on the ground, or be dropped by a monster. you can walk over these items to pick them up and add them to You re inventory. ",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node2"]
@@ -139,37 +139,37 @@ const npcDialogue = {
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "you can open your inventory with tab, or use the inventory button on the right of the screen.",
+                        "dialogue": "you can open You re inventory with tab, or use the inventory button on the right of the screen.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "your inventory has equip slots which allow you to change your equipment.",
+                        "dialogue": "You re inventory has equip slots which allow you to change You re equipment.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "your weapon slot allows you to use active items with shift. by default your attack is a weak hand swipe.",
+                        "dialogue": "You re weapon slot allows you to use active items with shift. by default You re attack is a weak hand swipe.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "your ring slot allows you to have a special effect. what that special effect is depends on the item.",
+                        "dialogue": "You re ring slot allows you to have a special effect. what that special effect is depends on the item.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "if youre ever confused about what an item does, simply hover over the item in your inventory, as it displays the item name, info, and sell price.",
+                        "dialogue": "if You re ever confused about what an item does, simply hover over the item in You re inventory, as it displays the item name, info, and sell price.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "try opening that chest, and testing out the weapon by putting it in your weapon slot, then use shift to attack, or the atk button on the right.",
+                        "dialogue": "try opening that chest, and testing out the weapon by putting it in You re weapon slot, then use shift to attack, or the atk button on the right.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -178,19 +178,19 @@ const npcDialogue = {
                 ,"saveStones":{
 
                     "node1":{
-                        "dialogue": "use these shrines to save your progress. you will find them scattered all over the island.",
+                        "dialogue": "use these shrines to save You re progress. you will find them scattered all over the island.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "these shrines are special and will restore your strength as well.",
+                        "dialogue": "these shrines are special and will restore You re strength as well.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "in your inventory you have a settings button. by clicking on it, it opens up the game settings. ",
+                        "dialogue": "in You re inventory you have a settings button. by clicking on it, it opens up the game settings. ",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node4"]
@@ -202,13 +202,13 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "but most importantly you can change your sexual preference so enemys reflect your desires.",
+                        "dialogue": "but most importantly you can change You re sexual preference so enemys reflect You re desires.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "as well as your player sex. just be aware that changing some setting requires the game to reload, so make sure to save at a save stone.",
+                        "dialogue": "as well as You re player sex. just be aware that changing some setting requires the game to reload, so make sure to save at a save stone.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -229,19 +229,19 @@ const npcDialogue = {
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "some enemys will reduce your hp while others will build up your cursed energy. in most cases cursed energy is built up from sexual acts.",
+                        "dialogue": "some enemys will reduce You re hp while others will build up You re cursed energy. in most cases cursed energy is built up from sexual acts.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "if your curse bar maxes out, then the monster will transform you intro a monster, resulting in a gameover.",
+                        "dialogue": "if You re curse bar maxes out, then the monster will transform you intro a monster, resulting in a gameover.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "if you run out of health, then your probably going to get trapped in a monsters stomach and digested.",
+                        "dialogue": "if you run out of health, then You re probably going to get trapped in a monsters stomach and digested.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node6"]
@@ -253,13 +253,13 @@ const npcDialogue = {
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "some enemys might even have special animations if you defeat them, which can reduce your cursed energy.",
+                        "dialogue": "some enemys might even have special animations if you defeat them, which can reduce You re cursed energy.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "if your defeated by a enemy, then check the bestiary. its full if useful information about what damage types an enemy is weak too, along with some information about that enemy.",
+                        "dialogue": "if You re defeated by a enemy, then check the bestiary. its full if useful information about what damage types an enemy is weak too, along with some information about that enemy.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -272,7 +272,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
-                        "dialogue": "the storage locker can be used to store your items. it is open and closed with w",
+                        "dialogue": "the storage locker can be used to store You re items. it is open and closed with w",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node3"]

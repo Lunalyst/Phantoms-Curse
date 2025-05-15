@@ -557,32 +557,33 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.shadowPlayer.curseLight = tempSceneRef.lights.addLight(tempSceneRef.shadowPlayer.x,tempSceneRef.shadowPlayer.y, 100, 0x666666);
                 }
                 //creates animations for try agian button
+                /*note need to define animation keys apart of the enemy, and not the scene, otherwise keys will not be overwritting on subsequent activations of this code. */
                 if(tempSceneRef.playerSex === 0){
-                    tempSceneRef.anims.create({key: 'struggle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'grab',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'restrained',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'mostlyTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 12, end: 32 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'mostlyTransformedIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 33, end: 36 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'finishedTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 37, end: 41 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'beginSucking',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 42, end: 51 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'pleasure1',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 52, end: 55 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'pleasure2',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 52, end: 55 }),frameRate: 12,repeat: -1});
-                    tempSceneRef.anims.create({key: 'pleasure3',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 56, end: 59 }),frameRate: 12,repeat: -1});
-                    tempSceneRef.anims.create({key: 'finish',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 60, end: 71 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'finishIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 72, end: 75 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'struggle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'grab',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'restrained',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'mostlyTransformed',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 12, end: 32 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'mostlyTransformedIdle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 33, end: 36 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finishedTransformed',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 37, end: 41 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'beginSucking',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 42, end: 51 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure1',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 52, end: 55 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure2',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 52, end: 55 }),frameRate: 12,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure3',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 56, end: 59 }),frameRate: 12,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finish',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretMale', { start: 60, end: 71 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finishIdle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretMale', { start: 72, end: 75 }),frameRate: 7,repeat: -1});
                 }else{
-                    tempSceneRef.anims.create({key: 'struggle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'grab',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'restrained',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'mostlyTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 12, end: 32 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'mostlyTransformedIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 33, end: 36 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'finishedTransformed',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 37, end: 41 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'beginSucking',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 42, end: 51 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'pleasure1',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 52, end: 55 }),frameRate: 7,repeat: -1});
-                    tempSceneRef.anims.create({key: 'pleasure2',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 52, end: 55 }),frameRate: 12,repeat: -1});
-                    tempSceneRef.anims.create({key: 'pleasure3',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 56, end: 59 }),frameRate: 12,repeat: -1});
-                    tempSceneRef.anims.create({key: 'finish',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 60, end: 71 }),frameRate: 7,repeat: 0});
-                    tempSceneRef.anims.create({key: 'finishIdle',frames: tempSceneRef.anims.generateFrameNames('curseShadowSecretFemale', { start: 72, end: 75 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'struggle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'grab',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 4, end: 7 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'restrained',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'mostlyTransformed',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 12, end: 32 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'mostlyTransformedIdle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 33, end: 36 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finishedTransformed',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 37, end: 41 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'beginSucking',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 42, end: 51 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure1',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 52, end: 55 }),frameRate: 7,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure2',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 52, end: 55 }),frameRate: 12,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'pleasure3',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 56, end: 59 }),frameRate: 12,repeat: -1});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finish',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 60, end: 71 }),frameRate: 7,repeat: 0});
+                    tempSceneRef.shadowPlayer.anims.create({key: 'finishIdle',frames: tempSceneRef.shadowPlayer.anims.generateFrameNames('curseShadowSecretFemale', { start: 72, end: 75 }),frameRate: 7,repeat: -1});
                 
                 }
                 //tempSceneRef.shadowPlayer.anims.play("struggle",true);
@@ -592,6 +593,9 @@ class gameoverManager extends A3SoundEffects {
 
                 tempSceneRef.mobileW.visible = false;
                 tempSceneRef.showTryAgain = false;
+
+                //stops the player from pressing w to skip through time scripted dialogue
+                tempSceneRef.dialogueInterupt = true;
 
             },
         }
@@ -927,6 +931,8 @@ class gameoverManager extends A3SoundEffects {
                                 tempSceneRef.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
                                 
                                 tempSceneRef.tryAgian.visible = true;
+                                //allows the player to click the try agian button to load back into last save
+                                tempSceneRef.dialogueInterupt = false;
 
                                 tempSceneRef.earieshadowLockout = false;
                             },3000);

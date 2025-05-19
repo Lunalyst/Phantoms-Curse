@@ -238,7 +238,7 @@ class curseShadow extends enemy {
                 }
             //otherwise if the player is out of range, then.
             }else if(this.attemptingGrab === false){
-                console.log("idle last case")
+                //console.log("idle last case")
                 //player is not in range of enemy so enemy is in idle animation.
                 this.anims.play('shadowIdle', true);
 

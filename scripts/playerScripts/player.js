@@ -410,7 +410,7 @@ class player extends Phaser.GameObjects.Container{
     
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
   movePlayer(keyA,keyD,space,playerPreviousY,scene){
-
+    
     this.x= this.mainHitbox.x;
     this.y= this.mainHitbox.y;
    
@@ -757,6 +757,15 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         //console.log("previous player y"+ playerPreviousY);
     }
       playerPreviousY = this.y;
+
+      //special case to make sure the last key press is correctly updated when the other two cases are not active.
+      if(this.scene.checkDIsDown()){
+        this.lastKey = "d";
+      }else if(this.scene.checkAIsDown()){
+        this.lastKey = "a";
+      }
+      
+      console.log("from move player this.lastKey: ",this.lastKey);
   }
 
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
@@ -783,6 +792,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
         console.log("attacking activated.")
+
         //depending on the key, decide which switch to enter for correctly oriented hitbox 
         if(this.lastKey === 'd'){
           this.flipXcontainer(false);

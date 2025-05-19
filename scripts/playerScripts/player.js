@@ -762,6 +762,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   //this function handles player attack animations.
   attackPlayer(){
+    //console.log("activating attack function");
     //temp variable of this object to be used my timeout functions
     let that = this;
     this.mainHitbox.setSize(10,60,true);
@@ -777,183 +778,184 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     // call to emitter to get player inventory data.
     inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
 
-    //if shift is pressed then force the player to attacks, no animation cancel
-    if(this.mainHitbox.body.blocked.down && this.scene.checkATKIsDown() && this.isAttacking === false){
-      this.isAttacking = true;
-      //console.log("this.mainHitbox.body.blocked.down: ",this.mainHitbox.body.blocked.down,"this.isAttacking",this.isAttacking);
-    //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
-    }else if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
+      
+      //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
+      if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
-      //depending on the key, decide which switch to enter for correctly oriented hitbox 
-      if(this.lastKey === 'd'){
-        this.flipXcontainer(false);
-      }else if(this.lastKey === 'a'){
-        this.flipXcontainer(true);
-      }
+        console.log("attacking activated.")
+        //depending on the key, decide which switch to enter for correctly oriented hitbox 
+        if(this.lastKey === 'd'){
+          this.flipXcontainer(false);
+        }else if(this.lastKey === 'a'){
+          this.flipXcontainer(true);
+        }
 
-      //wakes up player if they are sleeping.
-      this.idleTimer = 0;
+        //wakes up player if they are sleeping.
+        this.idleTimer = 0;
 
-        //case to determine attack animation
-        switch(playerDataObject.playerInventoryData[0].itemID) {
-          case (2):
-            if(this.playedAttackAnimation === false){
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','medium',0.1);
-              this.playerBonkAnimation9FPS();
-
-              this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
-
-                this.isAttacking = false;
-                this.playedAttackAnimation = false;
-                console.log("attack is over so stoping");
-                this.bluntDamage = 0;
-
-              });
-            }
-            this.bluntDamage = 3;
-            this.setAttackHitboxSize(20,40);
-            this.HitBox(600,35);
-            break;
-          case (4):
-            console.log("starting knife animation");
-            
-            if(this.playedAttackAnimation === false){
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high2',0.1);
-              this.playerSwipeAnimation12FPS();
-             
-              this.weaponLayer9.anims.play("weapon-start-knife").once('animationcomplete', () => {
-                //sends the weapon layer to the back
-                this.sendToBack(this.weaponLayer9);
-                this.moveUpXTimes(this.weaponPositionBack);
-
-                this.weaponLayer9.anims.play("weapon-finish-knife").once('animationcomplete', () => {
-                  this.moveUpXTimes(this.weaponPositionfront-1);
-                  this.isAttacking = false;
-                  this.playedAttackAnimation = false;
-                  console.log("attack is over so stoping");
-                  this.sliceDamage = 0;
-                });
-              });
-            }
-            this.sliceDamage = 4;
-            this.setAttackHitboxSize(15,30);
-            this.HitBox(200,25);  
-            break;
-          case (10):
-            if(this.playedAttackAnimation === false){
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','heavy',0.1);
-              this.playerSwipeAnimation9FPS();
-              
-              this.weaponLayer9.anims.play("weapon-start-axe").once('animationcomplete', () => {
-                //sends the weapon layer to the back
-                this.sendToBack(this.weaponLayer9);
-                this.moveUpXTimes(this.weaponPositionBack);
-
-                this.weaponLayer9.anims.play("weapon-finish-axe").once('animationcomplete', () => {
-                  this.moveUpXTimes(this.weaponPositionfront);
-
-                  this.isAttacking = false;
-                  this.playedAttackAnimation = false;
-                  console.log("attack is over so stoping");
-                  this.sliceDamage = 0;
-                });
-              });
-            }
-            this.sliceDamage = 8;
-            this.setAttackHitboxSize(20,30);
-            this.HitBox(300,30);
-            break;
-            case (1):
-            if(this.playedAttackAnimation === false){
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high2',0.1);
-              this.playerPokeAnimation12FPS();
-
-              this.weaponLayer9.anims.play("weapon-rapier").once('animationcomplete', () => {
-                this.isAttacking = false;
-                this.playedAttackAnimation = false;
-                console.log("attack is over so stoping");
-                this.pierceDamage = 0;
-              });
-
-            }
-            this.pierceDamage = 6;
-            this.setAttackHitboxSize(60,30);
-            this.HitBox(400,35);
-            break;
-            case (3):
-            if(this.playedAttackAnimation === false){
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high2',0.1);
-              this.playerPokeAnimation12FPS();
-              this.weaponLayer9.anims.play("weapon-mimicRapier").once('animationcomplete', () => {
-                this.isAttacking = false;
-                this.playedAttackAnimation = false;
-                console.log("attack is over so stoping");
-                this.pierceDamage = 0;
-                this.curseDamage = 0;
-            });
-            }
-            this.pierceDamage = 4;
-            this.curseDamage = 4;
-            this.setAttackHitboxSize(60,30);
-            this.HitBox(400,35);
-            break;
-          default:
-            console.log("attacking animation unarmed");
-            if(this.playedAttackAnimation === false){
-
-              this.playedAttackAnimation = true;
-              this.scene.initSoundEffect('weaponSFX','high1',0.1);
-              this.playerUnarmedAnimation();
-              console.log("this.playedAttackAnimation: ",this.playedAttackAnimation);
-              this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
-
-                //sends the weapon layer to the back
-                this.sendToBack(this.weaponLayer9);
-                this.moveUpXTimes(this.weaponPositionBack);
-                console.log("unarmed half way point SHOULD BE STARTING FINISHED HALF OF THE ANIMATION/");
+          //case to determine attack animation
+          switch(playerDataObject.playerInventoryData[0].itemID) {
+            case (2):
+              if(this.playedAttackAnimation === false){
                 this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                this.playerBonkAnimation9FPS();
 
-                this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
-                  //sends weapon layer back to front -1
-                  this.moveUpXTimes(this.weaponPositionfront);
-                  console.log("unarmed finished way point");
+                this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
 
-                  this.backLeg1.visible = false;
-                  this.backLegCloths2.visible = false;
                   this.isAttacking = false;
                   this.playedAttackAnimation = false;
                   console.log("attack is over so stoping");
                   this.bluntDamage = 0;
+
                 });
+              }
+              this.bluntDamage = 3;
+              this.setAttackHitboxSize(20,40);
+              this.HitBox(600,35);
+              break;
+            case (4):
+              console.log("starting knife animation");
+              
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+                this.playerSwipeAnimation12FPS();
+              
+                this.weaponLayer9.anims.play("weapon-start-knife").once('animationcomplete', () => {
+                  //sends the weapon layer to the back
+                  this.sendToBack(this.weaponLayer9);
+                  this.moveUpXTimes(this.weaponPositionBack);
+
+                  this.weaponLayer9.anims.play("weapon-finish-knife").once('animationcomplete', () => {
+                    this.moveUpXTimes(this.weaponPositionfront-1);
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+                    this.sliceDamage = 0;
+                  });
+                });
+              }
+              this.sliceDamage = 4;
+              this.setAttackHitboxSize(15,30);
+              this.HitBox(200,25);  
+              break;
+            case (10):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','heavy',0.1);
+                this.playerSwipeAnimation9FPS();
+                
+                this.weaponLayer9.anims.play("weapon-start-axe").once('animationcomplete', () => {
+                  //sends the weapon layer to the back
+                  this.sendToBack(this.weaponLayer9);
+                  this.moveUpXTimes(this.weaponPositionBack);
+
+                  this.weaponLayer9.anims.play("weapon-finish-axe").once('animationcomplete', () => {
+                    this.moveUpXTimes(this.weaponPositionfront);
+
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+                    this.sliceDamage = 0;
+                  });
+                });
+              }
+              this.sliceDamage = 8;
+              this.setAttackHitboxSize(20,30);
+              this.HitBox(300,30);
+              break;
+              case (1):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+                this.playerPokeAnimation12FPS();
+
+                this.weaponLayer9.anims.play("weapon-rapier").once('animationcomplete', () => {
+                  this.isAttacking = false;
+                  this.playedAttackAnimation = false;
+                  console.log("attack is over so stoping");
+                  this.pierceDamage = 0;
+                });
+
+              }
+              this.pierceDamage = 6;
+              this.setAttackHitboxSize(60,30);
+              this.HitBox(400,35);
+              break;
+              case (3):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+                this.playerPokeAnimation12FPS();
+                this.weaponLayer9.anims.play("weapon-mimicRapier").once('animationcomplete', () => {
+                  this.isAttacking = false;
+                  this.playedAttackAnimation = false;
+                  console.log("attack is over so stoping");
+                  this.pierceDamage = 0;
+                  this.curseDamage = 0;
               });
+              }
+              this.pierceDamage = 4;
+              this.curseDamage = 4;
+              this.setAttackHitboxSize(60,30);
+              this.HitBox(400,35);
+              break;
+            default:
+              console.log("attacking animation unarmed");
+              if(this.playedAttackAnimation === false){
+
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high1',0.1);
+                this.playerUnarmedAnimation();
+                console.log("this.playedAttackAnimation: ",this.playedAttackAnimation);
+                this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
+
+                  //sends the weapon layer to the back
+                  this.sendToBack(this.weaponLayer9);
+                  this.moveUpXTimes(this.weaponPositionBack);
+                  console.log("unarmed half way point SHOULD BE STARTING FINISHED HALF OF THE ANIMATION/");
+                  this.playedAttackAnimation = true;
+
+                  this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
+                    //sends weapon layer back to front -1
+                    this.moveUpXTimes(this.weaponPositionfront);
+                    console.log("unarmed finished way point");
+
+                    this.backLeg1.visible = false;
+                    this.backLegCloths2.visible = false;
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+                    this.bluntDamage = 0;
+                  });
+                });
+              }
+              this.bluntDamage = 1;
+              this.setAttackHitboxSize(10,20);
+              this.HitBox(200,20);
             }
-            this.bluntDamage = 1;
-            this.setAttackHitboxSize(10,20);
-            this.HitBox(200,20);
-          }
-          //console.log("isattacking: ", this.isAttacking);
+            //console.log("isattacking: ", this.isAttacking);
 
-    //otherwise is the player isnt attacking anymore then reset all values
-    }else{
-      //important fall though caseto reset variables if the player is not swinging
-      this.scene.attackHitBox.x = this.x;
-      this.scene.attackHitBox.y = this.y+10000;
+      }else{
+        console.log("attack else case")
+        //important fall though caseto reset variables if the player is not swinging
+        this.scene.attackHitBox.x = this.x;
+        this.scene.attackHitBox.y = this.y+10000;
 
-      //important reset of the hitbox state incase the player isnt swinging set this to false.
-      this.hitboxState = false;
+        //important reset of the hitbox state incase the player isnt swinging set this to false.
+        this.hitboxState = false;
 
-      //resets variable so player only swings once per press of shift
-      this.isAttacking = false;
+        //resets variable so player only swings once per press of shift
+        this.isAttacking = false;
 
-      //stops weapon sound effects.
-      this.scene.initSoundEffect('weaponSFX','medium',0);
-      this.scene.sound.get('weaponSFX').stop();
-    }
+        //stops weapon sound effects.
+        this.scene.initSoundEffect('weaponSFX','medium',0);
+        this.scene.sound.get('weaponSFX').stop();
+      }
+    
+      
+    
   
   }
 

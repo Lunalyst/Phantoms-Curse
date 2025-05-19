@@ -767,7 +767,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node3"]
                     },"node3":{
-                        "dialogue": "YOU SHOULD, PROBABLY TELL ME HOW GOT IN HERE AGIAN. IM WORRIED.",
+                        "dialogue": "YOU SHOULD, PROBABLY TELL ME HOW GOT IN HERE AGAIN. IM WORRIED.",
                         "profile":"lunaKO",
                         "textvoice":"lightVoice",
                         "children":["node4"]
@@ -867,7 +867,7 @@ const npcDialogue = {
                 },
                 "lunaCTWDialogue2":{
                     "node1":{
-                        "dialogue": "HELLO AGIAN. ",
+                        "dialogue": "HELLO AGAIN. ",
                         "profile":"lunaHappy",
                         "textvoice":"lightVoice",
                         "children":["node2"]
@@ -1089,7 +1089,7 @@ const npcDialogue = {
                 },
                 "maleBeeDrone":{
                     "node1":{
-                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling agianst the streangth of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
+                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling AGAINst the streangth of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -1097,7 +1097,7 @@ const npcDialogue = {
                 },
                 "femaleBeeDrone":{
                     "node1":{
-                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling agianst the strength of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
+                        "dialogue": "the flap of wings should have been a indicator to run. tryed to stand your ground. clearly that didnt work out very well for you. the bee grabbed you. you were lifted of the ground, struggling AGAINst the strength of the cursed insect. when it could tell you were exausted, it opened up its large abdomin to swallow you, packing you tightly. happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. all you fell now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

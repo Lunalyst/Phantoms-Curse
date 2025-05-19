@@ -93,32 +93,48 @@ class G12UpdateLoops extends G11CheckGameObjects{
       //if we arnt paused
       if(this.isPaused === false){
 
-        //and the player isnt grabbed
-        if(this.grabbed === false && this.playerStuckGrab === false){ 
-
-          //and the player isnt using shift to attack
-          if(!this.shift.isDown){
-
-          //as long as thep layer isnt wapring.
-          //console.log("player warping: ",this.playerWarping);
-          if(this.playerWarping === false){
-            // then move the player
-            this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
-          //otherwise kill player x velocity
-          }else{
-            this.player1.mainHitbox.setVelocityX(0);
-            this.player1.playerIdleAnimation();
-          }
-
-          
-          
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
-            if(this.lightingSystemActive === true){ 
+          if(this.lightingSystemActive === true){ 
 
               this.player1.lightSource.x = this.player1.x;
               this.player1.lightSource.y = this.player1.y;
           
+          }
+
+        //and the player isnt grabbed
+        if(this.grabbed === false && this.playerStuckGrab === false){ 
+
+         //call player function to see if there attacking and not in the air
+          if(this.player1.mainHitbox.body.blocked.down && this.checkATKIsDown() && this.player1.isAttacking === false){
+
+            //set player attacking to true
+             this.player1.isAttacking = true;
+
+            //call function to the player to have the attack animation
+            this.player1.attackPlayer(this);
+
+          //otherwise, if the player isnt attacking apply the move function.
+          //need to aacount for when the player taps shift. if the player is not grounded, or the attack is finished.
+          }else if(this.player1.isAttacking === false || !this.player1.mainHitbox.body.blocked.down  ){
+            //as long as thep layer isnt wapring.
+            //console.log("player warping: ",this.playerWarping);
+            if(this.playerWarping === false){
+              // then move the player
+              this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
+            //otherwise kill player x velocity
+            }else{
+              this.player1.mainHitbox.setVelocityX(0);
+              this.player1.playerIdleAnimation();
             }
+          }else{
+         
+            if(this.player1.lastKey === 'd'){
+              this.player1.flipXcontainer(false);
+            }else if(this.player1.lastKey === 'a'){
+              this.player1.flipXcontainer(true);
+            }
+            //if the player isnt moving, or is in a attack Animation, then stop there x velocity
+            this.player1.mainHitbox.setVelocityX(0);
           }
           
           //sets the camera to follow the player and changes the scale as well
@@ -126,8 +142,11 @@ class G12UpdateLoops extends G11CheckGameObjects{
           this.cameras.main.zoom = 2;
           this.cameras.main.followOffset.set(0,70);
 
+
           //call player function to see if there attacking
-          this.player1.attackPlayer(this);
+          if(this.player1.mainHitbox.body.blocked.down && this.shift.isDown){
+             this.player1.attackPlayer(this);
+          }
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){

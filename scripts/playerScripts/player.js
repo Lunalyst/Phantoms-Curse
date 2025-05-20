@@ -758,14 +758,14 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     }
       playerPreviousY = this.y;
 
-      //special case to make sure the last key press is correctly updated when the other two cases are not active.
+      //ensures that no mater what player is facing the correct way.
       if(this.scene.checkDIsDown()){
         this.lastKey = "d";
       }else if(this.scene.checkAIsDown()){
         this.lastKey = "a";
       }
-      
-      console.log("from move player this.lastKey: ",this.lastKey);
+
+      //console.log("from move player this.lastKey: ",this.lastKey);
   }
 
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.

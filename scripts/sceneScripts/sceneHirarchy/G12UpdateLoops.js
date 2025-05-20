@@ -106,7 +106,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
          //call player function to see if there attacking and not in the air
           if(this.player1.mainHitbox.body.blocked.down && this.checkATKIsDown() && this.player1.isAttacking === false){
-             console.log("attack started");
+             //console.log("attack started");
             //set player attacking to true
              this.player1.isAttacking = true;
 
@@ -129,13 +129,6 @@ class G12UpdateLoops extends G11CheckGameObjects{
             }
           }else{
             
-            //special case to make sure the last key press is correctly updated when the other two cases are not active.
-            console.log("extra case");
-            if(this.checkDIsDown()){
-              this.player1.lastKey = "d";
-            }else if(this.checkAIsDown()){
-              this.player1.lastKey = "a";
-            }
             //if the player isnt moving, or is in a attack Animation, then stop there x velocity
             this.player1.mainHitbox.setVelocityX(0);
           }

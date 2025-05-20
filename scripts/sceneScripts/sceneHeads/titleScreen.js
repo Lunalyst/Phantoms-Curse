@@ -165,7 +165,7 @@ class titleScreen extends A3SoundEffects {
                 'LEO: PATREON',
                 'INQUISITOR KOBOLD: PATREON',
                 'ZEALOTDKD: PATREON',
-                'Dainsleft Rovera: PATREON',
+                'DAINSLEFT ROVERA: PATREON',
                 'IRONGELATIN: GAMEOVER DIALOGUE',
                 'ISTARA: COMMISSION AND INSPIRATION',
                 'ZEBBY: INSPIRATION, BUG TESTING',

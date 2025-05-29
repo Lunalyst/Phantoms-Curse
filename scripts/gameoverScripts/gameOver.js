@@ -42,18 +42,22 @@ class gameOver extends gameoverManager {
         //variable used to tell if dialogue should be interupted.
         this.dialogueInterupt = false;
 
-        //variable to stop try agian button from appearing if we dont want it too. currently set to always show after delay.
-        gameoverThat.showTryAgain = true;
+
+        this.showTryAgain = true;
         
         }
 
         //loads sprites for game over.
         preload(){
+
+
             //call built in function to obtain gameover data. is the earliest location in which the data can be loaded.
             this.loadGameoverFile();
 
             //function to create a map of functions to preload the correct map needed based in the location string.
             this.preloadMapOfTileMaps();
+
+            this.showTryAgain = true;
 
             //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON);
             this.mapOfTileMapsJSON[this.gameoverLocation]();
@@ -188,7 +192,7 @@ class gameOver extends gameoverManager {
         }
 
         update(){
-
+            console.log("this.dialogueInterupt: ",this.dialogueInterupt);
             //input to progress gameover dialogue during scene.
             if(this.dialogueInterupt === false){
                 if(Phaser.Input.Keyboard.JustDown(this.keyW)){

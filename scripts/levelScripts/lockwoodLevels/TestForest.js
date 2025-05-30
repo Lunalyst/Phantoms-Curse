@@ -159,7 +159,7 @@ class TestForest extends defaultScene {
           //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
           thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
-          thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);
+          //thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

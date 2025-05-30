@@ -34,10 +34,11 @@ class tiger extends enemy {
         //value used to tell if the player can escape.
 
         this.randomInput = Math.floor((Math.random() * 2));
+        this.randomInputCooldown = false;
 
         this.taunting = false;
         this.jumped = false;
-        this.randomInputCooldown = false;
+        
         this.struggleCounterTick = false;
         this.TigerDamageCounter = false;
         this.isHidding = true;
@@ -926,7 +927,7 @@ class tiger extends enemy {
                     if (this.scene.checkSPressed() === true) {
                         
                         //reduce struggle meter by an amount
-                        if (playerHealthObject.playerHealth >= 1) {
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
                             this.struggleCounter += 20;
                             struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                             console.log('strugglecounter: ' + this.struggleCounter);
@@ -1043,7 +1044,7 @@ class tiger extends enemy {
                     // important anims.play block so that the animation can player properly.
                     if (this.scene.checkWPressed() === true) {
                         
-                        if (playerHealthObject.playerHealth >= 1) {
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
                             this.struggleCounter += 20;
                             struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                             console.log('strugglecounter: ' + this.struggleCounter);
@@ -1186,7 +1187,7 @@ class tiger extends enemy {
                 //console.log('TIGER HAS HEATED RABBIT STRUGGLE LOGIC.');
                 if (this.scene.checkAPressed() === true) {
                     console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
-                    if (playerHealthObject.playerHealth >= 1) {
+                    if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
                         this.struggleCounter += 20;
                         struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                         //console.log('strugglecounter: ' + this.struggleCounter);
@@ -1387,6 +1388,7 @@ class tiger extends enemy {
         this.playerDefeated = true;
         
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
         if(this.enemySex === 1){
             this.scene.enemyThatDefeatedPlayer = "femaleTiger";
         }else{
@@ -1583,7 +1585,9 @@ class tiger extends enemy {
     }
 
     playerEscaped(playerHealthObject){
+
             this.scene.KeyDisplay.visible = false;
+            
             console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
                 // can we replace this with a settimeout function? probbably. lets make a backup first.
                 if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
@@ -1654,6 +1658,7 @@ class tiger extends enemy {
 
     damage() {
         this.setVelocityX(0);
+
         console.log("this.damageCoolDown:" + this.damageCoolDown,"this.isHidding:" + this.isHidding);
         if (this.damageCoolDown === false && this.isHidding === false) {
             this.damageCoolDown = true;
@@ -1678,7 +1683,7 @@ class tiger extends enemy {
                     this.enemyDefeated = true;
                     this.setVelocityX(0);
 
-                    //calculate item drtop chance
+                    //calculate item drop chance
                     let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
 
@@ -1697,10 +1702,7 @@ class tiger extends enemy {
                         //delete enemy hit box since they have been defeated.
                         this.grabHitBox.destroy();
                     });
-                    
-                    //play animation of slime defeated based on size.
-
-
+                
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);

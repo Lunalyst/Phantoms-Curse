@@ -342,8 +342,12 @@ class G9CheckEnemys extends G8InitEnemys {
   
     if(scene.objectsInRangeX(tempRabbits,scene.player1,400) && scene.objectsInRangeY(tempRabbits,scene.player1,150) && tempRabbits.inSafeMode === false){
 
-      //calls tiger function to move
-      tempRabbits.move(scene.player1,scene);
+      if(tempRabbits.enemyInDefeatedLogic === true){
+        tempRabbits.enemyDefeatedLogic();
+      }else{
+        //calls tiger function to move
+        tempRabbits.move(scene.player1,scene);
+      }
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
       scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
@@ -364,8 +368,8 @@ class G9CheckEnemys extends G8InitEnemys {
         tempRabbits.hitboxOverlaps = false;
       
       }
-      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits, function () {
+      //adds collider between player and rabbit. then if they collide it plays the grab sequence but only if the player was not grabbed already
+      scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits.grabHitBox, function () {
       
         //make a temp object
         let isWindowObject = {

@@ -43,8 +43,15 @@ class G6PreloadEnemys extends G5InitNPCs{
       },
       rabbits: function rabbitsFunction() {
         
-        tempSceneRef.load.spritesheet('rabbitMale', 'assets/enemys/rabbit-male-all.png',{frameWidth: 429, frameHeight: 300 });
-        tempSceneRef.load.spritesheet('rabbitFemale', 'assets/enemys/rabbit female-all.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-male-male', 'assets/enemys/rabbit-male-male.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-male-female', 'assets/enemys/rabbit-male-female.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-female-male', 'assets/enemys/rabbit-female-male.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-female-female', 'assets/enemys/rabbit-female-female.png',{frameWidth: 429, frameHeight: 300 });
+
+        tempSceneRef.load.spritesheet('rabbit-female-female-vore', 'assets/enemys/rabbit female-male-vore.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-male-male-vore', 'assets/enemys/rabbit-male-male-vore.png',{frameWidth: 429, frameHeight: 300 });
+        
+
         tempSceneRef.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
         tempSceneRef.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
         

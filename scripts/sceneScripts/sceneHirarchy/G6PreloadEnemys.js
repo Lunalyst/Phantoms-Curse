@@ -55,6 +55,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
         tempSceneRef.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});
         
+         tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
       },
       beeDrones: function beeDronesFunction() {
 

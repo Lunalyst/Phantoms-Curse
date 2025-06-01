@@ -180,9 +180,9 @@ class player extends Phaser.GameObjects.Container{
 
       this.lanturnFlicker = null;
       this.fuelActivated = false;
-
-      this.curseReductiontimer = false;
     }
+
+    this.curseReductiontimer = false;
     /*
       playeridle: frames: 6 layer: 8 7 6 5 4 3
       playerWalk: frames: 15 layer: 1 2 3 4 5 6 7 8
@@ -194,6 +194,7 @@ class player extends Phaser.GameObjects.Container{
     */
 
     this.clothed = false;
+    this.ringType = 0;
 
       //composit idle animation 
       this.backArm3.anims.create({key: 'back-arm-idle',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
@@ -445,8 +446,10 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     if(playerDataObject.playerInventoryData[1].itemID === 8){
       //console.log("speed ring equipt");
       this.speedBoost = 1.1;
+      this.ringType = 8;
     }else{
       this.speedBoost = 1;
+      this.ringType = 0;
     }
 
     //if the player is clothed.

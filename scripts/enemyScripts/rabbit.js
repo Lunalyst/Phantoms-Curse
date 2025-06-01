@@ -60,9 +60,17 @@ class rabbit extends enemy {
         this.attemptingGrab = false;
         this.isPlayingMissedAnims = false;
 
+        //make a hitbox so the cat can attack the player.
+        this.attackHitBox = new hitBoxes(scene,this.x,this.y);
+        this.attackHitBox.setSize(30,10,true);
+        this.attackHitboxActive = false;
+
         this.rabbitIsHungry = false;
-        this.randomInput = Math.floor((Math.random() * 2));
+        this.rabbitIsHungryStart = false;
+        this.randomInput = Math.floor((Math.random() * 3));
         this.randomInputCooldown = false;
+        this.knockdownCoolDown = false;
+        this.struggleAnimationInterupt = false;
 
         //defines rabbit animations based on the players sex.
         if(this.enemySex === 0) {
@@ -79,6 +87,21 @@ class rabbit extends enemy {
             this.anims.create({ key: 'rabbitDefeatedFall', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 60, end: 62 }), frameRate: 6, repeat: 0 });
             this.anims.create({ key: 'rabbitDefeatedFallIdle', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 63, end: 66 }), frameRate: 5, repeat: -1 });
             
+            this.anims.create({ key: 'rabbitHungerIdle', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 0, end: 3 }), frameRate: 4, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerIdleLoop', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 0, end: 3 }), frameRate: 4, repeat: -1 });
+            this.anims.create({ key: 'rabbitHungerWalk', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 4, end: 13 }), frameRate: 16, repeat: -1 });
+             this.anims.create({ key: 'rabbitHungerWalkSlow', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 4, end: 13 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'rabbitHungerHopGrabStart', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 14, end: 15 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerHopGrabMiss', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 16, end: 17 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerStruggleIdle', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 42, end: 46 }), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'rabbitHungerStruggleLeft', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 47, end: 50 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerStruggleRight', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 51, end: 54 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerStruggleUp', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 55, end: 58 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerDigestion1', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 75, end: 77 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerDigestionIdle', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 78, end: 81 }), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'rabbitHungerDigestion2', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 82, end: 87 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'rabbitHungerDigestedIdle', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 88, end: 91 }), frameRate: 6, repeat: -1 });
+
             if(sex === 0 ){
                 this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 17, end: 20 }), frameRate: 6, repeat: -1 });
                 this.anims.create({ key: 'rabbitShove', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 21, end: 25 }), frameRate: 8, repeat: 0 });
@@ -94,6 +117,17 @@ class rabbit extends enemy {
                 this.anims.create({ key: 'rabbitRail4', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 67, end: 70}), frameRate: 8, repeat: -1 });
                 //frames of rabbit getting railed by other rabbit. 
                 this.anims.create({ key: 'rabbitsRailing', frames: this.anims.generateFrameNames('rabbit-male-male', { start: 71, end: 74}), frameRate: 8, repeat: -1 });
+
+                //vore animation frames specific to male on male.
+                this.anims.create({ key: 'rabbitHungerSwallow1', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 18, end: 25 }), frameRate: 5, repeat: 0 });
+                this.anims.create({ key: 'rabbitHungerSwallow2', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 26, end: 29 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'rabbitHungerSwallow3', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 30, end: 41 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'rabbitHungerSpitUp', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 59, end: 74 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'rabbitHungerGameover1', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 92, end: 95 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'rabbitHungerGameover2', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 96, end: 99 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'rabbitHungerGameover3', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 100, end: 103 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'rabbitHungerGameover4', frames: this.anims.generateFrameNames('rabbit-male-male-vore', { start: 104, end: 107 }), frameRate: 6, repeat: -1 });
+
 
             }else{
                 this.anims.create({ key: 'rabbitGrab', frames: this.anims.generateFrameNames('rabbit-male-female', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
@@ -145,8 +179,31 @@ class rabbit extends enemy {
             this.anims.play('rabbitIdle',true);
         //}
 
-        this.setSize(70, 180, true);
+        this.setSize(70, 179, true);
         this.setOffset(180, 110);
+    }
+
+    resetVariables(){
+         this.rabbitSoundCoolDown = false;
+        this.jumpAnimationPlayed = false;
+        this.rabbitDamageCounter = false;
+        this.jumped = false;
+        this.startJump = false;
+        this.grabTimer = false;
+        this.grabAnimationPlayed = false;
+        this.hitboxActive = false;
+        this.attemptingGrab = false;
+        this.isPlayingMissedAnims = false;
+        this.attackHitboxActive = false;
+        this.rabbitIsHungry = false;
+        this.rabbitIsHungryStart = false;
+        this.randomInputCooldown = false;
+        this.swallowDelay  = false;
+
+        this.playerBrokeFree = 0;
+        this.struggleCounter = 0;
+        this.playerDefeatedAnimationStage = 0;
+
     }
 
     //functions that move rabbit objects.
@@ -157,184 +214,428 @@ class rabbit extends enemy {
 
         //checks to see if rabbit should move if the player is within range.
         if (this.checkXRangeFromPlayer(350, 350)) {
-             this.setSize(70, 180, true);
-             this.setOffset(180, 110);
+            this.setSize(70, 179, true);
+            this.setOffset(180, 110);
+
+             //code to change rabbit behavior
+             //console.log("this.scene.player1.ringType: ",this.scene.player1.ringType)
+             if(this.scene.player1.ringType === 8){
+                if(this.rabbitIsHungry === false){
+                    this.rabbitIsHungryStart = true;
+                }
+                
+                
+             }else if(this.scene.player1.ringType !== 8 && this.rabbitIsHungry === true){
+
+                this.resetVariables();
+                this.setVelocityX(0);
+                
+
+                
+             }
 
              console.log("this.grabTimer: ",this.grabTimer,"this.attemptingGrab : ",this.attemptingGrab ,"this.jumped: ",this.jumped,"this.startJump: ",this.startJump, );
-            // if the player is in range, rabbit is on the ground, and grab timer is false.
-            if(this.body.blocked.down && (this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(20,120) && this.grabTimer === false && this.startJump === false && this.jumped === false)){
-                        
-                        console.log("starting grab animation");
-                        //play animation
-                        
-                        this.grabTimer = true;
-                        //this.jumped = true;
-                        //this.startJump = true;
-                        //this.jumpAnimationPlayed = true;
-        
-                        //if player to the left move the grab hitbox to the left
-                        if(this.scene.player1.x < this.x){
-                            this.flipX = true;
-                        }else{
-                            this.flipX = false;
-                        }
-                        //stop velocity
-                        this.setVelocityX(0);
-
-                        this.setDepth(6);
-                        if (!this.grabAnimationPlayed) {
-                            this.grabAnimationPlayed = true;
-                            this.anims.play('rabbitHopGrabStart').once('animationcomplete', () => {
-
-                                 //if player to the left move the grab hitbox to the left
-                                if(this.scene.player1.x < this.x){
-                                    this.setVelocityX(-130);
-                                    this.flipX = true;
-                                }else{
-                                    this.setVelocityX(130);
-                                    this.flipX = false;
-                                }
-
-                                this.playJumpySound('3',700);
+            if(this.rabbitIsHungryStart === false && this.rabbitIsHungry === false){
+                // if the player is in range, rabbit is on the ground, and grab timer is false.
+                if(this.body.blocked.down && (this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(20,120) && this.grabTimer === false && this.startJump === false && this.jumped === false)){
+                            
+                            console.log("starting grab animation");
+                            //play animation
+                            
+                            this.grabTimer = true;
+                            //this.jumped = true;
+                            //this.startJump = true;
+                            //this.jumpAnimationPlayed = true;
             
-                                this.hitboxActive = true;
-                                this.grabHitBox.body.enable = true;
-                                this.attemptingGrab = true;
+                            //if player to the left move the grab hitbox to the left
+                            if(this.scene.player1.x < this.x){
+                                this.flipX = true;
+                            }else{
+                                this.flipX = false;
+                            }
+                            //stop velocity
+                            this.setVelocityX(0);
 
-                                this.anims.play('rabbitHopGrabMiddle').once('animationcomplete', () => {
-                                    
+                            this.setDepth(6);
+                            if (!this.grabAnimationPlayed) {
+                                this.grabAnimationPlayed = true;
+                                this.anims.play('rabbitHopGrabStart').once('animationcomplete', () => {
+
+                                    //if player to the left move the grab hitbox to the left
                                     if(this.scene.player1.x < this.x){
-                                    this.setVelocityX(-130);
-                                    this.flipX = true;
+                                        this.setVelocityX(-130);
+                                        this.flipX = true;
                                     }else{
                                         this.setVelocityX(130);
                                         this.flipX = false;
                                     }
-                                    this.grabAnimationPlayed = false;
-                                //controls the x velocity when the bee ischarging to grab the player
-                                 });
-                                
-                            });
-                        }
-    
-            }else if(this.body.blocked.down && this.attemptingGrab === true ){
 
-                        console.log("grab animation missed");
-                        this.startJump = false;
-                        this.jumped = false;
-                        
+                                    this.playJumpySound('3',700);
+                
+                                    this.hitboxActive = true;
+                                    this.grabHitBox.body.enable = true;
+                                    this.attemptingGrab = true;
 
-                        if(this.isPlayingMissedAnims === false){
-                            this.isPlayingMissedAnims = true;
-                            //set value to play missed grabb animation
+                                    this.anims.play('rabbitHopGrabMiddle').once('animationcomplete', () => {
+                                        
+                                        if(this.scene.player1.x < this.x){
+                                        this.setVelocityX(-130);
+                                        this.flipX = true;
+                                        }else{
+                                            this.setVelocityX(130);
+                                            this.flipX = false;
+                                        }
+                                        this.grabAnimationPlayed = false;
+                                    //controls the x velocity when the bee ischarging to grab the player
+                                    });
+                                    
+                                });
+                            }
+        
+                }else if(this.body.blocked.down && this.attemptingGrab === true ){
+
+                            console.log("grab animation missed");
+                            this.startJump = false;
+                            this.jumped = false;
                             
-                            this.anims.play('rabbitHopGrabMiss').once('animationcomplete', () => {
-                                this.setDepth(5);
-                                this.hitboxActive = false;
-                                this.attemptingGrab = false;
-                                this.grabTimer = false;
-                                this.isPlayingMissedAnims = false;   
-                                this.jumped = false;
-                                this.startJump = false;
+
+                            if(this.isPlayingMissedAnims === false){
+                                this.isPlayingMissedAnims = true;
+                                //set value to play missed grabb animation
+                                
+                                this.anims.play('rabbitHopGrabMiss').once('animationcomplete', () => {
+                                    this.setDepth(5);
+                                    this.hitboxActive = false;
+                                    this.attemptingGrab = false;
+                                    this.grabTimer = false;
+                                    this.isPlayingMissedAnims = false;   
+                                    this.jumped = false;
+                                    this.startJump = false;
+                                    this.jumpAnimationPlayed = false;
+                                    this.setVelocityX(0);
+                                });
+                            }
+                        
+                //if the rabbit is left of the player move the rabbit right twards the player
+                }else if (this.body.blocked.down && this.scene.player1.x > this.x && this.startJump === false && this.grabTimer === false && this.attemptingGrab === false && this.playerGrabbed === false) {
+
+                    this.startJump = true;
+
+                    console.log("jumping left");
+                    this.flipX = false;
+
+                    //if we havent played jump animation
+                        if(!this.jumpAnimationPlayed) {
+
+                            //set it to true
+                            this.jumpAnimationPlayed = true;
+                            
+                            //stop velocity so bending legs animation stays still
+                            this.setVelocityX(0);
+
+                            //play the animation then on completion of the animation
+                            this.anims.play('rabbitHopStart').once('animationcomplete', () => {
+
+                                //we nolonger played the jumping animation so set it to false
                                 this.jumpAnimationPlayed = false;
-                                this.setVelocityX(0);
+
+                                this.scene.initSoundEffect('jumpSFX','1',0.1);
+
+                                //if the player isnt grabbed, then make the rabbit jump by setting its velocity
+                                if(this.playerGrabbed === false && this.rabbitIsHungry === false){
+                                    let randomXVelocity = Math.floor((Math.random() * 260) + 30);
+                                    this.setVelocityX(randomXVelocity);
+                                    this.setVelocityY(240*-1);
+                                }
+                            
+                                //play the animation for rabbit being in the air.
+                                this.anims.play('rabbitHopInAir');
+                                
+                            
                             });
                         }
                     
-            //if the rabbit is left of the player move the rabbit right twards the player
-            }else if (this.body.blocked.down && this.scene.player1.x > this.x && this.startJump === false && this.grabTimer === false && this.attemptingGrab === false && this.playerGrabbed === false) {
+                //if the rabbit is to the right of the player, then move the rabbit left
+                }else if (this.body.blocked.down && this.scene.player1.x < this.x && this.startJump === false && this.grabTimer === false && this.attemptingGrab === false && this.playerGrabbed === false) {
 
-                this.startJump = true;
+                    this.startJump = true;
+                    console.log("jumping right");
+                    this.flipX = true;
 
-                 console.log("jumping left");
-                this.flipX = false;
+                    //if we havent played jump animation
+                        if(!this.jumpAnimationPlayed) {
 
-                //if we havent played jump animation
-                    if(!this.jumpAnimationPlayed) {
-
-                        //set it to true
-                        this.jumpAnimationPlayed = true;
-                        
-                        //stop velocity so bending legs animation stays still
-                        this.setVelocityX(0);
-
-                        //play the animation then on completion of the animation
-                        this.anims.play('rabbitHopStart').once('animationcomplete', () => {
-
-                            //we nolonger played the jumping animation so set it to false
-                            this.jumpAnimationPlayed = false;
-
-                            this.scene.initSoundEffect('jumpSFX','1',0.1);
-
-                            //if the player isnt grabbed, then make the rabbit jump by setting its velocity
-                            if(this.playerGrabbed === false){
-                                let randomXVelocity = Math.floor((Math.random() * 260) + 30);
-                                this.setVelocityX(randomXVelocity);
-                                this.setVelocityY(240*-1);
-                            }
-                           
-                            //play the animation for rabbit being in the air.
-                            this.anims.play('rabbitHopInAir');
+                            //set it to true
+                            this.jumpAnimationPlayed = true;
                             
-                        
-                        });
-                    }
+                            //stop velocity so bending legs animation stays still
+                            this.setVelocityX(0);
+
+                            //play the animation then on completion of the animation
+                            this.anims.play('rabbitHopStart').once('animationcomplete', () => {
+
+                                //we nolonger played the jumping animation so set it to false
+                                this.jumpAnimationPlayed = false;
+
+                                this.scene.initSoundEffect('jumpSFX','1',0.1);
+
+                                //if the player isnt grabbed, then make the rabbit jump by setting its velocity
+                                if(this.playerGrabbed === false && this.rabbitIsHungry === false){
+                                    let randomXVelocity = Math.floor((Math.random() * 260) + 30);
+                                    this.setVelocityX(randomXVelocity*-1);
+                                    this.setVelocityY(240*-1);
+                                }
+
+                                //play the animation for rabbit being in the air.
+                                this.anims.play('rabbitHopInAir');
+                                
+                            });
+                        }
+                //if the rabbit is on the ground, and the variables are not set, then reset them for the next jump       
+                }else if(this.startJump === true && this.body.blocked.down){
+
+                    console.log("resetting start jump");
+                    this.setVelocityX(0);
+                    this.startJump = false;
+                    this.jumped = false;
                 
-            //if the rabbit is to the right of the player, then move the rabbit left
-            }else if (this.body.blocked.down && this.scene.player1.x < this.x && this.startJump === false && this.grabTimer === false && this.attemptingGrab === false && this.playerGrabbed === false) {
+                }else if(!this.body.blocked.down && this.grabTimer === true ){
 
-                this.startJump = true;
-                console.log("jumping right");
-                this.flipX = true;
+                    console.log("preventing weird grab jump");
+                    this.grabTimer = false;
+                    this.hitboxActive = false;
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.isPlayingMissedAnims = false;   
+                    this.jumped = false;
+                    this.startJump = false;
+                    this.jumpAnimationPlayed = false;
 
-                //if we havent played jump animation
-                    if(!this.jumpAnimationPlayed) {
+                    //play the animation for rabbit being in the air.
+                    this.anims.play('rabbitHopInAir');
 
-                        //set it to true
-                        this.jumpAnimationPlayed = true;
+                }/*else if(this.grabTimer === true && this.attemptingGrab === false && this.jumped === false && this.startJump === false ){
+                    this.grabTimer = false;
+                }*/
+
+            // if the player is wearing the carrot ring, then safely reset rabbits variable while there on the ground, and set hungry to true.
+            }else if(this.rabbitIsHungryStart === true && this.body.blocked.down){
+
+                //resets the enemy variables and player variables.
+                this.struggleFree = false;
+                this.playerBrokeFree = 0;
+                this.struggleCounter = 0;
+                this.playerDamaged = false;
+                this.playerGrabbed = false;
+                this.keyAnimationPlayed = false;
+                this.scene.grabbed = false;
+                this.scene.player1.visible = true;
+                this.isPlayingMissedAnims = false;
+                this.grabTimer = false;
+                this.setVelocityX(0);
+                this.startedGrab = false;
+                this.playerDefeatedAnimationStage = 0;
+                this.struggleAnimationInterupt = false;
+                this.spitUp = false;
+                this.hitboxActive = false;
+
+                //if player to the left move the grab hitbox to the left
+                if(this.scene.player1.x < this.x){
+                    this.flipX = true;
+                }else{
+                    this.flipX = false;
+                }
+
+                //play animation where rabbit hungers for the player.
+                if(!this.animationPlayed){
+
+                    this.animationPlayed = true;
+                    this.anims.play('rabbitHungerIdle').once('animationcomplete', () => {
+
                         
-                        //stop velocity so bending legs animation stays still
+                        this.rabbitIsHungry = true;
+                        this.rabbitIsHungryStart = false;
+                        this.animationPlayed = false;
+                    });
+                }
+                
+            //after rabbit transitions to hungry state perform hungry enemy ai
+            }else if(this.rabbitIsHungry === true){
+
+                //if rabbit is too close, and grabb attempt is false, then 
+                if(this.checkXRangeFromPlayer(20, 20) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false){
+
+                    //stop momentum play idle loop
+                    this.setVelocityX(0);
+                    this.anims.play('rabbitHungerIdleLoop', true);
+
+                //attempt to grab the player
+                }else if((this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false){
+                    
+                    // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
+                    if(this.scene.checkDIsDown() && this.x < this.scene.player1.x ){
+                        this.setVelocityX(300);
+                    }else if(this.scene.checkAIsDown() && this.x > this.scene.player1.x){
+                        this.setVelocityX(-300);
+                    }else{
                         this.setVelocityX(0);
+                    }
+                    // otherwise keep the rabbits current momentum.
 
-                        //play the animation then on completion of the animation
-                        this.anims.play('rabbitHopStart').once('animationcomplete', () => {
 
-                            //we nolonger played the jumping animation so set it to false
-                            this.jumpAnimationPlayed = false;
+                    this.grabTimer = true;
 
-                            this.scene.initSoundEffect('jumpSFX','1',0.1);
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
 
-                            //if the player isnt grabbed, then make the rabbit jump by setting its velocity
-                            if(this.playerGrabbed === false){
-                                let randomXVelocity = Math.floor((Math.random() * 260) + 30);
-                                this.setVelocityX(randomXVelocity*-1);
-                                this.setVelocityY(240*-1);
-                            }
+                    this.setDepth(7);
+                    
+                    this.anims.play('rabbitHungerHopGrabStart').once('animationcomplete', () => {
+                        
+                        //this.playJumpySound('3',700);
+                        this.setVelocityX(0);
+                        this.attackHitboxActive = true;
+                        this.attackHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+                        this.playJumpySound('3',700);
+                        
+                    });
 
-                            //play the animation for rabbit being in the air.
-                            this.anims.play('rabbitHopInAir');
-                            
+                //activate missed animation
+                }else if(this.attemptingGrab === true && this.scene.playerStuckGrab === false){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+
+                        this.setVelocityX(0);
+                        
+                        this.anims.play('rabbitHungerHopGrabMiss').once('animationcomplete', () => {
+
+                            this.setDepth(5);
+                            this.attackHitboxActive = false;
+                            this.attemptingGrab = false;
+                            this.grabTimer = false;
+                            this.isPlayingMissedAnims = false;    
                         });
                     }
-            //if the rabbit is on the ground, and the variables are not set, then reset them for the next jump       
-            }else if(this.startJump === true && this.body.blocked.down){
 
-                this.startJump = false;
-                this.jumped = false;
+                //move the rabbit right if the player isnt knocked down
+                }else if(this.scene.player1.x > this.x && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat right"); 
+                    this.swallowDelay = false; 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;            
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    this.anims.play('rabbitHungerWalk', true);
+                    this.setVelocityX(300); 
+                    
             
-            }else if(!this.body.blocked.down && this.grabTimer === true ){
-                this.grabTimer = false;
-                this.hitboxActive = false;
-                this.attemptingGrab = false;
-                this.grabTimer = false;
-                this.isPlayingMissedAnims = false;   
-                this.jumped = false;
-                this.startJump = false;
-                this.jumpAnimationPlayed = false;
+                //if the player not knocked how move the rabbit left
+                }else if(this.scene.player1.x < this.x && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat left");
+                    this.swallowDelay = false; 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;  
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    this.hitboxActive = false;
+                    this.anims.play('rabbitHungerWalk', true);
+                    this.setVelocityX(-300); 
+                    
 
-                //play the animation for rabbit being in the air.
-                this.anims.play('rabbitHopInAir');
+                // if the rabbit is close enough to the player and they are knocked down.
+                }else if((this.checkXRangeFromPlayer(80,80) && this.scene.playerStuckGrab === true)){
 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;
+                    this.setDepth(7);
+                    //have the rabbit move to the correct position with the feet and face the right direction.
+                    //if the player is facing left
+
+                    if(!this.checkXRangeFromPlayer(20,20) && this.scene.player1.x < this.x){
+                        this.flipX = true;
+                        this.setVelocityX(-30);
+                        this.anims.play('rabbitHungerWalkSlow', true);
+                        this.swallowDelay  = false;
+                    }else if(!this.checkXRangeFromPlayer(20,20) && this.scene.player1.x > this.x){
+                        this.flipX = false;
+                        this.setVelocityX(30);
+                        this.anims.play('rabbitHungerWalkSlow', true);
+                        this.swallowDelay  = false;
+                    }else{
+
+                        this.setVelocityX(0);
+
+                        if(this.swallowDelay  === false){
+                            this.swallowDelay  = true;
+                            this.anims.play('rabbitHungerIdle').once('animationcomplete', () => {
+
+                                this.swallowDelay = false;
+
+                                this.hitboxActive = true;
+                                this.grabHitBox.body.enable = true;
+                                this.attemptingGrab = true;
+
+                            });
+                        }
+                    }
+
+                }else if(this.scene.player1.x > this.x  && this.checkYRangeFromPlayer(20,70)  && this.grabTimer === false && this.swallowDelay === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat right");        
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    this.anims.play('rabbitHungerWalk', true);
+                    this.setVelocityX(70); 
+                    
+            
+                //if the player is to the right then move enemy to the left
+                }else if(this.scene.player1.x < this.x  && this.checkYRangeFromPlayer(20,70)  && this.grabTimer === false && this.swallowDelay === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat left");   
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    this.hitboxActive = false;
+                    this.anims.play('rabbitHungerWalk', true);
+                    this.setVelocityX(-70); 
+                
+                //if the cat is above the knocked down player, then grab them
+                }else if(!this.checkYRangeFromPlayer(20,70) && this.checkXRangeFromPlayer(30, 30)){
+
+                    this.attackHitboxActive = false;
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.isPlayingMissedAnims = false; 
+                    
+
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                    this.setVelocityX(0); 
+                    this.anims.play('rabbitHungerIdleLoop', true);
+
+                    console.log("rabbit has lost the plot.")
+                }  
+            
             }
 
         //if the rabit is not in range then stop there velocity and reset the jumping variables.
@@ -360,6 +661,26 @@ class rabbit extends enemy {
         }else{
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
+        }
+
+        //handles attack hit box positioning
+        if(this.attackHitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.attackHitBox.x = this.x-15;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.attackHitBox.x = this.x+15;
+            }
+            this.attackHitBox.y = this.y;
+
+        }else{
+            this.attackHitBox.x = this.x;
+            this.attackHitBox.y = this.y + 3000; 
         }
         
 
@@ -535,15 +856,14 @@ class rabbit extends enemy {
         this.setVelocityX(0);
 
         //plays bouncy sound during the struggle animation if the tiger has eaten.
-        if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+        if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.rabbitIsHungry === false){
             this.playJumpySound('4',700);
         }
         
         //puts the key display in the correct location.
-         this.scene.player1.y = this.y - 150;
+        this.scene.player1.y = this.y - 150;
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 100;
-
     
     }
 
@@ -593,6 +913,305 @@ class rabbit extends enemy {
                 this.keyAnimationPlayed = true;    
             }else if(this.rabbitIsHungry === true){
 
+                //handle random inputs
+                if (this.randomInput === 0) {
+                    //if s is the key to be pressed then play animation and increase the struggle bar
+                    if (this.scene.checkAPressed() === true) {
+                        
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+                            this.struggleCounter += 20;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                            this.scene.onomat.visible = true;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+        
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('rabbitHungerStruggleLeft').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','3',0.1);
+                            this.anims.play('rabbitHungerStruggleRight').once('animationcomplete', () => {
+                                this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkWPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
+                            this.anims.play('rabbitHungerStruggleUp').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }
+                }else if(this.randomInput === 1) {
+                    //if s is the key to be pressed then play animation and increase the struggle bar
+                    if (this.scene.checkAPressed() === true) {
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                            this.scene.onomat.visible = true;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+        
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('rabbitHungerStruggleLeft').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','3',0.1);
+                            this.anims.play('rabbitHungerStruggleRight').once('animationcomplete', () => {
+                                this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkWPressed() === true){
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+                            this.struggleCounter += 20;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
+                            this.anims.play('rabbitHungerStruggleUp').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }
+                }else if(this.randomInput === 2) {
+                    if (this.scene.checkAPressed() === true) {
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        //if the striggule animation is false and the defeated stage is 2
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GLORP");
+                            this.scene.onomat.visible = true;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+        
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('rabbitHungerStruggleLeft').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    //otherwise play struggle animation of other keys but subtract from the struggle bar.
+                    }else if(this.scene.checkDPressed() === true){
+                        //reduce struggle meter by an amount
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+                            this.struggleCounter += 20;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                        
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-11,this.y+35,'charBubble',"GURGLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','3',0.1);
+                            this.anims.play('rabbitHungerStruggleRight').once('animationcomplete', () => {
+                                this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+
+                    }else if(this.scene.checkWPressed() === true){
+                        
+                        //makes sure the struggle bar does not go into the negitives
+                        if(this.struggleCounter - 5 > 0){
+                            this.struggleCounter -= 5;
+                        }else{
+                            this.struggleCounter = 0;
+                        }
+
+                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                        
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 1){
+
+                            //play the down animation for the struggle event
+                            this.struggleAnimationInterupt = true;
+
+                            this.scene.onomat = new makeText(this.scene,this.x-12,this.y+35,'charBubble',"RUMBLE");
+                            this.scene.onomat.visible = this.scene.onomatopoeia;
+                            this.scene.onomat.setScale(1/4);
+                            this.scene.onomat.textBuldgeDown(600);
+                            this.scene.onomat.textFadeOutAndDestroy(600);
+
+                            this.scene.initSoundEffect('stomachSFX','8',0.5);
+                            this.anims.play('rabbitHungerStruggleUp').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.scene.onomat.destroy();
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }
+                }
+
+                // randomizing input
+                if (this.randomInputCooldown === false) {
+        
+                    this.randomInputCooldown = true;
+                    this.randomInput = Math.floor((Math.random() * 3));
+                    console.log("randomizing the key prompt " + this.randomInput);
+                    // important anims.play block so that the animation can player properly.
+                    if (this.keyAnimationPlayed === false && this.randomInput === 0) {
+                        console.log(" setting keyA display");
+                        this.scene.KeyDisplay.playAKey();
+                        this.keyAnimationPlayed = true;
+                    } else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
+                        console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
+                        console.log(" setting keyD display");
+                        this.scene.KeyDisplay.playDKey();
+                        this.keyAnimationPlayed = true;
+                    }
+        
+                    let currentRabbit = this;
+                    setTimeout(function () {
+                        currentRabbit.randomInputCooldown = false;
+                        // resets the animation block.
+                        currentRabbit.keyAnimationPlayed = false;
+                    }, 2000);
+                } 
 
             }
 
@@ -620,6 +1239,8 @@ class rabbit extends enemy {
         }
 
     }
+        
+    
 
     playerIsStrugglingLogic(){
 
@@ -639,6 +1260,46 @@ class rabbit extends enemy {
 
 
         }else if(this.rabbitIsHungry === true && this.playerDamageTimer === false){
+
+            if(this.playerDefeatedAnimationStage === 0){
+
+                if (!this.animationPlayed && this.struggleAnimationInterupt === false) {
+
+                    console.log("the animation has not been played");
+                    this.animationPlayed = true;
+                    this.scene.initSoundEffect('swallowSFX','2',0.6);
+                    
+                    //this.scene.onomat.destroy();
+                    this.scene.onomat = new makeText(this.scene,this.x,this.y-50,'charBubble',"GULP!");
+                    this.scene.onomat.visible = this.scene.onomatopoeia;
+                    this.scene.onomat.setScale(1/4);
+                    this.scene.onomat.increaseRight(600);
+                    this.scene.onomat.textFadeOutAndDestroy(600);
+                    
+                    this.anims.play('rabbitHungerSwallow1').once('animationcomplete', () => {
+                        console.log("animation finished");
+                        this.scene.initSoundEffect('swallowSFX','3',0.6);
+
+                        this.anims.play('rabbitHungerSwallow2').once('animationcomplete', () => {
+
+                            this.scene.initSoundEffect('swallowSFX','3',0.6);
+
+                            this.anims.play('rabbitHungerSwallow3').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.playerDefeatedAnimationStage++;
+                                this.inStartDefeatedLogic = false;
+                                console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+        
+                            });
+                        });
+                    });
+                    
+                }
+            }else if(this.playerDefeatedAnimationStage === 1 && this.struggleAnimationInterupt === false){
+                    this.anims.play("rabbitHungerStruggleIdle", true);
+                    this.playStomachSound('3',800); 
+            }
+
 
         }
 
@@ -795,7 +1456,13 @@ class rabbit extends enemy {
                 this.playerDefeatedAnimationStage = 0;
                 this.struggleAnimationInterupt = false;
                 this.spitUp = false;
+                this.attackHitboxActive = false;
+                this.hitboxActive = false;
+                this.attemptingGrab = false;
+                this.swallowDelay  = false;
+                this.attackHitboxActive = false;
 
+            
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
                 // if the enemy is destroyed then the timeout function wont have a refrence if done here.
@@ -822,6 +1489,7 @@ class rabbit extends enemy {
                 setTimeout(function () {
 
                     currentrabbit.grabCoolDown = false;
+                     currentrabbit.grabTimer = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
                 }, 1500);
             }
@@ -871,9 +1539,11 @@ class rabbit extends enemy {
 
                         this.enemyInDefeatedLogic = true;
 
-                        
                         //delete enemy hit box since they have been defeated.
-                        this.grabHitBox.destroy();
+                        this.attackHitBox.x = this.x;
+                        this.attackHitBox.y = this.y + 3000; 
+                        this.grabHitBox.x = this.x;
+                        this.grabHitBox.y = this.y + 3000; 
                     });
                 
                 }
@@ -893,6 +1563,12 @@ class rabbit extends enemy {
     enemyDefeatedLogic(){
         this.setVelocityX(0);
         this.anims.play('rabbitDefeatedFallIdle', true);
+        
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000; 
+
     }
 
     //handles damage types for blue rabbit. get these damage types from the attack that hits the enemy

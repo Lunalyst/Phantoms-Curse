@@ -340,7 +340,7 @@ class G9CheckEnemys extends G8InitEnemys {
     scene.rabbits.children.each(function (tempRabbits) {
     
   
-    if(scene.objectsInRangeX(tempRabbits,scene.player1,400) && scene.objectsInRangeY(tempRabbits,scene.player1,150) && tempRabbits.inSafeMode === false){
+    if(scene.objectsInRangeX(tempRabbits,scene.player1,400) && scene.objectsInRangeY(tempRabbits,scene.player1,200) && tempRabbits.inSafeMode === false){
 
       if(tempRabbits.enemyInDefeatedLogic === true){
         tempRabbits.enemyDefeatedLogic();
@@ -363,6 +363,8 @@ class G9CheckEnemys extends G8InitEnemys {
       
         //inflict damage to tiger
         tempRabbits.damage(scene);
+
+        tempRabbits.setVelocityX(0);
       
         //clear overlap verable in tiger.
         tempRabbits.hitboxOverlaps = false;
@@ -407,6 +409,27 @@ class G9CheckEnemys extends G8InitEnemys {
       
         }
       });
+
+      //attack hitbox logic
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits.attackHitBox, function () {
+          let isWindowObject = {
+            isOpen: null
+          };
+        
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          if (isWindowObject.isOpen === true) {
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+            //scene.playerInventory.setView(scene);
+          }
+
+          //apply stuckgrab logic.
+          scene.playerStuckGrab = true;
+          scene.playerStuckGrabbedBy = "knockdown";
+          scene.playerStuckGrabCap = 40;
+          scene.enemyThatknockdownPlayer = tempRabbits;
+
+        });
     }else if(this.objectsInRangeX(tempRabbits,scene.player1,30) && this.objectsInRangeY(tempRabbits,scene.player1,30)){
 
       this.viewAnimationLogic(tempRabbits);

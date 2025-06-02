@@ -184,7 +184,7 @@ class rabbit extends enemy {
     }
 
     resetVariables(){
-         this.rabbitSoundCoolDown = false;
+        this.rabbitSoundCoolDown = false;
         this.jumpAnimationPlayed = false;
         this.rabbitDamageCounter = false;
         this.jumped = false;
@@ -213,7 +213,7 @@ class rabbit extends enemy {
         this.body.setGravityY(600);
 
         //checks to see if rabbit should move if the player is within range.
-        if (this.checkXRangeFromPlayer(350, 350)) {
+        if (this.checkXRangeFromPlayer(350, 350) && this.enemyInDefeatedLogic === false) {
             this.setSize(70, 179, true);
             this.setOffset(180, 110);
 
@@ -229,12 +229,12 @@ class rabbit extends enemy {
 
                 this.resetVariables();
                 this.setVelocityX(0);
-                
-
-                
+                        
+             }else if(this.rabbitIsHungry === false){
+                this.attackHitboxActive = false;
              }
 
-             console.log("this.grabTimer: ",this.grabTimer,"this.attemptingGrab : ",this.attemptingGrab ,"this.jumped: ",this.jumped,"this.startJump: ",this.startJump, );
+             //console.log("this.grabTimer: ",this.grabTimer,"this.attemptingGrab : ",this.attemptingGrab ,"this.jumped: ",this.jumped,"this.startJump: ",this.startJump, );
             if(this.rabbitIsHungryStart === false && this.rabbitIsHungry === false){
                 // if the player is in range, rabbit is on the ground, and grab timer is false.
                 if(this.body.blocked.down && (this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(20,120) && this.grabTimer === false && this.startJump === false && this.jumped === false)){
@@ -422,7 +422,6 @@ class rabbit extends enemy {
             }else if(this.rabbitIsHungryStart === true && this.body.blocked.down){
 
                 //resets the enemy variables and player variables.
-                this.struggleFree = false;
                 this.playerBrokeFree = 0;
                 this.struggleCounter = 0;
                 this.playerDamaged = false;
@@ -433,6 +432,7 @@ class rabbit extends enemy {
                 this.isPlayingMissedAnims = false;
                 this.grabTimer = false;
                 this.setVelocityX(0);
+                this.setVelocityY(0);
                 this.startedGrab = false;
                 this.playerDefeatedAnimationStage = 0;
                 this.struggleAnimationInterupt = false;
@@ -463,14 +463,7 @@ class rabbit extends enemy {
             }else if(this.rabbitIsHungry === true){
 
                 //if rabbit is too close, and grabb attempt is false, then 
-                if(this.checkXRangeFromPlayer(20, 20) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false){
-
-                    //stop momentum play idle loop
-                    this.setVelocityX(0);
-                    this.anims.play('rabbitHungerIdleLoop', true);
-
-                //attempt to grab the player
-                }else if((this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false){
+                if((this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false){
                     
                     // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
                     if(this.scene.checkDIsDown() && this.x < this.scene.player1.x ){
@@ -506,6 +499,13 @@ class rabbit extends enemy {
                     });
 
                 //activate missed animation
+                }else if(this.checkXRangeFromPlayer(20, 20) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false){
+
+                    //stop momentum play idle loop
+                    this.setVelocityX(0);
+                    this.anims.play('rabbitHungerIdleLoop', true);
+
+                //attempt to grab the player
                 }else if(this.attemptingGrab === true && this.scene.playerStuckGrab === false){
 
                     if(this.isPlayingMissedAnims === false){
@@ -743,7 +743,7 @@ class rabbit extends enemy {
 
     //the grab function. is called when player has overlaped with an enemy rabbit.
     grab(){
-
+        console.log("this.struggleCounter: ",this.struggleCounter);
         //code could be used to get sprite to the ground faster.
         //this.body.setGravityY(600);
 
@@ -1217,7 +1217,7 @@ class rabbit extends enemy {
 
             // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
             // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
-            if (this.struggleCounter > 0 && this.struggleCounter < 200 && this.struggleCounterTick !== true) {
+            if (this.struggleCounter > 0 && this.struggleCounter < 200 && this.struggleCounterTick !== true && this.spitUp === false) {
                 // this case subtracts from the struggle free counter if the value is not pressed fast enough.
                 this.struggleCounter--;
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
@@ -1239,8 +1239,6 @@ class rabbit extends enemy {
         }
 
     }
-        
-    
 
     playerIsStrugglingLogic(){
 
@@ -1260,6 +1258,28 @@ class rabbit extends enemy {
 
 
         }else if(this.rabbitIsHungry === true && this.playerDamageTimer === false){
+
+            this.playerDamageTimer = true;
+
+            //deal 1 hp damager everys second.
+                if(this.animationPlayed === false){
+                    healthEmitter.emit(healthEvent.loseHealth,1);
+                }
+                setTimeout(function () {
+                        currentrabbit.playerDamageTimer = false;
+                }, 1000);
+
+
+        }
+
+        if(this.rabbitIsHungry === false){
+
+            if(this.startedGrab === false){
+
+                this.anims.play('rabbitGrab',true);
+
+            }
+        }else if(this.rabbitIsHungry === true){
 
             if(this.playerDefeatedAnimationStage === 0){
 
@@ -1299,19 +1319,6 @@ class rabbit extends enemy {
                     this.anims.play("rabbitHungerStruggleIdle", true);
                     this.playStomachSound('3',800); 
             }
-
-
-        }
-
-        if(this.rabbitIsHungry === false){
-
-            if(this.startedGrab === false){
-
-                this.anims.play('rabbitGrab',true);
-
-            }
-        }else if(this.rabbitIsHungry === true){
-
         }
     }
 
@@ -1425,76 +1432,83 @@ class rabbit extends enemy {
     }
 
     playerEscaped(playerHealthObject){
-
-        let currentrabbit = this;
-
-            this.scene.KeyDisplay.visible = false;
-            // can we replace this with a settimeout function? probbably. lets make a backup first.
-            if (this.struggleFree === false) {
-                console.log("Free counter: " + this.struggleFree);
-                currentrabbit.struggleFree = true;
-                    
-            }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
-                console.log("player has broken free" );
-                
-                this.anims.play("rabbitIdle", true);
-                
-                //resets the enemy variables and player variables.
-                this.struggleFree = false;
-                this.playerBrokeFree = 0;
-                this.struggleCounter = 0;
-                this.animationPlayed = false;
-                this.playerDamaged = false;
-                this.playerGrabbed = false;
-                this.keyAnimationPlayed = false;
-                this.scene.grabbed = false;
-                this.scene.player1.visible = true;
-                this.isPlayingMissedAnims = false;
-                this.grabTimer = false;
-
-                this.startedGrab = false;
-                this.playerDefeatedAnimationStage = 0;
-                this.struggleAnimationInterupt = false;
-                this.spitUp = false;
-                this.attackHitboxActive = false;
-                this.hitboxActive = false;
-                this.attemptingGrab = false;
-                this.swallowDelay  = false;
-                this.attackHitboxActive = false;
-
+        this.scene.KeyDisplay.visible = false;
             
-                //sets the cooldown to true, then calls the built in function of the scene to 
-                //set it to false in 3 seconds. need to do this in scene to be safe
-                // if the enemy is destroyed then the timeout function wont have a refrence if done here.
-                this.scene.grabCoolDown = true;
+            console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+                // can we replace this with a settimeout function? probbably. lets make a backup first.
+                if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
+                    //if the palyer is grabbed, and in the tiger stomach
+                    if(this.playerDefeatedAnimationStage === 1 && this.spitUp === false){
+                        console.log("activating spit up logic");
+                        this.spitUp = true;
 
-                //sets grabb cooldown for the scene
-                this.scene.startGrabCoolDown();
-                //makes the struggle bar invisible
-                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+                        //spit up sound effect.
+                        this.scene.initSoundEffect('swallowSFX','4',0.02);
 
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+                        //play spitup animation
+                        this.anims.play("rabbitHungerSpitUp").once('animationcomplete', () => {
+                            //then free player.
+                            this.struggleFree = true;
+                        });
 
-                this.scene.player1.visible = true;
-                
-                this.scene.KeyDisplay.visible = false;
-                // creates a window of time where the player cant be grabbed after being released.
-                // creates a cooldown window so the player does not get grabbed as they escape.
-                currentrabbit = this;
+                    }else if(this.playerDefeatedAnimationStage === 0){
+    
+                    this.struggleFree = true;
+                        
+                    }
 
-                //reset the jump variables if the player escapes this enemys grab
-                this.startJump = false;
-                this.jumpAnimationPlayed = false;
-                setTimeout(function () {
+                    //hides the mobile controls in the way of the tab/skip indicator.
+                    controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+                    
 
-                    currentrabbit.grabCoolDown = false;
-                     currentrabbit.grabTimer = false;
-                    console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 1500);
-            }
+                    // if the player if freed do the following to reset the player.
+                }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
 
-        
+                    this.flipX = false;
+                    this.anims.play("rabbitHungerIdle");
+                    //resets the enemy variables and player variables.
+                    this.struggleFree = false;
+                    this.playerBrokeFree = 0;
+                    this.struggleCounter = 0;
+                    this.animationPlayed = false;
+                    this.playerDamaged = false;
+                    this.playerGrabbed = false;
+                    this.keyAnimationPlayed = false;
+                    this.scene.grabbed = false;
+                    this.scene.player1.visible = true;
+                    this.isPlayingMissedAnims = false;
+                    this.grabTimer = false;
+
+                    this.startedGrab = false;
+                    this.playerDefeatedAnimationStage = 0;
+                    this.struggleAnimationInterupt = false;
+                    this.spitUp = false;
+
+                    this.attackHitboxActive = false;
+                    this.hitboxActive = false;
+                    this.attemptingGrab = false;
+                    this.swallowDelay  = false;
+                    this.attackHitboxActive = false;
+                    //player1.setSize(23, 68, true);
+
+                    struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                    //hides the mobile controls in the way of the tab/skip indicator.
+                    controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+
+                    this.scene.player1.x = this.x;
+                    this.scene.player1.y = this.y;
+                    this.scene.grabbed = false;
+                    this.scene.KeyDisplay.visible = false;
+                    // creates a window of time where the player cant be grabbed after being released.
+                    // creates a cooldown window so the player does not get grabbed as they escape.
+                    let currentRabbit = this;
+                    setTimeout(function () {
+                        currentRabbit.grabCoolDown = false;
+                        currentRabbit.scene.grabCoolDown = false;
+                        console.log("grab cooldown has ended. player can be grabbed agian.");
+                    }, 1500);
+            }   
     }
 
     // controls the damage resistance of the rabbit.

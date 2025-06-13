@@ -598,6 +598,18 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.dialogueInterupt = true;
 
             },
+            maleRabbitVore: function maleRabbitVoreFunction() {
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
+                tempSceneRef.enemy.gameOverVore();
+                tempSceneRef.defeatedTitle = 'eaten';
+            },
+            femaleRabbitVore: function femaleRabbitVoreFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
+                tempSceneRef.enemy.gameOverVore();
+                tempSceneRef.defeatedTitle = 'eaten';
+            },
         }
     }
 
@@ -1051,7 +1063,27 @@ class gameoverManager extends A3SoundEffects {
                     }
                     
                 }
-            }
+            },
+            maleRabbitVore: function maleRabbitVoreFunction() {
+                //sound state machine for ifferent stages.
+                if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
+                    tempSceneRef.enemy.playPlapSound('plap8',800);
+                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                    tempSceneRef.enemy.playPlapSound('plap9',500);
+                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 3){
+                    tempSceneRef.enemy.playJumpySound('10',800); 
+                }
+            },
+            femaleRabbitVore: function femaleRabbitVoreFunction() {
+                //sound state machine for ifferent stages.
+                if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
+                    tempSceneRef.enemy.playPlapSound('plap8',800);
+                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                    tempSceneRef.enemy.playPlapSound('plap9',500);
+                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 3){
+                    tempSceneRef.enemy.playJumpySound('10',800); 
+                }
+            },
         }
     }
         

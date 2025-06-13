@@ -237,6 +237,11 @@ class G9CheckEnemys extends G8InitEnemys {
                 
                 //if neither party has grabbed the player, then tiger eats the rabbit.
                 if(tempTiger.playerGrabbed === false && tempRabbit.playerGrabbed === false && tempTiger.enemyDefeated === false){
+                  // move the rabbits grab box out of the way just in case.
+                  tempRabbit.attackHitBox.x = this.x;
+                  tempRabbit.attackHitBox.y = this.y + 3000; 
+                  tempRabbit.grabHitBox.x = this.x;
+                  tempRabbit.grabHitBox.y = this.y + 3000;
                   tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
                   tempRabbit.destroy();
                 

@@ -132,6 +132,7 @@ class gameOver extends gameoverManager {
 
             //sets up map of enemy preloads
             this.preloadMapOfEnemys();
+            console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
             this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
             
             //set up textbox sound type.
@@ -153,7 +154,8 @@ class gameOver extends gameoverManager {
             
             //actiaves dialogue node with above specifications
             this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
-            
+            console.log("this.defeatedTitle: ", this.defeatedTitle);
+            console.log("this.dialogueFlag: ", this.dialogueFlag);
             //adds collider for enemy to the tileset
             this.physics.add.collider(this.processMap.layer1, this.enemy);
             this.physics.add.collider(this.processMap.layer1, this.npcGameover);

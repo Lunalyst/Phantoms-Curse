@@ -1029,9 +1029,17 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "maleRabbitVore":{
+                    "node1":{
+                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms yous as the rabbits fornicate...",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
                 "template":{
                     "node1":{
-                        "dialogue": "",
+                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms yous as the rabbits fornicate...",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -1066,6 +1074,14 @@ const npcDialogue = {
                 "femaleTigerBooba":{
                     "node1":{
                         "dialogue": "the tiger was satisfied from her previous meal, which was lucky for you. she was quite slow due to her fulliness and yet she still got her hands on you, smothering you with her enlarged breasts. your will to struggle faded as she layed down, with you on top of her. as she forced your body onto hers. you could feel yourself transforming as you climaxed. now your her precious tiger cub. you might be cursed, but atleast your tiger momma will keep you safe.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "maleTigerBenis":{
+                    "node1":{
+                        "dialogue": "the tiger was satisfied from his previous meal, which was lucky for you. he was quite slow due to his fulliness and yet he still got his hands on you, scooping you up and placing you on his massive cock. as you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. at first it was a little straining but eventually your body got use to it. the feeling of the tigers cock filling you upp sent waves of pleasure through your body as you transformed. now you will spend the rest of your days, as the tig",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

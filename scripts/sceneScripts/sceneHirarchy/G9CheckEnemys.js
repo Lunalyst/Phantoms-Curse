@@ -438,6 +438,7 @@ class G9CheckEnemys extends G8InitEnemys {
     }else if(this.objectsInRangeX(tempRabbits,scene.player1,30) && this.objectsInRangeY(tempRabbits,scene.player1,30)){
 
       this.viewAnimationLogic(tempRabbits);
+
     // otherwise hid the prompt from the player.
     }else{
       tempRabbits.safePrompts.visible = false;

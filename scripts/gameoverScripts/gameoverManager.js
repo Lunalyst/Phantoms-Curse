@@ -1076,13 +1076,18 @@ class gameoverManager extends A3SoundEffects {
             },
             femaleRabbitVore: function femaleRabbitVoreFunction() {
                 //sound state machine for ifferent stages.
-                if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
-                    tempSceneRef.enemy.playPlapSound('plap8',800);
-                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
-                    tempSceneRef.enemy.playPlapSound('plap9',500);
-                }else if(tempSceneRef.enemy.gameoverLoopingSounds === 3){
-                    tempSceneRef.enemy.playJumpySound('10',800); 
+                if( tempSceneRef.playerSex !== 1 && tempSceneRef.enemySex !== 1){
+                    if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
+                        tempSceneRef.enemy.playPlapSound('plap8',800);
+                    }else if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                        tempSceneRef.enemy.playPlapSound('plap9',500);
+                    }else if(tempSceneRef.enemy.gameoverLoopingSounds === 3){
+                        tempSceneRef.enemy.playJumpySound('10',800); 
+                    }
+                }else{
+                    tempSceneRef.enemy.playJumpySound('10',800);
                 }
+                
             },
         }
     }

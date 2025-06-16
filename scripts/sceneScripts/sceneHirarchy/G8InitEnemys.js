@@ -53,6 +53,16 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(rabbit1);  
         tempSceneRef.rabbits.add(rabbit1);
       },
+      rabbitHungry: function rabbitFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let rabbit1 = new rabbit(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created rabbit id: ",rabbit1.enemyId);
+        rabbit1.rabbitIsHungry = true;
+        rabbit1.rabbitIsHungryStart = true;
+        rabbit1.anims.play('rabbitHungerIdleLoop',tempSceneRef);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(rabbit1);  
+        tempSceneRef.rabbits.add(rabbit1);
+      },
       beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
@@ -143,8 +153,6 @@ class G8InitEnemys extends G7EnemyCollisions{
 
     this.mapOfInitEnemyFunctions[enemyType](startX, startY, playerSex,inSafeMode,soundSFX);
 
-    
-    
   }
 
   //contains the logic all enemys should follow when a player is grabbed

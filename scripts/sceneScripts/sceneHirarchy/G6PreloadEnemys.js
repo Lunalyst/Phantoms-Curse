@@ -50,6 +50,8 @@ class G6PreloadEnemys extends G5InitNPCs{
 
         tempSceneRef.load.spritesheet('rabbit-female-male-vore', 'assets/enemys/rabbit-female-male-vore.png',{frameWidth: 429, frameHeight: 300 });
         tempSceneRef.load.spritesheet('rabbit-male-male-vore', 'assets/enemys/rabbit-male-male-vore.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-male-female-vore', 'assets/enemys/rabbit-male-female-vore.png',{frameWidth: 429, frameHeight: 300 });
+        tempSceneRef.load.spritesheet('rabbit-female-female-vore', 'assets/enemys/rabbit-female-female-vore.png',{frameWidth: 429, frameHeight: 300 });
         
         tempSceneRef.load.spritesheet('rabbitPenning', 'assets/internalViews/rabbitPenning.png',{frameWidth: 213, frameHeight: 213});
         tempSceneRef.load.spritesheet('rabbitPenned', 'assets/internalViews/rabbitPenned.png',{frameWidth: 213, frameHeight: 213});

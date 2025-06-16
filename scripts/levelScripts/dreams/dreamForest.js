@@ -97,7 +97,6 @@ class dreamForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //
       this.initPortals(881,925-13,1388,925,"warpCaveOutside","DreamHub");
 
       this.initPortals(681,925-13,458,669,"warpCaveOutside","DreamBlueSlimeCave");
@@ -181,6 +180,24 @@ class dreamForest extends defaultScene {
         }
 
         object1 = {
+          flagToFind: 'maleRabbitVore',
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: 'femaleRabbitVore',
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleRabbitVore' || object2.flagToFind === 'femaleRabbitVore')){
+          thisScene.initEnemy(1634,882,thisScene.playerSex,'rabbitHungry',true);
+        }
+
+        object1 = {
           flagToFind: 'maleBeeDrone',
           foundFlag: false,
         };
@@ -189,13 +206,15 @@ class dreamForest extends defaultScene {
           flagToFind: 'femaleBeeDrone',
           foundFlag: false,
         };
+
+        
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
         if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
-          thisScene.initEnemy(1680,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
+          thisScene.initEnemy(1778,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
         }
 
         object1 = {
@@ -242,7 +261,7 @@ class dreamForest extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.backround = this.add.tileSprite(100, 300, 1400*3, 664*2, "dreamBackground");
+        this.backround = this.add.tileSprite(1000, 300, 1400*4, 664*2, "dreamBackground");
         this.backround.setDepth(-50);
         this.backround.setScale(1);
     }

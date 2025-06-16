@@ -1031,15 +1031,15 @@ const npcDialogue = {
                 },
                 "maleRabbitVore":{
                     "node1":{
-                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms yous as the rabbits fornicate...",
+                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms you as the rabbits fornicate...",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
                     }
                 },
-                "template":{
+                "femaleRabbitVore":{
                     "node1":{
-                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms yous as the rabbits fornicate...",
+                        "dialogue": "Your smell was irresistible to them... over come by there hunger the rabbit chased you down. before you could react it shoved you to the ground. stunned by the impacted you couldnt get up fast enough. in a moment the rabbit was already swallowing you whole. you where being squished both by the walls of the rabbits stomach, as well as the weight of the rabbits body. you struggled and gradually lost your strength until you where completely subdued and digested. you could feel your self melt and be absorbed into the rabbits form, causing the grabbit to grow a size larger. with the rabbits new strength and size it happily dominates other rabbits. pleasure overwelms you...",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

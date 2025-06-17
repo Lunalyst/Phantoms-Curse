@@ -481,7 +481,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       let tempPlayer = this;
       setTimeout(function () {
         tempPlayer.curseReductiontimer = false;
-        healthEmitter.emit(healthEvent.reduceCurse,1);
+        if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+          healthEmitter.emit(healthEvent.reduceCurse,1);
+        }  
       }, 2000);
       
     }

@@ -1020,35 +1020,65 @@ class rabbit extends enemy {
 
              if (this.keyAnimationPlayed === false && this.rabbitIsHungry === false) {
                 console.log(" setting keyA display");
-                this.scene.KeyDisplay.playAKey();
+                if(this.flipX === false){
+                    this.scene.KeyDisplay.playDKey();
+                }else{
+                    this.scene.KeyDisplay.playAKey();
+                }
                 this.keyAnimationPlayed = true;
             }
 
             struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
 
             if(this.rabbitIsHungry === false){
-
-                if (this.scene.checkDPressed() === true) {
-                    console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
-                    if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
-                        this.struggleCounter += 15;
-                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                        //console.log('strugglecounter: ' + this.struggleCounter);
-                    }
-                }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
-                    if (playerHealthObject.playerHealth >= 1) {
-        
-                        //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
-                        }else{
-                            this.struggleCounter = 0;
+                if(this.flipX === false){
+                    if (this.scene.checkDPressed() === true) {
+                        console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+                            this.struggleCounter += 15;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            //console.log('strugglecounter: ' + this.struggleCounter);
                         }
-                            
-                        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-                        //console.log('strugglecounter: ' + this.struggleCounter);
+                    }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                        if (playerHealthObject.playerHealth >= 1) {
+            
+                            //makes sure the struggle bar does not go into the negitives
+                            if(this.struggleCounter - 5 > 0){
+                                this.struggleCounter -= 5;
+                            }else{
+                                this.struggleCounter = 0;
+                            }
+                                
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            //console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+            
                     }
-        
+                }else{
+                    if (this.scene.checkAPressed() === true) {
+                        console.log('Phaser.Input.Keyboard.JustDown(keyA) ');
+                        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+                            this.struggleCounter += 15;
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                                //console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                    }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                        if (playerHealthObject.playerHealth >= 1) {
+                
+                            //makes sure the struggle bar does not go into the negitives
+                            if(this.struggleCounter - 5 > 0){
+                                this.struggleCounter -= 5;
+                            }else{
+                                this.struggleCounter = 0;
+                            }
+                                    
+                            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                            //console.log('strugglecounter: ' + this.struggleCounter);
+                        }
+                
+                    }
+
+                    
                 }
 
                 this.keyAnimationPlayed = true;    
@@ -1384,7 +1414,8 @@ class rabbit extends enemy {
     playerIsStrugglingLogic(){
 
         let currentrabbit = this;
-
+        console.log("this.playerDefeated; ",this.playerDefeated)
+ 
         if(this.rabbitIsHungry === false && this.playerDamageTimer === false){
 
             this.playerDamageTimer = true;
@@ -1501,10 +1532,12 @@ class rabbit extends enemy {
 
         //based on the enemys sex, play different animations. 
         if(this.enemySex === 0){
+            console.log("this.playerDefeatedAnimationCooldown: ",this.playerDefeatedAnimationCooldown)
             if(this.scene.checkDPressed() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === true &&
                    this.scene.KeyDisplay.visible === true &&
+                   this.playerDefeatedAnimationStage !== 1 &&
                      this.playerDefeatedAnimationStage !== 3 &&
                       this.playerDefeatedAnimationStage !== 7) {
 
@@ -1677,7 +1710,7 @@ class rabbit extends enemy {
                     
 
                     // if the player if freed do the following to reset the player.
-                }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
+                }else if (this.struggleFree === true && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax  && playerHealthObject.playerHealth >= 1) {
 
                     this.flipX = false;
                     this.anims.play("rabbitHungerIdle");
@@ -1693,6 +1726,7 @@ class rabbit extends enemy {
                     this.scene.player1.visible = true;
                     this.isPlayingMissedAnims = false;
                     this.grabTimer = false;
+                    this.playerDamageTimer = false;
 
                     this.startedGrab = false;
                     this.playerDefeatedAnimationStage = 0;
@@ -1895,6 +1929,7 @@ class rabbit extends enemy {
                         this.scene.internalView.destroy();
                     }
                     this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'rabbit')
+                    this.scene.internalView.flipX = this.flipX;
                     this.scene.internalView.anims.play("rabbitPening1");
                     this.scene.internalView.setRotation(3.14);
                 });
@@ -2031,9 +2066,16 @@ class rabbit extends enemy {
                     this.playJumpySound('3',700);
 
                     if(this.scene.playerSex === 0){
-                        this.scene.internalView = new internalView(this.scene,this.x+35,this.y+60,'rabbit')
-                        this.scene.internalView.anims.play("pen1",true);
-                        this.scene.internalView.setRotation(3.14/3);
+                        if(this.flipX === false){
+                            this.scene.internalView = new internalView(this.scene,this.x+35,this.y+60,'rabbit')
+                            this.scene.internalView.anims.play("pen1",true);
+                            this.scene.internalView.setRotation(3.14/3);
+                        }else{
+                            this.scene.internalView = new internalView(this.scene,this.x-35,this.y+60,'rabbit')
+                            this.scene.internalView.anims.play("pen1",true);
+                            this.scene.internalView.setRotation(3.14/3 + 3.14/3);
+                        }
+                        
                     }
 
                 });

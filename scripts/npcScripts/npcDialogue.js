@@ -1081,7 +1081,7 @@ const npcDialogue = {
                 },
                 "maleTigerBenis":{
                     "node1":{
-                        "dialogue": "the tiger was satisfied from his previous meal, which was lucky for you. he was quite slow due to his fulliness and yet he still got his hands on you, scooping you up and placing you on his massive cock. as you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. at first it was a little straining but eventually your body got use to it. the feeling of the tigers cock filling you upp sent waves of pleasure through your body as you transformed. now you will spend the rest of your days, as the tig",
+                        "dialogue": "the tiger was satisfied from his previous meal, which was lucky for you. he was quite slow due to his fulliness and yet he still got his hands on you, scooping you up and placing you on his massive cock. as you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. at first it was a little straining but eventually your body got use to it. the feeling of the tigers cock filling you up sent waves of pleasure through your body as you transformed. now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

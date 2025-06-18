@@ -115,7 +115,7 @@ class PondForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(2145,829+13,
+      this.initSigns(2571,1080+17,
         "ALL THAT YOU ARE, AND ALL THAT YOU COULD BE. YOUR HEART BECOMES APART OF ME. FROM YOUR SEED SPROUTED A GREAT TREE. WITH BRANCHES SO WIDE, THAT IN ITS SHADE, OUR NIGHTMARES COULD HIDE.",
         ['signLoop']);
 
@@ -203,7 +203,7 @@ class PondForest extends defaultScene {
 
     update(){
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //calls the built in update function
       this.defaultUpdate();

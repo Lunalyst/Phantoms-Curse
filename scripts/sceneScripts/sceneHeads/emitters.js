@@ -152,6 +152,16 @@ hudDepthEmitter = new Phaser.Events.EventEmitter();
 //uses as a easy way to set the onetime object in levels as well as special enemy drops
 //but main use is a conviernient place to acess the item data for buyback shop functionality.
 const oneTimeItemArray = {
+    empty_chest: {
+        itemID: 0,
+        itemName: '',
+        itemDescription: '',
+        itemStackable: 0,
+        itemAmount: 0,
+        itemType: "",
+        sellValue: 0
+    },
+
     cave_tutorial_chest_with_oar: {
         itemID: 2,
         itemName: 'OAR',

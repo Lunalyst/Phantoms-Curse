@@ -30,29 +30,40 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         this.flag = flag;
         this.openOnlyOnce = openOnlyOnce;
 
-        //if openOnlyOnce is true then 
-        if(this.openOnlyOnce === true){
+        //if the flag is empty, then ignore search, and set chest to open
+        if(flag === "empty"){
+            this.alreadyOpened = true;
+            //play open animation
+            this.anims.play('opened',true);
+        }else{
+            //if openOnlyOnce is true then 
+            if(this.openOnlyOnce === true){
 
-            //make a temp object
-            let object = {
-              flagToFind: this.flag,
-              foundFlag: false,
-            };
+                //make a temp object
+                let object = {
+                flagToFind: this.flag,
+                foundFlag: false,
+                };
 
-            // call the emitter to check if the value already was picked up.
-            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-            //if so then set this.allReadyOpened to true
-            if(object.foundFlag === true){
-                //set variable alreadyOpened to true
-                this.alreadyOpened = true;
-                //play open animation
-                this.anims.play('opened',true);
-                //otherwise play closed animation.
-            }else{
-                this.anims.play('closed',true);
+                // call the emitter to check if the value already was picked up.
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+                //if so then set this.allReadyOpened to true
+                if(object.foundFlag === true){
+                    //set variable alreadyOpened to true
+                    this.alreadyOpened = true;
+                    //play open animation
+                    this.anims.play('opened',true);
+                    //otherwise play closed animation.
+                }else{
+                    this.anims.play('closed',true);
+                }
+                
             }
-            
+
         }
+        
+
+        
 
         //variables use to protect the object from being called at the wrong time.
         this.safeToOpen = false;

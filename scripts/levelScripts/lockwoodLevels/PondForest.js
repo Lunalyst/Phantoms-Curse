@@ -139,13 +139,19 @@ class PondForest extends defaultScene {
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0x444444);
 
-      this.initSavePoints(4802,1053-14);
+      this.initSavePoints(2990,824-10);
 
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
 
       this.initPortals(4702,1053-13,637,605,"door2","DevRoom1");
 
       this.initPortals(5039,1149-13,368,1080,"warpCaveOutside","ShadowCave");
+
+      //here is where we can do a flag check to see if the player has interacted with vivian or not.
+      if(1){
+        this.initPortals(2752,824-8,1005,600,"door1","messyShed");
+      }
+      
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");

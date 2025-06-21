@@ -373,7 +373,7 @@ class inventory extends Phaser.GameObjects.Container{
             let inventoryThat = this;
             setTimeout(function(){
                 inventoryThat.openDelay = false; 
-                },1000);
+              },1000);
 
         // otherwise if inventory is open then
         }else if(this.isOpen === true && this.openDelay === false){

@@ -32,6 +32,7 @@ class gameHud extends A3SoundEffects {
       this.skipIndicator; 
       this.saveGraphicDelay = false; 
       this.isStorageOpen = false;
+      this.displayCurrencyIcon = null;
 
       this.screenWidth = 1200;
       this.screenHeight = 900;
@@ -737,9 +738,48 @@ class gameHud extends A3SoundEffects {
 
           });
 
+          inventoryKeyEmitter.on(inventoryKey.getCurrency,(returnObject) =>{
+            returnObject.currency = this.playerSaveSlotData.currency;
+          });
+
+          inventoryKeyEmitter.on(inventoryKey.changeCurrency,(returnObject) =>{
+
+            let originalAmount = this.playerSaveSlotData.currency;
+            //subtract internal value
+            if(returnObject.changeType === "-"){
+             this.playerSaveSlotData.currency = this.playerSaveSlotData.currency - returnObject.changeAmount;
+            }else if(returnObject.changeType === "+"){
+             this.playerSaveSlotData.currency = this.playerSaveSlotData.currency + returnObject.changeAmount;
+            }
+            let newAmount = this.playerSaveSlotData.currency;
+            //call function to update currency display.
+            this.currencyAnimation(this,originalAmount,newAmount);
+
+            //make a recursive function using time out, to decrease the amount until it reaches the correct one.
+            console.log("this.playerSaveSlotData.currency: ",this.playerSaveSlotData.currency)
+            
+          });
+
+          inventoryKeyEmitter.on(inventoryKey.displayCurrency,() =>{
+
+            if(this.displayCurrencyIcon === null){
+              this.displayCurrencyIcon = new shellMark(this,100,93);
+              this.displayCurrencyLetters = new makeText(this,this.displayCurrencyIcon.x + 30,this.displayCurrencyIcon.y+25,'charBubble',""+ this.playerSaveSlotData.currency);
+              //this.displayCurrencyIcon.setScale(.6);
+              this.displayCurrencyIcon.visible = true;
+            }else{
+              this.displayCurrencyIcon.destroy();
+              this.displayCurrencyIcon = null;
+            }
+             
+
+          });
+
 
           //emitter to return the save slot
           inventoryKeyEmitter.on(inventoryKey.getSaveSlot,(object) =>{
+            console.log("this.playerSaveSlotData.saveSlot: ",this.playerSaveSlotData.saveSlot);
+            console.log("object.saveSlot: ",object.saveSlot);
             object.saveSlot = this.playerSaveSlotData.saveSlot;
           });
 
@@ -1105,6 +1145,31 @@ class gameHud extends A3SoundEffects {
         console.log("create function in hud finished-------------------------------------------------------");
 
         endTimeTest();
+    }
+
+    currencyAnimation(scene,originalAmount,newAmount){
+
+      //if the origial amount is larger than the new amount
+      if(originalAmount > newAmount){
+        
+        setTimeout(function(){
+          let reduced = originalAmount-1;
+          scene.displayCurrencyLetters.textFadeOutAndDestroy(0);
+          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 30,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
+          scene.currencyAnimation(scene,reduced,newAmount)
+        },0.1);
+
+      }else{
+
+        scene.displayCurrencyLetters.textFadeOutAndDestroy(1000);
+        setTimeout(function(){
+          scene.displayCurrencyIcon.destroy();
+          scene.displayCurrencyIcon = null;
+        });
+        
+
+      }
+
     }
 
     //update loop.

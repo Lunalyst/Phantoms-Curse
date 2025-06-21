@@ -129,8 +129,11 @@ class textBox extends Phaser.GameObjects.Container{
 
         }
         
+        
         //if the player pressed w then
         if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
+
+          console.log("this.textInterupt: ",this.textInterupt, " this.textCoolDown:",this.textCoolDown);
           //progression amount is important so we know when to interupt recursive displaytexthelper.
           this.progressionAmount++;
             
@@ -417,7 +420,7 @@ class textBox extends Phaser.GameObjects.Container{
             //console.log("text display finished");
             //console.log("counter: ",counter," end ",end-2);
             this.npcRef.nodeProgressionDelay = false;
-            //console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+            console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
             
           }
 

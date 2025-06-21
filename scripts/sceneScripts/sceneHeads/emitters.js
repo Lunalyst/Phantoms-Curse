@@ -110,7 +110,12 @@ inventoryKey = {
     isItemInInventory: 'is_item_in_inventory',
     setUpBuyArray: 'set_up_buy_array',
     destroyBuyArray: 'destroy_buy_array',
-    reduceItemAmount: 'reduce_item_amount'
+    reduceItemAmount: 'reduce_item_amount',
+    getCurrency:'get_currency',
+    changeCurrency: 'change_currency',
+    displayCurrency:'display_currency',
+
+
 
 };
 
@@ -231,6 +236,26 @@ const oneTimeItemArray = {
         itemAmount: 1,
         itemType: "weapon",
         sellValue: 75
+    },
+
+    obtained_mimic_rapier: {
+        itemID: 3,
+        itemName: 'MIMIC RAPIER',
+        itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 75
+    },
+    
+    obtained_lantern:{
+        itemID: 21,
+        itemName: 'LANTURN',
+        itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "ring",
+        sellValue: 40
     }
     
     };

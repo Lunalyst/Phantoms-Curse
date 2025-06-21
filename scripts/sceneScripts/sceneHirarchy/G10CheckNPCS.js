@@ -29,14 +29,29 @@ class G10CheckNPCS extends G9CheckEnemys {
     scene.npcTriggers.children.each(function (tempNpc) {
         //if the player is within x range., the trigger wasnt already finished, and that the player isnt grabbed?
       
-      if ((scene.player1.x > tempNpc.x - 20 && scene.player1.x < tempNpc.x + 20) && (scene.player1.y > tempNpc.y - 300 && scene.player1.y < tempNpc.y +70) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
-        
-        console.log("in range");
-        //set id to this object.
-        this.activatedNpcId = tempNpc.npcId;
-        tempNpc.overlapActivateNpc();
-        
-      } 
+        //default range of trigger npc
+      if(this.npcTriggerRange === false){
+        //alter here for the trigger of the trigger npc dialogue.
+        if (this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
+          
+          //console.log("in range");
+          //set id to this object.
+          this.activatedNpcId = tempNpc.npcId;
+          tempNpc.overlapActivateNpc();
+          
+        } 
+      //if special range is set, then use that range instead.
+      }else{
+        if (this.objectsInRangeX(tempNpc,scene.player1,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
+          
+          //console.log("in range");
+          //set id to this object.
+          this.activatedNpcId = tempNpc.npcId;
+          tempNpc.overlapActivateNpc();
+          
+        } 
+      }
+      
 
     }, scene);
   }

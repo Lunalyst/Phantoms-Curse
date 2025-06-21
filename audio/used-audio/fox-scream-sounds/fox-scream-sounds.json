@@ -1,0 +1,14 @@
+{
+    "resources":[
+        "../audio/used-audio/fox-scream-sounds/fox-scream-sounds.mp3"
+        
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0,
+            "end": 1,
+            "loop": false
+        }
+        
+    }
+}

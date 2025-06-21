@@ -9,7 +9,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.setDepth(50);
       this.setScrollFactor(0);
       this.visible = false;
-      this.setScale(3/4);
+      this.setScale(1);
       
       this.anims.create({key: 'signLoop',frames: this.anims.generateFrameNames('textBoxProfile', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
 
@@ -39,5 +39,19 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'istaraHeartEyes',frames: this.anims.generateFrameNames('istaraEmots', { start: 30, end: 35 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'istaraSad',frames: this.anims.generateFrameNames('istaraEmots', { start: 37, end: 41 }),frameRate: 5,repeat: -1});
 
+    }
+
+    setUpVivianEmots(){
+      this.anims.create({key: 'vivianNeutral',frames: this.anims.generateFrameNames('vivianEmots', { start: 0, end: 4 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianHappy',frames: this.anims.generateFrameNames('vivianEmots', { start: 6, end: 9 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianKO',frames: this.anims.generateFrameNames('vivianEmots', { start: 11, end: 14 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianStarEyes',frames: this.anims.generateFrameNames('vivianEmots', { start: 16, end: 21 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianSquish',frames: this.anims.generateFrameNames('vivianEmots', { start: 23, end: 26 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianHeartEyes',frames: this.anims.generateFrameNames('vivianEmots', { start: 28, end: 33 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianShocked',frames: this.anims.generateFrameNames('vivianEmots', { start: 35, end: 39 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianSmug',frames: this.anims.generateFrameNames('vivianEmots', { start: 41, end: 44 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianSmugTongue',frames: this.anims.generateFrameNames('vivianEmots', { start: 46, end: 49 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianWink',frames: this.anims.generateFrameNames('vivianEmots', { start: 51, end: 55 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianAngry',frames: this.anims.generateFrameNames('vivianEmots', { start: 57, end: 60 }),frameRate: 5,repeat: -1});
     }
 }

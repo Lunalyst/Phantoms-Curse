@@ -938,6 +938,280 @@ const npcDialogue = {
             }
 
         },
+        "vivian":{
+            "Behavior1":{
+                "rummaging":{
+                    "node1":{
+                        "dialogue": "These chests are just full of dust and junk. come on theres got to be something good...",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Oh!",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Ah, wait, just a lantern.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Hmm, good condition, wonder if anyone would want to buy it...",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "AH!",
+                        "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "Dont scare me like that! Tch, figures it’s a human.",
+                        "profile":"vivianAngry",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Say… would you like to buy this lantern?",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["nodeA"]
+                    },
+                     "nodeA":{
+                        "dialogue": "Last one in stock, just 999 shells! ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node8","node14","node20"]
+                    },
+                    //three branches for dialogue firs is if the player has enough money
+                    "node8":{
+                        "dialogue": "...oh, really?!? Didn’t think you had that much...",
+                        "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "ah, I mean",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "deal! Here you go!",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "Well, now that business is done, I have another offer for you. ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "Do you like games?",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "If you come back in a bit, I will have a little game set up just for a cutie like you.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node32"]
+                    },
+
+                    //player says yes but doesnt have enough money
+                    "node14":{
+                        "dialogue": "Uh, you seem to be a little short of the price. ",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "Sorry, but no special discounts. ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "Hmm, I COULD be willing to part with it if you are willing to play a little game of mine.  ",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "Win, and the lantern is yours! ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node18"]
+                    },
+                    "node18":{
+                        "dialogue": "Lose and... ",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node19"]
+                    },
+                    "node19":{
+                        "dialogue": "well, let’s just say that I’ll get a prize of my own. ",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node32"]
+                    },
+                    
+                    //player says no
+                    "node20":{
+                        "dialogue": "Hmph, well then good luck getting through those dark caves. Come on, I am sure you can find enough to buy it. ",
+                        "profile":"vivianAngry",
+                        "textvoice":"lightVoice",
+                        "children":["node21"]
+                    },
+                    "node21":{
+                        "dialogue": "Or... perhaps you would like to try and win it, hm?",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node22"]
+                    },
+                    "node22":{
+                        "dialogue": "I have a fun game we could play, and if you win, I will let you have the lantern for free!",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node23"]
+                    },
+                    "node23":{
+                        "dialogue": "But if you lose...",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node24"]
+                    },
+                    "node24":{
+                        "dialogue": "heh, let’s just say the lantern won’t be the only thing I’ll be keeping. ",
+                        "profile":"vivianWink",
+                        "textvoice":"lightVoice",
+                        "children":["node25"]
+                    },
+                    "node25":{
+                        "dialogue": "So, up for a game?",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node26","node29"]
+                    },
+                    // extra branch if they refuse. if they say yess to the game
+                    "node26":{
+                        "dialogue": "Hah, great! Haven’t had fun like this in forever.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node27"]
+                    },
+                    "node27":{
+                        "dialogue": "But uh, first let me clean up this mess of a shack. Come back in a little and I’ll have everything set up.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node28"]
+                    },
+                    "node28":{
+                        "dialogue": "Go on, shoo shoo!",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //no to game
+                    "node29":{
+                        "dialogue": "Aww, had my hopes up that you would be fun.",
+                        "profile":"vivianKO",
+                        "textvoice":"lightVoice",
+                        "children":["node30"]
+                    },
+                    "node30":{
+                        "dialogue": "Oh well. If you get enough shells, or you change your mind, either offer will still be available for you.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node31"]
+                    },
+                    "node31":{
+                        "dialogue": "But for now... get outta here before I get hungry.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //dialogue for yes in first dialogue branch
+                    "node32":{
+                        "dialogue": "let me clean up this mess of a shack. Come back in a little and I’ll have everything set up.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node28"]
+                    },
+                    
+   
+                },
+                "cleaningRich":{
+                    "node1":{
+                        "dialogue": "your still here money bags?",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "gosh give me a little bit of time. ill have somthing fun for you soon enough.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    
+                    "node3":{
+                        "dialogue": " now go on, shoo shoo!",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+
+                "cleaningNice":{
+                    "node1":{
+                        "dialogue": "your still here? cant you give a girl some privacy?",
+                        "profile":"vivianAngry",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "let me clean up this mess of a shack. Come back in a little and I will have everything set up.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    
+                    "node3":{
+                        "dialogue": "Go on, shoo shoo!",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "cleaningMean":{
+                    "node1":{
+                        "dialogue": "why are you still here? ",
+                        "profile":"vivianAngry",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Go on, shoo shoo!",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                
+            },
+        },
         "gameover":{
 
             "eaten":{

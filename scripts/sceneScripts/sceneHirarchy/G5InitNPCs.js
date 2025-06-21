@@ -44,6 +44,9 @@ class G5InitNPCs extends G4InitGameObjects {
 
     Istara.npcId = this.npcId;
     this.npcId++;
+    //need to set up the tutorial dialogue from file.
+    this.npcTriggers.add(tutorial);
+
     this.npcs.add(Istara);
 
     //if we are using dark lighting
@@ -51,6 +54,32 @@ class G5InitNPCs extends G4InitGameObjects {
       Istara.setPipeline('Light2D');
     }
 
+  }
+
+  initVivian(x, y, type) {
+    //sets up the special text box object for istara
+    this.sceneTextBox.textBoxProfileImage.setUpVivianEmots();
+
+    //create istara npc
+    let Vivian = new vivian(this, x, y, type);
+
+    Vivian.npcId = this.npcId;
+    this.npcId++;
+    //notice, we add vivian to both the trigger npcs group and the regular npc group
+    //this is so that the trigger dialogue always occurs first
+    //we then flag in the npc logic to changer the dialogue after the trigger version
+    if(type === "rummaging"){
+      this.npcTriggers.add( Vivian);
+      this.npcs.add(Vivian);  
+    }else{
+      
+      this.npcs.add(Vivian);
+    }
+
+    //if we are using dark lighting
+    if(this.lightingSystemActive === true){ 
+       Vivian.setPipeline('Light2D');
+    }
   }
 
 }

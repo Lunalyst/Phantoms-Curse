@@ -44,6 +44,10 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //value to tell if a triggernpc has caught the player.
       this.triggerNpcActivated = false;
       this.triggerNpcFinished = false;
+
+      this.npcTriggerRange = false;
+      this.npcTriggerRangeX = null;
+      this.npcTriggerRangeY = null;
       
       this.scene = scene;
   }
@@ -127,7 +131,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
     }else{
-
+      this.nodeProgressionDelay = false;
+      let foundNode = false;
       //search the currentNodes children
       for(let counter = 0; counter < this.currentDictNode.children.length;counter++){
 
@@ -135,6 +140,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
         if(this.currentDictNode.children[counter].nodeName === nextNodeName){
 
           console.log("Found node: ",nextNodeName);
+          foundNode = true;
 
           //set the current node to the child that matches
           this.currentDictNode = this.currentDictNode.children[counter];
@@ -154,6 +160,11 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           break;
         }
       }
+
+      // improtant check. if we are at the last node because we couldnt find a child, makesure dialogue catch is set to false so we dont get stuck at the end of a dialogue braNCH
+      if(foundNode === false){
+        this.dialogueCatch = false;
+      }
     }
     
   }
@@ -161,6 +172,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //logic the occurs after every dialogue progression.
   dialogueLogicEnd(){
 
+    console.log("this.scene.sceneTextBox.completedText: ",this.scene.sceneTextBox.completedText)
     //while there is text to display display it.
     if(this.scene.sceneTextBox.completedText === false){
       this.scene.pausedInTextBox = true;
@@ -302,6 +314,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       ){
 
         //block to stop the node from progressing too quickly.
+        console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
         if(this.nodeProgressionDelay === false){
 
           //if the length is greater than zero then progress pass the next node
@@ -310,18 +323,14 @@ class npc extends Phaser.Physics.Arcade.Sprite{
             //console.log(this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
+            //time out for our node progression.
+            this.nodeProgressionDelay = true;
+
           //otherwise progress with blank node.
           }else {
             this.progressNode("");
           }
 
-          //time out for our node progression.
-          this.nodeProgressionDelay = true;
-
-          /*let currNPC = this;
-          setTimeout(function(){
-            currNPC.nodeProgressionDelay = false;
-          },1300);*/
         }
     }
   }

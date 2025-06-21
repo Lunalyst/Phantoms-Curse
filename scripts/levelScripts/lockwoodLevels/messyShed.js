@@ -24,16 +24,16 @@ class messyShed extends defaultScene {
 
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
       this.load.tilemapTiledJSON("Messy_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Messy_Storage_Shed.json");
-     
-      //this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
-      //this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
-      //this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
-      
-      //this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
-      //this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
+      this.load.tilemapTiledJSON("Vivian_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Vivians_Storage_Shed.json");
 
+      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 381 , frameHeight: 381 });
+      this.load.spritesheet("vivianEmots" , "assets/hudElements/VivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
       //storageLocker with a lower case s
       this.defaultPreload();
+
+      this.load.audioSprite('foxSFX','audio/used-audio/fox-scream-sounds/fox-scream-sounds.json',[
+        "audio/used-audio/fox-scream-sounds/fox-scream-sounds.mp3"
+      ]);
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
@@ -54,9 +54,22 @@ class messyShed extends defaultScene {
       
       this.grabbed = false;
 
-      //creates tileset
-      this.setUpTileSet("Messy_Shed_map","Home_Interior_Tileset","home_source_map");
+      //do a flag check to see if the player has interacted with vivian.
+      let vivianDialogue1 = {
+        flagToFind: "vivianRummaging",
+        foundFlag: false,
+      };
 
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
+
+      if(vivianDialogue1.foundFlag === true){
+        this.setUpTileSet("Vivian_Shed_map","Home_Interior_Tileset","home_source_map");
+      }else{
+        //creates tileset
+        this.setUpTileSet("Messy_Shed_map","Home_Interior_Tileset","home_source_map");
+
+      }
+    
       //sets up item drops for the scene and som other useful groups.
       this.setUpItemDrops();
 
@@ -109,9 +122,16 @@ class messyShed extends defaultScene {
 
       let empty = oneTimeItemArray.empty_chest;
       //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      this.initItemContainer(405,698,empty,true,"empty"); 
-      this.initItemContainer(546,698,empty,true,"empty"); 
-      this.initItemContainer(671,698,empty,true,"empty"); 
+
+      if(vivianDialogue1.foundFlag === true){
+        
+      }else{
+        this.initItemContainer(576,698,empty,true,"empty"); 
+        this.initItemContainer(701,698,empty,true,"empty"); 
+
+        this.initVivian(445,698,'rummaging');
+      }
+      
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -131,7 +151,7 @@ class messyShed extends defaultScene {
       //calls the built in update function
       this.defaultUpdate();
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
     }
 

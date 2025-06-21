@@ -332,7 +332,7 @@ class makeText extends Phaser.GameObjects.Container{
           scale: (top/(bottom)/6),
           ease: 'Sine.InOut',
           repeat: 0,  
-          onComplete: this. textFadeOutAndDestroy(time*3)
+          onComplete: this.textFadeOutAndDestroy(time*3)
         });
 
 

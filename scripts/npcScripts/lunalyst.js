@@ -400,17 +400,6 @@ class lunalyst extends npc{
               }
             );
     
-            this.buyBack.push(
-              {
-                itemID: 21,
-                itemName: 'LANTURN',
-                itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
-                itemStackable: 0,
-                itemAmount: 1,
-                itemType: "ring",
-                sellValue: 40
-              }
-            );
     
             //make a special object to pass to the listener
             let buyArray = {

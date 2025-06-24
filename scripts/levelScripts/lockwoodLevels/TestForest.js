@@ -37,7 +37,7 @@ class TestForest extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Forest_Tileset/Test_Forest.json");
 
-      this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1377 , frameHeight: 918});
+      this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
@@ -107,7 +107,7 @@ class TestForest extends defaultScene {
       this.skybackround.setDepth(-51);
       this.skybackround.setTint(0xd3d3d3);*/
 
-      this.backround = this.add.tileSprite(1500, 800, 10*1377 ,918, "backgroundForestStaticLevel");
+      this.backround = this.add.tileSprite(1500, 800, 10*1600 ,1090, "backgroundForestStaticLevel");
       this.backround.setDepth(-50);
       this.backround.setScale(.9);
       this.backround.setTint(0xd3d3d3);

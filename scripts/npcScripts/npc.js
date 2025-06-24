@@ -291,10 +291,11 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   //handles the node progression 
   nodeHandler(npc,behavior,flag){
-
+    console.log("calling node handler");
     //check if the dialogue node is set.
     this.scene.sceneTextBox.npcReset();
 
+    console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
     //if the dialogue isnt set and we arnt finished with dialogue
     if(this.dialogueDictSet === false && this.finished === false ){
 

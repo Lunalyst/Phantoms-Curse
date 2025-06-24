@@ -9,9 +9,10 @@ class vivian extends npc{
       this.anims.create({key: 'vivianrummagingShock',frames: this.anims.generateFrameNames('vivian', { start: 4, end: 6 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'vivianrummagingAngry',frames: this.anims.generateFrameNames('vivian', { start: 7, end: 10 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianrummagingLook',frames: this.anims.generateFrameNames('vivian', { start: 11, end: 14 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'vivianHide',frames: this.anims.generateFrameNames('vivian', { start: 15, end: 15 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'vivianPopUp',frames: this.anims.generateFrameNames('vivian', { start: 16, end: 19 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'vivianShopIdle',frames: this.anims.generateFrameNames('vivian', { start: 20, end: 23 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianrummagingGiveItem',frames: this.anims.generateFrameNames('vivian', { start: 15, end: 19 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'vivianHide',frames: this.anims.generateFrameNames('vivian', { start: 20, end: 20 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianPopUp',frames: this.anims.generateFrameNames('vivian', { start: 21, end: 23 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianShopIdle',frames: this.anims.generateFrameNames('vivian', { start: 24, end: 27 }),frameRate: 7,repeat: -1});
       
 
        //makes a key promptsa object to be displayed to the user
@@ -37,6 +38,8 @@ class vivian extends npc{
        this.activatedTradeUI = false;
        this.inDialogue = false;
 
+       this.safeToSpeak = false;
+
        this.formattingText = false;
 
        if(this.npcType === 'rummaging'){
@@ -45,9 +48,18 @@ class vivian extends npc{
         this.npcTriggerRange = true;
         this.npcTriggerRangeX = 80;
         this.npcTriggerRangeY = 300;
+
+        //sets popout to true so that we we dont have to play popout animation.
+        this.popOut = false;
+
+       }else if(this.npcType === 'minigameShop'){
+        this.anims.play('vivianHide',true);
+        this.popOut = true;
        }
 
        this.selectiveFlagAdded = false;
+
+       this.doOnce = false;
 
 
   }
@@ -58,8 +70,55 @@ class vivian extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'rummaging'){
       this.rummaging();
+    }else if(this.npcType === 'minigameShop'){
+      this.minigameShop();
     }else{
       this.default();
+    }
+  }
+
+  //for this npc we need to overwrite the activatino function to account for the under water animation.
+  activateNpc(){
+
+    //if the player meets activation requiements for the sign display the text box
+    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false){
+
+      if(this.popOut === false){
+        console.log("popout is false");
+        //logic to start dialogue
+        this.dialogueLogicStart();
+
+        //calls function overwritten children class to handle npc logic.
+        this.flagLogic();
+          
+        //ending dialoguce logic.
+        this.dialogueLogicEnd();
+      }else{
+        console.log("popout is true");
+        this.activated = true;
+        this.scene.initSoundEffect('creakSFX','wood',0.05);
+        //this.scene.initSoundEffect('splashSFX','istaraGetUp',0.05);
+        this.anims.play('vivianPopUp').once('animationcomplete', () => {
+          this.anims.play('vivianShopIdle',true);
+          this.popOut = false;
+          this.activated = false;
+        });
+      }
+          
+      //otherwise we want to display the key prompts 
+    }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
+
+      this.npcKeyPrompts.visible = true;
+      this.npcKeyPrompts.playWKey();
+      this.promptCooldown = true;        
+  
+    }
+        
+    // resets variables.
+    if(this.safeToSpeak === false){
+      this.npcKeyPrompts.visible = false;
+      this.promptCooldown = false;
+
     }
   }
 
@@ -83,22 +142,25 @@ class vivian extends npc{
           this.scene.sceneTextBox.storeFlag(vivianDialogue1);
         }else if(this.currentDictNode.nodeName === "node5"){
           
+          if(this.doOnce === false){
+            this.doOnce = true;
+            if(!this.animationPlayed){
+
+              this.animationPlayed = true;
+
+              this.anims.play('vivianrummagingShock');
+              this.scene.initSoundEffect('foxSFX','1',0.05);
+
+              let temp = this;
+              setTimeout(function () {
+                temp.animationPlayed = false;
+            }, 500);
+          }
           
-          if(!this.animationPlayed){
-
-            this.animationPlayed = true;
-
-            this.anims.play('vivianrummagingShock');
-            this.scene.initSoundEffect('foxSFX','1',0.05);
-
-            let temp = this;
-            setTimeout(function () {
-              temp.animationPlayed = false;
-          }, 500);
 
           } 
         }else if(this.currentDictNode.nodeName === "node6"){
-          
+          this.doOnce = false;
           this.anims.play('vivianrummagingAngry',true);
   
         }else if(this.currentDictNode.nodeName === "node7"){
@@ -115,7 +177,7 @@ class vivian extends npc{
   
         }else if(this.currentDictNode.nodeName === "nodeA" && this.inDialogue === false){
           
-           this.inDialogue = true;
+          this.inDialogue = true;
           //set variable approperiately
           this.scene.sceneTextBox.textInterupt = true;
 
@@ -247,56 +309,71 @@ class vivian extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if(this.currentDictNode.nodeName === "node10" && this.inDialogue === false){
+        }else if(this.currentDictNode.nodeName === "node10"){
 
+          if(this.doOnce === false){
 
-          if(!this.animationPlayed){
+            this.doOnce = true;
 
-            this.animationPlayed = true;
+            if(!this.animationPlayed){
 
-            //subtract amount from players currency
-            let currencyObject = {
-                changeType:'-',
-                changeAmount:999,
-            };
-              inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
+              this.animationPlayed = true;
 
-            //check flag for lantern
-            //make a temp object
-            let object = {
-                flagToFind: "obtained_lantern",
-                foundFlag: false,
-            };
-
-            //call the emitter to check if the value already was picked up.
-            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
-            //give player lantern
-            if(object.foundFlag === false){
-
-              //used to tell if the item was added
-              let addedToInventory = {
-                  added: false
+              //subtract amount from players currency
+              let currencyObject = {
+                  changeType:'-',
+                  changeAmount:999,
               };
-              let item = oneTimeItemArray.obtained_lantern;
-              inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
 
-              //give lanturn flag
-              //now to add the flag to the player data so the player cant open this container multiple times.
-              inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
-            }
+              //check flag for lantern
+              //make a temp object
+              let object = {
+                  flagToFind: "obtained_lantern",
+                  foundFlag: false,
+              };
+
+              //call the emitter to check if the value already was picked up.
+              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+              //give player lantern
+              if(object.foundFlag === false){
+
+                //used to tell if the item was added
+                let addedToInventory = {
+                    added: false
+                };
+                let item = oneTimeItemArray.obtained_lantern;
+                inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+
+                //give lanturn flag
+                //now to add the flag to the player data so the player cant open this container multiple times.
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+              }
+
+              //spawn fake lantern that disapears.
+              this.scene.initFakeItemDropWithSpeed(this.x+30 , this.y-20 ,21,1000);
+              
+              //play animation of giving lantern // have the animation player after a period of time
+              //or if dialogue is skipped through, then make sure to destroy fake drop on next node.
+              this.anims.play('vivianrummagingGiveItem').once('animationcomplete', () => {
+                    this.anims.play('vivianrummagingLook',true);
+                    this.animationPlayed = false;
+                });
+
             
-            //play animation of giving lantern
+              let temp = this;
+              setTimeout(function () {
+                temp.animationPlayed = false;
+              }, 500);
 
-            //spawn fake lantern that disapears.
-            this.scene.initFakeItemDrop(this.x+35 , this.y-16 ,21);
+            }
 
-            let temp = this;
-            setTimeout(function () {
-              temp.animationPlayed = false;
-            }, 500);
+        }
+      
 
-          }
+        }else if(this.currentDictNode.nodeName === "node10"){
+          this.doOnce = false;
 
         }else if(this.currentDictNode.nodeName === "node25" && this.inDialogue === false){
 
@@ -440,46 +517,13 @@ class vivian extends npc{
   }
 
 
-  ClearingTheWay(){
+  minigameShop(){
     
-    //check to see if flag already exists
-      let lunaCTWDialogue1 = {
-        flagToFind: "lunaCTWDialogue1",
-        foundFlag: false,
-      };
-  
-      let lunaCTWDialogue2 = {
-        flagToFind: "lunaCTWDialogue2",
-        foundFlag: false,
-      };
-  
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue1);
-  
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaCTWDialogue2);
-      //console.log("lunaCTWDialogue1.foundFlag: ", lunaCTWDialogue1.foundFlag);
 
-    if(lunaCTWDialogue1.foundFlag === false){
+      this.nodeHandler("vivian","Behavior2","minigameIntro");
 
-      this.nodeHandler("vivian","Behavior2","lunaCTWDialogue1");
-      if(this.currentDictNode !== null){
-        if(this.currentDictNode.nodeName === "node1"){
-          //pass the flag value and search to the textbox. flag is added after the text box is closed.
-          this.scene.sceneTextBox.storeFlag(lunaCTWDialogue1);
-
-        }else if(this.currentDictNode.nodeName === "node4" && this.animationPlayed === false){
-          this.anims.play('vivianSkirtPull',true).once('animationcomplete', () => {
-            this.anims.play('vivianIdle');
-
-          });
-        }else{
-          this.anims.play('vivianIdle',true); 
-        }
-      }
-
-    }else if(lunaCTWDialogue1.foundFlag === true){
-
-      this.nodeHandler("vivian","Behavior2","lunaCTWDialogue2");
-
+      console.log("this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
+      console.log("this.currentDictNode: ",this.currentDictNode);
       if(this.currentDictNode !== null){
         //state machine for dialogue 
         console.log("this.currentDictNode:", this.currentDictNode);
@@ -492,7 +536,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"CAN I GET HUG? ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"I WANT TO PLAY YOUR GAME. ",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -530,11 +574,12 @@ class vivian extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"GOT ANY SUPPPLIES? ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"I WANT TO BUY SOMETHING. ",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -559,7 +604,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = false;
 
             //progress to node branch with state name node10 special function which ignores lock out of text
-            this.progressNode("node10",true);
+            this.progressNode("node8",true);
 
             //sets the dialogue catch so the textbox stays open during the shop ui interactions.
             this.dialogueCatch = true;
@@ -568,11 +613,12 @@ class vivian extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"SEE YOU LATER. ",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"WHO ARE YOU? ",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -596,12 +642,48 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = false;
           
           //progress to node branch with state name node5
-          this.progressNode("node12");
+          this.progressNode("node9");
 
           //destroy itself and other deciosions
           this.scene.npcChoice1.destroy();
           this.scene.npcChoice2.destroy();
           this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"I AM JUST LOOKING AROUND... ",true);
+          this.scene.npcChoice4.textWob();
+          this.scene.npcChoice4.setScrollFactor(0);
+          this.scene.npcChoice4.addHitbox();
+          this.scene.npcChoice4.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice4.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice4.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice4.on('pointerout',function(pointer){
+              this.scene.npcChoice4.clearTextTint();
+          },this);
+
+          this.scene.npcChoice4.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+          
+          //progress to node branch with state name node5
+          this.progressNode("node15");
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
 
           },this);
 
@@ -612,81 +694,20 @@ class vivian extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if(this.currentDictNode.nodeName === "node6"&& this.animationPlayed === false){
-            console.log("activating node6 state machine ")
-            this.scene.player1.visible = false;
-        
-            if(this.animationPlayed === false){
-        
-              this.animationPlayed = true;
-              if(this.scene.playerSex === 1){
-                this.anims.play('vivianFemaleHugStart').once('animationcomplete', () => {
-                  this.anims.play('vivianFemaleHug',true);
-                  this.animationPlayed = false;
-                  this.scene.player1.visible = false;
-                });
-              }else{
-                  this.anims.play('vivianMaleHugStart').once('animationcomplete', () => {
-                    this.anims.play('vivianMaleHug',true);
-                    this.animationPlayed = false;
-                    this.scene.player1.visible = false;
-                  });
-                } 
-              }
-        }else if(this.currentDictNode.nodeName === "node7"&& this.animationPlayed === false){
-
-              this.scene.player1.visible = false;
-
-              if(this.scene.playerSex === 1){
-                this.anims.play('vivianFemaleHug',true);
-              }else{
-                this.anims.play('vivianMaleHug',true);
-              } 
-        }else if(this.currentDictNode.nodeName === "node8" && this.animationPlayed === false){
-              this.animationPlayed = true;
-              //apply interuption to dialogue
-              this.scene.sceneTextBox.textInterupt = true;
-
-              if(this.scene.playerSex === 1){
-
-                this.anims.play('vivianFemaleHugEnd',true).once('animationcomplete', () => {
-                  this.anims.play('vivianIdle',true);
-
-                  //position the player to the correct place when they leave the animation.
-
-                  this.scene.player1.mainHitbox.x = this.x+20;
-              this.scene.player1.mainHitbox.y = this.y-3;
-
-                  this.scene.player1.visible = true;
-                  this.animationPlayed = false
-                  this.scene.sceneTextBox.textInterupt = false;
-
-                });
-              }else{
-                  this.anims.play('vivianMaleHugEnd',true).once('animationcomplete', () => {
-                  this.anims.play('vivianIdle',true);
-
-                  this.scene.player1.mainHitbox.x = this.x+20;
-                  this.scene.player1.mainHitbox.y = this.y-3;
-
-                  this.scene.player1.visible = true;
-                  this.animationPlayed = false;
-                  this.scene.sceneTextBox.textInterupt = false;
-                });
-              } 
-        }else if(this.currentDictNode.nodeName === "node9"){
-              this.anims.play('vivianIdle',true);
-              this.scene.player1.visible = true;
-        }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+        }else if(this.currentDictNode.nodeName === "node8" && this.activatedTradeUI === false){
 
             this.activatedTradeUI = true;
+
+            //makes sure dialogue does not progress and finish while we are in the shop ui.
+            //if it does finish... then the text box closes while in ui causing softlock once closing shop ui.
+            this.dialogueCatch = true;
             
             let object = {
               NPCRef: this,
             };
     
-            this.buyBack = this.generateBuyBack();
-    
+            this.buyBack = [];
+
             this.buyBack.push(
               {
                 itemID: 16,
@@ -701,32 +722,20 @@ class vivian extends npc{
     
             this.buyBack.push(
               {
-                itemID: 20,
-                itemName: 'PLAIN CLOTHS',
-                itemDescription: 'SIMPLE COMFY OUTFIT.',
-                itemStackable: 0,
-                itemAmount: 1,
-                itemType: "vanity",
-                sellValue: 10
-              }
-            );
-    
-            this.buyBack.push(
-              {
                 itemID: 21,
                 itemName: 'LANTURN',
                 itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
                 itemStackable: 0,
                 itemAmount: 1,
                 itemType: "ring",
-                sellValue: 40
+                sellValue: 999
               }
             );
     
             //make a special object to pass to the listener
             let buyArray = {
               array: this.buyBack,
-              sellMultiplier: 1.8
+              sellMultiplier: 1
             };
     
             //send that object to the emiter so it can be set in the gamehud
@@ -742,8 +751,6 @@ class vivian extends npc{
         }
   
       }
-       
-    }
   }
 
   //called by the shop ui.
@@ -753,14 +760,14 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'I CAN TAKE THOSE OFF YOUR'+
-    'HANDS.                   '+
-    '                         ';
+    'OK,                      '+
+    'I WILL TAKE THAT OFF     '+
+    'YOUR HANDS               ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
 
-    this.profileArray.push('lunaStarEyes');
+    this.profileArray.push('vivianSquish');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
@@ -779,14 +786,14 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'ENJOY!                   '+
-    'THANKS FOR THE PURCHASE. '+
-    '                         ';
+    'DEAL!                    '+
+    'HOPE IT IS USEFUL TO     '+
+    'YOU!                     ';
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
     
 
-    this.profileArray.push('lunaNeutral');
+    this.profileArray.push('vivianHappy');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
@@ -806,14 +813,14 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'SORRY, BUT IT LOOKS LIKE '+
-    'YOU DONT HAVE ENOUGH     '+
-    'SHELL.                   ';
+    'YOU DONT HAVE ENOUGH.    '+
+    'COME ON....              '+
+    'DONT WASTE MY TIME.      ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
 
-    this.profileArray.push('lunaNeutral');
+    this.profileArray.push('vivianAngry');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
@@ -832,14 +839,14 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'LETS SEE WHAT YOU GOT.   '+
-    '                         '+
-    '                         ';
+    'SELL HUH?                '+
+    'JUST DONT SELL ME JUNK   '+
+    'PLEASE...                ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
 
-    this.profileArray.push('lunaNeutral');
+    this.profileArray.push('vivianSquish');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
@@ -858,14 +865,14 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'HERES WHAT I GOT.        '+
-    'SEE ANYTHING YOU LIKE?   '+
+    'WHAT ARE YA BUYIN? HEH.  '+
+    '                         '+
     '                         ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
 
-    this.profileArray.push('lunaNeutral');
+    this.profileArray.push('vivianSmug');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);

@@ -9,7 +9,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.setDepth(50);
       this.setScrollFactor(0);
       this.visible = false;
-      this.setScale(1);
+      this.setScale(.7);
       
       this.anims.create({key: 'signLoop',frames: this.anims.generateFrameNames('textBoxProfile', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
 

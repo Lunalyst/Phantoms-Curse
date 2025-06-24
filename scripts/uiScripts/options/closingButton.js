@@ -94,16 +94,20 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
             inventoryKeyEmitter.emit(inventoryKey.destroyBuyArray);
 
             //reset finished, and other variables
+            //including dialogue catch which frees us from the text box.
             this.inventory.npc.scene.sceneTextBox.npcRef.resetVariables();
 
             //reset the trading value in the npc 
             this.inventory.npc.activatedTradeUI = false;
 
+            this.inventory.npc.finished = false;
+
             //progress the dialogue so the textbox goes through its finishing procedure.
             this.inventory.npc.scene.sceneTextBox.activateNPCTextBox();
             this.inventory.npc.scene.sceneTextBox.progressDialogue();
-
+            console.log("this.inventory.npc.scene.sceneTextBox.textInterupt: ",this.inventory.npc.scene.sceneTextBox.textInterupt);
             this.inventory.npc.scene.sceneTextBox.textInterupt = false;
+            console.log("this.inventory.npc.scene.sceneTextBox.textInterupt: ",this.inventory.npc.scene.sceneTextBox.textInterupt);
 
 
         },this);

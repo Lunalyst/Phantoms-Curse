@@ -182,6 +182,16 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  //creates a item drop object in the scene
+  initFakeItemDropWithSpeed(x, y,itemID,speed) {
+    //creates a item drop
+    let drop1 = new itemDrop(this, x, y,itemID,0,1,"","","",0);
+    drop1.activateFakeDropWithSpeed(speed);
+
+    console.log("adding new fake item drop: ",drop1);
+
+  }
+
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
     initHealthUpgrade(x, y, flag) {
 

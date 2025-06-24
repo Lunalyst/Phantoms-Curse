@@ -1286,17 +1286,6 @@ class shop extends Phaser.GameObjects.Container{
           index++;
         }
       }
-    }
-
-    // applys functionality to the buttons for the shop.
-    applyUIControlElements() {
-
-      
-
-    }
-
-    
-
-    
+    }   
     
 }

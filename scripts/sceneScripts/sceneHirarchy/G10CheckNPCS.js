@@ -8,7 +8,7 @@ class G10CheckNPCS extends G9CheckEnemys {
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
       if ((scene.player1.x > tempNpc.x - 40 && scene.player1.x < tempNpc.x + 40) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40) && scene.grabbed === false) {
-        console.log("within npc range");
+        //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
       } else {
@@ -30,8 +30,9 @@ class G10CheckNPCS extends G9CheckEnemys {
         //if the player is within x range., the trigger wasnt already finished, and that the player isnt grabbed?
       
         //default range of trigger npc
-      if(this.npcTriggerRange === false){
+      if(tempNpc.npcTriggerRange === false){
         //alter here for the trigger of the trigger npc dialogue.
+        console.log("testing");
         if (this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
           
           //console.log("in range");

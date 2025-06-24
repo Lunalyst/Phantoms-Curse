@@ -93,7 +93,26 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
             fakedrop.destroy();
         },4000);
     }
+
+     activateFakeDropWithSpeed(speed){
+        this.visible = true;
+        this.setVelocityY(-10);
+
+         let fakedrop = this;
+         
+
+         setTimeout(function(){
+            fakedrop.setVelocityY(0);
+        },speed/2);
+
+        setTimeout(function(){
+            fakedrop.destroy();
+        },speed);
+    }
 }
+
+
+
 
 
 

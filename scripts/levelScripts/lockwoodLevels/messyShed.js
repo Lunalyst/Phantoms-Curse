@@ -38,6 +38,10 @@ class messyShed extends defaultScene {
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
+
+       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
       
     }
 
@@ -124,7 +128,7 @@ class messyShed extends defaultScene {
       //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
 
       if(vivianDialogue1.foundFlag === true){
-        
+        this.initVivian(913,600,'minigameShop');
       }else{
         this.initItemContainer(576,698,empty,true,"empty"); 
         this.initItemContainer(701,698,empty,true,"empty"); 

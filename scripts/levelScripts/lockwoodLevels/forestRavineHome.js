@@ -30,7 +30,7 @@ class ForestRavineHome extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Forest_Tileset/Player_Home.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png',{frameWidth: 1000 , frameHeight: 1000});
+      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -128,7 +128,7 @@ class ForestRavineHome extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backround = this.add.tileSprite(0, 1070, 5000, 664, "backgroundForestRavineLevel");
+        this.backround = this.add.tileSprite(0, 970, 6*1600, 1090, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
         this.backround.setScale(1.2);
         //original pos - player pos * scrol factor

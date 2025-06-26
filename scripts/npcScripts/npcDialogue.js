@@ -1217,15 +1217,9 @@ const npcDialogue = {
                         "dialogue": "oh! your back.",
                         "profile":"vivianStarEyes",
                         "textvoice":"lightVoice",
-                        "children":["node2", "node3", "node5"]
+                        "children":[ "node3"]
                     },
                     // based on previous encounter use logic in flags to tell how to progress the node.
-                    "node2":{
-                        "dialogue": "Just finished setting everything up cutie",
-                        "profile":"vivianHappy",
-                        "textvoice":"lightVoice",
-                        "children":["node4"]
-                    },
                     "node3":{
                         "dialogue": "Just finished setting everything up.",
                         "profile":"vivianNeutral",
@@ -1337,7 +1331,252 @@ const npcDialogue = {
                         "children":[]
                     },
                     
+                },
+                "minigameRepeat":{
+                    "node1":{
+                        "dialogue": "oh! its you agian.",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":[ "node3"]
+                    },
+                    // based on previous encounter use logic in flags to tell how to progress the node.
+                    "node3":{
+                        "dialogue": "welcome back.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Now, what would you like to do?",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node5","node8","node9","node15"]
+                    },
+
+                    //i want to play your game
+                    "node5":{
+                        "dialogue": "Heh, lovely. ",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "there will be three chests. I will put the reward in one of these chests, and all you need to do is open the correct one.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["nodeB"]
+                    },
+                    "nodeB":{
+                        "dialogue": "Since you already got the lantern... ill just put some shell in the correct chest.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["nodeB"]
+                    },
+                    "node7":{
+                        "dialogue": "Now, no peeking, and choose carefully, hehe.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //i want to buy something
+                    "node8":{
+                        "dialogue": "Alright. Here is what I got for you today. ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //who are you?
+                    "node9":{
+                        "dialogue": "Me? ",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "Just going around to different places, finding cool items, maybe make some money, find some nice friends, or perhaps find some cute meals for a snack, heh.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "Ah, don t worry, I won t eat you now, since you re a customer.",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "Besides, it is much more fun when it is a surprise.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "You definitely look pretty filling though...",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //nothing im just looking around
+                    "node15":{
+                        "dialogue": "alright...",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "well, you know where to find me.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "if you see any of my chest around, just knock twice.",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node18"]
+                    }, 
+                    "node18":{
+                        "dialogue": "unless you wanta be my snack.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                   
+                    
+                },
+                "minigameRepeatRich":{
+                    "node1":{
+                        "dialogue": "oh! Money Bags!",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":[ "node3"]
+                    },
+                    // based on previous encounter use logic in flags to tell how to progress the node.
+                    "node3":{
+                        "dialogue": "welcome back Cutie.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "how can i help you?",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node5","node8","node9","node15"]
+                    },
+
+                    //i want to play your game
+                    "node5":{
+                        "dialogue": "Heh, lovely. ",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "there will be three chests. I will put the reward in one of these chests, and all you need to do is open the correct one.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["nodeB"]
+                    },
+                    "nodeB":{
+                        "dialogue": "Since you already Bought the lantern... ill just put some shell in the correct chest.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Now, no peeking, and choose carefully, hehe.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //i want to buy something
+                    "node8":{
+                        "dialogue": "Alright. Here is what I got for you today. ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //who are you?
+                    "node9":{
+                        "dialogue": "Me? ",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "Just going around to different places, finding cool items, maybe make some money, find some nice friends, or perhaps find some cute meals for a snack, heh.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "Ah, don t worry, I won t eat you now, since you re a customer.",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "Besides, it is much more fun when it is a surprise.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "You definitely look pretty filling though...",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //nothing im just looking around
+                    "node15":{
+                        "dialogue": "Ok",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "well, you know where to find me money bags.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "if you see any of my chest around, just knock twice.",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node18"]
+                    }, 
+                    "node18":{
+                        "dialogue": "unless you wanta be my tasty snack.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                   
+                    
                 }
+                
             }
         },
         "gameover":{

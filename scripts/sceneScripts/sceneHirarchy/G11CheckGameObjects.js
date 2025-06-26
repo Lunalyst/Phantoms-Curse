@@ -435,6 +435,38 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
   }
 
+  backgroundRangeLeft(backgroundSprite,xOrigin,range,incr){
+    if(backgroundSprite.x > xOrigin - range){
+      backgroundSprite.x -= incr;
+    }else{
+      backgroundSprite.x = xOrigin - range;
+    }
+  }
+
+  backgroundRangeRight(backgroundSprite,xOrigin,range,incr){
+    if(backgroundSprite.x < xOrigin + range){
+      backgroundSprite.x += incr;
+    }else{
+      backgroundSprite.x = xOrigin + range;
+    }
+  }
+
+  backgroundRangeUp(backgroundSprite,yOrigin,range,incr){
+    if(backgroundSprite.y > yOrigin - range){
+      backgroundSprite.y -= incr;
+    }else{
+      backgroundSprite.y = yOrigin - range;
+    }
+  }
+
+  backgroundRangeDown(backgroundSprite,yOrigin,range,incr){
+    if(backgroundSprite.y < yOrigin + range){
+      backgroundSprite.y += incr;
+    }else{
+      backgroundSprite.y = yOrigin + range;
+    }
+  }
+
   //{game over scene transitions}===================================================================================================================
 
   //function which destroys this scene and starts the gameover scene.
@@ -468,6 +500,8 @@ class G11CheckGameObjects extends G10CheckNPCS {
     
 
   }
+
+  
 
   
 

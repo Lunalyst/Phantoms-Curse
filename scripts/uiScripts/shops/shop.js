@@ -110,6 +110,10 @@ class shop extends Phaser.GameObjects.Container{
       this.buyIndexStart = 0;
 
       this.amountOfBuyContainers = 3;
+
+      this.buyOnceArray = null;
+      this.buyOnceFlags = null;
+
     }
     
     // function opens the shop ui. has a delay so that the player cant quickly open the inventory
@@ -695,7 +699,7 @@ class shop extends Phaser.GameObjects.Container{
     },this);
 
 
-  }
+    }
 
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     setSlotView(scene){
@@ -1192,6 +1196,27 @@ class shop extends Phaser.GameObjects.Container{
       this.multiplier = multiplier;
     }
 
+    //function to set buy once array
+    setUpBuyOnce(buyOnceArray, buyOnceFlags){
+
+      //check to see if the setUpBuyOnce otion is set
+      if(buyOnceArray !== null && buyOnceArray !== undefined && buyOnceFlags !== null && buyOnceFlags !== undefined){
+        if(buyOnceArray.length === buyOnceFlags.length){
+          console.log("setting buy array variables.");
+          this.buyOnceArray = buyOnceArray;
+          this.buyOnceFlags = buyOnceFlags;
+        }else{
+          console.log("buy array set, but buyonce array, and buyonce flags lengths are not the same.")
+          this.buyOnceArray = null;
+          this.buyOnceFlags = null;
+        }
+      }else{
+        console.log("buyonce array and flags not set.");
+        this.buyOnceArray = null;
+        this.buyOnceFlags = null;
+      }
+    }
+
     //makes buy buttons.
     setUpBuyContainers(){
 
@@ -1206,7 +1231,13 @@ class shop extends Phaser.GameObjects.Container{
         //loop through and make new container
         for(let counter = 0; counter < this.buyArray.length; counter++){
           console.log("this.buyArray[counter]",this.buyArray[counter]);
-          let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
+          let temp;
+          if(this.buyOnceArray !== null){
+            temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter],this.buyOnceArray[counter],this.buyOnceFlags[counter]);
+          }else{
+            temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter],null,null);
+          }
+          
           this.buyElements.add(temp);
           this.buyContainerArray.push(temp);
           startY += 85;
@@ -1255,6 +1286,7 @@ class shop extends Phaser.GameObjects.Container{
       
     }
 
+    
     updatePlayerCurrency(){
       let startingX = 29;
       let startingY = 22;

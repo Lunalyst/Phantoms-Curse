@@ -669,6 +669,10 @@ class gameHud extends A3SoundEffects {
 
             //sets the cost multiplier in the shop ui
             this.playerShop.setUpCostMultiplier(object.sellMultiplier);
+
+            //if check to see if buy once is defined in shop ui object.
+            this.playerShop.setUpBuyOnce(object.buyOnce, object.buyOnceFlags);
+
             }
              
 
@@ -770,6 +774,7 @@ class gameHud extends A3SoundEffects {
             }else{
               this.displayCurrencyIcon.destroy();
               this.displayCurrencyIcon = null;
+              this.displayCurrencyLetters.textFadeOutAndDestroy(0);
             }
              
 
@@ -1080,7 +1085,6 @@ class gameHud extends A3SoundEffects {
           });
 
           //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
-          
           inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
             //console.log("after emitterchecking if flag exists. : ",object);
 

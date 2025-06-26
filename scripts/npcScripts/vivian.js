@@ -516,15 +516,39 @@ class vivian extends npc{
       
   }
 
-
+  //minigameshop logic
   minigameShop(){
-    
 
-      this.nodeHandler("vivian","Behavior2","minigameIntro");
+      let selective = "minigameIntro";
+
+      let vivianDialogue1 = {
+        flagToFind: "obtained_lantern",
+        foundFlag: false,
+      };
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
+      if(vivianDialogue1.foundFlag === true){
+        selective = "minigameRepeat";
+      }
+
+      let vivianDialogue2 = {
+        flagToFind: "cleaningRich",
+        foundFlag: false,
+      };
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue2);
+      if(vivianDialogue2.foundFlag === true){
+        selective = "minigameRepeatRich";
+      }
+
+      //have to do things a bit differently
+      //if the first node has not been activated then activate it. 
+      this.nodeHandler("vivian","Behavior2",selective,);
+      
+      
 
       console.log("this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
       console.log("this.currentDictNode: ",this.currentDictNode);
       if(this.currentDictNode !== null){
+
         //state machine for dialogue 
         console.log("this.currentDictNode:", this.currentDictNode);
         console.log("this.inDialogue", this.inDialogue);
@@ -733,17 +757,16 @@ class vivian extends npc{
             );
     
             //make a special object to pass to the listener
+            //last part of object is used for sell only once. should be an arrays of bools for each entry.
             let buyArray = {
               array: this.buyBack,
-              sellMultiplier: 1
+              sellMultiplier: 1,
+              buyOnce: [false,true],
+              buyOnceFlags: ["null","obtained_lantern"]
             };
     
             //send that object to the emiter so it can be set in the gamehud
             inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
-    
-            //call emitter to tell if the onetime item is present in the inventory.
-            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-    
     
             inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
     
@@ -804,6 +827,35 @@ class vivian extends npc{
     //progress the dialogue by one stage so the button moves dialogue forward.
     this.scene.sceneTextBox.progressDialogue();
            
+  }
+
+  buyOnceButton(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'WAIT REALLY?!?!?         '+
+    'I MEAN...                '+
+    'DEAL!                    ';
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('vivianShocked');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+    //sneaky could put money bags flag set here, so its added with the obtained lantern flag.
+    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"cleaningRich");
+    //other alternative is have a array of arrays that have flag string in them. that way multiple flags could be activaten in the buycontainer
   }
 
   //called by the shop ui.

@@ -2,7 +2,7 @@
 class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
     // is passed in the scene,x&y position for the scene, item id and its details,a flag to tell if it should be opened once, and a bool to tell if the chest can be opened up multiple times.
-    constructor(scene, xPos, yPos,item,openOnlyOnce,flag){
+    constructor(scene, xPos, yPos,item,openOnlyOnce,flag,type){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos-12, 'chest');
         //then we add new instance into the scene. 
@@ -21,11 +21,19 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
         this.setScale(1/3);
 
         //defines animations
-        this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 0, end: 4}),frameRate: 7,repeat: 0});
-        this.anims.create({key: 'opened',frames: this.anims.generateFrameNames('chest', { start: 4, end: 4}),frameRate: 7,repeat: -1});
-        this.anims.create({key: 'closing',frames: this.anims.generateFrameNames('chest', { start: 4, end: 8}),frameRate: 7,repeat: 0});
-
+        if(type === "viv"){
+            this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 9, end: 9}),frameRate: 7,repeat: -1});
+            this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 9, end: 13}),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'opened',frames: this.anims.generateFrameNames('chest', { start: 13, end: 13}),frameRate: 7,repeat: -1});
+  
+        }else{
+            this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
+            this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 0, end: 4}),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'opened',frames: this.anims.generateFrameNames('chest', { start: 4, end: 4}),frameRate: 7,repeat: -1});
+            this.anims.create({key: 'closing',frames: this.anims.generateFrameNames('chest', { start: 4, end: 8}),frameRate: 7,repeat: 0});
+        }
+        
+        
         //special id which will be pushed into the containers data in the save slot object. that way player can only open up the chest once. if desired.
         this.flag = flag;
         this.openOnlyOnce = openOnlyOnce;

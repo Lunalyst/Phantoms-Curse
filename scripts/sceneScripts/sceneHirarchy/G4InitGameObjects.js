@@ -234,9 +234,9 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
     }
 
     //creates a item container in the scene
-    initItemContainer(x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag) {
+    initItemContainer(x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag,containerType) {
       //creates a item drop
-      let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag);
+      let container = new itemContainer(this, x, y,itemID,itemStackable,itemAmount,onlyOpenOnce,flag,containerType);
 
       //gives portal a unique id so that scene can tell which warp object is being activated
       container.containerId = this.containerId;

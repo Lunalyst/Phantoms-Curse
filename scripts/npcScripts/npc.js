@@ -48,6 +48,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.npcTriggerRange = false;
       this.npcTriggerRangeX = null;
       this.npcTriggerRangeY = null;
+
+      this.advancedIdleAnimation = false;
       
       this.scene = scene;
   }

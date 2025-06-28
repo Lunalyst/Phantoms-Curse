@@ -1241,7 +1241,7 @@ const npcDialogue = {
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "there will be three chests. I’ll put the lantern in one of these chests, and all you need to do is open the correct one.",
+                        "dialogue": "there will be three chests. I will put the lantern in one of these chests, and all you need to do is open the correct one.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["node7"]
@@ -1575,6 +1575,158 @@ const npcDialogue = {
 
                    
                     
+                }
+                
+            },
+
+            //behavior 3 handles minigame logic
+            "Behavior3":{
+                "voreSequence":{
+                    //player is grabbed by vivian
+                     "node1":{
+                        "dialogue": "Oops!",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Looks like you chose the wrong chest. ",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Now it is time for MY prize! ",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    //vivian does swallowing sequence until playeri s fully swallowed.
+                    "node4":{
+                        "dialogue": "ohhhh. soo tasty.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    //player struggle animation in her engourged belly.
+                    "node5":{
+                        "dialogue": "struggle all you like your mine now...",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    //belly shrinks with here gaining weight.
+                     "node6":{
+                        "dialogue": "now melt for me...",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    //open her mouth to burp and spits up clothing
+                    "node7":{
+                        "dialogue": "BBBUUURRRPPP! ",
+                        "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["node8"]
+                    },
+                    
+                    "node8":{
+                        "dialogue": "I can always rely on humans to be filling and tasty. And also a good supply of new clothing, heheh. ",
+                        "profile":"vivianWink",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "tfSequence":{
+                    //player is grabbed by vivian
+                     "node1":{
+                        "dialogue": "Too bad!",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[ "node2"]
+                    },
+                     "node2":{
+                        "dialogue": "That was the wrong choice! But don’t worry.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[ "node3"]
+                    },
+                     "node3":{
+                        "dialogue": "I have something special for an adorable human like you. ",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[ "node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Now quick! Drink this! ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[ "node5"]
+                    },
+                    "node5":{
+                        "dialogue": "Just relax and let it do its work",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[ "node6"]
+                    },
+                    "node6":{
+                        "dialogue": "There we go!",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[ "node7"]
+                    },
+                    "node7":{
+                        "dialogue": "You were cute as a human, but now you’re SO much better as another wolf girl like me.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[ "node8"]
+                    },
+                    "node8":{
+                        "dialogue": "We are gonna have such a great time together ",
+                        "profile":"vivianHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":[ "node9"]
+                    },
+                },
+                "playerWinsLantern":{
+                     "node1":{
+                        "dialogue": "Ugh, dumb cute lucky human.",
+                        "profile":"vivianKO",
+                        "textvoice":"lightVoice",
+                        "children":[ "node2"]
+                    },
+                     "node2":{
+                        "dialogue": "Fine, I will keep my word. ",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[ "node3"]
+                    },
+                     "node3":{
+                        "dialogue": "The lantern is yours.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "playerWinsShell":{
+                     "node1":{
+                        "dialogue": "Ugh, You win agian...",
+                        "profile":"vivianKO",
+                        "textvoice":"lightVoice",
+                        "children":[ "node2"]
+                    },
+                     "node2":{
+                        "dialogue": "Fine, I will keep my word. ",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[ "node3"]
+                    },
+                     "node3":{
+                        "dialogue": "The Shells are yours.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
                 }
                 
             }

@@ -1,14 +1,14 @@
 
 
-class messyShed extends defaultScene {
+class minigameShed extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'messyShed',active: false ,physics:{default:'arcade'}});
+    super({key: 'minigameShed',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "messyShed";
+    this.playerLocation = "minigameShed";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -23,8 +23,7 @@ class messyShed extends defaultScene {
     preload(){
 
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("Messy_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Messy_Storage_Shed.json");
-      this.load.tilemapTiledJSON("Vivian_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Vivians_Storage_Shed.json");
+      this.load.tilemapTiledJSON("Minigame_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Minigame_Shed.json");
 
       this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 381 , frameHeight: 381 });
       this.load.spritesheet("vivianEmots" , "assets/hudElements/VivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
@@ -60,20 +59,15 @@ class messyShed extends defaultScene {
 
       //do a flag check to see if the player has interacted with vivian.
       let vivianDialogue1 = {
-        flagToFind: "vivianRummaging",
+        flagToFind: "obtained_lantern",
         foundFlag: false,
       };
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
 
-      if(vivianDialogue1.foundFlag === true){
-        this.setUpTileSet("Vivian_Shed_map","Home_Interior_Tileset","home_source_map");
-      }else{
-        //creates tileset
-        this.setUpTileSet("Messy_Shed_map","Home_Interior_Tileset","home_source_map");
+     
+      this.setUpTileSet("Minigame_Shed_map","Home_Interior_Tileset","home_source_map");
 
-      }
-    
       //sets up item drops for the scene and som other useful groups.
       this.setUpItemDrops();
 
@@ -124,23 +118,92 @@ class messyShed extends defaultScene {
       //sets up containers
       this.setUpContainers();
 
-      let empty = oneTimeItemArray.empty_chest;
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      //let rng decide order
+      let positionsX = [576,701,445];
+      let positionsY = [698,698,698];
 
-      if(vivianDialogue1.foundFlag === true){
-        this.initVivian(913,600,'minigameShop');
+      //make a temp object
+      let object = {
+        flagToFind: "obtained_lantern",
+        foundFlag: false,
+      };
 
-        this.initItemContainer(576,698,empty,true,"empty","viv"); 
-        this.initItemContainer(701,698,empty,true,"empty","viv"); 
-        this.initItemContainer(445,698,empty,true,"empty","viv"); 
+      //call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      //give player lantern
+      this.vivianLogic = "playerWinsShell";
+      if(object.foundFlag === false){
+        this.vivianLogic = "playerWinsLantern";
+      }
+
+      let random = Math.floor((Math.random() * 3));
+      console.log(random);
+      if(random === 0){
+        //vivian vore spawn left
+        this.initVivian(positionsX[0],positionsY[0],'tfSequence');
+
+        random = Math.floor((Math.random() * 2));
+         console.log(random);
+
+        if(random === 0){
+
+          this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
+
+          this.initVivian(positionsX[2],positionsY[2],'voreSequence');
+
+        }else{
+
+          this.initVivian(positionsX[1],positionsY[1],'voreSequence');
+
+          this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
+
+        }
+
+      }else if(random === 1){
+         this.initVivian(positionsX[1],positionsY[1],'tfSequence');
+
+        random = Math.floor((Math.random() * 2));
+        console.log(random);
+
+        if(random === 0){
+
+         this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
+
+         this.initVivian(positionsX[2],positionsY[2],'voreSequence');
+
+        }else{
+
+          this.initVivian(positionsX[0],positionsY[0],'voreSequence');
+
+          this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
+
+        }
 
       }else{
-        this.initItemContainer(576,698,empty,true,"empty"); 
-        this.initItemContainer(701,698,empty,true,"empty"); 
+        this.initVivian(positionsX[2],positionsY[2],'tfSequence');
 
-        this.initVivian(445,698,'rummaging');
+        random = Math.floor((Math.random() * 2));
+         console.log(random);
+
+        if(random === 0){
+
+          this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
+
+          this.initVivian(positionsX[1],positionsY[1],'voreSequence');
+
+        }else{
+
+          this.initVivian(positionsX[0],positionsY[0],'voreSequence');
+
+          this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
+
+        }
+
       }
-      
+       
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

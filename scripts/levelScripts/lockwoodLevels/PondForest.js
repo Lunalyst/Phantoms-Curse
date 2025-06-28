@@ -47,8 +47,8 @@ class PondForest extends defaultScene {
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
+      this.load.audioSprite('whitecatThemeSFX','audio/used-audio/whitecat-theme-sounds/whitecat-theme-sounds.json',[
+        "audio/used-audio/whitecat-theme-sounds/whitecat-theme-sounds.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
@@ -85,9 +85,8 @@ class PondForest extends defaultScene {
       this.initLoopingSound('forestSFX','forest',1);
 
       this.initLoopingSound('waterfallSFX','waterfall', 0.01);
-      //
 
-      this.initLoopingSound('forestThemeSFX','bertsz',0.01);
+      this.initLoopingSound('whitecatThemeSFX','theme',0.03);
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -214,7 +213,7 @@ class PondForest extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //calls the built in update function
       this.defaultUpdate();
@@ -224,14 +223,14 @@ class PondForest extends defaultScene {
 
 
       //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,2000,0.7);
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,2000,0.7);
+      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
+        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
+        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
+      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
+        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
+        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
       }
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;

@@ -444,6 +444,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
   }
 
   backgroundRangeRight(backgroundSprite,xOrigin,range,incr){
+    //console.log("backgroundSprite.x: ",backgroundSprite.x,"  xOrigin + range: ", xOrigin + range);
     if(backgroundSprite.x < xOrigin + range){
       backgroundSprite.x += incr;
     }else{

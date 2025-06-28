@@ -17,15 +17,14 @@ class G10CheckNPCS extends G9CheckEnemys {
       }
       tempNpc.activateNpc();
 
+
     }, scene);
   }
 
   //function to check npc that trigger 
   checkNpcTriggers(scene) {
 
-    
     //applies a function to each trigger npc object in the scene
-    
     scene.npcTriggers.children.each(function (tempNpc) {
         //if the player is within x range., the trigger wasnt already finished, and that the player isnt grabbed?
       

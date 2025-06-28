@@ -13,6 +13,11 @@ class vivian extends npc{
       this.anims.create({key: 'vivianHide',frames: this.anims.generateFrameNames('vivian', { start: 20, end: 20 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianPopUp',frames: this.anims.generateFrameNames('vivian', { start: 21, end: 23 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'vivianShopIdle',frames: this.anims.generateFrameNames('vivian', { start: 24, end: 27 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianShopIdleRight',frames: this.anims.generateFrameNames('vivian', { start: 28, end: 31 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianShopIdleLeft',frames: this.anims.generateFrameNames('vivian', { start: 32, end: 35 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianGamePeak',frames: this.anims.generateFrameNames('vivian', { start: 36, end: 42 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianGameRightTilt',frames: this.anims.generateFrameNames('vivian', { start: 42, end: 46 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianGameLeftTilt',frames: this.anims.generateFrameNames('vivian', { start: 46, end: 50 }),frameRate: 7,repeat: 0});
       
 
        //makes a key promptsa object to be displayed to the user
@@ -42,6 +47,10 @@ class vivian extends npc{
 
        this.formattingText = false;
 
+       this.startMinigame = false;
+
+       this.minigameTell = false;
+
        if(this.npcType === 'rummaging'){
         this.anims.play('vivianrummaging',true);
         //set up triggler range 
@@ -55,6 +64,10 @@ class vivian extends npc{
        }else if(this.npcType === 'minigameShop'){
         this.anims.play('vivianHide',true);
         this.popOut = true;
+       }else if(this.npcType === 'voreSequence' || this.npcType === 'tfSequence' ||this.npcType === 'playerWinsLantern' ||this.npcType === 'playerWinsShell' ){
+        this.advancedIdleAnimation = true;
+        this.anims.play('vivianHide',true);
+        this.popOut = false;
        }
 
        this.selectiveFlagAdded = false;
@@ -72,9 +85,22 @@ class vivian extends npc{
       this.rummaging();
     }else if(this.npcType === 'minigameShop'){
       this.minigameShop();
+    }else if(this.npcType === 'voreSequence'){
+      this.voreSequence();
+    }else if(this.npcType === 'tfSequence'){
+      this.tfSequence();
+    }else if(this.npcType === 'playerWinsLantern'){
+      this.playerWinsLantern();
+    }else if(this.npcType === 'playerWinsShell'){
+      this.playerWinsShell();
     }else{
       this.default();
     }
+  }
+
+  //special idle pose so the npc can dynamically look at the player.
+  AdvancedIdle(){
+
   }
 
   //for this npc we need to overwrite the activatino function to account for the under water animation.
@@ -102,6 +128,7 @@ class vivian extends npc{
           this.anims.play('vivianShopIdle',true);
           this.popOut = false;
           this.activated = false;
+          this.advancedIdleAnimation = true;
         });
       }
           
@@ -113,6 +140,110 @@ class vivian extends npc{
       this.promptCooldown = true;        
   
     }
+
+    //function to manage vivian looking at the player depending on the player position
+    if(this.advancedIdleAnimation === true){
+      if(this.npcType === "minigameShop"){
+        if(this.scene.player1.x < this.x - 40){
+          this.anims.play('vivianShopIdleLeft',true);
+
+        }else if(this.scene.player1.x > this.x + 40){
+          this.anims.play('vivianShopIdleRight',true);
+        }else{
+          this.anims.play('vivianShopIdle',true);
+        }
+      //minigame tells. plays animation after a period of time 
+      }else if(this.npcType === "voreSequence"){
+        //if the tell is false
+        if(this.minigameTell === false){
+          //set to true
+          this.minigameTell = true;
+          //set time out function
+          let temp = this;
+          console.log("delaying minigame tell animation");
+          setTimeout(function () {
+            //play animation and reset.
+            temp.scene.initSoundEffect('creakSFX','wood',0.05);
+            temp.anims.play('vivianGamePeak').once('animationcomplete', () => {
+              temp.minigameTell = false;
+            
+            });
+          }, 15000);
+          
+        }
+      }else if(this.npcType === "tfSequence"){
+        //if the tell is false
+        if(this.minigameTell === false){
+          //set to true
+          this.minigameTell = true;
+          //set time out function
+          let temp = this;
+          console.log("delaying minigame tell animation");
+          setTimeout(function () {
+            //play animation and reset.
+            temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+            temp.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
+              temp.minigameTell = false;
+            
+            });
+          }, 26000);
+          
+        }
+      }else if(this.npcType === "playerWinsLantern"){
+        //if the tell is false
+        if(this.minigameTell === false){
+          //set to true
+          this.minigameTell = true;
+          //set time out function
+          let temp = this;
+          console.log("delaying minigame tell animation");
+          setTimeout(function () {
+            //play animation and reset.
+            temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+            temp.anims.play('vivianGameLeftTilt').once('animationcomplete', () => {
+              temp.minigameTell = false;
+            
+            });
+          }, 26000);
+          
+        }
+      }else if(this.npcType === "playerWinsShell"){
+        //if the tell is false
+        if(this.minigameTell === false){
+          //set to true
+          this.minigameTell = true;
+          //set time out function
+          let temp = this;
+          console.log("delaying minigame tell animation");
+          let random = Math.floor((Math.random() * 2));
+          console.log(random);
+          if(random === 0){
+            setTimeout(function () {
+              //play animation and reset.
+              temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+              temp.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
+                temp.minigameTell = false;
+              
+              });
+            }, 14000);
+          }else{
+            setTimeout(function () {
+              //play animation and reset.
+              temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+              temp.anims.play('vivianGameLeftTilt').once('animationcomplete', () => {
+                temp.minigameTell = false;
+              
+              });
+            }, 31000);
+          }
+          
+          
+        }
+      }
+        
+    }
+
+    
         
     // resets variables.
     if(this.safeToSpeak === false){
@@ -584,12 +715,6 @@ class vivian extends npc{
 
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = false;
-            
-            //sets position of player for the hug.
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y-3;
-            this.scene.player1.x = this.scene.player1.mainHitbox.x;
-            this.scene.player1.y = this.scene.player1.mainHitbox.y;
 
             //progress to node branch with state name node5
             this.progressNode("node5");
@@ -771,9 +896,80 @@ class vivian extends npc{
             inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
     
             this.scene.sceneTextBox.textInterupt = true;
+        //state, to warp player into the minigame
+        }else if(this.currentDictNode.nodeName === "node7" && this.startMinigame === false){
+          //set dialogue catch to true
+          this.startMinigame = true;
+          this.startMinigameActivated = false;
+
+        }else if(this.currentDictNode.nodeName === "node7" && this.startMinigame === true && this.startMinigameActivated === false){
+          this.startMinigameActivated = true;
+          this.dialogueCatch = true;
+          //warp player to new gameplay scene
+          //creates a object to hold data for scene transition
+            let playerDataObject = {
+              saveX: null,
+              saveY: null,
+              playerHpValue: null,
+              playerSex: null,
+              playerLocation: null,
+              inventoryArray: null,
+              playerBestiaryData: null,
+              playerSkillsData: null,
+              playerSaveSlotData: null,
+              flagValues: null,
+              settings:null,
+              dreamReturnLocation:null,
+              playerCurseValue:null
+            };
+
+            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+        
+            //then we set the correct location values to the scene transition data.
+            playerDataObject.saveX = 576;
+            playerDataObject.saveY = 698;
+            playerDataObject.playerSex = this.scene.playerSex;
+            playerDataObject.playerLocation = "minigameShed";
+
+            // then we save the scene transition data.
+            this.scene.saveGame(playerDataObject);
+
+            //kills gameplay emitters so they dont pile up between scenes
+            this.scene.clearGameplayEmmitters();
+
+            //stops player momentum in update loop.
+            this.scene.playerWarping = true;
+
+            this.scene.portalId = 0;
+            //for loop looks through all the looping music playing within a given scene and stops the music.
+            for(let counter = 0; counter < this.scene.sound.sounds.length; counter++){
+              this.scene.sound.get(this.scene.sound.sounds[counter].key).stop();
+            }
+
+            //warps player to the next scene
+            this.scene.destination = "minigameShed";
+            this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
         }
   
       }
+  }
+
+  voreSequence(){
+
+  }
+
+  tfSequence(){
+
+  }
+
+  playerWinsLantern(){
+
+  }
+
+  playerWinsShell(){
+
   }
 
   //called by the shop ui.

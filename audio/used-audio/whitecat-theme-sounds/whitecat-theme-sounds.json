@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/whitecat-theme-sounds/whitecat-theme-sounds.mp3"
+    ],
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 145,
+            "loop": true
+        }
+    }
+}

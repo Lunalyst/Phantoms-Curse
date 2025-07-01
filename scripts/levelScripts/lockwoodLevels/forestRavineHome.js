@@ -128,7 +128,7 @@ class ForestRavineHome extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backround = this.add.tileSprite(0, 970, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backround = this.add.tileSprite(0, 920, 6*1600, 1090, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
         this.backround.setScale(1.2);
         //original pos - player pos * scrol factor

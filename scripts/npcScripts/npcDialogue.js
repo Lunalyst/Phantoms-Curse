@@ -1581,7 +1581,75 @@ const npcDialogue = {
 
             //behavior 3 handles minigame logic
             "Behavior3":{
-                "voreSequence":{
+                "voreSequenceM":{
+                    //player is grabbed by vivian
+                     "node1":{
+                        "dialogue": "Oops!",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Looks like you chose the wrong chest. ",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Now it is time for MY prize! ",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    //vivian does swallowing sequence until playeri s fully swallowed.
+                    "node4":{
+                        "dialogue": "Hmmm, guess that will do. Still, not as good as girls.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    //player struggle animation in her engourged belly.
+                    "node5":{
+                        "dialogue": "Though that doesn't mean I'll let you out, heheh.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                     "node6":{
+                        "dialogue": "You lost fair and square",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    //belly shrinks with here gaining weight.
+                     "node7":{
+                        "dialogue": "So here's your consolation prize!",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node8"]
+                    },
+                    //open her mouth to burp and spits up clothing
+                    "node8":{
+                        "dialogue": "BBBUUURRRPPP! ",
+                        "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    
+                    "node9":{
+                        "dialogue": "Shame he wasn't a girl. Might have been more fun to tease...",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                     "node10":{
+                        "dialogue": "At least he knew how to fill a wolf's curves out",
+                        "profile":"vivianWink",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "voreSequenceF":{
                     //player is grabbed by vivian
                      "node1":{
                         "dialogue": "Oops!",
@@ -1615,23 +1683,35 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node6"]
                     },
-                    //belly shrinks with here gaining weight.
                      "node6":{
-                        "dialogue": "now melt for me...",
-                        "profile":"vivianSmug",
+                        "dialogue": "your Squirms feel sooo good. hehe",
+                        "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":["node7"]
                     },
-                    //open her mouth to burp and spits up clothing
-                    "node7":{
-                        "dialogue": "BBBUUURRRPPP! ",
-                        "profile":"vivianShocked",
+                    //belly shrinks with here gaining weight.
+                     "node7":{
+                        "dialogue": "now melt for me...",
+                        "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":["node8"]
                     },
-                    
+                    //open her mouth to burp and spits up clothing
                     "node8":{
-                        "dialogue": "I can always rely on humans to be filling and tasty. And also a good supply of new clothing, heheh. ",
+                        "dialogue": "BBBUUURRRPPP! ",
+                        "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    
+                    "node9":{
+                        "dialogue": "I can always rely on humans to be filling and tasty. ",
+                        "profile":"vivianWink",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                     "node10":{
+                        "dialogue": " And also a good supply of new clothing, heheh. ",
                         "profile":"vivianWink",
                         "textvoice":"lightVoice",
                         "children":[]
@@ -1685,7 +1765,7 @@ const npcDialogue = {
                         "dialogue": "We are gonna have such a great time together ",
                         "profile":"vivianHeartEyes",
                         "textvoice":"lightVoice",
-                        "children":[ "node9"]
+                        "children":[]
                     },
                 },
                 "playerWinsLantern":{

@@ -74,6 +74,7 @@ class vivian extends npc{
 
        this.doOnce = false;
 
+      this.startGameover = false;
 
   }
 
@@ -958,17 +959,95 @@ class vivian extends npc{
 
   voreSequence(){
 
+    let selective;
+    if(this.scene.playerSex === 0){
+      selective = "voreSequenceM";
+    }else{
+      selective = "voreSequenceF";
+    }
+
+    this.nodeHandler("vivian","Behavior3",selective);
+
+     if(this.currentDictNode !== null){
+
+        //state machine for dialogue 
+        if(this.currentDictNode.nodeName === "node4"){
+
+        }else if(this.currentDictNode.nodeName === "node10" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+        }else if(this.currentDictNode.nodeName === "node10" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+
+        }
+      }
   }
 
   tfSequence(){
+    this.nodeHandler("vivian","Behavior3","tfSequence");
+     if(this.currentDictNode !== null){
 
+        //state machine for dialogue 
+        if(this.currentDictNode.nodeName === "node4"){
+
+        }else if(this.currentDictNode.nodeName === "node8" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+        }else if(this.currentDictNode.nodeName === "node8" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+
+        }
+      }
   }
 
   playerWinsLantern(){
+    this.nodeHandler("vivian","Behavior3","playerWinsLantern");
+     if(this.currentDictNode !== null){
 
+        //state machine for dialogue 
+        if(this.currentDictNode.nodeName === "node4"){
+
+        }else if(this.currentDictNode.nodeName === "node3" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+        }else if(this.currentDictNode.nodeName === "node3" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+
+        }
+      }
   }
 
   playerWinsShell(){
+    this.nodeHandler("vivian","Behavior3","playerWinsShell");
+     if(this.currentDictNode !== null){
+
+        //state machine for dialogue 
+        if(this.currentDictNode.nodeName === "node4"){
+
+        }else if(this.currentDictNode.nodeName === "node3" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+        }else if(this.currentDictNode.nodeName === "node3" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+
+        }
+      }
 
   }
 

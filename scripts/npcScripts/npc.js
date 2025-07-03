@@ -50,6 +50,12 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.npcTriggerRangeY = null;
 
       this.advancedIdleAnimation = false;
+
+      this.loopSoundID = null;
+      this.loopSoundName = null;
+      this.loopVolume = null;
+      this.loopTime = null;
+      this.soundLoopTimeOut = null;
       
       this.scene = scene;
   }
@@ -385,5 +391,66 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
     
   }
+
+  //allow for npcs to have looping sound calls using time out
+  npcLoopingSound(){
+
+   
+    //settimeout function
+    let temp = this;
+    //call sound effect
+    temp.scene.initSoundEffect(this.loopSoundID,this.loopSoundName,this.loopVolume);
+
+    //set a timeout to recurseively play sound.
+    this.soundLoopTimeOut = setTimeout(function () {
+      temp.npcLoopingSound();  
+    },this.loopTime); 
+  }
+
+ //function to kill sound effect loop
+ setLoopingSound(soundID,soundName,volume,time){
+
+    //sets looping variable information
+    this.loopSoundID = soundID;
+    this.loopSoundName = soundName;
+    this.loopVolume = volume;
+    this.loopTime = time;
+
+    //call recursive looping function to play looping sound.
+    this.npcLoopingSound();
+    
+ }
+
+ //apply once 
+ interuptSoundLoop(soundID,soundName,volume,time){
+
+  //clears current sound loop settimeout
+  clearTimeout(this.soundLoopTimeOut);
+
+  //sets looping variable information
+  this.loopSoundID = soundID;
+  this.loopSoundName = soundName;
+  this.loopVolume = volume;
+  this.loopTime = time;
+
+  //call recursive looping function to play new looping sound.
+  this.npcLoopingSound();
+ }
+
+ killSoundLoop(){
+
+  if(this.soundLoopTimeOut !== null && this.soundLoopTimeOut !== undefined){
+    //clears current sound loop settimeout
+    clearTimeout(this.soundLoopTimeOut);
+
+    //set loop sound npc variables to null.
+    this.loopSoundID = null;
+    this.loopSoundName = null;
+    this.loopVolume = null;
+    this.loopTime = null;
+    this.soundLoopTimeOut = null;
+  }
+  
+ }
 
 }

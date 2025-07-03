@@ -63,6 +63,12 @@ class G5InitNPCs extends G4InitGameObjects {
     //create istara npc
     let Vivian = new vivian(this, x, y, type);
 
+    //special case with vivian, if she is in one of her three minigame logics
+    if(type === 'voreSequence' || type === 'tfSequence' || type === 'playerWinsLantern' || type === 'playerWinsShell' ){
+      this.vivianArray.push(Vivian);
+    }
+    
+
     Vivian.npcId = this.npcId;
     this.npcId++;
     //notice, we add vivian to both the trigger npcs group and the regular npc group

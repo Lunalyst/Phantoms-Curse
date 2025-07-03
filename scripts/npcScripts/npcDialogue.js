@@ -1610,25 +1610,26 @@ const npcDialogue = {
                     },
                     //player struggle animation in her engourged belly.
                     "node5":{
-                        "dialogue": "Though that doesn't mean I'll let you out, heheh.",
+                        "dialogue": "Though that does not mean I will let you out, heheh.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["node6"]
                     },
+                    // vivian becomes annoyed and grabbs her belly tightly
                      "node6":{
-                        "dialogue": "You lost fair and square",
+                        "dialogue": "You lost fair and square.",
                         "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":["node7"]
                     },
-                    //belly shrinks with here gaining weight.
+                    //squishes player having there outline show 
                      "node7":{
-                        "dialogue": "So here's your consolation prize!",
+                        "dialogue": "So here is your consolation prize!",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":["node8"]
                     },
-                    //open her mouth to burp and spits up clothing
+                    //open her mouth to burp and spits up clothing, as the player melts and is absorbed.
                     "node8":{
                         "dialogue": "BBBUUURRRPPP! ",
                         "profile":"vivianShocked",
@@ -1637,13 +1638,13 @@ const npcDialogue = {
                     },
                     
                     "node9":{
-                        "dialogue": "Shame he wasn't a girl. Might have been more fun to tease...",
+                        "dialogue": "Shame he was not a girl. Might have been more fun to tease...",
                         "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":["node10"]
                     },
                      "node10":{
-                        "dialogue": "At least he knew how to fill a wolf's curves out",
+                        "dialogue": "At least he knew how to fill a wolfs curves out.",
                         "profile":"vivianWink",
                         "textvoice":"lightVoice",
                         "children":[]
@@ -1703,7 +1704,6 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node9"]
                     },
-                    
                     "node9":{
                         "dialogue": "I can always rely on humans to be filling and tasty. ",
                         "profile":"vivianWink",

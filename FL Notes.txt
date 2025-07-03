@@ -1,0 +1,18 @@
+fl studio notes
+ installing plugins
+ 1. download plugin and run its installer
+ 2. open fl studio go to options -> manage plugins -> find install plugins
+
+adding packs
+1. unzip file, put it somewhere easy to find. im using a folder named packs in my file structure in fl studio
+2. in fl studio go to options -> filesettings -> then click a empty file path and navigate to the pack folder.
+
+channel rack
+third  icon right of patterns. pops open a window where we can add instriments.
+clicking the plus icon allows to add a variety of different instrements
+if the plugin does not show up then 
+Channel rack -> Insert/Replace/+ -> More plugins then type the name of the plugin in the search textBoxProfile
+
+using vital 
+add and open using plugin. button under metranome should be organge if not click it
+

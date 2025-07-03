@@ -20,6 +20,10 @@
             "start": 2.9,
             "end": 3.9,
             "loop": false
+        },"5":{
+            "start": 4,
+            "end": 4.8,
+            "loop": false
         }
     }
 }

@@ -11,7 +11,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.visible = true;
       this.animationComplete = false;
       //total number of curses the phantom can display on the title.
-      this.maxVal = 8;
+      this.maxVal = 9;
       
       this.anims.create({key: '0',frames: this.anims.generateFrameNames('curses', { start: 0, end: 0 }),frameRate: 4,repeat: -1});
       this.anims.create({key: '1',frames: this.anims.generateFrameNames('curses', { start: 1, end: 7 }),frameRate: 4,repeat: 0});
@@ -22,7 +22,7 @@ class curse extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '6',frames: this.anims.generateFrameNames('curses', { start: 36, end: 42 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '7',frames: this.anims.generateFrameNames('curses', { start: 43, end: 49 }),frameRate: 4,repeat: 0});
       this.anims.create({key: '8',frames: this.anims.generateFrameNames('curses', { start: 50, end: 56 }),frameRate: 4,repeat: 0});
-
+      this.anims.create({key: '9',frames: this.anims.generateFrameNames('curses', { start: 57, end: 64 }),frameRate: 4,repeat: 0});
       this.setScale(1);
       
     }

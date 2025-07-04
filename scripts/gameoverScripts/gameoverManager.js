@@ -52,6 +52,18 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.spritesheet('curseShadowSecretFemale', 'assets/enemys/curseShadowFemaleSecret.png',{frameWidth: 303, frameHeight: 219 });
                 
             },
+            vivianGameover: function vivianGameover() {
+                console.log("activating vivian preload tilemaps");
+
+                tempGameover.load.tilemapTiledJSON("vivianGameover" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Gameover_Vivian_Shed.json");
+
+                tempGameover.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
+                tempGameover.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
+                tempGameover.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
+                tempGameover.load.spritesheet("vivianEmots" , "assets/hudElements/VivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+                
+                            
+            },
 
         
  
@@ -333,6 +345,12 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.layer2.setPipeline('Light2D');
                 tempSceneRef.processMap.layer3.setPipeline('Light2D');
             },
+            vivianGameover: function vivianGameover() {
+                console.log("activating vivian preloadmap");
+                tempSceneRef.processMap.tilesetNameInTiled = "Home_Interior_Tileset";
+                tempSceneRef.processMap.setTiles('home_source_map',tempSceneRef);
+
+            },
 
         }
 
@@ -609,6 +627,13 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOverVore();
                 tempSceneRef.defeatedTitle = 'eaten';
+            },
+            vivianVore: function  vivianVoreFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new vivian(tempSceneRef,450, 565,"voreSequence");
+                tempSceneRef.enemy.gameOverVore();
+                tempSceneRef.defeatedTitle = 'eaten';
+                tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
             },
         }
     }
@@ -1087,6 +1112,9 @@ class gameoverManager extends A3SoundEffects {
                 }else{
                     tempSceneRef.enemy.playJumpySound('10',800);
                 }
+                
+            },
+            vivianVore: function  vivianVoreFunction() {
                 
             },
         }

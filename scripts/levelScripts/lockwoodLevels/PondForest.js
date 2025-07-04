@@ -34,6 +34,7 @@ class PondForest extends defaultScene {
       
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("ForestPondMap" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond.json");
+      this.load.tilemapTiledJSON("ForestPondMapViv" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond_Viv.json");
 
       this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -75,8 +76,21 @@ class PondForest extends defaultScene {
       
       this.grabbed = false;
 
-      //creates tileset
-      this.setUpTileSet("ForestPondMap","Forest_Tileset","forest_source_map");
+      let vivianDialogue1 = {
+        flagToFind: "vivianRummaging",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
+
+      if(vivianDialogue1.foundFlag === true){
+        //creates tileset
+        this.setUpTileSet("ForestPondMapViv","Forest_Tileset","forest_source_map");
+      }else{
+        //creates tileset
+        this.setUpTileSet("ForestPondMap","Forest_Tileset","forest_source_map");
+
+      }
     
       //creates player object
       this.setUpPlayer();

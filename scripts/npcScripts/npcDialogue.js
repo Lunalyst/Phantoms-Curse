@@ -1918,6 +1918,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "vivianVore":{
+                    "node1":{
+                        "dialogue": "You knew the risks of playing with a hungry wolf girl. As soon as you opened the wrong chest, your fate was sealed. Vivian swiftly swallowed you up with ease. She enjoyed her newest meal as you struggled and squirmed all the way into her belly. There was little time to get comfortable, as Vivians stomach made quick work of you. Before long, your form melted in with the stomach acids completely, and began to be absorbed into the wolf girl’s body. All that remains of you is your clothing that is now being stretched out by Vivian, and her pudge that you became.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
             },
             "cursed":{
                 "default":{

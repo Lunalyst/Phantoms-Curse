@@ -1,14 +1,14 @@
 
 
-class minigameShed extends defaultScene {
+class dreamShed extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'minigameShed',active: false ,physics:{default:'arcade'}});
+    super({key: 'dreamShed',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "minigameShed";
+    this.playerLocation = "dreamShed";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -23,7 +23,7 @@ class minigameShed extends defaultScene {
     preload(){
 
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("Minigame_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Minigame_Shed.json");
+      this.load.tilemapTiledJSON("dream_shed_map" , "assets/tiledMap/Dream/Dream_Shed.json");
 
       this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
@@ -58,17 +58,8 @@ class minigameShed extends defaultScene {
       this.loadGamePlayData();
       
       this.grabbed = false;
-
-      //do a flag check to see if the player has interacted with vivian.
-      let vivianDialogue1 = {
-        flagToFind: "obtained_lantern",
-        foundFlag: false,
-      };
-
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
-
      
-      this.setUpTileSet("Minigame_Shed_map","Home_Interior_Tileset","home_source_map");
+      this.setUpTileSet("dream_shed_map","Home_Interior_Tileset","home_source_map");
 
       //sets up item drops for the scene and som other useful groups.
       this.setUpItemDrops();
@@ -100,6 +91,9 @@ class minigameShed extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
+
+      //important array used to tell vivians instances to stop showing tells. is a array of refrences to the three vivians spawned
+      this.vivianArray = [];
       
       //this.initSavePoints(2050,558);
         // as well as signs.
@@ -115,7 +109,7 @@ class minigameShed extends defaultScene {
 
       //this.initSavePoints(450,590);
 
-      this.initPortalsWithTransparency(1005,600-8,2753,824,"door1","PondForest",0.75);
+      this.initPortalsWithTransparency(1005,600-8,2017,888,"door1","DreamForest",0.75);
 
       //sets up containers
       this.setUpContainers();
@@ -124,99 +118,21 @@ class minigameShed extends defaultScene {
       let positionsX = [576,701,445];
       let positionsY = [694,694,694];
 
-      //make a temp object
-      let object = {
-        flagToFind: "obtained_lantern",
-        foundFlag: false,
-      };
-
-      //call the emitter to check if the value already was picked up.
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
-      //give player lantern
-      this.vivianLogic = "playerWinsShell";
-      if(object.foundFlag === false){
-        this.vivianLogic = "playerWinsLantern";
-      }
-
-      //important array used to tell vivians instances to stop showing tells. is a array of refrences to the three vivians spawned
-      this.vivianArray = [];
-
-      let random = Math.floor((Math.random() * 3));
-      console.log(random);
-      if(random === 0){
-         //tf sequence
-        this.initVivian(positionsX[0],positionsY[0],'voreSequence');
-
-        random = Math.floor((Math.random() * 2));
-         console.log(random);
-
-        if(random === 0){
-
-          this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
-
-          this.initVivian(positionsX[2],positionsY[2],'voreSequence');
-
-        }else{
-
-          this.initVivian(positionsX[1],positionsY[1],'voreSequence');
-
-          this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
-
-        }
-
-      }else if(random === 1){
-         //tf sequence
-         this.initVivian(positionsX[1],positionsY[1],'voreSequence');
-
-        random = Math.floor((Math.random() * 2));
-        console.log(random);
-
-        if(random === 0){
-
-         this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
-
-         this.initVivian(positionsX[2],positionsY[2],'voreSequence');
-
-        }else{
-
-          this.initVivian(positionsX[0],positionsY[0],'voreSequence');
-
-          this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
-
-        }
-
-      }else{
-        //tf sequence
-        this.initVivian(positionsX[2],positionsY[2],'voreSequence');
-
-        random = Math.floor((Math.random() * 2));
-         console.log(random);
-
-        if(random === 0){
-
-          this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
-
-          this.initVivian(positionsX[1],positionsY[1],'voreSequence');
-
-        }else{
-
-          this.initVivian(positionsX[0],positionsY[0],'voreSequence');
-
-          this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
-
-        }
-
-      }
-       
-      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-
-
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
+      
       let thisScene = this;
         setTimeout(function(){
-          //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          let object1 = {
+          flagToFind: 'vivianVore',
+          foundFlag: false,
+          };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+  
+        if((object1.foundFlag === true) && (object1.flagToFind === 'vivianVore')){
+          thisScene.initVivian(496,694,'voreSequence');
+        }
 
           thisScene.spawnedEnemys = true;
         },1000);

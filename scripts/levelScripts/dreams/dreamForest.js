@@ -105,6 +105,8 @@ class dreamForest extends defaultScene {
 
       this.initPortals(481,925-13,1166,605,"warpCaveOutside","DreamShadowCave");
 
+      this.initPortals(2016,888-8,1005,600,"door1","dreamShed");
+
       this.initSavePoints(801,925-15);
       
       //sets up containers
@@ -291,7 +293,7 @@ class dreamForest extends defaultScene {
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 
-      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
     
     }
 

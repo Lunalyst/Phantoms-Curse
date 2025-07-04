@@ -26,7 +26,9 @@ class messyShed extends defaultScene {
       this.load.tilemapTiledJSON("Messy_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Messy_Storage_Shed.json");
       this.load.tilemapTiledJSON("Vivian_Shed_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Vivians_Storage_Shed.json");
 
-      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 291 });
+      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianEmots" , "assets/hudElements/VivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
       //storageLocker with a lower case s
       this.defaultPreload();
@@ -131,18 +133,18 @@ class messyShed extends defaultScene {
        this.vivianArray = [];
 
       if(vivianDialogue1.foundFlag === true){
-        this.initVivian(913,600,'minigameShop');
+        this.initVivian(913,598,'minigameShop');
 
         this.initItemContainer(576,698,empty,true,"empty","viv"); 
         this.initItemContainer(701,698,empty,true,"empty","viv"); 
         //this.initItemContainer(445,698,empty,true,"empty","viv"); 
-        this.initVivian(445,698,'voreSequence');
+        this.initVivian(445,694,'voreSequence');
 
       }else{
         this.initItemContainer(576,698,empty,true,"empty"); 
         this.initItemContainer(701,698,empty,true,"empty"); 
 
-        this.initVivian(445,698,'rummaging');
+        this.initVivian(445,693,'rummaging');
       }
       
 

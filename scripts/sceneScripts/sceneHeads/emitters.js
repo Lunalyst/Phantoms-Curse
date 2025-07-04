@@ -299,9 +299,11 @@ const bestiaryKey = {
     whiteCatFemaleVore:"whiteCat-female-vore",
 
     npcIstaraUnbirth:"npc-istara-unbirth",
+    npcIstaraUnbirth:"npc-vivian-vore",
 
     curseShadowVore:"curseShadow-vore",
     earieShadowTF:"earieShadow-tf",
+    
 
 }
 
@@ -418,6 +420,10 @@ const bestiaryTextList = {
       femaleRabbitVore: {
         title: "FED FEMALE RABBIT",
         summary: "OVERCOME BY HUNGER THIS RABBIT CONSUMED THE BODY OF ANOTHER. CAUSING ITS BODY TO GROW AND CHANGE SLIGHTLY. IT NOW ENJOYS SQUISHING SMALLER RABBITS BETWEEN HER BREASTS. ",
+      },
+      vivianVore: {
+        title: "FULL VIVIAN",
+        summary: "VIVIAN LOVES WEARING HER PREYS CLOTHING, AND STRECHES IT OVER HER NEW BODYSIZE. SOMEHOW THE CLOTHS NEVER RIP, AND SHE HAS A VAST COLLECTION OF CLOTHING FROM PREVIOUS MEALS. ALL MAGICALLY MADE TO FIT VIVIAN. ",
       },
 
       back: {

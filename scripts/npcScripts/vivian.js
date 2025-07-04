@@ -18,19 +18,35 @@ class vivian extends npc{
       this.anims.create({key: 'vivianGamePeak',frames: this.anims.generateFrameNames('vivian', { start: 36, end: 42 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'vivianGameRightTilt',frames: this.anims.generateFrameNames('vivian', { start: 42, end: 46 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'vivianGameLeftTilt',frames: this.anims.generateFrameNames('vivian', { start: 46, end: 50 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivian', { start: 51, end: 53 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivian', { start: 54, end: 57 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'vivianGameVoreSwallow',frames: this.anims.generateFrameNames('vivian', { start: 58, end: 67 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'vivianGameVoreBellyRub',frames: this.anims.generateFrameNames('vivian', { start: 68, end: 71 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianGameVoreBellyStruggle1',frames: this.anims.generateFrameNames('vivian', { start: 73, end: 84 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianGameVoreBellyRumble',frames: this.anims.generateFrameNames('vivian', { start: 85, end: 93 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'vivianGameVoreBellySquish',frames: this.anims.generateFrameNames('vivian', { start: 94, end: 97 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivian', { start: 98, end: 103 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivian', { start: 103, end: 108 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'vivianGameVoreBellyIdle1',frames: this.anims.generateFrameNames('vivian', { start: 109, end: 112 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'vivianGameVoreBellyIdle2',frames: this.anims.generateFrameNames('vivian', { start: 114, end: 117 }),frameRate: 4,repeat: 0});
       this.anims.create({key: 'vivianGameVoreBellyCloths',frames: this.anims.generateFrameNames('vivian', { start: 118, end: 124 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'vivianGameVoreBellyIdle3',frames: this.anims.generateFrameNames('vivian', { start: 125, end: 128 }),frameRate: 6,repeat: -1});
+
+      if(scene.playerSex === 0){
+        this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivian', { start: 51, end: 53 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivian', { start: 54, end: 57 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianGameVoreSwallow',frames: this.anims.generateFrameNames('vivian', { start: 58, end: 67 }),frameRate: 5,repeat: 0});
+
+        this.anims.create({key: 'vivianGameVoreBellySquish',frames: this.anims.generateFrameNames('vivian', { start: 94, end: 97 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivian', { start: 98, end: 103 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivian', { start: 103, end: 108 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
+      }else{
+        this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivianExtension', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivianExtension', { start: 4, end: 6 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianGameVoreSwallow',frames: this.anims.generateFrameNames('vivianExtension', { start: 7, end: 16 }),frameRate: 5,repeat: 0});
+
+        this.anims.create({key: 'vivianGameVoreBellySquish',frames: this.anims.generateFrameNames('vivianExtension', { start: 17, end: 20 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivianExtension', { start: 21, end: 26 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivianExtension', { start: 26, end: 31 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 4, end: 7 }),frameRate: 5,repeat: -1});
+      }
+
+      
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
@@ -151,6 +167,7 @@ class vivian extends npc{
 
       this.npcKeyPrompts.visible = true;
       this.npcKeyPrompts.playWKey();
+      this.npcKeyPrompts.y = this.y+60;
       this.promptCooldown = true;        
   
     }
@@ -175,6 +192,7 @@ class vivian extends npc{
           //set time out function
           let temp = this;
           console.log("delaying minigame tell animation");
+          let randomTime = Math.random() * (20000 - 8000) + 8000;
           setTimeout(function () {
             //play animation and reset.
             if(temp.stopTell === false){
@@ -185,7 +203,7 @@ class vivian extends npc{
               });
             }
             
-          }, 15000);
+          }, randomTime);
           
         }
       }else if(this.npcType === "tfSequence"){
@@ -196,6 +214,7 @@ class vivian extends npc{
           //set time out function
           let temp = this;
           console.log("delaying minigame tell animation");
+           let randomTime = Math.random() * (20000 - 8000) + 8000;
           setTimeout(function () {
             //play animation and reset.
             if(temp.stopTell === false){
@@ -206,7 +225,7 @@ class vivian extends npc{
               
               });
             }
-          }, 26000);
+          }, randomTime);
           
         }
       }else if(this.npcType === "playerWinsLantern"){
@@ -217,6 +236,7 @@ class vivian extends npc{
           //set time out function
           let temp = this;
           console.log("delaying minigame tell animation");
+          let randomTime = Math.random() * (20000 - 8000) + 8000;
           setTimeout(function () {
             //play animation and reset.
             if(temp.stopTell === false){
@@ -226,7 +246,7 @@ class vivian extends npc{
               
               });
             }
-          }, 26000);
+          }, randomTime);
           
         }
       }else if(this.npcType === "playerWinsShell"){
@@ -240,6 +260,7 @@ class vivian extends npc{
           let random = Math.floor((Math.random() * 2));
           console.log(random);
           if(random === 0){
+            let randomTime = Math.random() * (20000 - 8000) + 8000;
             setTimeout(function () {
               //play animation and reset.
               if(temp.stopTell === false){
@@ -249,8 +270,9 @@ class vivian extends npc{
                 
                 });
               }
-            }, 14000);
+            }, randomTime);
           }else{
+            let randomTime = Math.random() * (20000 - 8000) + 8000;
             setTimeout(function () {
               //play animation and reset.
               if(temp.stopTell === false){
@@ -260,7 +282,7 @@ class vivian extends npc{
                 
                 });
               }
-            }, 31000);
+            }, randomTime);
           }
           
           
@@ -991,28 +1013,12 @@ class vivian extends npc{
       selective = "voreSequenceF";
     }
 
-    //
-    if (this.scene.checkSkipIndicatorIsDown()) {
-      console.log("activating game over by hitting tab")
-      if(this.enemySex === 0){
-        this.scene.enemyThatDefeatedPlayer = "maleBat";
-      }else{
-        this.scene.enemyThatDefeatedPlayer = "femaleBat";
-      }
-
-      this.scene.KeyDisplay.visible = false;
-      console.log("changing scene");
-      this.scene.changeToGameover();
-    }
-
     this.nodeHandler("vivian","Behavior3",selective);
 
-    if(this.currentDictNode !== null){
+     if(this.currentDictNode !== null){
 
         //state machine for dialogue 
         if(this.currentDictNode.nodeName === "node1"){
-          //show skip button if the player wants to skip the scene.
-          skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
           //hide player 
           this.scene.player1.visible = false;
 
@@ -1056,7 +1062,11 @@ class vivian extends npc{
             this.scene.sceneTextBox.visible = false;
 
             //play animation and on complete allow w to be pressed.
-            this.scene.initSoundEffect('swallowSFX','5',0.1);
+            let temp = this;
+            setTimeout(function(){
+              temp.scene.initSoundEffect('swallowSFX','5',0.1);
+            },800);
+
             this.anims.play('vivianGameVoreSwallow').once('animationcomplete', () => {
               this.anims.play('vivianGameVoreBellyRub',true);
               this.scene.sceneTextBox.amountWIsPressed++;
@@ -1170,7 +1180,11 @@ class vivian extends npc{
           this.startGameoverActivated  = true;
           this.dialogueCatch = true;
 
-
+          this.scene.gameoverLocation = "vivianGameover";
+          this.scene.enemyThatDefeatedPlayer = "vivianVore";
+          this.scene.changeToGameover();
+          this.scene.sceneTextBox.textInterupt = true;
+          this.scene.sceneTextBox.textCoolDown = true;
         }
       }
   }
@@ -1397,6 +1411,10 @@ class vivian extends npc{
     //progress the dialogue by one stage so the button moves dialogue forward.
     this.scene.sceneTextBox.progressDialogue();
            
+  }
+
+  gameOverVore(){
+    this.anims.play('vivianVoreGameover',true);
   }
 
   

@@ -315,6 +315,7 @@ setUpKeyPrompts(){
   //mobile button control for expecting if the shift key is pressed which is specialized to the skip animation button.
   checkSkipIndicatorIsDown(){
     if(Phaser.Input.Keyboard.JustDown(this.keyTAB)){
+      console.log("skip indicator returning true");
       return true;
 
     }else{
@@ -325,9 +326,11 @@ setUpKeyPrompts(){
       controlKeyEmitter.emit(controlKeyEvent.activateSkipIndicatorKey,keyObject);
           
       if(keyObject.isDown === true){
+        console.log("skip indicator returning true");
         return true;
 
       }else{
+        console.log("skip indicator returning false                 ");
         return false;
       }
     }

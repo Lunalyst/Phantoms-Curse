@@ -399,7 +399,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     //settimeout function
     let temp = this;
     //call sound effect
-    temp.scene.initSoundEffect(this.loopSoundID,this.loopSoundName,this.loopVolume);
+    if(temp.scene !== null && temp.scene !== undefined){
+      temp.scene.initSoundEffect(this.loopSoundID,this.loopSoundName,this.loopVolume);
+    }
 
     //set a timeout to recurseively play sound.
     this.soundLoopTimeOut = setTimeout(function () {

@@ -137,8 +137,8 @@ class messyShed extends defaultScene {
 
         this.initItemContainer(576,698,empty,true,"empty","viv"); 
         this.initItemContainer(701,698,empty,true,"empty","viv"); 
-        //this.initItemContainer(445,698,empty,true,"empty","viv"); 
-        this.initVivian(445,694,'voreSequence');
+        this.initItemContainer(445,698,empty,true,"empty","viv"); 
+        //this.initVivian(445,694,'playerWinsShell');
 
       }else{
         this.initItemContainer(576,698,empty,true,"empty"); 

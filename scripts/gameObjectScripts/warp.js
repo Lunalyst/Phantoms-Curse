@@ -97,6 +97,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               scene1.sound.get(scene1.sound.sounds[counter].key).stop();
             }
 
+            scene1.player1.visible = false;
             //warps player to the next scene
             scene1.destination = this.destination;
             scene1.cameras.main.fadeOut(500, 0, 0, 0);

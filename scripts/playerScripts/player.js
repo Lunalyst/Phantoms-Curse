@@ -196,6 +196,11 @@ class player extends Phaser.GameObjects.Container{
     this.clothed = false;
     this.ringType = 0;
 
+    this.setupRingPassivesMap();
+    this.setupWeaponPassivesMap();
+
+    //set up object of functions for item logic 
+
       //composit idle animation 
       this.backArm3.anims.create({key: 'back-arm-idle',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
       this.backArmCloths4.anims.create({key: 'back-arm-cloths-idle',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
@@ -203,12 +208,12 @@ class player extends Phaser.GameObjects.Container{
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-idle',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
 
       //composite walk animation
-      this.backLeg1.anims.create({key: 'back-leg-walk',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 0, end: 7 }),frameRate: 15,repeat: -1});
-      this.backLegCloths2.anims.create({key: 'back-leg-cloths-walk',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 0, end: 7 }),frameRate: 15,repeat: -1});
-      this.backArm3.anims.create({key: 'back-arm-walk',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-walk',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-      this.frontArm7.anims.create({key: 'front-arm-walk',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 8, end: 15}),frameRate: 15,repeat: -1});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-walk',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+      this.backLeg1.anims.create({key: 'back-leg-walk',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 0, end: 7 }),frameRate: 15 * this.speedBoost,repeat: -1});
+      this.backLegCloths2.anims.create({key: 'back-leg-cloths-walk',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 0, end: 7 * this.speedBoost }),frameRate: 15,repeat: -1});
+      this.backArm3.anims.create({key: 'back-arm-walk',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost,repeat: -1});
+      this.backArmCloths4.anims.create({key: 'back-arm-cloths-walk',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost,repeat: -1});
+      this.frontArm7.anims.create({key: 'front-arm-walk',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 8, end: 15}),frameRate: 15 * this.speedBoost,repeat: -1});
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-walk',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost ,repeat: -1});
       
       //jump up animation
       this.frontArm7.anims.create({key: 'front-arm-jumpUp',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 16, end: 18}),frameRate: 10,repeat: 0});
@@ -280,8 +285,8 @@ class player extends Phaser.GameObjects.Container{
         this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
         
         //walk frames
-        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
         
         //jump frames
         this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
@@ -331,8 +336,8 @@ class player extends Phaser.GameObjects.Container{
         this.boobaCloths8.anims.create({key: 'booba-cloths-idle',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
         
         //walk frames
-        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 8, end: 15 }),frameRate: 15,repeat: -1});
+        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
+        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
         
         //jump frames
         this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
@@ -425,12 +430,12 @@ class player extends Phaser.GameObjects.Container{
   //calls emitter to check if the player has skills that apply to movement
   playerSkillsEmitter.emit(playerSkills.getJump,playerSkillsObject);
 
-  let playerDataObject = {
+  this.playerDataObject = {
     playerInventoryData: null
   };
   // call to emitter to get player inventory data.
   //console.log("ACTIVATING GET INVENTORY EMITTER FROM PLAYER MOVEMENT FUNCTION");
-  inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
+  inventoryKeyEmitter.emit(inventoryKey.getInventory,this.playerDataObject);
 
   //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
   let playerHealthObject = {
@@ -442,35 +447,20 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
   //console.log("playerDataObject.playerInventoryData", playerDataObject.playerInventoryData);
   //if the player has speed ring equipt change speed multiplier.
-  if(playerDataObject.playerInventoryData !== null){
-    if(playerDataObject.playerInventoryData[1].itemID === 8){
-      //console.log("speed ring equipt");
-      this.speedBoost = 1.1;
-      this.ringType = 8;
-    }else{
-      this.speedBoost = 1;
-      this.ringType = 0;
-    }
+  if(this.playerDataObject.playerInventoryData !== null){
 
+    //call map of ring functions based on equipt ring id.
+    //console.log("activating ring map: ","F"+ this.playerDataObject.playerInventoryData[1].itemID);
+    this.weaponPassivesMap[this.playerDataObject.playerInventoryData[0].itemID]();
+    this.ringPassivesMap[this.playerDataObject.playerInventoryData[1].itemID]();
+    
+
+    //use a object of functions to do logic based on item id to do stuff. based on improvements from gameover 
     //if the player is clothed.
-    if(playerDataObject.playerInventoryData[3].itemID === 20){
+    if(this.playerDataObject.playerInventoryData[3].itemID === 20){
       this.clothed = true;
     }else{
       this.clothed = false;
-    }
-
-    //if the mimic ring is equipt
-    if(playerDataObject.playerInventoryData[2].itemID === 6){
-      this.dropAmount = 2;
-    }else{
-      this.dropAmount = 1;
-    }
-
-    //if the mimic ring is equipt
-    if(playerDataObject.playerInventoryData[1].itemID === 3){
-      this.dropChance = 2;
-    }else{
-      this.dropChance = 1;
     }
 
     //if the cursed energyi snt zero
@@ -487,76 +477,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       }, 2000);
       
     }
-    
-
-    //if the player has the lanturn equipt and the lighting system is used.
-    if(playerDataObject.playerInventoryData[1].itemID === 21 && scene.lightingSystemActive === true){ 
-
-      //then check to see if the player has fuel.
-      if(playerDataObject.playerInventoryData[2].itemID === 16){
-
-        //set a tween on the light source to make the lanturn flicker
-        if(this.lanturnFlicker === undefined || this.lanturnFlicker === null ){
-
-          this.lightSource.setRadius(100);
-
-          this.lanturnFlicker = this.scene.tweens.add({
-            targets: this.lightSource,
-            props : {
-                radius: {value : '+=' +8},
-                intensity: {value : '+=' +.15},
   
-            }, 
-            ease: 'linear',
-            duration: 800,
-            repeat: -1,
-            yoyo: true
-          });
-        }
-        //console.log("this.fuelActivated: ", this.fuelActivated);
-        //apply timer to fuel source and reduce fuel amount by 1 every 45 seconds.
-        if(this.fuelActivated === false){
-
-          this.fuelActivated = true;
-
-          let tempPlayer = this;
-          setTimeout(function(){
-            if(tempPlayer !== undefined && tempPlayer !== null){
-
-              //calls emitter to reduce item amount at specific location
-              // in this case reduce slot 2 by 1.
-              inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,2,1);
-        
-              tempPlayer.fuelActivated = false;
-
-
-            }
-
-          },2000);
-  
-        }
-
-
-      //otherwise if there is no fuel to burn, set lanturn to be off.
-      }else{
-        this.lightSource.setRadius(0);
-        if(this.lanturnFlicker !== undefined && this.lanturnFlicker !== null ){
-          this.lanturnFlicker.stop();
-          this.lanturnFlicker = null;
-        }
-
-      }
-
-    //otherwise turn the lightsource off
-    }else if(scene.lightingSystemActive === true){
-
-      this.lightSource.setRadius(0);
-
-      if(this.lanturnFlicker !== undefined && this.lanturnFlicker !== null ){
-          this.lanturnFlicker.stop();
-          this.lanturnFlicker = null;
-      }
-    }
   }
 
 
@@ -786,11 +707,11 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     this.y = this.mainHitbox.y; 
 
     //temp object sent to be sent to a emitter
-    let playerDataObject = {
+    this.playerDataObject = {
       playerInventoryData: null
     };
     // call to emitter to get player inventory data.
-    inventoryKeyEmitter.emit(inventoryKey.getInventory,playerDataObject);
+    inventoryKeyEmitter.emit(inventoryKey.getInventory,this.playerDataObject);
 
       
       //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
@@ -809,7 +730,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         this.idleTimer = 0;
 
           //case to determine attack animation
-          switch(playerDataObject.playerInventoryData[0].itemID) {
+          switch(this.playerDataObject.playerInventoryData[0].itemID) {
             case (2):
               if(this.playedAttackAnimation === false){
                 this.playedAttackAnimation = true;
@@ -1042,6 +963,164 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
           player.soundCoolDown = false;
       }, delay);
     }
+  }
+
+  //array of weapon effect functions
+  setupWeaponPassivesMap(){
+    let tempPlayer = this;
+
+    this.weaponPassivesMap = {
+      // default if the player has no rings equipt
+      0: function Funct0() {
+        tempPlayer.dropChance = 1;
+      },
+      //rapier
+      1: function Funct1() {
+        tempPlayer.dropChance = 1;
+      },
+      //oar
+      2: function Funct2() {
+        tempPlayer.dropChance = 1;
+      },
+      //mimic rapier
+      3: function Funct3() {
+        //console.log("activating mimic rapier bonus")
+        tempPlayer.dropChance = 2;
+      },
+      //knife
+      4: function Funct4() {
+        tempPlayer.dropChance = 1;
+      },
+      //axe
+      10: function Funct10() {
+        tempPlayer.dropChance = 1;
+      },
+      
+    }
+
+  }
+  //array of ring effect functions
+  setupRingPassivesMap(){
+    let tempPlayer = this;
+
+    this.ringPassivesMap = {
+      // default if the player has no rings equipt
+      0: function Funct0() {
+         //console.log("no item equipt");
+        tempPlayer.speedBoost = 1;
+        tempPlayer.dropAmount = 1;
+        tempPlayer.ringType = 0;
+
+        tempPlayer.deactivatelight();
+
+      },
+      // if mimic ring is equipt
+      6: function Funct6() {
+        //console.log("activating mimic ring");
+        tempPlayer.speedBoost = 1;
+        tempPlayer.dropAmount = 2;
+        tempPlayer.ringType = 6;
+
+        tempPlayer.deactivatelight();
+      },
+      //if the player has the carrot ring equipt
+      8: function Funct8() {
+        //console.log("activating speed boost");
+        tempPlayer.speedBoost = 1.2;
+        tempPlayer.dropAmount = 1;
+        tempPlayer.ringType = 8;
+
+        tempPlayer.deactivatelight();
+      },
+      //if the player has the lantern
+      21: function Funct21() {
+
+        tempPlayer.speedBoost = 1;
+        tempPlayer.dropAmount = 1;
+        tempPlayer.ringType = 21;
+
+          if(tempPlayer.scene.lightingSystemActive === true){ 
+
+          //then check to see if the player has fuel.
+          if(tempPlayer.playerDataObject.playerInventoryData[2].itemID === 16){
+
+            //set a tween on the light source to make the lanturn flicker
+            if(tempPlayer.lanturnFlicker === undefined || tempPlayer.lanturnFlicker === null ){
+
+              tempPlayer.lightSource.setRadius(100);
+
+              tempPlayer.lanturnFlicker = tempPlayer.scene.tweens.add({
+                targets: tempPlayer.lightSource,
+                props : {
+                    radius: {value : '+=' +8},
+                    intensity: {value : '+=' +.15},
+      
+                }, 
+                ease: 'linear',
+                duration: 800,
+                repeat: -1,
+                yoyo: true
+              });
+            }
+            //console.log("this.fuelActivated: ", this.fuelActivated);
+            //apply timer to fuel source and reduce fuel amount by 1 every 45 seconds.
+            if(tempPlayer.fuelActivated === false){
+
+              tempPlayer.fuelActivated = true;
+
+              setTimeout(function(){
+                if(tempPlayer !== undefined && tempPlayer !== null){
+
+                  //calls emitter to reduce item amount at specific location
+                  // in this case reduce slot 2 by 1.
+                  inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,2,1);
+            
+                  tempPlayer.fuelActivated = false;
+
+
+                }
+
+              },2000);
+    
+          }
+
+
+          //otherwise if there is no fuel to burn, set lanturn to be off.
+          }else{
+            tempPlayer.lightSource.setRadius(0);
+            if(tempPlayer.lanturnFlicker !== undefined && tempPlayer.lanturnFlicker !== null ){
+              tempPlayer.lanturnFlicker.stop();
+              tempPlayer.lanturnFlicker = null;
+            }
+
+          }
+
+        //otherwise turn the lightsource off
+        }else if(tempPlayer.scene.lightingSystemActive === true){
+
+          tempPlayer.lightSource.setRadius(0);
+
+          if(tempPlayer.lanturnFlicker !== undefined && tempPlayer.lanturnFlicker !== null ){
+              tempPlayer.lanturnFlicker.stop();
+              tempPlayer.lanturnFlicker = null;
+          }
+        }
+      },
+      
+    }
+
+  }
+
+  deactivatelight(){
+    if(this.scene.lightingSystemActive === true){
+
+          this.lightSource.setRadius(0);
+
+          if(this.lanturnFlicker !== undefined && this.lanturnFlicker !== null ){
+              this.lanturnFlicker.stop();
+              this.lanturnFlicker = null;
+          }
+        }
   }
 
   //sets size of hitbox while attacking.

@@ -1230,28 +1230,48 @@ const npcDialogue = {
                         "dialogue": "Now, what would you like to do?",
                         "profile":"vivianNeutral",
                         "textvoice":"lightVoice",
-                        "children":["node5","node8","node9","node15"]
+                        "children":["node5","node6","node8","node9","node15"]
                     },
 
                     //i want to play your game
                     "node5":{
-                        "dialogue": "Heh, lovely. ",
+                        "dialogue": "Heh, lovely. give me a sec to get it ready.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
-                        "children":["node6"]
+                        "children":[]
                     },
+
+                    //branch for explaining game 
                     "node6":{
-                        "dialogue": "there will be three chests. I will put the lantern in one of these chests, and all you need to do is open the correct one.",
+                        "dialogue": "there will be three chests and all you need to do is open the correct one.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "Now, no peeking, and choose carefully, hehe.",
+                        "dialogue": "So would you like to play?",
                         "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node20","node21"]
+                    },
+
+                    //yes to game 
+                    "node20":{
+                        "dialogue": "Perfect. Now no peeking, and choose carefully, hehe.",
+                        "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":[]
                     },
+
+                    //no to game
+                    "node21":{
+                        "dialogue": "awww... your no fun.",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+
 
                     //i want to buy something
                     "node8":{
@@ -1313,13 +1333,13 @@ const npcDialogue = {
                         "children":["node17"]
                     },
                     "node17":{
-                        "dialogue": "I ll have my other treasure chests scattered around, so give those just 2 knocks.",
+                        "dialogue": "i will have my other treasure chests scattered around, so give those just 2 knocks.",
                         "profile":"vivianStarEyes",
                         "textvoice":"lightVoice",
                         "children":["node18"]
                     }, 
                     "node18":{
-                        "dialogue": "I ll know it is you as a customer.",
+                        "dialogue": "I will know it is you as a customer.",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":["node19"]
@@ -1350,18 +1370,20 @@ const npcDialogue = {
                         "dialogue": "Now, what would you like to do?",
                         "profile":"vivianNeutral",
                         "textvoice":"lightVoice",
-                        "children":["node5","node8","node9","node15"]
+                        "children":["node5","node6","node8","node9","node15"]
                     },
 
                     //i want to play your game
                     "node5":{
-                        "dialogue": "Heh, lovely. ",
+                        "dialogue": "Heh, lovely. give me a sec to get it ready.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
-                        "children":["node6"]
+                        "children":[]
                     },
+
+                    //branch for explaining game 
                     "node6":{
-                        "dialogue": "there will be three chests. I will put the reward in one of these chests, and all you need to do is open the correct one.",
+                        "dialogue": "there will be three chests and all you need to do is open the correct one.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["nodeB"]
@@ -1370,11 +1392,27 @@ const npcDialogue = {
                         "dialogue": "Since you already got the lantern... ill just put some shell in the correct chest.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
-                        "children":["nodeB"]
+                        "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "Now, no peeking, and choose carefully, hehe.",
+                        "dialogue": "So would you like to play?",
                         "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node20","node21"]
+                    },
+
+                    //yes to game 
+                    "node20":{
+                        "dialogue": "Perfect. Now no peeking, and choose carefully, hehe.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //no to game
+                    "node21":{
+                        "dialogue": "awww... your no fun.",
+                        "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":[]
                     },
@@ -1472,31 +1510,49 @@ const npcDialogue = {
                         "dialogue": "how can i help you?",
                         "profile":"vivianNeutral",
                         "textvoice":"lightVoice",
-                        "children":["node5","node8","node9","node15"]
+                        "children":["node5","node6","node8","node9","node15"]
                     },
 
                     //i want to play your game
                     "node5":{
-                        "dialogue": "Heh, lovely. ",
+                        "dialogue": "Heh, lovely. give me a sec to get it ready.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
-                        "children":["node6"]
+                        "children":[]
                     },
+
+                    //branch for explaining game 
                     "node6":{
-                        "dialogue": "there will be three chests. I will put the reward in one of these chests, and all you need to do is open the correct one.",
+                        "dialogue": "there will be three chests and all you need to do is open the correct one.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["nodeB"]
                     },
                     "nodeB":{
-                        "dialogue": "Since you already Bought the lantern... ill just put some shell in the correct chest.",
+                        "dialogue": "Since you already bought the lantern... ill just put some shell in the correct chest.",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "Now, no peeking, and choose carefully, hehe.",
+                        "dialogue": "So would you like to play?",
                         "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node20","node21"]
+                    },
+
+                    //yes to game 
+                    "node20":{
+                        "dialogue": "Perfect. Now no peeking, and choose carefully, hehe.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //no to game
+                    "node21":{
+                        "dialogue": "awww... your no fun.",
+                        "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":[]
                     },
@@ -1790,7 +1846,7 @@ const npcDialogue = {
                 },
                 "playerWinsShell":{
                      "node1":{
-                        "dialogue": "Ugh, You win agian...",
+                        "dialogue": "Ugh, You win...",
                         "profile":"vivianKO",
                         "textvoice":"lightVoice",
                         "children":[ "node2"]

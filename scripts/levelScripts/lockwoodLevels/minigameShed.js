@@ -121,7 +121,7 @@ class minigameShed extends defaultScene {
       this.setUpContainers();
 
       //let rng decide order
-      let positionsX = [576,701,445];
+      let positionsX = [445,576,701];
       let positionsY = [694,694,694];
 
       //make a temp object
@@ -146,63 +146,70 @@ class minigameShed extends defaultScene {
       console.log(random);
       if(random === 0){
          //tf sequence
-        this.initVivian(positionsX[0],positionsY[0],'voreSequence');
+         console.log("tfSequence 0");
+        this.initVivian(positionsX[0],positionsY[0],'tfSequence');
 
         random = Math.floor((Math.random() * 2));
          console.log(random);
 
         if(random === 0){
-
+          console.log("winning 1");
           this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
 
+          console.log("vore 2");
           this.initVivian(positionsX[2],positionsY[2],'voreSequence');
 
         }else{
 
+           console.log("vore 1");
           this.initVivian(positionsX[1],positionsY[1],'voreSequence');
 
+           console.log("winning 2");
           this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
 
         }
 
       }else if(random === 1){
          //tf sequence
-         this.initVivian(positionsX[1],positionsY[1],'voreSequence');
+          console.log("tfseq 1");
+         this.initVivian(positionsX[1],positionsY[1],'tfSequence');
 
         random = Math.floor((Math.random() * 2));
         console.log(random);
 
         if(random === 0){
-
+           console.log("win 0");
          this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
 
+          console.log("vore 2");
          this.initVivian(positionsX[2],positionsY[2],'voreSequence');
 
         }else{
-
+          console.log("vore 0");
           this.initVivian(positionsX[0],positionsY[0],'voreSequence');
-
+          console.log("win 2");
           this.initVivian(positionsX[2],positionsY[2],this.vivianLogic);
 
         }
 
       }else{
         //tf sequence
-        this.initVivian(positionsX[2],positionsY[2],'voreSequence');
+        this.initVivian(positionsX[2],positionsY[2],'tfSequence');
+        console.log("tf 2");
 
         random = Math.floor((Math.random() * 2));
          console.log(random);
 
         if(random === 0){
-
+           console.log("win 0");
           this.initVivian(positionsX[0],positionsY[0],this.vivianLogic);
-
+          console.log("vore 1");
           this.initVivian(positionsX[1],positionsY[1],'voreSequence');
 
         }else{
-
+          console.log("vore 0");
           this.initVivian(positionsX[0],positionsY[0],'voreSequence');
-
+          console.log("win 1");
           this.initVivian(positionsX[1],positionsY[1],this.vivianLogic);
 
         }

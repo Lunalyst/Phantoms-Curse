@@ -312,19 +312,19 @@ class lunalyst extends npc{
                 this.anims.play('lunalystFemaleHugStart').once('animationcomplete', () => {
                   this.anims.play('lunalystFemaleHug',true);
                   this.animationPlayed = false;
-                  this.scene.player1.visible = false;
+                  //this.scene.player1.visible = false;
                 });
               }else{
                   this.anims.play('lunalystMaleHugStart').once('animationcomplete', () => {
                     this.anims.play('lunalystMaleHug',true);
                     this.animationPlayed = false;
-                    this.scene.player1.visible = false;
+                    //this.scene.player1.visible = false;
                   });
                 } 
               }
         }else if(this.currentDictNode.nodeName === "node7"&& this.animationPlayed === false){
 
-              this.scene.player1.visible = false;
+              //this.scene.player1.visible = false;
 
               if(this.scene.playerSex === 1){
                 this.anims.play('lunalystFemaleHug',true);
@@ -335,7 +335,7 @@ class lunalyst extends npc{
               this.animationPlayed = true;
               //apply interuption to dialogue
               this.scene.sceneTextBox.textInterupt = true;
-
+              this.dialogueCatch = true;
               if(this.scene.playerSex === 1){
 
                 this.anims.play('lunalystFemaleHugEnd',true).once('animationcomplete', () => {
@@ -344,11 +344,12 @@ class lunalyst extends npc{
                   //position the player to the correct place when they leave the animation.
 
                   this.scene.player1.mainHitbox.x = this.x+20;
-              this.scene.player1.mainHitbox.y = this.y-3;
+                  this.scene.player1.mainHitbox.y = this.y-3;
 
                   this.scene.player1.visible = true;
                   this.animationPlayed = false
                   this.scene.sceneTextBox.textInterupt = false;
+                  this.dialogueCatch = false;
 
                 });
               }else{
@@ -361,6 +362,8 @@ class lunalyst extends npc{
                   this.scene.player1.visible = true;
                   this.animationPlayed = false;
                   this.scene.sceneTextBox.textInterupt = false;
+                  this.dialogueCatch = false;
+                  
                 });
               } 
         }else if(this.currentDictNode.nodeName === "node9"){

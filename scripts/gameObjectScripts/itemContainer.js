@@ -70,9 +70,6 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
         }
         
-
-        
-
         //variables use to protect the object from being called at the wrong time.
         this.safeToOpen = false;
         this.openCoolDown= false;
@@ -116,7 +113,6 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
 
             //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
             this.scene.initFakeItemDrop(this.x , this.y+16 ,this.containerItemObject.itemID); 
-
 
             if(this.itemRecieved === false && object.foundFlag === false){
 

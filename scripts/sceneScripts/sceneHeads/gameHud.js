@@ -1086,7 +1086,7 @@ class gameHud extends A3SoundEffects {
 
           //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
           inventoryKeyEmitter.on(inventoryKey.checkContainerFlag,(object) =>{
-            //console.log("after emitterchecking if flag exists. : ",object);
+            console.log("after emitterchecking if flag exists. : ",object);
 
             for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
               //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
@@ -1095,8 +1095,8 @@ class gameHud extends A3SoundEffects {
               }
               }
 
-          //console.log("search for flag complete: ",object);
-          //console.log("this.flagValues.containerFlags: ",this.flagValues.containerFlags);
+          console.log("search for flag complete: ",object);
+          console.log("this.flagValues.containerFlags: ",this.flagValues.containerFlags);
 
           });
 
@@ -1163,8 +1163,19 @@ class gameHud extends A3SoundEffects {
           scene.currencyAnimation(scene,reduced,newAmount)
         },0.1);
 
-      }else{
+        //otherwise if the original amount is less than the new amount, then show amount increasing
+      }else if(originalAmount < newAmount){
+        
+        setTimeout(function(){
+          let reduced = originalAmount+1;
+          scene.displayCurrencyLetters.textFadeOutAndDestroy(0);
+          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 30,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
+          scene.currencyAnimation(scene,reduced,newAmount)
+        },0.1);
 
+        //if the amounts are equal, then fadeout and hide currency.
+      }else{
+        
         scene.displayCurrencyLetters.textFadeOutAndDestroy(1000);
         setTimeout(function(){
           scene.displayCurrencyIcon.destroy();

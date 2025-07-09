@@ -237,16 +237,6 @@ const oneTimeItemArray = {
         itemType: "weapon",
         sellValue: 75
     },
-
-    obtained_mimic_rapier: {
-        itemID: 3,
-        itemName: 'MIMIC RAPIER',
-        itemDescription: 'INFUSED WITH THE CURSED ENERGY OF AVARICE...',
-        itemStackable: 0,
-        itemAmount: 1,
-        itemType: "weapon",
-        sellValue: 75
-    },
     
     obtained_lantern:{
         itemID: 21,

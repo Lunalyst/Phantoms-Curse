@@ -45,7 +45,7 @@ class G5InitNPCs extends G4InitGameObjects {
     Istara.npcId = this.npcId;
     this.npcId++;
     //need to set up the tutorial dialogue from file.
-    this.npcTriggers.add(tutorial);
+    //this.npcTriggers.add(tutorial);
 
     this.npcs.add(Istara);
 

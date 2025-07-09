@@ -167,7 +167,6 @@ class G2levelSetupFunctions extends G1PlayerInputs {
       //this.scene.stop('gameHud');
       //this.scene.launch('gameHud');
       //this.scene.start('gameHud');
-
       this.cameras.main.fadeOut(500, 0, 0, 0);
     });
 

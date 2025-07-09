@@ -69,7 +69,9 @@ controlKeyEvent = {
     justDownATKKey: 'just_down_atk_key',
 
     toggleForTextBox:'toggle_for_text_box',
-    toggleForStruggle:'toggle_for_Struggle'
+    toggleForStruggle:'toggle_for_Struggle',
+
+    forcedScheduling: 'forced_scheduling'
 };
 
 controlKeyEmitter = new Phaser.Events.EventEmitter();

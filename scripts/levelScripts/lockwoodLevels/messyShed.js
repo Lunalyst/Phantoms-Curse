@@ -160,6 +160,8 @@ class messyShed extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
       
+        this.pausedInTextBox = false;
+      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
     }
 
     update(){

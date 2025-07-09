@@ -112,14 +112,31 @@ class gameOver extends gameoverManager {
             //handles scene transition and fade out for scene transition
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
 
+                //console.log(`should be undefine ->emitter: forcedScheduling: ${controlKeyEmitter[controlKeyEvent.forcedScheduling]}`);
+
+                //create a emmitter that listesns to forced scheduling
+                //define a emitter so that the gameplay scene can check if the key is being used
+                controlKeyEmitter.on(controlKeyEvent.forcedScheduling,(emitterCheck) =>{
+
+                    //start next gameplay scene,
+                    console.log("now Loading main scene:", this.playerLocation);
+                    this.scene.start(this.playerLocation);
+
+                    //tester to see if it activated or not
+                    emitterCheck.activated = true;
+
+                    //destroy this emmitter
+                    console.log("emmitter should now be removed: ")
+                    controlKeyEmitter.removeAllListeners(controlKeyEvent.forcedScheduling);
+                    console.log(`emitter: forcedScheduling: ${controlKeyEmitter[controlKeyEvent.forcedScheduling]}`);
+
+                });
                 //launch the gameplay scenes.
                 console.log("now stoping this scene",);
                 console.log("now loading game ui",);
+
+                //launch gamehud
                 this.scene.launch('gameHud');
-                
-                console.log("now Loading main scene:", this.playerLocation);
-                
-                this.scene.start(this.playerLocation);
 
             })
 

@@ -541,7 +541,8 @@ class gameHud extends A3SoundEffects {
           },this);
 
           //when player dies the prompt to skip animations need to pop up.
-          this.skipIndicator = this.add.sprite(this.screenWidth-150, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());
+          this.skipIndicator = this.add.sprite(this.screenWidth-90, 840,'TABToSkip').setInteractive(this.input.makePixelPerfect());
+          this.skipIndicator.setScale(0.8);
           this.skipIndicator.visible = false;
           this.skipIndicatorIsPressed = false;
           this.skipIndicator.setScrollFactor(0);
@@ -1142,9 +1143,20 @@ class gameHud extends A3SoundEffects {
 
 
           //test to see if the emitters are active
-          this.printActiveEmitter();
-        
-          
+          //this.printActiveEmitters();
+
+          let emitterCheck = {
+            activated: false
+          };
+
+          //after all set up is complete, call emmitter to start gameplay scene if it exists.
+          controlKeyEmitter.emit(controlKeyEvent.forcedScheduling,emitterCheck);
+
+          if(emitterCheck.activated === true){
+            console.log("sucessfully connected to gameover emitter"); 
+          }else{
+            console.log("could not find gameover emitter"); 
+          }
 
         console.log("create function in hud finished-------------------------------------------------------");
 
@@ -1191,7 +1203,8 @@ class gameHud extends A3SoundEffects {
     update(){
       
       //updates the display showing where the cursor is located.
-      //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');       
+      //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')'); 
+      
     }
 
 }

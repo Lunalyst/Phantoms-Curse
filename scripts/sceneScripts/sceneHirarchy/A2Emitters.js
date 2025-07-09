@@ -6,7 +6,7 @@ can be viewed or cleared.
 class A2Emitters extends A1SaveAndLoad {
 
   //function that prints listeners
-  printActiveEmitter(){
+  printActiveEmitters(){
 
     //creates two arrays to hold keys and emitters, same code is in gameover function in default scene.
     let emitterArray = [];
@@ -45,9 +45,9 @@ class A2Emitters extends A1SaveAndLoad {
     for(let counter = 0; counter < emitterArray.length; counter++){
       //for each key add the emitter totals
       for(const property in keyArray[counter]){
-        //console.log(`emitter: ${property}: ${healthEvent[property]}`);
+        console.log(`emitter: ${property}: ${healthEvent[property]}`);
         emitterTotal = emitterTotal + emitterArray[counter].listenerCount(keyArray[counter][property]);
-        //healthEmitter.removeAllListeners(healthEvent[property]);
+       
       }
       //print the emitter listeners
       //console.log(keyArray[counter]," current listeners: ",emitterTotal);
@@ -55,6 +55,8 @@ class A2Emitters extends A1SaveAndLoad {
 
     }  
   }
+
+
 
   //clears all emitters
   clearAllEmmitters(){
@@ -103,9 +105,8 @@ class A2Emitters extends A1SaveAndLoad {
     for(let counter = 0; counter < emitterArray.length; counter++){
 
       for(const property in keyArray[counter]){
-        
-      emitterArray[counter].removeAllListeners(keyArray[counter][property]);
-        
+        console.log(`emitter: ${property}: ${healthEvent[property]}`);
+      emitterArray[counter].removeAllListeners(keyArray[counter][property]); 
       }
 
     }  
@@ -140,6 +141,21 @@ class A2Emitters extends A1SaveAndLoad {
     
 
   }
+
+  //useful testing function for fiewing active scenes and there names
+  countActiveScenes() {
+      let activeSceneCount = 0;
+      let list = "";
+      this.game.scene.scenes.forEach(scene => {
+        if (scene.sys.isActive()) {
+         console.log(scene.scene.key);
+          activeSceneCount++;
+        }
+
+      });
+      console.log("activeSceneCount: ", activeSceneCount,"list: " );
+      return activeSceneCount;
+    }
 
   
 

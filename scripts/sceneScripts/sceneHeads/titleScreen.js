@@ -372,6 +372,8 @@ class titleScreen extends A3SoundEffects {
 
         update(){
 
+            //this.countActiveScenes()
+
             //code handles the title screen phantom logo animation.
             if(this.logoToggle === false){
                 if(this.logoAnimationPlayed === false && this.titleLogo.visible === true){

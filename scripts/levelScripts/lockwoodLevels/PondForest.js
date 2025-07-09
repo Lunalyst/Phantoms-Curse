@@ -225,10 +225,13 @@ class PondForest extends defaultScene {
         //endTimeTest()
     }
 
+    
+
     update(){
 
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-      
+     
+      //this.countActiveScenes();
       //calls the built in update function
       this.defaultUpdate();
 
@@ -264,6 +267,8 @@ class PondForest extends defaultScene {
       this.playerPreviousY = this.player1.y;
 
     }
+
+    
 
 }
   

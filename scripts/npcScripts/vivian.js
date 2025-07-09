@@ -37,7 +37,7 @@ class vivian extends npc{
         this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
       }else{
         this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivianExtension', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
-        this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivianExtension', { start: 4, end: 6 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivianExtension', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'vivianGameVoreSwallow',frames: this.anims.generateFrameNames('vivianExtension', { start: 7, end: 16 }),frameRate: 5,repeat: 0});
 
         this.anims.create({key: 'vivianGameVoreBellySquish',frames: this.anims.generateFrameNames('vivianExtension', { start: 17, end: 20 }),frameRate: 7,repeat: 0});
@@ -207,12 +207,18 @@ class vivian extends npc{
           setTimeout(function () {
             //play animation and reset.
             if(temp.stopTell === false){
-              temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
-              temp.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
+              if(temp.npcType === "tfSequence"){
+                temp.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+                temp.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
                 temp.minigameTell = false;
-                
-              
               });
+              }else{
+                temp.scene.initSoundEffect('creakSFX','wood',0.05);
+                temp.anims.play('vivianGamePeak').once('animationcomplete', () => {
+                  temp.minigameTell = false;
+                });
+              }
+              
             }
           }, randomTime);  
         }
@@ -220,7 +226,10 @@ class vivian extends npc{
         /* remeber to change this to the tf sequence so hitting tab gives the correct gameover screen and flag lol */
         if(this.vivianThatDefeatedPlayer === true){
 
-          //
+          //remeber this has to be nested inside  if statement. if we have multiple vivian npcs calling this isdown function,
+          //then the first one will return true, and the rest will return false. since tfsequence was made first, then it takes that true
+          //and the rest become false. only by ensuring that the vivian who has defeated the player is calling this function 
+          //then only that vivian is able to call this function and ensure the player arrives at the correct gameover scene.
           if(this.scene.checkSkipIndicatorIsDown()){
             this.startGameoverActivated = true;
             this.scene.gameoverLocation = "vivianGameover";
@@ -1136,6 +1145,7 @@ class vivian extends npc{
 
             //warps player to the next scene
             this.scene.destination = "minigameShed";
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
         }

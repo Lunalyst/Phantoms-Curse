@@ -16,3 +16,10 @@ Channel rack -> Insert/Replace/+ -> More plugins then type the name of the plugi
 using vital 
 add and open using plugin. button under metranome should be organge if not click it
 
+keys to soundfonts using key presses manially.
+to record notes as key pressed there a button near the metranome thats half keyboard half piano under the metranome. make sure looping is of its the keybord symbol with the circle
+
+deciding a key how to do do it 
+right pointing arrow above piano roll->view->scale highlighting->
+
+

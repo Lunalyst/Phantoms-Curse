@@ -36,8 +36,8 @@ class sunFlowerField extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Fields.json");
       
-      this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1152, frameHeight: 765});
-      this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
+      this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1600 , frameHeight: 1315});
+      this.load.spritesheet('backgroundTreeLevel', 'assets/backgrounds/tree backdrop.png',{frameWidth: 1600 , frameHeight: 1090});
       this.load.spritesheet('Sun_Flower_Parrallax', 'assets/parrallax/Sun_Flower_Parrallax.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
@@ -113,19 +113,26 @@ class sunFlowerField extends defaultScene {
           "THE WEIGHT OF MY HEART THREATENS TO TOPLE ME OVER. OVERFLOWING WITH MEMORYS OF LOST PROMISES AND SWEET SENTIMENTS UNFUFILLED. ITS ENOUGH TO DRIVE ME TO MY KNEES AND YET IM AM SPURNED TO KEEP MOVING FORWARD BY ACHING IN MY HEART.",
           ['signLoop']);
 
-      this.skybackround = this.add.tileSprite(3000, -1940+616, 6*1024, 4*1024, "backgroundSkyLevel");
-      this.skybackround.setDepth(-50);
-      this.skybackround.setTint(0xd3d3d3);
+      this.parrallax2XOrigin = 3000;
+      this.parrallax2YOrigin = -280+70;
+      this.parrallax2 = this.add.tileSprite(3000, -280+70, 7*1600, 1090, "backgroundTreeLevel");
+      this.parrallax2.flipY = true;
+      this.parrallax2.flipX = true;
+      this.parrallax2.setDepth(-50);
+      this.parrallax2.setTint(0xd3d3d3);
 
-      this.backround = this.add.tileSprite(3000, 1370-416, 7*1152, 765, "backgroundSunflowerLevel");
-      this.backround.setDepth(-51);
+      this.backroundXOrigin = 3000;
+      this.backroundYOrigin = 650;
+      this.backround = this.add.tileSprite(3000, 650, 7*1600, 1315, "backgroundSunflowerLevel");
+      this.backround.setDepth(-49);
       this.backround.setScale(0.7);
       this.backround.setTint(0xd3d3d3);
 
-
-      this.parrallax1 = this.add.tileSprite(3000, 1290-416, 1920*10 ,1920, "Sun_Flower_Parrallax");
+      this.parrallax1XOrigin = 3000;
+      this.parrallax1YOrigin = 1290-450;
+      this.parrallax1 = this.add.tileSprite(3000, 1290-450, 1920*10 ,1920, "Sun_Flower_Parrallax");
       this.parrallax1.setScale(1/3);
-      this.parrallax1.setDepth(-50);
+      this.parrallax1.setDepth(-48);
       this.parrallax1.setTint(0x808080);
       
       //this.initSavePoints(759,1437-14);
@@ -195,27 +202,27 @@ class sunFlowerField extends defaultScene {
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.parrallax1.x += 0.5;
-        this.backround.x += 0.7;
-        this.skybackround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX && this.playerGrabbed === false){
-        this.parrallax1.x -= 0.5;
-        this.backround.x -= 0.7;
-        this.skybackround.x -= 0.7;
+      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
+        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
+        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
+      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
+        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
+        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
       }
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;
 
       //updates the y value of the scrolling backround.
       if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.parrallax1.y -= 0.1;
-        this.backround.y -= 0.3;
-        this.skybackround.y -= 0.3;
+        this.backgroundRangeUp(this.parrallax1,this.parrallax1YOrigin,90,0.1);
+        this.backgroundRangeUp(this.parrallax2,this.parrallax2YOrigin,90,0.1);
+        this.backgroundRangeUp(this.backround,this.backroundYOrigin,90,0.3);
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.parrallax1.y += 0.1;
-        this.backround.y += 0.3;
-        this.skybackround.y += 0.3;
+        this.backgroundRangeDown(this.parrallax1,this.parrallax1YOrigin,90,0.1);
+        this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
+        this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
       }
 
       //updates the y values stored every tick 

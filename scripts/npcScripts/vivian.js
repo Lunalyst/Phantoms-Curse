@@ -1396,6 +1396,7 @@ class vivian extends npc{
              
               this.anims.play('vivianLosePopUp').once('animationcomplete', () => {
                 this.anims.play('vivianLoseIdle',true);
+                this.scene.initSoundEffect('buttonSFX1','2',0.4);
                 this.animationPlayed = false;
                 this.dialogueCatch = false;
 
@@ -1542,6 +1543,7 @@ class vivian extends npc{
              
               this.anims.play('vivianLosePopUp').once('animationcomplete', () => {
                 this.anims.play('vivianLoseIdle',true);
+                this.scene.initSoundEffect('buttonSFX1','2',0.4);
                 this.animationPlayed = false;
                 this.dialogueCatch = false;
 

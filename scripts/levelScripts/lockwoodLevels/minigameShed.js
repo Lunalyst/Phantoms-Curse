@@ -40,8 +40,11 @@ class minigameShed extends defaultScene {
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
 
-       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
           "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+      this.load.audioSprite('buttonSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
         ]);
       
     }

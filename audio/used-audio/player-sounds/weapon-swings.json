@@ -21,7 +21,7 @@
         },
         "heavy":{
             "start": 1.8,
-            "end": 2.4,
+            "end": 2.2,
             "loop": false
         },
         "smack":{

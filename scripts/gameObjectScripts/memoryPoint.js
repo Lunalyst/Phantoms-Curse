@@ -107,12 +107,17 @@ class memoryPoint extends Phaser.Physics.Arcade.Sprite{
             //check save data of player best flags. good to define after bestiaryplayerdata has all the flags in it.
             let allKeysPlayerBest = Object.keys(playerDataObject.playerBestiaryData);
 
+            let modifiedMemory = false;
             //for all flags the player has, if they match set them to 1
             allKeysPlayerBest.forEach(playerBestKey => {
 
                 //set flag in the players objecto make everyting 1
-                playerDataObject.playerBestiaryData[playerBestKey] = 1;
-                console.log("adding value 1 to ",playerBestKey," flag to player bestiary");
+                if(playerDataObject.playerBestiaryData[playerBestKey] !== 1){
+                     playerDataObject.playerBestiaryData[playerBestKey] = 1;
+                     modifiedMemory = true;
+                    console.log("adding value 1 to ",playerBestKey," flag to player bestiary");
+                }
+               
                 
                 
 
@@ -126,7 +131,12 @@ class memoryPoint extends Phaser.Physics.Arcade.Sprite{
             scene1.saveGame(playerDataObject);
 
             //makes graphic to show player the game is saved
-            inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"YOUR MIND IS FILLED WITH MEMORIES...");
+            if(modifiedMemory === true){
+                inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"YOUR MIND IS FILLED WITH MEMORIES...");
+            }else{
+                inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"YOUR MIND IS FULL...");
+            }
+            
 
             //if lighting system is on then
             if(this.scene.lightingSystemActive === true){

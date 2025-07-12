@@ -291,7 +291,7 @@ const bestiaryKey = {
     whiteCatFemaleVore:"whiteCat-female-vore",
 
     npcIstaraUnbirth:"npc-istara-unbirth",
-    npcIstaraUnbirth:"npc-vivian-vore",
+    npcVivianVore:"npc-vivian-vore",
 
     curseShadowVore:"curseShadow-vore",
     earieShadowTF:"earieShadow-tf",

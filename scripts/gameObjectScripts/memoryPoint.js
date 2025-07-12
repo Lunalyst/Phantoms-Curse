@@ -1,9 +1,9 @@
 //savestone that allows players to save there progress.
-class savePoint extends Phaser.Physics.Arcade.Sprite{
+class memoryPoint extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'savePoint');
+        super(scene, xPos, yPos, 'memoryPoint');
         //then we add new instance into the scene. 
         scene.add.existing(this);
         //then we call this next line to give it collision
@@ -18,8 +18,8 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         this.saveStoneId;
         
         //defines player animations
-        this.anims.create({key: 'saveStone',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'saveStoneAnimation',frames: this.anims.generateFrameNames('savePoint', { start: 0, end: 15}),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'memoryStone',frames: this.anims.generateFrameNames('memoryPoint', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'memoryStoneAnimation',frames: this.anims.generateFrameNames('memoryPoint', { start: 0, end: 7}),frameRate: 7,repeat: 0});
         
         //variables use to protect the object from being called at the wrong time.
         this.safeToSave = false;
@@ -74,30 +74,74 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             playerDataObject.saveY = saveY+15;
             playerDataObject.playerSex = scene1.playerSex;
             playerDataObject.playerLocation = scene1.playerLocation;
+            
+            console.log("adding bestiary flags");
+
+            //get keylist of bestiary flags variable
+            let allKeysBest = Object.keys(bestiaryTextList);
+
+            //loop through all bestiary flags and add the ones the player doesnt have.
+            allKeysBest.forEach(bestKey => {
+
+                let keyFound = false;
+                //check to see if the player object has them.
+                for (let [key, value] of Object.entries(playerDataObject.playerBestiaryData)) {
+
+                    if (bestKey === key) {
+                        keyFound = true;
+                    }
+                }
+
+                if(keyFound === true){
+                    console.log("found flag so no need to add: ",bestKey);
+                }else if(bestKey !== "back"){
+                    console.log("could not find flag, so adding it: ",bestKey);
+                    playerDataObject.playerBestiaryData[bestKey] = 0;
+
+                }
+
+            });
+
+            console.log("playerDataObject.playerBestiaryData: ",playerDataObject.playerBestiaryData);
+
+            //check save data of player best flags. good to define after bestiaryplayerdata has all the flags in it.
+            let allKeysPlayerBest = Object.keys(playerDataObject.playerBestiaryData);
+
+            //for all flags the player has, if they match set them to 1
+            allKeysPlayerBest.forEach(playerBestKey => {
+
+                //set flag in the players objecto make everyting 1
+                playerDataObject.playerBestiaryData[playerBestKey] = 1;
+                console.log("adding value 1 to ",playerBestKey," flag to player bestiary");
+                
+                
+
+            });
 
             //maxes out hp.
             playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
 
             //saves the game by calling the save game file function in the scene
-            scene1.saveGameFile(playerDataObject);
+            //scene1.saveGameFile(playerDataObject);
+            scene1.saveGame(playerDataObject);
 
             //makes graphic to show player the game is saved
-            inventoryKeyEmitter.emit(inventoryKey.playGameSaved);
+            inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"YOUR MIND IS FILLED WITH MEMORIES...");
 
             //if lighting system is on then
             if(this.scene.lightingSystemActive === true){
 
                 //delay the light being turned on since it needs to line up with animation.
-                let thisSavePoint = this;
+                let thismemoryPoint = this;
                 setTimeout(function(){
-                    thisSavePoint.curseLight.visible = true;
+                    thismemoryPoint.curseLight.visible = true;
                 },600);
                 
             }
 
             //once we play the save animation once, then we set the animation back to nothing.
-            this.anims.play('saveStoneAnimation').once('animationcomplete', () => {
-                this.anims.play('saveStone',true);
+            this.anims.play('memoryStoneAnimation').once('animationcomplete', () => {
+                this.anims.play('memoryStone',true);
                 if(this.scene.lightingSystemActive === true){
                     this.curseLight.visible = false;
                 }

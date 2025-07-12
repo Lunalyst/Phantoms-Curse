@@ -88,6 +88,20 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  initMemoryPoints(x, y) {
+      let savePoint1 = new memoryPoint(this, x, y);
+      savePoint1.saveStoneId = this.saveStoneId;
+      this.saveStoneId++;
+
+      this.saveStonePoints.add(savePoint1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        savePoint1.setPipeline('Light2D');
+      }
+
+  }
+
   initSecretRemover(x, y) {
     let savePoint1 = new secretRemover(this, x, y);
     savePoint1.saveStoneId = this.saveStoneId;

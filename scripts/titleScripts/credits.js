@@ -19,8 +19,11 @@ class credits extends Phaser.GameObjects.Container{
          this.playing = false;
 
          this.activeNames = [];
+         this.activeNameSprites = [];
 
          this.finishedPlaying = false;
+
+         this.resetTimeOut = null;
 
          //this.title = new makeText( this.scene, 0, -70,'charBubble','CREDITS');
          this.thankYou1 = new makeText(this.scene, 0, -50,'charBubble','THANK YOU TO EVERYONE WHO HAS HELPED ME IMPROVE');
@@ -49,36 +52,63 @@ class credits extends Phaser.GameObjects.Container{
             //by creating a object after a delay 
             if(counter === this.credits.length-1){
                 let tempCredits = this;
-                setTimeout(function () {
+
+                let resetTimeOut = setTimeout(function () {
                     
                     //after delay make names and call credits function apart of make texttext.
                     if(tempCredits.scene !== undefined && tempCredits !== null ){
                         console.log("displaying name: ", tempCredits.credits[counter]);
                         let name = new makeText(tempCredits.scene,0,0,'charBubble',tempCredits.credits[counter]);
                         tempCredits.add(name);
-                        tempCredits.activeNames.push(name);
                         name.textCredits(20000,500,true,this);
+                        //add current sprite to the list 
+                        tempCredits.activeNameSprites.push(name);
                  
                     }
             
                 }, counter*1200);
+
+                this.activeNames.push(resetTimeOut);
             }else{
                 let tempCredits = this;
-                setTimeout(function () {
+                let resetTimeOut = setTimeout(function () {
                     //after delay make names and call credits function apart of make texttext.
                     if(tempCredits.scene !== undefined && tempCredits !== null ){
+
                         console.log("displaying name: ", tempCredits.credits[counter]);
                         let name = new makeText(tempCredits.scene,0,0,'charBubble',tempCredits.credits[counter]);
                         tempCredits.add(name);
-                        tempCredits.activeNames.push(name);
                         name.textCredits(20000,500,false,this);
+
+                        //add current sprite to the list 
+                        tempCredits.activeNameSprites.push(name);
                     }
             
                 }, counter*1200);
+
+                this.activeNames.push(resetTimeOut);
             }
             
         }
+        //console.log("this..activeNames: ",this.activeNames);
 
+    }
+
+    stopCredits(){
+
+        //clears timeout functions
+        for(let counter = 0; counter < this.activeNames.length;counter++){
+            //console.log("stopping settime out at this.activeNames[counter]: ", this.activeNames[counter]);
+            clearTimeout(this.activeNames[counter]);
+        }
+
+        //destory active text sprites for credits.
+        for(let counter = 0; counter < this.activeNameSprites.length;counter++){
+            //console.log("stopping settime out at this.activeNames[counter]: ", this.activeNameSprites[counter]);
+            this.activeNameSprites[counter].remove(0)
+        }
+        //truncade array to remove element id we no longer need.
+        this.activeNames.length = 0;
     }
 
 

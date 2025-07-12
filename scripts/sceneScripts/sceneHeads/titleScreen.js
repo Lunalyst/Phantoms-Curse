@@ -194,7 +194,7 @@ class titleScreen extends A3SoundEffects {
 
             this.credits = new credits(this,this.screenWidth/2-400,200,this.creditsArray);
             this.credits.setDepth(51);
-            this.credits.activateCredits(true);
+            
 
             //adds looping sound effect.
 

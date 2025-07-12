@@ -396,29 +396,33 @@ class A1SaveAndLoad extends Phaser.Scene {
   //convenient function to reset the player save data to the beginning of the game. declutters some classes.
   makeSaveFile(playerObject,sex,saveslot){
 
-  let playerBestiaryData = {
-    blueSlime:0,
-    largeBlueSlime:0,
-    femaleTiger:0,
-    maleRabbit:0,
-    femaleRabbit:0,
-    maleBeeDrone:0,
-    femaleBeeDrone:0,
-    maleBat:0,
-    femaleBat:0,
-    blueSlimeHS: 0,
-    blueSlimeMaleHM: 0,
-    blueSlimeFemaleHM: 0,
-    femaleChestMimic: 0,
-    femaleChestMimicVore: 0,
-    maleChestMimic: 0,
-    maleChestMimicVore: 0,
-    whiteCatMaleTF: 0,
-    whiteCatMaleVore: 0,
-    whiteCatFemaleTF: 0,
-    whiteCatFemaleVore: 0
+    // make blank player bestiary data file
+    let playerBestiaryData = {};
 
- };
+      //get keylist of bestiary flags variable
+      let allKeysBest = Object.keys(bestiaryTextList);
+
+      //loop through all bestiary flags and add the ones the player doesnt have.
+      allKeysBest.forEach(bestKey => {
+
+        let keyFound = false;
+        //check to see if the player object has them.
+        for (let [key, value] of Object.entries(playerBestiaryData)) {
+
+            if (bestKey === key) {
+                keyFound = true;
+              }
+        }
+
+        if(keyFound === true){
+          console.log("found flag so no need to add: ",bestKey);
+        }else if(bestKey !== "back"){
+          console.log("could not find flag, so adding it: ",bestKey);
+          playerBestiaryData[bestKey] = 0;
+
+          }
+
+      });
 
  let playerSkillsData = {
     jump:1,
@@ -742,31 +746,61 @@ for(let counter = 0; counter < 100; counter++){
 
 
     if(dataObject.playerBestiaryData === undefined || dataObject.playerBestiaryData === null){
-      let playerBestiaryData = {
-        blueSlime:0,
-        largeBlueSlime:0,
-        femaleTiger:0,
-        maleRabbit:0,
-        femaleRabbit:0,
-        maleBeeDrone:0,
-        femaleBeeDrone:0,
-        maleBat:0,
-        femaleBat:0,
-        blueSlimeHS: 0,
-        blueSlimeMaleHM: 0,
-        blueSlimeFemaleHM: 0,
-        femaleChestMimic: 0,
-        femaleChestMimicVore: 0,
-        maleChestMimic: 0,
-        maleChestMimicVore: 0,
-        whiteCatMaleTF: 0,
-        whiteCatMaleVore: 0,
-        whiteCatFemaleTF: 0,
-        whiteCatFemaleVore: 0
-    
-     };
+      // make blank player bestiary data file
+      let playerBestiaryData = {};
+
+      //get keylist of bestiary flags variable
+      let allKeysBest = Object.keys(bestiaryTextList);
+
+      //loop through all bestiary flags and add the ones the player doesnt have.
+      allKeysBest.forEach(bestKey => {
+
+        let keyFound = false;
+        //check to see if the player object has them.
+        for (let [key, value] of Object.entries(playerBestiaryData)) {
+
+            if (bestKey === key) {
+                keyFound = true;
+              }
+        }
+
+        if(keyFound === true){
+          console.log("found flag so no need to add: ",bestKey);
+        }else if(bestKey !== "back"){
+          console.log("could not find flag, so adding it: ",bestKey);
+          playerBestiaryData[bestKey] = 0;
+
+          }
+
+      });
 
       dataObject.playerBestiaryData = playerBestiaryData;
+    // otherwise update old save file with new entries
+    }else{
+      //get keylist of bestiary flags variable
+            let allKeysBest = Object.keys(bestiaryTextList);
+
+            //loop through all bestiary flags and add the ones the player doesnt have.
+            allKeysBest.forEach(bestKey => {
+
+                let keyFound = false;
+                //check to see if the player object has them.
+                for (let [key, value] of Object.entries(dataObject.playerBestiaryData)) {
+
+                    if (bestKey === key) {
+                        keyFound = true;
+                    }
+                }
+
+                if(keyFound === true){
+                    console.log("found flag so no need to add: ",bestKey);
+                }else if(bestKey !== "back"){
+                    console.log("could not find flag, so adding it: ",bestKey);
+                    dataObject.playerBestiaryData[bestKey] = 0;
+
+                }
+
+            });
     }
 
     if(dataObject.playerSkillsData === undefined || dataObject.playerSkillsData === null){

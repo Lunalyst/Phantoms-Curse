@@ -104,7 +104,7 @@ class devRoom1 extends defaultScene {
       
       this.initBedPortals(364, 592+29);
 
-      this.initPortals(864,605-13,419,605,"door2","DevRoom2");
+      this.initPortals(864,605-13,1127,600,"door2","DevRoom2");
 
       this.setUpPlayerStorage();
       this.initStorage(721, 592);

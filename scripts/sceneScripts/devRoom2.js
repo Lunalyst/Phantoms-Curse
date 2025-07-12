@@ -17,10 +17,6 @@ class devRoom2 extends defaultScene {
     this.processMap;
     this.myMap;
 
-  
-
-    
-
     }
 
     preload(){
@@ -30,30 +26,13 @@ class devRoom2 extends defaultScene {
       this.load.tilemapTiledJSON("dev_interior2_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/dev_room2.json");
      
       this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
-      
-      this.load.spritesheet('whitecat-male-male-tf', 'assets/enemys/whitecat-male-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-tf', 'assets/enemys/whitecat-male-female-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-male-tf', 'assets/enemys/whitecat-female-male-tf.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-tf', 'assets/enemys/whitecat-female-female-tf.png',{frameWidth: 273, frameHeight: 309 });
-      
-      this.load.spritesheet('whitecat-female-male-vore', 'assets/enemys/whitecat-female-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-female-female-vore', 'assets/enemys/whitecat-female-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-male-vore', 'assets/enemys/whitecat-male-male-vore.png',{frameWidth: 273, frameHeight: 309 });
-      this.load.spritesheet('whitecat-male-female-vore', 'assets/enemys/whitecat-male-female-vore.png',{frameWidth: 273, frameHeight: 309 });
-
-      this.load.spritesheet('whitecatPenning', 'assets/internalViews/whitecatPenning.png',{frameWidth: 213, frameHeight: 213});
-      this.load.spritesheet('whitecatPenned', 'assets/internalViews/whitecatPenned.png',{frameWidth: 213, frameHeight: 213});
-      
-      this.load.spritesheet('cursedHeartProjectile', 'assets/gameObjects/cursedHeart.png',{frameWidth: 99, frameHeight: 99 });
 
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
+      this.load.spritesheet('memoryPoint', 'assets/gameObjects/memoryStatue.png',{frameWidth: 213, frameHeight: 300 });
+
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('whiteCatSFX','audio/used-audio/white-cat-sounds/white-cat-sounds.json',[
-        "audio/used-audio/white-cat-sounds/white-cat-sounds.mp3"
       ]);
 
       //weapon sound effects
@@ -89,14 +68,10 @@ class devRoom2 extends defaultScene {
 
       //creates tileset
       this.setUpTileSet("dev_interior2_map","Home_Interior_Tileset","home_source_map");
+      this.processMap.layer0.setDepth(9);
     
       //creates player object
       this.setUpPlayer();
-
-      
-      //this.setupCursedHeartStucks();
-
-      //this.setupKnockDownStucks();
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05);
@@ -121,25 +96,28 @@ class devRoom2 extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
       //this.initSavePoints(2050,558);
         // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(525,605+13,
+      this.initSigns(1343,617,
         "I like ya, and I want ya. Now we can do this the easy way, or we can do this the hard way, The choice is yaaawws.",
          ['signLoop']);
 
-      this.initPortalsWithTransparency(419,605-13,864,605,"door2","DevRoom1",0.75);
+      this.initSigns(418,536+17,
+        "figured i would hide this strange statue. touching it seems to warp your memories. be careful -lunalyst",
+         ['signLoop']);
 
-      this.initPortals(1068,541-13,4702,1053,"door2","PondForest");
+      this.initPortalsWithTransparency(1136,600-8,864,605,"door2","DevRoom1",0.75);
+      
+      this.initPortals(968,600-8,4702,1053,"door2","PondForest");
 
       this.initSavePoints(1435,605-14);
 
-      
+      this.initMemoryPoints(323,536-10);
+
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
@@ -149,7 +127,6 @@ class devRoom2 extends defaultScene {
       //this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
 
-      
        //sets up enemy colliders and groups
        this.enemyGroupArray = ["whiteCats"];
        this.setUpEnemyCollider(this.enemyGroupArray);

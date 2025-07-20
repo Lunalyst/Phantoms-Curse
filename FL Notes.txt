@@ -22,4 +22,8 @@ to record notes as key pressed there a button near the metranome thats half keyb
 deciding a key how to do do it 
 right pointing arrow above piano roll->view->scale highlighting->
 
+hearing
+pat button plays only patter, while song plays everything on the track list.
 
+enabling piano
+options->MIDI settings-> sleect device->enable

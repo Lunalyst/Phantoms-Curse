@@ -29,6 +29,7 @@ class messyShed extends defaultScene {
       this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
       //storageLocker with a lower case s
       this.defaultPreload();
@@ -137,8 +138,8 @@ class messyShed extends defaultScene {
 
         this.initItemContainer(576,698,empty,true,"empty","viv"); 
         this.initItemContainer(701,698,empty,true,"empty","viv"); 
-        this.initItemContainer(445,698,empty,true,"empty","viv"); 
-        //this.initVivian(445,694,'playerWinsShell');
+        //this.initItemContainer(445,698,empty,true,"empty","viv"); 
+        this.initVivian(445,694,'tfSequence');
 
       }else{
         this.initItemContainer(576,698,empty,true,"empty"); 

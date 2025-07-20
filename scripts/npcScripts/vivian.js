@@ -36,6 +36,7 @@ class vivian extends npc{
         this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivian', { start: 103, end: 108 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
       }else{
+
         this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivianExtension', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'vivianGameVoreGrabbed',frames: this.anims.generateFrameNames('vivianExtension', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'vivianGameVoreSwallow',frames: this.anims.generateFrameNames('vivianExtension', { start: 7, end: 16 }),frameRate: 5,repeat: 0});
@@ -44,6 +45,24 @@ class vivian extends npc{
         this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivianExtension', { start: 21, end: 26 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivianExtension', { start: 26, end: 31 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 4, end: 7 }),frameRate: 5,repeat: -1});
+        
+        //tf animations for female player
+        this.anims.create({key: 'vivianTFPopup',frames: this.anims.generateFrameNames('vivianTFF', { start: 0, end: 2 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFGrabbed',frames: this.anims.generateFrameNames('vivianTFF', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFMove',frames: this.anims.generateFrameNames('vivianTFF', { start: 7, end: 14 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFInChestIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 15, end: 18 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFGrabBottle',frames: this.anims.generateFrameNames('vivianTFF', { start: 19, end: 22 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFBottleToDrink',frames: this.anims.generateFrameNames('vivianTFF', { start: 27, end: 30 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleToHitGround',frames: this.anims.generateFrameNames('vivianTFF', { start: 31, end: 35 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleToHitGroundFinish',frames: this.anims.generateFrameNames('vivianTFF', { start: 36, end: 41 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleDrankIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 42, end: 45 }),frameRate: 7,repeat:-1});
+        this.anims.create({key: 'vivianTFTransform',frames: this.anims.generateFrameNames('vivianTFF', { start: 46, end: 53 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFTransformedIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 54, end: 57 }),frameRate: 7,repeat:-1});
+        this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFF', { start: 58, end: 60 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 61, end: 64 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFGameover',frames: this.anims.generateFrameNames('vivianTFF', { start: 65, end: 68 }),frameRate: 7,repeat: -1});
+      
       }
 
       this.anims.create({key: 'vivianLosePopUp',frames: this.anims.generateFrameNames('vivianExtension', { start: 32, end: 34 }),frameRate: 7,repeat: 0});
@@ -1169,8 +1188,6 @@ class vivian extends npc{
 
         //state machine for dialogue 
         if(this.currentDictNode.nodeName === "node1"){
-
-          //let this vivian know shes the one who beat the player. 
          
 
           //calls emitter to show the tabtoskip graphic
@@ -1348,14 +1365,167 @@ class vivian extends npc{
 
   tfSequence(){
     //temp route to vore logic since tf isnt complete yet.
-    this.voreSequence();
+    this.nodeHandler("vivian","Behavior3","tfSequence");
 
-    /*this.nodeHandler("vivian","Behavior3","tfSequence");
      if(this.currentDictNode !== null){
 
-        //state machine for dialogue 
-        if(this.currentDictNode.nodeName === "node4"){
+        if(this.currentDictNode.nodeName === "node1"){
 
+
+          //calls emitter to show the tabtoskip graphic
+          skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
+          //hide player 
+          this.scene.player1.visible = false;
+
+          this.scene.initSoundEffect('creakSFX','wood',0.05);
+
+          // loop through vivian npc array to cancel all vivian chest tells.
+          for(let counter = 0; counter < this.scene.vivianArray.length;counter++){
+            //console.log(" this.scene.vivianArray[counter]: ", this.scene.vivianArray[counter]);
+            this.scene.vivianArray[counter].stopTell = true;
+          }
+
+          //have the camera follow vivian.
+          this.scene.mycamera.startFollow(this);
+
+           if(this.animationPlayed === false){
+        
+              this.animationPlayed = true;
+              this.dialogueCatch = true;
+             
+              this.anims.play('vivianTFPopup').once('animationcomplete', () => {
+                this.anims.play('vivianTFGrabbed',true);
+                this.animationPlayed = false;
+                this.scene.player1.visible = false;
+                this.dialogueCatch = false;
+              });
+              
+            }
+
+        }else if(this.currentDictNode.nodeName === "node2"){
+
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+           
+            this.anims.play('vivianTFMove').once('animationcomplete', () => {
+              this.anims.play('vivianTFInChestIdle',true);
+              //this.scene.sceneTextBox.amountWIsPressed++;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.animationPlayed = false;
+              //hide ui and dialogue box.
+              //this.progressNode("",true);
+              this.scene.sceneTextBox.visible = true;
+              this.dialogueCatch = false;
+            });
+          }
+        }else if(this.currentDictNode.nodeName === "node3"){
+        this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+           
+            this.anims.play('vivianTFGrabBottle').once('animationcomplete', () => {
+              this.anims.play('vivianTFBottleIdle',true);
+              this.scene.sceneTextBox.textInterupt = false;
+              this.animationPlayed = false;
+              this.scene.sceneTextBox.visible = true;
+              this.dialogueCatch = false;
+            });
+          }
+        
+        }else if(this.currentDictNode.nodeName === "node4"){
+
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+           
+            this.anims.play('vivianTFBottleToDrink').once('animationcomplete', () => {
+              this.anims.play('vivianTFBottleToHitGround').once('animationcomplete', () => {
+                this.anims.play('vivianTFBottleToHitGroundFinish').once('animationcomplete', () => {
+                  this.anims.play('vivianTFBottleDrankIdle',true);
+                  //this.scene.sceneTextBox.amountWIsPressed++;
+                  this.scene.sceneTextBox.textInterupt = false;
+                  this.animationPlayed = false;
+                  //hide ui and dialogue box.
+                  //this.progressNode("",true);
+                  this.scene.sceneTextBox.visible = true;
+                  this.dialogueCatch = false;
+                });
+              });
+            });
+          }
+        }else if(this.currentDictNode.nodeName === "node5"){
+
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+           
+            this.anims.play('vivianTFTransform').once('animationcomplete', () => {
+              this.anims.play('vivianTFTransformedIdle',true);
+              this.scene.sceneTextBox.amountWIsPressed++;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.animationPlayed = false;
+              //hide ui and dialogue box.
+              this.progressNode("",true);
+              this.scene.sceneTextBox.visible = true;
+              this.dialogueCatch = false;
+            });
+          }
+        
+        }else if(this.currentDictNode.nodeName === "node7"){
+          
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+           
+            this.anims.play('vivianTFMoveToHug').once('animationcomplete', () => {
+              this.anims.play('vivianTFHugIdle',true);
+              this.scene.sceneTextBox.amountWIsPressed++;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.animationPlayed = false;
+              //hide ui and dialogue box.
+              this.progressNode("",true);
+              this.scene.sceneTextBox.visible = true;
+              this.dialogueCatch = false;
+            });
+          }
+        
         }else if(this.currentDictNode.nodeName === "node8" && this.startGameover === false){
           //set dialogue catch to true
           this.startGameover = true;
@@ -1365,9 +1535,15 @@ class vivian extends npc{
           this.startGameoverActivated  = true;
           this.dialogueCatch = true;
 
+          this.scene.gameoverLocation = "vivianGameover";
+          this.scene.enemyThatDefeatedPlayer = "vivianTF";
+          this.scene.changeToGameover();
+          this.scene.sceneTextBox.textInterupt = true;
+          this.scene.sceneTextBox.textCoolDown = true;
+
 
         }
-      }*/
+      }
   }
 
   playerWinsLantern(){
@@ -1826,6 +2002,9 @@ class vivian extends npc{
 
   gameOverVore(){
     this.anims.play('vivianVoreGameover',true);
+  }
+  gameOverTF(){
+    this.anims.play('vivianTFGameover',true);
   }
 
   

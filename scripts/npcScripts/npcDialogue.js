@@ -1774,49 +1774,56 @@ const npcDialogue = {
                     },
                 },
                 "tfSequence":{
-                    //player is grabbed by vivian
+                    //player is grabbed by vivian and moved into the chest
                      "node1":{
                         "dialogue": "Too bad!",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":[ "node2"]
                     },
+                    //idle in the chest
                      "node2":{
                         "dialogue": "That was the wrong choice! But don’t worry.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node3"]
                     },
+                    //moves hand back and grabs bottle, and idle
                      "node3":{
                         "dialogue": "I have something special for an adorable human like you. ",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":[ "node4"]
                     },
+                    //swift motion of vivian putting the bottles tip into there mouth, with the player swallowing the contents             
                     "node4":{
                         "dialogue": "Now quick! Drink this! ",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node5"]
                     },
+                    //player appears woozy after drinking it. 
                     "node5":{
                         "dialogue": "Just relax and let it do its work",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":[ "node6"]
                     },
+                    //player transforms to have wolf appearance 
                     "node6":{
                         "dialogue": "There we go!",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node7"]
                     },
+                    //player falls into vivians breasts 
                     "node7":{
                         "dialogue": "You were cute as a human, but now you’re SO much better as another wolf girl like me.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node8"]
                     },
+                    //vivian hugs player.
                     "node8":{
                         "dialogue": "We are gonna have such a great time together ",
                         "profile":"vivianHeartEyes",
@@ -2189,6 +2196,14 @@ const npcDialogue = {
                         "textvoice":"lightPiano",
                         "children":[]
                     },
+                },
+                "vivianTF":{
+                    "node1":{
+                        "dialogue": "The odds were against you, but you thought you could still win. After choosing wrong, Vivian made you swallow your pride with your loss, along with a strange potion she forced you to drink. In mere moments, your body changed. Fur, paws, a tail; all these were now part of your body, and you now look like the wolf girl you lost to. Your mind began to become fuzzy like your now furry body, and now only thoughts of staying with Vivian fill your mind. Wolf girls stay in packs, and Vivian is more than happy to have you in hers.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
                 },
                 
                 "template":{

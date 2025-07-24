@@ -28,6 +28,16 @@
             "start": 2.4,
             "end": 3,
             "loop": false
+        },
+        "bottleBounce":{
+            "start": 3,
+            "end": 3.2,
+            "loop": false
+        },
+        "bottleClatter":{
+            "start": 3.4,
+            "end": 3.8,
+            "loop": false
         }
         
     }

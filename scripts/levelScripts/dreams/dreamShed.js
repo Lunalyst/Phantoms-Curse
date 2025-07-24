@@ -29,6 +29,7 @@ class dreamShed extends defaultScene {
       this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianTFM" , "assets/npcs/vivianTFM.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
       //storageLocker with a lower case s
       this.defaultPreload();
@@ -128,12 +129,24 @@ class dreamShed extends defaultScene {
           foundFlag: false,
           };
 
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-  
-        if((object1.foundFlag === true) && (object1.flagToFind === 'vivianVore')){
-          thisScene.initVivian(496,694,'voreSequence');
-        }
+          // call the emitter to check if the value already was picked up.
+          inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+    
+          if((object1.foundFlag === true) && (object1.flagToFind === 'vivianVore')){
+            thisScene.initVivian(496,694,'voreSequence');
+          }
+
+          object1 = {
+          flagToFind: 'vivianTF',
+          foundFlag: false,
+          };
+
+          // call the emitter to check if the value already was picked up.
+          inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+    
+          if((object1.foundFlag === true) && (object1.flagToFind === 'vivianTF')){
+            thisScene.initVivian(650,694,'tfSequence');
+          }
 
           thisScene.spawnedEnemys = true;
         },1000);

@@ -16,6 +16,12 @@ Channel rack -> Insert/Replace/+ -> More plugins then type the name of the plugi
 using vital 
 add and open using plugin. button under metranome should be organge if not click it
 
+when adding vital to a project, its a synth at can create digital sounds based on wave length.
+we can change the wave length  to change the sound.
+we can use premade instrements, meassing with wave lengths is advanced.
+
+to add a instroment to vital drag and drop a instrument from browser into vital. make sure you drop it on the top window bar of vital to get the sound into vitals
+
 keys to soundfonts using key presses manially.
 to record notes as key pressed there a button near the metranome thats half keyboard half piano under the metranome. make sure looping is of its the keybord symbol with the circle
 
@@ -27,3 +33,7 @@ pat button plays only patter, while song plays everything on the track list.
 
 enabling piano
 options->MIDI settings-> sleect device->enable
+
+to acess project browser
+view -> browser
+from there we can see the projects and sound fonts and tools. click the farl left icon to see the folders.

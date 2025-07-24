@@ -1804,7 +1804,7 @@ const npcDialogue = {
                     },
                     //player appears woozy after drinking it. 
                     "node5":{
-                        "dialogue": "Just relax and let it do its work",
+                        "dialogue": "Just relax and...",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":[ "node6"]
@@ -1825,7 +1825,7 @@ const npcDialogue = {
                     },
                     //vivian hugs player.
                     "node8":{
-                        "dialogue": "We are gonna have such a great time together ",
+                        "dialogue": "We are gonna have such a great time together. ",
                         "profile":"vivianHeartEyes",
                         "textvoice":"lightVoice",
                         "children":[]

@@ -35,6 +35,24 @@ class vivian extends npc{
         this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivian', { start: 98, end: 103 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivian', { start: 103, end: 108 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
+
+        //tf animations for female player
+        this.anims.create({key: 'vivianTFPopup',frames: this.anims.generateFrameNames('vivianTFM', { start: 0, end: 2 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFGrabbed',frames: this.anims.generateFrameNames('vivianTFM', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFMove',frames: this.anims.generateFrameNames('vivianTFM', { start: 7, end: 14 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFInChestIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 15, end: 18 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFGrabBottle',frames: this.anims.generateFrameNames('vivianTFM', { start: 19, end: 22 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFBottleToDrink',frames: this.anims.generateFrameNames('vivianTFM', { start: 27, end: 30 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleToHitGround',frames: this.anims.generateFrameNames('vivianTFM', { start: 31, end: 35 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleToHitGroundFinish',frames: this.anims.generateFrameNames('vivianTFM', { start: 36, end: 41 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'vivianTFBottleDrankIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 42, end: 45 }),frameRate: 5,repeat:-1});
+        this.anims.create({key: 'vivianTFTransform',frames: this.anims.generateFrameNames('vivianTFM', { start: 46, end: 53 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianTFTransformedIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 54, end: 57 }),frameRate: 5,repeat:-1});
+        this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFM', { start: 58, end: 60 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 61, end: 64 }),frameRate: 5,repeat: -1});
+        this.anims.create({key: 'vivianTFGameover',frames: this.anims.generateFrameNames('vivianTFM', { start: 65, end: 68 }),frameRate: 7,repeat: -1});
+      
       }else{
 
         this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivianExtension', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
@@ -56,13 +74,14 @@ class vivian extends npc{
         this.anims.create({key: 'vivianTFBottleToDrink',frames: this.anims.generateFrameNames('vivianTFF', { start: 27, end: 30 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'vivianTFBottleToHitGround',frames: this.anims.generateFrameNames('vivianTFF', { start: 31, end: 35 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'vivianTFBottleToHitGroundFinish',frames: this.anims.generateFrameNames('vivianTFF', { start: 36, end: 41 }),frameRate: 7,repeat: 0});
-        this.anims.create({key: 'vivianTFBottleDrankIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 42, end: 45 }),frameRate: 7,repeat:-1});
-        this.anims.create({key: 'vivianTFTransform',frames: this.anims.generateFrameNames('vivianTFF', { start: 46, end: 53 }),frameRate: 7,repeat: 0});
-        this.anims.create({key: 'vivianTFTransformedIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 54, end: 57 }),frameRate: 7,repeat:-1});
-        this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFF', { start: 58, end: 60 }),frameRate: 7,repeat: 0});
-        this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 61, end: 64 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'vivianTFBottleDrankIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 42, end: 45 }),frameRate: 5,repeat:-1});
+        this.anims.create({key: 'vivianTFTransform',frames: this.anims.generateFrameNames('vivianTFF', { start: 46, end: 53 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianTFTransformedIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 54, end: 57 }),frameRate: 5,repeat:-1});
+        this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFF', { start: 58, end: 60 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 61, end: 64 }),frameRate: 5,repeat: -1});
         this.anims.create({key: 'vivianTFGameover',frames: this.anims.generateFrameNames('vivianTFF', { start: 65, end: 68 }),frameRate: 7,repeat: -1});
-      
+        
+        
       }
 
       this.anims.create({key: 'vivianLosePopUp',frames: this.anims.generateFrameNames('vivianExtension', { start: 32, end: 34 }),frameRate: 7,repeat: 0});
@@ -155,10 +174,7 @@ class vivian extends npc{
     }
   }
 
-  //special idle pose so the npc can dynamically look at the player.
-  AdvancedIdle(){
-
-  }
+  //special idle pose so the npc can dynamically look at the player
 
   //for this npc we need to overwrite the activatino function to account for the under water animation.
   activateNpc(){
@@ -215,6 +231,7 @@ class vivian extends npc{
       //minigame tells. plays animation after a period of time 
       }else if(this.npcType === "tfSequence" || this.npcType === "voreSequence"){
 
+
         //if the tell is false
         if(this.minigameTell === false && this.stopTell === false){
           //set to true
@@ -251,8 +268,14 @@ class vivian extends npc{
           //then only that vivian is able to call this function and ensure the player arrives at the correct gameover scene.
           if(this.scene.checkSkipIndicatorIsDown()){
             this.startGameoverActivated = true;
-            this.scene.gameoverLocation = "vivianGameover";
-            this.scene.enemyThatDefeatedPlayer = "vivianVore";
+            if(this.npcType === "voreSequence"){
+              this.scene.gameoverLocation = "vivianGameover";
+              this.scene.enemyThatDefeatedPlayer = "vivianVore";
+            }else{
+              this.scene.gameoverLocation = "vivianGameover";
+              this.scene.enemyThatDefeatedPlayer = "vivianTF";
+            }
+
             this.scene.changeToGameover();
             this.scene.sceneTextBox.textInterupt = true;
             this.scene.sceneTextBox.textCoolDown = true;
@@ -1371,6 +1394,8 @@ class vivian extends npc{
 
         if(this.currentDictNode.nodeName === "node1"){
 
+          // lets npc know it can skip scene.
+          this.vivianThatDefeatedPlayer = true;
 
           //calls emitter to show the tabtoskip graphic
           skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
@@ -1460,10 +1485,12 @@ class vivian extends npc{
 
             //hide ui and dialogue box.
             this.scene.sceneTextBox.visible = false;
-           
+           this.scene.initSoundEffect('swallowSFX','5',0.02);
             this.anims.play('vivianTFBottleToDrink').once('animationcomplete', () => {
               this.anims.play('vivianTFBottleToHitGround').once('animationcomplete', () => {
+                this.scene.initSoundEffect('weaponSFX','bottleBounce',0.1);
                 this.anims.play('vivianTFBottleToHitGroundFinish').once('animationcomplete', () => {
+                  this.scene.initSoundEffect('weaponSFX','bottleClatter',0.1);
                   this.anims.play('vivianTFBottleDrankIdle',true);
                   //this.scene.sceneTextBox.amountWIsPressed++;
                   this.scene.sceneTextBox.textInterupt = false;
@@ -1488,7 +1515,8 @@ class vivian extends npc{
 
             //hide ui and dialogue box.
             this.scene.sceneTextBox.visible = false;
-           
+            
+            this.scene.initSoundEffect('curseSFX','curse',0.3);
             this.anims.play('vivianTFTransform').once('animationcomplete', () => {
               this.anims.play('vivianTFTransformedIdle',true);
               this.scene.sceneTextBox.amountWIsPressed++;
@@ -1516,11 +1544,11 @@ class vivian extends npc{
            
             this.anims.play('vivianTFMoveToHug').once('animationcomplete', () => {
               this.anims.play('vivianTFHugIdle',true);
-              this.scene.sceneTextBox.amountWIsPressed++;
+              //this.scene.sceneTextBox.amountWIsPressed++;
               this.scene.sceneTextBox.textInterupt = false;
               this.animationPlayed = false;
               //hide ui and dialogue box.
-              this.progressNode("",true);
+              //this.progressNode("",true);
               this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
             });

@@ -1631,7 +1631,101 @@ const npcDialogue = {
 
                    
                     
-                }
+                },
+                overworldShopKnock:{
+                    //ask the player if they want to knock on chest. gives the option for 1 knock, 2 knock 3 knocks, or do nothing.
+                    "node1":{
+                        "dialogue": "knock on the chest?",
+                        "profile":"vivianStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":[ "node2"]
+                    },
+                    "node2":{
+                        "dialogue": "In all honesty, I was hoping you would mess up the knocking code.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Thanks for being a dummy, human :3",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "....",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "overworldShop":{
+                    //if player gets knock amount correct the proceed to shop dialogue
+                    "node1":{
+                        "dialogue": "How Can I Help you?",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node8","node9","node15"]
+                    },
+
+                    //i want to buy something
+                    "node8":{
+                        "dialogue": "Alright. Here is what I got for you today. ",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //who are you?
+                    "node9":{
+                        "dialogue": "Me? ",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "Just going around to different places, finding cool items, maybe make some money, find some nice friends, or perhaps find some cute meals for a snack, heh.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "Ah, don t worry, I won t eat you now, since you re a customer.",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "Besides, it is much more fun when it is a surprise.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "You definitely look pretty filling though...",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //nothing im just looking around
+                    "node15":{
+                        "dialogue": "see you around then.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                    
+
+                   
+                    
+                },
                 
             },
 

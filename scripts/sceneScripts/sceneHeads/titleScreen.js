@@ -58,7 +58,7 @@ class titleScreen extends A3SoundEffects {
 
         preload(){
             startTimeTest("loading title screen.");
-            this.load.spritesheet('titleBackground', 'assets/titleScreen/title-backround.png',{frameWidth: 1000 , frameHeight: 667});
+            this.load.spritesheet('titleBackground',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
             this.load.spritesheet("newGame" , "assets/titleScreen/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
@@ -140,7 +140,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"ALPHA V0.29");
+            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"ALPHA V0.30");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);
@@ -250,9 +250,9 @@ class titleScreen extends A3SoundEffects {
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 6 }),frameRate: 3,repeat: -1});
 
             //background definition.
-            this.backround = this.add.sprite(this.screenWidth/2, 450, "titleBackground");
-            this.backround.setScale(1.6);
-            this.backround.setTint(0x4b4b4b);
+            this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
+            this.backround.setScale(1.1);
+            //this.backround.setTint(0x4b4b4b);
             this.titleLogo = this.add.sprite(this.screenWidth/2, 500, "titleLogo");
             this.elements.add(this.titleLogo);
 

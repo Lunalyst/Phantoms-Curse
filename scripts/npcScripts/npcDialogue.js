@@ -9,7 +9,7 @@ const npcDialogue = {
                         "textvoice":"lightPiano",
                         "children":["node2"]
                     },"node2":{
-                        "dialogue": "You awake in you re bed knowing that todays special...",
+                        "dialogue": "You awake in your bed knowing that todays special...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":["node3"]
@@ -1632,14 +1632,16 @@ const npcDialogue = {
                    
                     
                 },
-                overworldShopKnock:{
+                "overworldShopKnock":{
                     //ask the player if they want to knock on chest. gives the option for 1 knock, 2 knock 3 knocks, or do nothing.
                     "node1":{
                         "dialogue": "knock on the chest?",
-                        "profile":"vivianStarEyes",
+                        "profile":"blank",
                         "textvoice":"lightVoice",
-                        "children":[ "node2"]
+                        "children":[ "node2", 'node5','node6']
                     },
+
+                    //logic if they skrew up the knock
                     "node2":{
                         "dialogue": "In all honesty, I was hoping you would mess up the knocking code.",
                         "profile":"vivianSmugTongue",
@@ -1655,6 +1657,26 @@ const npcDialogue = {
                     "node4":{
                         "dialogue": "....",
                         "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //logic if they get  exit out of knocking
+                    "node5":{
+                        "dialogue": "...",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                     "node6":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "oh, Its You.",
+                        "profile":"vivianNeutral",
                         "textvoice":"lightVoice",
                         "children":[]
                     },

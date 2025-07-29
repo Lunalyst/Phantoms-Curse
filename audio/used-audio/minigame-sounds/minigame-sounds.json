@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/minigame-sounds/minigame-sounds.mp3"
+    ],
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 24,
+            "loop": true
+        }
+    }
+}

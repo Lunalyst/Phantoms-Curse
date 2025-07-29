@@ -56,6 +56,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.loopVolume = null;
       this.loopTime = null;
       this.soundLoopTimeOut = null;
+
+      this.npcState = 0;
       
       this.scene = scene;
   }

@@ -85,8 +85,6 @@ class caveToSunflowers1 extends defaultScene {
       this.initPortals(1570,829-13,281,1277,"warpCaveInside","ForestRavineHome");
 
       this.initPortals(661,829-13,395,1053,"warpCaveInside","sunFlowerField");
-
-      this.initPortals(661,829-13,395,1053,"warpCaveInside","sunFlowerField");
       
       //sets up containers
       this.setUpContainers();
@@ -98,16 +96,24 @@ class caveToSunflowers1 extends defaultScene {
       this.enemyGroupArray = ["blueSlimes","tigers"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
+      let  vivianCheck = {
+        flagToFind: "vivian_overworld_shopd w",
+        foundFlag: false,
+      };
+
+      // 
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag,  vivianCheck);
+
+      if(vivianCheck.foundFlag === true){
+        this.initVivian(1240,888,'overworldShopKnock');
+      }
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
           
-          //thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime');
-          //thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime');
-          
-          //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
-          thisScene.spawnedEnemys = true;
-        },1000);
+        thisScene.spawnedEnemys = true;
+      },1000);
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();

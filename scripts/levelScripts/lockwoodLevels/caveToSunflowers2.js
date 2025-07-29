@@ -32,7 +32,13 @@ class caveToSunflowers2 extends defaultScene {
       
       this.defaultPreload();
 
-
+      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianTFM" , "assets/npcs/vivianTFM.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+      
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
@@ -105,6 +111,20 @@ class caveToSunflowers2 extends defaultScene {
       this.enemyGroupArray = ["blueSlimes","tigers"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
+      let  vivianCheck = {
+        flagToFind: "vivian_overworld_shop",
+        foundFlag: false,
+      };
+
+      // 
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag,  vivianCheck);
+
+      if(vivianCheck.foundFlag === true){
+        this.initVivian(1240,888-3,'overworldShopKnock');
+      }
+
+      this.initSavePoints(1040,888-9);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
@@ -122,7 +142,7 @@ class caveToSunflowers2 extends defaultScene {
 
     update(){
 
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();

@@ -234,6 +234,9 @@ class textBox extends Phaser.GameObjects.Container{
           //attempt to add flag to player data if its set. 
           this.addFlag();
 
+          //check to see if npc flag needs incrementing.
+          this.incNPCState();
+
           //since we just closed the text box set a short time out shorter then the dialogue array that resets the finished value in that npc.
           let tempNPC = this.npcRef;
             setTimeout(function(){
@@ -281,7 +284,24 @@ class textBox extends Phaser.GameObjects.Container{
         console.log(" attempted to add flag but flag was not set!");
       }
       
-     
+    }
+
+    //function to increment a state of a npc forward ath the end of a dialogue logic sequence.
+    storeNPCInc(){
+      this.storeStateInc = true;
+    }
+
+    //check to see if npc flag should be incremented. useful for npc logic where we want a state to reset on load in
+    // similiar to store flag, but without perminent results. 
+    //ex vivian pops out of chest has a dialogue where here chest open for knock. increment flag at the end
+    //now vivian logic knows to enter shop keeper dialogue.
+    incNPCState(){
+      console.log("testing if npc increment is occuring. ",this.storeStateInc);
+      if(this.storeStateInc === true){
+        this.storeStateInc = false;
+        this.npcRef.npcState++;
+        console.log("this.npcRef.npcState: ", this.npcRef.npcState);
+      }
     }
 
     //reset function 

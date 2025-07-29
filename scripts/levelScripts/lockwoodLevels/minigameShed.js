@@ -32,8 +32,8 @@ class minigameShed extends defaultScene {
         "audio/used-audio/fox-scream-sounds/fox-scream-sounds.mp3"
       ]);
 
-      this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
-        "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
+      this.load.audioSprite('minigameSFX','audio/used-audio/minigame-sounds/minigame-sounds.json',[
+        "audio/used-audio/minigame-sounds/minigame-sounds.mp3"
       ]);
 
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
@@ -66,7 +66,6 @@ class minigameShed extends defaultScene {
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
 
-     
       this.setUpTileSet("Minigame_Shed_map","Home_Interior_Tileset","home_source_map");
 
       //sets up item drops for the scene and som other useful groups.
@@ -75,7 +74,7 @@ class minigameShed extends defaultScene {
       this.setUpItemDropCollider();
 
       //adds looping sound effect.
-      this.initLoopingSound('calmSFX','Paws and Rest',0.05);
+      this.initLoopingSound('minigameSFX','theme',0.01);
 
       //creates player object
       this.setUpPlayer();

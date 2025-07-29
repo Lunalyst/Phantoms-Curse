@@ -56,6 +56,14 @@
             "start": 11.2,
             "end": 11.8,
             "loop": false
+        },"failure":{
+            "start": 12,
+            "end": 12.4,
+            "loop": false
+        },"correct":{
+            "start": 12.5,
+            "end": 13.5,
+            "loop": false
         }
     }
 }

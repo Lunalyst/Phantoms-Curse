@@ -174,7 +174,7 @@ class istara extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"Yes please! ^_^",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -210,7 +210,7 @@ class istara extends npc{
           },this);
 
           //dialogue option for no.
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I think ill pass. ",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -380,7 +380,7 @@ class istara extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"YES PLEASE! ^_^ ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"Yes please! ^_^  ",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -416,7 +416,7 @@ class istara extends npc{
           },this);
 
           //dialogue option for no.
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I THINK ILL PASS. ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I think i'll pass.",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();

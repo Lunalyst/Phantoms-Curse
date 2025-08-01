@@ -181,7 +181,7 @@ class lunalyst extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"CAN I GET HUG? ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Can I get hug? ",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -223,7 +223,7 @@ class lunalyst extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"GOT ANY SUPPPLIES? ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Got any suppplies?",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -261,7 +261,7 @@ class lunalyst extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"SEE YOU LATER. ",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"See you later.",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -434,8 +434,8 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'I CAN TAKE THOSE OFF YOUR'+
-    'HANDS.                   '+
+    'I can take those off your'+
+    'hands.                   '+
     '                         ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
@@ -460,8 +460,8 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'ENJOY!                   '+
-    'THANKS FOR THE PURCHASE. '+
+    'enjoy!                   '+
+    'Thanks for the purchase. '+
     '                         ';
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
@@ -487,9 +487,9 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'SORRY, BUT IT LOOKS LIKE '+
-    'YOU DONT HAVE ENOUGH     '+
-    'SHELL.                   ';
+    'Sorry, but it looks like '+
+    'you dont have enough     '+
+    'shell.                   ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -513,7 +513,7 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'LETS SEE WHAT YOU GOT.   '+
+    'lets see what you got.   '+
     '                         '+
     '                         ';
 
@@ -539,8 +539,8 @@ class lunalyst extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'HERES WHAT I GOT.        '+
-    'SEE ANYTHING YOU LIKE?   '+
+    'Heres what I got.        '+
+    'See anything you like?   '+
     '                         ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);

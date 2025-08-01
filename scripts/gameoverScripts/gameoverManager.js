@@ -11,7 +11,7 @@ class gameoverManager extends A3SoundEffects {
         
         this.mapOfTileMapsJSON = {
             forestGameover: function forestGameover() {
-                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/forest_ravine_background.png');
+                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/Forest_Background_Static.png');
                 tempGameover.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
             },
             caveGameover: function caveGameover() {
@@ -154,7 +154,7 @@ class gameoverManager extends A3SoundEffects {
         //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         //define a key and make it interactive
-        this.mobileW = new mobileButton(this,330,640).setInteractive(this.input.makePixelPerfect());
+        this.mobileW = new mobileButton(this,300,660).setInteractive(this.input.makePixelPerfect());
         this.mobileW.playWKey(0);
         this.mobileW.setScale(1/3);
 
@@ -181,15 +181,15 @@ class gameoverManager extends A3SoundEffects {
         
 
         //creates try again button
-        this.tryAgian = this.add.sprite(610, 640, "tryAgianSign").setInteractive();
+        this.tryAgian = this.add.sprite(650, 660, "tryAgianSign").setInteractive();
 
         //creates animations for try agian button
         this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
-        this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
-        this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 3,repeat: 0});
-        this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 3,repeat: -1});
+        this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 8 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
 
         this.tryAgian.anims.play('tryAgianInActive');
         this.tryAgian.setScale(.5);
@@ -223,8 +223,9 @@ class gameoverManager extends A3SoundEffects {
         this.tryAgian.visible = false;
 
         //textbox for new character 
-        this.sceneTextBox = new textBox(this,1200/2-30,580,'charBubble');
-        this.sceneTextBox.setScale(1/3);
+        this.sceneTextBox = new textBox(this,1200/2-30,580,'charWhite');
+        this.sceneTextBox.setScale(1/2);
+        this.sceneTextBox.y = 600;
         this.sceneTextBox.setTextboxBackground("cursed");
         this.sceneTextBox.textTint = 0x9d00e0;
         
@@ -236,8 +237,8 @@ class gameoverManager extends A3SoundEffects {
 
         this.sceneTextBox.destroy();
         //textbox for new character 
-        this.sceneTextBox = new textBox(this,1200/2-30,580,'charBubble');
-        this.sceneTextBox.setScale(1/3);
+        this.sceneTextBox = new textBox(this,1200/2-30,580,'charWhite');
+        this.sceneTextBox.setScale(1/2.4);
         this.sceneTextBox.setTextboxBackground("cursed");
         this.sceneTextBox.textTint = 0x9d00e0;
         
@@ -252,7 +253,7 @@ class gameoverManager extends A3SoundEffects {
         
         this.mapOfLocationPreloads = {
             forestGameover: function forestGameover() {
-                let backround = tempSceneRef.add.sprite(450, 380, "backgroundForestRavineLevel");
+                let backround = tempSceneRef.add.sprite(450, 120, "backgroundForestRavineLevel");
 
                 tempSceneRef.lightingSystemActive = false;
 

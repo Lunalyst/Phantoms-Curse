@@ -146,7 +146,6 @@ class gameOver extends gameoverManager {
                 [],// sets profile array
                 ""//text sent to the text box.
                 );
-
             //sets up map of enemy preloads
             this.preloadMapOfEnemys();
             console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
@@ -155,7 +154,7 @@ class gameOver extends gameoverManager {
             //set up textbox sound type.
             if(this.defeatedTitle === 'eaten'){
                 this.sceneTextBox.soundType = "digest";
-                this.sceneTextBox.textTint = 0x9d0000;
+                this.sceneTextBox.textTint = 0x80ff1e;
             }else{
                 this.sceneTextBox.soundType = "lightPiano";
                 this.sceneTextBox.textTint = 0x9d00e0;
@@ -181,7 +180,7 @@ class gameOver extends gameoverManager {
             this.mycamera = this.cameras.main;
             //this.mycamera.startFollow(this.enemy);
             this.mycamera.setBounds( 0, 0, myMap.widthInPixels, myMap.HeightInPixels);
-            this.cameras.main.zoom = 3;
+            this.cameras.main.zoom = 2.5;
             //this.cameras.main.followOffset.set(-450,-100);
           
             this.mycamera.setScroll(-135, 60);
@@ -192,9 +191,15 @@ class gameOver extends gameoverManager {
             this.gameOverSign.setDepth(7);
             
             if(this.defeatedTitle === 'eaten'){
-                this.gameOverSign.anims.play("gameoverTitleAnimationEaten");
+                this.gameOverSign.anims.play("gameoverTitleAnimationEaten").once('animationcomplete', () => {
+                    this.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
+                    
+                });
             }else{
-                this.gameOverSign.anims.play("gameoverTitleAnimationCursed");
+                this.gameOverSign.anims.play("gameoverTitleAnimationCursed").once('animationcomplete', () => {
+                    this.gameOverSign.anims.play("gameoverTitleAnimationLoopCursed");
+                    
+                });
             }
                 
             this.initSoundEffect('gameoverSFX','gameover',0.05);

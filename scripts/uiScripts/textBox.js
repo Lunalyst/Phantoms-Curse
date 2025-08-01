@@ -27,7 +27,7 @@ class textBox extends Phaser.GameObjects.Container{
       
       this.lines = [];
       let spacing = -200
-      let y = -20
+      let y = -25
 
       //sets up text for the textbox there are 75 text characters used
       for(let i = 0; i < textEnd+1; i++){
@@ -40,7 +40,7 @@ class textBox extends Phaser.GameObjects.Container{
         spacing = spacing + 20;
         if(i === lineLength || i === lineLength*2+1){
           
-          y += 20;
+          y += 27;
           spacing = -200;
         }
  
@@ -421,7 +421,7 @@ class textBox extends Phaser.GameObjects.Container{
             this.lines[textPos].clearTint();
           }
           this.lines[textPos].settint
-          this.lines[textPos].anims.play(this.currentText.charAt(counter).toUpperCase()).once('animationcomplete', () => {
+          this.lines[textPos].anims.play(this.currentText.charAt(counter)/*.toUpperCase()*/).once('animationcomplete', () => {
           this.displayHelper(counter+1,textPos+1,end,wPosition);
           });
         

@@ -88,10 +88,6 @@ class vivian extends npc{
       this.anims.create({key: 'vivianLoseIdle',frames: this.anims.generateFrameNames('vivianExtension', { start: 35, end: 38 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianLoseGiveItem',frames: this.anims.generateFrameNames('vivianExtension', { start: 39, end: 42 }),frameRate: 5,repeat: 0});
 
-
-
-      
-
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -204,7 +200,6 @@ class vivian extends npc{
             
         //ending dialoguce logic.
         this.dialogueLogicEnd();
-        
 
       //otherwise normal logic
       }else{
@@ -245,7 +240,7 @@ class vivian extends npc{
 
     //function to manage vivian looking at the player depending on the player position
     if(this.advancedIdleAnimation === true){
-      if(this.npcType === "minigameShop"){
+      if(this.npcType === "minigameShop" || (this.npcType === "overworldShopKnock" && this.npcState === 1)){
         if(this.scene.player1.x < this.x - 40){
           this.anims.play('vivianShopIdleLeft',true);
 
@@ -444,7 +439,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"SOUNDS LIKE A FAIR PRICE",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"sounds like a fair price.",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -527,7 +522,7 @@ class vivian extends npc{
           },this);
 
           //dialogue option for no.
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"THAT SOUNDS LIKE A SCAM",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"That sounds like a scam.",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -644,7 +639,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"FINE, I WILL PLAY YOUR GAME",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"fine, I will play your game.",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -687,7 +682,7 @@ class vivian extends npc{
           },this);
 
           //dialogue option for no.
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"YAH NO THANKS...",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"Yah no thanks...",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -826,7 +821,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"I WANT TO PLAY YOUR GAME. ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"I want to play your game.",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -863,7 +858,7 @@ class vivian extends npc{
 
           },this);
 
-          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"HOW DO I PLAY? ",true);
+          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"How do I play? ",true);
           this.scene.npcChoice5.textWob();
           this.scene.npcChoice5.setScrollFactor(0);
           this.scene.npcChoice5.addHitbox();
@@ -901,7 +896,7 @@ class vivian extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"I WANT TO BUY SOMETHING. ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"I want to buy something.",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -941,7 +936,7 @@ class vivian extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"WHO ARE YOU? ",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"Who are you?",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -977,7 +972,7 @@ class vivian extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-120,'charBubble',"JUST LOOKING AROUND... ",true);
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-120,'charBubble',"Just looking around... ",true);
           this.scene.npcChoice4.textWob();
           this.scene.npcChoice4.setScrollFactor(0);
           this.scene.npcChoice4.addHitbox();
@@ -1026,7 +1021,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"LETS PLAY YOUR GAME. ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"lets play your game.",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -1063,7 +1058,7 @@ class vivian extends npc{
 
           },this);
 
-          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"NO THANKS. ",true);
+          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"No thanks.",true);
           this.scene.npcChoice5.textWob();
           this.scene.npcChoice5.setScrollFactor(0);
           this.scene.npcChoice5.addHitbox();
@@ -1226,7 +1221,6 @@ class vivian extends npc{
       }
   }
 
-
   overworldShopKnock(){
     //console.log(" activating overworld knock")
 
@@ -1240,7 +1234,7 @@ class vivian extends npc{
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"KNOCK ONCE. ",true);
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Knock once.",true);
           this.scene.npcChoice1.textWob();
           this.scene.npcChoice1.setScrollFactor(0);
           this.scene.npcChoice1.addHitbox();
@@ -1277,7 +1271,7 @@ class vivian extends npc{
           },this);
 
            //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"KNOCK TWICE",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Knock twice.",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -1323,13 +1317,14 @@ class vivian extends npc{
               //hide ui and dialogue box.
               this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
+              this.advancedIdleAnimation = true;
 
             });
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"KNOCK THRICE ",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"Knock thrice.",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -1364,7 +1359,7 @@ class vivian extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"DO NOTHING...",true);
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"Do nothing...",true);
           this.scene.npcChoice4.textWob();
           this.scene.npcChoice4.setScrollFactor(0);
           this.scene.npcChoice4.addHitbox();
@@ -1403,29 +1398,6 @@ class vivian extends npc{
         //if player has knocked correctly store the increment so that when we finish this dialogue we can move on to the 
         //next without getting stuck
         this.scene.sceneTextBox.storeNPCInc();
-
-        /*if(this.animationPlayed === false){
-            this.animationPlayed = true;
-            this.dialogueCatch = true;
-
-            //apply interuption to dialogue
-            this.scene.sceneTextBox.textInterupt = true;
-
-            //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
-            
-            this.scene.initSoundEffect('creakSFX','wood',0.05);
-
-            this.anims.play('vivianPopUp').once('animationcomplete', () => {
-              this.anims.play('vivianShopIdle',true);
-              this.scene.sceneTextBox.textInterupt = false;
-              this.animationPlayed = false;
-              //hide ui and dialogue box.
-              this.scene.sceneTextBox.visible = true;
-              this.dialogueCatch = false;
-
-            });
-        }*/
       }
 
      }
@@ -1433,30 +1405,7 @@ class vivian extends npc{
 
   overworldShop(){
 
-    //need two different versions. one for if the player has open the chest in this instance, and one if not.
-    let selective = "minigameIntro";
-
-      let vivianDialogue1 = {
-        flagToFind: "obtained_lantern",
-        foundFlag: false,
-      };
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue1);
-      if(vivianDialogue1.foundFlag === true){
-        selective = "minigameRepeat";
-      }
-
-      let vivianDialogue2 = {
-        flagToFind: "cleaningRich",
-        foundFlag: false,
-      };
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, vivianDialogue2);
-      if(vivianDialogue2.foundFlag === true){
-        selective = "minigameRepeatRich";
-      }
-
-      //have to do things a bit differently
-      //if the first node has not been activated then activate it. 
-      this.nodeHandler("vivian","Behavior2",selective,);
+      this.nodeHandler("vivian","Behavior2","overworldShop");
       
       //console.log("this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
       //console.log("this.currentDictNode: ",this.currentDictNode);
@@ -1475,132 +1424,14 @@ class vivian extends npc{
           this.anims.play('vivianShopIdleRight',true);
         }
 
-        if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
+       if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
 
           this.inDialogue = true;
           //set variable approperiately
           this.scene.sceneTextBox.textInterupt = true;
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"KNOCK ONCE. ",true);
-          this.scene.npcChoice1.textWob();
-          this.scene.npcChoice1.setScrollFactor(0);
-          this.scene.npcChoice1.addHitbox();
-          this.scene.npcChoice1.setScale(.8);
-
-          //set up dialogue option functionality so they work like buttons
-          this.scene.npcChoice1.on('pointerover',function(pointer){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
-            this.scene.npcChoice1.setTextTint(0xff7a7a);
-          },this);
-
-          this.scene.npcChoice1.on('pointerout',function(pointer){
-              this.scene.npcChoice1.clearTextTint();
-          },this);
-
-          this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
-
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node5");
-
-            //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
-            this.scene.npcChoice2.destroy();
-            this.scene.npcChoice3.destroy();
-            this.scene.npcChoice4.destroy();
-
-          },this);
-
-        }else if(this.currentDictNode.nodeName === "node3" && this.inDialogue ===false){
-
-          this.inDialogue = true;
-          //set variable approperiately
-          this.scene.sceneTextBox.textInterupt = true;
-
-          //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"I WANT TO PLAY YOUR GAME. ",true);
-          this.scene.npcChoice1.textWob();
-          this.scene.npcChoice1.setScrollFactor(0);
-          this.scene.npcChoice1.addHitbox();
-          this.scene.npcChoice1.setScale(.8);
-
-          //set up dialogue option functionality so they work like buttons
-          this.scene.npcChoice1.on('pointerover',function(pointer){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
-            this.scene.npcChoice1.setTextTint(0xff7a7a);
-          },this);
-
-          this.scene.npcChoice1.on('pointerout',function(pointer){
-              this.scene.npcChoice1.clearTextTint();
-          },this);
-
-          this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
-
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node5");
-
-            //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
-            this.scene.npcChoice2.destroy();
-            this.scene.npcChoice3.destroy();
-            this.scene.npcChoice4.destroy();
-            this.scene.npcChoice5.destroy();
-
-          },this);
-
-          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"HOW DO I PLAY? ",true);
-          this.scene.npcChoice5.textWob();
-          this.scene.npcChoice5.setScrollFactor(0);
-          this.scene.npcChoice5.addHitbox();
-          this.scene.npcChoice5.setScale(.8);
-
-          //set up dialogue option functionality so they work like buttons
-          this.scene.npcChoice5.on('pointerover',function(pointer){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
-            this.scene.npcChoice5.setTextTint(0xff7a7a);
-          },this);
-
-          this.scene.npcChoice5.on('pointerout',function(pointer){
-              this.scene.npcChoice5.clearTextTint();
-          },this);
-
-          this.scene.npcChoice5.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
-
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node6");
-
-            //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
-            this.scene.npcChoice2.destroy();
-            this.scene.npcChoice3.destroy();
-            this.scene.npcChoice4.destroy();
-            this.scene.npcChoice5.destroy();
-
-          },this);
-
-          //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"I WANT TO BUY SOMETHING. ",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"I want to buy something.",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();
@@ -1631,16 +1462,14 @@ class vivian extends npc{
             this.dialogueCatch = true;
 
             //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
             this.scene.npcChoice4.destroy();
-            this.scene.npcChoice5.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"WHO ARE YOU? ",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Who are you?",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -1667,16 +1496,14 @@ class vivian extends npc{
           this.progressNode("node9");
 
           //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
           this.scene.npcChoice2.destroy();
           this.scene.npcChoice3.destroy();
           this.scene.npcChoice4.destroy();
-          this.scene.npcChoice5.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-120,'charBubble',"JUST LOOKING AROUND... ",true);
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"Just looking around...",true);
           this.scene.npcChoice4.textWob();
           this.scene.npcChoice4.setScrollFactor(0);
           this.scene.npcChoice4.addHitbox();
@@ -1703,11 +1530,9 @@ class vivian extends npc{
           this.progressNode("node15");
 
           //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
           this.scene.npcChoice2.destroy();
           this.scene.npcChoice3.destroy();
           this.scene.npcChoice4.destroy();
-          this.scene.npcChoice5.destroy();
 
           },this);
 
@@ -1718,86 +1543,6 @@ class vivian extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if(this.currentDictNode.nodeName === "node7" && this.inDialogue ===false){
-
-          this.inDialogue = true;
-          //set variable approperiately
-          this.scene.sceneTextBox.textInterupt = true;
-
-          //create dialogue buttons for player choice
-          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"LETS PLAY YOUR GAME. ",true);
-          this.scene.npcChoice1.textWob();
-          this.scene.npcChoice1.setScrollFactor(0);
-          this.scene.npcChoice1.addHitbox();
-          this.scene.npcChoice1.setScale(.8);
-
-          //set up dialogue option functionality so they work like buttons
-          this.scene.npcChoice1.on('pointerover',function(pointer){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
-            this.scene.npcChoice1.setTextTint(0xff7a7a);
-          },this);
-
-          this.scene.npcChoice1.on('pointerout',function(pointer){
-              this.scene.npcChoice1.clearTextTint();
-          },this);
-
-          this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
-
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node20");
-
-            //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
-            this.scene.npcChoice2.destroy();
-            this.scene.npcChoice3.destroy();
-            this.scene.npcChoice4.destroy();
-            this.scene.npcChoice5.destroy();
-
-          },this);
-
-          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"NO THANKS. ",true);
-          this.scene.npcChoice5.textWob();
-          this.scene.npcChoice5.setScrollFactor(0);
-          this.scene.npcChoice5.addHitbox();
-          this.scene.npcChoice5.setScale(.8);
-
-          //set up dialogue option functionality so they work like buttons
-          this.scene.npcChoice5.on('pointerover',function(pointer){
-            this.scene.initSoundEffect('buttonSFX','1',0.05);
-            this.scene.npcChoice5.setTextTint(0xff7a7a);
-          },this);
-
-          this.scene.npcChoice5.on('pointerout',function(pointer){
-              this.scene.npcChoice5.clearTextTint();
-          },this);
-
-          this.scene.npcChoice5.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
-
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node21");
-
-            //destroy itself and other deciosions
-            this.scene.npcChoice1.destroy();
-            this.scene.npcChoice2.destroy();
-            this.scene.npcChoice3.destroy();
-            this.scene.npcChoice4.destroy();
-            this.scene.npcChoice5.destroy();
-
-          },this);
         }else if(this.currentDictNode.nodeName === "node8" && this.activatedTradeUI === false){
 
             this.activatedTradeUI = true;
@@ -1851,64 +1596,9 @@ class vivian extends npc{
             inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
     
             this.scene.sceneTextBox.textInterupt = true;
-        //state, to warp player into the minigame
-        }else if((this.currentDictNode.nodeName === "node5" || this.currentDictNode.nodeName === "node20") && this.startMinigame === false){
-          //set dialogue catch to true
-          this.startMinigame = true;
-          this.startMinigameActivated = false;
-
-        }else if((this.currentDictNode.nodeName === "node5" || this.currentDictNode.nodeName === "node20") && this.startMinigame === true && this.startMinigameActivated === false){
-          this.startMinigameActivated = true;
-          this.dialogueCatch = true;
-          //warp player to new gameplay scene
-          //creates a object to hold data for scene transition
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
-
-            //grabs the latests data values from the gamehud. also sets hp back to max hp.
-            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-        
-            //then we set the correct location values to the scene transition data.
-            playerDataObject.saveX = 576;
-            playerDataObject.saveY = 698;
-            playerDataObject.playerSex = this.scene.playerSex;
-            playerDataObject.playerLocation = "minigameShed";
-
-            // then we save the scene transition data.
-            this.scene.saveGame(playerDataObject);
-
-            //kills gameplay emitters so they dont pile up between scenes
-            this.scene.clearGameplayEmmitters();
-
-            //stops player momentum in update loop.
-            this.scene.playerWarping = true;
-
-            this.scene.portalId = 0;
-            //for loop looks through all the looping music playing within a given scene and stops the music.
-            for(let counter = 0; counter < this.scene.sound.sounds.length; counter++){
-              this.scene.sound.get(this.scene.sound.sounds[counter].key).stop();
-            }
-
-            //warps player to the next scene
-            this.scene.destination = "minigameShed";
-            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
-            this.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
         }
-  
+
       }
   }
 
@@ -2606,9 +2296,9 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'OK,                      '+
-    'I WILL TAKE THAT OFF     '+
-    'YOUR HANDS               ';
+    'Ok,                      '+
+    'I will take that off     '+
+    'your hands.              ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -2632,9 +2322,9 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'DEAL!                    '+
-    'HOPE IT IS USEFUL TO     '+
-    'YOU!                     ';
+    'Deal!                    '+
+    'hope it is useful to     '+
+    'you!                     ';
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -2658,9 +2348,9 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'WAIT REALLY?!?!?         '+
-    'I MEAN...                '+
-    'DEAL!                    ';
+    'Wait really?!?!?         '+
+    'I mean...                '+
+    'Deal!                     ';
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -2688,9 +2378,9 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'YOU DONT HAVE ENOUGH.    '+
-    'COME ON....              '+
-    'DONT WASTE MY TIME.      ';
+    'You dont have enough.    '+
+    'Come on....              '+
+    'Dont waste my time.      ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -2714,9 +2404,9 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'SELL HUH?                '+
-    'JUST DONT SELL ME JUNK   '+
-    'PLEASE...                ';
+    'Sell huh?                '+
+    'Just dont sell me junk   '+
+    'please...                ';
 
     console.log("this.textToDisplay: ",this.textToDisplay);
     
@@ -2740,7 +2430,7 @@ class vivian extends npc{
     this.scene.sceneTextBox.soundType = "lightVoice";
 
     this.textToDisplay += 
-    'WHAT ARE YA BUYIN? HEH.  '+
+    'What are ya buyin? Heh.  '+
     '                         '+
     '                         ';
 

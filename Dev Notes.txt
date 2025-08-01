@@ -141,3 +141,5 @@ https://stackoverflow.com/questions/69717406/typeerror-eventemitter-is-not-a-con
 wierd bug where tileset isnt embedded correctly? beware bad tiles leftover from converting old levels to new tilesets.
 tiles can linger over that are out of range of the tileset, causing this error.
 https://github.com/phaserjs/phaser-ce/issues/273
+
+noticed, that sprites have a tile bleeding issues if pixels are left on the borders. normally not noticable unless your scaling sprite where its most apparent.

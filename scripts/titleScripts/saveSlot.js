@@ -35,7 +35,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.slotLetters = [];
     let slotLetterString = "SLOT:?";
     for (let counter = 0; counter < slotLetterString.length; counter++) {
-      this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
+      this.slotLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBlack'));
       this.slotLetters[counter].anims.play(slotLetterString.charAt(counter));
       this.slotLetters[counter].setScale(1/6);
       this.slotLetters[counter].x = this.slotLetters[counter].x + spacing;
@@ -90,7 +90,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     this.skillLetters = [];
     let skillString = "SKILLS:";
     for (let counter = 0; counter < skillString.length; counter++) {
-      this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
+      this.skillLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBlack'));
       this.slotElements.add(this.skillLetters[counter]);
       this.skillLetters[counter].setScale(1/6);
       this.skillLetters[counter].anims.play(skillString.charAt(counter));
@@ -101,7 +101,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     }
 
     // controls the shell currency numbers on saveslot.
-    this.shellLetters = new makeText(scene,this.x -220,this.y + 30,'charBubble',""+0,true);
+    this.shellLetters = new makeText(scene,this.x -220,this.y + 30,'charBlack',""+0,true);
     this.shellLetters.visible = false;
     // controls the bestiary characters on saveslot.
     startingX = -220;
@@ -110,13 +110,13 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
     rows = 0;
 
    // controls the shell currency numbers on saveslot.
-   this.bestiaryLetters = new makeText(scene,this.x -220,this.y + 12,'charBubble',"000%",true);
+   this.bestiaryLetters = new makeText(scene,this.x -220,this.y + 12,'charBlack',"000%",true);
    this.bestiaryLetters.visible = false;
 
     /*this.bestiaryLetters = [];
     let bestiaryString = "000%";
     for (let counter = 0; counter < bestiaryString.length; counter++) {
-      this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBubble'));
+      this.bestiaryLetters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,'charBlack'));
       //this.slotElements.add(this.bestiaryLetters[counter]);
       this.bestiaryLetters[counter].setScale(1/6);
       this.bestiaryLetters[counter].anims.play(bestiaryString.charAt(counter));
@@ -203,7 +203,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       animationNumber += this.scene.playerSaveSlotData.currency;
       console.log("animationNumber for currency: " + animationNumber);
       this.shellLetters.destroy();
-      this.shellLetters = new makeText(this.scene,this.x -220,this.y + 40,'charBubble',""+animationNumber,true);
+      this.shellLetters = new makeText(this.scene,this.x -220,this.y + 40,'charBlack',""+animationNumber,true);
       this.shellLetters.setScale(1.1);
 
     }
@@ -213,7 +213,7 @@ class saveSlot extends Phaser.Physics.Arcade.Sprite {
       animationNumber += Math.floor(this.scene.playerSaveSlotData.bestiaryCompletionPercent);
       //console.log("animationNumber for bestiary percent: " +animationNumber);
       this.bestiaryLetters.destroy();
-      this.bestiaryLetters = new makeText(this.scene,this.x -220,this.y -15,'charBubble',animationNumber + "%",true);
+      this.bestiaryLetters = new makeText(this.scene,this.x -220,this.y -15,'charBlack',animationNumber + "%",true);
       this.bestiaryLetters.setScale(1.1);
     }
 

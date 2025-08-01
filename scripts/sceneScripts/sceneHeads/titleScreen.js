@@ -72,6 +72,7 @@ class titleScreen extends A3SoundEffects {
             //notice, the charcters sprites are x12 there normal size since they are so small.
             this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('charWhite', 'assets/hudElements/whiteCharacterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('ercus', 'assets/hudElements/ercus.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
             this.load.spritesheet('saveSlot', 'assets/titleScreen/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
@@ -140,7 +141,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"ALPHA V0.30");
+            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"Alpha V0.30");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);
@@ -150,45 +151,46 @@ class titleScreen extends A3SoundEffects {
             this.form.visible = false;
 
             this.creditsArray = [
-                'LUNALYST: LEAD DEVELOPER',
-                'JUSTANOTHERJAMES: DEVELOPMENT ASSISTANCE',
-                'NOBODYS DEATH: SOUND COMPOSER',
-                'TRACKS:',
-                '- HARE-RAISING HARMONIES',
-                '- PAWS AND WAIT',
-                '- WHATS GOOD SLIME',
-                '- IN DEFIANCE OF THE CURSE',
-                'STIEFELJACKAL: RABBIT GAMEOVER MODDIFICATION',
-                'KASHINDOLLY: ORTHOGRAPHER',
-                'OTPFURRY1: DONATION, INSPIRATION',
-                'TYLER RITCHIE: PATREON',
-                'LEO: PATREON',
-                'INQUISITOR KOBOLD: PATREON',
-                'ZEALOTDKD: PATREON',
-                'BUNGER: PATREON',
-                'DAINSLEFT ROVERA: PATREON',
-                'IRONGELATIN: GAMEOVER DIALOGUE',
-                'ISTARA: COMMISSION AND INSPIRATION',
-                'ZEBBY: INSPIRATION, BUG TESTING',
-                'DRACHEN: INSPIRATION,  BUG TESTING',
-                'CIRME: INSPIRATION, BUG TESTING',
-                'DARKGAMER22263: INSPIRATION, BUG TESTING',
-                'RAT PROFILE PICTURE: INSPIRATION, BUG TESTING',
-                'VIK :GAMEOVER DIALOGUE, INSPIRATION, BUG TESTING',
-                'SCARLET: INSPIRATION, BUG TESTING',
-                'LIT_KALE_CHIP: BUG TESTING',
-                'GAMERSGATE123: BUG TESTING',
-                'PATRICKSTER: BUG TESTING',
-                'AARON: BUG TESTING',
-                'DOLLY-DECIMAL: BUG TESTING',
-                'KAYNSTARR: INSPIRATION',
-                'FLUFFSTUFF: INSPIRATION',
-                'MANNY: INSPIRATION',
-                'WAGOO: INSPIRATION',
-                'NOX: INSPIRATION',
-                'BIGBIGBIG: INSPIRATION',
-                'TURTWAG: INSPIRATION',
-                'ADORABLETYPHLOSION: INSPIRATION',
+                "Lunalyst: lead developer",
+                'Justanotherjames: development assistance',
+                "nobody's death: sound composer",
+                'tracks:',
+                '- Hare-raising Harmonies',
+                '- Paws and Wait',
+                '- Whats Good Slime',
+                '- In Defiance of the Curse',
+                'Stiefeljackal: rabbit gameover moddification',
+                'Zacchary Dempsey-Plante: Pixellari font',
+                "Scarlet: orthographer, inspiration, bug testing",
+                'Kashindolly: orthographer',
+                'Otpfurry1: donation, inspiration',
+                'Tyler Ritchie: patreon',
+                'Leo: patreon',
+                'Inquisitor Kobold: patreon',
+                'Zealotdkd: patreon',
+                'Bunger: patreon',
+                'Dainsleft Rovera: patreon',
+                'Irongelatin: gameover dialogue',
+                'Istara: commission & inspiration',
+                'Vik : commision, gameover dialogue, inspiration, bug testing',
+                'Zebby: inspiration, bug testing',
+                'Drachen: inspiration,  bug testing',
+                'Cirme: inspiration, bug testing',
+                'Darkgamer22263: inspiration, bug testing',
+                'Rat Profile Picture: inspiration, bug testing',
+                'Lit_kale_chip: bug testing',
+                'Gamersgate123: bug testing',
+                'patrickster: bug testing',
+                'Aaron: bug testing',
+                'Dolly-decimal: bug testing',
+                'Kaynstarr: inspiration',
+                'Fluffstuff: inspiration',
+                'Manny: inspiration',
+                'Wagoo: inspiration',
+                'Nox: inspiration',
+                'Bigbigbig: inspiration',
+                'Turtwag: inspiration',
+                'Adorabletyphlosion: inspiration',
             ];
             
 
@@ -267,7 +269,7 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.sceneTextBox = new textBox(this,this.screenWidth/2,600,'charBubble');
+            this.sceneTextBox = new textBox(this,this.screenWidth/2-40,630,'charWhite');
             this.sceneTextBox.setScale(1.2);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -277,7 +279,7 @@ class titleScreen extends A3SoundEffects {
                 [],// sets profile array
                 ""//text sent to the text box.
                 );
-            this.sceneTextBox.setTextboxBackground("blank");
+            this.sceneTextBox.setTextboxBackground("cursed");
             this.sceneTextBox.textTint = 0x9d00e0;
             this.elements.add(this.sceneTextBox);
 

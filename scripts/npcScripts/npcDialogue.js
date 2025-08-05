@@ -349,13 +349,13 @@ const npcDialogue = {
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "IM GLAD YOU'RE STICKING AROUND. IT'S NICE TO HAVE SOME COMPANY. ",
+                        "dialogue": "I'M GLAD YOU'RE STICKING AROUND. IT'S NICE TO HAVE SOME COMPANY. ",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "IM IN THE PROCESS OF MOVING. WHICH IS A PAIN.",
+                        "dialogue": "I'M IN THE PROCESS OF MOVING. WHICH IS A PAIN.",
                         "profile":"istaraKO",
                         "textvoice":"mediumVoice",
                         "children":["node4"]
@@ -409,7 +409,7 @@ const npcDialogue = {
                         "children":["node12"]
                     },
                     "node12":{
-                        "dialogue": "IM SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
+                        "dialogue": "I'M SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node13"]
@@ -528,7 +528,7 @@ const npcDialogue = {
                         "children":["node12"]
                     },
                     "node12":{
-                        "dialogue": "IM SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
+                        "dialogue": "I'M SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node13"]
@@ -1265,7 +1265,7 @@ const npcDialogue = {
 
                     //no to game
                     "node21":{
-                        "dialogue": "Wwww... You're no fun.",
+                        "dialogue": "Awwww... You're no fun.",
                         "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":[]
@@ -1632,7 +1632,7 @@ const npcDialogue = {
                    
                     
                 },
-                "overworldShopKnock":{
+                "overworldShopKnockM":{
                     //ask the player if they want to knock on chest. gives the option for 1 knock, 2 knock 3 knocks, or do nothing.
                     "node1":{
                         "dialogue": "Knock on the chest?",
@@ -1657,21 +1657,112 @@ const npcDialogue = {
                     //
                     "node4":{
                         "dialogue": "....",
-                        "profile":"vivianSmugTongue",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeB"]
+                    },
+
+                    "nodeB":{
+                        "dialogue": "didn't expect you to put up so much of a fuss...",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["nodeC"]
+                    },
+                    "nodeC":{
+                        "dialogue": "But i'm not too mad.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeD"]
+                    },
+                    "nodeD":{
+                        "dialogue": "I knew how filling you would be the moment I first saw you.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["nodeE"]
+                    },
+                    "nodeE":{
+                        "dialogue": "Even if you were a guy, you still make good pudge.",
+                        "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[]
                     },
 
-                    //logic if they get  exit out of knocking
-                    //logistical problem. multiple vore scenes would need multiple bestiary entries 
-                    //if I bite the bullet I could make a joke about the knocking code in the bestiary entry. 
+                    //exit if the player doesnt want to knock
+                    "node5":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                     "node6":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Oh, its you.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "overworldShopKnockF":{
+                    //ask the player if they want to knock on chest. gives the option for 1 knock, 2 knock 3 knocks, or do nothing.
+                    "node1":{
+                        "dialogue": "Knock on the chest?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[ "node2", 'node5','node6']
+                    },
 
-                    //like the idea of vivian pulling the player into the chest.
-                    // having it shake for a bit, then goes still
-                    // then vivian pops out with weight gain
-                    // gameover scene is a cute idea with here"she could be relaxing and lying on top of her chest, one hand behind her head and the other hand patting her potbelly, with a sentient fat bubble blushing at each pat."
-                    // I want to go above and beyond, since i feel most player would appreciate an extra animation when they where not expecting one.
+                    //logic if they skrew up the knock
+                    "node2":{
+                        "dialogue": "In all honesty, I was hoping you would mess up the knocking code.",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Thanks for being a dummy, human :3",
+                        "profile":"vivianSmugTongue",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    //
+                    "node4":{
+                        "dialogue": "....",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeB"]
+                    },
+
+                    "nodeB":{
+                        "dialogue": "didn't expect you to put up so much of a fuss...",
+                        "profile":"vivianSquish",
+                        "textvoice":"lightVoice",
+                        "children":["nodeC"]
+                    },
+                    "nodeC":{
+                        "dialogue": "But i'm not too mad.",
+                        "profile":"vivianNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeD"]
+                    },
+                    "nodeD":{
+                        "dialogue": "I knew how filling you would be the moment I first saw you.",
+                        "profile":"vivianSmug",
+                        "textvoice":"lightVoice",
+                        "children":["nodeE"]
+                    },
+                    "nodeE":{
+                        "dialogue": "Can always count on girls to be a delicious meal~",
+                        "profile":"vivianHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
                     
+                    //exit if the player doesnt want to knock
                     "node5":{
                         "dialogue": "...",
                         "profile":"blank",
@@ -2029,7 +2120,7 @@ const npcDialogue = {
                 },
                 "maleBat":{
                     "node1":{
-                        "dialogue": "A swooshing sound was all that announced your fate. You were caught unaware, and swiftly ended up stuffed into a bats bowels. You couldnt even scream within the warm, smothering chamber, and instead you simply whimpered. Within a few minutes, your body was mere liquid within the bats intestines. Ultimately, your life came to a end, your entire existence only remembered as ass fat",
+                        "dialogue": "A swooshing sound was all that announced your fate. You were caught unaware, and swiftly ended up stuffed into a bats bowels. You couldnt even scream within the warm, smothering chamber, and instead you simply whimpered. Within a few minutes, your body was mere liquid within the bats intestines. Ultimately, your life came to a end, your entire existence only remembered as ass fat.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

@@ -35,7 +35,7 @@ class vivian extends npc{
         this.anims.create({key: 'vivianGameVoreBellyStruggle2',frames: this.anims.generateFrameNames('vivian', { start: 98, end: 103 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'vivianGameVoreBellyDigestion',frames: this.anims.generateFrameNames('vivian', { start: 103, end: 108 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianVoreGameover',frames: this.anims.generateFrameNames('vivianEndings', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
-
+        
         //tf animations for female player
         this.anims.create({key: 'vivianTFPopup',frames: this.anims.generateFrameNames('vivianTFM', { start: 0, end: 2 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'vivianTFGrabbed',frames: this.anims.generateFrameNames('vivianTFM', { start: 3, end: 6 }),frameRate: 7,repeat: -1});
@@ -52,7 +52,10 @@ class vivian extends npc{
         this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFM', { start: 58, end: 60 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFM', { start: 61, end: 64 }),frameRate: 5,repeat: -1});
         this.anims.create({key: 'vivianTFGameover',frames: this.anims.generateFrameNames('vivianTFM', { start: 65, end: 68 }),frameRate: 7,repeat: -1});
-      
+        
+        //vore 2 animation
+        this.anims.create({key: 'vivianVore2InToChest',frames: this.anims.generateFrameNames('vivianVore2', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
+         
       }else{
 
         this.anims.create({key: 'vivianGameVorePopup',frames: this.anims.generateFrameNames('vivianExtension', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
@@ -80,6 +83,9 @@ class vivian extends npc{
         this.anims.create({key: 'vivianTFMoveToHug',frames: this.anims.generateFrameNames('vivianTFF', { start: 58, end: 60 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'vivianTFHugIdle',frames: this.anims.generateFrameNames('vivianTFF', { start: 61, end: 64 }),frameRate: 5,repeat: -1});
         this.anims.create({key: 'vivianTFGameover',frames: this.anims.generateFrameNames('vivianTFF', { start: 65, end: 68 }),frameRate: 7,repeat: -1});
+
+        //vore 2 female
+        this.anims.create({key: 'vivianVore2InToChest',frames: this.anims.generateFrameNames('vivianVore2', { start: 6, end: 9 }),frameRate: 7,repeat: 0});
         
         
       }
@@ -87,6 +93,15 @@ class vivian extends npc{
       this.anims.create({key: 'vivianLosePopUp',frames: this.anims.generateFrameNames('vivianExtension', { start: 32, end: 34 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'vivianLoseIdle',frames: this.anims.generateFrameNames('vivianExtension', { start: 35, end: 38 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'vivianLoseGiveItem',frames: this.anims.generateFrameNames('vivianExtension', { start: 39, end: 42 }),frameRate: 5,repeat: 0});
+
+      this.anims.create({key: 'vivianVore2InToChestLegs',frames: this.anims.generateFrameNames('vivianVore2', { start: 4, end: 5 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianVore2ChestStruggle',frames: this.anims.generateFrameNames('vivianVore2', { start: 11, end: 16 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianHideExtend',frames: this.anims.generateFrameNames('vivian', { start: 20, end: 20 }),frameRate: 7,repeat: 16});
+      this.anims.create({key: 'vivianHideExtendLong',frames: this.anims.generateFrameNames('vivian', { start: 20, end: 20 }),frameRate: 7,repeat: 20});
+      this.anims.create({key: 'vivianVore2PopOut',frames: this.anims.generateFrameNames('vivianVore2', { start: 17, end: 18 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'vivianVore2BellyHug',frames: this.anims.generateFrameNames('vivianVore2', { start: 19, end: 22 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'vivianVore2BellySmacks',frames: this.anims.generateFrameNames('vivianVore2', { start: 23, end: 26 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'vivianVore2Gameover',frames: this.anims.generateFrameNames('vivianVore2', { start: 27, end: 32 }),frameRate: 5,repeat: -1});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
@@ -1222,9 +1237,16 @@ class vivian extends npc{
   }
 
   overworldShopKnock(){
-    //console.log(" activating overworld knock")
 
-    this.nodeHandler("vivian","Behavior2","overworldShopKnock");
+    let selective;
+    if(this.scene.playerSex === 0){
+      selective = "overworldShopKnockM";
+    }else{
+      selective = "overworldShopKnockF";
+    }
+    this.vivianThatDefeatedPlayer = true;
+
+    this.nodeHandler("vivian","Behavior2",selective);
 
      if(this.currentDictNode !== null){
       if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
@@ -1267,6 +1289,28 @@ class vivian extends npc{
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
             this.scene.npcChoice4.destroy();
+
+            //hide player 
+            this.scene.player1.visible = false;
+
+            this.scene.initSoundEffect('creakSFX','wood',0.05);
+
+            //have the camera follow vivian.
+            this.scene.mycamera.startFollow(this);
+
+            if(this.animationPlayed === false){
+            
+              this.animationPlayed = true;
+              this.dialogueCatch = true;
+                
+              this.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
+                this.anims.play('vivianGameVoreGrabbed',true);
+                this.animationPlayed = false;
+                this.scene.player1.visible = false;
+                this.dialogueCatch = false;
+              });
+                  
+            }
 
           },this);
 
@@ -1356,6 +1400,28 @@ class vivian extends npc{
           this.scene.npcChoice3.destroy();
           this.scene.npcChoice4.destroy();
 
+          //hide player 
+          this.scene.player1.visible = false;
+
+          this.scene.initSoundEffect('creakSFX','wood',0.05);
+
+          //have the camera follow vivian.
+          this.scene.mycamera.startFollow(this);
+
+          if(this.animationPlayed === false){
+          
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+              
+            this.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
+              this.anims.play('vivianGameVoreGrabbed',true);
+              this.animationPlayed = false;
+              this.scene.player1.visible = false;
+              this.dialogueCatch = false;
+            });
+                
+          }
+
           },this);
 
           //create dialogue buttons for player choice
@@ -1393,11 +1459,116 @@ class vivian extends npc{
 
           },this);
 
+      }else if(this.currentDictNode.nodeName === "node2"){
+        
+      }else if(this.currentDictNode.nodeName === "node4"){
+         //hide player 
+          //hide player
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+
+            //chest is closing
+            this.scene.initSoundEffect('creakSFX','wood',0.05);
+            this.anims.play('vivianVore2InToChest').once('animationcomplete', () => {
+
+              this.anims.play('vivianVore2InToChestLegs').once('animationcomplete', () => {
+              
+                //player is in the chest, and the large struggle is played.
+                this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
+                  this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                  //then have swallow sound effect
+                  let temp = this;
+                  setTimeout(function(){
+                    temp.scene.initSoundEffect('swallowSFX','5',0.02);
+                  },800); 
+
+                  setTimeout(function(){
+                    temp.scene.initSoundEffect('swallowSFX','5',0.02);
+                  },1300); 
+
+                  this.anims.play('vivianHideExtend').once('animationcomplete', () => {
+
+                    //struggle right, and first digestion sound
+                    this.scene.initSoundEffect('stomachSFX','3',0.1);
+                    this.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
+                      this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                      setTimeout(function(){
+                        temp.scene.initSoundEffect('stomachSFX','4',0.1);
+                      },800); 
+
+                      setTimeout(function(){
+                        temp.scene.initSoundEffect('stomachSFX','5',0.1);
+                      },1500); 
+                      
+                      //chest still for an extended period of time
+                      this.anims.play('vivianHideExtend').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('stomachSFX','14',0.1);
+                        
+                      //struggle right, and first digestion sound
+                      this.anims.play('vivianGameLeftTilt').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                        //big struggle
+                        this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
+                          this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+                          //player is digested as chest stops moving.
+
+                          setTimeout(function(){
+                            temp.scene.initSoundEffect('stomachSFX','1',0.1);
+                          },100); 
+
+                          setTimeout(function(){
+                              temp.scene.initSoundEffect('burpSFX','4',0.1);
+                            },1600); 
+
+                          this.anims.play('vivianHideExtendLong').once('animationcomplete', () => {
+
+                            
+                            //have vivian pop out
+                            this.anims.play('vivianVore2PopOut').once('animationcomplete', () => {
+
+                              this.anims.play('vivianVore2BellyHug',true);
+                              this.setLoopingSound('jumpySFX','3',0.04,700);
+                              this.scene.sceneTextBox.amountWIsPressed++;
+                              this.scene.sceneTextBox.textInterupt = false;
+                              this.animationPlayed = false;
+                              //hide ui and dialogue box.
+                              this.progressNode("",true);
+                              this.scene.sceneTextBox.visible = true;
+                              this.dialogueCatch = false;
+
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        }
+
       }else if(this.currentDictNode.nodeName === "node7"){
 
         //if player has knocked correctly store the increment so that when we finish this dialogue we can move on to the 
         //next without getting stuck
         this.scene.sceneTextBox.storeNPCInc();
+      }else if(this.currentDictNode.nodeName === "nodeD"){
+        //if player has knocked correctly store the increment so that when we finish this dialogue we can move on to the 
+        //next without getting stuck
+        this.anims.play('vivianVore2BellySmacks',true);
+        this.setLoopingSound('weaponSFX','smack',0.1,2000);
       }
 
      }

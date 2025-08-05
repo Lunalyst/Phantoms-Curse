@@ -74,7 +74,7 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('charWhite', 'assets/hudElements/whiteCharacterSet.png',{frameWidth: 84, frameHeight: 108});
             this.load.spritesheet('ercus', 'assets/hudElements/ercus.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 123, frameHeight: 123 });
+            this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 105, frameHeight: 96 });
             this.load.spritesheet('saveSlot', 'assets/titleScreen/saveSlotBox.png',{frameWidth: 1350, frameHeight: 300 });
             this.load.spritesheet('skillSaveSlotIcon', 'assets/titleScreen/SkillSaveSlotIcons.png',{frameWidth: 99, frameHeight: 99 });
             this.load.spritesheet('healthSlotIcon', 'assets/titleScreen/slotHealthIcon.png',{frameWidth: 99, frameHeight: 99 });

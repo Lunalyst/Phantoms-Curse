@@ -37,10 +37,15 @@ class caveToSunflowers2 extends defaultScene {
       this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianTFM" , "assets/npcs/vivianTFM.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+      this.load.spritesheet("vivianVore2" , "assets/npcs/vivianVore2.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+      ]);
+
+      this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+        "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
     }

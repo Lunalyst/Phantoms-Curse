@@ -397,7 +397,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //allow for npcs to have looping sound calls using time out
   npcLoopingSound(){
 
-   
+   console.log("looping sound ")
     //settimeout function
     let temp = this;
     //call sound effect
@@ -414,14 +414,18 @@ class npc extends Phaser.Physics.Arcade.Sprite{
  //function to kill sound effect loop
  setLoopingSound(soundID,soundName,volume,time){
 
-    //sets looping variable information
-    this.loopSoundID = soundID;
-    this.loopSoundName = soundName;
-    this.loopVolume = volume;
-    this.loopTime = time;
+    //protective if to make sure we dont have duplicate calls to the same loop sounds as it may break sound effects
+    if(soundID !== this.loopSoundID && soundName !== this.loopSoundName && volume !== this.loopVolume && time !== this.loopTime){
+       //sets looping variable information
+      this.loopSoundID = soundID;
+      this.loopSoundName = soundName;
+      this.loopVolume = volume;
+      this.loopTime = time;
 
-    //call recursive looping function to play looping sound.
-    this.npcLoopingSound();
+      //call recursive looping function to play looping sound.
+      this.npcLoopingSound();
+    }
+   
     
  }
 

@@ -30,7 +30,8 @@ class dreamShed extends defaultScene {
       this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianTFM" , "assets/npcs/vivianTFM.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+      this.load.spritesheet("vivianVore2" , "assets/npcs/vivianVore2.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       //storageLocker with a lower case s
       this.defaultPreload();
 

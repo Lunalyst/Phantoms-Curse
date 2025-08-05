@@ -5,7 +5,7 @@
     ],
     "spritemap": {
         "woodHit":{
-            "start": 0,
+            "start": 0.1,
             "end": 0.7,
             "loop": false
         },

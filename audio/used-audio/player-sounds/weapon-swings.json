@@ -26,7 +26,7 @@
         },
         "smack":{
             "start": 2.4,
-            "end": 3,
+            "end": 2.5,
             "loop": false
         },
         "bottleBounce":{

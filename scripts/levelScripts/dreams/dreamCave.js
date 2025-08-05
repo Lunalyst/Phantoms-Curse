@@ -40,7 +40,7 @@ class dreamCave extends defaultScene {
       this.load.spritesheet("istara-male-tf" , "assets/npcs/istara-male-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-female-tf" , "assets/npcs/istara-female-tf.png" , {frameWidth: 783 , frameHeight: 432 });
       this.load.spritesheet("istara-gestate-tf" , "assets/npcs/istara-gestate-tf.png" , {frameWidth: 783 , frameHeight: 432 });
-      this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 75 , frameHeight: 66 });
+      this.load.spritesheet("istaraEmots" , "assets/hudElements/IstaraEmots.png" , {frameWidth: 105 , frameHeight: 96 });
 
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"

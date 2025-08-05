@@ -134,7 +134,7 @@ class dreamShed extends defaultScene {
           inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
     
           if((object1.foundFlag === true) && (object1.flagToFind === 'vivianVore')){
-            thisScene.initVivian(496,694,'voreSequence');
+            thisScene.initVivian(486,694,'voreSequence');
           }
 
           object1 = {
@@ -146,7 +146,19 @@ class dreamShed extends defaultScene {
           inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
     
           if((object1.foundFlag === true) && (object1.flagToFind === 'vivianTF')){
-            thisScene.initVivian(650,694,'tfSequence');
+            thisScene.initVivian(590,694,'tfSequence');
+          }
+
+          object1 = {
+          flagToFind: 'vivianVore2',
+          foundFlag: false,
+          };
+
+          // call the emitter to check if the value already was picked up.
+          inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+    
+          if((object1.foundFlag === true) && (object1.flagToFind === 'vivianVore2')){
+            thisScene.initVivian(690,694,'overworldShopKnockAnimationView');
           }
 
           thisScene.spawnedEnemys = true;

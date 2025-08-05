@@ -29,7 +29,8 @@ class caveToSunflowers2 extends defaultScene {
 
       this.load.tilemapTiledJSON("cave_connector_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Connecter.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
-      
+      this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
+
       this.defaultPreload();
 
       this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });

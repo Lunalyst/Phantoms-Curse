@@ -151,7 +151,7 @@ class vivian extends npc{
        }else if(this.npcType === 'minigameShop'){
         this.anims.play('vivianHide',true);
         this.popOut = true;
-       }else if(this.npcType === 'voreSequence' || this.npcType === 'tfSequence' ||this.npcType === 'playerWinsLantern' ||this.npcType === 'playerWinsShell' || this.npcType === 'overworldShopKnock' ){
+       }else if(this.npcType === 'voreSequence' || this.npcType === 'tfSequence' ||this.npcType === 'playerWinsLantern' ||this.npcType === 'playerWinsShell' || this.npcType === 'overworldShopKnock' || this.npcType === 'overworldShopKnockAnimationView' ){
         this.advancedIdleAnimation = true;
         this.anims.play('vivianHide',true);
         this.popOut = false;
@@ -183,6 +183,8 @@ class vivian extends npc{
       }else{
         this.overworldShop();
       }
+    }else if(this.npcType === 'overworldShopKnockAnimationView'){
+      this.overworldShopKnockAnimationView();
     }else if(this.npcType === 'voreSequence'){
       this.voreSequence();
     }else if(this.npcType === 'tfSequence'){
@@ -204,7 +206,7 @@ class vivian extends npc{
     //if the player meets activation requiements for the sign display the text box
     if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false){
       //overworld knocking loggic true
-      if(this.npcType === "overworldShopKnock"){
+      if(this.npcType === "overworldShopKnock" || this.npcType ==='overworldShopKnockAnimationView'){
         //if the correct knock is not set yet than progress dialogue
 
         //logic to start dialogue
@@ -255,7 +257,7 @@ class vivian extends npc{
 
     //function to manage vivian looking at the player depending on the player position
     if(this.advancedIdleAnimation === true){
-      if(this.npcType === "minigameShop" || (this.npcType === "overworldShopKnock" && this.npcState === 1)){
+      if(this.npcType === "minigameShop" || (this.npcType === "overworldShopKnock"  && this.npcState === 1)){
         if(this.scene.player1.x < this.x - 40){
           this.anims.play('vivianShopIdleLeft',true);
 
@@ -1273,16 +1275,8 @@ class vivian extends npc{
           },this);
 
           this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-            this.inDialogue = false;
 
-            this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node5
-            this.progressNode("node2");
+            this.scene.initSoundEffect('buttonSFX','2',0.07);
 
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
@@ -1290,27 +1284,43 @@ class vivian extends npc{
             this.scene.npcChoice3.destroy();
             this.scene.npcChoice4.destroy();
 
-            //hide player 
-            this.scene.player1.visible = false;
+            let temp = this;
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },300);
 
-            this.scene.initSoundEffect('creakSFX','wood',0.05);
+            setTimeout(function () {
+              temp.inDialogue = false;
 
-            //have the camera follow vivian.
-            this.scene.mycamera.startFollow(this);
+              //set variable approperiately
+              temp.scene.sceneTextBox.textInterupt = false;
 
-            if(this.animationPlayed === false){
+              //progress to node branch with state name node5
+              temp.progressNode("node2");
+
+              //hide player 
+              temp.scene.player1.visible = false;
+
+              temp.scene.initSoundEffect('creakSFX','wood',0.05);
+
+              //have the camera follow vivian.
+              temp.scene.mycamera.startFollow(temp);
+
+              if(temp.animationPlayed === false){
             
-              this.animationPlayed = true;
-              this.dialogueCatch = true;
-                
-              this.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
-                this.anims.play('vivianGameVoreGrabbed',true);
-                this.animationPlayed = false;
-                this.scene.player1.visible = false;
-                this.dialogueCatch = false;
-              });
+                temp.animationPlayed = true;
+                temp.dialogueCatch = true;
                   
-            }
+                temp.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
+                  temp.anims.play('vivianGameVoreGrabbed',true);
+                  temp.animationPlayed = false;
+                  temp.scene.player1.visible = false;
+                  temp.dialogueCatch = false;
+                });
+    
+              }
+                
+            }, 800);
 
           },this);
 
@@ -1333,14 +1343,7 @@ class vivian extends npc{
 
           this.scene.npcChoice2.on('pointerdown', function (pointer) {
             
-            this.inDialogue = false;
             this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = false;
-
-            //progress to node branch with state name node10 special function which ignores lock out of text
-            this.progressNode("node6",true);
 
             //sets the dialogue catch so the textbox stays open during the shop ui interactions.
             this.dialogueCatch = true;
@@ -1351,19 +1354,56 @@ class vivian extends npc{
             this.scene.npcChoice3.destroy();
             this.scene.npcChoice4.destroy();
 
-            //have vivian pop out of the chest.
-            this.scene.initSoundEffect('creakSFX','wood',0.05);
+            //un freeze textbox interupt
+            this.scene.sceneTextBox.textInterupt = false;
 
-            this.anims.play('vivianPopUp').once('animationcomplete', () => {
-              this.anims.play('vivianShopIdle',true);
-              this.scene.sceneTextBox.textInterupt = false;
-              this.animationPlayed = false;
-              //hide ui and dialogue box.
-              this.scene.sceneTextBox.visible = true;
-              this.dialogueCatch = false;
-              this.advancedIdleAnimation = true;
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node6",true);
 
-            });
+            //lock progressing node agian, until vivians animation is complete
+            this.scene.sceneTextBox.textInterupt = true;
+
+
+            let temp = this;
+
+            //knock once
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },300);
+
+            //knock twice
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },800);
+
+            setTimeout(function () {
+
+              temp.inDialogue = false;
+
+              temp.scene.initSoundEffect('creakSFX','wood',0.05);
+
+              if(temp.animationPlayed === false){
+            
+                temp.animationPlayed = true;
+                temp.dialogueCatch = true;
+                  
+                temp.anims.play('vivianPopUp').once('animationcomplete', () => {
+                  temp.anims.play('vivianShopIdle',true);
+                  temp.scene.sceneTextBox.textInterupt = false;
+                  temp.progressNode("node7",true);
+                  temp.animationPlayed = false;
+                  //hide ui and dialogue box.
+                  temp.scene.sceneTextBox.visible = true;
+                  temp.dialogueCatch = false;
+                  temp.advancedIdleAnimation = true;
+
+                });
+    
+              }
+                
+            }, 1300);
+
+            
 
           },this);
 
@@ -1402,25 +1442,44 @@ class vivian extends npc{
 
           //hide player 
           this.scene.player1.visible = false;
-
-          this.scene.initSoundEffect('creakSFX','wood',0.05);
-
-          //have the camera follow vivian.
-          this.scene.mycamera.startFollow(this);
-
-          if(this.animationPlayed === false){
           
-            this.animationPlayed = true;
-            this.dialogueCatch = true;
-              
-            this.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
-              this.anims.play('vivianGameVoreGrabbed',true);
-              this.animationPlayed = false;
-              this.scene.player1.visible = false;
-              this.dialogueCatch = false;
-            });
+            let temp = this;
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },300);
+
+            setTimeout(function () {
+              temp.inDialogue = false;
+
+              //set variable approperiately
+              temp.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node5
+              temp.progressNode("node2");
+
+              //hide player 
+              temp.scene.player1.visible = false;
+
+              temp.scene.initSoundEffect('creakSFX','wood',0.05);
+
+              //have the camera follow vivian.
+              temp.scene.mycamera.startFollow(temp);
+
+              if(temp.animationPlayed === false){
+            
+                temp.animationPlayed = true;
+                temp.dialogueCatch = true;
+                  
+                temp.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
+                  temp.anims.play('vivianGameVoreGrabbed',true);
+                  temp.animationPlayed = false;
+                  temp.scene.player1.visible = false;
+                  temp.dialogueCatch = false;
+                });
+    
+              }
                 
-          }
+            }, 800);
 
           },this);
 
@@ -1537,8 +1596,9 @@ class vivian extends npc{
                             //have vivian pop out
                             this.anims.play('vivianVore2PopOut').once('animationcomplete', () => {
 
-                              this.anims.play('vivianVore2BellyHug',true);
-                              this.setLoopingSound('jumpySFX','3',0.04,700);
+                              this.anims.play('vivianVore2BellySmacks',true);
+                              //this.setLoopingSound('jumpySFX','3',0.04,700);
+                              this.setLoopingSound('weaponSFX','smack',0.01,800);
                               this.scene.sceneTextBox.amountWIsPressed++;
                               this.scene.sceneTextBox.textInterupt = false;
                               this.animationPlayed = false;
@@ -1567,8 +1627,270 @@ class vivian extends npc{
       }else if(this.currentDictNode.nodeName === "nodeD"){
         //if player has knocked correctly store the increment so that when we finish this dialogue we can move on to the 
         //next without getting stuck
-        this.anims.play('vivianVore2BellySmacks',true);
-        this.setLoopingSound('weaponSFX','smack',0.1,2000);
+        this.anims.play('vivianVore2BellyHug',true);
+        this.killSoundLoop();
+        
+      }else if(this.currentDictNode.nodeName === "nodeE" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+      }else if(this.currentDictNode.nodeName === "nodeE" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+          this.scene.gameoverLocation = "vivianGameover";
+          this.scene.enemyThatDefeatedPlayer = "vivianVore2";
+          this.scene.changeToGameover();
+          this.scene.sceneTextBox.textInterupt = true;
+          this.scene.sceneTextBox.textCoolDown = true;
+      }
+
+     }
+  }
+
+  overworldShopKnockAnimationView(){
+
+    let selective;
+    if(this.scene.playerSex === 0){
+      selective = "overworldShopKnockM";
+    }else{
+      selective = "overworldShopKnockF";
+    }
+    this.vivianThatDefeatedPlayer = true;
+
+    this.nodeHandler("vivian","Behavior2",selective);
+
+     if(this.currentDictNode !== null){
+      if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Knock once.",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+
+            this.scene.initSoundEffect('buttonSFX','2',0.07);
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice4.destroy();
+
+            this.scene.sound.get("minigameSFX").stop();
+
+            let temp = this;
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },300);
+
+            setTimeout(function () {
+              temp.inDialogue = false;
+
+              //set variable approperiately
+              temp.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node5
+              temp.progressNode("node2");
+
+              //hide player 
+              temp.scene.player1.visible = false;
+
+              temp.scene.initSoundEffect('creakSFX','wood',0.05);
+
+              //have the camera follow vivian.
+              temp.scene.mycamera.startFollow(temp);
+
+              if(temp.animationPlayed === false){
+            
+                temp.animationPlayed = true;
+                temp.dialogueCatch = true;
+                  
+                temp.anims.play('vivianGameVorePopup').once('animationcomplete', () => {
+                  temp.anims.play('vivianGameVoreGrabbed',true);
+                  temp.animationPlayed = false;
+                  temp.scene.player1.visible = false;
+                  temp.dialogueCatch = false;
+                });
+    
+              }
+                
+            }, 800);
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Do nothing...",true);
+          this.scene.npcChoice4.textWob();
+          this.scene.npcChoice4.setScrollFactor(0);
+          this.scene.npcChoice4.addHitbox();
+          this.scene.npcChoice4.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice4.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice4.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice4.on('pointerout',function(pointer){
+              this.scene.npcChoice4.clearTextTint();
+          },this);
+
+          this.scene.npcChoice4.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+          
+          //progress to node branch with state name node5
+          this.progressNode("node5");
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice4.destroy();
+
+          },this);
+
+      }else if(this.currentDictNode.nodeName === "node4"){
+         //hide player 
+          //hide player
+          this.scene.player1.visible = false;
+          if(this.animationPlayed === false){
+            this.animationPlayed = true;
+            this.dialogueCatch = true;
+
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //hide ui and dialogue box.
+            this.scene.sceneTextBox.visible = false;
+
+            //chest is closing
+            this.scene.initSoundEffect('creakSFX','wood',0.05);
+            this.anims.play('vivianVore2InToChest').once('animationcomplete', () => {
+
+              this.anims.play('vivianVore2InToChestLegs').once('animationcomplete', () => {
+              
+                //player is in the chest, and the large struggle is played.
+                this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
+                  this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                  //then have swallow sound effect
+                  let temp = this;
+                  setTimeout(function(){
+                    temp.scene.initSoundEffect('swallowSFX','5',0.02);
+                  },800); 
+
+                  setTimeout(function(){
+                    temp.scene.initSoundEffect('swallowSFX','5',0.02);
+                  },1300); 
+
+                  this.anims.play('vivianHideExtend').once('animationcomplete', () => {
+
+                    //struggle right, and first digestion sound
+                    this.scene.initSoundEffect('stomachSFX','3',0.1);
+                    this.anims.play('vivianGameRightTilt').once('animationcomplete', () => {
+                      this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                      setTimeout(function(){
+                        temp.scene.initSoundEffect('stomachSFX','4',0.1);
+                      },800); 
+
+                      setTimeout(function(){
+                        temp.scene.initSoundEffect('stomachSFX','5',0.1);
+                      },1500); 
+                      
+                      //chest still for an extended period of time
+                      this.anims.play('vivianHideExtend').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('stomachSFX','14',0.1);
+                        
+                      //struggle right, and first digestion sound
+                      this.anims.play('vivianGameLeftTilt').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+
+                        //big struggle
+                        this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
+                          this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
+                          //player is digested as chest stops moving.
+
+                          setTimeout(function(){
+                            temp.scene.initSoundEffect('stomachSFX','1',0.1);
+                          },100); 
+
+                          setTimeout(function(){
+                              temp.scene.initSoundEffect('burpSFX','4',0.1);
+                            },1600); 
+
+                          this.anims.play('vivianHideExtendLong').once('animationcomplete', () => {
+
+                            
+                            //have vivian pop out
+                            this.anims.play('vivianVore2PopOut').once('animationcomplete', () => {
+
+                              this.anims.play('vivianVore2BellySmacks',true);
+                              //this.setLoopingSound('jumpySFX','3',0.04,700);
+                              this.setLoopingSound('weaponSFX','smack',0.01,800);
+                              this.scene.sceneTextBox.amountWIsPressed++;
+                              this.scene.sceneTextBox.textInterupt = false;
+                              this.animationPlayed = false;
+                              //hide ui and dialogue box.
+                              this.progressNode("",true);
+                              this.scene.sceneTextBox.visible = true;
+                              this.dialogueCatch = false;
+
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        }
+
+      }else if(this.currentDictNode.nodeName === "nodeD"){
+        //if player has knocked correctly store the increment so that when we finish this dialogue we can move on to the 
+        //next without getting stuck
+        this.anims.play('vivianVore2BellyHug',true);
+        this.killSoundLoop();
+        
+      }else if(this.currentDictNode.nodeName === "nodeE" && this.startGameover === false){
+          //set dialogue catch to true
+          this.startGameover = true;
+          this.startGameoverActivated = false;
+
+      }else if(this.currentDictNode.nodeName === "nodeE" && this.startGameover === true && this.startGameoverActivated === false){
+          this.startGameoverActivated  = true;
+          this.dialogueCatch = true;
+
+          this.scene.gameoverLocation = "vivianGameover";
+          this.scene.enemyThatDefeatedPlayer = "vivianVore2";
+          this.scene.changeToGameover();
+          this.scene.sceneTextBox.textInterupt = true;
+          this.scene.sceneTextBox.textCoolDown = true;
       }
 
      }
@@ -2622,6 +2944,9 @@ class vivian extends npc{
 
   gameOverVore(){
     this.anims.play('vivianVoreGameover',true);
+  }
+  gameOverVore2(){
+    this.anims.play('vivianVore2Gameover',true);
   }
   gameOverTF(){
     this.anims.play('vivianTFGameover',true);

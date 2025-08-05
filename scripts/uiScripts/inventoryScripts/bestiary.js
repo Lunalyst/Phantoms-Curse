@@ -45,6 +45,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'femaleRabbitVore', frames: this.anims.generateFrameNames('bestiary2', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'vivianVore', frames: this.anims.generateFrameNames('bestiary2', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
     this.anims.create({ key: 'vivianTF', frames: this.anims.generateFrameNames('bestiary2', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: 'vivianVore2', frames: this.anims.generateFrameNames('bestiary2', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");

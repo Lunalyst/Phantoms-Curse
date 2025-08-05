@@ -2214,6 +2214,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "vivianVore2":{
+                    "node1":{
+                        "dialogue": "You were warned. You were told that this would happen if you didn’t knock right. And yet you still messed up. As you slide down the hungry wolf girl’s throat, you can’t even remember if you forgot the code or if you intentionally made a mistake. Either way, your adventure ends here, now as belly fat for Vivian.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
             },
             "cursed":{
                 "default":{

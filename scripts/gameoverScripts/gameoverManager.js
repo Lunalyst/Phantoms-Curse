@@ -643,6 +643,13 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'cursed';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
             },
+            vivianVore2: function  vivianVoreFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new vivian(tempSceneRef,450, 565,"voreSequence");
+                tempSceneRef.enemy.gameOverVore2();
+                tempSceneRef.defeatedTitle = 'eaten';
+                tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,1200);
+            },
         }
     }
 
@@ -1126,6 +1133,9 @@ class gameoverManager extends A3SoundEffects {
                 
             },
             vivianTF: function  vivianVoreFunction() {
+                
+            },
+            vivianVore2: function  vivianVore2Function() {
                 
             },
         }

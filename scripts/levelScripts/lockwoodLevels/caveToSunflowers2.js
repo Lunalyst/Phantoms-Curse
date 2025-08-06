@@ -129,7 +129,7 @@ class caveToSunflowers2 extends defaultScene {
         this.initVivian(1240,888-3,'overworldShopKnock');
       }
 
-      this.initSavePoints(1040,888-9);
+      ///this.initSavePoints(1040,888-9);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

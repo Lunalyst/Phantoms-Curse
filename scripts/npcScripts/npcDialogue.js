@@ -310,31 +310,31 @@ const npcDialogue = {
             "Behavior1":{
                 "istaraCaveDialogue1":{
                     "node1":{
-                        "dialogue": "OH? ",
+                        "dialogue": "Oh? ",
                         "profile":"istaraNeutral",
                         "textvoice":"mediumVoice",
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "LUCKY ME, IT SEEMS I HAVE A UNINVITED GUEST TO MY LAIR.",
+                        "dialogue": "Lucky me, it seems I have an uninvited guest to my lair.",
                         "profile":"istaraStarEyes",
                         "textvoice":"mediumVoice",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "FEEL FREE TO STAY A WHILE, IT'S NICE TO HAVE SOME COMPANY.  ",
+                        "dialogue": "Feel free to stay a while, it's nice to have some company.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "I HOPE YOU DONT FIND ME TOO INTIMIDATING.",
+                        "dialogue": "I hope you don't find me too intimidating.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "SHAME MY LAIR IS QUITE SPARSE. I'M IN THE PROCESS OF MOVING IN.  ",
+                        "dialogue": "Shame my lair is quite sparse. I'm in the process of moving in.",
                         "profile":"istaraKO",
                         "textvoice":"mediumVoice",
                         "children":[]
@@ -343,61 +343,61 @@ const npcDialogue = {
                 },
                 "istaraCaveDialogue2":{
                     "node1":{
-                        "dialogue": "OH? ",
+                        "dialogue": "Oh?",
                         "profile":"istaraNeutral",
                         "textvoice":"mediumVoice",
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "I'M GLAD YOU'RE STICKING AROUND. IT'S NICE TO HAVE SOME COMPANY. ",
+                        "dialogue": "I'm glad you're sticking around. It's nice to have some company. ",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "I'M IN THE PROCESS OF MOVING. WHICH IS A PAIN.",
+                        "dialogue": "I'm in the process of moving. Which is a pain.",
                         "profile":"istaraKO",
                         "textvoice":"mediumVoice",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "I REALLY WISH I HAD SOME LOYAL COBRABOLDS TO HELP ME GET SETTLED.",
+                        "dialogue": "I really wish I had some loyal cobrabolds to help me get settled.",
                         "profile":"istaraNeutral",
                         "textvoice":"mediumVoice",
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "SADDLY I HAVENT HAD THE TIME TO GO ON A HUNT FOR FERAL CURSED. ",
+                        "dialogue": "Sadly I haven't had the time to go on a hunt for feral curses.",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "I CAN CURSE THEM SO THAT THEY BECOME MY SWEET LOYAL COBRABOLDS.   ",
+                        "dialogue": "I can curse them so that they become my sweet loyal cobrabolds.",
                         "profile":"istaraNeutral",
                         "textvoice":"mediumVoice",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "HMMM. YOU'RE NOT CURSED. WOULD YOU LIKE TO BECOME ONE OF MY COBRABOLDS? ",
+                        "dialogue": "Hmmm. You're not cursed. Would you like to become one of my cobrabolds?",
                         "profile":"istaraStarEyes",
                         "textvoice":"mediumVoice",
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "EVEN THOUGH YOU WILL SERVE ME, I PROMISE THAT I WILL KEEP YOU SAFE. ",
+                        "dialogue": "Even though you will serve me, I promise that I will keep you safe.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node9"]
                     },
                     "node9":{
-                        "dialogue": "MY COBRABOLDS ARE VERY PRECIOUS TO ME. ",
+                        "dialogue": "My cobrabolds are very precious to me.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "I PROMISE YOU WILL BE WELL TAKEN CARE OF.  ",
+                        "dialogue": "I promise you will be well taken care of.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node11","node27"]
@@ -409,103 +409,103 @@ const npcDialogue = {
                         "children":["node12"]
                     },
                     "node12":{
-                        "dialogue": "I'M SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
+                        "dialogue": "I'm so happy to hear that! You should get undressed.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node13"]
                     },
                     "node13":{
-                        "dialogue": "YOU'RE THE PERFECT SIZE TO FIT CONFORTABLY IN MY WOMB.",
+                        "dialogue": "You're the perfect size to fit comfortably in my womb.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node14"]
                     },
                     "node14":{
-                        "dialogue": "JUST RELAX AND SLIDE INTO YOUR NEW MISTRESS' BELLY. ",
+                        "dialogue": "Just relax and slide into your new mistress's belly.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node15"]
                     },
                     "node15":{
-                        "dialogue": "IT'LL WORK ITS MAGIC AND YOU WILL BE A CUTE COBRABOLD IN NO TIME. ",
+                        "dialogue": "It'll work its magic and you will be a cute cobrabold in no time.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node16"]
                     },
                     "node16":{
-                        "dialogue": "AWWW YOU'RE SO CUTE DOWN THERE. ",
+                        "dialogue": "Awww you're so cute down there.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node17"]
                     },
                     "node17":{
-                        "dialogue": "JUST RELAX, I'LL PUSH YOU INSIDE ME.",
+                        "dialogue": "Just relax, I'll push you inside me.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node18"]
                     },
                     "node18":{
-                        "dialogue": "HUFFFF SO FULL... ",
+                        "dialogue": "Huffff so full...",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node19"]
                     },
                     "node19":{
-                        "dialogue": "OHHHHHHH...... HUFF... I WAS A BIT TIGHTER THAN I THOUGHT. ",
+                        "dialogue": "Ohhhhhhh...... huff... I was a bit tighter than I thought.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node20"]
                     },
                     "node20":{
-                        "dialogue": "HUFFFFFF....",
+                        "dialogue": "Huffffff....",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node21"]
                     },
                     "node21":{
-                        "dialogue": "AAAHHHHH..... I FEEL YOU SETTLING INTO MY WOMB. ",
+                        "dialogue": "Aaahhhhh..... I feel you settling into my womb.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node22"]
                     },
                     "node22":{
-                        "dialogue": "YOU LOOK SO CUTE ON ME I MIGHT JUST KEEP YOU IN THERE A WHILE...",
+                        "dialogue": "You look so cute on me I might just keep you in there a while...",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node23"]
                     },
                     "node23":{
-                        "dialogue": "THAT'S IT GIVE YOURSELF UP TO YOUR NEW MISTRESS. I CAN FEEL YOU CHANGING. ",
+                        "dialogue": "That's it give yourself up to your new mistress. I can feel you changing.",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node24"]
                     },
                     "node24":{
-                        "dialogue": "HUFFFFFF.... ",
+                        "dialogue": "Huffffff....",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node25"]
                     },
                     "node25":{
-                        "dialogue": "OHHHHHHH...... ",
+                        "dialogue": "Ohhhhhhh......",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node26"]
                     },
                     "node26":{
-                        "dialogue": "ILL KEEP YOU SAFE, MY PRECIOUS CHILD. ",
+                        "dialogue": "I'll keep you safe, my precious child.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[]
                     },
                     "node27":{
-                        "dialogue": "SUCH A SHAME...  ",
+                        "dialogue": "Such a shame...",
                         "profile":"istaraAnnoyed",
                         "textvoice":"mediumVoice",
                         "children":["node28"]
                     },
                     "node28":{
-                        "dialogue": "ILL BE HERE IF YOU CHANGE YOUR MIND.... ",
+                        "dialogue": "I'll be here if you change your mind....",
                         "profile":"istaraSad",
                         "textvoice":"mediumVoice",
                         "children":[]
@@ -516,7 +516,7 @@ const npcDialogue = {
                 
                 "dreamView":{
                     "node1":{
-                        "dialogue": "HMMM. YOU'RE NOT CURSED. WOULD YOU LIKE TO BECOME ONE OF MY COBRABOLDS? ",
+                        "dialogue": "Hmmm. You're not cursed. Would you like to become one of my cobrabolds?",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node11","node27"]
@@ -528,103 +528,103 @@ const npcDialogue = {
                         "children":["node12"]
                     },
                     "node12":{
-                        "dialogue": "I'M SO HAPPY TO HEAR THAT! YOU SHOULD GET UNDRESSED. ",
+                        "dialogue": "I'm so happy to hear that! You should get undressed.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[ "node13"]
                     },
                     "node13":{
-                        "dialogue": "YOU'RE THE PERFECT SIZE TO FIT CONFORTABLY IN MY WOMB.",
+                        "dialogue": "You're the perfect size to fit comfortably in my womb.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node14"]
                     },
                     "node14":{
-                        "dialogue": "JUST RELAX AND SLIDE INTO YOUR NEW MISTRESS' BELLY. ",
+                        "dialogue": "Just relax and slide into your new mistress's belly.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node15"]
                     },
                     "node15":{
-                        "dialogue": "IT'LL WORK ITS MAGIC AND YOU WILL BE A CUTE COBRABOLD IN NO TIME. ",
+                        "dialogue": "It'll work its magic and you will be a cute cobrabold in no time.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node16"]
                     },
                     "node16":{
-                        "dialogue": "AWWW YOU'RE SO CUTE DOWN THERE. ",
+                        "dialogue": "Awww you're so cute down there.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node17"]
                     },
                     "node17":{
-                        "dialogue": "JUST RELAX, I'LL PUSH YOU YOU INSIDE ME.",
+                        "dialogue": "Just relax, I'll push you inside me.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node18"]
                     },
                     "node18":{
-                        "dialogue": "HUFFFF SO FULL... ",
+                        "dialogue": "Huffff so full...",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node19"]
                     },
                     "node19":{
-                        "dialogue": "OHHHHHHH...... HUFF... I WAS A BIT TIGHTER THAN I THOUGHT. ",
+                        "dialogue": "Ohhhhhhh...... huff... I was a bit tighter than I thought.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node20"]
                     },
                     "node20":{
-                        "dialogue": "HUFFFFFF....",
+                        "dialogue": "Huffffff....",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node21"]
                     },
                     "node21":{
-                        "dialogue": "AAAHHHHH..... I FEEL YOU SETTLING INTO MY WOMB. ",
+                        "dialogue": "Aaahhhhh..... I feel you settling into my womb.",
                         "profile":"istaraHeartEyes",
                         "textvoice":"mediumVoice",
                         "children":["node22"]
                     },
                     "node22":{
-                        "dialogue": "YOU LOOK SO CUTE ON ME I MIGHT JUST KEEP YOU IN THERE A WHILE...",
+                        "dialogue": "You look so cute on me I might just keep you in there a while...",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node23"]
                     },
                     "node23":{
-                        "dialogue": "THATS IT GIVE YOURSELF UP TO YOUR NEW MISTRESS. I CAN FEEL YOU CHANGING. ",
+                        "dialogue": "That's it give yourself up to your new mistress. I can feel you changing.",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node24"]
                     },
                     "node24":{
-                        "dialogue": "HUFFFFFF.... ",
+                        "dialogue": "Huffffff....",
                         "profile":"istaraSquish",
                         "textvoice":"mediumVoice",
                         "children":["node25"]
                     },
                     "node25":{
-                        "dialogue": "OHHHHHHH...... ",
+                        "dialogue": "Ohhhhhhh......",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":["node26"]
                     },
                     "node26":{
-                        "dialogue": "I'LL KEEP YOU SAFE MY PRECIOUS CHILD. ",
+                        "dialogue": "I'll keep you safe, my precious child.",
                         "profile":"istaraHappy",
                         "textvoice":"mediumVoice",
                         "children":[]
                     },
                     "node27":{
-                        "dialogue": "SUCH A SHAME...  ",
+                        "dialogue": "Such a shame...",
                         "profile":"istaraAnnoyed",
                         "textvoice":"mediumVoice",
                         "children":["node28"]
                     },
                     "node28":{
-                        "dialogue": "I'LL BE HERE IF YOU CHANGE YOUR MIND.... ",
+                        "dialogue": "I'll be here if you change your mind....",
                         "profile":"istaraSad",
                         "textvoice":"mediumVoice",
                         "children":[]

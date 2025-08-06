@@ -303,132 +303,132 @@ const bestiaryKey = {
 const bestiaryTextList = {
       blueSlime: {
         title: "BLUE SLIME",
-        summary: "THIS SMALL SLIME IS THE MOST COMMON OF SLIME TYPES. IT HAS BASIC INSTINCTS AND WILL BLINDLY JUMP TOWARDS PREY. THIS SLIME IS MOSTLY MADE OF WATER AND CAN BE FOUND MOST PLACES. SINCE THEIR WHOLE BODY IS A SENSORY ORGAN THEY ARE PARTICULARLY WEAK TO BLUNT DAMAGE.",
+        summary: "This small slime is the most common of slime types. It has basic instincts and will blindly jump towards prey. This slime is mostly made of water and can be found in most places. Since their whole body is a sensory organ, they are particularly weak to blunt damage.",
       },
       largeBlueSlime: {
         title: "BLUE SLIME LARGE",
-        summary: "THIS SLIME ACTS VERY SIMILAR TO ITS SMALLER COUNTERPART. HOWEVER, THIS SLIME IS MUCH LARGER AND MORE DANGEROUS. IT IS ABLE TO DISSOLVE PREY AT A FASTER RATE.",
+        summary: "This slime acts very similar to its smaller counterpart. However, this slime is much larger and more dangerous. It is able to dissolve prey at a faster rate.",
       },
       femaleTiger: {
         title: "FEMALE TIGER",
-        summary: "THIS LARGE CARNIVORE IS AN AMBUSH PREDATOR. OPTING TO HIDE UNTIL IT SPOTS PREY BEFORE CHASING THEM DOWN AND DEVOURING THEM WHOLE. HOWEVER, IT IS MORE DOCILE IF IT HAS ALREADY FED ON SOMETHING.",
+        summary: "This large carnivore is an ambush predator. Opting to hide until it spots prey before chasing them down and devouring them whole. However, it is more docile if it has already fed on something.",
       },
       femaleTigerBooba: {
         title: "FED FEMALE TIGER",
-        summary: "ONCE THE TIGER HAS HAD A GOOD MEAL THIS VORACIOUS PREDATOR SEEKS OUT HUMANS TO CURSE. ONCE THIS PREDATOR CURSES AN UNSUSPECTING HUMAN, SHE WILL LOOK OVER THEM AS HER NEW CUB. ",
+        summary: "Once the tiger has had a good meal, this voracious predator seeks out humans to curse. Once this predator curses an unsuspecting human, she will look over them as her new cub.",
       },
       maleTiger: {
         title: "MALE TIGER",
-        summary: "THIS HUNGRY PREDATOR OFTEN LIES IN WAIT TO SUPRISE PREY. AFTER THERE PREY HAS BEEN WEAKENED IT WILL SWALLOW THEM WHOLE. SOME TOUGH PREY MIGHT BE ABLE TO STRUGGLE FREE, BUT WEAKER PREY ARLE LIKELY TO END UP AS PADDING FOR THIS STRONG CARNIVORE. ",
+        summary: "This hungry predator often lies in wait to surprise prey. After their prey has been weakened it will swallow them whole. Some tough prey might be able to struggle free, but weaker prey are likely to end up as padding for this strong carnivore.",
       },
       maleTigerBenis: {
         title: "FED MALE TIGER",
-        summary: "AFTER FINDING A FILLING MEAL THIS TIGER BECOMES INCREDABLY HORNY. SEEKING TO PENETRATE HUMANS AND RELEASE LARGE AMOUNTS OF THERE SEED INTO THEM. THE NEWLY FORMED CURSE ARE LIKELY TO GROW BIG FROM THE EXTRA NOURISHMENT AFTER THE CURSING PROCESS. ",
+        summary: "After finding a filling meal, this tiger becomes incredibly horny. Seeking to penetrate humans and release large amounts of their seed into them. The newly formed curse is likely to grow big from the extra nourishment after the cursing process.",
       },
       maleRabbit: {
         title: "MALE RABBIT",
-        summary: "THIS HERBIVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE MALES OF THIS GROUP USE TO PENETRATION AS THEIR MAIN MEANS OF APPLYING THEIR CURSE.  ",
+        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the males of this group use penetration as their main means of applying their curse.",
       },
       femaleRabbit: {
         title: "FEMALE RABBIT",
-        summary: "THIS HERBIVORE CAN BE FOUND IN PLACES WHERE CARROTS GROW. ABLE TO JUMP DECENTLY HIGH, THE FEMALES OF THIS GROUP OFTEN TACKLE THEIR VICTIMS AND HUMP THEM TO APPLY THEIR CURSE. ",
+        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the females of this group often tackle their victims and hump them to apply their curse.",
       },
       maleBeeDrone: {
         title: "MALE BEE DRONE",
-        summary: "THIS LARGE INSECT OFTEN SPENDS ITS TIME COLLECTING POLLEN IN PLACES WITH LARGE AMOUNTS OF FLOWERS. HOWEVER, THIS INSECT WILL QUICKLY DEVOUR AN UNSUSPECTING HUMAN WITH THEIR MASSIVE ABDOMENS.",
+        summary: "This large insect often spends its time collecting pollen in places with large amounts of flowers. However, this insect will quickly devour an unsuspecting human with its massive abdomens.",
       },
       femaleBeeDrone: {
         title: "FEMALE BEE DRONE",
-        summary: "OFTEN THESE BEES WILL SWARM A HUMAN WHO IS NOT CURSED. HOWEVER, THEY ARE UNABLE TO PASS ON THEIR CURSE DIRECTLY, INSTEAD USING THEIR ABDOMEN TO CAPTURE HUMANS TO BRING BACK TO THEIR NEST... ",
+        summary: "Often these bees will swarm a human who is not cursed. However, they are unable to pass on their curse directly, instead using their abdomen to capture humans to bring back to their nest...",
       },
       maleBat: {
         title: "MALE BAT",
-        summary: "LURKING IN CAVES, THIS MONSTER SLEEPS DURING THE DAY. WANDERING HUMANS SHOULD TRY TO BE QUIET AROUND THIS MONSTER, AS WAKING THEM IS NOT ADVISED UNLESS THEY WISH TO BE TURNED INTO PUDGE. ",
+        summary: "Lurking in caves, this monster sleeps during the day. Wandering humans should try to be quiet around this monster, as waking them is not advised unless they wish to be turned into pudge.",
       },
       femaleBat: {
         title: "FEMALE BAT",
-        summary: "IF THEY ARE SPOOKED WHILE SLEEPING THIS NOCTURNAL PREDATOR WILL CHASE DOWN WHAT EVER SPOOKED IT AND TRY TO DEVOUR THEM WITH THEIR REAR END. THESE VORACIOUS BATS ARE QUICK TO DIGEST THEIR PREY IN THIS STATE, ADDING THEM TO THEIR PUDGE. ",
+        summary: "If they are spooked while sleeping, this nocturnal predator will chase down whatever is spooked and try to devour them with its rear end. These voracious bats are quick to digest their prey in this state, adding them to their pudge.",
       },
       blueSlimeHS: {
         title: "BLUE SLIME HUMANOID",
-        summary: "THESE VARIATIONS OF THE BLUE SLIME TAKE THE APPEARANCE OF A PERSON, AS BEST THEY CAN WITH THE MASS THEY HAVE. MORE AGGRESSIVE THAN THEIR REGULAR COUNTERPART. THESE SLIMES SEEK HUMANOIDS TO ABSORB SO THAT THEY CAN GROW THEIR MASS AND SHAPE.",
+        summary: "These variations of the blue slime take the appearance of a person, as best they can with the mass they have. More aggressive than their regular counterparts. These slimes seek humanoids to absorb so that they can grow their mass and shape.",
       },
       blueSlimeMaleHM: {
         title: "BLUE SLIME MALE",
-        summary: "AFTER GROWING TO ITS SECOND STAGE, IT TAKES ON A MASCULINE APPEARANCE BASED ON THE LARGEST THING IT ABSORBED. WITH ITS NEW MALE FORM, IT IS ABLE TO USE ITS SLIME PHALLUS TO CONSUME MORE PREY. WHILE IT DOES NOT EXCLUSIVELY DO THIS, IT SEEMS TO PREFER THIS FORM OF INGESTION.",
+        summary: "After growing to its second stage, it takes on a masculine appearance based on the largest thing it absorbed. With its new male form, it is able to use its slime phallus to consume more prey. While it does not exclusively do this, it seems to prefer this form of ingestion.",
       },
       blueSlimeFemaleHM: {
         title: "BLUE SLIME FEMALE",
-        summary: "AFTER GROWING TO ITS SECOND STAGE, IT TAKES ON A FEMININE APPEARANCE BASED ON THE LARGEST THING IT ABSORBED. WITH ITS NEW FEMALE FORM, IT IS NOT AS RAVENOUS AND PREFERS TO PLAY WITH ITS FOOD. IF THIS SLIME GROWS LARGE ENOUGH IT CAN PRODUCE SMALLER SLIMES TO SPREAD THEIR CURSE.",
+        summary: "After growing to its second stage, it takes on a feminine appearance based on the largest thing it absorbed. With its new female form, it is not as ravenous and prefers to play with its food. If this slime grows large enough it can produce smaller slimes to spread their curse.",
       },
       femaleChestMimic: {
         title: "CHEST MIMIC FEMALE",
-        summary: "LURKING INSIDE CHESTS, THESE SLUGS USE CONTAINERS AS HOMES THAT DOUBLE AS A TRAP TO AMBUSH PREY. WHEN PREY IS NEAR, THEY ARE KNOW TO GET IMPATIENT AND PEEK OUT OF THEIR HOME IF IT GETS TOO QUIET. ",
+        summary: "Lurking inside chests, these slugs use containers as homes that double as a trap to ambush prey. When prey is near, they are known to get impatient and peek out of their home if it gets too quiet.",
       },
       femaleChestMimicVore: {
         title: "CHEST MIMIC FEMALE LARGE",
-        summary: "A SLIGHTLY LARGE MIMIC AFTER SHE HAS DEVOURED SOME PREY. THEY OFTEN ENJOY COVETING ITEMS THAT THEIR PREY HAD. IF DEFEATED THEY MAY DROP AN ITEM, THOUGH IT MIGHT BE INFUSED WITH THEIR CURSE...",
+        summary: "A slightly large mimic after she has devoured some prey. They often enjoy coveting items that their prey had. If defeated they may drop an item, though it might be infused with their curse...",
       },
       maleChestMimic: {
         title: "CHEST MIMIC MALE",
-        summary: "THESE GASTROPODS ARE AMBUSH PREDATORS. HOWEVER, THEIR PREY IS NOT JUST FOR SUSTENANCE, AS THOSE CURSED BY THIS MONSTER BECOME ASSIMILATED INTO THE CREATURES MASS. EVENTUALLY BUDDING OFF THE ORIGINAL WHEN A NEW HOME IS FOUND.",
+        summary: "These gastropods are ambush predators. However, their prey is not just for sustenance, as those cursed by this monster become assimilated into the creatures' mass. Eventually budding off the original when a new home is found.",
       },
       maleChestMimicVore: {
         title: "CHEST MIMIC MALE LARGE",
-        summary: "THE MIMICS CURSE WAS CREATED FROM THE DESIRES OF AVARICE. BECAUSE OF THIS THEY COVET THE ITEMS OF THEIR PREY, AS WELL AS THE NEW MASS THEIR PREY BECOMES AFTER DIGESTION.",
+        summary: "The mimics curse was created from the desires of avarice. Because of this they covet the items of their prey, as well as the new mass their prey becomes after digestion.",
       },
       istaraUnbirth: {
         title: "ISTARA",
-        summary: "A FRIENDLY COBRA DRAGON NAMED ISTARA, HAPPENS TO BE MAKING HER RESIDENCE IN ONE OF THE MANY CAVES ON THIS ISLAND. CURRENTLY SHE IS LOOKING TO EXPAND HER HOARD OF PLUSHIES AND COBRABOLDS. ",
+        summary: "A friendly cobra dragon named istara happens to be making her residence in one of the many caves on this island. Currently she is looking to expand her hoard of plushies and cobrabolds.",
       },
       whiteCatMaleTF: {
         title: "WHITE CAT MALE",
-        summary: "THIS KITTY CAN BUILD UP CURSED ENERGY WHICH IT CAN RELEASE IN ITS ROAR FORMING CURSED HEART. THE HEART PRODUCED BY THIS ROAR WILL SLOWLY TRACK CREATURES IT FINDS SUITABLE TO KISS AND TRANSFORM. YOU`RE A SILLY LITTLE BOY KISSER AREN`T YOU? ",
+        summary: "This kitty can build up cursed energy which it can release in its roar forming cursed heart. The heart produced by this roar will slowly track creatures it finds suitable to kiss and transform. You're a silly little boy kisser, aren't you?",
       },
       whiteCatFemaleTF: {
         title: "WHITE CAT FEMALE",
-        summary: "THOSE WHO COME IN CONTACT WITH THIS CATS CURSED HEARTS WILL BE INFATUATED AND COMPELLED TO MAKE OUT WITH THE CAT WHO CREATED THE CURSED HEART. IT`S AS IF THE DESIRES OF THE CAT ARE BEING IMPRINTED ONTO ITS TARGETED CREATURE. YOU`RE A SILLY LITTLE GIRL KISSER AREN`T YOU?",
+        summary: "Those who come in contact with this cat's cursed hearts will be infatuated and compelled to make out with the cat who created the cursed heart. It's as if the desires of the cat are being imprinted onto its targeted creature. You're a silly little girl kisser, aren't you?",
       },
       whiteCatMaleVore: {
         title: "CHUBBY CAT MALE",
-        summary: "WHEN A CAT BECOMES FRUSTRATED WITH A CREATURE IT`S TRYING TO CURSE, IT WILL GET FED UP AND ATTEMPT TO CONSUME THE CREATURE. USING ITS POWERFUL PAWS TO KNOCK ITS PREY DOWN. YOU LIKE BEING BOY BELLY FAT DON`T YOU? :3",
+        summary: "When a cat becomes frustrated with a creature it's trying to curse, it will get fed up and attempt to consume the creature. Using its powerful paws to knock its prey down. You like being boy belly fat, don't you? :3",
       },
       whiteCatFemaleVore: {
         title: "CHUBBY CAT FEMALE",
-        summary: "ONCE ITS PREY HAS BEEN COMPLETELY SWALLOWED, IT LOVES RUBBING ITS ENGORGED TUMMY UNTIL ITS PREY IS NOTHING MORE THAN BELLY FAT. YOU LIKE BEING GIRL BELLY FAT DON`T YOU? :3 ",
+        summary: "Once its prey has been completely swallowed, it loves rubbing its engorged tummy until its prey is nothing more than belly fat. You like being a girl belly fat, don't you? :3",
       },
       curseShadow: {
         title: "STRANGE SHADOW",
-        summary: "THIS STRANGE ENEMY, LURKS IN CAVES CONSUMED BY DENSE SHADOW. SUCKING UNSUSPECTING PREY INTO ITS BODY, WHERE IT ABSORBS THEM FOR A UNKNOWN PURPOSE...",
+        summary: "This strange enemy lurks in caves consumed by dense shadow. Sucking unsuspecting prey into its body, where it absorbs them for an unknown purpose...",
       },
       earieShadow:{
         title: "",
-        summary: "WHERE THE WATER FLOWS AND THE ROOTS CREEP, THE SEELS KEEP ME PRISONER IN THE DEEP. COME FIND ME,COME SET ME FREE, SO YOU CAN BECOME APART OF ME...",
+        summary: "Where the water flows and the roots creep, the seals keep me prisoner in the deep. Come find me, come set me free, so you can become a part of me...",
       },
       maleRabbitVore: {
         title: "FED MALE RABBIT",
-        summary: "OVERCOME BY HUNGER THIS RABBIT CONSUMED THE BODY OF ANOTHER. CAUSING ITS BODY TO GROW AND CHANGE SLIGHTLY. IT NOW DOMINATES SMALLER RABBITS WITH ITS NEW FOUND STRENGTH. ",
+        summary: "Overcome by hunger, this rabbit consumed the body of another. Causing its body to grow and change slightly. It now dominates smaller rabbits with its newfound strength.",
       },
       femaleRabbitVore: {
         title: "FED FEMALE RABBIT",
-        summary: "OVERCOME BY HUNGER THIS RABBIT CONSUMED THE BODY OF ANOTHER. CAUSING ITS BODY TO GROW AND CHANGE SLIGHTLY. IT NOW ENJOYS SQUISHING SMALLER RABBITS BETWEEN HER BREASTS. ",
+        summary: "Overcome by hunger, this rabbit consumed the body of another. Causing its body to grow and change slightly. It now enjoys squishing smaller rabbits between her breasts.",
       },
       vivianVore: {
         title: "FULL VIVIAN",
-        summary: "VIVIAN LOVES WEARING HER PREYS CLOTHING, AND STRECHES IT OVER HER NEW BODYSIZE. SOMEHOW THE CLOTHS NEVER RIP, AND SHE HAS A VAST COLLECTION OF CLOTHING FROM PREVIOUS MEALS. ALL MAGICALLY MADE TO FIT VIVIAN. ",
+        summary: "Vivian loves wearing her prey's clothing, and stretches it over her new body size. Somehow the clothes never rip, and she has a vast collection of clothing from previous meals. All magically made to fit Vivian.",
       },
       vivianTF: {
         title: "VIVIAN",
-        summary: "A CUTE, YET DEVIOUS WOLF GIRL MERCHANT. BY MARKING A MEDIUM SIZE CONTAINER WITH HER SYMBOL, SHE CAN TRAVEL BETWEEN THEM, WHICH SHE OFTEN USES TO TRICK HER FUTURE MEALS. WHILE SHE ISNT TOO FOND OF HUMANS, SHE SURE ENJOYES EATING AND OCCASIONALLY CURSING THEM. ",
+        summary: "A cute, yet devious wolf girl merchant. By marking a medium-sized container with her symbol, she can travel between them, which she often uses to trick her future meals. While she isn't too fond of humans, she sure enjoys eating and occasionally cursing them.",
       },
       vivianVore2: {
         title: "VIVIAN'S CODE",
-        summary: "VIVIAN HAS A NETWORK OF CHESTS SHE CAN TRAVEL THROUGH TO PROVIDE HER SERVICES, AND CATCH PREY.IF YOU DONT WANT TO BE EATEN, THEN YOU SHOULD KNOCK ON ONE OF HER MARKED CHESTS TWICE. NO MORE, NO LESS.",
+        summary: "Vivian has a network of chests she can travel through to provide her services and catch prey. If you don't want to be eaten, then you should knock on one of her marked chests twice. No more, no less.",
       },
 
       back: {
         title: "BESTIARY INFO",
-        summary: "THIS BOOK CAN RECORD INFORMATION ABOUT ENEMIES YOU HAVE ENCOUNTERED. WHEN YOU ARE DEFEATED BY THEM, YOU CAN FIND A NEW ENTRY ABOUT THAT ENEMY HERE. ENEMIES HAVE ELEMENTAL WEAKNESSES WHICH ARE DISPLAYED IN THEIR STATS SECTION."
+        summary: "This book can record information about enemies you have encountered. When you are defeated by them, you can find a new entry about that enemy here. Enemies have elemental weaknesses which are displayed in their stats section."
       }
     };
 

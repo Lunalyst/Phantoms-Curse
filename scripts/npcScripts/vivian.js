@@ -1248,7 +1248,11 @@ class vivian extends npc{
     }
     this.vivianThatDefeatedPlayer = true;
 
-    this.nodeHandler("vivian","Behavior2",selective);
+    //strange case. if the player presssed w before clicking a choice it would skip dialogue forward which would desync dialogue
+    if(this.inDialogue === false){
+      this.nodeHandler("vivian","Behavior2",selective);
+    }
+    
 
      if(this.currentDictNode !== null){
       if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
@@ -1276,7 +1280,15 @@ class vivian extends npc{
 
           this.scene.npcChoice1.on('pointerdown', function (pointer) {
 
+            
             this.scene.initSoundEffect('buttonSFX','2',0.07);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10
+            this.scene.sceneTextBox.amountWIsPressed++;
+            this.progressNode("nodeJUNKT");
 
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
@@ -1296,7 +1308,8 @@ class vivian extends npc{
               temp.scene.sceneTextBox.textInterupt = false;
 
               //progress to node branch with state name node5
-              temp.progressNode("node2");
+              temp.scene.sceneTextBox.amountWIsPressed++;
+              temp.progressNode("node2",true);
 
               //hide player 
               temp.scene.player1.visible = false;
@@ -1320,7 +1333,7 @@ class vivian extends npc{
     
               }
                 
-            }, 800);
+            }, 1300);
 
           },this);
 
@@ -1358,6 +1371,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = false;
 
             //progress to node branch with state name node10 special function which ignores lock out of text
+            this.scene.sceneTextBox.amountWIsPressed++;
             this.progressNode("node6",true);
 
             //lock progressing node agian, until vivians animation is complete
@@ -1390,6 +1404,7 @@ class vivian extends npc{
                 temp.anims.play('vivianPopUp').once('animationcomplete', () => {
                   temp.anims.play('vivianShopIdle',true);
                   temp.scene.sceneTextBox.textInterupt = false;
+                  temp.scene.sceneTextBox.amountWIsPressed++;
                   temp.progressNode("node7",true);
                   temp.animationPlayed = false;
                   //hide ui and dialogue box.
@@ -1401,7 +1416,7 @@ class vivian extends npc{
     
               }
                 
-            }, 1300);
+            }, 2000);
 
             
 
@@ -1426,27 +1441,33 @@ class vivian extends npc{
 
           this.scene.npcChoice3.on('pointerdown', function (pointer) {
           
-            this.inDialogue = false;
-          this.scene.initSoundEffect('buttonSFX','2',0.05);
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
 
-          this.scene.sceneTextBox.textInterupt = false;
-          
-          //progress to node branch with state name node5
-          this.progressNode("node2");
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
 
-          //destroy itself and other deciosions
-          this.scene.npcChoice1.destroy();
-          this.scene.npcChoice2.destroy();
-          this.scene.npcChoice3.destroy();
-          this.scene.npcChoice4.destroy();
+            //progress to node branch with state name node10
+            this.scene.sceneTextBox.amountWIsPressed++;
+            this.progressNode("nodeJUNKT");
 
-          //hide player 
-          this.scene.player1.visible = false;
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
           
             let temp = this;
             setTimeout(function () {
               temp.scene.initSoundEffect('weaponSFX','knock',0.07);
             },300);
+
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },800);
+
+            setTimeout(function () {
+              temp.scene.initSoundEffect('weaponSFX','knock',0.07);
+            },1200);
 
             setTimeout(function () {
               temp.inDialogue = false;
@@ -1455,6 +1476,7 @@ class vivian extends npc{
               temp.scene.sceneTextBox.textInterupt = false;
 
               //progress to node branch with state name node5
+              temp.scene.sceneTextBox.amountWIsPressed++;
               temp.progressNode("node2");
 
               //hide player 
@@ -1479,7 +1501,7 @@ class vivian extends npc{
     
               }
                 
-            }, 800);
+            }, 2000);
 
           },this);
 
@@ -1659,7 +1681,9 @@ class vivian extends npc{
     }
     this.vivianThatDefeatedPlayer = true;
 
-    this.nodeHandler("vivian","Behavior2",selective);
+    if(this.inDialogue === false){
+      this.nodeHandler("vivian","Behavior2",selective);
+    }
 
      if(this.currentDictNode !== null){
       if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
@@ -1693,11 +1717,18 @@ class vivian extends npc{
 
             this.scene.initSoundEffect('buttonSFX','2',0.07);
 
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10
+            this.scene.sceneTextBox.amountWIsPressed++;
+            this.progressNode("nodeJUNKT");
+
+            this.scene.sound.get("minigameSFX").stop();
+
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice4.destroy();
-
-            this.scene.sound.get("minigameSFX").stop();
 
             let temp = this;
             setTimeout(function () {
@@ -1711,10 +1742,9 @@ class vivian extends npc{
               temp.scene.sceneTextBox.textInterupt = false;
 
               //progress to node branch with state name node5
+              temp.scene.sceneTextBox.amountWIsPressed++;
               temp.progressNode("node2");
 
-              //hide player 
-              temp.scene.player1.visible = false;
 
               temp.scene.initSoundEffect('creakSFX','wood',0.05);
 
@@ -1735,7 +1765,7 @@ class vivian extends npc{
     
               }
                 
-            }, 800);
+            }, 1300);
 
           },this);
 

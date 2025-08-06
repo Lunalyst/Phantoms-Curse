@@ -1638,10 +1638,19 @@ const npcDialogue = {
                         "dialogue": "Knock on the chest?",
                         "profile":"blank",
                         "textvoice":"default",
-                        "children":[ "node2", 'node5','node6']
+                        "children":[ "nodeJUNKT", 'node5','node6']
                     },
 
+
                     //logic if they skrew up the knock
+
+                    "nodeJUNKT":{
+                        "dialogue": "....",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+
                     "node2":{
                         "dialogue": "In all honesty, I was hoping you would mess up the knocking code.",
                         "profile":"vivianSmugTongue",
@@ -1713,7 +1722,14 @@ const npcDialogue = {
                         "dialogue": "Knock on the chest?",
                         "profile":"blank",
                         "textvoice":"default",
-                        "children":[ "node2", 'node5','node6']
+                        "children":[ "nodeJUNKT", 'node5','node6']
+                    },
+
+                    "nodeJUNKT":{
+                        "dialogue": "....",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
                     },
 
                     //logic if they skrew up the knock

@@ -1184,6 +1184,7 @@ class gameHud extends A3SoundEffects {
       this.label10 = this.add.text(xValue, 135, 'Num of wallLights: ', { fontFamily: '"Monospace"'});
       this.label11 = this.add.text(xValue, 150, 'Num of npcs: ', { fontFamily: '"Monospace"'});
       this.label12 = this.add.text(xValue, 165, 'Num of npcTriggers: ', { fontFamily: '"Monospace"'});
+      this.label13 = this.add.text(xValue, 180, 'Num of Enemies: ', { fontFamily: '"Monospace"'});
 
     }
 
@@ -1237,7 +1238,17 @@ class gameHud extends A3SoundEffects {
         }else{
           this.label12.setText('Num of npcTriggers: 0');
         }
-       
+
+        if(this.gameplaySceneRef.lightingSystemActive === true){
+          if(this.gameplaySceneRef.enemys !== undefined && this.gameplaySceneRef.enemys !== null ){
+            if(this.gameplaySceneRef.enemys.children !== undefined && this.gameplaySceneRef.enemys.children !== null ){
+              this.label13.setText('Num of Enemies:  (' + this.gameplaySceneRef.enemys.children.entries.length +')');
+            }
+          }
+          
+        }else{
+          this.label13.setText('Num of Enemies: 0');
+        }
 
       }
       

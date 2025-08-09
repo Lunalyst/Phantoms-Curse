@@ -37,3 +37,7 @@ options->MIDI settings-> sleect device->enable
 to acess project browser
 view -> browser
 from there we can see the projects and sound fonts and tools. click the farl left icon to see the folders.
+
+how to cnotrol mic.click on the channel rack. then click on the channel you want to use for mic recording
+change the none input ot input 1
+https://www.youtube.com/watch?v=AE5nVk1lWKg

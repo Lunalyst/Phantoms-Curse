@@ -365,9 +365,16 @@ class inventory extends Phaser.GameObjects.Container{
             console.log("setSlots");
             this.setSlots(hud);
 
+            //call the bestiary object to reload its page values.
+            //makes sure that if the bestiary is updated without a gameover, that the pages reflect that.
+            this.bestiaryUI.reloadBestiaryPages(this.scene);
+
             //sets physics to stop? this may be redundant or obsolite code
             scene.physics.pause();
             scene.player1.pausePlayerAnimations();
+
+             //tells the scene the inventory is open
+            scene.inventoryOpen = true;
 
             //set time out for delay.
             let inventoryThat = this;
@@ -402,6 +409,8 @@ class inventory extends Phaser.GameObjects.Container{
             //sets physics to start? this may be redundant or obsolite code
             scene.physics.resume();
             scene.player1.resumePlayerAnimations();
+            //tells the scene the inventory is open
+            scene.inventoryOpen = false;
 
              //sets the elements of the ivnentory to ve visible
              this.inventoryElements.toggleVisible();

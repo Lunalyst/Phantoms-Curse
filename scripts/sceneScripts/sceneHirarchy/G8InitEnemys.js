@@ -438,9 +438,12 @@ class G8InitEnemys extends G7EnemyCollisions{
 
   //pauses enemy animations when the player is paused. calles function in enemy base class
   checkEnemyAnimationPause() {
+
+    //pauses enemy animations when game is paused and resumes them if player is unpaused.
     this.enemys.children.each(function (tempEnemy) {
       tempEnemy.pauseAnimations(this);
     }, this);
+    
   }
 
   objectsInRangeX(object1,object2, width){

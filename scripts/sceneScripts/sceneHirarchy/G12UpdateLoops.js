@@ -11,6 +11,9 @@ class G12UpdateLoops extends G11CheckGameObjects{
       //checks to see if containers can be opened.
       this.checkContainerPickUp();
 
+      //does a check in npc logic to see if the npcs need to be paused or not.
+      this.checkNPCAnimationPause();
+
       if(this.usingWoodenBarriers === true){
         this.checkWoodenBarriers();
       }
@@ -35,7 +38,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         this.checkLocker();
       }
 
-      //not sure what thes are for. saftey net when loading in?
+      //not sure what these are for. saftey net when loading in?
       if(this.loadCoolDown === true){
         this.checkWarp(this.playerLocation);
       }
@@ -63,9 +66,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
         //pause physics of scene
         this.physics.pause();
-        //pauses the player animations
-        //this.player1.pausePlayerAnimations();
-
+        
         //makes a temp object
         let isWindowObject = {
           isOpen: null
@@ -86,8 +87,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
         //resume physics
         this.physics.resume();
-        //and the player animations
-        //this.player1.resumePlayerAnimations()
+
       }
 
       //if we arnt paused
@@ -173,8 +173,6 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
         }
       //if we are paused
-      }else if(this.isPaused === true){
-        //do nothing :3
       }
 
       //updates the previous y value. used to animate the falling animation of the player.
@@ -325,5 +323,4 @@ class G12UpdateLoops extends G11CheckGameObjects{
       }
           
     } 
-
 }

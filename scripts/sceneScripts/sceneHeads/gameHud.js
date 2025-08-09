@@ -100,9 +100,6 @@ class gameHud extends A3SoundEffects {
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
           location.reload();
         })
-
-        //set up to display the cursors SceneTransitionLoad.reloadGame. used for debugging
-        //this.label = this.add.text(450, 0, '(x, y)', { fontFamily: '"Monospace"'});
         
         // need this to keep track of pointer position
         this.pointer = this.input.activePointer;
@@ -197,7 +194,7 @@ class gameHud extends A3SoundEffects {
 
           //heals player to full.
           this.healthDisplay.maxHealth();
-      });
+        });
 
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
           //console.log("setting this.struggleEventBar.visible: ", visible);
@@ -1141,6 +1138,11 @@ class gameHud extends A3SoundEffects {
             this.giveUpIndicator.visible = visible;
           });
 
+          inventoryKeyEmitter.on(inventoryKey.debugSceneRef,(scene) =>{
+              this.gameplaySceneRef = scene;
+              console.log("this.gameplaySceneRef: ",this.gameplaySceneRef);
+          });
+
 
           //test to see if the emitters are active
           //this.printActiveEmitters();
@@ -1161,6 +1163,85 @@ class gameHud extends A3SoundEffects {
         console.log("create function in hud finished-------------------------------------------------------");
 
         endTimeTest();
+
+        this.setupDebugHud();
+    }
+
+    setupDebugHud(){
+
+      let xValue = 1000
+
+      //set up to display the cursors SceneTransitionLoad.reloadGame. used for debugging
+      this.label1 = this.add.text(xValue, 0, 'Hud Debug', { fontFamily: '"Monospace"'});
+      this.label2 = this.add.text(xValue, 15, 'Cursor Location: (x, y)', { fontFamily: '"Monospace"'});
+      this.label3 = this.add.text(xValue, 30, 'player HP: (hp,hpMax)', { fontFamily: '"Monospace"'});
+      this.label4 = this.add.text(xValue, 45, 'player Curse: (Curse,curseMax)', { fontFamily: '"Monospace"'});
+      this.label5 = this.add.text(xValue, 60, 'Saveslot: ', { fontFamily: '"Monospace"'});
+      this.label6 = this.add.text(xValue, 75, 'Player Loc: (x, y)', { fontFamily: '"Monospace"'});
+      this.label7 = this.add.text(xValue, 90, 'Num of SaveStones: ', { fontFamily: '"Monospace"'});
+      this.label8 = this.add.text(xValue, 105, 'Num of itemDrops: ', { fontFamily: '"Monospace"'});
+      this.label9 = this.add.text(xValue, 120, 'Num of itemContainers: ', { fontFamily: '"Monospace"'});
+      this.label10 = this.add.text(xValue, 135, 'Num of wallLights: ', { fontFamily: '"Monospace"'});
+      this.label11 = this.add.text(xValue, 150, 'Num of npcs: ', { fontFamily: '"Monospace"'});
+      this.label12 = this.add.text(xValue, 165, 'Num of npcTriggers: ', { fontFamily: '"Monospace"'});
+
+    }
+
+    updateDebugHud(){
+      this.label2.setText('Cursor Location: (' + Math.floor(this.pointer.x) + ', ' + Math.floor(this.pointer.y) + ')'); 
+      this.label3.setText('player HP: (' + this.healthDisplay.playerHealth + '/' + this.healthDisplay.playerHealthMax +')'); 
+      this.label4.setText('player Curse: (' + this.healthDisplay.playerCurse + '/' + this.healthDisplay.playerCurseMax +')'); 
+      this.label5.setText('Saveslot: (' + this.playerSaveSlotData.saveSlot +')');
+      
+      if(this.gameplaySceneRef !== undefined && this.gameplaySceneRef !== null ){
+
+        this.label6.setText('Player Loc: (x:' + Math.floor(this.gameplaySceneRef.player1.x) +' y:'+ Math.floor(this.gameplaySceneRef.player1.y) +')');
+
+        if(this.gameplaySceneRef.saveStonePoints.children !== undefined && this.gameplaySceneRef.saveStonePoints.children !== null ){
+          this.label7.setText('Num of SaveStones: (' + this.gameplaySceneRef.saveStonePoints.children.entries.length +')');
+        }else{
+          this.label7.setText('Num of SaveStones: 0');
+        }
+
+        if(this.gameplaySceneRef.itemDrops.children !== undefined && this.gameplaySceneRef.itemDrops.children !== null ){
+          this.label8.setText('Num of itemDrops: (' + this.gameplaySceneRef.itemDrops.children.entries.length +')');
+        }else{
+          this.label8.setText('Num of itemDrops: 0');
+        }
+
+        if(this.gameplaySceneRef.itemContainers.children !== undefined && this.gameplaySceneRef.itemContainers.children !== null ){
+          this.label9.setText('Num of itemContainers: (' + this.gameplaySceneRef.itemContainers.children.entries.length +')');
+        }else{
+          this.label9.setText('Num of itemContainers: 0');
+        }
+
+        if(this.gameplaySceneRef.lightingSystemActive === true){
+          if(this.gameplaySceneRef.wallLights !== undefined && this.gameplaySceneRef.wallLights !== null ){
+            if(this.gameplaySceneRef.wallLights.children !== undefined && this.gameplaySceneRef.wallLights.children !== null ){
+              this.label10.setText('Num of wallLights: (' + this.gameplaySceneRef.wallLights.children.entries.length +')');
+            }
+          }
+          
+        }else{
+          this.label10.setText('Num of wallLights: 0');
+        }
+
+        if(this.gameplaySceneRef.npcs.children !== undefined && this.gameplaySceneRef.npcs.children !== null ){
+          this.label11.setText('Num of npcs: (' + this.gameplaySceneRef.npcs.children.entries.length +')');
+        }else{
+          this.label11.setText('Num of npcs: 0');
+        }
+
+        if(this.gameplaySceneRef.npcTriggers.children !== undefined && this.gameplaySceneRef.npcTriggers.children !== null ){
+          this.label12.setText('Num of npcTriggers: (' + this.gameplaySceneRef.npcTriggers.children.entries.length +')');
+        }else{
+          this.label12.setText('Num of npcTriggers: 0');
+        }
+       
+
+      }
+      
+     
     }
 
     currencyAnimation(scene,originalAmount,newAmount){
@@ -1199,11 +1280,12 @@ class gameHud extends A3SoundEffects {
 
     }
 
+    
+
     //update loop.
     update(){
       
-      //updates the display showing where the cursor is located.
-      //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')'); 
+      this.updateDebugHud();
       
     }
 

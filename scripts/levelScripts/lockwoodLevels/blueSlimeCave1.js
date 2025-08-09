@@ -121,7 +121,7 @@ class blueSlimeCave1 extends defaultScene {
         let rapier = oneTimeItemArray.cave_chest_with_rapier;
       
       //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-      thisScene.initItemContainer(465,895-3,rapier,true,"cave_chest_with_rapier");
+      thisScene.initItemContainer(465,895-4,rapier,true,"cave_chest_with_rapier");
         
       },1000);
 

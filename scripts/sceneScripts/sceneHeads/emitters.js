@@ -90,6 +90,7 @@ tabKey = {
 accessTabKey = new Phaser.Events.EventEmitter();
 
 inventoryKey = {
+    debugSceneRef: 'debug_scene_ref',
     activateWindow: 'activate_window',
     makeStorage: 'make_storage',
     destroyStorage: 'destroy_storage',

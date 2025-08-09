@@ -129,9 +129,9 @@ class istarasCave extends defaultScene {
       this.initWallLight(1334-32,1140,'torch');
       this.initWallLight(1450+32,1140,'torch');
       //this.initWallLight(1750+32,1140,'torch');
-      this.initWallLight(1750+32,1140,'ghostMushroom2');
-      this.initWallLight(1760+32,1142,'ghostMushroom3');
-      this.initWallLight(1770+32,1138,'ghostMushroom4');
+      //this.initWallLight(1750+32,1140,'ghostMushroom2');
+      //this.initWallLight(1760+32,1142,'ghostMushroom3');
+      //this.initWallLight(1770+32,1138,'ghostMushroom4');
 
       this.initWallLight(1800+32,1002,'ghostMushroom3');
 
@@ -140,8 +140,8 @@ class istarasCave extends defaultScene {
       this.initWallLight(1450+32,950,'ghostMushroom2');
       this.initWallLight(1440+32,948,'ghostMushroom4');
 
-      this.initWallLight(1290+32,900,'ghostMushroom1');
-      this.initWallLight(1300+32,892,'ghostMushroom2');
+      //this.initWallLight(1290+32,900,'ghostMushroom1');
+      //this.initWallLight(1300+32,892,'ghostMushroom2');
       
       //sets up containers
       this.setUpContainers();

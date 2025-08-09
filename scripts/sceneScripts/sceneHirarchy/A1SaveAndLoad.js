@@ -319,6 +319,10 @@ class A1SaveAndLoad extends Phaser.Scene {
     console.log("this.preferance:",this.preferance," <-- file.settings.preferance: ",file.settings.preferance);
     console.log("this.onomatopoeia:",this.onomatopoeia," <-- this.onomatopoeia: ",file.settings.onomatopoeia);
     console.log("=======================================================");
+
+    //pass a refrence of the current scene to the hud for debug purposes
+    inventoryKeyEmitter.emit(inventoryKey.debugSceneRef, this);
+
   }
 
   //loads value from data to display the hud

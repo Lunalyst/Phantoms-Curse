@@ -55,6 +55,15 @@ class G10CheckNPCS extends G9CheckEnemys {
 
     }, scene);
   }
+
+  checkNPCAnimationPause(){
+    if(this.npcs.children.entries.length > 0){
+      this.npcs.children.each(function (tempNPC) {
+      tempNPC.pauseAnimations(this);
+    }, this);
+    }
+   
+  }
 }
 
 

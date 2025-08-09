@@ -239,5 +239,7 @@ class defaultScene extends G12UpdateLoops {
   //variable for preventing player from moving if they warp.
   this.playerWarping = false;
 
+  this.inventoryOpen = false;
+
   }
 }

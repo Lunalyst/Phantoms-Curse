@@ -76,6 +76,19 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.default();
   }
 
+  //pauses the animations of the enemys.
+  pauseAnimations(scene) {
+    if (scene.inventoryOpen === true) {
+      console.log("pausing npc animation");
+      this.anims.pause();
+      this.isAnimsPaused = true;
+    }else if(scene.inventoryOpen === false) {
+      console.log("resuming npc animation");
+      this.anims.resume();
+      this.isAnimsPaused = false;
+    }
+  }
+
   //function takes in a npc name, a npc logic, and a npc flag string to tell where in our const npc global object what dialogue should be played.
   setUpDialogueDict(npcName,npcLogic,npcFlag){
 

@@ -150,6 +150,21 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
   }
 
+  reloadBestiaryPages(scene){
+    // when the scene is loaded, the bestiary fills this.activeBestiaryPages with the correct values from the scene.playerBestiaryData
+    // so that the pages are displayed in the correct order.
+    this.activeBestiaryPages = [];
+    this.activeBestiaryPages.push('cover');
+    for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
+      console.log("key: ", key, " value: ", value);
+      if (value === 1) {
+        this.activeBestiaryPages.push(key.toString());
+      }
+    }
+    this.activeBestiaryPages.push('back');
+    //console.log(this.activeBestiaryPages);
+  }
+
   //function opens the bestiary so the proper page is displayed when clicked on in the inventory.
   openBestiary(scene) {
 

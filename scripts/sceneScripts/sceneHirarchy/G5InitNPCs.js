@@ -3,6 +3,8 @@ description: set up functions for npcs
 *******************************************************************************/
 class G5InitNPCs extends G4InitGameObjects {
 
+  
+
   //creates a tutorial NPC
   initTutorialPrompt(x, y,text) {
 
@@ -75,10 +77,9 @@ class G5InitNPCs extends G4InitGameObjects {
     //this is so that the trigger dialogue always occurs first
     //we then flag in the npc logic to changer the dialogue after the trigger version
     if(type === "rummaging"){
-      this.npcTriggers.add( Vivian);
+      this.npcTriggers.add(Vivian);
       this.npcs.add(Vivian);  
     }else{
-      
       this.npcs.add(Vivian);
     }
 

@@ -1172,7 +1172,7 @@ class gameHud extends A3SoundEffects {
       let xValue = 1000
 
       //set up to display the cursors SceneTransitionLoad.reloadGame. used for debugging
-      this.label1 = this.add.text(xValue, 0, 'Hud Debug', { fontFamily: '"Monospace"'});
+      this.label1 = this.add.text(xValue, 0, 'Debug #>w<#', { fontFamily: '"Monospace"'});
       this.label2 = this.add.text(xValue, 15, 'Cursor Location: (x, y)', { fontFamily: '"Monospace"'});
       this.label3 = this.add.text(xValue, 30, 'player HP: (hp,hpMax)', { fontFamily: '"Monospace"'});
       this.label4 = this.add.text(xValue, 45, 'player Curse: (Curse,curseMax)', { fontFamily: '"Monospace"'});

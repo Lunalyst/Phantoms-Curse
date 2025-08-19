@@ -86,11 +86,18 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
     // when the scene is loaded, the bestiary fills this.activeBestiaryPages with the correct values from the scene.playerBestiaryData
     // so that the pages are displayed in the correct order.
+    //have a variable which contains the key word to a grouping.
     this.activeBestiaryPages = [];
-    this.activeBestiaryPages.push('cover');
+    this.groupings = ["blueSlime","Tiger"];
+    this.activeBestiaryPages.push(['cover']);
+    //N represents the flag values of the player 0 - Max Entries
     for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
       console.log("key: ", key, " value: ", value);
       if (value === 1) {
+        //search for the grouping to see which group the true bestiary belongs to
+        //have to chek 0 to mas grouping which is M
+
+        //check every position of the key to see if the flag could be found. 
         this.activeBestiaryPages.push(key.toString());
       }
     }
@@ -155,6 +162,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     // so that the pages are displayed in the correct order.
     this.activeBestiaryPages = [];
     this.activeBestiaryPages.push('cover');
+
     for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
       console.log("key: ", key, " value: ", value);
       if (value === 1) {
@@ -162,7 +170,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       }
     }
     this.activeBestiaryPages.push('back');
-    //console.log(this.activeBestiaryPages);
+    console.log(this.activeBestiaryPages);
   }
 
   //function opens the bestiary so the proper page is displayed when clicked on in the inventory.

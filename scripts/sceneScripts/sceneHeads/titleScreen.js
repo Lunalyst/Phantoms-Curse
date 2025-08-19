@@ -64,7 +64,8 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
-            this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1773 , frameHeight: 168 });
+            this.load.spritesheet("creditBackdrop" , "assets/titleScreen/credits backdrop.png" , {frameWidth: 1023 , frameHeight: 693 });
+            this.load.spritesheet("title" , "assets/titleScreen/Phantom's Curse.png" , {frameWidth: 1776 , frameHeight: 303 });
             this.load.spritesheet("maleSexSelectIcons" , "assets/titleScreen/maleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("femaleSexSelectIcons" , "assets/titleScreen/femaleSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
@@ -146,10 +147,6 @@ class titleScreen extends A3SoundEffects {
             this.version.setDepth(51);
             this.elements.add(this.version);
 
-            
-            this.form = new makeEcrus(this,this.screenWidth-1000,this.screenHeight-70,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
-            this.form.visible = false;
-
             this.creditsArray = [
                 "Lunalyst: lead developer",
                 'Justanotherjames: development assistance',
@@ -170,6 +167,8 @@ class titleScreen extends A3SoundEffects {
                 'Zealotdkd: patreon',
                 'Bunger: patreon',
                 'Dainsleft Rovera: patreon',
+                'Night Raven: patreon',
+                'Foxymew: patreon',
                 'Irongelatin: gameover dialogue',
                 'Istara: commission & inspiration',
                 'Vik : commision, gameover dialogue, inspiration, bug testing',
@@ -193,8 +192,9 @@ class titleScreen extends A3SoundEffects {
                 'Adorabletyphlosion: inspiration',
             ];
             
-
-            this.credits = new credits(this,this.screenWidth/2-400,200,this.creditsArray);
+            //this.form = new makeEcrus(this,20, 200,"@011@ @00110@ @111@ @1101@ @111@ @011@ @01011@ @011@ @000@ @00111@ @0010@ @111@ @1101@ @11000@ @1001@ @1101@ @11001@ @1010@ @111@ @10111@ @10110@ @000@ @000@ @1010@ @011@ @1000@ @0100@ @111@ @1001@ @01010@ @000@ @1000@ @0100@ @0010@ @111@");
+            //this.form.visible = true;
+            this.credits = new credits(this,this.screenWidth/2-400,240,this.creditsArray);
             this.credits.setDepth(51);
             
 
@@ -249,7 +249,7 @@ class titleScreen extends A3SoundEffects {
             // animations for some sprites present
             this.anims.create({key: 'titleLogoLoop1',frames: this.anims.generateFrameNames('titleLogo', { start: 0, end: 10 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
-            this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 6 }),frameRate: 3,repeat: -1});
+            this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 3 }),frameRate: 4,repeat: 0});
 
             //background definition.
             this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
@@ -260,9 +260,18 @@ class titleScreen extends A3SoundEffects {
 
             //title sprite
             //this.titleLogo.setScale();
-            this.title =this.add.sprite(this.screenWidth/2, 50, "title");
-            this.title.anims.play("titleLoop");
+            this.title = this.add.sprite(this.screenWidth/2, 65, "title");
             this.title.setScale(1/3 + 1/7);
+
+            this.increment = 0;
+            this.reset = false;
+            this.titleTweenPlayed = false;
+            this.colorArray = [0x7e0899,0x7e0899,0x7e0899,0x7e0899,0x7e0899,0x8e08ac,0x990bb9,0xa40dc6,0xad0cd1,0xb00bd5,0xbd0de4,0xc510ed,0xca09f5,0xca09f5,0xca09f5,0xca09f5,0xca09f5];
+
+            //idea
+            // on animation complete. reset color index. and loop 
+
+            console.log("this.colorArray.length: ",this.colorArray.length);
             
             //curse sprite that changes
             this.curse = new curse(this, this.screenWidth/2 - 140,175);
@@ -375,6 +384,8 @@ class titleScreen extends A3SoundEffects {
         update(){
 
             //this.countActiveScenes()
+
+            this.titleLetterLoop();
 
             //code handles the title screen phantom logo animation.
             if(this.logoToggle === false){
@@ -575,6 +586,69 @@ class titleScreen extends A3SoundEffects {
             this.trashCan3.visible = trashCansVisible;
             this.clearSlotData();
 
+        }
+
+        titleLetterLoop(){
+
+            //if we havent started the loop.
+            if(this.titleTweenPlayed === false){
+
+                this.titleTweenPlayed = true;
+                
+                //apply tween
+                this.titleTween = this.tweens.add({
+                    targets: this.title,
+                    duration: 800,
+                    delay: 0,
+                    alpha: 1,
+                    repeat: 0,
+                    yoyo: true,
+                    onUpdate: (tween) => {
+
+                        if(this.reset === false){
+
+                            this.title.anims.play("titleLoop",true);
+
+                            this.reset = true;
+                            let temp = this;
+                            setTimeout(function () {
+                                
+                                temp.reset = false;
+                                if(temp.increment < temp.colorArray.length){
+
+                                    temp.title.setTint(temp.colorArray[temp.increment]);
+
+                                    temp.increment++;
+
+                                }else{
+
+                                    temp.colorArray.reverse();
+                                    temp.increment = 0;  
+                                }
+                            },25);
+                        }
+                    
+                    },
+                    
+
+                },this);
+
+                //play animation of letters
+                this.title.anims.play("titleLoop").once('animationcomplete', () => {
+                    //destroy tween
+                    this.titleTween.remove();
+
+                    //reset variables
+                    this.increment = 0;
+                    this.reset = false;
+                    this.colorArray = [0x7e0899,0x7e0899,0x7e0899,0x7e0899,0x7e0899,0x8e08ac,0x990bb9,0xa40dc6,0xad0cd1,0xb00bd5,0xbd0de4,0xc510ed,0xca09f5,0xca09f5,0xca09f5,0xca09f5,0xca09f5];
+                    this.titleTweenPlayed = false;
+
+
+                });
+            }
+
+            
         }
 
         

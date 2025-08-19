@@ -109,8 +109,6 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.credits.visible = false;
 
                     that.scene.credits.stopCredits();
-
-                    that.scene.form.visible = false;
                    
                 }
         

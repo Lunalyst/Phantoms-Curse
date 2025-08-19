@@ -255,52 +255,83 @@ const oneTimeItemArray = {
 
 //make format consistant for all bestiary keys
 //species - sex - trait - vore/tf
+/**
+ * idea
+ * 2d object, y is the main bestiary tag. x is the sub entrys of that catigory. 
+ * bestiary needs to be 2d array to make sure each group is organized
+ * need to rework dreamviewer
+ * need to rework save bestiary data format. 
+ * need to rework bestiary object itself. 
+ * 
+ * 
+ */
 const bestiaryKey = {
+
+  blueSlime: {
     blueSlimeTF:"blueSlime-tf",
     blueSlimeLargeTF:"blueSlime-large-tf",
     blueSlimeHSVore:"blueSlime-hs-vore",
     blueSlimeMaleHMVore:"blueSlime-male-hm-vore",
     blueSlimeFemaleHMVore:"blueSlime-female-hm-vore",
-
+  },
+    
+  tiger: {
     tigerMaleVore:"tiger-male-vore",
     tigerFemaleVore:"tiger-female-vore",
     tigerMaleTF:"tiger-male-tf",
     tigerFemaleTF:"tiger-female-tf",
-
+  },
+    
+  rabbit: {
     rabbitMaleTF:"rabbit-male-tf",
     rabbitFemaleTF:"rabbit-female-tf",
     rabbitMaleVore:"rabbit-male-vore",
     rabbitFemaleVore:"rabbit-female-vore",
+  },
 
+  bee: {
     beeDroneMaleTF:"beeDrone-male-tf",
     beeDroneFemaleTF:"beeDrone-female-tf",
-
+  },
+    
+  bat:{
     batMaleVore:"bat-male-vore",
     batFemaleVore:"bat-female-vore",
-
+  },
+  
+  mimic:{
     mimicMaleTF:"mimic-male-tf",
     mimicFemaleTF:"mimic-female-tf",
     mimicMaleVore:"mimic-male-vore",
     mimicFemaleVore:"mimic-female-vore",
+  },
 
+  whiteCat:{
     whiteCatMaleTF:"whiteCat-male-tf",
     whiteCatFemaleTF:"whiteCat-female-tf",
     whiteCatMaleVore:"whiteCat-male-vore",
     whiteCatFemaleVore:"whiteCat-female-vore",
-
-    curseShadowMaleVore:"whiteCat-male-vore",
-    whiteCatFemaleVore:"whiteCat-female-vore",
-
-    npcIstaraUnbirth:"npc-istara-unbirth",
-    npcVivianVore:"npc-vivian-vore",
-
-    curseShadowVore:"curseShadow-vore",
-    earieShadowTF:"earieShadow-tf",
+  },
     
+  curseShadow:{
+    curseShadow:"curseShadow-vore",
+    earieShadow:"earieShadow-tf",
+  },
 
+  istara:{
+    npcIstaraUnbirth:"npc-istara-unbirth",
+  },
+    
+  vivian:{
+    npcVivianTF:"npc-vivian-vore-tf",
+    npcVivianVore1:"npc-vivian-vore-1",
+    npcVivianVore2:"npc-vivian-vore-2",
+  }
+    
 }
 
 //BESTIARY DATA VARIABLE
+//inorder to alter these values to be more uniform,
 const bestiaryTextList = {
       blueSlime: {
         title: "BLUE SLIME",
@@ -432,6 +463,7 @@ const bestiaryTextList = {
         summary: "This book can record information about enemies you have encountered. When you are defeated by them, you can find a new entry about that enemy here. Enemies have elemental weaknesses which are displayed in their stats section."
       }
     };
+
 
 
 

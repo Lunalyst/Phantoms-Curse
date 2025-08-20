@@ -1510,9 +1510,9 @@ class rabbit extends enemy {
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
         if(this.enemySex === 1){
-            this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitFemaleTF;
         }else{
-            this.scene.enemyThatDefeatedPlayer = "maleRabbit";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitMaleTF;
         }
 
         // if we start the player defeated animation then we need to set a few things.
@@ -1600,9 +1600,9 @@ class rabbit extends enemy {
            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 5 && this.scene.checkDIsDown())) {
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleRabbit";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitMaleTF;
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleRabbit";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitFemaleTF;
                 }
                 this.scene.KeyDisplay.visible = false;
                console.log("changing scene");
@@ -1621,9 +1621,9 @@ class rabbit extends enemy {
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
         if(this.enemySex === 1){
-            this.scene.enemyThatDefeatedPlayer = "femaleRabbitVore";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitFemaleVore;
         }else{
-            this.scene.enemyThatDefeatedPlayer = "maleRabbitVore";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.rabbitMaleVore;
         }
 
         // if we start the player defeated animation then we need to set a few things.

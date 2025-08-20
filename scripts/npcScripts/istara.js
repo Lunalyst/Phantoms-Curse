@@ -360,7 +360,7 @@ class istara extends npc{
           });
 
         }else if(this.currentDictNode.nodeName === "node26" && this.eggLayingFinished === true){
-          this.scene.enemyThatDefeatedPlayer = "istaraUnbirth";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.istaraUnbirth;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;
@@ -567,7 +567,7 @@ class istara extends npc{
 
         }else if(this.currentDictNode.nodeName === "node26" && this.eggLayingFinished === true){
           this.scene.gameoverLocation = "istaraGameover";
-          this.scene.enemyThatDefeatedPlayer = "istaraUnbirth";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.istaraUnbirth;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;

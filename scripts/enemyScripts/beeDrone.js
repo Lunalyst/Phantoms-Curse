@@ -560,9 +560,9 @@ class beeDrone extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
                 
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleBeeDrone";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleTF;
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleBeeDrone";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleTF;
                 }
 
                 this.scene.gameoverLocation = "hiveGameover";

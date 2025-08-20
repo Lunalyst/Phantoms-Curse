@@ -974,9 +974,9 @@ class whiteCat extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
             if(this.enemySex === 0){
-                this.scene.enemyThatDefeatedPlayer = "whiteCatMaleTF";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.whiteCatMaleTF;
             }else{
-                this.scene.enemyThatDefeatedPlayer = "whiteCatFemaleTF";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.whiteCatFemaleTF;
             }
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {
@@ -1143,9 +1143,9 @@ class whiteCat extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
             if(this.enemySex === 0){
-                this.scene.enemyThatDefeatedPlayer = "whiteCatMaleVore";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.whiteCatMaleVore;
             }else{
-                this.scene.enemyThatDefeatedPlayer = "whiteCatFemaleVore";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.whiteCatFemaleVore;
             }
 
             // if we start the player defeated animation then we need to set a few things.

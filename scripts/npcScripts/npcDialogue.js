@@ -2118,7 +2118,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleTiger":{
+                "tiger_female_vore":{
                     "node1":{
                         "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. The good news is, the tiger enjoyed you very much. In fact, she thought you were grrrrrrrrrreat!",
                         "profile":"",
@@ -2126,7 +2126,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleTiger":{
+                "tiger_male_vore":{
                     "node1":{
                         "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. As your body melted, you could feel yourself being absorbed into the tiger's body. The rest of your existence will be spent as padding on the tiger. At least on the bright side, when the tiger pleaures himself, you feel it too.",
                         "profile":"",
@@ -2134,7 +2134,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleBat":{
+                "bat_male_vore":{
                     "node1":{
                         "dialogue": "A swooshing sound was all that announced your fate. You were caught unaware, and swiftly ended up stuffed into a bats bowels. You couldnt even scream within the warm, smothering chamber, and instead you simply whimpered. Within a few minutes, your body was mere liquid within the bats intestines. Ultimately, your life came to a end, your entire existence only remembered as ass fat.",
                         "profile":"",
@@ -2142,7 +2142,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "blueSlimeHS":{
+                "blueSlime_hs_vore":{
                     "node1":{
                         "dialogue": "The face should have been a dead give away that this slime was different. As it latched on to your face, you struggled to break free. Once you were exausted, it coated your body with its slime.  Now you were under its control. It enjoyed playing with you until you climaxed.",
                         "profile":"",
@@ -2150,7 +2150,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "blueSlimeFemaleHM":{
+                "blueSlime_female_hm_vore":{
                     "node1":{
                         "dialogue": "You where caught of guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their chest. enjoying playing with you, it squished you into her stomache, then moved you to her now engourged breasts. Moving you between the now massive sacks of soft slime. Once she had her fun, you where absorbed into her body. Now you will spend the rest of your days padding out the breasts of a engorged slime girl.",
                         "profile":"",
@@ -2158,7 +2158,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "blueSlimeMaleHM":{
+                "blueSlime_male_hm_vore":{
                     "node1":{
                         "dialogue": "You where caught of guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their engorged penis. Quickly squeezing you through its urethra and into its large balls. as the slime began to pleasure itself, you felt your body throbbing with pleasure as you melted. When the slime climaxed you could feel what little of you was left rise quickly out the slimes massive cock. Only to be swallowed and reabsorbed. Now you will spend the rest of your days as slimey pudge on this engourged slime boy. ",
                         "profile":"",
@@ -2166,7 +2166,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleChestMimicVore":{
+                "mimic_male_vore":{
                     "node1":{
                         "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn’t save you now. Your death was simply an open-and-shut case.",
                         "profile":"",
@@ -2174,7 +2174,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleChestMimicVore":{
+                "mimic_female_vore":{
                     "node1":{
                         "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn’t save you now. Your death was simply an open-and-shut case.",
                         "profile":"",
@@ -2182,7 +2182,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "whiteCatFemaleVore":{
+                "whiteCat_female_vore":{
                     "node1":{
                         "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat’s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a girl kisser, or at least, you’re part of one.",
                         "profile":"",
@@ -2190,7 +2190,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "whiteCatMaleVore":{
+                "whiteCat_male_vore":{
                     "node1":{
                         "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat’s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a boy kisser, or at least, you’re part of one.",
                         "profile":"",
@@ -2198,7 +2198,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "curseShadow":{
+                "shadow_curse_vore":{
                     "node1":{
                         "dialogue": "The darkness of the cave didn't dicourage you at all from entering. As you stubbled around, something grabbed the lower half of your body. Pulling you partially into the floor this creature began to suck you in. Despite your best efforts to struggle free, it tired you out, and sucked you completely inside is dark body. As you wiggled you could feel the shadow restrain you, with tendrils of black shadow. More tendrils formed with the intent of filling your body with some unknown substance. As it began to pump your body full, you could feel your chest become heavier, and your genitalia swell. once it had spread its self completely through your body, it was finally able to fully absorb you into its form. Now that you became one with the shadow, it began to pleasure itself... ",
                         "profile":"",
@@ -2206,7 +2206,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleRabbitVore":{
+                "rabbit_male_vore":{
                     "node1":{
                         "dialogue": "Your smell was irresistible to them... Overcome by their hunger, the rabbit chased you down. Before you could react it shoved you to the ground. Stunned by the impact, you couldnt get up fast enough. In a moment the rabbit was already swallowing you whole. You were being squished both by the walls of the rabbits stomach, as well as the weight of the rabbit's body. You struggled and gradually lost your strength until you were completely subdued and digested. You could feel yourself melt and be absorbed into the rabbit's form, causing the rabbit to grow a size larger. With the rabbit's new strength and size it happily dominates other rabbits. Pleasure overwelms you as the rabbits fornicate...",
                         "profile":"",
@@ -2214,7 +2214,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleRabbitVore":{
+                "rabbit_female_vore":{
                     "node1":{
                         "dialogue": "Your smell was irresistible to them... Overcome by their hunger, the rabbit chased you down. Before you could react it shoved you to the ground. Stunned by the impact, you couldnt get up fast enough. In a moment the rabbit was already swallowing you whole. You were being squished both by the walls of the rabbits stomach, as well as the weight of the rabbit's body. You struggled and gradually lost your strength until you were completely subdued and digested. You could feel yourself melt and be absorbed into the rabbit's form, causing the rabbit to grow a size larger. With the rabbit's new strength and size it happily dominates other rabbits. Pleasure overwelms you...",
                         "profile":"",
@@ -2222,7 +2222,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "vivianVore":{
+                "vivian_vore_1":{
                     "node1":{
                         "dialogue": "You knew the risks of playing with a hungry wolf girl. As soon as you opened the wrong chest, your fate was sealed. Vivian swiftly swallowed you up with ease. She enjoyed her newest meal as you struggled and squirmed all the way into her belly. There was little time to get comfortable, as Vivian's stomach made quick work of you. Before long, your form melted in with the stomach acids completely, and began to be absorbed into the wolf girl’s body. All that remains of you is your clothing that is now being stretched out by Vivian, and the wolf pudge that you've become.",
                         "profile":"",
@@ -2230,7 +2230,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "vivianVore2":{
+                "vivian_vore_2":{
                     "node1":{
                         "dialogue": "You were warned. You were told that this would happen if you didn’t knock right. And yet you still messed up. As you slide down the hungry wolf girl’s throat, you can’t even remember if you forgot the code or if you intentionally made a mistake. Either way, your adventure ends here, now as belly fat for Vivian.",
                         "profile":"",
@@ -2248,7 +2248,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "blueSlime":{
+                "blueSlime_tf":{
                     "node1":{
                         "dialogue": "Theres no way you would lose to a slime, right? As much as you told yourself this, one small misstep, and that weak slime had engulfed your leg, and then quickly moved up to your torso. To your surprise, it began to pleasure you. Feeling your strength weaken, you ultimately lie back in defeat as you climax. You then feel a filling sensation as you'realize the slime is now within you. It doesnt take long before your skin is changed into blue slime. But you actually feel... glad? You have a second chance now. No, a second life. A simple life as a humanoid slime.",
                         "profile":"",
@@ -2256,7 +2256,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "largeBlueSlime":{
+                "blueSlime_large_tf":{
                     "node1":{
                         "dialogue": "It's larger, but still a slime. Unfortunately the easy thing to defeat was you, as you are brought to the ground and encased in the blue slime. It decided to play with its prey, and invaded your lower body. Before long, it fills you up with slime and your consciousness fades, along with any traces of your body. However, you wake up soon after, but bigger, and less human. Your adventure ends as a human, but now you have a brand new life as a large slime ahead of you.",
                         "profile":"",
@@ -2264,7 +2264,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleTigerBooba":{
+                "tiger_female_tf":{
                     "node1":{
                         "dialogue": "The tiger was satisfied from her previous meal, which was lucky for you. She was quite slow due to her fullness and yet she still got her hands on you, smothering you with her enlarged breasts. Your will to struggle faded as she laid down, with you on top of her. As she forced your body onto hers, you could feel yourself transforming as you climaxed. Now you're her precious tiger cub. You might be cursed, but atleast your tiger momma will keep you safe.",
                         "profile":"",
@@ -2272,7 +2272,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleTigerBenis":{
+                "tiger_male_tf":{
                     "node1":{
                         "dialogue": "The tiger was satisfied from his previous meal, which was lucky for you. He was quite slow due to his fullness and yet he still got his hands on you, scooping you up and placing you on his massive cock. As you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. At first it was a little straining but eventually your body got used to it. The feeling of the tiger's cock filling you up sent waves of pleasure through your body as you transformed. Now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
                         "profile":"",
@@ -2280,7 +2280,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleRabbit":{
+                "rabbit_male_tf":{
                     "node1":{
                         "dialogue": "In a humiliating turn of events, you suddenly get to experience how rabbits multiply so quickly as you are bent over at the mercy of the male rabbit that caught you. Before long, he penetrates your rear and goes to town with many loud PLAPS. As the two of you both climax in pleasure, you see your body change, growing fur and paws. As the male rabbit finishes and wanders off to find a new partner, you're left alone with your new rabbit body. You feel very warm as your crotch gets hot and twitches. Its time to start helping the rabbits multiply more.",
                         "profile":"",
@@ -2288,7 +2288,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleRabbit":{
+                "rabbit_female_tf":{
                     "node1":{
                         "dialogue": "Before you can react, you're knocked down, and a female rabbit hops on top of you. Giving you no time to recover, she begins to hump you, occasionally smothering you with her breasts. Her bounces get faster and faster before you'realize your body looks like hers now. Satisfied, the rabbit jumps off and leaves you be. You stand up, still unsatisfied, panting and squeezing your boob. Perhaps that female rabbit was on to something, and you take after her lead and find a proper mate of your own to bounce on.",
                         "profile":"",
@@ -2296,7 +2296,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleBeeDrone":{
+                "bee_drone_male_tf":{
                     "node1":{
                         "dialogue": "The flap of wings should have been a indicator to run. You tried to stand your ground. Clearly that didn't work out too well for you. The bee grabbed you. You were lifted of the ground, struggling against the strength of the cursed insect. When it could tell you were exausted, it opened up its large abdomen to swallow you, packing you tightly. Happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. All you feel now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. Its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
@@ -2304,7 +2304,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleBeeDrone":{
+                "bee_drone_female_tf":{
                     "node1":{
                         "dialogue": "The flap of wings should have been a indicator to run. You tried to stand your ground. Clearly that didn't work out too well for you. The bee grabbed you. You were lifted of the ground, struggling against the strength of the cursed insect. When it could tell you were exausted, it opened up its large abdomen to swallow you, packing you tightly. Happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. All you feel now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. Its warm walls masaging your body as your mind is clouded with pleasure.",
                         "profile":"",
@@ -2312,7 +2312,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "femaleChestMimic":{
+                "mimic_female_tf":{
                     "node1":{
                         "dialogue": "Thinking you found something, you instead were found BY something. Grabbed by a mimic, she pulls you into the chest and the lid closes after. Surrounded by squishy pink flesh, you're face to face with the mimic as she has her long tongue going down your throat. As her motions get faster, your skin gets pinker, and before you know it, your entire vision is pink. As the chest opens once more, it appears you DID get something from the chest. A loving mama that will care for you until you're ready for a chest of your very own.",
                         "profile":"",
@@ -2320,7 +2320,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "maleChestMimic":{
+                "mimic_male_tf":{
                     "node1":{
                         "dialogue": "As you open the chest, youre immediately grabbed by the mimic that was waiting for you. You can only hear the lid closing as you're face down, surrounded by pink flesh. It actually feels comfy, but you dont have time to enjoy it as you feel something being inserted into your butt. Of course, the mimic is here with you, and he proceeds to violate your rear rhythmically to the pulsating flesh around you. It doesnt take long to start enjoying as you then become a loving member of the mimics family. Dont worry, he is very proud of you.",
                         "profile":"",
@@ -2328,7 +2328,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "istaraUnbirth":{
+                "istara_unbirth":{
                     "node1":{
                         "dialogue": "The little human willingly gives themselves to the cobra dragoness to forever feel the joys of being close to their mistress, adored by her for all eternity, and always looking to please. Occasionally going out to get whatever mistress demands them to, sometimes these requests require the rare human or common beast, to grow her following. The new followers having different features to their Cobrabold selves retaining some small semblance of their former selves. It fills the former human with pride that they look the most like mistress, the most pure, the closest to mistress; her main Cobrabold. The little Cobrabold knows that they will always be the first and most cherished. Forever safe in her ever expanding lair among their new brothers and sisters that are growing in number as the weeks go on. All hail Istara the Cobra Queen",
                         "profile":"",
@@ -2336,7 +2336,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "whiteCatMaleTF":{
+                "whiteCat_male_tf":{
                     "node1":{
                         "dialogue": "Enamored by its cute roar, you willingly get closer to the male cat. Close enough for it to grab and give a big smooch, and then hold you up as it inserts its penis into you. Despite the insertion, you cant seem to be mad at him as he's just way too cute. You offer no resistance and let him do what he wants, as the cat gets faster and faster. When you both reach your peaks, your body becomes like his, along with your very own cat shaft. Now partners for life, you await for his return for your next session with a little self deserved cat nap.",
                         "profile":"",
@@ -2344,7 +2344,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "whiteCatFemaleTF":{
+                "whiteCat_female_tf":{
                     "node1":{
                         "dialogue": "Your head starts to get fuzzy, similar to the female cats fur in front of you. With only that on your mind, you rush forward to try to nestle your head in her fur. But she gives you a loving hug first, along with a very passionate kiss to set the mood. Your desire is made true as the cat shoves your head in between her breasts, nearly covering your entire head with how big and furry they are. The cat satisfies her own desires too, as she nuzzles her lower half against yours. As you both get your fill, you realize that you now have a pair of fuzzy breasts of you own, along with a loving mate for eternity. But for now, a little cat nap as a reward for all your hard work.",
                         "profile":"",
@@ -2390,7 +2390,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "earieShadow":{
+                "shadow_earie_tf":{
                     "node1":{
                         "dialogue": "You're all mine now....",
                         "profile":"",
@@ -2446,7 +2446,7 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
-                "vivianTF":{
+                "vivian_tf":{
                     "node1":{
                         "dialogue": "The odds were against you, but you thought you could still win. After choosing wrong, Vivian made you swallow your pride with your loss, along with a strange potion she forced you to drink. In mere moments, your body changed. Fur, paws, a tail; all these were now part of your body, and you now look like the wolf girl you lost to. Your mind began to become fuzzy like your now furry body, and now only thoughts of staying with Vivian fill your mind. Wolf girls stay in packs, and Vivian is more than happy to have you in hers.",
                         "profile":"",

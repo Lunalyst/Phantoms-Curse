@@ -1390,9 +1390,9 @@ class tiger extends enemy {
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
         if(this.enemySex === 1){
-            this.scene.enemyThatDefeatedPlayer = "femaleTiger";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.tigerFemaleVore;
         }else{
-            this.scene.enemyThatDefeatedPlayer = "maleTiger";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.tigerMaleVore;
         }
         
 
@@ -1463,7 +1463,7 @@ class tiger extends enemy {
         this.playerDefeated = true;
         
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-        this.scene.enemyThatDefeatedPlayer = "femaleTigerBooba";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.tigerFemaleTF;
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {
@@ -1526,7 +1526,7 @@ class tiger extends enemy {
         this.playerDefeated = true;
 
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-        this.scene.enemyThatDefeatedPlayer = "maleTigerBenis";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.tigerMaleTF;
 
         // if we start the player defeated animation then we need to set a few things.
         if (this.playerDefeatedAnimationStage === 0) {

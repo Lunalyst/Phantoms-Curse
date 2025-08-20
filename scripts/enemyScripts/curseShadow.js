@@ -846,7 +846,7 @@ class curseShadow extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-            this.scene.enemyThatDefeatedPlayer = "curseShadow";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowCurse;
 
             // if we start the player defeated animation then we need to set a few things.
             ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
@@ -902,7 +902,7 @@ class curseShadow extends enemy {
             console.log()
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 11 && this.scene.checkDIsDown())) {
 
-                this.scene.enemyThatDefeatedPlayer = "curseShadow";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowCurse;
                 
                 this.scene.gameoverLocation = "shadowGameover";
 

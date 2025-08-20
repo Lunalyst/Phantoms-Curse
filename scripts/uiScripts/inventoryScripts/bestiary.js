@@ -15,37 +15,37 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({ key: 'closed', frames: this.anims.generateFrameNames('bestiary1', { start: 0, end: 0 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'cover', frames: this.anims.generateFrameNames('bestiary1', { start: 1, end: 1 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'back', frames: this.anims.generateFrameNames('bestiary1', { start: 2, end: 2 }), frameRate: 10, repeat: -1 });
-    this.anims.create({ key: 'blueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'largeBlueSlime', frames: this.anims.generateFrameNames('bestiary1', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleTiger', frames: this.anims.generateFrameNames('bestiary1', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-	  this.anims.create({ key: 'femaleTigerBooba', frames: this.anims.generateFrameNames('bestiary1', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleTiger', frames: this.anims.generateFrameNames('bestiary2', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-	  this.anims.create({ key: 'maleTigerBenis', frames: this.anims.generateFrameNames('bestiary2', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleRabbit', frames: this.anims.generateFrameNames('bestiary1', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleBeeDrone', frames: this.anims.generateFrameNames('bestiary1', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleBeeDrone', frames: this.anims.generateFrameNames('bestiary1', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleBat', frames: this.anims.generateFrameNames('bestiary1', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleBat', frames: this.anims.generateFrameNames('bestiary1', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeHS', frames: this.anims.generateFrameNames('bestiary1', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeMaleHM', frames: this.anims.generateFrameNames('bestiary1', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'blueSlimeFemaleHM', frames: this.anims.generateFrameNames('bestiary1', { start: 15, end: 15 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleChestMimic', frames: this.anims.generateFrameNames('bestiary1', { start: 16, end: 16 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleChestMimicVore', frames: this.anims.generateFrameNames('bestiary1', { start: 17, end: 17 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleChestMimic', frames: this.anims.generateFrameNames('bestiary1', { start: 18, end:  18 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleChestMimicVore', frames: this.anims.generateFrameNames('bestiary1', { start: 19, end: 19 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'istaraUnbirth', frames: this.anims.generateFrameNames('bestiary2', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'whiteCatMaleTF', frames: this.anims.generateFrameNames('bestiary2', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'whiteCatFemaleTF', frames: this.anims.generateFrameNames('bestiary2', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'whiteCatMaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'whiteCatFemaleVore', frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'curseShadow', frames: this.anims.generateFrameNames('bestiary2', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'earieShadow', frames: this.anims.generateFrameNames('bestiary2', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'maleRabbitVore', frames: this.anims.generateFrameNames('bestiary2', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'femaleRabbitVore', frames: this.anims.generateFrameNames('bestiary2', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'vivianVore', frames: this.anims.generateFrameNames('bestiary2', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'vivianTF', frames: this.anims.generateFrameNames('bestiary2', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
-    this.anims.create({ key: 'vivianVore2', frames: this.anims.generateFrameNames('bestiary2', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.blueSlimeTF, frames: this.anims.generateFrameNames('bestiary1', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.blueSlimeLargeTF, frames: this.anims.generateFrameNames('bestiary1', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.tigerFemaleVore, frames: this.anims.generateFrameNames('bestiary1', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+	  this.anims.create({ key: bestiaryKey.tigerFemaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.tigerMaleVore, frames: this.anims.generateFrameNames('bestiary2', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+	  this.anims.create({ key: bestiaryKey.tigerMaleTF, frames: this.anims.generateFrameNames('bestiary2', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.rabbitMaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 6, end: 6 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.rabbitFemaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.beeDroneMaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.beeDroneFemaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.batMaleVore, frames: this.anims.generateFrameNames('bestiary1', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.batFemaleVore, frames: this.anims.generateFrameNames('bestiary1', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.blueSlimeHSVore, frames: this.anims.generateFrameNames('bestiary1', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.blueSlimeMaleHMVore, frames: this.anims.generateFrameNames('bestiary1', { start: 14, end: 14 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.blueSlimeFemaleHMVore, frames: this.anims.generateFrameNames('bestiary1', { start: 15, end: 15 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.mimicFemaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 16, end: 16 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.mimicFemaleVore, frames: this.anims.generateFrameNames('bestiary1', { start: 17, end: 17 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.mimicMaleTF, frames: this.anims.generateFrameNames('bestiary1', { start: 18, end:  18 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.mimicMaleVore, frames: this.anims.generateFrameNames('bestiary1', { start: 19, end: 19 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.istaraUnbirth, frames: this.anims.generateFrameNames('bestiary2', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.whiteCatMaleTF, frames: this.anims.generateFrameNames('bestiary2', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.whiteCatFemaleTF, frames: this.anims.generateFrameNames('bestiary2', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.whiteCatMaleVore, frames: this.anims.generateFrameNames('bestiary2', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.whiteCatFemaleVore, frames: this.anims.generateFrameNames('bestiary2', { start: 4, end: 4 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.shadowCurse, frames: this.anims.generateFrameNames('bestiary2', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.shadowEarie, frames: this.anims.generateFrameNames('bestiary2', { start: 8, end: 8 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.rabbitMaleVore, frames: this.anims.generateFrameNames('bestiary2', { start: 9, end: 9 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.rabbitFemaleVore, frames: this.anims.generateFrameNames('bestiary2', { start: 10, end: 10 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.vivianVore1, frames: this.anims.generateFrameNames('bestiary2', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.vivianTF, frames: this.anims.generateFrameNames('bestiary2', { start: 12, end: 12 }), frameRate: 7, repeat: -1 });
+    this.anims.create({ key: bestiaryKey.vivianVore2, frames: this.anims.generateFrameNames('bestiary2', { start: 13, end: 13 }), frameRate: 7, repeat: -1 });
     
     // the default animation for bestiary should be closed.
     this.anims.play("closed");
@@ -84,24 +84,72 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.bestiaryRight.anims.play("pointRight");
     this.bestiaryRight.visible = false;
 
-    // when the scene is loaded, the bestiary fills this.activeBestiaryPages with the correct values from the scene.playerBestiaryData
-    // so that the pages are displayed in the correct order.
-    //have a variable which contains the key word to a grouping.
+    //create an empty object
     this.activeBestiaryPages = [];
-    this.groupings = ["blueSlime","Tiger"];
-    this.activeBestiaryPages.push(['cover']);
-    //N represents the flag values of the player 0 - Max Entries
+    //this.activeBestiaryPages = {};
+
+    //add key cover to object, which equals an array, with the string "cover" inside it 
+    this.activeBestiaryPages.push('cover');
+    //this.activeBestiaryPages["cover"] = ["cover"];
+
+    // searches through all the keys of the bestiarydata
     for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
+
       console.log("key: ", key, " value: ", value);
+
+      //if we find a bestiary entry the player has
       if (value === 1) {
-        //search for the grouping to see which group the true bestiary belongs to
-        //have to chek 0 to mas grouping which is M
+
+        //first grab the species/type from the key string
+        /**
+        
+        //temp variable to store species 
+        let tempString = "";
+
+        //loop to fill temp with the species. we stop once we hit a -
+        for(let counter = 0; counter < key.length;counter++){
+
+        //if the character is a underscore
+        if(key[counter] === '_'){
+
+        //break out of the loop
+        break;
+
+        //otherwise
+        }else{
+
+        //add character to our tempt string.
+        tempString += key[counter];
+        }
+        
+
+        }
+
+        // if the group does not exist
+        if(this.activeBestiaryPages["tempString"] !== undefined){
+
+          // define key in object, as an array, containing the current bestiary flag in that array
+          this.activeBestiaryPages["tempString"] = [key];
+
+        //otherwise
+        }else{
+
+          //push the bestiary flag key to the array, at that species/type key.
+          this.activeBestiaryPages["tempString"].push(key);
+
+        }
+
+         */
 
         //check every position of the key to see if the flag could be found. 
         this.activeBestiaryPages.push(key.toString());
       }
     }
+    
+    //add key cover to object, which equals an array, with the string "cover" inside it 
     this.activeBestiaryPages.push('back');
+    //this.activeBestiaryPages["back"] = ["back"];
+
     console.log(this.activeBestiaryPages);
 
     //handles the positioning of the title text sprites.

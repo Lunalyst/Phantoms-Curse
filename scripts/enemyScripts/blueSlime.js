@@ -781,7 +781,7 @@ class blueSlime extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-            this.scene.enemyThatDefeatedPlayer = "blueSlime";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeTF;
 
             // if we start the player defeated animation then we need to set a few things.
             ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
@@ -849,7 +849,7 @@ class blueSlime extends enemy {
             this.playerDefeated = true;
             //console.log(" keyA: "+keyA+" keyD: "+keyD);
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-            this.scene.enemyThatDefeatedPlayer = "largeBlueSlime";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeLargeTF;
             // if we start the player defeated animation then we need to set a few things.
             if (this.inStartDefeatedLogic === false) {
                 this.scene.KeyDisplay.playDKey();

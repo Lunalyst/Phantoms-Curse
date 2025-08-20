@@ -310,10 +310,10 @@ class vivian extends npc{
             this.startGameoverActivated = true;
             if(this.npcType === "voreSequence"){
               this.scene.gameoverLocation = "vivianGameover";
-              this.scene.enemyThatDefeatedPlayer = "vivianVore";
+              this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianVore1;
             }else{
               this.scene.gameoverLocation = "vivianGameover";
-              this.scene.enemyThatDefeatedPlayer = "vivianTF";
+              this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianTF;
             }
 
             this.scene.changeToGameover();
@@ -1562,6 +1562,14 @@ class vivian extends npc{
 
               this.anims.play('vivianVore2InToChestLegs').once('animationcomplete', () => {
               
+                //console.log("this.scene.player1.lanturnFlicker: ",this.scene.player1.lanturnFlicker);
+
+                if(this.scene.player1.lanturnFlicker !== null ){
+                  this.scene.player1.lightSource.setRadius(0);
+                  this.scene.player1.lanturnFlicker.stop();
+                  this.scene.player1.lanturnFlicker = null;
+                }
+
                 //player is in the chest, and the large struggle is played.
                 this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
                   this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
@@ -1662,7 +1670,7 @@ class vivian extends npc{
           this.dialogueCatch = true;
 
           this.scene.gameoverLocation = "vivianGameover";
-          this.scene.enemyThatDefeatedPlayer = "vivianVore2";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianVore2;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;
@@ -1821,7 +1829,13 @@ class vivian extends npc{
             this.anims.play('vivianVore2InToChest').once('animationcomplete', () => {
 
               this.anims.play('vivianVore2InToChestLegs').once('animationcomplete', () => {
-              
+                
+                if(this.scene.player1.lanturnFlicker !== null ){
+                  this.scene.player1.lightSource.setRadius(0);
+                  this.scene.player1.lanturnFlicker.stop();
+                  this.scene.player1.lanturnFlicker = null;
+                }
+
                 //player is in the chest, and the large struggle is played.
                 this.anims.play('vivianVore2ChestStruggle').once('animationcomplete', () => {
                   this.scene.initSoundEffect('woodBarrierSFX','woodHit',0.1);
@@ -1917,7 +1931,7 @@ class vivian extends npc{
           this.dialogueCatch = true;
 
           this.scene.gameoverLocation = "vivianGameover";
-          this.scene.enemyThatDefeatedPlayer = "vivianVore2";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianVore2;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;
@@ -2312,7 +2326,7 @@ class vivian extends npc{
           this.dialogueCatch = true;
 
           this.scene.gameoverLocation = "vivianGameover";
-          this.scene.enemyThatDefeatedPlayer = "vivianVore";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianVore1;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;
@@ -2502,7 +2516,7 @@ class vivian extends npc{
           this.dialogueCatch = true;
 
           this.scene.gameoverLocation = "vivianGameover";
-          this.scene.enemyThatDefeatedPlayer = "vivianTF";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianTF;
           this.scene.changeToGameover();
           this.scene.sceneTextBox.textInterupt = true;
           this.scene.sceneTextBox.textCoolDown = true;

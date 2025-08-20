@@ -381,7 +381,7 @@ class blueSlimeHS extends enemy {
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the slime.
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
-            this.scene.enemyThatDefeatedPlayer = "blueSlimeHS";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeHSVore;
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {
                 this.scene.KeyDisplay.playDKey();

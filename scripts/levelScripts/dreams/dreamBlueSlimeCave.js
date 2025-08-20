@@ -115,31 +115,31 @@ class dreamBlueSlimeCave extends defaultScene {
       setTimeout(function(){
         
         let object = {
-          flagToFind: 'blueSlime',
+          flagToFind: bestiaryKey.blueSlimeTF,
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
   
-        if(object.foundFlag === true && object.flagToFind === 'blueSlime'){
+        if(object.foundFlag === true){
           thisScene.initEnemy(825,657,thisScene.playerSex,'blueSlime',true);
         }
         
         object = {
-          flagToFind: 'largeBlueSlime',
+          flagToFind: bestiaryKey.blueSlimeLargeTF,
           foundFlag: false,
         };
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object);
   
-        if(object.foundFlag === true && object.flagToFind === 'largeBlueSlime'){
+        if(object.foundFlag === true){
           thisScene.initEnemy(926,657,thisScene.playerSex,'blueSlimeLarge',true);
         }
 
         object = {
-          flagToFind: 'blueSlimeHS',
+          flagToFind: bestiaryKey.blueSlimeHSVore,
           foundFlag: false,
         };
   
@@ -151,12 +151,12 @@ class dreamBlueSlimeCave extends defaultScene {
         }
 
         let object1 = {
-          flagToFind: 'blueSlimeMaleHM',
+          flagToFind: bestiaryKey.blueSlimeMaleHMVore,
           foundFlag: false,
         };
 
         let object2 = {
-          flagToFind: 'blueSlimeFemaleHM',
+          flagToFind: bestiaryKey.blueSlimeFemaleHMVore,
           foundFlag: false,
         };
   

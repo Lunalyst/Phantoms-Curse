@@ -368,7 +368,7 @@ class gameoverManager extends A3SoundEffects {
          overwrite any other function or class with the same name and cause a recursive loop that crashes the browser */
 
         this.mapOfEnemyPreloads = {
-            blueSlime: function blueSlimeFunction() {
+            blueSlime_tf: function blueSlimeFunction() {
 
                 tempSceneRef.enemy = new blueSlime(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 console.log("tempSceneRef.enemy: ",tempSceneRef.enemy);
@@ -377,7 +377,7 @@ class gameoverManager extends A3SoundEffects {
 
             },
             
-            largeBlueSlime: function largeBlueSlimeFunction() {
+            blueSlime_large_tf: function largeBlueSlimeFunction() {
                 tempSceneRef.enemy = new blueSlime(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.slimeSize = 2;
                 console.log("tempSceneRef.enemy: ",tempSceneRef.enemy);
@@ -385,47 +385,47 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.y-500;
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            femaleTiger: function femaleTigerFunction() {
+            tiger_female_vore: function femaleTigerFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new tiger(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.enemy.y-500;
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            maleTiger: function maleTigerFunction() {
+            tiger_male_vore: function maleTigerFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new tiger(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.enemy.y-500;
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            femaleTigerBooba: function femaleTigerBoobaFunction() {
+            tiger_female_tf: function femaleTigerBoobaFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new tiger(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.enemy.y-500;
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            maleTigerBenis: function maleTigerBenisFunction() {
+            tiger_male_tf: function maleTigerBenisFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new tiger(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.enemy.y-500;
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            maleRabbit: function maleRabbitFunction() {
+            rabbit_male_tf: function maleRabbitFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            femaleRabbit: function femaleRabbitFunction() {
+            rabbit_female_tf: function femaleRabbitFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            maleBeeDrone: function maleBeeDroneFunction() {
+            bee_drone_male_tf: function maleBeeDroneFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new beeDrone(tempSceneRef,430, 570,tempSceneRef.playerSex,1,'wingFlapSFX');
                 tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
@@ -437,7 +437,7 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
-            femaleBeeDrone: function femaleBeeDroneFunction() {
+            bee_drone_female_tf: function femaleBeeDroneFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new beeDrone(tempSceneRef,430, 570,tempSceneRef.playerSex,1,'wingFlapSFX');
                 tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
@@ -449,97 +449,97 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
-            maleBat: function maleBatFunction() {
+            bat_male_vore: function maleBatFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new bat(tempSceneRef,450, 600,tempSceneRef.playerSex,1,'wingFlapSFX');
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            femaleBat: function femaleBatFunction() {
+            bat_female_vore: function femaleBatFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new bat(tempSceneRef,450, 600,tempSceneRef.playerSex,1,'wingFlapSFX');
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            blueSlimeHS: function blueSlimeHSFunction() {
+            blueSlime_hs_vore: function blueSlimeHSFunction() {
                 tempSceneRef.enemy = new blueSlimeHS(tempSceneRef,450, 580,tempSceneRef.playerSex);
                 tempSceneRef.enemy.slimeGameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            blueSlimeFemaleHM: function blueSlimeFemaleHMFunction() {
+            blueSlime_female_hm_vore: function blueSlimeFemaleHMFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new blueSlimeHM(tempSceneRef,450, 580,tempSceneRef.playerSex);
                 tempSceneRef.enemy.slimeGameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            blueSlimeMaleHM: function blueSlimeMaleHMFunction() {
+            blueSlime_male_hm_vore: function blueSlimeMaleHMFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new blueSlimeHM(tempSceneRef,450, 580,tempSceneRef.playerSex);
                 tempSceneRef.enemy.slimeGameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            femaleChestMimic: function femaleChestMimicFunction() {
+            mimic_female_tf: function femaleChestMimicFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new chestMimic(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            femaleChestMimicVore: function femaleChestMimicVoreFunction() {
+            mimic_female_vore: function femaleChestMimicVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new chestMimic(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 tempSceneRef.enemy.angry = true;
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            maleChestMimic: function femaleChestMimicFunction() {
+            mimic_male_tf: function femaleChestMimicFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new chestMimic(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            maleChestMimicVore: function femaleChestMimicVoreFunction() {
+            mimic_male_vore: function femaleChestMimicVoreFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new chestMimic(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 tempSceneRef.enemy.angry = true;
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            istaraUnbirth: function istaraUnbirthFunction() {
+            istara_unbirth: function istaraUnbirthFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new istara(tempSceneRef,450, 549,"inCave");
                 tempSceneRef.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            whiteCatFemaleTF: function whiteCatFemaleTFFunction() {
+            whiteCat_female_tf: function whiteCatFemaleTFFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(0);
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            whiteCatFemaleVore: function whiteCatFemaleVoreFunction() {
+           whiteCat_female_vore: function whiteCatFemaleVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            whiteCatMaleTF: function whiteCatMaleTFFunction() {
+            whiteCat_male_tf: function whiteCatMaleTFFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(0);
                 tempSceneRef.defeatedTitle = 'cursed';
             },
-            whiteCatMaleVore: function whiteCatMaleVoreFunction() {
+            whiteCat_male_vore: function whiteCatMaleVoreFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            curseShadow: function curseShadowFunction() {
+            shadow_curse_vore: function curseShadowFunction() {
 
                 tempSceneRef.phantomShadow = tempSceneRef.add.sprite(1221,530,"shadow");
                 tempSceneRef.phantomShadow.setScale(1/3);
@@ -562,7 +562,7 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.gameOver();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            earieShadow: function earieShadowFunction() {
+            shadow_earie_tf: function earieShadowFunction() {
 
                 tempSceneRef.enemy = new curseShadow(tempSceneRef,450, 570+32,tempSceneRef.playerSex);
                 tempSceneRef.enemy.visible = false;
@@ -617,33 +617,33 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.dialogueInterupt = true;
 
             },
-            maleRabbitVore: function maleRabbitVoreFunction() {
+            rabbit_male_vore: function maleRabbitVoreFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOverVore();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            femaleRabbitVore: function femaleRabbitVoreFunction() {
+            rabbit_female_vore: function femaleRabbitVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new rabbit(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.gameOverVore();
                 tempSceneRef.defeatedTitle = 'eaten';
             },
-            vivianVore: function  vivianVoreFunction() {
+            vivian_vore_1: function  vivianVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new vivian(tempSceneRef,450, 565,"voreSequence");
                 tempSceneRef.enemy.gameOverVore();
                 tempSceneRef.defeatedTitle = 'eaten';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
             },
-            vivianTF: function  vivianVoreFunction() {
+            vivian_tf: function  vivianVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new vivian(tempSceneRef,450, 565,"tfSequence");
                 tempSceneRef.enemy.gameOverTF();
                 tempSceneRef.defeatedTitle = 'cursed';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
             },
-            vivianVore2: function  vivianVoreFunction() {
+            vivian_vore_2: function  vivianVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new vivian(tempSceneRef,450, 565,"voreSequence");
                 tempSceneRef.enemy.gameOverVore2();
@@ -659,7 +659,7 @@ class gameoverManager extends A3SoundEffects {
         let tempSceneRef = this;
 
         this.mapOfEnemyUpdates = {
-            blueSlime: function blueSlimeFunction() {
+            blueSlime_tf: function blueSlimeFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
                     tempSceneRef.enemy.slimeSoundCoolDown = true;
@@ -670,7 +670,7 @@ class gameoverManager extends A3SoundEffects {
                 
             },
             
-            largeBlueSlime: function largeBlueSlimeFunction() {
+            blueSlime_large_tf: function largeBlueSlimeFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
                     tempSceneRef.enemy.slimeSoundCoolDown = true;
@@ -679,11 +679,11 @@ class gameoverManager extends A3SoundEffects {
                     }, 700);
                 }
             },
-            femaleTiger: function femaleTigerFunction() {
+            tiger_female_vore: function femaleTigerFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800); 
             },
 
-            maleTiger: function maleTigerFunction() {
+            tiger_male_vore: function maleTigerFunction() {
 
                 if(tempSceneRef.enemy.maleTigerStroking === false){
                     tempSceneRef.enemy.playJumpySound('10',800);
@@ -692,19 +692,19 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.enemy.playPlapSound('plap5',1000);
                 }
             },
-            femaleTigerBooba: function femaleTigerBoobaFunction() {
+            tiger_female_tf: function femaleTigerBoobaFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            maleTigerBenis: function maleTigerBenisFunction() {
+            tiger_male_tf: function maleTigerBenisFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            maleRabbit: function maleRabbitFunction() {
+            rabbit_male_tf: function maleRabbitFunction() {
 
             },
-            femaleRabbit: function femaleRabbitFunction() {
+            rabbit_female_tf: function femaleRabbitFunction() {
 
             },
-            maleBeeDrone: function maleBeeDroneFunction() {
+            bee_drone_male_tf: function maleBeeDroneFunction() {
                 if(tempSceneRef.enemy.beeDroneSoundCoolDown === false ){
                     if(tempSceneRef.enemy.gameoverAnimationComplete === true){
                         tempSceneRef.initSoundEffect('plapSFX','plap2',1);
@@ -731,7 +731,7 @@ class gameoverManager extends A3SoundEffects {
                     }    
                 }
             },
-            femaleBeeDrone: function femaleBeeDroneFunction() {
+            bee_drone_female_tf: function femaleBeeDroneFunction() {
                 if(tempSceneRef.enemy.beeDroneSoundCoolDown === false ){
                     if(tempSceneRef.enemy.gameoverAnimationComplete === true){
                         tempSceneRef.initSoundEffect('plapSFX','plap2',1);
@@ -758,14 +758,14 @@ class gameoverManager extends A3SoundEffects {
                     }    
                 }
             },
-            maleBat: function maleBatFunction() {
+            bat_male_vore: function maleBatFunction() {
 
             },
-            femaleBat: function femaleBatFunction() {
+            bat_female_vore: function femaleBatFunction() {
 
             },
             
-            blueSlimeHS: function blueSlimeHSFunction() {
+            blueSlime_hs_vore: function blueSlimeHSFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
                     tempSceneRef.enemy.slimeSoundCoolDown = true;
@@ -775,7 +775,7 @@ class gameoverManager extends A3SoundEffects {
                     }, 700);
                 }
             },
-            blueSlimeFemaleHM: function blueSlimeFemaleHMFunction() {
+            blueSlime_female_hm_vore: function blueSlimeFemaleHMFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
                     tempSceneRef.enemy.slimeSoundCoolDown = true;
@@ -785,7 +785,7 @@ class gameoverManager extends A3SoundEffects {
                     }, 700);
                 }
             },
-            blueSlimeMaleHM: function blueSlimeMaleHMFunction() {
+            blueSlime_male_hm_vore: function blueSlimeMaleHMFunction() {
                 if(tempSceneRef.enemy.slimeSoundCoolDown === false){
                     tempSceneRef.initSoundEffect('blueSlimeSFX','2',0.3);
                     tempSceneRef.enemy.slimeSoundCoolDown = true;
@@ -795,34 +795,34 @@ class gameoverManager extends A3SoundEffects {
                     }, 700);
                 }
             },
-            femaleChestMimic: function femaleChestMimicFunction() {
+            mimic_female_tf: function femaleChestMimicFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            femaleChestMimicVore: function femaleChestMimicVoreFunction() {
+            mimic_female_vore: function femaleChestMimicVoreFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);    
             },
-            maleChestMimic: function femaleChestMimicFunction() {
+            mimic_male_tf: function femaleChestMimicFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            maleChestMimicVore: function femaleChestMimicVoreFunction() {
+            mimic_male_vore: function femaleChestMimicVoreFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            istaraUnbirth: function istaraUnbirthFunction() {
+            istara_unbirth: function istaraUnbirthFunction() {
 
             },
-            whiteCatFemaleTF: function whiteCatFemaleTFFunction() {
+            whiteCat_female_tf: function whiteCatFemaleTFFunction() {
  
             },
-            whiteCatFemaleVore: function whiteCatFemaleVoreFunction() {
+            whiteCat_female_vore: function whiteCatFemaleVoreFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            whiteCatMaleTF: function whiteCatMaleTFFunction() {
+            whiteCat_male_tf: function whiteCatMaleTFFunction() {
 
             },
-            whiteCatMaleVore: function whiteCatMaleVoreFunction() {
+            whiteCat_male_vore: function whiteCatMaleVoreFunction() {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
-            curseShadow: function curseShadowFunction() {
+            shadow_curse_vore: function curseShadowFunction() {
                 
                 //handle special gameover process
                 if(tempSceneRef.enemy.gameoverMove === true && tempSceneRef.enemy.x < 1220){
@@ -884,7 +884,7 @@ class gameoverManager extends A3SoundEffects {
                 }
                 
             },
-            earieShadow: function earieShadowFunction() {
+            shadow_earie_tf: function earieShadowFunction() {
                 if(tempSceneRef.earieshadowLockout === false){
                     switch(tempSceneRef.earieShadowState) {
                         case 0:
@@ -1104,7 +1104,7 @@ class gameoverManager extends A3SoundEffects {
                     
                 }
             },
-            maleRabbitVore: function maleRabbitVoreFunction() {
+            rabbit_male_vore: function maleRabbitVoreFunction() {
                 //sound state machine for ifferent stages.
                 if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
                     tempSceneRef.enemy.playPlapSound('plap8',800);
@@ -1114,7 +1114,7 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.enemy.playJumpySound('10',800); 
                 }
             },
-            femaleRabbitVore: function femaleRabbitVoreFunction() {
+            rabbit_female_vore: function femaleRabbitVoreFunction() {
                 //sound state machine for ifferent stages.
                 if( tempSceneRef.playerSex !== 1 && tempSceneRef.enemySex !== 1){
                     if(tempSceneRef.enemy.gameoverLoopingSounds === 0){
@@ -1129,13 +1129,13 @@ class gameoverManager extends A3SoundEffects {
                 }
                 
             },
-            vivianVore: function  vivianVoreFunction() {
+            vivian_vore_1: function  vivianVoreFunction() {
                 
             },
-            vivianTF: function  vivianVoreFunction() {
+            vivian_tf: function  vivianVoreFunction() {
                 
             },
-            vivianVore2: function  vivianVore2Function() {
+            vivian_vore_2: function  vivianVore2Function() {
                 
             },
         }

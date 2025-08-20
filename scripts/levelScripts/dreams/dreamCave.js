@@ -137,12 +137,12 @@ class dreamCave extends defaultScene {
       setTimeout(function(){
         
         let object1 = {
-          flagToFind: 'maleBat',
+          flagToFind: bestiaryKey.batMaleVore,
           foundFlag: false,
         };
 
         let object2 = {
-          flagToFind: 'femaleBat',
+          flagToFind:  bestiaryKey.batFemaleVore,
           foundFlag: false,
         };
   
@@ -150,17 +150,17 @@ class dreamCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBat' || object2.flagToFind === 'femaleBat')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(828,605,thisScene.playerSex,'bat',true,'wingFlapSFX1');
         }
 
         object1 = {
-          flagToFind: 'maleChestMimic',
+          flagToFind: bestiaryKey.mimicMaleTF,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleChestMimic',
+          flagToFind: bestiaryKey.mimicFemaleTF,
           foundFlag: false,
         };
   
@@ -168,17 +168,17 @@ class dreamCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleChestMimic' || object2.flagToFind === 'femaleChestMimic')){
+        if((object1.foundFlag === true || object2.foundFlag === true) ){
           thisScene.initEnemy(691,605-4,thisScene.playerSex,'chestMimic',true,);
         }
 
         object1 = {
-          flagToFind: 'maleChestMimicVore',
+          flagToFind: bestiaryKey.mimicMaleVore,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleChestMimicVore',
+          flagToFind: bestiaryKey.mimicFemaleVore,
           foundFlag: false,
         };
   
@@ -186,12 +186,12 @@ class dreamCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleChestMimicVore' || object2.flagToFind === 'femaleChestMimicVore')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(581,605-4,thisScene.playerSex,'chestMimicAngry',true);
         }
 
         object1 = {
-          flagToFind: 'istaraUnbirth',
+          flagToFind: bestiaryKey.istaraUnbirth,
           foundFlag: false,
         };
 

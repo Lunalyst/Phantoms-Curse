@@ -617,9 +617,9 @@ class blueSlimeHM extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
             if(this.enemySex === 0){
-                this.scene.enemyThatDefeatedPlayer = "blueSlimeMaleHM";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeMaleHMVore;
             }else{
-                this.scene.enemyThatDefeatedPlayer = "blueSlimeFemaleHM";
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeFemaleHMVore;
             }
             // if we start the player defeated animation then we need to set a few things.
             if (this.playerDefeatedAnimationStage === 0) {

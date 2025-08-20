@@ -231,7 +231,7 @@ class EarieShadow extends enemy {
         this.playerGrabbed = true;
         this.scene.player1.visible = false;
 
-        this.scene.enemyThatDefeatedPlayer = "earieShadow";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowEarie;
         this.scene.gameoverLocation = "abyssGameover";
         this.scene.KeyDisplay.visible = false;
 
@@ -258,7 +258,7 @@ class EarieShadow extends enemy {
                     this.playerGrabbed = true;
                     this.scene.player1.visible = false;
 
-                    this.scene.enemyThatDefeatedPlayer = "earieShadow";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowEarie;
                     this.scene.gameoverLocation = "abyssGameover";
                     this.scene.KeyDisplay.visible = false;
 

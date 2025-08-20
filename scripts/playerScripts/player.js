@@ -199,6 +199,8 @@ class player extends Phaser.GameObjects.Container{
     this.setupRingPassivesMap();
     this.setupWeaponPassivesMap();
 
+    this.fallThroughLayer0 = false;
+
     //set up object of functions for item logic 
 
       //composit idle animation 
@@ -484,9 +486,20 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
   
   if(this.isAttacking === false){
     //move the player left
-    
-    //console.log("this.scene.checkAIsDown()",this.scene.checkAIsDown());
-    if(this.scene.checkAIsDown() && this.mainHitbox.body.blocked.down){
+
+    //if s is pressed fall through the platform by destoying the collision of player 0.
+    if(this.scene.checkSIsDown() && this.mainHitbox.body.blocked.down && this.fallThroughLayer0 === false){
+    this.scene.playerLayer0Collider.destroy();
+    this.fallThroughLayer0 = true;
+
+    let temp = this;
+    setTimeout(function(){
+      temp.scene.playerLayer0Collider = temp.scene.physics.add.collider(temp.mainHitbox,temp.scene.processMap.layer0);
+      temp.fallThroughLayer0 = false;
+    },300);
+
+    //moves the player right
+    }else if(this.scene.checkAIsDown() && this.mainHitbox.body.blocked.down){
       this.mainHitbox.setSize(10,60,true);
       this.mainHitbox.setOffset(12, -4);
         this.lastKey = "a";

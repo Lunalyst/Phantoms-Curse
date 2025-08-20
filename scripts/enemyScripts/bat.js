@@ -582,9 +582,9 @@ class bat extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
                 console.log("activating game over by hitting tab")
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleBat";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.batMaleVore;
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleBat";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.batFemaleVore;
                 }
 
                 this.scene.KeyDisplay.visible = false;

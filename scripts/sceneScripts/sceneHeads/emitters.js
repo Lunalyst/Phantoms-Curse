@@ -265,195 +265,222 @@ const oneTimeItemArray = {
  * 
  * 
  */
+
+//each catigory for the bestiary groupings.
+const Groupings = [
+"blueSlime",
+"tiger",
+"rabbit",
+"bee",
+"bat",
+"mimic",
+"whiteCat",
+"shadow",
+"istara",
+"vivian"
+];
+//process to convert bestiary entries.
+/*
+- in emitters change the bestiary flag in bestiaryTextList here to reflect new values
+complete
+
+-change bestiary animations to properly reflect new flag values
+
+- in gameovermanager.js Replace function names for enemy setup and update loop to reflect new name in gameover scripts
+complete
+
+-in npc dialogue change the gameover flag to refrence the same string using bestiaryKey.blueSlimeTF
+complete
+
+- in driemviewer level replace the dream viewer flag to check the new one based on bestiaryKey.blueSlimeTF object
+complete
+
+- in enemy.js change value in enemy -> this.scene.enemyThatDefeatedPlayer to = new key below
+complete
+
+
+testing enemys
+check bestiary book for flag
+check gameover is using correct flag
+check gameover dialogue
+check dream viewer for all enemy spawns
+check enemy to see if it gives the right flags.
+
+afterward, we need to create a variable in the save file, validate. its a int that is defined as 0.
+if this values is undefined, then add it and wipe bestiary data,
+
+also sort bestiaryTextList to reflect group
+*/
+
 const bestiaryKey = {
 
-  blueSlime: {
-    blueSlimeTF:"blueSlime-tf",
-    blueSlimeLargeTF:"blueSlime-large-tf",
-    blueSlimeHSVore:"blueSlime-hs-vore",
-    blueSlimeMaleHMVore:"blueSlime-male-hm-vore",
-    blueSlimeFemaleHMVore:"blueSlime-female-hm-vore",
-  },
-    
-  tiger: {
-    tigerMaleVore:"tiger-male-vore",
-    tigerFemaleVore:"tiger-female-vore",
-    tigerMaleTF:"tiger-male-tf",
-    tigerFemaleTF:"tiger-female-tf",
-  },
-    
-  rabbit: {
-    rabbitMaleTF:"rabbit-male-tf",
-    rabbitFemaleTF:"rabbit-female-tf",
-    rabbitMaleVore:"rabbit-male-vore",
-    rabbitFemaleVore:"rabbit-female-vore",
-  },
+  blueSlimeTF:"blueSlime_tf",
+  blueSlimeLargeTF:"blueSlime_large_tf",
+  blueSlimeHSVore:"blueSlime_hs_vore",
+  blueSlimeMaleHMVore:"blueSlime_male_hm_vore",
+  blueSlimeFemaleHMVore:"blueSlime_female_hm_vore",
 
-  bee: {
-    beeDroneMaleTF:"beeDrone-male-tf",
-    beeDroneFemaleTF:"beeDrone-female-tf",
-  },
-    
-  bat:{
-    batMaleVore:"bat-male-vore",
-    batFemaleVore:"bat-female-vore",
-  },
+  tigerMaleTF:"tiger_male_tf",
+  tigerFemaleTF:"tiger_female_tf",
+  tigerMaleVore:"tiger_male_vore",
+  tigerFemaleVore:"tiger_female_vore",
   
-  mimic:{
-    mimicMaleTF:"mimic-male-tf",
-    mimicFemaleTF:"mimic-female-tf",
-    mimicMaleVore:"mimic-male-vore",
-    mimicFemaleVore:"mimic-female-vore",
-  },
+  rabbitMaleTF:"rabbit_male_tf",
+  rabbitFemaleTF:"rabbit_female_tf",
+  rabbitMaleVore:"rabbit_male_vore",
+  rabbitFemaleVore:"rabbit_female_vore",
 
-  whiteCat:{
-    whiteCatMaleTF:"whiteCat-male-tf",
-    whiteCatFemaleTF:"whiteCat-female-tf",
-    whiteCatMaleVore:"whiteCat-male-vore",
-    whiteCatFemaleVore:"whiteCat-female-vore",
-  },
-    
-  curseShadow:{
-    curseShadow:"curseShadow-vore",
-    earieShadow:"earieShadow-tf",
-  },
+  beeDroneMaleTF:"bee_drone_male_tf",
+  beeDroneFemaleTF:"bee_drone_female_tf",
 
-  istara:{
-    npcIstaraUnbirth:"npc-istara-unbirth",
-  },
+  batMaleVore:"bat_male_vore",
+  batFemaleVore:"bat_female_vore",  
+
+  mimicMaleTF:"mimic_male_tf",
+  mimicFemaleTF:"mimic_female_tf",
+  mimicMaleVore:"mimic_male_vore",
+  mimicFemaleVore:"mimic_female_vore",
+
+  whiteCatMaleTF:"whiteCat_male_tf",
+  whiteCatFemaleTF:"whiteCat_female_tf",
+  whiteCatMaleVore:"whiteCat_male_vore",
+  whiteCatFemaleVore:"whiteCat_female_vore",
     
-  vivian:{
-    npcVivianTF:"npc-vivian-vore-tf",
-    npcVivianVore1:"npc-vivian-vore-1",
-    npcVivianVore2:"npc-vivian-vore-2",
-  }
-    
+  shadowCurse:"shadow_curse_vore",
+  shadowEarie:"shadow_earie_tf",
+
+  istaraUnbirth:"istara_unbirth",
+
+  vivianTF:"vivian_tf",
+  vivianVore1:"vivian_vore_1",
+  vivianVore2:"vivian_vore_2",
+ 
 }
 
-//BESTIARY DATA VARIABLE
-//inorder to alter these values to be more uniform,
+//bestiary keys and flags. 
 const bestiaryTextList = {
-      blueSlime: {
+      blueSlime_tf: {
         title: "BLUE SLIME",
         summary: "This small slime is the most common of slime types. It has basic instincts and will blindly jump towards prey. This slime is mostly made of water and can be found in most places. Since their whole body is a sensory organ, they are particularly weak to blunt damage.",
       },
-      largeBlueSlime: {
+      blueSlime_large_tf: {
         title: "BLUE SLIME LARGE",
         summary: "This slime acts very similar to its smaller counterpart. However, this slime is much larger and more dangerous. It is able to dissolve prey at a faster rate.",
       },
-      femaleTiger: {
-        title: "FEMALE TIGER",
-        summary: "This large carnivore is an ambush predator. Opting to hide until it spots prey before chasing them down and devouring them whole. However, it is more docile if it has already fed on something.",
-      },
-      femaleTigerBooba: {
-        title: "FED FEMALE TIGER",
-        summary: "Once the tiger has had a good meal, this voracious predator seeks out humans to curse. Once this predator curses an unsuspecting human, she will look over them as her new cub.",
-      },
-      maleTiger: {
-        title: "MALE TIGER",
-        summary: "This hungry predator often lies in wait to surprise prey. After their prey has been weakened it will swallow them whole. Some tough prey might be able to struggle free, but weaker prey are likely to end up as padding for this strong carnivore.",
-      },
-      maleTigerBenis: {
-        title: "FED MALE TIGER",
-        summary: "After finding a filling meal, this tiger becomes incredibly horny. Seeking to penetrate humans and release large amounts of their seed into them. The newly formed curse is likely to grow big from the extra nourishment after the cursing process.",
-      },
-      maleRabbit: {
-        title: "MALE RABBIT",
-        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the males of this group use penetration as their main means of applying their curse.",
-      },
-      femaleRabbit: {
-        title: "FEMALE RABBIT",
-        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the females of this group often tackle their victims and hump them to apply their curse.",
-      },
-      maleBeeDrone: {
-        title: "MALE BEE DRONE",
-        summary: "This large insect often spends its time collecting pollen in places with large amounts of flowers. However, this insect will quickly devour an unsuspecting human with its massive abdomens.",
-      },
-      femaleBeeDrone: {
-        title: "FEMALE BEE DRONE",
-        summary: "Often these bees will swarm a human who is not cursed. However, they are unable to pass on their curse directly, instead using their abdomen to capture humans to bring back to their nest...",
-      },
-      maleBat: {
-        title: "MALE BAT",
-        summary: "Lurking in caves, this monster sleeps during the day. Wandering humans should try to be quiet around this monster, as waking them is not advised unless they wish to be turned into pudge.",
-      },
-      femaleBat: {
-        title: "FEMALE BAT",
-        summary: "If they are spooked while sleeping, this nocturnal predator will chase down whatever is spooked and try to devour them with its rear end. These voracious bats are quick to digest their prey in this state, adding them to their pudge.",
-      },
-      blueSlimeHS: {
+      blueSlime_hs_vore: {
         title: "BLUE SLIME HUMANOID",
         summary: "These variations of the blue slime take the appearance of a person, as best they can with the mass they have. More aggressive than their regular counterparts. These slimes seek humanoids to absorb so that they can grow their mass and shape.",
       },
-      blueSlimeMaleHM: {
+      blueSlime_male_hm_vore: {
         title: "BLUE SLIME MALE",
         summary: "After growing to its second stage, it takes on a masculine appearance based on the largest thing it absorbed. With its new male form, it is able to use its slime phallus to consume more prey. While it does not exclusively do this, it seems to prefer this form of ingestion.",
       },
-      blueSlimeFemaleHM: {
+      blueSlime_female_hm_vore: {
         title: "BLUE SLIME FEMALE",
         summary: "After growing to its second stage, it takes on a feminine appearance based on the largest thing it absorbed. With its new female form, it is not as ravenous and prefers to play with its food. If this slime grows large enough it can produce smaller slimes to spread their curse.",
       },
-      femaleChestMimic: {
-        title: "CHEST MIMIC FEMALE",
-        summary: "Lurking inside chests, these slugs use containers as homes that double as a trap to ambush prey. When prey is near, they are known to get impatient and peek out of their home if it gets too quiet.",
+      tiger_female_vore: {
+        title: "FEMALE TIGER",
+        summary: "This large carnivore is an ambush predator. Opting to hide until it spots prey before chasing them down and devouring them whole. However, it is more docile if it has already fed on something.",
       },
-      femaleChestMimicVore: {
-        title: "CHEST MIMIC FEMALE LARGE",
-        summary: "A slightly large mimic after she has devoured some prey. They often enjoy coveting items that their prey had. If defeated they may drop an item, though it might be infused with their curse...",
+      tiger_female_tf: {
+        title: "FED FEMALE TIGER",
+        summary: "Once the tiger has had a good meal, this voracious predator seeks out humans to curse. Once this predator curses an unsuspecting human, she will look over them as her new cub.",
       },
-      maleChestMimic: {
-        title: "CHEST MIMIC MALE",
-        summary: "These gastropods are ambush predators. However, their prey is not just for sustenance, as those cursed by this monster become assimilated into the creatures' mass. Eventually budding off the original when a new home is found.",
+      tiger_male_vore: {
+        title: "MALE TIGER",
+        summary: "This hungry predator often lies in wait to surprise prey. After their prey has been weakened it will swallow them whole. Some tough prey might be able to struggle free, but weaker prey are likely to end up as padding for this strong carnivore.",
       },
-      maleChestMimicVore: {
-        title: "CHEST MIMIC MALE LARGE",
-        summary: "The mimics curse was created from the desires of avarice. Because of this they covet the items of their prey, as well as the new mass their prey becomes after digestion.",
+      tiger_male_tf: {
+        title: "FED MALE TIGER",
+        summary: "After finding a filling meal, this tiger becomes incredibly horny. Seeking to penetrate humans and release large amounts of their seed into them. The newly formed curse is likely to grow big from the extra nourishment after the cursing process.",
       },
-      istaraUnbirth: {
-        title: "ISTARA",
-        summary: "A friendly cobra dragon named istara happens to be making her residence in one of the many caves on this island. Currently she is looking to expand her hoard of plushies and cobrabolds.",
+      rabbit_male_tf: {
+        title: "MALE RABBIT",
+        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the males of this group use penetration as their main means of applying their curse.",
       },
-      whiteCatMaleTF: {
-        title: "WHITE CAT MALE",
-        summary: "This kitty can build up cursed energy which it can release in its roar forming cursed heart. The heart produced by this roar will slowly track creatures it finds suitable to kiss and transform. You're a silly little boy kisser, aren't you?",
+      rabbit_female_tf: {
+        title: "FEMALE RABBIT",
+        summary: "This herbivore can be found in places where carrots grow. Able to jump decently high, the females of this group often tackle their victims and hump them to apply their curse.",
       },
-      whiteCatFemaleTF: {
-        title: "WHITE CAT FEMALE",
-        summary: "Those who come in contact with this cat's cursed hearts will be infatuated and compelled to make out with the cat who created the cursed heart. It's as if the desires of the cat are being imprinted onto its targeted creature. You're a silly little girl kisser, aren't you?",
-      },
-      whiteCatMaleVore: {
-        title: "CHUBBY CAT MALE",
-        summary: "When a cat becomes frustrated with a creature it's trying to curse, it will get fed up and attempt to consume the creature. Using its powerful paws to knock its prey down. You like being boy belly fat, don't you? :3",
-      },
-      whiteCatFemaleVore: {
-        title: "CHUBBY CAT FEMALE",
-        summary: "Once its prey has been completely swallowed, it loves rubbing its engorged tummy until its prey is nothing more than belly fat. You like being a girl belly fat, don't you? :3",
-      },
-      curseShadow: {
-        title: "STRANGE SHADOW",
-        summary: "This strange enemy lurks in caves consumed by dense shadow. Sucking unsuspecting prey into its body, where it absorbs them for an unknown purpose...",
-      },
-      earieShadow:{
-        title: "",
-        summary: "Where the water flows and the roots creep, the seals keep me prisoner in the deep. Come find me, come set me free, so you can become a part of me...",
-      },
-      maleRabbitVore: {
+      rabbit_male_vore: {
         title: "FED MALE RABBIT",
         summary: "Overcome by hunger, this rabbit consumed the body of another. Causing its body to grow and change slightly. It now dominates smaller rabbits with its newfound strength.",
       },
-      femaleRabbitVore: {
+      rabbit_female_vore: {
         title: "FED FEMALE RABBIT",
         summary: "Overcome by hunger, this rabbit consumed the body of another. Causing its body to grow and change slightly. It now enjoys squishing smaller rabbits between her breasts.",
       },
-      vivianVore: {
+      bee_drone_male_tf: {
+        title: "MALE BEE DRONE",
+        summary: "This large insect often spends its time collecting pollen in places with large amounts of flowers. However, this insect will quickly devour an unsuspecting human with its massive abdomens.",
+      },
+      bee_drone_female_tf: {
+        title: "FEMALE BEE DRONE",
+        summary: "Often these bees will swarm a human who is not cursed. However, they are unable to pass on their curse directly, instead using their abdomen to capture humans to bring back to their nest...",
+      },
+      bat_male_vore: {
+        title: "MALE BAT",
+        summary: "Lurking in caves, this monster sleeps during the day. Wandering humans should try to be quiet around this monster, as waking them is not advised unless they wish to be turned into pudge.",
+      },
+      bat_female_vore: {
+        title: "FEMALE BAT",
+        summary: "If they are spooked while sleeping, this nocturnal predator will chase down whatever is spooked and try to devour them with its rear end. These voracious bats are quick to digest their prey in this state, adding them to their pudge.",
+      },
+      mimic_female_tf: {
+        title: "CHEST MIMIC FEMALE",
+        summary: "Lurking inside chests, these slugs use containers as homes that double as a trap to ambush prey. When prey is near, they are known to get impatient and peek out of their home if it gets too quiet.",
+      },
+      mimic_female_vore: {
+        title: "CHEST MIMIC FEMALE LARGE",
+        summary: "A slightly large mimic after she has devoured some prey. They often enjoy coveting items that their prey had. If defeated they may drop an item, though it might be infused with their curse...",
+      },
+      mimic_male_tf: {
+        title: "CHEST MIMIC MALE",
+        summary: "These gastropods are ambush predators. However, their prey is not just for sustenance, as those cursed by this monster become assimilated into the creatures' mass. Eventually budding off the original when a new home is found.",
+      },
+      mimic_male_vore: {
+        title: "CHEST MIMIC MALE LARGE",
+        summary: "The mimics curse was created from the desires of avarice. Because of this they covet the items of their prey, as well as the new mass their prey becomes after digestion.",
+      },
+      istara_unbirth: {
+        title: "ISTARA",
+        summary: "A friendly cobra dragon named istara happens to be making her residence in one of the many caves on this island. Currently she is looking to expand her hoard of plushies and cobrabolds.",
+      },
+      whiteCat_male_tf: {
+        title: "WHITE CAT MALE",
+        summary: "This kitty can build up cursed energy which it can release in its roar forming cursed heart. The heart produced by this roar will slowly track creatures it finds suitable to kiss and transform. You're a silly little boy kisser, aren't you?",
+      },
+      whiteCat_female_tf: {
+        title: "WHITE CAT FEMALE",
+        summary: "Those who come in contact with this cat's cursed hearts will be infatuated and compelled to make out with the cat who created the cursed heart. It's as if the desires of the cat are being imprinted onto its targeted creature. You're a silly little girl kisser, aren't you?",
+      },
+      whiteCat_male_vore: {
+        title: "CHUBBY CAT MALE",
+        summary: "When a cat becomes frustrated with a creature it's trying to curse, it will get fed up and attempt to consume the creature. Using its powerful paws to knock its prey down. You like being boy belly fat, don't you? :3",
+      },
+      whiteCat_female_vore: {
+        title: "CHUBBY CAT FEMALE",
+        summary: "Once its prey has been completely swallowed, it loves rubbing its engorged tummy until its prey is nothing more than belly fat. You like being a girl belly fat, don't you? :3",
+      },
+      shadow_curse_vore: {
+        title: "STRANGE SHADOW",
+        summary: "This strange enemy lurks in caves consumed by dense shadow. Sucking unsuspecting prey into its body, where it absorbs them for an unknown purpose...",
+      },
+      shadow_earie_tf:{
+        title: "",
+        summary: "Where the water flows and the roots creep, the seals keep me prisoner in the deep. Come find me, come set me free, so you can become a part of me...",
+      },
+      
+      vivian_vore_1: {
         title: "FULL VIVIAN",
         summary: "Vivian loves wearing her prey's clothing, and stretches it over her new body size. Somehow the clothes never rip, and she has a vast collection of clothing from previous meals. All magically made to fit Vivian.",
       },
-      vivianTF: {
+      vivian_tf: {
         title: "VIVIAN",
         summary: "A cute, yet devious wolf girl merchant. By marking a medium-sized container with her symbol, she can travel between them, which she often uses to trick her future meals. While she isn't too fond of humans, she sure enjoys eating and occasionally cursing them.",
       },
-      vivianVore2: {
+      vivian_vore_2: {
         title: "VIVIAN'S CODE",
         summary: "Vivian has a network of chests she can travel through to provide her services and catch prey. If you don't want to be eaten, then you should knock on one of her marked chests twice. No more, no less.",
       },

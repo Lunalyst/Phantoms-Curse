@@ -693,9 +693,9 @@ class chestMimic extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
                 console.log("activating game over by hitting tab")
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleChestMimic";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.mimicMaleTF;
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleChestMimic";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.mimicFemaleTF;
                 }
 
                 this.scene.KeyDisplay.visible = false;
@@ -766,9 +766,9 @@ class chestMimic extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 10 && this.scene.checkDIsDown())) {
                 console.log("activating game over by hitting tab")
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = "maleChestMimicVore";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.mimicMaleVore;
                 }else{
-                    this.scene.enemyThatDefeatedPlayer = "femaleChestMimicVore";
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.mimicFemaleVore;
                 }
 
                 this.scene.KeyDisplay.visible = false;

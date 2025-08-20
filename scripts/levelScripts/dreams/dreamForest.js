@@ -128,12 +128,12 @@ class dreamForest extends defaultScene {
       setTimeout(function(){
         
         let object1 = {
-          flagToFind: 'maleTiger',
+          flagToFind: bestiaryKey.tigerMaleVore,
           foundFlag: false,
         };
 
         let object2 = {
-          flagToFind: 'femaleTiger',
+          flagToFind:  bestiaryKey.tigerFemaleVore,
           foundFlag: false,
         };
   
@@ -141,17 +141,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleTiger' || object2.flagToFind === 'femaleTiger')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1251,883,thisScene.playerSex,'tiger',true);
         }
 
         object1 = {
-          flagToFind: 'maleTigerBenis',
+          flagToFind: bestiaryKey.tigerMaleTF,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleTigerBooba',
+          flagToFind: bestiaryKey.tigerFemaleTF,
           foundFlag: false,
         };
   
@@ -159,17 +159,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleTigerBenis' || object2.flagToFind === 'femaleTigerBooba')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1384,883,thisScene.playerSex,'tigerBooba',true);
         }
 
         object1 = {
-          flagToFind: 'maleRabbit',
+          flagToFind: bestiaryKey.rabbitMaleTF,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleRabbit',
+          flagToFind: bestiaryKey.rabbitFemaleTF,
           foundFlag: false,
         };
   
@@ -177,17 +177,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleRabbit' || object2.flagToFind === 'femaleRabbit')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1534,881,thisScene.playerSex,'rabbit',true);
         }
 
         object1 = {
-          flagToFind: 'maleRabbitVore',
+          flagToFind: bestiaryKey.rabbitMaleVore,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleRabbitVore',
+          flagToFind: bestiaryKey.rabbitFemaleVore,
           foundFlag: false,
         };
   
@@ -195,17 +195,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleRabbitVore' || object2.flagToFind === 'femaleRabbitVore')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1634,882,thisScene.playerSex,'rabbitHungry',true);
         }
 
         object1 = {
-          flagToFind: 'maleBeeDrone',
+          flagToFind: bestiaryKey.beeDroneMaleTF,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'femaleBeeDrone',
+          flagToFind: bestiaryKey.beeDroneFemaleTF,
           foundFlag: false,
         };
 
@@ -215,17 +215,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'maleBeeDrone' || object2.flagToFind === 'femaleBeeDrone')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1778,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
         }
 
         object1 = {
-          flagToFind: 'whiteCatMaleTF',
+          flagToFind: bestiaryKey.whiteCatMaleTF,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'whiteCatFemaleTF',
+          flagToFind: bestiaryKey.whiteCatFemaleTF,
           foundFlag: false,
         };
   
@@ -233,17 +233,17 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'whiteCatMaleTF' || object2.flagToFind === 'whiteCatFemaleTF')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1000,888,thisScene.playerSex,'whiteCat',true);
         }
 
         object1 = {
-          flagToFind: 'whiteCatMaleVore',
+          flagToFind: bestiaryKey.whiteCatMaleVore,
           foundFlag: false,
         };
 
         object2 = {
-          flagToFind: 'whiteCatFemaleVore',
+          flagToFind: bestiaryKey.whiteCatFemaleVore,
           foundFlag: false,
         };
   
@@ -251,12 +251,10 @@ class dreamForest extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
-        if((object1.foundFlag === true || object2.foundFlag === true) && (object1.flagToFind === 'whiteCatMaleVore' || object2.flagToFind === 'whiteCatFemaleVore')){
+        if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1110,888,thisScene.playerSex,'angryWhiteCat',true);
         }
 
-        
-        
         thisScene.spawnedEnemys = true;
       },1000);
 

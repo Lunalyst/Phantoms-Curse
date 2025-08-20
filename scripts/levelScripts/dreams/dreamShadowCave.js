@@ -129,26 +129,26 @@ class dreamShadowCave extends defaultScene {
       setTimeout(function(){
         
         let object1 = {
-          flagToFind: 'curseShadow',
+          flagToFind: bestiaryKey.shadowCurse,
           foundFlag: false,
         };
 
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
   
-        if((object1.foundFlag === true) && (object1.flagToFind === 'curseShadow')){
+        if((object1.foundFlag === true)){
           thisScene.initEnemy(928,636,thisScene.playerSex,'curseShadow',true)
         }
 
         object1 = {
-          flagToFind: 'earieShadow',
+          flagToFind: bestiaryKey.shadowEarie,
           foundFlag: false,
         };
 
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
   
-        if((object1.foundFlag === true) && (object1.flagToFind === 'earieShadow')){
+        if((object1.foundFlag === true)){
           thisScene.initEnemy(1708,485,thisScene.playerSex,'earieShadow',true)
 
           if(thisScene.titleLogoType === "shadow"){

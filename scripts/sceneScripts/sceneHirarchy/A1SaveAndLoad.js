@@ -779,8 +779,41 @@ for(let counter = 0; counter < 100; counter++){
       });
 
       dataObject.playerBestiaryData = playerBestiaryData;
+
+    }if(dataObject.playerBestiaryData.blueSlime !== undefined){
+
+      //delete all object in bestiary data
+      for (var member in dataObject.playerBestiaryData) {
+         delete dataObject.playerBestiaryData[member];
+      }
+
+      //get keylist of bestiary flags variable
+            let allKeysBest = Object.keys(bestiaryTextList);
+
+            //loop through all bestiary flags and add the ones the player doesnt have.
+            allKeysBest.forEach(bestKey => {
+
+                let keyFound = false;
+                //check to see if the player object has them.
+                for (let [key, value] of Object.entries(dataObject.playerBestiaryData)) {
+
+                    if (bestKey === key) {
+                        keyFound = true;
+                    }
+                }
+
+                if(keyFound === true){
+                    console.log("found flag so no need to add: ",bestKey);
+                }else if(bestKey !== "back"){
+                    console.log("could not find flag, so adding it: ",bestKey);
+                    dataObject.playerBestiaryData[bestKey] = 0;
+
+                }
+
+            });
     // otherwise update old save file with new entries
     }else{
+      
       //get keylist of bestiary flags variable
             let allKeysBest = Object.keys(bestiaryTextList);
 

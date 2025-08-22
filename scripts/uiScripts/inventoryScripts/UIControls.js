@@ -9,10 +9,13 @@ class UIControls extends Phaser.Physics.Arcade.Sprite{
 
       this.anims.create({key: 'pointLeft',frames: this.anims.generateFrameNames('UIControls', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'pointRight',frames: this.anims.generateFrameNames('UIControls', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'pointUp',frames: this.anims.generateFrameNames('UIControls', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
+      this.anims.create({key: 'pointDown',frames: this.anims.generateFrameNames('UIControls', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
       this.anims.create({key: 'closeBox',frames: this.anims.generateFrameNames('UIControls', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
       this.anims.play("pointLeft");
+
       this.setDepth(70);
-      this.setScale(1.6);
+      this.setScale(2/3);
       //connects the sprite to the camera so that it sticks with the player.
       this.setScrollFactor(0);
       //this.openDelay = false;

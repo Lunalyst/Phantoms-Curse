@@ -1,4 +1,4 @@
-let bestiaryThat;
+let that;
 
 const bestiaryLineLength = 14;
 class bestiary extends Phaser.Physics.Arcade.Sprite {
@@ -67,90 +67,33 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     console.log("this.originalX: ",this.originalX," this.originalY :",this.originalY);
     console.log("this.openX: ",this.openX," this.openY :",this.openY);
 
-    bestiaryThat = this;
+    that = this;
+    //position in the array in our object
     this.pageNumber = 0;
+    this.groupNumber = 0;
+    //group in our array
     this.setScale(.45);
     
     //create refrence to bestiaryTextList where bestiary data is stored.
     this.bestiaryTextList = bestiaryTextList;
     
     //creates the buttons on the left and right of the bestiary menu when its open.
-    this.bestiaryLeft;
-    this.bestiaryRight;
-    this.bestiaryLeft = new UIControls(scene, this.openX - 185, this.openY + 235, "UIControls").setInteractive();
+    this.bestiaryLeft = new UIControls(scene, this.openX - 170, this.openY + 280, "UIControls").setInteractive();
     this.bestiaryLeft.anims.play("pointLeft");
     this.bestiaryLeft.visible = false;
-    this.bestiaryRight = new UIControls(scene, this.openX + 185, this.openY + 235, "UIControls").setInteractive();
+    this.bestiaryRight = new UIControls(scene, this.openX + 170, this.openY + 280, "UIControls").setInteractive();
     this.bestiaryRight.anims.play("pointRight");
     this.bestiaryRight.visible = false;
 
-    //create an empty object
-    this.activeBestiaryPages = [];
-    //this.activeBestiaryPages = {};
+    this.bestiaryUp = new UIControls(scene, this.openX - 110, this.openY , "UIControls").setInteractive();
+    this.bestiaryUp.anims.play("pointUp");
+    this.bestiaryUp.visible = false;
+    this.bestiaryDown = new UIControls(scene, this.openX - 110, this.openY + 300, "UIControls").setInteractive();
+    this.bestiaryDown.anims.play("pointDown");
+    this.bestiaryDown.visible = false;
 
-    //add key cover to object, which equals an array, with the string "cover" inside it 
-    this.activeBestiaryPages.push('cover');
-    //this.activeBestiaryPages["cover"] = ["cover"];
-
-    // searches through all the keys of the bestiarydata
-    for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
-
-      console.log("key: ", key, " value: ", value);
-
-      //if we find a bestiary entry the player has
-      if (value === 1) {
-
-        //first grab the species/type from the key string
-        /**
-        
-        //temp variable to store species 
-        let tempString = "";
-
-        //loop to fill temp with the species. we stop once we hit a -
-        for(let counter = 0; counter < key.length;counter++){
-
-        //if the character is a underscore
-        if(key[counter] === '_'){
-
-        //break out of the loop
-        break;
-
-        //otherwise
-        }else{
-
-        //add character to our tempt string.
-        tempString += key[counter];
-        }
-        
-
-        }
-
-        // if the group does not exist
-        if(this.activeBestiaryPages["tempString"] !== undefined){
-
-          // define key in object, as an array, containing the current bestiary flag in that array
-          this.activeBestiaryPages["tempString"] = [key];
-
-        //otherwise
-        }else{
-
-          //push the bestiary flag key to the array, at that species/type key.
-          this.activeBestiaryPages["tempString"].push(key);
-
-        }
-
-         */
-
-        //check every position of the key to see if the flag could be found. 
-        this.activeBestiaryPages.push(key.toString());
-      }
-    }
-    
-    //add key cover to object, which equals an array, with the string "cover" inside it 
-    this.activeBestiaryPages.push('back');
-    //this.activeBestiaryPages["back"] = ["back"];
-
-    console.log(this.activeBestiaryPages);
+    //sets up bestiary object, array 
+    this.reloadBestiaryPages(scene,true);
 
     //handles the positioning of the title text sprites.
     let startingX = -190;
@@ -205,20 +148,87 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
   }
 
-  reloadBestiaryPages(scene){
-    // when the scene is loaded, the bestiary fills this.activeBestiaryPages with the correct values from the scene.playerBestiaryData
-    // so that the pages are displayed in the correct order.
-    this.activeBestiaryPages = [];
-    this.activeBestiaryPages.push('cover');
+  
 
+  reloadBestiaryPages(scene,startLoad){
+    // when the scene is loaded, the bestiary fills this.activeBestiaryPages with the correct values from the scene.playerBestiaryData
+    //delete all object in bestiary data
+    if(startLoad === true){
+      //create an empty object
+      this.activeBestiaryPages = {};
+      this.activeBestiaryGroups = [];
+
+    }else{
+
+      //clears already existing object.
+      for (var member in this.activeBestiaryPages) {
+        delete this.activeBestiaryPages[member];
+      }
+
+      this.activeBestiaryGroups = [];
+    }
+
+    //add key cover to object, which equals an array, with the string "cover" inside it 
+    this.activeBestiaryPages["aaaaa"] = ["cover"];
+    this.activeBestiaryGroups.push("aaaaa");
+
+    // searches through all the keys of the bestiarydata
     for (let [key, value] of Object.entries(scene.playerBestiaryData)) {
-      console.log("key: ", key, " value: ", value);
+
+      //if we find a bestiary entry the player has
       if (value === 1) {
-        this.activeBestiaryPages.push(key.toString());
+        //console.log("key: ", key, " value: ", value);
+        //first grab the species/type from the key string
+        
+        
+        //temp variable to store species 
+        let tempString = "";
+
+        //loop to fill temp with the species. we stop once we hit a -
+        for(let counter = 0; counter < key.length;counter++){
+
+          //if the character is a underscore
+          if(key[counter] === '_'){
+
+            //break out of the loop
+            break;
+
+          //otherwise
+          }else{
+
+            //add character to our tempt string.
+            tempString += key[counter];
+          }
+          
+
+        }
+
+        //console.log("tempString: ", tempString);
+
+        // if the group does not exist
+        if(this.activeBestiaryPages[tempString] !== undefined){
+          //push the bestiary flag key to the array, at that species/type key.
+          this.activeBestiaryPages[tempString].push(key);
+
+        //otherwise
+        }else{
+
+          // define key in object, as an array, containing the current bestiary flag in that array
+          this.activeBestiaryPages[tempString] = [key];
+
+          //push temp string to groups array
+          this.activeBestiaryGroups.push(tempString);
+
+        }
       }
     }
-    this.activeBestiaryPages.push('back');
+    
+    //add key cover to object, which equals an array, with the string "cover" inside it 
+    this.activeBestiaryPages["zzzzz"] = ["back"];
+    this.activeBestiaryGroups.push("zzzzz");
+
     console.log(this.activeBestiaryPages);
+    console.log(this.activeBestiaryGroups);
   }
 
   //function opens the bestiary so the proper page is displayed when clicked on in the inventory.
@@ -228,7 +238,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     if (this.isOpen === false && this.openDelay === false) {
       this.isOpen = true;
       console.log("this.isOpen from bestiary " + this.isOpen);
-      this.anims.play(this.activeBestiaryPages[this.pageNumber]);
+      this.anims.play(this.activeBestiaryPages[this.activeBestiaryGroups[this.groupNumber]][this.pageNumber]);
       this.openDelay = true;
       this.setScale(.9);
       this.setDepth(60);
@@ -246,14 +256,15 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
       // delays how quickly the player can open the inventory.
       setTimeout(function () {
-        bestiaryThat.openDelay = false;
+        that.openDelay = false;
       }, 250);
 
-      if (this.pageNumber === 0) {
+      //handle the group x value for display
+      if (this.groupNumber === 0) {
         this.bestiaryLeft.visible = false;
         this.bestiaryRight.visible = true;
         this.displayBestiaryText(false);
-      } else if (this.pageNumber === this.activeBestiaryPages.length - 1) {
+      } else if (this.groupNumber === this.activeBestiaryGroups.length - 1) {
         this.bestiaryLeft.visible = true;
         this.bestiaryRight.visible = false;
         this.setBestiaryInfo();
@@ -264,7 +275,23 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
         this.setBestiaryInfo();
         this.displayBestiaryText(true);
       }
-      //if bestiary is open then close it and set open delay.
+
+      //handle page number y for diaplying up and down buttons.
+      if (this.pageNumber === 0 && this.activeBestiaryPages[this.activeBestiaryGroups[this.groupNumber]].length === 1) {
+        this.bestiaryUp.visible = false;
+        this.bestiaryDown.visible = false;
+      }else if(this.pageNumber === 0){
+        this.bestiaryUp.visible = true;
+        this.bestiaryDown.visible = false;
+      }else if (this.pageNumber === this.activeBestiaryPages[this.activeBestiaryGroups[this.groupNumber]].length - 1) {
+        this.bestiaryUp.visible = false;
+        this.bestiaryDown.visible = true;
+      } else {
+        this.bestiaryUp.visible = true;
+        this.bestiaryDown.visible = true;
+      }
+
+    //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
       this.setScale(.45);
@@ -279,56 +306,194 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
       // delays how quickly the player can open the inventory.
       setTimeout(function () {
-        bestiaryThat.openDelay = false;
+        that.openDelay = false;
       }, 250);
 
       this.bestiaryLeft.visible = false;
       this.bestiaryRight.visible = false;
+      this.bestiaryUp.visible = false;
+      this.bestiaryDown.visible = false;
+      
     }
 
   }
   // applys functionality to the buttons for the bestiary.
   applyUIControlElements() {
 
+    this.bestiaryRight.on('pointerover',function(pointer){
+      that.scene.initSoundEffect('buttonSFX','1',0.1);
+      that.bestiaryRight.setTint(0xff7000);
+    });
+
+    this.bestiaryRight.on('pointerout',function(pointer){
+      that.bestiaryRight.clearTint();
+    });
+
     this.bestiaryRight.on('pointerdown', function (pointer) {
-      console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" + bestiaryThat.pageNumber);
-      console.log(" pageID: ", bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
-      bestiaryThat.displayBestiaryText(true);
-      if (bestiaryThat.pageNumber >= 0 && bestiaryThat.pageNumber < bestiaryThat.activeBestiaryPages.length) {
-        bestiaryThat.pageNumber++;
-        bestiaryThat.setBestiaryInfo();
-        
-        bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
-        if (bestiaryThat.pageNumber === bestiaryThat.activeBestiaryPages.length - 1) {
+      //page sound effect
+      that.scene.initSoundEffect('buttonSFX','page',0.05);
+
+      console.log(" activating bestiary turn page right. scene.bestiaryUI.pageNumber" + that.pageNumber);
+      console.log(" pageID: ", that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+      that.displayBestiaryText(true);
+
+      //if we are on any page fgrom 0 to n and the page number, is less than the groups.length
+      if (that.groupNumber >= 0 && that.groupNumber < that.activeBestiaryGroups.length) {
+        that.groupNumber++;
+        that.pageNumber = 0;
+        that.setBestiaryInfo();
+        //play right bestiary frame
+        that.anims.play(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+        //hides or shows the buttons based on length of bestiary.
+        if(that.groupNumber === that.activeBestiaryGroups.length - 1) {
           console.log(" hiding right bestiary arrow");
-          bestiaryThat.bestiaryRight.visible = false;
-          bestiaryThat.bestiaryLeft.visible = true;
+          that.bestiaryRight.visible = false;
+          that.bestiaryLeft.visible = true;
         } else {
-          bestiaryThat.bestiaryLeft.visible = true;
-          bestiaryThat.bestiaryRight.visible = true;
+          that.bestiaryLeft.visible = true;
+          that.bestiaryRight.visible = true;
+        }
+
+        //display up and down arrows approperiately.
+        //hide both if the page only has one entry in the array
+        if(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]].length === 1) {
+          console.log("hiding both up and down arrows.");
+          that.bestiaryUp.visible = false;
+          that.bestiaryDown.visible = false;
+
+        //otherwise set up arrow to be visible and down arrow to not be visible as this right button will always result in a position 0 for page number.
+        }else{
+          that.bestiaryUp.visible = true;
+          that.bestiaryDown.visible = false;
         }
       }
+       console.log("that.groupNumber " + that.groupNumber+ " that.pageNumber: ",that.pageNumber);
 
+    });
+
+    this.bestiaryLeft.on('pointerover',function(pointer){
+      that.scene.initSoundEffect('buttonSFX','1',0.1);
+      that.bestiaryLeft.setTint(0xff7000);
+    });
+
+    this.bestiaryLeft.on('pointerout',function(pointer){
+      that.bestiaryLeft.clearTint();
+    });
+
+    this.bestiaryLeft.on('pointerdown', function (pointer) {
+      console.log(" turning bestiary page left");
+      console.log(" pageID: ", that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+      that.scene.initSoundEffect('buttonSFX','page',0.05);
+
+      //if the group array isnt out side the bounds of our group length
+      if (that.groupNumber > 0 && that.groupNumber <= that.activeBestiaryGroups.length) {
+        that.groupNumber--;
+        that.pageNumber = 0;
+        that.setBestiaryInfo();
+        that.anims.play(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+
+        if (that.groupNumber === 0) {
+          console.log(" hiding left bestiary arrow");
+          that.displayBestiaryText(false);
+          that.bestiaryLeft.visible = false;
+          that.bestiaryRight.visible = true;
+        } else {
+          that.displayBestiaryText(true);
+          that.bestiaryLeft.visible = true;
+          that.bestiaryRight.visible = true;
+        }
+
+        //display up and down arrows approperiately.
+        //hide both if the page only has one entry in the array
+        if(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]].length === 1) {
+          console.log("hiding both up and down arrows.");
+          that.bestiaryUp.visible = false;
+          that.bestiaryDown.visible = false;
+
+        //otherwise set up arrow to be visible and down arrow to not be visible as this right button will always result in a position 0 for page number.
+        }else{
+          that.bestiaryUp.visible = true;
+          that.bestiaryDown.visible = false;
+        }
+
+      }
+      console.log("that.groupNumber " + that.groupNumber+ " that.pageNumber: ",that.pageNumber);
 
 
     });
-    this.bestiaryLeft.on('pointerdown', function (pointer) {
-      console.log(" activating bestiary turn page left scene.bestiaryUI.pageNumber" + bestiaryThat.pageNumber);
-      if (bestiaryThat.pageNumber > 0 && bestiaryThat.pageNumber <= bestiaryThat.activeBestiaryPages.length) {
-        bestiaryThat.pageNumber--;
-        bestiaryThat.setBestiaryInfo();
-        bestiaryThat.anims.play(bestiaryThat.activeBestiaryPages[bestiaryThat.pageNumber]);
-        if (bestiaryThat.pageNumber === 0) {
-          console.log(" hiding left bestiary arrow");
-          bestiaryThat.displayBestiaryText(false);
-          bestiaryThat.bestiaryLeft.visible = false;
-          bestiaryThat.bestiaryRight.visible = true;
+
+    this.bestiaryUp.on('pointerover',function(pointer){
+      that.scene.initSoundEffect('buttonSFX','1',0.1);
+      that.bestiaryUp.setTint(0xff7000);
+    });
+
+    this.bestiaryUp.on('pointerout',function(pointer){
+      that.bestiaryUp.clearTint();
+    });
+
+    this.bestiaryUp.on('pointerdown', function (pointer) {
+
+      that.scene.initSoundEffect('buttonSFX','page',0.05);
+
+      console.log(" activating bestiary turn page up. scene.bestiaryUI.pageNumber" + that.pageNumber);
+      console.log(" pageID: ", that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+      that.displayBestiaryText(true);
+
+      //if we are on any page fgrom 0 to n and the page number, is less than the groups.length
+      if (that.pageNumber >= 0 && that.pageNumber < that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]].length - 1) {
+        that.pageNumber++;
+        that.setBestiaryInfo();
+
+        that.anims.play(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+        if(that.pageNumber === that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]].length - 1) {
+          console.log(" hiding right bestiary arrow");
+          that.bestiaryUp.visible = false;
+          that.bestiaryDown.visible = true;
         } else {
-          bestiaryThat.displayBestiaryText(true);
-          bestiaryThat.bestiaryLeft.visible = true;
-          bestiaryThat.bestiaryRight.visible = true;
+          that.bestiaryUp.visible = true;
+          that.bestiaryDown.visible = true;
         }
       }
+       console.log("that.groupNumber " + that.groupNumber+ " that.pageNumber: ",that.pageNumber);
+
+    });
+
+    this.bestiaryDown.on('pointerover',function(pointer){
+      that.scene.initSoundEffect('buttonSFX','1',0.1);
+      that.bestiaryDown.setTint(0xff7000);
+    });
+
+    this.bestiaryDown.on('pointerout',function(pointer){
+      that.bestiaryDown.clearTint();
+    });
+
+    this.bestiaryDown.on('pointerdown', function (pointer) {
+      console.log(" turning bestiary page down");
+      console.log(" pageID: ", that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+      that.scene.initSoundEffect('buttonSFX','page',0.05);
+
+      if (that.pageNumber > 0 && that.pageNumber <= that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]].length) {
+        that.pageNumber--;
+        that.setBestiaryInfo();
+        that.anims.play(that.activeBestiaryPages[that.activeBestiaryGroups[that.groupNumber]][that.pageNumber]);
+
+        if (that.pageNumber === 0) {
+          console.log(" hiding left bestiary arrow");
+          that.displayBestiaryText(true);
+          that.bestiaryDown.visible = false;
+          that.bestiaryUp.visible = true;
+        } else {
+          that.displayBestiaryText(true);
+          that.bestiaryDown.visible = true;
+          that.bestiaryUp.visible = true;
+        }
+      }
+      console.log("that.groupNumber " + that.groupNumber+ " that.pageNumber: ",that.pageNumber);
 
 
     });
@@ -352,7 +517,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
   setBestiaryInfo() {
 
     for (let [mainKey, value] of Object.entries(this.bestiaryTextList)) {
-      if (this.activeBestiaryPages[this.pageNumber] === mainKey) {
+      if (this.activeBestiaryPages[this.activeBestiaryGroups[this.groupNumber]][this.pageNumber] === mainKey) {
         for (let counter = 0; counter < this.bestiaryTitle.length; counter++) {
 
           if (counter < value.title.length) {
@@ -460,7 +625,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
 
     //for testing purposes
     tempArray.push(tempString);
-    console.log("tempArray: ", tempArray);
+    //console.log("tempArray: ", tempArray);
 
     //adds the last line to the string and sets our text object to it.
     formattedString += tempString;

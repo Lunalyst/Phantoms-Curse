@@ -395,7 +395,7 @@ class textBox extends Phaser.GameObjects.Container{
             //decision making for sound that player during dialogue
             //
             if(this.soundType === "default"){
-              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.initSoundEffect('buttonSFX','oldButton',0.05);
             }else if(this.soundType === "hit"){
               this.scene.initSoundEffect('buttonSFX','hit',0.05);
             }else if(this.soundType === "drum"){

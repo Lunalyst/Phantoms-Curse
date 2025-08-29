@@ -27,7 +27,7 @@ class PondForest extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
 
-      this.enemyGroupArray = ["whiteCats"];
+      this.enemyGroupArray = ["whiteCats","bats"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -54,6 +54,10 @@ class PondForest extends defaultScene {
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
+      ]);
+
+      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
 
       //weapon sound effects
@@ -210,7 +214,8 @@ class PondForest extends defaultScene {
       setTimeout(function(){
 
           thisScene.initEnemy(1497,1789,thisScene.playerSex,'whiteCat',false); 
-          thisScene.initEnemy(4089,1693,thisScene.playerSex,'whiteCat',false);         
+          thisScene.initEnemy(4089,1693,thisScene.playerSex,'whiteCat',false); 
+          thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');        
           thisScene.spawnedEnemys = true;
         },1000);
 

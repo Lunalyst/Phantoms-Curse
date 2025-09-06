@@ -215,7 +215,8 @@ class PondForest extends defaultScene {
 
           thisScene.initEnemy(1497,1789,thisScene.playerSex,'whiteCat',false); 
           thisScene.initEnemy(4089,1693,thisScene.playerSex,'whiteCat',false); 
-          thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');        
+          //thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');   
+          thisScene.initEnemy(1671,1073,thisScene.playerSex,'bat',false,'wingFlapSFX1');        
           thisScene.spawnedEnemys = true;
         },1000);
 

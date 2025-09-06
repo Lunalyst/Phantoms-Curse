@@ -156,6 +156,8 @@ class titleScreen extends A3SoundEffects {
                 '- Paws and Wait',
                 '- Whats Good Slime',
                 '- In Defiance of the Curse',
+                'KALE13: spritework assistance',
+                 '- M bat F player TF sprite',
                 'Stiefeljackal: rabbit gameover moddification',
                 'Zacchary Dempsey-Plante: Pixellari font',
                 "Scarlet: orthographer, inspiration, bug testing",

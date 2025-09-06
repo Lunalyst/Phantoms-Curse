@@ -1794,7 +1794,6 @@ class rabbit extends enemy {
                 this.playJumpySound('2',700);
                 
                 if (this.enemyHP <= 0) {
-                    if (this.enemyHP <= 0) {
 
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
@@ -1822,7 +1821,7 @@ class rabbit extends enemy {
                         this.grabHitBox.y = this.y + 3000; 
                     });
                 
-                }
+                
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);

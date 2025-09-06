@@ -548,9 +548,11 @@ class G9CheckEnemys extends G8InitEnemys {
     //console.log('bat.inSafeMode: ',bat.inSafeMode);
     if(this.objectsInRangeX(bat,scene.player1,450) && bat.inSafeMode === false ){
 
-      //calls tiger function to move
-      bat.move(scene.player1,scene);
-
+      if(bat.enemyInDefeatedLogic === true){
+        bat.enemyDefeatedLogic();
+      }else{
+        bat.move(scene.player1,scene);
+      }
       //if player is attacking
       if(this.player1.isAttacking === true){
         //checks if the attack hitbox is overlapping the beedrone to deal damage.

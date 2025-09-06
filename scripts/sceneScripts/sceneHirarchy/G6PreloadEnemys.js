@@ -77,6 +77,7 @@ class G6PreloadEnemys extends G5InitNPCs{
 
         tempSceneRef.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
         tempSceneRef.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
+        tempSceneRef.load.spritesheet('batFemaleExtension', 'assets/enemys/batFemaleExtension.png',{frameWidth: 273, frameHeight: 435  });
 
 
       },

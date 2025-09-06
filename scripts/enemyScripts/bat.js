@@ -40,10 +40,15 @@ class bat extends enemy {
         this.wakingUp = false;
         this.isButtSlamming = false;
         this.isPlayingMissedAnims = false;
+
+        //make a hitbox so the cat can attack the player.
+        this.attackHitBox = new hitBoxes(scene,this.x,this.y);
+        this.attackHitBox.setSize(30,10,true);
+        this.attackHitboxActive = false;
         
 
         // sets the bats hp value
-        this.enemyHP = 60;
+        this.enemyHP = 45;
 
         //defines a string containing telling the enemy which sound channel to use.
         this.batSFX = soundSprite;
@@ -92,6 +97,7 @@ class bat extends enemy {
             this.anims.create({ key: 'batButtDigest', frames: this.anims.generateFrameNames('batFemale', { start: 85, end: 93 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batFemale', { start: 94, end: 97 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batFemale', { start: 98, end: 101 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'batDefeated', frames: this.anims.generateFrameNames('batFemale', { start: 127, end: 130 }), frameRate: 6, repeat: -1 });
             
             if(sex === 0 ){
                 this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 53, end: 58 }), frameRate: 8, repeat: -1 });
@@ -665,12 +671,13 @@ class bat extends enemy {
 
     // controls the damage resistance of the bat.
     damage() {
+        console.log("this.enemyHP:" + this.enemyHP);
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
-                //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
+
                 this.calcDamage(
                     this.scene.player1.sliceDamage,
                     this.scene.player1.bluntDamage,
@@ -682,11 +689,35 @@ class bat extends enemy {
                 );
 
                 this.playJumpySound('2',700);
-                
+
                 if (this.enemyHP <= 0) {
-                    this.scene.sound.get(this.batSFX).stop();
-                    this.grabHitBox.destroy();
-                    this.destroy();
+
+                    //set enemy defeated to true, so the move behavior cant interupt the game over animations.
+                    this.enemyDefeated = true;
+                    this.setVelocityX(0);
+
+                    //calculate item drop chance
+                    let dropChance = Math.round((Math.random() * ((75) - (60 * this.scene.player1.dropChance)) + (60 * this.scene.player1.dropChance))/100);
+                    let dropAmount = Math.round((Math.random() * (10 * this.scene.player1.dropAmount)) + 6);
+
+                    this.setDepth(4);
+
+                    //decides amount of slime drops based on size
+                    if( dropChance > 0){
+                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,16,1,dropAmount,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+                    }
+
+                    this.anims.play('batButtSlam').once('animationcomplete', () => {
+
+                        this.enemyInDefeatedLogic = true;
+
+                        //delete enemy hit box since they have been defeated.
+                        this.attackHitBox.x = this.x;
+                        this.attackHitBox.y = this.y + 3000; 
+                        this.grabHitBox.x = this.x;
+                        this.grabHitBox.y = this.y + 3000; 
+                    });
+                
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);
@@ -699,6 +730,18 @@ class bat extends enemy {
             }, 100);
         }
     }
+
+    enemyDefeatedLogic(){
+        this.setVelocityX(0);
+        this.anims.play('batDefeated', true);
+        
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000; 
+
+    }
+
 
     //handles damage types for blue bat. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {

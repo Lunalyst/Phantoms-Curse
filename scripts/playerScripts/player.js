@@ -730,7 +730,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
       if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
-        console.log("attacking activated.")
+        //console.log("attacking activated.")
 
         //depending on the key, decide which switch to enter for correctly oriented hitbox 
         if(this.lastKey === 'd'){

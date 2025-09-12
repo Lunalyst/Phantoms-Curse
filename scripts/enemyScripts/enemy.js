@@ -253,6 +253,26 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    checkXRangeFromTarget(target, xLeftThresh, XRightThresh){
+
+        // bounds check defined by x  parameters
+        if((target.x > this.x  - xLeftThresh && target.x < this.x + XRightThresh)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    checkYRangeFromTarget(target, yTopThresh, yBottomThresh){
+
+        // bounds check defined  y parameters
+        if((target.y > this.y  - yTopThresh && target.y < this.y + yBottomThresh)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     WIsCorrectPress(){
         
     }

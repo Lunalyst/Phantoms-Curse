@@ -93,7 +93,7 @@ class G7EnemyCollisions extends G6PreloadEnemys{
     //creates id so scene can work with multiple enemys
     this.enemyId = 0;
     this.physics.add.collider(this.processMap.layer1, this.enemys);
-    this.physics.add.collider(this.processMap.layer0, this.enemys); 
+    //this.physics.add.collider(this.processMap.layer0, this.enemys); 
 
   }
 

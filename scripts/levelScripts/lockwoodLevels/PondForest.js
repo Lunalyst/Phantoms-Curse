@@ -43,7 +43,14 @@ class PondForest extends defaultScene {
       
       
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-      
+
+
+      this.load.spritesheet('rockPile', 'assets/gameObjects/rockPile.png',{frameWidth: 126, frameHeight: 96 });
+
+      this.load.audioSprite('rubbleSFX','audio/used-audio/rubble-sounds/rubble-sounds.json',[
+        "audio/used-audio/rubble-sounds/rubble-sounds.mp3"
+      ]);
+
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -54,10 +61,6 @@ class PondForest extends defaultScene {
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
       ]);
 
       //weapon sound effects
@@ -163,9 +166,11 @@ class PondForest extends defaultScene {
 
       this.initSavePoints(2990,824-10);
 
+      this.initSavePoints(2150,1368-10);
+
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
 
-      this.initPortals(4702,1053-13,637,605,"door2","DevRoom1");
+      this.initPortals(4780,1053-13,637,605,"door2","DevRoom1");
 
       this.initPortals(5039,1149-13,368,1080,"warpCaveOutside","ShadowCave");
 
@@ -176,7 +181,7 @@ class PondForest extends defaultScene {
       
 
 
-      this.secretWall1 = this.add.sprite(2832-16, 1168, "secretWall2");
+      this.secretWall1 = this.add.sprite(2832-16, 1168-32, "secretWall2");
       this.secretWall1.setDepth(7);
       this.secretWall1.setScale(1/3);
 
@@ -209,14 +214,28 @@ class PondForest extends defaultScene {
 
       this.initLunalyst(4966,1147,'clearingTheWay');
 
+      this.setUpEnemyBarriers();
+      this.initBarrier(650,1400,30,300);
+      this.initBarrier(2256,1400,30,300);
+      this.initBarrier(3221,1000,30,1300);
+      this.initBarrier(4720,950,30,300);
+
+      //sets up rubble pile
+      this.setUpRockPile();
+
+      this.initRockPile(4164,1400+24);
+      this.initRockPile(1598,1432+24);
+      //this.initRockPile(1598,1300+24);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){
 
-          thisScene.initEnemy(1497,1789,thisScene.playerSex,'whiteCat',false); 
-          thisScene.initEnemy(4089,1693,thisScene.playerSex,'whiteCat',false); 
+          thisScene.initEnemy(1497,1769,thisScene.playerSex,'whiteCat',false); 
+          thisScene.initEnemy(4089,1673,thisScene.playerSex,'whiteCat',false); 
           //thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');   
-          thisScene.initEnemy(1671,1073,thisScene.playerSex,'bat',false,'wingFlapSFX1');        
+          thisScene.initEnemy(1671,1073+30,thisScene.playerSex,'bat',false);
+          thisScene.initEnemy(3920,1098,thisScene.playerSex,'bat',false);        
           thisScene.spawnedEnemys = true;
         },1000);
 

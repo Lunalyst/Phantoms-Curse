@@ -75,7 +75,7 @@ class tiger extends enemy {
          this.attemptingGrab = false;
          this.isPlayingMissedAnims = false;
 
-        this.enemyHP = 45;
+        this.enemyHP = 30;
         console.log("this.enemySex: ",this.enemySex);
         if(this.enemySex === 1) {
             //defines tiger animations based on the players sex.
@@ -539,6 +539,7 @@ class tiger extends enemy {
                     }
                 }  
             }
+            
         //else the tiger has eaten so do different logic
         }else if(this.enemyDefeated === false){
 
@@ -1269,7 +1270,7 @@ class tiger extends enemy {
                         currentTiger.playerDamageTimer = false;
                 }, 1000);
 
-            } else if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3){
+            }else if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3){
 
                 //deal 3 hp damager everys second.
                 if(this.animationPlayed === false){
@@ -1685,12 +1686,13 @@ class tiger extends enemy {
 
                     //calculate item drop chance
                     let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
-                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+                    let dropAmount = Math.round((Math.random() * (3 * this.scene.player1.dropAmount)) + 1);
 
                     this.setDepth(4);
 
                     //decides amount of slime drops based on size
                     if( dropChance > 0){
+                        console.log("dropAmount: ",dropAmount);
                         this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,15,1,dropAmount,"TIGER CLAW","SHARP TIGER CLAW. COULD BE DANGEROUS.","drop",5);
                     }
 

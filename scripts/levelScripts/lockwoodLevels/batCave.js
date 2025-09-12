@@ -174,7 +174,7 @@ class batCave extends defaultScene {
      
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
-      this.initBarrier(3632,1149-30,30,140);
+      this.initBarrier(3630,1149-30,30,140);
       this.initBarrier(3024,1245-30,34,540);
       this.initBarrier(2385,1149-40,30,160);
 

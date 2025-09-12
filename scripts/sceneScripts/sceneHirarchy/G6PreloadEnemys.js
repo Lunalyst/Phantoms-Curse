@@ -184,6 +184,9 @@ class G6PreloadEnemys extends G5InitNPCs{
 
     };
 
+    //after we finish preloading enemy assets, call the function in G9CheckEnemy.js to set up the map of enemy check functions
+    this.setUpEnemyCheckMap();
+
   }
   
   //sets up colliders for enemys using a map of collider functions. DRIVER FUNCTION

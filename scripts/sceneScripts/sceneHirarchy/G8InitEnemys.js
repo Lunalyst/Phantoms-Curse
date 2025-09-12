@@ -64,15 +64,25 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.rabbits.add(rabbit1);
       },
       beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        tempSceneRef.load.start();
+        tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(beeDrone1);  
         tempSceneRef.beeDrones.add(beeDrone1);
       },
-      bat: function batFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+      bat: function batFunction(startX, startY, playerSex,inSafeMode) {
+
         console.log("inSafeMode: ",inSafeMode)
-        let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
+        console.log('wingFlapSFX'+tempSceneRef.enemyId);
+        tempSceneRef.load.start();
+        tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created bat id: ",bat1.enemyId);
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(bat1);  
@@ -338,7 +348,7 @@ class G8InitEnemys extends G7EnemyCollisions{
         }
 
         //special case. if cat gets mad while player is infatuated, release the cursed heart stuckgrab.
-        if(this.enemyThatInfatuatedPlayer.angry === true){
+        if(this.enemyThatInfatuatedPlayer.angry === true || this.enemyThatInfatuatedPlayer.eaten === true){
           //reset the grab values
           this.playerStuckGrab = false;
           this.playerStuckGrabActivated = false;
@@ -357,7 +367,8 @@ class G8InitEnemys extends G7EnemyCollisions{
       if(this.cursedHeartDelayPlayed === false && this.player1.mainHitbox.body.blocked.down){
 
         //special case. if cat gets mad while player is infatuated, release the cursed heart stuckgrab.
-        if(this.enemyThatInfatuatedPlayer.angry === true){
+        // another special case, if the cat is eaten, then also release the player
+        if(this.enemyThatInfatuatedPlayer.angry === true || this.enemyThatInfatuatedPlayer.eaten === true){
           //reset the grab values
           this.playerStuckGrab = false;
           this.playerStuckGrabActivated = false;

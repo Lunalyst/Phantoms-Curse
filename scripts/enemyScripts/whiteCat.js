@@ -238,8 +238,8 @@ class whiteCat extends enemy {
 
     //functions that move cat objects.
     move() {  
-        this.setSize(90, 100, true);
-        this.setOffset(80, 180);
+        this.setSize(50, 220, true);
+        this.setOffset(110,60);
 
         this.body.setGravityY(600);
 
@@ -308,9 +308,9 @@ class whiteCat extends enemy {
                         randomInput++;
                         let randomHoridMoan = Math.floor((Math.random() * 100)+1);
                         if(randomHoridMoan === 69){
-                            this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+                            this.scene.initSoundEffectWithRefrence("whiteCatSFX","horribleMoan",0.3,this);
                         }else {
-                            this.scene.initSoundEffect("whiteCatSFX",randomInput.toString(),0.1);
+                            this.scene.initSoundEffectWithRefrence("whiteCatSFX",randomInput.toString(),0.1,this);
                         }
                        
 
@@ -337,7 +337,7 @@ class whiteCat extends enemy {
                 
                     }else{
                         this.anims.play('catMove', true);
-                        this.setVelocityX(140); 
+                        this.setVelocityX(170); 
                     }
             
                 //if the player is to the right then move enemy to the left
@@ -356,9 +356,9 @@ class whiteCat extends enemy {
                         randomInput++;
                         let randomHoridMoan = Math.floor((Math.random() * 100)+1);
                         if(randomHoridMoan === 69){
-                            this.scene.initSoundEffect("whiteCatSFX","horribleMoan",0.3);
+                            this.scene.initSoundEffectWithRefrence("whiteCatSFX","horribleMoan",0.3,this);
                         }else {
-                            this.scene.initSoundEffect("whiteCatSFX",randomInput.toString(),0.1);
+                            this.scene.initSoundEffectWithRefrence("whiteCatSFX",randomInput.toString(),0.1,this);
                         }
 
                         console.log("randomInput: ",randomInput, "randomHoridMoan: ",randomHoridMoan);
@@ -384,7 +384,7 @@ class whiteCat extends enemy {
                 
                     }else{
                         this.anims.play('catMove', true);
-                        this.setVelocityX(-140); 
+                        this.setVelocityX(-170); 
                     }
                     
                 //cases for when the player is above the cat on a ledge. pulls the cat away from a ledge so that the infatuated player can walk off the ledge to be grabbed.
@@ -392,14 +392,14 @@ class whiteCat extends enemy {
                     console.log("cat below player who is on the left");
                     this.anims.play('catMove', true);
                     this.flipX = false;
-                    this.setVelocityX(140); 
+                    this.setVelocityX(170); 
 
                 //cases for when the player is above the cat on a ledge. pulls the cat away from a ledge so that the infatuated player can walk off the ledge to be grabbed.
                 }else if(this.scene.player1.x > this.x && this.scene.player1.y < this.y-40 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
                     console.log("cat below player who is on the right");
                     this.anims.play('catMove', true);
                     this.flipX = true;
-                    this.setVelocityX(-140); 
+                    this.setVelocityX(-170); 
 
                 //cases to have the enemy face the player when they are walking towards the enemy
                 }else if(this.scene.player1.x < this.x  && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true){
@@ -497,7 +497,7 @@ class whiteCat extends enemy {
                     this.flipX = false;
 
                     this.anims.play('catAngryMove', true);
-                    this.setVelocityX(140); 
+                    this.setVelocityX(170); 
                     
             
                 //if the player is to the right then move enemy to the left
@@ -508,7 +508,7 @@ class whiteCat extends enemy {
                     this.flipX = true;
                     this.hitboxActive = false;
                     this.anims.play('catAngryMove', true);
-                    this.setVelocityX(-140); 
+                    this.setVelocityX(-170); 
                     
                 }else if(this.scene.player1.x > this.x+ 30 && this.attemptingGrab === false && this.grabTimer === false && this.throwingcat === false && this.scene.playerStuckGrab === true) {
                     //console.log("moving cat right");            
@@ -595,7 +595,7 @@ class whiteCat extends enemy {
     moveIdle() {
         //this.setSize(90, 65, true);
         //this.setOffset(105, 233);
-        this.anims.play('catIdle',true);
+        this.anims.play('catSideIdle',true);
         //console.log("cat not grabbed player");
 
         //this.setSize(90, 65, true);

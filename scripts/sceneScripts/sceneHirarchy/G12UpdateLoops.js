@@ -212,42 +212,9 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
             //loops through our enemy groups, and applies our interactions to these groups.
             for(let counter = 0; counter < enemyGroupArray.length;counter++){
-
-              if(enemyGroupArray[counter] === 'blueSlimes'){
-                this.checkBlueSlimeInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'tigers'){
-                this.checkTigerInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'rabbits'){
-                this.checkRabbitInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'beeDrones'){
-                this.checkBeeDroneInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'bats'){
-                this.checkBatInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'blueSlimeHSs'){
-                this.checkBlueSlimeHSInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'blueSlimeHMs'){
-                this.checkBlueSlimeHMInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'chestMimics'){
-                this.checkChestMimicsInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'whiteCats'){
-                this.checkWhiteCatInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'curseShadows'){
-                //console.log("shadow test");
-                this.checkCurseShadowInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'earieShadows'){
-                //console.log("shadow test");
-                this.checkEarieShadowInteractions(this);
-              }
+              
+              this.mapOfEnemyCheckFunctions[enemyGroupArray[counter]]();
+             
             }
 
           //otherwise if the player has been grabbed then
@@ -293,23 +260,10 @@ class G12UpdateLoops extends G11CheckGameObjects{
           if(this.grabbed === false){ 
 
             //loops through our enemy groups, and applies our interactions to these groups.
-            for(let counter = 0; counter < enemyGroupArray.length;counter++){
+           for(let counter = 0; counter < enemyGroupArray.length;counter++){
 
-              if(enemyGroupArray[counter] === 'blueSlimes'){
-                this.checkBlueSlimeInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'tigers'){
-                this.checkTigerInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'rabbits'){
-                this.checkRabbitInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'beeDrones'){
-                this.checkBeeDroneInteractions(this);
-              }
-              if(enemyGroupArray[counter] === 'bats'){
-                this.checkBatInteractions(this);
-              }
+              this.mapOfEnemyCheckFunctions[enemyGroupArray[counter]]();
+              
             }
 
           //otherwise if the player has been grabbed then

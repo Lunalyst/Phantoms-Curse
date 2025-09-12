@@ -32,8 +32,9 @@ class bat extends enemy {
         this.randomizedXVelocity = false;
         this.grabTimer = false;
         this.hitboxActive = false;
+        this.shoveCoolDown = false;
 
-        //make a hitbox so the bee can grab the player.
+        //make a hitbox so the bat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(20,10,true);
         this.isSleeping = true;
@@ -45,7 +46,11 @@ class bat extends enemy {
         this.attackHitBox = new hitBoxes(scene,this.x,this.y);
         this.attackHitBox.setSize(30,10,true);
         this.attackHitboxActive = false;
-        
+
+        this.struggleAnimationInterupt = false;
+        this.batHasEatenCat = false;
+        this.batIsEating = false;
+        this.attemptingGrab = false;
 
         // sets the bats hp value
         this.enemyHP = 45;
@@ -54,7 +59,12 @@ class bat extends enemy {
         this.batSFX = soundSprite;
         this.playingSound = false;
 
-        
+        this.target = this.scene.player1;
+        //important variable used in bat check enemy function so it know what overlap function to apply based on target.
+        this.targetString = "player";
+
+        this.unstuckBool = false;
+
         //defines bat animations based on the players sex.
         if(this.enemySex === 0) {
             this.anims.create({ key: 'batSleep', frames: this.anims.generateFrameNames('batMale', { start: 0, end: 8 }), frameRate: 8, repeat: -1 });
@@ -98,7 +108,23 @@ class bat extends enemy {
             this.anims.create({ key: 'batButtJiggle', frames: this.anims.generateFrameNames('batFemale', { start: 94, end: 97 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'batGameover', frames: this.anims.generateFrameNames('batFemale', { start: 98, end: 101 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'batDefeated', frames: this.anims.generateFrameNames('batFemale', { start: 127, end: 130 }), frameRate: 6, repeat: -1 });
-            
+
+            this.anims.create({ key: 'batAVFemaleCatSwallow', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 0, end: 8 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batAVFemaleCatButtOnHead', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 9, end: 18 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batAVCatSwallowFinish', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 19, end: 27 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batCatButtHump', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 28, end: 31 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batCatButtDigest', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 32, end: 46 }), frameRate: 6, repeat: 0 });
+
+            this.anims.create({ key: 'batFatTryFly', frames: this.anims.generateFrameNames('batFemaleExtension', { start:47, end: 52 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'batFatHop', frames: this.anims.generateFrameNames('batFemaleExtension', { start:54, end: 57 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batFatTemptingLook', frames: this.anims.generateFrameNames('batFemaleExtension', { start:58, end: 63 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batFatTemptingLookLoop', frames: this.anims.generateFrameNames('batFemaleExtension', { start:58, end: 63 }), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'batFatButtAttackStart', frames: this.anims.generateFrameNames('batFemaleExtension', { start:64, end: 67 }), frameRate: 9, repeat: 0 });
+            this.anims.create({ key: 'batFatButtAttackEnd', frames: this.anims.generateFrameNames('batFemaleExtension', { start:68, end: 69 }), frameRate: 6, repeat: 0 });
+
+            this.anims.create({ key: 'batFatDefeatedFall', frames: this.anims.generateFrameNames('batFemaleExtension', { start:112, end: 114 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batFatDefeated', frames: this.anims.generateFrameNames('batFemaleExtension', { start:115, end: 118 }), frameRate: 6, repeat: -1 });
+
             if(sex === 0 ){
                 this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 53, end: 58 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 59, end: 62 }), frameRate: 8, repeat: 0 });
@@ -110,7 +136,15 @@ class bat extends enemy {
                 this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 108, end:111 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 112, end: 115 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 116, end: 126 }), frameRate: 8, repeat: 0 });
-                
+
+                this.anims.create({ key: 'batFatFaceSit', frames: this.anims.generateFrameNames('batFemaleExtension', { start:70, end: 75 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatFaceSitTo69', frames: this.anims.generateFrameNames('batFemaleExtension', { start:76, end: 76 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFat691', frames: this.anims.generateFrameNames('batFemaleExtension', { start:77, end: 84 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFat692', frames: this.anims.generateFrameNames('batFemaleExtension', { start:84, end: 89 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFat693', frames: this.anims.generateFrameNames('batFemaleExtension', { start:89, end: 93 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatTF', frames: this.anims.generateFrameNames('batFemaleExtension', { start:94, end: 102 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFatTFPant', frames: this.anims.generateFrameNames('batFemaleExtension', { start:103, end: 106 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFat693', frames: this.anims.generateFrameNames('batFemaleExtension', { start:107, end: 110 }), frameRate: 6, repeat: -1 });
             }
         }
 
@@ -135,154 +169,438 @@ class bat extends enemy {
 
     //functions that move bat objects.
     move(){
+
+    
+    if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false){
+
+        if(this.batIsEating === true){
+
+            this.setVelocityX(0);
+
         //if the bat isnt sleeping anymore
-        if(this.isSleeping === false){
+        }else if(this.isSleeping === false && this.batIsEating === false){
 
-            //if the enemy is within grab range attempt to grab the player while the grab timer is false
-            if((this.scene.player1.x + 10 > this.x   && this.scene.player1.x - 10 < this.x )&& (this.scene.player1.y-60 > this.y && this.scene.player1.y-80 < this.y ) && this.grabTimer === false){
+                //check to see if white cat made sound. 
+                if(this.isSoundEffectPlaying('whiteCatSFX')){
 
-                this.grabTimer = true;
-                this.hitboxActive = true;
+                    this.target = this.scene.getSFXRefrence('whiteCatSFX');
 
-                //controls the x velocity when the bee ischarging to grab the player
-                this.setVelocityX(0);
+                    //check to make sure white cat is not defeated and its in range of the bat
+                    console.log("target: ",this.target)
+                    if(this.grabTimer === false){
+                        if(this.target !== null ){
 
-                //controls the y velocity when the bee is charging to grab the player
-                this.setVelocityY(400);
+                            this.targetString = "whitecat";
+                            this.setDepth(this.target.depth+1);
+                        }else{
+                            
+                            this.target = this.scene.player1;
+                            this.targetString = "player";
+                            this.setDepth(this.target.depth+1);
+                        }
 
-                this.grabHitBox.body.enable = true;
-
-                //player the bee grab animation and once its complete
-                this.grabTimer = true;
-
-                this.anims.play('batButtSlam').once('animationcomplete', () => {
-
-                    this.isButtSlamming = true;
-                        
-                });
-
-            // if the bat is butt slamming we check to see if the bat hits the ground.
-            }else if(this.isButtSlamming === true){
-                
-                
-                //check to see if bat collides with ground. if true then
-                if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
+                    }
                     
-                    //set value to play butt on ground animation
-                    this.hitboxActive = false;
-                    this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
-                        
-                        //set butt slamming to false
-                        this.isButtSlamming = false;
-                        this.grabTimer = false;
-                        this.isPlayingMissedAnims = false;    
+                    
+                //otherwise set target to player
+                }else if(this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX') || this.isSoundEffectPlaying('whiteCatSFX')){
+                    this.target = this.scene.player1;
+                    this.targetString = "player";
+                    this.setDepth(this.target.depth+1);
+                }
+
+                //if the enemy is within grab range attempt to grab the player while the grab timer is false
+                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-80 < this.y ) && this.grabTimer === false){
+
+                    this.grabTimer = true;
+                    this.hitboxActive = true;
+
+                    //controls the x velocity when the bat is butt slamming to grab the player
+                    this.setVelocityX(0);
+
+                    this.setVelocityY(400);
+
+                    this.grabHitBox.body.enable = true;
+
+                    //player the bat grab animation and once its complete
+                    this.grabTimer = true;
+
+                    this.anims.play('batButtSlam').once('animationcomplete', () => {
+
+                        this.isButtSlamming = true;
+                            
                     });
 
-                    //stop velocity of both x and y
-                    this.setVelocityX(0);
-                    this.setVelocityY(0);
-
-                    this.isPlayingMissedAnims = true;
-                // bat is in air and falling so keep downward velocity 
-                }else if(this.isPlayingMissedAnims === false){
-                    this.anims.play('batButtSlamInAir');
-                    this.setVelocityY(400);
-                }
-
-            //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
-            }else if(this.grabTimer === false){
-
-                //console.log('');
-                this.grabHitBox.body.enable = false;
-
-                if ((this.scene.player1.x > this.x - 450 && this.scene.player1.x < this.x + 450) && (this.scene.player1.y > this.y - 450 && this.scene.player1.y < this.y + 450)) {
-
-                    if(this.playingSound === false){
-                        this.playWingFlapSound('1',500);
-                        this.playingSound = true;
-                    }
-                    this.setSize(70, 180, true);
-                    this.setOffset(100, 53);
-            
-                    //if bee is within range
-                    if ((this.scene.player1.x  > this.x - 10 && this.scene.player1.x < this.x + 10)){
-                        this.anims.play('batIdle',true);
-                        this.setVelocityX(0);
-        
-                    }else{
-                        //if the bat is left of the player move the bat right twards the player bot not into them yet.
-                        if (this.scene.player1.x > this.x){
-                            
-                            this.setVelocityX(this.randomXVelocity);
-                            //play the animation for bat being in the air.
-                            this.anims.play('batMove',true);
-                            this.flipX = false;
-                                        
-                        //if the bat is to the right of the player, then move the bat left
-                        } else if (this.scene.player1.x < this.x) {
-        
-                            this.setVelocityX(this.randomXVelocity * -1);
-                            //play the animation for bat being in the air.
-                            this.anims.play('batMove',true);
-                            this.flipX = true;
-                        }
-                    }
-                    //keep the bee floating lightly above the players y
-                    if ((this.scene.player1.y-70 > this.y  && this.scene.player1.y-80 < this.y)){
-                        //this.anims.play('batIdle',true);
-                        this.setVelocityY(0);
-        
-                    }else{
-                        if (this.scene.player1.y - 100 > this.y) {
-        
-                            this.setVelocityY(150);
-        
-                        } else if (this.scene.player1.y - 80 < this.y) {
-        
-                            this.setVelocityY(150*-1);    
-                        }
-                    }
-        
-                //if the be isnt within range of the player have them idle.  
-                }else{
-                    this.anims.play('batIdle', true);
-                    this.setVelocityX(0);
-                    this.setVelocityY(0);
-
-                    if(this.scene.sound.get(this.batSFX) !== null){
-                        this.scene.sound.get(this.batSFX).stop();
-                    }
-                    this.playingSound = false;
+                // if the bat is butt slamming we check to see if the bat hits the ground.
+                }else if(this.isButtSlamming === true){
                     
+                    
+                    //check to see if bat collides with ground. if true then
+                    if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
+                        
+                        //set value to play butt on ground animation
+                        this.hitboxActive = false;
+                        this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
+                            
+                            //set butt slamming to false
+                            this.isButtSlamming = false;
+                            this.grabTimer = false;
+                            this.isPlayingMissedAnims = false;  
+                            // if the bat misses destroy collision
+                            //this.batCollision.destroy();
+                        });
+
+                        //stop velocity of both x and y
+                        this.setVelocityX(0);
+                        this.setVelocityY(0);
+
+                        this.isPlayingMissedAnims = true;
+                    // bat is in air and falling so keep downward velocity 
+                    }else if(this.isPlayingMissedAnims === false){
+                        this.anims.play('batButtSlamInAir');
+                        this.setVelocityY(400);
+                    }
+
+                //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
+                }else if(this.grabTimer === false){
+
+                    //console.log('');
+                    this.grabHitBox.body.enable = false;
+
+                    if ((this.target.x > this.x - 450 && this.target.x < this.x + 450) && (this.target.y > this.y - 900 && this.target.y < this.y + 900)) {
+
+                        if(this.playingSound === false){
+                            this.playWingFlapSound('1',500);
+                            this.playingSound = true;
+                        }
+                        this.setSize(70, 180, true);
+                        this.setOffset(100, 59);
+                
+                        //if bat is within range
+                        if (this.checkXRangeFromTarget(this.target, 10, 10)){
+                            this.anims.play('batIdle',true);
+                            this.setVelocityX(0);
+            
+                        }else{
+                            //if the bat is left of the player move the bat right twards the player bot not into them yet.
+                            if (this.target.x > this.x){
+                                
+                                this.setVelocityX(this.randomXVelocity);
+                                //play the animation for bat being in the air.
+                                this.anims.play('batMove',true);
+                                this.flipX = false;
+                                            
+                            //if the bat is to the right of the player, then move the bat left
+                            } else if (this.target.x < this.x) {
+            
+                                this.setVelocityX(this.randomXVelocity * -1);
+                                //play the animation for bat being in the air.
+                                this.anims.play('batMove',true);
+                                this.flipX = true;
+                            }
+                        }
+                        //keep the bat floating lightly above the players y
+                        if ((this.target.y-70 > this.y  && this.target.y-80 < this.y)){
+                            //this.anims.play('batIdle',true);
+                            this.setVelocityY(0);
+            
+                        }else{
+                            // moves the bat up to the position where it should be able to get the player.
+                            if (this.target.y - 100 > this.y) {
+            
+                                this.setVelocityY(150);
+            
+                            } else if (this.target.y - 80 < this.y) {
+            
+                                this.setVelocityY(150*-1);    
+                            }
+
+                            /*//special case, if the bat happens to be lower than the player and stuck or higher than the player and stuck 
+                            if(this.target.y+96 < this.y && (this.target.x > this.x - 200 && this.target.x < this.x + 200) ){
+
+
+                                //lockout
+                                if(this.unstuckBool === false){
+
+                                    this.unstuckBool = true;
+
+                                    //generate a number between 1 and 0
+                                    this.unstuck = Math.round(Math.random());
+
+
+                                     let temp = this;
+                                     setTimeout(function () {
+                                        temp.unstuckBool = false;
+                                        console.log("reset unstuck timer");
+                                    }, 8000);
+                                }
+
+                                //if one move right otherwise move left
+                                if(this.unstuck === 1){
+                                    this.setVelocityX(this.randomXVelocity);
+                                    //play the animation for bat being in the air.
+                                    this.anims.play('batMove',true);
+                                    this.flipX = false;
+                                }else{
+                                    this.setVelocityX(this.randomXVelocity * -1);
+                                    //play the animation for bat being in the air.
+                                    this.anims.play('batMove',true);
+                                    this.flipX = true;
+                                }
+
+                                
+
+                            }else{
+                                this.setVelocityX(0);
+                            }*/
+
+
+                        }
+            
+                    //if the be isnt within range of the player have them idle.  
+                    }else{
+                        this.anims.play('batIdle', true);
+                        this.setVelocityX(0);
+                        this.setVelocityY(0);
+
+                        if(this.scene.sound.get(this.batSFX) !== null){
+                            this.scene.sound.get(this.batSFX).stop();
+                        }
+                        this.playingSound = false;
+                        
+                    }
+
                 }
 
-            }
+        }
+    // if the bat ate, then do that logic
+    }if(this.isSleeping === false && this.batHasEatenCat === true && this.enemyDefeated === false){
 
-            if(this.hitboxActive === true){
-                this.grabHitBox.x = this.x;
-                this.grabHitBox.y = this.y;
-            }else{
-                this.grabHitBox.x = this.x;
-                this.grabHitBox.y = this.y + 3000; 
-            }
+                //if rabbit is too close, and grabb attempt is false, then 
+                if((this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(90,90) && this.grabTimer === false) && this.scene.playerStuckGrab === false && this.shoveCoolDown === false){
+                    
+                    // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
+                    if(this.scene.checkDIsDown() && this.x < this.scene.player1.x ){
+                        this.setVelocityX(300);
+                    }else if(this.scene.checkAIsDown() && this.x > this.scene.player1.x){
+                        this.setVelocityX(-300);
+                    }else{
+                        this.setVelocityX(0);
+                    }
+                    // otherwise keep the rabbits current momentum.
+                    this.grabTimer = true;
 
-            // randomized bee velocity so they can keep up with the player without overlapping into eachother.
-            if(this.randomizedXVelocity === false){
-                this.randomizedXVelocity = true;
-                //console.log("this.randomXVelocity: ",this.randomXVelocity);
-                this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                    this.setDepth(7);
+                    
+                    this.anims.play('batFatButtAttackStart').once('animationcomplete', () => {
+                        
+                        //this.playJumpySound('3',700);
+                        this.setVelocityX(0);
+                        this.attackHitboxActive = true;
+                        this.attackHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+                        this.playJumpySound('3',700);
+                        
+                    });
+
+                //activate missed animation
+                }else if(this.checkXRangeFromPlayer(30, 30) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false){
+
+                    //stop momentum play idle loop
+                    this.setVelocityX(0);
+                    this.anims.play('batFatTemptingLookLoop', true);
+
+                //attempt to grab the player
+                }else if(this.attemptingGrab === true && this.scene.playerStuckGrab === false){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+
+                        this.setVelocityX(0);
+                        
+                        this.anims.play('batFatButtAttackEnd').once('animationcomplete', () => {
+
+                            this.setDepth(5);
+                            this.attackHitboxActive = false;
+                            this.attemptingGrab = false;
+                            this.grabTimer = false;
+                            this.isPlayingMissedAnims = false;  
+                            if(!this.checkYRangeFromPlayer(20,70)){
+                                this.anims.play('batFatGlide', true);
+                            }
+                            
+                            this.shoveCoolDown = true;
+                            let currentRabbit = this;
+                            setTimeout(function () {
+                                currentRabbit.shoveCoolDown = false;
+                                console.log("shoveCoolDown has ended. player can be grabbed agian.");
+                            }, 2000);
+                        });
+                    }
+
+                //move the rabbit right if the player isnt knocked down
+                }else if(this.y-110 > this.scene.player1.y && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false ){
+                    //stop momentum play idle loop
+                    this.setVelocityX(0);
+                    this.anims.play('batFatTryFly', true);
+                    this.swallowDelay = false; 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;            
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    //lockout
+                    if(this.unstuckBool === false){
+
+                        this.setVelocityY(-130);
+                        this.unstuckBool = true;
+
+                        let temp = this;
+                        setTimeout(function () {
+                            temp.unstuckBool = false;
+                            console.log("reset unstuck timer re used as trying to fly timer");
+                        }, 500);
+                    }
+
+                }else if(this.scene.player1.x > this.x &&  this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat right"); 
+                    this.swallowDelay = false; 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;            
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    this.anims.play('batFatHop', true);
+                    this.setVelocityX(250); 
+                    
+            
+                //if the player not knocked how move the rabbit left
+                }else if(this.scene.player1.x < this.x && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false) {
+                    //console.log("moving cat left");
+                    this.swallowDelay = false; 
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;  
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    this.hitboxActive = false;
+                    this.anims.play('batFatHop', true);
+                    this.setVelocityX(-250); 
+                    
+
+                // if the rabbit is close enough to the player and they are knocked down.
+                }else if((this.checkXRangeFromPlayer(80,80) && this.scene.playerStuckGrab === true)){
+
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.attackHitboxActive = false;
+                    this.setDepth(7);
+                    //have the rabbit move to the correct position with the feet and face the right direction.
+                    //if the player is facing left
+
+                    if(!this.checkXRangeFromPlayer(20,20) && this.scene.player1.x < this.x){
+                        this.flipX = true;
+                        this.setVelocityX(-30);
+                        this.anims.play('batFatHop', true);
+                        this.swallowDelay  = false;
+                    }else if(!this.checkXRangeFromPlayer(20,20) && this.scene.player1.x > this.x){
+                        this.flipX = false;
+                        this.setVelocityX(30);
+                        this.anims.play('batFatHop', true);
+                        this.swallowDelay  = false;
+                    }else{
+
+                        this.setVelocityX(0);
+                        if(this.swallowDelay  === false){
+
+                             this.swallowDelay = true;
+
+                            this.anims.play('batFatTemptingLook').once('animationcomplete', () => {
+
+                                this.swallowDelay = false;
+
+                                this.hitboxActive = true;
+                                this.grabHitBox.body.enable = true;
+                                this.attemptingGrab = true;
+
+                            });
+                        }
+                        
+                        
+                    }
+
+                }else if(this.scene.player1.x > this.x  && this.checkYRangeFromPlayer(70,100)  && this.grabTimer === false && this.swallowDelay === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat right");        
+                    this.direction = "right";
+                    this.jumpAnimationPlayed = false; 
+                    this.hitboxActive = false;
+                    this.flipX = false;
+
+                    this.anims.play('batFatHop', true);
+                    this.setVelocityX(70); 
+                    
+            
+                //if the player is to the right then move enemy to the left
+                }else if(this.scene.player1.x < this.x  && this.checkYRangeFromPlayer(70,100)  && this.grabTimer === false && this.swallowDelay === false && this.scene.playerStuckGrab === true) {
+                    //console.log("moving cat left");   
+                    this.direction = "left";
+                    this.jumpAnimationPlayed = false;
+                    this.flipX = true;
+                    this.hitboxActive = false;
+                    this.anims.play('batFatHop', true);
+                    this.setVelocityX(-70); 
                 
-                let tempBee = this;
-                setTimeout(function () {
-                    tempBee.randomizedXVelocity = false;
-                }, 500);
-            }
+                //if the cat is above the knocked down player, then grab them
+                }else if(!this.checkYRangeFromPlayer(70,70) && this.checkXRangeFromPlayer(30, 30) && this.grabCoolDown === false){
+
+                    this.attackHitboxActive = false;
+                    this.attemptingGrab = false;
+                    this.grabTimer = false;
+                    this.isPlayingMissedAnims = false; 
+
+                    this.grabCoolDown = true;
+                    let currentRabbit = this;
+                    setTimeout(function () {
+                        currentRabbit.grabCoolDown = false;
+                        console.log("grab cooldown has ended. player can be grabbed agian.");
+                    }, 2000);
+                    
+
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                    this.setVelocityX(0); 
+                    this.anims.play('batFatTryFly', true);
+
+                    console.log("rabbit has lost the plot.")
+                }  
+            
+            
     // behavior for sleeping 
-    }else{
+    }else if(this.isSleeping === true){
 
         // if player is in range, and they make a sound then
-        if(this.wakingUp === false && (this.scene.player1.x > this.x - 300 && this.scene.player1.x < this.x + 300) && 
-        (this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX') || this.isSoundEffectPlaying('rubbleSFX'))){
+        if(this.wakingUp === false && (this.target.x > this.x - 340 && this.target.x < this.x + 340) && (this.target.y > this.y - 340 && this.target.y < this.y + 340) && 
+        (this.isSoundEffectPlaying('rubbleSFX') || this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX') || this.isSoundEffectPlaying('whiteCatSFX'))){
             // play animation of them dropping down
             this.wakingUp = true;
             this.anims.play('batWakeUp').once('animationcomplete', () => {
@@ -290,16 +608,52 @@ class bat extends enemy {
                 this.isSleeping = false;
                 this.wakingUp = false;
             });
-            //set value to tell that they ar no longer sleeping
-            //this.isSleeping = false;
-            this.wakingUp = true;
+
         }else if(this.wakingUp === false){
         // play idle animation
         this.setSize(70, 180, true);
         this.anims.play('batSleep',true);  
         }
     }
-        
+         if(this.hitboxActive === true){
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y;
+            }else{
+                this.grabHitBox.x = this.x;
+                this.grabHitBox.y = this.y + 3000; 
+            }
+
+        //handles attack hit box positioning
+        if(this.attackHitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.attackHitBox.x = this.x-15;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.attackHitBox.x = this.x+15;
+            }
+            this.attackHitBox.y = this.y-30;
+
+        }else{
+            this.attackHitBox.x = this.x;
+            this.attackHitBox.y = this.y + 3000; 
+        }
+
+            // randomized bat velocity so they can keep up with the player without overlapping into eachother.
+            if(this.randomizedXVelocity === false){
+                this.randomizedXVelocity = true;
+                //console.log("this.randomXVelocity: ",this.randomXVelocity);
+                this.randomXVelocity = Math.floor(Math.random() * (255 - 235) + 235);
+                
+                let tempbat = this;
+                setTimeout(function () {
+                    tempbat.randomizedXVelocity = false;
+                }, 500);
+            }
 
         //updates the previous y value to tell if bat is falling or going up in its jump.
         this.enemyPreviousY = this.y;
@@ -315,15 +669,85 @@ class bat extends enemy {
         this.grabHitBox.y = this.y + 3000; 
         this.setDepth(4);
         this.grabTimer = false;
+        this.attemptingGrab = false;
+        this.grabTimer = false;
+        this.isButtSlamming = false;
+        this.grabTimer = false;
+        this.isPlayingMissedAnims = false;    
     }
 
     // functioned called to play animation when the player is defeated by the bat in gameover.
     gameOver(playerSex) {
         this.setSize(70, 180, true);
-        this.setOffset(100, 53);
+        this.setOffset(100, 59);
         this.anims.play('batGameover').once('animationcomplete', () => {
 
         });
+    }
+
+    //function called to play tiger eating animations.
+    batEatsCat(rabbitSex){
+       //sets velocity to zero since the enemy should not be moving.
+       this.setVelocityX(0);
+       this.setVelocityY(0);
+
+       //get rid of hitbox while cat is being eaten
+       this.hitboxActive = false;
+       this.grabHitBox.x = this.x;
+       this.grabHitBox.y = this.y + 3000; 
+
+       //change the side of the sprite so the tall version is possitioned correctly off the ground( not clipping through the ground in grab animation.)
+       this.setSize(70, 411, true);
+
+       this.y = this.target.y-34;
+
+
+        // decides if the male or female rabbit is being eaten.
+        this.batIsEating = true;
+        let batSexFlag = 'batAVMaleCatSwallow';
+        if(rabbitSex === 1){
+            batSexFlag = 'batAVFemaleCatSwallow';
+        }
+        
+        this.playPlapSound('plap4',800);
+        this.anims.play(batSexFlag).once('animationcomplete', () => {
+
+            this.scene.initSoundEffect("whiteCatSFX","sad",0.3);
+            batSexFlag = 'batAVMaleCatButtOnHead';
+            if(rabbitSex === 1){
+                batSexFlag = 'batAVFemaleCatButtOnHead';
+            }
+            this.playPlapSound('plap3',800);
+            
+            this.anims.play(batSexFlag).once('animationcomplete', () => {
+
+                this.playPlapSound('plap5',800);
+                this.anims.play("batAVCatSwallowFinish").once('animationcomplete', () => {
+                    
+                    this.playJumpySound('3',700);
+                    this.anims.play("batCatButtHump").once('animationcomplete', () => {
+
+                        this.scene.initSoundEffect('stomachSFX','1',0.03);
+                        this.anims.play("batCatButtDigest").once('animationcomplete', () => {
+                            this.batIsEating = false;
+                            this.batHasEatenCat = true;
+                            this.attemptingGrab = false;
+                            this.grabTimer = false;
+                            this.enemyHP = 60;
+                            this.setSize(70, 180, true);
+                            this.setOffset(100, 59);
+                            this.body.setGravityY(600);
+                            this.y = this.y+70
+
+                            //increaste grab hitbox size so it can grab the player while there on the ground.
+                            this.grabHitBox.setSize(40,10,true);
+
+                        });
+                    });
+                });
+            });
+        });
+        
     }
 
 
@@ -385,10 +809,11 @@ class bat extends enemy {
             if(playerHealthObject.playerHealth >= 1 && this.struggleCounter <= 100){
 
             //calls a function to handle the player taking damage
-            this.playerIsStrugglingLogic();
+            this.playerIsStrugglingLogic(playerHealthObject);
+            }
 
             //logic for if the player escapes the grab
-            }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
+            if(playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter >= 100){
 
                 //if the player escapes hide the give up indicator.
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -398,7 +823,7 @@ class bat extends enemy {
                 this.playerEscaped(playerHealthObject);
 
             //logic for if the player is defeated
-            }else if(playerHealthObject.playerHealth === 0){
+            }else if(playerHealthObject.playerHealth === 0 && this.batHasEatenCat === false){
 
                 //hide the giveup indicator
                 giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
@@ -411,63 +836,74 @@ class bat extends enemy {
             
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
+
+            }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax && this.batHasEatenCat === true){
+
+                //hide the giveup indicator
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+
+                //makes the struggle bar invisible
+                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+            
+                //handle the defeated logic that plays defeated animations
+                //this.playerIsDefeatedTFLogic(playerHealthObject);
             }
         }
     }
 
     batGrabFalse(){
-        // hides the players hitbox. all animations take place in the enemy sprite sheet during a grab.
-        //console.log("this bat did not grab the player this.batID: " + this.enemyId);
+        // hide player
         this.scene.player1.visible = false;
-        // puts the player hitbox out of the way and locked to a specific location.
-        //this.scene.player1.y = this.y - 150;
-        // makes the key prompts visible.
-        this.scene.KeyDisplay.visible = true;
-        
-        // check to make sure animations dont conflict with eachother.
-        if (this.playerDefeated === false && this.playerBrokeFree === 0 && !this.animationPlayed) {
-           
-            //moves bee upward so that when the tween starts it isnt bumping up on the ground if the player is too close
-            //tween kills all movement of the direction it is active in.
-            this.setVelocityY(300);
-            this.setSize(70, 411, true);
-            // plays the gram animation then starts tween and struggle animation
-            //this.x = this.scene.player1.x;
-            this.y = this.scene.player1.y-40;
 
-            this.anims.play('batButtGrabbed', true);
+        //make struggle prompts visible
+        this.scene.KeyDisplay.visible = true;
+
+         this.playerGrabbed = true;
+
+        //set up collision for bat on layer 0
+        this.batCollision = this.scene.physics.add.collider(this.scene.processMap.layer0, this);
+        
+        //if the player is not defeated, has not broken free and the animation has not batd played, 
+        if (this.playerDefeated === false && this.playerBrokeFree === 0 && !this.animationPlayed && this.batHasEatenCat === false) {
+           
+            //set downward velocity to get the bat to the ground quicker
+            this.setVelocityY(300);
+
+            //change the side of the sprite so the tall version is possitioned correctly off the ground( not clipping through the ground in grab animation.)
+            this.setSize(70, 411, true);
+
+            // change enemy y to be positioned based on player. 
+            this.y = this.scene.player1.y-40;
   
         }
- 
-        this.playerGrabbed = true;
-        //if the player is grabbed then do the following.
+
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000;
+
     }
 
     batGrabTrue(playerHealthObject){
 
-        //plays jumpy sound during grab.
-        if(playerHealthObject.playerHealth > 0 ){
-            this.playJumpySound('3',700);
+        if(this.batHasEatenCat === false){
+            //plays jumpy sound during grab.
+            if(playerHealthObject.playerHealth > 0 ){
+                this.playJumpySound('3',700);
+            }
+        // otherwise bat is fed so play this sound effect.
+        }else{
+
         }
 
-        //console.log("this bat did grab the player this.batID: "+ this.batId);
-        // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-        this.scene.player1.y = this.y - 150;
-        //this.scene.player1.body.setGravityY(0);
-        //this.body.setGravityY(0);
-        //this.scene.player1.setSize(10, 10, true);
         //puts the key display in the correct location.
+        this.scene.player1.y = this.y - 150;
         this.scene.KeyDisplay.x = this.x;
         this.scene.KeyDisplay.y = this.y + 100;
-        // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-        if (this.playerDamaged === false && playerHealthObject.playerHealth > 0) {
-            //hpBar.calcDamage(1);
-            healthEmitter.emit(healthEvent.loseHealth,1)
-            console.log('return value of health emitter: ', playerHealthObject.playerHealth);
-            this.playerDamaged = true;
-        }
 
-        
     }
 
     playerIsNotDefeatedInputs(playerHealthObject){
@@ -475,24 +911,70 @@ class bat extends enemy {
         //checks if the player is struggleing free by pressing the right buttons.
         let currentbat = this;
 
-            // handles input for escaping.
-            //console.log("this.scene.checkWPressed(): ",this.scene.checkWPressed())
-            if (this.scene.checkWPressed() === true) {
+        //function to handle player struggle logic.
+        if(this.batHasEatenCat === false){
+              if (this.scene.checkWPressed() === true) {
                 
                 if (playerHealthObject.playerHealth >= 1) {
-                    this.struggleCounter += 25;
+                    this.struggleCounter += 20;
                     struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
                     //console.log('strugglecounter: ' + this.struggleCounter);
                 }
+            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                                
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            
             }
 
-        // displays inputs while struggling.
-        if (this.keyAnimationPlayed === false) {
-            console.log(" setting keyW display");
-            this.scene.KeyDisplay.playWKey();
-            this.keyAnimationPlayed = true;
-        }
+            // displays inputs while struggling.
+            if (this.keyAnimationPlayed === false) {
+                console.log(" setting keyW display");
+                this.scene.KeyDisplay.playWKey();
+                this.keyAnimationPlayed = true;
+            }
 
+        }else if(this.batHasEatenCat === true){
+             if (this.scene.checkWPressed() === true) {
+                
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += 20;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - 5 > 0){
+                        this.struggleCounter -= 5;
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                                
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            
+            }
+
+            // displays inputs while struggling.
+            if (this.keyAnimationPlayed === false) {
+                console.log(" setting keyW display");
+                this.scene.KeyDisplay.playWKey();
+                this.keyAnimationPlayed = true;
+            }
+        }
+          
         // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
         // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
         if (this.struggleCounter > 0 && this.struggleCounter < 200 && this.struggleCounterTick !== true) {
@@ -504,21 +986,152 @@ class bat extends enemy {
             setTimeout(function () {
                 currentbat.struggleCounterTick = false;
             }, 10);
-                //console.log('strugglecounter: '+this.struggleCounter);
+
         }
     }
 
-    playerIsStrugglingLogic(){
+    playerIsStrugglingLogic(playerHealthObject){
+
         let currentbat = this;
 
-        if (this.batDamageCounter === false ) {
-            this.batDamageCounter = true;
-            //hpBar.calcDamage(2);
-            healthEmitter.emit(healthEvent.loseHealth,2)
-            setTimeout(function () {
-                currentbat.batDamageCounter = false;
-            }, 2000);
+        //handles enemy struggle stages and progressions.
+        if(this.batHasEatenCat === false){
+
+            if(this.playerDefeatedAnimationStage === 0){
+                    this.anims.play('batButtGrabbed', true);
+                    this.playJumpySound('2',700);
+
+            }else if(this.playerDefeatedAnimationStage === 1) {
+
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+
+                    this.playPlapSound('plap4',800);
+
+                    this.anims.play('batButtSwallow1').once('animationcomplete', () => {
+                            //this.scene.onomat.destroy();
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                            this.inStartDefeatedLogic = false;
+                            
+                    });
+                }
+            }else if(this.playerDefeatedAnimationStage === 2){
+                this.anims.play('batButtInHead', true);
+                this.playPlapSound('plap3',800);
+
+                let thisbat = this;
+                if (this.onomatPlayed === false) {
+                    this.onomatPlayed = true;
+                    let randX = Math.floor((Math.random() * 30));
+                    let randY = Math.floor((Math.random() * 30));
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                    this.scene.heartOnomat1.setScale(1/4);
+                    this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                    setTimeout(function () {
+                        thisbat.onomatPlayed = false;
+                    }, 600);
+                }
+            }
+
+            if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3 && this.playerDefeatedAnimationStage === 0){
+                //increment the stage so behavior changes.
+                this.playerDefeatedAnimationStage++;
+            }
+
+        }else if(this.batHasEatenCat === true){
+
+            if(this.playerDefeatedAnimationStage === 0){
+                    this.anims.play('batFatFaceSit', true);
+                    this.playJumpySound('2',700);
+
+            }else if(this.playerDefeatedAnimationStage === 1) {
+
+                if (!this.animationPlayed) {
+
+                    this.animationPlayed = true;
+
+                    //this.playPlapSound('plap4',800);
+
+                    this.anims.play('batFatFaceSitTo69').once('animationcomplete', () => {
+                            //this.scene.onomat.destroy();
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                            this.inStartDefeatedLogic = false;
+                            
+                    });
+                }
+            }else if(this.playerDefeatedAnimationStage === 2){
+
+                this.anims.play('batFat691', true);
+                this.playPlapSound('plap3',800);
+
+                let thisbat = this;
+                if (this.onomatPlayed === false) {
+                    this.onomatPlayed = true;
+                    let randX = Math.floor((Math.random() * 30));
+                    let randY = Math.floor((Math.random() * 30));
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
+                    this.scene.heartOnomat1.setScale(1/4);
+                    this.scene.heartOnomat1.textFadeOutAndDestroy(600);
+                    setTimeout(function () {
+                        thisbat.onomatPlayed = false;
+                    }, 600);
+                }
+            }
+
+            if(playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax/2) && this.playerDefeatedAnimationStage === 0){
+                //increment the stage so behavior changes.
+                this.playerDefeatedAnimationStage++;
+            }
         }
+
+        //handles how the damage counters function for the enemy.
+        if(this.batDamageCounter === false){
+            if(this.batHasEatenCat === false){
+                //if the player hp is above 3/4s damage the player 
+                if (playerHealthObject.playerHealth >= (playerHealthObject.playerMaxHealth/4) * 3 ) {
+
+                    this.batDamageCounter = true;
+                    //hpBar.calcDamage(2);
+                    healthEmitter.emit(healthEvent.loseHealth,2)
+                    setTimeout(function () {
+                        currentbat.batDamageCounter = false;
+                    }, 2000);
+                // otherwise damage the player more.
+                }else{
+                    this.batDamageCounter = true;
+                    //hpBar.calcDamage(2);
+                    healthEmitter.emit(healthEvent.loseHealth,3)
+                    setTimeout(function () {
+                        currentbat.batDamageCounter = false;
+                    }, 1000);
+                }
+            }else if(this.batHasEatenCat === true){
+                //if the player is above half curse bar.
+                if (playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax/2)) {
+
+                    this.batDamageCounter = true;
+                    //hpBar.calcDamage(2);
+                    healthEmitter.emit(healthEvent.curseBuildUp,2);
+                    setTimeout(function () {
+                        currentbat.batDamageCounter = false;
+                    }, 2000);
+                // otherwise damage the player more.
+                }else{
+                    this.batDamageCounter = true;
+                    //hpBar.calcDamage(2);
+                    healthEmitter.emit(healthEvent.curseBuildUp,3);
+                    setTimeout(function () {
+                        currentbat.batDamageCounter = false;
+                    }, 1000);
+                }
+            }
+        }
+  
     }
 
     playWingFlapSound(type,delay){
@@ -543,7 +1156,7 @@ class bat extends enemy {
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
        
         // if we start the player defeated animation then we need to set a few things.
-        if (this.playerDefeatedAnimationStage === 0) {
+        if (this.inStartDefeatedLogic === false) {
             this.scene.KeyDisplay.playDKey();
             let currentbat = this; // important, sets currentbat to the current object so that we can use variables attached to this current bat object in our set timeout functions.
             //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
@@ -554,15 +1167,94 @@ class bat extends enemy {
                 //incriment the animation prompt since we want to move on to the next animation after the current one finishes
                 console.log("currentbat.playerDefeatedAnimationStage: " + currentbat.playerDefeatedAnimationStage);
             }, 1000);
+
             this.inStartDefeatedLogic = true;
-            this.playerDefeatedAnimationStage++;
+
+            //case to make sure defeated stage 2 is not skipped during animation view
+            if(this.playerDefeatedAnimationStage !== 1 && this.inSafeMode === false && this.lockout === undefined){
+                this.playerDefeatedAnimationStage++;
+                this.lockout = true;
+            }
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
        
             if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
-                  this.inStartDefeatedLogic === false &&
+                  this.inStartDefeatedLogic === true &&
+                   this.scene.KeyDisplay.visible === true &&
+                     this.playerDefeatedAnimationStage !== 3 &&
+                      this.playerDefeatedAnimationStage !== 5) {
+
+                this.scene.KeyDisplay.visible = false;
+                //this.stageTimer = 0;
+                this.playerDefeatedAnimationCooldown = true;
+                this.playerDefeatedAnimationStage++;
+                let currentbat = this;
+                console.log("currentbat.playerDefeatedAnimationStage: " + currentbat.playerDefeatedAnimationStage);
+
+                this.currentbat = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
+                setTimeout(function () {
+                    console.log("defeated animation delay.");
+                    currentbat.scene.KeyDisplay.visible = true;
+                    currentbat.scene.KeyDisplay.playDKey();
+                    currentbat.playerDefeatedAnimationCooldown = false;
+                }, 3000);
+            }
+
+            // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+            //if (Phaser.Input.Keyboard.JustDown(this.scene.keyTAB) || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 6 && this.scene.checkDIsDown())) {
+                console.log("activating game over by hitting tab")
+                if(this.enemySex === 0){
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.batMaleVore;
+                }else{
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.batFemaleVore;
+                }
+
+                this.scene.KeyDisplay.visible = false;
+                console.log("changing scene");
+                this.scene.changeToGameover();
+            }
+
+            this.batDefeatedPlayerAnimation();
+     
+    }
+
+    playerIsDefeatedTFLogic(playerHealthObject){
+
+        // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the bat.
+        this.playerDefeated = true;
+        //calls emitter to show the tabtoskip graphic
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+       
+        // if we start the player defeated animation then we need to set a few things.
+        if (this.inStartDefeatedLogic === false) {
+            this.scene.KeyDisplay.playDKey();
+            let currentbat = this; // important, sets currentbat to the current object so that we can use variables attached to this current bat object in our set timeout functions.
+            //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
+            // delay the button prompt so the animation can play.
+            setTimeout(function () {
+                currentbat.scene.KeyDisplay.visible = true;
+                currentbat.scene.KeyDisplay.playDKey();
+                //incriment the animation prompt since we want to move on to the next animation after the current one finishes
+                console.log("currentbat.playerDefeatedAnimationStage: " + currentbat.playerDefeatedAnimationStage);
+            }, 1000);
+
+            this.inStartDefeatedLogic = true;
+
+            //case to make sure defeated stage 2 is not skipped during animation view
+            if(this.playerDefeatedAnimationStage !== 1 && this.inSafeMode === false && this.lockout === undefined){
+                this.playerDefeatedAnimationStage++;
+                this.lockout = true;
+            }
+            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+        }
+
+       
+            if (this.scene.checkDIsDown() &&
+                 this.playerDefeatedAnimationCooldown === false &&
+                  this.inStartDefeatedLogic === true &&
                    this.scene.KeyDisplay.visible === true &&
                      this.playerDefeatedAnimationStage !== 3 &&
                       this.playerDefeatedAnimationStage !== 5) {
@@ -623,15 +1315,20 @@ class bat extends enemy {
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
                 this.setSize(70, 180, true);
+                this.setOffset(100, 59);
                 this.playerDamaged = false;
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
+                this.playerDefeatedAnimationStage = 0;
 
                 //set butt slamming to false
                 this.isButtSlamming = false;
                 this.grabTimer = false;
                 this.isPlayingMissedAnims = false; 
+
+                //make sure collision is destroyed after player breaks free so bat doesnt get stuck on layer 0 platforms.
+                this.batCollision.destroy();
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
@@ -673,7 +1370,7 @@ class bat extends enemy {
     damage() {
         console.log("this.enemyHP:" + this.enemyHP);
         this.setVelocityX(0);
-        if (this.damageCoolDown === false) {
+        if (this.damageCoolDown === false && this.batIsEating === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
@@ -700,6 +1397,11 @@ class bat extends enemy {
                     let dropChance = Math.round((Math.random() * ((75) - (60 * this.scene.player1.dropChance)) + (60 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * (10 * this.scene.player1.dropAmount)) + 6);
 
+                    // double drop amount if bat has eaten.
+                    if(this.batHasEatenCat === true){
+                        dropAmount * 3;
+                    }
+
                     this.setDepth(4);
 
                     //decides amount of slime drops based on size
@@ -707,16 +1409,31 @@ class bat extends enemy {
                         this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,16,1,dropAmount,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
                     }
 
-                    this.anims.play('batButtSlam').once('animationcomplete', () => {
+                    if(this.batHasEatenCat === false){
+                        this.anims.play('batButtSlam').once('animationcomplete', () => {
 
-                        this.enemyInDefeatedLogic = true;
+                            this.enemyInDefeatedLogic = true;
 
-                        //delete enemy hit box since they have been defeated.
-                        this.attackHitBox.x = this.x;
-                        this.attackHitBox.y = this.y + 3000; 
-                        this.grabHitBox.x = this.x;
-                        this.grabHitBox.y = this.y + 3000; 
-                    });
+                            //delete enemy hit box since they have batn defeated.
+                            this.attackHitBox.x = this.x;
+                            this.attackHitBox.y = this.y + 3000; 
+                            this.grabHitBox.x = this.x;
+                            this.grabHitBox.y = this.y + 3000; 
+                        });
+                    }else{
+                         this.anims.play('batFatDefeatedFall').once('animationcomplete', () => {
+
+                            this.enemyInDefeatedLogic = true;
+
+                            //delete enemy hit box since they have batn defeated.
+                            this.attackHitBox.x = this.x;
+                            this.attackHitBox.y = this.y + 3000; 
+                            this.grabHitBox.x = this.x;
+                            this.grabHitBox.y = this.y + 3000; 
+                        });
+                    }
+
+                    
                 
                 }
             }
@@ -732,16 +1449,32 @@ class bat extends enemy {
     }
 
     enemyDefeatedLogic(){
-        this.setVelocityX(0);
-        this.anims.play('batDefeated', true);
-        
+
+        this.scene.sound.get(this.batSFX).stop();
+         this.setVelocityX(0);
+
+        if(this.batHasEatenCat === false){
+             this.anims.play('batDefeated', true);
+        }else{
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+           
+                this.anims.play('batFatDefeated', true);
+                    
+            }
+        }
+       
+       
+        this.batDefeated = true;
         this.attackHitBox.x = this.x;
         this.attackHitBox.y = this.y + 3000; 
         this.grabHitBox.x = this.x;
         this.grabHitBox.y = this.y + 3000; 
+        this.body.setGravityY(600);
+        
 
     }
-
 
     //handles damage types for blue bat. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
@@ -874,88 +1607,8 @@ class bat extends enemy {
         }
     }
 
-    //function to show off animation 
-    animationGrab(){
+    batDefeatedPlayerTFAnimation() {
 
-        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
-        this.clearTint();
-        
-        //stops the x velocity of the enemy
-        this.setVelocityX(0);
-       
-        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
-        // if the grabbed is false but this function is called then do the following.
-        if (this.playerGrabbed === false) {
-
-            this.batGrabFalse();
-            this.isViewingAnimation = true;
-            this.playerProgressingAnimation = false;
-
-            this.scene.gameoverLocation = "caveGameover";
-
-        //if the player is grabbed then.
-        } else if(this.playerGrabbed === true) {
-
-            //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
-
-            //hides the mobile controls in the way of the tab/skip indicator.
-            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-
-            //plays jumpy sound during grab.
-            if (this.playerProgressingAnimation === false) {
-                this.playJumpySound('3',700);
-            }
-
-            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-            let playerHealthObject = {
-                playerHealth: null
-            };
-
-            //gets the hp value using a emitter
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-        
-            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
-            this.scene.player1.y = this.y - 150;
-            //this.scene.player1.body.setGravityY(0);
-            //this.body.setGravityY(0);
-            //this.scene.player1.setSize(10, 10, true);
-            //puts the key display in the correct location.
-            this.scene.KeyDisplay.visible = true;
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 100;
-            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-            
-            //if the player is not defeated
-            if (this.playerProgressingAnimation === false) {
-
-            // handles input for progressing animation
-            //console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
-            if (this.scene.checkDPressed() === true) {
-                this.playerProgressingAnimation = true;
-                }
-
-                // displays inputs while in the first stage of the animation viewing.
-                if (this.keyAnimationPlayed === false) {
-                    //console.log(" setting keyW display");
-                    this.scene.KeyDisplay.playDKey();
-                    this.keyAnimationPlayed = true;
-                }      
-            }
-
-            //console.log("this.playerProgressingAnimation: ",this.playerProgressingAnimation)
-            if( this.playerProgressingAnimation === true){
-                //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
-                    //handle the defeated logic that plays defeated animations 
-                    this.playerIsDefeatedLogic(playerHealthObject);
-                }else{
-                    //hide the tab indicator and key prompts
-                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
-                    this.scene.KeyDisplay.visible = false;    
-                }
-            }
-        }
     }
     
 }

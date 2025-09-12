@@ -93,7 +93,7 @@ class caveToSunflowers1 extends defaultScene {
       this.setUpItemDropCollider();
 
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["blueSlimes","tigers"];
+      this.enemyGroupArray = [];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       let  vivianCheck = {

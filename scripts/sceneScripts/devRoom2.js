@@ -112,7 +112,7 @@ class devRoom2 extends defaultScene {
 
       this.initPortalsWithTransparency(1136,600-8,864,605,"door2","DevRoom1",0.75);
       
-      this.initPortals(968,600-8,4702,1053,"door2","PondForest");
+      this.initPortals(968,600-8,4780,1053,"door2","PondForest");
 
       this.initSavePoints(1435,605-14);
 
@@ -128,7 +128,7 @@ class devRoom2 extends defaultScene {
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
 
        //sets up enemy colliders and groups
-       this.enemyGroupArray = ["whiteCats"];
+       this.enemyGroupArray = [];
        this.setUpEnemyCollider(this.enemyGroupArray);
 
        //needed to use cursed heart projectiles.

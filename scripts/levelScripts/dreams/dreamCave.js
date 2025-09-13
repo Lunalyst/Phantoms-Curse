@@ -46,14 +46,6 @@ class dreamCave extends defaultScene {
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
 
-      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
       this.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
         "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
       ]);

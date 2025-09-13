@@ -36,14 +36,6 @@ class dreamForest extends defaultScene {
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
@@ -290,9 +282,6 @@ class dreamForest extends defaultScene {
       }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
-
-      console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-    
     }
 
     

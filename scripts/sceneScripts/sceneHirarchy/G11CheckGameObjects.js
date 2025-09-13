@@ -163,7 +163,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
       //this.physics.add.overlap(tempPile, this.player1, function () {
-      if(this.objectsInRangeX(tempPile,this.player1,40) && this.objectsInRangeY(tempPile,this.player1,40)){
+      if(this.objectsInRangeX(tempPile,this.player1,20) && this.objectsInRangeY(tempPile,this.player1,40)){
         tempPile.hitboxOverlaps = true;
       }
       //});

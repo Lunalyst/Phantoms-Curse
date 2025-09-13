@@ -15,6 +15,7 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
             },
             caveGameover: function caveGameover() {
+                tempGameover.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("caveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Gameover.json");
                 tempGameover.load.spritesheet('blueSlime', 'assets/CommonBlueSlime.png',{frameWidth: 100, frameHeight: 100 });
             },
@@ -449,6 +450,18 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
+            bat_male_tf: function maleBatTFFunction() {
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new bat(tempSceneRef,450, 528,tempSceneRef.playerSex,1);
+                tempSceneRef.enemy.gameOverTF();
+                tempSceneRef.defeatedTitle = 'cursed';
+            },
+            bat_female_tf: function femaleBatTFFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new bat(tempSceneRef,450, 528,tempSceneRef.playerSex,1);
+                tempSceneRef.enemy.gameOverTF();
+                tempSceneRef.defeatedTitle = 'cursed';
+            },
             bat_male_vore: function maleBatFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new bat(tempSceneRef,450, 600,tempSceneRef.playerSex,1,'wingFlapSFX');
@@ -762,6 +775,12 @@ class gameoverManager extends A3SoundEffects {
 
             },
             bat_female_vore: function femaleBatFunction() {
+
+            },
+            bat_male_tf: function maleBatFunction() {
+
+            },
+            bat_female_tf: function femaleBatFunction() {
 
             },
             

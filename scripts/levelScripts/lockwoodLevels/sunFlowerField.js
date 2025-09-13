@@ -44,22 +44,6 @@ class sunFlowerField extends defaultScene {
       this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
         "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
       ]);
-
-      this.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX3','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('wingFlapSFX4','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-      ]);
     }
 
     create(){

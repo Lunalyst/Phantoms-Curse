@@ -41,10 +41,12 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.setScale((1/3)+((1/3)/2));
 
       //sets up slot inventory amount object.
-      this.number1 = new textBoxCharacter(scene, xPos+5, yPos+12,'charBlack');
+      this.number1 = new textBoxCharacter(scene, xPos+3, yPos+11,'charBlack');
+      this.number1.setScale(.14);
       this.number1.anims.play('0');
 
-      this.number2 = new textBoxCharacter(scene, xPos+13, yPos+12,'charBlack');
+      this.number2 = new textBoxCharacter(scene, xPos+13, yPos+11,'charBlack');
+      this.number2.setScale(.14);
       this.number2.anims.play('0');
 
       
@@ -66,9 +68,9 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       //else if the number is less than ten, display the first number only.
       }else if(number < 10){
   
-        this.number1.visible = true;
-        this.number2.visible = false;
-        this.number1.anims.play(""+number);
+        this.number2.visible = true;
+        this.number1.visible = false;
+        this.number2.anims.play(""+number);
   
         //return 0;
         

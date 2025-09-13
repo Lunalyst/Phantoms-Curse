@@ -68,6 +68,7 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
+        
         let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
         tempSceneRef.enemyId++;
@@ -82,6 +83,7 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
+        
         let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created bat id: ",bat1.enemyId);
         tempSceneRef.enemyId++;

@@ -2142,6 +2142,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "bat_female_vore":{
+                    "node1":{
+                        "dialogue": "A swooshing sound was all that announced your fate. You were caught unaware, and swiftly ended up stuffed into a bats bowels. You couldnt even scream within the warm, smothering chamber, and instead you simply whimpered. Within a few minutes, your body was mere liquid within the bats intestines. Ultimately, your life came to a end, your entire existence only remembered as ass fat.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
                 "blueSlime_hs_vore":{
                     "node1":{
                         "dialogue": "The face should have been a dead give away that this slime was different. As it latched on to your face, you struggled to break free. Once you were exausted, it coated your body with its slime.  Now you were under its control. It enjoyed playing with you until you climaxed.",
@@ -2312,6 +2320,23 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "bat_female_tf":{
+                    "node1":{
+                        "dialogue": "The newly pudgy bat caught you and decided your face would make an excellent seat for her exceedingly plush rear. Did you plan for this? Doesn’t matter, she enjoyed your body as she smothered you in her fattened folds, pleasuring herself and you, until your orgasm filled her horny maw, and her orgasm filled your mouth. Wings and ears grew, as your entire body became covered in fur. New body, and a new partner? Now that’s a good deal~",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "bat_male_tf":{
+                    "node1":{
+                        "dialogue": "",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                
                 "mimic_female_tf":{
                     "node1":{
                         "dialogue": "Thinking you found something, you instead were found BY something. Grabbed by a mimic, she pulls you into the chest and the lid closes after. Surrounded by squishy pink flesh, you're face to face with the mimic as she has her long tongue going down your throat. As her motions get faster, your skin gets pinker, and before you know it, your entire vision is pink. As the chest opens once more, it appears you DID get something from the chest. A loving mama that will care for you until you're ready for a chest of your very own.",

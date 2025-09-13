@@ -253,19 +253,6 @@ const oneTimeItemArray = {
     
     };
 
-//make format consistant for all bestiary keys
-//species - sex - trait - vore/tf
-/**
- * idea
- * 2d object, y is the main bestiary tag. x is the sub entrys of that catigory. 
- * bestiary needs to be 2d array to make sure each group is organized
- * need to rework dreamviewer
- * need to rework save bestiary data format. 
- * need to rework bestiary object itself. 
- * 
- * 
- */
-
 //each catigory for the bestiary groupings.
 const Groupings = [
 "blueSlime",
@@ -333,6 +320,8 @@ const bestiaryKey = {
   beeDroneMaleTF:"bee_drone_male_tf",
   beeDroneFemaleTF:"bee_drone_female_tf",
 
+  batMaleTF:"bat_male_tf",
+  batFemaleTF:"bat_female_tf",  
   batMaleVore:"bat_male_vore",
   batFemaleVore:"bat_female_vore",  
 
@@ -418,6 +407,14 @@ const bestiaryTextList = {
       bee_drone_male_tf: {
         title: "MALE BEE DRONE",
         summary: "This large insect often spends its time collecting pollen in places with large amounts of flowers. However, this insect will quickly devour an unsuspecting human with its massive abdomens.",
+      },
+      bat_female_tf: {
+        title: "FEMALE BAT FED",
+        summary: "These bats are very voracious, often eating prey and other predators. Resulting in periods of time when the bat is unable to fly until it loses weight. That being said, it's happy to transform others by pleasuring them. often subduing targets using its engorged butt.",
+      },
+      bat_male_tf: {
+        title: "MALE BAT FED",
+        summary: "After the bat's hunger is satisfied, it seeks out others to transform. Knocking down its target, so it has ample opportunity to subdue them. The target, now trapped under the pudgy weight of the bat, is forced to pleasure the bat with there mouth, as the bat pleasures them.",
       },
       bat_female_vore: {
         title: "FEMALE BAT",

@@ -41,6 +41,7 @@ class A3SoundEffects extends A2Emitters {
   //function to set up non looping sound.
   initSoundEffect(soundID,soundName,volume){
 
+  console.log("this.sound.sounds: ", this.sound.sounds);
   //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
   let createSound = true;
 
@@ -54,6 +55,8 @@ class A3SoundEffects extends A2Emitters {
       //console.log("found key: ",soundID,"so we wont create the sound object");
       createSound = false;
     }
+
+    console.log("searching through key: ",this.sound.sounds[counter].key);
 
   }
 

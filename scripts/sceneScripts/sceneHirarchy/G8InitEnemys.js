@@ -68,7 +68,7 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
-        
+
         let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
         tempSceneRef.enemyId++;
@@ -83,6 +83,7 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
+      
         
         let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created bat id: ",bat1.enemyId);
@@ -90,6 +91,24 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(bat1);  
         tempSceneRef.bats.add(bat1);
       },
+      batFed: function batFedFunction(startX, startY, playerSex,inSafeMode) {
+
+        console.log("inSafeMode: ",inSafeMode)
+        console.log('wingFlapSFX'+tempSceneRef.enemyId);
+        tempSceneRef.load.start();
+        tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+      
+        
+        let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
+        bat1.batHasEatenCat = true;
+        console.log("created bat id: ",bat1.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(bat1);  
+        tempSceneRef.bats.add(bat1);
+      },
+      
       blueSlimeHS: function blueSlimeHSFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let slime1 = new blueSlimeHS(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         console.log("created blueSlimeHS id: ",slime1.enemyId);

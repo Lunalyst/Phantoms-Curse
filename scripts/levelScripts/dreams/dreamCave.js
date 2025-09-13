@@ -137,13 +137,31 @@ class dreamCave extends defaultScene {
           flagToFind:  bestiaryKey.batFemaleVore,
           foundFlag: false,
         };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(828,605,thisScene.playerSex,'bat',true);
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.batMaleTF,
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: bestiaryKey.batFemaleTF,
+          foundFlag: false,
+        };
   
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(828,605,thisScene.playerSex,'bat',true,'wingFlapSFX1');
+          thisScene.initEnemy(898,605,thisScene.playerSex,'batFed',true);
         }
 
         object1 = {

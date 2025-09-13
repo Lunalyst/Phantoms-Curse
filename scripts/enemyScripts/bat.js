@@ -1797,6 +1797,19 @@ class bat extends enemy {
             //plays jumpy sound during grab.
             if (this.playerProgressingAnimation === false) {
                 this.playJumpySound('3',700);
+
+                this.scene.KeyDisplay.visible = true;
+                this.scene.KeyDisplay.x = this.x;
+                this.scene.KeyDisplay.y = this.y + 100;
+
+                if(this.batHasEatenCat === true){
+                    this.anims.play("'batFatFaceSit",true);
+                    this.playJumpySound('3',700);
+                }else{
+
+                    this.anims.play("batButtGrabbed",true);
+                    this.playJumpySound('3',700);
+                }
             }
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
@@ -1813,41 +1826,43 @@ class bat extends enemy {
             //this.body.setGravityY(0);
             //this.scene.player1.setSize(10, 10, true);
             //puts the key display in the correct location.
-            this.scene.KeyDisplay.visible = true;
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 100;
+            
             // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
             
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-            // handles input for progressing animation
-            //console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
-            if (this.scene.checkDPressed() === true) {
-                this.playerProgressingAnimation = true;
+                // handles input for progressing animation
+                //console.log('this.scene.checkDPressed()',this.scene.checkDPressed())
+                if (this.scene.checkDPressed() === true) {
+                    this.playerProgressingAnimation = true;
+                    }
+
+                    // displays inputs while in the first stage of the animation viewing.
+                    if (this.keyAnimationPlayed === false) {
+                        //console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playDKey();
+                        this.keyAnimationPlayed = true;
+                    }      
                 }
 
-                // displays inputs while in the first stage of the animation viewing.
-                if (this.keyAnimationPlayed === false) {
-                    //console.log(" setting keyW display");
-                    this.scene.KeyDisplay.playDKey();
-                    this.keyAnimationPlayed = true;
-                }      
-            }
-
-            //console.log("this.playerProgressingAnimation: ",this.playerProgressingAnimation)
-            if( this.playerProgressingAnimation === true){
-                //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
-                    //handle the defeated logic that plays defeated animations 
-                    this.playerIsDefeatedLogic(playerHealthObject);
-                }else{
-                    //hide the tab indicator and key prompts
-                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
-                    this.scene.KeyDisplay.visible = false;    
+                //console.log("this.playerProgressingAnimation: ",this.playerProgressingAnimation)
+                if( this.playerProgressingAnimation === true){
+                    //calls animation grab code until the animation is finished
+                    if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                        //handle the defeated logic that plays defeated animations 
+                        if(this.batHasEatenCat === true){
+                            this.playerIsDefeatedTFLogic(playerHealthObject);
+                        }else{
+                            this.playerIsDefeatedLogic(playerHealthObject);
+                        }
+                    }else{
+                        //hide the tab indicator and key prompts
+                        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                        this.scene.KeyDisplay.visible = false;    
+                    }
                 }
             }
-        }
     }
     
     

@@ -710,7 +710,7 @@ class G9CheckEnemys extends G8InitEnemys {
       }
       
     //if the bat is in safe mode, and in range of the player then 
-    }else if(this.objectsInRangeX(bat,scene.player1,30) && this.objectsInRangeY(bat,scene.player1,30)){
+    }else if(this.objectsInRangeX(bat,scene.player1,30) && this.objectsInRangeY(bat,scene.player1,70)){
       
       this.viewAnimationLogic(bat);
 

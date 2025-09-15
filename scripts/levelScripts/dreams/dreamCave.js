@@ -161,7 +161,7 @@ class dreamCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(898,605,thisScene.playerSex,'batFed',true);
+          thisScene.initEnemy(928,632,thisScene.playerSex,'batFed',true);
         }
 
         object1 = {

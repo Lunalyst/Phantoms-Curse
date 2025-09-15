@@ -35,6 +35,25 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'rabbitClimax',frames: this.anims.generateFrameNames('rabbitPenning', { start: 20, end: 28 }),frameRate: 6  ,repeat: 0});
         this.anims.create({key: 'playerClimaxInRabbit',frames: this.anims.generateFrameNames('rabbitPenned', { start: 0, end: 9 }),frameRate: 6  ,repeat: 0});
 
+      }else if(type === "bat"){
+        this.anims.create({key: 'PTBNoPen',frames: this.anims.generateFrameNames('playerTongueBat', { start: 0, end: 0 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'PTBLightPen1',frames: this.anims.generateFrameNames('playerTongueBat', { start: 0, end: 7 }),frameRate: 8  ,repeat: -1});
+        this.anims.create({key: 'PTBLightPen2',frames: this.anims.generateFrameNames('playerTongueBat', { start: 0, end: 7 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'PTBDeepPen',frames: this.anims.generateFrameNames('playerTongueBat', { start: 12, end: 22 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'PTBDeepPenClimax',frames: this.anims.generateFrameNames('playerTongueBat', { start: 23, end: 35 }),frameRate: 12  ,repeat: 0});
+
+        this.anims.create({key: 'BTPNoPen',frames: this.anims.generateFrameNames('batTonguePlayer', { start: 0, end: 0 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'BTPLightPen1',frames: this.anims.generateFrameNames('batTonguePlayer', { start: 0, end: 7 }),frameRate: 8  ,repeat: -1});
+        this.anims.create({key: 'BTPLightPen2',frames: this.anims.generateFrameNames('batTonguePlayer', { start: 0, end: 7 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'BTPDeepPen',frames: this.anims.generateFrameNames('batTonguePlayer', { start: 12, end: 22 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'BTPDeepPenClimax',frames: this.anims.generateFrameNames('batTonguePlayer', { start: 23, end: 35 }),frameRate: 12  ,repeat: 0});
+
+        this.anims.create({key: 'PSB1',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 0, end: 9 }),frameRate: 8  ,repeat: -1});
+        this.anims.create({key: 'PSB2',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 0, end: 9 }),frameRate:12  ,repeat: -1});
+        this.anims.create({key: 'PSBDeep',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 2, end: 7 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'PSBDeepClimax',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 15, end: 31 }),frameRate: 12  ,repeat: 0});
+
+       
       }else if(type === "mimic"){
         this.anims.create({key: 'femaleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 0, end: 9 }),frameRate: 12  ,repeat: -1});
         this.anims.create({key: 'maleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 10, end: 19 }),frameRate: 12  ,repeat: -1});

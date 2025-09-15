@@ -2330,7 +2330,7 @@ const npcDialogue = {
                 },
                 "bat_male_tf":{
                     "node1":{
-                        "dialogue": "",
+                        "dialogue": "you sucked the fat bats fat cock lol xD",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

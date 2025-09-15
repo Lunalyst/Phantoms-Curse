@@ -75,9 +75,15 @@ class G6PreloadEnemys extends G5InitNPCs{
       },
       bats: function batsFunction() {
 
+        tempSceneRef.load.spritesheet('batSuckingPlayer', 'assets/internalViews/batSuckingPlayer.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('batTonguePlayer', 'assets/internalViews/batTonguePlayer.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('playerSuckingBat', 'assets/internalViews/playerSuckingBat.png',{frameWidth: 213, frameHeight: 213});
+        tempSceneRef.load.spritesheet('playerTongueBat', 'assets/internalViews/playerTongueBat.png',{frameWidth: 213, frameHeight: 213});
+        
         tempSceneRef.load.spritesheet('batMale', 'assets/enemys/batMaleAll.png',{frameWidth: 273, frameHeight: 435 });
         tempSceneRef.load.spritesheet('batFemale', 'assets/enemys/batFemaleAll.png',{frameWidth: 273, frameHeight: 435  });
         tempSceneRef.load.spritesheet('batFemaleExtension', 'assets/enemys/batFemaleExtension.png',{frameWidth: 273, frameHeight: 435  });
+        tempSceneRef.load.spritesheet('batMaleExtension', 'assets/enemys/batMaleExtension.png',{frameWidth: 273, frameHeight: 435  });
 
 
       },

@@ -99,10 +99,10 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
-      
-        
+       
         let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         bat1.batHasEatenCat = true;
+        bat1.anims.play('batFatTemptingLookLoop',true);
         console.log("created bat id: ",bat1.enemyId);
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(bat1);  

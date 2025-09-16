@@ -26,11 +26,7 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
   }
 
   setUpEnemyBarriers(){
-    this.physics.add.collider(this.enemys, this.invisibleBarriers);
-  }
-
-  setUpEnemyBarriers(){
-    this.physics.add.collider(this.enemys, this.invisibleBarriers);
+    this.EnemyInvisBarriersGroup = this.physics.add.collider(this.enemys, this.invisibleBarriers);
   }
 
   setUpWoodBarriersCollider(){

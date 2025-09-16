@@ -1265,6 +1265,21 @@ class whiteCat extends enemy {
         }
     }
 
+    enemyDefeatedLogic(){
+
+        this.setVelocityX(0);
+        if(this.eaten === true){
+            this.visible = false;
+        }else{
+            this.visible = true;
+        }
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000; 
+
+    }
+
     // plays the cat defeated player animations.
     malecatDefeatedPlayerAnimation() {
         //console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);

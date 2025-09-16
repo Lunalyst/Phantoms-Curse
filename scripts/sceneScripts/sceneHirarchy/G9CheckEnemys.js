@@ -676,31 +676,38 @@ class G9CheckEnemys extends G8InitEnemys {
         }else if(bat.targetString === "whitecat"){
           //logic of if the bat manages to overlap with the cat. 
         scene.physics.add.overlap(bat.grabHitBox, bat.target, function () {
+
                 console.log("bat hitbox overlaps cats hitbox.");
-                //if neither party has grabbed the player, then tiger eats the rabbit.
-                if(bat.playerGrabbed === false && bat.target.playerGrabbed === false && bat.enemyDefeated === false){
-                  // move the bats grab box out of the way just in case.
-                  bat.target.attackHitBox.x = this.x;
-                  bat.target.attackHitBox.y = this.y + 3000; 
-                  bat.target.grabHitBox.x = this.x;
-                  bat.target.grabHitBox.y = this.y + 3000;
-
-                  //call logic for bat to eat
-                  bat.batEatsCat(bat.target.enemySex);
-
-                  //destroy cat
-                  bat.target.destroy();
-
-                  //set a variable apart of the cat to true so the function in G8enemy.js can free the player ofthe infatuated state as the target is no longer valid to follow. 
-                  bat.target.eaten = true;
-
-                  console.log("bat.target: ", bat.target);
-
-                  //set bat target to player.
-                  bat.targetString = "player";
-                  bat.target = this.player1;
+                console.log("this.scene.EnemyInvisBarriersGroup: ",scene.EnemyInvisBarriersGroup);
                 
-                }   
+                //if neither party has grabbed the player, then tiger eats the rabbit.
+                if(bat.targetString !== "player"){
+                    if(bat.playerGrabbed === false && bat.target.playerGrabbed === false && bat.enemyDefeated === false){
+                      // move the bats grab box out of the way just in case.
+                      bat.target.attackHitBox.x = this.x;
+                      bat.target.attackHitBox.y = this.y + 3000; 
+                      bat.target.grabHitBox.x = this.x;
+                      bat.target.grabHitBox.y = this.y + 3000;
+
+                      //call logic for bat to eat
+                      bat.batEatsCat(bat.target.enemySex);
+          
+                      //"destroy" cat. just hide them. if we destroy them, then it breaks inivisble barrier collision. 
+                      bat.target.visible = true;
+                      bat.target.enemyInDefeatedLogic = true;
+                      
+                      //set a variable apart of the cat to true so the function in G8enemy.js can free the player ofthe infatuated state as the target is no longer valid to follow. 
+                      bat.target.eaten = true;
+
+                      console.log("bat.target: ", bat.target);
+
+                      //set bat target to player.
+                      bat.targetString = "player";
+                      bat.target = this.player1;
+                  
+                  }   
+                }
+                
               });
         }
         
@@ -803,7 +810,13 @@ class G9CheckEnemys extends G8InitEnemys {
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempCat,this.player1,400) && this.objectsInRangeY(tempCat,this.player1,300) && tempCat.inSafeMode === false){
         //calls to make each instance of a slime move.
-        tempCat.move(scene.player1,scene);
+
+        if(tempCat.enemyInDefeatedLogic === true){
+          tempCat.enemyDefeatedLogic();
+        }else{
+          tempCat.move(scene.player1,scene);
+        }
+
         scene.physics.add.overlap(scene.attackHitBox, tempCat, function () {
           tempCat.hitboxOverlaps = true;
         });

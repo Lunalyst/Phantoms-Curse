@@ -158,7 +158,7 @@ class player extends Phaser.GameObjects.Container{
     this.spaceWasPressed = false;
     this.jumped = false;
 
-
+    this.speed = 250 * this.speedBoost;
     //is used to increase players speed via items or skills.
     this.speedBoost = 1;
 
@@ -419,6 +419,9 @@ class player extends Phaser.GameObjects.Container{
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
   movePlayer(keyA,keyD,space,playerPreviousY,scene){
     
+
+    this.speed = 250 * this.speedBoost;
+
     this.x= this.mainHitbox.x;
     this.y= this.mainHitbox.y;
    
@@ -504,7 +507,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       this.mainHitbox.setOffset(12, -4);
         this.lastKey = "a";
         this.idleTimer = 0;
-        this.mainHitbox.setVelocityX(-250 * this.speedBoost);
+        this.mainHitbox.setVelocityX(-this.speed);
         if(this.mainHitbox.body.blocked.down){
           this.playerWalkAnimation();
           this.flipXcontainer(true);
@@ -517,7 +520,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       this.mainHitbox.setOffset(12, -4);
         this.lastKey = "d";
         this.idleTimer = 0;
-        this.mainHitbox.setVelocityX(250 * this.speedBoost);
+        this.mainHitbox.setVelocityX(this.speed);
         if(this.mainHitbox.body.blocked.down){
           this.playerWalkAnimation();
           this.flipXcontainer(false);
@@ -588,7 +591,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //if the player is  in the air and moving to the left
     if(this.scene.checkAIsDown() && !this.mainHitbox.body.blocked.down){
     //console.log("IN AIR AND MOVING LEFT");
-      this.mainHitbox.setVelocityX(-250 * this.speedBoost);
+      this.mainHitbox.setVelocityX(-this.speed);
       this.animationInAir = true;
       this.flipXcontainer(true);
       let that = this;
@@ -625,7 +628,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //if the player is  in the air and moving to the right
     }else if(this.scene.checkDIsDown() && !this.mainHitbox.body.blocked.down){
         //console.log("IN AIR AND MOVING RIGHT");
-        this.mainHitbox.setVelocityX(250 * this.speedBoost);
+        this.mainHitbox.setVelocityX(this.speed);
         this.animationInAir = true;
         this.flipXcontainer(false);
         //if the player has the double jump ability, allow them to jupm agian.
@@ -1093,7 +1096,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
                 }
 
-              },2000);
+              },3000);
     
           }
 

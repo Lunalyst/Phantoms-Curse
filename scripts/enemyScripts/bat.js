@@ -28,7 +28,7 @@ class bat extends enemy {
         // variables for movement
         this.batSoundCoolDown = false;
         this.batDamageCounter = false;
-        this.randomXVelocity = Math.floor((Math.random() * 250) + 30);
+        this.randomXVelocity = 280;
         this.randomizedXVelocity = false;
         this.grabTimer = false;
         this.hitboxActive = false;
@@ -52,6 +52,8 @@ class bat extends enemy {
         this.batIsEating = false;
         this.attemptingGrab = false;
 
+        this.batFatHopSpeed = 265;
+
         // sets the bats hp value
         this.enemyHP = 45;
 
@@ -64,6 +66,10 @@ class bat extends enemy {
         this.targetString = "player";
 
         this.unstuckBool = false;
+
+        this.scene.internalView = null;
+        this.scene.internalView1 = null;
+        this.forcedPhysics = this.scene.physics.add.collider(this, this.scene.invisibleBarriers);
 
         //defines bat animations based on the players sex.
         if(this.enemySex === 0) {
@@ -198,7 +204,9 @@ class bat extends enemy {
     //functions that move bat objects.
     move(){
 
-    
+    this.forcedPhysics = this.scene.physics.add.collider(this, this.scene.invisibleBarriers);
+    //console.log("this.forcedPhysics: ", this.forcedPhysics);
+    //console.log("this.scene.invisibleBarriers: ", this.scene.invisibleBarriers);
     if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false){
 
         if(this.batIsEating === true){
@@ -220,11 +228,13 @@ class bat extends enemy {
 
                             this.targetString = "whitecat";
                             this.setDepth(this.target.depth+1);
+                            this.randomXVelocity = 250;
                         }else{
                             
                             this.target = this.scene.player1;
                             this.targetString = "player";
                             this.setDepth(this.target.depth+1);
+                            this.randomXVelocity = 230;
                         }
 
                     }
@@ -238,10 +248,11 @@ class bat extends enemy {
                 }
 
                 //if the enemy is within grab range attempt to grab the player while the grab timer is false
-                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-80 < this.y ) && this.grabTimer === false){
+                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-90 < this.y ) && this.grabTimer === false){
 
                     this.grabTimer = true;
                     this.hitboxActive = true;
+                    
 
                     //controls the x velocity when the bat is butt slamming to grab the player
                     this.setVelocityX(0);
@@ -305,8 +316,8 @@ class bat extends enemy {
                         this.setOffset(100, 59);
                 
                         //if bat is within range
-                        if (this.checkXRangeFromTarget(this.target, 10, 10)){
-                            this.anims.play('batIdle',true);
+                        if (this.checkXRangeFromTarget(this.target, 10,10 )){
+                            //this.anims.play('batIdle',true);
                             this.setVelocityX(0);
             
                         }else{
@@ -327,6 +338,7 @@ class bat extends enemy {
                                 this.flipX = true;
                             }
                         }
+
                         //keep the bat floating lightly above the players y
                         if ((this.target.y-70 > this.y  && this.target.y-80 < this.y)){
                             //this.anims.play('batIdle',true);
@@ -405,7 +417,7 @@ class bat extends enemy {
     }if(this.isSleeping === false && this.batHasEatenCat === true && this.enemyDefeated === false){
 
                 //if rabbit is too close, and grabb attempt is false, then 
-                if((this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(90,90) && this.grabTimer === false) && this.scene.playerStuckGrab === false && this.shoveCoolDown === false){
+                if(this.checkXRangeFromPlayer(35, 35) && this.checkYRangeFromPlayer(90,90) && this.grabTimer === false && this.scene.playerStuckGrab === false && this.shoveCoolDown === false){
                     
                     // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
                     if(this.scene.checkDIsDown() && this.x < this.scene.player1.x ){
@@ -537,7 +549,7 @@ class bat extends enemy {
                         }, 500);
                     }
 
-                }else if(this.scene.player1.x > this.x &&  this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false) {
+                }else if(this.scene.player1.x > this.x && !this.checkXRangeFromPlayer(20, 20) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false) {
                     //console.log("moving cat right"); 
                     this.swallowDelay = false; 
                     this.attemptingGrab = false;
@@ -554,11 +566,11 @@ class bat extends enemy {
                     }
 
                     this.anims.play('batFatHop', true);
-                    this.setVelocityX(270); 
+                    this.setVelocityX(this.batFatHopSpeed); 
                     
             
                 //if the player not knocked how move the rabbit left
-                }else if(this.scene.player1.x < this.x && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false) {
+                }else if(this.scene.player1.x < this.x && !this.checkXRangeFromPlayer(20, 20) && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false) {
                     //console.log("moving cat left");
                     this.swallowDelay = false; 
                     this.attemptingGrab = false;
@@ -575,7 +587,7 @@ class bat extends enemy {
                     }
           
                     this.anims.play('batFatHop', true);
-                    this.setVelocityX(-270); 
+                    this.setVelocityX(-this.batFatHopSpeed); 
 
 
                     
@@ -739,20 +751,30 @@ class bat extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this bat.
     moveIdle() {
-        if(this.grabTimer === false){
+        if(this.isSleeping === false){
             this.anims.play('batIdle', true);
-            this.setVelocityX(0);
-            this.setVelocityY(0);
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
+            this.hitboxActive = false;
             this.setDepth(4);
             this.grabTimer = false;
             this.attemptingGrab = false;
             this.grabTimer = false;
             this.isButtSlamming = false;
             this.grabTimer = false;
-            this.isPlayingMissedAnims = false;    
+            this.isPlayingMissedAnims = false;  
+            this.grabHitBox.body.enable = false;  
+            this.isButtSlamming = false;
+            
+            if(this.y < this.target.y-75){
+                this.setVelocityX(0);
+                this.setVelocityY(200);
+            }else{
+                this.setVelocityX(0);
+                this.setVelocityY(0);
+            }
         }
+        
     }
 
     // functioned called to play animation when the player is defeated by the bat in gameover.
@@ -820,6 +842,12 @@ class bat extends enemy {
                             this.setSize(70, 180, true);
                             this.setOffset(100, 59);
                             this.y = this.y+70
+
+                            this.target = this.scene.player1;
+                            this.targetString = "player";
+                            this.setDepth(this.target.depth+1);
+
+                            
 
                             //increaste grab hitbox size so it can grab the player while there on the ground.
                             this.grabHitBox.setSize(40,10,true);
@@ -1139,6 +1167,7 @@ class bat extends enemy {
 
                     this.anims.play('batFatFaceSitTo69').once('animationcomplete', () => {
                             //this.scene.onomat.destroy();
+
                             this.animationPlayed = false;
                             this.playerDefeatedAnimationStage++;
                             this.inStartDefeatedLogic = false;
@@ -1163,6 +1192,59 @@ class bat extends enemy {
                         thisbat.onomatPlayed = false;
                     }, 600);
                 }
+            }
+
+            if(this.playerDefeatedAnimationStage >= 1 && this.playerDefeatedAnimationStage < 5 && (this.scene.internalView === null || this.scene.internalView === undefined)){
+                if(this.enemySex === 1){
+                            //make internalview in correct orientation
+                            if(this.flipX === false){
+                                this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat');
+                                this.scene.internalView.setRotation((3.14/2));
+                                this.scene.internalView.flipX = false;
+                            }else{
+                                this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat');
+                                this.scene.internalView.flipX = true;
+                                this.scene.internalView.setRotation(-(3.14/2));
+                            }
+                           
+
+                            this.scene.internalView.anims.play("PTBNoPen");
+
+
+                        }else{
+                            //make internalview in correct orientation
+                            if(this.flipX === false){
+                                this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat');
+                                this.scene.internalView.flipX = true;
+                                this.scene.internalView.setRotation(-(3.14/2));
+                            }else{
+                                this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat');
+                                this.scene.internalView.flipX = false;
+                                this.scene.internalView.setRotation((3.14/2));
+                            }
+                            
+                            this.scene.internalView.anims.play("PSB1");
+                        
+                        }
+
+                        if(this.scene.playerSex === 1){
+                            //make internalview in cvorrect orientation
+                            if(this.flipX === false){
+                                this.scene.internalView1 = new internalView(this.scene,this.x+20,this.y+30,'bat');
+                                this.scene.internalView1.flipX = false;
+                                this.scene.internalView1.setRotation(3.14 + (3.14/2));
+                                
+                            }else{
+                                this.scene.internalView1 = new internalView(this.scene,this.x-20,this.y+30,'bat');
+                                this.scene.internalView1.flipX = true;
+                                this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
+                            }
+                    
+                            this.scene.internalView1.anims.play("BTPLightPen1");
+   
+                        }else{
+
+                        }
             }
 
             if(playerHealthObject.playerCurse > (playerHealthObject.playerCurseMax/2) && this.playerDefeatedAnimationStage === 0){
@@ -1406,6 +1488,14 @@ class bat extends enemy {
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
                 this.playerDefeatedAnimationStage = 0;
+
+                if(this.scene.internalView !== null && this.scene.internalView !== undefined){
+                    this.scene.internalView.destroy();
+                    this.scene.internalView = null;
+                    this.scene.internalView1.destroy();
+                    this.scene.internalView1 = null;
+                }
+                
 
                 //set butt slamming to false
                 this.isButtSlamming = false;
@@ -1712,42 +1802,57 @@ class bat extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
 
-                    if(this.enemySex === 1){
-                        //make internalview in correct orientation
-                        if(this.flipX === false){
-                            this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat')
-                        }else{
-                            this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat')
-                        }
-                        this.scene.internalView.flipX = this.flipX;
-                        this.scene.internalView.anims.play("PTBNoPen");
-                        this.scene.internalView.setRotation((3.14/2));
+                   if(this.scene.internalView === null || this.scene.internalView === undefined){
+                        if(this.enemySex === 1){
+                            //make internalview in correct orientation
+                            if(this.flipX === false){
+                                this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat');
+                                this.scene.internalView.setRotation((3.14/2));
+                                this.scene.internalView.flipX = false;
+                            }else{
+                                this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat');
+                                this.scene.internalView.flipX = true;
+                                this.scene.internalView.setRotation(-(3.14/2));
+                            }
+                            
 
-                    }else{
-                         //make internalview in correct orientation
-                        if(this.flipX === false){
-                            this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat')
-                        }else{
-                            this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat')
-                        }
-                        this.scene.internalView.flipX = !this.flipX;
-                        this.scene.internalView.anims.play("PSB1");
-                       this.scene.internalView.setRotation(-(3.14/2));
+                            this.scene.internalView.anims.play("PTBNoPen");
 
-                    }
 
-                    if(this.scene.playerSex === 1){
-                        //make internalview in cvorrect orientation
-                        if(this.flipX === false){
-                            this.scene.internalView1 = new internalView(this.scene,this.x+20,this.y+30,'bat')
-                        }else{
-                            this.scene.internalView1 = new internalView(this.scene,this.x-20,this.y+30,'bat')
-                        }
-                        this.scene.internalView1.flipX = this.flipX;
-                        this.scene.internalView1.anims.play("BTPLightPen1");
-                        this.scene.internalView1.setRotation(3.14 + (3.14/2));
-                    }else{
+                            }else{
+                                //make internalview in correct orientation
+                                if(this.flipX === false){
+                                    this.scene.internalView = new internalView(this.scene,this.x-20,this.y-40,'bat');
+                                    this.scene.internalView.flipX = true;
+                                    this.scene.internalView.setRotation(-(3.14/2));
+                                }else{
+                                    this.scene.internalView = new internalView(this.scene,this.x+20,this.y-40,'bat');
+                                    this.scene.internalView.flipX = false;
+                                    this.scene.internalView.setRotation((3.14/2));
+                                }
+                                
+                                this.scene.internalView.anims.play("PSB1");
+                            
+                            }
 
+                            if(this.scene.playerSex === 1){
+                                //make internalview in cvorrect orientation
+                                if(this.flipX === false){
+                                    this.scene.internalView1 = new internalView(this.scene,this.x+20,this.y+30,'bat');
+                                    this.scene.internalView1.flipX = false;
+                                    this.scene.internalView1.setRotation(3.14 + (3.14/2));
+                                    
+                                }else{
+                                    this.scene.internalView1 = new internalView(this.scene,this.x-20,this.y+30,'bat');
+                                    this.scene.internalView1.flipX = true;
+                                    this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
+                                }
+                        
+                                this.scene.internalView1.anims.play("BTPLightPen1");
+    
+                            }else{
+
+                            }
                     }
                     
                     
@@ -1858,17 +1963,26 @@ class bat extends enemy {
 
                 if(this.enemySex === 1){
 
-                    this.scene.internalView.anims.play("PTBDeepPenClimax");
+                    this.scene.internalView.anims.play("PTBDeepPenClimax").once('animationcomplete', () => {
+                        this.scene.internalView.destroy();
+                        this.scene.internalView = null;
+                    });
 
                 }else{
                         
-                    this.scene.internalView.anims.play("PSBDeepClimax",true);
+                    this.scene.internalView.anims.play("PSBDeepClimax").once('animationcomplete', () => {
+                        this.scene.internalView.destroy();
+                        this.scene.internalView = null;
+                    });
 
                 }
 
                 if(this.scene.playerSex === 1){
 
-                    this.scene.internalView1.anims.play("BTPDeepPenClimax");
+                    this.scene.internalView1.anims.play("BTPDeepPenClimax").once('animationcomplete', () => {
+                        this.scene.internalView1.destroy();
+                        this.scene.internalView1 = null;
+                    });
 
                 }else{
 
@@ -1879,9 +1993,6 @@ class bat extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
-
-                    this.scene.internalView.destroy();
-                    this.scene.internalView1.destroy();
                             
                 });
             }

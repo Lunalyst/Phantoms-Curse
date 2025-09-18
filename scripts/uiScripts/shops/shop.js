@@ -629,7 +629,7 @@ class shop extends Phaser.GameObjects.Container{
 
     //define up button for buy inventory
     this.buyIndexUp = new UIControls(this.scene, 220,-126, "UIControls").setInteractive();
-    this.buyIndexUp.setScale(0.9);
+    this.buyIndexUp.setScale(0.3);
     this.buyIndexUp.anims.play("pointRight");
     this.buyIndexUp.setRotation(3.14/2+3.14/2+3.14/2)
     this.buyIndexUp.visible = false;
@@ -663,8 +663,17 @@ class shop extends Phaser.GameObjects.Container{
 
     },this);
 
+    this.buyIndexUp.on('pointerover',function(pointer){
+      this.scene.initSoundEffect('buttonSFX','1',0.1);
+      this.buyIndexUp.setTint(0xff7000);
+    }, this);
+
+    this.buyIndexUp.on('pointerout',function(pointer){
+      this.buyIndexUp.clearTint();
+    },this);
+
     this.buyIndexDown = new UIControls(this.scene, 220, 166, "UIControls").setInteractive();
-    this.buyIndexDown.setScale(0.9);
+    this.buyIndexDown.setScale(0.3);
     this.buyIndexDown.anims.play("pointRight");
     this.buyIndexDown.setRotation(3.14/2)
     this.buyIndexDown.visible = false;
@@ -698,6 +707,15 @@ class shop extends Phaser.GameObjects.Container{
       this.scene.initSoundEffect('buttonSFX1','hit',0.05);
     },this);
 
+
+    this.buyIndexDown.on('pointerover',function(pointer){
+      this.scene.initSoundEffect('buttonSFX','1',0.1);
+      this.buyIndexDown.setTint(0xff7000);
+    }, this);
+
+    this.buyIndexDown.on('pointerout',function(pointer){
+      this.buyIndexDown.clearTint();
+    },this);
 
     }
 

@@ -53,7 +53,11 @@ class internalView extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'PSBDeep',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 2, end: 7 }),frameRate: 12  ,repeat: -1});
         this.anims.create({key: 'PSBDeepClimax',frames: this.anims.generateFrameNames('playerSuckingBat', { start: 15, end: 31 }),frameRate: 12  ,repeat: 0});
 
-       
+        this.anims.create({key: 'BSP1',frames: this.anims.generateFrameNames('batSuckingPlayer', { start: 0, end: 9 }),frameRate: 8  ,repeat: -1});
+        this.anims.create({key: 'BSP2',frames: this.anims.generateFrameNames('batSuckingPlayer', { start: 0, end: 9 }),frameRate:12  ,repeat: -1});
+        this.anims.create({key: 'BSPDeep',frames: this.anims.generateFrameNames('batSuckingPlayer', { start: 2, end: 7 }),frameRate: 12  ,repeat: -1});
+        this.anims.create({key: 'BSPDeepClimax',frames: this.anims.generateFrameNames('batSuckingPlayer', { start: 15, end: 31 }),frameRate: 12  ,repeat: 0});
+
       }else if(type === "mimic"){
         this.anims.create({key: 'femaleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 0, end: 9 }),frameRate: 12  ,repeat: -1});
         this.anims.create({key: 'maleTongueIn',frames: this.anims.generateFrameNames('mimicTongue', { start: 10, end: 19 }),frameRate: 12  ,repeat: -1});

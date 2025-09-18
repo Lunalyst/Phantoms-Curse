@@ -93,6 +93,9 @@ class bat extends enemy {
             this.anims.create({ key: 'batCatButtHump', frames: this.anims.generateFrameNames('batMaleExtension', { start: 28, end: 31 }), frameRate: 6, repeat: 0 });
             this.anims.create({ key: 'batCatButtDigest', frames: this.anims.generateFrameNames('batMaleExtension', { start: 32, end: 46 }), frameRate: 6, repeat: 0 });
 
+            this.anims.create({ key: 'batAVMaleCatSwallow', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start: 0, end: 8 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batAVMaleCatButtOnHead', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start: 9, end: 18 }), frameRate: 6, repeat: 0 });
+
             this.anims.create({ key: 'batFatTryFly', frames: this.anims.generateFrameNames('batMaleExtension', { start:47, end: 52 }), frameRate: 12, repeat: 0 });
             this.anims.create({ key: 'batFatHop', frames: this.anims.generateFrameNames('batMaleExtension', { start:54, end: 57 }), frameRate: 6, repeat: 0 });
             this.anims.create({ key: 'batFatTemptingLook', frames: this.anims.generateFrameNames('batMaleExtension', { start:58, end: 63 }), frameRate: 6, repeat: 0 });
@@ -108,6 +111,15 @@ class bat extends enemy {
                 this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batMale', { start: 59, end: 62 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batMale', { start: 62, end: 65 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batMale', { start: 66, end: 78 }), frameRate: 8, repeat: 0 });
+
+                this.anims.create({ key: 'batFatFaceSit', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:70-51, end: 75-51 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatFaceSitTo69', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:76-52, end: 76-51 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFat691', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:77-51, end: 84-51 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batFat692', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:84-51, end: 89-51 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'batFat693', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:89-51, end: 93-51 }), frameRate: 16, repeat: -1 });
+                this.anims.create({ key: 'batFatTF', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:94-51, end: 102-51 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFatTFPant', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:103-51, end: 106-51 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatGmeover', frames: this.anims.generateFrameNames('batMaleExtensionMale', { start:107-51, end: 110-51 }), frameRate: 6, repeat: -1 });
                   
             }else{
                 this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batMale', { start: 102, end: 107 }), frameRate: 8, repeat: -1 });
@@ -147,6 +159,9 @@ class bat extends enemy {
             this.anims.create({ key: 'batCatButtHump', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 28, end: 31 }), frameRate: 6, repeat: 0 });
             this.anims.create({ key: 'batCatButtDigest', frames: this.anims.generateFrameNames('batFemaleExtension', { start: 32, end: 46 }), frameRate: 6, repeat: 0 });
 
+            this.anims.create({ key: 'batAVMaleCatSwallow', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start: 0, end: 8 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'batAVMaleCatButtOnHead', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start: 9, end: 18 }), frameRate: 6, repeat: 0 });
+
             this.anims.create({ key: 'batFatTryFly', frames: this.anims.generateFrameNames('batFemaleExtension', { start:47, end: 52 }), frameRate: 12, repeat: 0 });
             this.anims.create({ key: 'batFatHop', frames: this.anims.generateFrameNames('batFemaleExtension', { start:54, end: 57 }), frameRate: 6, repeat: 0 });
             this.anims.create({ key: 'batFatTemptingLook', frames: this.anims.generateFrameNames('batFemaleExtension', { start:58, end: 63 }), frameRate: 6, repeat: 0 });
@@ -162,6 +177,15 @@ class bat extends enemy {
                 this.anims.create({ key: 'batButtSwallow1', frames: this.anims.generateFrameNames('batFemale', { start: 59, end: 62 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'batButtInHead', frames: this.anims.generateFrameNames('batFemale', { start: 62, end: 65 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'batButtSwallow2', frames: this.anims.generateFrameNames('batFemale', { start: 66, end: 78 }), frameRate: 8, repeat: 0 });
+                  
+                this.anims.create({ key: 'batFatFaceSit', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:70-51, end: 75-51 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatFaceSitTo69', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:76-52, end: 76-51 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFat691', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:77-51, end: 84-51 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'batFat692', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:84-51, end: 89-51 }), frameRate: 12, repeat: -1 });
+                this.anims.create({ key: 'batFat693', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:89-51, end: 93-51 }), frameRate: 16, repeat: -1 });
+                this.anims.create({ key: 'batFatTF', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:94-51, end: 102-51 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'batFatTFPant', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:103-51, end: 106-51 }), frameRate: 6, repeat: -1 });
+                this.anims.create({ key: 'batFatGmeover', frames: this.anims.generateFrameNames('batFemaleExtensionMale', { start:107-51, end: 110-51 }), frameRate: 6, repeat: -1 });
                   
             }else{
                 this.anims.create({ key: 'batButtGrabbed', frames: this.anims.generateFrameNames('batFemale', { start: 102, end: 107 }), frameRate: 8, repeat: -1 });
@@ -769,6 +793,9 @@ class bat extends enemy {
             if(this.y < this.target.y-75){
                 this.setVelocityX(0);
                 this.setVelocityY(200);
+            }else if(this.y > this.target.y-50){
+                this.setVelocityX(0);
+                this.setVelocityY(-200);
             }else{
                 this.setVelocityX(0);
                 this.setVelocityY(0);
@@ -810,18 +837,18 @@ class bat extends enemy {
         // decides if the male or female rabbit is being eaten.
         this.batIsEating = true;
         let batSexFlag = 'batAVMaleCatSwallow';
-        //if(catSex === 1){
+        if(catSex === 1){
             batSexFlag = 'batAVFemaleCatSwallow';
-        //}
+        }
         
         this.playPlapSound('plap4',800);
         this.anims.play(batSexFlag).once('animationcomplete', () => {
 
             this.scene.initSoundEffect("whiteCatSFX","sad",0.3);
             batSexFlag = 'batAVMaleCatButtOnHead';
-            //if(catSex === 1){
+            if(catSex === 1){
                 batSexFlag = 'batAVFemaleCatButtOnHead';
-            //}
+            }
             this.playPlapSound('plap3',800);
             
             this.anims.play(batSexFlag).once('animationcomplete', () => {
@@ -1243,7 +1270,19 @@ class bat extends enemy {
                             this.scene.internalView1.anims.play("BTPLightPen1");
    
                         }else{
-
+                            //make internalview in cvorrect orientation
+                            if(this.flipX === false){
+                                this.scene.internalView1 = new internalView(this.scene,this.x+20,this.y+30,'bat');
+                                this.scene.internalView1.flipX = true;
+                                this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
+                                    
+                            }else{
+                                this.scene.internalView1 = new internalView(this.scene,this.x-20,this.y+30,'bat');
+                                this.scene.internalView1.flipX = false;
+                                this.scene.internalView1.setRotation(3.14 + (3.14/2));
+                            }
+                    
+                                this.scene.internalView1.anims.play("BSP1");
                         }
             }
 
@@ -1851,7 +1890,19 @@ class bat extends enemy {
                                 this.scene.internalView1.anims.play("BTPLightPen1");
     
                             }else{
-
+                                //make internalview in cvorrect orientation
+                                if(this.flipX === false){
+                                    this.scene.internalView1 = new internalView(this.scene,this.x+20,this.y+30,'bat');
+                                    this.scene.internalView1.flipX = true;
+                                    this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
+                                    
+                                }else{
+                                    this.scene.internalView1 = new internalView(this.scene,this.x-20,this.y+30,'bat');
+                                    this.scene.internalView1.flipX = false;
+                                    this.scene.internalView1.setRotation(3.14 + (3.14/2));
+                                }
+                    
+                                this.scene.internalView1.anims.play("BSP1");
                             }
                     }
                     
@@ -1899,6 +1950,7 @@ class bat extends enemy {
                 this.scene.internalView1.anims.play("BTPLightPen2",true);   
             }else{
 
+                this.scene.internalView1.anims.play("BSP2",true);   
             }
 
             let thisbat = this;
@@ -1933,7 +1985,7 @@ class bat extends enemy {
 
                 this.scene.internalView1.anims.play("BTPDeepPen",true); 
             }else{
-
+                this.scene.internalView1.anims.play("BSPDeep",true); 
             }
 
             this.anims.play('batFat693', true);
@@ -1985,7 +2037,11 @@ class bat extends enemy {
                     });
 
                 }else{
-
+                    
+                    this.scene.internalView1.anims.play("BSPDeepClimax").once('animationcomplete', () => {
+                        this.scene.internalView1.destroy();
+                        this.scene.internalView1 = null;
+                    });
                 }
 
                 this.anims.play('batFatTF').once('animationcomplete', () => {

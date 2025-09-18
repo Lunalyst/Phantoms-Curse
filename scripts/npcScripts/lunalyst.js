@@ -381,18 +381,6 @@ class lunalyst extends npc{
     
             this.buyBack.push(
               {
-                itemID: 16,
-                itemName: 'FUEL ICHOR',
-                itemDescription: 'FUEL FOR A LANTERN.',
-                itemStackable: 1,
-                itemAmount: 1,
-                itemType: "ammo",
-                sellValue: 5
-              }
-            );
-    
-            this.buyBack.push(
-              {
                 itemID: 20,
                 itemName: 'PLAIN CLOTHS',
                 itemDescription: 'SIMPLE COMFY OUTFIT.',

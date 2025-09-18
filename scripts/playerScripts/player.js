@@ -1096,7 +1096,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
                 }
 
-              },3000);
+              },10000);
     
           }
 

@@ -64,10 +64,10 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.rabbits.add(rabbit1);
       },
       beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        tempSceneRef.load.start();
+        /*tempSceneRef.load.start();
         tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
           "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-        ]);
+        ]);*/
 
         let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
@@ -79,12 +79,15 @@ class G8InitEnemys extends G7EnemyCollisions{
 
         console.log("inSafeMode: ",inSafeMode)
         console.log('wingFlapSFX'+tempSceneRef.enemyId);
-        tempSceneRef.load.start();
-        tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-        ]);
-      
-        
+
+        // In your Scene's create() method
+        if (tempSceneRef.cache.audio.exists('wingFlapSFX'+tempSceneRef.enemyId)) {
+            console.log('Audio file found in cache!');
+        } else {
+            console.log('Audio file not found in cache.');
+        }
+        console.log("this.cache.audio: ",tempSceneRef.cache.audio);
+         
         let bat1 = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created bat id: ",bat1.enemyId);
         tempSceneRef.enemyId++;

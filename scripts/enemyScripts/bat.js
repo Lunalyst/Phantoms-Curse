@@ -249,7 +249,7 @@ class bat extends enemy {
                     this.target = this.scene.getSFXRefrence('whiteCatSFX');
 
                     //check to make sure white cat is not defeated and its in range of the bat
-                    console.log("target: ",this.target)
+                    //console.log("target: ",this.target)
                     if(this.grabTimer === false){
                         if(this.target !== null ){
 
@@ -367,17 +367,17 @@ class bat extends enemy {
                         }
 
                         //keep the bat floating lightly above the players y
-                        if ((this.target.y-70 > this.y  && this.target.y-80 < this.y)){
+                        if ((this.target.y-60 > this.y && this.target.y-90 < this.y )){
                             //this.anims.play('batIdle',true);
                             this.setVelocityY(0);
             
                         }else{
                             // moves the bat up to the position where it should be able to get the player.
-                            if (this.target.y - 100 > this.y) {
+                            if (this.target.y - 60 > this.y) {
             
                                 this.setVelocityY(150);
             
-                            } else if (this.target.y - 80 < this.y) {
+                            } else if (this.target.y-90 < this.y ) {
             
                                 this.setVelocityY(150*-1);    
                             }
@@ -792,17 +792,37 @@ class bat extends enemy {
             this.isPlayingMissedAnims = false;  
             this.grabHitBox.body.enable = false;  
             this.isButtSlamming = false;
+            this.struggleFree = false;
+            this.playerBrokeFree = 0;
+            this.struggleCounter = 0;
+            this.animationPlayed = false;
+            this.playerDamaged = false;
+            this.playerGrabbed = false;
+            this.keyAnimationPlayed = false;
+            this.playerDefeatedAnimationStage = 0;
             
-            if(this.y < this.target.y-75){
-                this.setVelocityX(0);
-                this.setVelocityY(200);
-            }else if(this.y > this.target.y-50){
-                this.setVelocityX(0);
-                this.setVelocityY(-200);
-            }else{
-                this.setVelocityX(0);
+            //keep the bat floating lightly above the players y
+            if ((this.target.y-60 > this.y && this.target.y-90 < this.y )){
+                //this.anims.play('batIdle',true);
                 this.setVelocityY(0);
+                this.setVelocityX(0);
+            
+                }else{
+                    // moves the bat up to the position where it should be able to get the player.
+                    if (this.target.y - 60 > this.y) {
+            
+                        this.setVelocityY(150);
+            
+                    } else if (this.target.y-90 < this.y ) {
+            
+                        this.setVelocityY(150*-1);    
+                    }
+
+                           
+
+
             }
+           
         }
         
     }

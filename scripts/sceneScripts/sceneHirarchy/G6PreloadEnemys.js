@@ -72,6 +72,22 @@ class G6PreloadEnemys extends G5InitNPCs{
           "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
         ]);
 
+        tempSceneRef.load.audioSprite('wingFlapSFX0','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX3','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX4','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+
       },
       bats: function batsFunction() {
 
@@ -93,6 +109,22 @@ class G6PreloadEnemys extends G5InitNPCs{
 
         tempSceneRef.load.audioSprite('lickSFX2','audio/used-audio/lick-sounds/lick-sounds.json',[
           "audio/used-audio/lick-sounds/lick.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('wingFlapSFX0','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX1','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX2','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX3','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+        ]);
+        tempSceneRef.load.audioSprite('wingFlapSFX4','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
         ]);
       },
       blueSlimeHSs: function blueSlimeHSsFunction() {

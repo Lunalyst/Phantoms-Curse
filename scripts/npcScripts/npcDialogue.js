@@ -2330,7 +2330,7 @@ const npcDialogue = {
                 },
                 "bat_male_tf":{
                     "node1":{
-                        "dialogue": "You where completely stunned by the bat's massive rear. Before you could get up, the bat was on top of you, rubbing his cock on your head.  When you were too tired to fight back he forced his cock into your mouth, as he pleasured you. Humping you with his soft pudgy gut squishing against your chest. After a while both you and he climaxed. With your new body, you gained the ability to fly and hang upside down just like your new partner. now you spend your days snuggling upside down as the two of you begin a new colony.",
+                        "dialogue": "You where completely stunned by the bat's massive rear. Before you could get up, the bat was on top of you, rubbing his cock on your head.  When you were too tired to fight back he forced his cock into your mouth, as he pleasured you. Humping you with his soft pudgy gut squishing against your chest. After a while both you and him climaxed. With your new body, you gained the ability to fly and hang upside down just like your new partner. now you spend your days snuggling upside down as the two of you begin a new colony.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

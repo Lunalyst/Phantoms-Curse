@@ -142,4 +142,7 @@ wierd bug where tileset isnt embedded correctly? beware bad tiles leftover from 
 tiles can linger over that are out of range of the tileset, causing this error.
 https://github.com/phaserjs/phaser-ce/issues/273
 
+//generate qr codes
+https://gchq.github.io/CyberChef/#recipe=Generate_QR_Code('PNG',5,4,'Medium')&input=aHR0cHM6Ly9kaXNjb3JkLmdnL0tmNWYyazdtd2g 
+
 noticed, that sprites have a tile bleeding issues if pixels are left on the borders. normally not noticable unless your scaling sprite where its most apparent.

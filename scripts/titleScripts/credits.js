@@ -16,6 +16,8 @@ class credits extends Phaser.GameObjects.Container{
 
          this.position = 0;
 
+         this.xAxis = -70
+
          this.playing = false;
 
          this.activeNames = [];
@@ -31,33 +33,62 @@ class credits extends Phaser.GameObjects.Container{
         this.textColor = 0xb016fa;
         this.textType = "charWhite";
 
-        this.form = new makeEcrus(this.scene,0, -40,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
+        this.form = new makeEcrus(this.scene,this.xAxis, -40,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
         this.add(this.form);
         this.form.visible = false;
             
 
          //this.title = new makeText( this.scene, 0, -70,'charBubble','CREDITS');
-        this.thankYou1 = new makeText(this.scene, 0, -50,this.textType,'Thank you to everyone who has helped me improve');
+        this.thankYou1 = new makeText(this.scene, this.xAxis, -50,this.textType,'Thank you to everyone who has helped me improve');
         this.thankYou1.setTextTint(this.textColor);
         this.add(this.thankYou1);
-        this.thankYou2 = new makeText(this.scene, 0, -30,this.textType,'and evolve this project. I am forever grateful.');
+        this.thankYou2 = new makeText(this.scene, this.xAxis, -30,this.textType,'and evolve this project. I am forever grateful.');
         this.thankYou2.setTextTint(this.textColor);
         this.add(this.thankYou2);
-        this.thankYou3 = new makeText(this.scene, 0, -10,this.textType,'------------------------------------------------------');
+        this.thankYou3 = new makeText(this.scene, this.xAxis, -10,this.textType,'------------------------------------------------------');
         this.thankYou3.setTextTint(this.textColor);
         this.add(this.thankYou3);
-        this.thankYou4 = new makeText(this.scene, 0, 510,this.textType,'------------------------------------------------------');
+        this.thankYou4 = new makeText(this.scene, this.xAxis, 510,this.textType,'------------------------------------------------------');
         this.thankYou4.setTextTint(this.textColor);
         this.add(this.thankYou4);
-        this.thankYou5 = new makeText(this.scene, 0, 530,this.textType,'If you would like your name here along with these');
+        this.thankYou5 = new makeText(this.scene, this.xAxis, 530,this.textType,'If you would like your name here along with these');
         this.thankYou5.setTextTint(this.textColor);
         this.add(this.thankYou5);
-        this.thankYou6 = new makeText(this.scene, 0, 550,this.textType,'wonderful folks, then feel free to join our community,');
+        this.thankYou6 = new makeText(this.scene, this.xAxis, 550,this.textType,'wonderful folks, then feel free to join our community.');
         this.thankYou6.setTextTint(this.textColor);
         this.add(this.thankYou6);
-        this.thankYou7 = new makeText(this.scene, 0, 570,this.textType,'through the discord link.');
-        this.thankYou7.setTextTint(this.textColor);
+        //this.thankYou7 = new makeText(this.scene, this.xAxis, 570,this.textType,'through the discord link.');
+        //this.thankYou7.setTextTint(this.textColor);
+        //this.add(this.thankYou7);
+
+        this.thankYou7 = new makeText(this.scene, 795, 425,this.textType,'Discord');
+        this.thankYou7.setTextTint(0x5865f2);
         this.add(this.thankYou7);
+
+        this.discordIcon = this.scene.add.sprite(760, 400, "linkSprites");
+        this.add(this.discordIcon);
+        this.scene.anims.create({key: 'discord',frames: this.scene.anims.generateFrameNames('linkSprites', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        this.discordIcon.setScale(.4);
+        this.discordIcon.anims.play("discord");
+
+        this.discordServer = this.scene.add.sprite(820, 495, "discordServerQR");
+        this.add(this.discordServer);
+        this.discordServer.setScale(.7);
+
+        this.thankYou8 = new makeText(this.scene, 795, 225,this.textType,'Patreon');
+        this.thankYou8.setTextTint(0xfe6a00);
+        this.add(this.thankYou8);
+
+        this.patreonIcon = this.scene.add.sprite(760, 200, "linkSprites");
+        this.add(this.patreonIcon);
+        this.scene.anims.create({key: 'patreon',frames: this.scene.anims.generateFrameNames('linkSprites', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+        this.patreonIcon.setScale(.4);
+        this.patreonIcon.anims.play("patreon");
+
+        this.patreonQR = this.scene.add.sprite(820, 295, "patreonQR");
+        this.add(this.patreonQR);
+        this.patreonQR.setScale(.7);
+
 
     }
 
@@ -76,7 +107,7 @@ class credits extends Phaser.GameObjects.Container{
                     //after delay make names and call credits function apart of make texttext.
                     if(tempCredits.scene !== undefined && tempCredits !== null ){
                         console.log("displaying name: ", tempCredits.credits[counter]);
-                        let name = new makeText(tempCredits.scene,0,0,tempCredits.textType,tempCredits.credits[counter]);
+                        let name = new makeText(tempCredits.scene,tempCredits.xAxis,0,tempCredits.textType,tempCredits.credits[counter]);
                         name.setTextTint(tempCredits.textColor);
                         tempCredits.add(name);
                         name.textCredits(20000,500,true,this);
@@ -95,7 +126,7 @@ class credits extends Phaser.GameObjects.Container{
                     if(tempCredits.scene !== undefined && tempCredits !== null ){
 
                         console.log("displaying name: ", tempCredits.credits[counter]);
-                        let name = new makeText(tempCredits.scene,0,0,tempCredits.textType,tempCredits.credits[counter]);
+                        let name = new makeText(tempCredits.scene,tempCredits.xAxis,0,tempCredits.textType,tempCredits.credits[counter]);
                         name.setTextTint(tempCredits.textColor);
                         tempCredits.add(name);
                         name.textCredits(20000,500,false,this);
@@ -127,6 +158,7 @@ class credits extends Phaser.GameObjects.Container{
             //console.log("stopping settime out at this.activeNames[counter]: ", this.activeNameSprites[counter]);
             this.activeNameSprites[counter].remove(0)
         }
+
         //truncade array to remove element id we no longer need.
         this.activeNames.length = 0;
     }

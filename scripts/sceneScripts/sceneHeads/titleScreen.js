@@ -86,6 +86,9 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('no', 'assets/hudElements/no.png',{frameWidth: 60, frameHeight: 33 });
             this.load.spritesheet('yes', 'assets/hudElements/yes.png',{frameWidth: 78, frameHeight: 33 });
             this.load.spritesheet('curses', 'assets/titleScreen/curses.png',{frameWidth: 96, frameHeight: 96 });
+            this.load.spritesheet('discordServerQR', 'assets/titleScreen/discordServer.png',{frameWidth: 185, frameHeight: 185 });
+            this.load.spritesheet('patreonQR', 'assets/titleScreen/patreon.png',{frameWidth: 185, frameHeight: 185 });
+            this.load.spritesheet('linkSprites', 'assets/titleScreen/linkSprites.png',{frameWidth: 114, frameHeight: 114 });
             
             this.secretLoad();
 
@@ -171,9 +174,11 @@ class titleScreen extends A3SoundEffects {
                 'Dainsleft Rovera: patreon',
                 'Night Raven: patreon',
                 'Foxymew: patreon',
+                'Senro: patreon',
                 'Irongelatin: gameover dialogue',
                 'Istara: commission & inspiration',
-                'Vik : commision, gameover dialogue, inspiration, bug testing',
+                'Vik : commision, gameover dialogue,',
+                'inspiration, bug testing',
                 'Zebby: inspiration, bug testing',
                 'Drachen: inspiration,  bug testing',
                 'Cirme: inspiration, bug testing',
@@ -259,6 +264,8 @@ class titleScreen extends A3SoundEffects {
             //this.backround.setTint(0x4b4b4b);
             this.titleLogo = this.add.sprite(this.screenWidth/2, 500, "titleLogo");
             this.elements.add(this.titleLogo);
+
+            
 
             //title sprite
             //this.titleLogo.setScale();

@@ -128,6 +128,7 @@ class defaultScene extends G12UpdateLoops {
     this.playerSex;
     this.preferance;
     this.onomatopoeia;
+    this.internalView;
 
     this.lightingSystemActive = false;
 

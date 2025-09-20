@@ -661,7 +661,7 @@ class blueSlime extends enemy {
                         let randX = Math.floor((Math.random() * 15));
                         let randY = Math.floor((Math.random() * 15));
         
-                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBlack',"@heart@");
                         this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                         this.scene.heartOnomat1.setScale(1/4);
                         this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -683,7 +683,7 @@ class blueSlime extends enemy {
                         let randX = Math.floor((Math.random() * 15));
                         let randY = Math.floor((Math.random() * 15));
         
-                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                        this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBlack',"@heart@");
                         this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                         this.scene.heartOnomat1.setScale(1/4);
                         this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -724,7 +724,8 @@ class blueSlime extends enemy {
                 
             }else if(this.playerDefeatedAnimationStage === 3 && this.animationPlayed === false){
                 //handles internal view
-                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime')
+                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime');
+                this.scene.internalView.visible = this.scene.internalViewBool;
                 this.scene.internalView.anims.play("slimePening");
                 this.scene.internalView.setRotation(3.14/2);
 
@@ -747,7 +748,7 @@ class blueSlime extends enemy {
                     let randX = Math.floor((Math.random() * 15));
                     let randY = Math.floor((Math.random() * 15));
     
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBlack',"@heart@");
                     this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                     this.scene.heartOnomat1.setScale(1/4);
                     this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1188,7 +1189,7 @@ class blueSlime extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1210,7 +1211,7 @@ class blueSlime extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1341,7 +1342,8 @@ class blueSlime extends enemy {
             if (!this.animationPlayed) {
 
                 //handles internal view
-                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime')
+                this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime');
+                this.scene.internalView.visible = this.scene.internalViewBool;
                 this.scene.internalView.anims.play("slimePening");
                 this.scene.internalView.setRotation(3.14/2);
 
@@ -1365,7 +1367,7 @@ class blueSlime extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1390,7 +1392,7 @@ class blueSlime extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1398,7 +1400,7 @@ class blueSlime extends enemy {
                 randX = Math.floor((Math.random() * 30));
                 randY = Math.floor((Math.random() * 30));
 
-                this.scene.heartOnomat2 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat2 = new makeText(this.scene,this.x-randX,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat2.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat2.setScale(1/4);
                 this.scene.heartOnomat2.textFadeOutAndDestroy(600);

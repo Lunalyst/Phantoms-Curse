@@ -1295,7 +1295,7 @@ class tiger extends enemy {
                     this.onomatPlayed = true;
                     let randX = Math.floor((Math.random() * 15));
                     let randY = Math.floor((Math.random() * 15));
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBlack',"@heart@");
                     this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                     this.scene.heartOnomat1.setScale(1/4);
                     this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1976,11 +1976,13 @@ class tiger extends enemy {
                     this.inStartDefeatedLogic = false;
 
                     if(this.scene.playerSex === 0 && this.flipX === true){
-                        this.scene.internalView = new internalView(this.scene,this.x+10,this.y+60,'tiger')
+                        this.scene.internalView = new internalView(this.scene,this.x+10,this.y+60,'tiger');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("pen1",true);
                         this.scene.internalView.setRotation((3.14)+(3.14)/3);
                     }else if(this.scene.playerSex === 0){
-                        this.scene.internalView = new internalView(this.scene,this.x-10,this.y+60,'tiger')
+                        this.scene.internalView = new internalView(this.scene,this.x-10,this.y+60,'tiger');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("pen1",true);
                         this.scene.internalView.setRotation(-(3.14)/3);
                     }
@@ -1998,7 +2000,7 @@ class tiger extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -2026,7 +2028,7 @@ class tiger extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -2055,7 +2057,7 @@ class tiger extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(300);
@@ -2125,7 +2127,7 @@ class tiger extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -2150,7 +2152,7 @@ class tiger extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY+35,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(300);

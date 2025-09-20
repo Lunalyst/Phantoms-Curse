@@ -128,7 +128,7 @@ class tutorialBeach extends defaultScene {
       }
 
       //adds looping sound effect.
-      this.initLoopingSound('oceanSFX','ocean',0.1);
+      this.initLoopingSound('oceanSFX','ocean',0.1,"ambience");
 
       //creates player object
       this.setUpPlayer();

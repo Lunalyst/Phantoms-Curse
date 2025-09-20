@@ -79,7 +79,7 @@ class dreamHub extends defaultScene {
       this.setUpGameplayEmitters();
 
       //adds looping sound effect.
-      this.initLoopingSound('andrewknSFX','andrewkn',0.1);
+      this.initLoopingSound('andrewknSFX','andrewkn',0.1,"music");
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

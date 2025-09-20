@@ -72,7 +72,7 @@ class sunFlowerCave extends defaultScene {
       //adds looping sound effect.
       //this.initLoopingSound('forestSFX','forest',1);
 
-      this.initLoopingSound('sunflowerThemeSFX','bertsz',0.05);
+      this.initLoopingSound('sunflowerThemeSFX','bertsz',0.05,"music");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

@@ -1013,11 +1013,13 @@ class chestMimic extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
                     if(this.scene.playerSex === 0 && this.enemySex === 1){
-                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic')
+                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("pen1",true);
                         this.scene.internalView.setRotation(3.14/3);
                     }else if(this.enemySex === 0){
-                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic')
+                        this.scene.internalView = new internalView(this.scene,this.x,this.y+65,'mimic');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("mimicPening1",true);
                         this.scene.internalView.setRotation(3.14+(3.14/3));
                     }
@@ -1037,7 +1039,7 @@ class chestMimic extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 40 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 40 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1063,7 +1065,7 @@ class chestMimic extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 40 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 40 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1141,11 +1143,13 @@ class chestMimic extends enemy {
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
                     if(this.enemySex === 1){
-                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
+                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("femaleTongueIn",true);
                         this.scene.internalView.setRotation(3.14/2);
                     }else{
-                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic')
+                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y-10,'mimic');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.anims.play("maleTongueIn",true);
                         this.scene.internalView.setRotation(3.14/2);
                     }

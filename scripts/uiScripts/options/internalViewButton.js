@@ -1,4 +1,5 @@
-class onomatButton extends Phaser.Physics.Arcade.Sprite{
+class internalViewButton extends Phaser.Physics.Arcade.Sprite{
+    //internalViewButton
     // every class needs constructor
     constructor(scene,optionsMenu,xPos, yPos){
         //super() calls the constructor() from the parent class we are extending
@@ -13,13 +14,13 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
         this.setScale(.6);
         this.isOn = true;
       
-        this.anims.create({key: 'onomatOnActive',frames: this.anims.generateFrameNames('buttons', { start: 11, end: 11 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'onomatOnInActive',frames: this.anims.generateFrameNames('buttons', { start: 10, end: 10 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'onomatOffActive',frames: this.anims.generateFrameNames('buttons', { start: 13, end: 13 }),frameRate: 1,repeat: -1});
-        this.anims.create({key: 'onomatOffInActive',frames: this.anims.generateFrameNames('buttons', { start: 12, end: 12 }),frameRate: 1,repeat: -1}); 
+        this.anims.create({key: 'internalViewOnActive',frames: this.anims.generateFrameNames('buttons', { start: 23, end: 23 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'internalViewOnInActive',frames: this.anims.generateFrameNames('buttons', { start: 22, end: 22 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'internalViewOffActive',frames: this.anims.generateFrameNames('buttons', { start: 25, end: 25 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'internalViewOffInActive',frames: this.anims.generateFrameNames('buttons', { start: 24, end: 24 }),frameRate: 1,repeat: -1}); 
         
         //need to get volume from scene
-        this.anims.play('onomatOnInActive');
+        this.anims.play('internalViewOnInActive');
 
         this.scene = scene;
 
@@ -31,40 +32,41 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
     setValue(value){
         this.isOn = value;
         if(this.isOn){
-            this.anims.play("onomatOnInActive");
+            this.anims.play("internalViewOnInActive");
             
         }else{
-            this.anims.play("onomatOffInActive");
+            this.anims.play("internalViewOffInActive");
         }
 
         //temp object to update the onomat value
-        let onomat = {
-            value: this.optionsMenu.currentOnomatValue
+        let internalView = {
+            value: this.optionsMenu.currentInternalViewValue
         };
         
         //updates the onomat variable using gameplay scene emitter.
-        inventoryKeyEmitter.emit(inventoryKey.updateOnomat,onomat);
+        inventoryKeyEmitter.emit(inventoryKey.updateInternalView,internalView);
+    
     }
 
-    setupOnomatButton(){
+    setupInternalViewButton(){
 
         let that = this;
 
         this.on('pointerover',function(pointer){
             that.scene.initSoundEffect('buttonSFX','1',0.05);
             if(that.isOn){
-                that.anims.play("onomatOnActive");
+                that.anims.play("internalViewOnActive");
             }else{
-                that.anims.play("onomatOffActive");
+                that.anims.play("internalViewOffActive");
             }
             
         })
         this.on('pointerout',function(pointer){
            
             if(that.isOn){
-                that.anims.play("onomatOnInActive");
+                that.anims.play("internalViewOnInActive");
             }else{
-                that.anims.play("onomatOffInActive");
+                that.anims.play("internalViewOffInActive");
             }
         })
 
@@ -72,14 +74,14 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
             that.scene.initSoundEffect('buttonSFX','2',0.05);
                 if(that.isOn){
                     that.isOn = false;
-                    that.optionsMenu.currentOnomatValue = false;
-                    that.anims.play("onomatOffActive");
+                    that.optionsMenu.currentInternalViewValue = false;
+                    that.anims.play("internalViewOffActive");
                     
 
                 }else{
                     that.isOn = true;
-                    that.optionsMenu.currentOnomatValue = true;
-                    that.anims.play("onomatOnActive");
+                    that.optionsMenu.currentInternalViewValue = true;
+                    that.anims.play("internalViewOnActive");
                 }
                    
         });

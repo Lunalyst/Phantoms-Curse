@@ -72,7 +72,7 @@ class caveToSunflowers1 extends defaultScene {
       this.setUpGameplayEmitters();
 
       //activates sound
-      this.initLoopingSound('caveSFX','cave', 0.1);
+      this.initLoopingSound('caveSFX','cave', 0.1,"music");
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

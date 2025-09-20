@@ -198,15 +198,15 @@ class titleScreen extends A3SoundEffects {
             //this.form.visible = true;
             this.credits = new credits(this,this.screenWidth/2-400,240,this.creditsArray);
             this.credits.setDepth(51);
-            
 
             //adds looping sound effect.
-
             if(this.titleLogoType === "shadow"){
                 this.initLoopingSound('earieSFX','earieCave', 0.1);
             }else{
                 this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
             }
+
+            console.log("this.scene.sound.soundGroups: ",this.sound.soundGroups);
             
 
             //dramatic fade in.

@@ -289,7 +289,7 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.layer2.setPipeline('Light2D');
                 tempSceneRef.processMap.layer3.setPipeline('Light2D');
 
-                tempSceneRef.initLoopingSound('waterfallSFX','waterfall', 0.03);
+                tempSceneRef.initLoopingSound('waterfallSFX','waterfall', 0.03,"ambience");
 
                 tempSceneRef.light1 = new wallLight(tempSceneRef,445, 470,'ghostMushroom2');
                 tempSceneRef.light2 = new wallLight(tempSceneRef,455, 472,'ghostMushroom3');

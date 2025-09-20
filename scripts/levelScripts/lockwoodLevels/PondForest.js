@@ -103,11 +103,11 @@ class PondForest extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestSFX','forest',1);
+      this.initLoopingSound('forestSFX','forest',1,"ambience");
 
-      this.initLoopingSound('waterfallSFX','waterfall', 0.01);
+      this.initLoopingSound('waterfallSFX','waterfall', 0.01,"ambience");
 
-      this.initLoopingSound('whitecatThemeSFX','theme',0.03);
+      this.initLoopingSound('whitecatThemeSFX','theme',0.03,"music");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -233,7 +233,8 @@ class PondForest extends defaultScene {
 
           thisScene.initEnemy(1497,1769,thisScene.playerSex,'whiteCat',false); 
           thisScene.initEnemy(4089,1673,thisScene.playerSex,'whiteCat',false); 
-          thisScene.initEnemy(2976,1496,thisScene.playerSex,'whiteCat',false); 
+          
+          //thisScene.initEnemy(2976,1496,thisScene.playerSex,'whiteCat',false); 
           //thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');   
           thisScene.initEnemy(1671,1073+30,thisScene.playerSex,'bat',false);
           thisScene.initEnemy(3920,1098,thisScene.playerSex,'bat',false);        
@@ -291,6 +292,8 @@ class PondForest extends defaultScene {
 
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
+
+      //console.log("this.sound.soundGroups: ", this.sound.soundGroups);
 
     }
 

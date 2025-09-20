@@ -79,7 +79,7 @@ class dreamForest extends defaultScene {
       this.setUpGameplayEmitters();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestThemeSFX','bertsz',0.01);
+      this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -282,6 +282,7 @@ class dreamForest extends defaultScene {
       }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
+
     }
 
     

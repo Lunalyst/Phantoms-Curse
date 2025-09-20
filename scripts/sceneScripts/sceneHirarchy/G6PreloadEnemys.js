@@ -87,6 +87,13 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('batMaleExtensionMale', 'assets/enemys/batMaleExtensionMale.png',{frameWidth: 273, frameHeight: 435  });
         tempSceneRef.load.spritesheet('batFemaleExtensionMale', 'assets/enemys/batFemaleExtensionMale.png',{frameWidth: 273, frameHeight: 435  });
         
+        tempSceneRef.load.audioSprite('lickSFX1','audio/used-audio/lick-sounds/lick-sounds.json',[
+          "audio/used-audio/lick-sounds/lick.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('lickSFX2','audio/used-audio/lick-sounds/lick-sounds.json',[
+          "audio/used-audio/lick-sounds/lick.mp3"
+        ]);
       },
       blueSlimeHSs: function blueSlimeHSsFunction() {
 

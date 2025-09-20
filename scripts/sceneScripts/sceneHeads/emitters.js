@@ -9,6 +9,9 @@ let storedLabel;
 const lineLength = 24;
 const textEnd = 75;
 
+const musicDampen = 0.15;
+const ambienceDampen = 0.15;
+
 //simple time tester functions.
 function startTimeTest(label){
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -108,6 +111,7 @@ inventoryKey = {
     checkContainerFlag: 'check_container_flag',
     checkBestiaryFlag: 'check_bestiary_flag',
     updateOnomat: 'update_onomat',
+    updateInternalView: 'update_internal_view',
     playGameSaved: 'play_game_saved',
     playCustomMessage: 'play_custom_message',
     isItemInInventory: 'is_item_in_inventory',

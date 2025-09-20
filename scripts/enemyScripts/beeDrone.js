@@ -733,7 +733,7 @@ class beeDrone extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);

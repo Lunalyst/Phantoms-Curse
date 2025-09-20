@@ -1300,10 +1300,12 @@ class whiteCat extends enemy {
                     this.inStartDefeatedLogic = false;
 
                     if(this.flipX === false){
-                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y+20,'whitecat')
+                        this.scene.internalView = new internalView(this.scene,this.x+30,this.y+20,'whitecat');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.setRotation(3.14 - 3.14/5 );
                     }else{
-                        this.scene.internalView = new internalView(this.scene,this.x-30,this.y+20,'whitecat')
+                        this.scene.internalView = new internalView(this.scene,this.x-30,this.y+20,'whitecat');
+                        this.scene.internalView.visible = this.scene.internalViewBool;
                         this.scene.internalView.setRotation(3.14/5);
                     }
                     this.scene.internalView.anims.play("whitecatPening2",true);
@@ -1325,10 +1327,10 @@ class whiteCat extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
                 if(this.flipX === true){
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }else{
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
@@ -1355,10 +1357,10 @@ class whiteCat extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
                 if(this.flipX === true){
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }else{
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
@@ -1423,10 +1425,12 @@ class whiteCat extends enemy {
 
                     if(this.scene.playerSex === 0){
                         if(this.flipX === false){
-                            this.scene.internalView = new internalView(this.scene,this.x+30,this.y+50,'whitecat')
+                            this.scene.internalView = new internalView(this.scene,this.x+30,this.y+50,'whitecat');
+                            this.scene.internalView.visible = this.scene.internalViewBool;
                             this.scene.internalView.setRotation(3.14/4);
                         }else{
-                            this.scene.internalView = new internalView(this.scene,this.x-30,this.y+50,'whitecat')
+                            this.scene.internalView = new internalView(this.scene,this.x-30,this.y+50,'whitecat');
+                            this.scene.internalView.visible = this.scene.internalViewBool;
                             this.scene.internalView.setRotation(3.14/4 + 3.14/2);
                         }
                         
@@ -1448,10 +1452,10 @@ class whiteCat extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
                 if(this.flipX === true){
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }else{
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
@@ -1480,10 +1484,10 @@ class whiteCat extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
                 if(this.flipX === true){
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }else{
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+30,this.y-randY+13,'charBlack',"@heart@");
                 
                 }
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
@@ -1562,10 +1566,10 @@ class whiteCat extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
                 if(this.flipX === true){
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-20,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX-20,this.y-randY+13,'charBlack',"@heart@");
                 
                 }else{
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+20,this.y-randY+13,'charBlack',"@heart@");
                 
                 }
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;

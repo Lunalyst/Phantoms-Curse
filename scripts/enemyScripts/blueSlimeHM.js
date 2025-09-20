@@ -1003,7 +1003,7 @@ class blueSlimeHM extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY+30,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1188,7 +1188,7 @@ class blueSlimeHM extends enemy {
                 let randX = Math.floor((Math.random() * 15));
                 let randY = Math.floor((Math.random() * 15));
 
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY-10,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+10,this.y-randY-10,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);

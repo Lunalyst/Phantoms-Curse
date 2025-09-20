@@ -60,7 +60,7 @@ class ForestRavineHome extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestSFX','forest',1);
+      this.initLoopingSound('forestSFX','forest',1,"ambience");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

@@ -4,8 +4,29 @@ all scenes need acess to sound effects.
 *******************************************************************************/
 class A3SoundEffects extends A2Emitters {
 
+  //set up sound catigorys. 
+  setUpSoundGroups(){
+
+    //attach groups to sound objects so buttons in settings can acess them easy.
+    console.log("this.sound: ",this.sound);
+     this.sound.soundGroups = {
+      generic: [],
+      ambience: [],
+      music: [],
+    };
+  }
+
+  //function we call in game hud after we load data to ensure the volume for our groups is set correctly. 
+  setupSoundGroupVolumes(music, ambience){
+    //make a object to store the groups volumes
+      this.sound.soundGroupVolumes = {
+        ambience: ambience,
+        music: music,
+      };
+  }
+
   //function to set up looping sound
-  initLoopingSound(soundID,soundName,volume){
+  initLoopingSound(soundID,soundName,volume,soundGroup){
     //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
     let createSound = true;
 
@@ -22,8 +43,8 @@ class A3SoundEffects extends A2Emitters {
 
     //if we should create the sound because the key does not exist make it
     if(createSound === true){
-      //console.log("key not found making ",soundID);
-      this.sound.playAudioSprite(soundID,soundName);
+
+      this.addSoundEffect(soundID,soundName,soundGroup);
       
     }else{ // otherwise play the sound from the keys and set its config to true so it loops.
       this.sound.get(soundID).play();
@@ -32,16 +53,16 @@ class A3SoundEffects extends A2Emitters {
   //this.sound.setVolume(volume);
     
   //set the volume of the specific sound.
-    this.sound.get(soundID).volume = volume;
+    this.setVolume(soundID,soundGroup, volume);
     //ensures that the sound is looping
     this.sound.get(soundID).config.loop = true;
 
   }
 
   //function to set up non looping sound.
-  initSoundEffect(soundID,soundName,volume){
+  initSoundEffect(soundID,soundName,volume,soundGroup){
 
-  console.log("this.sound.sounds: ", this.sound.sounds);
+  //console.log("this.sound.sounds: ", this.sound.sounds);
   //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
   let createSound = true;
 
@@ -49,6 +70,7 @@ class A3SoundEffects extends A2Emitters {
 
   //so we loop through the sounds to see if any sounds match our key
   //this is important as we do not want to create duplicate sounds with the same key.
+
   for(let counter = 0; counter < this.sound.sounds.length;counter++){
     //if a key matches the given sound then set bool to false.
     if(this.sound.sounds[counter].key === soundID){
@@ -56,14 +78,15 @@ class A3SoundEffects extends A2Emitters {
       createSound = false;
     }
 
-    console.log("searching through key: ",this.sound.sounds[counter].key);
+    //console.log("searching through key: ",this.sound.sounds[counter].key);
 
   }
+  //console.log(this.sound.sounds);
 
   //if we should create the sound because the key does not exist make it
   if(createSound === true){
-      console.log("key not found making ",soundID);
-      this.sound.playAudioSprite(soundID,soundName);
+
+      this.addSoundEffect(soundID,soundName,soundGroup);
     
   }else if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){ // otherwise play the sound from the keys and set its config to true so it loops.
       this.sound.get(soundID).play(soundName);
@@ -73,7 +96,7 @@ class A3SoundEffects extends A2Emitters {
   
   //set the volume of the specific sound.
   if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){
-    this.sound.get(soundID).volume = volume;
+    this.setVolume(soundID,soundGroup, volume);
   }
   //ensures that the sound is looping
 
@@ -81,7 +104,7 @@ class A3SoundEffects extends A2Emitters {
   }
 
   //function to set up non looping sound.
-  initSoundEffectWithRefrence(soundID,soundName,volume,refrence){
+  initSoundEffectWithRefrence(soundID,soundName,volume,refrence,soundGroup){
 
   //bool to test if the sound is already present in the webAudioSoundManager.sound.sounds[sound name] array
   let createSound = true;
@@ -101,8 +124,8 @@ class A3SoundEffects extends A2Emitters {
 
   //if we should create the sound because the key does not exist make it
   if(createSound === true){
-      console.log("key not found making ",soundID);
-      this.sound.playAudioSprite(soundID,soundName);
+
+    this.addSoundEffect(soundID,soundName,soundGroup);
     
   }else if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){ // otherwise play the sound from the keys and set its config to true so it loops.
       this.sound.get(soundID).play(soundName);
@@ -112,7 +135,7 @@ class A3SoundEffects extends A2Emitters {
   
   //set the volume of the specific sound.
   if(this.sound.get(soundID).audioBuffer !== null && this.sound.get(soundID).volume !== null){
-    this.sound.get(soundID).volume = volume;
+    this.setVolume(soundID,soundGroup, volume)
   }
   //ensures that the sound is looping
   this.sound.get(soundID).refrence = refrence;
@@ -184,4 +207,69 @@ class A3SoundEffects extends A2Emitters {
     }
   }
 
+  addSoundEffect(soundID,soundName,soundGroup){
+
+    console.log("key not found making ",soundID);
+
+    this.sound.playAudioSprite(soundID,soundName);
+
+    //something dumb, ok so need to have checking variable attached to sounds, if its connected to the scene, then it will wipe the groups when a second seen activates sound.
+      //if sound groups dont exist yet, then create them
+      if(this.sound.soundGroupsDefined === undefined){
+        //add the sound groups.
+        this.setUpSoundGroups();
+        this.sound.soundGroupsDefined = true;
+      }
+
+      //sort sound effect into groups
+      if(soundGroup === "ambience"){
+        //console.log("adding sound to soundgroup ambience: ",soundGroup);
+      
+        this.sound.soundGroups.ambience.push(this.sound.get(soundID));
+         console.log("this.sound.soundGroupVolumes: ",this.sound.soundGroupVolumes);
+
+      }else if(soundGroup === "music"){
+        //console.log("adding sound to soundgroup music: ",soundGroup);
+        this.sound.soundGroups.music.push(this.sound.get(soundID));
+        console.log("this.sound.soundGroupVolumes: ",this.sound.soundGroupVolumes);
+      }else{
+        let addGeneric = true;
+        this.sound.soundGroups.generic.forEach((soundMember) =>{
+          if(soundMember.key === soundID){
+            //console.log("found key: ",soundID,"so we wont create the sound object");
+            addGeneric = false;
+          }
+
+        });
+
+        if(addGeneric === true){
+          //console.log("adding sound to soundgroup generic: ",soundGroup);
+          this.sound.soundGroups.generic.push(this.sound.get(soundID));
+        }
+
+      }
+
+      //console.log("this.sound.soundGroups: ", this.sound.soundGroups);
+      //console.log("this.sound.soundGroupVolumes: ", this.sound.soundGroupVolumes);
+  }
+
+
+  setVolume(soundID,soundGroup, volume){
+  //sort sound effect into groups
+      if(soundGroup === "ambience"){
+      
+        this.sound.get(soundID).volume = this.sound.soundGroupVolumes[soundGroup] * ambienceDampen;
+        //console.log("testing volume consistance between scenes",this.sound.soundGroupVolumes[soundGroup] * 0.7);
+
+      }else if(soundGroup === "music"){
+    
+        this.sound.get(soundID).volume = this.sound.soundGroupVolumes[soundGroup] * musicDampen;
+
+      }else{
+        //console.log("adding sound to soundgroup generic: ",soundGroup);
+        this.sound.get(soundID).volume = volume;
+      }
 }
+
+}
+

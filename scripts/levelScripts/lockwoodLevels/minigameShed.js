@@ -74,7 +74,7 @@ class minigameShed extends defaultScene {
       this.setUpItemDropCollider();
 
       //adds looping sound effect.
-      this.initLoopingSound('minigameSFX','theme',0.01);
+      this.initLoopingSound('minigameSFX','theme',0.01,"music");
 
       //creates player object
       this.setUpPlayer();

@@ -85,7 +85,7 @@ class messyShed extends defaultScene {
       this.setUpItemDropCollider();
 
       //adds looping sound effect.
-      this.initLoopingSound('calmSFX','Paws and Rest',0.05);
+      this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");
 
       //creates player object
       this.setUpPlayer();

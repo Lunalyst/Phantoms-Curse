@@ -52,7 +52,7 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('shopSlot', 'assets/hudElements/shop-slot-ui.png',{frameWidth: 594 , frameHeight: 159 });
       
 
-      this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 1500 });
+      this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 2160 });
 
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
@@ -124,6 +124,9 @@ class gameHud extends A3SoundEffects {
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
+
+        //set volume for groups before any sounds activate to ensure the values are loaded.
+        this.setupSoundGroupVolumes(this.settings.musicVolume, this.settings.ambienceVolume);
 
 
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
@@ -1169,7 +1172,7 @@ class gameHud extends A3SoundEffects {
 
         endTimeTest();
 
-        this.setupDebugHud();
+        //this.setupDebugHud();
     }
 
     setupDebugHud(){
@@ -1301,7 +1304,7 @@ class gameHud extends A3SoundEffects {
     //update loop.
     update(){
       
-      this.updateDebugHud();
+      //this.updateDebugHud();
       
     }
 

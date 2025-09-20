@@ -71,6 +71,9 @@ class bat extends enemy {
         this.scene.internalView1 = null;
         this.forcedPhysics = this.scene.physics.add.collider(this, this.scene.invisibleBarriers);
 
+        this.playLickSound1CoolDown = false;
+        this.playLickSound2CoolDown = false;
+
         //defines bat animations based on the players sex.
         if(this.enemySex === 0) {
 
@@ -1163,7 +1166,7 @@ class bat extends enemy {
                     this.onomatPlayed = true;
                     let randX = Math.floor((Math.random() * 30));
                     let randY = Math.floor((Math.random() * 30));
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                     this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                     this.scene.heartOnomat1.setScale(1/4);
                     this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1211,7 +1214,7 @@ class bat extends enemy {
                     this.onomatPlayed = true;
                     let randX = Math.floor((Math.random() * 30));
                     let randY = Math.floor((Math.random() * 30));
-                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                    this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                     this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                     this.scene.heartOnomat1.setScale(1/4);
                     this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1233,6 +1236,7 @@ class bat extends enemy {
                                 this.scene.internalView.flipX = true;
                                 this.scene.internalView.setRotation(-(3.14/2));
                             }
+                            this.scene.internalView.visible = this.scene.internalViewBool;
                            
 
                             this.scene.internalView.anims.play("PTBNoPen");
@@ -1249,6 +1253,7 @@ class bat extends enemy {
                                 this.scene.internalView.flipX = false;
                                 this.scene.internalView.setRotation((3.14/2));
                             }
+                            this.scene.internalView.visible = this.scene.internalViewBool;
                             
                             this.scene.internalView.anims.play("PSB1");
                         
@@ -1266,6 +1271,7 @@ class bat extends enemy {
                                 this.scene.internalView1.flipX = true;
                                 this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
                             }
+                            this.scene.internalView1.visible = this.scene.internalViewBool;
                     
                             this.scene.internalView1.anims.play("BTPLightPen1");
    
@@ -1281,6 +1287,7 @@ class bat extends enemy {
                                 this.scene.internalView1.flipX = false;
                                 this.scene.internalView1.setRotation(3.14 + (3.14/2));
                             }
+                            this.scene.internalView1.visible = this.scene.internalViewBool;
                     
                                 this.scene.internalView1.anims.play("BSP1");
                         }
@@ -1753,7 +1760,7 @@ class bat extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1788,7 +1795,7 @@ class bat extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+15,this.y-randY+70,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX+15,this.y-randY+70,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1822,6 +1829,8 @@ class bat extends enemy {
     }
 
     batDefeatedPlayerTFAnimation() {
+        console.log("this.internalViewBool: ",this.scene.internalViewBool);
+        console.log("this.onomat: ",this.scene.onomatopoeia);
 
         if (this.playerDefeatedAnimationStage === 1) {
             //sets the ending value correctly once this enemy defeated animation activates.
@@ -1853,6 +1862,7 @@ class bat extends enemy {
                                 this.scene.internalView.flipX = true;
                                 this.scene.internalView.setRotation(-(3.14/2));
                             }
+                            this.scene.internalView.visible = this.scene.internalViewBool;
                             
 
                             this.scene.internalView.anims.play("PTBNoPen");
@@ -1869,6 +1879,7 @@ class bat extends enemy {
                                     this.scene.internalView.flipX = false;
                                     this.scene.internalView.setRotation((3.14/2));
                                 }
+                                 this.scene.internalView.visible = this.scene.internalViewBool;
                                 
                                 this.scene.internalView.anims.play("PSB1");
                             
@@ -1886,6 +1897,7 @@ class bat extends enemy {
                                     this.scene.internalView1.flipX = true;
                                     this.scene.internalView1.setRotation(-(3.14 + (3.14/2)));
                                 }
+                                this.scene.internalView1.visible = this.scene.internalViewBool;
                         
                                 this.scene.internalView1.anims.play("BTPLightPen1");
     
@@ -1901,6 +1913,7 @@ class bat extends enemy {
                                     this.scene.internalView1.flipX = false;
                                     this.scene.internalView1.setRotation(3.14 + (3.14/2));
                                 }
+                                this.scene.internalView1.visible = this.scene.internalViewBool;
                     
                                 this.scene.internalView1.anims.play("BSP1");
                             }
@@ -1916,12 +1929,17 @@ class bat extends enemy {
             this.anims.play('batFat691', true);
             //this.playPlapSound('plap3',800);
 
+            this.playLickSound1("lick2",900); 
+            this.playLickSound2("lick3",800); 
+
+            this.playPlapSound('plap5',600);
+
             let thisbat = this;
             if (this.onomatPlayed === false) {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1933,6 +1951,11 @@ class bat extends enemy {
         }else if (this.playerDefeatedAnimationStage === 3) {
         
             this.anims.play('batFat692', true);
+
+            this.playLickSound1("lick2",600); 
+            this.playLickSound2("lick3",500); 
+
+            this.playPlapSound('plap5',500);
 
 
             if(this.enemySex === 1){
@@ -1958,7 +1981,7 @@ class bat extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -1971,6 +1994,10 @@ class bat extends enemy {
         
         }else if (this.playerDefeatedAnimationStage === 4) {
             
+            this.playLickSound1("lick2",500); 
+            this.playLickSound2("lick3",400); 
+
+            this.playPlapSound('plap5',400);
             if(this.enemySex === 1){
 
                  this.scene.internalView.anims.play("PTBDeepPen",true);
@@ -1995,7 +2022,7 @@ class bat extends enemy {
                 this.onomatPlayed = true;
                 let randX = Math.floor((Math.random() * 30));
                 let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBubble',"@heart@");
+                this.scene.heartOnomat1 = new makeText(this.scene,this.x + 15 -randX,this.y + 15 -randY,'charBlack',"@heart@");
                 this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
                 this.scene.heartOnomat1.setScale(1/4);
                 this.scene.heartOnomat1.textFadeOutAndDestroy(600);
@@ -2007,11 +2034,14 @@ class bat extends enemy {
         
         }else if (this.playerDefeatedAnimationStage === 5) {
             //sets the ending value correctly once this enemy defeated animation activates.
-
+            
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                
+                this.scene.initSoundEffect('curseSFX','curse',0.3);
 
+                this.scene.initSoundEffect('plapSFX','plap9',0.3);
 
                 if(this.enemySex === 1){
 
@@ -2156,6 +2186,35 @@ class bat extends enemy {
                     }
                 }
             }
+    }
+
+    playLickSound1(type,delay){
+
+        if(this.playLickSound1CoolDown === false){
+            this.scene.initSoundEffect('lickSFX1',type,0.03);
+            this.playLickSound1CoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.playLickSound1CoolDown = false;
+            }, delay);
+        }
+
+    }
+
+
+    playLickSound2(type,delay){
+
+        if(this.playLickSound2CoolDown === false){
+            this.scene.initSoundEffect('lickSFX2',type,0.03);
+            this.playLickSound2CoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.playLickSound2CoolDown = false;
+            }, delay);
+        }
+
     }
     
     

@@ -55,7 +55,7 @@ class HomeInterior1 extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('calmSFX','Paws and Rest',0.05);
+      this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");
 
       //creates a group of slime objects
       this.slimes = this.physics.add.group();

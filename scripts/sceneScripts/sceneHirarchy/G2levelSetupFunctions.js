@@ -181,6 +181,12 @@ class G2levelSetupFunctions extends G1PlayerInputs {
         console.log("updating this.onomatopoeia: ",this.onomatopoeia);
     });
 
+    //emitter to update internalview value in the gameplay scene
+    inventoryKeyEmitter.on(inventoryKey.updateInternalView,(internalView) =>{
+        this.internalViewBool = internalView.value; 
+        console.log("updating internalView: ",this.internalViewBool);
+    });
+
   }
 
   //sets up text box in scene

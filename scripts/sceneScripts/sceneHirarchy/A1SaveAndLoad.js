@@ -311,6 +311,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       this.playerSex = file.sex;
       this.preferance = file.settings.preferance;
       this.onomatopoeia = file.settings.onomatopoeia;
+      this.internalViewBool = file.settings.internalView;
 
     console.log("[loadGamePlayData]============================================");
     console.log("this.warpToX:",this.warpToX," <-- file.saveX: ",file.saveX);
@@ -452,7 +453,10 @@ class A1SaveAndLoad extends Phaser.Scene {
  let settings = {
     preferance: 2,
     volume: 1,
+    musicVolume: 0.3,
+    ambienceVolume: 0.3,
     onomatopoeia: true,
+    internalView: true,
     mobileControls:false
  };
 
@@ -877,9 +881,12 @@ for(let counter = 0; counter < 100; counter++){
       let settings = {
         preferance: 2,
         volume: 1,
+        musicVolume: 0.3,
+        ambienceVolume: 0.3,
         onomatopoeia: true,
+        internalView: true,
         mobileControls
-    };
+    }
     
       dataObject.settings = settings;
 
@@ -888,6 +895,15 @@ for(let counter = 0; counter < 100; counter++){
     if(dataObject.settings.mobileControls == undefined || dataObject.settings.mobileControls == undefined ){
       dataObject.settings.mobileControls = false;
 
+    }
+
+    if(dataObject.settings.musicVolume === undefined || dataObject.settings.musicVolume === null){
+      dataObject.settings.musicVolume = 0.3;
+      dataObject.settings.ambienceVolume = 0.3;
+    }
+
+    if(dataObject.settings.internalView === undefined || dataObject.settings.internalView === null){
+      dataObject.settings.internalView = true;
     }
 
     if(dataObject.dreamReturnLocation === undefined || dataObject.dreamReturnLocation === null){

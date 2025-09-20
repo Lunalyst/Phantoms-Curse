@@ -95,8 +95,8 @@ class dreamCave extends defaultScene {
       this.setUpGameplayEmitters();
 
       //plays looping sound
-      this.initLoopingSound('caveSFX','cave', 0.1);
-      this.initLoopingSound('waterfallSFX','waterfall', 0.03);
+      this.initLoopingSound('caveSFX','cave', 0.1,"music");
+      this.initLoopingSound('waterfallSFX','waterfall', 0.03,"ambience");
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();

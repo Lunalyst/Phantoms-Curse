@@ -98,8 +98,8 @@ class istarasCave extends defaultScene {
       this.setUpGameplayEmitters();
 
       //activates sound
-      this.initLoopingSound('caveSFX','cave', 0.1);
-      this.initLoopingSound('waterfallSFX','waterfall', 0.03);
+      this.initLoopingSound('caveSFX','cave', 0.1,"music");
+      this.initLoopingSound('waterfallSFX','waterfall', 0.03,"ambience");
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

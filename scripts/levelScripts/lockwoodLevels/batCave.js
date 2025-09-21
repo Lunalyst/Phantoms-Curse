@@ -127,7 +127,7 @@ class batCave extends defaultScene {
 
       this.setUpWoodBarriersCollider();
 
-      this.initWoodenBarrier(3025,1245-13);
+      this.initWoodenBarrier(3024,1245-13);
 
       this.initWoodenBarrier(1618,829-13);
 
@@ -163,7 +163,7 @@ class batCave extends defaultScene {
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
       this.initBarrier(3630,1149-30,30,140);
-      this.initBarrier(3024,1245-30,34,540);
+      this.initBarrier(3024,1245-30,38,540);
       this.initBarrier(2385,1149-40,30,160);
 
       this.initBarrier(1618,829-30,34,540);

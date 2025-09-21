@@ -51,7 +51,6 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('shop', 'assets/hudElements/shop-ui.png',{frameWidth: 630 , frameHeight: 750 });
       this.load.spritesheet('shopSlot', 'assets/hudElements/shop-slot-ui.png',{frameWidth: 594 , frameHeight: 159 });
       
-
       this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 2160 });
 
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
@@ -64,6 +63,7 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('inventoryLabels', 'assets/hudElements/inventoryLabels.png',{frameWidth: 51, frameHeight: 23 });
       this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });
       this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
+      
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
 
@@ -1172,7 +1172,7 @@ class gameHud extends A3SoundEffects {
 
         endTimeTest();
 
-        //this.setupDebugHud();
+        this.setupDebugHud();
     }
 
     setupDebugHud(){
@@ -1304,7 +1304,7 @@ class gameHud extends A3SoundEffects {
     //update loop.
     update(){
       
-      //this.updateDebugHud();
+      this.updateDebugHud();
       
     }
 

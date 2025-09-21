@@ -13,7 +13,7 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
         //sets scale to 1 third. sprites are upscaled by 3 times so they look sharper.
         this.setScale(1/3,1/3);
         //changes collision box size.
-        this.setSize(100,506,true);
+        this.setSize(94,506,true);
 
         //barrie danage variables.
         this.hp = 50;

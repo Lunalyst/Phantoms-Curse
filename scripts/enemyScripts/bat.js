@@ -1401,14 +1401,14 @@ class bat extends enemy {
             this.inStartDefeatedLogic = true;
 
             //case to make sure defeated stage 2 is not skipped during animation view
-            if(this.playerDefeatedAnimationStage !== 1 && this.inSafeMode === false && this.lockout === undefined){
+            /*if(this.playerDefeatedAnimationStage !== 1 && this.inSafeMode === false && this.lockout === undefined){
                 this.playerDefeatedAnimationStage++;
                 this.lockout = true;
-            }
+            }*/
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
-       
+           // console.log("this.scene.checkDIsDown(): ",this.scene.checkDIsDown()," this.playerDefeatedAnimationCooldown: ", this.playerDefeatedAnimationCooldown, "this.inStartDefeatedLogic: ",this.inStartDefeatedLogic)
             if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === true &&
@@ -1791,11 +1791,12 @@ class bat extends enemy {
            
         }else if (this.playerDefeatedAnimationStage === 3) {
             if (!this.animationPlayed) {
-            
+                console.log("starting animation 3");
                 this.animationPlayed = true;
                 this.playPlapSound('plap5',800);
                 this.anims.play('batButtSwallow2').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
+                    console.log("finishing animation 3");
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
@@ -1803,6 +1804,7 @@ class bat extends enemy {
                     if(this.scene.sound.get(this.batSFX) !== undefined || this.scene.sound.get(this.batSFX) !== null){
                         //this.scene.sound.get(this.batSFX).stop();
                     }     
+                    
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 4) {

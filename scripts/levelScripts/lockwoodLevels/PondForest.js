@@ -166,7 +166,7 @@ class PondForest extends defaultScene {
 
       this.initSavePoints(2990,824-10);
 
-      this.initSavePoints(2150,1368-10);
+      //this.initSavePoints(2150,1368-10);
 
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
 

@@ -89,6 +89,7 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('discordServerQR', 'assets/titleScreen/discordServer.png',{frameWidth: 185, frameHeight: 185 });
             this.load.spritesheet('patreonQR', 'assets/titleScreen/patreon.png',{frameWidth: 185, frameHeight: 185 });
             this.load.spritesheet('linkSprites', 'assets/titleScreen/linkSprites.png',{frameWidth: 114, frameHeight: 114 });
+            this.load.spritesheet('smugLunalyst', 'assets/titleScreen/smugLunalyst.png',{frameWidth: 670, frameHeight: 838 });
             
             this.secretLoad();
 

@@ -61,17 +61,17 @@ class credits extends Phaser.GameObjects.Container{
         //this.thankYou7.setTextTint(this.textColor);
         //this.add(this.thankYou7);
 
-        this.thankYou7 = new makeText(this.scene, 795, 425,this.textType,'Discord');
+        this.thankYou7 = new makeText(this.scene, 795, 25,this.textType,'Discord');
         this.thankYou7.setTextTint(0x5865f2);
         this.add(this.thankYou7);
 
-        this.discordIcon = this.scene.add.sprite(760, 400, "linkSprites");
+        this.discordIcon = this.scene.add.sprite(760, 0, "linkSprites");
         this.add(this.discordIcon);
         this.scene.anims.create({key: 'discord',frames: this.scene.anims.generateFrameNames('linkSprites', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
         this.discordIcon.setScale(.4);
         this.discordIcon.anims.play("discord");
 
-        this.discordServer = this.scene.add.sprite(820, 495, "discordServerQR");
+        this.discordServer = this.scene.add.sprite(820, 95, "discordServerQR");
         this.add(this.discordServer);
         this.discordServer.setScale(.7);
 
@@ -88,6 +88,10 @@ class credits extends Phaser.GameObjects.Container{
         this.patreonQR = this.scene.add.sprite(820, 295, "patreonQR");
         this.add(this.patreonQR);
         this.patreonQR.setScale(.7);
+
+        this.lunaArt = this.scene.add.sprite(800, 488, "smugLunalyst");
+        this.add(this.lunaArt);
+        this.lunaArt.setScale(1/5);
 
 
     }

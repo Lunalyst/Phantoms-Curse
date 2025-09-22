@@ -336,7 +336,9 @@ class bat extends enemy {
                     if ((this.target.x > this.x - 450 && this.target.x < this.x + 450) && (this.target.y > this.y - 900 && this.target.y < this.y + 900)) {
 
                         if(this.playingSound === false){
-                            this.playWingFlapSound('1',500);
+                            if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
+                                this.playWingFlapSound('1',500);
+                            }
                             this.playingSound = true;
                         }
                         this.setSize(70, 180, true);
@@ -554,6 +556,9 @@ class bat extends enemy {
                     //stop momentum play idle loop
                     this.setVelocityX(0);
                     this.anims.play('batFatTryFly', true);
+                    if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
+                        this.playJumpySound('3',700);
+                    }
                     this.swallowDelay = false; 
                     this.attemptingGrab = false;
                     this.grabTimer = false;
@@ -588,7 +593,9 @@ class bat extends enemy {
                     this.flipX = false;
 
                     if(this.playingSound === false){
-                        this.playWingFlapSound('1',500);
+                        if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
+                            this.playWingFlapSound('1',500);
+                        }
                         this.playingSound = true;
                     }
 
@@ -609,7 +616,9 @@ class bat extends enemy {
                     this.hitboxActive = false;
 
                     if(this.playingSound === false){
-                        this.playWingFlapSound('1',500);
+                        if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
+                            this.playWingFlapSound('1',500);
+                        }
                         this.playingSound = true;
                     }
           
@@ -706,7 +715,10 @@ class bat extends enemy {
 
                     this.setVelocityX(0); 
                     this.anims.play('batFatTryFly', true);
-
+                    if(this.checkYRangeFromPlayer(200,200) && this.checkXRangeFromPlayer(200, 200)){
+                        this.playJumpySound('3',700);
+                    }
+                   
                     console.log("rabbit has lost the plot.")
                 }  
             
@@ -867,7 +879,7 @@ class bat extends enemy {
         this.playPlapSound('plap4',800);
         this.anims.play(batSexFlag).once('animationcomplete', () => {
 
-            this.scene.initSoundEffect("whiteCatSFX","sad",0.3);
+            this.scene.initSoundEffect("whiteCatSFX","sadVoreMuffle",0.3);
             batSexFlag = 'batAVMaleCatButtOnHead';
             if(catSex === 1){
                 batSexFlag = 'batAVFemaleCatButtOnHead';
@@ -1084,8 +1096,8 @@ class bat extends enemy {
                     if (playerHealthObject.playerHealth >= 1) {
 
                     //makes sure the struggle bar does not go into the negitives
-                    if(this.struggleCounter - 5 > 0){
-                        this.struggleCounter -= 5;
+                    if(this.struggleCounter - 21 > 0){
+                        this.struggleCounter -= 21;
                     }else{
                         this.struggleCounter = 0;
                     }
@@ -1115,8 +1127,8 @@ class bat extends enemy {
                     if (playerHealthObject.playerHealth >= 1) {
 
                     //makes sure the struggle bar does not go into the negitives
-                    if(this.struggleCounter - 5 > 0){
-                        this.struggleCounter -= 5;
+                    if(this.struggleCounter - 21 > 0){
+                        this.struggleCounter -= 21;
                     }else{
                         this.struggleCounter = 0;
                     }

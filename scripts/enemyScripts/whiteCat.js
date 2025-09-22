@@ -724,6 +724,12 @@ class whiteCat extends enemy {
         // display key prompts
         this.scene.KeyDisplay.visible = true;
 
+        //ensures hitboxes are put out of the way
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000;
+
         //needed for the animation viewer
         if(this.animationPlayed === false && this.startAnimationPlayed === false){
             this.animationPlayed = true;

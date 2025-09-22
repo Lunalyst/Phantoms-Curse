@@ -89,9 +89,9 @@ class credits extends Phaser.GameObjects.Container{
         this.add(this.patreonQR);
         this.patreonQR.setScale(.7);
 
-        this.lunaArt = this.scene.add.sprite(800, 488, "smugLunalyst");
-        this.add(this.lunaArt);
-        this.lunaArt.setScale(1/5);
+        //this.lunaArt = this.scene.add.sprite(800, 488, "smugLunalyst");
+        //this.add(this.lunaArt);
+        //this.lunaArt.setScale(1/5);
 
 
     }

@@ -1417,6 +1417,11 @@ class bat extends enemy {
                 this.playerDefeatedAnimationStage++;
                 this.lockout = true;
             }*/
+           //case to make sure defeated stage 2 is not skipped during animation view
+            if((this.playerDefeatedAnimationStage === 0 ||this.playerDefeatedAnimationStage === 2) && this.inSafeMode === false && this.lockout === undefined){
+                this.playerDefeatedAnimationStage++;
+                this.lockout = true;
+            }
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 

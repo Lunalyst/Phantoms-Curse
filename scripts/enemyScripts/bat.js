@@ -234,7 +234,7 @@ class bat extends enemy {
     this.forcedPhysics = this.scene.physics.add.collider(this, this.scene.invisibleBarriers);
     //console.log("this.forcedPhysics: ", this.forcedPhysics);
     //console.log("this.scene.invisibleBarriers: ", this.scene.invisibleBarriers);
-    if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false){
+    if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false && this.enemyInDefeatedLogic === false){
 
         if(this.batIsEating === true){
 
@@ -275,7 +275,7 @@ class bat extends enemy {
                 }
 
                 //if the enemy is within grab range attempt to grab the player while the grab timer is false
-                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-90 < this.y ) && this.grabTimer === false){
+                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-90 < this.y ) && this.grabTimer === false &&  this.scene.playerStuckGrabbedBy !== "knockdown"){
 
                     this.grabTimer = true;
                     this.hitboxActive = true;
@@ -298,7 +298,7 @@ class bat extends enemy {
                     });
 
                 // if the bat is butt slamming we check to see if the bat hits the ground.
-                }else if(this.isButtSlamming === true){
+                }else if(this.isButtSlamming === true && this.scene.playerStuckGrabbedBy !== "knockdown"){
                     
                     
                     //check to see if bat collides with ground. if true then
@@ -346,7 +346,9 @@ class bat extends enemy {
                 
                         //if bat is within range
                         if (this.checkXRangeFromTarget(this.target, 10,10 )){
-                            //this.anims.play('batIdle',true);
+                            if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
+                                this.anims.play('batIdle',true);
+                            }
                             this.setVelocityX(0);
             
                         }else{
@@ -384,49 +386,15 @@ class bat extends enemy {
                                 this.setVelocityY(150*-1);    
                             }
 
-                            /*//special case, if the bat happens to be lower than the player and stuck or higher than the player and stuck 
-                            if(this.target.y+96 < this.y && (this.target.x > this.x - 200 && this.target.x < this.x + 200) ){
-
-
-                                //lockout
-                                if(this.unstuckBool === false){
-
-                                    this.unstuckBool = true;
-
-                                    //generate a number between 1 and 0
-                                    this.unstuck = Math.round(Math.random());
-
-
-                                     let temp = this;
-                                     setTimeout(function () {
-                                        temp.unstuckBool = false;
-                                        console.log("reset unstuck timer");
-                                    }, 8000);
-                                }
-
-                                //if one move right otherwise move left
-                                if(this.unstuck === 1){
-                                    this.setVelocityX(this.randomXVelocity);
-                                    //play the animation for bat being in the air.
-                                    this.anims.play('batMove',true);
-                                    this.flipX = false;
-                                }else{
-                                    this.setVelocityX(this.randomXVelocity * -1);
-                                    //play the animation for bat being in the air.
-                                    this.anims.play('batMove',true);
-                                    this.flipX = true;
-                                }
-
-                                
-
-                            }else{
-                                this.setVelocityX(0);
-                            }*/
-
-
                         }
             
-                    //if the be isnt within range of the player have them idle.  
+                    //special case incase bat is in buttslam when player gets knocked down. have bat reset its variables
+                    }else if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
+                        this.isButtSlamming = false;
+                        this.grabTimer = false;
+                        this.isPlayingMissedAnims = false;  
+                        this.hitboxActive = false;
+
                     }else{
                         this.anims.play('batIdle', true);
                         this.setVelocityX(0);
@@ -443,7 +411,7 @@ class bat extends enemy {
 
         }
     // if the bat ate, then do that logic
-    }if(this.isSleeping === false && this.batHasEatenCat === true && this.enemyDefeated === false){
+    }if(this.isSleeping === false && this.batHasEatenCat === true && this.enemyDefeated === false && this.enemyInDefeatedLogic === false){
 
                 //if rabbit is too close, and grabb attempt is false, then 
                 if(this.checkXRangeFromPlayer(35, 35) && this.checkYRangeFromPlayer(90,90) && this.grabTimer === false && this.scene.playerStuckGrab === false && this.shoveCoolDown === false){
@@ -724,7 +692,7 @@ class bat extends enemy {
             
             
     // behavior for sleeping 
-    }else if(this.isSleeping === true){
+    }else if(this.isSleeping === true && this.enemyInDefeatedLogic === false){
 
         // if player is in range, and they make a sound then
         if(this.wakingUp === false && (this.target.x > this.x - 340 && this.target.x < this.x + 340) && (this.target.y > this.y - 340 && this.target.y < this.y + 340) && 
@@ -791,7 +759,9 @@ class bat extends enemy {
     //simple idle function played when the player is grabbed by something that isnt this bat.
     moveIdle() {
         if(this.isSleeping === false){
-            this.anims.play('batIdle', true);
+            if(this.enemyInDefeatedLogic === false){
+                this.anims.play('batIdle', true);
+            }
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
             this.hitboxActive = false;
@@ -819,20 +789,23 @@ class bat extends enemy {
                 this.setVelocityY(0);
                 this.setVelocityX(0);
             
-                }else{
-                    // moves the bat up to the position where it should be able to get the player.
-                    if (this.target.y - 60 > this.y) {
+            }else if(this.enemyInDefeatedLogic === false){
+                // moves the bat up to the position where it should be able to get the player.
+                if (this.target.y - 60 > this.y) {
             
-                        this.setVelocityY(150);
+                    this.setVelocityY(150);
             
-                    } else if (this.target.y-90 < this.y ) {
+                } else if (this.target.y-90 < this.y ) {
             
-                        this.setVelocityY(150*-1);    
-                    }
+                    this.setVelocityY(150*-1);    
+                }
 
                            
 
 
+            }else{
+                this.setVelocityX(0);
+        
             }
            
         }
@@ -1708,7 +1681,12 @@ class bat extends enemy {
 
     enemyDefeatedLogic(){
 
-        this.scene.sound.get(this.batSFX).stop();
+        this.setDepth(5);
+
+        this.setSize(70, 180, true);
+        this.setOffset(100, 59);
+
+        //this.scene.sound.get(this.batSFX).stop();
          this.setVelocityX(0);
 
         if(this.batHasEatenCat === false){

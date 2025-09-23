@@ -822,6 +822,9 @@ class G9CheckEnemys extends G8InitEnemys {
         });
         if(tempCat.hitboxOverlaps === true) {
           tempCat.damage(scene);
+
+          tempCat.setVelocityX(0);
+
           tempCat.hitboxOverlaps = false;
         }
 

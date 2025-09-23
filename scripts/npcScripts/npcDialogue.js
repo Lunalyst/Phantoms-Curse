@@ -102,7 +102,7 @@ const npcDialogue = {
                 },
                 "platforms":{
                     "node1":{
-                        "dialogue": "Some surfaces can be jumped through but not back down. So be careful.",
+                        "dialogue": "Some surfaces can be jumped through. you can move back down through them by pressing S.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

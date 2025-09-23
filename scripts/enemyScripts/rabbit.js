@@ -1050,8 +1050,8 @@ class rabbit extends enemy {
                         if (playerHealthObject.playerHealth >= 1) {
             
                             //makes sure the struggle bar does not go into the negitives
-                            if(this.struggleCounter - 5 > 0){
-                                this.struggleCounter -= 5;
+                            if(this.struggleCounter - 21 > 0){
+                                this.struggleCounter -= 21;
                             }else{
                                 this.struggleCounter = 0;
                             }
@@ -1073,8 +1073,8 @@ class rabbit extends enemy {
                         if (playerHealthObject.playerHealth >= 1) {
                 
                             //makes sure the struggle bar does not go into the negitives
-                            if(this.struggleCounter - 5 > 0){
-                                this.struggleCounter -= 5;
+                            if(this.struggleCounter - 21 > 0){
+                                this.struggleCounter -= 21;
                             }else{
                                 this.struggleCounter = 0;
                             }
@@ -1124,8 +1124,8 @@ class rabbit extends enemy {
                     //otherwise play struggle animation of other keys but subtract from the struggle bar.
                     }else if(this.scene.checkDPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1153,8 +1153,8 @@ class rabbit extends enemy {
 
                     }else if(this.scene.checkWPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1185,8 +1185,8 @@ class rabbit extends enemy {
                     if (this.scene.checkAPressed() === true) {
                         
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1214,8 +1214,8 @@ class rabbit extends enemy {
                     //otherwise play struggle animation of other keys but subtract from the struggle bar.
                     }else if(this.scene.checkDPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1274,8 +1274,8 @@ class rabbit extends enemy {
                     if (this.scene.checkAPressed() === true) {
                         
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1333,8 +1333,8 @@ class rabbit extends enemy {
                     }else if(this.scene.checkWPressed() === true){
                         
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -1530,7 +1530,7 @@ class rabbit extends enemy {
             this.inStartDefeatedLogic = true;
 
             //case to make sure defeated stage 2 is not skipped during animation view
-            if(this.playerDefeatedAnimationStage !== 1 ||this.playerDefeatedAnimationStage !== 2 || this.inSafeMode === false){
+            if(this.playerDefeatedAnimationStage !== 1 || this.playerDefeatedAnimationStage !== 2 || this.inSafeMode === false){
                 this.playerDefeatedAnimationStage++;
             }
 

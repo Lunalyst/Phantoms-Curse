@@ -553,8 +553,8 @@ class curseShadow extends enemy {
                     //otherwise play struggle animation of other keys but subtract from the struggle bar.
                     }else if(this.scene.checkDPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -576,8 +576,8 @@ class curseShadow extends enemy {
 
                     }else if(this.scene.checkAPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -603,8 +603,8 @@ class curseShadow extends enemy {
                     if (this.scene.checkWPressed() === true) {
                         
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -646,8 +646,8 @@ class curseShadow extends enemy {
 
                     }else if(this.scene.checkAPressed() === true){
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -673,8 +673,8 @@ class curseShadow extends enemy {
                     if (this.scene.checkWPressed() === true) {
                         
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }
@@ -696,8 +696,8 @@ class curseShadow extends enemy {
                     }else if(this.scene.checkDPressed() === true){
 
                         //makes sure the struggle bar does not go into the negitives
-                        if(this.struggleCounter - 5 > 0){
-                            this.struggleCounter -= 5;
+                        if(this.struggleCounter - 21 > 0){
+                            this.struggleCounter -= 21;
                         }else{
                             this.struggleCounter = 0;
                         }

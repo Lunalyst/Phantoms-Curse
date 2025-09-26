@@ -213,11 +213,11 @@ class PondForest extends defaultScene {
 
       this.initLunalyst(4966,1147,'clearingTheWay');
 
-      this.setUpEnemyBarriers();
-      this.initBarrier(650,1400,30,300);
-      this.initBarrier(2256,1400,30,300);
-      this.initBarrier(3221,1000,30,1300);
-      this.initBarrier(4720,950,30,300);
+      //this.setUpEnemyBarriers();
+      //this.initBarrier(650,1400,30,300);
+      //this.initBarrier(2256,1400,30,300);
+      //this.initBarrier(3221,1000,30,1300);
+      //this.initBarrier(4720,950,30,300);
 
       //sets up rubble pile
       this.setUpRockPile();

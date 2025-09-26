@@ -48,8 +48,16 @@ class G9CheckEnemys extends G8InitEnemys {
 
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
-        //calls to make each instance of a slime move.
-        tempSlime.move(scene.player1,scene);
+
+        //if the player is not sleeping
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a bat move.
+          tempSlime.move(scene.player1,scene);
+        }else{
+          tempSlime.moveIdle()
+        }
+        
+
         scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
           tempSlime.hitboxOverlaps = true;
         });
@@ -127,8 +135,14 @@ class G9CheckEnemys extends G8InitEnemys {
 
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
-        //calls to make each instance of a slime move.
-        tempSlime.move(scene.player1,scene);
+        
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a slime move.
+          tempSlime.move(scene.player1,scene);
+        }else{
+          tempSlime.moveIdle()
+        }
+
         scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
           tempSlime.hitboxOverlaps = true;
         });
@@ -191,8 +205,14 @@ class G9CheckEnemys extends G8InitEnemys {
 
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
-        //calls to make each instance of a slime move.
-        tempSlime.move(scene.player1,scene);
+
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a slime move.
+          tempSlime.move(scene.player1,scene);
+        }else{
+          tempSlime.moveIdle()
+        }
+        
         scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
           tempSlime.hitboxOverlaps = true;
         });
@@ -290,8 +310,13 @@ class G9CheckEnemys extends G8InitEnemys {
       if(tempTiger.enemyInDefeatedLogic === true){
         tempTiger.enemyDefeatedLogic();
       }else{
-        //calls tiger function to move
-        tempTiger.move(scene.player1,scene);
+      
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a tiger move.
+           tempTiger.move(scene.player1,scene);
+        }else{
+           tempTiger.moveIdle()
+        }
       }
       
       
@@ -385,8 +410,14 @@ class G9CheckEnemys extends G8InitEnemys {
       if(tempRabbits.enemyInDefeatedLogic === true){
         tempRabbits.enemyDefeatedLogic();
       }else{
-        //calls tiger function to move
-        tempRabbits.move(scene.player1,scene);
+
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a rabbit move.
+          tempRabbits.move(scene.player1,scene);
+        }else{
+          tempRabbits.moveIdle()
+        }
+
       }
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
@@ -493,7 +524,14 @@ class G9CheckEnemys extends G8InitEnemys {
       if(scene.objectsInRangeX(tempBeeDrone,scene.player1,450)&& tempBeeDrone.inSafeMode === false){
 
         //calls drone function to move
-        tempBeeDrone.move(scene.player1,scene);
+
+        //if the player is not sleeping
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a bat move.
+            tempBeeDrone.move(scene.player1,scene);
+        }else{
+           tempBeeDrone.moveIdle()
+        }
         
         //checks if the attack hitbox is overlapping the beedrone to deal damage.
         scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
@@ -585,7 +623,15 @@ class G9CheckEnemys extends G8InitEnemys {
       if(bat.enemyInDefeatedLogic === true){
         bat.enemyDefeatedLogic();
       }else{
-        bat.move(scene.player1,scene);
+
+        //if the player is not sleeping or the bat is in its second stage allow for movement.
+        if(scene.player1.idleTimer !== 2000 ||  bat.batHasEatenCat === true){
+          //calls to make each instance of a bat move.
+         bat.move(scene.player1,scene);
+        }else{
+          bat.moveIdle()
+        }
+
       }
       //if player is attacking
       if(this.player1.isAttacking === true){
@@ -739,6 +785,7 @@ class G9CheckEnemys extends G8InitEnemys {
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempMimic,this.player1,300) && this.objectsInRangeY(tempMimic,this.player1,150) && tempMimic.inSafeMode === false){
         //calls to make each instance of a chest mimic active
+        //mimic does not need idle check as it does not move
         tempMimic.move(scene.player1,scene);
 
         //damage fuctions
@@ -814,7 +861,15 @@ class G9CheckEnemys extends G8InitEnemys {
         if(tempCat.enemyInDefeatedLogic === true){
           tempCat.enemyDefeatedLogic();
         }else{
-          tempCat.move(scene.player1,scene);
+
+          //if the player is not sleeping
+          if(scene.player1.idleTimer !== 2000){
+            //calls to make each instance of a cat move.
+            tempCat.move(scene.player1,scene);
+          }else{
+            tempCat.moveIdle()
+          }
+        
         }
 
         scene.physics.add.overlap(scene.attackHitBox, tempCat, function () {
@@ -905,6 +960,13 @@ class G9CheckEnemys extends G8InitEnemys {
       if(this.objectsInRangeX(tempShadows,this.player1,600) && this.objectsInRangeY(tempShadows,this.player1,600) && tempShadows.inSafeMode === false){
         //calls to make each instance of a slime move.
         tempShadows.move(scene.player1,scene);
+
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a slime move.
+          tempShadows.move(scene.player1,scene);
+        }else{
+          tempShadows.moveIdle()
+        }
 
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
         scene.physics.add.overlap(scene.player1.mainHitbox, tempShadows.grabHitBox, function () {

@@ -60,21 +60,27 @@ class level extends Phaser.Tilemaps.Tilemap{
                 this.layer3.scale = 1/3;
 
                 //code that loops through tiles.
+                let currentTileLayer3;
                 let currentTileLayer1;
                 let currentTileLayer0;
             
                 /* <MICAH> The collision grid was sideways?  I switched the row/col indexes </MICAH> */
                 //a nester array of the tile set tile for the tile map.
                 for (let outer = 0; outer < this.height; outer++) {
+                  let rowL3 = [];
                   let rowL1 = [];
                   let rowL0 = [];
                   for (let inner = 0; inner < this.width; inner++) {
+                        currentTileLayer3 = this.layer3.getTileAt(inner, outer);
                         currentTileLayer1 = this.layer1.getTileAt(inner, outer);
                         currentTileLayer0 = this.layer0.getTileAt(inner, outer);
                         //console.log("this.tile.index:"+ this.layer1.getTileAt(inner, outer).index);
                     //when pushing data to col you need to specify a layer if there are multiple. otherwise the .index call will result in a error null.
+                    rowL3.push((currentTileLayer3 ? currentTileLayer3.index : 0));
                     rowL1.push((currentTileLayer1 ? currentTileLayer1.index : 0));
                     rowL0.push((currentTileLayer0 ? currentTileLayer0.index : 0));
+
+                    this.grid.push(rowL3);
                     this.grid.push(rowL1);
                     this.grid.push(rowL0);
 
@@ -237,6 +243,7 @@ class level extends Phaser.Tilemaps.Tilemap{
                 // sets tilesets to be an array containing our tileset layers
                 this.tilesets = [this.layer0,this.layer1,this.layer2,this.layer3]
                 //adds collision to the first two layers.
+                this.layer3.setCollisionByProperty({ collision: true });
                 this.layer1.setCollisionByProperty({ collision: true });
                 this.layer0.setCollisionByProperty({ collision: true });
 

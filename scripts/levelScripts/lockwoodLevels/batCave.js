@@ -161,13 +161,13 @@ class batCave extends defaultScene {
       
      
       //define barriers whee enemys cannot go.
-      this.setUpEnemyBarriers();
-      this.initBarrier(3630,1149-30,30,140);
-      this.initBarrier(3024,1245-30,38,540);
-      this.initBarrier(2385,1149-40,30,160);
+      //this.setUpEnemyBarriers();
+      //this.initBarrier(3630,1149-30,30,140);
+      //this.initBarrier(3024,1245-30,38,540);
+      //this.initBarrier(2385,1149-40,30,160);
 
-      this.initBarrier(1618,829-30,34,540);
-      this.initBarrier(880,730-40,30,160);
+      //this.initBarrier(1618,829-30,34,540);
+      //this.initBarrier(880,730-40,30,160);
                                                       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

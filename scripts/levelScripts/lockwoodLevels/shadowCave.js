@@ -25,7 +25,7 @@ class ShadowCave extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["curseShadows"];
+      this.enemyGroupArray = ["curseShadows","mushrooms"];
 
        //call built in function to preload enemys assets.
        this.setUpEnemyPreload(this.enemyGroupArray);
@@ -120,8 +120,7 @@ class ShadowCave extends defaultScene {
       this.initWallLight(1316,1016,'ghostMushroom1');
       this.initWallLight(1318,1016,'ghostMushroom2');
 
-      this.initWallLight(1918,920,'ghostMushroom2');
-      this.initWallLight(1914,914,'ghostMushroom4');
+      
 
       this.initWallLight(1610+32,1385,'ghostMushroom3');
       this.initWallLight(1620+32,1378,'ghostMushroom1');
@@ -187,6 +186,9 @@ class ShadowCave extends defaultScene {
 
       this.initSavePoints(443,1080-10);
 
+      this.initSavePoints(1868,920-10);
+
+
       this.initPortals(368,1080-8,5039,1149,"warpCaveInside","PondForest");
 
       this.initPortals(438,1464-8,2849,605,"warpCaveOutside","blueSlimeCave");
@@ -208,6 +210,38 @@ class ShadowCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      //set up mushroom network
+      //start by creating a root node
+      this.mushroomRoot = new mushroomNode(this,1935,920+12,"root",null,false);
+
+      //then we define a a graph structure as a "branch" of the root. 
+      //start by making the nodes of the graph
+      this.mushroomNode1 = new mushroomNode(this,2072,920+12,"node1",this.mushroomRoot,false);
+      this.mushroomNode2 = new mushroomNode(this,2243,920+12,"node2",this.mushroomRoot,false);
+      this.mushroomNode3 = new mushroomNode(this,2309,824+12,"node3",this.mushroomRoot,true);
+      this.mushroomNode4 = new mushroomNode(this,2136,728+12,"node4",this.mushroomRoot,false);
+
+      //then we define a graph array
+      this.mushroomBranch1 = [];
+      this.mushroomBranch1.push(this.mushroomNode1);
+      this.mushroomBranch1.push(this.mushroomNode2);
+      this.mushroomBranch1.push(this.mushroomNode3);
+      this.mushroomBranch1.push(this.mushroomNode4);
+
+      //nested for loop to give connections to all the node in a given branch.
+      this.mushroomBranch1.forEach(node1 =>{
+        this.mushroomBranch1.forEach(node2 =>{
+          //if the node is not itself then push the node 2 into node ones connection array. 
+          if(node1.nodeName !== node2.nodeName){
+            node1.pushNode(node2);
+          }
+
+        });
+
+      });
+
+      console.log("this.mushroomBranch1: ",this.mushroomBranch1);
+
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
@@ -217,7 +251,9 @@ class ShadowCave extends defaultScene {
           thisScene.initEnemy(1100,1560,thisScene.playerSex,'curseShadow',false);
           thisScene.initEnemy(2197,1444,thisScene.playerSex,'curseShadow',false);
 
-          thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
+          //thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
+
+          //thisScene.initEnemy(703,1028,thisScene.playerSex,'mushroom',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

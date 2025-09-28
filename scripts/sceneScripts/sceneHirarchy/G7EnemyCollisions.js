@@ -56,6 +56,10 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             console.log("adding earieShadows group");
             tempSceneRef.earieShadows = tempSceneRef.physics.add.group();
           },
+           mushrooms: function mushroomsFunction() {
+            console.log("adding mushrooms group");
+            tempSceneRef.mushrooms = tempSceneRef.physics.add.group();
+          },
           
         };
   }

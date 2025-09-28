@@ -172,6 +172,14 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(earieS);
         tempSceneRef.earieShadows.add(earieS);
       },
+
+      mushroom: function earieShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+        let mush = new mushroom(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        tempSceneRef.enemyId++;
+        console.log("created mush id: ",mush.enemyId);
+        tempSceneRef.enemys.add(mush);
+        tempSceneRef.mushrooms.add(mush);
+      },
       
     };
   }

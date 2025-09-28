@@ -33,6 +33,8 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.checkCurseShadowInteractions(tempSceneRef);
       },earieShadows: function earieShadowsFunction(){
         tempSceneRef.checkEarieShadowInteractions(tempSceneRef);
+      },mushrooms: function mushroomsFunction(){
+        tempSceneRef.checkMushroomInteractions(tempSceneRef);
       }
 
     };
@@ -958,8 +960,6 @@ class G9CheckEnemys extends G8InitEnemys {
       //console.log("tempShadows.inSafeMode: ",tempShadows.inSafeMode);
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempShadows,this.player1,600) && this.objectsInRangeY(tempShadows,this.player1,600) && tempShadows.inSafeMode === false){
-        //calls to make each instance of a slime move.
-        tempShadows.move(scene.player1,scene);
 
         if(scene.player1.idleTimer !== 2000){
           //calls to make each instance of a slime move.
@@ -1082,6 +1082,64 @@ class G9CheckEnemys extends G8InitEnemys {
         tempShadows.safePrompts.visible = false;
         tempShadows.playedSafePrompts = false;
       }
+    }, this);
+
+  }
+
+
+  checkMushroomInteractions(scene){
+    //console.log("checking slime interactions");
+    //applies functions to all slimes in the group.
+    scene.mushrooms.children.each(function (tempMushrooms) {
+
+      //console.log("tempMushrooms.inSafeMode: ",tempMushrooms.inSafeMode);
+      //safty check to improve performance. only does overlap if in range.
+      if(this.objectsInRangeX(tempMushrooms,this.player1,600) && this.objectsInRangeY(tempMushrooms,this.player1,600) && tempMushrooms.inSafeMode === false){
+
+        tempMushrooms.move(scene.player1,scene);
+
+
+        //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+        scene.physics.add.overlap(scene.player1.mainHitbox, tempMushrooms.grabHitBox, function () {
+          let isWindowObject = {
+            isOpen: null
+          };
+        
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          if (isWindowObject.isOpen === true) {
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+            //scene.playerInventory.setView(scene);
+          }
+
+          if (tempMushrooms.grabCoolDown === false && scene.grabCoolDown === false) {
+            //stop the velocity of the player
+            tempMushrooms.setVelocityX(0);
+            scene.player1.mainHitbox.setVelocityX(0);
+            //calls the grab function
+            tempMushrooms.grab();
+            //sets the scene grab value to true since the player has been grabbed
+            // tells instance of slime that it has grabbed player
+            tempMushrooms.grabCoolDown = true;
+            tempMushrooms.playerGrabbed = true;
+            scene.grabbed = true;
+            scene.grabCoolDown = true;
+            console.log('player grabbed by shadow');
+          }
+        });
+       
+      // creates a overlap between the damage hitbox and the slime so that slime can take damage
+      }else if(this.objectsInRangeX(tempMushrooms,scene.player1,50) && this.objectsInRangeY(tempMushrooms,scene.player1,80)){
+
+        this.viewAnimationLogic(tempMushrooms);
+      // otherwise hid the prompt from the player.
+      }else{
+        tempMushrooms.setVelocityY(0);
+        tempMushrooms.setVelocityX(0);
+        tempMushrooms.safePrompts.visible = false;
+        tempMushrooms.playedSafePrompts = false;
+      }
+        
     }, this);
 
   }

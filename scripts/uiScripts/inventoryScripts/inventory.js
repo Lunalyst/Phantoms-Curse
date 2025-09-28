@@ -340,7 +340,11 @@ class inventory extends Phaser.GameObjects.Container{
     }
     
     // function opens the inventory. has a delay so that the player cant quickly open the inventory
-    setView(scene,hud){
+    setView(scene,hud,bypass){
+
+      if(bypass === true){
+        this.openDelay = false;
+      }
 
       console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
         // if the player hasnt opened the inventory and the delay is false then

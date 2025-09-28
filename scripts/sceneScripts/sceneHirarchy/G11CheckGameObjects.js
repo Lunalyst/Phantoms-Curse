@@ -435,6 +435,100 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
   }
 
+  //if we have a scene like the upper section of the shadow cave, have a function to warp the player to the lower part. 
+  checkPlayerFallWarp(fallRange,location,nextSceneY,returnLeftRange,returnRightRange){
+
+    if(this.player1.y > fallRange){
+
+      this.player1.mainHitbox.setVelocityX(0);
+      this.player1.mainHitbox.setVelocityY(0);
+      this.player1.mainHitbox.body.setGravityY(0); 
+
+      console.log("this.PlayerOutOfBounds: ",this.PlayerOutOfBounds);
+
+      if(this.PlayerOutOfBounds === false){
+
+        //potentially add some flags for luna's dialogue
+        //check to see if flag already exists
+        let lunaDevDialogue1 = {
+          flagToFind: "lunaDevDialogue1",
+          foundFlag: false,
+        };
+
+        let lunaDevDialogue2 = {
+          flagToFind: "lunaDevDialogue2",
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue1);
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lunaDevDialogue2);
+
+        //add flag if the player has managed to escape bound agian.
+        if(lunaDevDialogue1.foundFlag === true && lunaDevDialogue2.foundFlag === false){
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue2.flagToFind);
+        }else if(lunaDevDialogue1.foundFlag === false){
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,lunaDevDialogue1.flagToFind);
+        }
+
+        this.PlayerOutOfBounds = true;
+        //creates a object to hold data for scene transition
+        let playerDataObject = {
+          saveX: null,
+          saveY: null,
+          playerHpValue: null,
+          playerSex: null,
+          playerLocation: null,
+          inventoryArray: null,
+          playerBestiaryData: null,
+          playerSkillsData: null,
+          playerSaveSlotData: null,
+          flagValues: null,
+          settings:null,
+          dreamReturnLocation:null
+        };
+
+        //grabs the latests data values from the gamehud. also sets hp back to max hp.
+        inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+        
+        let returnX = this.player1.x;
+        //test to make sure x value of player is in range
+        if(returnX > returnRightRange){
+          returnX = returnRightRange;
+        }else if(returnX < returnLeftRange){
+          returnX = returnLeftRange;
+        }
+
+        //then we set the correct location values to the scene transition data.
+        playerDataObject.saveX = returnX;
+        playerDataObject.saveY = nextSceneY;
+        playerDataObject.playerSex = this.playerSex;
+        playerDataObject.playerLocation = location;
+
+        // then we save the scene transition data.
+        this.saveGame(playerDataObject);
+
+        //kills gameplay emitters so they dont pile up between scenes
+        this.clearGameplayEmmitters();
+
+        this.portalId = 0;
+        //for loop looks through all the looping music playing within a given scene and stops the music.
+        for(let counter = 0; counter < this.sound.sounds.length; counter++){
+          this.sound.get(this.sound.sounds[counter].key).stop();
+        }
+
+        //warps player to the next scene
+        console.log(" teleporting player too: ",playerDataObject.playerLocation);
+        this.destination = location;
+        this.cameras.main.fadeOut(500, 0, 0, 0);
+        
+      }
+      
+
+    }
+
+  }
+
   backgroundRangeLeft(backgroundSprite,xOrigin,range,incr){
     if(backgroundSprite.x > xOrigin - range){
       backgroundSprite.x -= incr;

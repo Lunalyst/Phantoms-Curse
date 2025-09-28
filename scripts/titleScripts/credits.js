@@ -109,7 +109,7 @@ class credits extends Phaser.GameObjects.Container{
                 let resetTimeOut = setTimeout(function () {
                     
                     //after delay make names and call credits function apart of make texttext.
-                    if(tempCredits.scene !== undefined && tempCredits !== null ){
+                    if(tempCredits.scene !== undefined && tempCredits !== null && tempCredits.visible === true ){
                         console.log("displaying name: ", tempCredits.credits[counter]);
                         let name = new makeText(tempCredits.scene,tempCredits.xAxis,0,tempCredits.textType,tempCredits.credits[counter]);
                         name.setTextTint(tempCredits.textColor);

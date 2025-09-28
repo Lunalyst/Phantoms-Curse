@@ -122,6 +122,22 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
 
+      //makes a temp object
+      let isWindowObject = {
+        isOpen: null
+      };
+        
+      //that is transfered to the emitter
+      inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+      console.log("isWindowObject.isOpen: ", isWindowObject.isOpen);
+
+      //protective call to make sure the inventory isnt open when we call a scene transition.
+      if(isWindowObject.isOpen === true){
+
+        //and if its open then close the inventory.
+        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this,true);
+      }
+
        //warps player to the next scene
       console.log('sending player to: ',this.destination);
       console.log('this.playerDefeated: ',this.playerDefeated);
@@ -149,6 +165,8 @@ class G2levelSetupFunctions extends G1PlayerInputs {
 
       //hides the skip indicator 
       skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+
+      
     });
 
     //emitter to transition scenes
@@ -167,7 +185,8 @@ class G2levelSetupFunctions extends G1PlayerInputs {
       //this.scene.stop('gameHud');
       //this.scene.launch('gameHud');
       //this.scene.start('gameHud');
-      this.cameras.main.fadeOut(500, 0, 0, 0);
+
+        this.cameras.main.fadeOut(500, 0, 0, 0);
     });
 
   }

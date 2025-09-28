@@ -87,7 +87,7 @@ class mushroom extends enemy {
                 //if the enemy is hiding
                 if(this.isHiding === true && this.inEmergingAnimation === false){
     
-                    if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(70,70)){
+                    if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(70,70)){
                         console.log("player is in range");
                         this.inEmergingAnimation = true;
                         //play animation and go into not hiding logic
@@ -125,7 +125,7 @@ class mushroom extends enemy {
             }else if(this.movingToNewNode === true){
 
                 this.lightSource.x = this.x;
-                this.lightSource.y = this.y;
+                this.lightSource.y = this.y+35;
 
                 if(this.curNode.x !== this.x || this.curNode.y !== this.y ){
 
@@ -133,7 +133,7 @@ class mushroom extends enemy {
                     if(this.myceliumTimer === false){
 
                         this.myceliumTimer = true;
-                        let effect = new mycelium(this.scene, this.x, this.y+40);
+                        let effect = new mycelium(this.scene, this.x, this.y+33);
 
 
                         let mush = this;
@@ -167,6 +167,8 @@ class mushroom extends enemy {
                     this.y = this.curNode.y;
                     this.x = this.curNode.x;
                     this.visible = true;
+                    this.lightSource.y = this.y;
+                    this.lightSource.radius = 130
                 }
  
                 
@@ -195,6 +197,7 @@ class mushroom extends enemy {
 
         //move the mushroom to the new location
         this.movingToNewNode = true;
+        this.lightSource.radius = 90
 
         this.visible = false;
     }

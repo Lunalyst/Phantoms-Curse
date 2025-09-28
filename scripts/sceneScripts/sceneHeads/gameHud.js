@@ -863,10 +863,11 @@ class gameHud extends A3SoundEffects {
           this.playerInventory.applyInteractionToSlots(this);
         
           //emitter to opem and close the inventory when the tab input is recieved from the scene
-          inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene) =>{
+          inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene,bypass) =>{
               //opens inventory so long as the storage locker isnt open.
+              console.log("this.isStorageOpen: ",this.isStorageOpen);
               if(this.isStorageOpen === false){
-                this.playerInventory.setView(scene,this);
+                this.playerInventory.setView(scene,this,bypass);
               }
           });
 

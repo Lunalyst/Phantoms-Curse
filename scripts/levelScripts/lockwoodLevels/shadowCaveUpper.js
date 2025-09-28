@@ -1,13 +1,13 @@
 
-class ShadowCave extends defaultScene {
+class ShadowCaveUpper extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'ShadowCave',active: false ,physics:{default:'arcade'}});
+    super({key: 'ShadowCaveUpper',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "ShadowCave";
+    this.playerLocation = "ShadowCaveUpper";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -25,12 +25,12 @@ class ShadowCave extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["curseShadows"];
+      this.enemyGroupArray = ["curseShadows","mushrooms"];
 
        //call built in function to preload enemys assets.
        this.setUpEnemyPreload(this.enemyGroupArray);
       
-      this.load.tilemapTiledJSON("shadow_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave.json");
+      this.load.tilemapTiledJSON("shadow_cave_upper_map" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave_Upper.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
       
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
@@ -70,7 +70,7 @@ class ShadowCave extends defaultScene {
       this.setUpWallLights();
 
       //creates tileset
-      this.setUpTileSet("shadow_cave_map","Cave_Tileset","cave_source_map");
+      this.setUpTileSet("shadow_cave_upper_map","Cave_Tileset","cave_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -103,54 +103,55 @@ class ShadowCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //FLOOR 1 MUSHROOMS FROM LEFT TO RIGHT
-      this.initWallLight(395+32,1395,'ghostMushroom1');
-      this.initWallLight(397+32,1393,'ghostMushroom2');
-
-      this.initWallLight(642,1381,'ghostMushroom4');
-
-      this.initWallLight(809,1466,'ghostMushroom2');
-
-      this.initWallLight(937+32,1563,'ghostMushroom3');
-      this.initWallLight(947+32,1560,'ghostMushroom1');
-      this.initWallLight(957+32,1563,'ghostMushroom4');
-
-      this.initWallLight(1124+32,1365,'ghostMushroom2');
-
-      this.initWallLight(1316,1016,'ghostMushroom1');
-      this.initWallLight(1318,1016,'ghostMushroom2');
-
-      
-
-      this.initWallLight(1610+32,1385,'ghostMushroom3');
-      this.initWallLight(1620+32,1378,'ghostMushroom1');
-      this.initWallLight(1630+32,1385,'ghostMushroom4');
-
-      this.initWallLight(1846,1140,'ghostMushroom1');
-
-      this.initWallLight(2060,1248,'ghostMushroom1');
-      this.initWallLight(2062,1246,'ghostMushroom2');
-
-      this.initWallLight(2286,1177,'ghostMushroom4');
-
-      this.initWallLight(2343,1339,'ghostMushroom3');
-      this.initWallLight(2351,1336,'ghostMushroom1');
-      this.initWallLight(2363,1339,'ghostMushroom4');
-
-      this.initWallLight(2572,1201,'ghostMushroom2');
-
-      this.initWallLight(2850,1319,'ghostMushroom2');
-      this.initWallLight(2842,1311,'ghostMushroom4');
-
       //FLOOR 2 MUSHROOMS FROM LEFT TO RIGHT
 
-      //this.initSavePoints(443,1080-10);
+      this.initWallLight(650,1004,'ghostMushroom1');
+
+      this.initWallLight(880,886,'ghostMushroom1');
+      this.initWallLight(882,881,'ghostMushroom2');
+
+      this.initWallLight(1178,886,'ghostMushroom4');
+
+      this.initWallLight(1457,844,'ghostMushroom2');
+      this.initWallLight(1448,842,'ghostMushroom4');
+
+      this.initWallLight(2151,843,'ghostMushroom2');
+      this.initWallLight(2140,837,'ghostMushroom4');
+
+      this.initWallLight(2310,632,'ghostMushroom1');
+
+      this.initWallLight(2405,587,'ghostMushroom3');
+
+      this.initWallLight(2622,647,'ghostMushroom1');
+      this.initWallLight(2632,639,'ghostMushroom2');
+
+      //section 3 
+      this.initWallLight(1045,641,'ghostMushroom1');
+      this.initWallLight(1055,634,'ghostMushroom2');
+
+      this.initWallLight(526,593,'ghostMushroom3');
+      //this.initWallLight(536,603,'ghostMushroom1');
+      this.initWallLight(546,610,'ghostMushroom4');
+
+      this.initWallLight(667,408,'ghostMushroom3');
+
+      this.initWallLight(971,367,'ghostMushroom2');
+      
+      //this.initWallLight(1353,502,'ghostMushroom2');
+      this.initWallLight(1343,495,'ghostMushroom4');
+
+      //this.initWallLight(2426,925,'ghostMushroom3');
+      //this.initWallLight(2422,921,'ghostMushroom2');
+
+
+
+      this.initSavePoints(443,1080-10);
 
       this.initSavePoints(1868,920-10);
 
-      this.initPortals(438,1464-8,2849,605,"warpCaveOutside","blueSlimeCave");
 
-      this.initPortals(2815,1368-8,1123,888,"warpCaveOutside","caveToSunflowers2");
+      this.initPortals(368,1080-8,5039,1149,"warpCaveInside","PondForest");
+
 
       //creates container objects.
       this.setUpContainers();
@@ -166,15 +167,46 @@ class ShadowCave extends defaultScene {
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      //set up mushroom network
+      //start by creating a root node
+      this.mushroomRoot = new mushroomNode(this,1303,1016+12,"root",null,false);
+
+      //then we define a a graph structure as a "branch" of the root. 
+      //start by making the nodes of the graph
+      this.mushroomNode1 = new mushroomNode(this,2072,920+12,"node1",this.mushroomRoot,false);
+      this.mushroomNode2 = new mushroomNode(this,2243,920+12,"node2",this.mushroomRoot,false);
+      this.mushroomNode3 = new mushroomNode(this,2309,824+12,"node3",this.mushroomRoot,true);
+      this.mushroomNode4 = new mushroomNode(this,2376,632+12,"node4",this.mushroomRoot,false);
+
+      //then we define a graph array
+      this.mushroomBranch1 = [];
+      this.mushroomBranch1.push(this.mushroomNode1);
+      this.mushroomBranch1.push(this.mushroomNode2);
+      this.mushroomBranch1.push(this.mushroomNode3);
+      this.mushroomBranch1.push(this.mushroomNode4);
+
+      //nested for loop to give connections to all the node in a given branch.
+      this.mushroomBranch1.forEach(node1 =>{
+        this.mushroomBranch1.forEach(node2 =>{
+          //if the node is not itself then push the node 2 into node ones connection array. 
+          if(node1.nodeName !== node2.nodeName){
+            node1.pushNode(node2);
+          }
+
+        });
+
+      });
+
+      console.log("this.mushroomBranch1: ",this.mushroomBranch1);
+
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
-               
-          thisScene.initEnemy(883,1560,thisScene.playerSex,'curseShadow',false);
 
-          thisScene.initEnemy(1100,1560,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(2197,1444,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
 
+          //thisScene.initEnemy(703,1028,thisScene.playerSex,'mushroom',false);
           thisScene.spawnedEnemys = true;
         },1000);
 
@@ -184,9 +216,12 @@ class ShadowCave extends defaultScene {
 
     update(){
 
+      //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       //calls the built in update function
       this.defaultUpdate();
+
+      this.checkPlayerFallWarp(1450,"ShadowCave",1100,480,2650);
       
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);

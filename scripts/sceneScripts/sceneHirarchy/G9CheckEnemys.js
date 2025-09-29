@@ -877,6 +877,7 @@ class G9CheckEnemys extends G8InitEnemys {
         scene.physics.add.overlap(scene.attackHitBox, tempCat, function () {
           tempCat.hitboxOverlaps = true;
         });
+
         if(tempCat.hitboxOverlaps === true) {
           tempCat.damage(scene);
 
@@ -1097,6 +1098,18 @@ class G9CheckEnemys extends G8InitEnemys {
       if(this.objectsInRangeX(tempMushrooms,this.player1,600) && this.objectsInRangeY(tempMushrooms,this.player1,600) && tempMushrooms.inSafeMode === false){
 
         tempMushrooms.move(scene.player1,scene);
+
+        
+        scene.physics.add.overlap(scene.attackHitBox, tempMushrooms, function () {
+          tempMushrooms.hitboxOverlaps = true;
+        });
+        
+        //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
+        if(tempMushrooms.hitboxOverlaps === true && tempMushrooms.movingToNewNode === false && tempMushrooms.isHiding === false  && tempMushrooms.inEmergingAnimation === false) {
+          tempMushrooms.damage(scene);
+
+          tempMushrooms.hitboxOverlaps = false;
+        }
 
 
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already

@@ -74,8 +74,8 @@ class mushroom extends enemy {
 
     //functions that move enemy objects.
     move() {
-        //this.setSize(70, 180, true);
-        //this.setOffset(100, 59);
+        this.setSize(70, 180, true);
+        this.setOffset(100, 59);
 
         console.log("this.curNode.x: ",this.curNode.x, "this.x: ",this.x);
                 
@@ -87,7 +87,7 @@ class mushroom extends enemy {
                 //if the enemy is hiding
                 if(this.isHiding === true && this.inEmergingAnimation === false){
     
-                    if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(70,70)){
+                    if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
                         console.log("player is in range");
                         this.inEmergingAnimation = true;
                         //play animation and go into not hiding logic
@@ -99,12 +99,26 @@ class mushroom extends enemy {
                             this.lightSource.radius = 110
                                 
                         });
+                    }else if(!this.checkXRangeFromPlayer(220, 220)){
+                        console.log("player is in range");
+                        this.inEmergingAnimation = true;
+                        //then play animation and go back to the hiding state.
+                        
+                        this.isHiding = true;
+                        this.inEmergingAnimation = false;
+                        this.anims.play('hiding',true);
+                        this.lightSource.radius = 90
+
+                        this.moveMushroomFollow();
+                                
                     }
                 //if the enemy is active
-                }if(this.isHiding === false && this.inEmergingAnimation === false){
+                }else if(this.isHiding === false && this.inEmergingAnimation === false){
                     
-                    //but player is out of range
-                    if(!this.checkXRangeFromPlayer(220, 220)){
+                    if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(80,80)){
+                        this.anims.play("shroomDance",true);
+                        
+                    }else if(!this.checkXRangeFromPlayer(220, 220)){
                         console.log("player is in range");
                         this.inEmergingAnimation = true;
                         //then play animation and go back to the hiding state.
@@ -115,10 +129,13 @@ class mushroom extends enemy {
                             this.anims.play('hiding',true);
                             this.lightSource.radius = 90
 
-                            this.moveMushroom();
+                            this.moveMushroomFollow();
                                 
                         });
-                    }
+                    }else if(!this.checkXRangeFromPlayer(80, 80)){
+                        this.anims.play("mushIdle",true);
+                        
+                     }
                 }
                 this.setVelocityX(0);
                 this.setVelocityY(0);
@@ -181,11 +198,12 @@ class mushroom extends enemy {
     }
 
     //function to randomly move the mushroom from one location if the graph to another.
-    moveMushroom(){
+    moveMushroomRandom(){
 
         //generate a random number that represents a location in the outgoing node array.
         let randloc = Math.floor(Math.random() * (this.curNode.nodeArray.length ));
         console.log("randloc: ",randloc);
+
         //make node sprite visible
         this.curNode.visible = true;
 
@@ -200,6 +218,40 @@ class mushroom extends enemy {
         this.lightSource.radius = 90
 
         this.visible = false;
+    }
+
+    moveMushroomFollow(){
+
+        //make node sprite visible
+        this.curNode.visible = true;
+
+        //generate length on line from player and current node
+        let closestX = this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,this.x,this.y);
+
+        //check eanch adjacent node
+        this.curNode.nodeArray.forEach(node =>{
+
+            //if the line segment is closer  from one node and the player
+            if(this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,node.x,node.y) < closestX){
+                //set the current closest length to the new one
+                closestX = this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,node.x,node.y);
+                //set the location node to the closer node.
+                this.curNode = node;
+            }
+  
+
+        });
+        console.log("this.curNode: ",this.curNode);
+
+        //move the mushroom to the new location
+        this.movingToNewNode = true;
+        this.lightSource.radius = 90
+
+        this.visible = false;
+    }
+
+    calcLineSegment(x1,y1,x2,y2){
+       return Math.sqrt(Math.pow(x1 - x2 , 2) + Math.pow(y1 - y2 , 2));
     }
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
@@ -632,7 +684,8 @@ class mushroom extends enemy {
 
     // controls the damage resistance of the enemy.
     damage() {
-        this.setVelocityX(0);
+        
+
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
@@ -648,7 +701,7 @@ class mushroom extends enemy {
                     this.scene.player1.curseDamage
                 );
 
-                this.playEnemySound('5',200);
+                //this.playEnemySound('5',200);
                 
                 //if the enemys hp is at zero
                 if (this.enemyHP <= 0) {
@@ -657,7 +710,7 @@ class mushroom extends enemy {
                     this.setVelocityX(0);
 
                     //calculate item drtop chance
-                    let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                    /*let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
 
                     //decides amount of enemy drops based on size
@@ -667,15 +720,31 @@ class mushroom extends enemy {
 
                         this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
                         //play defeated animation.
-
-                        this.anims.play('smallEnemyDefeated').once('animationcomplete', () => {
+                */
+                        /*this.anims.play('smallEnemyDefeated').once('animationcomplete', () => {
                             //then destroy enemy.
                             this.destroy();
                             this.grabHitBox.destroy();
-                        });
+                        });*/
                     
                     //play animation of enemy defeated based on size.
 
+                    
+                }else if(this.isHiding === false && this.inEmergingAnimation === false){
+                    
+                    console.log("player is in range");
+                    this.inEmergingAnimation = true;
+                    //then play animation and go back to the hiding state.
+                    this.anims.play('becomeHidden').once('animationcomplete', () => {
+
+                        this.isHiding = true;
+                        this.inEmergingAnimation = false;
+                        this.anims.play('hiding',true);
+                        this.lightSource.radius = 90
+
+                        this.moveMushroomRandom();
+                                
+                    });
                     
                 }
             }

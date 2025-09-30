@@ -353,6 +353,16 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
         cursedHeartProj.setPipeline('Light2D');
       }
     }
+
+    initSporeCloud(x,y,direction){
+      let tempSporeCloud = new sporeCloud(this,x,y,direction);
+
+      this.sporeClouds.add(tempSporeCloud);
+
+      if(this.lightingSystemActive === true){ 
+        tempSporeCloud.setPipeline('Light2D');
+      }
+    }
   
 
 }

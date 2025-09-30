@@ -63,6 +63,12 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.wallLights = this.physics.add.group();
   }
 
+  setUpMushroomNodes(){
+    //set up the invisible barriers group
+    console.log('created wall light group');
+    this.mushroomNodes = this.physics.add.group();
+  }
+
   setUpSlimeSpikes(){
     //set up the slime spikes group
     console.log('created slime spikes group');
@@ -82,6 +88,13 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     console.log('created curse hearts group');
     this.CursedHearts = this.physics.add.group();
     this.usingCursedHearts = true;
+  }
+
+  setUpSporeClouds(){
+    //set up the slime projectile group
+    console.log('created spore clouds group');
+    this.sporeClouds = this.physics.add.group();
+    this.usingSporeClouds = true;
   }
 
   //creates a container object to hold items.

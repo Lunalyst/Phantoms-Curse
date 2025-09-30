@@ -34,6 +34,10 @@ class G12UpdateLoops extends G11CheckGameObjects{
         this.checkCursedHeartProjectiles();
       }
 
+      if(this.usingSporeClouds === true){
+        this.checkSporeCloudProjectiles();
+      }
+
       if(this.usingLocker === true){
         this.checkLocker();
       }

@@ -334,6 +334,20 @@ class G11CheckGameObjects extends G10CheckNPCS {
     }, this);
   }
 
+  checkSporeCloudProjectiles(){
+
+    this.sporeClouds.children.each(function (tempProjectile) {
+      //console.log("tempProjectile.direction: ",tempProjectile.direction);
+      if(tempProjectile.direction === 'left'){
+        tempProjectile.setVelocityX(30);
+      }else{
+        tempProjectile.setVelocityX(30 *-1);
+      }
+      
+    });
+
+  }
+
   checkLocker(){
     this.playerStorage.children.each(function (tempStorage) {
 

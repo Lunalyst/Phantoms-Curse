@@ -46,6 +46,11 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
 
   setUpShadowLightCollider(){
     this.physics.add.collider(this.curseShadows,this.wallLights);
+
+    if(this.mushrooms !== null && this.mushrooms !== undefined ){
+      //this.physics.add.collider(this.curseShadows,this.mushrooms);
+      this.physics.add.collider(this.curseShadows,this.mushroomNodes);
+    }
 }
 
   

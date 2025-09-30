@@ -34,6 +34,8 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         this.setScale(1/3,1/3);
         //changes collision box size.
         //this.setSize(40,50,true);
+
+        scene.mushroomNodes.add(this);
         
         this.scene = scene;
         //warp sprite animations

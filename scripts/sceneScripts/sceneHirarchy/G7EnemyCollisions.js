@@ -15,46 +15,89 @@ class G7EnemyCollisions extends G6PreloadEnemys{
           blueSlimes: function blueSlimesFunction() {
             console.log("adding blueSlimes group");
             tempSceneRef.blueSlimes = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.blueSlimes);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.blueSlimes); 
           },
           tigers: function tigersFunction() {
             console.log("adding Tigers group");
             tempSceneRef.tigers = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.tigers);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.tigers); 
+          
           },
           rabbits: function rabbitsFunction() {
             console.log("adding rabbits group");
             tempSceneRef.rabbits = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.rabbits);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.rabbits); 
+          
           },
           beeDrones: function beeDronesFunction() {
             console.log("adding beeDrones group");
             tempSceneRef.beeDrones = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.beeDrones);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.beeDrones); 
+          
           },
           bats: function batsFunction() {
             console.log("adding bats group");
             tempSceneRef.bats = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.bats );
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.bats ); 
+          
           },
           blueSlimeHSs: function blueSlimeHSsFunction() {
             console.log("adding blueSlimeHSs group");
             tempSceneRef.blueSlimeHSs = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.blueSlimeHSs );
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.blueSlimeHSs ); 
+          
           },
           blueSlimeHMs: function blueSlimeHMsFunction() {
             console.log("adding blueSlimeHMs group");
             tempSceneRef.blueSlimeHMs = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.blueSlimeHMs );
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.blueSlimeHMs ); 
+          
           },
           chestMimics: function chestMimicsFunction() {
             console.log("adding chestMimics group");
             tempSceneRef.chestMimics = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.chestMimics );
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.chestMimics ); 
+          
           },
           whiteCats: function whiteCatsFunction() {
             console.log("adding whiteCats group");
             tempSceneRef.whiteCats = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.whiteCats );
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.whiteCats ); 
+          
           },
           curseShadows: function curseShadowsFunction() {
             console.log("adding curseShadows group");
             tempSceneRef.curseShadows = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.curseShadows);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.curseShadows); 
+          
           },
           earieShadows: function earieShadowsFunction() {
             console.log("adding earieShadows group");
             tempSceneRef.earieShadows = tempSceneRef.physics.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.earieShadows);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.earieShadows); 
+          
           },
            mushrooms: function mushroomsFunction() {
             console.log("adding mushrooms group");
@@ -96,9 +139,7 @@ class G7EnemyCollisions extends G6PreloadEnemys{
 
     //creates id so scene can work with multiple enemys
     this.enemyId = 0;
-    this.physics.add.collider(this.processMap.layer1, this.enemys);
-    //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
-    this.physics.add.collider(this.processMap.layer3, this.enemys); 
+    
 
   }
 

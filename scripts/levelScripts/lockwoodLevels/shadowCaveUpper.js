@@ -69,6 +69,8 @@ class ShadowCaveUpper extends defaultScene {
       //setup lights group.
       this.setUpWallLights();
 
+      this.setUpMushroomNodes();
+
       //creates tileset
       this.setUpTileSet("shadow_cave_upper_map","Cave_Tileset","cave_source_map");
     
@@ -145,13 +147,11 @@ class ShadowCaveUpper extends defaultScene {
 
 
 
-      this.initSavePoints(443,1080-10);
+      //this.initSavePoints(443,1080-10);
 
-      this.initSavePoints(1868,920-10);
-
+      this.initSavePoints(1572,952-10);
 
       this.initPortals(368,1080-8,5039,1149,"warpCaveInside","PondForest");
-
 
       //creates container objects.
       this.setUpContainers();
@@ -168,16 +168,18 @@ class ShadowCaveUpper extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.setUpSporeClouds();
+
       //set up mushroom network
       //start by creating a root node
       this.mushroomRoot = new mushroomNode(this,1303,1016+12,"root",null,false);
 
       //then we define a a graph structure as a "branch" of the root. 
       //start by making the nodes of the graph
-      this.mushroomNode1 = new mushroomNode(this,2072,920+12,"node1",this.mushroomRoot,false);
-      this.mushroomNode2 = new mushroomNode(this,2243,920+12,"node2",this.mushroomRoot,false);
-      this.mushroomNode3 = new mushroomNode(this,2309,824+12,"node3",this.mushroomRoot,true);
-      this.mushroomNode4 = new mushroomNode(this,2376,632+12,"node4",this.mushroomRoot,false);
+      this.mushroomNode1 = new mushroomNode(this,1863,920+12,"node1",this.mushroomRoot,false);
+      this.mushroomNode2 = new mushroomNode(this,2342,824+12,"node2",this.mushroomRoot,false);
+      this.mushroomNode3 = new mushroomNode(this,2084,728+12,"node3",this.mushroomRoot,true);
+      this.mushroomNode4 = new mushroomNode(this,2534,600+12,"node4",this.mushroomRoot,false);
 
       //then we define a graph array
       this.mushroomBranch1 = [];

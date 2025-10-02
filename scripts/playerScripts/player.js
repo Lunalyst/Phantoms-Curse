@@ -196,6 +196,8 @@ class player extends Phaser.GameObjects.Container{
     this.clothed = false;
     this.ringType = 0;
 
+    this.curseBuildUpCooldown = false;
+
     this.setupRingPassivesMap();
     this.setupWeaponPassivesMap();
 
@@ -921,7 +923,6 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //start by having the player press shift state should be false
     if(this.hitboxState === false){
       
-
       //player is swinging so  set the state to true
       this.hitboxState = true;
 
@@ -1123,6 +1124,25 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         }
       },
       
+    }
+
+  }
+
+  overlapCurseBuildUp(){
+
+    if(this.curseBuildUpCooldown === false){
+
+      this.curseBuildUpCooldown = true;
+
+      healthEmitter.emit(healthEvent.curseBuildUp,2);
+
+      let tempPlayer = this;
+
+      setTimeout(function(){
+              
+        tempPlayer.curseBuildUpCooldown = false;
+      },100);
+
     }
 
   }

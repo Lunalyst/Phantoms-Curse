@@ -234,6 +234,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
   }
 
   checkCursedHeartProjectiles(){
+
     this.CursedHearts.children.each(function (tempProjectile) {
       //ensures gravity is applied,
       //tempProjectile.body.setGravityY(tempProjectile.savedGravity);
@@ -336,13 +337,46 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
   checkSporeCloudProjectiles(){
 
+     let tempScene = this;
+
     this.sporeClouds.children.each(function (tempProjectile) {
-      //console.log("tempProjectile.direction: ",tempProjectile.direction);
+
+      //handle direction where mushroom spore cloud floats
       if(tempProjectile.direction === 'left'){
         tempProjectile.setVelocityX(30);
       }else{
         tempProjectile.setVelocityX(30 *-1);
       }
+      
+     
+
+      //overlap function to let player know that the curse bar is increasing.
+      tempScene.physics.add.overlap(tempScene.player1.mainHitbox, tempProjectile, function () {
+
+        tempScene.player1.overlapCurseBuildUp();
+
+          //set up player stuck grab and 
+          /*tempScene.playerStuckGrab = true;
+          tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
+          tempScene.player1.resetAttack();
+          console.log("tempScene.player1: ",tempScene.player1 );
+          tempScene.player1.attacking = false;
+          tempScene.player1.resetAttack();
+          tempScene.playerStuckGrabCap = 120;
+
+          tempScene.initSoundEffect('curseSFX','curse',0.3);
+
+          //creates a refrence to the enemy that infatuaged the player
+          tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
+
+          tempScene.player1.StuckRepeat("cursedHeartInfatuated");
+          tempProjectile.destroy();*/
+        
+      });
+
+      //code to tell the player to go into gameoverself grab if curse bar is maxed out.
+      //also need to makesure player is touching the ground. what if there bar maxes out and there falling into the loading zone?
+
       
     });
 

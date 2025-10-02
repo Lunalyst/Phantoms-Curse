@@ -26,6 +26,7 @@ class mushroom extends enemy {
          this.sporeCloudDirection = 30;
          this.sporeDanceLock = false;
          this.direction = "right";
+         this.transferSpeed = 300;
           
         //defines Enemy animations based on the players sex.
         if (sex === 0) {
@@ -35,8 +36,8 @@ class mushroom extends enemy {
             this.anims.create({ key: 'popOut', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 3, end: 8 }), frameRate: 12, repeat: 0 });
             this.anims.create({ key: 'mushIdle', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 9, end: 12 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'becomeHidden', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 13, end: 18 }), frameRate: 12, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 23 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 23, end: 31 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 27, end: 31 }), frameRate: 15, repeat: 0 });
             //this.anims.create({ key: 'shroomDance', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 42 }), frameRate: 12, repeat: -1 });
         }
 
@@ -81,7 +82,7 @@ class mushroom extends enemy {
     //functions that move enemy objects.
     move() {
         this.setSize(70, 180, true);
-        this.setOffset(100, 59);
+        this.setOffset(115, 59);
 
         //console.log("this.curNode.x: ",this.curNode.x, "this.x: ",this.x);
                 
@@ -166,7 +167,7 @@ class mushroom extends enemy {
                             this.moveMushroomFollow();
                                 
                         });
-                    }else if(!this.checkXRangeFromPlayer(80, 80)){
+                    }else{
                         this.sporeDanceLock = false; 
                         this.anims.play("mushIdle",true);
                         
@@ -196,18 +197,18 @@ class mushroom extends enemy {
                     }
                     
                     if(this.curNode.x+5 < this.x){
-                        this.setVelocityX(-220);  
+                        this.setVelocityX(-this.transferSpeed);  
                     }else if(this.curNode.x-5 > this.x){
-                        this.setVelocityX(220);
+                        this.setVelocityX(this.transferSpeed);
                     }else{
                         this.setVelocityX(0);
                         this.x = this.curNode.x;
                     }
 
                     if(this.curNode.y+5 < this.y){
-                        this.setVelocityY(-220);  
+                        this.setVelocityY(-this.transferSpeed);  
                     }else if(this.curNode.y-5 > this.y){
-                        this.setVelocityY(220);
+                        this.setVelocityY(this.transferSpeed);
                     }else{
                         this.setVelocityY(0);
                         this.y = this.curNode.y;

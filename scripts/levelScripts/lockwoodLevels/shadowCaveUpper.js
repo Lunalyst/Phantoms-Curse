@@ -117,15 +117,13 @@ class ShadowCaveUpper extends defaultScene {
       this.initWallLight(1457,844,'ghostMushroom2');
       this.initWallLight(1448,842,'ghostMushroom4');
 
-      this.initWallLight(2151,843,'ghostMushroom2');
-      this.initWallLight(2140,837,'ghostMushroom4');
+      this.initWallLight(2198,920,'ghostMushroom2');
+      this.initWallLight(2205,923,'ghostMushroom4');
 
       this.initWallLight(2310,632,'ghostMushroom1');
 
-      this.initWallLight(2405,587,'ghostMushroom3');
-
-      this.initWallLight(2622,647,'ghostMushroom1');
-      this.initWallLight(2632,639,'ghostMushroom2');
+      this.initWallLight(2810,647,'ghostMushroom1');
+      this.initWallLight(2815,639,'ghostMushroom2');
 
       //section 3 
       this.initWallLight(1045,641,'ghostMushroom1');
@@ -139,15 +137,7 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initWallLight(971,367,'ghostMushroom2');
       
-      //this.initWallLight(1353,502,'ghostMushroom2');
       this.initWallLight(1343,495,'ghostMushroom4');
-
-      //this.initWallLight(2426,925,'ghostMushroom3');
-      //this.initWallLight(2422,921,'ghostMushroom2');
-
-
-
-      //this.initSavePoints(443,1080-10);
 
       this.initSavePoints(1572,952-10);
 
@@ -176,7 +166,7 @@ class ShadowCaveUpper extends defaultScene {
 
       //then we define a a graph structure as a "branch" of the root. 
       //start by making the nodes of the graph
-      this.mushroomNode1 = new mushroomNode(this,1863,920+12,"node1",this.mushroomRoot,false);
+      this.mushroomNode1 = new mushroomNode(this,1933,920+12,"node1",this.mushroomRoot,false);
       this.mushroomNode2 = new mushroomNode(this,2342,824+12,"node2",this.mushroomRoot,false);
       this.mushroomNode3 = new mushroomNode(this,2084,728+12,"node3",this.mushroomRoot,true);
       this.mushroomNode4 = new mushroomNode(this,2534,600+12,"node4",this.mushroomRoot,false);

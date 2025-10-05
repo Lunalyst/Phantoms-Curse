@@ -35,7 +35,9 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.checkEarieShadowInteractions(tempSceneRef);
       },mushrooms: function mushroomsFunction(){
         tempSceneRef.checkMushroomInteractions(tempSceneRef);
-      }
+      },mushroomDefeats: function mushroomDefeatsFunction(){
+        tempSceneRef.checkMushroomDefeatsInteractions(tempSceneRef);
+      },
 
     };
 
@@ -1155,6 +1157,44 @@ class G9CheckEnemys extends G8InitEnemys {
         
     }, this);
 
+  }
+
+  //function to handle mushroom defeated animation
+  checkMushroomDefeatsInteractions(scene){
+
+    scene.mushroomDefeats.children.each(function (tempMushrooms) {
+
+      //make a temp player health object
+      let playerHealthObject = {
+        playerHealth: null,
+        playerMaxHealth: null
+      };
+
+      //if the player isnt already grabbed then call emitter. otherwise stop calling it to hopefully save resources?
+      if(tempMushrooms.playerGrabbed === false){
+        
+        //grab the player health value from the hud emitter.
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+      }
+      
+      //if the players curse bar is maxed out, and they are touching the floor, then trigger gameover.
+      if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax && scene.player1.mainHitbox.body.blocked.down) {
+          //stop the velocity of the player
+          tempMushrooms.setVelocityX(0);
+          scene.player1.mainHitbox.setVelocityX(0);
+          //calls the grab function
+          tempMushrooms.grab();
+          //sets the scene grab value to true since the player has been grabbed
+          // tells instance of slime that it has grabbed player
+          tempMushrooms.grabCoolDown = true;
+          tempMushrooms.playerGrabbed = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player was consumed by spores!');
+
+          }
+
+    });
   }
 
   

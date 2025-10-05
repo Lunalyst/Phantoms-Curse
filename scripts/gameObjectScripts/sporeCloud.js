@@ -15,8 +15,8 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'SporePoof',frames: this.anims.generateFrameNames('sporeCloud', { start: 0, end: 3 }),frameRate: 8,repeat: 0});
       this.anims.create({key: 'SporeLinger',frames: this.anims.generateFrameNames('sporeCloud', { start: 4, end: 12 }),frameRate: 8,repeat: -1});
 
-      this.setScale(1/3,1/3);
-      this.setSize(50,50,true);
+      this.setScale(1/2,1/2);
+      this.setSize(100,100,true);
 
       this.anims.play('SporePoof').once('animationcomplete' , () =>{
         this.anims.play("SporeLinger",true);

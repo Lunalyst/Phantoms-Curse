@@ -99,9 +99,13 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.earieShadows); 
           
           },
-           mushrooms: function mushroomsFunction() {
+          mushrooms: function mushroomsFunction() {
             console.log("adding mushrooms group");
             tempSceneRef.mushrooms = tempSceneRef.physics.add.group();
+          },
+          mushroomDefeats: function mushroomDefeatsFunction() {
+            console.log("adding mushrooms group");
+            tempSceneRef.mushroomDefeats = tempSceneRef.physics.add.group();
           },
           
         };

@@ -25,7 +25,7 @@ class ShadowCaveUpper extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["curseShadows","mushrooms"];
+      this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms"];
 
        //call built in function to preload enemys assets.
        this.setUpEnemyPreload(this.enemyGroupArray);
@@ -197,6 +197,7 @@ class ShadowCaveUpper extends defaultScene {
       setTimeout(function(){
 
           thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
 
           //thisScene.initEnemy(703,1028,thisScene.playerSex,'mushroom',false);
           thisScene.spawnedEnemys = true;

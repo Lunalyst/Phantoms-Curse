@@ -158,14 +158,14 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(cat);
         tempSceneRef.whiteCats.add(cat);
       },
-      curseShadow: function curseShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+      curseShadow: function curseShadowFunction(startX, startY, playerSex,inSafeMode) {
         let shadow = new curseShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         tempSceneRef.enemyId++;
         console.log("created curseShadow id: ",shadow.enemyId);
         tempSceneRef.enemys.add(shadow);
         tempSceneRef.curseShadows.add(shadow);
       },
-      earieShadow: function earieShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+      earieShadow: function earieShadowFunction(startX, startY, playerSex,inSafeMode) {
         let earieS = new EarieShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         tempSceneRef.enemyId++;
         console.log("created earieShadows id: ",earieS.enemyId);
@@ -173,12 +173,21 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.earieShadows.add(earieS);
       },
 
-      mushroom: function earieShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+      mushroom: function earieShadowFunction(startX, startY, playerSex,inSafeMode) {
         let mush = new mushroom(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         tempSceneRef.enemyId++;
         console.log("created mush id: ",mush.enemyId);
         tempSceneRef.enemys.add(mush);
         tempSceneRef.mushrooms.add(mush);
+      },
+      mushroomDefeat: function mushroomDefeatsFunction(startX, startY, playerSex,inSafeMode) {
+
+        let mush = new mushroomDefeat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        tempSceneRef.enemyId++;
+        console.log("created mushdefeat id: ",mush.enemyId);
+        tempSceneRef.enemys.add(mush);
+        tempSceneRef.mushroomDefeats.add(mush);
+
       },
       
     };

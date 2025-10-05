@@ -38,6 +38,8 @@ class mushroom extends enemy {
             this.anims.create({ key: 'becomeHidden', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 13, end: 18 }), frameRate: 12, repeat: 0 });
             this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
             this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 27, end: 31 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceIdle', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 31 }), frameRate: 15, repeat: -1 });
             //this.anims.create({ key: 'shroomDance', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 42 }), frameRate: 12, repeat: -1 });
         }
 
@@ -95,7 +97,7 @@ class mushroom extends enemy {
                 if(this.isHiding === true && this.inEmergingAnimation === false){
                     
                     if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
-                        console.log("player is in range");
+                        //console.log("player is in range");
                         this.inEmergingAnimation = true;
                         //play animation and go into not hiding logic
                         this.anims.play('popOut').once('animationcomplete', () => {
@@ -107,7 +109,7 @@ class mushroom extends enemy {
                                 
                         });
                     }else if(!this.checkXRangeFromPlayer(220, 220) || !this.checkYRangeFromPlayer(55, 100)){
-                        console.log("player is in range");
+                        //console.log("player is in range");
                         this.inEmergingAnimation = true;
                         //then play animation and go back to the hiding state.
                         
@@ -153,7 +155,7 @@ class mushroom extends enemy {
                         
                         
                     }else if(!this.checkXRangeFromPlayer(220, 220)){
-                        console.log("player is in range");
+                        //console.log("player is in range");
                         this.inEmergingAnimation = true;
                         this.sporeDanceLock = false;
                         //then play animation and go back to the hiding state.
@@ -292,7 +294,7 @@ class mushroom extends enemy {
         }
 
         
-        console.log("this.curNode: ",this.curNode);
+        //console.log("this.curNode: ",this.curNode);
 
        
     }
@@ -304,9 +306,22 @@ class mushroom extends enemy {
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
-       
-        //this.anims.play('enemyIdle', true);
-        this.setDepth(4);
+        if(this.isHiding === false && this.inEmergingAnimation === false){
+
+            //then play animation and go back to the hiding state.
+
+            this.inEmergingAnimation = true;
+            this.anims.play('becomeHidden').once('animationcomplete', () => {
+
+                this.isHiding = true;
+                this.inEmergingAnimation = false;
+                this.anims.play('hiding',true);
+                this.lightSource.radius = 90
+                    
+            });
+            this.setDepth(4);
+        }
+        
 
     }
 

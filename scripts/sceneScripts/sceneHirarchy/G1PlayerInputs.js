@@ -326,11 +326,11 @@ setUpKeyPrompts(){
       controlKeyEmitter.emit(controlKeyEvent.activateSkipIndicatorKey,keyObject);
           
       if(keyObject.isDown === true){
-        console.log("skip indicator returning true");
+        //console.log("skip indicator returning true");
         return true;
 
       }else{
-        console.log("skip indicator returning false                 ");
+       //console.log("skip indicator returning false                 ");
         return false;
       }
     }

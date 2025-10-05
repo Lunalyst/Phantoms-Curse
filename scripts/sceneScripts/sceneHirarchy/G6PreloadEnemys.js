@@ -227,13 +227,18 @@ class G6PreloadEnemys extends G5InitNPCs{
           "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
         ]);
       },
-
       mushrooms: function mushroomsFunction() {
 
         tempSceneRef.load.spritesheet('mushroom-nodes', 'assets/gameObjects/mushroom-nodes.png',{frameWidth: 303, frameHeight: 303 });
         tempSceneRef.load.spritesheet('mycelium', 'assets/gameObjects/mycelium.png',{frameWidth: 99, frameHeight: 99 });
         tempSceneRef.load.spritesheet('sporeCloud', 'assets/gameObjects/sporeCloud.png',{frameWidth: 219, frameHeight: 219 });
         tempSceneRef.load.spritesheet('mushroom-female-tf', 'assets/enemys/mushroom-female-tf.png',{frameWidth: 303, frameHeight: 303 });
+
+      },
+      mushroomDefeats: function mushroomsFunction() {
+
+        tempSceneRef.load.spritesheet('evelyn-mushroom-tf', 'assets/enemys/evelyn-mushroom-tf.png',{frameWidth:393, frameHeight: 243 });
+
 
       },
 

@@ -1247,16 +1247,14 @@ class gameHud extends A3SoundEffects {
         }else{
           this.label12.setText('Num of npcTriggers: 0');
         }
+        console.log("this.gameplaySceneRef.enemys: ",this.gameplaySceneRef.enemys.children);
 
-        if(this.gameplaySceneRef.lightingSystemActive === true){
-          if(this.gameplaySceneRef.enemys !== undefined && this.gameplaySceneRef.enemys !== null ){
-            if(this.gameplaySceneRef.enemys.children !== undefined && this.gameplaySceneRef.enemys.children !== null ){
-              this.label13.setText('Num of Enemies:  (' + this.gameplaySceneRef.enemys.children.entries.length +')');
-            }
+        if(this.gameplaySceneRef.enemys !== undefined && this.gameplaySceneRef.enemys !== null ){
+          if(this.gameplaySceneRef.enemys.children !== undefined && this.gameplaySceneRef.enemys.children !== null ){
+             this.label13.setText('Num of Enemies:  (' + this.gameplaySceneRef.enemys.children.entries.length +')');
           }
-          
         }else{
-          this.label13.setText('Num of Enemies: 0');
+        this.label13.setText('Num of Enemies: 0');
         }
 
       }

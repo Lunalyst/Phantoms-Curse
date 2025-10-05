@@ -1247,7 +1247,7 @@ class gameHud extends A3SoundEffects {
         }else{
           this.label12.setText('Num of npcTriggers: 0');
         }
-        console.log("this.gameplaySceneRef.enemys: ",this.gameplaySceneRef.enemys.children);
+       // console.log("this.gameplaySceneRef.enemys: ",this.gameplaySceneRef.enemys.children);
 
         if(this.gameplaySceneRef.enemys !== undefined && this.gameplaySceneRef.enemys !== null ){
           if(this.gameplaySceneRef.enemys.children !== undefined && this.gameplaySceneRef.enemys.children !== null ){

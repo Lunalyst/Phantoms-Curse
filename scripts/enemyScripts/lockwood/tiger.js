@@ -17,12 +17,12 @@ class tiger extends enemy {
         }else{
             let randomPref = Math.floor((Math.random() * 2));
             console.log('randomPref',randomPref);
-            if(randomPref === 1){
+            if(randomPref === 0){
                 super(scene, xPos, yPos, sex, id, 100, 'tigerMale');
-                this.enemySex = 1;
+                this.enemySex = 0;
             }else{
                 super(scene, xPos, yPos, sex, id, 100, 'tigerFemale');
-                this.enemySex = 0;
+                this.enemySex = 1;
             }
         }
         

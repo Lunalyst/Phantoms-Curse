@@ -233,6 +233,7 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('mycelium', 'assets/gameObjects/mycelium.png',{frameWidth: 99, frameHeight: 99 });
         tempSceneRef.load.spritesheet('sporeCloud', 'assets/gameObjects/sporeCloud.png',{frameWidth: 219, frameHeight: 219 });
         tempSceneRef.load.spritesheet('mushroom-female-tf', 'assets/enemys/mushroom-female-tf.png',{frameWidth: 303, frameHeight: 303 });
+        tempSceneRef.load.spritesheet('mushroom-male-tf', 'assets/enemys/mushroom-male-tf.png',{frameWidth: 303, frameHeight: 303 });
 
       },
       mushroomDefeats: function mushroomsFunction() {

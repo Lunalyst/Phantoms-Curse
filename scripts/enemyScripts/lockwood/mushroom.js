@@ -5,7 +5,28 @@ class mushroom extends enemy {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, sex, id, 20, 'mushroom');
+       
+
+         if(scene.preferance === 0){
+            super(scene, xPos, yPos, sex, id, 20, 'mushroom-male-tf');
+            this.enemySex = 0;
+        }else if(scene.preferance === 1){
+            super(scene, xPos, yPos, sex, id, 20, 'mushroom-female-tf');
+            this.enemySex = 1;
+        
+        //if the pref is either, then we randomly pick a sex for the bat.
+        
+        }else{
+            let randomPref = Math.floor((Math.random() * 2));
+            console.log('randomPref',randomPref);
+            if(randomPref === 0){
+                super(scene, xPos, yPos, sex, id, 20, 'mushroom-male-tf');
+                this.enemySex = 0;
+            }else{
+                super(scene, xPos, yPos, sex, id, 20, 'mushroom-female-tf');
+                this.enemySex = 1;
+            }
+        }
 
         // sets gravity 
         this.body.setGravityY(600); 
@@ -29,8 +50,15 @@ class mushroom extends enemy {
          this.transferSpeed = 300;
           
         //defines Enemy animations based on the players sex.
-        if (sex === 0) {
-           
+        if (this.enemySex === 0) {
+            this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'popOut', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 3, end: 8 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'mushIdle', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 9, end: 12 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'becomeHidden', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 13, end: 18 }), frameRate: 12, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 27, end: 31 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'shroomDanceIdle', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 31 }), frameRate: 15, repeat: -1 });
         }else{
             this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'popOut', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 3, end: 8 }), frameRate: 12, repeat: 0 });

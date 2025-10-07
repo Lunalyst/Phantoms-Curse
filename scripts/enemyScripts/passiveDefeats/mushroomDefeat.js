@@ -21,9 +21,12 @@ class mushroomDefeat extends enemy {
             this.anims.create({ key: 'headSwallow', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 4, end: 10 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'headSucking', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 11, end: 14 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'bodySwallow', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 15, end: 21 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'sexDance', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 22, end: 33 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'fullAbsorb', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 34, end: 37 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceStart', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 22, end: 24 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 25, end: 33 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'fullAbsorb1', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 34, end: 35 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'fullAbsorb2', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 36, end: 37 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeMushIdle', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 38, end: 41 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'gameover', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 42, end: 45 }), frameRate: 7, repeat: -1 });
 
         }
     
@@ -35,36 +38,16 @@ class mushroomDefeat extends enemy {
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
             //also sets up the curse light for if the player is cursed.
-            this.curseLight1 = this.scene.lights.addLight(this.x,this.y-30, 40, 0xb317ff);
+            this.curseLight1 = this.scene.lights.addLight(this.x,this.y+5, 40, 0x222222);
+            this.curseLight1.intensity = 2;
             this.curseLight1.visible = false;
 
-            //adds a tween to yoyo the radius of the light giving it a flicker effect.
-                this.scene.tweens.add({
-                    targets: this.curseLight1,
-                    props : {
-                        radius: {value : '+=' +10},
-                    }, 
-                    ease: 'linear',
-                    duration: 1000,
-                    repeat: -1,
-                    yoyo: true
-                });
-
             //also sets up the curse light for if the player is cursed.
-            this.curseLight2 = this.scene.lights.addLight(this.x,this.y-30, 70, 0xb317ff);
+            this.curseLight2 = this.scene.lights.addLight(this.x,this.y+5, 70, 0xb317ff);
             this.curseLight2.visible = false;
+            
 
-            //adds a tween to yoyo the radius of the light giving it a flicker effect.
-                this.scene.tweens.add({
-                    targets: this.curseLight2,
-                    props : {
-                        radius: {value : '+=' +20},
-                    }, 
-                    ease: 'linear',
-                    duration: 1000,
-                    repeat: -1,
-                    yoyo: true
-                });
+           
           }
 
     }
@@ -74,13 +57,15 @@ class mushroomDefeat extends enemy {
      
     }
 
-    //functioned called to play animation when the player is defeated by the passive enemy in gameover.
-    enemyGameOver() {
+    moveIdle(){
+        
+    }
 
+    //functioned called to play animation when the player is defeated by the passive enemy in gameover.
+    gameOver() {
+        this.visible = true;
         //have player appear as root mushroom with there offshoots being active. 
-        this.setSize(100, 150, true);
-        this.setOffset(90, 150);
-        this.anims.play('enemyGameOver', true);
+        this.anims.play('gameover', true);
     }
 
     //the grab function. is called when player has overlaped with an enemy enemy.
@@ -183,7 +168,11 @@ class mushroomDefeat extends enemy {
             this.playerDefeated = true;
             skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-            this.scene.enemyThatDefeatedPlayer = "mushroomDefeat";
+            if(this.scene.playerSex === 0){
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.mushroomMaleTF;
+            }else{
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.mushroomFemaleTF;
+            }
 
             // if we start the player defeated animation then we need to set a few things.
             ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
@@ -258,12 +247,27 @@ class mushroomDefeat extends enemy {
         let currentEnemy = this;
         if (this.playerDefeatedAnimationStage === 1) {
 
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y-30;
+            this.curseLight1.radius = 60;
+
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y-30;
+            this.curseLight2.radius = 80;
+
             this.playerDefeatedAnimationStageMax = 7;
             this.anims.play("smallMushOnHead",true);
 
          
         }else if (this.playerDefeatedAnimationStage === 2) {
+             //turn on the light. 
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y-27;
+            this.curseLight1.radius = 70;
 
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y-27;
+            this.curseLight2.radius = 90;
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
@@ -280,18 +284,41 @@ class mushroomDefeat extends enemy {
 
          
         }else if (this.playerDefeatedAnimationStage === 3) {
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y-25;
+            this.curseLight1.radius = 80;
+
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y-25;
+            this.curseLight2.radius = 100;
 
             this.anims.play("headSucking",true);
 
          
         }else if (this.playerDefeatedAnimationStage === 4) {
 
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y;
+            this.curseLight1.radius = 90;
+           
+
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y;
+            this.curseLight2.radius = 110;
+
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
                 this.anims.play('bodySwallow').once('animationcomplete', () => {
-
+                    this.curseLight1.x = this.x
+                    this.curseLight1.y = this.y;
+                    this.curseLight1.radius = 90;
+                    this.curseLight1.intensity = 1.1;
+            
+                    this.curseLight2.x = this.x
+                    this.curseLight2.y = this.y;
+                    this.curseLight2.radius = 110;
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
@@ -303,14 +330,37 @@ class mushroomDefeat extends enemy {
          
         }else if (this.playerDefeatedAnimationStage === 5) {
 
+            this.curseLight1.y = this.y-20;
+            this.curseLight1.radius = 100;
+            this.curseLight1.intensity = 1.5;
+           
+            this.curseLight2.y = this.y-20;
+            this.curseLight2.radius = 120;
+            this.curseLight2.intensity = 1.1;
+
              if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
-                this.anims.play('sexDance').once('animationcomplete', () => {
+                this.anims.play('sexDanceStart').once('animationcomplete', () => {
 
-                    this.flipX = !this.flipX;
-                    this.animationPlayed = false;
+                    if(this.flipX){
+                        this.curseLight1.x = this.x + 7;
+                        this.curseLight2.x = this.x + 7;
+                    }else{
+                        this.curseLight1.x = this.x - 7;
+                        this.curseLight2.x = this.x - 7;
+                    }
+
+                    this.anims.play('sexDanceEnd').once('animationcomplete', () => {
+
+                        this.curseLight1.x = this.x;
+                        this.curseLight2.x = this.x;
+
+                        this.flipX = !this.flipX;
+                        this.animationPlayed = false;
+
+                    });
 
                 });
 
@@ -318,22 +368,41 @@ class mushroomDefeat extends enemy {
 
          
         }else if (this.playerDefeatedAnimationStage === 6) {
-
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y-10;
+            this.curseLight1.intensity = 1.7;
+                
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y-10;
+           
             if (!this.animationPlayed) {
-
                 this.animationPlayed = true;
+                this.anims.play('fullAbsorb1').once('animationcomplete', () => {
+                    this.curseLight1.radius = 110;
+                    this.curseLight2.radius = 130;
+                    this.curseLight1.intensity = 1.8;
 
-                this.anims.play('fullAbsorb').once('animationcomplete', () => {
+                    this.anims.play('fullAbsorb2').once('animationcomplete', () => {
+                        this.curseLight1.radius = 120;
+                        this.curseLight2.radius = 140;
 
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        this.inStartDefeatedLogic = false;
+                    });
                 });
 
             }
 
          
         }else if (this.playerDefeatedAnimationStage === 7) {
+            this.curseLight1.x = this.x
+            this.curseLight1.y = this.y-15;
+            this.curseLight1.radius = 130;
+
+            this.curseLight2.x = this.x
+            this.curseLight2.y = this.y-15;
+            this.curseLight2.radius = 150;
 
             this.anims.play("largeMushIdle",true);
 

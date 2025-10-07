@@ -106,6 +106,7 @@ class mushroom extends enemy {
                             this.inEmergingAnimation = false;
                             this.anims.play('mushIdle',true);
                             this.lightSource.radius = 110
+                            this.lightSource.intensity = 0.9;
                                 
                         });
                     }else if(!this.checkXRangeFromPlayer(220, 220) || !this.checkYRangeFromPlayer(55, 100)){
@@ -116,7 +117,8 @@ class mushroom extends enemy {
                         this.isHiding = true;
                         this.inEmergingAnimation = false;
                         this.anims.play('hiding',true);
-                        this.lightSource.radius = 90
+                        this.lightSource.radius = 90;
+                        this.lightSource.intensity = 0.7;
 
                         this.moveMushroomFollow();
                                 
@@ -131,6 +133,12 @@ class mushroom extends enemy {
                             this.sporeDanceLock = true;
 
                             this.anims.play("shroomDanceStart",true).once('animationcomplete', () =>{
+
+                                if(this.scene.player1.x > this.x){
+                                    this.scene.initSporeCloud(this.x,this.y,"left");
+                                }else{
+                                    this.scene.initSporeCloud(this.x,this.y,"right");
+                                }
 
                                 this.scene.initSporeCloud(this.x,this.y,this.direction);
 
@@ -161,10 +169,15 @@ class mushroom extends enemy {
                         //then play animation and go back to the hiding state.
                         this.anims.play('becomeHidden').once('animationcomplete', () => {
 
+                            this.scene.initSporeCloud(this.x,this.y,"left");
+
+                            this.scene.initSporeCloud(this.x,this.y,"right");
+
                             this.isHiding = true;
                             this.inEmergingAnimation = false;
                             this.anims.play('hiding',true);
-                            this.lightSource.radius = 90
+                            this.lightSource.radius = 90;
+                            this.lightSource.intensity = 0.7;
 
                             this.moveMushroomFollow();
                                 
@@ -223,7 +236,11 @@ class mushroom extends enemy {
                     this.x = this.curNode.x;
                     this.visible = true;
                     this.lightSource.y = this.y;
-                    this.lightSource.radius = 130
+                    this.lightSource.radius = 130;
+                    this.lightSource.intensity = 0.9;
+
+                    this.scene.initSporeCloud(this.x,this.y,"still");
+
                 }
  
                 
@@ -253,7 +270,8 @@ class mushroom extends enemy {
 
         //move the mushroom to the new location
         this.movingToNewNode = true;
-        this.lightSource.radius = 90
+        this.lightSource.radius = 90;
+        this.lightSource.intensity = 0.7;
 
         this.visible = false;
     }
@@ -287,7 +305,8 @@ class mushroom extends enemy {
 
             //move the mushroom to the new location by setting variable to triggler move logic in our move function. 
             this.movingToNewNode = true;
-            this.lightSource.radius = 90
+            this.lightSource.radius = 90;
+            this.lightSource.intensity = 0.7;
 
             this.visible = false;
 
@@ -316,7 +335,8 @@ class mushroom extends enemy {
                 this.isHiding = true;
                 this.inEmergingAnimation = false;
                 this.anims.play('hiding',true);
-                this.lightSource.radius = 90
+                this.lightSource.radius = 90;
+                this.lightSource.intensity = 0.7;
                     
             });
             this.setDepth(4);
@@ -802,7 +822,8 @@ class mushroom extends enemy {
                         this.isHiding = true;
                         this.inEmergingAnimation = false;
                         this.anims.play('hiding',true);
-                        this.lightSource.radius = 90
+                        this.lightSource.radius = 90;
+                        this.lightSource.intensity = 0.7;
 
                         this.moveMushroomRandom();
                                 
@@ -817,7 +838,7 @@ class mushroom extends enemy {
                 that.damageCoolDown = false;
                 console.log("damage cool down:" + that.damageCoolDown);
                 that.clearTint();
-            }, 100);
+            }, 1000);
         }
     }
 

@@ -342,6 +342,9 @@ const bestiaryKey = {
   shadowCurse:"shadow_curse_vore",
   shadowEarie:"shadow_earie_tf",
 
+  mushroomFemaleTF:"mushroom_female_tf",
+  mushroomMaleTF:"mushroom_male_tf",
+
   istaraUnbirth:"istara_unbirth",
 
   vivianTF:"vivian_tf",
@@ -483,6 +486,14 @@ const bestiaryTextList = {
       vivian_vore_2: {
         title: "VIVIAN'S CODE",
         summary: "Vivian has a network of chests she can travel through to provide her services and catch prey. If you don't want to be eaten, then you should knock on one of her marked chests twice. No more, no less.",
+      },
+      mushroom_female_tf:{
+        title: "FEMALE MUSHROOM NODE",
+        summary: " a female mushroom branch",
+      },
+      mushroom_male_tf:{
+        title: "MALE MUSHROOM NODE",
+        summary: " a male mushroom branch",
       },
 
       back: {

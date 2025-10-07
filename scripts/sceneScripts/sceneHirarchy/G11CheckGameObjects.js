@@ -344,8 +344,10 @@ class G11CheckGameObjects extends G10CheckNPCS {
       //handle direction where mushroom spore cloud floats
       if(tempProjectile.direction === 'left'){
         tempProjectile.setVelocityX(30);
+      }else if(tempProjectile.direction === 'right'){
+        tempProjectile.setVelocityX(-30);
       }else{
-        tempProjectile.setVelocityX(30 *-1);
+        tempProjectile.setVelocityX(0);
       }
       
      
@@ -373,9 +375,6 @@ class G11CheckGameObjects extends G10CheckNPCS {
           tempProjectile.destroy();*/
         
       });
-
-      //code to tell the player to go into gameoverself grab if curse bar is maxed out.
-      //also need to makesure player is touching the ground. what if there bar maxes out and there falling into the loading zone?
 
       
     });

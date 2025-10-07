@@ -663,6 +663,32 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'eaten';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,1200);
             },
+            mushroom_female_tf: function mushroomFemaleTFFunction() {
+                tempSceneRef.enemy = new mushroomDefeat(tempSceneRef,450, 567,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight2.intensity = 2;
+                tempSceneRef.enemy.curseLight2.visible = true;
+                tempSceneRef.enemy.gameOver();
+                tempSceneRef.defeatedTitle = 'cursed';
+
+                tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
+
+                tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,270, 547,"node1",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,550, 547+32,"node2",tempSceneRef.mushroomRoot,false);
+            },
+            mushroom_male_tf: function mushroomMaleTFFunction() {
+                tempSceneRef.enemy = new mushroomDefeat(tempSceneRef,450, 567,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight2.intensity = 2;
+                tempSceneRef.enemy.curseLight2.visible = true;
+                tempSceneRef.enemy.gameOver();
+                tempSceneRef.defeatedTitle = 'cursed';
+
+                tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
+
+                tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,270, 547,"node1",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,550, 547+32,"node2",tempSceneRef.mushroomRoot,false);
+            },
         }
     }
 
@@ -1156,6 +1182,13 @@ class gameoverManager extends A3SoundEffects {
             },
             vivian_vore_2: function  vivianVore2Function() {
                 
+            },
+
+            mushroom_female_tf: function mushroomFemaleTFFunction() {
+              
+            },
+            mushroom_male_tf: function mushroomMaleTFFunction() {
+
             },
         }
     }

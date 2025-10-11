@@ -239,6 +239,7 @@ class G6PreloadEnemys extends G5InitNPCs{
       mushroomDefeats: function mushroomsFunction() {
 
         tempSceneRef.load.spritesheet('evelyn-mushroom-tf', 'assets/enemys/evelyn-mushroom-tf.png',{frameWidth:393, frameHeight: 243 });
+        tempSceneRef.load.spritesheet('evan-mushroom-tf', 'assets/enemys/evan-mushroom-tf.png',{frameWidth:393, frameHeight: 243 });
 
 
       },

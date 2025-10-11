@@ -874,22 +874,22 @@ class mushroom extends enemy {
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
-            this.enemyHP -= (slice / 4);
+            this.enemyHP -= (slice * 2);
         }
         if (blunt > 0) {
-            this.enemyHP -= (blunt * 3);
+            this.enemyHP -= (blunt * 2);
         }
         if (pierce > 0) {
-            this.enemyHP -= (pierce / 2);
+            this.enemyHP -= (pierce / 4);
         }
         if (heat > 0) {
-            this.enemyHP -= (heat / 4);
+            this.enemyHP -= (heat);
         }
         if (lightning > 0) {
-            this.enemyHP -= (lightning * 2);
+            this.enemyHP -= (lightning / 4);
         }
         if (cold > 0) {
-            this.enemyHP -= (cold / 4);
+            this.enemyHP -= (cold );
         }
         if (curse > 0) {
             this.enemyHP -= curse;

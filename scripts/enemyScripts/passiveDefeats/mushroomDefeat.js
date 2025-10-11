@@ -14,9 +14,18 @@ class mushroomDefeat extends enemy {
 
         //defines Enemy animations based on the players sex.
         if (sex === 0) {
-           
-        }else{
+            this.anims.create({ key: 'smallMushOnHead', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'headSwallow', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 4, end: 10 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'headSucking', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 11, end: 14 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'bodySwallow', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 15, end: 21 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceStart', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 22, end: 24 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 25, end: 33 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'fullAbsorb1', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 34, end: 35 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'fullAbsorb2', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 36, end: 37 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'largeMushIdle', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 38, end: 41 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'gameover', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 42, end: 45 }), frameRate: 7, repeat: -1 });
 
+        }else{
             this.anims.create({ key: 'smallMushOnHead', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'headSwallow', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 4, end: 10 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'headSucking', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 11, end: 14 }), frameRate: 7, repeat: -1 });

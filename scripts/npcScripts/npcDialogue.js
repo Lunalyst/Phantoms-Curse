@@ -293,15 +293,62 @@ const npcDialogue = {
         },
 
         "sign":{
-            "soul":{
-                "rejection":{
+            "generic":{
+                "tutorialSign1":{
                     "node1":{
-                        "dialogue": "Ever since I was young, this world has rejected me. I have always felt like a outcast. Even despite the thing I have acomplished, it all feels meaningless. But that's not true. Because what I have achieved here... Is more than they could ever imagine. On this island, I can make my own future. What gives them the right",
+                        "dialogue": "To anyone who wash up here, head towards the cave to the right.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
                     },
-                }
+                },
+                "tutorialCabin":{
+                    "node1":{
+                        "dialogue": "Follow the platforms upward. We have a small lodging for those that wash up here. It's not much, but it's the best we could do for you. You could wait for one of us to come get you; however, it's been a long time since anyone was up here and we don't check this cabin often.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "slimeWarning":{
+                    "node1":{
+                        "dialogue": "DANGER!",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Beware, slime nests ahead; try to stay outside of the slime as the nesting slimes don't like to leave their slime.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "ominousOmen1":{
+                    "node1":{
+                        "dialogue": "All that you are, and all that you could be. Your heart becomes apart from me. From your seed sprouted a great tree. With branches so wide, that in its shade, our nightmares could hide.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "ominousOmen2":{
+                    "node1":{
+                        "dialogue": "What is it you seek? A future or a dead end? Won't you reach out your heart, and show me?",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "ominousOmen3":{
+                    "node1":{
+                        "dialogue": "The heart of this island hungers for you. Devowering memorys, and sweet sentiments unfilled. Spurned on by an intense yearning, for something it cannot yet perceive. When it reaches out its hand, will you take it?",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+
             }
 
         },

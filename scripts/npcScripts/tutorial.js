@@ -33,7 +33,7 @@ class Tutorial extends npc{
 
   //overwrites base npc classes function with flagging logic specific to lunalyst.
   flagLogic(){
-    
+    console.log("in overwritten flaglogic function of tutorial, this.npcType: ",this.npcType);
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'movement'){
       this.movement();
@@ -64,7 +64,7 @@ class Tutorial extends npc{
 
   //tutorial prompt explaining movement.
   movement(){
-
+     console.log("in movement logic");
     this.scene.player1.x = this.x; 
     this.scene.player1.y = this.y; 
     this.scene.player1.mainHitbox.x = this.scene.player1.x;
@@ -94,7 +94,7 @@ class Tutorial extends npc{
         this.scene.tutorialSprite.tutorialVisibility(false);
       }
     }
-
+    console.log("activated bell")
     this.activateBell();
 
   }

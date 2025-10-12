@@ -1,6 +1,4 @@
 
-
-
 class textBox extends Phaser.GameObjects.Container{
     // every class needs constructor
     constructor(scene, xPos, yPos,font){
@@ -131,7 +129,7 @@ class textBox extends Phaser.GameObjects.Container{
         
         
         //if the player pressed w then
-        if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown)){
+        /*if((this.scene.checkWPressed() && this.textInterupt === false && this.textCoolDown && this.atTheBeginning === false)){
 
           console.log("this.textInterupt: ",this.textInterupt, " this.textCoolDown:",this.textCoolDown);
           //progression amount is important so we know when to interupt recursive displaytexthelper.
@@ -145,7 +143,7 @@ class textBox extends Phaser.GameObjects.Container{
           this.displayText(this.startPosition,this.endPosition);
 
           this.activateTextboxDelay(); 
-        }
+        }*/
 
         //once we reach the end of the text, we release the player back into the scene
         if(this.endPosition-textEnd > this.currentText.length-1){

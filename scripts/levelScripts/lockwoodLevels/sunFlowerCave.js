@@ -97,10 +97,6 @@ class sunFlowerCave extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(4666-4160,1085+13,
-        "WHAT DOES IT MEAN TO BE DRIVEN? EVERYDAY I FIND MY SELF CONTINUE TO FIGHTING, BUT A PART OF ME FEARS THAT I WONT LIVE UP TO THE EXPECTATION MY DESIRES HAVE SET.",
-        ['signLoop']);
-
       this.skybackround = this.add.tileSprite(1500, -1740, 7*1024, 6*1024, "backgroundSkyLevel");
       this.skybackround.setDepth(-50);
       this.skybackround.setTint(0xd3d3d3);
@@ -173,6 +169,8 @@ class sunFlowerCave extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(4666-4160,1085+13,"generic", "ominousOmen2");
 
       // adds lighting effect for level background
       //this.light1 = this.lights.addLight(4642-4160, 605-30, 100);

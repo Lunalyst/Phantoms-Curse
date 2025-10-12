@@ -276,9 +276,12 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //function called when a trigger npc overlaps  
   overlapActivateNpc(){
 
+    
+    
     //if the id matches and we havent activated the trigger yet.
     if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
 
+      console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
       //logic to start dialogue
       this.dialogueLogicStart();
 
@@ -293,6 +296,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
     //otherwise if the trigger was activated, and the player is in dialogue, then have w progress dialogue.
     }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.triggerNpcFinished === false){
+
+      console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
 
       //logic to start dialogue
       this.dialogueLogicStart();
@@ -315,6 +320,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //handles the node progression 
   nodeHandler(npc,behavior,flag,diversionNode){
     console.log("calling node handler");
+
     //check if the dialogue node is set.
     this.scene.sceneTextBox.npcReset();
 
@@ -344,7 +350,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
 
-            //console.log(this.currentDictNode.children[0].nodeName);
+            console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
             //time out for our node progression.

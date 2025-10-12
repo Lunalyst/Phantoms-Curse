@@ -2,7 +2,7 @@
 class lunalyst extends npc{
     // every class needs constructor
     constructor(scene, xPos, yPos,npcType){
-      //super() calls the constructor() from the parent class we are extending
+      
       super(scene, xPos, yPos, 'lunalyst');
 
       this.anims.create({key: 'lunalystIdle',frames: this.anims.generateFrameNames('lunalyst', { start: 1, end: 4 }),frameRate: 7,repeat: -1});

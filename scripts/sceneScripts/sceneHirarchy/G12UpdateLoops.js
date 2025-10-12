@@ -52,7 +52,6 @@ class G12UpdateLoops extends G11CheckGameObjects{
       
       //console.log("signCoolDown: ",this.signCoolDown);
       if(this.signCoolDown === true){
-        this.checkSign(this);
         this.checkNpc(this);
         this.checkNpcTriggers(this);
       }

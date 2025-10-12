@@ -51,7 +51,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.sceneTextBox.visible = false;
                     that.scene.femaleIcon.visible = false;
                     that.scene.maleIcon.visible = false;
-                    that.scene.creditsButton.visible = true;
+                    that.scene.creditsButton.visible = false;
     
                     that.scene.showSaveSlots(true,false);
                    

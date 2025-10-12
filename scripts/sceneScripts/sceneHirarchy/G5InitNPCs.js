@@ -20,6 +20,22 @@ class G5InitNPCs extends G4InitGameObjects {
 
   }
 
+   //creates a sign object in the scene
+  initSigns(x, y, text , textKey) {
+
+      let sign1 = new sign(this, x, y, text, textKey);
+      sign1.npcId = this.npcId;
+      this.signId++;
+
+      this.npcs.add(sign1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        sign1.setPipeline('Light2D');
+      }
+      
+  }
+
   //creates a lunalyst NPC
   initLunalyst(x, y, text) {
     let luna = new lunalyst(this, x, y, text);

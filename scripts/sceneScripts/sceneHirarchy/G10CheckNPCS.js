@@ -31,10 +31,11 @@ class G10CheckNPCS extends G9CheckEnemys {
         //default range of trigger npc
       if(tempNpc.npcTriggerRange === false){
         //alter here for the trigger of the trigger npc dialogue.
-        console.log("testing");
+        //console.log("catching player in trigger npc");
+        //console.log("scene.grabbed:", scene.grabbed, " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished);
         if (this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
           
-          //console.log("in range");
+          console.log("activating overlap npc in G10CHECKNPCS");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
           tempNpc.overlapActivateNpc();

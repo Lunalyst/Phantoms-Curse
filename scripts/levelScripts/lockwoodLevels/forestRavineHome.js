@@ -87,12 +87,16 @@ class ForestRavineHome extends defaultScene {
       //this.initSavePoints(2050,558);
         // as well as signs.
 
+      //sets up containers
+      this.setUpContainers();
+      //sets up item drops for the scene
+      this.setUpItemDrops();
+      this.setUpItemDropCollider();
+
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(813,1757+12,
-        "follow the platforms upward. we have a small lodging for those that wash up here. its not much, but its the best we could do for you. you could wait for one of us to come get you, however, its been a long time since anyone wash up here and we dont check this cabin often. ",
-        ['signLoop']);
+      this.initSigns(813,1757+12,"generic","tutorialCabin");
 
       this.initPortals(390,1904,1777,541,"warpCaveOutside","tutorialCaveLevel");
 
@@ -104,11 +108,7 @@ class ForestRavineHome extends defaultScene {
 
       this.initPortals(1470,1725-13,637,605,"door2","DevRoom1");
 
-      //sets up containers
-      this.setUpContainers();
-      //sets up item drops for the scene
-      this.setUpItemDrops();
-      this.setUpItemDropCollider();
+      
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

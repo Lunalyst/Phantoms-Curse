@@ -88,12 +88,6 @@ class HomeInterior1 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      /*this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
-         ['signLoop']);
-        */
-      
-
       this.initPortalsWithTransparency(500,592,1501,1277,"door1","ForestRavineHome",0.75);
       
       this.initPortals(352,592,352,605,"door2","HomeInterior2");

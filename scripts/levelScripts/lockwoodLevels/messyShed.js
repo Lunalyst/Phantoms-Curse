@@ -116,14 +116,6 @@ class messyShed extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      /*this.initSigns(1574,1673,
-        "This Island is host to many monsters. tread carefully! ",
-         ['signLoop']);
-
-      this.initSavePoints(896,1230);*/
-
-      //this.initSavePoints(450,590);
-
       this.initPortalsWithTransparency(1005,600-8,2753,824,"door1","PondForest",0.75);
 
       //sets up containers

@@ -92,12 +92,6 @@ class blueSlimeCave1 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(406,1341+12,
-        "DANGER! beware slime nest ahead, try to stay outside of the slime as the nesting slimes dont like to leave there slime. ",
-        ['signLoop']);
-
-      //this.initSavePoints(494,1245-14);
-
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
 
       this.initPortals(388,1789-13,449,669,"warpCaveOutside","blueSlimeCave");
@@ -109,9 +103,6 @@ class blueSlimeCave1 extends defaultScene {
 
       this.initPortals(1796,573-13,381,1661,"warpCaveInside","PondForest");
       //this.fakeWarp3 = new fakeWarp(this,1796,573-13,'warpCaveOutsideRubble');
-
-      
- 
 
       //sets up containers
       this.setUpContainers();
@@ -127,6 +118,8 @@ class blueSlimeCave1 extends defaultScene {
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(406,1341+12,"generic","slimeWarning");
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);

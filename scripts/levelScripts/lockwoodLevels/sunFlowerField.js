@@ -93,10 +93,6 @@ class sunFlowerField extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(839,1149-416+13,
-          "THE WEIGHT OF MY HEART THREATENS TO TOPLE ME OVER. OVERFLOWING WITH MEMORYS OF LOST PROMISES AND SWEET SENTIMENTS UNFUFILLED. ITS ENOUGH TO DRIVE ME TO MY KNEES AND YET IM AM SPURNED TO KEEP MOVING FORWARD BY ACHING IN MY HEART.",
-          ['signLoop']);
-
       this.parrallax2XOrigin = 3000;
       this.parrallax2YOrigin = -280+70;
       this.parrallax2 = this.add.tileSprite(3000, -280+70, 7*1600, 1090, "backgroundTreeLevel");
@@ -140,6 +136,8 @@ class sunFlowerField extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(839,1149-416+13,"generic","ominousOmen3");
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);

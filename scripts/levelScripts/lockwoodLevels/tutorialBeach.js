@@ -150,7 +150,6 @@ class tutorialBeach extends defaultScene {
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
-      this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
       //this sets up the text box which will be used by the signs to display text.
@@ -158,16 +157,13 @@ class tutorialBeach extends defaultScene {
 
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
-      this.initSigns(877,888+18,
-        "to anyone who wash up here, head towards the cave to the right.",
-        ['signLoop']);
-
-      
       //make a sprite 
       this.tutorialSprite = new TutorialSprite(this, 600, 380);
 
       //sets up containers
       this.setUpContainers();
+
+      this.initSigns(877,888+18,"generic","tutorialSign1");
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

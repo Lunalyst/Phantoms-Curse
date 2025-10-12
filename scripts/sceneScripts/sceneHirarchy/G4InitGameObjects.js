@@ -117,23 +117,6 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 }
 
   //creates a sign object in the scene
-  initSigns(x, y, text, profileArray) {
-      let sign1 = new sign(this, x, y, text, profileArray);
-      
-      sign1.signId = this.signId;
-      this.signId++;
-
-      this.signPoints.add(sign1);
-      //console.log("added sign",this.signPoints);
-
-      //if we are using dark lighting
-      if(this.lightingSystemActive === true){ 
-        sign1.setPipeline('Light2D');
-      }
-      
-  }
-
-  //creates a sign object in the scene
   initStorage(x, y) {
     let storage = new storageLocker(this, x, y);
 

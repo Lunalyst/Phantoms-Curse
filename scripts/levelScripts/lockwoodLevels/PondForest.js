@@ -135,14 +135,6 @@ class PondForest extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(2571,1080+17,
-        "ALL THAT YOU ARE, AND ALL THAT YOU COULD BE. YOUR HEART BECOMES APART OF ME. FROM YOUR SEED SPROUTED A GREAT TREE. WITH BRANCHES SO WIDE, THAT IN ITS SHADE, OUR NIGHTMARES COULD HIDE.",
-        ['signLoop']);
-
-      /*this.skybackround = this.add.tileSprite(1500, 800, 8*1377,918, "backgroundForestStaticLevel");
-      this.skybackround.setDepth(-51);
-      this.skybackround.setTint(0xd3d3d3);*/
-
       this.backroundXOrigin = 1500;
       this.backroundYOrigin = 500;
       this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 10*1600 ,1090, "backgroundForestStaticLevel");
@@ -192,6 +184,8 @@ class PondForest extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(2571,1080+17,"generic","ominousOmen1");
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);

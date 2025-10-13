@@ -37,8 +37,8 @@ class ShadowCave extends defaultScene {
 
       this.defaultPreload();
 
-      this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
-        "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
+       this.load.audioSprite('slowMyceliumSFX','audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.json',[
+        "audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
@@ -91,7 +91,7 @@ class ShadowCave extends defaultScene {
       this.setUpGameplayEmitters();
 
       //activates sound
-      this.initLoopingSound('caveSFX','cave', 0.1,"music");
+      this.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
       this.initLoopingSound('waterfallSFX','waterfall', 0.03,"ambience");
     
       

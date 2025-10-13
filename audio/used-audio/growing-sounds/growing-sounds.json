@@ -1,0 +1,22 @@
+{
+    "resources":[
+        "../audio/used-audio/growing-sounds/growing-sounds.mp3"
+    ],
+    "spritemap": {
+        "1":{
+            "start": 0.2,
+            "end": 1.2,
+            "loop": false
+        },
+        "2":{
+            "start": 1.2,
+            "end": 2.0,
+            "loop": false
+        },
+        "3":{
+            "start": 2.0,
+            "end": 3.0,
+            "loop": false
+        }
+    }
+}

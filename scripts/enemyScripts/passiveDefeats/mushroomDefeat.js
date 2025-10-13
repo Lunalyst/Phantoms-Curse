@@ -281,6 +281,8 @@ class mushroomDefeat extends enemy {
 
                 this.animationPlayed = true;
 
+                this.scene.initSoundEffect('growSFX','3',0.05);
+
                 this.anims.play('headSwallow').once('animationcomplete', () => {
 
                     this.animationPlayed = false;
@@ -319,6 +321,7 @@ class mushroomDefeat extends enemy {
 
                 this.animationPlayed = true;
 
+                this.scene.initSoundEffect('growSFX','2',0.05);
                 this.anims.play('bodySwallow').once('animationcomplete', () => {
                     this.curseLight1.x = this.x
                     this.curseLight1.y = this.y;
@@ -386,11 +389,12 @@ class mushroomDefeat extends enemy {
            
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('growSFX','1',0.05);
                 this.anims.play('fullAbsorb1').once('animationcomplete', () => {
                     this.curseLight1.radius = 110;
                     this.curseLight2.radius = 130;
                     this.curseLight1.intensity = 1.8;
-
+                    this.scene.initSoundEffect('growSFX','2',0.05);
                     this.anims.play('fullAbsorb2').once('animationcomplete', () => {
                         this.curseLight1.radius = 120;
                         this.curseLight2.radius = 140;

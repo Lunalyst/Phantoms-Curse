@@ -17,6 +17,12 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
 
       this.setScale(1/2,1/2);
       this.setSize(100,100,true);
+      //roll a random number from 1 - 3
+      let rand1 = Math.floor(Math.random() * 3) + 1;
+      //then a random number from 1 - 7
+      //let rand2 = Math.floor(Math.random() * 4) + 3;
+      //apply random dust cloud sound to random audio sprite within our range.
+      this.scene.initSoundEffect('sporeCloudSFX'+rand1,'4',0.3);
 
       this.anims.play('SporePoof').once('animationcomplete' , () =>{
         this.anims.play("SporeLinger",true);
@@ -47,7 +53,6 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
 
       if(this.destroying === false){
         this.destroying = true;
-        //this.scene.initSoundEffect('curseSFX','curse',0.3);
         this.destroy();
 
       }

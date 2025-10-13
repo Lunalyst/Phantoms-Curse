@@ -235,8 +235,24 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('mushroom-female-tf', 'assets/enemys/mushroom-female-tf.png',{frameWidth: 303, frameHeight: 303 });
         tempSceneRef.load.spritesheet('mushroom-male-tf', 'assets/enemys/mushroom-male-tf.png',{frameWidth: 303, frameHeight: 303 });
 
+        tempSceneRef.load.audioSprite('growSFX','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('sporeCloudSFX1','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+        ]);
+
+         tempSceneRef.load.audioSprite('sporeCloudSFX2','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+        ]);
+
+         tempSceneRef.load.audioSprite('sporeCloudSFX3','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+        ]);
+
       },
-      mushroomDefeats: function mushroomsFunction() {
+      mushroomDefeats: function mushroomsDefeatsFunction() {
 
         tempSceneRef.load.spritesheet('evelyn-mushroom-tf', 'assets/enemys/evelyn-mushroom-tf.png',{frameWidth:393, frameHeight: 243 });
         tempSceneRef.load.spritesheet('evan-mushroom-tf', 'assets/enemys/evan-mushroom-tf.png',{frameWidth:393, frameHeight: 243 });

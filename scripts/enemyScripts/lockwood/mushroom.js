@@ -127,6 +127,9 @@ class mushroom extends enemy {
                     if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
                         //console.log("player is in range");
                         this.inEmergingAnimation = true;
+
+                        this.scene.initSoundEffect('growSFX','2',0.05);
+
                         //play animation and go into not hiding logic
                         this.anims.play('popOut').once('animationcomplete', () => {
 
@@ -195,6 +198,7 @@ class mushroom extends enemy {
                         this.inEmergingAnimation = true;
                         this.sporeDanceLock = false;
                         //then play animation and go back to the hiding state.
+                        this.scene.initSoundEffect('growSFX','3',0.05);
                         this.anims.play('becomeHidden').once('animationcomplete', () => {
 
                             this.scene.initSporeCloud(this.x,this.y,"left");
@@ -239,18 +243,18 @@ class mushroom extends enemy {
 
                     }
                     
-                    if(this.curNode.x+5 < this.x){
+                    if(this.curNode.x+7 < this.x){
                         this.setVelocityX(-this.transferSpeed);  
-                    }else if(this.curNode.x-5 > this.x){
+                    }else if(this.curNode.x-7 > this.x){
                         this.setVelocityX(this.transferSpeed);
                     }else{
                         this.setVelocityX(0);
                         this.x = this.curNode.x;
                     }
 
-                    if(this.curNode.y+5 < this.y){
+                    if(this.curNode.y+7 < this.y){
                         this.setVelocityY(-this.transferSpeed);  
-                    }else if(this.curNode.y-5 > this.y){
+                    }else if(this.curNode.y-7 > this.y){
                         this.setVelocityY(this.transferSpeed);
                     }else{
                         this.setVelocityY(0);
@@ -266,7 +270,7 @@ class mushroom extends enemy {
                     this.lightSource.y = this.y;
                     this.lightSource.radius = 130;
                     this.lightSource.intensity = 0.9;
-
+                    this.scene.initSoundEffect('growSFX','1',0.05);
                     this.scene.initSporeCloud(this.x,this.y,"still");
 
                 }

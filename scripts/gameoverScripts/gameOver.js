@@ -186,7 +186,7 @@ class gameOver extends gameoverManager {
             this.mycamera.setScroll(-135, 60);
 
             //game over sign.
-            this.gameOverSign = this.add.sprite(450,410,"gameOverSign");
+            this.gameOverSign = this.add.sprite(450,380,"gameOverSign");
             this.gameOverSign.setScale(.3);
             this.gameOverSign.setDepth(7);
             

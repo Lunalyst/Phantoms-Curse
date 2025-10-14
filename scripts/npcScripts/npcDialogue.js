@@ -310,6 +310,48 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "dreamView1":{
+                    "node1":{
+                        "dialogue": "this space exists in your dreams. ",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "In Here you can relive past experiences that lead to dead ends for you enjoyment...",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "devRoomJoke1":{
+                    "node1":{
+                        "dialogue": "I like ya, and I want ya.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Now we can do this the easy way, or we can do this the hard way.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "The choice is yaaawws.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "devRoomStatue":{
+                    "node1":{
+                        "dialogue": "figured i would hide this strange statue. touching it seems to warp your memories. be careful -lunalyst",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
                 "slimeWarning":{
                     "node1":{
                         "dialogue": "DANGER!",

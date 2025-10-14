@@ -143,6 +143,8 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initPortals(368,1080-8,5039,1149,"warpCaveInside","PondForest");
 
+      this.test = this.add.sprite(1040, 1016-65, "Mycelium Root");
+      this.test.setScale(1/3);
       //creates container objects.
       this.setUpContainers();
 

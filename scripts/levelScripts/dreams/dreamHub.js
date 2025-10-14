@@ -91,10 +91,6 @@ class dreamHub extends defaultScene {
 
       this.initPortals(1392,925-13,882,925,"warpCaveOutside","DreamForest");
 
-      this.initSigns(1281,925+12,
-        "WELCOME TO YOUR DREAMS SCAPE. WHILE YOUR HERE YOUR BODY SLEEPS IN THE WAKING WORLD YOU CAN RELIVE MEMORYS OF PAST ENCOUNTERS WITH MONSTERS. ",
-        ['signLoop']);
-
       this.initBedPortals(1031, 925+15);
 
       this.initSavePoints(863,925-15);
@@ -104,6 +100,8 @@ class dreamHub extends defaultScene {
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(1281,925+12,"generic","dreamView1");
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);

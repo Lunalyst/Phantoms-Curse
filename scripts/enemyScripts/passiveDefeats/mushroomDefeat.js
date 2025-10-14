@@ -19,7 +19,8 @@ class mushroomDefeat extends enemy {
             this.anims.create({ key: 'headSucking', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 11, end: 14 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'bodySwallow', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 15, end: 21 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'sexDanceStart', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 22, end: 24 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 25, end: 33 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceMiddle', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 25, end: 28 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 29, end: 33 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'fullAbsorb1', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 34, end: 35 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'fullAbsorb2', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 36, end: 37 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeMushIdle', frames: this.anims.generateFrameNames('evan-mushroom-tf', { start: 38, end: 41 }), frameRate: 7, repeat: -1 });
@@ -31,7 +32,8 @@ class mushroomDefeat extends enemy {
             this.anims.create({ key: 'headSucking', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 11, end: 14 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'bodySwallow', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 15, end: 21 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'sexDanceStart', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 22, end: 24 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 25, end: 33 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceMiddle', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 25, end: 28 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'sexDanceEnd', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 29, end: 33 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'fullAbsorb1', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 34, end: 35 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'fullAbsorb2', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 36, end: 37 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'largeMushIdle', frames: this.anims.generateFrameNames('evelyn-mushroom-tf', { start: 38, end: 41 }), frameRate: 7, repeat: -1 });
@@ -267,6 +269,8 @@ class mushroomDefeat extends enemy {
             this.playerDefeatedAnimationStageMax = 7;
             this.anims.play("smallMushOnHead",true);
 
+            this.playJumpySound('3',700);
+
          
         }else if (this.playerDefeatedAnimationStage === 2) {
              //turn on the light. 
@@ -304,6 +308,8 @@ class mushroomDefeat extends enemy {
             this.curseLight2.radius = 100;
 
             this.anims.play("headSucking",true);
+
+            this.playJumpySound('3',700);
 
          
         }else if (this.playerDefeatedAnimationStage === 4) {
@@ -363,16 +369,20 @@ class mushroomDefeat extends enemy {
                         this.curseLight1.x = this.x - 7;
                         this.curseLight2.x = this.x - 7;
                     }
+                    this.playJumpySound('3',100);
+                    this.anims.play('sexDanceMiddle').once('animationcomplete', () => {
+                        this.playJumpySound('3',100);
+                        this.anims.play('sexDanceEnd').once('animationcomplete', () => {
 
-                    this.anims.play('sexDanceEnd').once('animationcomplete', () => {
+                            this.curseLight1.x = this.x;
+                            this.curseLight2.x = this.x;
 
-                        this.curseLight1.x = this.x;
-                        this.curseLight2.x = this.x;
+                            this.flipX = !this.flipX;
+                            this.animationPlayed = false;
 
-                        this.flipX = !this.flipX;
-                        this.animationPlayed = false;
-
+                        });
                     });
+                    
 
                 });
 

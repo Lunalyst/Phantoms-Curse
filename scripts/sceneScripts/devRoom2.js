@@ -102,14 +102,6 @@ class devRoom2 extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(1343,617,
-        "I like ya, and I want ya. Now we can do this the easy way, or we can do this the hard way, The choice is yaaawws.",
-         ['signLoop']);
-
-      this.initSigns(418,536+17,
-        "figured i would hide this strange statue. touching it seems to warp your memories. be careful -lunalyst",
-         ['signLoop']);
-
       this.initPortalsWithTransparency(1136,600-8,864,605,"door2","DevRoom1",0.75);
       
       this.initPortals(968,600-8,4780,1053,"door2","PondForest");
@@ -123,6 +115,10 @@ class devRoom2 extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(1343,617,"generic","devRoomJoke1");
+
+      this.initSigns(418,536+17,"generic","devRoomStatue");
 
       //this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);

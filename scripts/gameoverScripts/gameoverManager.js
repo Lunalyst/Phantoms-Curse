@@ -686,6 +686,9 @@ class gameoverManager extends A3SoundEffects {
 
                 tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
 
+                //tempSceneRef.test = tempSceneRef.add.sprite(450, 567-65, "Mycelium Root");
+                //tempSceneRef.test.setScale(1/3);
+
                 tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,270, 547,"node1",tempSceneRef.mushroomRoot,false);
                 tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,550, 547+32,"node2",tempSceneRef.mushroomRoot,false);
             },

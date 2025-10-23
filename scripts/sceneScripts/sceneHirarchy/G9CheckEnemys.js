@@ -1099,17 +1099,21 @@ class G9CheckEnemys extends G8InitEnemys {
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempMushrooms,this.player1,600) && this.objectsInRangeY(tempMushrooms,this.player1,600) && tempMushrooms.inSafeMode === false){
 
-        tempMushrooms.move(scene.player1,scene);
+        if(scene.player1.idleTimer !== 2000){
+          tempMushrooms.move(scene.player1,scene);
 
-        
-        scene.physics.add.overlap(scene.attackHitBox, tempMushrooms, function () {
-          tempMushrooms.hitboxOverlaps = true;
-        });
-        
+          scene.physics.add.overlap(scene.attackHitBox, tempMushrooms, function () {
+            tempMushrooms.hitboxOverlaps = true;
+          });
+
+        }else{
+          tempMushrooms.moveIdle();
+        }
+      
         //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
-        if(tempMushrooms.hitboxOverlaps === true && tempMushrooms.movingToNewNode === false && tempMushrooms.isHiding === false  && tempMushrooms.inEmergingAnimation === false) {
+        if(tempMushrooms.hitboxOverlaps === true) {
           tempMushrooms.damage(scene);
-
+          console.log("damaging mushroom node!")
           tempMushrooms.hitboxOverlaps = false;
         }
 
@@ -1192,7 +1196,16 @@ class G9CheckEnemys extends G8InitEnemys {
           scene.grabCoolDown = true;
           console.log('player was consumed by spores!');
 
-          }
+      }else if(scene.objectsInRangeX(tempMushrooms,scene.player1,30) && scene.objectsInRangeY(tempMushrooms,scene.player1,30) && tempMushrooms.inSafeMode === true){
+
+        scene.viewAnimationLogic(tempMushrooms);
+      // otherwise hid the prompt from the player.
+      }else{
+        tempMushrooms.setVelocityY(0);
+        tempMushrooms.setVelocityX(0);
+        tempMushrooms.safePrompts.visible = false;
+        tempMushrooms.playedSafePrompts = false;
+      }
 
     });
   }

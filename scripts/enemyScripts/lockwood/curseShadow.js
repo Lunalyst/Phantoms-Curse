@@ -327,7 +327,7 @@ class curseShadow extends enemy {
     moveIdle() {
 
         this.anims.play('shadowIdle', true);
-        this.body.setGravityY(600);
+        //this.body.setGravityY(600);
         this.setVelocityX(0);
         this.setDepth(4);
 

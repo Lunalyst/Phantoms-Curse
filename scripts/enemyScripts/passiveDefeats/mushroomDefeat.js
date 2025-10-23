@@ -43,7 +43,7 @@ class mushroomDefeat extends enemy {
     
         this.inSafeMode = inSafeMode;
 
-       this.visible = false;
+    
 
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
@@ -59,7 +59,19 @@ class mushroomDefeat extends enemy {
             
 
            
-          }
+        }
+
+        
+        if(this.inSafeMode === true){
+            this.visible = true;
+            this.anims.play('smallMushOnHead', true);
+
+            this.curseLight1.visible = true;
+            this.curseLight2.visible = true;
+            
+        }else{
+            this.visible = false;
+        }
 
     }
 
@@ -450,11 +462,11 @@ class mushroomDefeat extends enemy {
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
 
-            this.rabbitGrabFalse();
+            this.enemyGrabFalse();
             this.isViewingAnimation = true;
             this.playerProgressingAnimation = false;
 
-            this.scene.gameoverLocation = "forestGameover";
+            this.scene.gameoverLocation = "caveGameover";
 
             
 
@@ -468,7 +480,7 @@ class mushroomDefeat extends enemy {
             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
 
             //plays jumpy sound during grab.
-            if (this.playerProgressingAnimation === false && this.rabbitIsHungry === false) {
+            if (this.playerProgressingAnimation === false) {
                 this.playJumpySound('3',700);
             }
 
@@ -485,58 +497,23 @@ class mushroomDefeat extends enemy {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
+                this.playerDefeatedAnimationStageMax = 7
+
                 //puts the key display in the correct location.
                 this.scene.KeyDisplay.visible = true;
                 this.scene.KeyDisplay.x = this.x;
                 this.scene.KeyDisplay.y = this.y + 100;
 
-                if(this.rabbitIsHungry === true){
-                    
-                    if (!this.animationPlayed && this.struggleAnimationInterupt === false) {
-
-                    console.log("the animation has not been played");
-                    this.animationPlayed = true;
-                    this.scene.initSoundEffect('swallowSFX','2',0.6);
-                    
-                    //this.scene.onomat.destroy();
-                    this.scene.onomat = new makeText(this.scene,this.x,this.y-50,'charBubble',"GULP!");
-                    this.scene.onomat.visible = this.scene.onomatopoeia;
-                    this.scene.onomat.setScale(1/4);
-                    this.scene.onomat.increaseRight(600);
-                    this.scene.onomat.textFadeOutAndDestroy(600);
-                    
-                    this.anims.play('rabbitHungerSwallow1').once('animationcomplete', () => {
-                        console.log("animation finished");
-                        this.scene.initSoundEffect('swallowSFX','3',0.6);
-
-                        this.anims.play('rabbitHungerSwallow2').once('animationcomplete', () => {
-
-                            this.scene.initSoundEffect('swallowSFX','3',0.6);
-
-                            this.anims.play('rabbitHungerSwallow3').once('animationcomplete', () => {
-                                this.animationPlayed = false;
-                                this.playerDefeatedAnimationStage++;
-                                this.inStartDefeatedLogic = false;
-                                this.playerProgressingAnimation = true;
-                                this.playerDefeatedAnimationStageMax = 5;
-                                console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
-        
-                            });
-                        });
-                    });
-                    
-                }
-                }else{
-
-                    this.anims.play("rabbitGrab",true);
-                    //handles sound effect diring grab struggle
-                    this.playJumpySound('2',700);
-                }
+                this.playerDefeatedAnimationStage = 1;
+                this.anims.play("smallMushOnHead",true);
+                //handles sound effect diring grab struggle
+                this.playJumpySound('2',700);
+                
                 
 
-            // handles input for progressing animation
-            if (this.scene.checkDPressed() === true && this.rabbitIsHungry === false) {
-                this.playerProgressingAnimation = true;
+                // handles input for progressing animation
+                if (this.scene.checkDPressed() === true) {
+                    this.playerProgressingAnimation = true;
                 }
 
                 // displays inputs while in the first stage of the animation viewing.
@@ -551,13 +528,9 @@ class mushroomDefeat extends enemy {
                 
                 //calls animation grab code until the animation is finished                     //additional case since the female has one less animation stage with the male rabbit.
                 console.log("this.scene.playerSex: ",this.scene.playerSex,"  this.playerDefeatedAnimationStage: ", this.playerDefeatedAnimationStage, " this.playerDefeatedAnimationStageMax: ",this.playerDefeatedAnimationStageMax);
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax || ( this.enemySex === 0 && this.scene.playerSex === 1 && this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1)){
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
                     //handle the defeated logic that plays defeated animations 
-                    if(this.rabbitIsHungry === false){
-                        this.playerIsDefeatedLogic(playerHealthObject);
-                    }else{
-                        this.playerIsDefeatedVoreLogic(playerHealthObject);
-                    }
+                    this.playerIsDefeatedLogic(playerHealthObject);    
                     
                 }else{
                     //hide the tab indicator and key prompts

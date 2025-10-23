@@ -8,10 +8,10 @@ class mushroom extends enemy {
        
 
          if(scene.preferance === 0){
-            super(scene, xPos, yPos, sex, id, 20, 'mushroom-male-tf');
+            super(scene, xPos, yPos+22, sex, id, 20, 'mushroom-male-tf');
             this.enemySex = 0;
         }else if(scene.preferance === 1){
-            super(scene, xPos, yPos, sex, id, 20, 'mushroom-female-tf');
+            super(scene, xPos, yPos+22, sex, id, 20, 'mushroom-female-tf');
             this.enemySex = 1;
         
         //if the pref is either, then we randomly pick a sex for the bat.
@@ -20,10 +20,10 @@ class mushroom extends enemy {
             let randomPref = Math.floor((Math.random() * 2));
             console.log('randomPref',randomPref);
             if(randomPref === 0){
-                super(scene, xPos, yPos, sex, id, 20, 'mushroom-male-tf');
+                super(scene, xPos, yPos+22, sex, id, 20, 'mushroom-male-tf');
                 this.enemySex = 0;
             }else{
-                super(scene, xPos, yPos, sex, id, 20, 'mushroom-female-tf');
+                super(scene, xPos, yPos+22, sex, id, 20, 'mushroom-female-tf');
                 this.enemySex = 1;
             }
         }
@@ -49,6 +49,7 @@ class mushroom extends enemy {
          this.direction = "right";
          this.transferSpeed = 300;
           
+         this.enemyHP = 20;
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
             this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
@@ -106,6 +107,7 @@ class mushroom extends enemy {
                     yoyo: true
                 });
           }
+        
 
     }
 
@@ -227,7 +229,7 @@ class mushroom extends enemy {
                 this.lightSource.x = this.x;
                 this.lightSource.y = this.y+35;
 
-                if(this.curNode.x !== this.x || this.curNode.y !== this.y ){
+                if(this.curNode.x !== this.x || this.curNode.y+22 !== this.y ){
 
                     //make mycelium effect
                     if(this.myceliumTimer === false){
@@ -252,19 +254,19 @@ class mushroom extends enemy {
                         this.x = this.curNode.x;
                     }
 
-                    if(this.curNode.y+7 < this.y){
+                    if(this.curNode.y+22+7 < this.y){
                         this.setVelocityY(-this.transferSpeed);  
-                    }else if(this.curNode.y-7 > this.y){
+                    }else if(this.curNode.y+22-7 > this.y){
                         this.setVelocityY(this.transferSpeed);
                     }else{
                         this.setVelocityY(0);
-                        this.y = this.curNode.y;
+                        this.y = this.curNode.y+22;
                     }
                         
                 }else{
                     this.movingToNewNode = false;
                     this.curNode.visible = false;
-                    this.y = this.curNode.y;
+                    this.y = this.curNode.y+22;
                     this.x = this.curNode.x;
                     this.visible = true;
                     this.lightSource.y = this.y;
@@ -277,8 +279,58 @@ class mushroom extends enemy {
  
                 
             }
-            //player is not in range of enemy so enemy is in idle animation.
-            //this.anims.play('enemyIdle', true);
+
+        //else if the enemy is defeated and is hidden
+        }else if(this.movingToNewNode === true){
+
+            this.lightSource.x = this.x;
+            this.lightSource.y = this.y+35;
+
+            if(this.curNode.root.x !== this.x || this.curNode.root.y+22 !== this.y ){
+
+                //make mycelium effect
+                if(this.myceliumTimer === false){
+
+                    this.myceliumTimer = true;
+                    let effect = new mycelium(this.scene, this.x, this.y+33);
+
+
+                    let mush = this;
+                    setTimeout(function () {
+                        mush.myceliumTimer = false;
+                    }, 30);
+
+                }
+                        
+            if(this.curNode.root.x+7 < this.x){
+                this.setVelocityX(-this.transferSpeed);  
+            }else if(this.curNode.root.x-7 > this.x){
+                this.setVelocityX(this.transferSpeed);
+            }else{
+                this.setVelocityX(0);
+                this.x = this.curNode.root.x;
+            }
+
+            if(this.curNode.root.y+22+7 < this.y){
+                this.setVelocityY(-this.transferSpeed);  
+            }else if(this.curNode.root.y+22-7 > this.y){
+                this.setVelocityY(this.transferSpeed);
+            }else{
+                this.setVelocityY(0);
+                this.y = this.curNode.root.y+22;
+            }
+                    
+            //after mushroom has move to root, disable it/ destory it.
+            }else{
+                        
+                //this.lightSource.destroy();
+                this.scene.initSoundEffect('growSFX','1',0.05);
+
+                this.curNode.root.growRoot();
+
+                this.destroy();
+
+            }
         }
         //updates the previous y value to tell if enemy is falling or going up in its jump.
         this.enemyPreviousY = this.y;
@@ -798,9 +850,8 @@ class mushroom extends enemy {
 
     // controls the damage resistance of the enemy.
     damage() {
-        
-
-        if (this.damageCoolDown === false) {
+  
+        if (this.damageCoolDown === false && this.isHiding === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
@@ -814,8 +865,6 @@ class mushroom extends enemy {
                     this.scene.player1.coldDamage,
                     this.scene.player1.curseDamage
                 );
-
-                //this.playEnemySound('5',200);
                 
                 //if the enemys hp is at zero
                 if (this.enemyHP <= 0) {
@@ -823,26 +872,23 @@ class mushroom extends enemy {
                     this.enemyDefeated = true;
                     this.setVelocityX(0);
 
-                    //calculate item drtop chance
-                    /*let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
-                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+                    //hide mushroom and move it
+                    this.anims.play('becomeHidden').once('animationcomplete', () => {
 
-                    //decides amount of enemy drops based on size
-                        if( dropChance > 0){
-                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,13,1,dropAmount,"BLUE SLIME GLOB","CHUNK OF SLIME. FEELS WARM...","drop",5);
-                        }
+                        this.isHiding = true;
+                        this.inEmergingAnimation = false;
+                        this.anims.play('hiding',true);
 
-                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
-                        //play defeated animation.
-                */
-                        /*this.anims.play('smallEnemyDefeated').once('animationcomplete', () => {
-                            //then destroy enemy.
-                            this.destroy();
-                            this.grabHitBox.destroy();
-                        });*/
-                    
-                    //play animation of enemy defeated based on size.
+                        //make node sprite visible
+                        this.curNode.visible = true;
 
+                        this.movingToNewNode = true;
+                        this.lightSource.radius = 90;
+                        this.lightSource.intensity = 0.7;
+
+                        this.visible = false;
+                 
+                    });
                     
                 }else if(this.isHiding === false && this.inEmergingAnimation === false){
                     
@@ -862,7 +908,10 @@ class mushroom extends enemy {
                     });
                     
                 }
+
+            //else if the mushroom has been defeated
             }
+
             console.log("damage cool down:" + this.damageCoolDown);
             let that = this;
 
@@ -870,7 +919,7 @@ class mushroom extends enemy {
                 that.damageCoolDown = false;
                 console.log("damage cool down:" + that.damageCoolDown);
                 that.clearTint();
-            }, 1000);
+            }, 3000);
         }
     }
 

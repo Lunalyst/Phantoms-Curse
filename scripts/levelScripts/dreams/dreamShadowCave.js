@@ -25,7 +25,7 @@ class dreamShadowCave extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = ["curseShadows","earieShadows"];
+      this.enemyGroupArray = ["curseShadows","earieShadows","mushroomDefeats","mushrooms"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -155,6 +155,25 @@ class dreamShadowCave extends defaultScene {
             thisScene.initSecretRemover(1628,485);
           }
           
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.mushroomFemaleTF,
+          foundFlag: false,
+        };
+
+        let object2 = {
+          flagToFind:  bestiaryKey.mushroomMaleTF,
+          foundFlag: false,
+        };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(828,636-36,thisScene.playerSex,'mushroomDefeat',true);
+
         }
 
         thisScene.spawnedEnemys = true;

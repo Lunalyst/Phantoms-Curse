@@ -22,7 +22,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, xPos, yPos,nodeType,rootRef,enemySpawn){
 
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'mushroom-nodes');
+        super(scene, xPos, yPos-22, 'mushroom-nodes');
         //then we add new instance into the scene.
         scene.add.existing(this);
         //then we call this next line to give it collision
@@ -40,9 +40,10 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         this.scene = scene;
         //warp sprite animations
         this.anims.create({key: 'node',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 0, end: 3}),frameRate: 7,repeat: -1});
-        this.anims.create({key: 'root1',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 4, end: 4}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'root2',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 5, end: 5}),frameRate: 3.5,repeat: -1});
-        this.anims.create({key: 'root3',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 6, end: 6}),frameRate: 3.5,repeat: -1});
+        this.anims.create({key: 'root1',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 4, end: 7}),frameRate: 3,repeat: -1});
+        this.anims.create({key: 'root2',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 8, end: 11}),frameRate: 4,repeat: -1});
+        this.anims.create({key: 'root3',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 12, end: 15}),frameRate: 5,repeat: -1});
+        this.anims.create({key: 'root4',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 16, end: 19}),frameRate: 7,repeat: -1});
 
         this.nodeName = nodeType;
         this.nodeArray = [];
@@ -54,6 +55,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
 
         if(nodeType === "root"){
             this.anims.play("root1",true);
+            this.rootSize = 1;
             
         }else{
             this.anims.play("node",true);
@@ -102,6 +104,19 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         console.log("created mush id: ",mush.enemyId);
         this.scene.enemys.add(mush);
         this.scene.mushrooms.add(mush);
+    }
+
+    growRoot(){
+
+        //if the roots size is below 5 then increase its value and change animation to be one stage larger.
+        //and increase light radius and strength.
+
+        if(this.rootSize < 5){
+            this.rootSize++;
+            this.anims.play("root"+this.rootSize,true);
+
+        
+        }
     }
 
     

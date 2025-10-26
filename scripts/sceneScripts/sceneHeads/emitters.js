@@ -489,11 +489,11 @@ const bestiaryTextList = {
       },
       mushroom_female_tf:{
         title: "FEMALE MUSHROOM NODE",
-        summary: " a female mushroom branch",
+        summary: "This mushroom node is a part of an  interconnected  network of mycelium below the ground. To chase its prey, she can shrink her body to travel through these nodes. When prey is near she will dance to spread spores onto the prey.",
       },
       mushroom_male_tf:{
         title: "MALE MUSHROOM NODE",
-        summary: " a male mushroom branch",
+        summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
       },
 
       back: {

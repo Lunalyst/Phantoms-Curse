@@ -160,6 +160,8 @@ class ShadowCaveUpper extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.initSigns(446,1080+18,"generic","fallWarning");
+
       this.setUpSporeClouds();
 
       //set up mushroom network

@@ -390,6 +390,20 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "fallWarning":{
+                    "node1":{
+                        "dialogue": "WARNING! FALL HAZARD!",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Beware of holes in the floor, as the lower part of this cave is rather deep.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
 
             }
 

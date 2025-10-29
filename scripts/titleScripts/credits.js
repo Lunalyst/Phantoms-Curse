@@ -33,7 +33,7 @@ class credits extends Phaser.GameObjects.Container{
         this.textColor = 0xb016fa;
         this.textType = "charWhite";
 
-        this.form = new makeEcrus(this.scene,this.xAxis, -40,"@01111@ @10011@ @111@ @1000@ @111@ @00@ @1100@ @111@ @1010@ @11011@ @1000@ @111@ @1010@ @00@ @0101@ @01110@ @11010@ @111@ @00@ @01101@ @0100@ @00@ @0101@ @1011@ @00@ @10010@ @01100@ @1100@ @1011@ ");
+        this.form = new makeEcrus(this.scene,this.xAxis, -40,"@01110@ @11000@ @100@ @1101@ @1011@ @00@ @0110@ @100@ @0101@ @1101@ @1011@ @100@ @0101@ @00@ @1010@ @11001@ @01000@ @100@ @00@ @11111@ @01111@ @00@ @1010@ @1110@ @00@ @01001@ @11110@ @0110@ @1110@");
         this.add(this.form);
         this.form.visible = false;
             
@@ -74,6 +74,10 @@ class credits extends Phaser.GameObjects.Container{
         this.discordServer = this.scene.add.sprite(820, 95, "discordServerQR");
         this.add(this.discordServer);
         this.discordServer.setScale(.7);
+
+        this.form1 = new makeEcrus(this.scene,this.xAxis, 540,"@0111@ @110@ @101@ @1001@ @0110@ @111@ @0101@ @110@ @000@ @111@ @1000@ @110@ @0011@ @101@ @111@ @000@ @0100@ @0010@");
+        this.add(this.form1);
+        this.form1.visible = false;
 
         this.thankYou8 = new makeText(this.scene, 795, 225,this.textType,'Patreon');
         this.thankYou8.setTextTint(0xfe6a00);

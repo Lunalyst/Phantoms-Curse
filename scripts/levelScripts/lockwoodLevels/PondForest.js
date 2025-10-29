@@ -40,6 +40,7 @@ class PondForest extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
+      this.load.spritesheet("sight" , "assets/enemys/sight.png" , {frameWidth: 180 , frameHeight: 180 });
       
       
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
@@ -98,6 +99,9 @@ class PondForest extends defaultScene {
         this.setUpTileSet("ForestPondMap","Forest_Tileset","forest_source_map");
 
       }
+
+      this.processMap.layer0.setDepth(2);
+      this.processMap.layer1.setDepth(1);
     
       //creates player object
       this.setUpPlayer();
@@ -169,7 +173,7 @@ class PondForest extends defaultScene {
       //here is where we can do a flag check to see if the player has interacted with vivian or not.
       this.initPortals(2752,824-8,1005,600,"door1","messyShed");
       
-      
+      this.secret1 = 0;
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168-32, "secretWall2");
@@ -218,6 +222,19 @@ class PondForest extends defaultScene {
 
       this.initRockPile(4164,1400+24);
       this.initRockPile(1598,1432+24);
+
+      this.form1 = new makeEcrus(this,2370, 990,"@1101@ @1010@ @000@ @01@ @1100@ @1011@ @1001@ @01@ @1000@ @111@ @111@ @01@ @0010@ @111@ @0011@");
+      this.form1.setScale(0.4);
+      this.form1.setAlpha(0.6);
+      this.form1.textFadeOut(1);
+
+      this.shadow = this.add.sprite(2452,834,"sight");
+      this.shadow.setScale(1/3);
+      this.shadow.setDepth(0);
+      this.shadow.visible = false;
+
+      this.anims.create({key: 'hide',frames: this.anims.generateFrameNames('sight', { start: 0, end: 10 }),frameRate: 24,repeat: 0});
+        
       //this.initRockPile(1598,1300+24);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
@@ -257,6 +274,37 @@ class PondForest extends defaultScene {
 
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
+
+      console.log("this.secret1: ",this.secret1);
+      //if player hasnt encountered event yet.
+      if(this.secret1 === 0 && this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010){
+        this.secret1++;
+        //fade in text
+        //this.form1.visible = true;
+        
+        this.form1.textFadeIn(4000);
+        this.form1.textWave();
+        this.form1.textWob();
+
+        this.shadow.visible = true;
+
+        let thisScene = this;
+        setTimeout(function(){
+          thisScene.secret1++;
+        },6000);
+
+      //if sequence isnt completed and player leaves, then reset
+      }else if(this.secret1 === 2 && this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010){
+        this.secret1++;
+        this.form1.textFadeOut(2000);
+        this.shadow.anims.play("hide");
+
+      //if sequence isnt completed and player leaves, then reset
+      }else if(this.secret1 !== 0 && !(this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010)  ){
+        this.shadow.visible = false;
+        this.secret1 = 0;
+        this.form1.textFadeOut(1);
+      }
 
 
       //updates the x value of the scrolling backround.

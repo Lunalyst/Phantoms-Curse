@@ -31,6 +31,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
         
         //sets scale
         this.setScale(1/3);
+        this.setDepth(2);
 
         //if lighting system is on then
         if(this.scene.lightingSystemActive === true){

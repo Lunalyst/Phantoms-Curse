@@ -273,11 +273,10 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     }
   }
 
+
   //function called when a trigger npc overlaps  
   overlapActivateNpc(){
 
-    
-    
     //if the id matches and we havent activated the trigger yet.
     if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
 
@@ -361,7 +360,55 @@ class npc extends Phaser.Physics.Arcade.Sprite{
             this.progressNode("");
           }
 
-        }
+      }
+    }
+  }
+
+  //handles the node progression 
+  nodeHandler(npc,behavior,flag,diversionNode,){
+    console.log("calling node handler");
+
+    //check if the dialogue node is set.
+    this.scene.sceneTextBox.npcReset();
+    
+    console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
+    //if the dialogue isnt set and we arnt finished with dialogue
+    if(this.dialogueDictSet === false && this.finished === false ){
+
+      //set up dialogue function
+      this.setUpDialogueDict(npc,behavior,flag);
+
+      //have the player idle while talking.
+      if(this.scene.player1 !== null && this.scene.player1 !== undefined){
+        this.scene.player1.playerIdleAnimation();
+      }
+
+    //if the node has been set that use the main progression function
+    }else if(this.scene.sceneTextBox.textInterupt === false &&// while the text box is not paused.
+       this.animationPlayed === false &&// and this npc isnt in the middle of playing a animation.
+       this.scene.sceneTextBox.textBoxActivationCoolDown === false && // and the scene textbox isnt on cooldown.
+       this.finished === false // and we are not finished with the dialogue.
+      ){
+
+        //block to stop the node from progressing too quickly.
+        console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
+        if(this.nodeProgressionDelay === false){
+
+          //if the length is greater than zero then progress pass the next node
+          if(this.currentDictNode.children.length > 0){
+
+            console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
+            this.progressNode(this.currentDictNode.children[0].nodeName);
+
+            //time out for our node progression.
+            this.nodeProgressionDelay = true;
+
+          //otherwise progress with blank node.
+          }else {
+            this.progressNode("");
+          }
+
+      }
     }
   }
 

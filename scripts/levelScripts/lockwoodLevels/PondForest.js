@@ -299,13 +299,14 @@ class PondForest extends defaultScene {
         this.form1.textFadeOut(2000);
         this.shadow.anims.play("hide");
 
+        this.initSigns(2452,843,"generic","secretSighting1",false);
+
       //if sequence isnt completed and player leaves, then reset
-      }else if(this.secret1 !== 0 && !(this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010)  ){
+      }else if(this.secret1 !== 0 && this.secret1 < 3 && !(this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010)  ){
         this.shadow.visible = false;
         this.secret1 = 0;
         this.form1.textFadeOut(1);
       }
-
 
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

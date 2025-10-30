@@ -13,7 +13,7 @@ class sign extends npc{
       this.setPushable(false);
       
       //makes a key promptsa object to be displayed to the user
-      this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
+      this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 35,'keyPrompts');
       this.npcKeyPrompts.visible = false;
       this.promptCooldown = false;
 
@@ -30,6 +30,7 @@ class sign extends npc{
 
       //sets scale of object
       this.setScale(1/3);
+      this.setDepth(2);
 
 
 
@@ -41,6 +42,8 @@ class sign extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'generic'){
       this.generic();
+    }else if(this.npcType === 'progression'){
+      this.progression();
     }else{
       this.default();
     }
@@ -51,7 +54,5 @@ class sign extends npc{
     this.nodeHandler("sign",this.npcType,this.textKey);
 
   }
-
-
 
 }

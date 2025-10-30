@@ -21,13 +21,17 @@ class G5InitNPCs extends G4InitGameObjects {
   }
 
    //creates a sign object in the scene
-  initSigns(x, y, text , textKey) {
+  initSigns(x, y, text , textKey,visible) {
 
       let sign1 = new sign(this, x, y, text, textKey);
       sign1.npcId = this.npcId;
       this.signId++;
 
       this.npcs.add(sign1);
+
+      if(visible !== undefined && visible !== null){
+        sign1.visible = visible;
+      }
 
       //if we are using dark lighting
       if(this.lightingSystemActive === true){ 

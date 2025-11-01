@@ -407,19 +407,19 @@ const npcDialogue = {
                 "secretSighting1":{
                      "node1":{
                         "dialogue": "theres nothing here besides a few barrels",
-                        "profile":"signLoop",
+                        "profile":"blank",
                         "textvoice":"default",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "...",
-                        "profile":"signLoop",
+                        "profile":"blank",
                         "textvoice":"default",
                         "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "you feel like it was trying to tell you something...",
-                        "profile":"signLoop",
+                        "profile":"blank",
                         "textvoice":"default",
                         "children":[]
                     },

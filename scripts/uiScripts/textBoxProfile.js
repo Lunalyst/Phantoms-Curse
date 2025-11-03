@@ -25,8 +25,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('textBoxProfile', { start:55, end: 58 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'blank',frames: this.anims.generateFrameNames('textBoxProfile', { start:59, end: 59 }),frameRate: 5,repeat: -1});
 
-      this.anims.play("blank",true);
-      
+      this.anims.play("blank",true); 
     }
 
     setUpIstaraEmots(){

@@ -424,7 +424,135 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
-            }
+            },
+            "Fervor":{
+                "love1":{
+                    "node1":{
+                        "dialogue": "From an unlikely place she came, to steal me away from my sorrow and pain. Our friendship helped clear my eyes from the ties that kept me blind. The bond that was formed kept our hearts warm. Together we can withstand the worst of weather, even though we are not birds of the same feather.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "For what brings us together is our love for one another. To keep each other safe from what one alone cannot see. As I change you, and you change me I begin to think about what the future could be with just you and me. Of sweet nights holding you close, and bright days sharing shattered sun rays.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Of long walks on the beach, and sunsets spent with sweet treats. Cause when I think about you,  I want these dreams to come true.  More than anything, my it reminds me of my love for you. So won't you come with me? To finally be free, and make these dreams a reality? Come escape with me hunny.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "redLooksGoodOnYou":{
+                    "node1":{
+                        "dialogue": "There's a little red book on the shelf. The cover of the book has a round spider with '88w88' as a face holding hands with an equally round human with a ':3' as a face. Will you read it?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "I could tell he had something to give me.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "( the spider girl and human sit atop a cliff overlooking the ocean.)",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "the nervious energy was impossible to ignore. i knew it would be special.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "as he messed with it in his hand I craned my neck to see what it was.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "(the spider girl can be seen peaking behind a wall staring at what the human has in there hands.)",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "gimmi! gimmi! gimmi!",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "(the spider girl can bee seen hopping up and down excitedly)",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "we leaned in to kiss and he tells me 'i wrote a little note for you'",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "do you want me to share with the class or read to myself?  'to yourself' he said shyly. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "I read it and was taken back by what he had said, this is the sweetest thing anyone has ever done for me. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node11":{
+                        "dialogue": "red looks good on you...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                },
+                "hunnyBun":{
+                    "node1":{
+                        "dialogue": "hey baby i know its a little late but im here writing this note to tell you how much you mean to me and how amazing you are. oh yeah P.S. by a little late i mean It's like....",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "(theres a chunk of text scribbled out)",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "i know ;_; i'm bad. ok ok back on track. my precious boy, that first day we hung out and sat on that bench i knew i had feelings for you. you have treated me better than 99% of the people I've met in life and i'm so thankful for having you in my life.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "you give me so much love and motivation that it helps me get out of bed. I look forward to spending so many more days with you in my life. you bring the best out of me babe, so I thank you for that.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node5":{
+                        "dialogue": "I love you to the deepest reaches of my heart!! ~hunnybun",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                }
+
 
         },
 

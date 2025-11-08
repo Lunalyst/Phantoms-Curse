@@ -106,7 +106,6 @@
   <script src="scripts/uiScripts/inventoryScripts/UIControls.js"></script>
   
   <script src="scripts/uiScripts/healthMark.js"></script>
-  <script src="scripts/uiScripts/hpBar.js"></script>
   <script src="scripts/uiScripts/sceneStruggleBar.js"></script>
   <script src="scripts/uiScripts/keyPrompts.js"></script>
   <script src="scripts/uiScripts/makeText.js"></script>
@@ -120,6 +119,8 @@
   <script src="scripts/uiScripts/mobileButtons.js"></script>
   <script src="scripts/uiScripts/internalView.js"></script>
   <script src="scripts/uiScripts/tutorialSprite.js"></script>
+  <script src="scripts/uiScripts/hpBar.js"></script>
+  <script src="scripts/uiScripts/bossBar.js"></script>
   
 
   <script src="scripts/uiScripts/options/optionsMenu.js"></script>
@@ -151,6 +152,7 @@
   <script src="scripts/gameObjectScripts/itemContainer.js"></script>
   <script src="scripts/gameObjectScripts/healthUpgrade.js"></script>
   <script src="scripts/gameObjectScripts/woodBarrier.js"></script>
+  <script src="scripts/gameObjectScripts/mushroomBarrier.js"></script>
   <script src="scripts/gameObjectScripts/rockPile.js"></script>
   <script src="scripts/gameObjectScripts/wallLight.js"></script>
   <script src="scripts/gameObjectScripts/bedWarp.js"></script>
@@ -181,6 +183,8 @@
   <script src="scripts/enemyScripts/lockwood/mushroom.js"></script>
 
   <script src="scripts/enemyScripts/passiveDefeats/mushroomDefeat.js"></script>
+
+  <script src="scripts/enemyScripts/bosses/matangoRoot.js"></script>
 
   <script src="scripts/npcScripts/npcDialogue.js"></script>
   <script src="scripts/npcScripts/npc.js"></script>
@@ -213,7 +217,7 @@
           default: 'arcade',
           arcade: {
             // debug is excelent for testing velocity and hitboxes.
-            debug: false
+            debug: true
           }
         },
         // loads animated tile plugin?

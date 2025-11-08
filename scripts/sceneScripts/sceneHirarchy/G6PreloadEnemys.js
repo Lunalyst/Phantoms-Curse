@@ -260,6 +260,27 @@ class G6PreloadEnemys extends G5InitNPCs{
 
       },
 
+      matangoRoot: function matangoRootFunction() {
+
+        tempSceneRef.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('bossRoarSFX','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.spritesheet('Matango-Root-F-1', 'assets/bosses/Matango-Root-F-1.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-2', 'assets/bosses/Matango-Root-F-2.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-3', 'assets/bosses/Matango-Root-F-3.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-4', 'assets/bosses/Matango-Root-F-4.png',{frameWidth: 693, frameHeight: 561 });
+
+        tempSceneRef.load.spritesheet('mushroom-hands-single', 'assets/bosses/mushroom-hands-single.png',{frameWidth: 393, frameHeight: 273 });
+        tempSceneRef.load.spritesheet('mushroom-hands-double', 'assets/bosses/mushroom-hands-double.png',{frameWidth: 573, frameHeight: 273 });
+
+
+      },
+
     };
 
     //after we finish preloading enemy assets, call the function in G9CheckEnemy.js to set up the map of enemy check functions

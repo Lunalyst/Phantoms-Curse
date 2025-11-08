@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.mp3"
+    ],
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 22.5,
+            "loop": true
+        }
+    }
+}

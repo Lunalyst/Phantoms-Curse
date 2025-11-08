@@ -275,6 +275,14 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       }
     }
 
+    initMushroomBarrier(x,y,flip){
+
+      let mushroomWall = new mushroomBarrier(this,x,y,flip);
+      this.physics.add.existing(mushroomWall);
+      mushroomWall.body.pushable = false;
+      this.mushroomBarriers.add(mushroomWall);
+    }
+
     initRockPile(x,y){
       let pile = new rockPile(this,x,y);
       this.physics.add.existing(pile);

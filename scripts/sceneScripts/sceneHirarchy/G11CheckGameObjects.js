@@ -119,22 +119,22 @@ class G11CheckGameObjects extends G10CheckNPCS {
   }
 
   checkWoodenBarriers(){
-  this.woodenBarriers.children.each(function (tempbarrier) {
+    this.woodenBarriers.children.each(function (tempbarrier) {
 
-    if(this.objectsInRangeX(tempbarrier,this.player1,100)){
-        //checks if the attack hitbox is overlapping the tiger to deal damage.
-      this.physics.add.overlap(this.attackHitBox, tempbarrier, function () {
+      if(this.objectsInRangeX(tempbarrier,this.player1,100)){
+          //checks if the attack hitbox is overlapping the tiger to deal damage.
+        this.physics.add.overlap(this.attackHitBox, tempbarrier, function () {
 
-        tempbarrier.hitboxOverlaps = true;
-      });
+          tempbarrier.hitboxOverlaps = true;
+        });
 
-      if (tempbarrier.hitboxOverlaps === true) {
-        console.log("woodenbarrier taking damage, " + tempbarrier.hp);
-        tempbarrier.damage();
-        tempbarrier.hitboxOverlaps = false;
+        if (tempbarrier.hitboxOverlaps === true) {
+          console.log("woodenbarrier taking damage, " + tempbarrier.hp);
+          tempbarrier.damage();
+          tempbarrier.hitboxOverlaps = false;
+        }
       }
-    }
-  }, this);
+    }, this);
   }
 
   checkRockPiles(){

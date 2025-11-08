@@ -50,6 +50,12 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
 
         this.root = rootRef;
 
+        this.barriersX = [];
+        this.barriersY = [];
+        this.barriersFlipX = [];
+        this.barriers = [];
+
+
         this.ocupied = false;
         this.flickerRange = 10;
 
@@ -115,8 +121,29 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
             this.rootSize++;
             this.anims.play("root"+this.rootSize,true);
 
-        
+            //boss tester code
+            this.rootSize = 5;
+            this.scene.initEnemy(this.x,this.y-65,this.scene.playerSex,"matangoRoot",false,this); 
+
+            //this.scene.initMushroomBarrier(1321,1016,false);
+            //this.scene.initMushroomBarrier(696,1016,true);
         }
+
+       
+    }
+
+    //function to add a x andy location for nodes.
+    addMushroomBarrier(x,y,flipx){
+        this.barriersX.push(x);
+        this.barriersY.push(y);
+        this.barriersFlipX.push(flipx);
+    }
+
+    //function to activate barriers when the mushroom wakes up.
+    activateMushroomBarriers(){
+        this.barriersX.forEach((item, index) => {
+            this.scene.initMushroomBarrier(this.barriersX[index],this.barriersY[index],this.barriersFlipX[index]);
+        });
     }
 
     

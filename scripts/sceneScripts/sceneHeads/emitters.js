@@ -39,7 +39,12 @@ const healthEvent = {
     curseBuildUp:'curse_build_up',
     maxCurse:'max_curse',
     clearCurse:'clear_curse',
-
+    loseBossHealth: 'lose_Boss_health',
+    gainBossHealth: 'gain_Boss_health',
+    returnBossHealth: 'return_Boss_health',
+    maxBossHealth:'max_Boss_health',
+    setBossHealth:'set_boss_health',
+    setBossHealthVisible:'set_boss_health_visible',
 };
 
 healthEmitter = new Phaser.Events.EventEmitter();
@@ -265,6 +270,7 @@ const Groupings = [
 "bee",
 "bat",
 "mimic",
+"mushroom",
 "whiteCat",
 "shadow",
 "istara",

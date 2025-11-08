@@ -1,7 +1,7 @@
 
 
 //implementation for the blue enemy enemy.
-class mushroom extends enemy {
+class mantangoRoot extends enemy {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
@@ -33,80 +33,58 @@ class mushroom extends enemy {
 
         //randomizes variables
         this.collision = 170;
-        //make a hitbox so the cat can grab the player.
-        //this.grabHitBox = new hitBoxes(scene,this.x,this.y);
-        //this.grabHitBox.setSize(30,10,true);
-        //this.hitboxActive = false;
         this.isHiding = true;
         this.inEmergingAnimation = false;
-        this.movingToNewNode = false;
-        this.curNode = null;
-        this.myceliumTimer = false;
-         this.setDepth(4);
-         this.body.enable = false;
-         this.sporeCloudDirection = 30;
-         this.sporeDanceLock = false;
-         this.direction = "right";
-         this.transferSpeed = 300;
-          
-         this.enemyHP = 1;
+        this.poppedOut = false;
+        this.enemyHP = 200;
+        this.turning = false;
+        this.idleState = 0;
+        this.rootNode = null; 
+        this.startedFight = false;
+
+        this.visible = false;
+
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
-            this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'popOut', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 3, end: 8 }), frameRate: 12, repeat: 0 });
-            this.anims.create({ key: 'mushIdle', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 9, end: 12 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'becomeHidden', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 13, end: 18 }), frameRate: 12, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 27, end: 31 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceIdle', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 19, end: 31 }), frameRate: 15, repeat: -1 });
+
         }else{
-            this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'popOut', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 3, end: 8 }), frameRate: 12, repeat: 0 });
-            this.anims.create({ key: 'mushIdle', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 9, end: 12 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'becomeHidden', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 13, end: 18 }), frameRate: 12, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceEnd', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 27, end: 31 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceStart', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 27 }), frameRate: 15, repeat: 0 });
-            this.anims.create({ key: 'shroomDanceIdle', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 31 }), frameRate: 15, repeat: -1 });
-            //this.anims.create({ key: 'shroomDance', frames: this.anims.generateFrameNames('mushroom-female-tf', { start: 19, end: 42 }), frameRate: 12, repeat: -1 });
+            this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'rawr', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 7, end: 15 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'forwardIdleEyesForward', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 16, end: 21 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'forwardIdleEyesDown', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 22, end: 27 }), frameRate:  10, repeat: 0 });
+
+            this.anims.create({ key: 'from0to1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 28, end: 29 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from1to0-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 29, end: 29 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from1to0-2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 28, end: 28 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'AngleIdle', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 30, end: 35 }), frameRate: 10, repeat: 0 });
+
+            this.anims.create({ key: 'from1to2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 36, end: 37 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from2to1-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 37, end: 37 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from2to1-2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 36, end: 36 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 38, end: 43 }), frameRate:  10, repeat: 0 });
+           
+           
         }
-
-         //this.setSize(this.collision, this.collision, true);
        
-            //if we are using dark lighting
-            if(this.scene.lightingSystemActive === true){ 
-
-                this.lightSource = this.scene.lights.addLight(this.x,this.y, 90, 0xb317ff,0.6);
-                
-                
-    
-            }
-
-        
         this.inSafeMode = inSafeMode;
-
-        this.anims.play("hiding",true);
 
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
             //also sets up the curse light for if the player is cursed.
-            this.curseLight = this.scene.lights.addLight(this.x,this.y-30, 90, 0xb317ff);
-            this.curseLight1 = this.scene.lights.addLight(this.x,this.y-30, 90, 0xb317ff);
+            this.curseLight = this.scene.lights.addLight(this.x,this.y-20, 150, 0xb317ff);
+            this.curseLight.intensity = 1.1;
             this.curseLight.visible = false;
+            
+            //also sets up the curse light for if the player is cursed.
+            this.curseLight1 = this.scene.lights.addLight(this.x,this.y+20, 150, 0xb317ff);
+            this.curseLight1.intensity = 1.1;
+            this.curseLight1.visible = false;
 
-            //adds a tween to yoyo the radius of the light giving it a flicker effect.
-                this.scene.tweens.add({
-                    targets: this.curseLight,
-                    props : {
-                        radius: {value : '+=' +10},
-                    }, 
-                    ease: 'linear',
-                    duration: 1000,
-                    repeat: -1,
-                    yoyo: true
-                });
+            this.curseLight2 = this.scene.lights.addLight(this.x,this.y-60, 70, 0x777777);
+            this.curseLight2.intensity = 0.8;
+            this.curseLight2.visible = false;
           }
         
 
@@ -114,302 +92,201 @@ class mushroom extends enemy {
 
     //functions that move enemy objects.
     move() {
-        this.setSize(70, 180, true);
-        this.setOffset(115, 59);
+        //set hitbox to correct size
+        this.setSize(240, 180, true);
+        this.setOffset(220, 380);
 
-        //console.log("this.curNode.x: ",this.curNode.x, "this.x: ",this.x);
+        //if the mushroom has not awoken and the player in in range
+        if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(200,200) && this.startedFight === false){
+            this.startedFight = true;
+        }else if(this.poppedOut === false && this.inEmergingAnimation === false && this.startedFight === true){
+
+            this.inEmergingAnimation = true;
+            this.curseLight.visible = true;
+            this.curseLight1.visible = true;
+            this.curseLight2.visible = true;
+            this.visible = true;
+
+            this.rootNode.visible = false;
+            this.rootNode.curseLight.visible = false;
+            this.rootNode.activateMushroomBarriers();
+
+
+            this.scene.initSoundEffect('growSFX','2',0.1);
+            this.scene.sound.get("slowMyceliumSFX").stop();
+
+            this.anims.play('popout').once('animationcomplete', () => {
                 
-    
-        let currentEnemy = this;
-        if(this.enemyDefeated === false) {
+                this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
 
-            if(this.movingToNewNode === false){
-                //if the enemy is hiding
-                if(this.isHiding === true && this.inEmergingAnimation === false){
-                    
-                    if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
-                        //console.log("player is in range");
-                        this.inEmergingAnimation = true;
+                this.anims.play('rawr').once('animationcomplete', () => {
 
-                        this.scene.initSoundEffect('growSFX','2',0.05);
+                    this.anims.play('forwardIdleEyesForward',true);
+                    this.scene.initSoundEffect('bossSFX','bossStart',0.1);
 
-                        //play animation and go into not hiding logic
-                        this.anims.play('popOut').once('animationcomplete', () => {
+                    //after animation of mushroom appearing we need to set up boss healthbar in the hud.
+                    //start by setting boss hp name and making it visible.
+                    let healthObject = {
+                        bossName: "Matango Root",
+                        bossHealth: this.enemyHP,
+                        bossMaxHealth: this.enemyHP,
+                    };
 
-                            this.isHiding = false;
-                            this.inEmergingAnimation = false;
-                            this.anims.play('mushIdle',true);
-                            this.lightSource.radius = 110
-                            this.lightSource.intensity = 0.9;
-                                
-                        });
-                    }else if(!this.checkXRangeFromPlayer(220, 220) || !this.checkYRangeFromPlayer(55, 100)){
-                        //console.log("player is in range");
-                        this.inEmergingAnimation = true;
-                        //then play animation and go back to the hiding state.
-                        
-                        this.isHiding = true;
-                        this.inEmergingAnimation = false;
-                        this.anims.play('hiding',true);
-                        this.lightSource.radius = 90;
-                        this.lightSource.intensity = 0.7;
+                    healthEmitter.emit(healthEvent.setBossHealth,healthObject);
+                    healthEmitter.emit(healthEvent.setBossHealthVisible,true);
+                    this.poppedOut = true;
 
-                        this.moveMushroomFollow();
-                                
-                    }
-                //if the enemy is active
-                }else if(this.isHiding === false && this.inEmergingAnimation === false){
-                     
-                    if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(80,80)){
-
-                        if(this.sporeDanceLock === false){
-
-                            this.sporeDanceLock = true;
-
-                            this.anims.play("shroomDanceStart",true).once('animationcomplete', () =>{
-
-                                if(this.scene.player1.x > this.x){
-                                    this.scene.initSporeCloud(this.x,this.y,"left");
-                                }else{
-                                    this.scene.initSporeCloud(this.x,this.y,"right");
-                                }
-
-                                this.scene.initSporeCloud(this.x,this.y,this.direction);
-
-                                //this.anims.play("shroomDanceEnd",true).once('animationcomplete', () =>{
-                                    this.sporeDanceLock = false;
-
-                                    if(this.flipX === false){
-                                        this.direction = "right";
-                                         this.flipX = true;
-                                    }else{
-                                        this.direction = "left";
-                                        this.flipX = false;
-                                    }
-
-                                   
-
-                                //},);
-
-                                
-                            },);
-                        }
-                        
-                        
-                    }else if(!this.checkXRangeFromPlayer(220, 220)){
-                        //console.log("player is in range");
-                        this.inEmergingAnimation = true;
-                        this.sporeDanceLock = false;
-                        //then play animation and go back to the hiding state.
-                        this.scene.initSoundEffect('growSFX','3',0.05);
-                        this.anims.play('becomeHidden').once('animationcomplete', () => {
-
-                            this.scene.initSporeCloud(this.x,this.y,"left");
-
-                            this.scene.initSporeCloud(this.x,this.y,"right");
-
-                            this.isHiding = true;
-                            this.inEmergingAnimation = false;
-                            this.anims.play('hiding',true);
-                            this.lightSource.radius = 90;
-                            this.lightSource.intensity = 0.7;
-
-                            this.moveMushroomFollow();
-                                
-                        });
-                    }else{
-                        this.sporeDanceLock = false; 
-                        this.anims.play("mushIdle",true);
-                        
-                     }
-                }
-                this.setVelocityX(0);
-                this.setVelocityY(0);
-            }else if(this.movingToNewNode === true){
-
-                this.lightSource.x = this.x;
-                this.lightSource.y = this.y+35;
-
-                if(this.curNode.x !== this.x || this.curNode.y+22 !== this.y ){
-
-                    //make mycelium effect
-                    if(this.myceliumTimer === false){
-
-                        this.myceliumTimer = true;
-                        let effect = new mycelium(this.scene, this.x, this.y+33);
-
-
-                        let mush = this;
-                        setTimeout(function () {
-                            mush.myceliumTimer = false;
-                        }, 30);
-
-                    }
-                    
-                    if(this.curNode.x+7 < this.x){
-                        this.setVelocityX(-this.transferSpeed);  
-                    }else if(this.curNode.x-7 > this.x){
-                        this.setVelocityX(this.transferSpeed);
-                    }else{
-                        this.setVelocityX(0);
-                        this.x = this.curNode.x;
-                    }
-
-                    if(this.curNode.y+22+7 < this.y){
-                        this.setVelocityY(-this.transferSpeed);  
-                    }else if(this.curNode.y+22-7 > this.y){
-                        this.setVelocityY(this.transferSpeed);
-                    }else{
-                        this.setVelocityY(0);
-                        this.y = this.curNode.y+22;
-                    }
-                        
-                }else{
-                    this.movingToNewNode = false;
-                    this.curNode.visible = false;
-                    this.y = this.curNode.y+22;
-                    this.x = this.curNode.x;
-                    this.visible = true;
-                    this.lightSource.y = this.y;
-                    this.lightSource.radius = 130;
-                    this.lightSource.intensity = 0.9;
-                    this.scene.initSoundEffect('growSFX','1',0.05);
-                    this.scene.initSporeCloud(this.x,this.y,"still");
-
-                }
- 
-                
-            }
-
-        //else if the enemy is defeated and is hidden
-        }else if(this.movingToNewNode === true){
-
-            this.lightSource.x = this.x;
-            this.lightSource.y = this.y+35;
-
-            if(this.curNode.root.x !== this.x || this.curNode.root.y+22 !== this.y ){
-
-                //make mycelium effect
-                if(this.myceliumTimer === false){
-
-                    this.myceliumTimer = true;
-                    let effect = new mycelium(this.scene, this.x, this.y+33);
-
-
+                    //play boss theme after a half second
                     let mush = this;
                     setTimeout(function () {
-                        mush.myceliumTimer = false;
-                    }, 30);
+                        mush.scene.initLoopingSound('battleMyceliumSFX','theme', 0.1,"music");
+                    }, 500);
 
+                });
+
+            });
+            
+        }else if(this.poppedOut === true){
+            
+
+            //console.log("this.turning: ", this.turning," this.idleState: ", this.idleState,);
+            if(this.turning === false){
+                this.turning = true;
+
+                if(this.scene.player1.x > this.x){
+                    this.flipX = true;
+                }else{
+                    this.flipX = false;
                 }
+                //first two checks represent state 0 for idle animation
+                if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(50,60) ){
+
+
+                    if(this.idleState === 0){
                         
-            if(this.curNode.root.x+7 < this.x){
-                this.setVelocityX(-this.transferSpeed);  
-            }else if(this.curNode.root.x-7 > this.x){
-                this.setVelocityX(this.transferSpeed);
-            }else{
-                this.setVelocityX(0);
-                this.x = this.curNode.root.x;
-            }
+                        this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
+                            this.turning = false;
+                        });
 
-            if(this.curNode.root.y+22+7 < this.y){
-                this.setVelocityY(-this.transferSpeed);  
-            }else if(this.curNode.root.y+22-7 > this.y){
-                this.setVelocityY(this.transferSpeed);
-            }else{
-                this.setVelocityY(0);
-                this.y = this.curNode.root.y+22;
-            }
-                    
-            //after mushroom has move to root, disable it/ destory it.
-            }else{
+                    }else if(this.idleState === 1){
+
+                        this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                            this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                this.idleState = 0;
+                                this.turning = false;
+                            });
+                        });
                         
-                //this.lightSource.destroy();
-                this.scene.initSoundEffect('growSFX','1',0.05);
+                    }else if(this.idleState === 2){
 
-                this.curNode.root.growRoot();
-                this.lightSource.visible = false;
-                this.destroy();
+                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                    this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                        this.idleState = 0;
+                                        this.turning = false;
+                                    });
+                                });
+                            });
+                        });
+                    }
+                }else if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(200,200)){
 
+                    if(this.idleState === 0){
+
+                        this.anims.play('forwardIdleEyesForward',true).once('animationcomplete', () => {
+                            this.turning = false;
+                        });
+
+
+                    }else if(this.idleState === 1){
+
+                        this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                            this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                this.idleState = 0;
+                                this.turning = false;
+                            });
+                        });
+                        
+                    }else if(this.idleState === 2){
+
+                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                    this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                        this.idleState = 0;
+                                        this.turning = false;
+                                    });
+                                });
+                            });
+                        });
+                    }
+
+                //state 1 resembles angled animation but we need to play turn animation first.
+                }else if(this.checkXRangeFromPlayer(120, 120)){
+
+                    //if the previous state was zero then
+                    if(this.idleState === 0){
+                        //do turn animation from center to angle.
+                        this.anims.play('from0to1',true).once('animationcomplete', () => {
+                            this.idleState = 1;
+                            this.turning = false;
+                        });
+
+                    }else if(this.idleState === 1){
+                        this.anims.play('AngleIdle',true).once('animationcomplete', () => {
+                            this.turning = false;
+                        });
+                    }else if(this.idleState === 2){
+                        //do turn animation from center to angle.
+                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                this.idleState = 1;
+                                this.turning = false;
+                            });
+                        });
+                    }
+                //state 2
+                }else if(this.checkXRangeFromPlayer(400, 400)){
+
+                    //if the previous state was zero then
+                    if(this.idleState === 0){
+                        //do turn animation from center to angle.
+                        this.anims.play('from0to1',true).once('animationcomplete', () => {
+                            this.anims.play('from1to2',true).once('animationcomplete', () => {
+                                this.idleState = 2;
+                                this.turning = false;
+                            });
+                        });
+
+                    }else if(this.idleState === 1){
+
+                        this.anims.play('from1to2',true).once('animationcomplete', () => {
+                            this.idleState = 2;
+                            this.turning = false;
+                        });
+                        
+                    }else if(this.idleState === 2){
+                        this.anims.play('sideIdle',true).once('animationcomplete', () => {
+                            this.turning = false;
+                        });
+                    }
+                }
             }
+            
+            
+            
+
         }
+
         //updates the previous y value to tell if enemy is falling or going up in its jump.
         this.enemyPreviousY = this.y;
-    }
-
-    //function to randomly move the mushroom from one location if the graph to another.
-    moveMushroomRandom(){
-
-        //generate a random number that represents a location in the outgoing node array.
-        let randloc = Math.floor(Math.random() * (this.curNode.nodeArray.length ));
-        console.log("randloc: ",randloc);
-
-        //make node sprite visible
-        this.curNode.visible = true;
-
-        //change mushroom into transfer sprite system
-
-        //store the new node in this object
-        this.curNode = this.curNode.nodeArray[randloc];
-        console.log("this.curNode: ",this.curNode);
-
-        //move the mushroom to the new location
-        this.movingToNewNode = true;
-        this.lightSource.radius = 90;
-        this.lightSource.intensity = 0.7;
-
-        this.visible = false;
-    }
-
-    moveMushroomFollow(){
-
-        //generate length on line from player and current node
-        let shortestLineSegment = this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,this.x,this.y);
-        let sameNode = true;
-        let tempNodeRef = this.curNode;
-
-        //check each adjacent node
-        this.curNode.nodeArray.forEach(node =>{
-
-            //if the line segment is closer  from one node and the player
-            if(this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,node.x,node.y) < shortestLineSegment){
-                //set the current closest length to the new one
-                shortestLineSegment = this.calcLineSegment(this.scene.player1.x,this.scene.player1.y,node.x,node.y);
-                //set the location node to the closer node.
-                this.curNode = node;
-                sameNode = false;
-            }
-  
-
-        });
-
-        //if we happen to be moving node then
-        if(sameNode === false){
-            //make previous node not visible
-            tempNodeRef.visible = true;
-
-            //move the mushroom to the new location by setting variable to triggler move logic in our move function. 
-            this.movingToNewNode = true;
-            this.lightSource.radius = 90;
-            this.lightSource.intensity = 0.7;
-
-            this.visible = false;
-
-        }
-
-        
-        //console.log("this.curNode: ",this.curNode);
-
-       
-    }
-
-    calcLineSegment(x1,y1,x2,y2){
-       return Math.sqrt(Math.pow(x1 - x2 , 2) + Math.pow(y1 - y2 , 2));
     }
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
+    
         if(this.isHiding === false && this.inEmergingAnimation === false){
 
             //then play animation and go back to the hiding state.
@@ -852,8 +729,9 @@ class mushroom extends enemy {
     // controls the damage resistance of the enemy.
     damage() {
   
-        if (this.damageCoolDown === false && this.isHiding === false) {
+        if (this.damageCoolDown === false && this.poppedOut === true) {
             this.damageCoolDown = true;
+            this.playJumpySound('3',100);
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
@@ -871,42 +749,7 @@ class mushroom extends enemy {
                 if (this.enemyHP <= 0) {
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
-                    this.setVelocityX(0);
-
-                    //hide mushroom and move it
-                    this.anims.play('becomeHidden').once('animationcomplete', () => {
-
-                        this.isHiding = true;
-                        this.inEmergingAnimation = false;
-                        this.anims.play('hiding',true);
-
-                        //make node sprite visible
-                        this.curNode.visible = true;
-
-                        this.movingToNewNode = true;
-                        this.lightSource.radius = 90;
-                        this.lightSource.intensity = 0.7;
-
-                        this.visible = false;
-                 
-                    });
-                    
-                }else if(this.isHiding === false && this.inEmergingAnimation === false){
-                    
-                    console.log("player is in range");
-                    this.inEmergingAnimation = true;
-                    //then play animation and go back to the hiding state.
-                    this.anims.play('becomeHidden').once('animationcomplete', () => {
-
-                        this.isHiding = true;
-                        this.inEmergingAnimation = false;
-                        this.anims.play('hiding',true);
-                        this.lightSource.radius = 90;
-                        this.lightSource.intensity = 0.7;
-
-                        this.moveMushroomRandom();
-                                
-                    });
+                    //this.setVelocityX(0);
                     
                 }
 
@@ -920,12 +763,13 @@ class mushroom extends enemy {
                 that.damageCoolDown = false;
                 console.log("damage cool down:" + that.damageCoolDown);
                 that.clearTint();
-            }, 3000);
+            }, 500);
         }
     }
 
     //handles damage types for blue enemy. get these damage types from the attack that hits the enemy
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {
+        let prevHp = this.enemyHP;
         console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
         if (slice > 0) {
             this.enemyHP -= (slice * 2);
@@ -948,6 +792,10 @@ class mushroom extends enemy {
         if (curse > 0) {
             this.enemyHP -= curse;
         }
+
+        //update the boss hp bar
+        healthEmitter.emit(healthEvent.loseBossHealth,prevHp-this.enemyHP);
+
     }
 
     // plays the enemy defeated player animations.

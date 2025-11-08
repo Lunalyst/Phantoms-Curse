@@ -72,6 +72,11 @@
             "start": 13.8,
             "end": 14.1,
             "loop": false
+        },"bossStart":{
+            "start": 14.2,
+            "end": 15.5,
+            "loop": false
         }
+        
     }
 }

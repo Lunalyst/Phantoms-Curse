@@ -25,7 +25,7 @@ class ShadowCaveUpper extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms"];
+      this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms","matangoRoot"];
 
        //call built in function to preload enemys assets.
        this.setUpEnemyPreload(this.enemyGroupArray);
@@ -37,8 +37,14 @@ class ShadowCaveUpper extends defaultScene {
 
       this.defaultPreload();
 
+      this.load.spritesheet('mushroomBarrier', 'assets/gameObjects/mushroom-hand-barrier.png',{frameWidth: 123, frameHeight: 384 });
+
       this.load.audioSprite('slowMyceliumSFX','audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.json',[
         "audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('battleMyceliumSFX','audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.json',[
+        "audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[
@@ -105,35 +111,15 @@ class ShadowCaveUpper extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //FLOOR 2 MUSHROOMS FROM LEFT TO RIGHT
-
-      this.initWallLight(650,1004,'ghostMushroom1');
-
-      this.initWallLight(880,886,'ghostMushroom1');
-      //this.initWallLight(882,881,'ghostMushroom2');
-
-      this.initWallLight(1178,886,'ghostMushroom4');
-
-      this.initWallLight(1457,844,'ghostMushroom2');
-      //this.initWallLight(1448,842,'ghostMushroom4');
-
-      this.initWallLight(2198,920,'ghostMushroom2');
-      //this.initWallLight(2205,923,'ghostMushroom4');
-
-      this.initWallLight(2310,632,'ghostMushroom1');
-
-      this.initWallLight(2810,647,'ghostMushroom1');
-      //this.initWallLight(2815,639,'ghostMushroom2');
-
       //section 3 
-      this.initWallLight(1045,641,'ghostMushroom1');
+      //this.initWallLight(1045,641,'ghostMushroom1');
       //this.initWallLight(1055,634,'ghostMushroom2');
 
-      this.initWallLight(526,593,'ghostMushroom3');
+      //this.initWallLight(526,593,'ghostMushroom3');
       //this.initWallLight(536,603,'ghostMushroom1');
-      this.initWallLight(546,610,'ghostMushroom4');
+      //this.initWallLight(546,610,'ghostMushroom4');
 
-      this.initWallLight(667,408,'ghostMushroom3');
+      //this.initWallLight(667,408,'ghostMushroom3');
 
       this.initWallLight(971,367,'ghostMushroom2');
       
@@ -153,7 +139,7 @@ class ShadowCaveUpper extends defaultScene {
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
-      this.setUpShadowLightCollider();
+      //this.setUpShadowLightCollider();
   
       //sets up item drops for the scene
 
@@ -164,9 +150,14 @@ class ShadowCaveUpper extends defaultScene {
 
       this.setUpSporeClouds();
 
+      this.setUpMushroomBarriers();
+      this.setUpMushroomBarrierCollider();
+
       //set up mushroom network
       //start by creating a root node
-      this.mushroomRoot = new mushroomNode(this,1040,1016+12,"root",null,false);
+      this.mushroomRoot = new mushroomNode(this,1000,1016+12,"root",null,false);
+      this.mushroomRoot.addMushroomBarrier(1325,1016,false);
+      this.mushroomRoot.addMushroomBarrier(696,1016,true);
 
       //then we define a a graph structure as a "branch" of the root. 
       //start by making the nodes of the graph

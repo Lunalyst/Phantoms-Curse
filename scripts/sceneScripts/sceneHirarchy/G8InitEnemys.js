@@ -189,6 +189,16 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.mushroomDefeats.add(mush);
 
       },
+
+      matangoRoot: function matangoRootFunction(startX, startY, playerSex,inSafeMode,rootNode) {
+
+        let mush = new mantangoRoot(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        mush.rootNode = rootNode;
+        tempSceneRef.enemyId++;
+        console.log("created mushdefeat id: ",mush.enemyId);
+        tempSceneRef.enemys.add(mush);
+        tempSceneRef.matangoRoots.add(mush);
+      }
       
     };
   }

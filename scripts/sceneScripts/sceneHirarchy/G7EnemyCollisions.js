@@ -107,6 +107,10 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             console.log("adding mushrooms group");
             tempSceneRef.mushroomDefeats = tempSceneRef.physics.add.group();
           },
+          matangoRoot: function matangoRootFunction() {
+            console.log("adding matangoRoot group");
+            tempSceneRef.matangoRoots = tempSceneRef.physics.add.group();
+          },
           
         };
   }

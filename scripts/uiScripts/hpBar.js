@@ -237,3 +237,4 @@ class hpBar extends Phaser.GameObjects.Container{
     }
 
 }
+

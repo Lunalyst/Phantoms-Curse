@@ -56,6 +56,7 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
       this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 129 });
+      this.load.spritesheet('bossBar', 'assets/hudElements/bossBar.png',{frameWidth: 1083, frameHeight: 75});
       this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('bestiary1', 'assets/hudElements/bestiary1.png',{frameWidth: 462, frameHeight: 630 });
       this.load.spritesheet('bestiary2', 'assets/hudElements/bestiary2.png',{frameWidth:  462, frameHeight: 630 });
@@ -115,6 +116,9 @@ class gameHud extends A3SoundEffects {
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.healthDisplay = new hpBar(this,170,20);
 
+        //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
+        this.bossHealthDisplay = new bossBar(this,this.screenWidth/2,780);
+        
         /*let that = this;
         setTimeout(function () {
           that.struggleEventBar = new sceneStruggleBar(this, 450, 450);
@@ -179,9 +183,6 @@ class gameHud extends A3SoundEffects {
 
         });
 
-       
-
-
         healthEmitter.on(healthEvent.upgradeHealth,() =>{
 
           //makes sure upgrades do not go above the limit.
@@ -198,6 +199,43 @@ class gameHud extends A3SoundEffects {
           //heals player to full.
           this.healthDisplay.maxHealth();
         });
+
+        //boss emitters
+        healthEmitter.on(healthEvent.loseBossHealth,(damage) =>{
+            console.log('emitter activating damage to bossHealthDisplay: ', damage)
+            this.bossHealthDisplay.damageCoolDown = false;
+            this.bossHealthDisplay.calcDamage(damage)
+            console.log('health is now:  ', this.bossHealthDisplay.playerHealth)            
+        });
+        
+        healthEmitter.on(healthEvent.gainBossHealth,(healing) =>{
+            console.log('emitter activating Boss healing')
+            this.bossHealthDisplay.calcHealing(healing)
+        });
+        
+        healthEmitter.on(healthEvent.maxBossHealth,() =>{
+          console.log('emitter activating Boss health to max')
+          this.bossHealthDisplay.maxHealth();
+        });
+
+        healthEmitter.on(healthEvent.returnBossHealth,(healthObject) =>{
+            //console.log('emitter returning health value')
+            healthObject.bossHealth = this.bossHealthDisplay.bossHealth;
+            healthObject.bossMaxHealth = this.healthDisplay.bossHealthMax;
+          
+        });
+
+        healthEmitter.on(healthEvent.setBossHealth,(healthObject) =>{
+            //console.log('emitter returning health value')
+            this.bossHealthDisplay.setBossHp(healthObject.bossHealth,healthObject.bossMaxHealth);
+            this.bossHealthDisplay.setBossName(healthObject.bossName);
+          
+        });
+
+         healthEmitter.on(healthEvent.setBossHealthVisible,(visible) =>{
+            this.bossHealthDisplay.visible = visible;
+        });
+
 
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
           //console.log("setting this.struggleEventBar.visible: ", visible);

@@ -331,29 +331,12 @@ class G11CheckGameObjects extends G10CheckNPCS {
       
      
 
-      //overlap function to let player know that the curse bar is increasing.
+      /*//overlap function to let player know that the curse bar is increasing.
       tempScene.physics.add.overlap(tempScene.player1.mainHitbox, tempProjectile, function () {
 
         tempScene.player1.overlapCurseBuildUp();
-
-          //set up player stuck grab and 
-          /*tempScene.playerStuckGrab = true;
-          tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
-          tempScene.player1.resetAttack();
-          console.log("tempScene.player1: ",tempScene.player1 );
-          tempScene.player1.attacking = false;
-          tempScene.player1.resetAttack();
-          tempScene.playerStuckGrabCap = 120;
-
-          tempScene.initSoundEffect('curseSFX','curse',0.3);
-
-          //creates a refrence to the enemy that infatuaged the player
-          tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
-
-          tempScene.player1.StuckRepeat("cursedHeartInfatuated");
-          tempProjectile.destroy();*/
         
-      });
+      });*/
 
       
     });

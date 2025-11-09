@@ -354,10 +354,11 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
         tempSporeCloud.setPipeline('Light2D');
       }
 
+      let tempScene = this;
       //overlap function to let player know that the curse bar is increasing.
-      this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
+      tempSporeCloud.colliderRefrence =  this.physics.add.overlap(this.player1.mainHitbox, tempSporeCloud, function () {
 
-        this.player1.overlapCurseBuildUp();
+        tempScene.player1.overlapCurseBuildUp();
         
       });
 

@@ -126,7 +126,8 @@ class mushroom extends enemy {
             if(this.movingToNewNode === false){
                 //if the enemy is hiding
                 if(this.isHiding === true && this.inEmergingAnimation === false){
-                    
+                    this.y = this.curNode.y+22;
+                    this.x = this.curNode.x;
                     if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
                         //console.log("player is in range");
                         this.inEmergingAnimation = true;

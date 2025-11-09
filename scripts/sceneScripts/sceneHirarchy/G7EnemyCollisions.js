@@ -110,6 +110,8 @@ class G7EnemyCollisions extends G6PreloadEnemys{
           matangoRoot: function matangoRootFunction() {
             console.log("adding matangoRoot group");
             tempSceneRef.matangoRoots = tempSceneRef.physics.add.group();
+
+            
           },
           
         };

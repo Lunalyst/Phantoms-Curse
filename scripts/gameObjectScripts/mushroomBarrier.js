@@ -1,7 +1,7 @@
 // wood barriers that break when the player does enough damage to them.
 class mushroomBarrier extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, xPos, yPos,flip){
+    constructor(scene, xPos, yPos,flip,orientation){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos, yPos-24, 'mushBarrier');
         //then we add new instance into the scene.
@@ -12,10 +12,19 @@ class mushroomBarrier extends Phaser.Physics.Arcade.Sprite{
         this.setPushable(false);
         //sets scale to 1 third. sprites are upscaled by 3 times so they look sharper.
         this.setScale(1/3,1/3);
-        //changes collision box size.
-        this.setSize(46,32*11,true);
-        this.setOffset(45, 20);
+      console.log("orientation: ",orientation);
+        if(orientation === 'horizontal'){
 
+          //changes collision box size.
+          this.setSize(32*11,46,true);
+          this.setOffset(-120, 170);
+          this.setRotation((3.14/2));
+        }else{
+          //changes collision box size.
+          this.setSize(46,32*11,true);
+          this.setOffset(45, 20);
+        }
+  
         this.flipX = flip;
 
         //barrie danage variables.

@@ -1030,36 +1030,6 @@ class G9CheckEnemys extends G8InitEnemys {
         //calls to make each instance of a slime move.
         tempShadows.move(scene.player1,scene);
 
-        //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempShadows.grabHitBox, function () {
-          let isWindowObject = {
-            isOpen: null
-          };
-        
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            //scene.playerInventory.setView(scene);
-          }
-
-          if (tempShadows.grabCoolDown === false && scene.grabCoolDown === false && scene.player1.lanturnFlicker === null) {
-            //stop the velocity of the player
-            tempShadows.setVelocityX(0);
-            scene.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempShadows.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            tempShadows.grabCoolDown = true;
-            tempShadows.playerGrabbed = true;
-            scene.grabbed = true;
-            scene.grabCoolDown = true;
-            console.log('player grabbed by shadow');
-          }
-        });
-       
-      // creates a overlap between the damage hitbox and the slime so that slime can take damage
       }else if(this.objectsInRangeX(tempShadows,scene.player1,10) && this.objectsInRangeY(tempShadows,scene.player1,80)){
         tempShadows.visible = true;
         this.viewAnimationLogic(tempShadows);
@@ -1104,15 +1074,10 @@ class G9CheckEnemys extends G8InitEnemys {
 
         if(scene.player1.idleTimer !== 2000){
           tempMushrooms.move(scene.player1,scene);
-
-          scene.physics.add.overlap(scene.attackHitBox, tempMushrooms, function () {
-            tempMushrooms.hitboxOverlaps = true;
-          });
-
         }else{
           tempMushrooms.moveIdle();
         }
-      
+        
         //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
         if(tempMushrooms.hitboxOverlaps === true) {
           tempMushrooms.damage(scene);
@@ -1222,10 +1187,6 @@ class G9CheckEnemys extends G8InitEnemys {
         //console.log("tempMushrooms.inSafeMode: ",tempMushrooms.inSafeMode);
         if(scene.player1.idleTimer !== 2000){
           tempMushrooms.move(scene.player1,scene);
-
-          scene.physics.add.overlap(scene.attackHitBox, tempMushrooms, function () {
-            tempMushrooms.hitboxOverlaps = true;
-          });
 
         }else{
           tempMushrooms.moveIdle();

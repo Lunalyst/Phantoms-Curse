@@ -5,8 +5,7 @@ class mantangoRoot extends enemy {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
-       
-
+    
          if(scene.preferance === 0){
             super(scene, xPos, yPos+22, sex, id, 20, 'mushroom-male-tf');
             this.enemySex = 0;
@@ -69,22 +68,20 @@ class mantangoRoot extends enemy {
        
         this.inSafeMode = inSafeMode;
 
+        if(this.inSafeMode === false){
+            this.rightHand = new mushroomHandSingle(this.scene,this.x+80, this.y+48, false);
+            this.leftHand = new mushroomHandSingle(this.scene,this.x-80, this.y+48, true);
+
+        }
+
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
             //also sets up the curse light for if the player is cursed.
             this.curseLight = this.scene.lights.addLight(this.x,this.y-20, 150, 0xb317ff);
-            this.curseLight.intensity = 1.1;
+            this.curseLight.intensity = 1.5;
             this.curseLight.visible = false;
-            
-            //also sets up the curse light for if the player is cursed.
-            this.curseLight1 = this.scene.lights.addLight(this.x,this.y+20, 150, 0xb317ff);
-            this.curseLight1.intensity = 1.1;
-            this.curseLight1.visible = false;
-
-            this.curseLight2 = this.scene.lights.addLight(this.x,this.y-60, 70, 0x777777);
-            this.curseLight2.intensity = 0.8;
-            this.curseLight2.visible = false;
+        
           }
         
 
@@ -97,24 +94,25 @@ class mantangoRoot extends enemy {
         this.setOffset(220, 380);
 
         //if the mushroom has not awoken and the player in in range
-        if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(200,200) && this.startedFight === false){
+        if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
             this.startedFight = true;
         }else if(this.poppedOut === false && this.inEmergingAnimation === false && this.startedFight === true){
 
             this.inEmergingAnimation = true;
             this.curseLight.visible = true;
-            this.curseLight1.visible = true;
-            this.curseLight2.visible = true;
             this.visible = true;
 
+            //hide root node object
             this.rootNode.visible = false;
             this.rootNode.curseLight.visible = false;
             this.rootNode.activateMushroomBarriers();
 
-
             this.scene.initSoundEffect('growSFX','2',0.1);
             this.scene.sound.get("slowMyceliumSFX").stop();
 
+            this.rightHand.handRise();
+            this.leftHand.handRise();
+  
             this.anims.play('popout').once('animationcomplete', () => {
                 
                 this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
@@ -148,7 +146,6 @@ class mantangoRoot extends enemy {
             
         }else if(this.poppedOut === true){
             
-
             //console.log("this.turning: ", this.turning," this.idleState: ", this.idleState,);
             if(this.turning === false){
                 this.turning = true;

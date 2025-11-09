@@ -139,7 +139,7 @@ class ShadowCaveUpper extends defaultScene {
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
-      //this.setUpShadowLightCollider();
+      this.setUpShadowLightCollider();
   
       //sets up item drops for the scene
 
@@ -156,8 +156,9 @@ class ShadowCaveUpper extends defaultScene {
       //set up mushroom network
       //start by creating a root node
       this.mushroomRoot = new mushroomNode(this,1000,1016+12,"root",null,false);
-      this.mushroomRoot.addMushroomBarrier(1325,1016,false);
-      this.mushroomRoot.addMushroomBarrier(696,1016,true);
+      this.mushroomRoot.addMushroomBarrier(1325,1016,false,"vertical");
+      this.mushroomRoot.addMushroomBarrier(696,1016,true,"vertical");
+      this.mushroomRoot.addMushroomBarrier(1088,785,false,'horizontal');
 
       //then we define a a graph structure as a "branch" of the root. 
       //start by making the nodes of the graph
@@ -187,7 +188,7 @@ class ShadowCaveUpper extends defaultScene {
 
       this.mushroomNode5 = new mushroomNode(this,1181,696+12,"node5",this.mushroomRoot,false);
       this.mushroomNode6 = new mushroomNode(this,594,664+12,"node6",this.mushroomRoot,false);
-      this.mushroomNode7 = new mushroomNode(this,1042,408+12,"node7",this.mushroomRoot,true);
+      this.mushroomNode7 = new mushroomNode(this,1042,408+12,"node7",this.mushroomRoot,true);// spawn enemy
       this.mushroomNode12 = new mushroomNode(this,1612,952+12,"node12",this.mushroomRoot,false);
 
       this.mushroomBranch2 = [];
@@ -210,7 +211,7 @@ class ShadowCaveUpper extends defaultScene {
 
       this.mushroomNode8 = new mushroomNode(this,1008,664+12,"node8",this.mushroomRoot,false);
       this.mushroomNode9 = new mushroomNode(this,416,568+12,"node9",this.mushroomRoot,false);
-      this.mushroomNode10 = new mushroomNode(this,713,440+12,"node10",this.mushroomRoot,true);
+      this.mushroomNode10 = new mushroomNode(this,713,440+12,"node10",this.mushroomRoot,true);// spawn enemy
       this.mushroomNode11 = new mushroomNode(this,1424,504+12,"node11",this.mushroomRoot,false);
 
       this.mushroomBranch3 = [];
@@ -235,12 +236,18 @@ class ShadowCaveUpper extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
 
-          //thisScene.initEnemy(905,1016,thisScene.playerSex,'curseShadow',false);
-          //thisScene.initEnemy(800,664,thisScene.playerSex,'curseShadow',false);
           thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
-
-          //thisScene.initEnemy(703,1028,thisScene.playerSex,'mushroom',false);
+          thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
+          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
           thisScene.spawnedEnemys = true;
+
         },1000);
 
         //calls the time outs for various things.

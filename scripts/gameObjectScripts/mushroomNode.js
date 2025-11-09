@@ -44,7 +44,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'root2',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 8, end: 11}),frameRate: 4,repeat: -1});
         this.anims.create({key: 'root3',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 12, end: 15}),frameRate: 5,repeat: -1});
         this.anims.create({key: 'root4',frames: this.anims.generateFrameNames('mushroom-nodes', { start: 16, end: 19}),frameRate: 7,repeat: -1});
-
+        
         this.nodeName = nodeType;
         this.nodeArray = [];
 
@@ -53,6 +53,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         this.barriersX = [];
         this.barriersY = [];
         this.barriersFlipX = [];
+        this.barriersOrientation = [];
         this.barriers = [];
 
 
@@ -102,14 +103,8 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
 
     //function to set up enemy in node that has a enemy inside it
     setUpEnemyShroom(){
-        let mush = new mushroom(this.scene, this.x, this.y, this.scene.playerSex,this.scene.enemyId,false);
-        //give the mushroom a refrence to this node
-        mush.curNode = this;
-        //otherwise we handles this just like any other enemy.
-        this.scene.enemyId++;
-        console.log("created mush id: ",mush.enemyId);
-        this.scene.enemys.add(mush);
-        this.scene.mushrooms.add(mush);
+
+        this.scene.initEnemy(this.x,this.y,this.scene.playerSex,"mushroom",false,this); 
     }
 
     growRoot(){
@@ -133,16 +128,18 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
     }
 
     //function to add a x andy location for nodes.
-    addMushroomBarrier(x,y,flipx){
+    addMushroomBarrier(x,y,flipx,orientation){
         this.barriersX.push(x);
         this.barriersY.push(y);
         this.barriersFlipX.push(flipx);
+        this.barriersOrientation.push(orientation);
     }
 
     //function to activate barriers when the mushroom wakes up.
     activateMushroomBarriers(){
         this.barriersX.forEach((item, index) => {
-            this.scene.initMushroomBarrier(this.barriersX[index],this.barriersY[index],this.barriersFlipX[index]);
+            //console.log("this.barriersOrientation[index]: ",this.barriersOrientation[index]);
+            this.scene.initMushroomBarrier(this.barriersX[index],this.barriersY[index],this.barriersFlipX[index],this.barriersOrientation[index]);
         });
     }
 

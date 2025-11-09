@@ -64,10 +64,6 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.rabbits.add(rabbit1);
       },
       beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        /*tempSceneRef.load.start();
-        tempSceneRef.load.audioSprite('wingFlapSFX'+tempSceneRef.enemyId,'audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
-          "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
-        ]);*/
 
         let beeDrone1 = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
         console.log("created beeDrone id: ",beeDrone1.enemyId);
@@ -164,6 +160,37 @@ class G8InitEnemys extends G7EnemyCollisions{
         console.log("created curseShadow id: ",shadow.enemyId);
         tempSceneRef.enemys.add(shadow);
         tempSceneRef.curseShadows.add(shadow);
+
+
+        tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, shadow.grabHitBox, function () {
+          
+          let isWindowObject = {
+            isOpen: null
+          };
+        
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          if (isWindowObject.isOpen === true) {
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+            //scene.playerInventory.setView(scene);
+          }
+
+          if (shadow.grabCoolDown === false && tempSceneRef.grabCoolDown === false && tempSceneRef.player1.lanturnFlicker === null) {
+            //stop the velocity of the player
+            shadow.setVelocityX(0);
+            tempSceneRef.player1.mainHitbox.setVelocityX(0);
+            //calls the grab function
+            shadow.grab();
+            //sets the scene grab value to true since the player has been grabbed
+            // tells instance of slime that it has grabbed player
+            shadow.grabCoolDown = true;
+            shadow.playerGrabbed = true;
+            tempSceneRef.grabbed = true;
+            tempSceneRef.grabCoolDown = true;
+            console.log('player grabbed by shadow');
+          }
+        });
+
       },
       earieShadow: function earieShadowFunction(startX, startY, playerSex,inSafeMode) {
         let earieS = new EarieShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
@@ -173,12 +200,22 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.earieShadows.add(earieS);
       },
 
-      mushroom: function earieShadowFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+      mushroom: function mushroomFunction(startX, startY, playerSex,inSafeMode,rootNode) {
         let mush = new mushroom(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        mush.curNode = rootNode;
         tempSceneRef.enemyId++;
         console.log("created mush id: ",mush.enemyId);
         tempSceneRef.enemys.add(mush);
         tempSceneRef.mushrooms.add(mush);
+        //happens too soon?
+
+        console.log("tempSceneRef.attackHitBox: ",tempSceneRef.attackHitBox);
+        console.log("mush: ",mush);
+        tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, mush, function () {
+            console.log("overlap with mushroom occuring!");
+            mush.hitboxOverlaps = true;
+        });
+
       },
       mushroomDefeat: function mushroomDefeatsFunction(startX, startY, playerSex,inSafeMode) {
 
@@ -198,6 +235,12 @@ class G8InitEnemys extends G7EnemyCollisions{
         console.log("created mushdefeat id: ",mush.enemyId);
         tempSceneRef.enemys.add(mush);
         tempSceneRef.matangoRoots.add(mush);
+
+        tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, mush, function () {
+            console.log("overlap with mushroom occuring!");
+            mush.hitboxOverlaps = true;
+        });
+
       }
       
     };

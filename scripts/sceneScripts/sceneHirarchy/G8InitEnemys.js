@@ -161,9 +161,8 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(shadow);
         tempSceneRef.curseShadows.add(shadow);
 
-
         tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, shadow.grabHitBox, function () {
-          
+
           let isWindowObject = {
             isOpen: null
           };

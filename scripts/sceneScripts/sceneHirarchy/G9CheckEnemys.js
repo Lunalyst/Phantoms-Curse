@@ -973,35 +973,6 @@ class G9CheckEnemys extends G8InitEnemys {
         }else{
           tempShadows.moveIdle()
         }
-
-        //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempShadows.grabHitBox, function () {
-          let isWindowObject = {
-            isOpen: null
-          };
-        
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            //scene.playerInventory.setView(scene);
-          }
-
-          if (tempShadows.grabCoolDown === false && scene.grabCoolDown === false && scene.player1.lanturnFlicker === null) {
-            //stop the velocity of the player
-            tempShadows.setVelocityX(0);
-            scene.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempShadows.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            tempShadows.grabCoolDown = true;
-            tempShadows.playerGrabbed = true;
-            scene.grabbed = true;
-            scene.grabCoolDown = true;
-            console.log('player grabbed by shadow');
-          }
-        });
        
       // creates a overlap between the damage hitbox and the slime so that slime can take damage
       }else if(this.objectsInRangeX(tempShadows,scene.player1,50) && this.objectsInRangeY(tempShadows,scene.player1,80)){
@@ -1087,7 +1058,7 @@ class G9CheckEnemys extends G8InitEnemys {
 
 
         //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempMushrooms.grabHitBox, function () {
+        /*scene.physics.add.overlap(scene.player1.mainHitbox, tempMushrooms.grabHitBox, function () {
           let isWindowObject = {
             isOpen: null
           };
@@ -1113,7 +1084,7 @@ class G9CheckEnemys extends G8InitEnemys {
             scene.grabCoolDown = true;
             console.log('player grabbed by shadow');
           }
-        });
+        });*/
        
       // creates a overlap between the damage hitbox and the slime so that slime can take damage
       }else if(this.objectsInRangeX(tempMushrooms,scene.player1,50) && this.objectsInRangeY(tempMushrooms,scene.player1,80)){

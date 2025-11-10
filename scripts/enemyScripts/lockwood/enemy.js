@@ -255,11 +255,13 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
     checkXRangeFromTarget(target, xLeftThresh, XRightThresh){
 
         // bounds check defined by x  parameters
-        if((target.x > this.x  - xLeftThresh && target.x < this.x + XRightThresh)){
-            return true;
-        }else{
-            return false;
-        }
+        //if(){
+            if((target.x > this.x  - xLeftThresh && target.x < this.x + XRightThresh)){
+                return true;
+            }else{
+                return false;
+            }
+        //}
     }
 
     checkYRangeFromTarget(target, yTopThresh, yBottomThresh){

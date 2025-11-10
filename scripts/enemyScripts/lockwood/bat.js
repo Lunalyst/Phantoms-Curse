@@ -278,149 +278,150 @@ class bat extends enemy {
                     this.setDepth(this.target.depth);
                 }
 
-                //if the enemy is within grab range attempt to grab the player while the grab timer is false
-                if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-90 < this.y ) && this.grabTimer === false &&  this.scene.playerStuckGrabbedBy !== "knockdown"){
+                if(this.target !== null && this.target !== undefined){
+                    //if the enemy is within grab range attempt to grab the player while the grab timer is false
+                    if(this.checkXRangeFromTarget(this.target, 10, 10) && (this.target.y-60 > this.y && this.target.y-90 < this.y ) && this.grabTimer === false &&  this.scene.playerStuckGrabbedBy !== "knockdown"){
 
-                    this.grabTimer = true;
-                    this.hitboxActive = true;
-                    
+                        this.grabTimer = true;
+                        this.hitboxActive = true;
 
-                    //controls the x velocity when the bat is butt slamming to grab the player
-                    this.setVelocityX(0);
+                        //controls the x velocity when the bat is butt slamming to grab the player
+                        this.setVelocityX(0);
 
-                    this.setVelocityY(400);
+                        this.setVelocityY(400);
 
-                    this.grabHitBox.body.enable = true;
+                        this.grabHitBox.body.enable = true;
 
-                    //player the bat grab animation and once its complete
-                    this.grabTimer = true;
-                    
-                    this.anims.play('batButtSlam').once('animationcomplete', () => {
-
-                        this.isButtSlamming = true;
-                            
-                    });
-
-                // if the bat is butt slamming we check to see if the bat hits the ground.
-                }else if(this.isButtSlamming === true && this.scene.playerStuckGrabbedBy !== "knockdown"){
-                    
-                    
-                    //check to see if bat collides with ground. if true then
-                    if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
+                        //player the bat grab animation and once its complete
+                        this.grabTimer = true;
                         
-                        //set value to play butt on ground animation
-                        this.hitboxActive = false;
-                        this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
+                        this.anims.play('batButtSlam').once('animationcomplete', () => {
+
+                            this.isButtSlamming = true;
+                                
+                        });
+
+                    // if the bat is butt slamming we check to see if the bat hits the ground.
+                    }else if(this.isButtSlamming === true && this.scene.playerStuckGrabbedBy !== "knockdown"){
+                        
+                        
+                        //check to see if bat collides with ground. if true then
+                        if(this.body.blocked.down === true && this.isPlayingMissedAnims === false){
                             
-                            //set butt slamming to false
+                            //set value to play butt on ground animation
+                            this.hitboxActive = false;
+                            this.anims.play('batButtSlamMiss').once('animationcomplete', () => {
+                                
+                                //set butt slamming to false
+                                this.isButtSlamming = false;
+                                this.grabTimer = false;
+                                this.isPlayingMissedAnims = false;  
+                                // if the bat misses destroy collision
+                                //this.batCollision.destroy();
+                            });
+
+                            //stop velocity of both x and y
+                            this.setVelocityX(0);
+                            this.setVelocityY(0);
+
+                            this.isPlayingMissedAnims = true;
+                        // bat is in air and falling so keep downward velocity 
+                        }else if(this.isPlayingMissedAnims === false){
+                            this.anims.play('batButtSlamInAir');
+                            this.setVelocityY(400);
+                        }
+
+                    //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
+                    }else if(this.grabTimer === false){
+
+                        //console.log('');
+                        this.grabHitBox.body.enable = false;
+
+                        if(this.fallThroughLayer0 === true){
+                            console.log("this.batCollision: ",this.batCollision);
+                            if(this.batCollision.world !== null){
+                                this.batCollision.destroy();
+                            }
+                            this.fallThroughLayer0 = false;
+                        }
+
+                        if ((this.target.x > this.x - 450 && this.target.x < this.x + 450) && (this.target.y > this.y - 900 && this.target.y < this.y + 900)) {
+
+                            
+                            if(this.playingSound === false){
+                                if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
+                                    this.playWingFlapSound('1',500);
+                                }
+                                this.playingSound = true;
+                            }
+                            this.setSize(70, 180, true);
+                            this.setOffset(100, 59);
+                    
+                            //if bat is within range
+                            if (this.checkXRangeFromTarget(this.target, 10,10 )){
+                                if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
+                                    this.anims.play('batIdle',true);
+                                }
+                                this.setVelocityX(0);
+                
+                            }else{
+                                //if the bat is left of the player move the bat right twards the player bot not into them yet.
+                                if (this.target.x > this.x){
+                                    
+                                    this.setVelocityX(this.randomXVelocity);
+                                    //play the animation for bat being in the air.
+                                    this.anims.play('batMove',true);
+                                    this.flipX = false;
+                                                
+                                //if the bat is to the right of the player, then move the bat left
+                                } else if (this.target.x < this.x) {
+                
+                                    this.setVelocityX(this.randomXVelocity * -1);
+                                    //play the animation for bat being in the air.
+                                    this.anims.play('batMove',true);
+                                    this.flipX = true;
+                                }
+                            }
+
+                            //keep the bat floating lightly above the players y
+                            if ((this.target.y-60 > this.y && this.target.y-90 < this.y )){
+                                //this.anims.play('batIdle',true);
+                                this.setVelocityY(0);
+                
+                            }else{
+                                // moves the bat up to the position where it should be able to get the player.
+                                if (this.target.y - 60 > this.y) {
+                
+                                    this.setVelocityY(150);
+                
+                                } else if (this.target.y-90 < this.y ) {
+                
+                                    this.setVelocityY(150*-1);    
+                                }
+
+                            }
+                
+                        //special case incase bat is in buttslam when player gets knocked down. have bat reset its variables
+                        }else if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
                             this.isButtSlamming = false;
                             this.grabTimer = false;
                             this.isPlayingMissedAnims = false;  
-                            // if the bat misses destroy collision
-                            //this.batCollision.destroy();
-                        });
+                            this.hitboxActive = false;
 
-                        //stop velocity of both x and y
-                        this.setVelocityX(0);
-                        this.setVelocityY(0);
-
-                        this.isPlayingMissedAnims = true;
-                    // bat is in air and falling so keep downward velocity 
-                    }else if(this.isPlayingMissedAnims === false){
-                        this.anims.play('batButtSlamInAir');
-                        this.setVelocityY(400);
-                    }
-
-                //checks to see if bat should move if the player is within range. also has to check y and if the enemy isnt grabbing.
-                }else if(this.grabTimer === false){
-
-                    //console.log('');
-                    this.grabHitBox.body.enable = false;
-
-                    if(this.fallThroughLayer0 === true){
-                        console.log("this.batCollision: ",this.batCollision);
-                        if(this.batCollision.world !== null){
-                            this.batCollision.destroy();
-                        }
-                        this.fallThroughLayer0 = false;
-                    }
-
-                    if ((this.target.x > this.x - 450 && this.target.x < this.x + 450) && (this.target.y > this.y - 900 && this.target.y < this.y + 900)) {
-
-                        
-                        if(this.playingSound === false){
-                            if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
-                                this.playWingFlapSound('1',500);
-                            }
-                            this.playingSound = true;
-                        }
-                        this.setSize(70, 180, true);
-                        this.setOffset(100, 59);
-                
-                        //if bat is within range
-                        if (this.checkXRangeFromTarget(this.target, 10,10 )){
-                            if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
-                                this.anims.play('batIdle',true);
-                            }
+                        }else{
+                            this.anims.play('batIdle', true);
                             this.setVelocityX(0);
-            
-                        }else{
-                            //if the bat is left of the player move the bat right twards the player bot not into them yet.
-                            if (this.target.x > this.x){
-                                
-                                this.setVelocityX(this.randomXVelocity);
-                                //play the animation for bat being in the air.
-                                this.anims.play('batMove',true);
-                                this.flipX = false;
-                                            
-                            //if the bat is to the right of the player, then move the bat left
-                            } else if (this.target.x < this.x) {
-            
-                                this.setVelocityX(this.randomXVelocity * -1);
-                                //play the animation for bat being in the air.
-                                this.anims.play('batMove',true);
-                                this.flipX = true;
-                            }
-                        }
-
-                        //keep the bat floating lightly above the players y
-                        if ((this.target.y-60 > this.y && this.target.y-90 < this.y )){
-                            //this.anims.play('batIdle',true);
                             this.setVelocityY(0);
-            
-                        }else{
-                            // moves the bat up to the position where it should be able to get the player.
-                            if (this.target.y - 60 > this.y) {
-            
-                                this.setVelocityY(150);
-            
-                            } else if (this.target.y-90 < this.y ) {
-            
-                                this.setVelocityY(150*-1);    
+
+                            if(this.scene.sound.get(this.batSFX) !== null){
+                                this.scene.sound.get(this.batSFX).stop();
                             }
-
+                            this.playingSound = false;
+                            
                         }
-            
-                    //special case incase bat is in buttslam when player gets knocked down. have bat reset its variables
-                    }else if(this.scene.playerStuckGrab === true && this.scene.playerStuckGrabbedBy === "knockdown"){
-                        this.isButtSlamming = false;
-                        this.grabTimer = false;
-                        this.isPlayingMissedAnims = false;  
-                        this.hitboxActive = false;
 
-                    }else{
-                        this.anims.play('batIdle', true);
-                        this.setVelocityX(0);
-                        this.setVelocityY(0);
-
-                        if(this.scene.sound.get(this.batSFX) !== null){
-                            this.scene.sound.get(this.batSFX).stop();
-                        }
-                        this.playingSound = false;
-                        
                     }
-
-                }
+            }
 
         }
     // if the bat ate, then do that logic

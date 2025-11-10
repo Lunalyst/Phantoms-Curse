@@ -248,37 +248,6 @@ class G11CheckGameObjects extends G10CheckNPCS {
         tempProjectile.destroycursedHeartProjectile();
       }
 
-      let tempScene = this;
-      //if projectile overlaps with player then
-      this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
-
-        if(tempProjectile.body.blocked.down === false && tempProjectile.destroying === false){
-          //set up player stuck grab and 
-          tempScene.playerStuckGrab = true;
-          tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
-          tempScene.player1.resetAttack();
-          console.log("tempScene.player1: ",tempScene.player1 );
-          tempScene.player1.attacking = false;
-          tempScene.player1.resetAttack();
-          tempScene.playerStuckGrabCap = 120;
-
-          tempScene.initSoundEffect('curseSFX','curse',0.3);
-
-          //creates a refrence to the enemy that infatuaged the player
-          tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
-
-          tempScene.player1.StuckRepeat("cursedHeartInfatuated");
-          tempProjectile.destroy();
-        }
-
-
-      });
-
-      //cool functionality, if the players attack hitbox overlaps the projectile.
-      this.physics.add.overlap(this.attackHitBox, tempProjectile, function () {
-        tempProjectile.hitboxOverlaps = true;
-      });
-
       if(tempProjectile.hitboxOverlaps === true) {
         console.log("player destroyed cursed heart projectile.");
         tempProjectile.destroycursedHeartProjectile();
@@ -321,7 +290,6 @@ class G11CheckGameObjects extends G10CheckNPCS {
     this.playerStorage.children.each(function (tempStorage) {
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
-      //this.physics.add.overlap(tempPile, this.player1, function () {
       if(this.objectsInRangeX(tempStorage,this.player1,40) && this.objectsInRangeY(tempStorage,this.player1,40)){
 
         tempStorage.safeToOpen = true;
@@ -329,9 +297,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
         //console.log("outside save point");
         tempStorage.safeToOpen = false;
       }
-      //});
       
-
       tempStorage.activateStorage(this.keyW);
       
     }, this);

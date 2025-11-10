@@ -50,7 +50,11 @@ class cursedHeartProjectile extends Phaser.Physics.Arcade.Sprite{
         this.destroying = true;
         this.scene.initSoundEffect('curseSFX','curse',0.3);
         this.anims.play('cursedHeartDestroy').once('animationcomplete' , () =>{
+          this.collider1.destroy();
+          this.collider2.destroy();
           this.destroy();
+
+          
         });
       }
     }

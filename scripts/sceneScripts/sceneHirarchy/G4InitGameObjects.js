@@ -364,15 +364,47 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     initCursedHeartProjectile(x,y,velocityX,enemy,direction){
 
-      let cursedHeartProj = new cursedHeartProjectile(this,x,y,velocityX,enemy,direction);
+      let tempProjectile = new cursedHeartProjectile(this,x,y,velocityX,enemy,direction);
 
-      this.physics.add.existing(cursedHeartProj);
-      this.CursedHearts.add(cursedHeartProj);
+      this.physics.add.existing(tempProjectile);
+      this.CursedHearts.add(tempProjectile);
 
       //if we are using dark lighting
       if(this.lightingSystemActive === true){ 
-        cursedHeartProj.setPipeline('Light2D');
+        tempProjectile.setPipeline('Light2D');
       }
+
+      let tempScene = this;
+      //if projectile overlaps with player then
+      tempProjectile.collider1 = this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
+
+        if(tempProjectile.body.blocked.down === false && tempProjectile.destroying === false){
+          //set up player stuck grab and 
+          tempScene.playerStuckGrab = true;
+          tempScene.playerStuckGrabbedBy = "cursed_heart_projectile";
+          tempScene.player1.resetAttack();
+          console.log("tempScene.player1: ",tempScene.player1 );
+          tempScene.player1.attacking = false;
+          tempScene.player1.resetAttack();
+          tempScene.playerStuckGrabCap = 120;
+
+          tempScene.initSoundEffect('curseSFX','curse',0.3);
+
+          //creates a refrence to the enemy that infatuaged the player
+          tempScene.enemyThatInfatuatedPlayer = tempProjectile.enemyThatSpawnedProjectile;
+
+          tempScene.player1.StuckRepeat("cursedHeartInfatuated");
+          tempProjectile.collider1.destroy();
+          tempProjectile.collider2.destroy();
+          tempProjectile.destroy();
+        }
+      });
+
+      //cool functionality, if the players attack hitbox overlaps the projectile.
+       tempProjectile.collider2 = this.physics.add.overlap(this.attackHitBox, tempProjectile, function () {
+        tempProjectile.hitboxOverlaps = true;
+      });
+
     }
 
     initSporeCloud(x,y,direction){

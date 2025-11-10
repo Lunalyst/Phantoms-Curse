@@ -35,7 +35,7 @@ class G8InitEnemys extends G7EnemyCollisions{
             inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
             if (isWindowObject.isOpen === true) {
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
             }
 
             if (slime1.grabCoolDown === false && slime1.mitosing === false && tempSceneRef.grabCoolDown === false) {
@@ -101,7 +101,7 @@ class G8InitEnemys extends G7EnemyCollisions{
             inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
             if (isWindowObject.isOpen === true) {
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
             }
 
             if (slime1.grabCoolDown === false && slime1.mitosing === false && tempSceneRef.grabCoolDown === false) {
@@ -188,7 +188,7 @@ class G8InitEnemys extends G7EnemyCollisions{
             //to tell if the window is open
             if (isWindowObject.isOpen === true) {
               //and if it is, then close the window
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
               
             }
             
@@ -230,60 +230,6 @@ class G8InitEnemys extends G7EnemyCollisions{
         }
         tempSceneRef.enemys.add(tiger1);  
         tempSceneRef.tigers.add(tiger1);
-
-        if(inSafeMode === false){
-          let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempTiger, function () {
-          
-            //sets overlap to be true
-            if(tempTiger.tigerIsEating === false){
-              tempTiger.hitboxOverlaps = true;
-            }
-          });
-
-          tempTiger.addColliderRef(collider);
-
-          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        collider = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempTiger.grabHitBox, function () {
-          if(tempTiger.tigerIsEating === false){
-            //make a temp object
-            let isWindowObject = {
-              isOpen: null
-            };
-            
-            //that is passed into a emitter
-            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-          
-            //to tell if the window is open
-            if (isWindowObject.isOpen === true) {
-              //and if it is, then close the window
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-              
-            }
-            
-            //if the grab cooldowns are clear then
-            if (tempTiger.grabCoolDown === false && tempSceneRef.grabCoolDown === false && tempTiger.isHidding === false) {
-              
-              console.log(" grabing the player?");
-              //stop the velocity of the player
-              tempTiger.setVelocityX(0);
-              tempSceneRef.player1.mainHitbox.setVelocityX(0);
-              //calls the grab function
-              tempTiger.grab();
-            
-              //sets the scene grab value to true since the player has been grabbed
-              tempTiger.playerGrabbed = true;
-              tempTiger.grabCoolDown = true;
-              tempSceneRef.grabbed = true;
-              tempSceneRef.grabCoolDown = true;
-              console.log('player grabbed by tiger');
-          
-            }
-          } 
-        });
-
-        tempTiger.addColliderRef(collider);
-      }
-
 
       },
       rabbit: function rabbitFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
@@ -351,7 +297,7 @@ class G8InitEnemys extends G7EnemyCollisions{
               inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
               if (isWindowObject.isOpen === true) {
-                inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+                inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
               }
 
               //apply stuckgrab logic.
@@ -376,77 +322,6 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(tempRabbits);  
         tempSceneRef.rabbits.add(tempRabbits);
 
-        if(inSafeMode === false){
-          //checks if the attack hitbox is overlapping the rabbit to deal damage.
-          let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempRabbits, function () {
-          
-            //sets overlap to be true
-            tempRabbits.hitboxOverlaps = true;
-          });
-          tempRabbits.addColliderRef(collider);
-
-          //adds collider between player and rabbit. then if they collide it plays the grab sequence but only if the player was not grabbed already
-           collider = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempRabbits.grabHitBox, function () {
-          
-            //make a temp object
-            let isWindowObject = {
-              isOpen: null
-            };
-            
-            //that is passed into a emitter
-            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-          
-            //to tell if the window is open
-            if (isWindowObject.isOpen === true) {
-              //and if it is, then close the window
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-              
-            }
-            
-            //if the grab cooldowns are clear then
-            if (tempRabbits.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
-              
-              console.log(" grabing the player?");
-              //stop the velocity of the player
-              tempRabbits.setVelocityX(0);
-              tempSceneRef.player1.mainHitbox.setVelocityX(0);
-              //calls the grab function
-              tempRabbits.grab();
-            
-              //sets the scene grab value to true since the player has been grabbed
-              tempRabbits.playerGrabbed = true;
-              tempRabbits.grabCoolDown = true;
-              tempSceneRef.grabbed = true;
-              tempSceneRef.grabCoolDown = true;
-              console.log('player grabbed by tempRabbits');
-          
-            }
-          });
-
-          tempRabbits.addColliderRef(collider);
-
-          //attack hitbox logic
-          collider = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempRabbits.attackHitBox, function () {
-              let isWindowObject = {
-                isOpen: null
-              };
-            
-              inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-              if (isWindowObject.isOpen === true) {
-                inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-              }
-
-              //apply stuckgrab logic.
-              tempSceneRef.playerStuckGrab = true;
-              tempSceneRef.playerStuckGrabbedBy = "knockdown";
-              tempSceneRef.playerStuckGrabCap = 40;
-              tempSceneRef.enemyThatknockdownPlayer = tempRabbits;
-
-          });
-          tempRabbits.addColliderRef(collider);
-          
-        }
       },
       beeDrone: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
 
@@ -479,7 +354,7 @@ class G8InitEnemys extends G7EnemyCollisions{
               //to tell if the window is open
               if (isWindowObject.isOpen === true) {
                 //and if it is, then close the window
-                inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+                inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
                 
               }
               
@@ -539,7 +414,7 @@ class G8InitEnemys extends G7EnemyCollisions{
               //to tell if the window is open
               if (isWindowObject.isOpen === true) {
                 //and if it is, then close the window
-                inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+                inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
                 
               }
               
@@ -591,41 +466,41 @@ class G8InitEnemys extends G7EnemyCollisions{
           });
           tempBat.addColliderRef(collider2);
 
-          console.log("tempSceneRef.whiteCats: ",tempSceneRef.whiteCats);
-          console.log("tempBat.grabHitBox: ",tempBat.grabHitBox);
-          tempSceneRef.whiteCats.children.each(function (tempCat) {
-            let collider3 = tempSceneRef.physics.add.overlap(tempCat, tempBat.grabHitBox, function () {
-                //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                  if(tempBat.targetString === "whitecat"){
-                      if(tempBat.playerGrabbed === false && tempCat.playerGrabbed === false && tempBat.enemyDefeated === false){
-                        // move the bats grab box out of the way just in case.
-                        tempCat.attackHitBox.x = this.x;
-                        tempCat.attackHitBox.y = this.y + 3000; 
-                        tempCat.grabHitBox.x = this.x;
-                        tempCat.grabHitBox.y = this.y + 3000;
+          if(tempSceneRef.whiteCats !== undefined){
+            tempSceneRef.whiteCats.children.each(function (tempCat) {
+              let collider3 = tempSceneRef.physics.add.overlap(tempCat, tempBat.grabHitBox, function () {
+                  //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    if(tempBat.targetString === "whitecat"){
+                        if(tempBat.playerGrabbed === false && tempCat.playerGrabbed === false && tempBat.enemyDefeated === false){
+                          // move the bats grab box out of the way just in case.
+                          tempCat.attackHitBox.x = this.x;
+                          tempCat.attackHitBox.y = this.y + 3000; 
+                          tempCat.grabHitBox.x = this.x;
+                          tempCat.grabHitBox.y = this.y + 3000;
 
-                        //call logic for bat to eat
-                        tempBat.batEatsCat(tempCat.enemySex);
-            
-                        //"destroy" cat. just hide them. if we destroy them, then it breaks inivisble barrier collision. 
-                        tempCat.visible = true;
-                        tempCat.enemyInDefeatedLogic = true;
-                        
-                        //set a variable apart of the cat to true so the function in G8enemy.js can free the player ofthe infatuated state as the target is no longer valid to follow. 
-                        tempCat.eaten = true;
+                          //call logic for bat to eat
+                          tempBat.batEatsCat(tempCat.enemySex);
+              
+                          //"destroy" cat. just hide them. if we destroy them, then it breaks inivisble barrier collision. 
+                          tempCat.visible = true;
+                          tempCat.enemyInDefeatedLogic = true;
+                          
+                          //set a variable apart of the cat to true so the function in G8enemy.js can free the player ofthe infatuated state as the target is no longer valid to follow. 
+                          tempCat.eaten = true;
 
-                        console.log("bat.target: ", tempCat);
+                          console.log("bat.target: ", tempCat);
 
-                        //set bat target to player.
-                        tempBat.targetString = "player";
-                        tempBat.target = this.player1;
+                          //set bat target to player.
+                          tempBat.targetString = "player";
+                          tempBat.target = this.player1;
+                      
+                      }   
+                    }
                     
-                    }   
-                  }
-                  
+              });
+              tempBat.addColliderRef(collider3);
             });
-            tempBat.addColliderRef(collider3);
-          });
+          }
           
         }
 
@@ -640,13 +515,54 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(tempBat);  
         tempSceneRef.bats.add(tempBat);
       },
-      
       blueSlimeHS: function blueSlimeHSFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        let slime1 = new blueSlimeHS(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
-        console.log("created blueSlimeHS id: ",slime1.enemyId);
+        let tempSlime = new blueSlimeHS(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blueSlimeHS id: ",tempSlime.enemyId);
         tempSceneRef.enemyId++;
-        tempSceneRef.enemys.add(slime1);
-        tempSceneRef.blueSlimeHSs.add(slime1);
+        tempSceneRef.enemys.add(tempSlime);
+        tempSceneRef.blueSlimeHSs.add(tempSlime);
+
+        if(inSafeMode === false){
+
+          let collider = tempSceneRef.physics.add.overlap( tempSceneRef.attackHitBox, tempSlime, function () {
+            tempSlime.hitboxOverlaps = true;
+          });
+          tempSlime.addColliderRef(collider);
+
+          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          let collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempSlime, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+              //scene.playerInventory.setView(scene);
+            }
+            //console.log("player overlaps slime");
+            //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            if (tempSlime.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempSlime.setVelocityX(0);
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              tempSlime.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempSlime.playerGrabbed = true;
+              tempSlime.grabCoolDown = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by slime');
+            }
+          });
+          tempSlime.addColliderRef(collider1);
+
+        }
+
       },
       blueSlimeHM: function blueSlimeHMFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let slime1 = new blueSlimeHM(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
@@ -654,6 +570,47 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(slime1);
         tempSceneRef.blueSlimeHMs.add(slime1);
+
+        if(inSafeMode === false){
+
+          let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempSlime, function () {
+            tempSlime.hitboxOverlaps = true;
+          });
+          tempSlime.addColliderRef(collider);
+
+          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          let collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempSlime.grabHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+              //scene.playerInventory.setView(scene);
+            }
+            //console.log("player overlaps slime");
+            //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
+            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
+            if (tempSlime.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempSlime.setVelocityX(0);
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              tempSlime.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempSlime.playerGrabbed = true;
+              tempSlime.grabCoolDown = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by slime');
+            }
+          });
+          tempSlime.addColliderRef(collider1);
+        
+        }
       },
       chestMimic: function chestMimicFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let tempMimic = new chestMimic(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
@@ -678,7 +635,7 @@ class G8InitEnemys extends G7EnemyCollisions{
             inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
             if (isWindowObject.isOpen === true) {
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
             }
 
             if (tempMimic.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
@@ -711,11 +668,71 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.chestMimics.add(mimic);
       },
       whiteCat: function whiteCatFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        let cat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
-        console.log("created whiteCat id: ",cat.enemyId);
+        let tempCat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created whiteCat id: ",tempCat.enemyId);
         tempSceneRef.enemyId++;
-        tempSceneRef.enemys.add(cat);
-        tempSceneRef.whiteCats.add(cat);
+        tempSceneRef.enemys.add(tempCat);
+        tempSceneRef.whiteCats.add(tempCat);
+
+        if(inSafeMode === false){
+          
+          let collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempCat, function () {
+            tempCat.hitboxOverlaps = true;
+          });
+          tempCat.addColliderRef(collider1);
+
+          //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempCat.grabHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+          
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+              
+            }
+
+            if (tempCat.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempCat.setVelocityX(0);
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              tempCat.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempCat.grabCoolDown = true;
+              tempCat.playerGrabbed = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by cat');
+            }
+          });
+          tempCat.addColliderRef(collider1);
+
+          //attack hitbox logic
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempCat.attackHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+          
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+            }
+
+            //apply stuckgrab logic.
+            tempSceneRef.playerStuckGrab = true;
+            tempSceneRef.playerStuckGrabbedBy = "knockdown";
+            tempSceneRef.playerStuckGrabCap = 40;
+            tempSceneRef.enemyThatknockdownPlayer = tempCat;
+
+          });
+          tempCat.addColliderRef(collider1);
+
+        }
       },
       angryWhiteCat: function angryWhiteCatFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let cat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);

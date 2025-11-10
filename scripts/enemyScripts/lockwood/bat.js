@@ -74,6 +74,8 @@ class bat extends enemy {
         this.playLickSound1CoolDown = false;
         this.playLickSound2CoolDown = false;
 
+        this.fallThroughLayer0 = false;
+
         //defines bat animations based on the players sex.
         if(this.enemySex === 0) {
 
@@ -292,7 +294,7 @@ class bat extends enemy {
 
                     //player the bat grab animation and once its complete
                     this.grabTimer = true;
-
+                    
                     this.anims.play('batButtSlam').once('animationcomplete', () => {
 
                         this.isButtSlamming = true;
@@ -335,8 +337,17 @@ class bat extends enemy {
                     //console.log('');
                     this.grabHitBox.body.enable = false;
 
+                    if(this.fallThroughLayer0 === true){
+                        console.log("this.batCollision: ",this.batCollision);
+                        if(this.batCollision.world !== null){
+                            this.batCollision.destroy();
+                        }
+                        this.fallThroughLayer0 = false;
+                    }
+
                     if ((this.target.x > this.x - 450 && this.target.x < this.x + 450) && (this.target.y > this.y - 900 && this.target.y < this.y + 900)) {
 
+                        
                         if(this.playingSound === false){
                             if(this.checkYRangeFromPlayer(300,300) && this.checkXRangeFromPlayer(300, 300)){
                                 this.playWingFlapSound('1',500);
@@ -1010,8 +1021,11 @@ class bat extends enemy {
 
          this.playerGrabbed = true;
 
-        //set up collision for bat on layer 0
-        this.batCollision = this.scene.physics.add.collider(this.scene.processMap.layer0, this);
+         //set up collision for bat on layer 0
+        if(this.fallThroughLayer0 === false){
+            this.batCollision = this.scene.physics.add.collider(this.scene.processMap.layer0, this);
+            this.fallThroughLayer0 = true;
+        }
         
         //if the player is not defeated, has not broken free and the animation has not batd played, 
         if (this.playerDefeated === false && this.playerBrokeFree === 0 && !this.animationPlayed && this.batHasEatenCat === false) {

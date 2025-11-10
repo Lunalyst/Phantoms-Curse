@@ -273,6 +273,14 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
         woodWall.setPipeline('Light2D');
         
       }
+
+      //checks if the attack hitbox is overlapping the tiger to deal damage.
+      this.physics.add.overlap(this.attackHitBox, woodWall, function () {
+
+        woodWall.hitboxOverlaps = true;
+      });
+
+
     }
 
     initMushroomBarrier(x,y,flip,orientation){
@@ -320,16 +328,38 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     initSlimeProjectile(x,y,velocityX,savedGravity){
 
-      let slimeProj = new slimeProjectile(this,x,y,velocityX,savedGravity);
+      let tempProjectile = new slimeProjectile(this,x,y,velocityX,savedGravity);
 
-      this.physics.add.existing(slimeProj);
-      this.slimeProjectiles.add(slimeProj);
+      this.physics.add.existing(tempProjectile);
+      this.slimeProjectiles.add(tempProjectile);
 
       //if we are using dark lighting
       if(this.lightingSystemActive === true){ 
-        slimeProj.setPipeline('Light2D');
+        tempProjectile.setPipeline('Light2D');
         
       }
+
+      let tempScene = this;
+      //if projectile overlaps with player then
+      tempProjectile.collider = this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
+
+        if(tempProjectile.body.blocked.down === false){
+          //set up player stuck grab and 
+          tempScene.playerStuckGrab = true;
+          tempScene.playerStuckGrabbedBy = "slime_projectile";
+          tempScene.playerStuckGrabCap = 100;
+          tempScene.player1.resetAttack();
+          tempScene.player1.StuckRepeat("blueSlimeStuck");
+          tempProjectile.collider.destroy();
+          tempProjectile.destroy();
+
+          tempScene.player1.attacking = false;
+        }
+
+
+      });
+
+
     }
 
     initCursedHeartProjectile(x,y,velocityX,enemy,direction){

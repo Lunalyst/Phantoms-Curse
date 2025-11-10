@@ -123,11 +123,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
       if(this.objectsInRangeX(tempbarrier,this.player1,100)){
           //checks if the attack hitbox is overlapping the tiger to deal damage.
-        this.physics.add.overlap(this.attackHitBox, tempbarrier, function () {
-
-          tempbarrier.hitboxOverlaps = true;
-        });
-
+         
         if (tempbarrier.hitboxOverlaps === true) {
           console.log("woodenbarrier taking damage, " + tempbarrier.hp);
           tempbarrier.damage();
@@ -141,11 +137,9 @@ class G11CheckGameObjects extends G10CheckNPCS {
     this.rockPiles.children.each(function (tempPile) {
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
-      //this.physics.add.overlap(tempPile, this.player1, function () {
       if(this.objectsInRangeX(tempPile,this.player1,20) && this.objectsInRangeY(tempPile,this.player1,40)){
         tempPile.hitboxOverlaps = true;
       }
-      //});
       
       if (tempPile.hitboxOverlaps === true) {
         tempPile.activateRockPile();
@@ -157,11 +151,11 @@ class G11CheckGameObjects extends G10CheckNPCS {
     this.slimeSpikes.children.each(function (tempSpike) {
 
       //checks if the attack hitbox is overlapping the tiger to deal damage.
-      //this.physics.add.overlap(tempPile, this.player1, function () {
+
       if(this.objectsInRangeX(tempSpike,this.player1,60) && this.objectsInRangeY(tempSpike,this.player1,200) &&this.isPaused === false &&this.playerStuckGrab === false && this.grabbed === false){
         tempSpike.inRange = true;
       }
-      //});
+
       
       if (tempSpike.inRange === true) {
         tempSpike.activateSlimeSpike();
@@ -189,25 +183,6 @@ class G11CheckGameObjects extends G10CheckNPCS {
         tempProjectile.destroySlimeProjectile();
         tempProjectile.hitTheGround = true;
       }
-
-      let tempScene = this;
-      //if projectile overlaps with player then
-      this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
-
-        if(tempProjectile.body.blocked.down === false){
-          //set up player stuck grab and 
-          tempScene.playerStuckGrab = true;
-          tempScene.playerStuckGrabbedBy = "slime_projectile";
-          tempScene.playerStuckGrabCap = 100;
-          tempScene.player1.resetAttack();
-          tempScene.player1.StuckRepeat("blueSlimeStuck");
-          tempProjectile.destroy();
-
-          tempScene.player1.attacking = false;
-        }
-
-
-      });
 
     }, this);
   }

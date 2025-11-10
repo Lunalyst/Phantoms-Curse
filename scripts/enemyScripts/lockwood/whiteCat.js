@@ -66,6 +66,7 @@ class whiteCat extends enemy {
         this.angryTransition = false;
         this.angerThreshold = 30;
         this.struggleAnimationInterupt = false;
+        this.setDepth(6);
 
 
         //console.log("this.enemySex: ",this.enemySex," sex ", sex);
@@ -291,7 +292,7 @@ class whiteCat extends enemy {
                         //set value to play missed grabb animation
                         
                         this.anims.play('catAttemptingGrabMiss').once('animationcomplete', () => {
-                            this.setDepth(5);
+                            this.setDepth(6);
                             this.hitboxActive = false;
                             this.attemptingGrab = false;
                             this.grabTimer = false;
@@ -427,7 +428,7 @@ class whiteCat extends enemy {
                 
             //if the cats hp is below the threshold, then transition to angry ai.
             }else if(this.angry === false && this.enemyHP <= this.angerThreshold){
-                this.setDepth(5);
+                this.setDepth(6);
                 this.hitboxActive = false;
                 this.attemptingGrab = false;
                 this.grabTimer = false;
@@ -491,7 +492,7 @@ class whiteCat extends enemy {
                         //set value to play missed grabb animation
                         
                         this.anims.play('catAttackEnd').once('animationcomplete', () => {
-                            this.setDepth(5);
+                            this.setDepth(6);
                             this.attackHitboxActive = false;
                             this.attemptingGrab = false;
                             this.grabTimer = false;
@@ -616,7 +617,7 @@ class whiteCat extends enemy {
         this.hitboxActive = false; 
         this.throwingcat = false;
         this.throwcatTimer = false;
-        this.setDepth(5);
+        this.setDepth(6);
 
     }
 
@@ -651,7 +652,7 @@ class whiteCat extends enemy {
             this.catGrabFalse();
 
         }else if (this.playerGrabbed === true){
-            this.setDepth(5);
+            this.setDepth(6);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -1297,7 +1298,7 @@ class whiteCat extends enemy {
                     let dropChance = Math.round((Math.random() * ((75) - (60 * this.scene.player1.dropChance)) + (60 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 3));
 
-                    this.setDepth(5);
+                    this.setDepth(6);
 
                     //decides amount of slime drops based on size
                     if( dropChance > 0){
@@ -1356,7 +1357,7 @@ class whiteCat extends enemy {
 
     enemyDefeatedLogic(){
 
-        this.setDepth(5);
+        this.setDepth(6);
 
         this.setVelocityX(0);
         if(this.eaten === true){
@@ -1824,7 +1825,7 @@ class whiteCat extends enemy {
         } else if(this.playerGrabbed === true) {
 
             //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
+            this.setDepth(6);
 
             //hides the mobile controls in the way of the tab/skip indicator.
             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);

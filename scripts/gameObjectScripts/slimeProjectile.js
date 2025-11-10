@@ -28,6 +28,7 @@ class slimeProjectile extends Phaser.Physics.Arcade.Sprite{
     //destroys platform after the animation is played.
     destroySlimeProjectile(){
       this.anims.play('slimeProjectileDestroy').once('animationcomplete' , () =>{
+        this.collider.destroy();
         this.destroy();
       });
     }

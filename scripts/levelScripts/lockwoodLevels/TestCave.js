@@ -119,11 +119,11 @@ class TestCave extends defaultScene {
       //random number to determine if the mimic is spawned or a empty chest.
 
 
-      setTimeout(function(){
+      //setTimeout(function(){
           
         thisScene.initEnemy(1383,666,thisScene.playerSex,'chestMimic',false);
 
-      },1000);
+      //},1000);
       
       //otherwise spawn the chest like normal.
       }else{
@@ -146,14 +146,14 @@ class TestCave extends defaultScene {
 
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      setTimeout(function(){
+      //setTimeout(function(){
           
           thisScene.initEnemy(1073, 893,thisScene.playerSex,'blueSlime',false);
           thisScene.initEnemy(1173, 893,thisScene.playerSex,'blueSlime',false);
           
           //thisScene.initEnemy(1173,700,thisScene.playerSex,'tiger');
           thisScene.spawnedEnemys = true;
-        },1000);
+       // },1000);
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();

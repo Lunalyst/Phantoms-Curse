@@ -244,8 +244,6 @@ class PondForest extends defaultScene {
           thisScene.initEnemy(1497,1769,thisScene.playerSex,'whiteCat',false); 
           thisScene.initEnemy(4089,1673,thisScene.playerSex,'whiteCat',false); 
           
-          //thisScene.initEnemy(2976,1496,thisScene.playerSex,'whiteCat',false); 
-          //thisScene.initEnemy(2036,1120,thisScene.playerSex,'bat',false,'wingFlapSFX1');   
           thisScene.initEnemy(1671,1073+30,thisScene.playerSex,'bat',false);
           thisScene.initEnemy(3920,1098,thisScene.playerSex,'bat',false);        
           thisScene.spawnedEnemys = true;
@@ -275,7 +273,7 @@ class PondForest extends defaultScene {
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
 
-      console.log("this.secret1: ",this.secret1);
+      //console.log("this.secret1: ",this.secret1);
       //if player hasnt encountered event yet.
       if(this.secret1 === 0 && this.player1.x > 2308 && this.player1.x < 2906 && this.player1.y < 1090 && this.player1.y > 1010){
         this.secret1++;

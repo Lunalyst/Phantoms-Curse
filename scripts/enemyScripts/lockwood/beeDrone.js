@@ -658,9 +658,14 @@ class beeDrone extends enemy {
                     this.scene.player1.curseDamage
                 );
 
+                
                 this.playJumpySound('2',700);
                 
                 if (this.enemyHP <= 0) {
+
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     this.scene.sound.get(this.beeDroneSFX).stop();
                     this.grabHitBox.destroy();
                     this.destroy();

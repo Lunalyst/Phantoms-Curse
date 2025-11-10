@@ -903,7 +903,7 @@ class gameHud extends A3SoundEffects {
           //emitter to opem and close the inventory when the tab input is recieved from the scene
           inventoryKeyEmitter.on(inventoryKey.activateWindow,(scene,bypass) =>{
               //opens inventory so long as the storage locker isnt open.
-              console.log("this.isStorageOpen: ",this.isStorageOpen);
+              //console.log("this.isStorageOpen: ",this.isStorageOpen);
               if(this.isStorageOpen === false){
                 this.playerInventory.setView(scene,this,bypass);
               }
@@ -1232,6 +1232,7 @@ class gameHud extends A3SoundEffects {
       this.label11 = this.add.text(xValue, 150, 'Num of npcs: ', { fontFamily: '"Monospace"'});
       this.label12 = this.add.text(xValue, 165, 'Num of npcTriggers: ', { fontFamily: '"Monospace"'});
       this.label13 = this.add.text(xValue, 180, 'Num of Enemies: ', { fontFamily: '"Monospace"'});
+      this.label14 = this.add.text(xValue, 195, 'Num of colliders: ', { fontFamily: '"Monospace"'});
 
     }
 
@@ -1294,6 +1295,8 @@ class gameHud extends A3SoundEffects {
         }else{
         this.label13.setText('Num of Enemies: 0');
         }
+        
+        this.label14.setText('Num of colliders: (' + this.gameplaySceneRef?.physics?.world?.colliders?._active?.length +')'); 
 
       }
       

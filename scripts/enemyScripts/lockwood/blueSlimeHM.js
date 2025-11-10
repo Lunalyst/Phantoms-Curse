@@ -806,8 +806,14 @@ class blueSlimeHM extends enemy {
                 );
 
                 this.playSlimeSound('5',200);
+
+                
                 
                 if (this.enemyHP <= 0) {
+
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     this.destroy();
                 }
             }

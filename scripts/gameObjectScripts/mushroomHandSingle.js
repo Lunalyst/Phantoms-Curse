@@ -3,7 +3,7 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos,flip){
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'mushroom-hands-single');
+        super(scene, xPos, yPos , 'mushroom-hands-single');
         //then we add new instance into the scene.
         scene.add.existing(this);
         //sets scale to 1 third. sprites are upscaled by 3 times so they look sharper.

@@ -155,15 +155,16 @@ class TestForest extends defaultScene {
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
-      setTimeout(function(){
+      //setTimeout(function(){
           
-          thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
-          //thisScene.initEnemy(1452,1120,thisScene.playerSex,'rabbit',false);
-          thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
-          thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
-          //thisScene.initEnemy(4717,1170,thisScene.playerSex,'rabbit',false);
-          thisScene.spawnedEnemys = true;
-        },1000);
+        thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
+        thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
+
+        //note, have to spawn tiger after rabbits, otherwise collider will not be applied correctly. 
+        thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
+
+        thisScene.spawnedEnemys = true;
+        //},1000);
 
 
         //calls the time outs for various things.

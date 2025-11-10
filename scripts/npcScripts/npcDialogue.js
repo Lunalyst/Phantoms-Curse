@@ -296,7 +296,7 @@ const npcDialogue = {
             "generic":{
                 "tutorialSign1":{
                     "node1":{
-                        "dialogue": "To anyone who wash up here, head towards the cave to the right.",
+                        "dialogue": "To anyone who wash up here, head towards the cave to the right. ~Siracle",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -304,7 +304,7 @@ const npcDialogue = {
                 },
                 "tutorialCabin":{
                     "node1":{
-                        "dialogue": "Follow the platforms upward. We have a small lodging for those that wash up here. It's not much, but it's the best we could do for you. You could wait for one of us to come get you; however, it's been a long time since anyone was up here and we don't check this cabin often.",
+                        "dialogue": "Follow the platforms upward. We have a small lodging for those that wash up here. It's not much, but it's the best we could do for you. You could wait for one of us to come get you; however, it's been a long time since anyone was up here and we don't check this cabin often. ~Siracle",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

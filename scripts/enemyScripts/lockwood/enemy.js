@@ -82,10 +82,9 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.enemyInDefeatedLogic = false;
 
         this.struggleAnimationInterupt = false;
+
+        this.colliderRefArray = [];
         
-
-
- 
     }
 
     //functions that move evemy objects.is to be over written by child class
@@ -273,8 +272,15 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    WIsCorrectPress(){
-        
+    addColliderRef(collider){
+        this.colliderRefArray.push(collider);
+    }
+
+    removeColliders(){
+        this.colliderRefArray.forEach(collider =>{
+            this.scene.physics.world.removeCollider(collider);
+          
+        });
     }
     
    

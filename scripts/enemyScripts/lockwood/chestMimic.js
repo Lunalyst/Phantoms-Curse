@@ -864,6 +864,9 @@ class chestMimic extends enemy {
                 
                 if (this.enemyHP <= 0) {
 
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     if(this.scene.playerLocation === "TestCave"){
                         //if the mimic dies, then add a special weapon to the player inventory if in specific place
                         //make a temp object

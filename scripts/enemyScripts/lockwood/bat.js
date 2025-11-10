@@ -214,6 +214,7 @@ class bat extends enemy {
         if(this.inSafeMode === true){ 
             this.anims.play('batIdle',true);
         }else{
+            this.setDepth(6);
             this.anims.play('batSleep',true);  
         }
 
@@ -231,9 +232,7 @@ class bat extends enemy {
     //functions that move bat objects.
     move(){
 
-    this.forcedPhysics = this.scene.physics.add.collider(this, this.scene.invisibleBarriers);
-    //console.log("this.forcedPhysics: ", this.forcedPhysics);
-    //console.log("this.scene.invisibleBarriers: ", this.scene.invisibleBarriers);
+
     if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false && this.enemyInDefeatedLogic === false){
 
         if(this.batIsEating === true){
@@ -252,15 +251,18 @@ class bat extends enemy {
                     //console.log("target: ",this.target)
                     if(this.grabTimer === false){
                         if(this.target !== null ){
-
+                            
                             this.targetString = "whitecat";
-                            this.setDepth(this.target.depth+1);
+                            
+                            //this.setTargetCollider();
+                            this.setDepth(this.target.depth);
                             this.randomXVelocity = 250;
                         }else{
                             
                             this.target = this.scene.player1;
                             this.targetString = "player";
-                            this.setDepth(this.target.depth+1);
+                            //this.destroyTargetCollider();
+                            this.setDepth(this.target.depth);
                             this.randomXVelocity = 230;
                         }
 
@@ -271,7 +273,7 @@ class bat extends enemy {
                 }else if(this.isSoundEffectPlaying('weaponSFX') || this.isSoundEffectPlaying('playerJumpSFX') || this.isSoundEffectPlaying('whiteCatSFX')){
                     this.target = this.scene.player1;
                     this.targetString = "player";
-                    this.setDepth(this.target.depth+1);
+                    this.setDepth(this.target.depth);
                 }
 
                 //if the enemy is within grab range attempt to grab the player while the grab timer is false
@@ -465,7 +467,7 @@ class bat extends enemy {
                         
                         this.anims.play('batFatButtAttackEnd').once('animationcomplete', () => {
 
-                            this.setDepth(5);
+                            this.setDepth(6);
                             this.attackHitboxActive = false;
                             this.attemptingGrab = false;
                             this.grabTimer = false;
@@ -703,6 +705,7 @@ class bat extends enemy {
                 //set values approperiately.
                 this.isSleeping = false;
                 this.wakingUp = false;
+                this.setDepth(6);
             });
 
         }else if(this.wakingUp === false){
@@ -765,7 +768,7 @@ class bat extends enemy {
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
             this.hitboxActive = false;
-            this.setDepth(4);
+            this.setDepth(6);
             this.grabTimer = false;
             this.attemptingGrab = false;
             this.grabTimer = false;
@@ -895,7 +898,6 @@ class bat extends enemy {
         
     }
 
-
     //the grab function. is called when player has overlaped with an enemy bat.
     grab(){
 
@@ -915,7 +917,7 @@ class bat extends enemy {
         } else if (this.playerGrabbed === true) {
 
             //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
+            this.setDepth(6);
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -1620,6 +1622,9 @@ class bat extends enemy {
 
                 if (this.enemyHP <= 0) {
 
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
                     this.setVelocityX(0);
@@ -1633,7 +1638,7 @@ class bat extends enemy {
                         dropAmount * 3;
                     }
 
-                    this.setDepth(4);
+                    this.setDepth(5);
 
                     //decides amount of slime drops based on size
                     if( dropChance > 0){
@@ -2129,7 +2134,7 @@ class bat extends enemy {
         } else if(this.playerGrabbed === true) {
 
             //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
+            this.setDepth(1);
 
             //hides the mobile controls in the way of the tab/skip indicator.
             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);

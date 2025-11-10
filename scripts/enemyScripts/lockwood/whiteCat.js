@@ -1286,6 +1286,9 @@ class whiteCat extends enemy {
                 
                 if (this.enemyHP <= 0) {
 
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
                     this.setVelocityX(0);
@@ -1294,7 +1297,7 @@ class whiteCat extends enemy {
                     let dropChance = Math.round((Math.random() * ((75) - (60 * this.scene.player1.dropChance)) + (60 * this.scene.player1.dropChance))/100);
                     let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 3));
 
-                    this.setDepth(4);
+                    this.setDepth(5);
 
                     //decides amount of slime drops based on size
                     if( dropChance > 0){

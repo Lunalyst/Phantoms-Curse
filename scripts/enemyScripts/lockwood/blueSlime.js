@@ -989,14 +989,15 @@ class blueSlime extends enemy {
     }
 
     // combines two slimes together by distroy one with the smaller id and promoting the one with the high id.
-    slimeCombine(otherSlime, grabbed,scene) {
+    slimeCombine(otherSlime, grabbed) {
         //console.log("combining slime with id: "+this.slimeId+" to the other slime with id: "+ otherSlime.slimeId)
-        //console.log("grabbed : "+ grabbed);
+        console.log("grabbed : "+ grabbed);
         if (grabbed === false) {
-            if (this.enemyId === otherSlime.enemyId) {
-                //console.log("slime overlap with its self detected;");
-                return;
-            } else if (this.enemyId < otherSlime.enemyId) {
+
+            console.log("this.enemyId: "+ this.enemyId+" otherSlime.enemyId: ",otherSlime.enemyId)
+            if (this.enemyId !== otherSlime.enemyId) {
+
+                //add the other slimes collider to this one.
                 this.setVelocityX(0);
                 console.log("this slime with Id: "+ this.enemyId+" is living")
                 this.setSize(130, 90, true);
@@ -1008,6 +1009,7 @@ class blueSlime extends enemy {
                 //console.log("this.mitosing: "+ this.mitosing);
                 this.mitosisCounter = true;
                 //console.log("this.mitosisCounter: "+ this.mitosisCounter);
+                otherSlime.removeColliders();
                 otherSlime.destroy();
                 otherSlime.grabHitBox.destroy();
                 let currentSlime = this;
@@ -1065,6 +1067,9 @@ class blueSlime extends enemy {
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
                     this.setVelocityX(0);
+
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
 
                     //calculate item drtop chance
                     let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);

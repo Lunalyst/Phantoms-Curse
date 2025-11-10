@@ -1680,6 +1680,9 @@ class tiger extends enemy {
 
                 if (this.enemyHP <= 0) {
 
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
                     //set enemy defeated to true, so the move behavior cant interupt the game over animations.
                     this.enemyDefeated = true;
                     this.setVelocityX(0);

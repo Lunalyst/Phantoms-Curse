@@ -63,61 +63,16 @@ class G9CheckEnemys extends G8InitEnemys {
         }else{
           tempSlime.moveIdle()
         }
-        
 
-        scene.physics.add.overlap(scene.attackHitBox, tempSlime, function () {
-          tempSlime.hitboxOverlaps = true;
-        });
         if(tempSlime.hitboxOverlaps === true) {
           console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
           tempSlime.damage(scene);
           tempSlime.hitboxOverlaps = false;
         }
-        //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempSlime.grabHitBox, function () {
-          let isWindowObject = {
-            isOpen: null
-          };
-          
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            //scene.playerInventory.setView(scene);
-          }
-          //console.log("player overlaps slime");
-          //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
-          //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-          if (tempSlime.grabCoolDown === false && tempSlime.mitosing === false && scene.grabCoolDown === false) {
-            //stop the velocity of the player
-            tempSlime.setVelocityX(0);
-            scene.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempSlime.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            tempSlime.playerGrabbed = true;
-            tempSlime.grabCoolDown = true;
-            scene.grabbed = true;
-            scene.grabCoolDown = true;
-            console.log('player grabbed by slime');
-          }
-        });
-        //if the slime is size 1 then it checks for overlap between slimes. then if the collide they fuse together and play combination animation
-        if (tempSlime.slimeSize === 1) {
-          //creates another function applies to the slimes so that there are two instances of a function being applied
-          scene.blueSlimes.children.each(function (tempSlime1) {
-            // collider used to detect a collision between two slimes
-            scene.physics.add.overlap(tempSlime1, tempSlime, function () {
-              // if both slimes are of size 1 then call combine function
-              if (tempSlime.slimeSize === 1 && tempSlime1.slimeSize === 1) {
-                tempSlime.slimeCombine(tempSlime1, scene.grabbed,scene);
-              }
-            });
-          }, this);
-        }
+        
         //deincriments the grabcooldown on any slime that grabbed the player.
         tempSlime.mitosisDelayCheck();
+
         // creates a overlap between the damage hitbox and the slime so that slime can take damage
       }else if(this.objectsInRangeX(tempSlime,scene.player1,30) && this.objectsInRangeY(tempSlime,scene.player1,30)){
 
@@ -281,39 +236,7 @@ class G9CheckEnemys extends G8InitEnemys {
     scene.tigers.children.each(function (tempTiger) {
 
       if(scene.objectsInRangeX(tempTiger,scene.player1,600) && scene.objectsInRangeY(tempTiger,scene.player1,250) && tempTiger.inSafeMode === false ){
-      //function to check rabbits and see if the tiger can grab one
-      scene.rabbits.children.each(function (tempRabbit) {
-
-        //console.log('tempTiger.isHidding: ',tempTiger.isHidding,'tempTiger.tigerHasEatenRabbit', tempTiger.tigerHasEatenRabbit);
-
-        //protection check to see if the tiger hasn't eaten or is eating
-        if(tempTiger.isHidding === false && tempTiger.tigerHasEatenRabbit === false){
-
-          //safty check to improve performance. only does overlap if in range.
-          if(scene.objectsInRangeX(tempTiger,tempRabbit,200) && scene.objectsInRangeY(tempTiger,tempRabbit,200)){
-            //if the tiger isnt in the air. 
-            if(tempTiger.body.blocked.down){
-              
-              //checks if the tiger overlaps a rabbit
-              scene.physics.add.overlap(tempTiger, tempRabbit, function () {
-                
-                //if neither party has grabbed the player, then tiger eats the rabbit.
-                if(tempTiger.playerGrabbed === false && tempRabbit.playerGrabbed === false && tempTiger.enemyDefeated === false){
-                  // move the rabbits grab box out of the way just in case.
-                  tempRabbit.attackHitBox.x = this.x;
-                  tempRabbit.attackHitBox.y = this.y + 3000; 
-                  tempRabbit.grabHitBox.x = this.x;
-                  tempRabbit.grabHitBox.y = this.y + 3000;
-                  tempTiger.tigerEatsRabbit(tempRabbit.enemySex);
-                  tempRabbit.destroy();
-                
-                }   
-              });
-            }
-          }
-        }
-      });
-      
+         
       if(tempTiger.enemyInDefeatedLogic === true){
         tempTiger.enemyDefeatedLogic();
       }else{
@@ -325,16 +248,6 @@ class G9CheckEnemys extends G8InitEnemys {
            tempTiger.moveIdle()
         }
       }
-      
-      
-        //checks if the attack hitbox is overlapping the tiger to deal damage.
-        scene.physics.add.overlap(scene.attackHitBox, tempTiger, function () {
-        
-          //sets overlap to be true
-          if(tempTiger.tigerIsEating === false){
-            tempTiger.hitboxOverlaps = true;
-          }
-        });
       
         //if the hitbox overlaps the tiger, then  deal damage to that tiger
         if(tempTiger.hitboxOverlaps === true) {
@@ -349,48 +262,6 @@ class G9CheckEnemys extends G8InitEnemys {
         
         }
       
-
-      //adds collider between player and slime. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1.mainHitbox, tempTiger.grabHitBox, function () {
-        if(tempTiger.tigerIsEating === false){
-          //make a temp object
-          let isWindowObject = {
-            isOpen: null
-          };
-          
-          //that is passed into a emitter
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-        
-          //to tell if the window is open
-          if (isWindowObject.isOpen === true) {
-            //and if it is, then close the window
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            
-          }
-          
-        
-          //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-          //if the grab cooldowns are clear then
-          if (tempTiger.grabCoolDown === false && scene.grabCoolDown === false && tempTiger.isHidding === false) {
-            
-            console.log(" grabing the player?");
-            //stop the velocity of the player
-            tempTiger.setVelocityX(0);
-            scene.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempTiger.grab();
-          
-            //sets the scene grab value to true since the player has been grabbed
-            tempTiger.playerGrabbed = true;
-            tempTiger.grabCoolDown = true;
-            scene.grabbed = true;
-            scene.grabCoolDown = true;
-            console.log('player grabbed by tiger');
-        
-          }
-        }
-        
-      });
     }else if(this.objectsInRangeX(tempTiger,scene.player1,30) && this.objectsInRangeY(tempTiger,scene.player1,30)){
 
       this.viewAnimationLogic(tempTiger);
@@ -426,13 +297,6 @@ class G9CheckEnemys extends G8InitEnemys {
         }
 
       }
-
-      //checks if the attack hitbox is overlapping the tiger to deal damage.
-      scene.physics.add.overlap(scene.attackHitBox, tempRabbits, function () {
-      
-        //sets overlap to be true
-        tempRabbits.hitboxOverlaps = true;
-      });
       
       //if the hitbox overlaps the tiger, then  deal damage to that tiger
       if(tempRabbits.hitboxOverlaps === true) {
@@ -448,66 +312,7 @@ class G9CheckEnemys extends G8InitEnemys {
         tempRabbits.hitboxOverlaps = false;
       
       }
-      //adds collider between player and rabbit. then if they collide it plays the grab sequence but only if the player was not grabbed already
-      scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits.grabHitBox, function () {
-      
-        //make a temp object
-        let isWindowObject = {
-          isOpen: null
-        };
-        
-        //that is passed into a emitter
-        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-      
-        //to tell if the window is open
-        if (isWindowObject.isOpen === true) {
-          //and if it is, then close the window
-          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-          
-        }
-        
-      
-        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-        //if the grab cooldowns are clear then
-        if (tempRabbits.grabCoolDown === false && scene.grabCoolDown === false) {
-          
-          console.log(" grabing the player?");
-          //stop the velocity of the player
-          tempRabbits.setVelocityX(0);
-          scene.player1.mainHitbox.setVelocityX(0);
-          //calls the grab function
-          tempRabbits.grab();
-        
-          //sets the scene grab value to true since the player has been grabbed
-          tempRabbits.playerGrabbed = true;
-          tempRabbits.grabCoolDown = true;
-          scene.grabbed = true;
-          scene.grabCoolDown = true;
-          console.log('player grabbed by tempRabbits');
-      
-        }
-      });
 
-      //attack hitbox logic
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempRabbits.attackHitBox, function () {
-          let isWindowObject = {
-            isOpen: null
-          };
-        
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            //scene.playerInventory.setView(scene);
-          }
-
-          //apply stuckgrab logic.
-          scene.playerStuckGrab = true;
-          scene.playerStuckGrabbedBy = "knockdown";
-          scene.playerStuckGrabCap = 40;
-          scene.enemyThatknockdownPlayer = tempRabbits;
-
-        });
     }else if(this.objectsInRangeX(tempRabbits,scene.player1,30) && this.objectsInRangeY(tempRabbits,scene.player1,30)){
 
       this.viewAnimationLogic(tempRabbits);
@@ -540,13 +345,6 @@ class G9CheckEnemys extends G8InitEnemys {
            tempBeeDrone.moveIdle()
         }
         
-        //checks if the attack hitbox is overlapping the beedrone to deal damage.
-        scene.physics.add.overlap(scene.attackHitBox, tempBeeDrone, function () {
-        
-          //sets overlap to be true 
-          tempBeeDrone.hitboxOverlaps = true;
-        });
-        
         //if the hitbox overlaps the drone, then  deal damage to that drone
         if(tempBeeDrone.hitboxOverlaps === true) {
         
@@ -558,52 +356,8 @@ class G9CheckEnemys extends G8InitEnemys {
           //clear overlap verable in tiger.
           tempBeeDrone.hitboxOverlaps = false;
         
-        }
-      //if the bat is trying to grab the player then check overlap
-    if(tempBeeDrone.grabTimer === true){
+        }  
 
-      //checks to see if the beedrones attack hitbox overlaps the players hitbox
-      scene.physics.add.overlap(scene.player1.mainHitbox, tempBeeDrone.grabHitBox, function () {
-      
-        //make a temp object
-        let isWindowObject = {
-          isOpen: null
-        };
-        
-        //that is passed into a emitter
-        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-      
-        //to tell if the window is open
-        if (isWindowObject.isOpen === true) {
-          //and if it is, then close the window
-          inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-          
-        }
-        
-      
-        //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-        //if the grab cooldowns are clear then
-        if (tempBeeDrone.grabCoolDown === false && scene.grabCoolDown === false) {
-          
-          console.log(" grabing the player?");
-          //stop the velocity of the player
-          tempBeeDrone.setVelocityX(0);
-          tempBeeDrone.setVelocityY(0);
-          scene.player1.mainHitbox.setVelocityX(0);
-          //calls the grab function
-          tempBeeDrone.grab();
-        
-          //sets the scene grab value to true since the player has been grabbed
-          tempBeeDrone.playerGrabbed = true;
-          tempBeeDrone.grabCoolDown = true;
-          scene.grabbed = true;
-          scene.grabCoolDown = true;
-          console.log('player grabbed by tempBeeDrone');
-      
-        }
-      });
-      }
-      
     //if the tempBeeDrone is in safe mode, and in range of the player then 
     }else if(this.objectsInRangeX(tempBeeDrone,scene.player1,30) && this.objectsInRangeY(tempBeeDrone,scene.player1,30)){
 
@@ -621,163 +375,48 @@ class G9CheckEnemys extends G8InitEnemys {
   //function keeps track of bat interactions
   checkBatInteractions(scene) {
     //applys a function to all bats
-    scene.bats.children.each(function (bat) {
+    scene.bats.children.each(function (tempBat) {
     
     //safty check to improve performance. only does overlap if in range.
     //console.log('bat.inSafeMode: ',bat.inSafeMode);
-    if(this.objectsInRangeX(bat,scene.player1,450) && bat.inSafeMode === false ){
+    if(this.objectsInRangeX(tempBat,scene.player1,450) && tempBat.inSafeMode === false ){
 
-      if(bat.enemyInDefeatedLogic === true){
-        bat.enemyDefeatedLogic();
+      if(tempBat.enemyInDefeatedLogic === true){
+        tempBat.enemyDefeatedLogic();
       }else{
 
         //if the player is not sleeping or the bat is in its second stage allow for movement.
-        if(scene.player1.idleTimer !== 2000 ||  bat.batHasEatenCat === true){
+        if(scene.player1.idleTimer !== 2000 ||  tempBat.batHasEatenCat === true){
           //calls to make each instance of a bat move.
-         bat.move(scene.player1,scene);
+         tempBat.move(scene.player1,scene);
         }else{
-          bat.moveIdle()
+          tempBat.moveIdle()
         }
 
       }
       //if player is attacking
       if(this.player1.isAttacking === true){
-        //checks if the attack hitbox is overlapping the beedrone to deal damage.
-        scene.physics.add.overlap(scene.attackHitBox, bat, function () {
-        
-          //sets overlap to be true 
-          bat.hitboxOverlaps = true;
-        });
-        
+
         //if the hitbox overlaps the drone, then  deal damage to that drone
-        if(bat.hitboxOverlaps === true) {
+        if(tempBat.hitboxOverlaps === true) {
         
           //inflict damage to tiger
-          bat.damage(scene);
+          tempBat.damage(scene);
         
           //clear overlap verable in tiger.
-          bat.hitboxOverlaps = false;
+          tempBat.hitboxOverlaps = false;
         }
-      }
-      
-      //if the bat is trying to grab the player then check overlap
-      if(bat.grabTimer === true){
-
-        //have the bat target the player and apply overlap logic for it.
-        if(bat.targetString === "player"){
-
-          scene.physics.add.overlap(scene.player1.mainHitbox, bat.grabHitBox, function () {
-          
-            //make a temp object
-            let isWindowObject = {
-              isOpen: null
-            };
-            
-            //that is passed into a emitter
-            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-          
-            //to tell if the window is open
-            if (isWindowObject.isOpen === true) {
-              //and if it is, then close the window
-              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-              
-            }
-            
-          
-            //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-            //if the grab cooldowns are clear then
-            if (bat.grabCoolDown === false && scene.grabCoolDown === false) {
-              
-              console.log(" grabing the player?");
-              //stop the velocity of the player
-              bat.setVelocityX(0);
-              bat.setVelocityY(0);
-              scene.player1.mainHitbox.setVelocityX(0);
-              //calls the grab function
-              bat.grab();
-            
-              //sets the scene grab value to true since the player has been grabbed
-              bat.playerGrabbed = true;
-              bat.grabCoolDown = true;
-              scene.grabbed = true;
-              scene.grabCoolDown = true;
-              console.log('player grabbed by bat');
-          
-            }
-          });
-
-          //attack hitbox logic
-            scene.physics.add.overlap(scene.player1.mainHitbox, bat.attackHitBox, function () {
-              let isWindowObject = {
-                isOpen: null
-              };
-            
-              inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-              if (isWindowObject.isOpen === true) {
-                inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-                //scene.playerInventory.setView(scene);
-              }
-
-              //apply stuckgrab logic.
-              scene.playerStuckGrab = true;
-              scene.playerStuckGrabbedBy = "knockdown";
-              scene.playerStuckGrabCap = 40;
-              scene.enemyThatknockdownPlayer = bat;
-
-            });
-        }else if(bat.targetString === "whitecat"){
-          //logic of if the bat manages to overlap with the cat. 
-        scene.physics.add.overlap(bat.grabHitBox, bat.target, function () {
-
-                console.log("bat hitbox overlaps cats hitbox.");
-                console.log("this.scene.EnemyInvisBarriersGroup: ",scene.EnemyInvisBarriersGroup);
-                
-                //if neither party has grabbed the player, then tiger eats the rabbit.
-                if(bat.targetString !== "player"){
-                    if(bat.playerGrabbed === false && bat.target.playerGrabbed === false && bat.enemyDefeated === false){
-                      // move the bats grab box out of the way just in case.
-                      bat.target.attackHitBox.x = this.x;
-                      bat.target.attackHitBox.y = this.y + 3000; 
-                      bat.target.grabHitBox.x = this.x;
-                      bat.target.grabHitBox.y = this.y + 3000;
-
-                      //call logic for bat to eat
-                      bat.batEatsCat(bat.target.enemySex);
-          
-                      //"destroy" cat. just hide them. if we destroy them, then it breaks inivisble barrier collision. 
-                      bat.target.visible = true;
-                      bat.target.enemyInDefeatedLogic = true;
-                      
-                      //set a variable apart of the cat to true so the function in G8enemy.js can free the player ofthe infatuated state as the target is no longer valid to follow. 
-                      bat.target.eaten = true;
-
-                      console.log("bat.target: ", bat.target);
-
-                      //set bat target to player.
-                      bat.targetString = "player";
-                      bat.target = this.player1;
-                  
-                  }   
-                }
-                
-              });
-        }
-        
-
-        
-        
       }
       
     //if the bat is in safe mode, and in range of the player then 
-    }else if(this.objectsInRangeX(bat,scene.player1,30) && this.objectsInRangeY(bat,scene.player1,70)){
+    }else if(this.objectsInRangeX(tempBat,scene.player1,30) && this.objectsInRangeY(tempBat,scene.player1,70)){
       
-      this.viewAnimationLogic(bat);
+      this.viewAnimationLogic(tempBat);
 
     // otherwise hid the prompt from the player.
     }else{
-      bat.safePrompts.visible = false;
-      bat.playedSafePrompts = false;
+      tempBat.safePrompts.visible = false;
+      tempBat.playedSafePrompts = false;
     }
   }, this);
     
@@ -795,10 +434,7 @@ class G9CheckEnemys extends G8InitEnemys {
         //mimic does not need idle check as it does not move
         tempMimic.move(scene.player1,scene);
 
-        //damage fuctions
-        scene.physics.add.overlap(scene.attackHitBox, tempMimic, function () {
-          tempMimic.hitboxOverlaps = true;
-        });
+
 
         if(tempMimic.hitboxOverlaps === true) {
           console.log("mimic taking damage, mimic hp:" + tempMimic.enemyHP);
@@ -808,37 +444,6 @@ class G9CheckEnemys extends G8InitEnemys {
           //if the mimic is attacked then set the value so it can jump out and get angry.
           tempMimic.attacked = true;
         }
-
-        //adds collider between player and mimic attack hitbox. then if they collide it plays the grab sequence but only if the player was not grabbed already
-        scene.physics.add.overlap(scene.player1.mainHitbox, tempMimic.grabHitBox, function () {
-          let isWindowObject = {
-            isOpen: null
-          };
-          
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
-            //scene.playerInventory.setView(scene);
-          }
-          //console.log("player overlaps slime");
-          //checks if the slimes grab cool down is zero and that it isnt in the mitosis animation
-          //console.log("tempSlime.grabCoolDown:"+tempSlime.grabCoolDown+"scene.grabCoolDown === 0"+scene.grabCoolDown)
-          if (tempMimic.grabCoolDown === false && scene.grabCoolDown === false) {
-            //stop the velocity of the player
-            tempMimic.setVelocityX(0);
-            scene.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempMimic.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            tempMimic.playerGrabbed = true;
-            tempMimic.grabCoolDown = true;
-            scene.grabbed = true;
-            scene.grabCoolDown = true;
-            console.log('player grabbed by slime');
-          }
-        });
         
       //function for animation viewer logic.
       }else if(this.objectsInRangeX(tempMimic,scene.player1,30) && this.objectsInRangeY(tempMimic,scene.player1,30)){

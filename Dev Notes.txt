@@ -146,3 +146,6 @@ https://github.com/phaserjs/phaser-ce/issues/273
 https://gchq.github.io/CyberChef/#recipe=Generate_QR_Code('PNG',5,4,'Medium')&input=aHR0cHM6Ly9kaXNjb3JkLmdnL0tmNWYyazdtd2g 
 
 noticed, that sprites have a tile bleeding issues if pixels are left on the borders. normally not noticable unless your scaling sprite where its most apparent.
+
+//code to check fps of html page.
+javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()

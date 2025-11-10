@@ -29,7 +29,6 @@ class G11CheckGameObjects extends G10CheckNPCS {
       //applies a function to each portal object in the scene
       this.saveStonePoints.children.each(function (tempSavePoint) {
       //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
-      // fuck overlap function. check if the player is within the bounds fo the sprite and control prompts according to that. problem solved.
       if ((this.player1.x > tempSavePoint.x - 50 && this.player1.x < tempSavePoint.x + 50) && (this.player1.y > tempSavePoint.y - 50 && this.player1.y < tempSavePoint.y + 50) && this.grabbed === false) {
           //console.log("within save point");
           tempSavePoint.safeToSave = true;

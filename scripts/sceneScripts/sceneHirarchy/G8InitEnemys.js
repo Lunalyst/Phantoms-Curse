@@ -565,11 +565,11 @@ class G8InitEnemys extends G7EnemyCollisions{
 
       },
       blueSlimeHM: function blueSlimeHMFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
-        let slime1 = new blueSlimeHM(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
-        console.log("created blueSlimeHM id: ",slime1.enemyId);
+        let tempSlime = new blueSlimeHM(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created blueSlimeHM id: ",tempSlime.enemyId);
         tempSceneRef.enemyId++;
-        tempSceneRef.enemys.add(slime1);
-        tempSceneRef.blueSlimeHMs.add(slime1);
+        tempSceneRef.enemys.add(tempSlime);
+        tempSceneRef.blueSlimeHMs.add(tempSlime);
 
         if(inSafeMode === false){
 

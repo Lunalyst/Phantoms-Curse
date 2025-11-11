@@ -270,18 +270,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
         tempProjectile.setVelocityX(-30);
       }else{
         tempProjectile.setVelocityX(0);
-      }
-      
-     
-
-      //overlap function to let player know that the curse bar is increasing.
-      tempScene.physics.add.overlap(tempScene.player1.mainHitbox, tempProjectile, function () {
-
-        tempScene.player1.overlapCurseBuildUp();
-        
-      });
-
-      
+      }     
     });
 
   }

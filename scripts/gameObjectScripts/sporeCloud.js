@@ -53,6 +53,7 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
 
       if(this.destroying === false){
         this.destroying = true;
+        this.colliderRefrence.destroy();
         this.destroy();
 
       }

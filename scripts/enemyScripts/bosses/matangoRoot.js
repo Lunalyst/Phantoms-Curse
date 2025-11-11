@@ -40,9 +40,17 @@ class mantangoRoot extends enemy {
         this.idleState = 0;
         this.rootNode = null; 
         this.startedFight = false;
+        this.attackCooldown = false;
+        this.isAttacking = false;
 
         this.visible = false;
 
+
+        //make a hitbox so the cat can grab the player.
+        this.grabHitBox = new hitBoxes(scene,this.x,this.y);
+        this.grabHitBox.setSize(30,10,true);
+        this.hitboxActive = false;
+        
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
 
@@ -62,15 +70,19 @@ class mantangoRoot extends enemy {
             this.anims.create({ key: 'from2to1-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 37, end: 37 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'from2to1-2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 36, end: 36 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 38, end: 43 }), frameRate:  10, repeat: 0 });
-           
-           
+
+            this.anims.create({ key: 'sideThrustStart', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 45, end: 48 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'sideThrustMiddle', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 49, end: 50 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'sideThrustEnd', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 51, end: 54 }), frameRate:  10, repeat: 0 });
+               
         }
        
         this.inSafeMode = inSafeMode;
 
         if(this.inSafeMode === false){
-            this.rightHand = new mushroomHandSingle(this.scene,this.x+80, this.y+48, false);
-            this.leftHand = new mushroomHandSingle(this.scene,this.x-80, this.y+48, true);
+            this.rightHand = new mushroomHandSingle(this.scene,this.x+65, this.y+48, false);
+            this.leftHand = new mushroomHandSingle(this.scene,this.x-65, this.y+48, true);
+            this.centerHands = new mushroomHandDouble(this.scene,this.x, this.y+48, true);
 
         }
 
@@ -92,10 +104,11 @@ class mantangoRoot extends enemy {
         //set hitbox to correct size
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
-
+        //console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking);
         //if the mushroom has not awoken and the player in in range
         if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
             this.startedFight = true;
+        //if its time to start the fight, then activate the mushroom
         }else if(this.poppedOut === false && this.inEmergingAnimation === false && this.startedFight === true){
 
             this.inEmergingAnimation = true;
@@ -143,22 +156,25 @@ class mantangoRoot extends enemy {
                 });
 
             });
-            
+        //if the mushroom is poped out then do battle ai  
         }else if(this.poppedOut === true){
             
-            //console.log("this.turning: ", this.turning," this.idleState: ", this.idleState,);
-            if(this.turning === false){
+            //case where mushroom is not attacking
+            if(this.turning === false && this.attackCooldown === true){
                 this.turning = true;
 
                 if(this.scene.player1.x > this.x){
                     this.flipX = true;
+                   
                 }else{
                     this.flipX = false;
                 }
                 //first two checks represent state 0 for idle animation
                 if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(50,60) ){
 
-
+                    this.rightHand.anims.play('grabTell',true);
+                    this.leftHand.anims.play('grabTell',true);
+        
                     if(this.idleState === 0){
                         
                         this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
@@ -189,6 +205,9 @@ class mantangoRoot extends enemy {
                     }
                 }else if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(200,200)){
 
+                    this.rightHand.anims.play('idle');
+                    this.leftHand.anims.play('idle');
+                    
                     if(this.idleState === 0){
 
                         this.anims.play('forwardIdleEyesForward',true).once('animationcomplete', () => {
@@ -222,6 +241,15 @@ class mantangoRoot extends enemy {
                 //state 1 resembles angled animation but we need to play turn animation first.
                 }else if(this.checkXRangeFromPlayer(120, 120)){
 
+                    if(this.scene.player1.x > this.x){
+                        this.rightHand.anims.play('grabTell',true);
+                        this.leftHand.anims.play('idle',true);
+                    }else{
+                        this.leftHand.anims.play('grabTell',true);
+                        this.rightHand.anims.play('idle',true);
+                        
+                    }
+
                     //if the previous state was zero then
                     if(this.idleState === 0){
                         //do turn animation from center to angle.
@@ -246,6 +274,9 @@ class mantangoRoot extends enemy {
                 //state 2
                 }else if(this.checkXRangeFromPlayer(400, 400)){
 
+                    this.rightHand.anims.play('idle');
+                    this.leftHand.anims.play('idle');
+
                     //if the previous state was zero then
                     if(this.idleState === 0){
                         //do turn animation from center to angle.
@@ -269,11 +300,119 @@ class mantangoRoot extends enemy {
                         });
                     }
                 }
+            //ai to have the mushroom perform attacks.
+            }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false){  
+                if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
+                    this.rightHand.visible = false;
+                    this.leftHand.visible = false;
+                    this.centerHands.visible = true;
+
+                    this.isAttacking = true;
+
+                    this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
+                        this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
+
+                            this.rightHand.visible = true;
+                            this.leftHand.visible = true;
+                            this.centerHands.visible = false;
+
+                            this.attackCooldown = true;
+                            this.isAttacking = false;
+
+                            let temp = this;
+                            setTimeout(function () {
+                                temp.attackCooldown = false;
+                            }, 1500);
+                        });
+                    });
+            
+                }else if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(50,60) ){
+                    
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x > this.x){
+                        this.flipX = true;
+                        this.rightHand.anims.play('grabStart').once('animationcomplete', () => {
+                            this.rightHand.anims.play('grabEnd').once('animationcomplete', () => {
+                                this.rightHand.anims.play('idle');
+                            });
+                        });
+
+                    }else{
+                        this.flipX = false;
+                        
+                        this.leftHand.anims.play('grabStart').once('animationcomplete', () => {
+                            this.leftHand.anims.play('grabEnd').once('animationcomplete', () => {
+                                this.leftHand.anims.play('idle');
+                            });
+                        });
+
+                    }
+
+                    this.isAttacking = true;
+
+                    //this.setDepth(7);
+
+                    this.anims.play('sideThrustStart').once('animationcomplete', () => {
+                        
+                        this.playJumpySound('3',700);
+
+                        this.hitboxActive = true;
+                        this.grabHitBox.body.enable = true;
+
+                         this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
+                            //this.setDepth(6);
+                            this.hitboxActive = false;
+
+                            this.anims.play('sideThrustEnd').once('animationcomplete', () => {
+
+                            this.attackCooldown = true;
+                            this.isAttacking = false;
+
+                            let temp = this;
+                            setTimeout(function () {
+                                temp.attackCooldown = false;
+                            }, 1500);
+
+                            });
+                        });
+                        
+                    });
+
+                }else{
+                    this.isAttacking = true;
+                    this.attackCooldown = true;
+                    let temp = this;
+                    setTimeout(function () {
+                        temp.isAttacking = false;
+                        temp.attackCooldown = false;
+                    }, 1500);
+
+                }
             }
             
             
             
 
+        }
+
+        //handles hit box positioning
+        if(this.hitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.grabHitBox.x = this.x-15;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.grabHitBox.x = this.x+15;
+            }
+            this.grabHitBox.y = this.y;
+
+        }else{
+            this.grabHitBox.x = this.x;
+            this.grabHitBox.y = this.y + 3000; 
         }
 
         //updates the previous y value to tell if enemy is falling or going up in its jump.

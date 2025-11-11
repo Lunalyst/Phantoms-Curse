@@ -19,6 +19,11 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({ key: 'rise2', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 2, end: 2 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'rise3', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 3, end: 3 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 4, end: 7 }), frameRate:  10, repeat: -1 });
+        this.anims.create({ key: 'turn', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 8, end: 11 }), frameRate:  10, repeat: 0 });
+        this.anims.create({ key: 'grabTell', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 11, end: 15 }), frameRate:  10, repeat: -1 });
+        this.anims.create({ key: 'grabStart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 15, end: 19 }), frameRate:  10, repeat: 0 });
+        this.anims.create({ key: 'grabEnd', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 20, end: 22 }), frameRate:  10, repeat: 0 });
+        
   
 
         //if we are using dark lighting
@@ -28,7 +33,6 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
           this.curseLight.visible = false;
 
         }
-        
     }
 
     handRise(){
@@ -43,20 +47,10 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
             this.curseLight.radius = 120;
             this.curseLight.y = this.y+10
             this.anims.play('rise3').once('animationcomplete', () => {
-              this.anims.play('idle',true);
+              this.anims.play('idle');
             
             });
           });
         });
-    }
-
-    barrierDestroy(){
-      this.anims.play('rise').once('animationcomplete', () => {
-          this.destroy();
-      });
-    }
-
-    
-
-    
+    }   
 }

@@ -315,11 +315,17 @@ class mantangoRoot extends enemy {
                     });
 
                     this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
+
+                        this.hitBoxPositionActive(this.x,this.y+45);
+                        this.grabHitBox.setSize(70, 20, true);
+
                         this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
 
                             this.rightHand.visible = true;
                             this.leftHand.visible = true;
                             this.centerHands.visible = false;
+
+                            this.hitBoxHide();
 
                             this.attackCooldown = true;
                             this.isAttacking = false;
@@ -341,16 +347,13 @@ class mantangoRoot extends enemy {
                                 this.rightHand.anims.play('idle');
                             });
                         });
-
                     }else{
                         this.flipX = false;
-                        
                         this.leftHand.anims.play('grabStart').once('animationcomplete', () => {
                             this.leftHand.anims.play('grabEnd').once('animationcomplete', () => {
                                 this.leftHand.anims.play('idle');
                             });
                         });
-
                     }
 
                     this.isAttacking = true;
@@ -364,9 +367,22 @@ class mantangoRoot extends enemy {
                         this.hitboxActive = true;
                         this.grabHitBox.body.enable = true;
 
-                         this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
+                        if(this.scene.player1.x > this.x){
+                    
+                            this.hitBoxPositionActive(this.x+25,this.y+45);
+                            this.grabHitBox.setSize(50, 20, true);
+
+                        }else{
+                            this.hitBoxPositionActive(this.x-25,this.y+45);
+                            this.grabHitBox.setSize(50, 20, true);
+
+                        }
+
+                        this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
                             //this.setDepth(6);
                             this.hitboxActive = false;
+
+                            this.hitBoxHide();
 
                             this.anims.play('sideThrustEnd').once('animationcomplete', () => {
 
@@ -395,33 +411,20 @@ class mantangoRoot extends enemy {
                 }
             }
             
-            
-            
-
-        }
-
-        //handles hit box positioning
-        if(this.hitboxActive === true){
-
-            //hitbox should be to left if player is to the left
-            if(this.flipX === true){
-                console.log("moving cat hitbox to the left");
-                this.grabHitBox.x = this.x-15;
-
-            //otherwise put it to the right.
-            }else{
-                console.log("moving cat hitbox to the right");
-                this.grabHitBox.x = this.x+15;
-            }
-            this.grabHitBox.y = this.y;
-
-        }else{
-            this.grabHitBox.x = this.x;
-            this.grabHitBox.y = this.y + 3000; 
         }
 
         //updates the previous y value to tell if enemy is falling or going up in its jump.
         this.enemyPreviousY = this.y;
+    }
+
+    hitBoxPositionActive(xValue,yValue){
+        this.grabHitBox.x = xValue;
+        this.grabHitBox.y = yValue;
+    }
+
+    hitBoxHide(){
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000; 
     }
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.

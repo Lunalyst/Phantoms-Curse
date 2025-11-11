@@ -384,7 +384,7 @@ const npcDialogue = {
                 },
                 "ominousOmen3":{
                     "node1":{
-                        "dialogue": "The heart of this island hungers for you. Devowering memorys, and sweet sentiments unfilled. Spurned on by an intense yearning, for something it cannot yet perceive. When it reaches out its hand, will you take it?",
+                        "dialogue": "The heart of this island hungers for you. Devouring Memories, and sweet sentiments unfilled. Spurned on by an intense yearning, for something it cannot yet perceive. When it reaches out its hand, will you take it?",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

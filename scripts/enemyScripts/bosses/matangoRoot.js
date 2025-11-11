@@ -300,6 +300,7 @@ class mantangoRoot extends enemy {
                         });
                     }
                 }
+
             //ai to have the mushroom perform attacks.
             }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false){  
                 if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
@@ -308,6 +309,10 @@ class mantangoRoot extends enemy {
                     this.centerHands.visible = true;
 
                     this.isAttacking = true;
+                    
+                    this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
+
+                    });
 
                     this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
                         this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
@@ -326,7 +331,7 @@ class mantangoRoot extends enemy {
                         });
                     });
             
-                }else if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(50,60) ){
+                }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
                     
                     //if player to the left move the grab hitbox to the left
                     if(this.scene.player1.x > this.x){

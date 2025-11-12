@@ -42,14 +42,15 @@ class mantangoRoot extends enemy {
         this.startedFight = false;
         this.attackCooldown = false;
         this.isAttacking = false;
-
         this.visible = false;
+
+        this.grabType = "unbirth";
 
 
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
-        this.hitboxActive = false;
+        this.hitBoxHide();
         
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
@@ -304,6 +305,9 @@ class mantangoRoot extends enemy {
             //ai to have the mushroom perform attacks.
             }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false){  
                 if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
+
+                    this.grabType = "absorb";
+
                     this.rightHand.visible = false;
                     this.leftHand.visible = false;
                     this.centerHands.visible = true;
@@ -338,6 +342,8 @@ class mantangoRoot extends enemy {
                     });
             
                 }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
+
+                    this.grabType = "unbirth";
                     
                     //if player to the left move the grab hitbox to the left
                     if(this.scene.player1.x > this.x){
@@ -358,29 +364,24 @@ class mantangoRoot extends enemy {
 
                     this.isAttacking = true;
 
-                    //this.setDepth(7);
-
                     this.anims.play('sideThrustStart').once('animationcomplete', () => {
                         
                         this.playJumpySound('3',700);
 
-                        this.hitboxActive = true;
                         this.grabHitBox.body.enable = true;
 
                         if(this.scene.player1.x > this.x){
                     
-                            this.hitBoxPositionActive(this.x+25,this.y+45);
+                            this.hitBoxPositionActive(this.x+40,this.y+45);
                             this.grabHitBox.setSize(50, 20, true);
 
                         }else{
-                            this.hitBoxPositionActive(this.x-25,this.y+45);
+                            this.hitBoxPositionActive(this.x-40,this.y+45);
                             this.grabHitBox.setSize(50, 20, true);
 
                         }
 
                         this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
-                            //this.setDepth(6);
-                            this.hitboxActive = false;
 
                             this.hitBoxHide();
 
@@ -430,25 +431,7 @@ class mantangoRoot extends enemy {
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
-    
-        if(this.isHiding === false && this.inEmergingAnimation === false){
-
-            //then play animation and go back to the hiding state.
-
-            this.inEmergingAnimation = true;
-            this.anims.play('becomeHidden').once('animationcomplete', () => {
-
-                this.isHiding = true;
-                this.inEmergingAnimation = false;
-                this.anims.play('hiding',true);
-                this.lightSource.radius = 90;
-                this.lightSource.intensity = 0.7;
-                    
-            });
-            this.setDepth(4);
-        }
-        
-
+        this.anims.play('hiding',true);
     }
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.

@@ -10,6 +10,8 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
         this.setScale(1/3,1/3);
         this.flipX = flip;
 
+        scene.enemys.add(this);
+
         //barrie danage variables.
         this.scene = scene;
 
@@ -52,5 +54,15 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
             });
           });
         });
-    }   
+    }  
+    
+    //pauses the animations of the enemys.
+    pauseAnimations(scene) {
+        if (scene.isPaused === true) {
+            this.anims.pause();
+        } else if (scene.isPaused === false) {
+            this.anims.resume();
+        }
+
+    }
 }

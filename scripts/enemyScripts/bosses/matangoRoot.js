@@ -105,6 +105,8 @@ class mantangoRoot extends enemy {
         //set hitbox to correct size
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
+        
+        console.log("this.scene.physics.world.isPaused: ",this.scene.physics.world.isPaused);
         //console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking);
         //if the mushroom has not awoken and the player in in range
         if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
@@ -344,7 +346,7 @@ class mantangoRoot extends enemy {
                 }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
 
                     this.grabType = "unbirth";
-                    
+
                     //if player to the left move the grab hitbox to the left
                     if(this.scene.player1.x > this.x){
                         this.flipX = true;

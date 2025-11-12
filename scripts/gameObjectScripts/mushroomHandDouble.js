@@ -13,15 +13,25 @@ class mushroomHandDouble extends Phaser.Physics.Arcade.Sprite{
         this.scene = scene;
 
         this.visible = false;
-      this.setDepth(7);
+        this.setDepth(7);
         this.anims.create({ key: 'centerHandGrabStart', frames: this.anims.generateFrameNames('mushroom-hands-double', { start: 0, end: 5 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'centerHandGrabEnd', frames: this.anims.generateFrameNames('mushroom-hands-double', { start: 6, end: 8 }), frameRate:  10, repeat: 0 });
-
+        scene.enemys.add(this);
         //if we are using dark lighting
         if(this.scene.lightingSystemActive === true){ 
           this.setPipeline('Light2D');
     
         }
+    }
+
+    //pauses the animations of the enemys.
+    pauseAnimations(scene) {
+        if (scene.isPaused === true) {
+            this.anims.pause();
+        } else if (scene.isPaused === false) {
+            this.anims.resume();
+        }
+
     }
 
 }

@@ -9,6 +9,9 @@ class mycelium extends Phaser.Physics.Arcade.Sprite{
       scene.add.existing(this);
       this.setDepth(0);
       this.setScale(1/3);
+
+      scene.enemys.add(this);
+      
       this.anims.create({key: 'myceliumDestroy',frames: this.anims.generateFrameNames('mycelium', { start: 0, end: 7 }),frameRate: 15,repeat: 0});
       this.destroyMycelium(); 
        if(this.scene.lightingSystemActive === true){ 
@@ -21,5 +24,15 @@ class mycelium extends Phaser.Physics.Arcade.Sprite{
       this.anims.play('myceliumDestroy').once('animationcomplete' , () =>{
         this.destroy();
       });
+    }
+
+    //pauses the animations of the enemys.
+    pauseAnimations(scene) {
+        if (scene.isPaused === true) {
+            this.anims.pause();
+        } else if (scene.isPaused === false) {
+            this.anims.resume();
+        }
+
     }
 }

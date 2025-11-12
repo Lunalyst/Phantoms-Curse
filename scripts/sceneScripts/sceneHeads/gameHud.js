@@ -117,7 +117,7 @@ class gameHud extends A3SoundEffects {
         this.healthDisplay = new hpBar(this,170,20);
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
-        this.bossHealthDisplay = new bossBar(this,this.screenWidth/2,780);
+        this.bossHealthDisplay = new bossBar(this,this.screenWidth/2,880);
         
         /*let that = this;
         setTimeout(function () {

@@ -621,7 +621,6 @@ class G9CheckEnemys extends G8InitEnemys {
         }else{
           tempMushrooms.moveIdle();
         }
-      
         //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
         if(tempMushrooms.hitboxOverlaps === true) {
           tempMushrooms.damage(scene);

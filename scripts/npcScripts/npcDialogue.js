@@ -2533,7 +2533,7 @@ const npcDialogue = {
                 },
                 "tiger_male_tf":{
                     "node1":{
-                        "dialogue": "The tiger was satisfied from his previous meal, which was lucky for you. He was quite slow due to his fullness and yet he still got his hands on you, scooping you up and placing you on his massive cock. As you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. At first it was a little straining but eventually your body got used to it. The feeling of the tiger's cock filling you up sent waves of pleasure through your body as you transformed. Now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
+                        "dialogue": "The tiger was satisfied from his previous meal, which was lucky for you. He was quite slow due to his fullness and yet he still got his hands on you, scooping you up and placing you on his massive cock. As you gave into temptation, he slid his massive penis inside you, the girth of it buldging your stomach. At first it was a little straining but eventually your body got used to it. The feeling of the tiger's cock filling you up sent waves of pleasure through your body as you transformed. Now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

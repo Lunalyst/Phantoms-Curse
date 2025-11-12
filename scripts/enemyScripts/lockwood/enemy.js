@@ -58,6 +58,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene = scene;
 
         this.startedGrab = false;
+        this.randomInputCooldown = false;
 
         //shrinks prite back down to a third of its size since we upscale sprites.
         this.setScale(1 / 3);
@@ -84,6 +85,11 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.struggleAnimationInterupt = false;
 
         this.colliderRefArray = [];
+
+        this.struggleCap = 100;
+        this.struggleValue = 20;
+
+        this.spitUp = false;
         
     }
 
@@ -284,8 +290,89 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
           
         });
     }
-    
-   
+
+    hitBoxPositionActive(xValue,yValue){
+        this.grabHitBox.x = xValue;
+        this.grabHitBox.y = yValue;
+    }
+
+    hitBoxHide(){
+        this.grabHitBox.x = this.x;
+        this.grabHitBox.y = this.y + 3000; 
+    }
+
+    //function to handle reduction of struggle counter overtime.
+    reduceStruggleCounter(){    
+
+        // reduces the struggle counter over time. could use settime out to make sure the count down is consistant?
+        // problem is here. on high htz rates this is reducing the struggle couter too quickly. need the proper check
+        if (this.struggleCounter > 0 && this.struggleCounter < this.struggleCap && this.struggleCounterTick !== true) {
+            // this case subtracts from the struggle free counter if the value is not pressed fast enough.
+            this.struggleCounter--;
+            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+            this.struggleCounterTick = true;
+            // the settimeout function ensures that the strugglecounter is consistant and not dependant on pc settings and specs.
+            let tempEnemy = this;
+            setTimeout(function () {
+                tempEnemy.struggleCounterTick = false;
+            }, 10);
+
+        }
+
+    }
+
+    struggleIncrease(playerHealthObject){
+
+        //increase struggle amount my the struggleincrease value
+        if (playerHealthObject.playerHealth >= 1 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax) {
+            this.struggleCounter += this.struggleValue;
+            struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+            console.log('strugglecounter: ' + this.struggleCounter);
+        }
+    }
+
+    struggleDecrease(){
+        //makes sure the struggle bar does not go into the negitives
+        if(this.struggleCounter - (this.struggleValue+1) > 0){
+            this.struggleCounter -= (this.struggleValue+1);
+        }else{
+            this.struggleCounter = 0;
+        }
+        struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+    }
+
+    //struggle in the w direction only.
+    struggleW(){
+
+        if (this.scene.checkWPressed() === true) {  
+                if (playerHealthObject.playerHealth >= 1) {
+                    this.struggleCounter += this.struggleValue;
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            }else if(this.scene.checkAPressed() === true || this.scene.checkWPressed() === true || this.scene.checkSPressed() === true ){
+                    if (playerHealthObject.playerHealth >= 1) {
+
+                    //makes sure the struggle bar does not go into the negitives
+                    if(this.struggleCounter - (this.struggleValue+1) > 0){
+                        this.struggleCounter -= (this.struggleValue+1);
+                    }else{
+                        this.struggleCounter = 0;
+                    }
+                                
+                    struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
+                    //console.log('strugglecounter: ' + this.struggleCounter);
+                }
+            
+            }
+
+            // displays inputs while struggling.
+            if (this.keyAnimationPlayed === false) {
+                console.log(" setting keyW display");
+                this.scene.KeyDisplay.playWKey();
+                this.keyAnimationPlayed = true;
+            }
+    } 
 
 }
 

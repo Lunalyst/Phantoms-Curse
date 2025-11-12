@@ -924,6 +924,7 @@ class tiger extends enemy {
             if(this.tigerHasEatenRabbit === false){
                 //handle random inputs
                 if (this.randomInput === 0) {
+
                     //if s is the key to be pressed then play animation and increase the struggle bar
                     if (this.scene.checkSPressed() === true) {
                         
@@ -954,6 +955,7 @@ class tiger extends enemy {
                         }
                     //otherwise play struggle animation of other keys but subtract from the struggle bar.
                     }else if(this.scene.checkDPressed() === true){
+                        
                         //makes sure the struggle bar does not go into the negitives
                         if(this.struggleCounter - 21 > 0){
                             this.struggleCounter -= 21;
@@ -1161,7 +1163,6 @@ class tiger extends enemy {
 
                 // randomizing input
                 if (this.randomInputCooldown === false) {
-        
                     this.randomInputCooldown = true;
                     this.randomInput = Math.floor((Math.random() * 2));
                     console.log("randomizing the key prompt " + this.randomInput);
@@ -1340,7 +1341,7 @@ class tiger extends enemy {
 
             }else if(this.playerDefeatedAnimationStage === 1){
 
-                if (!this.animationPlayed && this.struggleAnimationInterupt === false) {
+                if(!this.animationPlayed && this.struggleAnimationInterupt === false) {
 
                     console.log("the animation has not been played");
                     this.animationPlayed = true;

@@ -709,6 +709,7 @@ class G8InitEnemys extends G7EnemyCollisions{
               console.log('player grabbed by cat');
             }
           });
+
           tempCat.addColliderRef(collider1);
 
           //attack hitbox logic
@@ -817,17 +818,47 @@ class G8InitEnemys extends G7EnemyCollisions{
 
       matangoRoot: function matangoRootFunction(startX, startY, playerSex,inSafeMode,rootNode) {
 
-        let mush = new mantangoRoot(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        let mush = new matangoRoot(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         mush.rootNode = rootNode;
         tempSceneRef.enemyId++;
         console.log("created mushdefeat id: ",mush.enemyId);
         tempSceneRef.enemys.add(mush);
         tempSceneRef.matangoRoots.add(mush);
 
-        tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, mush, function () {
+        let  collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, mush, function () {
             console.log("overlap with mushroom occuring!");
             mush.hitboxOverlaps = true;
         });
+        mush.addColliderRef(collider1);
+
+        collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, mush.grabHitBox, function () {
+
+            let isWindowObject = {
+              isOpen: null
+            };
+          
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+              
+            }
+
+            if (mush.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+              //stop the velocity of the player
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              mush.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              mush.grabCoolDown = true;
+              mush.playerGrabbed = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by mush');
+            }
+          });
+          mush.addColliderRef(collider1);
 
       }
       

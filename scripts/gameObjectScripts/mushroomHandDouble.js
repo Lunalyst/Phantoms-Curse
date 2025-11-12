@@ -34,4 +34,8 @@ class mushroomHandDouble extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+    moveIdle() {
+
+    }
+
 }

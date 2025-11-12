@@ -351,6 +351,8 @@ const bestiaryKey = {
   mushroomFemaleTF:"mushroom_female_tf",
   mushroomMaleTF:"mushroom_male_tf",
 
+  matangoRootFemaleUnbirth:"matango_root_female_unbirth",
+
   istaraUnbirth:"istara_unbirth",
 
   vivianTF:"vivian_tf",

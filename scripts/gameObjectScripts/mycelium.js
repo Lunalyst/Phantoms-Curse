@@ -35,4 +35,8 @@ class mycelium extends Phaser.Physics.Arcade.Sprite{
         }
 
     }
+
+    moveIdle() {
+
+    }
 }

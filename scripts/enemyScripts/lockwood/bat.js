@@ -1075,7 +1075,7 @@ class bat extends enemy {
 
         //function to handle player struggle logic.
         if(this.batHasEatenCat === false){
-              if (this.scene.checkWPressed() === true) {
+            if (this.scene.checkWPressed() === true) {
                 
                 if (playerHealthObject.playerHealth >= 1) {
                     this.struggleCounter += 20;

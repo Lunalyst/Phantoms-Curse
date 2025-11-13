@@ -192,7 +192,41 @@ class matangoRootUnbirth extends enemy {
                     //play spitup animation
                     this.anims.play("unbirthRelease").once('animationcomplete', () => {
                         //then free player.
-                        this.struggleFree = true;
+                       if (playerHealthObject.playerHealth >= 1) {
+
+                            this.flipX = false;
+                            this.anims.play("tigerIdle");
+                            this.struggleFree = false;
+                            this.playerBrokeFree = 0;
+
+                            this.struggleCounter = 0;
+                            this.animationPlayed = false;
+                            this.playerDamaged = false;
+                            this.playerGrabbed = false;
+                            this.keyAnimationPlayed = false;
+                            this.scene.player1.visible = true;
+                            this.isPlayingMissedAnims = false;
+                            this.grabTimer = false;
+
+                            this.startedGrab = false;
+                            this.playerDefeatedAnimationStage = 0;
+                            this.struggleAnimationInterupt = false;
+                            this.spitUp = false;
+
+                            this.scene.player1.x = this.x;
+                            this.scene.player1.y = this.y;
+                            this.scene.grabbed = false;
+                            this.scene.KeyDisplay.visible = false;
+
+                            // creates a window of time where the player cant be grabbed after being released.
+                            // creates a cooldown window so the player does not get grabbed as they escape.
+                            let currentEnemy = this;
+                            setTimeout(function () {
+                                currentEnemy.grabCoolDown = false;
+                                currentEnemy.scene.grabCoolDown = false;
+                                console.log("grab cooldown has ended. player can be grabbed agian.");
+                            }, 1000);
+                        }
                     });
 
                 }
@@ -201,41 +235,7 @@ class matangoRootUnbirth extends enemy {
                 controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                     
 
-            // if the player if freed do the following to reset the player.
-            }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
 
-                this.flipX = false;
-                this.anims.play("tigerIdle");
-                this.struggleFree = false;
-                this.playerBrokeFree = 0;
-
-                this.struggleCounter = 0;
-                this.animationPlayed = false;
-                this.playerDamaged = false;
-                this.playerGrabbed = false;
-                this.keyAnimationPlayed = false;
-                this.scene.player1.visible = true;
-                this.isPlayingMissedAnims = false;
-                this.grabTimer = false;
-
-                this.startedGrab = false;
-                this.playerDefeatedAnimationStage = 0;
-                this.struggleAnimationInterupt = false;
-                this.spitUp = false;
-
-                this.scene.player1.x = this.x;
-                this.scene.player1.y = this.y;
-                this.scene.grabbed = false;
-                this.scene.KeyDisplay.visible = false;
-
-                // creates a window of time where the player cant be grabbed after being released.
-                // creates a cooldown window so the player does not get grabbed as they escape.
-                let currentEnemy = this;
-                setTimeout(function () {
-                    currentEnemy.grabCoolDown = false;
-                    currentEnemy.scene.grabCoolDown = false;
-                    console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 1000);
             }
     }
 
@@ -269,9 +269,8 @@ class matangoRootUnbirth extends enemy {
             this.playerDefeatedAnimationCooldown === false &&
             this.inStartDefeatedLogic === true &&
             this.scene.KeyDisplay.visible === true &&
-            this.playerDefeatedAnimationStage !== 5 &&
-            this.playerDefeatedAnimationStage !== 6 &&
-            this.playerDefeatedAnimationStage !== 8) {
+            this.playerDefeatedAnimationStage !== 1 &&
+            this.playerDefeatedAnimationStage !== 3 ) {
 
             this.scene.KeyDisplay.visible = false;
 
@@ -290,7 +289,7 @@ class matangoRootUnbirth extends enemy {
         }
 
         // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 8 && this.scene.checkDIsDown())) {
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
 
             this.scene.KeyDisplay.visible = false;
             console.log("changing scene");
@@ -312,7 +311,40 @@ class matangoRootUnbirth extends enemy {
     enemyDefeatedPlayerAnimationUnbirth(){
 
         if (this.playerDefeatedAnimationStage === 1) {
-            
+
+            this.playerDefeatedAnimationStageMax = 4;
+
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+
+                this.anims.play('unbirthGameover1').once('animationcomplete', () => {
+
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    //this.inStartDefeatedLogic = false;
+                });
+                
+            }
+
+        }else if (this.playerDefeatedAnimationStage === 2) {
+            this.anims.play('unbirthGameover2',true);
+        }else if (this.playerDefeatedAnimationStage === 3) {
+
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+
+                this.anims.play('unbirthGameover3').once('animationcomplete', () => {
+
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                });
+                
+            }
+
+        }else if (this.playerDefeatedAnimationStage === 4) {
+            this.anims.play('unbirthGameover4',true);
         }
     }
 

@@ -78,12 +78,19 @@ class matangoRoot extends matangoRootUnbirth {
                 
             if (sex === 0) {
                 this.anims.create({ key: 'unbirthStart', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 0, end: 11 }), frameRate: 10, repeat: 0 });
-                this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 10, repeat: 0 });
-                this.anims.create({ key: 'unbirthSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 19, end: 24 }), frameRate: 10, repeat: 0 });
-                this.anims.create({ key: 'unbirthDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 25, end: 31 }), frameRate: 10, repeat: 0 });
-                this.anims.create({ key: 'unbirthRelease', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 32, end: 44 }), frameRate: 10, repeat: 0 });
+                
             
             }
+
+            this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'unbirthSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 19, end: 24 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'unbirthDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 25, end: 31 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'unbirthRelease', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 32, end: 44 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'unbirthGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'unbirthGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'unbirthGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 12, end: 24 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'unbirthGameover4', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 24, end: 29 }), frameRate: 7, repeat: -1 });
         }
        
         this.inSafeMode = inSafeMode;
@@ -493,7 +500,7 @@ class matangoRoot extends matangoRootUnbirth {
             }
 
             //logic for if the player is not defeated and struggling
-            if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && this.struggleCounter <= 100){
+            if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && playerHealthObject.playerHealth > 0 && this.struggleCounter <= 100){
 
             //calls a function to handle the player taking damage
             this.playerIsStrugglingLogic(playerHealthObject);
@@ -561,7 +568,11 @@ class matangoRoot extends matangoRootUnbirth {
     }
 
     playerIsDefeatedLogic(){
-
+        if(this.grabType === "unbirth"){
+            this.playerIsDefeatedLogicUnbirth();
+        }else{
+            
+        }
     }
 
     playerEscaped(playerHealthObject){
@@ -594,9 +605,9 @@ class matangoRoot extends matangoRootUnbirth {
                 
                 //if the enemys hp is at zero
                 if (this.enemyHP <= 0) {
-                    //set enemy defeated to true, so the move behavior cant interupt the game over animations.
-                    this.enemyDefeated = true;
-                    //this.setVelocityX(0);
+
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
                     
                 }
 

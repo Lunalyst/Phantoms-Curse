@@ -73,8 +73,12 @@ class warp extends Phaser.Physics.Arcade.Sprite{
               playerCurseValue:null
             };
 
+            //console.log(playerDataObject)
+
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+            //console.log(playerDataObject)
         
             //then we set the correct location values to the scene transition data.
             playerDataObject.saveX = this.nextSceneX;

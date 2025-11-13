@@ -692,6 +692,53 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,270, 547,"node1",tempSceneRef.mushroomRoot,false);
                 tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,550, 547+32,"node2",tempSceneRef.mushroomRoot,false);
             },
+            matangoRoot_female_unbirth: function matangoRootFemaleUnbirthFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.intensity = 0.8;
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y + 100;
+                tempSceneRef.enemy.enemyGameOverUnbirth();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
+                
+                tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,450-64, 547+64,"node1",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode1.visible = false;
+                tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,450+64, 547+64,"node2",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode2.visible = false;
+
+                //tempSceneRef.test = tempSceneRef.add.sprite(450, 567-65, "Mycelium Root");
+                //tempSceneRef.test.setScale(1/3);
+
+    
+            },
+            matangoRoot_female_absorb: function matangoRootFemaleAbsorbFunction() {
+
+                tempSceneRef.enemys = tempSceneRef.physics.add.group();
+
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y;
+                tempSceneRef.enemy.enemyGameOverAbsorb();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.rightHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x+70, tempSceneRef.enemy.y+40, false);
+                tempSceneRef.rightHand.visible = true;
+                tempSceneRef.rightHand.curseLight.visible = true;
+                tempSceneRef.leftHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x-70, tempSceneRef.enemy.y+40, true);
+                tempSceneRef.leftHand.visible = true;
+                tempSceneRef.leftHand.curseLight.visible = true;
+
+                tempSceneRef.rightHand.anims.play('grabTell',true);
+                tempSceneRef.leftHand.anims.play('grabTell',true);
+
+            },
         }
     }
 
@@ -1192,6 +1239,13 @@ class gameoverManager extends A3SoundEffects {
             },
             mushroom_male_tf: function mushroomMaleTFFunction() {
 
+            },
+            matangoRoot_female_unbirth: function matangoRootFemaleUnbirthFunction() {
+    
+            },
+
+            matangoRoot_female_absorb: function matangoRootFemaleUnbirthFunction() {
+    
             },
         }
     }

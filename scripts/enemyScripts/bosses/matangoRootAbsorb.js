@@ -1,13 +1,13 @@
 //base for the boss, seperation for all grab struggle logic functions ect so they dont clutter main script
-class matangoRootUnbirth extends matangoRootAbsorb {
+class matangoRootAbsorb extends enemy {
     
-    randomizeInputUnbirth(){
+    randomizeInputAbsorb(){
 
         // randomizing input
         console.log("this.randomInputCooldown: ",this.randomInputCooldown);
         if (this.randomInputCooldown === false) {
             this.randomInputCooldown = true;
-            this.randomInput = Math.floor((Math.random() * 3));
+            this.randomInput = Math.floor((Math.random() * 2));
             console.log("randomizing the key prompt " + this.randomInput);
 
             if(this.keyAnimationPlayed === false && this.randomInput === 0) {
@@ -15,10 +15,6 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 this.scene.KeyDisplay.playAKey();
                 this.keyAnimationPlayed = true;
             }else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
-                console.log(" setting keyS display");
-                this.scene.KeyDisplay.playSKey();
-                this.keyAnimationPlayed = true;
-            }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
                 console.log(" setting keyD display");
                 this.scene.KeyDisplay.playDKey();
                 this.keyAnimationPlayed = true;
@@ -33,10 +29,10 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         } 
     }
 
-    playerIsNotDefeatedInputsUnbirth(playerHealthObject){
+    playerIsNotDefeatedInputsAbsorb(playerHealthObject){
         // correct keys to escape can be ASD
         if(this.startedGrab === true && this.struggleFree === false){
-             console.log("this.scene.player1.x: ",this.scene.player1.x, " this.x: ",this.x);
+            console.log("this.scene.player1.x: ",this.scene.player1.x, " this.x: ",this.x);
             if(this.scene.checkAPressed() === true) {
 
                 if (this.randomInput === 0) {
@@ -48,31 +44,15 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                     this.struggleAnimationInterupt = true;
                     this.flipX = false;
-                    this.scene.initSoundEffect('stomachSFX','4',0.1);
-                    this.anims.play('unbirthSideStruggle').once('animationcomplete', () => {
-                        this.animationPlayed = false;
-                        this.struggleAnimationInterupt = false;
-                    });
-                }
-            }else if(this.scene.checkSPressed() === true) {
-
-                if (this.randomInput === 1) {
-                    this.struggleIncrease(playerHealthObject);
-                }else{
-                    this.struggleDecrease();
-                }
-                
-                if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
-                    this.struggleAnimationInterupt = true;
-                    this.scene.initSoundEffect('stomachSFX','4',0.1);
-                    this.anims.play('unbirthDownStruggle').once('animationcomplete', () => {
+                    //this.scene.initSoundEffect('stomachSFX','4',0.1);
+                    this.anims.play('absorbSideStruggle').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
             }else if(this.scene.checkDPressed() === true) {
 
-                if (this.randomInput === 2) {
+                if (this.randomInput === 1) {
                     this.struggleIncrease(playerHealthObject);
                 }else{
                     this.struggleDecrease();
@@ -81,41 +61,37 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                     this.struggleAnimationInterupt = true;
                     this.flipX = true;
-                    this.scene.initSoundEffect('stomachSFX','4',0.1);
-                    this.anims.play('unbirthSideStruggle').once('animationcomplete', () => {
+                
+                    this.anims.play('absorbSideStruggle').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
             }
-           }
-           
+        }
         
-        this.randomizeInputUnbirth();
+        this.randomizeInputAbsorb();
 
         this.reduceStruggleCounter();
     }
 
-    playerIsStrugglingLogicUnbirthASM(){
-
+    playerIsStrugglingLogicAbsorbASM(){
+        //this.rightHand.visible = false;
+        //this.leftHand.visible = false;
         console.log("this.startedGrab: ",this.startedGrab," this.animationPlayed: ",this.animationPlayed);
         //start the grab ainimation where the player is sucked in. but dont damage them yet.
         if(this.startedGrab === false && this.animationPlayed === false){
             
             this.animationPlayed = true;
             //this.struggleAnimationInterupt = true;
-
-            this.scene.initSoundEffect('lickSFX','5',0.5);
-
-            //need to hide the correct hand on the correct side here.
-            if(this.flipX === true){
-                this.rightHand.visible = false;
-            }else{
-                this.leftHand.visible = false;
-            }
+            
             this.scene.player1.lightSource.visible = false;
 
-            this.anims.play('unbirthStart').once('animationcomplete', () => {
+            this.rightHand.visible = false;
+            this.leftHand.visible = false;
+            this.centerHands.visible = false;
+
+            this.anims.play('absorbStart').once('animationcomplete', () => {
                 this.startedGrab = true;
                 this.animationPlayed = false;
 
@@ -126,55 +102,59 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 this.scene.KeyDisplay.visible = true;
 
                 //need to hide the correct hand on the correct side here.
-                if(this.flipX === true){
-                    this.rightHand.visible = true;
-                }else{
-                    this.leftHand.visible = true;
-                }
+
+                this.rightHand.visible = true;
+                this.leftHand.visible = true;
+                
             });
             
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
-            this.anims.play("unbirthIdle", true);
+            this.anims.play("absorbIdle", true);
             this.playStomachSound('3',800); 
+            this.rightHand.visible = true;
+            this.leftHand.visible = true;
+
+            this.rightHand.anims.play('grabTell',true);
+            this.leftHand.anims.play('grabTell',true);
         }
     }
 
-    playerIsStrugglingLogicUnbirth(playerHealthObject){
+    playerIsStrugglingLogicAbsorb(playerHealthObject){
 
-        this.playerIsStrugglingLogicUnbirthASM();
+        this.playerIsStrugglingLogicAbsorbASM();
 
         if(this.playerDamageTimer === false && this.startedGrab === true){
 
             this.playerDamageTimer = true;
 
             //if the player is above 75% health
-            if(playerHealthObject.playerHealth >= (playerHealthObject.playerMaxHealth/4) * 3){
+            if(playerHealthObject.playerCurse < (playerHealthObject.playerCurseMax/2)){
 
                 //deal 2 hp damager everys second.
                 if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,1);
+                    healthEmitter.emit(healthEvent.curseBuildUp,2);
                 }
                 let currentEnemy = this;
                 setTimeout(function () {
                         currentEnemy.playerDamageTimer = false;
                 }, 1000);
 
-            }else if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3){
+            }else{
 
                 //deal 2 hp damager everys .8 seconds.
                 if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,1);
+                    healthEmitter.emit(healthEvent.loseHealth,2);
                 }
 
                 let currentEnemy = this;
                 setTimeout(function () {
                     currentEnemy.playerDamageTimer = false;
-                }, 800);
+                }, 1000);
             }
         }   
     }
 
-    playerEscapedUnbirth(playerHealthObject){
+    playerEscapedAbsorb(playerHealthObject){
 
         this.scene.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
@@ -188,25 +168,19 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 //if the palyer is grabbed, and in the tiger stomach
                 if(this.playerDefeatedAnimationStage === 0 && this.spitUp === false){
 
-                    this.struggleFree = true;
                     this.spitUp = true;
+                    this.struggleFree = true;
 
-                    //spit up sound effect.
-                    this.scene.initSoundEffect('swallowSFX','4',0.02);
+                    //then free player.
+                    this.resetVariables();
 
-                    //play spitup animation
-                    this.anims.play("unbirthRelease").once('animationcomplete', () => {
-                        //then free player.
-                        this.resetVariables();
-
-                        let currentEnemy = this;
-                        setTimeout(function () {
-                            currentEnemy.grabCoolDown = false;
-                            currentEnemy.scene.grabCoolDown = false;
-                            console.log("grab cooldown has ended. player can be grabbed agian.");
-                        }, 1000);
-                        
-                    });
+                    let currentEnemy = this;
+                    setTimeout(function () {
+                        currentEnemy.grabCoolDown = false;
+                        currentEnemy.scene.grabCoolDown = false;
+                        console.log("grab cooldown has ended. player can be grabbed agian.");
+                    }, 1000);
+       
 
                 }
 
@@ -218,13 +192,13 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             }
     }
 
-    playerIsDefeatedLogicUnbirth(){
+    playerIsDefeatedLogicAbsorb(){
 
         // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the enemy.
         this.playerDefeated = true;
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-        this.scene.enemyThatDefeatedPlayer = bestiaryKey.matangoRootFemaleUnbirth;
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.matangoRootFemaleAbsorb;
 
         if(this.inStartDefeatedLogic === false) {
 
@@ -249,7 +223,8 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             this.inStartDefeatedLogic === true &&
             this.scene.KeyDisplay.visible === true &&
             this.playerDefeatedAnimationStage !== 1 &&
-            this.playerDefeatedAnimationStage !== 3 ) {
+            this.playerDefeatedAnimationStage !== 4 &&
+            this.playerDefeatedAnimationStage !== 6 ) {
 
             this.scene.KeyDisplay.visible = false;
 
@@ -268,7 +243,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         }
 
         // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
 
             this.scene.KeyDisplay.visible = false;
             console.log("changing scene");
@@ -281,40 +256,42 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         }
 
         //function to play the defeated animation
-        this.enemyDefeatedPlayerAnimationUnbirth();
+        this.enemyDefeatedPlayerAnimationAbsorb();
 
         // same code but for the large enemy if it beats the player.
 
     }
 
-    enemyDefeatedPlayerAnimationUnbirth(){
+    enemyDefeatedPlayerAnimationAbsorb(){
 
         if (this.playerDefeatedAnimationStage === 1) {
 
-            this.playerDefeatedAnimationStageMax = 4;
+            this.playerDefeatedAnimationStageMax = 7;
 
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
-                this.anims.play('unbirthGameover1').once('animationcomplete', () => {
+                this.anims.play('absorbGameover1').once('animationcomplete', () => {
 
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    //this.inStartDefeatedLogic = false;
+
                 });
                 
             }
 
         }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('unbirthGameover2',true);
+            this.anims.play('absorbGameover2',true);
         }else if (this.playerDefeatedAnimationStage === 3) {
+            this.anims.play('absorbGameover3',true);
+        }else if (this.playerDefeatedAnimationStage === 4) {
 
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
-                this.anims.play('unbirthGameover3').once('animationcomplete', () => {
+                this.anims.play('absorbGameover4').once('animationcomplete', () => {
 
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -322,17 +299,33 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 
             }
 
-        }else if (this.playerDefeatedAnimationStage === 4) {
-            this.anims.play('unbirthGameover4',true);
+        }else if (this.playerDefeatedAnimationStage === 5) {
+            this.anims.play('absorbGameover5',true);
+        }else if (this.playerDefeatedAnimationStage === 6) {
+
+            if (!this.animationPlayed) {
+
+                this.animationPlayed = true;
+
+                this.anims.play('absorbGameover6').once('animationcomplete', () => {
+
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                });
+                
+            }
+
+        }else if (this.playerDefeatedAnimationStage === 7) {
+            this.anims.play('absorbGameover7',true);
         }
     }
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.
-    enemyGameOverUnbirth() {
+    enemyGameOverAbsorb() {
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
         this.visible = true;
-        this.anims.play('unbirthGameoverFinish', true);
+        this.anims.play('absorbGameoverFinish', true);
     }
 
     

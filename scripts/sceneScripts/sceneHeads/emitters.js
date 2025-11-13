@@ -351,7 +351,8 @@ const bestiaryKey = {
   mushroomFemaleTF:"mushroom_female_tf",
   mushroomMaleTF:"mushroom_male_tf",
 
-  matangoRootFemaleUnbirth:"matango_root_female_unbirth",
+  matangoRootFemaleUnbirth:"matangoRoot_female_unbirth",
+  matangoRootFemaleAbsorb:"matangoRoot_female_absorb",
 
   istaraUnbirth:"istara_unbirth",
 
@@ -500,6 +501,10 @@ const bestiaryTextList = {
         summary: "This mushroom node is a part of an  interconnected  network of mycelium below the ground. To chase its prey, she can shrink her body to travel through these nodes. When prey is near she will dance to spread spores onto the prey.",
       },
       mushroom_male_tf:{
+        title: "MALE MUSHROOM NODE",
+        summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
+      },
+      matangoRoot_female_unbirth:{
         title: "MALE MUSHROOM NODE",
         summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
       },

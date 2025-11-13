@@ -2497,6 +2497,22 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "matangoRoot_female_unbirth":{
+                    "node1":{
+                        "dialogue": "In a moment, you found yourself facing first against the giant's vagina. Your body slid gracefully inside her enlarged belly. For as much as you struggled against the rhythmic movements of her body it was not enough to escape her womb. You could feel your body quickly melting into her fluids. Before you knew it, your body was turned into her climax. What was left of you was released in a big wave and left on the ground. Strangely you could still feel yourself to some degree in this state. Eventually you learned how to control your new body. spreading through the ground and sprouting as a new mycelium network should.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                "matangoRoot_female_absorb":{
+                    "node1":{
+                        "dialogue": "you strayed too close to the giant. Taking advantage of the distance, two massive hands grabbed you, lifting your body up to her massive belly. In a moment, your arms and legs were restrained inside her body, as your head was being squished by her massive breasts. Your attempts to struggle where in vain, as she pulled you deeper into her. Completely at her mercy you gave into her desire. Her body enveloping you feeling snug and comfy as you both began to pleasure each other. Your body fusing into hers as she played with your genitals, You both came in unison. Feeling tired from the struggle, you relaxed and fell asleep as she fully absorbed you. looking quite pleased with herself, you spend the rest of your days as big mushroom pudge.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
             },
             "cursed":{
                 "default":{

@@ -238,14 +238,6 @@ class ShadowCaveUpper extends defaultScene {
 
           thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
           thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(801,664,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(821,664,thisScene.playerSex,'curseShadow',false);
           thisScene.spawnedEnemys = true;
 
         },1000);

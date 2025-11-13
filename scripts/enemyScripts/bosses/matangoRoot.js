@@ -77,9 +77,17 @@ class matangoRoot extends matangoRootUnbirth {
             this.anims.create({ key: 'sideThrustEnd', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 51, end: 54 }), frameRate:  10, repeat: 0 });
                 
             if (sex === 0) {
-                this.anims.create({ key: 'unbirthStart', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 0, end: 11 }), frameRate: 10, repeat: 0 });
+                this.anims.create({ key: 'unbirthStart', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 0, end: 11 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbStart', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 34, end: 40 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbIdle', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 41, end: 46 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 6, end: 16 }), frameRate: 10, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 17, end: 22 }), frameRate: 10, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 17, end: 22 }), frameRate: 15, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover4', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 23, end: 30 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover5', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 31, end: 36 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover6', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 37, end: 42 }), frameRate: 7, repeat: 0 });
                 
-            
             }
 
             this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 7, repeat: 0 });
@@ -91,13 +99,17 @@ class matangoRoot extends matangoRootUnbirth {
             this.anims.create({ key: 'unbirthGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'unbirthGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 12, end: 24 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthGameover4', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 24, end: 29 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'unbirthGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 30, end: 34 }), frameRate: 5, repeat: -1 });
+
+            this.anims.create({ key: 'absorbGameover7', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 0, end: 5 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'absorbGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
         }
        
         this.inSafeMode = inSafeMode;
 
         if(this.inSafeMode === false){
-            this.rightHand = new mushroomHandSingle(this.scene,this.x+65, this.y+48, false);
-            this.leftHand = new mushroomHandSingle(this.scene,this.x-65, this.y+48, true);
+            this.rightHand = new mushroomHandSingle(this.scene,this.x+70, this.y+48, false);
+            this.leftHand = new mushroomHandSingle(this.scene,this.x-70, this.y+48, true);
             this.centerHands = new mushroomHandDouble(this.scene,this.x, this.y+48, true);
 
         }
@@ -116,12 +128,11 @@ class matangoRoot extends matangoRootUnbirth {
     }
 
     //functions that move enemy objects.
-    move() {
+    move(){
         //set hitbox to correct size
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
         
-        console.log("this.scene.physics.world.isPaused: ",this.scene.physics.world.isPaused);
         //console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking);
         //if the mushroom has not awoken and the player in in range
         if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
@@ -176,7 +187,7 @@ class matangoRoot extends matangoRootUnbirth {
             });
         //if the mushroom is poped out then do battle ai  
         }else if(this.poppedOut === true){
-            
+            console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking);
             //case where mushroom is not attacking
             if(this.turning === false && this.attackCooldown === true){
                 this.turning = true;
@@ -340,21 +351,28 @@ class matangoRoot extends matangoRootUnbirth {
                         this.hitBoxPositionActive(this.x,this.y+45);
                         this.grabHitBox.setSize(70, 20, true);
 
-                        this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
-
-                            this.rightHand.visible = true;
-                            this.leftHand.visible = true;
-                            this.centerHands.visible = false;
+                        this.centerHands.anims.play('centerHandGrabMiddle').once('animationcomplete', () => {
 
                             this.hitBoxHide();
 
-                            this.attackCooldown = true;
-                            this.isAttacking = false;
+                            this.isAttacking = true;
 
-                            let temp = this;
-                            setTimeout(function () {
-                                temp.attackCooldown = false;
-                            }, 1500);
+                            if(this.playerGrabbed === false){
+                                this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
+
+                                    this.rightHand.visible = true;
+                                    this.leftHand.visible = true;
+                                    this.centerHands.visible = false;
+
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1500);
+                                });
+                            }
                         });
                     });
             
@@ -443,11 +461,33 @@ class matangoRoot extends matangoRootUnbirth {
         this.anims.play('hiding',true);
     }
 
-    // functioned called to play animation when the player is defeated by the enemy in gameover.
-    enemyGameOver() {
-        this.setSize(100, 150, true);
-        this.setOffset(90, 150);
-        this.anims.play('enemyGameOver', true);
+    resetVariables(){
+        this.flipX = false;
+        this.struggleFree = false;
+        this.playerBrokeFree = 0;
+
+        this.isAttacking = false;
+
+        this.struggleCounter = 0;
+        this.animationPlayed = false;
+        this.playerDamaged = false;
+        this.playerGrabbed = false;
+        this.keyAnimationPlayed = false;
+        this.scene.player1.visible = true;
+        this.isPlayingMissedAnims = false;
+        this.grabTimer = false;
+
+        this.startedGrab = false;
+        this.playerDefeatedAnimationStage = 0;
+        this.struggleAnimationInterupt = false;
+        this.spitUp = false;
+
+        this.scene.player1.mainHitbox.x = this.x;
+        ///this.scene.player1.y = this.y;
+        this.scene.grabbed = false;
+        this.scene.KeyDisplay.visible = false;
+
+        this.scene.player1.lightSource.visible = true;
     }
 
     //the grab function. is called when player has overlaped with an enemy enemy.
@@ -550,8 +590,8 @@ class matangoRoot extends matangoRootUnbirth {
 
         if(this.grabType === "unbirth"){
             this.playerIsNotDefeatedInputsUnbirth(playerHealthObject);
-        }else{
-            
+        }else if(this.grabType === "absorb"){
+            this.playerIsNotDefeatedInputsAbsorb(playerHealthObject);
         }
       
     }
@@ -561,8 +601,8 @@ class matangoRoot extends matangoRootUnbirth {
 
         if(this.grabType === "unbirth"){
             this.playerIsStrugglingLogicUnbirth(playerHealthObject);
-        }else{
-
+        }else if(this.grabType === "absorb"){
+            this.playerIsStrugglingLogicAbsorb(playerHealthObject);
         }
                
     }
@@ -570,8 +610,8 @@ class matangoRoot extends matangoRootUnbirth {
     playerIsDefeatedLogic(){
         if(this.grabType === "unbirth"){
             this.playerIsDefeatedLogicUnbirth();
-        }else{
-            
+        }else if(this.grabType === "absorb"){
+            this.playerIsDefeatedLogicAbsorb();
         }
     }
 
@@ -579,8 +619,8 @@ class matangoRoot extends matangoRootUnbirth {
 
         if(this.grabType === "unbirth"){
             this.playerEscapedUnbirth(playerHealthObject);
-        }else{
-            
+        }else if(this.grabType === "absorb"){
+            this.playerEscapedAbsorb(playerHealthObject);
         }
     }
 
@@ -653,49 +693,6 @@ class matangoRoot extends matangoRootUnbirth {
 
         //update the boss hp bar
         healthEmitter.emit(healthEvent.loseBossHealth,prevHp-this.enemyHP);
-
-    }
-
-    // plays the enemy defeated player animations.
-    enemyDefeatedPlayerAnimation() {
-        let currentEnemy = this;
-        if (this.playerDefeatedAnimationStage === 1) {
-
-            this.playerDefeatedAnimationStageMax = 2;
-
-            if (!this.animationPlayed) {
-                this.playEnemySound('2',800);
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"SLOOORRRP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(1000);
-            
-                this.animationPlayed = true;
-                this.anims.play('enemyGrabFallingDefeated').once('animationcomplete', () => {
-                    this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-            }
-        } else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('enemyGrabDefeated1', true);
-            this.playEnemySound('2',800);
-
-            let thisEnemy = this;
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                this.scene.onomat = new makeText(this.scene,this.x+10,this.y+20,'charBubble',"BLORP!");
-                this.scene.onomat.visible = this.scene.onomatopoeia;
-                this.scene.onomat.setScale(1/4);
-                this.scene.onomat.increaseRight(700);
-                this.scene.onomat.textFadeOutAndDestroy(700);
-                setTimeout(function () {
-                    thisEnemy.onomatPlayed = false;
-                }, 800);
-            }
-        } 
-
 
     }
 

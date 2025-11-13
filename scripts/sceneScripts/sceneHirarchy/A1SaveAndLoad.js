@@ -281,7 +281,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       dreamReturnLocation: dataObject.dreamReturnLocation,
       playerCurseValue: dataObject.playerCurseValue
       }
-
+      //console.log(dataObject);
       console.log("[saveGame]============================================");
       console.log("dataObject.saveX:",dataObject.saveX," --> file.saveX: ",file.saveX);
       console.log("dataObject.saveY:",dataObject.saveY," --> file.saveY: ",file.saveY);

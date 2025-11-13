@@ -838,7 +838,8 @@ class gameHud extends A3SoundEffects {
             object.flagValues = this.flagValues;
             object.settings = this.settings;
             object.dreamReturnLocation = this.dreamReturnLocation;
-            object.playerCurseValue = this.playerCurseValue;
+
+            object.playerCurseValue = this.healthDisplay.playerCurse;
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;

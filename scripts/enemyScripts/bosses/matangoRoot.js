@@ -99,7 +99,7 @@ class matangoRoot extends matangoRootUnbirth {
             this.anims.create({ key: 'unbirthGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'unbirthGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 12, end: 24 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthGameover4', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 24, end: 29 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'unbirthGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 30, end: 34 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'unbirthGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 30, end: 33 }), frameRate: 5, repeat: -1 });
 
             this.anims.create({ key: 'absorbGameover7', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 0, end: 5 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'absorbGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });

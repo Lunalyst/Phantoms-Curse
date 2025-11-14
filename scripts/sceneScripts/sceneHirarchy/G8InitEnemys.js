@@ -751,42 +751,78 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(shadow);
         tempSceneRef.curseShadows.add(shadow);
 
-        tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, shadow.grabHitBox, function () {
+        if(inSafeMode === false){
 
-          let isWindowObject = {
-            isOpen: null
-          };
-        
-          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+          tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, shadow.grabHitBox, function () {
 
-          if (isWindowObject.isOpen === true) {
-            inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+            let isWindowObject = {
+              isOpen: null
+            };
+          
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
 
-          }
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
 
-          if (shadow.grabCoolDown === false && tempSceneRef.grabCoolDown === false && tempSceneRef.player1.lanturnFlicker === null) {
-            //stop the velocity of the player
-            shadow.setVelocityX(0);
-            tempSceneRef.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            shadow.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            shadow.grabCoolDown = true;
-            shadow.playerGrabbed = true;
-            tempSceneRef.grabbed = true;
-            tempSceneRef.grabCoolDown = true;
-            console.log('player grabbed by shadow');
-          }
-        });
+            }
+
+            if (shadow.grabCoolDown === false && tempSceneRef.grabCoolDown === false && tempSceneRef.player1.lanturnFlicker === null) {
+              //stop the velocity of the player
+              shadow.setVelocityX(0);
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              shadow.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              shadow.grabCoolDown = true;
+              shadow.playerGrabbed = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by shadow');
+            }
+          });
+        }
 
       },
       earieShadow: function earieShadowFunction(startX, startY, playerSex,inSafeMode) {
-        let earieS = new EarieShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        let shadow = new EarieShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         tempSceneRef.enemyId++;
-        console.log("created earieShadows id: ",earieS.enemyId);
-        tempSceneRef.enemys.add(earieS);
-        tempSceneRef.earieShadows.add(earieS);
+        console.log("created earieShadows id: ",shadow.enemyId);
+        tempSceneRef.enemys.add(shadow);
+        tempSceneRef.earieShadows.add(shadow);
+
+        if(inSafeMode === false){
+
+          tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, shadow.grabHitBox, function () {
+
+            let isWindowObject = {
+              isOpen: null
+            };
+          
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+
+            }
+
+            if (shadow.grabCoolDown === false && tempSceneRef.grabCoolDown === false && tempSceneRef.player1.lanturnFlicker === null) {
+              //stop the velocity of the player
+              shadow.setVelocityX(0);
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+              shadow.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              shadow.grabCoolDown = true;
+              shadow.playerGrabbed = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by shadow');
+            }
+          });
+        }
+
       },
 
       mushroom: function mushroomFunction(startX, startY, playerSex,inSafeMode,rootNode) {

@@ -505,8 +505,12 @@ const bestiaryTextList = {
         summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
       },
       matangoRoot_female_unbirth:{
-        title: "MALE MUSHROOM NODE",
-        summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
+        title: "FEMALE MATANGO UB",
+        summary: "Matangos like to trap prey within their womb to melt them down and reproduce. The new mycelium network born is covered in nutrient-rich fluids, which are used to help the baby network grow.",
+      },
+      matangoRoot_female_absorb:{
+        title: "FEMALE MATANGO ABSORB",
+        summary: "Once awakened, the matango root will employ various methods to defend itself. One such method is trying to engulf its attacker inside its gooey outer body. Once the prey is subdued, it pleasures the prey so the absorption process and melding go smoothly.",
       },
 
       back: {

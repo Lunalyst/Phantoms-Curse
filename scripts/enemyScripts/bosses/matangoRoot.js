@@ -523,7 +523,7 @@ class matangoRoot extends matangoRootUnbirth {
 
             //puts the key display in the correct location.
             this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 100;
+            this.scene.KeyDisplay.y = this.y + 96;
 
             //displays the give up option on screen
             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);

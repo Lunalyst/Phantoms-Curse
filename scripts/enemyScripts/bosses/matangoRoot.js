@@ -61,6 +61,7 @@ class matangoRoot extends matangoRootUnbirth {
 
             this.anims.create({ key: 'forwardIdleEyesForward', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 16, end: 21 }), frameRate:  10, repeat: 0 });
             this.anims.create({ key: 'forwardIdleEyesDown', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 22, end: 27 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'forwardIdleEyesDownDreamView', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 22, end: 27 }), frameRate:  10, repeat: -1 });
 
             this.anims.create({ key: 'from0to1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 28, end: 29 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'from1to0-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 29, end: 29 }), frameRate: 20, repeat: 0 });
@@ -107,13 +108,6 @@ class matangoRoot extends matangoRootUnbirth {
        
         this.inSafeMode = inSafeMode;
 
-        if(this.inSafeMode === false){
-            this.rightHand = new mushroomHandSingle(this.scene,this.x+70, this.y+48, false);
-            this.leftHand = new mushroomHandSingle(this.scene,this.x-70, this.y+48, true);
-            this.centerHands = new mushroomHandDouble(this.scene,this.x, this.y+48, true);
-
-        }
-
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
@@ -122,7 +116,18 @@ class matangoRoot extends matangoRootUnbirth {
             this.curseLight.intensity = 1.5;
             this.curseLight.visible = false;
         
-          }
+        }
+
+        if(this.inSafeMode === false){
+            this.rightHand = new mushroomHandSingle(this.scene,this.x+70, this.y+48, false);
+            this.leftHand = new mushroomHandSingle(this.scene,this.x-70, this.y+48, true);
+            this.centerHands = new mushroomHandDouble(this.scene,this.x, this.y+48, true);
+
+        }else{
+            this.visible = true;
+            this.anims.play('forwardIdleEyesDownDreamView',true);
+            this.curseLight.visible = true;
+        }
         
 
     }
@@ -458,7 +463,7 @@ class matangoRoot extends matangoRootUnbirth {
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
-        this.anims.play('hiding',true);
+        this.anims.play('forwardIdleEyesDownDreamView',true);
     }
 
     resetVariables(){
@@ -576,15 +581,6 @@ class matangoRoot extends matangoRootUnbirth {
 
     }
 
-    //simple function to set a few thing when grab is started
-    enemyGrabFalse(){
-        //hides player object during grab.
-        this.scene.player1.visible = false;
-
-        //set the player grabbed in this enemy to true
-        this.playerGrabbed = true;
-    }
-
     //function handles the player struggle buttons
     playerIsNotDefeatedInputs(playerHealthObject){
 
@@ -698,82 +694,12 @@ class matangoRoot extends matangoRootUnbirth {
 
     //function to show off animation 
     animationGrab(){
-        console.log(' activating enemy view grab logic');
-        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
-        this.clearTint();
-        
-        //stops the x velocity of the enemy
-        this.setVelocityX(0);
-       
-        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
-        // if the grabbed is false but this function is called then do the following.
-        if (this.playerGrabbed === false) {
 
-            this.enemyGrabFalse();
-            this.isViewingAnimation = true;
-            this.playerProgressingAnimation = false;
-
-        //if the player is grabbed then.
-        } else if(this.playerGrabbed === true) {
-
-            //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
-
-            //hides the mobile controls in the way of the tab/skip indicator.
-            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-
-            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-            let playerHealthObject = {
-                playerHealth: null
-            };
-
-            //gets the hp value using a emitter
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-        
-            //if the player is not defeated
-            if (this.playerProgressingAnimation === false) {
-
-                //puts the key display in the correct location.
-                this.scene.KeyDisplay.visible = true;
-                this.scene.KeyDisplay.x = this.x;
-                this.scene.KeyDisplay.y = this.y + 100;
-                
-                //here is where animation for grab and grab sf should be played for grab animation.
-               
-                //play struggle animation and sounds.
-                this.anims.play("enemyGrab",true);
-                
-                //handles sound effect diring grab struggle
-                this.playEnemySound('3',800);
-                
-
-                // handles input for progressing animation
-                if (this.scene.checkDPressed() === true) {
-                    this.playerProgressingAnimation = true;
-                    this.playerDefeatedAnimationStage = 0;
-                }
-
-                // displays inputs while in the first stage of the animation viewing.
-                if (this.keyAnimationPlayed === false) {
-                    //console.log(" setting keyW display");
-                    this.scene.KeyDisplay.playDKey();
-                    this.keyAnimationPlayed = true;
-                }      
-            }
-
-            if(this.playerProgressingAnimation === true){
-                
-                //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
-                    //handle the defeated logic that plays defeated animations
-                    this.playerIsDefeatedLogic(playerHealthObject);
-                    
-                }else{
-                    //hide the tab indicator and key prompts
-                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
-                    this.scene.KeyDisplay.visible = false;    
-                }
-            }
+        console.log(' activating cat view grab logic');
+        if(this.grabType === "unbirth"){
+            this.animationGrabUnbirth();
+        }else if(this.grabType === "absorb"){
+            this.animationGrabAbsorb();
         }
     }
     

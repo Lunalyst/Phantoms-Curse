@@ -25,7 +25,7 @@ class dreamShadowCave extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = ["curseShadows","earieShadows","mushroomDefeats","mushrooms"];
+      this.enemyGroupArray = ["curseShadows","earieShadows","mushroomDefeats","mushrooms","matangoRoot"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -52,7 +52,7 @@ class dreamShadowCave extends defaultScene {
     create(){
 
       //sets up gameover location
-      this.setupGameoverLocation("forestGameover");
+      this.setupGameoverLocation("caveGameover");
     
       //sets up player controls
       this.setUpPlayerInputs();
@@ -173,6 +173,44 @@ class dreamShadowCave extends defaultScene {
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(828,636-36,thisScene.playerSex,'mushroomDefeat',true);
+
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.matangoRootFemaleUnbirth,
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind:  "not defined yet",
+          foundFlag: false,
+        };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootUnbirth",true);
+
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.matangoRootFemaleAbsorb,
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind:  "not defined yet",
+          foundFlag: false,
+        };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(600,525,thisScene.playerSex,"matangoRootAbsorb",true);
 
         }
 

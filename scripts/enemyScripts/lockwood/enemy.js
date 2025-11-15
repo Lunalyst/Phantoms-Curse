@@ -126,6 +126,15 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         
     }
 
+    //simple function to set a few thing when grab is started
+    enemyGrabFalse(){
+        //hides player object during grab.
+        this.scene.player1.visible = false;
+
+        //set the player grabbed in this enemy to true
+        this.playerGrabbed = true;
+    }
+
     //handles damage damage calculator for the enemy.
     //is to be over written by child class
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {

@@ -335,6 +335,130 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         this.anims.play('unbirthGameoverFinish', true);
     }
 
+    //function to show off animation 
+    animationGrabUnbirth(){
+
+        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        this.clearTint();
+        
+        //stops the x velocity of the enemy
+        this.setVelocityX(0);
+       
+        this.scene.attackHitBox.y = this.scene.player1.y + 10000;
+        // if the grabbed is false but this function is called then do the following.
+        if (this.playerGrabbed === false) {
+
+            this.enemyGrabFalse();
+            this.isViewingAnimation = true;
+            this.playerProgressingAnimation = false;
+            
+        //if the player is grabbed then.
+        } else if(this.playerGrabbed === true) {
+
+            //object is on view layer 5 so enemy is infront of others.
+            this.setDepth(6);
+
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
+            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        
+            // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
+            this.scene.player1.y = this.y - 150;
+
+            //if the player is not defeated
+            if (this.playerProgressingAnimation === false) {
+
+                 this.scene.initSoundEffect('lickSFX','5',0.5);
+
+                //needed for the animation viewer
+                if(this.animationPlayed === false && this.startAnimationPlayed === false){
+                    this.animationPlayed = true;
+                    this.anims.play("unbirthStart").once('animationcomplete', () => {
+                        //play struggle animation afterward.
+                        this.anims.play("unbirthIdle", true);
+                        this.startAnimationPlayed = true;
+                        this.animationPlayed = false;
+
+                        //puts the key display in the correct location.
+                        this.scene.KeyDisplay.visible = true;
+                        this.scene.KeyDisplay.x = this.x;
+                        this.scene.KeyDisplay.y = this.y + 95;
+                    });       
+                }else if(this.startAnimationPlayed === true){
+                    // handles input for progressing animation
+                    if (this.scene.checkWPressed() === true) {
+                        this.playerProgressingAnimation = true;
+                        }
+
+                        // displays inputs while in the first stage of the animation viewing.
+                        if (this.keyAnimationPlayed === false) {
+                            //console.log(" setting keyW display");
+                            this.scene.KeyDisplay.playWKey();
+                            this.keyAnimationPlayed = true;
+
+                    }else if(this.scene.checkAPressed() === true) {
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                            this.struggleAnimationInterupt = true;
+                            this.flipX = false;
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('unbirthSideStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }else if(this.scene.checkSPressed() === true) {
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                            this.struggleAnimationInterupt = true;
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('unbirthDownStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }else if(this.scene.checkDPressed() === true) {
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                            this.struggleAnimationInterupt = true;
+                            this.flipX = true;
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.anims.play('unbirthSideStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }else if(this.struggleAnimationInterupt === false){
+                        this.anims.play("unbirthIdle", true);
+                        this.playStomachSound('3',800); 
+                    }   
+                }   
+            }
+
+            if( this.playerProgressingAnimation === true){
+                
+                //calls animation grab code until the animation is finished
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                    //handle the defeated logic that plays defeated animations
+                     this.playerIsDefeatedLogicUnbirth();
+
+                
+                }else{
+                    //hide the tab indicator and key prompts
+                    skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+                    this.scene.KeyDisplay.visible = false;    
+                }
+            }
+        }
+    }
+
     
 
 

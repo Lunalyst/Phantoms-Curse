@@ -36,6 +36,7 @@ class matangoRoot extends matangoRootUnbirth {
         this.inEmergingAnimation = false;
         this.poppedOut = false;
         this.enemyHP = 200;
+        this.enemyHPMax = 200;
         this.turning = false;
         this.idleState = 0;
         this.rootNode = null; 
@@ -51,6 +52,11 @@ class matangoRoot extends matangoRootUnbirth {
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
         this.hitBoxHide();
+
+        //make a hitbox so the cat can attack the player.
+        this.attackHitBox = new hitBoxes(scene,this.x,this.y);
+        this.attackHitBox.setSize(30,10,true);
+        this.attackHitBoxHide();
         
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
@@ -67,6 +73,7 @@ class matangoRoot extends matangoRootUnbirth {
             this.anims.create({ key: 'from1to0-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 29, end: 29 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'from1to0-2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 28, end: 28 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'AngleIdle', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 30, end: 35 }), frameRate: 10, repeat: 0 });
+            this.anims.create({ key: 'AngleIdleLoop', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 30, end: 35 }), frameRate: 10, repeat: -1 });
 
             this.anims.create({ key: 'from1to2', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 36, end: 37 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'from2to1-1', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 37, end: 37 }), frameRate: 20, repeat: 0 });
@@ -336,7 +343,7 @@ class matangoRoot extends matangoRootUnbirth {
                 }
 
             //ai to have the mushroom perform attacks.
-            }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false){  
+            }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false && this.scene.playerStuckGrabbedBy !== "knockdown"){  
                 if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
 
                     this.grabType = "absorb";
@@ -354,7 +361,7 @@ class matangoRoot extends matangoRootUnbirth {
                     this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
 
                         this.hitBoxPositionActive(this.x,this.y+45);
-                        this.grabHitBox.setSize(70, 20, true);
+                        this.grabHitBox.setSize(90, 20, true);
 
                         this.centerHands.anims.play('centerHandGrabMiddle').once('animationcomplete', () => {
 
@@ -375,7 +382,7 @@ class matangoRoot extends matangoRootUnbirth {
                                     let temp = this;
                                     setTimeout(function () {
                                         temp.attackCooldown = false;
-                                    }, 1500);
+                                    }, 1000);
                                 });
                             }
                         });
@@ -433,21 +440,94 @@ class matangoRoot extends matangoRootUnbirth {
                             let temp = this;
                             setTimeout(function () {
                                 temp.attackCooldown = false;
-                            }, 1500);
+                            }, 1000);
 
                             });
                         });
                         
                     });
 
+                }else if(this.checkXRangeFromPlayer(130, 130) && this.checkYRangeFromPlayer(50,60) ){
+
+                    this.isAttacking = true;
+
+                    this.anims.play('AngleIdleLoop',true);
+                    
+                    //if player to the left move the grab hitbox to the left
+                    if(this.scene.player1.x > this.x){
+                        this.flipX = true;
+                        this.rightHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                            this.attackHitBoxPositionActive(this.x+95,this.y+45);
+                            this.attackHitBox.setSize(60, 10, true);
+                            this.rightHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
+                                this.attackHitBoxHide();
+                                this.rightHand.anims.play('knockdownEnd').once('animationcomplete', () => {
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+                                });
+                            });
+                        });
+                    }else{
+                        this.flipX = false;
+                        this.leftHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                            this.attackHitBoxPositionActive(this.x-95,this.y+45);
+                            this.attackHitBox.setSize(60, 20, true);
+                            this.leftHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
+                                this.attackHitBoxHide();
+                                this.leftHand.anims.play('knockdownEnd').once('animationcomplete', () => {
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+                                });
+                            });
+                        });
+                    }
+
+                   
+
+
                 }else{
+
                     this.isAttacking = true;
                     this.attackCooldown = true;
                     let temp = this;
+
+                    if(this.enemyHP > 170 ){
+                        if(this.scene.player1.x > this.x){
+                            this.scene.initSporeCloud(this.x,this.y+50,"left",80,5000);
+                        }else{
+                            this.scene.initSporeCloud(this.x,this.y+50,"right",80,5000);
+                        }
+                    }else{
+
+                        if(this.scene.player1.x > this.x){
+                            this.scene.initSporeCloud(this.x,this.y+50,"left",100,3000);
+
+                            setTimeout(function () {
+                                temp.scene.initSporeCloud(temp.x,temp.y-20,"left",100,3000);
+                            }, 1000);
+                        }else{
+                            this.scene.initSporeCloud(this.x,this.y+50,"right",100,3000);
+                            setTimeout(function () {
+                                temp.scene.initSporeCloud(temp.x,temp.y-20,"right",100,3000);
+                            }, 1000);
+                        }
+                    }
+                    
+
                     setTimeout(function () {
                         temp.isAttacking = false;
                         temp.attackCooldown = false;
-                    }, 1500);
+                    }, 2000);
 
                 }
             }
@@ -467,6 +547,7 @@ class matangoRoot extends matangoRootUnbirth {
     }
 
     resetVariables(){
+        
         this.flipX = false;
         this.struggleFree = false;
         this.playerBrokeFree = 0;

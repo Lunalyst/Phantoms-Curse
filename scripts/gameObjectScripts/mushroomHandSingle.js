@@ -25,6 +25,9 @@ class mushroomHandSingle extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({ key: 'grabTell', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 11, end: 15 }), frameRate:  10, repeat: -1 });
         this.anims.create({ key: 'grabStart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 15, end: 19 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'grabEnd', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 20, end: 22 }), frameRate:  10, repeat: 0 });
+        this.anims.create({ key: 'knockdownstart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 23, end: 24 }), frameRate:  3, repeat: 0 });
+        this.anims.create({ key: 'knockdownMiddle', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 25, end: 28 }), frameRate:  10, repeat: 0 });
+        this.anims.create({ key: 'knockdownEnd', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 29, end: 32 }), frameRate:  8, repeat: 0 });
         
   
 

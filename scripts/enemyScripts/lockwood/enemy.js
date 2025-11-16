@@ -90,6 +90,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.struggleValue = 20;
 
         this.spitUp = false;
+
+        this.knockdownDirection = false;
         
     }
 
@@ -308,6 +310,16 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
     hitBoxHide(){
         this.grabHitBox.x = this.x;
         this.grabHitBox.y = this.y + 3000; 
+    }
+
+    attackHitBoxPositionActive(xValue,yValue){
+         this.attackHitBox.x = xValue;
+         this.attackHitBox.y = yValue;
+    }
+
+    attackHitBoxHide(){
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
     }
 
     //function to handle reduction of struggle counter overtime.

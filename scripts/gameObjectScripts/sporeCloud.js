@@ -1,7 +1,7 @@
 //once the player has the double jump skill, they create this platform under them as a visual effect to show they jumped off something during the double jump.
 class sporeCloud extends Phaser.Physics.Arcade.Sprite{
     // every class needs constructor
-    constructor(scene, xPos, yPos,direction){
+    constructor(scene, xPos, yPos,direction,speed,duration){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos, 'sporeCloud');
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -28,6 +28,8 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
         this.anims.play("SporeLinger",true);
       });
 
+      this.speed = speed;
+      this.duration = duration;
       this.destroying = false;
 
       this.followingPlayer = true;
@@ -43,7 +45,7 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
       setTimeout(function(){
         tempSporeCloud.followingPlayer = false;
         tempSporeCloud.destroysporeCloud();
-      },1500);
+      },this.duration);
       
     }
 

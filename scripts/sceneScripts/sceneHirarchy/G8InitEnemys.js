@@ -896,8 +896,28 @@ class G8InitEnemys extends G7EnemyCollisions{
                 tempSceneRef.grabCoolDown = true;
                 console.log('player grabbed by mush');
               }
-            });
-            mush.addColliderRef(collider1);
+          });
+          mush.addColliderRef(collider1);
+          //attack hitbox logic
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, mush.attackHitBox, function () {
+            let isWindowObject = {
+              isOpen: null
+            };
+            console.log("mushroom attack collider overlaping with player!");
+            inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+            if (isWindowObject.isOpen === true) {
+              inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+            }
+
+            //apply stuckgrab logic.
+            tempSceneRef.playerStuckGrab = true;
+            tempSceneRef.playerStuckGrabbedBy = "knockdown";
+            tempSceneRef.playerStuckGrabCap = 40;
+            tempSceneRef.enemyThatknockdownPlayer = mush;
+
+          });
+          mush.addColliderRef(collider1);
         }
       },
       matangoRootUnbirth: function matangoRootUnbirthFunction(startX, startY, playerSex,inSafeMode,rootNode) {
@@ -1184,10 +1204,10 @@ class G8InitEnemys extends G7EnemyCollisions{
 
       }
       //use the enemy to tell where the player should be flung
-      if(this.enemyThatknockdownPlayer.flipX === true && this.player1.mainHitbox.body.blocked.down === false){
+      if(this.enemyThatknockdownPlayer.knockdownDirection === false && this.player1.mainHitbox.body.blocked.down === false){
         //fling player left
         this.player1.mainHitbox.setVelocityX(-140);
-      }if(this.enemyThatknockdownPlayer.flipX === false && this.player1.mainHitbox.body.blocked.down === false){
+      }if(this.enemyThatknockdownPlayer.knockdownDirection === true && this.player1.mainHitbox.body.blocked.down === false){
         //fling player left
         this.player1.mainHitbox.setVelocityX(140);
       }else if(this.player1.mainHitbox.body.blocked.down === true && this.knockdownLaunchedUp === true){

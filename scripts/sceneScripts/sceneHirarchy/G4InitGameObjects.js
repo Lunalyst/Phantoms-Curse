@@ -407,8 +407,8 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     }
 
-    initSporeCloud(x,y,direction){
-      let tempSporeCloud = new sporeCloud(this,x,y,direction);
+    initSporeCloud(x,y,direction,speed,duration){
+      let tempSporeCloud = new sporeCloud(this,x,y,direction,speed,duration);
 
       this.sporeClouds.add(tempSporeCloud);
 

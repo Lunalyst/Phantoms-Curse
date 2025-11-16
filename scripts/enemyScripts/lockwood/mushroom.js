@@ -170,12 +170,10 @@ class mushroom extends enemy {
                             this.anims.play("shroomDanceStart",true).once('animationcomplete', () =>{
 
                                 if(this.scene.player1.x > this.x){
-                                    this.scene.initSporeCloud(this.x,this.y,"left");
+                                    this.scene.initSporeCloud(this.x,this.y,"left",30,1500);
                                 }else{
-                                    this.scene.initSporeCloud(this.x,this.y,"right");
+                                    this.scene.initSporeCloud(this.x,this.y,"right",30,1500);
                                 }
-
-                                this.scene.initSporeCloud(this.x,this.y,this.direction);
 
                                 //this.anims.play("shroomDanceEnd",true).once('animationcomplete', () =>{
                                     this.sporeDanceLock = false;
@@ -205,9 +203,9 @@ class mushroom extends enemy {
                         this.scene.initSoundEffect('growSFX','3',0.05);
                         this.anims.play('becomeHidden').once('animationcomplete', () => {
 
-                            this.scene.initSporeCloud(this.x,this.y,"left");
+                            this.scene.initSporeCloud(this.x,this.y,"left",30,1500);
 
-                            this.scene.initSporeCloud(this.x,this.y,"right");
+                            this.scene.initSporeCloud(this.x,this.y,"right",30,1500);
 
                             this.isHiding = true;
                             this.inEmergingAnimation = false;
@@ -275,7 +273,7 @@ class mushroom extends enemy {
                     this.lightSource.radius = 130;
                     this.lightSource.intensity = 0.9;
                     this.scene.initSoundEffect('growSFX','1',0.05);
-                    this.scene.initSporeCloud(this.x,this.y,"still");
+                    this.scene.initSporeCloud(this.x,this.y,"still",0,1500);
 
                 }
  

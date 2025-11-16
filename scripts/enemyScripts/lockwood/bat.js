@@ -737,6 +737,7 @@ class bat extends enemy {
         //handles attack hit box positioning
         if(this.attackHitboxActive === true){
 
+            this.knockdownDirection = !this.flipX;
             //hitbox should be to left if player is to the left
             if(this.flipX === true){
                 console.log("moving cat hitbox to the left");

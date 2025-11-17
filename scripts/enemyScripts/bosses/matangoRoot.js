@@ -457,6 +457,7 @@ class matangoRoot extends matangoRootUnbirth {
                     if(this.scene.player1.x > this.x){
                         this.flipX = true;
                         this.rightHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                            this.knockdownDirection = true;
                             this.attackHitBoxPositionActive(this.x+95,this.y+45);
                             this.attackHitBox.setSize(60, 10, true);
                             this.rightHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
@@ -475,6 +476,7 @@ class matangoRoot extends matangoRootUnbirth {
                     }else{
                         this.flipX = false;
                         this.leftHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                            this.knockdownDirection = false;
                             this.attackHitBoxPositionActive(this.x-95,this.y+45);
                             this.attackHitBox.setSize(60, 20, true);
                             this.leftHand.anims.play('knockdownMiddle').once('animationcomplete', () => {

@@ -282,7 +282,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
-                        "dialogue": "The bed is a place for you to rest. When you lay down you enter the dreamscape, a place where you can reexperience memories of your victories, and defeats.",
+                        "dialogue": "The bed is a place for you to rest. When you lay down you enter the dreamscape, a place where you can reexperience memories of your encounter's, and defeats.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -2497,7 +2497,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
-                "matangoRoot_female_unbirth":{
+				"matangoRoot_female_unbirth":{
                     "node1":{
                         "dialogue": "In a moment, you found yourself facing first against the giant's vagina. Your body slid gracefully inside her enlarged belly. For as much as you struggled against the rhythmic movements of her body it was not enough to escape her womb. You could feel your body quickly melting into her fluids. Before you knew it, your body was turned into her climax. What was left of you was released in a big wave and left on the ground. Strangely you could still feel yourself to some degree in this state. Eventually you learned how to control your new body. spreading through the ground and sprouting as a new mycelium network should.",
                         "profile":"",
@@ -2549,7 +2549,7 @@ const npcDialogue = {
                 },
                 "tiger_male_tf":{
                     "node1":{
-                        "dialogue": "The tiger was satisfied from his previous meal, which was lucky for you. He was quite slow due to his fullness and yet he still got his hands on you, scooping you up and placing you on his massive cock. As you gave into temptation, he slid his massive penis inside you, the girth of it buldging your stomach. At first it was a little straining but eventually your body got used to it. The feeling of the tiger's cock filling you up sent waves of pleasure through your body as you transformed. Now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
+                        "dialogue": "The tiger was satisfied from his previous meal, which was lucky for you. He was quite slow due to his fullness and yet he still got his hands on you, scooping you up and placing you on his massive cock. As you gave into temptation, he slid his massive penis inside you, the girth of it buldging you stomach. At first it was a little straining but eventually your body got used to it. The feeling of the tiger's cock filling you up sent waves of pleasure through your body as you transformed. Now you will spend the rest of your days, as the tigers chubby mate, full of his seed... ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

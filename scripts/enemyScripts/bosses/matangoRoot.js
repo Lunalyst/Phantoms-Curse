@@ -111,6 +111,10 @@ class matangoRoot extends matangoRootUnbirth {
 
             this.anims.create({ key: 'absorbGameover7', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 0, end: 5 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'absorbGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'upperSwipeStart', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 12, end: 15}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperSwipeEnd', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 17, end: 19}), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'downSwipeEnd', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 20, end: 25}), frameRate: 5, repeat: 0 });
+
         }
        
         this.inSafeMode = inSafeMode;
@@ -500,36 +504,79 @@ class matangoRoot extends matangoRootUnbirth {
                 }else{
 
                     this.isAttacking = true;
-                    this.attackCooldown = true;
+
                     let temp = this;
 
+                    if(this.scene.player1.x > this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
                     if(this.enemyHP > 170 ){
-                        if(this.scene.player1.x > this.x){
-                            this.scene.initSporeCloud(this.x,this.y+50,"left",80,5000);
-                        }else{
-                            this.scene.initSporeCloud(this.x,this.y+50,"right",80,5000);
-                        }
+                         this.anims.play('upperSwipeStart').once('animationcomplete', () => {
+                            if(this.scene.player1.x > this.x){
+                                this.scene.initSporeCloud(this.x,this.y+30,"left",80,5000);
+                                this.knockdownDirection = true;
+                                this.attackHitBoxPositionActive(this.x+45,this.y-30);
+                                this.attackHitBox.setSize(30, 60, true);
+                            }else{
+                                this.scene.initSporeCloud(this.x,this.y+30,"right",80,5000);
+                                this.knockdownDirection = false;
+                                this.attackHitBoxPositionActive(this.x-45,this.y-30);
+                                this.attackHitBox.setSize(30, 60, true);
+                            }
+                            this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
+                                this.attackHitBoxHide();
+                                this.attackCooldown = true;
+                                setTimeout(function () {
+                                    temp.isAttacking = false;
+                                    temp.attackCooldown = false;
+                                }, 1000);
+                            });
+                         });    
                     }else{
 
-                        if(this.scene.player1.x > this.x){
-                            this.scene.initSporeCloud(this.x,this.y+50,"left",100,3000);
+                        this.anims.play('upperSwipeStart').once('animationcomplete', () => {
 
-                            setTimeout(function () {
-                                temp.scene.initSporeCloud(temp.x,temp.y-20,"left",100,3000);
-                            }, 1000);
-                        }else{
-                            this.scene.initSporeCloud(this.x,this.y+50,"right",100,3000);
-                            setTimeout(function () {
-                                temp.scene.initSporeCloud(temp.x,temp.y-20,"right",100,3000);
-                            }, 1000);
-                        }
+                            if(this.scene.player1.x > this.x){
+                                this.scene.initSporeCloud(this.x,this.y+30,"left",130,5000);
+                                this.knockdownDirection = true;
+                                this.attackHitBoxPositionActive(this.x+45,this.y-30);
+                                this.attackHitBox.setSize(30, 60, true);
+                            }else{
+                                this.scene.initSporeCloud(this.x,this.y+30,"right",130,5000);
+                                this.knockdownDirection = false;
+                                this.attackHitBoxPositionActive(this.x-45,this.y-30);
+                                this.attackHitBox.setSize(30, 60, true);
+                            }
+
+                            this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
+
+                                if(this.scene.player1.x > this.x){
+                                    this.scene.initSporeCloud(this.x,this.y-60,"left",80,5000);
+                                }else{
+                                    this.scene.initSporeCloud(this.x,this.y-60,"right",80,5000);
+                                }
+
+                                this.anims.play('downSwipeEnd').once('animationcomplete', () => {
+
+                                    this.attackHitBoxHide();
+                                    this.attackCooldown = true;
+
+                                    setTimeout(function () {
+                                        temp.isAttacking = false;
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+
+                                });    
+                            });
+                            
+                        });    
                     }
                     
 
-                    setTimeout(function () {
-                        temp.isAttacking = false;
-                        temp.attackCooldown = false;
-                    }, 2000);
+                    
 
                 }
             }

@@ -1130,7 +1130,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
   overlapCurseBuildUp(){
 
-    if(this.curseBuildUpCooldown === false){
+    if(this.curseBuildUpCooldown === false &&  this.scene.playerStuckGrab === false){
 
       this.curseBuildUpCooldown = true;
 

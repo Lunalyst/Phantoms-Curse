@@ -38,13 +38,20 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
 
       this.accelerateCoolDown = false;
      
+      this.scene = scene;
      
 
       //if the projectile lives for two seconds, then stop following the player.
       let tempSporeCloud = this;
       setTimeout(function(){
-        tempSporeCloud.followingPlayer = false;
-        tempSporeCloud.destroysporeCloud();
+
+        if(tempSporeCloud.scene.isPaused === true){
+          tempSporeCloud.resetDestroyCloud();
+        }else{
+          tempSporeCloud.followingPlayer = false;
+          tempSporeCloud.destroysporeCloud();
+        }
+
       },this.duration);
       
     }
@@ -59,5 +66,21 @@ class sporeCloud extends Phaser.Physics.Arcade.Sprite{
         this.destroy();
 
       }
+    }
+
+    //function to mke sure cloud lasts if the player pauses the game.
+    resetDestroyCloud(){
+
+    let tempSporeCloud = this;
+     setTimeout(function(){
+
+        if(tempSporeCloud.scene.isPaused === true){
+          tempSporeCloud.resetDestroyCloud();
+        }else{
+          tempSporeCloud.followingPlayer = false;
+          tempSporeCloud.destroysporeCloud();
+        }
+        
+      },this.duration);
     }
 }

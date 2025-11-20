@@ -106,6 +106,8 @@ class PondForest extends defaultScene {
       //creates player object
       this.setUpPlayer();
 
+      this.player1.setDepth(8);
+
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1,"ambience");
 
@@ -177,7 +179,7 @@ class PondForest extends defaultScene {
 
 
       this.secretWall1 = this.add.sprite(2832-16, 1168-32, "secretWall2");
-      this.secretWall1.setDepth(7);
+      this.secretWall1.setDepth(9);
       this.secretWall1.setScale(1/3);
 
       //this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");

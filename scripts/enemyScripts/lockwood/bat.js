@@ -1577,7 +1577,10 @@ class bat extends enemy {
                 this.isPlayingMissedAnims = false; 
 
                 //make sure collision is destroyed after player breaks free so bat doesnt get stuck on layer 0 platforms.
-                this.batCollision.destroy();
+                console.log("this.batCollision: ",this.batCollision);
+                if(this.batCollision.world !== null){
+                    this.batCollision.destroy();
+                }
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe
@@ -1659,6 +1662,11 @@ class bat extends enemy {
                     //decides amount of slime drops based on size
                     if( dropChance > 0){
                         this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,16,1,dropAmount,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+                    }
+
+                    if(this.fallThroughLayer0 === false){
+                        this.batCollision = this.scene.physics.add.collider(this.scene.processMap.layer0, this);
+                        this.fallThroughLayer0 = true;
                     }
 
                     if(this.batHasEatenCat === false){

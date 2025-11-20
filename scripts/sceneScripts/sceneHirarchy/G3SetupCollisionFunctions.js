@@ -16,6 +16,8 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     //sets up physics for the itemDrops Group
     this.physics.add.collider(this.itemDrops,this.processMap.layer1);
     this.physics.add.collider(this.healthUpgrades,this.processMap.layer1);
+    this.physics.add.collider(this.itemDrops,this.processMap.layer0);
+    this.physics.add.collider(this.healthUpgrades,this.processMap.layer0);
     //this.physics.add.collider(this.itemDrops,this.processMap.layer0);
   }
 

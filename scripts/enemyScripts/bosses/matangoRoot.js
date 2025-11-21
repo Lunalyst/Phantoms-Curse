@@ -691,12 +691,26 @@ class matangoRoot extends matangoRootUnbirth {
 
                          //temp.isAttacking = true;
                         if(temp.scene.player1.x > temp.x){
-                           temp.rightHand.x = temp.scene.player1.x;
-                           temp.rightHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                            temp.rightHand.anims.play('handSink').once('animationcomplete', () => { 
+                                if(temp.scene.playerStuckGrabbedBy === "knockdown"){
+                                    temp.rightHand.x = temp.scene.player1.x;
+                                    temp.rightHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                                    temp.playerGrabbedByThisHand = "right";
+                                }else{
+                                    temp.rightHand.handRise();
+                                }
+                           });
                             //temp.rightHand.handRise();
                         }else{
-                           temp.leftHand.x = temp.scene.player1.x;
-                           temp.leftHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                            temp.leftHand.anims.play('handSink').once('animationcomplete', () => { 
+                                if(temp.scene.playerStuckGrabbedBy === "knockdown"){
+                                    temp.leftHand.x = temp.scene.player1.x;
+                                    temp.leftHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                                    temp.playerGrabbedByThisHand = "left";
+                                }else{
+                                    temp.leftHand.handRise();
+                                }
+                            });
                            //temp.leftHand.handRise();
                         }
 
@@ -709,8 +723,38 @@ class matangoRoot extends matangoRootUnbirth {
 
                 //console.log("player currently in knockdown logic.");
             }else if(this.scene.playerStuckGrabbedBy !== "knockdown" && this.knockdownCheck === true ){
+
                 this.knockdownCheck = false;
-                this.turning = false;
+
+                if(this.playerGrabbedByThisHand === "right"){
+
+                    this.rightHand.visible = true;
+                    this.rightHand.curseLight.visible = true;
+                    this.rightHand.anims.play('rise1').once('animationcomplete', () => {
+                        this.rightHand.curseLight.intensity = 0.7;
+                        this.rightHand.curseLight.radius = 90;
+                        this.rightHand.curseLight.y = this.y+30
+                        this.rightHand.anims.play('rise2').once('animationcomplete', () => {
+                            this.rightHand.curseLight.intensity = 0.7;
+                            this.rightHand.curseLight.radius = 120;
+                            this.rightHand.curseLight.y = this.y+10
+                            this.rightHand.anims.play('rise3').once('animationcomplete', () => {
+    
+                                this.turning = false;
+                                this.attackCooldown = true;
+                                this.isAttacking = false;
+                                let temp = this;
+                                setTimeout(function () {
+                                    temp.attackCooldown = false;
+                                }, 1000);
+                            
+                            });
+                        });
+                        });
+                }else{
+
+                }
+                
             }
             
         }

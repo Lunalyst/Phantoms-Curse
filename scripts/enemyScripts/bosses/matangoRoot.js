@@ -630,7 +630,7 @@ class matangoRoot extends matangoRootUnbirth {
                                 setTimeout(function () {
                                     temp.isAttacking = false;
                                     temp.attackCooldown = false;
-                                }, 100);
+                                }, 2000);
                             });
                          });    
                     }else{
@@ -727,7 +727,6 @@ class matangoRoot extends matangoRootUnbirth {
                 this.knockdownCheck = false;
 
                 if(this.playerGrabbedByThisHand === "right"){
-
                     this.rightHand.visible = true;
                     this.rightHand.curseLight.visible = true;
                     this.rightHand.anims.play('rise1').once('animationcomplete', () => {
@@ -750,9 +749,31 @@ class matangoRoot extends matangoRootUnbirth {
                             
                             });
                         });
-                        });
+                    });
                 }else{
-
+                    this.leftHand.visible = true;
+                    this.leftHand.curseLight.visible = true;
+                    this.leftHand.anims.play('rise1').once('animationcomplete', () => {
+                        this.leftHand.curseLight.intensity = 0.7;
+                        this.leftHand.curseLight.radius = 90;
+                        this.leftHand.curseLight.y = this.y+30
+                        this.leftHand.anims.play('rise2').once('animationcomplete', () => {
+                            this.leftHand.curseLight.intensity = 0.7;
+                            this.leftHand.curseLight.radius = 120;
+                            this.leftHand.curseLight.y = this.y+10
+                            this.leftHand.anims.play('rise3').once('animationcomplete', () => {
+    
+                                this.turning = false;
+                                this.attackCooldown = true;
+                                this.isAttacking = false;
+                                let temp = this;
+                                setTimeout(function () {
+                                    temp.attackCooldown = false;
+                                }, 1000);
+                            
+                            });
+                        });
+                    });
                 }
                 
             }
@@ -793,12 +814,18 @@ class matangoRoot extends matangoRootUnbirth {
     moveIdle() {
 
         console.log("matango root idle move function");
-        if(this.rightHand.returnedWithPlayerGrabbed === true || this.rightHand.returnedWithPlayerGrabbed === true){
+        if(this.rightHand.returnedWithPlayerGrabbed === true){
             this.grabType = "unbirth";
             this.rightHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
 
+        }else if(this.leftHand.returnedWithPlayerGrabbed === true){
+
+            this.grabType = "unbirth";
+            this.leftHand.playerTransferToRoot();
+            //this.playerGrabbed = true
+            this.grab();
         }
 
         if(this.checkXRangeFromPlayer(80, 80)){

@@ -124,6 +124,8 @@ class mushroom extends enemy {
         if(this.enemyDefeated === false) {
 
             if(this.movingToNewNode === false){
+                this.x = this.curNode.x;
+                this.y = this.curNode.y+22;
                 //if the enemy is hiding
                 if(this.isHiding === true && this.inEmergingAnimation === false){
                     this.y = this.curNode.y+22;

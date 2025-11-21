@@ -273,6 +273,14 @@ class matangoRoot extends matangoRootUnbirth {
                         mush.scene.initLoopingSound('battleMyceliumSFX','theme', 0.1,"music");
                     }, 500);
 
+                    this.attackCooldown = true;
+
+                    let temp = this;
+                    setTimeout(function () {
+                        temp.isAttacking = false;
+                        temp.attackCooldown = false;
+                    }, 2000);
+
                 });
 
             });
@@ -549,7 +557,7 @@ class matangoRoot extends matangoRootUnbirth {
                         });
                     }
 
-                }else if(this.checkXRangeFromPlayer(130, 130) && this.checkYRangeFromPlayer(50,60) ){
+                }else if(this.checkXRangeFromPlayer(140, 140) && this.checkYRangeFromPlayer(50,60) ){
 
                     this.isAttacking = true;
 
@@ -665,7 +673,7 @@ class matangoRoot extends matangoRootUnbirth {
                                     setTimeout(function () {
                                         temp.isAttacking = false;
                                         temp.attackCooldown = false;
-                                    }, 1000);
+                                    }, 1500);
 
                                 });    
                             });

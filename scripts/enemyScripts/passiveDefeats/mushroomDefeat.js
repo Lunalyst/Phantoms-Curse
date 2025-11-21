@@ -98,6 +98,7 @@ class mushroomDefeat extends enemy {
         this.clearTint();
         // moves player attackhitbox out of the way.
 
+        
         this.scene.attackHitBox.y = this.scene.player1.y + 10000;
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
@@ -105,6 +106,10 @@ class mushroomDefeat extends enemy {
             this.enemyGrabFalse();
 
         } else if (this.playerGrabbed === true) {
+
+            //also set the x and y of this object to the players x y
+            this.x = this.scene.player1.mainHitbox.x;
+            this.y = this.scene.player1.mainHitbox.y;
 
             this.setDepth(8);
 
@@ -157,8 +162,8 @@ class mushroomDefeat extends enemy {
         this.playerGrabbed = true;
 
         //also set the x and y of this object to the players x y
-        this.x = this.scene.player1.x;
-        this.y = this.scene.player1.y;
+        this.x = this.scene.player1.mainHitbox.x;
+        this.y = this.scene.player1.mainHitbox.y;
 
         //turn on the light. 
         this.curseLight1.visible = true;

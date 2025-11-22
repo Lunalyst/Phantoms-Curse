@@ -103,6 +103,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         if(this.startedGrab === false && this.animationPlayed === false){
             
             this.animationPlayed = true;
+            this.preventGiveUp = true;
             //this.struggleAnimationInterupt = true;
 
             this.scene.initSoundEffect('lickSFX','5',0.5);
@@ -131,6 +132,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 }else{
                     this.leftHand.visible = true;
                 }
+                this.preventGiveUp = false;
             });
             
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){

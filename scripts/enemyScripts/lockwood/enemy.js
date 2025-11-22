@@ -69,6 +69,8 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         //used to stop the giveup key from being pressed too much, causing a imediate skip in defeated animations.
         this.gaveUp = false;
 
+        this.preventGiveUp = false;
+
         console.log("sex passed in enemy: " + sex);
 
         this.onomatPlayed = false;
@@ -169,7 +171,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         //console.log("activating give up function from enemy.js")
         
         //if(Phaser.Input.Keyboard.JustDown(this.scene.keyTAB)){
-        if(this.scene.checkGiveUpIndicatorIsDown() && this.strugglefree === false){
+        if(this.scene.checkGiveUpIndicatorIsDown() && this.preventGiveUp === false){
             healthEmitter.emit(healthEvent.loseHealth,9999);
             healthEmitter.emit(healthEvent.curseBuildUp,9999);
         }

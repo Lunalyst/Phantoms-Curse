@@ -70,7 +70,7 @@ class mushroomBarrier extends Phaser.Physics.Arcade.Sprite{
     }
 
     barrierDestroy(){
-      this.anims.play('rise').once('animationcomplete', () => {
+      this.anims.play('break').once('animationcomplete', () => {
           this.destroy();
       });
     }

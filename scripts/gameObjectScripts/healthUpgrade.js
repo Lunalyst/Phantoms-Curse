@@ -18,7 +18,7 @@ class healthUpgrade extends Phaser.Physics.Arcade.Sprite{
         this.flag = flag;
         //sets scale
         this.setScale(1/3);
-
+        this.setDepth(9);
         this.scene = scene;
 
   

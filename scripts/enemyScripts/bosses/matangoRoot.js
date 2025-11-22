@@ -224,256 +224,355 @@ class matangoRoot extends matangoRootUnbirth {
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
         
-        //console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking);
-        //if the mushroom has not awoken and the player in in range
-        if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
-            this.startedFight = true;
-        //if its time to start the fight, then activate the mushroom
-        }else if(this.poppedOut === false && this.inEmergingAnimation === false && this.startedFight === true){
+        if(this.enemyDefeated === false){
+            //if the mushroom has not awoken and the player in in range
+            if(this.checkXRangeFromPlayer(100, 100) && this.checkYRangeFromPlayer(100,100) && this.startedFight === false){
+                this.startedFight = true;
+            //if its time to start the fight, then activate the mushroom
+            }else if(this.poppedOut === false && this.inEmergingAnimation === false && this.startedFight === true){
 
-            this.inEmergingAnimation = true;
-            this.curseLight.visible = true;
-            this.visible = true;
+                this.inEmergingAnimation = true;
+                this.curseLight.visible = true;
+                this.visible = true;
 
-            //hide root node object
-            this.rootNode.visible = false;
-            this.rootNode.curseLight.visible = false;
-            this.rootNode.activateMushroomBarriers();
+                //hide root node object
+                this.rootNode.visible = false;
+                this.rootNode.curseLight.visible = false;
+                this.rootNode.activateMushroomBarriers();
 
-            this.scene.initSoundEffect('growSFX','2',0.1);
-            this.scene.sound.get("slowMyceliumSFX").stop();
+                this.scene.initSoundEffect('growSFX','2',0.1);
+                this.scene.sound.get("slowMyceliumSFX").stop();
 
-            this.rightHand.handRise();
-            this.leftHand.handRise();
-  
-            this.anims.play('popout').once('animationcomplete', () => {
-                
-                this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
+                this.rightHand.handRise();
+                this.leftHand.handRise();
+    
+                this.anims.play('popout').once('animationcomplete', () => {
+                    
+                    this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
 
-                this.anims.play('rawr').once('animationcomplete', () => {
+                    this.anims.play('rawr').once('animationcomplete', () => {
 
-                    this.anims.play('forwardIdleEyesForward',true);
-                    this.scene.initSoundEffect('bossSFX','bossStart',0.1);
+                        this.anims.play('forwardIdleEyesForward',true);
+                        this.scene.initSoundEffect('bossSFX','bossStart',0.1);
 
-                    //after animation of mushroom appearing we need to set up boss healthbar in the hud.
-                    //start by setting boss hp name and making it visible.
-                    let healthObject = {
-                        bossName: "Matango Root",
-                        bossHealth: this.enemyHP,
-                        bossMaxHealth: this.enemyHP,
-                    };
+                        //after animation of mushroom appearing we need to set up boss healthbar in the hud.
+                        //start by setting boss hp name and making it visible.
+                        let healthObject = {
+                            bossName: "Matango Root",
+                            bossHealth: this.enemyHP,
+                            bossMaxHealth: this.enemyHP,
+                        };
 
-                    healthEmitter.emit(healthEvent.setBossHealth,healthObject);
-                    healthEmitter.emit(healthEvent.setBossHealthVisible,true);
-                    this.poppedOut = true;
+                        healthEmitter.emit(healthEvent.setBossHealth,healthObject);
+                        healthEmitter.emit(healthEvent.setBossHealthVisible,true);
+                        this.poppedOut = true;
 
-                    //play boss theme after a half second
-                    let mush = this;
-                    setTimeout(function () {
-                        mush.scene.initLoopingSound('battleMyceliumSFX','theme', 0.1,"music");
-                    }, 500);
+                        //play boss theme after a half second
+                        let mush = this;
+                        setTimeout(function () {
+                            mush.scene.initLoopingSound('battleMyceliumSFX','theme', 0.1,"music");
+                        }, 500);
 
-                    this.attackCooldown = true;
+                        this.attackCooldown = true;
 
-                    let temp = this;
-                    setTimeout(function () {
-                        temp.isAttacking = false;
-                        temp.attackCooldown = false;
-                    }, 2000);
+                        let temp = this;
+                        setTimeout(function () {
+                            temp.isAttacking = false;
+                            temp.attackCooldown = false;
+                        }, 2000);
+
+                    });
 
                 });
-
-            });
-        //if the mushroom is poped out then do battle ai  
-        }else if(this.poppedOut === true){
-            console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking," this.knockdownCheck: ",this.knockdownCheck);
-            //case where mushroom is not attacking
-            if(this.turning === false && this.attackCooldown === true){
-                this.turning = true;
-
-                if(this.scene.player1.x > this.x){
-                    this.flipX = true;
-                   
-                }else{
-                    this.flipX = false;
-                }
-                //first two checks represent state 0 for idle animation
-                if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(50,60) ){
-
-                    this.rightHand.anims.play('grabTell',true);
-                    this.leftHand.anims.play('grabTell',true);
-        
-                    if(this.idleState === 0){
-                        
-                        this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
-                            this.turning = false;
-                        });
-
-                    }else if(this.idleState === 1){
-
-                        this.anims.play('from1to0-1',true).once('animationcomplete', () => {
-                            this.anims.play('from1to0-2',true).once('animationcomplete', () => {
-                                this.idleState = 0;
-                                this.turning = false;
-                            });
-                        });
-                        
-                    }else if(this.idleState === 2){
-
-                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
-                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
-                                this.anims.play('from1to0-1',true).once('animationcomplete', () => {
-                                    this.anims.play('from1to0-2',true).once('animationcomplete', () => {
-                                        this.idleState = 0;
-                                        this.turning = false;
-                                    });
-                                });
-                            });
-                        });
-                    }
-                }else if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(200,200)){
-
-                    this.rightHand.anims.play('idle');
-                    this.leftHand.anims.play('idle');
-                    
-                    if(this.idleState === 0){
-
-                        this.anims.play('forwardIdleEyesForward',true).once('animationcomplete', () => {
-                            this.turning = false;
-                        });
-
-
-                    }else if(this.idleState === 1){
-
-                        this.anims.play('from1to0-1',true).once('animationcomplete', () => {
-                            this.anims.play('from1to0-2',true).once('animationcomplete', () => {
-                                this.idleState = 0;
-                                this.turning = false;
-                            });
-                        });
-                        
-                    }else if(this.idleState === 2){
-
-                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
-                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
-                                this.anims.play('from1to0-1',true).once('animationcomplete', () => {
-                                    this.anims.play('from1to0-2',true).once('animationcomplete', () => {
-                                        this.idleState = 0;
-                                        this.turning = false;
-                                    });
-                                });
-                            });
-                        });
-                    }
-
-                //state 1 resembles angled animation but we need to play turn animation first.
-                }else if(this.checkXRangeFromPlayer(120, 120)){
+            //if the mushroom is poped out then do battle ai  
+            }else if(this.poppedOut === true){
+                console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking," this.knockdownCheck: ",this.knockdownCheck);
+                //case where mushroom is not attacking
+                if(this.turning === false && this.attackCooldown === true){
+                    this.turning = true;
 
                     if(this.scene.player1.x > this.x){
-                        this.rightHand.anims.play('grabTell',true);
-                        this.leftHand.anims.play('idle',true);
+                        this.flipX = true;
+                    
                     }else{
-                        this.leftHand.anims.play('grabTell',true);
-                        this.rightHand.anims.play('idle',true);
-                        
+                        this.flipX = false;
                     }
+                    //first two checks represent state 0 for idle animation
+                    if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(50,60) ){
 
-                    //if the previous state was zero then
-                    if(this.idleState === 0){
-                        //do turn animation from center to angle.
-                        this.anims.play('from0to1',true).once('animationcomplete', () => {
-                            this.idleState = 1;
-                            this.turning = false;
-                        });
+                        this.rightHand.anims.play('grabTell',true);
+                        this.leftHand.anims.play('grabTell',true);
+            
+                        if(this.idleState === 0){
+                            
+                            this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
+                                this.turning = false;
+                            });
 
-                    }else if(this.idleState === 1){
-                        this.anims.play('AngleIdle',true).once('animationcomplete', () => {
-                            this.turning = false;
-                        });
-                    }else if(this.idleState === 2){
-                        //do turn animation from center to angle.
-                        this.anims.play('from2to1-1',true).once('animationcomplete', () => {
-                            this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                        }else if(this.idleState === 1){
+
+                            this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                    this.idleState = 0;
+                                    this.turning = false;
+                                });
+                            });
+                            
+                        }else if(this.idleState === 2){
+
+                            this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                                this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                    this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                        this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                            this.idleState = 0;
+                                            this.turning = false;
+                                        });
+                                    });
+                                });
+                            });
+                        }
+                    }else if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(200,200)){
+
+                        this.rightHand.anims.play('idle');
+                        this.leftHand.anims.play('idle');
+                        
+                        if(this.idleState === 0){
+
+                            this.anims.play('forwardIdleEyesForward',true).once('animationcomplete', () => {
+                                this.turning = false;
+                            });
+
+
+                        }else if(this.idleState === 1){
+
+                            this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                    this.idleState = 0;
+                                    this.turning = false;
+                                });
+                            });
+                            
+                        }else if(this.idleState === 2){
+
+                            this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                                this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                    this.anims.play('from1to0-1',true).once('animationcomplete', () => {
+                                        this.anims.play('from1to0-2',true).once('animationcomplete', () => {
+                                            this.idleState = 0;
+                                            this.turning = false;
+                                        });
+                                    });
+                                });
+                            });
+                        }
+
+                    //state 1 resembles angled animation but we need to play turn animation first.
+                    }else if(this.checkXRangeFromPlayer(120, 120)){
+
+                        if(this.scene.player1.x > this.x){
+                            this.rightHand.anims.play('grabTell',true);
+                            this.leftHand.anims.play('idle',true);
+                        }else{
+                            this.leftHand.anims.play('grabTell',true);
+                            this.rightHand.anims.play('idle',true);
+                            
+                        }
+
+                        //if the previous state was zero then
+                        if(this.idleState === 0){
+                            //do turn animation from center to angle.
+                            this.anims.play('from0to1',true).once('animationcomplete', () => {
                                 this.idleState = 1;
                                 this.turning = false;
                             });
-                        });
-                    }
-                //state 2
-                }else if(this.checkXRangeFromPlayer(400, 400)){
 
-                    this.rightHand.anims.play('idle');
-                    this.leftHand.anims.play('idle');
+                        }else if(this.idleState === 1){
+                            this.anims.play('AngleIdle',true).once('animationcomplete', () => {
+                                this.turning = false;
+                            });
+                        }else if(this.idleState === 2){
+                            //do turn animation from center to angle.
+                            this.anims.play('from2to1-1',true).once('animationcomplete', () => {
+                                this.anims.play('from2to1-2',true).once('animationcomplete', () => {
+                                    this.idleState = 1;
+                                    this.turning = false;
+                                });
+                            });
+                        }
+                    //state 2
+                    }else if(this.checkXRangeFromPlayer(400, 400)){
 
-                    //if the previous state was zero then
-                    if(this.idleState === 0){
-                        //do turn animation from center to angle.
-                        this.anims.play('from0to1',true).once('animationcomplete', () => {
+                        this.rightHand.anims.play('idle');
+                        this.leftHand.anims.play('idle');
+
+                        //if the previous state was zero then
+                        if(this.idleState === 0){
+                            //do turn animation from center to angle.
+                            this.anims.play('from0to1',true).once('animationcomplete', () => {
+                                this.anims.play('from1to2',true).once('animationcomplete', () => {
+                                    this.idleState = 2;
+                                    this.turning = false;
+                                });
+                            });
+
+                        }else if(this.idleState === 1){
+
                             this.anims.play('from1to2',true).once('animationcomplete', () => {
                                 this.idleState = 2;
                                 this.turning = false;
                             });
-                        });
-
-                    }else if(this.idleState === 1){
-
-                        this.anims.play('from1to2',true).once('animationcomplete', () => {
-                            this.idleState = 2;
-                            this.turning = false;
-                        });
-                        
-                    }else if(this.idleState === 2){
-                        this.anims.play('sideIdle',true).once('animationcomplete', () => {
-                            this.turning = false;
-                        });
+                            
+                        }else if(this.idleState === 2){
+                            this.anims.play('sideIdle',true).once('animationcomplete', () => {
+                                this.turning = false;
+                            });
+                        }
                     }
-                }
 
-            //ai to have the mushroom perform attacks.
-            }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false && this.scene.playerStuckGrabbedBy !== "knockdown"){  
-                if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
+                //ai to have the mushroom perform attacks.
+                }else if(this.turning === false && this.attackCooldown === false && this.isAttacking === false && this.scene.playerStuckGrabbedBy !== "knockdown"){  
+                    if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(50,60) ){
 
-                    //roll a random number
-                    let random = Math.floor((Math.random() * 3));
+                        //roll a random number
+                        let random = Math.floor((Math.random() * 3));
 
-                    //check if boss is at hp threshold to do attack and random number matches
-                    if(this.enemyHP < 200 && random === 2){
+                        //check if boss is at hp threshold to do attack and random number matches
+                        if(this.enemyHP < 200 && random === 2){
 
-                       this.flailAttack();
+                        this.flailAttack();
 
-                    }else{
+                        }else{
 
-                        //else do normal attack.
-                        this.grabType = "absorb";
+                            //else do normal attack.
+                            this.grabType = "absorb";
 
-                        this.rightHand.visible = false;
-                        this.leftHand.visible = false;
-                        this.centerHands.visible = true;
+                            this.rightHand.visible = false;
+                            this.leftHand.visible = false;
+                            this.centerHands.visible = true;
+
+                            this.isAttacking = true;
+                            
+                            this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
+
+                            });
+
+                            this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
+
+                                this.hitBoxPositionActive(this.x,this.y+45);
+                                this.grabHitBox.setSize(90, 20, true);
+
+                                this.centerHands.anims.play('centerHandGrabMiddle').once('animationcomplete', () => {
+
+                                    this.hitBoxHide();
+
+                                    this.isAttacking = true;
+
+                                    if(this.playerGrabbed === false){
+                                        this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
+
+                                            this.rightHand.visible = true;
+                                            this.leftHand.visible = true;
+                                            this.centerHands.visible = false;
+
+                                            this.attackCooldown = true;
+                                            this.isAttacking = false;
+
+                                            let temp = this;
+                                            setTimeout(function () {
+                                                temp.attackCooldown = false;
+                                            }, 1000);
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        
+                
+                    }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
+
+                        //roll a random number
+                        let random = Math.floor((Math.random() * 3));
+
+                        //check if boss is at hp threshold to do attack and random number matches
+                        if(this.enemyHP < 200 && random === 2){
+
+                        this.flailAttack();
+                        
+                        }else{
+                            this.grabType = "unbirth";
+
+                            //if player to the left move the grab hitbox to the left
+                            if(this.scene.player1.x > this.x){
+                                this.flipX = true;
+                                this.rightHand.anims.play('grabStart').once('animationcomplete', () => {
+                                    this.rightHand.anims.play('grabEnd').once('animationcomplete', () => {
+                                        this.rightHand.anims.play('idle');
+                                    });
+                                });
+                            }else{
+                                this.flipX = false;
+                                this.leftHand.anims.play('grabStart').once('animationcomplete', () => {
+                                    this.leftHand.anims.play('grabEnd').once('animationcomplete', () => {
+                                        this.leftHand.anims.play('idle');
+                                    });
+                                });
+                            }
+
+                            this.isAttacking = true;
+
+                            this.anims.play('sideThrustStart').once('animationcomplete', () => {
+                                
+                                this.playJumpySound('3',700);
+
+                                this.grabHitBox.body.enable = true;
+
+                                if(this.scene.player1.x > this.x){
+                            
+                                    this.hitBoxPositionActive(this.x+40,this.y+45);
+                                    this.grabHitBox.setSize(50, 20, true);
+
+                                }else{
+                                    this.hitBoxPositionActive(this.x-40,this.y+45);
+                                    this.grabHitBox.setSize(50, 20, true);
+
+                                }
+
+                                this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
+
+                                    this.hitBoxHide();
+
+                                    this.anims.play('sideThrustEnd').once('animationcomplete', () => {
+
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+
+                                    });
+                                });
+                                
+                            });
+                        }
+
+                    }else if(this.checkXRangeFromPlayer(150, 150) && this.checkYRangeFromPlayer(50,60) ){
 
                         this.isAttacking = true;
+
+                        this.anims.play('AngleIdleLoop',true);
                         
-                        this.anims.play('forwardIdleEyesDown',true).once('animationcomplete', () => {
-
-                        });
-
-                        this.centerHands.anims.play('centerHandGrabStart').once('animationcomplete', () => {
-
-                            this.hitBoxPositionActive(this.x,this.y+45);
-                            this.grabHitBox.setSize(90, 20, true);
-
-                            this.centerHands.anims.play('centerHandGrabMiddle').once('animationcomplete', () => {
-
-                                this.hitBoxHide();
-
-                                this.isAttacking = true;
-
-                                if(this.playerGrabbed === false){
-                                    this.centerHands.anims.play('centerHandGrabEnd').once('animationcomplete', () => {
-
-                                        this.rightHand.visible = true;
-                                        this.leftHand.visible = true;
-                                        this.centerHands.visible = false;
-
+                        //if player to the left move the grab hitbox to the left
+                        if(this.scene.player1.x > this.x){
+                            this.flipX = true;
+                            this.rightHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                                this.knockdownDirection = true;
+                                this.attackHitBoxPositionActive(this.x+105,this.y+45);
+                                this.attackHitBox.setSize(70, 10, true);
+                                this.rightHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
+                                    this.attackHitBoxHide();
+                                    this.rightHand.anims.play('knockdownEnd').once('animationcomplete', () => {
                                         this.attackCooldown = true;
                                         this.isAttacking = false;
 
@@ -482,310 +581,212 @@ class matangoRoot extends matangoRootUnbirth {
                                             temp.attackCooldown = false;
                                         }, 1000);
                                     });
-                                }
-                            });
-                        });
-                    }
-                    
-            
-                }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
-
-                     //roll a random number
-                    let random = Math.floor((Math.random() * 3));
-
-                    //check if boss is at hp threshold to do attack and random number matches
-                    if(this.enemyHP < 200 && random === 2){
-
-                       this.flailAttack();
-                       
-                    }else{
-                        this.grabType = "unbirth";
-
-                        //if player to the left move the grab hitbox to the left
-                        if(this.scene.player1.x > this.x){
-                            this.flipX = true;
-                            this.rightHand.anims.play('grabStart').once('animationcomplete', () => {
-                                this.rightHand.anims.play('grabEnd').once('animationcomplete', () => {
-                                    this.rightHand.anims.play('idle');
                                 });
                             });
                         }else{
                             this.flipX = false;
-                            this.leftHand.anims.play('grabStart').once('animationcomplete', () => {
-                                this.leftHand.anims.play('grabEnd').once('animationcomplete', () => {
-                                    this.leftHand.anims.play('idle');
+                            this.leftHand.anims.play('knockdownstart').once('animationcomplete', () => {
+                                this.knockdownDirection = false;
+                                this.attackHitBoxPositionActive(this.x-105,this.y+45);
+                                this.attackHitBox.setSize(70, 10, true);
+                                this.leftHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
+                                    this.attackHitBoxHide();
+                                    this.leftHand.anims.play('knockdownEnd').once('animationcomplete', () => {
+                                        this.attackCooldown = true;
+                                        this.isAttacking = false;
+
+                                        let temp = this;
+                                        setTimeout(function () {
+                                            temp.attackCooldown = false;
+                                        }, 1000);
+                                    });
                                 });
                             });
                         }
+
+                    
+
+
+                    }else{
 
                         this.isAttacking = true;
 
-                        this.anims.play('sideThrustStart').once('animationcomplete', () => {
-                            
-                            this.playJumpySound('3',700);
+                        let temp = this;
 
-                            this.grabHitBox.body.enable = true;
+                        if(this.scene.player1.x > this.x){
+                            this.flipX = true;
+                        }else{
+                            this.flipX = false;
+                        }
 
-                            if(this.scene.player1.x > this.x){
-                        
-                                this.hitBoxPositionActive(this.x+40,this.y+45);
-                                this.grabHitBox.setSize(50, 20, true);
-
-                            }else{
-                                this.hitBoxPositionActive(this.x-40,this.y+45);
-                                this.grabHitBox.setSize(50, 20, true);
-
-                            }
-
-                            this.anims.play('sideThrustMiddle').once('animationcomplete', () => {
-
-                                this.hitBoxHide();
-
-                                this.anims.play('sideThrustEnd').once('animationcomplete', () => {
-
-                                this.attackCooldown = true;
-                                this.isAttacking = false;
-
-                                let temp = this;
-                                setTimeout(function () {
-                                    temp.attackCooldown = false;
-                                }, 1000);
-
-                                });
-                            });
-                            
-                        });
-                    }
-
-                }else if(this.checkXRangeFromPlayer(140, 140) && this.checkYRangeFromPlayer(50,60) ){
-
-                    this.isAttacking = true;
-
-                    this.anims.play('AngleIdleLoop',true);
-                    
-                    //if player to the left move the grab hitbox to the left
-                    if(this.scene.player1.x > this.x){
-                        this.flipX = true;
-                        this.rightHand.anims.play('knockdownstart').once('animationcomplete', () => {
-                            this.knockdownDirection = true;
-                            this.attackHitBoxPositionActive(this.x+95,this.y+45);
-                            this.attackHitBox.setSize(60, 10, true);
-                            this.rightHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
-                                this.attackHitBoxHide();
-                                this.rightHand.anims.play('knockdownEnd').once('animationcomplete', () => {
-                                    this.attackCooldown = true;
-                                    this.isAttacking = false;
-
-                                    let temp = this;
-                                    setTimeout(function () {
-                                        temp.attackCooldown = false;
-                                    }, 1000);
-                                });
-                            });
-                        });
-                    }else{
-                        this.flipX = false;
-                        this.leftHand.anims.play('knockdownstart').once('animationcomplete', () => {
-                            this.knockdownDirection = false;
-                            this.attackHitBoxPositionActive(this.x-95,this.y+45);
-                            this.attackHitBox.setSize(60, 20, true);
-                            this.leftHand.anims.play('knockdownMiddle').once('animationcomplete', () => {
-                                this.attackHitBoxHide();
-                                this.leftHand.anims.play('knockdownEnd').once('animationcomplete', () => {
-                                    this.attackCooldown = true;
-                                    this.isAttacking = false;
-
-                                    let temp = this;
-                                    setTimeout(function () {
-                                        temp.attackCooldown = false;
-                                    }, 1000);
-                                });
-                            });
-                        });
-                    }
-
-                   
-
-
-                }else{
-
-                    this.isAttacking = true;
-
-                    let temp = this;
-
-                    if(this.scene.player1.x > this.x){
-                        this.flipX = true;
-                    }else{
-                        this.flipX = false;
-                    }
-
-                    if(this.enemyHP > 170 ){
-                         this.anims.play('upperSwipeStart').once('animationcomplete', () => {
-                            if(this.scene.player1.x > this.x){
-                                this.scene.initSporeCloud(this.x,this.y+30,"left",80,5000);
-                                this.knockdownDirection = true;
-                                this.attackHitBoxPositionActive(this.x+45,this.y-30);
-                                this.attackHitBox.setSize(30, 60, true);
-                            }else{
-                                this.scene.initSporeCloud(this.x,this.y+30,"right",80,5000);
-                                this.knockdownDirection = false;
-                                this.attackHitBoxPositionActive(this.x-45,this.y-30);
-                                this.attackHitBox.setSize(30, 60, true);
-                            }
-                            this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
-                                this.attackHitBoxHide();
-                                this.attackCooldown = true;
-                                setTimeout(function () {
-                                    temp.isAttacking = false;
-                                    temp.attackCooldown = false;
-                                }, 2000);
-                            });
-                         });    
-                    }else{
-
-                        this.anims.play('upperSwipeStart').once('animationcomplete', () => {
-
-                            if(this.scene.player1.x > this.x){
-                                this.scene.initSporeCloud(this.x,this.y+30,"left",130,5000);
-                                this.knockdownDirection = true;
-                                this.attackHitBoxPositionActive(this.x+45,this.y-30);
-                                this.attackHitBox.setSize(30, 60, true);
-                            }else{
-                                this.scene.initSporeCloud(this.x,this.y+30,"right",130,5000);
-                                this.knockdownDirection = false;
-                                this.attackHitBoxPositionActive(this.x-45,this.y-30);
-                                this.attackHitBox.setSize(30, 60, true);
-                            }
-
-                            this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
-
-                                if(this.knockdownDirection === true){
-                                    this.scene.initSporeCloud(this.x,this.y-60,"left",80,5000);
+                        if(this.enemyHP > 170 ){
+                            this.anims.play('upperSwipeStart').once('animationcomplete', () => {
+                                if(this.scene.player1.x > this.x){
+                                    this.scene.initSporeCloud(this.x,this.y+30,"left",80,5000);
+                                    this.knockdownDirection = true;
+                                    this.attackHitBoxPositionActive(this.x+45,this.y-30);
+                                    this.attackHitBox.setSize(30, 60, true);
                                 }else{
-                                    this.scene.initSporeCloud(this.x,this.y-60,"right",80,5000);
+                                    this.scene.initSporeCloud(this.x,this.y+30,"right",80,5000);
+                                    this.knockdownDirection = false;
+                                    this.attackHitBoxPositionActive(this.x-45,this.y-30);
+                                    this.attackHitBox.setSize(30, 60, true);
                                 }
-
-                                this.anims.play('downSwipeEnd').once('animationcomplete', () => {
-
+                                this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
                                     this.attackHitBoxHide();
                                     this.attackCooldown = true;
-
                                     setTimeout(function () {
                                         temp.isAttacking = false;
                                         temp.attackCooldown = false;
-                                    }, 1500);
-
-                                });    
-                            });
-                            
-                        });    
-                    }
-                    
-
-                    
-
-                }
-            }else if(this.scene.playerStuckGrabbedBy === "knockdown" && this.knockdownCheck === false){
-                //ok so the plan
-                this.knockdownCheck = true;
-                //set a timeout to see if the player is knocked down.
-                let temp = this;
-
-                this.turning = false;
-
-                setTimeout(function(){
-
-                    if(temp.scene.playerStuckGrabbedBy === "knockdown"){
-
-                         //temp.isAttacking = true;
-                        if(temp.scene.player1.x > temp.x){
-                            temp.rightHand.anims.play('handSink').once('animationcomplete', () => { 
-                                if(temp.scene.playerStuckGrabbedBy === "knockdown"){
-                                    temp.rightHand.x = temp.scene.player1.x;
-                                    temp.rightHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
-                                    temp.playerGrabbedByThisHand = "right";
-                                }else{
-                                    temp.rightHand.handRise();
-                                }
-                           });
-                            //temp.rightHand.handRise();
+                                    }, 2000);
+                                });
+                            });    
                         }else{
-                            temp.leftHand.anims.play('handSink').once('animationcomplete', () => { 
-                                if(temp.scene.playerStuckGrabbedBy === "knockdown"){
-                                    temp.leftHand.x = temp.scene.player1.x;
-                                    temp.leftHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
-                                    temp.playerGrabbedByThisHand = "left";
+
+                            this.anims.play('upperSwipeStart').once('animationcomplete', () => {
+
+                                if(this.scene.player1.x > this.x){
+                                    this.scene.initSporeCloud(this.x,this.y+30,"left",130,5000);
+                                    this.knockdownDirection = true;
+                                    this.attackHitBoxPositionActive(this.x+45,this.y-30);
+                                    this.attackHitBox.setSize(30, 60, true);
                                 }else{
-                                    temp.leftHand.handRise();
+                                    this.scene.initSporeCloud(this.x,this.y+30,"right",130,5000);
+                                    this.knockdownDirection = false;
+                                    this.attackHitBoxPositionActive(this.x-45,this.y-30);
+                                    this.attackHitBox.setSize(30, 60, true);
                                 }
-                            });
-                           //temp.leftHand.handRise();
+
+                                this.anims.play('upperSwipeEnd').once('animationcomplete', () => {
+
+                                    if(this.knockdownDirection === true){
+                                        this.scene.initSporeCloud(this.x,this.y-60,"left",80,5000);
+                                    }else{
+                                        this.scene.initSporeCloud(this.x,this.y-60,"right",80,5000);
+                                    }
+
+                                    this.anims.play('downSwipeEnd').once('animationcomplete', () => {
+
+                                        this.attackHitBoxHide();
+                                        this.attackCooldown = true;
+
+                                        setTimeout(function () {
+                                            temp.isAttacking = false;
+                                            temp.attackCooldown = false;
+                                        }, 1500);
+
+                                    });    
+                                });
+                                
+                            });    
                         }
+                        
 
-                        console.log("player is still knocked down.");
-                        //if so then send the correct hand to appear under the player and grab them.
-                    }else{
-                        console.log("player is not knocked down any more");
+                        
+
                     }
-                },2000);
+                }else if(this.scene.playerStuckGrabbedBy === "knockdown" && this.knockdownCheck === false){
+                    //ok so the plan
+                    this.knockdownCheck = true;
+                    //set a timeout to see if the player is knocked down.
+                    let temp = this;
 
-                //console.log("player currently in knockdown logic.");
-            }else if(this.scene.playerStuckGrabbedBy !== "knockdown" && this.knockdownCheck === true ){
+                    this.turning = false;
 
-                this.knockdownCheck = false;
+                    setTimeout(function(){
 
-                if(this.playerGrabbedByThisHand === "right"){
-                    this.rightHand.visible = true;
-                    this.rightHand.curseLight.visible = true;
-                    this.rightHand.anims.play('rise1').once('animationcomplete', () => {
-                        this.rightHand.curseLight.intensity = 0.7;
-                        this.rightHand.curseLight.radius = 90;
-                        this.rightHand.curseLight.y = this.y+30
-                        this.rightHand.anims.play('rise2').once('animationcomplete', () => {
+                        if(temp.scene.playerStuckGrabbedBy === "knockdown"){
+
+                            //temp.isAttacking = true;
+                            if(temp.scene.player1.x > temp.x){
+                                temp.rightHand.anims.play('handSink').once('animationcomplete', () => { 
+                                    if(temp.scene.playerStuckGrabbedBy === "knockdown"){
+                                        temp.rightHand.x = temp.scene.player1.x;
+                                        temp.rightHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                                        temp.playerGrabbedByThisHand = "right";
+                                    }else{
+                                        temp.rightHand.handRise();
+                                    }
+                            });
+                                //temp.rightHand.handRise();
+                            }else{
+                                temp.leftHand.anims.play('handSink').once('animationcomplete', () => { 
+                                    if(temp.scene.playerStuckGrabbedBy === "knockdown"){
+                                        temp.leftHand.x = temp.scene.player1.x;
+                                        temp.leftHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
+                                        temp.playerGrabbedByThisHand = "left";
+                                    }else{
+                                        temp.leftHand.handRise();
+                                    }
+                                });
+                            //temp.leftHand.handRise();
+                            }
+
+                            console.log("player is still knocked down.");
+                            //if so then send the correct hand to appear under the player and grab them.
+                        }else{
+                            console.log("player is not knocked down any more");
+                        }
+                    },2000);
+
+                    //console.log("player currently in knockdown logic.");
+                }else if(this.scene.playerStuckGrabbedBy !== "knockdown" && this.knockdownCheck === true ){
+
+                    this.knockdownCheck = false;
+
+                    if(this.playerGrabbedByThisHand === "right"){
+                        this.rightHand.visible = true;
+                        this.rightHand.curseLight.visible = true;
+                        this.rightHand.anims.play('rise1').once('animationcomplete', () => {
                             this.rightHand.curseLight.intensity = 0.7;
-                            this.rightHand.curseLight.radius = 120;
-                            this.rightHand.curseLight.y = this.y+10
-                            this.rightHand.anims.play('rise3').once('animationcomplete', () => {
-    
-                                this.turning = false;
-                                this.attackCooldown = true;
-                                this.isAttacking = false;
-                                let temp = this;
-                                setTimeout(function () {
-                                    temp.attackCooldown = false;
-                                }, 1000);
-                            
+                            this.rightHand.curseLight.radius = 90;
+                            this.rightHand.curseLight.y = this.y+30
+                            this.rightHand.anims.play('rise2').once('animationcomplete', () => {
+                                this.rightHand.curseLight.intensity = 0.7;
+                                this.rightHand.curseLight.radius = 120;
+                                this.rightHand.curseLight.y = this.y+10
+                                this.rightHand.anims.play('rise3').once('animationcomplete', () => {
+        
+                                    this.turning = false;
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+                                
+                                });
                             });
                         });
-                    });
-                }else{
-                    this.leftHand.visible = true;
-                    this.leftHand.curseLight.visible = true;
-                    this.leftHand.anims.play('rise1').once('animationcomplete', () => {
-                        this.leftHand.curseLight.intensity = 0.7;
-                        this.leftHand.curseLight.radius = 90;
-                        this.leftHand.curseLight.y = this.y+30
-                        this.leftHand.anims.play('rise2').once('animationcomplete', () => {
+                    }else{
+                        this.leftHand.visible = true;
+                        this.leftHand.curseLight.visible = true;
+                        this.leftHand.anims.play('rise1').once('animationcomplete', () => {
                             this.leftHand.curseLight.intensity = 0.7;
-                            this.leftHand.curseLight.radius = 120;
-                            this.leftHand.curseLight.y = this.y+10
-                            this.leftHand.anims.play('rise3').once('animationcomplete', () => {
-    
-                                this.turning = false;
-                                this.attackCooldown = true;
-                                this.isAttacking = false;
-                                let temp = this;
-                                setTimeout(function () {
-                                    temp.attackCooldown = false;
-                                }, 1000);
-                            
+                            this.leftHand.curseLight.radius = 90;
+                            this.leftHand.curseLight.y = this.y+30
+                            this.leftHand.anims.play('rise2').once('animationcomplete', () => {
+                                this.leftHand.curseLight.intensity = 0.7;
+                                this.leftHand.curseLight.radius = 120;
+                                this.leftHand.curseLight.y = this.y+10
+                                this.leftHand.anims.play('rise3').once('animationcomplete', () => {
+        
+                                    this.turning = false;
+                                    this.attackCooldown = true;
+                                    this.isAttacking = false;
+                                    let temp = this;
+                                    setTimeout(function () {
+                                        temp.attackCooldown = false;
+                                    }, 1000);
+                                
+                                });
                             });
                         });
-                    });
+                    }
+                    
                 }
                 
             }
-            
         }
 
         //updates the previous y value to tell if enemy is falling or going up in its jump.
@@ -1026,6 +1027,48 @@ class matangoRoot extends matangoRootUnbirth {
                 
                 //if the enemys hp is at zero
                 if (this.enemyHP <= 0) {
+
+                    //STOP MUSIC
+                    this.scene.sound.get("battleMyceliumSFX").stop();
+                    this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
+
+                    //MAKE HANDS DISSAPEAR
+                    this.rightHand.anims.play('handSink').once('animationcomplete', () => {
+                        this.rightHand.visible = false;
+                        this.rightHand.curseLight.visible = false;
+                    });
+                    this.leftHand.anims.play('handSink').once('animationcomplete', () => {
+                        this.leftHand.visible = false;
+                        this.leftHand.curseLight.visible = false;
+                    });
+
+                    //play secret text?
+                    this.enemyDefeated = true;
+
+                    this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
+
+                    //play boss defeated animation
+                    this.anims.play('rawr').once('animationcomplete', () => {
+
+                        this.curseLight.visible = false;
+                        this.visible = false;
+
+                        //hide root node object
+                        this.rootNode.visible = true;
+                        this.rootNode.curseLight.visible = true;
+
+                        healthEmitter.emit(healthEvent.setBossHealthVisible,false);
+
+                        //drop health upgrade
+                        //creates health upgrade object in level
+                        this.scene.initHealthUpgrade(this.x, this.y, 'healthUpgradeMatangoRoot');
+                        //drop new weapon
+
+                        this.rootNode.deactivateMushroomBarriers();
+
+
+                    });
+                
 
                     //remove colliders since we no longer need them.
                     this.removeColliders();

@@ -143,5 +143,12 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         });
     }
 
+    deactivateMushroomBarriers(){
+       this.scene.mushroomBarriers.children.each(function (barrier) {
+        barrier.curseLight.visible = false;
+        barrier.barrierDestroy();
+        }, this);
+    }
+
     
 }

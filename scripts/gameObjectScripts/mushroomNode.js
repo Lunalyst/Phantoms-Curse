@@ -112,14 +112,66 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         //if the roots size is below 5 then increase its value and change animation to be one stage larger.
         //and increase light radius and strength.
 
-        if(this.rootSize < 5){
+        if(this.rootSize < 4){
             this.rootSize++;
             this.anims.play("root"+this.rootSize,true);
 
             //boss tester code
-            this.rootSize = 5;
-            this.scene.initEnemy(this.x,this.y-65,this.scene.playerSex,"matangoRoot",false,this); 
+            if(this.rootSize === 4){
 
+                //make a temp object
+                let object = {
+                    flagToFind: "triggered_matango_root",
+                    foundFlag: false,
+                };
+            
+                // call the emitter to check if the player has encountered the boss
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+                //now to add the flag to the player data so the player can now easily refight the boss
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+                //if the flag was not found, then save the players game with the flag.
+                if(object.foundFlag === false){
+                    //creates a object to hold data for scene transition
+                    let playerDataObject = {
+                        saveX: null,
+                        saveY: null,
+                        playerHpValue: null,
+                        playerMaxHP: null,
+                        playerSex: null,
+                        playerLocation: null,
+                        inventoryArray: null,
+                        playerBestiaryData: null,
+                        playerSkillsData: null,
+                        playerSaveSlotData: null,
+                        flagValues: null,
+                        settings:null,
+                        dreamReturnLocation:null,
+                        playerCurseValue:null
+                    };
+                    
+                    //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                    inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+                    
+                    //modifies the object with the new relivant information.
+                    playerDataObject.saveX = this.x;
+                    playerDataObject.saveY = this.y+15;
+                    playerDataObject.playerSex = this.scene.playerSex;
+                    playerDataObject.playerLocation = this.scene.playerLocation;
+                    //maxes out hp.
+                    playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
+
+                    //saves the game by calling the save game file function in the scene
+                    this.scene.saveGameFile(playerDataObject);
+
+                }
+                
+                //makes graphic to show player the game is saved, but also that the boss is waiting >:3
+                inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"THE AIR GROWS STALE....");
+
+               this.scene.initEnemy(this.x,this.y-65,this.scene.playerSex,"matangoRoot",false,this);   
+            }
             //this.scene.initMushroomBarrier(1321,1016,false);
             //this.scene.initMushroomBarrier(696,1016,true);
         }

@@ -824,7 +824,7 @@ class G9CheckEnemys extends G8InitEnemys {
 
       //console.log("tempMushrooms.inSafeMode: ",tempMushrooms.inSafeMode);
       //safty check to improve performance. only does overlap if in range.
-      if(this.objectsInRangeX(tempMushrooms,this.player1,600) && this.objectsInRangeY(tempMushrooms,this.player1,600) && tempMushrooms.inSafeMode === false){
+      if(this.objectsInRangeX(tempMushrooms,this.player1,3000) && this.objectsInRangeY(tempMushrooms,this.player1,3000) && tempMushrooms.inSafeMode === false){
 
         if(scene.player1.idleTimer !== 2000){
           tempMushrooms.move(scene.player1,scene);

@@ -270,6 +270,8 @@ class G6PreloadEnemys extends G5InitNPCs{
           "audio/used-audio/growing-sounds/growing-sounds.mp3"
         ]);
 
+        tempSceneRef.load.spritesheet('bossStartMatango', 'assets/gameObjects/bossStartMatango.png',{frameWidth: 96, frameHeight: 96 });
+
         tempSceneRef.load.spritesheet('Matango-Root-F-1', 'assets/bosses/Matango-Root-F-1.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-F-2', 'assets/bosses/Matango-Root-F-2.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-F-3', 'assets/bosses/Matango-Root-F-3.png',{frameWidth: 693, frameHeight: 561 });

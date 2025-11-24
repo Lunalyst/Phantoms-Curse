@@ -232,6 +232,19 @@ class ShadowCaveUpper extends defaultScene {
 
       });
 
+      //make a temp object
+      let object = {
+        flagToFind: "triggered_matango_root",
+        foundFlag: false,
+      };
+            
+      // call the emitter to check if the player has encountered the boss
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === true){
+        this.initBossStartMatango(this.mushroomRoot.x + 100, this.mushroomRoot.y);
+      }
+      
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){

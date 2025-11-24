@@ -35,8 +35,8 @@ class matangoRoot extends matangoRootUnbirth {
         this.isHiding = true;
         this.inEmergingAnimation = false;
         this.poppedOut = false;
-        this.enemyHP = 200;
-        this.enemyHPMax = 200;
+        this.enemyHP = 20;
+        this.enemyHPMax = 20;
         this.turning = false;
         this.idleState = 0;
         this.rootNode = null; 
@@ -437,7 +437,7 @@ class matangoRoot extends matangoRootUnbirth {
                         let random = Math.floor((Math.random() * 3));
 
                         //check if boss is at hp threshold to do attack and random number matches
-                        if(this.enemyHP < 200 && random === 2){
+                        if(this.enemyHP < 100 && random === 2){
 
                         this.flailAttack();
 
@@ -494,7 +494,7 @@ class matangoRoot extends matangoRootUnbirth {
                         let random = Math.floor((Math.random() * 3));
 
                         //check if boss is at hp threshold to do attack and random number matches
-                        if(this.enemyHP < 200 && random === 2){
+                        if(this.enemyHP < 100 && random === 2){
 
                         this.flailAttack();
                         
@@ -619,7 +619,7 @@ class matangoRoot extends matangoRootUnbirth {
                             this.flipX = false;
                         }
 
-                        if(this.enemyHP > 170 ){
+                        if(this.enemyHP > 100 ){
                             this.anims.play('upperSwipeStart').once('animationcomplete', () => {
                                 if(this.scene.player1.x > this.x){
                                     this.scene.initSporeCloud(this.x,this.y+30,"left",80,5000);
@@ -1043,6 +1043,39 @@ class matangoRoot extends matangoRootUnbirth {
                     });
 
                     //play secret text?
+                    let temp = this;
+                    setTimeout(function(){
+
+                        temp.form1 = new makeEcrus(temp.scene,temp.x-230, temp.y+150,"@00011@ @10101@ @01@ @1011@ @11010@ @100@ @01@ @1011@ @1111@ @00001@ @100@ @01@ @10101@ @1100@ @00000@ @01@ @10100@ @100@ @11100@ @00100@ @1111@ @00010@ @100@ @01@ @00101@ @11010@ @11100@ @1011@ @01@ @1111@ @110110@ @01@ @11101@ @1100@ @1111@ @0011@ @11101@ @01@ @1100@ @0011@ @110111@");
+                        temp.form1.setScale(0.4);
+                        temp.form1.setAlpha(0.6);
+                        temp.form1.textFadeIn(4000);
+                        temp.form1.textWave();
+                        temp.form1.textWob();
+
+                        setTimeout(function(){
+                            temp.form1.textFadeOutAndDestroy(1000);
+
+                            setTimeout(function(){
+
+                                temp.form2 = new makeEcrus(temp.scene,temp.x-110, temp.y+150,"@11110@ @110@ @01@ @11100@ @0011@ @101@ @101@ @01@ @11101@ @100@ @01@ @110@ @000@ @000@ @01@ @101@ @11111@ @110@ @100@ @0010@");
+                                temp.form2.setScale(0.4);
+                                temp.form2.setAlpha(0.6);
+                                temp.form2.textFadeIn(4000);
+                                temp.form2.textWave();
+                                temp.form2.textWob();
+
+                                setTimeout(function(){
+                                    temp.form2.textFadeOutAndDestroy(1000);
+                                },6000);
+
+                            },2000);
+
+                        },7000);
+        
+                    },1000);
+                    
+     
                     this.enemyDefeated = true;
 
                     this.scene.initSoundEffect('bossRoarSFX','roar',0.1);

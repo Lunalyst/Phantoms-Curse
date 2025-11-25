@@ -1073,7 +1073,7 @@ class matangoRoot extends matangoRootUnbirth {
 
                         },7000);
         
-                    },1000);
+                    },10000);
                     
      
                     this.enemyDefeated = true;
@@ -1095,7 +1095,35 @@ class matangoRoot extends matangoRootUnbirth {
                         //drop health upgrade
                         //creates health upgrade object in level
                         this.scene.initHealthUpgrade(this.x, this.y, 'healthUpgradeMatangoRoot');
+
                         //drop new weapon
+                        let object = {
+                            flagToFind: "obtained_conidia_caster",
+                            foundFlag: false,
+                        };
+            
+                        // call the emitter to check if the value already was picked up.
+                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+                        if(object.foundFlag === false){
+                            //create a temp variable to hold our item that is passed to the player
+                        let item = oneTimeItemArray.obtained_conidia_caster;
+
+                        //used to tell if the item was added
+                        let addedToInventory = {
+                            added: false
+                        };
+
+                        //emitter to add object to inventory.
+                        inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                
+                        //now to add the flag to the player data so the player cant open this container multiple times.
+                        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+                        //show item drop like a chest
+                        //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+                        this.scene.initFakeItemDrop(this.x , this.y-15,25); 
+                        }
 
                         this.rootNode.deactivateMushroomBarriers();
 

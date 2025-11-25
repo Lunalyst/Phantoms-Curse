@@ -134,6 +134,12 @@ class ShadowCaveUpper extends defaultScene {
       //creates container objects.
       this.setUpContainers();
 
+
+      let star = oneTimeItemArray.obtained_mourning_star;
+      
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      this.initItemContainer(1900,632+1,star,true,"obtained_mourning_star");
+
       let thisScene = this;
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);

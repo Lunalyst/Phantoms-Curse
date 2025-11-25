@@ -258,6 +258,24 @@ const oneTimeItemArray = {
         itemAmount: 1,
         itemType: "ring",
         sellValue: 40
+    },
+    obtained_mourning_star:{
+        itemID: 24,
+        itemName: 'MOURNING STAR',
+        itemDescription: 'A SPIKE BALL MACE WITH DEPRESSION.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 45
+    },
+    obtained_conidia_caster:{
+        itemID: 25,
+        itemName: 'CONIDIA CASTER',
+        itemDescription: 'USES CURSED ENERGY TO EMIT SPORES WHEN SWUNG.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 70
     }
     
     };

@@ -180,6 +180,11 @@ class player extends Phaser.GameObjects.Container{
 
       this.lanturnFlicker = null;
       this.fuelActivated = false;
+
+      this.curseLight = this.scene.lights.addLight(this.x,this.y-20, 60, 0xb317ff);
+      this.curseLight.intensity = 1.1;
+      this.curseLight.visible = false;
+
     }
 
     this.curseReductiontimer = false;
@@ -280,8 +285,14 @@ class player extends Phaser.GameObjects.Container{
       this.weaponLayer9.anims.create({key: 'weapon-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 24, end: 29 }),frameRate: 12,repeat: 0});
 
       //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
-    
+      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 34 }),frameRate: 12,repeat: 0});
+
+      //mourning star
+      this.weaponLayer9.anims.create({key: 'weapon-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 41 }),frameRate: 9,repeat: 0});
+
+      //conidia caster
+      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 42, end: 47 }),frameRate: 9,repeat: 0});
+
       if(sex === 0){
         //this.booba8
         //idle male specific frames
@@ -855,6 +866,71 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
               this.setAttackHitboxSize(60,30);
               this.HitBox(400,35);
               break;
+            case (24):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                this.playerBonkAnimation9FPS();
+
+                this.weaponLayer9.anims.play("weapon-mourning-star").once('animationcomplete', () => {
+
+                  this.isAttacking = false;
+                  this.playedAttackAnimation = false;
+                  console.log("attack is over so stoping");
+                  this.bluntDamage = 0;
+                  this.pierceDamage = 0;
+
+                });
+              }
+              this.bluntDamage = 6;
+              this.pierceDamage = 2;
+              this.setAttackHitboxSize(20,40);
+              this.HitBox(600,35);
+              break;
+            case (25):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                this.playerBonkAnimation9FPS();
+
+                this.weaponLayer9.anims.play("weapon-conidia-caster").once('animationcomplete', () => {
+
+                  this.isAttacking = false;
+                  this.playedAttackAnimation = false;
+                  console.log("attack is over so stoping");
+                  this.bluntDamage = 0;
+                  this.curseDamage = 0;
+
+                  if(this.scene.lightingSystemActive === true){ 
+
+                    this.curseLight.visible = false;
+                  
+                    
+                  }
+
+                });
+              }
+              this.bluntDamage = 2;
+              this.curseDamage = 2;
+
+              if(this.scene.lightingSystemActive === true){ 
+
+                this.curseLight.visible = true;
+                if(this.mainBodySprite5.flipX === true){
+
+                  this.curseLight.x = this.mainHitbox.x-30;
+
+                }else{
+                  this.curseLight.x = this.mainHitbox.x+30;
+                }
+
+                this.curseLight.y = this.mainHitbox.y;
+                
+                
+              }
+              this.setAttackHitboxSize(20,40);
+              this.HitBox(600,35);
+              break;
             default:
               console.log("attacking animation unarmed");
               if(this.playedAttackAnimation === false){
@@ -1010,6 +1086,12 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       },
       //axe
       10: function Funct10() {
+        tempPlayer.dropChance = 1;
+      },
+      24: function Funct24() {
+        tempPlayer.dropChance = 1;
+      },
+      25: function Funct25() {
         tempPlayer.dropChance = 1;
       },
       

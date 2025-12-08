@@ -1,7 +1,7 @@
 
 
 //implementation for the blue enemy enemy.
-class matangoRoot extends matangoRootUnbirth {
+class matangoRoot extends matangoRootOral {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
@@ -46,6 +46,8 @@ class matangoRoot extends matangoRootUnbirth {
         this.knockdownCheck = false;
         this.visible = false;
 
+        this.playerBellyLocation = "";
+        this.lastKeyPressed = "";
 
         this.grabType = "unbirth";
 
@@ -89,8 +91,10 @@ class matangoRoot extends matangoRootUnbirth {
                 
             if (sex === 0) {
                 this.anims.create({ key: 'unbirthStart', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 0, end: 11 }), frameRate: 7, repeat: 0 });
+                
                 this.anims.create({ key: 'absorbStart', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 34, end: 40 }), frameRate: 7, repeat: 0 });
                 this.anims.create({ key: 'absorbIdle', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 41, end: 46 }), frameRate: 7, repeat: 0 });
+                
                 this.anims.create({ key: 'absorbSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
                 this.anims.create({ key: 'absorbGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 6, end: 16 }), frameRate: 10, repeat: 0 });
                 this.anims.create({ key: 'absorbGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 17, end: 22 }), frameRate: 10, repeat: -1 });
@@ -99,6 +103,15 @@ class matangoRoot extends matangoRootUnbirth {
                 this.anims.create({ key: 'absorbGameover5', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 31, end: 36 }), frameRate: 7, repeat: -1 });
                 this.anims.create({ key: 'absorbGameover6', frames: this.anims.generateFrameNames('Matango-Root-F-4', { start: 37, end: 42 }), frameRate: 7, repeat: 0 });
                 
+                this.anims.create({ key: 'oralVoreSwallow1', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 32, end: 38 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'oralVoreSwallow2', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 39, end: 42 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'oralVoreSwallow3', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 43, end: 46 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'oralVoreSwallow4', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 47, end: 50 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'upperBellySpitUp', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 24, end: 33 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'upperBellyReSwallow', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 34, end: 42 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'lowerBellyGrabRelease2', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 28, end:  38}), frameRate: 7, repeat: 0 });
             }
 
             this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 7, repeat: 0 });
@@ -121,6 +134,29 @@ class matangoRoot extends matangoRootUnbirth {
             this.anims.create({ key: 'flailDown', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 27, end: 29}), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'flailUp', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 30, end: 31}), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'flailFull', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 26, end: 31}), frameRate: 7, repeat: 1 });
+
+            this.anims.create({ key: 'upperBellyIdle', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperBellySideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 6, end: 11 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperBellyUpStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 12, end: 17 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperBellyDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 18, end: 23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperBellyToLowerBelly1', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 43, end: 46 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperBellyToLowerBelly2', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 47, end: 49 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellyIdle', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 50, end: 55 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'lowerBellyToUpperBelly1', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 0, end:  3}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellyToUpperBelly2', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 4, end:  6}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellySideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 7, end:  12}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellyMiddleStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 13, end:  18}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellyGrabRelease1', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 19, end:  27}), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'upperBellyDigestion', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'lowerBellyDigestion', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 7, end: 13 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'digestedIdle', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 13, end: 18 }), frameRate: 7, repeat: -1 });
+
+            this.anims.create({ key: 'oralVoreGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 19, end: 24 }), frameRate: 7, repeat: 5 });
+            this.anims.create({ key: 'oralVoreGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 25, end: 30 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'oralVoreGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 31, end: 42 }), frameRate: 7, repeat: -1 });
+            
 
         }
        
@@ -824,14 +860,14 @@ class matangoRoot extends matangoRootUnbirth {
 
         console.log("matango root idle move function");
         if(this.rightHand.returnedWithPlayerGrabbed === true){
-            this.grabType = "unbirth";
+            this.grabType = "oral";
             this.rightHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
 
         }else if(this.leftHand.returnedWithPlayerGrabbed === true){
 
-            this.grabType = "unbirth";
+            this.grabType = "oral";
             this.leftHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
@@ -974,6 +1010,8 @@ class matangoRoot extends matangoRootUnbirth {
             this.playerIsNotDefeatedInputsUnbirth(playerHealthObject);
         }else if(this.grabType === "absorb"){
             this.playerIsNotDefeatedInputsAbsorb(playerHealthObject);
+        }else if(this.grabType === "oral"){
+            this.playerIsNotDefeatedInputsOral(playerHealthObject);
         }
       
     }
@@ -985,6 +1023,8 @@ class matangoRoot extends matangoRootUnbirth {
             this.playerIsStrugglingLogicUnbirth(playerHealthObject);
         }else if(this.grabType === "absorb"){
             this.playerIsStrugglingLogicAbsorb(playerHealthObject);
+        }else if(this.grabType === "oral"){
+            this.playerIsStrugglingLogicOral(playerHealthObject);
         }
                
     }
@@ -994,6 +1034,8 @@ class matangoRoot extends matangoRootUnbirth {
             this.playerIsDefeatedLogicUnbirth();
         }else if(this.grabType === "absorb"){
             this.playerIsDefeatedLogicAbsorb();
+        }else if(this.grabType === "oral"){
+            this.playerIsDefeatedLogicOral();
         }
     }
 
@@ -1003,6 +1045,8 @@ class matangoRoot extends matangoRootUnbirth {
             this.playerEscapedUnbirth(playerHealthObject);
         }else if(this.grabType === "absorb"){
             this.playerEscapedAbsorb(playerHealthObject);
+        }else if(this.grabType === "oral"){
+            this.playerEscapedOral(playerHealthObject);
         }
     }
 

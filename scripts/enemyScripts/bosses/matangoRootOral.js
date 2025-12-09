@@ -285,10 +285,11 @@ class matangoRootOral extends  matangoRootUnbirth {
                             this.rightHand.setDepth(5);
 
                             this.scene.player1.mainHitbox.x = this.x + 60;
-
+       
                             let currentEnemy = this;
                             setTimeout(function () {
                                 currentEnemy.grabCoolDown = false;
+                                currentEnemy.attackCooldown = false;
                                 currentEnemy.scene.grabCoolDown = false;
                                 console.log("grab cooldown has ended. player can be grabbed agian.");
                             }, 2000);

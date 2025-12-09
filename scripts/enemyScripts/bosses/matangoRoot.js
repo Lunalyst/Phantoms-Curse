@@ -44,6 +44,7 @@ class matangoRoot extends matangoRootOral {
         this.attackCooldown = false;
         this.isAttacking = false;
         this.knockdownCheck = false;
+        this.handAnimationLockout = false;
         this.visible = false;
 
         this.playerBellyLocation = "";
@@ -336,8 +337,10 @@ class matangoRoot extends matangoRootOral {
                     //first two checks represent state 0 for idle animation
                     if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(50,60) ){
 
-                        this.rightHand.anims.play('grabTell',true);
-                        this.leftHand.anims.play('grabTell',true);
+                        if(this.handAnimationLockout === false){
+                            this.rightHand.anims.play('grabTell',true);
+                            this.leftHand.anims.play('grabTell',true);
+                        }
             
                         if(this.idleState === 0){
                             
@@ -369,8 +372,10 @@ class matangoRoot extends matangoRootOral {
                         }
                     }else if(this.checkXRangeFromPlayer(50, 50) && this.checkYRangeFromPlayer(200,200)){
 
-                        this.rightHand.anims.play('idle');
-                        this.leftHand.anims.play('idle');
+                         if(this.handAnimationLockout === false){
+                            this.rightHand.anims.play('idle');
+                            this.leftHand.anims.play('idle');
+                         }
                         
                         if(this.idleState === 0){
 
@@ -404,14 +409,15 @@ class matangoRoot extends matangoRootOral {
 
                     //state 1 resembles angled animation but we need to play turn animation first.
                     }else if(this.checkXRangeFromPlayer(120, 120)){
-
-                        if(this.scene.player1.x > this.x){
-                            this.rightHand.anims.play('grabTell',true);
-                            this.leftHand.anims.play('idle',true);
-                        }else{
-                            this.leftHand.anims.play('grabTell',true);
-                            this.rightHand.anims.play('idle',true);
-                            
+                        if(this.handAnimationLockout === false){
+                            if(this.scene.player1.x > this.x){
+                                this.rightHand.anims.play('grabTell',true);
+                                this.leftHand.anims.play('idle',true);
+                            }else{
+                                this.leftHand.anims.play('grabTell',true);
+                                this.rightHand.anims.play('idle',true);
+                                
+                            }
                         }
 
                         //if the previous state was zero then
@@ -438,8 +444,11 @@ class matangoRoot extends matangoRootOral {
                     //state 2
                     }else if(this.checkXRangeFromPlayer(400, 400)){
 
-                        this.rightHand.anims.play('idle');
-                        this.leftHand.anims.play('idle');
+                        if(this.handAnimationLockout === false){
+                            this.rightHand.anims.play('idle');
+                            this.leftHand.anims.play('idle');
+                        }
+                       
 
                         //if the previous state was zero then
                         if(this.idleState === 0){
@@ -611,10 +620,13 @@ class matangoRoot extends matangoRootOral {
                                     this.rightHand.anims.play('knockdownEnd').once('animationcomplete', () => {
                                         this.attackCooldown = true;
                                         this.isAttacking = false;
-
+                                        this.rightHand.anims.play('idle');
                                         let temp = this;
                                         setTimeout(function () {
-                                            temp.attackCooldown = false;
+                                            if(temp.knockdownCheck === false){
+                                                temp.attackCooldown = false;
+                                            }
+
                                         }, 1000);
                                     });
                                 });
@@ -630,10 +642,12 @@ class matangoRoot extends matangoRootOral {
                                     this.leftHand.anims.play('knockdownEnd').once('animationcomplete', () => {
                                         this.attackCooldown = true;
                                         this.isAttacking = false;
-
+                                        this.leftHand.anims.play('idle');
                                         let temp = this;
                                         setTimeout(function () {
-                                            temp.attackCooldown = false;
+                                            if(temp.knockdownCheck === false){
+                                                temp.attackCooldown = false;
+                                            }
                                         }, 1000);
                                     });
                                 });
@@ -724,18 +738,25 @@ class matangoRoot extends matangoRootOral {
                 }else if(this.scene.playerStuckGrabbedBy === "knockdown" && this.knockdownCheck === false){
                     //ok so the plan
                     this.knockdownCheck = true;
+                    this.handAnimationLockout = true;
                     //set a timeout to see if the player is knocked down.
                     let temp = this;
 
+                    console.log("activating knockdown grab timer out")
                     this.turning = false;
 
                     setTimeout(function(){
 
+                        console.log("checking to see if player is still knockeddown.")
+
                         if(temp.scene.playerStuckGrabbedBy === "knockdown"){
 
+                            console.log("player is still knocked down.")
                             //temp.isAttacking = true;
                             if(temp.scene.player1.x > temp.x){
+                                console.log("player is on the right")
                                 temp.rightHand.anims.play('handSink').once('animationcomplete', () => { 
+
                                     if(temp.scene.playerStuckGrabbedBy === "knockdown"){
                                         temp.rightHand.x = temp.scene.player1.x;
                                         temp.rightHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
@@ -746,7 +767,9 @@ class matangoRoot extends matangoRootOral {
                             });
                                 //temp.rightHand.handRise();
                             }else{
+                                console.log("player is on left")
                                 temp.leftHand.anims.play('handSink').once('animationcomplete', () => { 
+
                                     if(temp.scene.playerStuckGrabbedBy === "knockdown"){
                                         temp.leftHand.x = temp.scene.player1.x;
                                         temp.leftHand.hitBoxPositionActive(temp.scene.player1.x,temp.scene.player1.y);
@@ -758,7 +781,6 @@ class matangoRoot extends matangoRootOral {
                             //temp.leftHand.handRise();
                             }
 
-                            console.log("player is still knocked down.");
                             //if so then send the correct hand to appear under the player and grab them.
                         }else{
                             console.log("player is not knocked down any more");
@@ -769,6 +791,12 @@ class matangoRoot extends matangoRootOral {
                 }else if(this.scene.playerStuckGrabbedBy !== "knockdown" && this.knockdownCheck === true ){
 
                     this.knockdownCheck = false;
+                    
+                    this.turning = false;
+                    let temp = this;
+                    setTimeout(function () {
+                        temp.attackCooldown = false;
+                    }, 3000);
 
                     if(this.playerGrabbedByThisHand === "right"){
                         this.rightHand.visible = true;
@@ -777,16 +805,21 @@ class matangoRoot extends matangoRootOral {
                             this.rightHand.curseLight.intensity = 0.7;
                             this.rightHand.curseLight.radius = 90;
                             this.rightHand.curseLight.y = this.y+30
+                            this.rightHand.curseLight.x = this.rightHand.x;
                             this.rightHand.anims.play('rise2').once('animationcomplete', () => {
                                 this.rightHand.curseLight.intensity = 0.7;
                                 this.rightHand.curseLight.radius = 120;
                                 this.rightHand.curseLight.y = this.y+10
                                 this.rightHand.anims.play('rise3').once('animationcomplete', () => {
-        
+                                    this.rightHand.anims.play('idle');
                                     this.turning = false;
                                     this.attackCooldown = true;
                                     this.isAttacking = false;
+
+                                    this.handAnimationLockout = false;
+
                                     let temp = this;
+                                   
                                     setTimeout(function () {
                                         temp.attackCooldown = false;
                                     }, 1000);
@@ -801,12 +834,13 @@ class matangoRoot extends matangoRootOral {
                             this.leftHand.curseLight.intensity = 0.7;
                             this.leftHand.curseLight.radius = 90;
                             this.leftHand.curseLight.y = this.y+30
+                            this.leftHand.curseLight.x = this.leftHand.x;
                             this.leftHand.anims.play('rise2').once('animationcomplete', () => {
                                 this.leftHand.curseLight.intensity = 0.7;
                                 this.leftHand.curseLight.radius = 120;
                                 this.leftHand.curseLight.y = this.y+10
                                 this.leftHand.anims.play('rise3').once('animationcomplete', () => {
-        
+                                    this.leftHand.anims.play('idle');
                                     this.turning = false;
                                     this.attackCooldown = true;
                                     this.isAttacking = false;
@@ -832,6 +866,12 @@ class matangoRoot extends matangoRootOral {
     flailAttack(){
         this.isAttacking = true;
 
+         if(this.scene.player1.x > this.x){
+             this.knockdownDirection = true;
+         }else{
+             this.knockdownDirection = false;
+         }
+
         this.anims.play('flailStart',true).once('animationcomplete', () => {
             this.anims.play('flailDown',true).once('animationcomplete', () => {
                 this.scene.initSporeCloud(this.x,this.y,"still",80,1700);
@@ -853,7 +893,6 @@ class matangoRoot extends matangoRootOral {
             });
     }
 
-    
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
@@ -892,6 +931,8 @@ class matangoRoot extends matangoRootOral {
         this.playerBrokeFree = 0;
         this.turning = false;
         this.knockdownCheck = false;
+
+        this.handAnimationLockout = false;
 
         this.isAttacking = false;
 

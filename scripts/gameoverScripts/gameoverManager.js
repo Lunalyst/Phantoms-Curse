@@ -739,6 +739,32 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
             },
+
+            matangoRoot_female_oral: function matangoRootFemaleOralFunction() {
+
+                tempSceneRef.enemys = tempSceneRef.physics.add.group();
+
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y;
+                tempSceneRef.enemy.enemyGameOverOral();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.rightHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x+70, tempSceneRef.enemy.y+40, false);
+                tempSceneRef.rightHand.visible = true;
+                tempSceneRef.rightHand.flipX = true;
+                tempSceneRef.rightHand.curseLight.visible = true;
+                tempSceneRef.leftHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x-70, tempSceneRef.enemy.y+40, true);
+                tempSceneRef.leftHand.visible = true;
+                tempSceneRef.leftHand.curseLight.visible = true;
+
+                tempSceneRef.rightHand.anims.play('grabTell',true);
+                tempSceneRef.leftHand.anims.play('grabTell',true);
+
+            },
         }
     }
 
@@ -1245,7 +1271,24 @@ class gameoverManager extends A3SoundEffects {
             },
 
             matangoRoot_female_absorb: function matangoRootFemaleUnbirthFunction() {
-    
+                tempSceneRef.rightHand.flipX = false;
+                tempSceneRef.leftHand.flipX = true;
+            },
+
+            matangoRoot_female_oral: function matangoRootFemaleOralFunction() {
+                tempSceneRef.rightHand.flipX = false;
+                tempSceneRef.leftHand.flipX = true;
+                if(tempSceneRef.enemy.progressGameover === true && tempSceneRef.choke === false){
+
+                    tempSceneRef.choke = true;
+                    tempSceneRef.enemy.anims.play('oralVoreGameover2').once('animationcomplete', () => {
+                        tempSceneRef.enemy.anims.play('oralVoreGameover3',true);
+                        tempSceneRef.playPlap = true;
+                    });
+ 
+                }else if(tempSceneRef.playPlap === true){
+                     tempSceneRef.enemy.playJumpySound('10',800);
+                }
             },
         }
     }

@@ -2513,6 +2513,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "matangoRoot_female_oral":{
+                    "node1":{
+                        "dialogue": "You were knocked down by the giant. Before you could get up, one of her hands slipped around your body. Despite your best effort to squirm free, the massive hand carried you up and into the giants' waiting mouth. Slipping down her throat and into her engorged belly. As you struggled to escape the warm chambers of her tummy, you began to tire out. Eventually giving in and letting her body absorb you completely. Feeling your body quickly becoming one with her massive rear. You thought that this was the end. Becoming just pudge for the rest of your existence. But fortunately or unfortunately for you, she enjoyed your company. Your apart from her now in the most literal sense. Occasionally she gives you form through her strange mycelium body to play with you. You're bonded to her in body and spirit, unable to resist her urges. Though it's not really so bad. After all the pleasure you two share is quite immense. Even if your just her toy, it feels nice to be apart of a creature much greater than yourself. ",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
             },
             "cursed":{
                 "default":{

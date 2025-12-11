@@ -3,34 +3,12 @@ class matangoRootOral extends  matangoRootUnbirth {
     
     randomizeInputOral(){
 
-        // randomizing input
-        //console.log("this.randomInputCooldown: ",this.randomInputCooldown);
-        /*if (this.randomInputCooldown === false) {
-            this.randomInputCooldown = true;
-            this.randomInput = Math.floor((Math.random() * 3));
-            //console.log("randomizing the key prompt " + this.randomInput);
+        if(this.keyAnimationPlayed === false){
+            this.keyAnimationPlayed = true;
+            this.scene.KeyDisplay.playQuestionKey();
 
-            if(this.keyAnimationPlayed === false && this.randomInput === 0) {
-                //console.log(" setting keyA display");
-                this.scene.KeyDisplay.playAKey();
-                this.keyAnimationPlayed = true;
-            }else if (this.keyAnimationPlayed === false && this.randomInput === 1) {
-                //console.log(" setting keyS display");
-                this.scene.KeyDisplay.playSKey();
-                this.keyAnimationPlayed = true;
-            }else if (this.keyAnimationPlayed === false && this.randomInput === 2) {
-                //console.log(" setting keyD display");
-                this.scene.KeyDisplay.playDKey();
-                this.keyAnimationPlayed = true;
-            }
-            
-            let currentEnemy = this;
-            setTimeout(function () {
-                currentEnemy.randomInputCooldown = false;
-                // resets the animation block.
-                currentEnemy.keyAnimationPlayed = false;
-            }, 2000);
-        } */
+        }
+        
     }
 
     playerIsNotDefeatedInputsOral(playerHealthObject){
@@ -195,13 +173,14 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                                 this.playerBellyLocation = "upper";
 
+                                this.keyAnimationPlayed = false;
+
                                 //makes the struggle bar visible
                                 struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
                                 struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.struggleCap);
                                 // makes the key prompts visible.
                                 this.scene.KeyDisplay.visible = true;
 
-                                
                                 this.preventGiveUp = false;
                             });
                     });
@@ -226,28 +205,26 @@ class matangoRootOral extends  matangoRootUnbirth {
             this.playerDamageTimer = true;
 
             //if the player is above 75% health
-            if(playerHealthObject.playerHealth >= (playerHealthObject.playerMaxHealth/4) * 3){
+            if(this.playerBellyLocation === 'upper'){
 
-                //deal 2 hp damager everys second.
                 if(this.animationPlayed === false){
-                    //healthEmitter.emit(healthEvent.loseHealth,1);
+                    healthEmitter.emit(healthEvent.loseHealth,3);
                 }
                 let currentEnemy = this;
                 setTimeout(function () {
                         currentEnemy.playerDamageTimer = false;
                 }, 1000);
 
-            }else if(playerHealthObject.playerHealth < (playerHealthObject.playerMaxHealth/4) * 3){
+            }else if(this.playerBellyLocation === 'lower'){
 
-                //deal 2 hp damager everys .8 seconds.
                 if(this.animationPlayed === false){
-                    //healthEmitter.emit(healthEvent.loseHealth,1);
+                    healthEmitter.emit(healthEvent.loseHealth,2);
                 }
 
                 let currentEnemy = this;
                 setTimeout(function () {
                     currentEnemy.playerDamageTimer = false;
-                }, 800);
+                }, 1000);
             }
         }   
     }
@@ -269,6 +246,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                     this.struggleFree = true;
                     this.spitUp = true;
+                    this.preventGiveUp = true;
 
                     //spit up sound effect.
                     this.scene.initSoundEffect('swallowSFX','4',0.02);
@@ -280,6 +258,8 @@ class matangoRootOral extends  matangoRootUnbirth {
                        this.anims.play("lowerBellyGrabRelease2").once('animationcomplete', () => {
                             //then free player.
                             this.resetVariables();
+
+                            this.keyAnimationPlayed = false;
 
                             this.leftHand.setDepth(5);
                             this.rightHand.setDepth(5);
@@ -306,7 +286,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
             }else if(this.struggleFree === false && playerHealthObject.playerHealth >= 1 && this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'W'){
                 if(this.spitUp === false){
-
+                    this.preventGiveUp = true;
                     this.spitUp = true;
                     this.anims.play('upperBellySpitUp').once('animationcomplete', () => {
                         this.anims.play('upperBellyReSwallow').once('animationcomplete', () => {
@@ -317,6 +297,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                             // makes the key prompts visible.
                             this.scene.KeyDisplay.visible = true;
                             this.spitUp = false;
+                            this.preventGiveUp = false;
 
                         });
                     });
@@ -327,6 +308,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                     this.spitUp = true;
                     this.flipX = false;
+                    this.preventGiveUp = true;
                     this.anims.play('upperBellyToLowerBelly1').once('animationcomplete', () => {
                         this.anims.play('upperBellyToLowerBelly2').once('animationcomplete', () => {
                             this.struggleCounter = 0;
@@ -337,6 +319,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                             this.scene.KeyDisplay.visible = true;
                             this.playerBellyLocation = "lower";
                             this.spitUp = false;
+                            this.preventGiveUp = false;
 
                         });
                     });
@@ -346,6 +329,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                     this.spitUp = true;
                     this.flipX = false;
+                    this.preventGiveUp = true;
                     this.anims.play('lowerBellyToUpperBelly1').once('animationcomplete', () => {
                         this.anims.play('lowerBellyToUpperBelly2').once('animationcomplete', () => {
                             this.struggleCounter = 0;
@@ -356,6 +340,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                             this.scene.KeyDisplay.visible = true;
                             this.playerBellyLocation = "upper";
                             this.spitUp = false;
+                            this.preventGiveUp = false;
 
                         });
                     });
@@ -395,8 +380,7 @@ class matangoRootOral extends  matangoRootUnbirth {
             this.playerDefeatedAnimationCooldown === false &&
             this.inStartDefeatedLogic === true &&
             this.scene.KeyDisplay.visible === true &&
-            this.playerDefeatedAnimationStage !== 1 &&
-            this.playerDefeatedAnimationStage !== 3 ) {
+            this.playerDefeatedAnimationStage !== 1 ) {
 
             this.scene.KeyDisplay.visible = false;
 
@@ -415,7 +399,7 @@ class matangoRootOral extends  matangoRootUnbirth {
         }
 
         // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 2 && this.scene.checkDIsDown())) {
 
             this.scene.KeyDisplay.visible = false;
             console.log("changing scene");
@@ -438,39 +422,32 @@ class matangoRootOral extends  matangoRootUnbirth {
 
         if (this.playerDefeatedAnimationStage === 1) {
 
-            this.playerDefeatedAnimationStageMax = 4;
+            this.playerDefeatedAnimationStageMax = 2;
 
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                if(this.playerBellyLocation === "upper"){
+                    this.anims.play('upperBellyDigestion').once('animationcomplete', () => {
 
-                this.anims.play('OralGameover1').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        //this.inStartDefeatedLogic = false;
+                    });
+                }else{
+                    this.anims.play('upperBellyDigestion').once('animationcomplete', () => {
 
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    //this.inStartDefeatedLogic = false;
-                });
+                        this.animationPlayed = false;
+                        this.playerDefeatedAnimationStage++;
+                        //this.inStartDefeatedLogic = false;
+                    });
+                }
+                
                 
             }
 
         }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('OralGameover2',true);
-        }else if (this.playerDefeatedAnimationStage === 3) {
-
-            if (!this.animationPlayed) {
-
-                this.animationPlayed = true;
-
-                this.anims.play('OralGameover3').once('animationcomplete', () => {
-
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                });
-                
-            }
-
-        }else if (this.playerDefeatedAnimationStage === 4) {
-            this.anims.play('OralGameover4',true);
+            this.anims.play('digestedIdle',true);
         }
     }
 
@@ -479,7 +456,9 @@ class matangoRootOral extends  matangoRootUnbirth {
         this.setSize(240, 180, true);
         this.setOffset(220, 380);
         this.visible = true;
-        this.anims.play('OralGameoverFinish', true);
+        this.anims.play('oralVoreGameover1').once('animationcomplete', () => {
+           this.progressGameover = true;
+        });
     }
 
     //function to show off animation 

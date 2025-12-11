@@ -371,6 +371,7 @@ const bestiaryKey = {
 
   matangoRootFemaleUnbirth:"matangoRoot_female_unbirth",
   matangoRootFemaleAbsorb:"matangoRoot_female_absorb",
+  matangoRootFemaleOral:"matangoRoot_female_oral",
 
   istaraUnbirth:"istara_unbirth",
 
@@ -515,12 +516,12 @@ const bestiaryTextList = {
         summary: "Vivian has a network of chests she can travel through to provide her services and catch prey. If you don't want to be eaten, then you should knock on one of her marked chests twice. No more, no less.",
       },
       mushroom_female_tf:{
-        title: "FEMALE MUSHROOM NODE",
-        summary: "This mushroom node is a part of an  interconnected  network of mycelium below the ground. To chase its prey, she can shrink her body to travel through these nodes. When prey is near she will dance to spread spores onto the prey.",
+        title: "FEMALE MATANGO NODE",
+        summary: "This matango node is a part of an  interconnected  network of mycelium below the ground. To chase its prey, she can shrink her body to travel through these nodes. When prey is near she will dance to spread spores onto the prey.",
       },
       mushroom_male_tf:{
-        title: "MALE MUSHROOM NODE",
-        summary: "This male mushroom will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
+        title: "MALE MATANGO NODE",
+        summary: "This male matango will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
       },
       matangoRoot_female_unbirth:{
         title: "FEMALE MATANGO UB",
@@ -529,6 +530,11 @@ const bestiaryTextList = {
       matangoRoot_female_absorb:{
         title: "FEMALE MATANGO ABSORB",
         summary: "Once awakened, the matango root will employ various methods to defend itself. One such method is trying to engulf its attacker inside its gooey outer body. Once the prey is subdued, it pleasures the prey so the absorption process and melding go smoothly.",
+      },
+
+      matangoRoot_female_oral:{
+        title: "FEMALE MATANGO ORAL",
+        summary: "Matangos are quite hungry. Their prey, once caught by their hand tendrils, is like to end up in their belly. After their prey has been digested, they may use their body to recreate their shape, so that they may play with their food once more.",
       },
 
       back: {

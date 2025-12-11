@@ -97,6 +97,8 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.earieShadows);
             //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
             tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.earieShadows); 
+
+            
           
           },
           mushrooms: function mushroomsFunction() {

@@ -12,6 +12,10 @@ class curseShadow extends enemy {
         this.enemySize = 1;
 
         //randomizes variables
+        //then we add new instance into the scene.
+        scene.add.existing(this);
+
+        scene.physics.add.existing(this);
 
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);

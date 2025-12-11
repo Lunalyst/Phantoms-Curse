@@ -53,6 +53,23 @@ class bossStartMatango extends Phaser.Physics.Arcade.Sprite{
             tempMushroom.visible = false;
             tempMushroom.enemyDefeated = true;
             tempMushroom.movingToNewNode = true;
+
+             let mush = tempMushroom;
+            setTimeout(function () {
+                if(mush.movingToNewNode === false){
+                    mush.movingToNewNode = false;
+                    mush.curNode.visible = false;
+                    mush.y = mush.curNode.y+22;
+                    mush.x = mush.curNode.x;
+                    mush.visible = true;
+                    mush.lightSource.y = mush.y;
+                    mush.lightSource.radius = 130;
+                    mush.lightSource.intensity = 0.9;
+                    mush.scene.initSoundEffect('growSFX','1',0.05);
+                    mush.scene.initSporeCloud(mush.x,mush.y,"still",0,1500);
+                }
+                           
+                        }, 30000);
         },this);
 
         this.usedUp = true;

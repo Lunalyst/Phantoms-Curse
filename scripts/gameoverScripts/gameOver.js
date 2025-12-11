@@ -37,6 +37,8 @@ class gameOver extends gameoverManager {
         //enemy that defeated player string
         this.enemyThatDefeatedPlayer ="";
 
+        this.choke = false;
+
         //value to store string of location the player was defeated
         this.gameoverLocation;
         //variable used to tell if dialogue should be interupted.

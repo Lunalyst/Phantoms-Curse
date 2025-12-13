@@ -219,6 +219,7 @@ class lunalyst extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
@@ -257,11 +258,12 @@ class lunalyst extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"See you later.",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"See you later.",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -291,6 +293,42 @@ class lunalyst extends npc{
           this.scene.npcChoice1.destroy();
           this.scene.npcChoice2.destroy();
           this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"doors closed?",true);
+          this.scene.npcChoice4.textWob();
+          this.scene.npcChoice4.setScrollFactor(0);
+          this.scene.npcChoice4.addHitbox();
+          this.scene.npcChoice4.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice4.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice4.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice4.on('pointerout',function(pointer){
+              this.scene.npcChoice4.clearTextTint();
+          },this);
+
+          this.scene.npcChoice4.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+          
+          //progress to node branch with state name node5
+          this.progressNode("node13");
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
 
           },this);
 

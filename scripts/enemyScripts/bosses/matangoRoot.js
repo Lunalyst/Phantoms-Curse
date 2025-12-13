@@ -157,6 +157,8 @@ class matangoRoot extends matangoRootOral {
             this.anims.create({ key: 'oralVoreGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 19, end: 24 }), frameRate: 7, repeat: 5 });
             this.anims.create({ key: 'oralVoreGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 25, end: 30 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'oralVoreGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-8', { start: 31, end: 42 }), frameRate: 7, repeat: -1 });
+
+            this.anims.create({ key: 'bossDefeated', frames: this.anims.generateFrameNames('Matango-Root-F-9', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
             
 
         }
@@ -893,7 +895,6 @@ class matangoRoot extends matangoRootOral {
             });
     }
 
-
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
@@ -1163,54 +1164,59 @@ class matangoRoot extends matangoRootOral {
      
                     this.enemyDefeated = true;
 
-                    this.scene.initSoundEffect('bossRoarSFX','roar',0.1);
+                    this.scene.initSoundEffect('bossRoarSFX','defeat',0.1);
 
                     //play boss defeated animation
                     this.anims.play('rawr').once('animationcomplete', () => {
 
-                        this.curseLight.visible = false;
-                        this.visible = false;
-
-                        //hide root node object
-                        this.rootNode.visible = true;
-                        this.rootNode.curseLight.visible = true;
-
                         healthEmitter.emit(healthEvent.setBossHealthVisible,false);
 
-                        //drop health upgrade
-                        //creates health upgrade object in level
-                        this.scene.initHealthUpgrade(this.x, this.y, 'healthUpgradeMatangoRoot');
+                        this.anims.play('bossDefeated').once('animationcomplete', () => {
 
-                        //drop new weapon
-                        let object = {
-                            flagToFind: "obtained_conidia_caster",
-                            foundFlag: false,
-                        };
-            
-                        // call the emitter to check if the value already was picked up.
-                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+                            this.curseLight.visible = false;
+                            this.visible = false;
 
-                        if(object.foundFlag === false){
-                            //create a temp variable to hold our item that is passed to the player
-                        let item = oneTimeItemArray.obtained_conidia_caster;
+                            this.rootNode.visible = true;
+                            this.rootNode.curseLight.visible = true;
+                             this.rootNode.anims.play("root1",true);
 
-                        //used to tell if the item was added
-                        let addedToInventory = {
-                            added: false
-                        };
+                            //drop health upgrade
+                            //creates health upgrade object in level
+                            this.scene.initHealthUpgrade(this.x, this.y, 'healthUpgradeMatangoRoot');
 
-                        //emitter to add object to inventory.
-                        inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                            //drop new weapon
+                            let object = {
+                                flagToFind: "obtained_conidia_caster",
+                                foundFlag: false,
+                            };
                 
-                        //now to add the flag to the player data so the player cant open this container multiple times.
-                        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+                            // call the emitter to check if the value already was picked up.
+                            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
-                        //show item drop like a chest
-                        //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
-                        this.scene.initFakeItemDrop(this.x , this.y-15,25); 
-                        }
+                            if(object.foundFlag === false){
+                                //create a temp variable to hold our item that is passed to the player
+                            let item = oneTimeItemArray.obtained_conidia_caster;
 
-                        this.rootNode.deactivateMushroomBarriers();
+                            //used to tell if the item was added
+                            let addedToInventory = {
+                                added: false
+                            };
+
+                            //emitter to add object to inventory.
+                            inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                    
+                            //now to add the flag to the player data so the player cant open this container multiple times.
+                            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+                            //show item drop like a chest
+                            //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+                            this.scene.initFakeItemDrop(this.x , this.y-15,25); 
+                            }
+
+                            this.rootNode.deactivateMushroomBarriers();
+
+
+                        });
 
 
                     });

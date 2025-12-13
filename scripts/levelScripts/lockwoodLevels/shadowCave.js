@@ -158,25 +158,22 @@ class ShadowCave extends defaultScene {
       let thisScene = this;
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
-
-      //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
-      this.setUpShadowLightCollider();
   
       //sets up item drops for the scene
 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
       
-      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      setTimeout(function(){
+
                
-          thisScene.initEnemy(883,1560,thisScene.playerSex,'curseShadow',false);
+      this.initEnemy(783,1500,this.playerSex,'curseShadow',false);
 
-          thisScene.initEnemy(1100,1560,thisScene.playerSex,'curseShadow',false);
-          thisScene.initEnemy(2197,1444,thisScene.playerSex,'curseShadow',false);
+      this.initEnemy(1350,1550,this.playerSex,'curseShadow',false);
+      this.initEnemy(2197,1444,this.playerSex,'curseShadow',false);
+      this.spawnedEnemys = true;
 
-          thisScene.spawnedEnemys = true;
-        },1000);
+      //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
+      this.setUpShadowLightCollider();
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();

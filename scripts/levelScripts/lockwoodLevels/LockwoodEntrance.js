@@ -1,14 +1,14 @@
 
 
-class TestForest extends defaultScene {
+class LockwoodEntrance extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'TestForest',active: false ,physics:{default:'arcade'}});
+    super({key: 'LockwoodEntrance',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "TestForest";
+    this.playerLocation = "LockwoodEntrance";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -21,25 +21,21 @@ class TestForest extends defaultScene {
     //variables used for scrolling
     this.playerPreviousX = 0;
     this.playerPreviousY = 0;
+    
     }
 
     preload(){
-      
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
-
-      //define an array of enemys we are using
-      this.enemyGroupArray = ["tigers",'rabbits'];
-
-      //call built in function to preload enemys assets.
-      this.setUpEnemyPreload(this.enemyGroupArray);
-
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.tilemapTiledJSON("TestForestMap" , "assets/tiledMap/LockWood/Forest_Tileset/Test_Forest.json");
+      this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
 
-      this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
+
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -48,7 +44,6 @@ class TestForest extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
-      
     }
 
     create(){
@@ -65,7 +60,7 @@ class TestForest extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("TestForestMap","Forest_Tileset","forest_source_map");
+      this.setUpTileSet("lockwood_etrance_map","Forest_Tileset","forest_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -73,7 +68,7 @@ class TestForest extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('forestSFX','forest',1,"ambience");
 
-      this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
+      //this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -100,78 +95,35 @@ class TestForest extends defaultScene {
       //this.initSavePoints(2050,558);
         // as well as signs.
 
-      //this sets up the text box which will be used by the signs to display text.
-      this.setUpTextBox();
-
-
-      this.backroundXOrigin = 1500;
-      this.backroundYOrigin = 600;
-      this.backround = this.add.tileSprite(1500, 600, 10*1600 ,1090, "backgroundForestStaticLevel");
-      this.backround.setDepth(-50);
-      this.backround.setScale(.9);
-      this.backround.setTint(0xd3d3d3);
-
-      this.parrallax1XOrigin = 3000;
-      this.parrallax1YOrigin = 780;
-      this.parrallax1 = this.add.tileSprite(3000, 780, 1920*10 ,1920, "tree_parrallax");
-      this.parrallax1.setScale(1/3);
-      this.parrallax1.setDepth(-50);
-      this.parrallax1.setTint(0x444444);
-
-      this.parrallax2XOrigin = 3000;
-      this.parrallax2YOrigin = 700+600;
-      this.parrallax2 = this.add.tileSprite(3000, 700+600, 1920*10 ,1920, "ground_parrallax");
-      this.parrallax2.setScale(1/3);
-      this.parrallax2.setDepth(-50);
-      this.parrallax2.setTint(0x444444);
-
-      this.initSavePoints(761,989-14);
-      this.initSavePoints(4230,1085-14);
-
-      console.log("this.test4: ",this.test4 );
-
-      this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
-//5812,1181 1570,829
-      this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");
-
       //sets up containers
       this.setUpContainers();
-
-      setTimeout(function(){
-       
-        let speedRing = oneTimeItemArray.cave_chest_with_speedRing;
-    
-        //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-        thisScene.initItemContainer(3421,1021-3,speedRing,true,"cave_chest_with_speedRing");
-      
-      },2000);
-
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      //sets up enemy colliders and groups
-      this.setUpEnemyCollider(this.enemyGroupArray);
+      //this sets up the text box which will be used by the signs to display text.
+      this.setUpTextBox();
 
-       this.setUpEnemyBarriers();
+      this.initSigns(813,1757+12,"generic","tutorialCabin");
 
-      this.initBarrier(913,1048-30,30,400);
+      this.initSavePoints(1406,1112-10);
 
-      this.initBarrier(3661,1188-30,30,400);
+      this.initSigns(1045,1080+18,"generic","lockwoodEntranceSign");
+
+      this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
+
+      this.initLunalyst(935,1083,'clearingTheWay');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
-      //setTimeout(function(){
-          
-        thisScene.initEnemy(3352,1220,thisScene.playerSex,'rabbit',false);
-        thisScene.initEnemy(4587,1170,thisScene.playerSex,'rabbit',false);
-
-        //note, have to spawn tiger after rabbits, otherwise collider will not be applied correctly. 
-        thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
-
-        thisScene.spawnedEnemys = true;
-        //},1000);
-
+        setTimeout(function(){
+          //generates enemys
+          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
+          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
+      
+          thisScene.spawnedEnemys = true;
+        },1000);
 
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
@@ -179,18 +131,37 @@ class TestForest extends defaultScene {
         //sets the previous x for scrolling
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
+
+        this.backroundXOrigin = 0;
+        this.backroundYOrigin = 540;
+        this.backround = this.add.tileSprite(0, 540, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backround.setDepth(-50);
+        this.backround.setScale(1.2);
+        //original pos - player pos * scrol factor
+
+        this.parrallax1XOrigin = 1500;
+        this.parrallax1YOrigin = 880;
+        this.parrallax1 = this.add.tileSprite(1500, this.parrallax1YOrigin, 1920*4 ,1920, "tree_parrallax");
+        this.parrallax1.setScale(1/3);
+        this.parrallax1.setDepth(-50);
+        this.parrallax1.setTint(0x444444);
+
+        this.parrallax2XOrigin = 1500;
+        this.parrallax2YOrigin = 880+600;
+        this.parrallax2 = this.add.tileSprite(1500, this.parrallax2YOrigin, 1920*4 ,1920, "ground_parrallax");
+        this.parrallax2.setScale(1/3);
+        this.parrallax2.setDepth(-50);
+        this.parrallax2.setTint(0x444444);
     }
 
     update(){
       
       //calls the built in update function
       this.defaultUpdate();
+        //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
-      //handles enemy interactions
-      this.enemyUpdate(this.enemyGroupArray);
-
-
-      //updates the x value of the scrolling backround.
+      
+       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
         this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
         this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
@@ -213,7 +184,6 @@ class TestForest extends defaultScene {
         this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
         this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
       }
-
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

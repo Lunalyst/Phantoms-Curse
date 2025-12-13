@@ -17,7 +17,7 @@ class blueSlimeHS extends enemy {
         this.randomInput = Math.floor((Math.random() * 2));
 
         this.largeSlimeDamageCounter = false;
-        this.body.bounce.x = 1;
+        //this.body.bounce.x = 1;
         this.jumpAnimationPlayed = false;
 
         this.slimeSoundCoolDown = false;

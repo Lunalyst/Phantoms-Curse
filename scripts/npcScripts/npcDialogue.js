@@ -424,6 +424,38 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "lockwoodEntranceSign":{
+                     "node1":{
+                        "dialogue": "Gathered Friends...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "This marks the place where our comunity was first born.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "built on the desires of our hearts, to make a new home. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "I will cherish this safe haven for all of eternity. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "Thank you for helping my dream come true. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
             },
             "Fervor":{
                 "love1":{
@@ -1100,17 +1132,17 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node4"]
                     },"node4":{
-                        "dialogue": "Just a humble maid trying to get back to Lockwood village.",
+                        "dialogue": "Just a humble maid helping those in need.",
                         "profile":"lunaFingerTouch",
                         "textvoice":"lightVoice",
                         "children":["node5"]
                     },"node5":{
-                        "dialogue": "Lots of cave ins so I'm doing my best to clear the way. ",
+                        "dialogue": "Unfortinately, the gate to lockwood is closed.",
                         "profile":"lunaKO",
                         "textvoice":"lightVoice",
                         "children":["node6"]
                     },"node6":{
-                        "dialogue": "Anyway, I got to get back to it. stay safe out there.",
+                        "dialogue": "maybe some day soon it will open.",
                         "profile":"lunaStarEyes",
                         "textvoice":"lightVoice",
                         "children":[]
@@ -1123,20 +1155,15 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node2"]
                     },"node2":{
-                        "dialogue": "I'm still busy over here clearing the way. ",
-                        "profile":"lunaKO",
-                        "textvoice":"lightVoice",
-                        "children":["node3"]
-                    },"node3":{
-                        "dialogue": "Though I could use a break.",
-                        "profile":"lunaFingerTouch",
+                        "dialogue": "I hope your doing well!",
+                        "profile":"lunaHappy",
                         "textvoice":"lightVoice",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "How can I assist you?  ",
                         "profile":"lunaHappy",
                         "textvoice":"lightVoice",
-                        "children":["node5","node10","node12"]
+                        "children":["node5","node10","node12","node13"]
                     },"node5":{
                         "dialogue": "Oh? Of course! ",
                         "profile":"lunaHappy",
@@ -1175,6 +1202,31 @@ const npcDialogue = {
                     },"node12":{
                         "dialogue": "Goodbye.",
                         "profile":"lunaHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },"node13":{
+                        "dialogue": "The door to Lockwood is currently close and I am not sure where everyone is. ",
+                        "profile":"lunaNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },"node14":{
+                        "dialogue": "I just get this feeling, that this is going to be the beginning of something special.",
+                        "profile":"lunaHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node15"]
+                    },"node15":{
+                        "dialogue": "I get the impression that your going to get yourself in danger. ",
+                        "profile":"lunaFingerTouch",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },"node16":{
+                        "dialogue": "and when all hope seems lost... ",
+                        "profile":"lunaNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node17"]
+                    },"node17":{
+                        "dialogue": "someone will be there for you, in your time of need. ",
+                        "profile":"lunaStarEyes",
                         "textvoice":"lightVoice",
                         "children":[]
                     }

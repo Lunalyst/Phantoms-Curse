@@ -129,6 +129,8 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initPortals(368,1080-8,5039,1149,"warpCaveInside","PondForest");
 
+      this.initPortals(1642,503-7,1406,1112,"warpCaveInside","LockwoodEntrance");
+
       //this.test = this.add.sprite(1040, 1016-65, "Mycelium Root");
       //this.test.setScale(1/3);
       //creates container objects.
@@ -234,6 +236,15 @@ class ShadowCaveUpper extends defaultScene {
         });
 
       });
+
+      //define barriers whee enemys cannot go.
+      //this.setUpEnemyBarriers();
+      //this.initBarrier(1204,696-30,30,140);
+      //this.initBarrier(3024,1245-30,38,540);
+      //this.initBarrier(2385,1149-40,30,160);
+
+      //this.initBarrier(1618,829-30,34,540);
+      //this.initBarrier(880,730-40,30,160);
 
     
 

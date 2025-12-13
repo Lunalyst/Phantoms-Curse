@@ -49,7 +49,7 @@ class mushroom extends enemy {
          this.direction = "right";
          this.transferSpeed = 300;
           
-         this.enemyHP = 1;
+         this.enemyHP = 20;
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
             this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
@@ -130,9 +130,13 @@ class mushroom extends enemy {
                 if(this.isHiding === true && this.inEmergingAnimation === false){
                     this.y = this.curNode.y+22;
                     this.x = this.curNode.x;
+                    this.lightSource.radius = 90;
+                    this.lightSource.intensity = 0.7;
                     if(this.checkXRangeFromPlayer(60, 60) && this.checkYRangeFromPlayer(80,80)){
                         //console.log("player is in range");
                         this.inEmergingAnimation = true;
+
+                        this.lightSource.visible = true;
 
                         this.scene.initSoundEffect('growSFX','2',0.05);
 
@@ -304,18 +308,18 @@ class mushroom extends enemy {
 
                 }
                         
-            if(this.curNode.root.x+7 < this.x){
+            if(this.curNode.root.x+27 < this.x){
                 this.setVelocityX(-this.transferSpeed);  
-            }else if(this.curNode.root.x-7 > this.x){
+            }else if(this.curNode.root.x-27 > this.x){
                 this.setVelocityX(this.transferSpeed);
             }else{
                 this.setVelocityX(0);
                 this.x = this.curNode.root.x;
             }
 
-            if(this.curNode.root.y+22+7 < this.y){
+            if(this.curNode.root.y+22+27 < this.y){
                 this.setVelocityY(-this.transferSpeed);  
-            }else if(this.curNode.root.y+22-7 > this.y){
+            }else if(this.curNode.root.y+22-27 > this.y){
                 this.setVelocityY(this.transferSpeed);
             }else{
                 this.setVelocityY(0);

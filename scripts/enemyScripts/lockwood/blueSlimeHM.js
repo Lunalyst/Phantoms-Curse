@@ -35,7 +35,7 @@ class blueSlimeHM extends enemy {
         this.randomInputCooldown = false;
 
         this.largeSlimeDamageCounter = false;
-        this.body.bounce.x = 1;
+        //this.body.bounce.x = 1;
 
         this.slimeSoundCoolDown = false;
 

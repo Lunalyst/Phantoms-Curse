@@ -33,7 +33,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.healthUpgrades = this.physics.add.group();
 
     //set up the invisible barriers group
-    this.invisibleBarriers = this.physics.add.group();
+    this.invisibleBarriers = this.add.group();
 
     //sets npc group.
     this.npcs = this.add.group();
@@ -67,13 +67,13 @@ class G2levelSetupFunctions extends G1PlayerInputs {
   setUpWallLights(){
     //set up the invisible barriers group
     console.log('created wall light group');
-    this.wallLights = this.physics.add.group();
+    this.wallLights = this.add.group();
   }
 
   setUpMushroomNodes(){
     //set up the invisible barriers group
     console.log('created wall light group');
-    this.mushroomNodes = this.physics.add.group();
+    this.mushroomNodes = this.add.group();
   }
 
   setUpSlimeSpikes(){

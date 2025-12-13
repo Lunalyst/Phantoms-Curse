@@ -88,6 +88,7 @@
   <script src="scripts/levelScripts/lockwoodLevels/earieCave.js"></script>
   <script src="scripts/levelScripts/lockwoodLevels/messyShed.js"></script>
   <script src="scripts/levelScripts/lockwoodLevels/minigameShed.js"></script>
+  <script src="scripts/levelScripts/lockwoodLevels/LockwoodEntrance.js"></script>
   
   
 
@@ -224,7 +225,7 @@
           default: 'arcade',
           arcade: {
             // debug is excelent for testing velocity and hitboxes.
-            debug: true
+            debug: false
           }
         },
         // loads animated tile plugin?
@@ -283,6 +284,7 @@
           new messyShed,
           new minigameShed,
           new dreamShed,
+          new LockwoodEntrance,
         ],//multiple scenes
         scale: {
           mode: Phaser.Scale.FIT,

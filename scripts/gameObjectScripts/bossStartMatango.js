@@ -53,6 +53,7 @@ class bossStartMatango extends Phaser.Physics.Arcade.Sprite{
             tempMushroom.visible = false;
             tempMushroom.enemyDefeated = true;
             tempMushroom.movingToNewNode = true;
+            tempMushroom.enemyHP = 0;
 
              let mush = tempMushroom;
             setTimeout(function () {

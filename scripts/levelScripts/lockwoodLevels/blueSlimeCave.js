@@ -137,6 +137,8 @@ class blueSlimeCave extends defaultScene {
       this.initBarrier(1863,573-30,20,250);
       this.initBarrier(1605,573-30,30,180);
       this.initBarrier(661,669-30,30,180);
+
+      //this.initBarrier(1530,709,300,10);
      
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

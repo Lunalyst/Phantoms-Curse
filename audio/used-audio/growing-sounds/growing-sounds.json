@@ -22,6 +22,11 @@
             "start": 3.5,
             "end": 4.8,
             "loop": false
+        },
+        "defeat":{
+            "start": 4.7,
+            "end": 5.9,
+            "loop": false
         }
     
     }

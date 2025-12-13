@@ -21,7 +21,7 @@ class blueSlime extends enemy {
 
         this.mitosing = false;
         this.mitosisCounter = false;
-        this.body.bounce.x = 1;
+        //this.body.bounce.x = 1; 
         
 
         this.slimeSoundCoolDown = false;

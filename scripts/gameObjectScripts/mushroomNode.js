@@ -78,7 +78,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
 
-             this.curseLight = this.scene.lights.addLight(this.x,this.y, 80, 0xb317ff);   
+             this.curseLight = this.scene.lights.addLight(this.x,this.y+20, 80, 0xb317ff);   
                 //adds a tween to yoyo the radius of the light giving it a flicker effect.
                 this.scene.tweens.add({
                     targets: this.curseLight,

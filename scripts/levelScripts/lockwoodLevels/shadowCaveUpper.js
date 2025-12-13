@@ -123,7 +123,7 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initWallLight(971,367,'ghostMushroom2');
       
-      this.initWallLight(1343,495,'ghostMushroom4');
+      //this.initWallLight(1343,495,'ghostMushroom4');
 
       this.initSavePoints(1492,952-10);
 
@@ -261,17 +261,17 @@ class ShadowCaveUpper extends defaultScene {
         this.initBossStartMatango(this.mushroomRoot.x + 100, this.mushroomRoot.y);
       }
       
+      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
+      setTimeout(function(){
+        thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
+        thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
+
+        //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
+        thisScene.setUpShadowLightCollider();
+
     
-        this.initEnemy(905,1016,this.playerSex,'mushroomDefeat',false);
-        this.initEnemy(811,664,this.playerSex,'curseShadow',false);
-
-      //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
-      this.setUpShadowLightCollider();
-
-      console.log("this.curseShadows: ",this.curseShadows);
-      console.log("this.curseShadows: ",this.mushroomNodes);
-
-        this.spawnedEnemys = true;
+        thisScene.spawnedEnemys = true;
+      },1000);
 
 
         //calls the time outs for various things.

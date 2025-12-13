@@ -164,13 +164,15 @@ class ShadowCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
       
+      setTimeout(function(){
+                
+        thisScene.initEnemy(783,1500,thisScene.playerSex,'curseShadow',false);
 
-               
-      this.initEnemy(783,1500,this.playerSex,'curseShadow',false);
+        thisScene.initEnemy(1350,1550,thisScene.playerSex,'curseShadow',false);
+        thisScene.initEnemy(2197,1444,thisScene.playerSex,'curseShadow',false);
+        thisScene.spawnedEnemys = true;
 
-      this.initEnemy(1350,1550,this.playerSex,'curseShadow',false);
-      this.initEnemy(2197,1444,this.playerSex,'curseShadow',false);
-      this.spawnedEnemys = true;
+       },1000);
 
       //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
       this.setUpShadowLightCollider();

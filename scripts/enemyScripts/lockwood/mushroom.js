@@ -292,6 +292,8 @@ class mushroom extends enemy {
             this.lightSource.x = this.x;
             this.lightSource.y = this.y+35;
 
+            this.curNode.visible = true;
+
             if(this.curNode.root.x !== this.x || this.curNode.root.y+22 !== this.y ){
 
                 //make mycelium effect

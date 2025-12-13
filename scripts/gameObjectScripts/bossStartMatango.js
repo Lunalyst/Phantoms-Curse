@@ -50,6 +50,7 @@ class bossStartMatango extends Phaser.Physics.Arcade.Sprite{
             
 
         this.scene.mushrooms.children.each(function (tempMushroom) {
+
             tempMushroom.visible = false;
             tempMushroom.enemyDefeated = true;
             tempMushroom.movingToNewNode = true;

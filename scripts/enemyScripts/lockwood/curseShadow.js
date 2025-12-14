@@ -22,6 +22,9 @@ class curseShadow extends enemy {
         this.grabHitBox.setSize(56,30,true);
         this.hitboxActive = false;
 
+        this.setSize(270, 100, true);
+        this.setOffset(15, 125);
+
         this.attemptingGrab = false;
         this.grabTimer = false;
         this.isPlayingMissedAnims = false;
@@ -111,7 +114,7 @@ class curseShadow extends enemy {
 
         this.setSize(270, 100, true);
         this.setOffset(15, 125);
-        this.body.setGravityY(600);
+        //this.body.setGravityY(600);
 
         //determine shadows speed based on lanturn use
         if(this.scene.player1.lanturnFlicker !== null){

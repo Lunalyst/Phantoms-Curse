@@ -50,6 +50,8 @@ class matangoRoot extends matangoRootOral {
         this.playerBellyLocation = "";
         this.lastKeyPressed = "";
 
+        this.animationViewTransferValue = 0;
+
         this.grabType = "unbirth";
 
 
@@ -898,14 +900,14 @@ class matangoRoot extends matangoRootOral {
     //simple idle function played when the player is grabbed by something that isnt this enemy.
     moveIdle() {
 
-        console.log("matango root idle move function");
-        if(this.rightHand.returnedWithPlayerGrabbed === true){
+        //console.log("matango root idle move function");
+        if(this?.rightHand?.returnedWithPlayerGrabbed === true){
             this.grabType = "oral";
             this.rightHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
 
-        }else if(this.leftHand.returnedWithPlayerGrabbed === true){
+        }else if(this?.leftHand?.returnedWithPlayerGrabbed === true){
 
             this.grabType = "oral";
             this.leftHand.playerTransferToRoot();
@@ -913,6 +915,7 @@ class matangoRoot extends matangoRootOral {
             this.grab();
         }
 
+        if(this.inSafeMode === false){
         if(this.checkXRangeFromPlayer(80, 80)){
             this.anims.play('forwardIdleEyesDownDreamView',true);
         }else if(this.checkXRangeFromPlayer(110, 110)){
@@ -920,6 +923,8 @@ class matangoRoot extends matangoRootOral {
         }else{
             this.anims.play('sideIdleLoop',true);
         }
+        }
+      
 
 
     }
@@ -1275,12 +1280,15 @@ class matangoRoot extends matangoRootOral {
     //function to show off animation 
     animationGrab(){
 
-        console.log(' activating cat view grab logic');
+        //console.log(' activating cat view grab logic');
         if(this.grabType === "unbirth"){
             this.animationGrabUnbirth();
         }else if(this.grabType === "absorb"){
             this.animationGrabAbsorb();
+        }else if(this.grabType === "oral"){
+            this.animationGrabOral();
         }
+
     }
     
     

@@ -168,7 +168,7 @@ class PondForest extends defaultScene {
 
       this.initPortals(381,1661-13,1796,573,"warpCaveOutside","blueSlimeCave1");
 
-      this.initPortals(4780,1053-13,637,605,"door2","DevRoom1");
+      //this.initPortals(4780,1053-13,637,605,"door2","DevRoom1");
 
       this.initPortals(5039,1149-13,368,1080,"warpCaveOutside","ShadowCaveUpper");
 

@@ -506,65 +506,216 @@ class matangoRootOral extends  matangoRootUnbirth {
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
                     this.animationPlayed = true;
-                    this.anims.play("OralStart").once('animationcomplete', () => {
-                        //play struggle animation afterward.
-                        this.anims.play("OralIdle", true);
-                        this.startAnimationPlayed = true;
-                        this.animationPlayed = false;
+                    this.anims.play("oralVoreSwallow1").once('animationcomplete', () => {
+                        this.anims.play("oralVoreSwallow2").once('animationcomplete', () => {
+                            this.anims.play("oralVoreSwallow3").once('animationcomplete', () => {
+                                this.anims.play("oralVoreSwallow4").once('animationcomplete', () => {
+                                    //play struggle animation afterward.
+                                    this.anims.play("upperBellyIdle", true);
+                                    this.startAnimationPlayed = true;
+                                    this.animationPlayed = false;
 
-                        //puts the key display in the correct location.
-                        this.scene.KeyDisplay.visible = true;
-                        this.scene.KeyDisplay.x = this.x;
-                        this.scene.KeyDisplay.y = this.y + 95;
+                                    this.playerBellyLocation = "upper";
+                                    //puts the key display in the correct location.
+                                    this.scene.KeyDisplay.visible = true;
+                                    this.scene.KeyDisplay.x = this.x;
+                                    this.scene.KeyDisplay.y = this.y + 95;
+                                });     
+                            });     
+                        });     
                     });       
                 }else if(this.startAnimationPlayed === true){
-                    // handles input for progressing animation
-                    if (this.scene.checkWPressed() === true) {
-                        this.playerProgressingAnimation = true;
+
+                    // displays inputs while in the first stage of the animation viewing.
+                    if (this.keyAnimationPlayed === false) {
+                        //console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    }
+                    
+                    console.log(' this.animationViewTransferValue: ',this.animationViewTransferValue ," this.struggleAnimationInterupt: ",this.struggleAnimationInterupt);
+                    if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'upper'){
+
+                        //need new key binded for this task. pain need to add it to mobile controls...
+                        /*if (this.scene.checkWPressed() === true) {
+                            //this.playerProgressingAnimation = true;
+                        
+
+                        }*/
+
+                        if(this.scene.checkWPressed() === true) {
+
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                this.lastKeyPressed = 'W';
+                                if(this.animationViewTransferValue < 5){
+                                    this.animationViewTransferValue++;
+                                }
+                                this.anims.play('upperBellyUpStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkAPressed() === true ) {
+
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.flipX = false;
+                                this.lastKeyPressed = 'A';
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                if(this.animationViewTransferValue < 5){
+                                    this.animationViewTransferValue ++;
+                                } 
+                                this.anims.play('upperBellySideStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkSPressed() === true) {
+
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                if(this.animationViewTransferValue > 0){
+                                    this.animationViewTransferValue --;
+                                } 
+                                this.anims.play('upperBellyDownStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkDPressed() === true ) {
+
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.flipX = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                if(this.animationViewTransferValue > 0){
+                                    this.animationViewTransferValue --;
+                                } 
+                                this.anims.play('upperBellySideStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.struggleAnimationInterupt === false){
+                            this.anims.play("upperBellyIdle", true);
+                            this.playStomachSound('3',800); 
                         }
 
-                        // displays inputs while in the first stage of the animation viewing.
-                        if (this.keyAnimationPlayed === false) {
-                            //console.log(" setting keyW display");
-                            this.scene.KeyDisplay.playWKey();
-                            this.keyAnimationPlayed = true;
+                    }else if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'lower'){
+                        if(this.scene.checkWPressed() === true ) {
 
-                    }else if(this.scene.checkAPressed() === true) {
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                if(this.animationViewTransferValue > 0){
+                                    this.animationViewTransferValue --;
+                                } 
+                                this.anims.play('lowerBellyMiddleStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkAPressed() === true ) {
 
-                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
-                            this.struggleAnimationInterupt = true;
-                            this.flipX = false;
-                            this.scene.initSoundEffect('stomachSFX','4',0.1);
-                            this.anims.play('OralSideStruggle').once('animationcomplete', () => {
-                                this.animationPlayed = false;
-                                this.struggleAnimationInterupt = false;
-                            });
-                        }
-                    }else if(this.scene.checkSPressed() === true) {
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.flipX = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                this.lastKeyPressed = 'A';
+                                if(this.animationViewTransferValue < 5){
+                                    this.animationViewTransferValue ++;
+                                }
+                                this.anims.play('lowerBellySideStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkSPressed() === true ) {
 
-                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
-                            this.struggleAnimationInterupt = true;
-                            this.scene.initSoundEffect('stomachSFX','4',0.1);
-                            this.anims.play('OralDownStruggle').once('animationcomplete', () => {
-                                this.animationPlayed = false;
-                                this.struggleAnimationInterupt = false;
-                            });
-                        }
-                    }else if(this.scene.checkDPressed() === true) {
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                if(this.animationViewTransferValue > 0){
+                                    this.animationViewTransferValue --;
+                                } 
+                                this.anims.play('lowerBellyMiddleStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.scene.checkDPressed() === true ) {
 
-                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
-                            this.struggleAnimationInterupt = true;
-                            this.flipX = true;
-                            this.scene.initSoundEffect('stomachSFX','4',0.1);
-                            this.anims.play('OralSideStruggle').once('animationcomplete', () => {
-                                this.animationPlayed = false;
-                                this.struggleAnimationInterupt = false;
-                            });
-                        }
+                            if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                                this.struggleAnimationInterupt = true;
+                                this.flipX = false;
+                                this.scene.initSoundEffect('stomachSFX','4',0.1);
+                                this.lastKeyPressed = 'D';
+                                if(this.animationViewTransferValue < 5){
+                                    this.animationViewTransferValue ++;
+                                }
+                                this.anims.play('lowerBellySideStruggle').once('animationcomplete', () => {
+                                    this.animationPlayed = false;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            }
+                        }else if(this.struggleAnimationInterupt === false){
+                            this.anims.play("lowerBellyIdle", true);
+                            this.playStomachSound('3',800); 
+                        }    
+
                     }else if(this.struggleAnimationInterupt === false){
-                        this.anims.play("OralIdle", true);
-                        this.playStomachSound('3',800); 
-                    }   
+
+                        this.struggleAnimationInterupt = true;
+                        if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'W'){
+                             this.anims.play('upperBellySpitUp').once('animationcomplete', () => {
+                                this.anims.play('upperBellyReSwallow').once('animationcomplete', () => {
+                                    this.animationViewTransferValue = 0;
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            });
+                        }else if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'A'){
+                            this.anims.play('upperBellyToLowerBelly1').once('animationcomplete', () => {
+                                this.anims.play('upperBellyToLowerBelly2').once('animationcomplete', () => {
+                                    this.animationViewTransferValue = 0;
+                                    this.playerBellyLocation = 'lower';
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            });
+                        }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'A'){
+                            this.anims.play('lowerBellyToUpperBelly1').once('animationcomplete', () => {
+                                this.anims.play('lowerBellyToUpperBelly2').once('animationcomplete', () => {
+                                    this.animationViewTransferValue = 0;
+                                    this.playerBellyLocation = 'upper';
+                                    this.struggleAnimationInterupt = false;
+                                });
+                            });
+                        }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'D'){
+                            this.anims.play("lowerBellyGrabRelease1").once('animationcomplete', () => {
+                                this.anims.play("lowerBellyGrabRelease2").once('animationcomplete', () => {
+                                    this.animationViewTransferValue = 0;
+                                    this.struggleAnimationInterupt = false;
+                                     //then free player.
+                                    this.resetVariables();
+                                    this.playerBellyLocation = 'upper';
+
+                                    this.animationPlayed = false ;
+                                    this.startAnimationPlayed = false;
+                                    this.keyAnimationPlayed = false;
+                                    this.playerProgressingAnimation = false;
+                                    this.playerGrabbed = false;
+
+                                    this.anims.play('forwardIdleEyesDownDreamView',true);
+
+                                    this.scene.player1.mainHitbox.x = this.x + 60;
+                                    //this.playerBellyLocation = 'upper';
+                                });
+                            });
+                        }
+
+                    }
                 }   
             }
 

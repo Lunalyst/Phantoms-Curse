@@ -251,18 +251,18 @@ class mushroom extends enemy {
 
                     }
                     
-                    if(this.curNode.x+7 < this.x){
+                    if(this.curNode.x+27 < this.x){
                         this.setVelocityX(-this.transferSpeed);  
-                    }else if(this.curNode.x-7 > this.x){
+                    }else if(this.curNode.x-27 > this.x){
                         this.setVelocityX(this.transferSpeed);
                     }else{
                         this.setVelocityX(0);
                         this.x = this.curNode.x;
                     }
 
-                    if(this.curNode.y+22+7 < this.y){
+                    if(this.curNode.y+22+27 < this.y){
                         this.setVelocityY(-this.transferSpeed);  
-                    }else if(this.curNode.y+22-7 > this.y){
+                    }else if(this.curNode.y+22-27 > this.y){
                         this.setVelocityY(this.transferSpeed);
                     }else{
                         this.setVelocityY(0);

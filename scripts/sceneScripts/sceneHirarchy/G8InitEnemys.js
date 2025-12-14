@@ -733,16 +733,20 @@ class G8InitEnemys extends G7EnemyCollisions{
           });
           tempCat.addColliderRef(collider1);
 
+        }else{
+          tempCat.setDepth(4);
         }
       },
       angryWhiteCat: function angryWhiteCatFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
         let cat = new whiteCat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         cat.angry = true;
         cat.anims.play('catAngryidleViewer',true);
+        cat.setDepth(4);
         console.log("created angryWhiteCat id: ",cat.enemyId);
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(cat);
         tempSceneRef.whiteCats.add(cat);
+        
       },
       curseShadow: function curseShadowFunction(startX, startY, playerSex,inSafeMode) {
         let shadow = new curseShadow(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
@@ -929,6 +933,8 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(mush);
         tempSceneRef.matangoRoots.add(mush);
 
+        mush.anims.play('sideIdleLoop',true);
+
         mush.grabType = "unbirth";
 
       },
@@ -941,7 +947,24 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(mush);
         tempSceneRef.matangoRoots.add(mush);
 
+        mush.anims.play('AngleIdleLoop',true);
+
         mush.grabType = "absorb";
+        
+
+      },
+      matangoRootOral: function matangoRootOralFunction(startX, startY, playerSex,inSafeMode,rootNode) {
+
+        let mush = new matangoRoot(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        mush.rootNode = rootNode;
+        tempSceneRef.enemyId++;
+        console.log("created mushdefeat id: ",mush.enemyId);
+        tempSceneRef.enemys.add(mush);
+        tempSceneRef.matangoRoots.add(mush);
+
+        mush.anims.play('forwardIdleEyesDownDreamView',true);
+
+        mush.grabType = "oral";
 
       }
 

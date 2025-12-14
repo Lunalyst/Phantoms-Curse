@@ -210,7 +210,26 @@ class dreamShadowCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(600,525,thisScene.playerSex,"matangoRootAbsorb",true);
+          thisScene.initEnemy(570,525,thisScene.playerSex,"matangoRootAbsorb",true);
+
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.matangoRootFemaleOral,
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind:  "not defined yet",
+          foundFlag: false,
+        };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(420,525,thisScene.playerSex,"matangoRootOral",true);
 
         }
 

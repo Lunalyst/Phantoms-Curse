@@ -385,17 +385,17 @@ class matangoRootAbsorb extends enemy {
                         this.scene.KeyDisplay.y = this.y + 95;
                     });       
                 }else if(this.startAnimationPlayed === true){
+
+                    // displays inputs while in the first stage of the animation viewing.
+                    if (this.keyAnimationPlayed === false) {
+                        //console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    }
                     // handles input for progressing animation
                     if (this.scene.checkWPressed() === true) {
                         this.playerProgressingAnimation = true;
-                        }
-
-                        // displays inputs while in the first stage of the animation viewing.
-                        if (this.keyAnimationPlayed === false) {
-                            //console.log(" setting keyW display");
-                            this.scene.KeyDisplay.playWKey();
-                            this.keyAnimationPlayed = true;
-
+                        
                     }else if(this.scene.checkAPressed() === true) {
 
                         if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){

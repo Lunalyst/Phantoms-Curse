@@ -112,6 +112,8 @@ class LockwoodEntrance extends defaultScene {
 
       this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
 
+      this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
+
       this.initLunalyst(935,1083,'clearingTheWay');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.

@@ -264,7 +264,7 @@ class ShadowCaveUpper extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
         thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
-        thisScene.initEnemy(811,664,thisScene.playerSex,'curseShadow',false);
+        thisScene.initEnemy(811,654,thisScene.playerSex,'curseShadow',false);
 
         //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
         thisScene.setUpShadowLightCollider();

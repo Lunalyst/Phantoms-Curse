@@ -1809,6 +1809,8 @@ class whiteCat extends enemy {
 
         let currentCat = this;
 
+        this.setDepth(4);
+
         //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         

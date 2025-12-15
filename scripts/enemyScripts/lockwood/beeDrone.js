@@ -641,21 +641,21 @@ class beeDrone extends enemy {
     }
 
     // controls the damage resistance of the beeDrone.
-    damage() {
+    damage(refrence) {
         this.setVelocityX(0);
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
-                this.calcDamage(
-                    this.scene.player1.sliceDamage,
-                    this.scene.player1.bluntDamage,
-                    this.scene.player1.pierceDamage,
-                    this.scene.player1.heatDamage,
-                    this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage,
-                    this.scene.player1.curseDamage
+               this.calcDamage(
+                    refrence.sliceDamage,
+                    refrence.bluntDamage,
+                    refrence.pierceDamage,
+                    refrence.heatDamage,
+                    refrence.lightningDamage,
+                    refrence.coldDamage,
+                    refrence.curseDamage
                 );
 
                 

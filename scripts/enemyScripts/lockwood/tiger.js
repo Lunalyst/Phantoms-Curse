@@ -356,14 +356,14 @@ class tiger extends enemy {
                             this.flipX = false;
                             this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                                 this.jumpAnimationPlayed = false;
-                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false){
+                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false && this.enemyDefeated === false){
                                 this.setVelocityY(250*-1);
                                 }
                                 this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
                                     currentTiger.jumped = false;
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false  && currentTiger.enemyDefeated === false){
                                         currentTiger.setVelocityX(310);
                                     }
                                 }, 160);
@@ -390,14 +390,14 @@ class tiger extends enemy {
                             this.flipX = true;
                             this.anims.play('tigerJumpStart').once('animationcomplete', () => {
                                 this.jumpAnimationPlayed = false;
-                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false){
+                                if(this.tigerIsEating === false && this.scene.grabbed === false && this.grabTimer === false && this.enemyDefeated === false){
                                     this.setVelocityY(250*-1);
                                 }
                                 
                                 this.grabTimer = false;
                                 let currentTiger = this;
                                 setTimeout(function () {
-                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false){
+                                    if(currentTiger.playerGrabbed === false && currentTiger.grabTimer === false && currentTiger.tigerIsEating === false && currentTiger.scene.grabbed === false && currentTiger.enemyDefeated === false){
                                         currentTiger.setVelocityX(310*-1);
                                     }
                                     currentTiger.jumped = false;
@@ -669,7 +669,6 @@ class tiger extends enemy {
             //sets velocity to zero since the enemy should not be moving.
             this.body.setGravityY(600);
         }
-        this.setVelocityX(0);
         //object is on view layer 4 so idling enemys dont overlap current one.
         this.setDepth(4);
     }
@@ -1658,7 +1657,7 @@ class tiger extends enemy {
                 }
     }
 
-    damage() {
+    damage(refrence) {
         this.setVelocityX(0);
 
         console.log("this.damageCoolDown:" + this.damageCoolDown,"this.isHidding:" + this.isHidding);
@@ -1668,14 +1667,14 @@ class tiger extends enemy {
             console.log("activating damage function");
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
-                this.calcDamage(
-                    this.scene.player1.sliceDamage,
-                    this.scene.player1.bluntDamage,
-                    this.scene.player1.pierceDamage,
-                    this.scene.player1.heatDamage,
-                    this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage,
-                    this.scene.player1.curseDamage
+              this.calcDamage(
+                    refrence.sliceDamage,
+                    refrence.bluntDamage,
+                    refrence.pierceDamage,
+                    refrence.heatDamage,
+                    refrence.lightningDamage,
+                    refrence.coldDamage,
+                    refrence.curseDamage
                 );
                 this.playJumpySound('2',700);
 
@@ -1723,6 +1722,7 @@ class tiger extends enemy {
 
     enemyDefeatedLogic(){
         this.anims.play('tigerDefeatedLoop', true);
+        this.setVelocityX(0);
     }
    
     calcDamage(slice, blunt, pierce, heat, lightning, cold,curse) {

@@ -70,6 +70,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.gaveUp = false;
 
         this.preventGiveUp = false;
+        this.playerGaveUp = false;
 
         console.log("sex passed in enemy: " + sex);
 
@@ -172,6 +173,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         
         //if(Phaser.Input.Keyboard.JustDown(this.scene.keyTAB)){
         if(this.scene.checkGiveUpIndicatorIsDown() && this.preventGiveUp === false){
+            this.playerGaveUp = true;
             healthEmitter.emit(healthEvent.loseHealth,9999);
             healthEmitter.emit(healthEvent.curseBuildUp,9999);
         }

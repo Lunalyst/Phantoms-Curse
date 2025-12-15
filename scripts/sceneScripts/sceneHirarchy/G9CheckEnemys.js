@@ -360,7 +360,7 @@ class G9CheckEnemys extends G8InitEnemys {
 
         if(tempSlime.hitboxOverlaps === true) {
           console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
-          tempSlime.damage(scene);
+          tempSlime.damage(this.player1);
           tempSlime.hitboxOverlaps = false;
         }
         
@@ -402,7 +402,7 @@ class G9CheckEnemys extends G8InitEnemys {
         
         if(tempSlime.hitboxOverlaps === true) {
           console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
-          tempSlime.damage(scene);
+          tempSlime.damage(this.player1);
           tempSlime.hitboxOverlaps = false;
         }
         
@@ -441,7 +441,7 @@ class G9CheckEnemys extends G8InitEnemys {
         
         if(tempSlime.hitboxOverlaps === true) {
           console.log("slime taking damage, slime hp:" + tempSlime.slimeHp);
-          tempSlime.damage(scene);
+          tempSlime.damage(this.player1);
           tempSlime.hitboxOverlaps = false;
         }
         
@@ -487,7 +487,7 @@ class G9CheckEnemys extends G8InitEnemys {
           console.log("tiger taking damage, tiger hp:" + tempTiger.enemyHP);
         
           //inflict damage to tiger
-          tempTiger.damage(scene);
+          tempTiger.damage(this.player1);
         
           //clear overlap verable in tiger.
           tempTiger.hitboxOverlaps = false;
@@ -536,7 +536,7 @@ class G9CheckEnemys extends G8InitEnemys {
         console.log("tiger taking damage, tiger hp:" + tempRabbits.enemyHP);
       
         //inflict damage to tiger
-        tempRabbits.damage(scene);
+        tempRabbits.damage(this.player1);
 
         tempRabbits.setVelocityX(0);
       
@@ -583,7 +583,7 @@ class G9CheckEnemys extends G8InitEnemys {
           console.log("beeDrone taking damage, beedrone hp:" + tempBeeDrone.enemyHP);
         
           //inflict damage to tiger
-          tempBeeDrone.damage(scene);
+          tempBeeDrone.damage(this.player1);
         
           //clear overlap verable in tiger.
           tempBeeDrone.hitboxOverlaps = false;
@@ -633,7 +633,7 @@ class G9CheckEnemys extends G8InitEnemys {
         if(tempBat.hitboxOverlaps === true) {
         
           //inflict damage to tiger
-          tempBat.damage(scene);
+          tempBat.damage(this.player1);
         
           //clear overlap verable in tiger.
           tempBat.hitboxOverlaps = false;
@@ -670,7 +670,7 @@ class G9CheckEnemys extends G8InitEnemys {
 
         if(tempMimic.hitboxOverlaps === true) {
           console.log("mimic taking damage, mimic hp:" + tempMimic.enemyHP);
-          tempMimic.damage(scene);
+          tempMimic.damage(this.player1);
           tempMimic.hitboxOverlaps = false;
 
           //if the mimic is attacked then set the value so it can jump out and get angry.
@@ -717,7 +717,7 @@ class G9CheckEnemys extends G8InitEnemys {
         }
 
         if(tempCat.hitboxOverlaps === true) {
-          tempCat.damage(scene);
+          tempCat.damage(this.player1);
 
           tempCat.setVelocityX(0);
 
@@ -834,7 +834,7 @@ class G9CheckEnemys extends G8InitEnemys {
         
         //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
         if(tempMushrooms.hitboxOverlaps === true) {
-          tempMushrooms.damage(scene);
+          tempMushrooms.damage(this.player1);
           console.log("damaging mushroom node!")
           tempMushrooms.hitboxOverlaps = false;
         }
@@ -917,7 +917,7 @@ class G9CheckEnemys extends G8InitEnemys {
         }
         //if the mushroom is not in moving between nodes, is hiding or is in transition to be out of hiding, then allow for the mushroom to be damagedd
         if(tempMushrooms.hitboxOverlaps === true) {
-          tempMushrooms.damage(scene);
+          tempMushrooms.damage(this.player1);
           console.log("damaging mushroom node!")
           tempMushrooms.hitboxOverlaps = false;
         }

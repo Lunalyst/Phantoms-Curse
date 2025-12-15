@@ -42,6 +42,8 @@ class G12UpdateLoops extends G11CheckGameObjects{
         this.checkLocker();
       }
 
+      this.checkPlayerProjectiles();
+
       //not sure what these are for. saftey net when loading in?
       if(this.loadCoolDown === true){
         this.checkWarp(this.playerLocation);

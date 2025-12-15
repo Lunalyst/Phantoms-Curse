@@ -529,19 +529,29 @@ class matangoRootOral extends  matangoRootUnbirth {
                     // displays inputs while in the first stage of the animation viewing.
                     if (this.keyAnimationPlayed === false) {
                         //console.log(" setting keyW display");
-                        this.scene.KeyDisplay.playWKey();
+                        this.scene.KeyDisplay.playQuestionKey();
+                        //displays the give up option on screen
+                        giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
+            
                         this.keyAnimationPlayed = true;
                     }
                     
                     console.log(' this.animationViewTransferValue: ',this.animationViewTransferValue ," this.struggleAnimationInterupt: ",this.struggleAnimationInterupt);
                     if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'upper'){
 
-                        //need new key binded for this task. pain need to add it to mobile controls...
-                        /*if (this.scene.checkWPressed() === true) {
-                            //this.playerProgressingAnimation = true;
-                        
 
-                        }*/
+                        if(this.playerGaveUp === true){
+
+                            this.playerProgressingAnimation = true;
+                    
+                        }
+                        
+                        if (this.playerDefeated === false) {
+
+                            //allows the player to press tab to let the enemy defeat them
+                            this.tabToGiveUp();
+                                
+                        }
 
                         if(this.scene.checkWPressed() === true) {
 
@@ -605,6 +615,18 @@ class matangoRootOral extends  matangoRootUnbirth {
                         }
 
                     }else if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'lower'){
+
+                        if(this.playerGaveUp === true){
+                            this.playerProgressingAnimation = true;
+                        }
+                        
+                        if (this.playerDefeated === false) {
+
+                            //allows the player to press tab to let the enemy defeat them
+                            this.tabToGiveUp();
+                                
+                        }
+
                         if(this.scene.checkWPressed() === true ) {
 
                             if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
@@ -670,6 +692,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                         this.struggleAnimationInterupt = true;
                         if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'W'){
+                             this.flipX = false;
                              this.anims.play('upperBellySpitUp').once('animationcomplete', () => {
                                 this.anims.play('upperBellyReSwallow').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -677,6 +700,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                                 });
                             });
                         }else if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'A'){
+                            this.flipX = false;
                             this.anims.play('upperBellyToLowerBelly1').once('animationcomplete', () => {
                                 this.anims.play('upperBellyToLowerBelly2').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -685,6 +709,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                                 });
                             });
                         }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'A'){
+                            this.flipX = false;
                             this.anims.play('lowerBellyToUpperBelly1').once('animationcomplete', () => {
                                 this.anims.play('lowerBellyToUpperBelly2').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -693,6 +718,8 @@ class matangoRootOral extends  matangoRootUnbirth {
                                 });
                             });
                         }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'D'){
+
+                            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
                             this.anims.play("lowerBellyGrabRelease1").once('animationcomplete', () => {
                                 this.anims.play("lowerBellyGrabRelease2").once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -700,6 +727,8 @@ class matangoRootOral extends  matangoRootUnbirth {
                                      //then free player.
                                     this.resetVariables();
                                     this.playerBellyLocation = 'upper';
+
+
 
                                     this.animationPlayed = false ;
                                     this.startAnimationPlayed = false;

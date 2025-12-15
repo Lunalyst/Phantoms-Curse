@@ -893,6 +893,30 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                 this.scene.initSoundEffect('weaponSFX','medium',0.1);
                 this.playerBonkAnimation9FPS();
 
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null,
+                    playerMaxHealth: null
+                };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //if(playerHealthObject.playerCurse > 1){
+
+                    //healthEmitter.emit(healthEvent.reduceCurse,3);
+
+                    if(this.mainBodySprite5.flipX === false){
+                      this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,1500);
+                    }else{
+                      this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,1500);
+                    }
+
+                //}
+
+              
+                
+
                 this.weaponLayer9.anims.play("weapon-conidia-caster").once('animationcomplete', () => {
 
                   this.isAttacking = false;

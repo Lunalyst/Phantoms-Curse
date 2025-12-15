@@ -1619,7 +1619,7 @@ class bat extends enemy {
     }
 
     // controls the damage resistance of the bat.
-    damage() {
+    damage(refrence) {
         console.log("this.enemyHP:" + this.enemyHP);
         this.setVelocityX(0);
         if (this.damageCoolDown === false && this.batIsEating === false) {
@@ -1628,13 +1628,13 @@ class bat extends enemy {
             if (this.enemyHP > 0) {
 
                 this.calcDamage(
-                    this.scene.player1.sliceDamage,
-                    this.scene.player1.bluntDamage,
-                    this.scene.player1.pierceDamage,
-                    this.scene.player1.heatDamage,
-                    this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage,
-                    this.scene.player1.curseDamage
+                    refrence.sliceDamage,
+                    refrence.bluntDamage,
+                    refrence.pierceDamage,
+                    refrence.heatDamage,
+                    refrence.lightningDamage,
+                    refrence.coldDamage,
+                    refrence.curseDamage
                 );
 
                 this.playJumpySound('2',700);

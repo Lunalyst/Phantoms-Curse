@@ -439,6 +439,25 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       });
 
     }
+
+    initPlayerProjectile(x,y,type,direction,speed,duration){
+      let tempProjectile = new playerProjectile(this,x,y,type,direction,speed,duration);
+
+      this.playerProjectiles.add(tempProjectile);
+
+      if(this.lightingSystemActive === true){ 
+        tempProjectile.setPipeline('Light2D');
+      }
+
+      let tempScene = this;
+      //overlap function to let player know that the curse bar is increasing.
+      /*tempProjectile.colliderRefrence =  this.physics.add.overlap(this.player1.mainHitbox, tempProjectile, function () {
+
+        tempScene.player1.overlapCurseBuildUp();
+        
+      });*/
+
+    }
   
 
 }

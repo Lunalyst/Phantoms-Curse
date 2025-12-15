@@ -26,6 +26,8 @@ class G1PlayerInputs extends A3SoundEffects {
     //creates a hitbox which will be used to 
     this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
 
+    this.playerProjectiles = this.add.group();
+
     //moves the player hitbox out of the way
     this.attackHitBox.x = this.x;
     this.attackHitBox.y = this.y+10000;

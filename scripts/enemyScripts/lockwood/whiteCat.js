@@ -1270,11 +1270,10 @@ class whiteCat extends enemy {
     // controls the damage resistance of the cat.
     damage(refrence) {
 
-        if (this.damageCoolDown === false && this.angryTransition === false) {
+        if (this.damageCoolDown === false && this.angryTransition === false && this.eaten === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
-                
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.calcDamage(
                     refrence.sliceDamage,

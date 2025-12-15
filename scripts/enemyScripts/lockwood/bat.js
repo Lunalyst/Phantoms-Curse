@@ -234,6 +234,12 @@ class bat extends enemy {
     //functions that move bat objects.
     move(){
 
+    if(this.target === null){
+        console.log("target is null for no fucking reason so setting it back to the player!");
+        console.log("this.target: ", this.target);
+        this.target = this.scene.player1;
+        console.log("this.target: ", this.target);
+    }
 
     if(this.isSleeping === false && this.batHasEatenCat === false && this.enemyDefeated === false && this.enemyInDefeatedLogic === false){
 
@@ -774,6 +780,14 @@ class bat extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this bat.
     moveIdle() {
+
+        if(this.target === null){
+            console.log("target is null for no fucking reason so setting it back to the player!");
+            console.log("this.target: ", this.target);
+            this.target = this.scene.player1;
+            console.log("this.target: ", this.target);
+        }
+
         if(this.isSleeping === false){
             if(this.enemyInDefeatedLogic === false){
                 this.anims.play('batIdle', true);

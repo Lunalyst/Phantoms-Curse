@@ -1090,7 +1090,7 @@ class rabbit extends enemy {
                 }
 
                 this.keyAnimationPlayed = true;    
-            }else if(this.rabbitIsHungry === true){
+            }else if(this.rabbitIsHungry === true && this.spitUp === false){
 
                 //handle random inputs
                 if (this.randomInput === 0) {
@@ -1709,9 +1709,61 @@ class rabbit extends enemy {
 
                     }else if(this.playerDefeatedAnimationStage === 0){
     
-                    this.struggleFree = true;
-                        
-                    }
+                        this.struggleFree = true;
+
+                        this.flipX = false;
+                        this.anims.play("rabbitHungerIdle");
+                        //resets the enemy variables and player variables.
+                        this.struggleFree = false;
+                        this.playerBrokeFree = 0;
+                        this.struggleCounter = 0;
+                        this.animationPlayed = false;
+                        this.playerDamaged = false;
+                        this.playerGrabbed = false;
+                        this.keyAnimationPlayed = false;
+                        this.scene.grabbed = false;
+                        this.scene.player1.visible = true;
+                        this.isPlayingMissedAnims = false;
+                        this.grabTimer = false;
+                        this.playerDamageTimer = false;
+
+                        this.startedGrab = false;
+                        this.playerDefeatedAnimationStage = 0;
+                        this.struggleAnimationInterupt = false;
+                        this.spitUp = false;
+
+                        this.attackHitboxActive = false;
+                        this.hitboxActive = false;
+                        this.attemptingGrab = false;
+                        this.swallowDelay  = false;
+                        this.attackHitboxActive = false;
+                        //player1.setSize(23, 68, true);
+
+                        struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                        //hides the mobile controls in the way of the tab/skip indicator.
+                        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+
+                        this.scene.player1.x = this.x;
+                        this.scene.player1.y = this.y;
+                        this.scene.grabbed = false;
+                        this.scene.KeyDisplay.visible = false;
+                        // creates a window of time where the player cant be grabbed after being released.
+                        // creates a cooldown window so the player does not get grabbed as they escape.
+                        let currentRabbit = this;
+                        setTimeout(function () {
+                            currentRabbit.grabCoolDown = false;
+                            currentRabbit.scene.grabCoolDown = false;
+                            console.log("grab cooldown has ended. player can be grabbed agian.");
+                        }, 1500);
+
+                        this.shoveCoolDown = true;   
+                        setTimeout(function () {
+                            currentRabbit.shoveCoolDown = false;
+                            console.log("shoveCoolDown has ended. player can be grabbed agian.");
+                        }, 2000);
+                            
+                        }
 
                     //hides the mobile controls in the way of the tab/skip indicator.
                     controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);

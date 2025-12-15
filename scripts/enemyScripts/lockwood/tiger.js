@@ -906,7 +906,7 @@ class tiger extends enemy {
 
     playerIsNotDefeatedInputs(playerHealthObject){
         //if we arnt actively phase tranistioning.
-        if(this.animationPlayed === false){
+        if(this.animationPlayed === false && this.spitUp === false){
 
             //show struggle button, and bar
             this.scene.KeyDisplay.visible = true;
@@ -1603,7 +1603,47 @@ class tiger extends enemy {
                         //play spitup animation
                         this.anims.play("tigerSplitUpPlayer").once('animationcomplete', () => {
                             //then free player.
-                            this.struggleFree = true;
+
+                             //hides the mobile controls in the way of the tab/skip indicator.
+                             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
+                            this.flipX = false;
+                            this.anims.play("tigerIdle");
+                            this.struggleFree = false;
+                            this.playerBrokeFree = 0;
+                            //this.anims.play("tigerStruggleBreakRight", true);
+                            this.struggleCounter = 0;
+                            this.animationPlayed = false;
+                            this.playerDamaged = false;
+                            this.playerGrabbed = false;
+                            this.keyAnimationPlayed = false;
+                            this.scene.player1.visible = true;
+                            this.isPlayingMissedAnims = false;
+                            this.grabTimer = false;
+
+                            this.startedGrab = false;
+                            this.playerDefeatedAnimationStage = 0;
+                            this.struggleAnimationInterupt = false;
+                            this.spitUp = false;
+                            //player1.setSize(23, 68, true);
+                            struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+
+                            //hides the mobile controls in the way of the tab/skip indicator.
+                            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+
+                            this.scene.player1.x = this.x;
+                            this.scene.player1.y = this.y;
+                            this.scene.grabbed = false;
+                            this.scene.KeyDisplay.visible = false;
+                            // creates a window of time where the player cant be grabbed after being released.
+                            // creates a cooldown window so the player does not get grabbed as they escape.
+                            let currentTiger = this;
+                            setTimeout(function () {
+                                currentTiger.grabCoolDown = false;
+                                currentTiger.scene.grabCoolDown = false;
+                                console.log("grab cooldown has ended. player can be grabbed agian.");
+                            }, 1500);
+                
                         });
 
                     }else if(this.playerDefeatedAnimationStage === 0){
@@ -1616,8 +1656,8 @@ class tiger extends enemy {
                     controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                     
 
-                    // if the player if freed do the following to reset the player.
-                } else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
+                  // if the player if freed do the following to reset the player.
+                }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
                     this.flipX = false;
                     this.anims.play("tigerIdle");
                     this.struggleFree = false;

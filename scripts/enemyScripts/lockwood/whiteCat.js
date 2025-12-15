@@ -68,6 +68,8 @@ class whiteCat extends enemy {
         this.struggleAnimationInterupt = false;
         this.setDepth(6);
 
+        this.eaten = false;
+
 
         //console.log("this.enemySex: ",this.enemySex," sex ", sex);
 

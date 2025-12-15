@@ -2200,7 +2200,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node5"]
                     },
-                    //player struggle animation in her engourged belly.
+                    //player struggle animation in her engorged belly.
                     "node5":{
                         "dialogue": "Though that does not mean I will let you out, heheh.",
                         "profile":"vivianSmugTongue",
@@ -2269,7 +2269,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["node5"]
                     },
-                    //player struggle animation in her engourged belly.
+                    //player struggle animation in her engorged belly.
                     "node5":{
                         "dialogue": "Struggle all you like, you're mine now...",
                         "profile":"vivianSquish",
@@ -2463,7 +2463,7 @@ const npcDialogue = {
                 },
                 "blueSlime_female_hm_vore":{
                     "node1":{
-                        "dialogue": "You where caught of guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their chest. enjoying playing with you, it squished you into her stomache, then moved you to her now engourged breasts. Moving you between the now massive sacks of soft slime. Once she had her fun, you where absorbed into her body. Now you will spend the rest of your days padding out the breasts of a engorged slime girl.",
+                        "dialogue": "You where caught off guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their chest. enjoying playing with you, it squished you into her stomache, then moved you to her now engorged breasts. Moving you between the now massive sacks of soft slime. Once she had her fun, you where absorbed into her body. Now you will spend the rest of your days padding out the breasts of a engorged slime girl.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -2471,7 +2471,7 @@ const npcDialogue = {
                 },
                 "blueSlime_male_hm_vore":{
                     "node1":{
-                        "dialogue": "You where caught of guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their engorged penis. Quickly squeezing you through its urethra and into its large balls. as the slime began to pleasure itself, you felt your body throbbing with pleasure as you melted. When the slime climaxed you could feel what little of you was left rise quickly out the slimes massive cock. Only to be swallowed and reabsorbed. Now you will spend the rest of your days as slimey pudge on this engourged slime boy. ",
+                        "dialogue": "You where caught off guard, the strength of the slime overpowered you. Helpless to stop it, the slime engulfed you with their engorged penis. Quickly squeezing you through its urethra and into its large balls. as the slime began to pleasure itself, you felt your body throbbing with pleasure as you melted. When the slime climaxed you could feel what little of you was left rise quickly out the slimes massive cock. Only to be swallowed and reabsorbed. Now you will spend the rest of your days as slimey pudge on this engorged slime boy. ",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

@@ -27,8 +27,8 @@ class ShadowCaveUpper extends defaultScene {
       //define an array of enemys we are using
       this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms","matangoRoot"];
 
-       //call built in function to preload enemys assets.
-       this.setUpEnemyPreload(this.enemyGroupArray);
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
       
       this.load.tilemapTiledJSON("shadow_cave_upper_map" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave_Upper.json");
       this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");

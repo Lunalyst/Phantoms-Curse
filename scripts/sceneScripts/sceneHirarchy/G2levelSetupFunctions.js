@@ -46,14 +46,14 @@ class G2levelSetupFunctions extends G1PlayerInputs {
   setUpWoodenBarriers(){
     //set up the invisible barriers group
     console.log('created wooden barrier group');
-    this.woodenBarriers = this.physics.add.group();
+    this.woodenBarriers = this.add.group();
     this.usingWoodenBarriers = true;
   }
 
   setUpMushroomBarriers(){
     //set up the invisible barriers group
     console.log('created wooden barrier group');
-    this.mushroomBarriers = this.physics.add.group();
+    this.mushroomBarriers = this.add.group();
     this.usingMushroomBarriers = true;
   }
   //

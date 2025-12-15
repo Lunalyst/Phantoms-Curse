@@ -291,7 +291,9 @@ class player extends Phaser.GameObjects.Container{
       this.weaponLayer9.anims.create({key: 'weapon-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 41 }),frameRate: 9,repeat: 0});
 
       //conidia caster
-      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 42, end: 47 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster1',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 42, end: 44 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster2',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 45, end: 45 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster3',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 46, end: 47 }),frameRate: 9,repeat: 0});
 
       if(sex === 0){
         //this.booba8
@@ -902,56 +904,91 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                 //gets the hp value using a emitter
                 healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-                //if(playerHealthObject.playerCurse > 1){
+               
 
-                    //healthEmitter.emit(healthEvent.reduceCurse,3);
+                if(this.scene.lightingSystemActive === true){ 
 
-                    if(this.mainBodySprite5.flipX === false){
-                      this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,1500);
-                    }else{
-                      this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,1500);
-                    }
+                  this.curseLight.visible = true;
+                  if(this.mainBodySprite5.flipX === true){
 
-                //}
+                    this.curseLight.x = this.mainHitbox.x-20;
 
-              
+                  }else{
+                    this.curseLight.x = this.mainHitbox.x+20;
+                  }
+
+                  this.curseLight.y = this.mainHitbox.y-20;
                 
+                }
 
-                this.weaponLayer9.anims.play("weapon-conidia-caster").once('animationcomplete', () => {
-
-                  this.isAttacking = false;
-                  this.playedAttackAnimation = false;
-                  console.log("attack is over so stoping");
-                  this.bluntDamage = 0;
-                  this.curseDamage = 0;
-
+                this.weaponLayer9.anims.play("weapon-conidia-caster1").once('animationcomplete', () => {
                   if(this.scene.lightingSystemActive === true){ 
 
-                    this.curseLight.visible = false;
+                    if(this.mainBodySprite5.flipX === true){
+
+                      this.curseLight.x = this.mainHitbox.x-30;
+
+                    }else{
+                      this.curseLight.x = this.mainHitbox.x+30;
+                    }
+
+                    this.curseLight.y = this.mainHitbox.y;
                   
-                    
                   }
+
+                   //if(playerHealthObject.playerCurse > 1){
+
+                        //healthEmitter.emit(healthEvent.reduceCurse,3);
+
+                        if(this.mainBodySprite5.flipX === false){
+                          this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,1500);
+                        }else{
+                          this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,1500);
+                        }
+
+                    //}
+
+                  this.weaponLayer9.anims.play("weapon-conidia-caster2").once('animationcomplete', () => {
+
+
+                    if(this.scene.lightingSystemActive === true){ 
+
+                      if(this.mainBodySprite5.flipX === true){
+
+                        this.curseLight.x = this.mainHitbox.x-20;
+
+                      }else{
+                        this.curseLight.x = this.mainHitbox.x+20;
+                      }
+
+                      this.curseLight.y = this.mainHitbox.y+30;
+                    
+                    }
+
+                    this.weaponLayer9.anims.play("weapon-conidia-caster3").once('animationcomplete', () => {
+
+                        this.isAttacking = false;
+                        this.playedAttackAnimation = false;
+                        console.log("attack is over so stoping");
+                        this.bluntDamage = 0;
+                        this.curseDamage = 0;
+
+                        if(this.scene.lightingSystemActive === true){ 
+
+                          this.curseLight.visible = false;
+                        
+                          
+                        }
+
+                      });
+
+                  });
 
                 });
               }
               this.bluntDamage = 2;
               this.curseDamage = 2;
 
-              if(this.scene.lightingSystemActive === true){ 
-
-                this.curseLight.visible = true;
-                if(this.mainBodySprite5.flipX === true){
-
-                  this.curseLight.x = this.mainHitbox.x-30;
-
-                }else{
-                  this.curseLight.x = this.mainHitbox.x+30;
-                }
-
-                this.curseLight.y = this.mainHitbox.y;
-                
-                
-              }
               this.setAttackHitboxSize(20,40);
               this.HitBox(600,35);
               break;

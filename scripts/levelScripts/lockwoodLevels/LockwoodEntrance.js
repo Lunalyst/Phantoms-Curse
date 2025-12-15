@@ -27,6 +27,14 @@ class LockwoodEntrance extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["matangoRoot"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+      
+      
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
 
@@ -92,8 +100,8 @@ class LockwoodEntrance extends defaultScene {
       
       
       
-      //this.initSavePoints(2050,558);
-        // as well as signs.
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up containers
       this.setUpContainers();

@@ -38,6 +38,12 @@ class devRoom1 extends defaultScene {
       
       this.defaultPreload();
 
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -80,6 +86,9 @@ class devRoom1 extends defaultScene {
       
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

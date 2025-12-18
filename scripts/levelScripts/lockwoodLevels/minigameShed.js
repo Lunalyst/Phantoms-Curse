@@ -28,6 +28,12 @@ class minigameShed extends defaultScene {
       //storageLocker with a lower case s
       this.defaultPreload();
 
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('foxSFX','audio/used-audio/fox-scream-sounds/fox-scream-sounds.json',[
         "audio/used-audio/fox-scream-sounds/fox-scream-sounds.mp3"
       ]);
@@ -93,6 +99,9 @@ class minigameShed extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

@@ -936,9 +936,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                   
                   }
 
-                   //if(playerHealthObject.playerCurse > 1){
+                   if(playerHealthObject.playerCurse > 1){
 
-                        //healthEmitter.emit(healthEvent.reduceCurse,3);
+                        healthEmitter.emit(healthEvent.reduceCurse,3);
 
                         if(this.mainBodySprite5.flipX === false){
                           this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,1500);
@@ -946,7 +946,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                           this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,1500);
                         }
 
-                    //}
+                    }
 
                   this.weaponLayer9.anims.play("weapon-conidia-caster2").once('animationcomplete', () => {
 
@@ -955,10 +955,10 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
                       if(this.mainBodySprite5.flipX === true){
 
-                        this.curseLight.x = this.mainHitbox.x-20;
+                        this.curseLight.x = this.mainHitbox.x-10;
 
                       }else{
-                        this.curseLight.x = this.mainHitbox.x+20;
+                        this.curseLight.x = this.mainHitbox.x+10;
                       }
 
                       this.curseLight.y = this.mainHitbox.y+30;

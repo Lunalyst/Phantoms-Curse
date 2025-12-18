@@ -34,6 +34,12 @@ class tutorialBeach extends defaultScene {
       
       this.defaultPreload();
 
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
      this.load.audioSprite('oceanSFX','audio/used-audio/ocean-sounds/ocean-sounds.json',[
         "audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.mp3",
         "audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
@@ -147,6 +153,10 @@ class tutorialBeach extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

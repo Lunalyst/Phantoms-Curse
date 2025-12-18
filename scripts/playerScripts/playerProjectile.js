@@ -38,6 +38,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
       this.coldDamage = 0;
       this.curseDamage = 2;
 
+
       this.speed = speed;
       this.duration = duration;
       this.destroying = false;

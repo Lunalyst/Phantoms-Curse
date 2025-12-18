@@ -27,6 +27,13 @@ class ForestRavineHome extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
+
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("home_map" , "assets/tiledMap/LockWood/Forest_Tileset/Player_Home.json");
 
@@ -76,6 +83,9 @@ class ForestRavineHome extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

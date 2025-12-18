@@ -35,14 +35,17 @@ class matangoRoot extends matangoRootOral {
         this.isHiding = true;
         this.inEmergingAnimation = false;
         this.poppedOut = false;
-        this.enemyHP = 20;
-        this.enemyHPMax = 20;
+        this.enemyHP = 200;
+        this.enemyHPMax = 200;
         this.turning = false;
         this.idleState = 0;
         this.rootNode = null; 
         this.startedFight = false;
         this.attackCooldown = false;
-        this.isAttacking = false;
+
+        //controls attacking.
+        this.isAttacking = true;
+
         this.knockdownCheck = false;
         this.handAnimationLockout = false;
         this.visible = false;
@@ -67,6 +70,24 @@ class matangoRoot extends matangoRootOral {
         
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
+            this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'rawr', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 7, end: 15 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'forwardIdleEyesForward', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 16, end: 21 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'forwardIdleEyesDown', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 22, end: 27 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'forwardIdleEyesDownDreamView', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 22, end: 27 }), frameRate:  10, repeat: -1 });
+
+            this.anims.create({ key: 'from0to1', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 28, end: 29 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from1to0-1', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 29, end: 29 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from1to0-2', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 28, end: 28 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'AngleIdle', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 30, end: 35 }), frameRate: 10, repeat: 0 });
+            this.anims.create({ key: 'AngleIdleLoop', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 30, end: 35 }), frameRate: 10, repeat: -1 });
+
+            this.anims.create({ key: 'from1to2', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 36, end: 37 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from2to1-1', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 37, end: 37 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'from2to1-2', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 36, end: 36 }), frameRate: 20, repeat: 0 });
+            this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 38, end: 43 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'sideIdleLoop', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 38, end: 43 }), frameRate:  10, repeat: -1 });
 
         }else{
             this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
@@ -1098,22 +1119,22 @@ class matangoRoot extends matangoRootOral {
     }
 
     // controls the damage resistance of the enemy.
-    damage() {
+    damage(refrence) {
   
-        if (this.damageCoolDown === false && this.poppedOut === true) {
+        if (this.damageCoolDown === false && this.poppedOut === true && refrence.type !== 'sporeCloud') {
             this.damageCoolDown = true;
             this.playJumpySound('3',100);
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                 this.calcDamage(
-                    this.scene.player1.sliceDamage,
-                    this.scene.player1.bluntDamage,
-                    this.scene.player1.pierceDamage,
-                    this.scene.player1.heatDamage,
-                    this.scene.player1.lightningDamage,
-                    this.scene.player1.coldDamage,
-                    this.scene.player1.curseDamage
+                    refrence.sliceDamage,
+                    refrence.bluntDamage,
+                    refrence.pierceDamage,
+                    refrence.heatDamage,
+                    refrence.lightningDamage,
+                    refrence.coldDamage,
+                    refrence.curseDamage
                 );
                 
                 //if the enemys hp is at zero

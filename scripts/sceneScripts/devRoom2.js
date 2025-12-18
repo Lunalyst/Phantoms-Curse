@@ -47,6 +47,12 @@ class devRoom2 extends defaultScene {
 
       this.defaultPreload();
 
+      //define an array of enemys we are using
+      this.enemyGroupArray = ["blueSlimes"];
+
+      //call built in function to preload enemys assets.
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -123,8 +129,6 @@ class devRoom2 extends defaultScene {
       //this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
 
-       //sets up enemy colliders and groups
-       this.enemyGroupArray = [];
        this.setUpEnemyCollider(this.enemyGroupArray);
 
        //needed to use cursed heart projectiles.

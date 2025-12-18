@@ -447,7 +447,7 @@ class mushroom extends enemy {
     // controls the damage resistance of the enemy.
     damage(refrence) {
   
-        if (this.damageCoolDown === false && this.isHiding === false) {
+        if (this.damageCoolDown === false && this.isHiding === false && refrence.type !== 'sporeCloud') {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
             if (this.enemyHP > 0) {

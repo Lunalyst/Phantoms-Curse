@@ -347,7 +347,7 @@ class G9CheckEnemys extends G8InitEnemys {
     //applies functions to all slimes in the group.
     scene.blueSlimes.children.each(function (tempSlime) {
 
-      //safty check to improve performance. only does overlap if in range.
+      //safteeey check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
 
         //if the player is not sleeping

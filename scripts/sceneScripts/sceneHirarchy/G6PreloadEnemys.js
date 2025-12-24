@@ -283,6 +283,10 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('Matango-Root-F-9', 'assets/bosses/Matango-Root-F-9.png',{frameWidth: 693, frameHeight: 561 });
 
         tempSceneRef.load.spritesheet('Matango-Root-M-1', 'assets/bosses/Matango-Root-M-1.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-2', 'assets/bosses/Matango-Root-M-2.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-3', 'assets/bosses/Matango-Root-M-3.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-4', 'assets/bosses/Matango-Root-M-4.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-5', 'assets/bosses/Matango-Root-M-5.png',{frameWidth: 693, frameHeight: 561 });
 
         tempSceneRef.load.spritesheet('mushroom-hands-single', 'assets/bosses/mushroom-hands-single.png',{frameWidth: 393, frameHeight: 273 });
         tempSceneRef.load.spritesheet('mushroom-hands-double', 'assets/bosses/mushroom-hands-double.png',{frameWidth: 573, frameHeight: 273 });

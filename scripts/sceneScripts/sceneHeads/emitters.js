@@ -289,6 +289,7 @@ const Groupings = [
 "bat",
 "mimic",
 "mushroom",
+"matangoRoot",
 "whiteCat",
 "shadow",
 "istara",
@@ -372,6 +373,8 @@ const bestiaryKey = {
   matangoRootFemaleUnbirth:"matangoRoot_female_unbirth",
   matangoRootFemaleAbsorb:"matangoRoot_female_absorb",
   matangoRootFemaleOral:"matangoRoot_female_oral",
+  matangoRootMaleAnal:"matangoRoot_male_anal",
+  matangoRootMaleAbsorb:"matangoRoot_male_absorb",
 
   istaraUnbirth:"istara_unbirth",
 
@@ -535,6 +538,16 @@ const bestiaryTextList = {
       matangoRoot_female_oral:{
         title: "FEMALE MATANGO ORAL",
         summary: "Matangos are quite hungry. Their prey, once caught by their hand tendrils, is like to end up in their belly. After their prey has been digested, they may use their body to recreate their shape, so that they may play with their food once more.",
+      },
+
+      matangoRoot_male_anal:{
+        title: "MALE MATANGO ANAL",
+        summary: "Male matangos enjoy trapping prey in there lower gut.The squirming of the prey can result in the matango climaxing as there prey is absorbed into there body. Strangely there prey seems to become apart of there body once absorbed. ",
+      },
+
+      matangoRoot_male_absorb:{
+        title: "MALE MATANGO ABSORB",
+        summary: "Once prey has been sufficiently subdued, their body becomes melded into the matango's. The process often results in the prey being overwhelmed by the pleasure. The now dominated prey is then used to increase the size and strength of the matango.",
       },
 
       back: {

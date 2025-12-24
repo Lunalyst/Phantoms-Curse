@@ -765,6 +765,57 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
             },
+
+             matangoRoot_male_anal: function matangoRootMaleAnalFunction() {
+
+                tempSceneRef.enemys = tempSceneRef.physics.add.group();
+
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y;
+                tempSceneRef.enemy.enemyGameOverAnal();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.rightHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x+70, tempSceneRef.enemy.y+40, false);
+                tempSceneRef.rightHand.visible = true;
+                tempSceneRef.rightHand.flipX = true;
+                tempSceneRef.rightHand.curseLight.visible = true;
+                tempSceneRef.leftHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x-70, tempSceneRef.enemy.y+40, true);
+                tempSceneRef.leftHand.visible = true;
+                tempSceneRef.leftHand.curseLight.visible = true;
+
+                tempSceneRef.rightHand.anims.play('grabTell',true);
+                tempSceneRef.leftHand.anims.play('grabTell',true);
+
+            },
+
+            matangoRoot_male_absorb: function matangoRootMaleAbsorbFunction() {
+
+                tempSceneRef.enemys = tempSceneRef.physics.add.group();
+
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y;
+                tempSceneRef.enemy.enemyGameOverAbsorb();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.rightHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x+70, tempSceneRef.enemy.y+40, false);
+                tempSceneRef.rightHand.visible = true;
+                tempSceneRef.rightHand.curseLight.visible = true;
+                tempSceneRef.leftHand = new mushroomHandSingle(tempSceneRef,tempSceneRef.enemy.x-70, tempSceneRef.enemy.y+40, true);
+                tempSceneRef.leftHand.visible = true;
+                tempSceneRef.leftHand.curseLight.visible = true;
+
+                tempSceneRef.rightHand.anims.play('grabTell',true);
+                tempSceneRef.leftHand.anims.play('grabTell',true);
+
+            },
         }
     }
 
@@ -1289,6 +1340,28 @@ class gameoverManager extends A3SoundEffects {
                 }else if(tempSceneRef.playPlap === true){
                      tempSceneRef.enemy.playJumpySound('10',800);
                 }
+            },
+
+             matangoRoot_male_anal: function matangoRootMaleAnalFunction() {
+
+                tempSceneRef.rightHand.flipX = false;
+                tempSceneRef.leftHand.flipX = true;
+                if(tempSceneRef.enemy.progressGameover === true && tempSceneRef.choke === false){
+
+                    tempSceneRef.choke = true;
+                    tempSceneRef.enemy.anims.play('analVoreGameover2').once('animationcomplete', () => {
+                        tempSceneRef.enemy.anims.play('analVoreGameover3',true);
+                        tempSceneRef.playPlap = true;
+                    });
+ 
+                }else if(tempSceneRef.playPlap === true){
+                     tempSceneRef.enemy.playJumpySound('10',800);
+                }
+            },
+
+             matangoRoot_male_absorb: function matangoRootMaleUnbirthFunction() {
+                tempSceneRef.rightHand.flipX = false;
+                tempSceneRef.leftHand.flipX = true;
             },
         }
     }

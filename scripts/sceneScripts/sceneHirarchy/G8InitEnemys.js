@@ -966,7 +966,21 @@ class G8InitEnemys extends G7EnemyCollisions{
 
         mush.grabType = "oral";
 
-      }
+      },
+      matangoRootAnal: function matangoRootAnalFunction(startX, startY, playerSex,inSafeMode,rootNode) {
+
+        let mush = new matangoRoot(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        mush.rootNode = rootNode;
+        tempSceneRef.enemyId++;
+        console.log("created mushdefeat id: ",mush.enemyId);
+        tempSceneRef.enemys.add(mush);
+        tempSceneRef.matangoRoots.add(mush);
+
+        mush.anims.play('sideIdleLoop',true);
+
+        mush.grabType = "anal";
+
+      },
 
       
     };

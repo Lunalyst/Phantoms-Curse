@@ -182,17 +182,20 @@ class dreamShadowCave extends defaultScene {
         };
 
         object2 = {
-          flagToFind:  "not defined yet",
+          flagToFind:  bestiaryKey.matangoRootMaleAnal,
           foundFlag: false,
         };
 
         // call the emitter to check if the value already was picked up.
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-  
-        if((object1.foundFlag === true || object2.foundFlag === true)){
+        
+        console.log("this.preferance: ",thisScene.preferance)
+        console.log("thisScene: ",thisScene)
+        if((object1.foundFlag === true && thisScene.preferance === 1)){
           thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootUnbirth",true);
-
+        }else if(object2.foundFlag === true && thisScene.preferance === 0){
+          thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootAnal",true);
         }
 
         object1 = {
@@ -201,7 +204,7 @@ class dreamShadowCave extends defaultScene {
         };
 
         object2 = {
-          flagToFind:  "not defined yet",
+          flagToFind:  bestiaryKey.matangoRootMaleAbsorb,
           foundFlag: false,
         };
 
@@ -213,6 +216,7 @@ class dreamShadowCave extends defaultScene {
           thisScene.initEnemy(570,525,thisScene.playerSex,"matangoRootAbsorb",true);
 
         }
+        
 
         object1 = {
           flagToFind: bestiaryKey.matangoRootFemaleOral,

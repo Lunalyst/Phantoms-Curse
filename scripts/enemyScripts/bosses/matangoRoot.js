@@ -1,7 +1,7 @@
 
 
 //implementation for the blue enemy enemy.
-class matangoRoot extends matangoRootOral {
+class matangoRoot extends matangoRootAnal {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
@@ -69,6 +69,11 @@ class matangoRoot extends matangoRootOral {
         this.attackHitBoxHide();
         
         //defines Enemy animations based on the players sex.
+        this.anims.create({ key: 'analVoreGameover1', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 17, end: 22 }), frameRate: 7, repeat: 5 });
+        this.anims.create({ key: 'analVoreGameover2', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 23, end: 28 }), frameRate: 7, repeat: 0 });
+        this.anims.create({ key: 'analVoreGameover3', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 29, end: 40 }), frameRate: 7, repeat: -1 });
+          
+            
         if (this.enemySex === 0) {
             this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'rawr', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 7, end: 15 }), frameRate: 7, repeat: 0 });
@@ -88,6 +93,53 @@ class matangoRoot extends matangoRootOral {
             this.anims.create({ key: 'from2to1-2', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 36, end: 36 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 38, end: 43 }), frameRate:  10, repeat: 0 });
             this.anims.create({ key: 'sideIdleLoop', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 38, end: 43 }), frameRate:  10, repeat: -1 });
+
+            this.anims.create({ key: 'sideThrustStart', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 45, end: 48 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'sideThrustMiddle', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 49, end: 50 }), frameRate:  10, repeat: 0 });
+            this.anims.create({ key: 'sideThrustEnd', frames: this.anims.generateFrameNames('Matango-Root-M-1', { start: 51, end: 54 }), frameRate:  10, repeat: 0 });
+
+            if(sex === 0) {
+                this.anims.create({ key: 'analStart', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
+                //needs to be split up when female player versions are made
+                this.anims.create({ key: 'analRelease', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 36, end: 55 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'absorbStart', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 41, end: 47 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbIdle', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 48, end: 53 }), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'absorbSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover1', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 6, end: 16 }), frameRate: 10, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover2', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 17, end: 22 }), frameRate: 10, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover3', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 17, end: 22 }), frameRate: 15, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover4', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 23, end: 31 }), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'absorbGameover5', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 32, end: 37 }), frameRate: 7, repeat: -1 });
+                this.anims.create({ key: 'absorbGameover6', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 37, end: 42 }), frameRate: 7, repeat: 0 });
+
+            }else{
+
+            }
+
+            this.anims.create({ key: 'analIdle', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 12, end: 17 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'analDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 18, end: 23 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'analSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 24, end: 29 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'analUpStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 30, end: 35 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'analDigestion1', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 0, end: 3 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'analDigestion2', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 4, end: 6 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'analDigestion3', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 7, end: 10 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'analDigestedIdle', frames: this.anims.generateFrameNames('Matango-Root-M-3', { start: 11, end: 16 }), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'absorbGameover7', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 0, end: 5 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'absorbGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'upperSwipeStart', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 12, end: 15}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'upperSwipeEnd', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 17, end: 19}), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'downSwipeEnd', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 20, end: 25}), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'flailStart', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 26, end: 26}), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'flailDown', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 27, end: 29}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'flailUp', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 30, end: 31}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'flailFull', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 26, end: 31}), frameRate: 7, repeat: 1 });
+
+           
 
         }else{
             this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
@@ -115,7 +167,10 @@ class matangoRoot extends matangoRootOral {
                 
             if (sex === 0) {
                 this.anims.create({ key: 'unbirthStart', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 0, end: 11 }), frameRate: 7, repeat: 0 });
-                
+
+                //needs to be split up when female player versions are made
+                this.anims.create({ key: 'unbirthRelease', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 32, end: 44 }), frameRate: 7, repeat: 0 });
+
                 this.anims.create({ key: 'absorbStart', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 34, end: 40 }), frameRate: 7, repeat: 0 });
                 this.anims.create({ key: 'absorbIdle', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 41, end: 46 }), frameRate: 7, repeat: 0 });
                 
@@ -141,13 +196,12 @@ class matangoRoot extends matangoRootOral {
             this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 19, end: 24 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 25, end: 31 }), frameRate: 7, repeat: 0 });
-            this.anims.create({ key: 'unbirthRelease', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 32, end: 44 }), frameRate: 7, repeat: 0 });
+           
 
             this.anims.create({ key: 'unbirthGameover1', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 0, end: 5 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthGameover2', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'unbirthGameover3', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 12, end: 24 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'unbirthGameover4', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 24, end: 29 }), frameRate: 7, repeat: -1 });
-            this.anims.create({ key: 'unbirthGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 30, end: 33 }), frameRate: 5, repeat: -1 });
 
             this.anims.create({ key: 'absorbGameover7', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 0, end: 5 }), frameRate: 7, repeat: -1 });
             this.anims.create({ key: 'absorbGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-5', { start: 6, end: 11 }), frameRate: 7, repeat: -1 });
@@ -183,8 +237,9 @@ class matangoRoot extends matangoRootOral {
 
             this.anims.create({ key: 'bossDefeated', frames: this.anims.generateFrameNames('Matango-Root-F-9', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
             
-
         }
+
+        this.anims.create({ key: 'unbirthGameoverFinish', frames: this.anims.generateFrameNames('Matango-Root-F-3', { start: 30, end: 33 }), frameRate: 5, repeat: -1 });
        
         this.inSafeMode = inSafeMode;
 
@@ -558,7 +613,7 @@ class matangoRoot extends matangoRootOral {
                         }
                         
                 
-                    }else if(this.checkXRangeFromPlayer(80, 80) && this.checkYRangeFromPlayer(50,60) ){
+                    }else if(this.checkXRangeFromPlayer(75, 75) && this.checkYRangeFromPlayer(50,60) ){
 
                         //roll a random number
                         let random = Math.floor((Math.random() * 3));
@@ -569,7 +624,12 @@ class matangoRoot extends matangoRootOral {
                         this.flailAttack();
                         
                         }else{
-                            this.grabType = "unbirth";
+                            if(this.enemySex === 0){
+                                this.grabType = "anal";
+                            }else{
+                                 this.grabType = "unbirth";
+                            }
+                           
 
                             //if player to the left move the grab hitbox to the left
                             if(this.scene.player1.x > this.x){
@@ -599,11 +659,11 @@ class matangoRoot extends matangoRootOral {
                                 if(this.scene.player1.x > this.x){
                             
                                     this.hitBoxPositionActive(this.x+40,this.y+45);
-                                    this.grabHitBox.setSize(50, 20, true);
+                                    this.grabHitBox.setSize(55, 20, true);
 
                                 }else{
                                     this.hitBoxPositionActive(this.x-40,this.y+45);
-                                    this.grabHitBox.setSize(50, 20, true);
+                                    this.grabHitBox.setSize(55, 20, true);
 
                                 }
 
@@ -1080,6 +1140,8 @@ class matangoRoot extends matangoRootOral {
             this.playerIsNotDefeatedInputsAbsorb(playerHealthObject);
         }else if(this.grabType === "oral"){
             this.playerIsNotDefeatedInputsOral(playerHealthObject);
+        }else if(this.grabType === "anal"){
+            this.playerIsNotDefeatedInputsAnal(playerHealthObject);
         }
       
     }
@@ -1093,6 +1155,8 @@ class matangoRoot extends matangoRootOral {
             this.playerIsStrugglingLogicAbsorb(playerHealthObject);
         }else if(this.grabType === "oral"){
             this.playerIsStrugglingLogicOral(playerHealthObject);
+        }else if(this.grabType === "anal"){
+            this.playerIsStrugglingLogicAnal(playerHealthObject);
         }
                
     }
@@ -1104,6 +1168,8 @@ class matangoRoot extends matangoRootOral {
             this.playerIsDefeatedLogicAbsorb();
         }else if(this.grabType === "oral"){
             this.playerIsDefeatedLogicOral();
+        }else if(this.grabType === "anal"){
+            this.playerIsDefeatedLogicAnal();
         }
     }
 
@@ -1115,6 +1181,8 @@ class matangoRoot extends matangoRootOral {
             this.playerEscapedAbsorb(playerHealthObject);
         }else if(this.grabType === "oral"){
             this.playerEscapedOral(playerHealthObject);
+        }else if(this.grabType === "anal"){
+            this.playerEscapedAnal(playerHealthObject);
         }
     }
 
@@ -1308,6 +1376,8 @@ class matangoRoot extends matangoRootOral {
             this.animationGrabAbsorb();
         }else if(this.grabType === "oral"){
             this.animationGrabOral();
+        }else if(this.grabType === "anal"){
+            this.animationGrabAnal();
         }
 
     }

@@ -2559,7 +2559,7 @@ const npcDialogue = {
                 },
                 "matangoRoot_female_absorb":{
                     "node1":{
-                        "dialogue": "you strayed too close to the giant. Taking advantage of the distance, two massive hands grabbed you, lifting your body up to her massive belly. In a moment, your arms and legs were restrained inside her body, as your head was being squished by her massive breasts. Your attempts to struggle where in vain, as she pulled you deeper into her. Completely at her mercy you gave into her desire. Her body enveloping you feeling snug and comfy as you both began to pleasure each other. Your body fusing into hers as she played with your genitals, You both came in unison. Feeling tired from the struggle, you relaxed and fell asleep as she fully absorbed you. looking quite pleased with herself, you spend the rest of your days as big mushroom pudge.",
+                        "dialogue": "you strayed too close to the giant. Taking advantage of the distance, two massive hands grabbed you, lifting your body up to her massive belly. In a moment, your arms and legs were restrained inside her body, as your head was being squished by her massive breasts. Your attempts to struggle where in vain, as she pulled you deeper into her. Completely at her mercy you gave into her desire. Feeling snug and comfy as you both began to pleasure each other. Your body fusing into hers as she played with your genitals, You both came in unison. Feeling tired from the struggle, you relaxed and fell asleep as she fully absorbed you. looking quite pleased with herself, you spend the rest of your days as big matango pudge.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -2568,6 +2568,22 @@ const npcDialogue = {
                 "matangoRoot_female_oral":{
                     "node1":{
                         "dialogue": "You were knocked down by the giant. Before you could get up, one of her hands slipped around your body. Despite your best effort to squirm free, the massive hand carried you up and into the giants' waiting mouth. Slipping down her throat and into her engorged belly. As you struggled to escape the warm chambers of her tummy, you began to tire out. Eventually giving in and letting her body absorb you completely. Feeling your body quickly becoming one with her massive rear. You thought that this was the end. Becoming just pudge for the rest of your existence. But fortunately or unfortunately for you, she enjoyed your company. Your apart from her now in the most literal sense. Occasionally she gives you form through her strange mycelium body to play with you. You're bonded to her in body and spirit, unable to resist her urges. Though it's not really so bad. After all the pleasure you two share is quite immense. Even if your just her toy, it feels nice to be apart of a creature much greater than yourself. ",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                "matangoRoot_male_anal":{
+                    "node1":{
+                        "dialogue": "You were not cautious. A large hand was quick to shove you in into the matangos anus. Sliding gracefully inside the warm, gooey chamber, you struggled with all your might. Pressing against the warm tight chamber was a challenge. But eventually you tired out. your body melted and was absorbed. Causing him to climax like he never had before. You thought that this was the end. Becoming just pudge for the rest of your existence. But fortunately or unfortunately for you, he enjoyed your company. Your apart of him now in the most literal sense. Occasionally he gives you form through his strange mycelium body to play with you. You're bonded to him in body and spirit, unable to resist his urges. Though it's not really so bad. After all the pleasure you two share is quite immense. Even if your just his toy, it feels nice to be apart of a creature much greater than yourself. ",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                 "matangoRoot_male_absorb":{
+                    "node1":{
+                        "dialogue": "You strayed too close to the giant. Taking advantage of the distance, two massive hands grabbed you, lifting your body up to his massive belly. In a moment, your arms and legs were restrained inside his body, as your lower body was ocasionally squished by his massive cock. Your attempts to struggle where in vain, as he pulled you deeper into him. Completely at his mercy you gave into his sexual urges. Feeling snug and comfy as you both began to pleasure each other. Your body fusing into his as he squished you with his cock, You both came in unison. Feeling tired from the struggle, you relaxed and fell asleep as he fully absorbed you. Now your nothing more than muscle and butt fat on the matango. ",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

@@ -1,7 +1,7 @@
 
 
 //implementation for the blue enemy enemy.
-class matangoRoot extends matangoRootAnal {
+class matangoRoot extends matangoRootCock {
     
     constructor(scene, xPos, yPos, sex, id,inSafeMode) {
         //super() calls the constructor() from the parent class we are extending
@@ -114,6 +114,12 @@ class matangoRoot extends matangoRootAnal {
                 this.anims.create({ key: 'absorbGameover5', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 32, end: 37 }), frameRate: 7, repeat: -1 });
                 this.anims.create({ key: 'absorbGameover6', frames: this.anims.generateFrameNames('Matango-Root-M-4', { start: 37, end: 42 }), frameRate: 7, repeat: 0 });
 
+                this.anims.create({ key: 'cockVoreSwallow1', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 32, end: 35}), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'cockVoreSwallow2', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 36, end: 39}), frameRate: 7, repeat: 0 });
+                this.anims.create({ key: 'cockVoreSwallow3', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 40, end: 43}), frameRate: 7, repeat: 0 });
+
+                this.anims.create({ key: 'cockVoreGrabRelease2', frames: this.anims.generateFrameNames('Matango-Root-M-7', { start: 20, end: 32}), frameRate: 7, repeat: 0 });
+
             }else{
 
             }
@@ -139,7 +145,36 @@ class matangoRoot extends matangoRootAnal {
             this.anims.create({ key: 'flailUp', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 30, end: 31}), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'flailFull', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 26, end: 31}), frameRate: 7, repeat: 1 });
 
-           
+            this.anims.create({ key: 'cockVoreSwallow4', frames: this.anims.generateFrameNames('Matango-Root-M-5', { start: 44, end: 52}), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'cockVoreSwallow5', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 0, end: 4}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shaftIdle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 5, end: 10}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shaftUpStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 11, end: 16}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shaftDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 17, end: 22}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shaftSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 23, end: 28}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'shaftToBalls', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 29, end: 34}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'BallsIdle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 35, end: 40}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'BallsSideStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 42, end: 47}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'BallsDownStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-6', { start: 48, end: 53}), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'BallsUpStruggle', frames: this.anims.generateFrameNames('Matango-Root-M-7', { start: 0, end: 5}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'BallsToShaft', frames: this.anims.generateFrameNames('Matango-Root-M-7', { start: 6, end: 10}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'cockVoreGrabRelease1', frames: this.anims.generateFrameNames('Matango-Root-M-7', { start: 11, end: 19}), frameRate: 7, repeat: 0 });
+
+            this.anims.create({ key: 'cockVoreGameover1', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 0, end: 5}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'cockVoreGameover2', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 6, end: 11}), frameRate: 7, repeat: -1 });
+            this.anims.create({ key: 'cockVoreGameover3', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 12, end: 17}), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'cockVoreGameover4', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 18, end: 23}), frameRate: 10, repeat: -1 });
+            this.anims.create({ key: 'cockVoreGameover5', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 24, end: 29}), frameRate: 14, repeat: -1 });
+            this.anims.create({ key: 'cockVoreGameover6', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 31, end: 35}), frameRate: 10, repeat: 0 });
+            //note, composit animation that should take up one state.
+            this.anims.create({ key: 'cockVoreGameover7', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 36, end: 44}), frameRate: 9, repeat: 0 });
+            this.anims.create({ key: 'cockVoreGameover8', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 45, end: 49}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'cockVoreGameover8-fin', frames: this.anims.generateFrameNames('Matango-Root-M-8', { start: 50, end: 54}), frameRate: 8, repeat: 0 });
+
+            this.anims.create({ key: 'cockVoreGameover9', frames: this.anims.generateFrameNames('Matango-Root-M-9', { start: 0, end: 5}), frameRate: 7, repeat: -1 });
+            
+            this.anims.create({ key: 'bossDefeated', frames: this.anims.generateFrameNames('Matango-Root-M-9', { start: 7, end: 17 }), frameRate: 7, repeat: 0 });
 
         }else{
             this.anims.create({ key: 'popout', frames: this.anims.generateFrameNames('Matango-Root-F-1', { start: 0, end: 6 }), frameRate: 7, repeat: 0 });
@@ -191,6 +226,8 @@ class matangoRoot extends matangoRootAnal {
                 this.anims.create({ key: 'upperBellyReSwallow', frames: this.anims.generateFrameNames('Matango-Root-F-6', { start: 34, end: 42 }), frameRate: 7, repeat: 0 });
 
                 this.anims.create({ key: 'lowerBellyGrabRelease2', frames: this.anims.generateFrameNames('Matango-Root-F-7', { start: 28, end:  38}), frameRate: 7, repeat: 0 });
+            }else{
+
             }
 
             this.anims.create({ key: 'unbirthIdle', frames: this.anims.generateFrameNames('Matango-Root-F-2', { start: 13, end: 18 }), frameRate: 7, repeat: 0 });
@@ -403,7 +440,7 @@ class matangoRoot extends matangoRootAnal {
                 });
             //if the mushroom is poped out then do battle ai  
             }else if(this.poppedOut === true){
-                console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking," this.knockdownCheck: ",this.knockdownCheck);
+                //console.log("this.turning: ",this.turning," this.attackCooldown: ",this.attackCooldown," this.isAttacking: ",this.isAttacking," this.knockdownCheck: ",this.knockdownCheck);
                 //case where mushroom is not attacking
                 if(this.turning === false && this.attackCooldown === true){
                     this.turning = true;
@@ -983,14 +1020,24 @@ class matangoRoot extends matangoRootAnal {
 
         //console.log("matango root idle move function");
         if(this?.rightHand?.returnedWithPlayerGrabbed === true){
-            this.grabType = "oral";
+            if(this.enemySex === 0){
+                this.grabType = "cock";
+            }else{
+                this.grabType = "oral";
+            }
+            
             this.rightHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
 
         }else if(this?.leftHand?.returnedWithPlayerGrabbed === true){
 
-            this.grabType = "oral";
+            if(this.enemySex === 0){
+                this.grabType = "cock";
+            }else{
+                this.grabType = "oral";
+            }
+
             this.leftHand.playerTransferToRoot();
             //this.playerGrabbed = true
             this.grab();
@@ -1142,6 +1189,8 @@ class matangoRoot extends matangoRootAnal {
             this.playerIsNotDefeatedInputsOral(playerHealthObject);
         }else if(this.grabType === "anal"){
             this.playerIsNotDefeatedInputsAnal(playerHealthObject);
+        }else if(this.grabType === "cock"){
+            this.playerIsNotDefeatedInputsCock(playerHealthObject);
         }
       
     }
@@ -1157,6 +1206,8 @@ class matangoRoot extends matangoRootAnal {
             this.playerIsStrugglingLogicOral(playerHealthObject);
         }else if(this.grabType === "anal"){
             this.playerIsStrugglingLogicAnal(playerHealthObject);
+        }else if(this.grabType === "cock"){
+            this.playerIsStrugglingLogicCock(playerHealthObject);
         }
                
     }
@@ -1170,6 +1221,8 @@ class matangoRoot extends matangoRootAnal {
             this.playerIsDefeatedLogicOral();
         }else if(this.grabType === "anal"){
             this.playerIsDefeatedLogicAnal();
+        }else if(this.grabType === "cock"){
+            this.playerIsDefeatedLogicCock();
         }
     }
 
@@ -1183,6 +1236,8 @@ class matangoRoot extends matangoRootAnal {
             this.playerEscapedOral(playerHealthObject);
         }else if(this.grabType === "anal"){
             this.playerEscapedAnal(playerHealthObject);
+        }else if(this.grabType === "cock"){
+            this.playerEscapedCock(playerHealthObject);
         }
     }
 
@@ -1378,6 +1433,8 @@ class matangoRoot extends matangoRootAnal {
             this.animationGrabOral();
         }else if(this.grabType === "anal"){
             this.animationGrabAnal();
+        }else if(this.grabType === "cock"){
+            this.animationGrabCock();
         }
 
     }

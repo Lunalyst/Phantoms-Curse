@@ -125,7 +125,7 @@ class gameHud extends A3SoundEffects {
           that.struggleEventBar = new sceneStruggleBar(this, 450, 450);
         }, 1000);*/
 
-        this.struggleEventBar = new sceneStruggleBar(this,this.screenWidth/2-145, 580);
+        this.struggleEventBar = new sceneStruggleBar(this,this.screenWidth/2-145, 590);
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
@@ -240,7 +240,19 @@ class gameHud extends A3SoundEffects {
 
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
           //console.log("setting this.struggleEventBar.visible: ", visible);
-            this.struggleEventBar.visible = visible;  
+          this.struggleEventBar.visible = visible;  
+
+        });
+
+        struggleEmitter.on(struggleEvent.setStruggleBarScreenLoc,(x,y) =>{
+          this.struggleEventBar.x = x;
+          this.struggleEventBar.y = y;
+
+        });
+
+        struggleEmitter.on(struggleEvent.setDefaultStruggleBarLoc,() =>{
+          this.struggleEventBar.x = this.screenWidth/2-145;
+          this.struggleEventBar.y = 590;
 
         });
 

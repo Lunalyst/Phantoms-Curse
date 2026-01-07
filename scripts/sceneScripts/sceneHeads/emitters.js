@@ -52,7 +52,9 @@ healthEmitter = new Phaser.Events.EventEmitter();
 struggleEvent = {
     activateStruggleBar: 'activate_struggle_bar',
     updateStruggleBar: 'update_struggle_bar',
-    updateStruggleBarCap: 'update_struggle_bar_cap'
+    updateStruggleBarCap: 'update_struggle_bar_cap',
+    setStruggleBarScreenLoc: 'set_struggle_bar_screen_loc',
+    setDefaultStruggleBarLoc: 'set_default_struggle_bar_loc'
 };
 
 struggleEmitter = new Phaser.Events.EventEmitter();
@@ -370,11 +372,13 @@ const bestiaryKey = {
   mushroomFemaleTF:"mushroom_female_tf",
   mushroomMaleTF:"mushroom_male_tf",
 
-  matangoRootFemaleUnbirth:"matangoRoot_female_unbirth",
-  matangoRootFemaleAbsorb:"matangoRoot_female_absorb",
   matangoRootFemaleOral:"matangoRoot_female_oral",
+  matangoRootFemaleAbsorb:"matangoRoot_female_absorb",
+  matangoRootFemaleUnbirth:"matangoRoot_female_unbirth",
+
   matangoRootMaleAnal:"matangoRoot_male_anal",
   matangoRootMaleAbsorb:"matangoRoot_male_absorb",
+  matangoRootMaleCock:"matangoRoot_male_cock",
 
   istaraUnbirth:"istara_unbirth",
 
@@ -526,28 +530,33 @@ const bestiaryTextList = {
         title: "MALE MATANGO NODE",
         summary: "This male matango will spread its spores to infect prey; once a prey has been fully infected, a mushroom will slowly take over its body. Absorbing them, and spreading the fungus.",
       },
-      matangoRoot_female_unbirth:{
-        title: "FEMALE MATANGO UB",
-        summary: "Matangos like to trap prey within their womb to melt them down and reproduce. The new mycelium network born is covered in nutrient-rich fluids, which are used to help the baby network grow.",
-      },
-      matangoRoot_female_absorb:{
-        title: "FEMALE MATANGO ABSORB",
-        summary: "Once awakened, the matango root will employ various methods to defend itself. One such method is trying to engulf its attacker inside its gooey outer body. Once the prey is subdued, it pleasures the prey so the absorption process and melding go smoothly.",
-      },
 
       matangoRoot_female_oral:{
         title: "FEMALE MATANGO ORAL",
         summary: "Matangos are quite hungry. Their prey, once caught by their hand tendrils, is like to end up in their belly. After their prey has been digested, they may use their body to recreate their shape, so that they may play with their food once more.",
       },
 
+      matangoRoot_female_absorb:{
+        title: "FEMALE MATANGO ABSORB",
+        summary: "Once awakened, the matango root will employ various methods to defend itself. One such method is trying to engulf its attacker inside its gooey outer body. Once the prey is subdued, it pleasures the prey so the absorption process and melding go smoothly.",
+      },
+
+      matangoRoot_female_unbirth:{
+        title: "FEMALE MATANGO UB",
+        summary: "Matangos like to trap prey within their womb to melt them down and reproduce. The new mycelium network born is covered in nutrient-rich fluids, which are used to help the baby network grow.",
+      },
+      
       matangoRoot_male_anal:{
         title: "MALE MATANGO ANAL",
         summary: "Male matangos enjoy trapping prey in there lower gut.The squirming of the prey can result in the matango climaxing as there prey is absorbed into there body. Strangely there prey seems to become apart of there body once absorbed. ",
       },
-
       matangoRoot_male_absorb:{
         title: "MALE MATANGO ABSORB",
         summary: "Once prey has been sufficiently subdued, their body becomes melded into the matango's. The process often results in the prey being overwhelmed by the pleasure. The now dominated prey is then used to increase the size and strength of the matango.",
+      },
+      matangoRoot_male_cock:{
+        title: "MALE MATANGO COCK",
+        summary: "IN THE COCK YOU WENT :3",
       },
 
       back: {

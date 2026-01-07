@@ -39,7 +39,7 @@ class matangoRootAnal extends matangoRootOral {
 
     playerIsNotDefeatedInputsAnal(playerHealthObject){
         // correct keys to escape can be ASD
-        if(this.startedGrab === true && this.struggleFree === false){
+        if(this.startedGrab === true && this.struggleFree === false && this.animationPlayed === false ){
              console.log("this.scene.player1.x: ",this.scene.player1.x, " this.x: ",this.x);
             if(this.scene.checkAPressed() === true) {
 
@@ -54,7 +54,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = false;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analSideStruggle').once('animationcomplete', () => {
-                        this.animationPlayed = false;
+                        //this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -70,7 +70,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.struggleAnimationInterupt = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analDownStruggle').once('animationcomplete', () => {
-                        this.animationPlayed = false;
+                        //this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -87,7 +87,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analSideStruggle').once('animationcomplete', () => {
-                        this.animationPlayed = false;
+                        //this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -104,7 +104,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analUpStruggle').once('animationcomplete', () => {
-                        this.animationPlayed = false;
+                        //this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -257,16 +257,17 @@ class matangoRootAnal extends matangoRootOral {
 
             this.scene.KeyDisplay.playDKey();
             let currentEnemy = this; // important, sets currentEnemy to the current object so that we can use variables attached to this current enemy object in our set timeout functions.
-            
+            this.playerDefeatedAnimationCooldown = true;
             setTimeout(function () {
+                currentEnemy.playerDefeatedAnimationCooldown = false;
                 currentEnemy.scene.KeyDisplay.visible = true;
                 currentEnemy.scene.KeyDisplay.playDKey();
                 //incriment the animation prompt since we want to move on to the next animation after the current one finishes
-                console.log("currentEnemy.playerDefeatedAnimationStage: " + currentEnemy.playerDefeatedAnimationStage);
+                //console.log("currentEnemy.playerDefeatedAnimationStage: " + currentEnemy.playerDefeatedAnimationStage);
             }, 1000);
             this.inStartDefeatedLogic = true;
-            this.playerDefeatedAnimationStage++;
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+            this.playerDefeatedAnimationStage++;
         }
 
         //may be able to set a bool to true or false to tell what animations have the key skip
@@ -280,9 +281,9 @@ class matangoRootAnal extends matangoRootOral {
             this.scene.KeyDisplay.visible = false;
 
             this.playerDefeatedAnimationCooldown = true;
+            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
             this.playerDefeatedAnimationStage++;
             let currentEnemy = this;
-            console.log("currentEnemy.playerDefeatedAnimationStage: " + currentEnemy.playerDefeatedAnimationStage);
 
             this.currentEnemy = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
             setTimeout(function () {
@@ -318,18 +319,21 @@ class matangoRootAnal extends matangoRootOral {
         if (this.playerDefeatedAnimationStage === 1) {
 
             this.playerDefeatedAnimationStageMax = 2;
-
+            console.log("this.animationPlayed: ",this.animationPlayed);
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
                 this.anims.play('analDigestion1').once('animationcomplete', () => {
-
+                     console.log("finished analDigestion1: ");
                         this.anims.play('analDigestion2').once('animationcomplete', () => {
+                             console.log("finished analDigestion2");
 
                             this.anims.play('analDigestion3').once('animationcomplete', () => {
+                                 console.log("finished analDigestion3");
 
                             this.animationPlayed = false;
+                            console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                             this.playerDefeatedAnimationStage++;
                             //this.inStartDefeatedLogic = false;
                         });

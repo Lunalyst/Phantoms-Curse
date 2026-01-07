@@ -816,6 +816,26 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
             },
+
+            matangoRoot_male_cock: function matangoRootMalecockFunction() {
+
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new matangoRoot(tempSceneRef,450, 500,tempSceneRef.playerSex);
+                //this.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.curseLight.intensity = 0.8;
+                tempSceneRef.enemy.curseLight.radius = 270;
+                tempSceneRef.enemy.curseLight.visible = true;
+                tempSceneRef.enemy.curseLight.y =  tempSceneRef.enemy.curseLight.y + 100;
+                tempSceneRef.enemy.enemyGameOverUnbirth();
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
+                
+                tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,450-64, 547+64,"node1",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode1.visible = false;
+                tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,450+64, 547+64,"node2",tempSceneRef.mushroomRoot,false);
+                tempSceneRef.mushroomNode2.visible = false;
+             },
         }
     }
 
@@ -1362,6 +1382,10 @@ class gameoverManager extends A3SoundEffects {
              matangoRoot_male_absorb: function matangoRootMaleUnbirthFunction() {
                 tempSceneRef.rightHand.flipX = false;
                 tempSceneRef.leftHand.flipX = true;
+            },
+
+            matangoRoot_male_cock: function matangoRootMalecockFunction() {
+                
             },
         }
     }

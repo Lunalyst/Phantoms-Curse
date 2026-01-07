@@ -44,7 +44,7 @@ class mushroomHandSingle extends enemy{
         }else{
 
         }
-        this.anims.create({ key: 'handSink', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 39, end: 343 }), frameRate:  8, repeat: 0 });
+        this.anims.create({ key: 'handSink', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 39, end: 43 }), frameRate:  8, repeat: 0 });
         
   
 

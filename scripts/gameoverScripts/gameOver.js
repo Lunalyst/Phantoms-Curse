@@ -218,7 +218,7 @@ class gameOver extends gameoverManager {
         }
 
         update(){
-            console.log("this.dialogueInterupt: ",this.dialogueInterupt);
+            //console.log("this.dialogueInterupt: ",this.dialogueInterupt);
             //input to progress gameover dialogue during scene.
             if(this.dialogueInterupt === false){
                 if(Phaser.Input.Keyboard.JustDown(this.keyW)){

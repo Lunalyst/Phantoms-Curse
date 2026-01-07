@@ -54,7 +54,6 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = false;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analSideStruggle').once('animationcomplete', () => {
-                        //this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -70,7 +69,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.struggleAnimationInterupt = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analDownStruggle').once('animationcomplete', () => {
-                        //this.animationPlayed = false;
+
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -87,7 +86,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analSideStruggle').once('animationcomplete', () => {
-                        //this.animationPlayed = false;
+
                         this.struggleAnimationInterupt = false;
                     });
                 }
@@ -104,7 +103,7 @@ class matangoRootAnal extends matangoRootOral {
                     this.flipX = true;
                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.anims.play('analUpStruggle').once('animationcomplete', () => {
-                        //this.animationPlayed = false;
+
                         this.struggleAnimationInterupt = false;
                     });
                 }

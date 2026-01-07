@@ -192,10 +192,21 @@ class dreamShadowCave extends defaultScene {
         
         console.log("this.preferance: ",thisScene.preferance)
         console.log("thisScene: ",thisScene)
+
         if((object1.foundFlag === true && thisScene.preferance === 1)){
           thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootUnbirth",true);
         }else if(object2.foundFlag === true && thisScene.preferance === 0){
           thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootAnal",true);
+        }else if(object1.foundFlag === true || object1.foundFlag === true){
+          let random = Math.round(Math.random());
+          if(random === 1){
+            thisScene.preferance = 1;
+            thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootUnbirth",true);
+          }else{
+            thisScene.preferance = 0;
+            thisScene.initEnemy(728,525,thisScene.playerSex,"matangoRootAnal",true);
+          }
+          thisScene.preferance = 2;
         }
 
         object1 = {
@@ -224,7 +235,7 @@ class dreamShadowCave extends defaultScene {
         };
 
         object2 = {
-          flagToFind:  "not defined yet",
+          flagToFind:  bestiaryKey.matangoRootMaleCock,
           foundFlag: false,
         };
 
@@ -232,9 +243,21 @@ class dreamShadowCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
   
-        if((object1.foundFlag === true || object2.foundFlag === true)){
+        if((object1.foundFlag === true && thisScene.preferance === 1)){
           thisScene.initEnemy(420,525,thisScene.playerSex,"matangoRootOral",true);
 
+        }else if(object2.foundFlag === true && thisScene.preferance === 0){
+          thisScene.initEnemy(420,525,thisScene.playerSex,"matangoRootCock",true);
+        }else if(object1.foundFlag === true || object1.foundFlag === true){
+          let random = Math.round(Math.random());
+          if(random === 1 ){
+            thisScene.preferance = 1;
+            thisScene.initEnemy(420,525,thisScene.playerSex,"matangoRootOral",true);
+          }else{
+            thisScene.preferance = 0;
+            thisScene.initEnemy(420,525,thisScene.playerSex,"matangoRootCock",true);
+          }
+          thisScene.preferance = 2;
         }
 
         thisScene.spawnedEnemys = true;

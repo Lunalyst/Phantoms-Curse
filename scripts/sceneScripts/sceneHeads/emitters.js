@@ -556,7 +556,7 @@ const bestiaryTextList = {
       },
       matangoRoot_male_cock:{
         title: "MALE MATANGO COCK",
-        summary: "IN THE COCK YOU WENT :3",
+        summary: "The matango's cock can also be used to catch prey, stuffing them deep into his balls.His prey is melted into fertile cum and when the matango cums from the pleasure of the process, a new matango is born.",
       },
 
       back: {

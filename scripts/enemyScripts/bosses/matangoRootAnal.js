@@ -67,7 +67,7 @@ class matangoRootAnal extends matangoRootOral {
                 
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                     this.struggleAnimationInterupt = true;
-                    this.scene.initSoundEffect('stomachSFX','4',0.1);
+                    this.scene.initSoundEffect('stomachSFX','8',0.1);
                     this.anims.play('analDownStruggle').once('animationcomplete', () => {
 
                         this.struggleAnimationInterupt = false;
@@ -101,7 +101,7 @@ class matangoRootAnal extends matangoRootOral {
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                     this.struggleAnimationInterupt = true;
                     this.flipX = true;
-                    this.scene.initSoundEffect('stomachSFX','4',0.1);
+                    this.scene.initSoundEffect('stomachSFX','6',0.1);
                     this.anims.play('analUpStruggle').once('animationcomplete', () => {
 
                         this.struggleAnimationInterupt = false;
@@ -127,8 +127,6 @@ class matangoRootAnal extends matangoRootOral {
             this.preventGiveUp = true;
             //this.struggleAnimationInterupt = true;
 
-            this.scene.initSoundEffect('lickSFX','5',0.5);
-
             //need to hide the correct hand on the correct side here.
             if(this.flipX === true){
                 this.rightHand.visible = false;
@@ -136,6 +134,8 @@ class matangoRootAnal extends matangoRootOral {
                 this.leftHand.visible = false;
             }
             this.scene.player1.lightSource.visible = false;
+
+            this.playPlapSound('plap3',700);
 
             this.anims.play('analStart').once('animationcomplete', () => {
                 this.startedGrab = true;
@@ -215,7 +215,9 @@ class matangoRootAnal extends matangoRootOral {
                     this.spitUp = true;
 
                     //spit up sound effect.
-                    this.scene.initSoundEffect('swallowSFX','4',0.02);
+                    //this.playPlapSound('squirt1',2000);
+                    this.playPlapSound('plap5',500);
+                    this.scene.initSoundEffect('stomachSFX','4',0.1);
 
                     //play spitup animation
                     this.flipX = true;
@@ -318,20 +320,22 @@ class matangoRootAnal extends matangoRootOral {
         if (this.playerDefeatedAnimationStage === 1) {
 
             this.playerDefeatedAnimationStageMax = 2;
-            console.log("this.animationPlayed: ",this.animationPlayed);
-            if (!this.animationPlayed) {
+            console.log("this.animationPlayed: ", this.stopTemp);
+            if (! this.stopTemp) {
 
-                this.animationPlayed = true;
-
+                this.stopTemp = true;
+                this.scene.initSoundEffect('stomachSFX','1',0.05);
                 this.anims.play('analDigestion1').once('animationcomplete', () => {
                      console.log("finished analDigestion1: ");
+                     this.playPlapSound('plap5',500);
+                     this.scene.initSoundEffect('stomachSFX','2',0.05);
                         this.anims.play('analDigestion2').once('animationcomplete', () => {
                              console.log("finished analDigestion2");
 
                             this.anims.play('analDigestion3').once('animationcomplete', () => {
                                  console.log("finished analDigestion3");
 
-                            this.animationPlayed = false;
+                            //this.animationPlayed = false;
                             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
                             this.playerDefeatedAnimationStage++;
                             //this.inStartDefeatedLogic = false;
@@ -353,6 +357,7 @@ class matangoRootAnal extends matangoRootOral {
         this.visible = true;
         this.anims.play('analVoreGameover1').once('animationcomplete', () => {
            this.progressGameover = true;
+           this.scene.choke = false;
         });
     }
 
@@ -396,10 +401,12 @@ class matangoRootAnal extends matangoRootOral {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-                 this.scene.initSoundEffect('lickSFX','5',0.5);
-
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
+
+                    //this.scene.initSoundEffect('swallowSFX','3',0.6);
+                    this.playPlapSound('plap3',700);
+
                     this.animationPlayed = true;
                     this.flipX = true;
                     this.anims.play("analStart").once('animationcomplete', () => {
@@ -429,6 +436,9 @@ class matangoRootAnal extends matangoRootOral {
                     if(this.playerGaveUp === true){
 
                         this.playerProgressingAnimation = true;
+
+                        giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
                     
                     }
                         
@@ -445,7 +455,7 @@ class matangoRootAnal extends matangoRootOral {
                          if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                             this.struggleAnimationInterupt = true;
                             this.flipX = false;
-                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.scene.initSoundEffect('stomachSFX','6',0.1);
                             this.anims.play('analUpStruggle').once('animationcomplete', () => {
                                 this.animationPlayed = false;
                                 this.struggleAnimationInterupt = false;
@@ -467,7 +477,7 @@ class matangoRootAnal extends matangoRootOral {
 
                         if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
                             this.struggleAnimationInterupt = true;
-                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+                            this.scene.initSoundEffect('stomachSFX','8',0.1);
                             this.anims.play('analDownStruggle').once('animationcomplete', () => {
                                 this.animationPlayed = false;
                                 this.struggleAnimationInterupt = false;

@@ -148,8 +148,6 @@ class matangoRootCock extends  matangoRootAnal {
             this.preventGiveUp = true;
             //this.struggleAnimationInterupt = true;
 
-            //this.scene.initSoundEffect('lickSFX','5',0.5);
-
             //need to hide the correct hand on the correct side here.
             if(this.flipX === true){
                 this.rightHand.visible = false;
@@ -159,6 +157,7 @@ class matangoRootCock extends  matangoRootAnal {
             this.scene.player1.lightSource.visible = false;
 
             this.anims.play('cockVoreSwallow1').once('animationcomplete', () => {
+                this.playPlapSound('plap3',700);
                 this.anims.play('cockVoreSwallow2').once('animationcomplete', () => {
                     //need to hide the correct hand on the correct side here.
                      if(this.flipX === true){
@@ -168,6 +167,7 @@ class matangoRootCock extends  matangoRootAnal {
                     }
                     this.anims.play('cockVoreSwallow3').once('animationcomplete', () => {
                         this.anims.play('cockVoreSwallow4').once('animationcomplete', () => {
+                            this.playPlapSound('plap3',700);
                             this.anims.play('cockVoreSwallow5').once('animationcomplete', () => {
                                 this.anims.play('shaftToBalls').once('animationcomplete', () => {
                                     this.startedGrab = true;
@@ -262,6 +262,7 @@ class matangoRootCock extends  matangoRootAnal {
                     this.anims.play("cockVoreGrabRelease1").once('animationcomplete', () => {
                         this.leftHand.setDepth(4);
                         this.rightHand.setDepth(4);
+                        this.playPlapSound('plap3',700);
                        this.anims.play("cockVoreGrabRelease2").once('animationcomplete', () => {
                             //then free player.
                             this.resetVariables();
@@ -298,6 +299,7 @@ class matangoRootCock extends  matangoRootAnal {
                     this.spitUp = true;
                     this.flipX = false;
                     this.preventGiveUp = true;
+                    this.playPlapSound('plap5',1000);
                     this.anims.play('shaftToBalls').once('animationcomplete', () => {
                        
                         this.struggleCounter = 0;
@@ -320,6 +322,7 @@ class matangoRootCock extends  matangoRootAnal {
                     this.spitUp = true;
                     this.flipX = false;
                     this.preventGiveUp = true;
+                    this.playPlapSound('plap5',500);
                     this.anims.play('BallsToShaft').once('animationcomplete', () => {
                      
                         this.struggleCounter = 0;
@@ -419,6 +422,7 @@ class matangoRootCock extends  matangoRootAnal {
         if(this.playerBellyLocation === 'shaft'){
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
+                this.playPlapSound('plap5',1000);
                 this.anims.play('shaftToBalls').once('animationcomplete', () => {
                         
                     this.playerBellyLocation = "balls";
@@ -436,7 +440,7 @@ class matangoRootCock extends  matangoRootAnal {
                 if (!this.animationPlayed) {
 
                     this.animationPlayed = true;
-
+                     this.scene.initSoundEffect('growSFX','2',0.1);
                     this.anims.play('cockVoreGameover1').once('animationcomplete', () => {
 
                         this.animationPlayed = false;
@@ -451,11 +455,13 @@ class matangoRootCock extends  matangoRootAnal {
             }else if (this.playerDefeatedAnimationStage === 2) {
                 this.anims.play('cockVoreGameover2',true);
             }else if (this.playerDefeatedAnimationStage === 3) {
-                this.leftHand.visible = false;
+                if(this.leftHand !== null && this.leftHand !== undefined){
+                    this.leftHand.visible = false;
+                }
+                
                 if (!this.animationPlayed) {
 
                     this.animationPlayed = true;
-
                     this.anims.play('cockVoreGameover3').once('animationcomplete', () => {
 
                         this.animationPlayed = false;
@@ -465,15 +471,17 @@ class matangoRootCock extends  matangoRootAnal {
                     
                 }
             }else if (this.playerDefeatedAnimationStage === 4) {
+                this.playPlapSound('plap9',800);
                 this.anims.play('cockVoreGameover4',true);
             }else if (this.playerDefeatedAnimationStage === 5) {
+                this.playPlapSound('plap10',500);
                 this.anims.play('cockVoreGameover5',true);
             }else if (this.playerDefeatedAnimationStage === 6) {
-
+                this.scene.initSoundEffect('stomachSFX','1',0.05);
+                this.playPlapSound('plap10',500)
                 if (!this.animationPlayed) {
 
                     this.animationPlayed = true;
-
                     this.anims.play('cockVoreGameover6').once('animationcomplete', () => {
 
                         this.animationPlayed = false;
@@ -483,9 +491,9 @@ class matangoRootCock extends  matangoRootAnal {
                     
                 }
             }else if (this.playerDefeatedAnimationStage === 7) {
-
+                this.playPlapSound('squirt2',1000);
                 if (!this.animationPlayed) {
-
+                    
                     this.animationPlayed = true;
 
                     this.anims.play('cockVoreGameover7').once('animationcomplete', () => {
@@ -497,16 +505,23 @@ class matangoRootCock extends  matangoRootAnal {
                 }
             }else if (this.playerDefeatedAnimationStage === 8) {
 
+                this.playPlapSound('squirt2',1000);
+
                 if (!this.animationPlayed) {
 
+
                     this.animationPlayed = true;
-
+                   
                     this.anims.play('cockVoreGameover8').once('animationcomplete', () => {
-                        this.leftHand.visible = true;
-
+                        if(this.leftHand !== null && this.leftHand !== undefined){
+                            this.leftHand.visible = true;
+                        }
+                        
+                        this.scene.sound.get("plapSFX").stop();
                         this.anims.play('cockVoreGameover8-fin').once('animationcomplete', () => {
                             this.animationPlayed = false;
                             this.playerDefeatedAnimationStage++;
+
 
                         });
 
@@ -568,15 +583,16 @@ class matangoRootCock extends  matangoRootAnal {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-                 this.scene.initSoundEffect('lickSFX','5',0.5);
 
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
                     this.animationPlayed = true;
                     this.anims.play("cockVoreSwallow1").once('animationcomplete', () => {
+                        this.playPlapSound('plap3',700);
                         this.anims.play("cockVoreSwallow2").once('animationcomplete', () => {
                             this.anims.play("cockVoreSwallow3").once('animationcomplete', () => {
                                 this.anims.play("cockVoreSwallow4").once('animationcomplete', () => {
+                                this.playPlapSound('plap3',700);
                                    this.anims.play("cockVoreSwallow5").once('animationcomplete', () => {
                                         this.anims.play("shaftToBalls").once('animationcomplete', () => {
                                             //play struggle animation afterward.
@@ -611,13 +627,15 @@ class matangoRootCock extends  matangoRootAnal {
                     if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'shaft'){
 
 
-                        if(this.playerGaveUp === true){
+                        if(this.playerGaveUp === true ){
 
                             this.playerProgressingAnimation = true;
-                    
+                            
+                            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
                         }
                         
-                        if (this.playerDefeated === false) {
+                        if (this.playerDefeated === false && this.struggleAnimationInterupt === false) {
 
                             //allows the player to press tab to let the enemy defeat them
                             this.tabToGiveUp();
@@ -687,11 +705,14 @@ class matangoRootCock extends  matangoRootAnal {
 
                     }else if(this.animationViewTransferValue < 5 && this.playerBellyLocation === 'balls'){
 
-                        if(this.playerGaveUp === true){
+                        if(this.playerGaveUp === true ){
                             this.playerProgressingAnimation = true;
+
+                            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
                         }
                         
-                        if (this.playerDefeated === false) {
+                        if (this.playerDefeated === false && this.struggleAnimationInterupt === false) {
 
                             //allows the player to press tab to let the enemy defeat them
                             this.tabToGiveUp();
@@ -766,6 +787,7 @@ class matangoRootCock extends  matangoRootAnal {
                         console.log("this.playerBellyLocation: ",this.playerBellyLocation," this.lastKeyPressed:",this.lastKeyPressed)
                         if(this.playerBellyLocation === 'shaft' && this.lastKeyPressed === 'S'){
                             this.flipX = false;
+                            this.playPlapSound('plap5',1000);
                             this.anims.play('shaftToBalls').once('animationcomplete', () => {
                              
                                 this.animationViewTransferValue = 0;
@@ -774,6 +796,7 @@ class matangoRootCock extends  matangoRootAnal {
                             });
                         }else if(this.playerBellyLocation === 'balls' && this.lastKeyPressed === 'W'){
                             this.flipX = false;
+                            this.playPlapSound('plap5',500);
                             this.anims.play('BallsToShaft').once('animationcomplete', () => {
                       
                                 this.animationViewTransferValue = 0;
@@ -784,7 +807,9 @@ class matangoRootCock extends  matangoRootAnal {
                         }else if(this.playerBellyLocation === 'shaft' && this.lastKeyPressed === 'W'){
 
                             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            //this.playPlapSound('plap3',700);
                             this.anims.play("cockVoreGrabRelease1").once('animationcomplete', () => {
+                                this.playPlapSound('plap3',700);
                                 this.anims.play("cockVoreGrabRelease2").once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
                                     this.struggleAnimationInterupt = false;

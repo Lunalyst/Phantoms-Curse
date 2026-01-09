@@ -148,8 +148,6 @@ class matangoRootOral extends  matangoRootUnbirth {
             this.preventGiveUp = true;
             //this.struggleAnimationInterupt = true;
 
-            //this.scene.initSoundEffect('lickSFX','5',0.5);
-
             //need to hide the correct hand on the correct side here.
             if(this.flipX === true){
                 this.rightHand.visible = false;
@@ -159,6 +157,7 @@ class matangoRootOral extends  matangoRootUnbirth {
             this.scene.player1.lightSource.visible = false;
 
             this.anims.play('oralVoreSwallow1').once('animationcomplete', () => {
+                this.scene.initSoundEffect('swallowSFX','2',0.6);
                 this.anims.play('oralVoreSwallow2').once('animationcomplete', () => {
                     //need to hide the correct hand on the correct side here.
                      if(this.flipX === true){
@@ -167,6 +166,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                         this.leftHand.visible = true;
                     }
                     this.anims.play('oralVoreSwallow3').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('swallowSFX','3',0.6);
                         this.anims.play('oralVoreSwallow4').once('animationcomplete', () => {
                                 this.startedGrab = true;
                                 this.animationPlayed = false;
@@ -252,9 +252,11 @@ class matangoRootOral extends  matangoRootUnbirth {
                     this.scene.initSoundEffect('swallowSFX','4',0.02);
 
                     //play spitup animation
+                    this.playPlapSound('plap5',500);
                     this.anims.play("lowerBellyGrabRelease1").once('animationcomplete', () => {
                         this.leftHand.setDepth(4);
                         this.rightHand.setDepth(4);
+                        this.playPlapSound('plap5',500);
                        this.anims.play("lowerBellyGrabRelease2").once('animationcomplete', () => {
                             //then free player.
                             this.resetVariables();
@@ -289,6 +291,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                     this.preventGiveUp = true;
                     this.spitUp = true;
                     this.anims.play('upperBellySpitUp').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('swallowSFX','3',0.6);
                         this.anims.play('upperBellyReSwallow').once('animationcomplete', () => {
                             this.struggleCounter = 0;
                             //makes the struggle bar visible
@@ -309,6 +312,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                     this.spitUp = true;
                     this.flipX = false;
                     this.preventGiveUp = true;
+                    this.scene.initSoundEffect('stomachSFX','8',0.1);
                     this.anims.play('upperBellyToLowerBelly1').once('animationcomplete', () => {
                         this.anims.play('upperBellyToLowerBelly2').once('animationcomplete', () => {
                             this.struggleCounter = 0;
@@ -330,6 +334,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                     this.spitUp = true;
                     this.flipX = false;
                     this.preventGiveUp = true;
+                    this.scene.initSoundEffect('stomachSFX','8',0.1);
                     this.anims.play('lowerBellyToUpperBelly1').once('animationcomplete', () => {
                         this.anims.play('lowerBellyToUpperBelly2').once('animationcomplete', () => {
                             this.struggleCounter = 0;
@@ -427,6 +432,8 @@ class matangoRootOral extends  matangoRootUnbirth {
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('stomachSFX','1',0.05);
+
                 if(this.playerBellyLocation === "upper"){
                     this.anims.play('upperBellyDigestion').once('animationcomplete', () => {
 
@@ -501,14 +508,14 @@ class matangoRootOral extends  matangoRootUnbirth {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-                 this.scene.initSoundEffect('lickSFX','5',0.5);
-
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
                     this.animationPlayed = true;
                     this.anims.play("oralVoreSwallow1").once('animationcomplete', () => {
+                        this.scene.initSoundEffect('swallowSFX','2',0.6);
                         this.anims.play("oralVoreSwallow2").once('animationcomplete', () => {
                             this.anims.play("oralVoreSwallow3").once('animationcomplete', () => {
+                                this.scene.initSoundEffect('swallowSFX','3',0.6);
                                 this.anims.play("oralVoreSwallow4").once('animationcomplete', () => {
                                     //play struggle animation afterward.
                                     this.anims.play("upperBellyIdle", true);
@@ -543,10 +550,13 @@ class matangoRootOral extends  matangoRootUnbirth {
                         if(this.playerGaveUp === true){
 
                             this.playerProgressingAnimation = true;
+
+                            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
                     
                         }
                         
-                        if (this.playerDefeated === false) {
+                        if (this.playerDefeated === false && this.struggleAnimationInterupt === false) {
 
                             //allows the player to press tab to let the enemy defeat them
                             this.tabToGiveUp();
@@ -618,9 +628,12 @@ class matangoRootOral extends  matangoRootUnbirth {
 
                         if(this.playerGaveUp === true){
                             this.playerProgressingAnimation = true;
+
+                            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
                         }
                         
-                        if (this.playerDefeated === false) {
+                        if (this.playerDefeated === false && this.struggleAnimationInterupt === false) {
 
                             //allows the player to press tab to let the enemy defeat them
                             this.tabToGiveUp();
@@ -694,6 +707,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                         if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'W'){
                              this.flipX = false;
                              this.anims.play('upperBellySpitUp').once('animationcomplete', () => {
+                                this.scene.initSoundEffect('swallowSFX','3',0.6);
                                 this.anims.play('upperBellyReSwallow').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
                                     this.struggleAnimationInterupt = false;
@@ -701,6 +715,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                             });
                         }else if(this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'A'){
                             this.flipX = false;
+                            this.scene.initSoundEffect('stomachSFX','8',0.1);
                             this.anims.play('upperBellyToLowerBelly1').once('animationcomplete', () => {
                                 this.anims.play('upperBellyToLowerBelly2').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -710,6 +725,7 @@ class matangoRootOral extends  matangoRootUnbirth {
                             });
                         }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'A'){
                             this.flipX = false;
+                            this.scene.initSoundEffect('stomachSFX','8',0.1);
                             this.anims.play('lowerBellyToUpperBelly1').once('animationcomplete', () => {
                                 this.anims.play('lowerBellyToUpperBelly2').once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
@@ -720,7 +736,9 @@ class matangoRootOral extends  matangoRootUnbirth {
                         }else if(this.playerBellyLocation === 'lower' && this.lastKeyPressed === 'D'){
 
                             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                            this.playPlapSound('plap5',500);
                             this.anims.play("lowerBellyGrabRelease1").once('animationcomplete', () => {
+                                this.playPlapSound('plap5',500);
                                 this.anims.play("lowerBellyGrabRelease2").once('animationcomplete', () => {
                                     this.animationViewTransferValue = 0;
                                     this.struggleAnimationInterupt = false;

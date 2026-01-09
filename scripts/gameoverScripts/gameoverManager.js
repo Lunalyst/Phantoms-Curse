@@ -761,6 +761,8 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.leftHand.visible = true;
                 tempSceneRef.leftHand.curseLight.visible = true;
 
+                tempSceneRef.choke = false;
+
                 tempSceneRef.rightHand.anims.play('grabTell',true);
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
@@ -830,6 +832,7 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'eaten';
 
                 tempSceneRef.mushroomNodes = tempSceneRef.physics.add.group();
+                tempSceneRef.choke = false;
                 
                 tempSceneRef.mushroomNode1 = new mushroomNode(tempSceneRef,450-64, 547+64,"node1",tempSceneRef.mushroomRoot,false);
                 tempSceneRef.mushroomNode1.visible = false;
@@ -1344,6 +1347,7 @@ class gameoverManager extends A3SoundEffects {
             matangoRoot_female_absorb: function matangoRootFemaleUnbirthFunction() {
                 tempSceneRef.rightHand.flipX = false;
                 tempSceneRef.leftHand.flipX = true;
+                tempSceneRef.enemy.playJumpySound('10',700);
             },
 
             matangoRoot_female_oral: function matangoRootFemaleOralFunction() {
@@ -1366,10 +1370,13 @@ class gameoverManager extends A3SoundEffects {
 
                 tempSceneRef.rightHand.flipX = false;
                 tempSceneRef.leftHand.flipX = true;
+                console.log("tempSceneRef.enemy.progressGameover: ",tempSceneRef.enemy.progressGameover, "tempSceneRef.choke ",tempSceneRef.choke);
                 if(tempSceneRef.enemy.progressGameover === true && tempSceneRef.choke === false){
 
                     tempSceneRef.choke = true;
+                    console.log("starting animation")
                     tempSceneRef.enemy.anims.play('analVoreGameover2').once('animationcomplete', () => {
+                        console.log("finishing animation")
                         tempSceneRef.enemy.anims.play('analVoreGameover3',true);
                         tempSceneRef.playPlap = true;
                     });
@@ -1382,6 +1389,7 @@ class gameoverManager extends A3SoundEffects {
              matangoRoot_male_absorb: function matangoRootMaleUnbirthFunction() {
                 tempSceneRef.rightHand.flipX = false;
                 tempSceneRef.leftHand.flipX = true;
+                tempSceneRef.enemy.playJumpySound('10',700);
             },
 
             matangoRoot_male_cock: function matangoRootMalecockFunction() {

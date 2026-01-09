@@ -62,6 +62,10 @@
             "start": 6.4,
             "end": 7.1,
             "loop": false
+        },"squirt2":{
+            "start": 0.3,
+            "end": 1.2,
+            "loop": false
         }
     }
 }

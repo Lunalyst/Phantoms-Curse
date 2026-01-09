@@ -39,12 +39,13 @@ class mushroomHandSingle extends enemy{
         this.anims.create({ key: 'knockdownMiddle', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 25, end: 28 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'knockdownEnd', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 29, end: 32 }), frameRate:  8, repeat: 0 });
         if(sex === 0 ){
-          this.anims.create({ key: 'knockdownGrabStart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 33, end: 34 }), frameRate:  8, repeat: 0 });
-          this.anims.create({ key: 'knockdownGrabCarry', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 35, end: 38 }), frameRate:  8, repeat: -1 });
+            this.anims.create({ key: 'knockdownGrabStart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 33, end: 34 }), frameRate:  8, repeat: 0 });
+            this.anims.create({ key: 'knockdownGrabCarry', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 35, end: 38 }), frameRate:  8, repeat: -1 });
         }else{
-
+            this.anims.create({ key: 'knockdownGrabStart', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 39, end: 40 }), frameRate:  8, repeat: 0 });
+            this.anims.create({ key: 'knockdownGrabCarry', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 41, end: 44 }), frameRate:  8, repeat: -1 });
         }
-        this.anims.create({ key: 'handSink', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 39, end: 43 }), frameRate:  8, repeat: 0 });
+        this.anims.create({ key: 'handSink', frames: this.anims.generateFrameNames('mushroom-hands-single', { start: 45, end: 49 }), frameRate:  8, repeat: 0 });
         
   
 

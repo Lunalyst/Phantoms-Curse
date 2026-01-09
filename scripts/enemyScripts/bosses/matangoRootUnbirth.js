@@ -106,8 +106,6 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             this.preventGiveUp = true;
             //this.struggleAnimationInterupt = true;
 
-            this.scene.initSoundEffect('lickSFX','5',0.5);
-
             //need to hide the correct hand on the correct side here.
             if(this.flipX === true){
                 this.rightHand.visible = false;
@@ -115,6 +113,8 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                 this.leftHand.visible = false;
             }
             this.scene.player1.lightSource.visible = false;
+
+            this.playPlapSound('plap3',700);
 
             this.anims.play('unbirthStart').once('animationcomplete', () => {
                 this.startedGrab = true;
@@ -194,7 +194,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
                     this.spitUp = true;
 
                     //spit up sound effect.
-                    this.scene.initSoundEffect('swallowSFX','4',0.02);
+                    this.playPlapSound('plap5',500);
 
                     //play spitup animation
                     this.anims.play("unbirthRelease").once('animationcomplete', () => {
@@ -294,7 +294,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         if (this.playerDefeatedAnimationStage === 1) {
 
             this.playerDefeatedAnimationStageMax = 4;
-
+            this.scene.initSoundEffect('stomachSFX','1',0.05);
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
@@ -311,13 +311,13 @@ class matangoRootUnbirth extends matangoRootAbsorb {
         }else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('unbirthGameover2',true);
         }else if (this.playerDefeatedAnimationStage === 3) {
-
+            this.playPlapSound('squirt2',800);
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
 
                 this.anims.play('unbirthGameover3').once('animationcomplete', () => {
-
+                    this.scene.sound.get("plapSFX").stop();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                 });
@@ -377,11 +377,11 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-                 this.scene.initSoundEffect('lickSFX','5',0.5);
 
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
                     this.animationPlayed = true;
+                    this.playPlapSound('plap3',700);
                     this.anims.play("unbirthStart").once('animationcomplete', () => {
                         //play struggle animation afterward.
                         this.anims.play("unbirthIdle", true);

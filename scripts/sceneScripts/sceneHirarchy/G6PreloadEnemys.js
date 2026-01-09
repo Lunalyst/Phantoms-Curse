@@ -281,6 +281,13 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('Matango-Root-F-7', 'assets/bosses/Matango-Root-F-7.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-F-8', 'assets/bosses/Matango-Root-F-8.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-F-9', 'assets/bosses/Matango-Root-F-9.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-10', 'assets/bosses/Matango-Root-F-10.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-11', 'assets/bosses/Matango-Root-F-11.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-12', 'assets/bosses/Matango-Root-F-12.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-13', 'assets/bosses/Matango-Root-F-13.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-14', 'assets/bosses/Matango-Root-F-14.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-15', 'assets/bosses/Matango-Root-F-15.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-F-16', 'assets/bosses/Matango-Root-F-16.png',{frameWidth: 693, frameHeight: 561 });
 
         tempSceneRef.load.spritesheet('Matango-Root-M-1', 'assets/bosses/Matango-Root-M-1.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-M-2', 'assets/bosses/Matango-Root-M-2.png',{frameWidth: 693, frameHeight: 561 });
@@ -291,6 +298,11 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('Matango-Root-M-7', 'assets/bosses/Matango-Root-M-7.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-M-8', 'assets/bosses/Matango-Root-M-8.png',{frameWidth: 693, frameHeight: 561 });
         tempSceneRef.load.spritesheet('Matango-Root-M-9', 'assets/bosses/Matango-Root-M-9.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-10', 'assets/bosses/Matango-Root-M-10.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-11', 'assets/bosses/Matango-Root-M-11.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-12', 'assets/bosses/Matango-Root-M-12.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-13', 'assets/bosses/Matango-Root-M-13.png',{frameWidth: 693, frameHeight: 561 });
+        tempSceneRef.load.spritesheet('Matango-Root-M-14', 'assets/bosses/Matango-Root-M-14.png',{frameWidth: 693, frameHeight: 561 });
 
         tempSceneRef.load.spritesheet('mushroom-hands-single', 'assets/bosses/mushroom-hands-single.png',{frameWidth: 393, frameHeight: 273 });
         tempSceneRef.load.spritesheet('mushroom-hands-double', 'assets/bosses/mushroom-hands-double.png',{frameWidth: 573, frameHeight: 273 });

@@ -42,6 +42,7 @@ class matangoRootAbsorb extends enemy {
                 }
                 
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                    this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.struggleAnimationInterupt = true;
                     this.flipX = false;
                     //this.scene.initSoundEffect('stomachSFX','4',0.1);
@@ -59,6 +60,7 @@ class matangoRootAbsorb extends enemy {
                 }
 
                 if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+                     this.scene.initSoundEffect('stomachSFX','4',0.1);
                     this.struggleAnimationInterupt = true;
                     this.flipX = true;
                 
@@ -91,6 +93,8 @@ class matangoRootAbsorb extends enemy {
             this.leftHand.visible = false;
             this.centerHands.visible = false;
 
+            this.scene.initSoundEffect('growSFX','2',0.1);
+
             this.anims.play('absorbStart').once('animationcomplete', () => {
                 this.startedGrab = true;
                 this.animationPlayed = false;
@@ -110,7 +114,7 @@ class matangoRootAbsorb extends enemy {
             
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
             this.anims.play("absorbIdle", true);
-            this.playStomachSound('3',800); 
+            this.playJumpySound('2',800); 
             this.rightHand.visible = true;
             this.leftHand.visible = true;
 
@@ -287,14 +291,22 @@ class matangoRootAbsorb extends enemy {
 
         }else if (this.playerDefeatedAnimationStage === 2) {
             this.anims.play('absorbGameover2',true);
+            this.playPlapSound('plap9',500);
+            this.playJumpySound('3',700);
+             
         }else if (this.playerDefeatedAnimationStage === 3) {
             this.anims.play('absorbGameover3',true);
+            this.playPlapSound('plap10',500);
+            this.playJumpySound('4',500);
+
         }else if (this.playerDefeatedAnimationStage === 4) {
+            this.playPlapSound('squirt2',1000);
 
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
-
+                this.scene.sound.get("plapSFX").stop();
+                 
                 this.anims.play('absorbGameover4').once('animationcomplete', () => {
 
                     this.animationPlayed = false;
@@ -310,6 +322,7 @@ class matangoRootAbsorb extends enemy {
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('growSFX','2',0.1);
 
                 this.anims.play('absorbGameover6').once('animationcomplete', () => {
 
@@ -321,6 +334,7 @@ class matangoRootAbsorb extends enemy {
 
         }else if (this.playerDefeatedAnimationStage === 7) {
             this.anims.play('absorbGameover7',true);
+            this.playJumpySound('3',800);
         }
     }
 
@@ -372,7 +386,7 @@ class matangoRootAbsorb extends enemy {
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-                 this.scene.initSoundEffect('lickSFX','5',0.5);
+                this.scene.initSoundEffect('growSFX','2',0.1);
 
                 //needed for the animation viewer
                 if(this.animationPlayed === false && this.startAnimationPlayed === false){
@@ -403,6 +417,9 @@ class matangoRootAbsorb extends enemy {
                     }else if(this.scene.checkAPressed() === true) {
 
                         if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+
                             this.struggleAnimationInterupt = true;
                             this.flipX = false;
                             this.anims.play('absorbSideStruggle').once('animationcomplete', () => {
@@ -413,6 +430,9 @@ class matangoRootAbsorb extends enemy {
                     }else if(this.scene.checkDPressed() === true) {
 
                         if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+
+                            this.scene.initSoundEffect('stomachSFX','4',0.1);
+
                             this.struggleAnimationInterupt = true;
                             this.flipX = true;
                             this.anims.play('absorbSideStruggle').once('animationcomplete', () => {
@@ -422,6 +442,7 @@ class matangoRootAbsorb extends enemy {
                         }
                     }else if(this.struggleAnimationInterupt === false){
                         this.anims.play("absorbIdle", true);
+                        this.playJumpySound('2',800);
                     }   
                 }   
             }

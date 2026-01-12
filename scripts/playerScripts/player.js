@@ -201,6 +201,11 @@ class player extends Phaser.GameObjects.Container{
     this.clothed = false;
     this.ringType = 0;
 
+    this.xVelocity = 0;
+    this.yVelocity = 0;
+
+
+
     this.curseBuildUpCooldown = false;
 
     this.setupRingPassivesMap();
@@ -725,6 +730,21 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       //console.log("from move player this.lastKey: ",this.lastKey);
   }
 
+
+
+  velocityHandlerY(){
+    // make delta's x and y based of where the player is and where we want them to go
+    let delta_x =  pointX - this.mainHitbox.x;
+    let delta_y =  pointY - this.mainHitbox.y;
+
+    // make the direction in radians 
+    let direction_rad = Math.atan2(deltaY, deltaX);
+
+    //make the velocity x and y 
+    let vx = Math.cos(direction_rad) * this.speed;
+    let vy = Math.sin(direction_rad) * this.speed;
+    this.mainHitbox.setVelocity(vx, vy);
+  }
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   //this function handles player attack animations.
   attackPlayer(){

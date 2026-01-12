@@ -40,6 +40,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     console.log("leaving new game sex select.");
                     that.scene.newGame.visible = false;
                     that.scene.loadGame.visible = false;
+                    that.scene.keyBinds.visible = true;
                     
                     that.visible = true;
                     that.scene.titleLogo.visible = false;
@@ -63,6 +64,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.isInNewGameSlotSelect = false;
                     that.scene.newGame.visible = true;
                     that.scene.loadGame.visible = true;
+                    that.scene.keyBinds.visible = true;
                     that.scene.titleLogo.visible = true;
                     that.scene.creditsButton.visible = true;
                     
@@ -98,21 +100,38 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     
                     that.scene.showSaveSlots(true,true);
                 }else if(that.scene.isInCredits === true){
-                    that.visible = false;
                     that.scene.isInCredits = false;
-                    that.scene.newGame.visible = true;
-                    that.scene.loadGame.visible = true;
-                    that.scene.titleLogo.visible = true;
-                    that.scene.curse.visible = true;
-                    that.scene.creditsButton.visible = true;
+
+                    that.showDefaultButtons();
 
                     that.scene.credits.visible = false;
 
                     that.scene.credits.stopCredits();
                    
+                }else if(that.scene.isInKeyBinds === true){
+
+                    that.showDefaultButtons();
+
+                    that.scene.isInKeyBinds = false;
+
+                    that.scene.keyBinds.hideKeyBinds();
+                    //that.scene.keyBinds
+
                 }
         
             });
+
+    }
+
+    showDefaultButtons(){
+
+        this.visible = false;
+        this.scene.newGame.visible = true;
+        this.scene.loadGame.visible = true;
+        this.scene.keyBinds.visible = true;
+        this.scene.titleLogo.visible = true;
+        this.scene.curse.visible = true;
+        this.scene.creditsButton.visible = true;
 
     }
 }

@@ -36,6 +36,7 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.visible = false;
             that.scene.loadGame.visible = false;
+            that.scene.keyBinds.visible = false;
             that.scene.creditsButton.visible = false;
             that.scene.back.visible = true;
             that.scene.titleLogo.visible = false;

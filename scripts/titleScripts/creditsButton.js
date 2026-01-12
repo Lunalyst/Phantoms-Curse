@@ -37,6 +37,7 @@ class creditsButton extends Phaser.Physics.Arcade.Sprite{
             that.visible = false;
             that.scene.newGame.visible = false;
             that.scene.loadGame.visible = false;
+            that.scene.keyBinds.visible = false;
             that.scene.back.visible = true;
             that.scene.titleLogo.visible = false;
             that.scene.isInCredits = true;

@@ -62,6 +62,7 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("newGame" , "assets/titleScreen/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
+            this.load.spritesheet("keyBinds" , "assets/titleScreen/keyBinds.png" , {frameWidth: 204 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
             this.load.spritesheet("creditBackdrop" , "assets/titleScreen/credits backdrop.png" , {frameWidth: 1023 , frameHeight: 693 });
@@ -90,6 +91,10 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('patreonQR', 'assets/titleScreen/patreon.png',{frameWidth: 185, frameHeight: 185 });
             this.load.spritesheet('linkSprites', 'assets/titleScreen/linkSprites.png',{frameWidth: 114, frameHeight: 114 });
             this.load.spritesheet('smugLunalyst', 'assets/titleScreen/smugLunalyst.png',{frameWidth: 670, frameHeight: 838 });
+
+            this.load.spritesheet('keyBindsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 2160 });
+
+            this.load.spritesheet('keyPrompts', 'assets/hudElements/KeyPrompts.png',{frameWidth: 75, frameHeight: 54 });
             
             this.secretLoad();
 
@@ -146,7 +151,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-170,this.screenHeight,'charBubble',"Alpha V0.30");
+            this.version = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Alpha V0.30.02");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);
@@ -326,11 +331,14 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.trashCan3);
 
             //sets up button objects.
-            this.newGame = new newGame(this,130,700);
+            this.newGame = new newGame(this,130,650);
             this.elements.add(this.newGame);
 
-            this.loadGame = new loadGame(this,130, 750);
+            this.loadGame = new loadGame(this,130, 700);
             this.elements.add(this.loadGame);
+
+            this.keyBinds = new keyBinds(this,117, 750);
+            this.elements.add(this.keyBinds);
 
             this.creditsButton = new creditsButton(this,100,800);
             this.elements.add(this.creditsButton);
@@ -357,6 +365,8 @@ class titleScreen extends A3SoundEffects {
             this.newGame.setupNewGame();
 
             this.loadGame.setupLoadGame();
+
+            this.keyBinds.setupkeyBinds();
 
             this.creditsButton.setupCredits();
 
@@ -388,6 +398,16 @@ class titleScreen extends A3SoundEffects {
                 
                 
             });
+
+            this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+            this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
+            this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+            this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+            this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+            this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+            this.keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
+            this.keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+
            
             endTimeTest();
         }

@@ -12,6 +12,15 @@ const textEnd = 75;
 const musicDampen = 0.15;
 const ambienceDampen = 0.15;
 
+let keyABind = 'H';
+let keyWBind = 'U';
+let keyDBind = 'J';
+let keySBind = 'K';
+
+let keyTABBind = 'TAB';
+let spaceBind = 'SPACE';
+let shiftBind = 'SHI';
+
 //simple time tester functions.
 function startTimeTest(label){
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");

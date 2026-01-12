@@ -117,6 +117,23 @@ class makeText extends Phaser.GameObjects.Container{
       });
     }
 
+    addHitboxBinds(){
+
+      let padding = 10;
+
+      //set interactive so it can be clicked on. interesting way to manually make a hitbox for the text.
+      this.setInteractive({
+         hitArea: new Phaser.Geom.Rectangle(
+        - padding,
+        - padding,
+        this.middleX*2,
+        30 ),
+        hitAreaCallback: function(hitArea, x, y){
+          return Phaser.Geom.Rectangle.Contains(hitArea, x, y+30);
+        }
+      });
+    }
+
     //function to apply a wave to text
     textWave(){
 

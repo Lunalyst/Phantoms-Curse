@@ -20,14 +20,14 @@ class ercus extends Phaser.GameObjects.Container{
       this.one = 1;
 
       //loop through the length of the digit string.
-      console.log("digit: ", digit, " digit.length: ",digit.length);
+      //console.log("digit: ", digit, " digit.length: ",digit.length);
 
       for(let counter = 1; counter < digit.length-1; counter++){
         //console.log("counter: ",counter);
         //this.backround = scene.add.sprite(600, 600, "ercusParts");
 
           if(digit.charAt(counter) === '0'){
-            console.log("this.zero: ",this.zero);
+            //console.log("this.zero: ",this.zero);
             //make compoenent sprite.
             let part = new ercusComp(scene,0 ,0,''+this.zero);
             this.add(part);
@@ -37,7 +37,7 @@ class ercus extends Phaser.GameObjects.Container{
             this.one+= 2;
 
           }else if(digit.charAt(counter) === '1'){
-            console.log("this.one: ",this.one);
+            //console.log("this.one: ",this.one);
             //make compoenent sprite.
             let part = new ercusComp(scene,0 ,0,''+this.one);
             this.add(part);

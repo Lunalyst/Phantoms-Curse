@@ -7,15 +7,21 @@ class G1PlayerInputs extends A3SoundEffects {
   //function to set up player key input definitions.
   setUpPlayerInputs(){
     // allows detection of key inputs for movement and player attacks
-    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    console.log("Phaser.Input.Keyboard.KeyCodes: ",Phaser.Input.Keyboard);
+    this.secretLoad();
+
+    //ok so idea, use a map as a junction box to conver the symbols. i hate it but, it seems to probably be the best way.
+
+    console.log("this.scene.bindSettings.keyWBind: ",this.bindSettings.keyWBind);
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keyABind]]);
+    this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keyWBind]]);
+    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keyDBind]]);
+    this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keySBind]]);
 
     //controls for the hud.
-    this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
-    this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
-    this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keyTABBind]]);
+    this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.spaceBind]]);
+    this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.shiftBind]]);
 
   }
 

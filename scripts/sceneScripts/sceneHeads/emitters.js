@@ -12,15 +12,6 @@ const textEnd = 75;
 const musicDampen = 0.15;
 const ambienceDampen = 0.15;
 
-let keyABind = 'H';
-let keyWBind = 'U';
-let keyDBind = 'J';
-let keySBind = 'K';
-
-let keyTABBind = 'TAB';
-let spaceBind = 'SPACE';
-let shiftBind = 'SHI';
-
 //simple time tester functions.
 function startTimeTest(label){
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -572,6 +563,98 @@ const bestiaryTextList = {
         title: "BESTIARY INFO",
         summary: "This book can record information about enemies you have encountered. When you are defeated by them, you can find a new entry about that enemy here. Enemies have elemental weaknesses which are displayed in their stats section."
       }
+    };
+
+    const validKeys = ['KeyA', 'KeyB', 'KeyC', 'KeyD', 'KeyE', 'KeyF', 'KeyG', 'KeyH',
+       'KeyI', 'KeyJ', 'KeyK', 'KeyL', 'KeyM', 'KeyN', 'KeyO', 'KeyP', 'KeyQ', 'KeyR',
+        'KeyS', 'KeyT', 'KeyU', 'KeyV', 'KeyW', 'KeyX', 'KeyY', 'KeyZ', 'Digit1', 'Digit2',
+         'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0',
+          'Comma', 'Period', 'Slash', 'Semicolon', 'Quote', 'BracketLeft', 'BracketRight',
+           'Backslash', 'Minus', /*'Equal'*/, 'Tab', 'CapsLock', 'ShiftLeft', "Enter","Backspace",
+            'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'ArrowUp',
+             'ArrowLeft', 'ArrowDown', 'ArrowRight', /*'NumLock', 'NumpadDivide', 'NumpadMultiply',*/
+              'NumpadSubtract', 'Numpad7', 'Numpad8', 'Numpad9', 'NumpadAdd', 'Numpad4',
+               'Numpad5', 'Numpad6', 'Numpad1', 'Numpad2', 'Numpad3', /*'NumpadEnter'*/, 'Numpad0',
+                ,'Space'];
+
+    const bindConversion = {
+      KeyA:'A',
+      KeyB:'B',
+      KeyC:'C',
+      KeyD:'D',
+      KeyE:'E',
+      KeyF:'F',
+      KeyG:'G',
+      KeyH:'H',
+      KeyI:'I',
+      KeyJ:'J', 
+      KeyK:'K',
+      KeyL:'L',
+      KeyM:'M',
+      KeyN:'N',
+      KeyO:'O',
+      KeyP:'P',
+      KeyQ:'Q',
+      KeyR:'R',
+      KeyS:'S',
+      KeyT:'T',
+      KeyU:'U',
+      KeyV:'V',
+      KeyW:'W',
+      KeyX:'X',
+      KeyY:'Y', 
+      KeyZ:'Z',
+      Digit1:'ONE',
+      Digit2:'TWO',
+      Digit3:'THREE',
+      Digit4:'FOUR',
+      Digit5:'FIVE',
+      Digit6:'SIX',
+      Digit7:'SEVEN',
+      Digit8:'EIGHT', 
+      Digit9:'NINE', 
+      Digit0:'ZERO',
+      Comma:'COMMA',
+      Period:'PERIOD',
+      Slash:'FORWARD_SLASH', 
+      Semicolon:'SEMICOLON',
+      Quote:'QUOTES', 
+      BracketLeft:'BRACKET_LEFT_FIREFOX',
+      BracketRight:'BRACKET_RIGHT_FIREFOX',
+      Backslash:'BACK_SLASH', 
+      Minus:'MINUS',
+      /*Equal:'', */
+      Tab:'TAB', 
+      CapsLock:'CAPS_LOCK',
+      ShiftLeft:'SHIFT',
+      Enter:'ENTER',
+      Backspace:'BACKSPACE',
+      ShiftRight:'SHIFT',
+      ControlLeft:'CTRL', 
+      ControlRight:'CTRL',
+      AltLeft:'ALT',
+      AltRight:'ALT', 
+      ArrowUp:'UP',
+      ArrowLeft:'LEFT',
+      ArrowDown:'DOWN',
+      ArrowRight:'RIGHT',
+      /*NumLock:'',*/
+      /*NumpadDivide:'',*/
+      /*NumpadMultiply:'',*/
+      NumpadSubtract:'NUMPAD_SUBTRACT',
+      Numpad7:'NUMPAD_SEVEN',
+      Numpad8:'NUMPAD_EIGHT',
+      Numpad9:'NUMPAD_NINE',
+      NumpadAdd:'NUMPAD_ADD',
+      Numpad4:'NUMPAD_FOUR',
+      Numpad5:'NUMPAD_FIVE',
+      Numpad6:'NUMPAD_SIX',
+      Numpad1:'NUMPAD_ONE',
+      Numpad2:'NUMPAD_TWO',
+      Numpad3:'NUMPAD_THREE',
+      /*NumpadEnter:'',*/
+      Numpad0:'NUMPAD_ZERO',
+      Space:'SPACE'
     };
 
 

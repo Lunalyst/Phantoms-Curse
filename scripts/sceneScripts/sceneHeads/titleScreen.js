@@ -92,21 +92,11 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet('linkSprites', 'assets/titleScreen/linkSprites.png',{frameWidth: 114, frameHeight: 114 });
             this.load.spritesheet('smugLunalyst', 'assets/titleScreen/smugLunalyst.png',{frameWidth: 670, frameHeight: 838 });
 
-            this.load.spritesheet('keyBindsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 2160 });
+            this.load.spritesheet('keyBindsMenu', 'assets/titleScreen/keybinds backdrop.png',{frameWidth: 630 , frameHeight: 1020 });
 
             this.load.spritesheet('keyPrompts', 'assets/hudElements/KeyPrompts.png',{frameWidth: 75, frameHeight: 54 });
             
             this.secretLoad();
-
-            if(this.titleLogoType === undefined || this.titleLogoType === null){
-
-                let tempObject = {
-                    titleLogoType: "default"
-                };
-
-                secretSave(tempObject);
-                this.titleLogoType = "default";
-            }
 
             if(this.titleLogoType === "default"){
                 this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 720 , frameHeight: 760});
@@ -398,18 +388,27 @@ class titleScreen extends A3SoundEffects {
                 
                 
             });
+            
+            this. randomKey = this.input.keyboard.on('keydown', this.handleAnyKey, this);
+            this.lastKeyPressed = "";
 
-            this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-            this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-            this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
-            this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-            this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-            this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-            this.keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
-            this.keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+            
 
-           
             endTimeTest();
+        }
+
+
+        handleAnyKey(event) {
+            // This function is called whenever any key is pressed.
+            // The 'event' parameter is the native DOM KeyboardEvent.
+            // You can access properties like event.key or event.code to know which key was pressed.
+
+            console.log('A key was pressed:', event.key);
+            console.log('Key code:', event.code);
+            this.lastKeyPressed = event.code;
+            console.log('this.lastKeyPressed: ', this.lastKeyPressed);
+
+            this.keyBinds.bindsOptionsMenu.setKeyPress(event.code);
         }
 
         update(){

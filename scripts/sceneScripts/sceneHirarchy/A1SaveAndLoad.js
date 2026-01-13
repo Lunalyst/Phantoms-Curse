@@ -7,15 +7,80 @@ functions. this class is the beginning of our inheritance class chain as all.
 class A1SaveAndLoad extends Phaser.Scene {
 
   secretLoad(){
-    const file = JSON.parse(localStorage.getItem('secretSave'));
-    console.log("file: ",file);
-  if(file !== null && file !== undefined){
-    this.titleLogoType = file.titleLogoType;
-    console.log("this.titleLogoType: ",this.titleLogoType," <- ",file.titleLogoType);
-  }else{
-    this.titleLogoType = "default";
-    console.log("setting logo type to default");
-  }
+
+      const file = JSON.parse(localStorage.getItem('secretSave'));
+      console.log("file: ",file);
+
+      
+
+    if(file !== null && file !== undefined){
+
+      this.titleLogoType = file.titleLogoType;
+
+      if(file.bindSettings !== null && file.bindSettings !== undefined){
+      
+        this.bindSettings = file.bindSettings;
+
+        console.log("secret settings =================================================");
+        console.log("this.titleLogoType: ",this.titleLogoType," <- ",file.titleLogoType);
+        console.log("this.titleLogoType: ",this.bindSettings," <- ",file.bindSettings);
+
+      }else{
+        console.log("file was missing keybind settings.");
+        this.bindSettings = {
+                      keyABind:"KeyA",
+                      keyWBind:"KeyW",
+                      keyDBind:"KeyD",
+                      keySBind:"KeyS",
+                      keyTABBind:"Tab",
+                      spaceBind:"Space",
+                      shiftBind:"ShiftLeft",
+                      healBind:"KeyH",
+                      specialBind:"KeyF",
+                      blockBind:"KeyR"
+                  };
+        
+      }
+
+    }else{
+
+      let tempObject = {
+        titleLogoType: "default",
+        bindSettings:{
+          keyABind:"KeyA",
+          keyWBind:"KeyW",
+          keyDBind:"KeyD",
+          keySBind:"KeyS",
+          keyTABBind:"Tab",
+          spaceBind:"Space",
+          shiftBind:"ShiftLeft",
+          healBind:"KeyH",
+          specialBind:"KeyF",
+          blockBind:"KeyR"
+          }
+        };
+
+      this.secretSave(tempObject);
+
+      this.titleLogoType = "default";
+      this.bindSettings = {
+                      keyABind:"KeyA",
+                      keyWBind:"KeyW",
+                      keyDBind:"KeyD",
+                      keySBind:"KeyS",
+                      keyTABBind:"Tab",
+                      spaceBind:"Space",
+                      shiftBind:"ShiftLeft",
+                      healBind:"KeyH",
+                      specialBind:"KeyF",
+                      blockBind:"KeyR"
+                  }
+
+      console.log("set secret save since it was not defined");
+      
+    }
+    console.log("this.titleLogoType: ",this.titleLogoType);
+    console.log("this.titleLogoType: ",this.bindSettings);
     
     
   }
@@ -25,8 +90,13 @@ class A1SaveAndLoad extends Phaser.Scene {
     //create file variable to store data
     const file = {
       titleLogoType: dataObject.titleLogoType,
+      bindSettings: dataObject.bindSettings,
       
       };
+
+      console.log("this.titleLogoType: ",this.titleLogoType," -> ",file.titleLogoType);
+      console.log("this.titleLogoType: ",this.bindSettings," -> ",file.bindSettings);
+
 
       //store data in file
       localStorage.setItem('secretSave', JSON.stringify(file));

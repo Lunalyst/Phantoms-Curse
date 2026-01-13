@@ -116,6 +116,7 @@ class back extends Phaser.Physics.Arcade.Sprite{
 
                     that.scene.keyBinds.hideKeyBinds();
                     //that.scene.keyBinds
+                    that.scene.keyBinds.bindsOptionsMenu.resetMenu();
 
                 }
         

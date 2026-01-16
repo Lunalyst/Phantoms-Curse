@@ -56,6 +56,13 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.mushroomBarriers = this.add.group();
     this.usingMushroomBarriers = true;
   }
+
+  setUpLockwoodDrawBridges(){
+    //set up the invisible barriers group
+    console.log('created LockwoodDrawBridges group');
+    this.lockwoodDrawBridges = this.add.group();
+    this.usingLockwoodDrawBridges = true;
+  }
   //
   setUpRockPile(){
     //set up the invisible barriers group

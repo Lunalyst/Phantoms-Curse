@@ -450,7 +450,7 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "Thank you for helping my dream come true. ",
+                        "dialogue": "Thank you for helping my dream come true. -Julia",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":[]

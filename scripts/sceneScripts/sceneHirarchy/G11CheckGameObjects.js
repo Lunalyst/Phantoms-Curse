@@ -24,19 +24,34 @@ class G11CheckGameObjects extends G10CheckNPCS {
     }, this);
   }
 
-  //test to se if the player is safe to save there game
+  //test to se if the player is safe to save there game. also has been used as a generic interaction with object functino for boss respawner and a few other entities.
   checkSave() {
       //applies a function to each portal object in the scene
       this.saveStonePoints.children.each(function (tempSavePoint) {
-      //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
-      if ((this.player1.x > tempSavePoint.x - 50 && this.player1.x < tempSavePoint.x + 50) && (this.player1.y > tempSavePoint.y - 50 && this.player1.y < tempSavePoint.y + 50) && this.grabbed === false) {
-          //console.log("within save point");
-          tempSavePoint.safeToSave = true;
-          this.activatedSavePointId = tempSavePoint.saveStoneId;
-      } else {
-          //console.log("outside save point");
-          tempSavePoint.safeToSave = false;
-      }
+
+        if(tempSavePoint.usingCustomLocation === true){
+          //console.log("custom location used: ",(this.player1.x > tempSavePoint.customLocX - 50 && this.player1.x < tempSavePoint.customLocX + 50), " ", (this.player1.y > tempSavePoint.customLocY - 50 && this.player1.y < tempSavePoint.customLocY + 50), " ",this.grabbed)
+          //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
+          if ((this.player1.x > tempSavePoint.customLocX - 50 && this.player1.x < tempSavePoint.customLocX + 50) && (this.player1.y > tempSavePoint.customLocY - 50 && this.player1.y < tempSavePoint.customLocY + 50) && this.grabbed === false) {
+              //console.log("within save point");
+              tempSavePoint.safeToSave = true;
+              this.activatedSavePointId = tempSavePoint.saveStoneId;
+          } else {
+              //console.log("outside save point");
+              tempSavePoint.safeToSave = false;
+          }
+        }else{
+          //if player overlaps with portal then it its safe to warp and it sets the active id to that portals id.
+          if ((this.player1.x > tempSavePoint.x - 50 && this.player1.x < tempSavePoint.x + 50) && (this.player1.y > tempSavePoint.y - 50 && this.player1.y < tempSavePoint.y + 50) && this.grabbed === false) {
+              //console.log("within save point");
+              tempSavePoint.safeToSave = true;
+              this.activatedSavePointId = tempSavePoint.saveStoneId;
+          } else {
+              //console.log("outside save point");
+              tempSavePoint.safeToSave = false;
+          }
+        }
+     
       tempSavePoint.savePointSaveGame(this, this.keyW, this.activatedSavePointId, tempSavePoint.x, tempSavePoint.y);
       
       }, this);

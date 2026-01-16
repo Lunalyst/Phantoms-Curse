@@ -1,14 +1,14 @@
 
 
-class LockwoodEntrance extends defaultScene {
+class LockwoodBridges extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'LockwoodEntrance',active: false ,physics:{default:'arcade'}});
+    super({key: 'LockwoodBridges',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "LockwoodEntrance";
+    this.playerLocation = "LockwoodBridges";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -35,15 +35,22 @@ class LockwoodEntrance extends defaultScene {
       this.setUpEnemyPreload(this.enemyGroupArray);
       
       
-      this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
+      this.load.image("lockwood_entrance_source_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Entrance_Tileset.png");
+      this.load.tilemapTiledJSON("lockwood_bridges_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Bridges.json");
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
+      this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
+
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+
+      //test sprites
+      this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
+      this.load.spritesheet("nectar" , "assets/bosses/nectar.png" , {frameWidth: 393 , frameHeight: 393 });
+      
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -68,13 +75,16 @@ class LockwoodEntrance extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("lockwood_etrance_map","Forest_Tileset","forest_source_map");
-    
+      this.setUpTileSet("lockwood_bridges_map","Lockwood_Entrance_Tileset","lockwood_entrance_source_map");
+      this.processMap.layer0.setDepth(9);
+      this.processMap.layer1.setDepth(0);
+      this.processMap.layer2.setDepth(0);
+      this.processMap.layer3.setDepth(0);
       //creates player object
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('forestSFX','forest',1,"ambience");
+      //this.initLoopingSound('forestSFX','forest',1,"ambience");
 
       //this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
 
@@ -98,33 +108,45 @@ class LockwoodEntrance extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
+      this.milo = this.add.sprite(1895, 728-7, "milo");
+      this.milo.anims.create({ key: 'idleMasked', frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }), frameRate: 6, repeat: -1 });
+      this.milo.anims.play("idleMasked", true);
+      this.milo.setScale(1/3);
+
+      this.nectar = this.add.sprite(2319, 520, "nectar");
+      this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
+      this.nectar.anims.play("idle", true);
+      this.nectar.flipX = true;
+      this.nectar.setScale(1/3);
+      this.nectar.setDepth(-1);
+      this.nectar.setTint(0x505050);
       
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 
+      this.setUpLockwoodDrawBridges();
+      this.setUpLockwoodDrawBridgesCollider();
+
       //sets up containers
       this.setUpContainers();
-      //sets up item drops for the scene
+      //sets up item drops for the scene 
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(813,1757+12,"generic","tutorialCabin");
+      //this.initSavePoints(1406,1112-10);
 
-      this.initSavePoints(1406,1112-10);
+      this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 
-      
-
-      this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
-
-      //this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
-
-      this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
+      this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
 
       this.initLunalyst(935,1083,'clearingTheWay');
+
+      this.initSavePoints(1099,728-10);
+
+      this.initLockwoodDrawBridge(1632,736-48,'down');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -144,23 +166,24 @@ class LockwoodEntrance extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backroundXOrigin = 0;
-        this.backroundYOrigin = 540;
-        this.backround = this.add.tileSprite(0, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backroundXOrigin = 860;
+        this.backroundYOrigin = 190;
+         
+        this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
         this.backround.setScale(1.2);
         //original pos - player pos * scrol factor
 
-        this.parrallax1XOrigin = 1500;
-        this.parrallax1YOrigin = 880;
-        this.parrallax1 = this.add.tileSprite(1500, this.parrallax1YOrigin, 1920*4 ,1920, "tree_parrallax");
+        this.parrallax1XOrigin = 3000-1290;
+        this.parrallax1YOrigin = 530 ;
+        this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*8 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
         this.parrallax1.setTint(0x444444);
 
-        this.parrallax2XOrigin = 1500;
-        this.parrallax2YOrigin = 880+600;
-        this.parrallax2 = this.add.tileSprite(1500, this.parrallax2YOrigin, 1920*4 ,1920, "ground_parrallax");
+        this.parrallax2XOrigin = 3000-1290;
+        this.parrallax2YOrigin = 530+600;
+        this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*8 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x444444);
@@ -175,13 +198,13 @@ class LockwoodEntrance extends defaultScene {
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
+        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
+        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
+        this.backgroundRangeRight(this.backround,this.backroundXOrigin,2000,0.7);
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
+        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
+        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
+        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,2000,0.7);
       }
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;

@@ -45,6 +45,14 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
 
   }
 
+  setUpLockwoodDrawBridgesCollider(){
+    console.log('setting up LockwoodDrawBridges colliders');
+    //this.physics.add.collider(this.enemys, this.woodenBarriers);
+
+    this.physics.add.collider(this.player1.mainHitbox, this.lockwoodDrawBridges);
+
+  }
+
   setUpSlimeProjectilesBarriers(){
     this.physics.add.collider(this.processMap.layer1, this.slimeProjectiles);
   }

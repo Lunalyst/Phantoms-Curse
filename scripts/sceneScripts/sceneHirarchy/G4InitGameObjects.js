@@ -4,12 +4,15 @@ description: init functions for our gameobjects. includes warps save points ect.
 class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   //creates warp portal objects in the scene
-  initPortals(x, y, toX, toY, animation,destination) {
+  initPortals(x, y, toX, toY, animation,destination,visible) {
 
     let portal1 = new warp(this, x, y);
     //gives portal a unique id so that scene can tell which warp object is being activated
     portal1.warpPortalId = this.portalId;
     this.portalId++;
+    if(visible !== undefined && visible !== null){
+      portal1.visible = visible;
+    }
     //sets the location given as to where the player will be sent in the next scene
     portal1.setLocationToSendPlayer(toX, toY, animation,destination);
     //adds portal object to the portal object in the scene
@@ -458,6 +461,21 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       });*/
 
     }
-  
+
+    initLockwoodDrawBridge(x,y,bridgePosition){
+
+      let savePoint1 = new lockwoodDrawBridge(this, x, y,bridgePosition);
+      savePoint1.saveStoneId = this.saveStoneId;
+      this.saveStoneId++;
+
+      this.saveStonePoints.add(savePoint1);
+      this.lockwoodDrawBridges.add(savePoint1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        savePoint1.setPipeline('Light2D');
+      }
+
+  }
 
 }

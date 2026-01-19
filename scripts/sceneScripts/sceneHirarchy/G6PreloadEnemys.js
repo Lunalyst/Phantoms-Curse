@@ -309,6 +309,9 @@ class G6PreloadEnemys extends G5InitNPCs{
 
 
       },
+      genericDefeats: function genericDefeatFunction() {
+
+      },
 
     };
 

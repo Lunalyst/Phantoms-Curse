@@ -100,6 +100,7 @@ class defaultScene extends G12UpdateLoops {
          
        this.load.spritesheet('penning', 'assets/internalViews/penning.png',{frameWidth: 213, frameHeight: 213});
        //endTimeTest();
+      
       }
 
     //{scene setup Functions}===================================================================================================================

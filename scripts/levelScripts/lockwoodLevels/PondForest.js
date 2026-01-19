@@ -27,7 +27,7 @@ class PondForest extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.defaultPreload();
 
-      this.enemyGroupArray = ["whiteCats","bats"];
+      this.enemyGroupArray = ["whiteCats","bats","genericDefeats"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -234,7 +234,9 @@ class PondForest extends defaultScene {
           thisScene.initEnemy(4089,1673,thisScene.playerSex,'whiteCat',false); 
           
           thisScene.initEnemy(1671,1073+30,thisScene.playerSex,'bat',false);
-          thisScene.initEnemy(3920,1098,thisScene.playerSex,'bat',false);        
+          thisScene.initEnemy(3920,1098,thisScene.playerSex,'bat',false); 
+
+          thisScene.initEnemy(0,0,thisScene.playerSex,'genericDefeat',false);        
           thisScene.spawnedEnemys = true;
         },1000);
 

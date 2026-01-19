@@ -766,7 +766,11 @@ class rabbit extends enemy {
 
     //simple idle function played when the player is grabbed by something that isnt this rabbit.
     moveIdle() {
-        this.anims.play('rabbitIdle', true);
+        if(this.rabbitIsHungry === true){
+            this.anims.play('rabbitHungerIdleLoop', true);
+        }else{
+            this.anims.play('rabbitIdle', true);
+        }
         this.body.setGravityY(600);
         this.setVelocityX(0);
 

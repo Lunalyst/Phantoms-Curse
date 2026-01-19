@@ -25,7 +25,7 @@ class ShadowCaveUpper extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms","matangoRoot"];
+      this.enemyGroupArray = ["mushroomDefeats","curseShadows","mushrooms","matangoRoot","genericDefeats"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -265,6 +265,7 @@ class ShadowCaveUpper extends defaultScene {
       setTimeout(function(){
         thisScene.initEnemy(905,1016,thisScene.playerSex,'mushroomDefeat',false);
         thisScene.initEnemy(811,654,thisScene.playerSex,'curseShadow',false);
+        thisScene.initEnemy(0,0,thisScene.playerSex,'genericDefeat',false);   
 
         //special collision function to give the shadows collision with the mushroom lights expanded hitbox. allowing for the illusion that the shadows cant enter light.
         thisScene.setUpShadowLightCollider();

@@ -29,7 +29,7 @@ class TestForest extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = ["tigers",'rabbits'];
+      this.enemyGroupArray = ["tigers",'rabbits',"genericDefeats"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -168,6 +168,7 @@ class TestForest extends defaultScene {
 
         //note, have to spawn tiger after rabbits, otherwise collider will not be applied correctly. 
         thisScene.initEnemy(1356,1139,thisScene.playerSex,'tiger',false);
+        thisScene.initEnemy(0,0,thisScene.playerSex,'genericDefeat',false);
 
         thisScene.spawnedEnemys = true;
         //},1000);

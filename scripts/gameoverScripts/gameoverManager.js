@@ -74,7 +74,9 @@ class gameoverManager extends A3SoundEffects {
     }
 
     tryAgianLoad(gameoverThat){
-        //sets a few variables
+
+        if(this.enemyThatDefeatedPlayer !== null && this.enemyThatDefeatedPlayer !== undefined && this.enemyThatDefeatedPlayer !== 'generic'){
+            //sets a few variables
         let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
         let tempPlayerSex = gameoverThat.playerSex;
         
@@ -139,12 +141,60 @@ class gameoverManager extends A3SoundEffects {
 
             //call save function for temp save so when we start the scene agian, it has the correct data.
             gameoverThat.saveGameFile(playerDataObject);
-            
+
+            if( gameoverThat.sound.get("gameoverSFX") !== undefined ||  gameoverThat.sound.get("gameoverSFX") !== null){
+                gameoverThat.sound.get("gameoverSFX").stop();
+            }  
+
             // calls the fadout function which loads back to the last save on fadeout complete
             gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
-
-        //if the player has not saved, send them back to the beginning of the game
         }
+     }else{
+
+        let tempPlayerSaveSlotData = gameoverThat.playerSaveSlotData;
+        let tempPlayerSex = gameoverThat.playerSex;
+        
+        //grabs current saveslot
+        let slot = gameoverThat.playerSaveSlotData.saveSlot;
+
+        //loads player info from hard save
+        gameoverThat.loadGameFile(slot);
+        console.log("attempting to load slot:" + slot);
+
+        //creates a object to hold data for scene transition
+        let playerDataObject = {
+            saveX: gameoverThat.warpToX,
+            saveY: gameoverThat.warpToY,
+            playerHpValue: gameoverThat.playerHealth,
+            playerSex:gameoverThat.playerSex,
+            playerLocation: gameoverThat.playerLocation,
+            inventoryArray: gameoverThat.inventoryDataArray,
+            playerBestiaryData: gameoverThat.playerBestiaryData,
+            playerSkillsData: gameoverThat.playerSkillsData,
+            playerSaveSlotData: gameoverThat.playerSaveSlotData,
+            flagValues: gameoverThat.flagValues,
+            settings:gameoverThat.settings,
+            dreamReturnLocation:gameoverThat.dreamReturnLocation,
+            playerCurseValue:gameoverThat.playerCurseValue
+        };
+
+        //call save function for temp save so when we start the scene agian, it has the correct data.
+        gameoverThat.saveGame(playerDataObject);
+
+        //call save function for temp save so when we start the scene agian, it has the correct data.
+        gameoverThat.saveGameFile(playerDataObject);
+
+        if( gameoverThat.sound.get("gameoverSFX") !== undefined ||  gameoverThat.sound.get("gameoverSFX") !== null){
+            gameoverThat.sound.get("gameoverSFX").stop();
+        }  
+
+        // calls the fadout function which loads back to the last save on fadeout complete
+        gameoverThat.cameras.main.fadeOut(500, 0, 0, 0);
+     }
+                 
+       
+
+        
     }
 
     //set up player control logic
@@ -838,7 +888,11 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.mushroomNode1.visible = false;
                 tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,450+64, 547+64,"node2",tempSceneRef.mushroomRoot,false);
                 tempSceneRef.mushroomNode2.visible = false;
-             },
+            },
+
+            generic: function genericFunction(){
+
+            },
         }
     }
 
@@ -1394,6 +1448,10 @@ class gameoverManager extends A3SoundEffects {
 
             matangoRoot_male_cock: function matangoRootMalecockFunction() {
                 
+            },
+
+            generic: function genericFunction(){
+
             },
         }
     }

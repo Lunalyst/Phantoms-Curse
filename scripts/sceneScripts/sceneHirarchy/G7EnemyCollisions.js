@@ -114,6 +114,10 @@ class G7EnemyCollisions extends G6PreloadEnemys{
 
             
           },
+          genericDefeats: function genericDefeatFunction() {
+            console.log("adding generic defeat");
+            tempSceneRef.genericDefeats = tempSceneRef.add.group();
+          },
           
         };
   }

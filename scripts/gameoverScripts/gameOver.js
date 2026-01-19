@@ -69,6 +69,9 @@ class gameOver extends gameoverManager {
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/gameover/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
 
+            this.load.tilemapTiledJSON("earie_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Earie_Cave.json");
+            this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
+      
             this.load.audioSprite('gameoverSFX','audio/used-audio/gameover-sounds/gameover-sounds.json',[
                 "audio/used-audio/gameover-sounds/ponycillo-defeat.mp3"
               ]);
@@ -98,19 +101,22 @@ class gameOver extends gameoverManager {
 
             //creates map of function for preloads of different scenes
             this.preloadMapOfLocationPreloads();
+            // if its a generic defeat then, 
+           
 
             //small function to set up the tilemap level using the data provided.
-            let myMap = this.make.tilemap({ key:this.gameoverLocation});
+            this.myMap = this.make.tilemap({ key:this.gameoverLocation});
 
             //creates a new level object which is used to display map. sends scene and mapdata
-            this.processMap = new level(this,myMap); 
+            this.processMap = new level(this,this.myMap); 
 
             //activates preload of correct type based on gameover location
             this.mapOfLocationPreloads[this.gameoverLocation]();
 
             console.log("loading gameover tileset: ", this.gameoverLocation);
             console.log("this.processMap: ",this.processMap);
-
+            
+           
             //handles scene transition and fade out for scene transition
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
 
@@ -150,18 +156,56 @@ class gameOver extends gameoverManager {
                 );
             //sets up map of enemy preloads
             this.preloadMapOfEnemys();
-            console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
-            this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
-            
-            //set up textbox sound type.
-            if(this.defeatedTitle === 'eaten'){
-                this.sceneTextBox.soundType = "digest";
-                this.sceneTextBox.textTint = 0x80ff1e;
-            }else{
+
+            if(this.enemyThatDefeatedPlayer === null || this.enemyThatDefeatedPlayer === undefined || this.enemyThatDefeatedPlayer === 'generic'){
+                console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
+                this.mapOfEnemyPreloads['generic']();
+                this.enemyThatDefeatedPlayer = 'generic';
+                console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
+
                 this.sceneTextBox.soundType = "lightPiano";
                 this.sceneTextBox.textTint = 0x9d00e0;
+
+            }else{
+                console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
+                this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
+
+                //set up textbox sound type.
+                if(this.defeatedTitle === 'eaten'){
+                    this.sceneTextBox.soundType = "digest";
+                    this.sceneTextBox.textTint = 0x80ff1e;
+                }else{
+                    this.sceneTextBox.soundType = "lightPiano";
+                    this.sceneTextBox.textTint = 0x9d00e0;
+                }
+
+                //adds collider for enemy to the tileset
+                this.physics.add.collider(this.processMap.layer1, this.enemy);
+                this.physics.add.collider(this.processMap.layer1, this.npcGameover);
+
+                //game over sign.
+                this.gameOverSign = this.add.sprite(450,380,"gameOverSign");
+                this.gameOverSign.setScale(.3);
+                this.gameOverSign.setDepth(7);
+                
+                if(this.defeatedTitle === 'eaten'){
+                    this.gameOverSign.anims.play("gameoverTitleAnimationEaten").once('animationcomplete', () => {
+                        this.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
+                        
+                    });
+                }else{
+                    this.gameOverSign.anims.play("gameoverTitleAnimationCursed").once('animationcomplete', () => {
+                        this.gameOverSign.anims.play("gameoverTitleAnimationLoopCursed");
+                        
+                    });
+                }
+
+                 console.log("this.enemy: ", this.enemy);
+
+
+
             }
-            
+           
             //gets dialogue from 
             console.log(npcDialogue["gameover"][this.defeatedTitle]);
             if(npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === null || npcDialogue["gameover"][this.defeatedTitle][this.enemyThatDefeatedPlayer] === undefined){
@@ -174,40 +218,19 @@ class gameOver extends gameoverManager {
             this.npcGameover.nodeHandler("gameover",this.defeatedTitle,this.dialogueFlag);
             console.log("this.defeatedTitle: ", this.defeatedTitle);
             console.log("this.dialogueFlag: ", this.dialogueFlag);
-            //adds collider for enemy to the tileset
-            this.physics.add.collider(this.processMap.layer1, this.enemy);
-            this.physics.add.collider(this.processMap.layer1, this.npcGameover);
 
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
             //this.mycamera.startFollow(this.enemy);
-            this.mycamera.setBounds( 0, 0, myMap.widthInPixels, myMap.HeightInPixels);
+            this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels);
             this.cameras.main.zoom = 2.5;
             //this.cameras.main.followOffset.set(-450,-100);
           
             this.mycamera.setScroll(-135, 60);
-
-            //game over sign.
-            this.gameOverSign = this.add.sprite(450,380,"gameOverSign");
-            this.gameOverSign.setScale(.3);
-            this.gameOverSign.setDepth(7);
-            
-            if(this.defeatedTitle === 'eaten'){
-                this.gameOverSign.anims.play("gameoverTitleAnimationEaten").once('animationcomplete', () => {
-                    this.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
-                    
-                });
-            }else{
-                this.gameOverSign.anims.play("gameoverTitleAnimationCursed").once('animationcomplete', () => {
-                    this.gameOverSign.anims.play("gameoverTitleAnimationLoopCursed");
-                    
-                });
-            }
                 
             this.initSoundEffect('gameoverSFX','gameover',0.05);
 
-            console.log("this.enemy: ", this.enemy);
-
+           
             if(this.enemy !== null && this.enemy !== undefined){
                 this.enemy.soundCoolDown = false;
             }

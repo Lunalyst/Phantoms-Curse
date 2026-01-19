@@ -788,7 +788,7 @@ class bat extends enemy {
             console.log("this.target: ", this.target);
         }
 
-        if(this.isSleeping === false){
+        if(this.isSleeping === false &&  this.batHasEatenCat === false ){
             if(this.enemyInDefeatedLogic === false){
                 this.anims.play('batIdle', true);
             }
@@ -835,9 +835,12 @@ class bat extends enemy {
 
             }else{
                 this.setVelocityX(0);
-        
+                this.anims.play('batIdle', true);
             }
            
+        }else if(this.batHasEatenCat === true){
+            this.setVelocityX(0);
+            this.anims.play('batFatTemptingLookLoop', true);
         }
         
     }

@@ -96,6 +96,8 @@ class G9CheckEnemys extends G8InitEnemys {
 
         if(playerHealthObject.playerHealth-5 > 0){
           healthEmitter.emit(healthEvent.loseHealth,5);
+        }else if(playerHealthObject.playerHealth <= 5){
+          healthEmitter.emit(healthEvent.loseHealth,playerHealthObject.playerHealth);
         }
       }
 
@@ -333,6 +335,8 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.checkMushroomDefeatsInteractions(tempSceneRef);
       },matangoRoot: function matangoRootFunction(){
         tempSceneRef.matangoRootInteractions(tempSceneRef);
+      },genericDefeats:function genericDefeatsFunction(){
+        tempSceneRef.genericDefeatInteractions(tempSceneRef);
       }
 
 
@@ -935,6 +939,49 @@ class G9CheckEnemys extends G8InitEnemys {
       }
         
     }, this);
+  }
+  
+  genericDefeatInteractions (scene){
+
+    scene.genericDefeats.children.each(function (tempDefeat) {
+      //console.log("playerHealthObject.playerHealth: ",playerHealthObject.playerHealth);
+      //make a temp player health object
+      let playerHealthObject = {
+        playerHealth: null,
+        playerMaxHealth: null
+      };
+
+      //if the player isnt already grabbed then call emitter. otherwise stop calling it to hopefully save resources?
+      if(tempDefeat.playerGrabbed === false){
+        
+        //grab the player health value from the hud emitter.
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+      }
+      
+      //if the players curse bar is maxed out, and they are touching the floor, then trigger gameover.
+      if(playerHealthObject.playerHealth === 0) {
+       
+          //stop the velocity of the player
+          tempDefeat.setVelocityX(0);
+          scene.player1.mainHitbox.setVelocityX(0);
+          //calls the grab function
+          tempDefeat.grab();
+          //sets the scene grab value to true since the player has been grabbed
+          // tells instance of slime that it has grabbed player
+          tempDefeat.grabCoolDown = true;
+          tempDefeat.playerGrabbed = true;
+          scene.grabbed = true;
+          scene.grabCoolDown = true;
+          console.log('player was consumed by spores!');
+
+      }else{
+        tempDefeat.setVelocityY(0);
+        tempDefeat.setVelocityX(0);
+        tempDefeat.safePrompts.visible = false;
+        tempDefeat.playedSafePrompts = false;
+      }
+
+    });
   }
 
   

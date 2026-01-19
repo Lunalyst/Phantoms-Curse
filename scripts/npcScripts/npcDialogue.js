@@ -2602,7 +2602,7 @@ const npcDialogue = {
             "cursed":{
                 "default":{
                     "node1":{
-                        "dialogue": "You were cursed, but I have no clue what got you or how it happened x3.",
+                        "dialogue": "You blacked out....",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

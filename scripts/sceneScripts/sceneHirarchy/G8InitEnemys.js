@@ -995,6 +995,13 @@ class G8InitEnemys extends G7EnemyCollisions{
         mush.grabType = "cock";
 
       },
+      genericDefeat: function genericDefeatFunction(startX, startY, playerSex,inSafeMode) {
+        let defeat = new genericDefeat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        tempSceneRef.enemyId++;
+        console.log("created mushdefeat id: ",defeat.enemyId);
+        tempSceneRef.enemys.add(defeat);
+        tempSceneRef.genericDefeats.add(defeat);
+      },
 
       
     };

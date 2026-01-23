@@ -26,6 +26,11 @@ class hpBar extends Phaser.GameObjects.Container{
         this.outSide.anims.create({key: '9',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
         this.outSide.anims.create({key: '10',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
 
+        this.outSide.anims.create({key: 'miloMasked',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 11, end: 11 }),frameRate: 10,repeat: -1});
+        this.outSide.anims.create({key: 'milo',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 12, end: 12 }),frameRate: 10,repeat: -1});
+
+
+
         //sets the proper health upgrade animation frame
         
         this.setDepth(20);

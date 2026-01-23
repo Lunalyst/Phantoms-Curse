@@ -119,6 +119,9 @@ class defaultScene extends G12UpdateLoops {
     this.space;
     this.shift;
 
+    this.player2Active = false;
+    this.player2 = null;
+
     //player definition
     this.player1;
 

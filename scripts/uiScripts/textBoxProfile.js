@@ -53,4 +53,15 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'vivianWink',frames: this.anims.generateFrameNames('vivianEmots', { start: 51, end: 55 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'vivianAngry',frames: this.anims.generateFrameNames('vivianEmots', { start: 57, end: 60 }),frameRate: 5,repeat: -1});
     }
+
+    setUpMiloEmots(){
+      this.anims.create({key: 'miloNeutral',frames: this.anims.generateFrameNames('miloEmots', { start: 0, end: 0 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloEyeRaise',frames: this.anims.generateFrameNames('miloEmots', { start: 1, end: 4 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloHappy',frames: this.anims.generateFrameNames('miloEmots', { start: 5, end: 8 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloScared',frames: this.anims.generateFrameNames('miloEmots', { start: 9, end: 13 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloKO',frames: this.anims.generateFrameNames('miloEmots', { start: 14, end: 17 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloStarEyes',frames: this.anims.generateFrameNames('miloEmots', { start: 18, end: 21 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloExcited',frames: this.anims.generateFrameNames('miloEmots', { start: 22, end: 25 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloPain',frames: this.anims.generateFrameNames('miloEmots', { start: 26, end: 29 }),frameRate: 5,repeat: -1});
+    }
 }

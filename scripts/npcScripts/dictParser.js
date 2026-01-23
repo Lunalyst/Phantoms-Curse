@@ -21,6 +21,8 @@ class dictParser{
     parse(){
         //console.log("npcDialogue: ",npcDialogue);
         //define the root of the tree
+        //console.log("this.npcFlag: ",this.npcFlag);
+        //console.log(" npcDialogue[this.npcName][this.npcBehavior]: ", npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]);
         this.root = new dictNode(
             "node1",
             npcDialogue[this.npcName][this.npcBehavior][this.npcFlag]["node1"].dialogue,

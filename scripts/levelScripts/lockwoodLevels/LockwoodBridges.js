@@ -45,10 +45,13 @@ class LockwoodBridges extends defaultScene {
 
       this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
 
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      this.load.spritesheet("lunalyst" , "assets/hudElements/vivianEmots.png" , {frameWidth: 105 , frameHeight: 96 });
 
       //test sprites
       this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
+      this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
+      this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+
       this.load.spritesheet("nectar" , "assets/bosses/nectar.png" , {frameWidth: 393 , frameHeight: 393 });
       
 
@@ -107,11 +110,11 @@ class LockwoodBridges extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
-      
-      this.milo = this.add.sprite(1895, 728-7, "milo");
-      this.milo.anims.create({ key: 'idleMasked', frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }), frameRate: 6, repeat: -1 });
-      this.milo.anims.play("idleMasked", true);
-      this.milo.setScale(1/3);
+    
+      //this.milo = this.add.sprite(1895, 728-7, "milo");
+      //this.milo.anims.create({ key: 'idleMasked', frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }), frameRate: 6, repeat: -1 });
+      //this.milo.anims.play("idleMasked", true);
+      //this.milo.setScale(1/3);
 
       this.nectar = this.add.sprite(2319, 520, "nectar");
       this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
@@ -124,9 +127,6 @@ class LockwoodBridges extends defaultScene {
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 
-      this.setUpLockwoodDrawBridges();
-      this.setUpLockwoodDrawBridgesCollider();
-
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene 
@@ -136,15 +136,25 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.initMilo(1895, 728-7,"test");
+
+      this.setUpPCMilo(1895, 728);
+      this.setUpPlayer2Collider();
+
+      this.setUpLockwoodDrawBridges();
+      this.setUpLockwoodDrawBridgesCollider();
       //this.initSavePoints(1406,1112-10);
 
       this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
 
-      this.initLunalyst(935,1083,'clearingTheWay');
+      //this.initLunalyst(935,1083,'clearingTheWay');
+      
 
       this.initSavePoints(1099,728-10);
+
+      this.initSavePoints(2095,728-10);
 
       this.initLockwoodDrawBridge(1632,736-48,'down');
 
@@ -192,7 +202,13 @@ class LockwoodBridges extends defaultScene {
     update(){
       
       //calls the built in update function
-      this.defaultUpdate();
+
+      if(this.player2Active === true){
+        this.player2Update();
+      }else{
+        this.defaultUpdate();
+      }
+      
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
       

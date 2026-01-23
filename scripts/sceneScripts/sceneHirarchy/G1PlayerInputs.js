@@ -27,21 +27,44 @@ class G1PlayerInputs extends A3SoundEffects {
 
   //sets up player object
   setUpPlayer(){
-    //creates a player object with the given values
-    this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
-    //creates a hitbox which will be used to 
-    this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
+      //creates a player object with the given values
+      this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
+      //creates a hitbox which will be used to 
+      this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
 
+      this.playerProjectiles = this.add.group();
+
+      //moves the player hitbox out of the way
+      this.attackHitBox.x = this.x;
+      this.attackHitBox.y = this.y+10000;
+
+      //apply lighting to player
+      if(this.lightingSystemActive){
+        this.player1.setLighting();
+      }
+  }
+
+setUpPCMilo(x,y){
+
+  this.player2Active = false;
+  this.player2 = new PCMilo(this,x,y);
+
+  if(this.attackHitBox === null || this.attackHitBox === undefined){
+    this.attackHitBox = new hitBoxes(this,this.player2.x,this.player2.y);
+  }
+  if(this.playerProjectiles === null || this.playerProjectiles === undefined){
     this.playerProjectiles = this.add.group();
+  }
+  
+  //moves the player hitbox out of the way
+  this.attackHitBox.x = this.x;
+  this.attackHitBox.y = this.y+10000;
 
-    //moves the player hitbox out of the way
-    this.attackHitBox.x = this.x;
-    this.attackHitBox.y = this.y+10000;
+  //apply lighting to player
+  if(this.lightingSystemActive){
+    this.player2.setLighting();
+  }
 
-    //apply lighting to player
-    if(this.lightingSystemActive){
-      this.player1.setLighting();
-    }
 }
 
 //sets up keyprompts in the scene for when the player is grabbed.

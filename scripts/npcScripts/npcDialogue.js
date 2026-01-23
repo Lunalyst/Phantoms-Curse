@@ -1241,6 +1241,62 @@ const npcDialogue = {
             }
 
         },
+        "milo":{
+            "Behavior1":{
+                "test":{
+                    "node1":{
+                        "dialogue": "heyyya pal!",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "I am so Excited to finally be here!",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Wanta tap out for a bit?",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["node4","node5"]
+                    },
+                    "node4":{
+                        "dialogue": "Awww Darn... well you know where to find me.",
+                        "profile":"miloPain",
+                        "textvoice":"trumpet",
+                        "children":[]
+                    },
+                    "node5":{
+                        "dialogue": "Awwwya!",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "Time to show em what I can do!",
+                        "profile":"miloStarEyes",
+                        "textvoice":"trumpet",
+                        "children":[]
+                    },
+                },
+                "testRelease":{
+                    "node1":{
+                        "dialogue": "alright I have had my fun.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                     "node2":{
+                        "dialogue": "you can take the wheel back. ",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":[]
+                    },
+                }
+            }
+        },
         "vivian":{
             "Behavior1":{
                 "rummaging":{

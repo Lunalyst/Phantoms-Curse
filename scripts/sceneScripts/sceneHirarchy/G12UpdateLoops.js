@@ -185,10 +185,10 @@ class G12UpdateLoops extends G11CheckGameObjects{
       //update the damage cool down if player takes damage.
       
     
-    }
+  }
     
-    //updates enemy apart of scene in the update loop
-    enemyUpdate(enemyGroupArray){
+  //updates enemy apart of scene in the update loop
+  enemyUpdate(enemyGroupArray){
      
       //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
       if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false){
@@ -282,4 +282,158 @@ class G12UpdateLoops extends G11CheckGameObjects{
       }
           
     } 
+
+    player2Update(){
+
+      //console.log("player 2 active");
+    //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
+    //this.checkPlayerOutOfBounds();
+
+      //checks to see if items dropped can be picked up
+      //this.checkItemPickUp();
+
+      //checks to see if containers can be opened.
+      //this.checkContainerPickUp();
+
+      //does a check in npc logic to see if the npcs need to be paused or not.
+      //this.checkNPCAnimationPause();
+
+      this.checkPlayerProjectiles();
+
+      //not sure what these are for. saftey net when loading in?
+      if(this.loadCoolDown === true){
+        //this.checkWarp(this.playerLocation);
+      }
+      if(this.saveCoolDown === true){
+        //this.checkSave(this.playerLocation);
+      }
+      
+      console.log("signCoolDown: ",this.signCoolDown);
+      if(this.signCoolDown === true){
+        this.Player2checkNpc(this);
+        this.player2CheckNpcTriggers(this);
+      }
+
+      //if the player is paused in text and the delay is false then
+      if(this.pausedInTextBox === true && this.gameStartedDelay === false){
+
+        //activate the scene text box
+        this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+        //pause physics of scene
+        this.physics.pause();
+        
+        //makes a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+        
+        //that is transfered to the emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+        //which we then use to see if the inventory is open.
+        if(isWindowObject.isOpen === true){
+
+          //and if its open then close the inventory.
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,this);
+        }
+
+      //if we are not paused in a text box and we arnt paused , and the gameplay delay is false then.
+      }else if(this.pausedInTextBox === false && this.isPaused === false && this.gameStartedDelay === false){
+
+        //resume physics
+        this.physics.resume();
+
+      }
+
+      //if we arnt paused
+      if(this.isPaused === false){
+
+          //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
+          if(this.lightingSystemActive === true){ 
+
+              this.player2.lightSource.x = this.player2.x;
+              this.player2.lightSource.y = this.player2.y;
+          
+          }
+
+        //and the player isnt grabbed
+        if(this.grabbed === false && this.playerStuckGrab === false){ 
+
+         //call player function to see if there attacking and not in the air
+          if(this.player2.body.blocked.down && this.checkATKIsDown() && this.player2.isAttacking === false){
+             //console.log("attack started");
+            //set player attacking to true
+             this.player2.isAttacking = true;
+
+            //call function to the player to have the attack animation
+            this.player2.attackPlayer(this);
+
+          //otherwise, if the player isnt attacking apply the move function.
+          //need to aacount for when the player taps shift. if the player is not grounded, or the attack is finished.
+          }else if(this.player2.isAttacking === false || !this.player2.body.blocked.down  ){
+             //console.log("moving player");
+            //as long as thep layer isnt wapring.
+            //console.log("player warping: ",this.playerWarping);
+            if(this.playerWarping === false){
+              // then move the player
+              this.player2.movePlayer(this.player2.playerPreviousY,this);
+            //otherwise kill player x velocity
+            }else{
+              this.player2.setVelocityX(0);
+              this.player2.playerIdleAnimation();
+            }
+          }else{
+            
+            //if the player isnt moving, or is in a attack Animation, then stop there x velocity
+            this.player2.setVelocityX(0);
+          }
+          
+          //sets the camera to follow the player and changes the scale as well
+          this.mycamera.startFollow(this.player2);
+          this.cameras.main.zoom = 2;
+          this.cameras.main.followOffset.set(0,70);
+
+
+          //call player function to see if there attacking
+          if(this.player2.body.blocked.down && this.shift.isDown){
+             this.player2.attackPlayer(this);
+          }
+
+        //however if the player is grabbed
+        }else if(this.grabbed === true || this.playerStuckGrab === true){
+          
+           //saftey reset incase grabbed or stuck grabbed while attacking
+           //stop the player from attacking after escaping animation.
+           //console.log("this.player1.isAttacking: ", this.player1.isAttacking);
+          if(this.player2.isAttacking === true){
+            this.player2.isAttacking = false;
+          }
+
+          if(this.playerStuckGrab === true){
+            this.checkStuckGrab();
+          }
+          
+          //make a temp object
+          let isWindowObject = {
+            isOpen: null
+          };
+          
+          //which we pass to the emitter
+          inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+          //so we can check if the inventory is open
+          if(isWindowObject.isOpen === true){
+            //and if it is then close it.
+            inventoryKeyEmitter.emit(inventoryKey.activateWindow,scene);
+          }
+        }
+      //if we are paused
+      }
+
+      //updates the previous y value. used to animate the falling animation of the player.
+      this.player2.playerPreviousY = this.player2.y;
+      //update the damage cool down if player takes damage.
+      
+    
+  }
 }

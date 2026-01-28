@@ -35,9 +35,9 @@ class A1SaveAndLoad extends Phaser.Scene {
                       keyTABBind:"Tab",
                       spaceBind:"Space",
                       shiftBind:"ShiftLeft",
-                      healBind:"KeyH",
-                      specialBind:"KeyF",
-                      blockBind:"KeyR"
+                      healBind:"KeyR",
+                      specialBind:"KeyE",
+                      blockBind:"KeyH"
                   };
         
       }

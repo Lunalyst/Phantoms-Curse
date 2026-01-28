@@ -45,6 +45,9 @@ const healthEvent = {
     maxBossHealth:'max_Boss_health',
     setBossHealth:'set_boss_health',
     setBossHealthVisible:'set_boss_health_visible',
+
+    setMiloHp: 'set_milo_hp',
+    
 };
 
 healthEmitter = new Phaser.Events.EventEmitter();
@@ -128,6 +131,11 @@ inventoryKey = {
     getCurrency:'get_currency',
     changeCurrency: 'change_currency',
     displayCurrency:'display_currency',
+
+    hideInventory:'hide_inventory',
+
+
+
 
 
 

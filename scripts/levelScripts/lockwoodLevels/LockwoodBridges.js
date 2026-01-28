@@ -45,7 +45,7 @@ class LockwoodBridges extends defaultScene {
 
       this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
 
-      this.load.spritesheet("lunalyst" , "assets/hudElements/vivianEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("lunalyst" ,  "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       //test sprites
       this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });

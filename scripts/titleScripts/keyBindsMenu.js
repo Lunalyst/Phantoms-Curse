@@ -33,7 +33,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.setKeysInUse();
 
         let tempArray = [170];
-        for(let index = 0;index < 7;index++){
+        for(let index = 0;index < 9;index++){
             
             tempArray.push((170) + ((index+1) * 60) );
         }
@@ -65,6 +65,10 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.attack = new keyBindUnit(scene,-40,tempArray[6],"Attack",this.scene.bindSettings.shiftBind,this);
         this.add(this.attack);
         this.bindArray.push(this.attack);
+
+        this.special = new keyBindUnit(scene,-40,tempArray[7],"Special",this.scene.bindSettings.specialBind,this);
+        this.add(this.special);
+        this.bindArray.push(this.special);
 
         this.defaultButton = new makeText(scene,-160,685,'charBubble',"Default");
         this.defaultButton.addHitboxBinds();
@@ -107,6 +111,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.activeBindsArray.push(this.scene.bindSettings.spaceBind);
         this.activeBindsArray.push(this.scene.bindSettings.keyTABBind);
         this.activeBindsArray.push(this.scene.bindSettings.shiftBind);
+        this.activeBindsArray.push(this.scene.bindSettings.specialBind);
 
         console.log("current keys in use: ",this.activeBindsArray);
 
@@ -202,6 +207,10 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
                     this.scene.bindSettings.shiftBind = 'ShiftLeft';
                     bind.unitKey = 'ShiftLeft'; 
                     bind.keyDisplay.playKey('ShiftLeft'+"-S");
+                }else if(bind.unitName === "Special"){
+                    this.scene.bindSettings.specialBind = 'KeyE';
+                    bind.unitKey = 'KeyE'; 
+                    bind.keyDisplay.playKey('KeyE'+"-S");
                 }
                 
             });
@@ -217,7 +226,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
             spaceBind:this.scene.bindSettings.spaceBind,
             shiftBind:this.scene.bindSettings.shiftBind,
             healBind:"KeyH",
-            specialBind:"KeyF",
+            specialBind:this.scene.bindSettings.specialBind,
             blockBind:"KeyR"
             }
 
@@ -326,6 +335,8 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             this.scene.bindSettings.keyTABBind = newKey;
         }else if(this.unitName === "Attack"){
             this.scene.bindSettings.shiftBind = newKey;
+        }else if(this.unitName === "Special"){
+            this.scene.bindSettings.specialBind = newKey;
         }
 
         let tempObject = {
@@ -339,7 +350,7 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             spaceBind:this.scene.bindSettings.spaceBind,
             shiftBind:this.scene.bindSettings.shiftBind,
             healBind:"KeyH",
-            specialBind:"KeyF",
+            specialBind:this.scene.bindSettings.specialBind,
             blockBind:"KeyR"
             }
 

@@ -140,9 +140,8 @@ class gameoverManager extends A3SoundEffects {
             gameoverThat.saveGame(playerDataObject);
 
             //call save function for temp save so when we start the scene agian, it has the correct data.
-            gameoverThat.saveGameFile(playerDataObject);
-
-            if( gameoverThat.sound.get("gameoverSFX") !== undefined ||  gameoverThat.sound.get("gameoverSFX") !== null){
+            gameoverThat.saveGameFile(playerDataObject, " ",gameoverThat.sound.get("gameoverSFX") !== null);
+            if( gameoverThat.sound.get("gameoverSFX") !== undefined &&  gameoverThat.sound.get("gameoverSFX") !== null){
                 gameoverThat.sound.get("gameoverSFX").stop();
             }  
 
@@ -183,8 +182,8 @@ class gameoverManager extends A3SoundEffects {
 
         //call save function for temp save so when we start the scene agian, it has the correct data.
         gameoverThat.saveGameFile(playerDataObject);
-
-        if( gameoverThat.sound.get("gameoverSFX") !== undefined ||  gameoverThat.sound.get("gameoverSFX") !== null){
+        console.log(gameoverThat.sound.get("gameoverSFX"));
+        if( gameoverThat.sound.get("gameoverSFX") !== undefined &&  gameoverThat.sound.get("gameoverSFX") !== null){
             gameoverThat.sound.get("gameoverSFX").stop();
         }  
 

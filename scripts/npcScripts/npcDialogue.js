@@ -82,7 +82,13 @@ const npcDialogue = {
             "beach":{
                 "movement":{
                     "node1":{
-                        "dialogue": "Welcome to the island beyond the storm. You can progress dialogue with the W button on screen.",
+                        "dialogue": "Welcome to the island beyond the storm.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
+                        "children":["nodeA"]
+                    },
+                    "nodeA":{
+                        "dialogue": "You can progress dialogue with the W button on screen.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node2"]

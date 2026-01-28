@@ -24,13 +24,22 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({key: 'jumpDownLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 31, end: 32 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'jumpUpRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 33, end: 34 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'jumpDownRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 35, end: 36 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'LightAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'LightAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'LightAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 20,repeat: 0});
     
-    this.anims.create({key: 'LightAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'LightAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'LightAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 20,repeat: 0});
+    
+
+    this.anims.create({key: 'specialAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 53, end: 53 }),frameRate: 8,repeat: 0});
+    this.anims.create({key: 'specialAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 54, end: 55 }),frameRate: 10,repeat: 0});
+    this.anims.create({key: 'specialAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 56, end: 57 }),frameRate: 7,repeat: 0});
+    
+    this.anims.create({key: 'specialAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 58, end: 58 }),frameRate: 8,repeat: 0});
+    this.anims.create({key: 'specialAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 59, end: 60 }),frameRate: 10,repeat: 0});
+    this.anims.create({key: 'specialAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 61, end: 62 }),frameRate: 7,repeat: 0});
     
      
      
@@ -115,7 +124,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     //set up object of functions for item logic 
     this.armed = true;
 
-    this.MiloAttackType = "light";
+    this.attackType = "light";
       
     }
 
@@ -376,12 +385,13 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         }else if(this.lastKey === 'a'){
           //this.flipXcontainer(true);
         }
-
+        //initPlayerProjectile(x,y,type,direction,speed,duration)
         //wakes up PCMilo if they are sleeping.
         this.idleTimer = 0;
 
           //case to determine attack animation
-          switch(this.MiloAttackType) {
+          console.log("this.attackType: ",this.attackType);
+          switch(this.attackType) {
             case ("light"):
               if(this.playedAttackAnimation === false){
 
@@ -389,11 +399,11 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 this.scene.initSoundEffect('weaponSFX','high2',0.1);
 
                 if(this.lastKey === 'd'){
-                this.anims.play("LightAttackStartLeft").once('animationcomplete', () => {
+                this.anims.play("lightAttackStartLeft").once('animationcomplete', () => {
 
-                  this.anims.play("LightAttackMiddleLeft").once('animationcomplete', () => {
+                  this.anims.play("lightAttackMiddleLeft").once('animationcomplete', () => {
 
-                    this.anims.play("LightAttackEndLeft").once('animationcomplete', () => {
+                    this.anims.play("lightAttackEndLeft").once('animationcomplete', () => {
 
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
@@ -406,16 +416,68 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 });
                  
                 }else if(this.lastKey === 'a'){
-                  this.anims.play("LightAttackStartRight").once('animationcomplete', () => {
+                  this.anims.play("lightAttackStartRight").once('animationcomplete', () => {
 
-                  this.anims.play("LightAttackMiddleRight").once('animationcomplete', () => {
+                  this.anims.play("lightAttackMiddleRight").once('animationcomplete', () => {
 
-                    this.anims.play("LightAttackEndRight").once('animationcomplete', () => {
+                    this.anims.play("lightAttackEndRight").once('animationcomplete', () => {
 
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
                       console.log("attack is over so stoping");
                       this.bluntDamage = 0;
+
+                    });
+                  });
+
+                });
+                }
+              }
+              this.bluntDamage = 3;
+              this.setAttackHitboxSize(20,40);
+              this.HitBox(600,35);
+              break;
+            case ("special"):
+
+              if(this.playedAttackAnimation === false){
+
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+
+                if(this.lastKey === 'd'){
+                this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
+
+
+                  this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
+
+                   //console.log("here!");
+                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0);
+
+                    this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
+
+                      this.isAttacking = false;
+                      this.playedAttackAnimation = false;
+                      console.log("attack is over so stoping");
+                      this.bluntDamage = 0;
+
+                    });
+                  });
+
+                });
+                 
+                }else if(this.lastKey === 'a'){
+                  this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
+
+                    this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
+
+                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0);
+
+                      this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
+
+                        this.isAttacking = false;
+                        this.playedAttackAnimation = false;
+                        console.log("attack is over so stoping");
+                        this.bluntDamage = 0;
 
                     });
                   });

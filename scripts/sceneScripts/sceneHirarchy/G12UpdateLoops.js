@@ -360,17 +360,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         if(this.grabbed === false && this.playerStuckGrab === false){ 
 
          //call player function to see if there attacking and not in the air
-          if(this.player2.body.blocked.down && this.checkATKIsDown() && this.player2.isAttacking === false){
-             //console.log("attack started");
-            //set player attacking to true
-             this.player2.isAttacking = true;
-
-            //call function to the player to have the attack animation
-            this.player2.attackPlayer(this);
-
-          //otherwise, if the player isnt attacking apply the move function.
-          //need to aacount for when the player taps shift. if the player is not grounded, or the attack is finished.
-          }else if(this.player2.isAttacking === false || !this.player2.body.blocked.down  ){
+          if(this.player2.isAttacking === false || !this.player2.body.blocked.down  ){
              //console.log("moving player");
             //as long as thep layer isnt wapring.
             //console.log("player warping: ",this.playerWarping);
@@ -396,9 +386,14 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
           //call player function to see if there attacking
           if(this.player2.body.blocked.down && this.shift.isDown){
-             this.player2.attackPlayer(this);
+             this.player2.isAttacking = true;
+            this.player2.attackType = "light";
+            this.player2.attackPlayer(this);
+          }else if(this.player2.body.blocked.down && this.special.isDown){
+             this.player2.isAttacking = true;
+            this.player2.attackType = "special";
+            this.player2.attackPlayer(this);
           }
-
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){
           

@@ -22,6 +22,7 @@ class G1PlayerInputs extends A3SoundEffects {
     this.keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.keyTABBind]]);
     this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.spaceBind]]);
     this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.shiftBind]]);
+    this.special = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.specialBind]]);
 
   }
 
@@ -392,6 +393,51 @@ setUpKeyPrompts(){
       }
     }
   }
+
+  checkSpecialPressed(){
+
+    if(Phaser.Input.Keyboard.JustDown(this.this.special)){
+      return true; 
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+     return false;
+    } 
+  }
+
+  //mobile button control for expecting if the a key is down and can be held down.
+  checkSpecialIsDown(){
+
+    if(this.special.isDown){
+      return true;
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+
+        return false;
+    } 
+  }
+
 
   
 

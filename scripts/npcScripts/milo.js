@@ -53,9 +53,12 @@ class milo extends npc{
   test(){
     if(this.isPlayerControlled === false){
       this.nodeHandler("milo","Behavior1","test");
+      this.scene.player1.mainHitbox.x = this.x;
     }else{
       this.nodeHandler("milo","Behavior1","testRelease");
     }
+
+    
 
     if(this.currentDictNode !== null){
 
@@ -149,6 +152,7 @@ class milo extends npc{
           this.scene.player2.visible = true;
           this.isPlayerControlled = true;
           this.scene.player1.mainHitbox.x = this.x;
+          this.scene.player1.mainHitbox.setVelocity(0,0);
           this.scene.player1.x = this.x;
           this.scene.player1.setDepth(5);
           this.scene.player2.setDepth(6);

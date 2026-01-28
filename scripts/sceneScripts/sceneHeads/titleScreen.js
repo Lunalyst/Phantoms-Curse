@@ -141,7 +141,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Alpha V0.30.03");
+            this.version = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Alpha V0.30.04");
             this.version.visible = true;
             this.version.setDepth(51);
             this.elements.add(this.version);

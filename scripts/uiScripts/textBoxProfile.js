@@ -64,4 +64,15 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'miloExcited',frames: this.anims.generateFrameNames('miloEmots', { start: 22, end: 25 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'miloPain',frames: this.anims.generateFrameNames('miloEmots', { start: 26, end: 29 }),frameRate: 5,repeat: -1});
     }
+
+    setUpNectarEmots(){
+      this.anims.create({key: 'nectarSquint',frames: this.anims.generateFrameNames('nectarEmots', { start: 0, end: 0 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarNeutral',frames: this.anims.generateFrameNames('nectarEmots', { start: 1, end: 1 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarShock',frames: this.anims.generateFrameNames('nectarEmots', { start: 2, end: 2 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarSmile',frames: this.anims.generateFrameNames('nectarEmots', { start: 4, end: 4 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarWideSmile',frames: this.anims.generateFrameNames('nectarEmots', { start: 5, end: 5 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarHurt',frames: this.anims.generateFrameNames('nectarEmots', { start: 6, end: 6 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'nectarMad',frames: this.anims.generateFrameNames('nectarEmots', { start: 7, end: 7 }),frameRate: 5,repeat: -1});
+      
+    }
 }

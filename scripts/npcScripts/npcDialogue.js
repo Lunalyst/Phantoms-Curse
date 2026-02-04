@@ -462,6 +462,20 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "nectarBridgeUp":{
+                     "node1":{
+                        "dialogue": "The draw bridge is Raised.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "There is no way forward...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
             },
             "Fervor":{
                 "love1":{
@@ -1303,6 +1317,37 @@ const npcDialogue = {
                 }
             }
         },
+        "nectar":{
+            "Behavior1":{
+                "ambush":{
+                    "node1":{
+                        "dialogue": "What do we have here?",
+                        "profile":"nectarSmile",
+                        "textvoice":"drum",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "A tasty snack perhaps? ",
+                        "profile":"nectarWideSmile",
+                        "textvoice":"drum",
+                        "children":["node3"]
+                    },
+                     "node3":{
+                        "dialogue": "It's been a long time since my last human meal. but where are my manners.",
+                        "profile":"nectarShock",
+                        "textvoice":"drum",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "If you can answer a riddle of mine I’ll let you live. How does that sound?",
+                        "profile":"nectarWideSmile",
+                        "textvoice":"drum",
+                        "children":[]
+                    },
+                },
+            },
+        },
+
         "vivian":{
             "Behavior1":{
                 "rummaging":{

@@ -55,7 +55,13 @@ class G10CheckNPCS extends G9CheckEnemys {
           console.log("activating overlap npc in G10CHECKNPCS");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
-          tempNpc.overlapActivateNpc();
+
+          if(tempNpc.customTrigger === true){
+            tempNpc.customTriggerFunction();
+          }else{
+            tempNpc.overlapActivateNpc();
+          }
+          
           
         } 
       //if special range is set, then use that range instead.
@@ -65,7 +71,12 @@ class G10CheckNPCS extends G9CheckEnemys {
           //console.log("in range");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
-          tempNpc.overlapActivateNpc();
+
+          if(tempNpc.customTrigger === true){
+            tempNpc.customTriggerFunction();
+          }else{
+            tempNpc.overlapActivateNpc();
+          }
           
         } 
       }

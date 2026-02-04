@@ -1225,7 +1225,7 @@ class gameHud extends A3SoundEffects {
 
         endTimeTest();
 
-        //this.setupDebugHud();
+        this.setupDebugHud();
     }
 
     setupDebugHud(){
@@ -1358,7 +1358,7 @@ class gameHud extends A3SoundEffects {
     //update loop.
     update(){
       
-      //this.updateDebugHud();
+      this.updateDebugHud();
       
     }
 

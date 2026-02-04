@@ -48,6 +48,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.npcTriggerRange = false;
       this.npcTriggerRangeX = null;
       this.npcTriggerRangeY = null;
+      this.customTrigger = false;
 
       this.advancedIdleAnimation = false;
 
@@ -527,4 +528,10 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   
  }
 
+ //function to be casted later by specalized npc.
+  customTriggerFunction(){
+
+  }
+
 }
+

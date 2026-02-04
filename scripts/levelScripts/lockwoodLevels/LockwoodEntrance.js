@@ -120,7 +120,7 @@ class LockwoodEntrance extends defaultScene {
 
       this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
 
-      //this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
+      this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
 
       this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
 
@@ -129,6 +129,7 @@ class LockwoodEntrance extends defaultScene {
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
+          
           //generates enemys
           //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
           //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);

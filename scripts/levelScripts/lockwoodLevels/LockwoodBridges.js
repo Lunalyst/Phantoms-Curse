@@ -51,8 +51,9 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
       this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+      this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
 
-      this.load.spritesheet("nectar" , "assets/bosses/nectar.png" , {frameWidth: 393 , frameHeight: 393 });
+      this.load.spritesheet("nectar" , "assets/bosses/nectar.png" , {frameWidth: 933 , frameHeight: 591 });
       
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -116,13 +117,13 @@ class LockwoodBridges extends defaultScene {
       //this.milo.anims.play("idleMasked", true);
       //this.milo.setScale(1/3);
 
-      this.nectar = this.add.sprite(2319, 520, "nectar");
+      /*this.nectar = this.add.sprite(2319, 520, "nectar");
       this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
       this.nectar.anims.play("idle", true);
       this.nectar.flipX = true;
       this.nectar.setScale(1/3);
       this.nectar.setDepth(-1);
-      this.nectar.setTint(0x505050);
+      this.nectar.setTint(0x505050);*/
       
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
@@ -136,7 +137,29 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initMilo(1895, 728-7,"test");
+      //this.initMilo(1895, 728-7,"test");
+
+      //use emitter to check nectar riddle boss battle flag.
+      let nectarFlag = {
+        flagToFind: "nectarRiddle",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+      //if the encounter has not happened, then set variables. 
+      if(nectarFlag.foundFlag === true){
+
+        this.nectarBossFlag = true;
+
+      }else{
+        this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
+        this.nectarBossFlag = false;
+        this.triggerEncounter = false;
+      }
+
+
+      
 
       this.setUpPCMilo(1895, 728);
       this.setUpPlayer2Collider();
@@ -154,9 +177,9 @@ class LockwoodBridges extends defaultScene {
 
       this.initSavePoints(1099,728-10);
 
-      this.initSavePoints(2095,728-10);
+      //this.initSavePoints(1805,728-10);
 
-      this.initLockwoodDrawBridge(1632,736-48,'down');
+      this.initLockwoodDrawBridge(1632,736-48,'up');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -211,6 +234,12 @@ class LockwoodBridges extends defaultScene {
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
+      if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850){
+
+        this.triggerEncounter = true;
+        this.initNectar(2230, 480, 'ambush');
+
+      }
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

@@ -38,13 +38,21 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
         this.bridgePosition = bridgePosition;
         this.bridgeAnimationLoc = false;
     
-        this.setSize(800, 170, true);
-        this.setOffset(0, 576);
+        
 
         //sets scale
         this.setScale(1/3);
+        if(bridgePosition ==='up'){
 
-        this.anims.play("bridgeDown",true);
+            this.anims.play("bridgeUp",true);
+            this.setSize(620, 2000, true);
+            this.setOffset(105, -1000);
+        }else{
+            this.anims.play("bridgeDown",true);
+            this.setSize(800, 170, true);
+            this.setOffset(0, 576);
+        }
+        
 
 
     }

@@ -123,4 +123,27 @@ class G5InitNPCs extends G4InitGameObjects {
 
   }
 
+  initNectar(x, y, type){
+
+    //sets up the special text box object for nectar
+    this.sceneTextBox.textBoxProfileImage.setUpNectarEmots();
+    //create istara npc
+    let Nectar = new nectar(this, x, y, type);
+
+    Nectar.npcId = this.npcId;
+    this.npcId++;
+
+    //notice, we add vivian to both the trigger npcs group and the regular npc group
+    //this is so that the trigger dialogue always occurs first
+    //we then flag in the npc logic to changer the dialogue after the trigger version
+
+    if(type === "ambush"){
+      this.npcTriggers.add(Nectar);
+      this.npcs.add(Nectar);  
+    }else{
+      this.npcs.add(Nectar);
+    }
+
+  }
+
 }

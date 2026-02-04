@@ -96,7 +96,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
       }
 
       //if we arnt paused
-      if(this.isPaused === false){
+      if(this.isPaused === false && this.cutSceneActive === false){
 
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
           if(this.lightingSystemActive === true){ 
@@ -178,6 +178,8 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
         }
       //if we are paused
+      }else if(this.isPaused === true){
+        this.physics.pause();
       }
 
       //updates the previous y value. used to animate the falling animation of the player.
@@ -423,6 +425,8 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
         }
       //if we are paused
+      }else if(this.isPaused === true){
+        this.physics.pause();
       }
 
       //updates the previous y value. used to animate the falling animation of the player.

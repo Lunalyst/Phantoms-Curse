@@ -76,6 +76,14 @@
             "start": 14.2,
             "end": 15.5,
             "loop": false
+        },"explosion":{
+            "start": 17.07,
+            "end": 17.88,
+            "loop": false
+        },"wah":{
+            "start": 19.6,
+            "end": 20.63,
+            "loop": false
         }
         
     }

@@ -66,7 +66,8 @@ class G10CheckNPCS extends G9CheckEnemys {
         } 
       //if special range is set, then use that range instead.
       }else{
-        if (this.objectsInRangeX(tempNpc,scene.player1,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
+          //console.log('this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX): ',this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX), "tempNpc.npcTriggerRangeX: ",tempNpc.npcTriggerRangeX)
+        if (this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
           
           //console.log("in range");
           //set id to this object.
@@ -92,6 +93,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         //if the player is within x range., the trigger wasnt already finished, and that the player isnt grabbed?
       
         //default range of trigger npc
+        console.log("tempNpc.npcTriggerRange; ",tempNpc.npcTriggerRange);
       if(tempNpc.npcTriggerRange === false){
         //alter here for the trigger of the trigger npc dialogue.
         //console.log("catching player in trigger npc");
@@ -106,6 +108,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         } 
       //if special range is set, then use that range instead.
       }else{
+        console.log('this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX): ',this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX), "tempNpc.npcTriggerRangeX: ",tempNpc.npcTriggerRangeX)
         if (this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player2,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
           
           //console.log("in range");

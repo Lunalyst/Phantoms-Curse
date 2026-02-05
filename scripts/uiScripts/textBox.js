@@ -410,6 +410,8 @@ class textBox extends Phaser.GameObjects.Container{
               this.scene.initSoundEffect('buttonSFX','lightPiano',0.05);
             }else if(this.soundType === "digest"){
               this.scene.initSoundEffect('stomachSFX','2',0.03);
+            }else if(this.soundType === "wah"){
+              this.scene.initSoundEffect('buttonSFX','wah',0.03);
             }
 
           }

@@ -1323,28 +1323,172 @@ const npcDialogue = {
                     "node1":{
                         "dialogue": "What do we have here?",
                         "profile":"nectarSmile",
-                        "textvoice":"drum",
+                        "textvoice":"wah",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "A tasty snack perhaps? ",
                         "profile":"nectarWideSmile",
-                        "textvoice":"drum",
+                        "textvoice":"wah",
                         "children":["node3"]
                     },
                      "node3":{
-                        "dialogue": "It's been a long time since my last human meal. but where are my manners.",
-                        "profile":"nectarShock",
-                        "textvoice":"drum",
+                        "dialogue": "It's been a long time since my last human meal.",
+                        "profile":"nectarSquint",
+                        "textvoice":"wah",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "If you can answer a riddle of mine I’ll let you live. How does that sound?",
+                        "dialogue": "but where are my manners?",
+                        "profile":"nectarShock",
+                        "textvoice":"wah",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "If you can answer a riddle of mine I’ll let you live.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "How does that sound?",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node7","node10"]
+                    },
+
+                    //player says no
+                    "node7":{
+                        "dialogue": "you pathetic little worm! ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "Guess your content with becoming my food.",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node17"]
+                    },
+
+                    //player says yes
+                     "node10":{
+                        "dialogue": "smart choice. ",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "With pointed fangs I lie in wait. With piercing force I crunch out fate.",
+                        "profile":"nectarNeutral",
+                        "textvoice":"wah",
+                        "children":["node12"]
+                    },
+                     "node12":{
+                        "dialogue": "Grabbing victims, proclaiming might, to join together with a single bite.",
+                        "profile":"nectarNeutral",
+                        "textvoice":"wah",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "What am I?",
+                        "profile":"nectarShock",
+                        "textvoice":"wah",
+                        "children":["node14","node16","node23"]
+                    },
+                    "node14":{
+                        "dialogue": "Better hurry up. I’m getting awfully hungry.",
+                        "profile":"nectarSquint",
+                        "textvoice":"wah",
+                        "children":["node15","node16","node23"]
+                    },
+
+                    //if player takes too long
+                     "node15":{
+                        "dialogue": "If you’re not going to answer, then I guess ill dig in! ",
                         "profile":"nectarWideSmile",
-                        "textvoice":"drum",
+                        "textvoice":"wah",
+                        "children":["node17"]
+                    },
+                    //if player guesses incorrectly
+                    "node16":{
+                        "dialogue": "That’s incorrect. Guess you will be my meal after all. ",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node17"]
+                    },
+
+                    //player loses swallowing sequence
+                    "node17":{
+                        "dialogue": "hmmmm awfully tasty, but I’m still not full... ",
+                        "profile":"nectarNeutral",
+                        "textvoice":"wah",
+                        "children":["nodeA"]
+                    },
+                    "nodeA":{
+                        "dialogue": "AAAACK!",
+                        "profile":"nectarHurt",
+                        "textvoice":"wah",
+                        "children":["node18"]
+                    },
+                    "node18":{
+                        "dialogue": "WHO DARES INTRUPT MY MEAL!",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node19"]
+                    },
+
+                    "node19":{
+                        "dialogue": "ohhh you little punk! ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node20"]
+                    },
+                    "node20":{
+                        "dialogue": "Trying to play the hero are we? ",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node21"]
+                    },
+                    "node21":{
+                        "dialogue": "But who am I to complain?",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node22"]
+                    },
+                    "node22":{
+                        "dialogue": "when my next meal willingly presents itself!",
+                        "profile":"nectarWideSmile",
+                        "textvoice":"wah",
                         "children":[]
                     },
+
+                    "node23":{
+                        "dialogue": "what!?! ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node24"]
+                    },"node24":{
+                        "dialogue": "thats correct... ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node25"]
+                    },"node25":{
+                        "dialogue": "dam you! ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node26"]
+                    },"node26":{
+                        "dialogue": "this Isn't the last you will see of me! ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":[]
+                    },
+
+
                 },
+
+                //player run out of time
             },
         },
 

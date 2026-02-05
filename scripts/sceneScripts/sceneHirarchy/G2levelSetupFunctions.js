@@ -131,7 +131,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
   setUpPlayerCamera(){
     //sets up camera to follow player.
     this.mycamera = this.cameras.main;
-    this.mycamera.startFollow(this.player1 ,false,0,0,this.player1.x,this.player1.y);
+    this.mycamera.startFollow(this.player1 ,false,0,0,-700,-200);
     this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
     this.cameras.main.followOffset.set(0,-1500);
 

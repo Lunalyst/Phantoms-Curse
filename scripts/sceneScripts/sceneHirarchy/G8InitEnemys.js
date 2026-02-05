@@ -1024,7 +1024,8 @@ class G8InitEnemys extends G7EnemyCollisions{
 
   objectsInRangeX(object1,object2, width){
 
-    if ((object1.x > object2.x - width && object1.x < object2.x + width)){
+    //console.log(object2.x - width," <= ",object1.x," <= ",object2.x + width)
+    if ((object1.x >= object2.x - width && object1.x <= object2.x + width)){
       return true;
     }else{
       return false;
@@ -1033,7 +1034,7 @@ class G8InitEnemys extends G7EnemyCollisions{
 
   objectsInRangeY(object1,object2, height){
 
-    if ((object1.y > object2.y - height && object1.y < object2.y + height)){
+    if ((object1.y >= object2.y - height && object1.y <= object2.y + height)){
       return true;
     }else{
       return false;

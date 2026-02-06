@@ -1417,7 +1417,7 @@ const npcDialogue = {
                         "textvoice":"wah",
                         "children":["node17"]
                     },
-
+                    
                     //player loses swallowing sequence
                     "node17":{
                         "dialogue": "hmmmm awfully tasty, but I’m still not full... ",

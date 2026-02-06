@@ -3,12 +3,15 @@ class nectar extends npc{
     // every class needs constructor
     constructor(scene, xPos, yPos,npcType){
       
-      super(scene, xPos, yPos, 'nectar');
+      super(scene, xPos, yPos, 'nectar1');
 
-      this.anims.create({key: 'JumpDownStart',frames: this.anims.generateFrameNames('nectar', { start: 0, end: 6 }),frameRate: 10,repeat: 0});
-      this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar', { start: 7, end: 11 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar', { start: 13, end: 22 }),frameRate: 14,repeat: -1});
-      this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar', { start: 23, end: 26 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'ambushIdle',frames: this.anims.generateFrameNames('nectar1', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'JumpDownStart',frames: this.anims.generateFrameNames('nectar1', { start: 0+4, end: 6+4 }),frameRate: 10,repeat: 0});
+      this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar1', { start: 7+4, end: 11+4 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 14,repeat: -1});
+      this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'SideSwipeEnd',frames: this.anims.generateFrameNames('nectar2', { start: 4, end: 5 }),frameRate: 12,repeat: 0});
      
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -45,7 +48,7 @@ class nectar extends npc{
        this.riddleOptions = ["Tiger","Snake","Vampire","Nothing","Sphinx","Lets Fight","Shark","Stapler","Staples","Spider","I don’t want to answer","The concept of death","can you repeat the riddle?","all of the above?"];
 
        if(this.npcType === 'ambush'){
-          //this.anims.play('idle'); 
+          this.anims.play('ambushIdle',true); 
 
           this.customTrigger = true;
           this.npcTriggerRange = true;
@@ -116,7 +119,7 @@ class nectar extends npc{
       this.setSize(300,196,true);
       this.setOffset(320, 390);
 
-      this.setDepth(6);
+      this.setDepth(7);
       this.clearTint();
 
       //this.scene.pausedInTextBox = true;
@@ -129,7 +132,7 @@ class nectar extends npc{
 
 
     }else if(this.nectarDropped === true && this.body.blocked.down && this.choke === false && this.nectarLanded === false){
-      this.scene.initSoundEffect('buttonSFX','explosion',0.06);
+      this.scene.initSoundEffect('bossSFX','explosion',0.06);
       this.choke = true;
         this.anims.play('JumpDownEnd').once('animationcomplete', () => {
            this.nectarLanded = true;
@@ -149,7 +152,7 @@ class nectar extends npc{
         if(this.choke === false){
           this.choke = true;
 
-            this.scene.cameras.main.pan(this.scene.player1.x, this.scene.player1.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+            this.scene.cameras.main.pan(this.scene.player1.x, this.scene.player1.y-70, 1000, 'Sine.easeInOut', true, (camera, progress) => {
               //call back finction that occurs during the duration of the camera pan.
             });
 
@@ -246,6 +249,24 @@ class nectar extends npc{
           this.progressNode("node23",true);
         }else{
           this.progressNode("node16",true);
+
+           this.scene.initSoundEffect('weaponSFX','medium',0.1);
+               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+                this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                this.scene.player1.setStuckVisiblity();
+                this.scene.player1.mainHitbox.setVelocityX(-140);
+                this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
+                  this.scene.player1.StuckRepeat('knockdownStruggle');
+                  this.scene.player1.mainHitbox.setVelocityX(0);
+                });
+                this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
+
+                  this.inDialogue = false;
+                  this.anims.play('sideIdle',true);
+                });
+
+              });
         }
               
         //destroy itself and other deciosions
@@ -286,6 +307,24 @@ class nectar extends npc{
       this.scene.sceneTextBox.textInterupt = false;
       
       this.progressNode("node15",true);
+
+      this.scene.initSoundEffect('weaponSFX','medium',0.1);
+               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+                this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                this.scene.player1.setStuckVisiblity();
+                this.scene.player1.mainHitbox.setVelocityX(-140);
+                this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
+                  this.scene.player1.StuckRepeat('knockdownStruggle');
+                  this.scene.player1.mainHitbox.setVelocityX(0);
+                });
+                this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
+
+                  this.inDialogue = false;
+                  this.anims.play('sideIdle',true);
+                });
+
+              });
 
       for(let counter = 0; counter < this.riddleArray.length;counter++){
         this.riddleArray[counter].destroy();
@@ -371,11 +410,28 @@ class nectar extends npc{
               //progress to node branch with state name node10
               this.progressNode("node7");
 
+              
+              this.scene.initSoundEffect('weaponSFX','medium',0.1);
+               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+                this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                this.scene.player1.setStuckVisiblity();
+                this.scene.player1.mainHitbox.setVelocityX(-140);
+                this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
+                  this.scene.player1.StuckRepeat('knockdownStruggle');
+                  this.scene.player1.mainHitbox.setVelocityX(0);
+                });
+                this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
+
+                  this.inDialogue = false;
+                  this.anims.play('sideIdle',true);
+                });
+
+              });
+
               //destroy itself and other deciosions
               this.scene.npcChoice1.destroy();
               this.scene.npcChoice2.destroy();
-
-              this.inDialogue = false;
 
             },this);
             

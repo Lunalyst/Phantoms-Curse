@@ -53,7 +53,8 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
       this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
 
-      this.load.spritesheet("nectar" , "assets/bosses/nectar.png" , {frameWidth: 933 , frameHeight: 591 });
+      this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
+      this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
       
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -67,6 +68,10 @@ class LockwoodBridges extends defaultScene {
       this.load.audioSprite('bushSFX','audio/used-audio/bush-sounds/bush-sounds.json',[
           "audio/used-audio/bush-sounds/bush-sounds.mp3"
       ]);
+
+      this.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
     }
 
     create(){

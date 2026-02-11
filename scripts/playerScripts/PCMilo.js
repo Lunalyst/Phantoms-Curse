@@ -451,7 +451,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
 
                    //console.log("here!");
-                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0);
+                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,0,0);
 
                     this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
 
@@ -470,7 +470,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                     this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
 
-                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0);
+                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,0,0);
 
                       this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
 

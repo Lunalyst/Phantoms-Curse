@@ -12,7 +12,15 @@ class nectar extends npc{
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'SideSwipeEnd',frames: this.anims.generateFrameNames('nectar2', { start: 4, end: 5 }),frameRate: 12,repeat: 0});
-     
+      if(scene.playerSex === 0){
+        this.anims.create({key: 'swallowingPlayer1',frames: this.anims.generateFrameNames('nectar2', { start: 6, end: 12 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer2',frames: this.anims.generateFrameNames('nectar2', { start: 13, end: 16 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer3',frames: this.anims.generateFrameNames('nectar2', { start: 17, end: 21 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer4',frames: this.anims.generateFrameNames('nectar2', { start: 22, end: 25 }),frameRate: 7,repeat: 0});
+      }
+
+      this.anims.create({key: 'swallowedPlayerIdle',frames: this.anims.generateFrameNames('nectar2', { start: 26, end: 29 }),frameRate: 7,repeat: -1});
+
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -116,8 +124,8 @@ class nectar extends npc{
 
       this.scene.physics.add.collider(this, this.scene.processMap.layer1);
 
-      this.setSize(300,196,true);
-      this.setOffset(320, 390);
+      this.setSize(350,350,true);
+      this.setOffset(280, 390-154);
 
       this.setDepth(7);
       this.clearTint();
@@ -181,6 +189,47 @@ class nectar extends npc{
     
   }
 
+  MoveNPC(){
+    if(this.currentDictNode.nodeName === "node8"){
+      console.log("activating cuytsom move function");
+      if(this.x > 2020){
+        this.setVelocity(-200,0);
+        this.anims.play('sideWalk',true);
+       }else{
+        this.x = 2020;
+        this.setVelocity(0,0);
+        //this.anims.play('sideIdle',true);
+        if(this.choke === false){
+          this.choke = true;
+
+          this.scene.player1.visible = false;
+
+          this.anims.play('swallowingPlayer1').once('animationcomplete', () => {
+            this.anims.play('swallowingPlayer2').once('animationcomplete', () => {
+              this.anims.play('swallowingPlayer3').once('animationcomplete', () => {
+                this.anims.play('swallowingPlayer4').once('animationcomplete', () => {
+                  this.anims.play('swallowedPlayerIdle',true);
+                  //this.choke = false;
+                  this.scene.sceneTextBox.textInterupt = false;
+
+                  this.progressNode("node17");
+
+                  //this.choke = false;
+
+                  this.scene.sceneTextBox.textInterupt = true;
+
+                  this.scene.initPlayerProjectile(this.x-400,this.y-200,"spindleMissileNectar","left",258,142,0,(3.14/4));
+
+                });
+              });
+            });
+          });
+        }
+        
+       
+       }
+    }
+  }
   //overwrites base npc classes function with flagging logic specific to nectar.
   flagLogic(){
     
@@ -255,7 +304,7 @@ class nectar extends npc{
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 this.scene.player1.setStuckVisiblity();
-                this.scene.player1.mainHitbox.setVelocityX(-140);
+                //this.scene.player1.mainHitbox.setVelocityX(-140);
                 this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
                   this.scene.player1.StuckRepeat('knockdownStruggle');
                   this.scene.player1.mainHitbox.setVelocityX(0);
@@ -313,7 +362,7 @@ class nectar extends npc{
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 this.scene.player1.setStuckVisiblity();
-                this.scene.player1.mainHitbox.setVelocityX(-140);
+                //this.scene.player1.mainHitbox.setVelocityX(-140);
                 this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
                   this.scene.player1.StuckRepeat('knockdownStruggle');
                   this.scene.player1.mainHitbox.setVelocityX(0);
@@ -331,6 +380,22 @@ class nectar extends npc{
       }
     }
     
+  }
+
+  spindleMissileConnected(){
+    this.scene.sceneTextBox.textInterupt = false;
+
+    this.progressNode("node18");
+
+    this.scene.sceneTextBox.textInterupt = true;
+
+    this.moveFunctionActive = false;
+    this.inDialogue = false;
+    this.scene.sceneTextBox.textInterupt = false;
+
+    //this.scene.physics.pause();
+    //this.scene.CutscenePhysics = false;
+
   }
 
   ambush(){
@@ -404,27 +469,45 @@ class nectar extends npc{
             
               this.scene.initSoundEffect('buttonSFX','2',0.05);
 
-              //set variable approperiately
+              // turn interupt off briefly so that code can progress node, then turn it back on. 
               this.scene.sceneTextBox.textInterupt = false;
 
-              //progress to node branch with state name node10
               this.progressNode("node7");
 
+              this.scene.sceneTextBox.textInterupt = true;
               
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
                this.anims.play('SideSwipeStart').once('animationcomplete', () => {
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 this.scene.player1.setStuckVisiblity();
-                this.scene.player1.mainHitbox.setVelocityX(-140);
+                //this.scene.player1.mainHitbox.setVelocityX(-140);
                 this.scene.player1.mainBodySprite5.anims.play('knockdown').once('animationcomplete', () => {
                   this.scene.player1.StuckRepeat('knockdownStruggle');
                   this.scene.player1.mainHitbox.setVelocityX(0);
                 });
+
                 this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
 
-                  this.inDialogue = false;
-                  this.anims.play('sideIdle',true);
+                  this.anims.play('sideIdle');
+                  let temp = this;
+
+                  setTimeout(function () {
+                    temp.moveFunctionActive = true;
+
+                    temp.scene.sceneTextBox.textInterupt = false;
+
+                    temp.progressNode("node8");
+
+                    temp.choke = false;
+
+                    temp.scene.sceneTextBox.textInterupt = true;
+
+                    temp.scene.physics.resume();
+                    temp.scene.CutscenePhysics = true;
+
+                  }, 1500);
+                  
                 });
 
               });
@@ -457,15 +540,34 @@ class nectar extends npc{
               this.ambushMakeRiddleChoice(counter);
             }
 
-
-            
-            
             //call scene variable to create interupt.
             this.scene.sceneTextBox.textInterupt = true;
 
             //let the npc know they are in dialogue
             this.inDialogue = true;
             
+          }if(this.currentDictNode.nodeName === "node18" && this.inDialogue === false){
+            console.log("this.scene.Milo: ",this.scene.Milo);
+
+            this.inDialogue = true;
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = true;
+
+            this.scene.cameras.main.pan(this.scene.Milo.x, this.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+              //call back finction that occurs during the duration of the camera pan.
+              });
+
+
+              this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                  console.log('Camera pan has completed!');
+                  //this.choke = false;
+
+                  this.scene.mycamera.startFollow(this.scene.Milo,true,1,1);
+                  this.scene.cameras.main.zoom = 2;
+                  this.scene.cameras.main.followOffset.set(0,70);
+
+              },this);
+
           }
       }
     

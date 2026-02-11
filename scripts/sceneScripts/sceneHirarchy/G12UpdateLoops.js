@@ -69,8 +69,12 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
         //activate the scene text box
         this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+
         //pause physics of scene
-        this.physics.pause();
+        if(this.CutscenePhysics === false){
+           //console.log("pausing physics");
+          this.physics.pause();
+        }
         
         //makes a temp object
         let isWindowObject = {
@@ -179,7 +183,11 @@ class G12UpdateLoops extends G11CheckGameObjects{
         }
       //if we are paused
       }else if(this.isPaused === true){
-        this.physics.pause();
+         
+        if(this.CutscenePhysics === false){
+          //console.log("pausing physics");
+          this.physics.pause();
+        }
       }
 
       //updates the previous y value. used to animate the falling animation of the player.
@@ -322,6 +330,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         //activate the scene text box
         this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
         //pause physics of scene
+        // console.log("pausing physics");
         this.physics.pause();
         
         //makes a temp object
@@ -426,6 +435,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         }
       //if we are paused
       }else if(this.isPaused === true){
+        //console.log("pausing physics");
         this.physics.pause();
       }
 

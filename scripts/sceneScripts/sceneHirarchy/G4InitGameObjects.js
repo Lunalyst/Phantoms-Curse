@@ -443,8 +443,8 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     }
 
-    initPlayerProjectile(x,y,type,direction,speed,duration){
-      let tempProjectile = new playerProjectile(this,x,y,type,direction,speed,duration);
+    initPlayerProjectile(x,y,type,direction,speedX,SpeedY,duration,rotation){
+      let tempProjectile = new playerProjectile(this,x,y,type,direction,speedX,SpeedY,duration,rotation);
 
       this.playerProjectiles.add(tempProjectile);
 

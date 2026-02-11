@@ -18,6 +18,10 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     this.player2Layer0Collider = this.physics.add.collider(this.player2,this.processMap.layer0);
   }
 
+  setUpMiloNPCCollider(){
+    this.physics.add.collider(this.Milo,this.processMap.layer1);
+  }
+
   //sets up itemDrop collision
   setUpItemDropCollider(){
     //sets up physics for the itemDrops Group

@@ -250,6 +250,7 @@ class defaultScene extends G12UpdateLoops {
   this.inventoryOpen = false;
 
   this.cutSceneActive = false;
+  this.CutscenePhysics = false;
 
   }
 }

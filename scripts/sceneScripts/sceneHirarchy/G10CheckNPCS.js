@@ -15,6 +15,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         //console.log("outside save point");
         tempNpc.safeToSpeak = false;
       }
+      //console.log("activating npc!")
       tempNpc.activateNpc();
 
 
@@ -78,11 +79,15 @@ class G10CheckNPCS extends G9CheckEnemys {
           }else{
             tempNpc.overlapActivateNpc();
           }
+
           
         } 
       }
-      
 
+       if(tempNpc.moveFunctionActive === true){
+        tempNpc.MoveNPC()
+      }
+      
     }, scene);
   }
 
@@ -115,6 +120,11 @@ class G10CheckNPCS extends G9CheckEnemys {
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
           tempNpc.overlapActivateNpc();
+
+          if(this.moveFunctionActive === true){
+             tempNpc.MoveNPC()
+          }
+
           
         } 
       }

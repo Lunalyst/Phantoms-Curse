@@ -59,8 +59,14 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.soundLoopTimeOut = null;
 
       this.npcState = 0;
+
+      this.moveFunctionActive = false;
       
       this.scene = scene;
+  }
+
+  MoveNPC(){
+    
   }
 
   //controls the activation delay of the dialogue

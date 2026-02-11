@@ -295,13 +295,21 @@ class G11CheckGameObjects extends G10CheckNPCS {
     this.playerProjectiles.children.each(function (tempProjectile) {
 
       //handle direction where mushroom spore cloud floats
-      if(tempProjectile.direction === 'left'){
-        tempProjectile.setVelocityX(tempProjectile.speed);
-      }else if(tempProjectile.direction === 'right'){
-        tempProjectile.setVelocityX(-tempProjectile.speed);
+      if(tempProjectile.isMoving === true){
+        if(tempProjectile.direction === 'left'){
+          tempProjectile.setVelocityX(tempProjectile.speedX);
+          tempProjectile.setVelocityY(tempProjectile.speedY);
+        }else if(tempProjectile.direction === 'right'){
+          tempProjectile.setVelocityX(-tempProjectile.speedX);
+          tempProjectile.setVelocityY(tempProjectile.speedY);
+        }else{
+          tempProjectile.setVelocityX(0);
+        }     
       }else{
         tempProjectile.setVelocityX(0);
-      }     
+        tempProjectile.setVelocityY(0);
+      }
+      
     });
 
   }

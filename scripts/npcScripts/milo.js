@@ -5,9 +5,16 @@ class milo extends npc{
       
       super(scene, xPos, yPos, 'milo');
 
+      //then we add new instance into the scene. 
+      scene.add.existing(this);
+
+      //then we call this next line to give it collision
+      scene.physics.add.existing(this);
+
       this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'angleIdle',frames: this.anims.generateFrameNames('milo', { start: 6, end: 9 }),frameRate: 7,repeat: -1});
      
+
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -32,6 +39,11 @@ class milo extends npc{
        this.formattingText = false;
 
        this.isPlayerControlled = false;
+
+       this.body.setGravityY(600); 
+
+        this.setSize(60,200,true);
+        this.setOffset(185, 91);
  
        if(this.npcType === 'test'){
           this.anims.play('angleIdle');

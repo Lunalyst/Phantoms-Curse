@@ -961,9 +961,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                         healthEmitter.emit(healthEvent.reduceCurse,3);
 
                         if(this.mainBodySprite5.flipX === false){
-                          this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,1500);
+                          this.scene.initPlayerProjectile(this.x+45,this.y,"sporeCloud","left",30,0,1500,0);
                         }else{
-                          this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,1500);
+                          this.scene.initPlayerProjectile(this.x-45,this.y,"sporeCloud","right",30,0,1500,0);
                         }
 
                     }

@@ -146,7 +146,8 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      //this.initMilo(1895, 728-7,"test");
+      this.initMilo(1895-(12*32), 728-7-(10*32),"test");
+      this.setUpMiloNPCCollider();
 
       //use emitter to check nectar riddle boss battle flag.
       let nectarFlag = {

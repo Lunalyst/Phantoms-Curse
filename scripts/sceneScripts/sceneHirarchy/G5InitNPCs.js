@@ -114,12 +114,12 @@ class G5InitNPCs extends G4InitGameObjects {
     //sets up the special text box object for istara
     this.sceneTextBox.textBoxProfileImage.setUpMiloEmots();
 
-    let Milo = new milo(this, x, y, type);
+    this.Milo = new milo(this, x, y, type);
 
-    Milo.npcId = this.npcId;
+    this.Milo.npcId = this.npcId;
     this.npcId++;
 
-    this.npcs.add(Milo);
+    this.npcs.add(this.Milo);
 
   }
 

@@ -1432,7 +1432,7 @@ const npcDialogue = {
                         "children":["node18"]
                     },
                     "node18":{
-                        "dialogue": "WHO DARES INTRUPT MY MEAL!",
+                        "dialogue": "WHO DARES INTERUPT MY MEAL!",
                         "profile":"nectarMad",
                         "textvoice":"wah",
                         "children":["node19"]

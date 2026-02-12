@@ -55,6 +55,7 @@ class LockwoodBridges extends defaultScene {
 
       this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
       this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
+      this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
       
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -146,7 +147,8 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initMilo(1895-(12*32), 728-7-(10*32),"test");
+      this.initMilo(1895-(12*32), 728-7-(10*32),"inYourTimeOfNeed");
+      this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
       //use emitter to check nectar riddle boss battle flag.
@@ -222,14 +224,14 @@ class LockwoodBridges extends defaultScene {
         this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*8 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
-        this.parrallax1.setTint(0x444444);
+        this.parrallax1.setTint(0x303030);
 
         this.parrallax2XOrigin = 3000-1290;
         this.parrallax2YOrigin = 530+600;
         this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*8 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
-        this.parrallax2.setTint(0x444444);
+        this.parrallax2.setTint(0x303030);
     }
 
     update(){

@@ -125,7 +125,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.scene.sceneTextBox.soundType = this.dialogueDict.root.textVoice;
 
     //activates textbox since we progressed to the next node
-    this.scene.sceneTextBox.setText(this.textToDisplay);
+    this.scene.sceneTextBox.setText(this.textToDisplay,this.dialogueDict.root.dialogue);
     this.scene.sceneTextBox.setProfileArray(this.profileArray);
     this.scene.sceneTextBox.setNPCRef(this);
     this.scene.sceneTextBox.activateNPCTextBox(this.bypass);
@@ -143,7 +143,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   
   //dialogue node progression function. take in the nodes name to be progressed.
   progressNode(nextNodeName,bypass){
-    console.log("attempting to progress node: ",nextNodeName);
+    //console.log("attempting to progress node: ",nextNodeName);
     //safty case, if the length of the currnodes array is one, then progress that node.
     if(this.currentDictNode.children.length === 1){
 
@@ -156,7 +156,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
 
       //activates textbox since we progressed to the next node
-      this.scene.sceneTextBox.setText(this.textToDisplay);
+      this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
       this.scene.sceneTextBox.setProfileArray(this.profileArray);
       this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
@@ -181,7 +181,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
 
           //activates textbox since we progressed to the next node
-          this.scene.sceneTextBox.setText(this.textToDisplay);
+          this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
           this.scene.sceneTextBox.setProfileArray(this.profileArray);
           this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
@@ -202,7 +202,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //logic the occurs after every dialogue progression.
   dialogueLogicEnd(){
 
-    console.log("this.scene.sceneTextBox.completedText: ",this.scene.sceneTextBox.completedText)
+    //console.log("this.scene.sceneTextBox.completedText: ",this.scene.sceneTextBox.completedText)
     //while there is text to display display it.
     if(this.scene.sceneTextBox.completedText === false){
       this.scene.pausedInTextBox = true;
@@ -258,6 +258,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
+      console.log("flag logic function acxtivated!")
       this.flagLogic();
         
       //ending dialoguce logic.
@@ -283,15 +284,18 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   //function called when a trigger npc overlaps  
   overlapActivateNpc(){
-
+     //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcFinished: ",this.triggerNpcFinished);
     //if the id matches and we havent activated the trigger yet.
+
+    //console.log("this.scene.activatedNpcId === this.npcId: ",this.scene.activatedNpcId === this.npcId, "this.triggerNpcFinished: ",this.triggerNpcFinished);
     if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
 
-      console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
+      //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
       //logic to start dialogue
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
+      console.log("flag logic function acxtivated!")
       this.flagLogic();
         
       //ending dialoguce logic.
@@ -301,21 +305,23 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.triggerNpcActivated = true;
 
     //otherwise if the trigger was activated, and the player is in dialogue, then have w progress dialogue.
+    
     }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.triggerNpcFinished === false){
 
-      console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
+      //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
 
       //logic to start dialogue
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
+      console.log("flag logic function acxtivated!")
       this.flagLogic();
         
       //ending dialoguce logic.
       this.dialogueLogicEnd();
 
       //choke to make sure this cant be activated agian.
-      if(!this.scene.sceneTextBox.visible){
+      if(!this.scene.sceneTextBox.visible && this.scene.sceneTextBox.hidingText === false){
         this.triggerNpcFinished = true;
 
       }
@@ -325,12 +331,12 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   //handles the node progression 
   nodeHandler(npc,behavior,flag,diversionNode){
-    console.log("calling node handler");
+    //console.log("calling node handler");
 
     //check if the dialogue node is set.
     this.scene.sceneTextBox.npcReset();
 
-    console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
+    //console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
     //if the dialogue isnt set and we arnt finished with dialogue
     if(this.dialogueDictSet === false && this.finished === false ){
 
@@ -350,13 +356,13 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       ){
 
         //block to stop the node from progressing too quickly.
-        console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
+        //console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
         if(this.nodeProgressionDelay === false){
 
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
 
-            console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
+            //console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
             //time out for our node progression.
@@ -373,12 +379,12 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   //handles the node progression 
   nodeHandler(npc,behavior,flag,diversionNode,){
-    console.log("calling node handler");
+    //console.log("calling node handler");
 
     //check if the dialogue node is set.
     this.scene.sceneTextBox.npcReset();
     
-    console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
+    //console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
     //if the dialogue isnt set and we arnt finished with dialogue
     if(this.dialogueDictSet === false && this.finished === false ){
 
@@ -398,13 +404,13 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       ){
 
         //block to stop the node from progressing too quickly.
-        console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
+        //console.log("this.nodeProgressionDelay,:",this.nodeProgressionDelay)
         if(this.nodeProgressionDelay === false){
 
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
 
-            console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
+           // console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
             //time out for our node progression.
@@ -461,7 +467,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
     }
 
-    console.log("buyBack: ",buyBack);
+    //console.log("buyBack: ",buyBack);
     return buyBack;
 
     
@@ -470,7 +476,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   //allow for npcs to have looping sound calls using time out
   npcLoopingSound(){
 
-   console.log("looping sound ")
+   //console.log("looping sound ")
     //settimeout function
     let temp = this;
     //call sound effect

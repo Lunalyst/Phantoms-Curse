@@ -249,7 +249,7 @@ class level extends Phaser.Tilemaps.Tilemap{
 
                 //sets layer 2 to be dark.
                 this.layer2.setTint(0x808080);
-                this.layer3.setTint(0x505050);
+                this.layer3.setTint(0x404040);
 
                 //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         }

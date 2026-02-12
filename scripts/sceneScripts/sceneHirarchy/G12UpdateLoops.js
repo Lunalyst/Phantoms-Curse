@@ -54,6 +54,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
       
       //console.log("signCoolDown: ",this.signCoolDown);
       if(this.signCoolDown === true){
+        //console.log("checking npc functions")
         this.checkNpc(this);
         this.checkNpcTriggers(this);
       }
@@ -68,7 +69,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
       if(this.pausedInTextBox === true && this.gameStartedDelay === false){
 
         //activate the scene text box
-        this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+        //this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
 
         //pause physics of scene
         if(this.CutscenePhysics === false){
@@ -318,10 +319,10 @@ class G12UpdateLoops extends G11CheckGameObjects{
         //this.checkSave(this.playerLocation);
       }
       
-      console.log("signCoolDown: ",this.signCoolDown);
+      //console.log("signCoolDown: ",this.signCoolDown);
       if(this.signCoolDown === true){
-        this.Player2checkNpc(this);
         this.player2CheckNpcTriggers(this);
+        this.Player2checkNpc(this);
       }
 
       //if the player is paused in text and the delay is false then

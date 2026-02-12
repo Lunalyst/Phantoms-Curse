@@ -13,8 +13,15 @@ class milo extends npc{
 
       this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'angleIdle',frames: this.anims.generateFrameNames('milo', { start: 6, end: 9 }),frameRate: 7,repeat: -1});
-     
-
+      this.anims.create({key: 'angleIdleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'angleIdleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'walkLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 9, end: 18 }),frameRate: 17,repeat: -1});
+      this.anims.create({key: 'walkRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 19, end: 28 }),frameRate: 17,repeat: -1});
+      this.anims.create({key: 'jumpUpLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 29, end: 30 }),frameRate: 10,repeat: 0});
+      this.anims.create({key: 'jumpDownLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 31, end: 32 }),frameRate: 10,repeat: 0});
+      this.anims.create({key: 'jumpUpRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 33, end: 34 }),frameRate: 10,repeat: 0});
+      this.anims.create({key: 'jumpDownRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 35, end: 36 }),frameRate: 10,repeat: 0});
+      
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -40,13 +47,15 @@ class milo extends npc{
 
        this.isPlayerControlled = false;
 
+       this.jumpDelay = false;
+
        this.body.setGravityY(600); 
 
         this.setSize(60,200,true);
         this.setOffset(185, 91);
  
        if(this.npcType === 'test'){
-          this.anims.play('angleIdle');
+          this.anims.play('angleIdleLeft');
        }
 
   }
@@ -57,9 +66,15 @@ class milo extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'test'){
       this.test();
+    }if(this.npcType === 'inYourTimeOfNeed'){
+      this.inYourTimeOfNeed();
     }else{
       this.default();
     }
+  }
+
+  MoveNPC(){
+  
   }
 
   test(){
@@ -185,4 +200,9 @@ class milo extends npc{
       
     }
   }
+
+  inYourTimeOfNeed(){
+
+  }
+
 }

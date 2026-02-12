@@ -1056,7 +1056,7 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.playJumpySound('10',800);
             },
             istara_unbirth: function istaraUnbirthFunction() {
-
+                 tempSceneRef.enemy.playJumpySound('10',800);
             },
             whiteCat_female_tf: function whiteCatFemaleTFFunction() {
  

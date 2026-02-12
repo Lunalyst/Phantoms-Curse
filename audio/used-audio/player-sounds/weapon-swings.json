@@ -43,6 +43,21 @@
             "start": 4.0,
             "end": 4.5,
             "loop": false
+        },
+        "spore":{
+            "start": 7.27,
+            "end": 7.98,
+            "loop": false
+        },
+        "missileCharge":{
+            "start": 11.13,
+            "end": 13.05,
+            "loop": false
+        },
+        "missileCrash":{
+            "start": 15.01,
+            "end": 16.50,
+            "loop": false
         }
         
     }

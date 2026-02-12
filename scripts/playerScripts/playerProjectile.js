@@ -38,11 +38,13 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
       //then a random number from 1 - 7
       //let rand2 = Math.floor(Math.random() * 4) + 3;
       //apply random dust cloud sound to random audio sprite within our range.
-      //this.scene.initSoundEffect('sporeCloudSFX'+rand1,'4',0.3);
+      
       if(this.type === "sporeCloud"){
         this.anims.play('SporePoof').once('animationcomplete' , () =>{
           this.anims.play("SporeLinger",true);
         });
+
+        this.scene.initSoundEffect('weaponSFX','spore',0.3);
 
         this.sliceDamage = 0;
         this.bluntDamage = 0;
@@ -87,6 +89,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
 
         this.anims.play("spindleMissile",true);
 
+
         this.setScale(1/3,1/3);
         this.setDepth(6);
         this.setSize(80,40,true);
@@ -114,10 +117,12 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         if(temp.destroying === false && (temp.body.blocked.down || temp.body.blocked.left || temp.body.blocked.right || temp.body.blocked.up)){
             console.log("projectile has hit the ground");
             temp.destroying = true;
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
               temp.destroy();
+              
 
             });
         }
@@ -137,6 +142,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
             if(temp.destroying === false){
             console.log("projectile has hit enemy");
             temp.destroying = true;
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
@@ -180,6 +186,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         if(temp.destroying === false && (temp.body.blocked.down || temp.body.blocked.left || temp.body.blocked.right || temp.body.blocked.up)){
             console.log("projectile has hit the ground");
             temp.destroying = true;
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
@@ -193,7 +200,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         });
         
 
-        scene.npcs.children.each(function (tempNPC) {
+        scene.npcTriggers.children.each(function (tempNPC) {
 
           temp.colliderRefrenceNPC =  scene.physics.add.overlap(tempNPC,temp, function () {
 
@@ -202,6 +209,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
               temp.destroying = true;
               temp.isMoving = false;
               temp.setDepth(9);
+              temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
               temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
                 temp.collision.destroy();
                 temp.colliderRefrenceGround.destroy();

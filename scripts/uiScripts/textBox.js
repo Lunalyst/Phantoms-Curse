@@ -5,7 +5,7 @@ class textBox extends Phaser.GameObjects.Container{
       
       super(scene, xPos, yPos);
 
-      console.log('font ',font);
+      //console.log('font ',font);
       
       this.setDepth(50);
       scene.add.existing(this);
@@ -22,7 +22,8 @@ class textBox extends Phaser.GameObjects.Container{
       this.add(this.outSide);
       this.blockVisiblity = false;
 
-      
+      this.hidingText = false;
+
       this.lines = [];
       let spacing = -200
       let y = -25
@@ -94,7 +95,7 @@ class textBox extends Phaser.GameObjects.Container{
           //console.log("delay end for text box");
           
           currentTextBox.textCoolDown =  true;
-          console.log("reseting current hitbox");
+          //console.log("reseting current hitbox");
         },500);
 
     }
@@ -114,8 +115,8 @@ class textBox extends Phaser.GameObjects.Container{
 
         //textbox cooldown check.
         if(this.textCoolDown){
-          this.visible = true;
-          this.textBoxProfileImage.visible = true;
+          //this.visible = true;
+          //this.textBoxProfileImage.visible = true;
           this.hideText(true);
           this.scene.isPaused = true;
           this.scene.pausedInTextBox = true;
@@ -179,7 +180,7 @@ class textBox extends Phaser.GameObjects.Container{
     //special activation function, giving the npc more control of the textbox.
     activateNPCTextBox(bypass){
 
-      console.log("bypass: ",bypass);
+      //console.log("bypass: ",bypass);
 
       //if the nodeProgressionDelay is not true then
       //also have a variable called bypass which allows the node progression delay to be ignored.
@@ -189,13 +190,29 @@ class textBox extends Phaser.GameObjects.Container{
         //case is check every press, to ensure textbox is visible 
         if(this.textCoolDown){
 
-        //sets visibility of this text box entity
-        this.visible = true;
-        this.textBoxProfileImage.visible = true;
-        this.hideText(true);
-        this.scene.isPaused = true;
-        this.scene.pausedInTextBox = true;
-        this.completedText = false;
+        //exception to text, if the text we are meant to display is @HIDETEXT@ then hide the whole text box.
+        console.log("this.lastLine: >",this?.lastLine?.trim(),"<");
+        if(this?.lastLine?.trim() === "*HIDETEXT*"){
+          //sets visibility of this text box entity
+          //console.log("HIDING TEXTBOX!");
+          this.hidingText = true;
+          this.visible = false;
+          this.textBoxProfileImage.visible = false;
+          this.hideText(false);
+          this.scene.isPaused = true;
+          this.scene.pausedInTextBox = true;
+          this.completedText = false;
+        }else{
+          //sets visibility of this text box entity
+          this.hidingText = false;
+          this.visible = true;
+          this.textBoxProfileImage.visible = true;
+          this.hideText(true);
+          this.scene.isPaused = true;
+          this.scene.pausedInTextBox = true;
+          this.completedText = false;
+        }
+        
 
         //use emmitter to hide the mobile controls if there on.
         controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox,false);
@@ -215,7 +232,7 @@ class textBox extends Phaser.GameObjects.Container{
         }
 
         //once we reach the end of the text, we release the player back into the scene
-        console.log("this.npcRef.finished: ",this.npcRef.finished);
+        //console.log("this.npcRef.finished: ",this.npcRef.finished);
         if(this.npcRef.finished === true && this.textInterupt === false){
             
           //resets values in scene, and this object
@@ -272,14 +289,14 @@ class textBox extends Phaser.GameObjects.Container{
 
       //call emitter to add flag to data
       if(this.flag !== null){
-        console.log(" adding flag through textbox.");
-        console.log("this.flag.flagToFind: ",this.flag.flagToFind);
+        //console.log(" adding flag through textbox.");
+        //console.log("this.flag.flagToFind: ",this.flag.flagToFind);
         inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag.flagToFind);
 
          //then wipe flag value so it does not linger.
         this.flag = null;
       }else{
-        console.log(" attempted to add flag but flag was not set!");
+        //console.log(" attempted to add flag but flag was not set!");
       }
       
     }
@@ -294,11 +311,11 @@ class textBox extends Phaser.GameObjects.Container{
     //ex vivian pops out of chest has a dialogue where here chest open for knock. increment flag at the end
     //now vivian logic knows to enter shop keeper dialogue.
     incNPCState(){
-      console.log("testing if npc increment is occuring. ",this.storeStateInc);
+      //console.log("testing if npc increment is occuring. ",this.storeStateInc);
       if(this.storeStateInc === true){
         this.storeStateInc = false;
         this.npcRef.npcState++;
-        console.log("this.npcRef.npcState: ", this.npcRef.npcState);
+        //console.log("this.npcRef.npcState: ", this.npcRef.npcState);
       }
     }
 
@@ -440,7 +457,7 @@ class textBox extends Phaser.GameObjects.Container{
             //console.log("text display finished");
             //console.log("counter: ",counter," end ",end-2);
             this.npcRef.nodeProgressionDelay = false;
-            console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
+            //console.log("this.npcRef.nodeProgressionDelay: ",this.npcRef.nodeProgressionDelay);
             
           }
 
@@ -538,7 +555,8 @@ class textBox extends Phaser.GameObjects.Container{
     }
 
     //simple setter function to set text string.
-    setText(text){
+    setText(text,line){
+      this.lastLine = line;
       this.currentText = text;
     }
 

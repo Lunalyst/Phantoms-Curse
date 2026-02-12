@@ -10,6 +10,7 @@ class nectar extends npc{
       this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar1', { start: 7+4, end: 11+4 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 14,repeat: -1});
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
+
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'SideSwipeEnd',frames: this.anims.generateFrameNames('nectar2', { start: 4, end: 5 }),frameRate: 12,repeat: 0});
       if(scene.playerSex === 0){
@@ -20,6 +21,9 @@ class nectar extends npc{
       }
 
       this.anims.create({key: 'swallowedPlayerIdle',frames: this.anims.generateFrameNames('nectar2', { start: 26, end: 29 }),frameRate: 7,repeat: -1});
+
+      this.anims.create({key: 'swallowedPlayerHurt',frames: this.anims.generateFrameNames('nectar3', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -51,6 +55,8 @@ class nectar extends npc{
 
        this.RiddleOver = false;
        this.RiddleTakingTooLong = false;
+
+       this.miloJumpDelay = false;
 
        // idea for mini game. options slowly pop up and vanish. under the hood its an array, that roles a random number based on the length of the array. then it removes that options so theres no repeats. 
        this.riddleOptions = ["Tiger","Snake","Vampire","Nothing","Sphinx","Lets Fight","Shark","Stapler","Staples","Spider","I don’t want to answer","The concept of death","can you repeat the riddle?","all of the above?"];
@@ -190,8 +196,9 @@ class nectar extends npc{
   }
 
   MoveNPC(){
+    //console.log("this.currentDictNode.nodeName: ",this.currentDictNode.nodeName)
     if(this.currentDictNode.nodeName === "node8"){
-      console.log("activating cuytsom move function");
+      //console.log("activating cuytsom move function");
       if(this.x > 2020){
         this.setVelocity(-200,0);
         this.anims.play('sideWalk',true);
@@ -218,7 +225,17 @@ class nectar extends npc{
 
                   this.scene.sceneTextBox.textInterupt = true;
 
-                  this.scene.initPlayerProjectile(this.x-400,this.y-200,"spindleMissileNectar","left",258,142,0,(3.14/4));
+                   let temp = this;
+
+                   
+                  setTimeout(function () {
+                    temp.scene.initSoundEffect('playerProjectileSFX','missileCharge',0.2);
+                  }, 1000);
+
+                  setTimeout(function () {
+                    temp.scene.initPlayerProjectile(temp.x-400,temp.y-200,"spindleMissileNectar","left",258*2,142*2,0,(3.14/4));
+                  }, 1500);
+
 
                 });
               });
@@ -228,8 +245,54 @@ class nectar extends npc{
         
        
        }
+    }else if(this.currentDictNode.nodeName === "nodeB"){
+
+      //console.log("moving milo!");
+        
+        //have a delay befor our hero jumps from the tower
+        if(this.miloJumpDelay === false){
+          this.miloJumpDelay = true;
+          let temp = this;
+
+          
+
+          setTimeout(function () {
+              temp.miloJumpDown = false;
+          }, 1000);
+
+        //after delay have milo jump down
+        }else if(this.miloJumpDown === false){
+
+          this.miloJumpDown = true;
+          this.scene.Milo.setVelocityY(-350);
+          this.scene.Milo.setVelocityX(250);
+          this.scene.Milo.anims.play('jumpUpLeft',true);
+
+        }else if(this.miloJumpDown === true){
+          if(this.scene.Milo.x < 1850 && this.scene.Milo.body.blocked.down){
+            this.scene.Milo.setVelocityX(140);
+            this.scene.Milo.anims.play('walkLeft',true);
+          }else if(this.scene.Milo.x < 1850){
+            this.scene.Milo.setVelocityX(140);
+          }else{
+            this.scene.Milo.setVelocityX(0);
+            this.scene.Milo.anims.play('angleIdleLeft',true);
+
+            this.moveFunctionActive = false;
+
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //re displays node remeber to turn off textbox interupt variable.
+            this.progressNode("node19");
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+
+            this.scene.cutSceneActive = false;
+            
+          }
+      }
     }
-  }
+}
   //overwrites base npc classes function with flagging logic specific to nectar.
   flagLogic(){
     
@@ -383,15 +446,22 @@ class nectar extends npc{
   }
 
   spindleMissileConnected(){
+    
     this.scene.sceneTextBox.textInterupt = false;
 
     this.progressNode("node18");
 
     this.scene.sceneTextBox.textInterupt = true;
 
-    this.moveFunctionActive = false;
-    this.inDialogue = false;
-    this.scene.sceneTextBox.textInterupt = false;
+    this.anims.play('swallowedPlayerHurt').once('animationcomplete', () => {
+
+      this.anims.play('swallowedPlayerAngry',true);
+
+      this.moveFunctionActive = false;
+      this.inDialogue = false;
+      this.scene.sceneTextBox.textInterupt = false;
+    });
+   
 
     //this.scene.physics.pause();
     //this.scene.CutscenePhysics = false;
@@ -401,7 +471,11 @@ class nectar extends npc{
   ambush(){
   
     this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
+    console.log("checking nectar npc dialogue");
+
     this.nodeHandler("nectar","Behavior1","ambush");
+    
+    
     
     if(this.currentDictNode !== null){
 
@@ -524,7 +598,7 @@ class nectar extends npc{
             //let the npc know they are in dialogue
             this.inDialogue = true;
             
-          }if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
+          }else if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
 
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-300);
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-260);
@@ -543,33 +617,66 @@ class nectar extends npc{
             //call scene variable to create interupt.
             this.scene.sceneTextBox.textInterupt = true;
 
+
             //let the npc know they are in dialogue
             this.inDialogue = true;
             
-          }if(this.currentDictNode.nodeName === "node18" && this.inDialogue === false){
+          }else if(this.currentDictNode.nodeName === "node18" && this.inDialogue === false){
+
             console.log("this.scene.Milo: ",this.scene.Milo);
 
             this.inDialogue = true;
             //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = true;
+            //this.scene.sceneTextBox.textInterupt = true;
 
-            this.scene.cameras.main.pan(this.scene.Milo.x, this.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
-              //call back finction that occurs during the duration of the camera pan.
-              });
+             this.scene.sceneTextBox.textInterupt = true;
+            let temp = this;
+            setTimeout(function () {
 
+              //hides textbox 
+              //temp.scene.sceneTextBox.setText("         ");
+              //temp.scene.sceneTextBox.setProfileArray('blank');
+              //temp.scene.sceneTextBox.activateNPCTextBox(null);
+              temp.scene.sceneTextBox.textInterupt = false;
+              temp.progressNode("nodeB");
+              temp.scene.sceneTextBox.textInterupt = true;
+              
+              temp.scene.Milo.visible = true;
+              temp.scene.Milo.anims.play('angleIdleLeft',true);
 
-              this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
-                  console.log('Camera pan has completed!');
-                  //this.choke = false;
+                  temp.scene.cameras.main.pan(temp.scene.Milo.x, temp.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+                  //call back finction that occurs during the duration of the camera pan.
+                  });
 
-                  this.scene.mycamera.startFollow(this.scene.Milo,true,1,1);
-                  this.scene.cameras.main.zoom = 2;
-                  this.scene.cameras.main.followOffset.set(0,70);
+                  temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                      console.log('Camera pan has completed!');
+                      //this.choke = false;
 
-              },this);
+                      temp.scene.mycamera.startFollow(temp.scene.Milo,true,1,1);
+                      temp.scene.cameras.main.zoom = 2;
+                      temp.scene.cameras.main.followOffset.set(0,70);
 
+                      //temp.scene.Milo.moveFunctionActive = true;
+
+                      temp.moveFunctionActive = true;
+
+                  },temp);
+            }, 1500);
+
+            
+
+          }else if(this.currentDictNode.nodeName === "node22"){
+          this.scene.player2Active = true;
+          this.scene.Milo.visible = false;
+          this.scene.player2.visible = true;
+          this.scene.player2.x = this.scene.Milo.x;
+          this.scene.player2.y = this.scene.Milo.y;
+          this.dialogueCatch = false;
+          this.scene.player2.setDepth(6);
+          this.setDepth(5);
           }
-      }
+    }
+      
     
   }
 }

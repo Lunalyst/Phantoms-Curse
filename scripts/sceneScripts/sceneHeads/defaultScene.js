@@ -50,6 +50,10 @@ class defaultScene extends G12UpdateLoops {
         "audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
 
+       this.load.audioSprite('playerProjectileSFX','audio/used-audio/player-sounds/weapon-swings.json',[
+        "audio/used-audio/player-sounds/weapon-swings.mp3"
+      ]);
+
       this.load.audioSprite('playerJumpSFX','audio/used-audio/bounce-sounds/bounce-sounds.json',[
         "audio/used-audio/bounce-sounds/bounce-sounds.mp3"
       ]);

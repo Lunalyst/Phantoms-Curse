@@ -1435,9 +1435,14 @@ const npcDialogue = {
                         "dialogue": "WHO DARES INTERUPT MY MEAL!",
                         "profile":"nectarMad",
                         "textvoice":"wah",
+                        "children":["nodeB"]
+                    },
+                    "nodeB":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"blank",
+                        "textvoice":"wah",
                         "children":["node19"]
                     },
-
                     "node19":{
                         "dialogue": "ohhh you little punk! ",
                         "profile":"nectarMad",

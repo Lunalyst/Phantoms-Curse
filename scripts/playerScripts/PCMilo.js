@@ -445,6 +445,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 this.scene.initSoundEffect('weaponSFX','high2',0.1);
 
                 if(this.lastKey === 'd'){
+
+                this.scene.initSoundEffect('weaponSFX','missileCharge',0.2);
+
                 this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
 
@@ -466,6 +469,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 });
                  
                 }else if(this.lastKey === 'a'){
+
+                  this.scene.initSoundEffect('weaponSFX','missileCharge',0.2);
+
                   this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
 
                     this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {

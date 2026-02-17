@@ -8,7 +8,7 @@ class nectar extends npc{
       this.anims.create({key: 'ambushIdle',frames: this.anims.generateFrameNames('nectar1', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'JumpDownStart',frames: this.anims.generateFrameNames('nectar1', { start: 0+4, end: 6+4 }),frameRate: 10,repeat: 0});
       this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar1', { start: 7+4, end: 11+4 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 14,repeat: -1});
+      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 20,repeat: -1});
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
 
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
@@ -23,7 +23,8 @@ class nectar extends npc{
       this.anims.create({key: 'swallowedPlayerIdle',frames: this.anims.generateFrameNames('nectar2', { start: 26, end: 29 }),frameRate: 7,repeat: -1});
 
       this.anims.create({key: 'swallowedPlayerHurt',frames: this.anims.generateFrameNames('nectar3', { start: 0, end: 3 }),frameRate: 7,repeat: 0});
-      this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'swallowedPlayerHurtIdle',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: 1});
+      this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -212,8 +213,10 @@ class nectar extends npc{
           this.scene.player1.visible = false;
 
           this.anims.play('swallowingPlayer1').once('animationcomplete', () => {
+            this.scene.initSoundEffect('swallowSFX','2',0.6);
             this.anims.play('swallowingPlayer2').once('animationcomplete', () => {
               this.anims.play('swallowingPlayer3').once('animationcomplete', () => {
+                this.scene.initSoundEffect('swallowSFX','3',0.6);
                 this.anims.play('swallowingPlayer4').once('animationcomplete', () => {
                   this.anims.play('swallowedPlayerIdle',true);
                   //this.choke = false;
@@ -258,7 +261,7 @@ class nectar extends npc{
 
           setTimeout(function () {
               temp.miloJumpDown = false;
-          }, 1000);
+          }, 500);
 
         //after delay have milo jump down
         }else if(this.miloJumpDown === false){
@@ -268,26 +271,46 @@ class nectar extends npc{
           this.scene.Milo.setVelocityX(250);
           this.scene.Milo.anims.play('jumpUpLeft',true);
 
+          this.scene.initSoundEffect('playerJumpSFX','1',0.1);
+          let temp = this;
+          setTimeout(function () {
+            temp.scene.Milo.anims.play('multiFlipLeft');
+          }, 200);
+
         }else if(this.miloJumpDown === true){
           if(this.scene.Milo.x < 1850 && this.scene.Milo.body.blocked.down){
-            this.scene.Milo.setVelocityX(140);
-            this.scene.Milo.anims.play('walkLeft',true);
-          }else if(this.scene.Milo.x < 1850){
-            this.scene.Milo.setVelocityX(140);
-          }else{
             this.scene.Milo.setVelocityX(0);
-            this.scene.Milo.anims.play('angleIdleLeft',true);
+            this.choke = false;
+            //this.scene.Milo.anims.play('walkLeft',true);
+          }else if(this.scene.Milo.x < 1850){
+            this.scene.Milo.setVelocityX(200);
 
-            this.moveFunctionActive = false;
+          }else{
 
-            this.scene.sceneTextBox.textInterupt = false;
+            this.scene.Milo.setVelocityX(0);
+            if(this.choke === false){
+              this.choke = true;
+              this.scene.Milo.anims.play('flipLanding').once('animationcomplete', () => {
 
-            //re displays node remeber to turn off textbox interupt variable.
-            this.progressNode("node19");
-            this.inDialogue = false;
-            this.scene.sceneTextBox.textInterupt = false;
+                this.moveFunctionActive = false;
 
-            this.scene.cutSceneActive = false;
+                this.scene.sceneTextBox.textInterupt = false;
+
+                this.scene.Milo.anims.play('standingThere',true);
+
+                //re displays node remeber to turn off textbox interupt variable.
+                this.progressNode("node19");
+                this.inDialogue = false;
+                this.scene.sceneTextBox.textInterupt = false;
+
+                this.scene.cutSceneActive = false;
+
+                this.choke = false;
+            });
+
+            }
+           
+           
             
           }
       }
@@ -364,6 +387,7 @@ class nectar extends npc{
 
            this.scene.initSoundEffect('weaponSFX','medium',0.1);
                this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 this.scene.player1.setStuckVisiblity();
@@ -455,14 +479,16 @@ class nectar extends npc{
 
     this.anims.play('swallowedPlayerHurt').once('animationcomplete', () => {
 
-      this.anims.play('swallowedPlayerAngry',true);
+      this.anims.play('swallowedPlayerHurtIdle').once('animationcomplete', () => {
 
-      this.moveFunctionActive = false;
-      this.inDialogue = false;
-      this.scene.sceneTextBox.textInterupt = false;
+        this.anims.play('swallowedPlayerAngry',true);
+
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+        this.scene.sceneTextBox.textInterupt = false;
+      });
     });
-   
-
+  
     //this.scene.physics.pause();
     //this.scene.CutscenePhysics = false;
 
@@ -471,7 +497,7 @@ class nectar extends npc{
   ambush(){
   
     this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
-    console.log("checking nectar npc dialogue");
+   //console.log("checking nectar npc dialogue");
 
     this.nodeHandler("nectar","Behavior1","ambush");
     
@@ -552,7 +578,21 @@ class nectar extends npc{
               
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
                this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null
+                };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+                let dropToOne = playerHealthObject.playerHealth - 1;
+                console.log("dropToOne: ",dropToOne);
+                healthEmitter.emit(healthEvent.loseHealth,dropToOne);
 
                 this.scene.player1.setStuckVisiblity();
                 //this.scene.player1.mainHitbox.setVelocityX(-140);
@@ -642,7 +682,7 @@ class nectar extends npc{
               temp.scene.sceneTextBox.textInterupt = true;
               
               temp.scene.Milo.visible = true;
-              temp.scene.Milo.anims.play('angleIdleLeft',true);
+              temp.scene.Milo.anims.play('standingThere',true);
 
                   temp.scene.cameras.main.pan(temp.scene.Milo.x, temp.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
                   //call back finction that occurs during the duration of the camera pan.
@@ -664,11 +704,19 @@ class nectar extends npc{
             }, 1500);
 
             
+            //
+          }else if(this.currentDictNode.nodeName === "node20"){
+            this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
+
+                this.scene.Milo.anims.play('MenacingSpearHold',true);
+            });
 
           }else if(this.currentDictNode.nodeName === "node22"){
+
           this.scene.player2Active = true;
           this.scene.Milo.visible = false;
           this.scene.player2.visible = true;
+          this.scene.player2.anims.play('MenacingSpearHold',true);
           this.scene.player2.x = this.scene.Milo.x;
           this.scene.player2.y = this.scene.Milo.y;
           this.dialogueCatch = false;

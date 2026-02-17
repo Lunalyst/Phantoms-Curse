@@ -139,7 +139,7 @@ class G5InitNPCs extends G4InitGameObjects {
 
     if(type === "ambush"){
       this.npcTriggers.add(Nectar);
-      this.npcs.add(Nectar);  
+      //this.npcs.add(Nectar);  
     }else{
       this.npcs.add(Nectar);
     }

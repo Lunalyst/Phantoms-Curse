@@ -41,7 +41,11 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({key: 'specialAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 59, end: 60 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'specialAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 61, end: 62 }),frameRate: 7,repeat: 0});
     
-     
+    this.anims.create({key: 'flipLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 63, end: 71 }),frameRate: 10,repeat: 0});
+    this.anims.create({key: 'flipRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 72, end: 80 }),frameRate: 10,repeat: 0});
+       
+    this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
+        
      
     this.anims.play('angleIdleLeft');
 
@@ -266,13 +270,20 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
           if(PCMiloPreviousY > this.y && this.animationPlayedGoingUp === false){
 
-            this.anims.play('jumpUpRight',true);
+            if(this.doubleJumpActivation === false){
+               this.anims.play('jumpUpRight',true);
+            }else{
+              this.anims.play('flipRight',true);
+            }
+
             //this.flipX = true;
             this.animationPlayedGoingUp = true;
             //console.log(" jumping while keyA is down and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
             
           }else if(PCMiloPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
-            this.anims.play('jumpDownRight',true);
+            if(this.doubleJumpActivation === false){
+               this.anims.play('jumpDownRight',true);
+            }
             //this.flipX = true;
             this.animationPlayedGoingDown = true;
             //console.log(" jumping while keyA is down and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
@@ -297,15 +308,21 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           }
 
           if(PCMiloPreviousY > this.y && this.animationPlayedGoingUp === false){
-
-            this.anims.play('jumpUpLeft',true);
+            if(this.doubleJumpActivation === false){
+               this.anims.play('jumpUpLeft',true);
+            }else{
+              this.anims.play('flipLeft',true);
+            }
             //this.flipX = false
             this.animationPlayedGoingUp = true;
             //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
 
           }else if(PCMiloPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
 
-            this.anims.play('jumpDownLeft',true);
+            if(this.doubleJumpActivation === false){
+               this.anims.play('jumpDownLeft',true);
+            }
+            
             //this.flipX = false
             this.animationPlayedGoingDown = true;
             //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
@@ -385,7 +402,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         }else if(this.lastKey === 'a'){
           //this.flipXcontainer(true);
         }
-        //initPlayerProjectile(x,y,type,direction,speed,duration)
+
         //wakes up PCMilo if they are sleeping.
         this.idleTimer = 0;
 
@@ -446,7 +463,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                 if(this.lastKey === 'd'){
 
-                this.scene.initSoundEffect('weaponSFX','missileCharge',0.2);
+                this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
                 this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
@@ -454,7 +471,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
 
                    //console.log("here!");
-                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,0,0);
+                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
 
                     this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
 
@@ -470,13 +487,13 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                  
                 }else if(this.lastKey === 'a'){
 
-                  this.scene.initSoundEffect('weaponSFX','missileCharge',0.2);
+                  this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
                   this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
 
                     this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
 
-                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,0,0);
+                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
 
                       this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
 

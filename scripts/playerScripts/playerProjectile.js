@@ -89,6 +89,17 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
 
         this.anims.play("spindleMissile",true);
 
+        let tempSporeCloud = this;
+        setTimeout(function(){
+
+          if(tempSporeCloud.scene.isPaused === true){
+            tempSporeCloud.resetDestroySpindleMissile();
+          }else{
+            tempSporeCloud.followingPlayer = false;
+            tempSporeCloud.destroySpindleMissile();
+          }
+
+        },this.duration);
 
         this.setScale(1/3,1/3);
         this.setDepth(6);
@@ -117,7 +128,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         if(temp.destroying === false && (temp.body.blocked.down || temp.body.blocked.left || temp.body.blocked.right || temp.body.blocked.up)){
             console.log("projectile has hit the ground");
             temp.destroying = true;
-            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
@@ -142,7 +153,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
             if(temp.destroying === false){
             console.log("projectile has hit enemy");
             temp.destroying = true;
-            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
@@ -186,7 +197,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         if(temp.destroying === false && (temp.body.blocked.down || temp.body.blocked.left || temp.body.blocked.right || temp.body.blocked.up)){
             console.log("projectile has hit the ground");
             temp.destroying = true;
-            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
+            temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();
@@ -209,7 +220,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
               temp.destroying = true;
               temp.isMoving = false;
               temp.setDepth(9);
-              temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.3);
+              temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
               temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
                 temp.collision.destroy();
                 temp.colliderRefrenceGround.destroy();
@@ -258,4 +269,41 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
         
       },this.duration);
     }
+
+    //function to make sure cloud lasts if the player pauses the game.
+    resetDestroySpindleMissile(){
+
+    let tempSpindleMissile = this;
+     setTimeout(function(){
+      //console.log("checking to see if we need to kill the projectile.")
+        if(tempSpindleMissile.scene.isPaused === true){
+          tempSpindleMissile.resetSpindleMissile();
+        }else{
+          tempSpindleMissile.followingPlayer = false;
+          tempSpindleMissile.destroySpindleMissile();
+        }
+        
+      },this.duration);
+    }
+
+    //destroys platform after the animation is played.
+    destroySpindleMissile(){
+
+      if(this.destroying === false){
+        this.destroying = true;
+        console.log("projectile has FIZZLED OUT");
+        this.isMoving = false;
+        this.setDepth(9);
+        this.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
+        this.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
+          this.collision.destroy();
+          this.colliderRefrenceGround.destroy();
+          this.destroy();
+              
+        });
+
+      }
+    }
+
+
 }

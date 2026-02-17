@@ -69,10 +69,10 @@ class G10CheckNPCS extends G9CheckEnemys {
         } 
       //if special range is set, then use that range instead.
       }else{
-          console.log('this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX): ',this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX)," this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY): ",this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY), " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished)
+          //console.log('this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX): ',this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX)," this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY): ",this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY), " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished)
         if (this.objectsInRangeX(scene.player1,tempNpc,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player1,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
           
-          console.log("in range");
+          //console.log("in range");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
 

@@ -1347,7 +1347,7 @@ class bat extends enemy {
 
                     this.batDamageCounter = true;
                     //hpBar.calcDamage(2);
-                    healthEmitter.emit(healthEvent.loseHealth,2)
+                    healthEmitter.emit(healthEvent.loseHealth,2);
                     setTimeout(function () {
                         currentbat.batDamageCounter = false;
                     }, 2000);

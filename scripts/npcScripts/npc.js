@@ -314,7 +314,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
-      console.log("flag logic function acxtivated!")
+      //console.log("flag logic function acxtivated!")
       this.flagLogic();
         
       //ending dialoguce logic.

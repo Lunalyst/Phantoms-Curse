@@ -1405,17 +1405,23 @@ const npcDialogue = {
 
                     //if player takes too long
                      "node15":{
-                        "dialogue": "If you’re not going to answer, then I guess ill dig in! ",
+                        "dialogue": "If you’re not going to answer...",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["nodeC"]
+                    },
+                    "nodeC":{
+                        "dialogue": "then I guess ill dig in! ",
                         "profile":"nectarWideSmile",
                         "textvoice":"wah",
                         "children":["node17"]
                     },
                     //if player guesses incorrectly
                     "node16":{
-                        "dialogue": "That’s incorrect. Guess you will be my meal after all. ",
+                        "dialogue": "That’s incorrect.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node17"]
+                        "children":["node8"]
                     },
                     
                     //player loses swallowing sequence

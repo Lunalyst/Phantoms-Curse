@@ -8,7 +8,7 @@ class nectar extends npc{
       this.anims.create({key: 'ambushIdle',frames: this.anims.generateFrameNames('nectar1', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'JumpDownStart',frames: this.anims.generateFrameNames('nectar1', { start: 0+4, end: 6+4 }),frameRate: 10,repeat: 0});
       this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar1', { start: 7+4, end: 11+4 }),frameRate: 12,repeat: 0});
-      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 20,repeat: -1});
+      this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 15,repeat: -1});
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
 
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
@@ -44,6 +44,8 @@ class nectar extends npc{
 
        this.animationPlayed = false;
        this.scene = scene;
+
+       this.spearRaise = false;
 
        this.inDialogue = false;
 
@@ -198,7 +200,7 @@ class nectar extends npc{
 
   MoveNPC(){
     //console.log("this.currentDictNode.nodeName: ",this.currentDictNode.nodeName)
-    if(this.currentDictNode.nodeName === "node8"){
+    if(this.currentDictNode.nodeName === "node8" || this.currentDictNode.nodeName === "nodeC"){
       //console.log("activating cuytsom move function");
       if(this.x > 2020){
         this.setVelocity(-200,0);
@@ -383,12 +385,29 @@ class nectar extends npc{
         if(tempOption.letterString === "Stapler"){
           this.progressNode("node23",true);
         }else{
-          this.progressNode("node16",true);
+              this.scene.sceneTextBox.textInterupt = false;
 
-           this.scene.initSoundEffect('weaponSFX','medium',0.1);
-               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+              this.progressNode("node16");
+
+              this.scene.sceneTextBox.textInterupt = true;
+              
+              this.scene.initSoundEffect('weaponSFX','medium',0.1);
+              this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null
+                };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+                let dropToOne = playerHealthObject.playerHealth - 1;
+                console.log("dropToOne: ",dropToOne);
+                healthEmitter.emit(healthEvent.loseHealth,dropToOne);
 
                 this.scene.player1.setStuckVisiblity();
                 //this.scene.player1.mainHitbox.setVelocityX(-140);
@@ -396,13 +415,30 @@ class nectar extends npc{
                   this.scene.player1.StuckRepeat('knockdownStruggle');
                   this.scene.player1.mainHitbox.setVelocityX(0);
                 });
+
                 this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
 
-                  this.inDialogue = false;
-                  this.anims.play('sideIdle',true);
-                });
+                  this.anims.play('sideIdle');
+                  let temp = this;
 
-              });
+                  setTimeout(function () {
+                    temp.moveFunctionActive = true;
+
+                    temp.scene.sceneTextBox.textInterupt = false;
+
+                     temp.progressNode("node8");
+
+                    temp.choke = false;
+
+                    temp.scene.sceneTextBox.textInterupt = true;
+
+                    temp.scene.physics.resume();
+                    temp.scene.CutscenePhysics = true;
+
+                  }, 1500);
+                  
+                });
+            });
         }
               
         //destroy itself and other deciosions
@@ -440,13 +476,34 @@ class nectar extends npc{
         this.scene.sceneTextBox.textInterupt = true;
       }
     }else{
+       //destroy itself and other deciosions
+        for(let counter = 0; counter < this.riddleArray.length;counter++){
+        this.riddleArray[counter].destroy();
+        }
+
       this.scene.sceneTextBox.textInterupt = false;
       
-      this.progressNode("node15",true);
+              this.progressNode("node15");
 
-      this.scene.initSoundEffect('weaponSFX','medium',0.1);
-               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+              this.scene.sceneTextBox.textInterupt = true;
+              
+              this.scene.initSoundEffect('weaponSFX','medium',0.1);
+              this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null
+                };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+                let dropToOne = playerHealthObject.playerHealth - 1;
+                console.log("dropToOne: ",dropToOne);
+                healthEmitter.emit(healthEvent.loseHealth,dropToOne);
 
                 this.scene.player1.setStuckVisiblity();
                 //this.scene.player1.mainHitbox.setVelocityX(-140);
@@ -454,17 +511,30 @@ class nectar extends npc{
                   this.scene.player1.StuckRepeat('knockdownStruggle');
                   this.scene.player1.mainHitbox.setVelocityX(0);
                 });
+
                 this.anims.play('SideSwipeEnd').once('animationcomplete', () => {
 
-                  this.inDialogue = false;
-                  this.anims.play('sideIdle',true);
+                  this.anims.play('sideIdle');
+                  let temp = this;
+
+                  setTimeout(function () {
+                    temp.moveFunctionActive = true;
+
+                    temp.scene.sceneTextBox.textInterupt = false;
+
+                     temp.progressNode("nodeC");
+
+                    temp.choke = false;
+
+                    temp.scene.sceneTextBox.textInterupt = true;
+
+                    temp.scene.physics.resume();
+                    temp.scene.CutscenePhysics = true;
+
+                  }, 1500);
+                  
                 });
-
-              });
-
-      for(let counter = 0; counter < this.riddleArray.length;counter++){
-        this.riddleArray[counter].destroy();
-      }
+            });
     }
     
   }
@@ -705,8 +775,17 @@ class nectar extends npc{
 
             
             //
-          }else if(this.currentDictNode.nodeName === "node20"){
+          }else if(this.currentDictNode.nodeName === "node20" && this.spearRaise === false){
+
+            //this.inDialogue = true;
+            //this.scene.sceneTextBox.textInterupt = true;
+
+            this.spearRaise = true;
+
             this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
+
+                //this.inDialogue = false;
+                //this.scene.sceneTextBox.textInterupt = false;
 
                 this.scene.Milo.anims.play('MenacingSpearHold',true);
             });

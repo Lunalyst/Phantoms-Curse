@@ -40,7 +40,7 @@ class LockwoodBridges extends defaultScene {
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
-      this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
+      this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
       this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
@@ -56,6 +56,9 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
       this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
       this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
+
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
       
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -122,10 +125,15 @@ class LockwoodBridges extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
     
-      //this.milo = this.add.sprite(1895, 728-7, "milo");
-      //this.milo.anims.create({ key: 'idleMasked', frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }), frameRate: 6, repeat: -1 });
-      //this.milo.anims.play("idleMasked", true);
-      //this.milo.setScale(1/3);
+      this.regi = this.add.sprite(1215, 728-17, "regi");
+      this.regi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('regi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.regi.anims.play("idle", true);
+      this.regi.setScale(1/3);
+
+      this.deaugh = this.add.sprite(686, 728-17, "deaugh");
+      this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.deaugh.anims.play("idle", true);
+      this.deaugh.setScale(1/3);
 
       /*this.nectar = this.add.sprite(2319, 520, "nectar");
       this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
@@ -191,7 +199,8 @@ class LockwoodBridges extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initLockwoodDrawBridge(1632,736-48,'up');
+      //this.initLockwoodDrawBridge(1632,736-48,'up');
+      this.initLockwoodDrawBridge(1632,736-48,'down');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

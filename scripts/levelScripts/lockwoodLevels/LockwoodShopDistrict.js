@@ -1,14 +1,14 @@
 
 
-class LockwoodBridges extends defaultScene {
+class LockwoodShopDistrict extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'LockwoodBridges',active: false ,physics:{default:'arcade'}});
+    super({key: 'LockwoodShopDistrict',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "LockwoodBridges";
+    this.playerLocation = "LockwoodShopDistrict";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -35,35 +35,13 @@ class LockwoodBridges extends defaultScene {
       this.setUpEnemyPreload(this.enemyGroupArray);
       
       
-      this.load.image("lockwood_entrance_source_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Entrance_Tileset.png");
-      this.load.tilemapTiledJSON("lockwood_bridges_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Bridges.json");
+      this.load.image("lockwood_shop_district_source_map" , "assets/tiledMap/LockWood/Lockwood_Shop_District_Tileset/Lockwood_Shop_District_Tileset.png");
+      this.load.tilemapTiledJSON("lockwood_shop_district_map" , "assets/tiledMap/LockWood/Lockwood_Shop_District_Tileset/Lockwood_Shop_District.json");
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
-
-      this.load.spritesheet('Lockwood_Center_background', 'assets/parrallax/Lockwood_Center_background.png',{frameWidth: 960 , frameHeight: 960});
-
-      this.load.spritesheet('Lockwood_Center_Castle', 'assets/parrallax/Lockwood_Center_Castle.png',{frameWidth: 3840 , frameHeight: 3072});
-
-      this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
-
-      this.load.spritesheet("lunalyst" ,  "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-
-      //test sprites
-      this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
-      this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
-      this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
-      this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
-
-      this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
-      this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
-      this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
-
-      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
-      this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
-      
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -73,13 +51,6 @@ class LockwoodBridges extends defaultScene {
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
 
-      this.load.audioSprite('bushSFX','audio/used-audio/bush-sounds/bush-sounds.json',[
-          "audio/used-audio/bush-sounds/bush-sounds.mp3"
-      ]);
-
-      this.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
-            "audio/used-audio/button-sounds/button-sounds.mp3"
-        ]);
     }
 
     create(){
@@ -96,11 +67,11 @@ class LockwoodBridges extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("lockwood_bridges_map","Lockwood_Entrance_Tileset","lockwood_entrance_source_map");
-      this.processMap.layer0.setDepth(9);
-      this.processMap.layer1.setDepth(0);
-      this.processMap.layer2.setDepth(0);
-      this.processMap.layer3.setDepth(0);
+      this.setUpTileSet("lockwood_shop_district_map","Lockwood_Shop_District_Tileset","lockwood_shop_district_source_map");
+      //this.processMap.layer0.setDepth(9);
+      //this.processMap.layer1.setDepth(0);
+      //this.processMap.layer2.setDepth(0);
+      //this.processMap.layer3.setDepth(0);
       //creates player object
       this.setUpPlayer();
 
@@ -128,24 +99,6 @@ class LockwoodBridges extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
-    
-      this.regi = this.add.sprite(1215, 728-17, "regi");
-      this.regi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('regi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.regi.anims.play("idle", true);
-      this.regi.setScale(1/3);
-
-      this.deaugh = this.add.sprite(686, 728-17, "deaugh");
-      this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.deaugh.anims.play("idle", true);
-      this.deaugh.setScale(1/3);
-
-      /*this.nectar = this.add.sprite(2319, 520, "nectar");
-      this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
-      this.nectar.anims.play("idle", true);
-      this.nectar.flipX = true;
-      this.nectar.setScale(1/3);
-      this.nectar.setDepth(-1);
-      this.nectar.setTint(0x505050);*/
       
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
@@ -159,59 +112,30 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initMilo(1895-(12*32), 728-7-(10*32),"inYourTimeOfNeed");
-      this.Milo.visible = false;
-      this.setUpMiloNPCCollider();
-
-      //use emitter to check nectar riddle boss battle flag.
-      let nectarFlag = {
-        flagToFind: "nectarRiddle",
-        foundFlag: false,
-      };
-
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
-
-      //if the encounter has not happened, then set variables. 
-      if(nectarFlag.foundFlag === true){
-
-        this.nectarBossFlag = true;
-
-      }else{
-        this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
-        this.nectarBossFlag = false;
-        this.triggerEncounter = false;
-      }
-
-
-      
-
-      this.setUpPCMilo(1895, 728);
-      this.setUpPlayer2Collider();
-
-      this.setUpLockwoodDrawBridges();
-      this.setUpLockwoodDrawBridgesCollider();
-      //this.initSavePoints(1406,1112-10);
 
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
-      this.initPortals(961,728-8,1122,728,"warpCaveInside","LockwoodCenter",false);
 
-      //this.initLunalyst(935,1083,'clearingTheWay');
+      //this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
+
+      //this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
+     /* this.initPortalsWithTransparency(1122,728-5,961 ,728,"lockwoodIronGate","LockwoodBridges",0.0);
+      this.transGate = this.add.sprite(1122,728-21, "warpGate");
+      this.transGate.setScale(1/3);
+      this.transGate.setAlpha(.75);
+      this.transGate.setDepth(10);*/
+
+      //this.initSigns(1297,728+18,"generic","lockwoodEntranceSign",false);
       
-
-      this.initSavePoints(1099,728-10);
+      //this.initSavePoints(1099,728-10);
 
       //this.initSavePoints(1805,728-10);
 
-      //this.initLockwoodDrawBridge(1632,736-48,'up');
-      this.initLockwoodDrawBridge(1632,736-48,'down');
+     
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
           //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
       
           thisScene.spawnedEnemys = true;
         },1000);
@@ -245,15 +169,6 @@ class LockwoodBridges extends defaultScene {
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x303030);
 
-        this.backroundCenter = this.add.tileSprite(957, 608, 960, 960, "Lockwood_Center_background");
-        this.backroundCenter.setScale(1/3);
-        this.backroundCenter.setDepth(-49);
-        this.backroundCenter.setTint(0x303030);
-
-        this.backroundCastle = this.add.tileSprite(928+64, 130, 3840 , 3072, "Lockwood_Center_Castle");
-        this.backroundCastle.setScale(1/3);
-        this.backroundCastle.setDepth(-50);
-        this.backroundCastle.setTint(0x303030);
     }
 
     update(){
@@ -267,13 +182,6 @@ class LockwoodBridges extends defaultScene {
       }
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-
-      if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850){
-
-        this.triggerEncounter = true;
-        this.initNectar(2230, 480, 'ambush');
-
-      }
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

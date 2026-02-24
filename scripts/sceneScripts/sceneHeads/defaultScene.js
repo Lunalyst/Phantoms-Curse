@@ -94,7 +94,7 @@ class defaultScene extends G12UpdateLoops {
         "audio/used-audio/lick-sounds/lick.mp3"
       ]);
   
-       this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 192, frameHeight: 288 });
+       this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 252, frameHeight: 288 });
        this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
        this.load.spritesheet('sign', 'assets/gameObjects/Sign.png',{frameWidth: 99, frameHeight: 135 });
        this.load.spritesheet('itemDrops', 'assets/gameObjects/itemDrops.png',{frameWidth: 96, frameHeight: 96});

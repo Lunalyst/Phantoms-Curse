@@ -60,7 +60,7 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
       this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
       this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
-
+      
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
       
@@ -193,7 +193,7 @@ class LockwoodBridges extends defaultScene {
       //this.initSavePoints(1406,1112-10);
 
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
-      this.initPortals(961,728-8,1122,728,"warpCaveInside","LockwoodCenter",false);
+      this.initPortals(961,728-8,1122+320,728,"warpCaveInside","LockwoodCenter",false);
 
       //this.initLunalyst(935,1083,'clearingTheWay');
       

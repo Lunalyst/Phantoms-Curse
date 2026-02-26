@@ -43,6 +43,11 @@ class LockwoodShopDistrict extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
+      this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
+      
+      this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
+      
+
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -112,6 +117,8 @@ class LockwoodShopDistrict extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      this.setUpPlayerCraftingBench();
+      this.initPlayerCraftingBench(1149, 728-9);
 
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
 
@@ -130,7 +137,10 @@ class LockwoodShopDistrict extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-     
+      this.autumn = this.add.sprite(2768, 728-8, "autumn");
+      this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.autumn.anims.play("idle", true);
+      this.autumn.setScale(1/3);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -180,6 +190,8 @@ class LockwoodShopDistrict extends defaultScene {
       }else{
         this.defaultUpdate();
       }
+
+      this.checkPlayerRightWarp(3510,"LockwoodCenter",400,728);
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       

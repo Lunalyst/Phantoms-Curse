@@ -69,8 +69,8 @@
          "columns":32,
          "firstgid":1,
          "image":"Forest_Tileset.png",
-         "imageheight":3840,
-         "imagewidth":3072,
+         "imageheight":3920,
+         "imagewidth":3136,
          "margin":0,
          "name":"Forest_Tileset",
          "spacing":0,
@@ -190,46 +190,6 @@
                 {
                  "animation":[
                         {
-                         "duration":500,
-                         "tileid":768
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":770
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":772
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":774
-                        }],
-                 "id":768
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":500,
-                         "tileid":769
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":771
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":773
-                        }, 
-                        {
-                         "duration":500,
-                         "tileid":775
-                        }],
-                 "id":769
-                }, 
-                {
-                 "animation":[
-                        {
                          "duration":400,
                          "tileid":800
                         }, 
@@ -285,14 +245,6 @@
                 }, 
                 {
                  "animation":[
-                        {
-                         "duration":400,
-                         "tileid":832
-                        }, 
-                        {
-                         "duration":400,
-                         "tileid":834
-                        }, 
                         {
                          "duration":400,
                          "tileid":838

@@ -46,6 +46,8 @@ class LockwoodCenter extends defaultScene {
       this.load.spritesheet('Lockwood_Center_Castle', 'assets/parrallax/Lockwood_Center_Castle.png',{frameWidth: 3840 , frameHeight: 3072});
 
       this.load.spritesheet("warpGate" , "assets/gameObjects/warpGate.png" , {frameWidth: 252 , frameHeight: 384 });
+
+      this.load.spritesheet("olivia" , "assets/npcs/olivia.png" , {frameWidth: 249 , frameHeight: 279 });
       
       this.load.spritesheet('Lockwood_Brick_Wall', 'assets/parrallax/Lockwood_Brick_Wall.png',{frameWidth: 960 , frameHeight: 960});
 
@@ -124,15 +126,22 @@ class LockwoodCenter extends defaultScene {
       //this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 
       //this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
-      this.initPortalsWithTransparency(1122,728-5,961 ,728,"lockwoodIronGate","LockwoodBridges",0.0);
-      this.transGate = this.add.sprite(1122,728-21, "warpGate");
+      this.initPortalsWithTransparency(1122+320,728-5,961 ,728,"lockwoodIronGate","LockwoodBridges",0.0);
+      this.transGate = this.add.sprite(1122+320,728-21, "warpGate");
       this.transGate.setScale(1/3);
       this.transGate.setAlpha(.75);
       this.transGate.setDepth(10);
 
-      this.initPortals(322,728-8,785,0,"warpCaveInside","LockwoodShopDistrict",false);
+      this.olivia = this.add.sprite(958, 728-1, "olivia");
+      this.olivia.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('olivia', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.olivia.anims.play("idle", true);
+      this.olivia.setScale(1/3);
 
-      this.initSigns(1297,728+18,"generic","lockwoodEntranceSign",false);
+      
+
+      //this.initPortals(322,728-8,785,0,"warpCaveInside","LockwoodShopDistrict",false);
+
+      this.initSigns(1297+320,728+18,"generic","lockwoodEntranceSign",false);
       
       //this.initSavePoints(1099,728-10);
 
@@ -177,12 +186,12 @@ class LockwoodCenter extends defaultScene {
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x303030);
 
-        this.backroundCastle = this.add.tileSprite(928+32*7, 130, 3840 , 3072, "Lockwood_Center_Castle");
+        this.backroundCastle = this.add.tileSprite((928+32*7)+320, 130, 3840 , 3072, "Lockwood_Center_Castle");
         this.backroundCastle.setScale(1/3);
         this.backroundCastle.setDepth(-50);
         this.backroundCastle.setTint(0x404040);
 
-        this.backroundWall = this.add.tileSprite(757, 708, 960, 960, "Lockwood_Brick_Wall");
+        this.backroundWall = this.add.tileSprite(757+320, 708, 960, 960, "Lockwood_Brick_Wall");
         this.backroundWall.setScale(1/3);
         this.backroundWall.setDepth(-49);
         this.backroundWall.setTint(0x000000);
@@ -198,6 +207,7 @@ class LockwoodCenter extends defaultScene {
         this.defaultUpdate();
       }
       
+      this.checkPlayerLeftWarp(322,"LockwoodShopDistrict",3464,728);
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
        //updates the x value of the scrolling backround.

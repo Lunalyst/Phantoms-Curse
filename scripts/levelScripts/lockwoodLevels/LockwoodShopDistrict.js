@@ -45,8 +45,14 @@ class LockwoodShopDistrict extends defaultScene {
 
       this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
       
+      this.load.spritesheet("randi" , "assets/npcs/randi.png" , {frameWidth: 273 , frameHeight: 273 });
+      
       this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
       
+      this.load.spritesheet('Overroot_Cafe', 'assets/parrallax/Overroot_Cafe.png',{frameWidth: 1920 , frameHeight: 2880});
+
+      this.load.spritesheet('Lockwood_Buildings1', 'assets/parrallax/Lockwood_Buildings1.png',{frameWidth: 2880 , frameHeight: 2880});
+
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -74,9 +80,15 @@ class LockwoodShopDistrict extends defaultScene {
       //creates tileset
       this.setUpTileSet("lockwood_shop_district_map","Lockwood_Shop_District_Tileset","lockwood_shop_district_source_map");
       //this.processMap.layer0.setDepth(9);
-      //this.processMap.layer1.setDepth(0);
-      //this.processMap.layer2.setDepth(0);
-      //this.processMap.layer3.setDepth(0);
+      //this.processMap.layer1
+      //this.processMap.layer2.setTint(0x707070);
+      //this.processMap.layer3.setTint(0x909090);
+
+      /*
+      this.layer2.setTint(0x808080);
+      this.layer3.setTint(0x404040);
+      */
+      
       //creates player object
       this.setUpPlayer();
 
@@ -137,10 +149,17 @@ class LockwoodShopDistrict extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
+      this.initSavePoints(1539,728-10);
+
       this.autumn = this.add.sprite(2768, 728-8, "autumn");
       this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
       this.autumn.setScale(1/3);
+
+      this.randi = this.add.sprite(1038, 728-6, "randi");
+      this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.randi.anims.play("idle", true);
+      this.randi.setScale(1/3);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -179,6 +198,28 @@ class LockwoodShopDistrict extends defaultScene {
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x303030);
 
+        this.overroot = this.add.tileSprite(1818, 563, 1920 , 2880, "Overroot_Cafe");
+        this.overroot.setScale(1/7);
+        this.overroot.setDepth(-50);
+        this.overroot.setTint(0x808080);
+
+        this.buildings1 = this.add.tileSprite(1818, 688 , 2880 , 2880, "Lockwood_Buildings1");
+        this.buildings1.flipX = true;
+        this.buildings1.setScale(1/6);
+        this.buildings1.setDepth(-50);
+        this.buildings1.setTint(0x707070);
+
+        this.buildings2 = this.add.tileSprite(1818, 668, 2880 , 2880, "Lockwood_Buildings1");
+        this.buildings2.setScale(1/5);
+        this.buildings2.setDepth(-50);
+        this.buildings2.setTint(0x606060);
+
+        this.buildings3 = this.add.tileSprite(1818, 648, 2880 , 2880, "Lockwood_Buildings1");
+        this.buildings3.flipX = true;
+        this.buildings3.setScale(1/4);
+        this.buildings3.setDepth(-50); 
+        this.buildings3.setTint(0x505050);
+
     }
 
     update(){
@@ -196,15 +237,23 @@ class LockwoodShopDistrict extends defaultScene {
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
        //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
+      if(this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
         this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
         this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
         this.backgroundRangeRight(this.backround,this.backroundXOrigin,2000,0.7);
+       
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
         this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
         this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
         this.backgroundRangeLeft(this.backround,this.backroundXOrigin,2000,0.7);
+        
       }
+      //this.backgroundRangeTunnel(this.overroot,1818,60,5,0.7);
+      //this.backgroundRangeTunnel(this.buildings1,1818,80,5,0.7);
+      //this.backgroundRangeTunnel(this.buildings2,1818,100,5,0.7);
+      //this.backgroundRangeTunnel(this.buildings3,1818,120,5,0.7);
+      
+
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;
 

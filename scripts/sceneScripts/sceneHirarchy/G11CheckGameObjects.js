@@ -651,6 +651,46 @@ class G11CheckGameObjects extends G10CheckNPCS {
     }
   }
 
+
+
+  backgroundRangeTunnel(backgroundSprite,xOrigin,maxRange,staticRange,incr){
+    // so idea
+    //use the originx of the sprite as the basis
+    //form a range around the originx where it doesnt move.
+    //then a range on the left and right where it can. 
+    let staticLeft = xOrigin - staticRange;
+    let staticRight = xOrigin + staticRange;
+    let maxLeft = xOrigin - maxRange;
+    let maxRight = xOrigin + maxRange;
+    // if the player is in center range
+    //console.log("staticLeft: ",staticLeft," this.player1.x: ",this.player1.x ," staticRight: ",staticRight)
+    if(staticLeft <= this.player1.x  && this.player1.x <= staticRight){
+      console.log("player in center range")
+      backgroundSprite.x = xOrigin;
+      
+      //if the player is in the left range and the sprite isnt at the origin
+    }else if((maxLeft <= this.player1.x  && this.player1.x <= staticLeft)  ){
+      console.log("player in left range")
+
+    if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
+      backgroundSprite.x += incr;
+    }else if(this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
+      backgroundSprite.x -= incr;
+    }
+
+    }else if((staticRight <= this.player1.x  && this.player1.x <= maxRight)  ){
+      console.log("player in right range")
+     
+    if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
+        backgroundSprite.x += incr;
+    }else if(this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
+        backgroundSprite.x -= incr;
+    }
+      
+    }
+
+  }
+
   backgroundRangeUp(backgroundSprite,yOrigin,range,incr){
     if(backgroundSprite.y > yOrigin - range){
       backgroundSprite.y -= incr;

@@ -9,6 +9,33 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     this.PlayerOutOfBounds = false;
     this.physics.add.collider(this.player1.mainHitbox,this.processMap.layer1);
     this.playerLayer0Collider = this.physics.add.collider(this.player1.mainHitbox,this.processMap.layer0);
+
+   
+  }
+  setUpPlayerSwimCollider(){
+    let tempScene = this;
+     this.playerSwimCollider = this.physics.add.overlap(this.player1.mainHitbox, this.processMap.layer0, function () {
+      //console.log("this.processMap.layer0: ",tempScene.processMap);
+      let tile = tempScene.processMap.layer0.getTileAtWorldXY(tempScene.player1.mainHitbox.x, tempScene.player1.mainHitbox.y);
+      //console.log("tile: ",tile);
+      if(tile !== null){
+        if(tile.properties.swim === true) {
+          tempScene.player1.swimming = true;
+          tempScene.player1.swimmingSurface = false;
+          console.log("player is inside swimmable tile!")
+        }else if(tile.properties.swimSurface === true){
+          tempScene.player1.swimming = false;
+          tempScene.player1.swimmingSurface = true;
+          console.log("player is inside swim Surface tile!")
+        }else{
+          tempScene.player1.swimming = false;
+          tempScene.player1.swimmingSurface = false;
+        }
+      }else{
+          tempScene.player1.swimming = false;
+          tempScene.player1.swimmingSurface = false;
+      }  
+    });
   }
 
   setUpPlayer2Collider(){

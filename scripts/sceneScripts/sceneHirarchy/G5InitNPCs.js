@@ -85,6 +85,7 @@ class G5InitNPCs extends G4InitGameObjects {
     //create istara npc
     let Vivian = new vivian(this, x, y, type);
 
+    Vivian.setDepth(3);
     //special case with vivian, if she is in one of her three minigame logics
     if(type === 'voreSequence' || type === 'tfSequence' || type === 'playerWinsLantern' || type === 'playerWinsShell' ){
       this.vivianArray.push(Vivian);

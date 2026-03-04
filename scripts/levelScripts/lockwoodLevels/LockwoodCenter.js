@@ -47,8 +47,6 @@ class LockwoodCenter extends defaultScene {
 
       this.load.spritesheet("warpGate" , "assets/gameObjects/warpGate.png" , {frameWidth: 252 , frameHeight: 384 });
 
-      this.load.spritesheet("olivia" , "assets/npcs/olivia.png" , {frameWidth: 249 , frameHeight: 279 });
-      
       this.load.spritesheet('Lockwood_Brick_Wall', 'assets/parrallax/Lockwood_Brick_Wall.png',{frameWidth: 960 , frameHeight: 960});
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -131,14 +129,7 @@ class LockwoodCenter extends defaultScene {
       this.transGate.setScale(1/3);
       this.transGate.setAlpha(.75);
       this.transGate.setDepth(10);
-
-      this.olivia = this.add.sprite(958, 728-1, "olivia");
-      this.olivia.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('olivia', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.olivia.anims.play("idle", true);
-      this.olivia.setScale(1/3);
-
       
-
       //this.initPortals(322,728-8,785,0,"warpCaveInside","LockwoodShopDistrict",false);
 
       this.initSigns(1297+320,728+18,"generic","lockwoodEntranceSign",false);

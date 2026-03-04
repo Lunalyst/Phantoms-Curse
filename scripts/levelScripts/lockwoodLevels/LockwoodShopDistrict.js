@@ -39,6 +39,8 @@ class LockwoodShopDistrict extends defaultScene {
       this.load.tilemapTiledJSON("lockwood_shop_district_map" , "assets/tiledMap/LockWood/Lockwood_Shop_District_Tileset/Lockwood_Shop_District.json");
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+      
+      this.load.spritesheet('Clearing_Background',  'assets/backgrounds/Clearing_Background.png',{frameWidth: 2700 , frameHeight: 1800});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -51,7 +53,10 @@ class LockwoodShopDistrict extends defaultScene {
       
       this.load.spritesheet('Overroot_Cafe', 'assets/parrallax/Overroot_Cafe.png',{frameWidth: 1920 , frameHeight: 2880});
 
-      this.load.spritesheet('Lockwood_Buildings1', 'assets/parrallax/Lockwood_Buildings1.png',{frameWidth: 2880 , frameHeight: 2880});
+      this.load.spritesheet('Lockwood_Buildings1', 'assets/parrallax/Lockwood_Buildings1.png',{frameWidth: 2880 , frameHeight: 1920});
+
+      this.load.spritesheet('Lockwood_Buildings2', 'assets/parrallax/Lockwood_Buildings2.png',{frameWidth: 2880 , frameHeight: 1920});
+
 
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -81,8 +86,8 @@ class LockwoodShopDistrict extends defaultScene {
       this.setUpTileSet("lockwood_shop_district_map","Lockwood_Shop_District_Tileset","lockwood_shop_district_source_map");
       //this.processMap.layer0.setDepth(9);
       //this.processMap.layer1
-      //this.processMap.layer2.setTint(0x707070);
-      //this.processMap.layer3.setTint(0x909090);
+      this.processMap.layer2.setTint(0x909090);
+      this.processMap.layer3.setTint(0x909090);
 
       /*
       this.layer2.setTint(0x808080);
@@ -132,7 +137,7 @@ class LockwoodShopDistrict extends defaultScene {
       this.setUpPlayerCraftingBench();
       this.initPlayerCraftingBench(1149, 728-9);
 
-      this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
+      this.initPortals(1818,728-8,1776,728,"warpCaveInside","LockwoodOverrootCenter",false);
 
       //this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 
@@ -176,49 +181,69 @@ class LockwoodShopDistrict extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backroundXOrigin = 860;
-        this.backroundYOrigin = 190;
+        this.backroundXOrigin = 2360;
+        this.backroundYOrigin = 500;
          
-        this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+        //this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*2700,1800 , "Clearing_Background");
         this.backround.setDepth(-50);
-        this.backround.setScale(1.2);
+        this.backround.setScale(1/3);
         //original pos - player pos * scrol factor
 
-        this.parrallax1XOrigin = 3000-1290;
+        this.parrallax1XOrigin = 3600;
         this.parrallax1YOrigin = 530 ;
-        this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*8 ,1920, "tree_parrallax");
+        this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*2 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
-        this.parrallax1.setTint(0x303030);
+        this.parrallax1.setTint(0xa0a0a0);
 
-        this.parrallax2XOrigin = 3000-1290;
+        this.parrallax2XOrigin = 3600;
         this.parrallax2YOrigin = 530+600;
-        this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*8 ,1920, "ground_parrallax");
+        this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*2 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
-        this.parrallax2.setTint(0x303030);
+        this.parrallax2.setTint(0xa0a0a0);
+
+        this.parrallax3XOrigin = 600;
+        this.parrallax3YOrigin = 530 ;
+        this.parrallax3 = this.add.tileSprite(this.parrallax3XOrigin, this.parrallax3YOrigin, 1920*2 ,1920, "tree_parrallax");
+        this.parrallax3.setScale(1/3);
+        this.parrallax3.setDepth(-50);
+        this.parrallax3.setTint(0xa0a0a0);
+
+        this.parrallax4XOrigin = 600;
+        this.parrallax4YOrigin = 530+600;
+        this.parrallax4 = this.add.tileSprite(this.parrallax4XOrigin, this.parrallax4YOrigin, 1920*2 ,1920, "ground_parrallax");
+        this.parrallax4.setScale(1/3);
+        this.parrallax4.setDepth(-50);
+        this.parrallax4.setTint(0xa0a0a0);
+
+        this.buildings4 = this.add.tileSprite(1843, 653, 2880 , 1920, "Lockwood_Buildings2");
+        this.buildings4.setScale(1/8);
+        this.buildings4.setDepth(-50);
+        this.buildings4.setTint(0x303030);
 
         this.overroot = this.add.tileSprite(1818, 563, 1920 , 2880, "Overroot_Cafe");
         this.overroot.setScale(1/7);
         this.overroot.setDepth(-50);
-        this.overroot.setTint(0x808080);
+        this.overroot.setTint(0x909090);
 
         this.buildings1 = this.add.tileSprite(1818, 688 , 2880 , 2880, "Lockwood_Buildings1");
         this.buildings1.flipX = true;
         this.buildings1.setScale(1/6);
         this.buildings1.setDepth(-50);
-        this.buildings1.setTint(0x707070);
+        this.buildings1.setTint(0x909090);
 
         this.buildings2 = this.add.tileSprite(1818, 668, 2880 , 2880, "Lockwood_Buildings1");
         this.buildings2.setScale(1/5);
         this.buildings2.setDepth(-50);
-        this.buildings2.setTint(0x606060);
+        this.buildings2.setTint(0x909090);
 
         this.buildings3 = this.add.tileSprite(1818, 648, 2880 , 2880, "Lockwood_Buildings1");
         this.buildings3.flipX = true;
         this.buildings3.setScale(1/4);
         this.buildings3.setDepth(-50); 
-        this.buildings3.setTint(0x505050);
+        this.buildings3.setTint(0x909090);
 
     }
 
@@ -238,22 +263,21 @@ class LockwoodShopDistrict extends defaultScene {
       
        //updates the x value of the scrolling backround.
       if(this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,2000,0.7);
+        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,200,0.5);
+        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,200,0.5);
+        this.backgroundRangeRight(this.parrallax3,this.parrallax3XOrigin,200,0.5);
+        this.backgroundRangeRight(this.parrallax4,this.parrallax4XOrigin,200,0.5);
+        this.backgroundRangeRight(this.backround,this.backroundXOrigin,1000,0.7);
        
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,2000,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,2000,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,2000,0.7);
+        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,200,0.5);
+        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,200,0.5);
+        this.backgroundRangeLeft(this.parrallax3,this.parrallax3XOrigin,200,0.5);
+        this.backgroundRangeLeft(this.parrallax4,this.parrallax4XOrigin,200,0.5);
+        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,1000,0.7);
         
       }
-      //this.backgroundRangeTunnel(this.overroot,1818,60,5,0.7);
-      //this.backgroundRangeTunnel(this.buildings1,1818,80,5,0.7);
-      //this.backgroundRangeTunnel(this.buildings2,1818,100,5,0.7);
-      //this.backgroundRangeTunnel(this.buildings3,1818,120,5,0.7);
-      
-
+    
       //updates the x values stored every tick 
       this.playerPreviousX = this.player1.x;
 

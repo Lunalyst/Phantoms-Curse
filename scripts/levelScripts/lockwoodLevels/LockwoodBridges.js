@@ -268,12 +268,12 @@ class LockwoodBridges extends defaultScene {
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
-      if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850){
+      /*if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850){
 
         this.triggerEncounter = true;
         this.initNectar(2230, 480, 'ambush');
 
-      }
+      }*/
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

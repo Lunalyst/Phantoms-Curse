@@ -173,6 +173,9 @@ class player extends Phaser.GameObjects.Container{
 
     this.lanturnFlicker = null;
 
+    this.swimming = false;
+
+    this.swimmingSurface = false;
     if(scene.lightingSystemActive === true){ 
 
       this.lightSource = scene.lights.addLight(this.x, this.y, 0,0x000000, 1);
@@ -442,8 +445,8 @@ class player extends Phaser.GameObjects.Container{
 
     this.speed = 250 * this.speedBoost;
 
-    this.x= this.mainHitbox.x;
-    this.y= this.mainHitbox.y;
+    this.x = this.mainHitbox.x;
+    this.y = this.mainHitbox.y;
    
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
   //console.log("in player move, this.scene.checkWPressed(): ",this.scene.checkWPressed());
@@ -506,9 +509,64 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
   }
 
 
-  
-  if(this.isAttacking === false){
+  if(this.swimming === true && this.isAttacking === false){
+    this.mainHitbox.body.setGravityY(0); 
+    if(this.scene.checkAIsDown() ){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
+      this.lastKey = "a";
+      this.idleTimer = 0;
+      this.mainHitbox.setVelocityX(-(this.speed/2)); 
+      this.flipXcontainer(true);
+    
+    //moves the player right
+    } else if(this.scene.checkDIsDown() ){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
+      this.lastKey = "d";
+      this.idleTimer = 0;
+      this.mainHitbox.setVelocityX(this.speed/2);
+      this.flipXcontainer(false);
+    
+    }else if(this.scene.checkWIsDown()){
+       this.mainHitbox.setVelocityY(-(this.speed/2));
+    }else if(this.scene.checkSIsDown()){
+       this.mainHitbox.setVelocityY(this.speed/2);
+    }else{
+      this.mainHitbox.setVelocityY(0);
+      this.mainHitbox.setVelocityX(0);
+    }
+
+  }else if(this.swimmingSurface === true && this.isAttacking === false){
+    this.mainHitbox.body.setGravityY(0); 
+     if(this.scene.checkAIsDown() ){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
+      this.lastKey = "a";
+      this.idleTimer = 0;
+      this.mainHitbox.setVelocityX(-(this.speed/2)); 
+      this.flipXcontainer(true);
+    
+    //moves the player right
+    } else if(this.scene.checkDIsDown() ){
+      this.mainHitbox.setSize(10,60,true);
+      this.mainHitbox.setOffset(12, -4);
+      this.lastKey = "d";
+      this.idleTimer = 0;
+      this.mainHitbox.setVelocityX(this.speed/2);
+      this.flipXcontainer(false);
+    
+    }else if(this.scene.checkWIsDown()){
+       this.mainHitbox.setVelocityY(-(this.speed/2));
+    }else if(this.scene.checkSIsDown()){
+       this.mainHitbox.setVelocityY(this.speed/2);
+    }else{
+      this.mainHitbox.setVelocityY(0);
+      this.mainHitbox.setVelocityX(0);
+    }
+  }else if(this.isAttacking === false){
     //move the player left
+    this.mainHitbox.body.setGravityY(600); 
 
     //if s is pressed fall through the platform by destoying the collision of player 0.
     if(this.scene.checkSIsDown() && this.mainHitbox.body.blocked.down && this.fallThroughLayer0 === false){
@@ -717,7 +775,8 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         //console.log("in the air");
         }
         //console.log("previous player y"+ playerPreviousY);
-    }
+  }
+
       playerPreviousY = this.y;
 
       //ensures that no mater what player is facing the correct way.

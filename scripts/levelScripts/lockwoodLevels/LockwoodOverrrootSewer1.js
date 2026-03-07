@@ -145,24 +145,25 @@ class LockwoodOverrootSewer1 extends defaultScene {
       //setup lights group.
       this.setUpWallLights();
       this.initWallLight(1506,420,'torch');
+      this.initWallLight(876,420+32,'torch');
       
       this.lightSource1 = this.lights.addLight(1792,50, 80, 0xffffff);
       this.lightSource1.intensity = 3;
 
       
-      this.dayns = this.add.sprite(1472, 440-15, "dayns");
+      this.dayns = this.add.sprite(1166, 440-15+32, "dayns");
       this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.dayns.anims.play("idle", true);
       this.dayns.setScale(1/3);
       this.dayns.setDepth(2);
       this.dayns.setPipeline('Light2D');
 
-      this.roxie = this.add.sprite(1016, 426, "roxie");
+      this.roxie = this.add.sprite(701, 426, "roxie");
       this.roxie.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('roxie', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.roxie.anims.play("idle", true);
       this.roxie.setScale(1/3);
       this.roxie.setDepth(2);
-      this.lightSource2 = this.lights.addLight(1016,426, 90, 0x1ff0ae);
+      this.lightSource2 = this.lights.addLight(701,426, 90, 0x1ff0ae);
       this.lightSource2.intensity = 3;
 
       this.initSavePoints(2057,728-10);

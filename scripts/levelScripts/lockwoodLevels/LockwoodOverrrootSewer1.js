@@ -43,17 +43,13 @@ class LockwoodOverrootSewer1 extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianEndings" , "assets/npcs/vivianEndings.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianTFF" , "assets/npcs/vivianTFF.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianTFM" , "assets/npcs/vivianTFM.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianVore2" , "assets/npcs/vivianVore2.png" , {frameWidth: 351 , frameHeight: 315 });
-      this.load.spritesheet("vivianEmots" , "assets/hudElements/vivianEmots.png" , {frameWidth: 105 , frameHeight: 96 });
-      
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
 
       this.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
+
+      this.load.spritesheet("dayns" , "assets/npcs/dayns.png" , {frameWidth: 333 , frameHeight: 333 });
+
+      this.load.spritesheet("roxie" , "assets/npcs/roxie.png" , {frameWidth: 393 , frameHeight: 453 });
 
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
@@ -148,12 +144,27 @@ class LockwoodOverrootSewer1 extends defaultScene {
      
       //setup lights group.
       this.setUpWallLights();
-      this.initWallLight(1476,400,'torch');
+      this.initWallLight(1506,420,'torch');
       
-      this.lightSource1 = this.lights.addLight(1792,260, 400, 0xffffff);
+      this.lightSource1 = this.lights.addLight(1792,50, 80, 0xffffff);
       this.lightSource1.intensity = 3;
 
-    
+      
+      this.dayns = this.add.sprite(1472, 440-15, "dayns");
+      this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.dayns.anims.play("idle", true);
+      this.dayns.setScale(1/3);
+      this.dayns.setDepth(2);
+      this.dayns.setPipeline('Light2D');
+
+      this.roxie = this.add.sprite(1016, 426, "roxie");
+      this.roxie.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('roxie', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.roxie.anims.play("idle", true);
+      this.roxie.setScale(1/3);
+      this.roxie.setDepth(2);
+      this.lightSource2 = this.lights.addLight(1016,426, 90, 0x1ff0ae);
+      this.lightSource2.intensity = 3;
+
       this.initSavePoints(2057,728-10);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.

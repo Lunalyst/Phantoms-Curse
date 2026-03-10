@@ -146,10 +146,42 @@ class LockwoodOverrootSewer1 extends defaultScene {
       this.setUpWallLights();
       this.initWallLight(1506,420,'torch');
       this.initWallLight(876,420+32,'torch');
+
+      /*
       
+       //this.pointLight1 = this.add.pointlight(1792,50, 0xffffff, 20, 1, 0.1);
+
+      //this.lightingMask = this.processMap.layer1.createBitmapMask();
+
+      //this.processMap.layer1.setMask(this.lightingMask);
+      // this.darkLayer = this.textures.createCanvas('dark-layer',this.myMap.widthInPixels,this.myMap.heightInPixels);
+      
+      this.darkLayer.context.fillStyle = "#212245";
+      this.darkLayer.context.fillRect(0,0,this.myMap.widthInPixels,this.myMap.heightInPixels);
+
+      this.darkLayer.context.globalCompositeOperation = 'destination-out';
+
+      this.darkLayer.refresh();
+
+      this.darkLayerOverlay = this.add.image(0,0,'dark-layer');
+      
+      this.darkLayerOverlay.setDepth(9);
+      this.darkLayerOverlay.setAlpha(0.5);
+
+
+      this.manholeMask = this.textures.get('manhole_light_mask').getSourceImage();
+
+      this.darkLayer.draw(1790,344,this.manholeMask);*/
+
+      //this.coneLight = this.lights.addSpotLight(1792, 400, 300, 0xffffff, 1,);
+      //this.Light.angle = 0.5; // Angle of the cone (in radians)
+      //this.Light.coneRadius = 200; // Radius of the cone
+
       this.lightSource1 = this.lights.addLight(1792,50, 80, 0xffffff);
       this.lightSource1.intensity = 3;
+      console.log("this.lightSource1: ",this.lightSource1)
 
+     
       
       this.dayns = this.add.sprite(1166, 440-15+32, "dayns");
       this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });

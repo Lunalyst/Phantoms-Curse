@@ -476,6 +476,59 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "demoEnd":{
+                     "node1":{
+                        "dialogue": "this place marks the end of the current version of phantoms curse.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Thanks for playing!",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "as for whats next...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": " past the bridge lies a castle. and beyone the castle, lies the village of lockwood.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": " which will be home to many npcs, with plenty of lewd scenes.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node6']
+                    },
+                    "node6":{
+                        "dialogue": "but before that, a battle must take place!",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node7']
+                    },"node7":{
+                        "dialogue": "but will your hero be able to save you in time? ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node8']
+                    },"node8":{
+                        "dialogue": "find out next update.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node9']
+                    },"node9":{
+                        "dialogue": "but be warned this one may take me a while.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    }
+                },
             },
             "Fervor":{
                 "love1":{

@@ -43,6 +43,8 @@ class LockwoodEntrance extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
+      this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
+
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
@@ -112,12 +114,15 @@ class LockwoodEntrance extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(813,1757+12,"generic","tutorialCabin");
+      //this.initSigns(813,1757+12,"generic","tutorialCabin");
 
       this.initSavePoints(1406,1112-10);
 
-      
+      this.toBeContinued = this.add.sprite(635,1035, "toBeContinued");
+      this.initSigns(635,1100,"generic","demoEnd",false);
 
+      this.toBeContinued.setScale(1/6);
+      
       this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
 
       this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);

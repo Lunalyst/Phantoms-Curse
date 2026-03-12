@@ -942,8 +942,11 @@ class rabbit extends enemy {
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
 
+                
                 this.playerEscaped(playerHealthObject);
 
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+                
             //logic for if the player is defeated
             }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax && this.rabbitIsHungry === false){
 
@@ -963,6 +966,7 @@ class rabbit extends enemy {
             
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
+
             }else if(playerHealthObject.playerHealth === 0 && this.rabbitIsHungry === true){
 
                 //console.log("player defeated and eat logic")

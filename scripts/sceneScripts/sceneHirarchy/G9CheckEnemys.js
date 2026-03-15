@@ -351,13 +351,16 @@ class G9CheckEnemys extends G8InitEnemys {
     //applies functions to all slimes in the group.
     scene.blueSlimes.children.each(function (tempSlime) {
 
+      
+
       //safteeey check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,600) && this.objectsInRangeY(tempSlime,this.player1,600) && tempSlime.inSafeMode === false){
 
         //if the player is not sleeping
         if(scene.player1.idleTimer !== 2000){
           //calls to make each instance of a bat move.
-          tempSlime.move(scene.player1,scene);
+          console.log("activating blue slime move code?")
+          tempSlime.move();
         }else{
           tempSlime.moveIdle()
         }
@@ -431,7 +434,6 @@ class G9CheckEnemys extends G8InitEnemys {
     //console.log("checking slime interactions");
     //applies functions to all slimes in the group.
     scene.blueSlimeHMs.children.each(function (tempSlime) {
-
       //safty check to improve performance. only does overlap if in range.
       if(this.objectsInRangeX(tempSlime,this.player1,400) && this.objectsInRangeY(tempSlime,this.player1,150) && tempSlime.inSafeMode === false){
 

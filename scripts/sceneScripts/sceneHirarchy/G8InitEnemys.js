@@ -1049,6 +1049,7 @@ class G8InitEnemys extends G7EnemyCollisions{
   }
 
   viewAnimationLogic(enemy){
+    
     //check if the player presses w while in range   
     if(this.checkWPressed() === true){
         

@@ -258,7 +258,7 @@ class LockwoodShopDistrict extends defaultScene {
       }
 
       this.checkPlayerRightWarp(3510,"LockwoodCenter",400,728);
-      this.checkPlayerLeftWarp(600,"BunBunRanchFront",400,728);
+      this.checkPlayerLeftWarp(500,"BunBunRanchFront",3645,728+32);
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       

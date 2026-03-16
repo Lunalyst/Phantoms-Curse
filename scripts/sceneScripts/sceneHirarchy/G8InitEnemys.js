@@ -382,6 +382,66 @@ class G8InitEnemys extends G7EnemyCollisions{
           tempBeeDrone.addColliderRef(collider);
         }
       },
+
+      beeGrub: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+
+        let tempBeeGrub = new beeGrub(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        console.log("created beeDrone id: ",tempBeeGrub.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(tempBeeGrub);  
+        tempSceneRef.beeGrubs.add(tempBeeGrub);
+
+        if(inSafeMode === false){
+          //checks if the attack hitbox is overlapping the beedrone to deal damage.
+          let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempBeeGrub, function () {
+          
+            //sets overlap to be true 
+            tempBeeGrub.hitboxOverlaps = true;
+          });
+          tempBeeGrub.addColliderRef(collider);
+
+          //checks to see if the beedrones attack hitbox overlaps the players hitbox
+          collider = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, tempBeeGrub.grabHitBox, function () {
+            if(tempBeeGrub.grabTimer === true){
+              //make a temp object
+              let isWindowObject = {
+                isOpen: null
+              };
+              
+              //that is passed into a emitter
+              inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+            
+              //to tell if the window is open
+              if (isWindowObject.isOpen === true) {
+                //and if it is, then close the window
+                inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+                
+              }
+              
+              //if the grab cooldowns are clear then
+              if (tempBeeGrub.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+                
+                console.log(" grabing the player?");
+                //stop the velocity of the player
+                tempBeeGrub.setVelocityX(0);
+                tempBeeGrub.setVelocityY(0);
+                tempSceneRef.player1.mainHitbox.setVelocityX(0);
+                //calls the grab function
+                tempBeeGrub.grab();
+              
+                //sets the scene grab value to true since the player has been grabbed
+                tempBeeGrub.playerGrabbed = true;
+                tempBeeGrub.grabCoolDown = true;
+                tempSceneRef.grabbed = true;
+                tempSceneRef.grabCoolDown = true;
+                console.log('player grabbed by tempBeeGrub');
+            
+              }
+            }
+          });
+          tempBeeGrub.addColliderRef(collider);
+        }
+      },
       bat: function batFunction(startX, startY, playerSex,inSafeMode) {
          
         let tempBat = new bat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
@@ -1016,6 +1076,7 @@ class G8InitEnemys extends G7EnemyCollisions{
       this.setUpInitEnemyFunctions();
     }
 
+    console.log("enemyType: ",enemyType)
     this.mapOfInitEnemyFunctions[enemyType](startX, startY, playerSex,inSafeMode,soundSFX);
 
   }

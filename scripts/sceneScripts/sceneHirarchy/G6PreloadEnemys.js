@@ -89,6 +89,12 @@ class G6PreloadEnemys extends G5InitNPCs{
         ]);
 
       },
+      beeGrubs: function beeGrubsFunction() {
+
+        tempSceneRef.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
+        
+        
+      },
       bats: function batsFunction() {
 
         tempSceneRef.load.spritesheet('batSuckingPlayer', 'assets/internalViews/batSuckingPlayer.png',{frameWidth: 213, frameHeight: 213});

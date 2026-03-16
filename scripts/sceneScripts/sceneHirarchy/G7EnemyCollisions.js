@@ -43,6 +43,14 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.beeDrones); 
           
           },
+          beeGrubs: function beeGrubsFunction() {
+            console.log("adding beeGrubs group");
+            tempSceneRef.beeGrubs = tempSceneRef.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.beeGrubs);
+            //since layer 3 is rarely used, we will be using it as the layer where enemy collisions take place so we can have a more clean and effecient barrier thats less resource intensive.
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer3, tempSceneRef.beeGrubs); 
+          
+          },
           bats: function batsFunction() {
             console.log("adding bats group");
             tempSceneRef.bats = tempSceneRef.add.group();
@@ -136,8 +144,8 @@ class G7EnemyCollisions extends G6PreloadEnemys{
       this.enemyGroupArray = [];
     }
 
+    console.log("enemyGroupArray: ",enemyGroupArray);
     if(enemyGroupArray.length > 0){
-      console.log("enemyGroupArray: ",enemyGroupArray);
         //array storing all the enemy groups present. currently empty
         //loop which searches array of enemys, then allocates those groups.
         for(let counter = 0; counter < enemyGroupArray.length; counter++){

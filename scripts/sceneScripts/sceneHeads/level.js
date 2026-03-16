@@ -236,6 +236,18 @@ class level extends Phaser.Tilemaps.Tilemap{
                                                 Tile.collideRight = false;
                                                 break;
                                         }
+                                }else if(this.tilesetNameInTiled === "Hive_Tileset"){
+                                        switch(Tile.index) { // the index, you can see in tiled: it's the ID+1
+                                                case 273: 
+                                                case 274: 
+                                                case 275: 
+                                                Tile.collideUp = true;
+                                                Tile.collideDown = false;
+                                                Tile.collideLeft = false;
+                                                Tile.collideRight = false;
+                                                break;
+                                                
+                                        }
                                 }
 
 			})

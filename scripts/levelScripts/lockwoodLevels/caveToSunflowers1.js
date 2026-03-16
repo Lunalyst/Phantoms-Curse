@@ -97,7 +97,7 @@ class caveToSunflowers1 extends defaultScene {
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       let  vivianCheck = {
-        flagToFind: "vivian_overworld_shopd w",
+        flagToFind: "vivian_overworld_shop",
         foundFlag: false,
       };
 

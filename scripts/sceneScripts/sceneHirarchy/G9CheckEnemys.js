@@ -315,6 +315,8 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.checkRabbitInteractions(tempSceneRef);
       },beeDrones: function beeDronesFunction(){
         tempSceneRef.checkBeeDroneInteractions(tempSceneRef);
+      },beeGrubs: function beeGrubsFunction(){
+        tempSceneRef.checkBeeGrubsInteractions(tempSceneRef);
       },bats: function batsFunction() {
         tempSceneRef.checkBatInteractions(tempSceneRef);
       },blueSlimeHSs: function blueSlimeHSsFunction() {
@@ -604,6 +606,51 @@ class G9CheckEnemys extends G8InitEnemys {
     }else{
       tempBeeDrone.safePrompts.visible = false;
       tempBeeDrone.playedSafePrompts = false;
+    }
+
+  }, this);
+    
+  }
+
+  checkBeeGrubsInteractions(scene) {
+
+    //applys a function to all tigers
+    scene.beeGrubs.children.each(function (tempBeeGrub) {
+      
+      //safty check to improve performance. only does overlap if in range.
+      if(scene.objectsInRangeX(tempBeeGrub,scene.player1,450)&& tempBeeGrub.inSafeMode === false){
+
+        //calls drone function to move
+
+        //if the player is not sleeping
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a bat move.
+            tempBeeGrub.move(scene.player1,scene);
+        }else{
+           tempBeeGrub.moveIdle()
+        }
+        
+        //if the hitbox overlaps the drone, then  deal damage to that drone
+        if(tempBeeGrub.hitboxOverlaps === true) {
+        
+          console.log("beeGrub taking damage, beedrone hp:" + tempBeeGrub.enemyHP);
+        
+          //inflict damage to tiger
+          tempBeeGrub.damage(this.player1);
+        
+          //clear overlap verable in tiger.
+          tempBeeGrub.hitboxOverlaps = false;
+        
+        }  
+
+    //if the tempBeeGrub is in safe mode, and in range of the player then 
+    }else if(this.objectsInRangeX(tempBeeGrub,scene.player1,30) && this.objectsInRangeY(tempBeeGrub,scene.player1,30)){
+
+      this.viewAnimationLogic(tempBeeGrub);
+    // otherwise hid the prompt from the player.
+    }else{
+      tempBeeGrub.safePrompts.visible = false;
+      tempBeeGrub.playedSafePrompts = false;
     }
 
   }, this);

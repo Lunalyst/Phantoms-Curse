@@ -111,7 +111,9 @@ class batCave extends defaultScene {
 
       this.fakeWarp1 = new fakeWarp(this,4069,1181-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp3 = new fakeWarp(this,510,797-13,'warpCaveOutsideRubble');
+     
+      //this.initPortals(510,797-13,2359,1080,"warpCaveOutside","hiveChamber1");
+      this.initPortals(510,797-13,1000,700,"warpCaveOutside","hiveChamber1");
 
       //sets up containers
       this.setUpContainers();

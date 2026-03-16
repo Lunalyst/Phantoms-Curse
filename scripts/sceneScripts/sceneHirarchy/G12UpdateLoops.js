@@ -251,7 +251,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
     enemyUpdateAnimationView(enemyGroupArray){
      
       //if the player opens the inventory by pressing tab, while they are not grabbed and they are not in a text box then
-      if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false){
+      if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false  ){
         //check to see if the slime animations need to be paused.
         this.checkEnemyAnimationPause();
       }else{

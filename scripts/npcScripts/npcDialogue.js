@@ -662,6 +662,49 @@ const npcDialogue = {
             },
         },
 
+        "beeSecret":{
+            "Behavior1":{
+                "beeSecret":{
+                    "node1":{
+                        "dialogue": "The bee seems to still be hanging in there. its tail twitches... ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "It looks awfully comfortable...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "reach your hand out?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4","node5"]
+                    },
+                    "node4":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                    "node5":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "you where swallowed up...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                }
+            }
+        },
+
         "istara":{
             "Behavior1":{
                 "istaraCaveDialogue1":{
@@ -1555,7 +1598,6 @@ const npcDialogue = {
                 //player run out of time
             },
         },
-
         "vivian":{
             "Behavior1":{
                 "rummaging":{

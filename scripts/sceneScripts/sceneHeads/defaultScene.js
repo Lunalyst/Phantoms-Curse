@@ -256,5 +256,7 @@ class defaultScene extends G12UpdateLoops {
   this.cutSceneActive = false;
   this.CutscenePhysics = false;
 
+  this.enemyAnimationsActive = false;
+
   }
 }

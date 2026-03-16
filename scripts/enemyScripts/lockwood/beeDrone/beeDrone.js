@@ -69,7 +69,10 @@ class beeDrone extends beeDroneAbduct {
                 this.anims.create({ key: 'beeDroneTailStruggle', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 34, end: 39 }), frameRate: 8, repeat: -1 });
                 this.anims.create({ key: 'beeDroneTailSwallow2', frames: this.anims.generateFrameNames('beeDroneMale1', { start: 40, end: 44 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'beeDroneGameover', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 58-58, end: 69-58 }), frameRate: 8, repeat: 0 }); 
-               
+                
+                this.anims.create({ key: 'beeDroneDefeatedWillingTV', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 4, end: 12}), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'beeDroneDefeatedWillingTVEnd', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 13, end: 16}), frameRate: 6, repeat: -1 });
+             
             }else{
                 this.anims.create({ key: 'beeDroneGrabbed', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 70-58, end: 72-58 }), frameRate: 6, repeat: 0 });
                 this.anims.create({ key: 'beeDroneStruggle', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 73-58, end: 78-58 }), frameRate: 8, repeat: -1 });
@@ -82,7 +85,10 @@ class beeDrone extends beeDroneAbduct {
             this.anims.create({ key: 'beeDroneTired', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 51, end: 56}), frameRate: 8, repeat: 3 }); 
             this.anims.create({ key: 'beeDroneDefeatedFall', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 57, end: 63}), frameRate: 8, repeat: 0 }); 
             this.anims.create({ key: 'beeDroneDefeated', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 63, end: 63}), frameRate: 8, repeat: 0 });
-             
+
+            this.anims.create({ key: 'beeDroneDefeatedFallLinger', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 57, end: 62}), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneDefeatedLinger', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 0, end: 3}), frameRate: 6, repeat: -1 });
+           
         }else{
             this.anims.create({ key: 'beeDroneIdle', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 1, end: 5 }), frameRate: 8, repeat: -1 });
             this.anims.create({ key: 'beeDroneMove', frames: this.anims.generateFrameNames('beeDroneFemale1', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
@@ -465,17 +471,54 @@ class beeDrone extends beeDroneAbduct {
                     this.body.setGravityY(600);
                     this.setVelocityX(0);
 
-                    //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
-                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+                    if(this.scene.playerLocation === "sunFlowerField"){
+                        this.scene.beesDefeated++;
+                        console.log("incrementing bee counter for defeated bees! ",this.scene.beesDefeated);
+                        if(this.scene.beesDefeated > 0){
+                            //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                            let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
 
-                    //if( dropChance > 0){
-                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
-                    //}
+                            //if( dropChance > 0){
+                                this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
+                            //}
+                            
 
-                    this.anims.play('beeDroneDefeatedFall').once('animationcomplete', () => {
-                        //then destroy slime.
-                        this.anims.play('beeDroneDefeated');
-                    });
+                            this.anims.play('beeDroneDefeatedFallLinger').once('animationcomplete', () => {
+                                //then destroy slime.
+                                this.anims.play('beeDroneDefeatedLinger');
+
+                                this.scene.initBeeSecret(this.x,this.y,this);
+                            });
+
+
+                        }else {
+                            //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                            let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                            //if( dropChance > 0){
+                                this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
+                            //}
+
+                            this.anims.play('beeDroneDefeatedFall').once('animationcomplete', () => {
+                                //then destroy slime.
+                                this.anims.play('beeDroneDefeated');
+                            });
+                        }
+                    }else{
+                        //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                        let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                        //if( dropChance > 0){
+                            this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
+                        //}
+
+                        this.anims.play('beeDroneDefeatedFall').once('animationcomplete', () => {
+                            //then destroy slime.
+                            this.anims.play('beeDroneDefeated');
+                        });
+                    }
+
+                    
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);

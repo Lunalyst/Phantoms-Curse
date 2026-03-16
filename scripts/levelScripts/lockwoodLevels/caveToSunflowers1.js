@@ -96,18 +96,6 @@ class caveToSunflowers1 extends defaultScene {
       this.enemyGroupArray = [];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
-      let  vivianCheck = {
-        flagToFind: "vivian_overworld_shop",
-        foundFlag: false,
-      };
-
-      // 
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag,  vivianCheck);
-
-      if(vivianCheck.foundFlag === true){
-        this.initVivian(1240,888,'overworldShopKnock');
-      }
-
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){

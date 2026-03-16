@@ -292,12 +292,12 @@ class G9CheckEnemys extends G8InitEnemys {
 
   //pauses enemy animations when the player is paused. calles function in enemy base class
   checkEnemyAnimationPause() {
-
-    //pauses enemy animations when game is paused and resumes them if player is unpaused.
-    this.enemys.children.each(function (tempEnemy) {
-      tempEnemy.pauseAnimations(this);
-    }, this);
-    
+    if( this.enemyAnimationsActive === false){
+      //pauses enemy animations when game is paused and resumes them if player is unpaused.
+        this.enemys.children.each(function (tempEnemy) {
+          tempEnemy.pauseAnimations(this);
+        }, this);
+    } 
   }
 
   //function set up a map of enemy check functions

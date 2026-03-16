@@ -150,6 +150,7 @@ class sunFlowerField extends defaultScene {
 
       let thisScene = this;
 
+      this.beesDefeated = 0;
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       setTimeout(function(){
           

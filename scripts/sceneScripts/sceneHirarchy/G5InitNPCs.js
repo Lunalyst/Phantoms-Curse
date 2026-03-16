@@ -124,6 +124,18 @@ class G5InitNPCs extends G4InitGameObjects {
 
   }
 
+  initBeeSecret(x, y,enemyRef){
+
+
+    this.beeSecret = new beeSecret(this, x, y, "beeSecret",enemyRef);
+
+    this.beeSecret.npcId = this.npcId;
+    this.npcId++;
+
+    this.npcs.add(this.beeSecret);
+
+  }
+
   initNectar(x, y, type){
 
     //sets up the special text box object for nectar

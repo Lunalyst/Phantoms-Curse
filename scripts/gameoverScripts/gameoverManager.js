@@ -487,6 +487,18 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
+            bee_drone_male_tf: function maleBeeDroneFunction() {
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new beeDrone(tempSceneRef,430, 570,tempSceneRef.playerSex,1,'wingFlapSFX');
+                tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
+                tempSceneRef.defeatedTitle = 'cursed';
+
+                tempSceneRef.stopFlapping = false;
+
+                setTimeout(function () {
+                    tempSceneRef.stopFlapping = true;
+                }, 6000);
+            },
             bee_drone_female_tf: function femaleBeeDroneFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new beeDrone(tempSceneRef,430, 570,tempSceneRef.playerSex,1,'wingFlapSFX');

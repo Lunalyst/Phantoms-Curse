@@ -205,14 +205,12 @@ class G12UpdateLoops extends G11CheckGameObjects{
       if(this.checkInventoryIsDown() && this.grabbed === false && this.pausedInTextBox === false){
         //check to see if the slime animations need to be paused.
         this.checkEnemyAnimationPause();
-      }else{
-        this.checkEnemyAnimationPause();
       }
         
       //if we are paused in a text box then
       if(this.pausedInTextBox === true && this.gameStartedDelay === false){
         //pause enemy animations. physics is paused in defaultupdate.
-        this.checkEnemyAnimationPause();
+        //this.checkEnemyAnimationPause();
           
          
       //otherwise if these are false then

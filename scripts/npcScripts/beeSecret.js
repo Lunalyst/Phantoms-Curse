@@ -147,7 +147,7 @@ class beeSecret extends npc{
                         //modifies the object with the new relivant information.
                         playerDataObject.saveX = 458;
                         playerDataObject.saveY = 1016+15;
-                        playerDataObject.playerSex = scene1.playerSex;
+                        playerDataObject.playerSex = temp.scene.playerSex;
                         playerDataObject.playerLocation = "hiveChamber1";
 
                         //maxes out hp.
@@ -158,9 +158,17 @@ class beeSecret extends npc{
 
                         temp.scene.setupGameoverLocation("hiveGameover");
 
-                        temp.scene.enemyThatDefeatedPlayer = "beeSecretMale";
+                        if(temp.beeRefrence.enemySex === 0){
+                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
+                        }else{
+                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleSecret;
+                        }
 
-                        temp.scene.changeToGameover();
+                        setTimeout(function () {
+                          
+                           temp.scene.changeToGameover();
+                           
+                        }, 1000);
 
                         temp.scene.sceneTextBox.textInterupt = true;
                         temp.scene.sceneTextBox.textCoolDown = true;

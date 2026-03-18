@@ -322,7 +322,7 @@ class beeDroneAbduct extends enemy {
     // functioned called to play animation when the player is defeated by the beeDrone in gameover.
     gameOver(playerSex) {
         this.setSize(70, 180, true);
-
+        this.setPipeline('Light2D');
         this.gameoverAnimationComplete = false;
         //this.setOffset(180, 110);
         this.anims.play('beeDroneGameover').once('animationcomplete', () => {
@@ -330,7 +330,8 @@ class beeDroneAbduct extends enemy {
             this.gameoverAnimationComplete = true;
             let fedGrub = new beeGrub(this.scene, this.x-61, this.y-29,playerSex,1);
             fedGrub.setSize(70, 70, true);
-           
+            
+            fedGrub.setPipeline('Light2D');
             if(playerSex === 0){
                 fedGrub.anims.play('beeGrubFedMale');
             }else{
@@ -342,6 +343,32 @@ class beeDroneAbduct extends enemy {
 
         });
     }
+
+    //functioned called to play animation when the player is defeated by the beeDrone in gameover.
+    gameOverSecret() {
+        this.setSize(70, 180, true);
+        this.flipX = true;
+        this.setPipeline('Light2D');
+        this.scene.tryAgian.visible = false;
+
+        this.anims.play('beeDroneDefeatedWillingTVEndingQ', true).once('animationcomplete', () => {
+
+            this.anims.play('beeDroneDefeatedWillingRelease', true).once('animationcomplete', () => {
+
+                let currentEnemy = this;
+                setTimeout(function () {
+                    currentEnemy.anims.play('beeDroneDefeatedWillingReleaseEyeOpen', true).once('animationcomplete', () => {
+                        currentEnemy.scene.tryAgianLoad(currentEnemy.scene);
+
+                    });
+                }, 2000);
+            
+            });
+
+        });
+
+    }
+    
 
         //function to show off animation 
     animationGrabAbduct(){

@@ -348,9 +348,17 @@ class gameoverManager extends A3SoundEffects {
                 let backround = tempSceneRef.add.sprite(450, 380, "backgroundBeachLevel");
             },
             hiveGameover: function hiveGameover() {
+
+                tempSceneRef.lights.enable().setAmbientColor(0x555555);
+
                 tempSceneRef.lightingSystemActive = false;
                 tempSceneRef.processMap.tilesetNameInTiled = "Hive_Tileset";
                 tempSceneRef.processMap.setTiles('hive_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer0.setPipeline('Light2D');
+                tempSceneRef.processMap.layer1.setPipeline('Light2D');
+                tempSceneRef.processMap.layer2.setPipeline('Light2D');
+                tempSceneRef.processMap.layer3.setPipeline('Light2D');
             },
             blueSlimeGameover: function blueSlimeGameover() {
                 tempSceneRef.lightingSystemActive = true;
@@ -487,17 +495,13 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
-            bee_drone_male_tf: function maleBeeDroneFunction() {
+            bee_drone_male_secret: function maleBeeDroneSecretFunction() {
                 tempSceneRef.preferance = 0;
-                tempSceneRef.enemy = new beeDrone(tempSceneRef,430, 570,tempSceneRef.playerSex,1,'wingFlapSFX');
-                tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
+
+                tempSceneRef.enemy = new beeDrone(tempSceneRef,470, 570+6,tempSceneRef.playerSex,1,'wingFlapSFX');
+                tempSceneRef.enemy.gameOverSecret(tempSceneRef.playerSex);
                 tempSceneRef.defeatedTitle = 'cursed';
 
-                tempSceneRef.stopFlapping = false;
-
-                setTimeout(function () {
-                    tempSceneRef.stopFlapping = true;
-                }, 6000);
             },
             bee_drone_female_tf: function femaleBeeDroneFunction() {
                 tempSceneRef.preferance = 1;
@@ -984,6 +988,11 @@ class gameoverManager extends A3SoundEffects {
                         }, 1200);
                     }    
                 }
+            },
+            
+            bee_drone_male_secret: function maleBeeDroneFunction() {
+
+                
             },
             bee_drone_female_tf: function femaleBeeDroneFunction() {
                 if(tempSceneRef.enemy.beeDroneSoundCoolDown === false ){

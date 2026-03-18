@@ -3021,9 +3021,25 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "bee_drone_male_secret":{
+                    "node1":{
+                        "dialogue": "you foolishly let the bees large tail swallow you up. preserving your strength you felt the bee eventually get up and carry you to some unknown place. but your struggling completely exaused the bee...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
                 "bee_drone_female_tf":{
                     "node1":{
                         "dialogue": "The flap of wings should have been a indicator to run. You tried to stand your ground. Clearly that didn't work out too well for you. The bee grabbed you. You were lifted of the ground, struggling against the strength of the cursed insect. When it could tell you were exausted, it opened up its large abdomen to swallow you, packing you tightly. Happy to have caught a human, it took you back to its hive, where a lucky larva could swallow you. All you feel now is the rythmic wiggle of the grub as your powerless to stop it from absorbing you. Its warm walls masaging your body as your mind is clouded with pleasure.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "bee_drone_female_secret":{
+                    "node1":{
+                        "dialogue": "you foolishly let the bees large tail swallow you up. preserving your strength you felt the bee eventually get up and carry you to some unknown place. but your struggling completely exaused the bee...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

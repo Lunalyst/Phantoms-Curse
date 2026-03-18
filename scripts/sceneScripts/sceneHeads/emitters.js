@@ -357,7 +357,9 @@ const bestiaryKey = {
   rabbitFemaleVore:"rabbit_female_vore",
 
   beeDroneMaleTF:"bee_drone_male_tf",
+  beeDroneMaleSecret:"bee_drone_male_secret",
   beeDroneFemaleTF:"bee_drone_female_tf",
+   beeDroneFemaleSecret:"bee_drone_female_secret",
 
   batMaleTF:"bat_male_tf",
   batFemaleTF:"bat_female_tf",  

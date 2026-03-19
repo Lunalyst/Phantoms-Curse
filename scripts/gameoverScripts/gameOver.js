@@ -59,7 +59,7 @@ class gameOver extends gameoverManager {
             //function to create a map of functions to preload the correct map needed based in the location string.
             this.preloadMapOfTileMaps();
 
-            this.showTryAgain = true;
+            //this.showTryAgain = true;
 
             //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON);
             this.mapOfTileMapsJSON[this.gameoverLocation]();

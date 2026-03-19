@@ -144,8 +144,8 @@ class sunFlowerField extends defaultScene {
      
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
-      this.initBarrier(1103,1350-416,30,140);
-      this.initBarrier(4812,1350-416,30,140);
+      this.initBarrier(1204,1350-716,30,800);
+      this.initBarrier(4746,1350-416,30,340);
       this.initBarrier(6665,1400,30,300);
 
       let thisScene = this;

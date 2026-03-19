@@ -349,21 +349,29 @@ class beeDroneAbduct extends enemy {
         this.setSize(70, 180, true);
         this.flipX = true;
         this.setPipeline('Light2D');
-        this.scene.tryAgian.visible = false;
+        this.scene.showTryAgain = false;
+
+        let currentEnemy = this;
 
         this.anims.play('beeDroneDefeatedWillingTVEndingQ', true).once('animationcomplete', () => {
 
-            this.anims.play('beeDroneDefeatedWillingRelease', true).once('animationcomplete', () => {
-
-                let currentEnemy = this;
-                setTimeout(function () {
-                    currentEnemy.anims.play('beeDroneDefeatedWillingReleaseEyeOpen', true).once('animationcomplete', () => {
-                        currentEnemy.scene.tryAgianLoad(currentEnemy.scene);
-
-                    });
-                }, 2000);
+            this.anims.play('beeDroneDefeatedFallDown', true);
             
+            setTimeout(function () {
+                currentEnemy.playPlapSound('plap3',800);
+                currentEnemy.anims.play('beeDroneDefeatedWillingRelease', true).once('animationcomplete', () => {
+                   
+                    setTimeout(function () {
+                        currentEnemy.anims.play('beeDroneDefeatedWillingReleaseEyeOpen', true).once('animationcomplete', () => {
+                           currentEnemy.scene.tryAgianLoad(currentEnemy.scene);
+
+                        });
+                    }, 3000);
+
+                
             });
+
+            }, 1000);
 
         });
 

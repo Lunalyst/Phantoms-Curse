@@ -111,10 +111,15 @@ class beeSecret extends npc{
 
               this.scene.sceneTextBox.textInterupt = true;
 
+              this.npcKeyPrompts.visible = false;
+
               this.scene.player1.visible = false;
 
-              this.beeRefrence.anims.play("beeDroneDefeatedWillingTV").once('animationcomplete', () => {
-
+              this.beeRefrence.anims.play("beeDroneDefeatedWillingButtGrab").once('animationcomplete', () => {
+                this.beeRefrence.playJumpySound('2',800);
+                this.beeRefrence.anims.play("beeDroneDefeatedWillingButtLinger").once('animationcomplete', () => {
+                  this.beeRefrence.playPlapSound('plap3',800);
+                   this.beeRefrence.anims.play("beeDroneDefeatedWillingTV").once('animationcomplete', () => {
                     this.beeRefrence.anims.play("beeDroneDefeatedWillingTVEnd");
                     this.scene.sceneTextBox.textInterupt = false;
 
@@ -122,64 +127,66 @@ class beeSecret extends npc{
 
                     let temp = this;
                     setTimeout(function(){
+                            
+                          /*//creates a object to hold data for scene transition
+                          let playerDataObject = {
+                              saveX: null,
+                              saveY: null,
+                              playerHpValue: null,
+                              playerMaxHP: null,
+                              playerSex: null,
+                              playerLocation: null,
+                              inventoryArray: null,
+                              playerBestiaryData: null,
+                              playerSkillsData: null,
+                              playerSaveSlotData: null,
+                              flagValues: null,
+                              settings:null,
+                              dreamReturnLocation:null,
+                              playerCurseValue:null
+                            };
+
+                            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+                            //modifies the object with the new relivant information.
+                            playerDataObject.saveX = 458;
+                            playerDataObject.saveY = 1016+15;
+                            playerDataObject.playerSex = temp.scene.playerSex;
+                            playerDataObject.playerLocation = "hiveChamber1";
+
+                            //maxes out hp.
+                            playerDataObject.playerHpValue = 5;
+
+                            //saves the game by calling the save game file function in the scene
+                            temp.scene.saveGameFile(playerDataObject);*/
+
+                            temp.scene.setupGameoverLocation("hiveGameover");
+
+                            if(temp.beeRefrence.enemySex === 0){
+                              temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
+                            }else{
+                              temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleSecret;
+                            }
+
+                            setTimeout(function () {
+                              
+                              temp.scene.changeToGameover();
+                              
+                            }, 1000);
+
+                            temp.scene.sceneTextBox.textInterupt = true;
+                            temp.scene.sceneTextBox.textCoolDown = true;
+
+
+
+                        },4000);
+
+                        this.scene.sceneTextBox.textInterupt = true;
                         
-                       //creates a object to hold data for scene transition
-                      let playerDataObject = {
-                          saveX: null,
-                          saveY: null,
-                          playerHpValue: null,
-                          playerMaxHP: null,
-                          playerSex: null,
-                          playerLocation: null,
-                          inventoryArray: null,
-                          playerBestiaryData: null,
-                          playerSkillsData: null,
-                          playerSaveSlotData: null,
-                          flagValues: null,
-                          settings:null,
-                          dreamReturnLocation:null,
-                          playerCurseValue:null
-                        };
-
-                        //grabs the latests data values from the gamehud. also sets hp back to max hp.
-                        inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-
-                        //modifies the object with the new relivant information.
-                        playerDataObject.saveX = 458;
-                        playerDataObject.saveY = 1016+15;
-                        playerDataObject.playerSex = temp.scene.playerSex;
-                        playerDataObject.playerLocation = "hiveChamber1";
-
-                        //maxes out hp.
-                        playerDataObject.playerHpValue = 5;
-
-                         //saves the game by calling the save game file function in the scene
-                        temp.scene.saveGameFile(playerDataObject);
-
-                        temp.scene.setupGameoverLocation("hiveGameover");
-
-                        if(temp.beeRefrence.enemySex === 0){
-                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
-                        }else{
-                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleSecret;
-                        }
-
-                        setTimeout(function () {
-                          
-                           temp.scene.changeToGameover();
-                           
-                        }, 1000);
-
-                        temp.scene.sceneTextBox.textInterupt = true;
-                        temp.scene.sceneTextBox.textCoolDown = true;
-
-
-
-                    },1000);
-
-                    this.scene.sceneTextBox.textInterupt = true;
-                    
-              });
+                      }); 
+                    });
+                  });
               //destroy itself and other deciosions
               this.scene.npcChoice1.destroy();
               this.scene.npcChoice2.destroy();

@@ -97,6 +97,8 @@ class dreamForest extends defaultScene {
 
       this.initPortals(481,925-13,1166,605,"warpCaveOutside","DreamShadowCave");
 
+      this.initPortals(393,920-8,433,1048,"warpCaveOutside","DreamHiveCave");
+
       this.initPortals(2016,888-8,1005,600,"door1","dreamShed");
 
       this.initSavePoints(801,925-15);
@@ -189,26 +191,6 @@ class dreamForest extends defaultScene {
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1634,882,thisScene.playerSex,'rabbitHungry',true);
-        }
-
-        object1 = {
-          flagToFind: bestiaryKey.beeDroneMaleTF,
-          foundFlag: false,
-        };
-
-        object2 = {
-          flagToFind: bestiaryKey.beeDroneFemaleTF,
-          foundFlag: false,
-        };
-
-        
-  
-        // call the emitter to check if the value already was picked up.
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
-        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
-
-        if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(1778,878,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
         }
 
         object1 = {

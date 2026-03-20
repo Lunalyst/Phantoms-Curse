@@ -3023,7 +3023,7 @@ const npcDialogue = {
                 },
                 "bee_drone_male_secret":{
                     "node1":{
-                        "dialogue": "you foolishly let the bees large tail swallow you up. preserving your strength you felt the bee eventually get up and carry you to some unknown place. but your struggling completely exaused the bee...",
+                        "dialogue": "You gave into your desires. After happly entering the bees' warm, comfy abdomen, You felt the bee eventually get up and carry you to some unknown place. However the exhausted creature barely made it back to the hive...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -3039,7 +3039,7 @@ const npcDialogue = {
                 },
                 "bee_drone_female_secret":{
                     "node1":{
-                        "dialogue": "you foolishly let the bees large tail swallow you up. preserving your strength you felt the bee eventually get up and carry you to some unknown place. but your struggling completely exaused the bee...",
+                        "dialogue": "You gave into your desires. After happly entering the bees' warm, comfy abdomen, You felt the bee eventually get up and carry you to some unknown place. However the exhausted creature barely made it back to the hive...",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

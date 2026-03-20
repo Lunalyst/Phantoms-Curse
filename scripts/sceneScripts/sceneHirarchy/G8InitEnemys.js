@@ -382,6 +382,19 @@ class G8InitEnemys extends G7EnemyCollisions{
           tempBeeDrone.addColliderRef(collider);
         }
       },
+      beeDroneSecret: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
+
+        let tempBeeDrone = new beeDrone(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,'wingFlapSFX'+tempSceneRef.enemyId);
+        console.log("created beeDrone id: ",tempBeeDrone.enemyId);
+        tempSceneRef.enemyId++;
+        tempSceneRef.enemys.add(tempBeeDrone);  
+        tempSceneRef.beeDrones.add(tempBeeDrone);
+        tempBeeDrone.beeSecretViewer = true;
+        tempBeeDrone.hideSafePrompts = true;
+        tempBeeDrone.anims.play("beeDroneDefeatedLinger",true);
+
+        tempSceneRef.initBeeSecret(startX,startY,tempBeeDrone,true);
+      },
 
       beeGrub: function beeDroneFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
 
@@ -1132,7 +1145,7 @@ class G8InitEnemys extends G7EnemyCollisions{
     }else{
 
       //safety check to make sure that animation is played only once
-      if(enemy.playedSafePrompts === false){
+      if(enemy.playedSafePrompts === false && enemy.hideSafePrompts === false){
         enemy.safePrompts.visible = true;
         enemy.playedSafePrompts = true;
         enemy.safePrompts.playWKey();

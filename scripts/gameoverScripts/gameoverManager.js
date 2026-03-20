@@ -515,6 +515,14 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.stopFlapping = true;
                 }, 6000);
             },
+            bee_drone_female_secret: function maleBeeDroneSecretFunction() {
+                tempSceneRef.preferance = 1;
+
+                tempSceneRef.enemy = new beeDrone(tempSceneRef,470, 570+6,tempSceneRef.playerSex,1,'wingFlapSFX');
+                tempSceneRef.enemy.gameOverSecret(tempSceneRef.playerSex);
+                tempSceneRef.defeatedTitle = 'cursed';
+
+            },
             bat_male_tf: function maleBatTFFunction() {
                 tempSceneRef.preferance = 0;
                 tempSceneRef.enemy = new bat(tempSceneRef,450, 528,tempSceneRef.playerSex,1);
@@ -1020,6 +1028,10 @@ class gameoverManager extends A3SoundEffects {
                         }, 1200);
                     }    
                 }
+            },
+            bee_drone_female_secret: function maleBeeDroneFunction() {
+
+                
             },
             bat_male_vore: function maleBatFunction() {
 

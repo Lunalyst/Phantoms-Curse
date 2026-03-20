@@ -359,7 +359,8 @@ const bestiaryKey = {
   beeDroneMaleTF:"bee_drone_male_tf",
   beeDroneMaleSecret:"bee_drone_male_secret",
   beeDroneFemaleTF:"bee_drone_female_tf",
-   beeDroneFemaleSecret:"bee_drone_female_secret",
+  beeDroneFemaleSecret:"bee_drone_female_secret",
+  beeGrubTF:"bee_grub_tf",
 
   batMaleTF:"bat_male_tf",
   batFemaleTF:"bat_female_tf",  
@@ -459,6 +460,14 @@ const bestiaryTextList = {
       bee_drone_male_tf: {
         title: "MALE BEE DRONE",
         summary: "This large insect often spends its time collecting pollen in places with large amounts of flowers. However, this insect will quickly devour an unsuspecting human with its massive abdomens.",
+      },
+      bee_drone_female_secret: {
+        title: "FEMALE BEE TIRED",
+        summary: "These worker bees can often tire themselves out chasing prey. If they happen to capture something while on the edge of exhaustion, they will attempt to get back to the hive, hoping that other members of the hive can take care of their catch.",
+      },
+      bee_drone_male_secret: {
+        title: "MALE BEE TIRED",
+        summary: "Some bees of the hive are known to have more endurance than others. But few get to experience a prey that willingly gives themselves up after they defeat their predator. Such an act is quite confusing for them.",
       },
       bat_female_tf: {
         title: "FEMALE BAT FED",

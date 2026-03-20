@@ -45,6 +45,7 @@ class enemy extends Phaser.Physics.Arcade.Sprite {
         this.jumpySoundCoolDown = false;
         this.stomachSoundCoolDown = false;
         this.pumpSoundCoolDown = false;
+        this.hideSafePrompts = false;
         
         this.playerProgressingAnimation = false;
         this.isViewingAnimation = false;

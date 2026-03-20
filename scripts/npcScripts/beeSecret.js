@@ -1,11 +1,13 @@
 //basic npc class of beeSecret.
 class beeSecret extends npc{
     // every class needs constructor
-    constructor(scene, xPos, yPos,npcType,beeRefrence){
+    constructor(scene, xPos, yPos,npcType,beeRefrence,animationView){
       
       super(scene, xPos, yPos, 'sign');
 
       this.beeRefrence = beeRefrence;
+
+      this.animationView = animationView;
 
       this.visible = false;
       //then we add new instance into the scene. 
@@ -128,7 +130,8 @@ class beeSecret extends npc{
                     let temp = this;
                     setTimeout(function(){
                             
-                          /*//creates a object to hold data for scene transition
+                      if(this.animationView === false){
+                          //creates a object to hold data for scene transition
                           let playerDataObject = {
                               saveX: null,
                               saveY: null,
@@ -159,24 +162,26 @@ class beeSecret extends npc{
                             playerDataObject.playerHpValue = 5;
 
                             //saves the game by calling the save game file function in the scene
-                            temp.scene.saveGameFile(playerDataObject);*/
+                            temp.scene.saveGameFile(playerDataObject);
 
-                            temp.scene.setupGameoverLocation("hiveGameover");
+                      }
 
-                            if(temp.beeRefrence.enemySex === 0){
-                              temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
-                            }else{
-                              temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleSecret;
-                            }
+                        temp.scene.setupGameoverLocation("hiveGameover");
 
-                            setTimeout(function () {
+                        if(temp.beeRefrence.enemySex === 0){
+                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
+                        }else{
+                          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleSecret;
+                        }
+
+                        setTimeout(function () {
                               
-                              temp.scene.changeToGameover();
+                          temp.scene.changeToGameover();
                               
-                            }, 1000);
+                        }, 1000);
 
-                            temp.scene.sceneTextBox.textInterupt = true;
-                            temp.scene.sceneTextBox.textCoolDown = true;
+                        temp.scene.sceneTextBox.textInterupt = true;
+                        temp.scene.sceneTextBox.textCoolDown = true;
 
 
 

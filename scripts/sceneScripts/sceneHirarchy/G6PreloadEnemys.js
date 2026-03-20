@@ -64,9 +64,14 @@ class G6PreloadEnemys extends G5InitNPCs{
 
         tempSceneRef.load.spritesheet('beeDroneMale1', 'assets/enemys/beeDroneMale1.png',{frameWidth: 789, frameHeight: 252 });
         tempSceneRef.load.spritesheet('beeDroneMale2', 'assets/enemys/beeDroneMale2.png',{frameWidth: 789, frameHeight: 252 });
-         tempSceneRef.load.spritesheet('beeDroneMale3', 'assets/enemys/beeDroneMale3.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneMale3', 'assets/enemys/beeDroneMale3.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneMale4', 'assets/enemys/beeDroneMale4.png',{frameWidth: 789, frameHeight: 252 });
+        
         tempSceneRef.load.spritesheet('beeDroneFemale1', 'assets/enemys/beeDroneFemale1.png',{frameWidth: 789, frameHeight: 252 });
         tempSceneRef.load.spritesheet('beeDroneFemale2', 'assets/enemys/beeDroneFemale2.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneFemale3', 'assets/enemys/beeDroneFemale3.png',{frameWidth: 789, frameHeight: 252 });
+        tempSceneRef.load.spritesheet('beeDroneFemale4', 'assets/enemys/beeDroneFemale4.png',{frameWidth: 789, frameHeight: 252 });
+        
         tempSceneRef.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
         
         tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[

@@ -69,6 +69,7 @@
   <script src="scripts/levelScripts/dreams/dreamBlueSlimeCave.js"></script>
   <script src="scripts/levelScripts/dreams/dreamShadowCave.js"></script>
   <script src="scripts/levelScripts/dreams/dreamShed.js"></script>
+  <script src="scripts/levelScripts/dreams/dreamHiveCave.js"></script>
   
   <script src="scripts/levelScripts/lockwoodLevels/tutorialBeach.js"></script>
   <script src="scripts/levelScripts/lockwoodLevels/tutorialCave.js"></script>
@@ -257,7 +258,7 @@
           default: 'arcade',
           arcade: {
             // debug is excelent for testing velocity and hitboxes.
-            debug: true
+            debug: false
           }
         },
         // loads animated tile plugin?
@@ -311,6 +312,7 @@
           new dreamCave,
           new dreamBlueSlimeCave,
           new dreamShadowCave,
+          new dreamHiveCave,
           new ShadowCave,
           new ShadowCaveUpper,
           new EarieCave,

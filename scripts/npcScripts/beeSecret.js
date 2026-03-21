@@ -1,14 +1,15 @@
 //basic npc class of beeSecret.
 class beeSecret extends npc{
     // every class needs constructor
-    constructor(scene, xPos, yPos,npcType,beeRefrence,animationView){
+    constructor(scene, xPos, yPos,beeRefrence,animationView){
+      
       
       super(scene, xPos, yPos, 'sign');
 
       this.beeRefrence = beeRefrence;
 
       this.animationView = animationView;
-
+      console.log("this.animationView ",this.animationView);
       this.visible = false;
       //then we add new instance into the scene. 
       scene.add.existing(this);
@@ -27,7 +28,6 @@ class beeSecret extends npc{
        this.safeToSpeak = false;
        this.npcId = 0;
        this.activated = false;
-       this.npcType = npcType;
 
        this.flag = "";
        this.dialogueCompleted = false;
@@ -49,9 +49,7 @@ class beeSecret extends npc{
         this.setSize(60,200,true);
         this.setOffset(185, 91);
  
-       if(this.npcType === ''){
-          //this.anims.play('angleIdleLeft');
-       }
+       this.npcType = 'beeSecret';
 
   }
 
@@ -129,8 +127,8 @@ class beeSecret extends npc{
 
                     let temp = this;
                     setTimeout(function(){
-                            
-                      if(this.animationView === false){
+                          
+                      if(temp.animationView === false){
                           //creates a object to hold data for scene transition
                           let playerDataObject = {
                               saveX: null,
@@ -249,8 +247,5 @@ class beeSecret extends npc{
     }
   }
 
-  inYourTimeOfNeed(){
-
-  }
 
 }

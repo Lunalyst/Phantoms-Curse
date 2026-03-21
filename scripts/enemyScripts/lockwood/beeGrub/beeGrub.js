@@ -15,6 +15,7 @@ class beeGrub extends beeGrubAbsorb {
         this.randomizedXVelocity = false;
         this.grabTimer = false;
         this.hitboxActive = false;
+        this.grubMove = false;
 
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
@@ -26,10 +27,34 @@ class beeGrub extends beeGrubAbsorb {
 
         //defines beeGrub animations based on the players sex.
       
-        this.anims.create({ key: 'beeGrubIdle', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 4 }), frameRate: 8, repeat: -1 });
-        this.anims.create({ key: 'beeGrubFedMale', frames: this.anims.generateFrameNames('beeGrub', { start: 6, end: 11 }), frameRate: 8, repeat: -1 });
-        this.anims.create({ key: 'beeGrubFedFemale', frames: this.anims.generateFrameNames('beeGrub', { start: 12, end: 17 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubIdle', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubIdleFast', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'beeGrubWalk', frames: this.anims.generateFrameNames('beeGrub', { start: 4, end: 10 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'beeGrubWalkFast', frames: this.anims.generateFrameNames('beeGrub', { start: 4, end: 10 }), frameRate: 16, repeat: 0 });
+        
+        this.anims.create({ key: 'beeGrubFedMale', frames: this.anims.generateFrameNames('beeGrub', { start: 11, end: 16 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubFedFemale', frames: this.anims.generateFrameNames('beeGrub', { start: 17, end: 22 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubToungLashStart', frames: this.anims.generateFrameNames('beeGrub', { start: 23, end: 27 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'beeGrubToungLashEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 28, end: 32 }), frameRate: 8, repeat: 0 });
+        
+         if (sex === 0) {
+            this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrub', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 38, end: 41 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeGrubSwallowComplete', frames: this.anims.generateFrameNames('beeGrub', { start: 42, end: 47 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubIdleStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 48, end: 53 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubDownStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 54, end: 59 }), frameRate: 8, repeat: 0 });
+            
+            this.anims.create({ key: 'beeGrubAbsorbCurse', frames: this.anims.generateFrameNames('beeGrub', { start: 60, end: 69 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubCacoon', frames: this.anims.generateFrameNames('beeGrub', { start: 69, end: 69 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeGrubAbsorbMorph', frames: this.anims.generateFrameNames('beeGrub', { start: 70, end: 85 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeDroneFloat', frames: this.anims.generateFrameNames('beeGrub', { start: 86, end: 91 }), frameRate: 8, repeat: 0 });
 
+            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrub', { start: 92, end: 94 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 95, end: 104 }), frameRate: 8, repeat: 0 });
+
+         }else{
+
+         }
 
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
@@ -42,12 +67,139 @@ class beeGrub extends beeGrubAbsorb {
 
         this.anims.play('beeGrubIdle',true);
 
+         this.setSize(270, 73, true);
+         this.setOffset(200, 150);
+
+        this.body.setGravityY(600); 
+
     }
 
     //functions that move beeGrub objects.
     move(){
         
-     
+        if (this.checkXRangeFromPlayer(350, 350) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
+            //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
+            if(this.checkXRangeFromPlayer(60, 60)) {
+
+                if(this.grubMove === false){
+
+                    this.grubMove = true;
+
+                    if(this.scene.player1.x > this.x){
+                        this.setVelocityX(40 * -1);
+                        this.flipX = true;
+                        //this.setOffset(200, 150);
+                    }else{
+                        this.setVelocityX(40 * 1);
+                        this.flipX = false;
+                        //this.setOffset(0, 150);
+                    } 
+
+                    this.anims.play('beeGrubWalkFast').once('animationcomplete', () => {
+                            
+                        this.setVelocityX(0);
+                        this.anims.play('beeGrubIdleFast',true);
+
+                            let temp = this;
+                            setTimeout(function () {
+
+                               temp.grubMove = false;
+                               
+                            }, 400);
+                            
+                        });
+
+                    }
+
+            }else if(this.checkXRangeFromPlayer(80, 80)) {
+                this.grubMove = false;
+                this.setVelocityX(0);
+
+                if(this.scene.player1.x < this.x){
+                    this.flipX = true;
+                }else{
+                     this.flipX = false;
+                } 
+            }else if(this.checkXRangeFromPlayer(200, 200)) {
+
+                if(this.grubMove === false){
+
+                    this.grubMove = true;
+
+                    if(this.scene.player1.x < this.x){
+                        this.setVelocityX(40 * -1);
+                        this.flipX = true;
+                        //this.setOffset(200, 150);
+                    }else{
+                        this.setVelocityX(40 * 1);
+                        this.flipX = false;
+                        //this.setOffset(0, 150);
+                    } 
+
+                    this.anims.play('beeGrubWalkFast').once('animationcomplete', () => {
+                            
+                        this.setVelocityX(0);
+                        this.anims.play('beeGrubIdleFast',true);
+
+                            let temp = this;
+                            setTimeout(function () {
+
+                               temp.grubMove = false;
+                               
+                            }, 400);
+                            
+                            
+
+                        });
+                    }
+   
+            }else if(this.checkXRangeFromPlayer(300, 300)) {
+
+                if(this.grubMove === false){
+
+                    this.grubMove = true;
+
+                    if(this.scene.player1.x < this.x){
+                        this.setVelocityX(20 * -1);
+                        this.flipX = true;
+                        //this.setOffset(200, 150);
+                    }else{
+                        this.setVelocityX(20 * 1);
+                        this.flipX = false;
+                        //this.setOffset(0, 150);
+                    } 
+
+                    this.anims.play('beeGrubWalk').once('animationcomplete', () => {
+                            
+                        this.setVelocityX(0);
+                        this.anims.play('beeGrubIdleFast',true);
+
+                            let temp = this;
+                            setTimeout(function () {
+
+                               temp.grubMove = false;
+                               
+                            }, 400);
+                            
+                            
+
+                        });
+                    }
+   
+            }else{
+                this.grubMove = false;
+            }
+            
+            let currentSlime = this;
+        } else if(this.enemyDefeated === false) {
+            //player is not in range of slime so slime is in idle animation.
+            this.anims.play('beeGrubIdle', true);
+            
+            this.setVelocityX(0);
+
+        }
+
+        
 
         //updates the previous y value to tell if beeGrub is falling or going up in its jump.
         this.enemyPreviousY = this.y;
@@ -68,13 +220,9 @@ class beeGrub extends beeGrubAbsorb {
     gameOver() {
         this.setSize(70, 180, true);
         //this.setOffset(180, 110);
-        this.anims.play('beeGrubGameover').once('animationcomplete', () => {
-
-            this.anims.play('beeGrubMove', true);
-            
-            this.setVelocityX(50);
-
-        });
+       
+        
+       
     }
     
     //the grab function. is called when player has overlaped with an enemy beeGrub.

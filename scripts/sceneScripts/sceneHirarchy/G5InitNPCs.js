@@ -124,10 +124,10 @@ class G5InitNPCs extends G4InitGameObjects {
 
   }
 
-  initBeeSecret(x, y,enemyRef){
+  initBeeSecret(x, y,enemyRef,animationView){
 
 
-    this.beeSecret = new beeSecret(this, x, y, "beeSecret",enemyRef);
+    this.beeSecret = new beeSecret(this, x, y,enemyRef,animationView);
 
     this.beeSecret.npcId = this.npcId;
     this.npcId++;

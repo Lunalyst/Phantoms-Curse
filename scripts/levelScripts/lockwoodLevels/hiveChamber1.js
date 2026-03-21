@@ -23,15 +23,13 @@ class hiveChamber1 extends defaultScene {
 
       this.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
       this.load.tilemapTiledJSON("Hive_Grub_Chamber1_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Grub_Chamber1.json");
-
-      this.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
-
+      
       this.load.spritesheet('savePointCover', 'assets/gameObjects/saveStatueCover.png',{frameWidth: 213, frameHeight: 300 });
 
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = ["beeGrubs"];
+      this.enemyGroupArray = ["beeGrubs","beeDrones"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -108,6 +106,37 @@ class hiveChamber1 extends defaultScene {
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
+
+      if(this.player1.x >= 450 && this.player1.x < 465 ){
+        if(this.preferance === 0){
+          this.defeatedBee = this.add.sprite(410, 1024, "beeDroneMale4");
+          this.defeatedBee.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('beeDroneMale4', { start: 45, end: 45 }), frameRate: 7, repeat: -1 });
+          
+        }else if(this.preferance === 1){
+          this.defeatedBee = this.add.sprite(410, 1024, "beeDroneFemale4");
+          this.defeatedBee.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('beeDroneFemale4', { start: 45, end: 45 }), frameRate: 7, repeat: -1 });
+
+        }else{
+          let randomPref = Math.floor((Math.random() * 2));
+          console.log('randomPref',randomPref);
+          if(randomPref === 1){
+            this.defeatedBee = this.add.sprite(410, 1024, "beeDroneFemale4");
+            this.defeatedBee.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('beeDroneFemale4', { start: 45, end: 45 }), frameRate: 7, repeat: -1 });
+
+          }else{
+            this.defeatedBee = this.add.sprite(410, 1024, "beeDroneMale4");
+            this.defeatedBee.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('beeDroneMale4', { start: 45, end: 45 }), frameRate: 7, repeat: -1 });
+          
+          }
+        }
+
+        this.defeatedBee.anims.play("idle", true);
+        this.defeatedBee.setScale(1/3);
+        this.defeatedBee.setDepth(2);
+        this.defeatedBee.setPipeline('Light2D');
+        this.defeatedBee.flipX = true;
+        
+      }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

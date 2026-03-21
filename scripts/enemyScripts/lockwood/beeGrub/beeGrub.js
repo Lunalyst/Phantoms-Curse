@@ -16,6 +16,8 @@ class beeGrub extends beeGrubAbsorb {
         this.grabTimer = false;
         this.hitboxActive = false;
         this.grubMove = false;
+        this.isPlayingMissedAnims = false;
+        this.attemptingGrab = false;
 
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
@@ -67,7 +69,7 @@ class beeGrub extends beeGrubAbsorb {
 
         this.anims.play('beeGrubIdle',true);
 
-         this.setSize(270, 73, true);
+         this.setSize(270, 74, true);
          this.setOffset(200, 150);
 
         this.body.setGravityY(600); 
@@ -77,9 +79,9 @@ class beeGrub extends beeGrubAbsorb {
     //functions that move beeGrub objects.
     move(){
         
-        if (this.checkXRangeFromPlayer(350, 350) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
+        if (this.checkXRangeFromPlayer(400, 400) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
-            if(this.checkXRangeFromPlayer(60, 60)) {
+            if(this.checkXRangeFromPlayer(62, 62) && this.grabTimer === false && this.attemptingGrab === false ) {
 
                 if(this.grubMove === false){
 
@@ -88,11 +90,9 @@ class beeGrub extends beeGrubAbsorb {
                     if(this.scene.player1.x > this.x){
                         this.setVelocityX(40 * -1);
                         this.flipX = true;
-                        //this.setOffset(200, 150);
                     }else{
                         this.setVelocityX(40 * 1);
                         this.flipX = false;
-                        //this.setOffset(0, 150);
                     } 
 
                     this.anims.play('beeGrubWalkFast').once('animationcomplete', () => {
@@ -105,22 +105,54 @@ class beeGrub extends beeGrubAbsorb {
 
                                temp.grubMove = false;
                                
-                            }, 400);
+                            }, 100);
                             
                         });
 
                     }
 
-            }else if(this.checkXRangeFromPlayer(80, 80)) {
+            }else if(this.checkXRangeFromPlayer(65, 65) || this.grabTimer === true || this.attemptingGrab === true) {
                 this.grubMove = false;
                 this.setVelocityX(0);
 
-                if(this.scene.player1.x < this.x){
-                    this.flipX = true;
-                }else{
-                     this.flipX = false;
-                } 
-            }else if(this.checkXRangeFromPlayer(200, 200)) {
+
+                if(this.grabTimer === false){
+
+                    this.grabTimer = true;
+                    this.setDepth(7);
+
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    } 
+
+                    this.anims.play('beeGrubToungLashStart').once('animationcomplete', () => {
+                    
+                        //this.hitboxActive = true;
+                        //this.grabHitBox.body.enable = true;
+                        this.attemptingGrab = true;
+
+                    });
+
+                }else if(this.attemptingGrab === true){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+                        
+                        this.anims.play('beeGrubToungLashEnd').once('animationcomplete', () => {
+                            this.setDepth(6);
+                            this.hitboxActive = false;
+                            this.attemptingGrab = false;
+                            this.grabTimer = false;
+                            this.isPlayingMissedAnims = false;    
+                            this.grabTimer = false;
+                        });
+                    }
+                }
+
+            }else if(this.checkXRangeFromPlayer(220, 220) && this.grabTimer === false && this.attemptingGrab === false) {
 
                 if(this.grubMove === false){
 
@@ -146,14 +178,14 @@ class beeGrub extends beeGrubAbsorb {
 
                                temp.grubMove = false;
                                
-                            }, 400);
+                            }, 300);
                             
                             
 
                         });
                     }
    
-            }else if(this.checkXRangeFromPlayer(300, 300)) {
+            }else if(this.checkXRangeFromPlayer(350, 350) && this.grabTimer === false && this.attemptingGrab === false) {
 
                 if(this.grubMove === false){
 

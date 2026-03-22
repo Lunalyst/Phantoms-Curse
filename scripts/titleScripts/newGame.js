@@ -34,16 +34,10 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
 
         this.on('pointerdown', function (pointer) {
             that.scene.initSoundEffect('buttonSFX','2',0.05);
-            that.visible = false;
-            that.scene.loadGame.visible = false;
-            that.scene.keyBinds.visible = false;
-            that.scene.creditsButton.visible = false;
-            that.scene.back.visible = true;
-            that.scene.titleLogo.visible = false;
+           
             that.scene.isInSlotSelectNew = true;
-            that.scene.curse.visible = false;
-            that.scene.curse.visible = false;
-            
+
+            that.scene.subMenuVisibility(false);
 
             that.scene.showSaveSlots(true,false);
            

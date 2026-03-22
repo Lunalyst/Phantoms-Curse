@@ -37,19 +37,13 @@ class keyBinds extends Phaser.Physics.Arcade.Sprite{
             that.scene.initSoundEffect('buttonSFX','2',0.05);
 
             // here is where we set up the three save slots.
-            that.scene.newGame.visible = false;
-            that.scene.loadGame.visible = false;
-            that.visible = false;
-            that.scene.titleLogo.visible = false;
-            that.scene.back.visible = true;
-            that.scene.isInKeyBinds = true;
-            that.scene.creditsButton.visible = false;
-            if(that.scene.curse !== undefined){
-                that.scene.curse.visible = false;
-            }
             
+            that.scene.isInKeyBinds = true;
+           
+            that.scene.subMenuVisibility(false);
+
             that.bindsOptionsMenu.visible = true;
-            console.log("calling showsaveslots");
+            console.log("showing key binds");
             //that.scene.showSaveSlots(true,true);
         
         });

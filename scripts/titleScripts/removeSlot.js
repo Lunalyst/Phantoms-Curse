@@ -45,7 +45,7 @@ class removeSlot extends Phaser.Physics.Arcade.Sprite{
           this.scene.yes.visible = true;
           this.scene.no.visible = true;
           
-
+          this.scene.sceneTextBox.setPosition(this.scene.screenWidth/2-40,630);
           this.scene.sceneTextBox.activateTitleScreenTextbox(
               this.scene,//scene
               true,// is the text box visible?

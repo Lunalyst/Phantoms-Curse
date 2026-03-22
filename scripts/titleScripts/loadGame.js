@@ -36,16 +36,10 @@ class loadGame extends Phaser.Physics.Arcade.Sprite{
             that.scene.initSoundEffect('buttonSFX','2',0.05);
 
             // here is where we set up the three save slots.
-            that.scene.newGame.visible = false;
-            that.scene.keyBinds.visible = false;
-            that.visible = false;
-            that.scene.titleLogo.visible = false;
-            that.scene.back.visible = true;
+            
             that.scene.isInSlotSelectLoad = true;
-            that.scene.creditsButton.visible = false;
-            if(that.scene.curse !== undefined){
-                that.scene.curse.visible = false;
-            }
+
+            that.scene.subMenuVisibility(false);
             
             console.log("calling showsaveslots");
             that.scene.showSaveSlots(true,true);

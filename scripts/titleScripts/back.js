@@ -38,9 +38,6 @@ class back extends Phaser.Physics.Arcade.Sprite{
            
                 if(that.scene.isInNewGameSelect){
                     console.log("leaving new game sex select.");
-                    that.scene.newGame.visible = false;
-                    that.scene.loadGame.visible = false;
-                    that.scene.keyBinds.visible = true;
                     
                     that.visible = true;
                     that.scene.titleLogo.visible = false;
@@ -48,7 +45,9 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.isInNewGameSelect = false;
     
                     that.scene.sceneTextBox.hideText(false);
+
                     that.scene.sceneTextBox.textBoxProfileImage.visible = false;
+                    
                     that.scene.sceneTextBox.visible = false;
                     that.scene.femaleIcon.visible = false;
                     that.scene.maleIcon.visible = false;
@@ -59,16 +58,10 @@ class back extends Phaser.Physics.Arcade.Sprite{
     
                 }else if(that.scene.isInSlotSelectLoad === true || that.scene.isInSlotSelectNew === true){
                     console.log("leaving loadfile select/make new game select.");
-                    that.scene.isInSlotSelectLoad = false;
-                    that.scene.isInSlotSelectNew = false;
-                    that.scene.isInNewGameSlotSelect = false;
-                    that.scene.newGame.visible = true;
-                    that.scene.loadGame.visible = true;
-                    that.scene.keyBinds.visible = true;
-                    that.scene.titleLogo.visible = true;
-                    that.scene.creditsButton.visible = true;
-                    
-                    that.scene.back.visible = false;
+
+                    that.scene.subMenuVisibility(true);
+
+                    that.scene.resetSubMenuVariables();
                     
                     that.scene.saveslot1.visible = false;
                     that.scene.trashCan1.visible = false;
@@ -100,9 +93,10 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     
                     that.scene.showSaveSlots(true,true);
                 }else if(that.scene.isInCredits === true){
-                    that.scene.isInCredits = false;
+                    console.log("hiding credits")
+                    that.scene.subMenuVisibility(true);
 
-                    that.showDefaultButtons();
+                    that.scene.resetSubMenuVariables();
 
                     that.scene.credits.visible = false;
 
@@ -110,15 +104,48 @@ class back extends Phaser.Physics.Arcade.Sprite{
                    
                 }else if(that.scene.isInKeyBinds === true){
 
-                    that.showDefaultButtons();
+                    console.log("hiding keybinds menu")
+                    that.scene.subMenuVisibility(true);
 
-                    that.scene.isInKeyBinds = false;
+                    that.scene.resetSubMenuVariables();
 
                     that.scene.keyBinds.hideKeyBinds();
                     //that.scene.keyBinds
                     that.scene.keyBinds.bindsOptionsMenu.resetMenu();
 
+                }else if(that.scene.isInSlotSelectExport || that.scene.isInSlotSelectImport){
+                    // ── Extra listener so Back also cancels export/import mode ──────────
+                    // setupBack() is defined externally and doesn't know about our new flags.
+                    // Adding a second pointerdown here is safe — Phaser fires all listeners.
+                    //that.scene.cancelExportImport();
+                   
+                    /*that.scene.isInSlotSelectExport = false;
+                    that.scene.isInSlotSelectImport = false;
+                    that.scene.isInSlotSelectLoad = false;
+                    that.scene.isInSlotSelectNew = false;
+                    that.scene.isInNewGameSlotSelect = false;*/
+                    
+                    that.scene.subMenuVisibility(true);
+
+                    that.scene.resetSubMenuVariables();
+                    
+                    that.scene.saveslot1.visible = false;
+                    that.scene.trashCan1.visible = false;
+                    that.scene.saveslot1.showSlot();
+                    that.scene.saveslot2.visible = false;
+                    that.scene.trashCan2.visible = false;
+                    that.scene.saveslot2.showSlot();
+                    that.scene.saveslot3.visible = false;
+                    that.scene.trashCan3.visible = false;
+                    that.scene.saveslot3.showSlot();
+
+                    that.scene.sceneTextBox.hideText(false);
+                    that.scene.sceneTextBox.textBoxProfileImage.visible = false;
+                    that.scene.sceneTextBox.visible = false;
+
                 }
+
+                
         
             });
 

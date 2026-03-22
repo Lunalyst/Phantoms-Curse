@@ -13,12 +13,19 @@ class titleScreen extends A3SoundEffects {
         this.titleLogo;
         this.title;
         this.activateFunctions;
+
         this.isInOptionsMenu = false;
         this.isInNewGameSelect = false;
         this.isInNewGameSlotSelect = false;
         this.isInSlotSelectLoad = false;
         this.isInSlotSelectNew = false;
         this.isInCredits = false;
+        this.isInKeyBinds = false;
+        this.isInSlotSelectExport = false;
+        this.isInSlotSelectImport = false;
+
+
+
         this.isInDelete = false;
         this.playerSexSelect = 0;
         this.playerPreferance = 0;
@@ -48,6 +55,15 @@ class titleScreen extends A3SoundEffects {
 
         this.newGameActivated = false;
 
+        // ─── PC Export / Import flags ──────────────────────────────────────────
+        // isInSlotSelectExport: player clicked "Export Save" and is choosing a slot
+        // isInSlotSelectImport: player clicked "Import Save" and is choosing a slot
+        // tempImportSlot: stores which slot the player picked as the import destination
+        // fileInput: hidden DOM <input type="file"> element for the import picker
+       
+        this.tempImportSlot = 0;
+        this.fileInput = null;
+
         //array to check if there is a file defined 
         this.savedFileArray = [false,false,false];
 
@@ -63,6 +79,8 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
             this.load.spritesheet("keyBinds" , "assets/titleScreen/keyBinds.png" , {frameWidth: 204 , frameHeight: 33 });
+            this.load.spritesheet("exportSave" , "assets/titleScreen/exportSave.png" , {frameWidth: 261 , frameHeight: 33 });
+            this.load.spritesheet("importSave" , "assets/titleScreen/importSave.png" , {frameWidth: 264 , frameHeight: 33 });
             this.load.spritesheet("back" , "assets/titleScreen/Back.png" , {frameWidth: 102 , frameHeight: 33 });
             this.load.spritesheet("credits" , "assets/titleScreen/credits.png" , {frameWidth: 168 , frameHeight: 33 });
             this.load.spritesheet("creditBackdrop" , "assets/titleScreen/credits backdrop.png" , {frameWidth: 1023 , frameHeight: 693 });
@@ -149,6 +167,7 @@ class titleScreen extends A3SoundEffects {
             this.creditsArray = [
                 "Lunalyst: lead developer",
                 'Justanotherjames: development assistance',
+                'chocola(NiniMimi): Export & Import Save Functionality',
                 "nobody's death: sound composer",
                 'tracks:',
                 '- Hare-raising Harmonies',
@@ -258,9 +277,13 @@ class titleScreen extends A3SoundEffects {
             //background definition.
             this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
             this.backround.setScale(1.1);
+
+            this.subMenuButtonsArray = [];
+
             //this.backround.setTint(0x4b4b4b);
             this.titleLogo = this.add.sprite(this.screenWidth/2, 500, "titleLogo");
             this.elements.add(this.titleLogo);
+            this.subMenuButtonsArray.push(this.titleLogo);
 
             
 
@@ -321,17 +344,21 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.trashCan3);
 
             //sets up button objects.
-            this.newGame = new newGame(this,130,650);
+            this.newGame = new newGame(this,130,550);
             this.elements.add(this.newGame);
+            this.subMenuButtonsArray.push(this.newGame);
 
-            this.loadGame = new loadGame(this,130, 700);
+            this.loadGame = new loadGame(this,132, 600);
             this.elements.add(this.loadGame);
+            this.subMenuButtonsArray.push(this.loadGame);
 
             this.keyBinds = new keyBinds(this,117, 750);
             this.elements.add(this.keyBinds);
+            this.subMenuButtonsArray.push(this.keyBinds);
 
             this.creditsButton = new creditsButton(this,100,800);
             this.elements.add(this.creditsButton);
+            this.subMenuButtonsArray.push(this.creditsButton);
 
             this.back = new back(this, 80, 850);
             this.elements.add(this.back);
@@ -370,6 +397,121 @@ class titleScreen extends A3SoundEffects {
 
             this.no.setupNoTitle();
 
+            // ─── PC EXPORT / IMPORT ────────────────────────────────────────────
+            // Create a hidden file <input> for the import picker.
+            // It lives in the DOM rather than Phaser so we get the native OS file
+            // dialog for free.  We remove it again when the scene shuts down.
+            this.fileInput = document.createElement('input');
+            this.fileInput.type = 'file';
+            this.fileInput.accept = '.json';
+            this.fileInput.style.cssText = 'position:absolute;top:-200px;left:-200px;opacity:0;pointer-events:none;';
+            document.body.appendChild(this.fileInput);
+
+            // When the player picks a file, read it and import into tempImportSlot.
+            this.fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    const success = this.importSaveFile(this.tempImportSlot, evt.target.result);
+                    if (success) {
+                        // Restart the scene — cleanest way to reset all UI state
+                        // after an import without fighting the external button classes.
+                        this.scene.restart();
+                    } else {
+                        // Not a valid save file — restart to get clean state.
+                        this.initSoundEffect('buttonSFX', '3', 0.05);
+                        this.scene.restart();
+                    }
+                };
+                reader.readAsText(file);
+                // Reset value so the same file can be re-picked if needed.
+                this.fileInput.value = '';
+            });
+
+            // Remove the DOM element cleanly when this scene shuts down.
+            this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+                if (this.fileInput && this.fileInput.parentNode) {
+                    this.fileInput.parentNode.removeChild(this.fileInput);
+                }
+            });
+
+            // Button style — Pixellari pixel font matching the rest of the UI.
+            /*const pcBtnStyle = {
+                fontFamily: 'Pixellari, monospace',
+                fontSize: '18px',
+                color: '#ffffff',
+                stroke: '#000000',
+                strokeThickness: 3
+            };
+            const pcBtnHoverColor  = '#ca09f5'; // purple highlight
+            const pcBtnNormalColor = '#ffffff';*/
+
+            // ── Export Save button ──────────────────────────────────────────────
+            this.exportSaveButton = this.add.sprite(147, 650, 'exportSave')
+                .setInteractive({ useHandCursor: true })
+                .setDepth(51)
+                .on('pointerover', () => { 
+                    this.exportSaveButton.anims.play("active"); 
+                    this.initSoundEffect('buttonSFX','1',0.05);
+                })
+                .on('pointerout',  () => { this.exportSaveButton.anims.play("inActive");  })
+                .on('pointerdown', () => {
+                    //if (inSubmenu()) return;
+
+                    this.initSoundEffect('buttonSFX', '2', 0.05);
+
+                    this.isInSlotSelectExport = true;
+
+                    this.subMenuVisibility(false);
+
+                    this.showSaveSlots(true, false);
+
+                    this.sceneTextBox.setPosition(this.screenWidth / 2 - 40, 820);
+                    this.sceneTextBox.activateTitleScreenTextbox(
+                        this, true, ['sign'],
+                        'Select a slot to export as a .json file.'
+                    );
+                });
+
+            this.exportSaveButton.anims.create({ key: 'inActive', frames: this.anims.generateFrameNames('exportSave', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+            this.exportSaveButton.anims.create({ key: 'active', frames: this.anims.generateFrameNames('exportSave', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+            this.elements.add(this.exportSaveButton);
+            this.subMenuButtonsArray.push(this.exportSaveButton);
+
+
+            // ── Import Save button ──────────────────────────────────────────────
+            this.importSaveButton = this.add.sprite(147, 700, 'importSave')
+                .setInteractive({ useHandCursor: true })
+                .setDepth(51)
+                .on('pointerover', () => { 
+                    this.importSaveButton.anims.play("active"); 
+                    this.initSoundEffect('buttonSFX','1',0.05);
+                })
+                .on('pointerout',  () => { this.importSaveButton.anims.play("inActive"); })
+                .on('pointerdown', () => {
+                    
+                    this.initSoundEffect('buttonSFX', '2', 0.05);
+
+                    this.isInSlotSelectImport = true;
+
+                    this.subMenuVisibility(false);
+
+                    this.showSaveSlots(true, false);
+                    this.sceneTextBox.setPosition(this.screenWidth / 2 - 40, 820);
+                    this.sceneTextBox.activateTitleScreenTextbox(
+                        this, true, ['sign'],
+                        'Select a slot to import a .json save into.'
+                    );
+                });
+
+            this.importSaveButton.anims.create({ key: 'inActive', frames: this.anims.generateFrameNames('importSave', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+            this.importSaveButton.anims.create({ key: 'active', frames: this.anims.generateFrameNames('importSave', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+            
+            this.elements.add(this.importSaveButton);
+            this.subMenuButtonsArray.push(this.importSaveButton);
+
             this.saveslot1.on('pointerdown', function (pointer) {
                 console.log("activating saveSlot1, that.isInSlotSelectNew: "+ that.isInSlotSelectNew+ "that.isInSlotSelectLoad: "+ that.isInSlotSelectLoad);
                 that.ActivateSaveSlot(1);
@@ -395,6 +537,30 @@ class titleScreen extends A3SoundEffects {
             
 
             endTimeTest();
+        }
+
+        //array to hide and show main submenu buttons.
+        subMenuVisibility(visible){
+            this.subMenuButtonsArray.forEach((subMenu, index) => {
+                subMenu.visible = visible;
+            });
+
+            this.curse.visible = false;
+            this.back.visible = !visible;
+
+            //this.curse.visible = visible;
+        }
+
+        resetSubMenuVariables(){
+            this.isInOptionsMenu = false;
+            this.isInNewGameSelect = false;
+            this.isInNewGameSlotSelect = false;
+            this.isInSlotSelectLoad = false;
+            this.isInSlotSelectNew = false;
+            this.isInCredits = false;
+            this.isInKeyBinds = false;
+            this.isInSlotSelectExport = false;
+            this.isInSlotSelectImport = false;
         }
 
 
@@ -451,6 +617,26 @@ class titleScreen extends A3SoundEffects {
             this.cameras.main.fadeOut(500, 0, 0, 0);
         }
 
+
+        // Resets export/import mode and hides all save slot sprites.
+        // showSlot() is required on every slot — .visible=false only disables pointer
+        // input; showSlot() is what actually hides the rendered backgrounds and clears
+        // the interactive skill hitboxes created by setSkillDisplay().
+        cancelExportImport(){
+
+            // Guard: only run cleanup if actually in export/import mode.
+            if(this.isInSlotSelectExport === false && this.isInSlotSelectImport === false){
+                return;
+            }
+            this.isInSlotSelectExport = false;
+            this.isInSlotSelectImport = false;
+
+            // Restart the scene — the only reliable way to reset all UI state
+            // without fighting the external button class implementations.
+            this.scene.restart();
+        }
+
+
         //clears slot data
         clearSlotData(){
         this.warpToX = undefined;
@@ -489,6 +675,7 @@ class titleScreen extends A3SoundEffects {
                 this.isInNewGameSelect = true;
                 this.tempNewGameSlotID = slot;
                 console.log("that.tempNewGameSlotID: "+this.tempNewGameSlotID);
+                this.sceneTextBox.setPosition(this.screenWidth/2-40,630);
                 this.sceneTextBox.activateTitleScreenTextbox(
                     this,//scene
                     true,// is the text box visible?
@@ -535,6 +722,42 @@ class titleScreen extends A3SoundEffects {
                 }else{
                     this.initSoundEffect('buttonSFX','3',0.05);
                 }
+
+                }else if(this.isInSlotSelectExport === true){
+                // ── EXPORT: download this slot's data as a .json file ────────────
+                if(this.savedFileArray[slot-1] === true){
+                    const success = this.exportSaveFile(slot);
+                    if(success){
+                        this.initSoundEffect('buttonSFX','2',0.05);
+                        this.cancelExportImport();
+                    } else {
+                        this.initSoundEffect('buttonSFX','3',0.05);
+                    }
+                } else {
+                    // Empty slot — nothing to export.
+                    this.initSoundEffect('buttonSFX','3',0.05);
+                }
+
+                }else if(this.isInSlotSelectImport === true){
+                // ── IMPORT: pick destination slot then open the OS file picker ───
+                this.initSoundEffect('buttonSFX','2',0.05);
+                this.tempImportSlot = slot;
+                // cancelExportImport needs the flag true to pass its guard,
+                // then it clears it internally before emitting Back.
+                // Don't call cancelExportImport here — we want the UI to stay
+                // hidden while the OS file picker is open. Just clear flags and
+                // hide slots manually for the picker flow only.
+                //this.isInSlotSelectImport = false;
+                //this.isInSlotSelectExport = false;
+                //this.saveslot1.visible = false;
+                //this.saveslot2.visible = false;
+                //this.saveslot3.visible = false;
+                this.trashCan1.visible = false;
+                this.trashCan2.visible = false;
+                this.trashCan3.visible = false;
+                // Open the hidden DOM file picker.
+                this.fileInput.click();
+
             }else{
                 this.initSoundEffect('buttonSFX','3',0.05);   
             }
@@ -556,7 +779,8 @@ class titleScreen extends A3SoundEffects {
                 }
             }else{// if the save file is not defined
                 this.savedFileArray[0] = false;
-                if(this.isInSlotSelectLoad === true){
+                // Gray out empty slots for both Load and Export (can't load/export nothing).
+                if(this.isInSlotSelectLoad === true || this.isInSlotSelectExport === true){
                     this.saveslot1.setTint(0xA9A9A9);
                 }else{
                     this.saveslot1.clearTint();
@@ -580,7 +804,8 @@ class titleScreen extends A3SoundEffects {
                 }
             }else{
                 this.savedFileArray[1] = false;
-                if(this.isInSlotSelectLoad === true){
+                // Gray out empty slots for both Load and Export.
+                if(this.isInSlotSelectLoad === true || this.isInSlotSelectExport === true){
                     this.saveslot2.setTint(0xA9A9A9);
                 }else{
                     this.saveslot2.clearTint();
@@ -604,7 +829,8 @@ class titleScreen extends A3SoundEffects {
                 }
             }else{
                 this.savedFileArray[2] = false;
-                if(this.isInSlotSelectLoad === true){
+                // Gray out empty slots for both Load and Export.
+                if(this.isInSlotSelectLoad === true || this.isInSlotSelectExport === true){
                     this.saveslot3.setTint(0xA9A9A9);
                 }else{
                     this.saveslot3.clearTint();

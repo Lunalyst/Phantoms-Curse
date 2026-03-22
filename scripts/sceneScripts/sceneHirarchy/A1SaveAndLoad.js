@@ -589,6 +589,82 @@ for(let counter = 0; counter < 100; counter++){
   playerObject.playerCurseValue = 0;
   }
 
+  // ─── PC SAVE EXPORT ────────────────────────────────────────────────────────
+  // Reads the raw JSON string for the given slot from localStorage and triggers
+  // a browser "Save As" download so the player can back it up on their PC.
+  // Returns true on success, false if the slot is empty.
+  exportSaveFile(slot) {
+    const key = 'saveFile' + slot;
+    const rawData = localStorage.getItem(key);
+
+    console.log('[exportSaveFile] slot:', slot, 'data found:', rawData !== null);
+
+    if (rawData === null || rawData === undefined) {
+      console.log('[exportSaveFile] slot ' + slot + ' is empty — nothing to export.');
+      return false;
+    }
+
+    try {
+      // Create a Blob from the raw JSON string and trigger a file download.
+      const blob = new Blob([rawData], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = 'lockwood_save_slot' + slot + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log('[exportSaveFile] successfully triggered download for slot ' + slot);
+      return true;
+    } catch (e) {
+      console.log('[exportSaveFile] error during download trigger:', e);
+      return false;
+    }
+  }
+
+  // ─── PC SAVE IMPORT ────────────────────────────────────────────────────────
+  // Accepts a raw JSON string (from a FileReader result), validates it, and
+  // writes it into the given localStorage slot.
+  // Returns true on success, false if the file is invalid or unreadable.
+  importSaveFile(slot, jsonString) {
+    console.log('[importSaveFile] attempting import into slot:', slot);
+
+    try {
+      const parsed = JSON.parse(jsonString);
+
+      // Basic sanity check — the save file must have position and sex fields.
+      if (parsed.saveX === undefined || parsed.saveX === null) {
+        console.log('[importSaveFile] invalid file — missing saveX.');
+        return false;
+      }
+      if (parsed.sex === undefined || parsed.sex === null) {
+        console.log('[importSaveFile] invalid file — missing sex.');
+        return false;
+      }
+      if (parsed.locationName === undefined || parsed.locationName === null) {
+        console.log('[importSaveFile] invalid file — missing locationName.');
+        return false;
+      }
+
+      // Force the saveSlot field inside pssd to match the destination slot so
+      // the game saves back to the right place after loading.
+      if (parsed.pssd !== undefined && parsed.pssd !== null) {
+        parsed.pssd.saveSlot = slot;
+      }
+
+      const key = 'saveFile' + slot;
+      localStorage.setItem(key, JSON.stringify(parsed));
+
+      console.log('[importSaveFile] successfully imported into slot ' + slot);
+      return true;
+
+    } catch (e) {
+      console.log('[importSaveFile] failed to parse JSON file:', e);
+      return false;
+    }
+  }
+
   //function to fix dave file if the file is broken or outdated.
   validateSaveFile(dataObject){
 

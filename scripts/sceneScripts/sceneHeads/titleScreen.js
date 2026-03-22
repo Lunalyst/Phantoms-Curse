@@ -418,11 +418,11 @@ class titleScreen extends A3SoundEffects {
                     if (success) {
                         // Restart the scene — cleanest way to reset all UI state
                         // after an import without fighting the external button classes.
-                        this.scene.restart();
+                        location.reload();
                     } else {
                         // Not a valid save file — restart to get clean state.
                         this.initSoundEffect('buttonSFX', '3', 0.05);
-                        this.scene.restart();
+                        location.reload();
                     }
                 };
                 reader.readAsText(file);
@@ -633,7 +633,7 @@ class titleScreen extends A3SoundEffects {
 
             // Restart the scene — the only reliable way to reset all UI state
             // without fighting the external button class implementations.
-            this.scene.restart();
+            location.reload();
         }
 
 
@@ -747,11 +747,7 @@ class titleScreen extends A3SoundEffects {
                 // Don't call cancelExportImport here — we want the UI to stay
                 // hidden while the OS file picker is open. Just clear flags and
                 // hide slots manually for the picker flow only.
-                //this.isInSlotSelectImport = false;
-                //this.isInSlotSelectExport = false;
-                //this.saveslot1.visible = false;
-                //this.saveslot2.visible = false;
-                //this.saveslot3.visible = false;
+                
                 this.trashCan1.visible = false;
                 this.trashCan2.visible = false;
                 this.trashCan3.visible = false;

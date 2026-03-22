@@ -293,7 +293,7 @@ class player extends Phaser.GameObjects.Container{
       this.weaponLayer9.anims.create({key: 'weapon-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 24, end: 29 }),frameRate: 12,repeat: 0});
 
       //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 34 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
 
       //mourning star
       this.weaponLayer9.anims.create({key: 'weapon-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 41 }),frameRate: 9,repeat: 0});

@@ -22,7 +22,7 @@ class beeGrub extends beeGrubAbsorb {
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
-        //this.grabHitBox.visible = false;
+        this.hitboxActive = false;
 
         // sets the beeGrubs hp value
         this.enemyHP = 30;
@@ -116,7 +116,7 @@ class beeGrub extends beeGrubAbsorb {
                 this.setVelocityX(0);
 
 
-                if(this.grabTimer === false){
+                if(this.grabTimer === false && this.checkYRangeFromPlayer(65, 65)){
 
                     this.grabTimer = true;
                     this.setDepth(7);
@@ -129,8 +129,8 @@ class beeGrub extends beeGrubAbsorb {
 
                     this.anims.play('beeGrubToungLashStart').once('animationcomplete', () => {
                     
-                        //this.hitboxActive = true;
-                        //this.grabHitBox.body.enable = true;
+                        this.hitboxActive = true;
+                        this.grabHitBox.body.enable = true;
                         this.attemptingGrab = true;
 
                     });
@@ -150,6 +150,8 @@ class beeGrub extends beeGrubAbsorb {
                             this.grabTimer = false;
                         });
                     }
+                }else if(!this.checkYRangeFromPlayer(65, 65) && !this.grabTimer === true && !this.attemptingGrab === true){
+                    this.anims.play('beeGrubIdle',true);
                 }
 
             }else if(this.checkXRangeFromPlayer(220, 220) && this.grabTimer === false && this.attemptingGrab === false) {
@@ -231,6 +233,26 @@ class beeGrub extends beeGrubAbsorb {
 
         }
 
+        //handles hit box positioning
+        if(this.hitboxActive === true){
+
+            //hitbox should be to left if player is to the left
+            if(this.flipX === true){
+                console.log("moving cat hitbox to the left");
+                this.grabHitBox.x = this.x-45;
+
+            //otherwise put it to the right.
+            }else{
+                console.log("moving cat hitbox to the right");
+                this.grabHitBox.x = this.x+45;
+            }
+            this.grabHitBox.y = this.y+25;
+
+        }else{
+            this.grabHitBox.x = this.x;
+            this.grabHitBox.y = this.y + 3000; 
+        }
+
         
 
         //updates the previous y value to tell if beeGrub is falling or going up in its jump.
@@ -246,6 +268,10 @@ class beeGrub extends beeGrubAbsorb {
         this.grabHitBox.x = this.x;
         this.grabHitBox.y = this.y + 3000; 
         this.setDepth(4);
+
+        this.grabTimer = false;
+        this.attemptingGrab = false;
+        //this.grubMove = false
     }
 
     // functioned called to play animation when the player is defeated by the beeGrub in gameover.

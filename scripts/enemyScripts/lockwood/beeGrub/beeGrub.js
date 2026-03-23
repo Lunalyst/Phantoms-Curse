@@ -19,6 +19,7 @@ class beeGrub extends beeGrubAbsorb {
         this.isPlayingMissedAnims = false;
         this.attemptingGrab = false;
 
+        this.spitUp = false;
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
@@ -41,7 +42,7 @@ class beeGrub extends beeGrubAbsorb {
         
          if (sex === 0) {
             this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrub', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 38, end: 41 }), frameRate: 8, repeat: -1 });
+            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 38, end: 41 }), frameRate: 8, repeat: 2 });
             this.anims.create({ key: 'beeGrubSwallowComplete', frames: this.anims.generateFrameNames('beeGrub', { start: 42, end: 47 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'beeGrubIdleStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 48, end: 53 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'beeGrubDownStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 54, end: 59 }), frameRate: 8, repeat: 0 });
@@ -391,23 +392,24 @@ class beeGrub extends beeGrubAbsorb {
     }
 
     playerIsNotDefeatedInputs(playerHealthObject){
-        
+
+        this.playerIsNotDefeatedInputsAbduct(playerHealthObject);
     }
 
     playerIsStrugglingLogic(){
        
-        
+        this.playerIsStrugglingLogicAbduct();
     }
 
     playerIsDefeatedLogic(playerHealthObject){
 
-       
+       this.playerIsDefeatedLogicAbduct();
      
     }
 
     playerEscaped(playerHealthObject){
 
-       
+       this.playerEscapedAbduct(playerHealthObject);
         
     }
 

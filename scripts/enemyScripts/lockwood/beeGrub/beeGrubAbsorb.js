@@ -42,7 +42,7 @@ class beeGrubAbsorb extends enemy {
 
         
 
-        if(this.startedGrab === false && this.animationPlayed === false){
+   if(this.startedGrab === false && this.animationPlayed === false){
             
             this.animationPlayed = true;
             //this.struggleAnimationInterupt = true;
@@ -52,39 +52,33 @@ class beeGrubAbsorb extends enemy {
             
 
             // plays the gram animation then starts tween and struggle animation
-            this.anims.play('beeDroneGrabbed').once('animationcomplete', () => {
+            this.anims.play('beeGrubToungLashGrab').once('animationcomplete', () => {
 
-                this.beeHover = this.scene.tweens.add({
-                    targets: this,
-                    props : {
-                      y: { value : '+='+10},
-                    }, 
-                    ease: 'linear',
-                    duration: 350,
-                    repeat: -1,
-                    yoyo: true
+                this.anims.play('beeGrubHalfInStruggle').once('animationcomplete', () => {
+
+                   this.anims.play('beeGrubSwallowComplete').once('animationcomplete', () => {
+
+                    this.startedGrab = true;
+                    this.animationPlayed = false;
+
+                    //makes the struggle bar visible
+                    struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+                    struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.struggleCap);
+                    // makes the key prompts visible.
+                    this.scene.KeyDisplay.visible = true;
+
+                    //this.anims.play('beeDroneStruggle', true);
+    
                 });
-
-                this.startedGrab = true;
-                this.animationPlayed = false;
-
-                //makes the struggle bar visible
-                struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
-                struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.struggleCap);
-                // makes the key prompts visible.
-                this.scene.KeyDisplay.visible = true;
-
-                //this.anims.play('beeDroneStruggle', true);
-  
+    
+                });
             });
                 
       
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
-            this.anims.play('beeDroneStruggle', true);
+            this.anims.play('beeGrubIdleStruggle', true);
             this.playJumpySound('2',800); 
            
-        }else{
-            this.setVelocityY(-100);
         }
     }
 
@@ -98,7 +92,7 @@ class beeGrubAbsorb extends enemy {
             this.playerDamageTimer = true;
 
             if(this.animationPlayed === false){
-                healthEmitter.emit(healthEvent.loseHealth,2);
+                //healthEmitter.emit(healthEvent.loseHealth,2);
             }
 
             let currentEnemy = this;
@@ -111,75 +105,65 @@ class beeGrubAbsorb extends enemy {
 
     playerEscapedAbduct(playerHealthObject){
 
-         let currentbeeDrone = this;
-
-            this.scene.KeyDisplay.visible = false;
+    this.scene.KeyDisplay.visible = false;
+        struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+        //hides the mobile controls in the way of the tab/skip indicator.
+        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+            
+        console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
             // can we replace this with a settimeout function? probbably. lets make a backup first.
-            if (this.struggleFree === false) {
-                console.log("Free counter: " + this.struggleFree);
-                currentbeeDrone.struggleFree = true;
-                    
-            }else if (this.struggleFree === true && playerHealthObject.playerHealth >= 1) {
-                console.log("player has broken free" );
-                
-                this.anims.play("beeDroneIdle", true);
-                
-                //resets the enemy variables and player variables.
-                this.struggleFree = false;
-                this.playerBrokeFree = 0;
-                this.struggleCounter = 0;
-                this.animationPlayed = false;
-                this.setSize(70, 180, true);
-                this.playerDamaged = false;
-                this.playerGrabbed = false;
-                this.keyAnimationPlayed = false;
-                this.scene.grabbed = false;
-                 this.playerDamageTimer = false;
-                this.startedGrab = false;
+            if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
-                this.scene.player1.x = this.x
-                this.scene.player1.y = this.y+20
+                //if the palyer is grabbed, and in the tiger stomach
+                if(this.playerDefeatedAnimationStage === 0 && this.spitUp === false){
 
-                this.scene.player1.mainHitbox.x = this.x
-                this.scene.player1.mainHitbox.y = this.y+20
+                    this.struggleFree = true;
+                    this.spitUp = true;
 
-                this.tiredCounter++;
-                this.tiredCounter++;
+                    //spit up sound effect.
+                    //this.playPlapSound('squirt1',2000);
+                    this.playPlapSound('plap5',500);
+                    //this.scene.initSoundEffect('stomachSFX','4',0.1);
 
-                //sets the cooldown to true, then calls the built in function of the scene to 
-                //set it to false in 3 seconds. need to do this in scene to be safe
-                // if the enemy is destroyed then the timeout function wont have a refrence if done here.
-                this.scene.grabCoolDown = true;
+                    //play spitup animation
+                    this.flipX = true;
+                    this.anims.play("beeGrubFullSpitUpStart").once('animationcomplete', () => {
+                        this.anims.play("beeGrubFullSpitUpEnd").once('animationcomplete', () => {
+                            //then free player.
+                            //this.resetVariables();
+                            this.struggleFree = false;
+                            this.playerBrokeFree = 0;
+                            this.struggleCounter = 0;
+                            this.animationPlayed = false;
+                            this.playerDamaged = false;
+                            this.playerGrabbed = false;
+                            this.keyAnimationPlayed = false;
+                            this.scene.grabbed = false;
+                            this.playerDamageTimer = false;
+                            this.startedGrab = false;
+                            this.spitUp = false;
 
-                //sets grabb cooldown for the scene
-                this.scene.startGrabCoolDown();
-                //makes the struggle bar invisible
-                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
+                            this.scene.player1.visible = true;
+                            
+                            this.scene.player1.mainHitbox.x = this.x - 60;
+
+                            let currentEnemy = this;
+                            setTimeout(function () {
+                                currentEnemy.grabCoolDown = false;
+                                currentEnemy.scene.grabCoolDown = false;
+                                console.log("grab cooldown has ended. player can be grabbed agian.");
+                             }, 1000);
+                        
+                        });
+                    });
+
+                }
 
                 //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+                    
 
-                //stops the hover tween during grab animation
-                this.beeHover.stop();
 
-                this.scene.player1.visible = true;
-                //this.scene.player1.setSize(23, 68, true);
-                //this.scene.player1.body.setGravityY(600);
-                this.scene.player1.x = this.x;
-                this.scene.player1.y = this.y;
-                this.scene.KeyDisplay.visible = false;
-                // creates a window of time where the player cant be grabbed after being released.
-                // creates a cooldown window so the player does not get grabbed as they escape.
-                currentbeeDrone = this;
-
-                //reset the jump variables if the player escapes this enemys grab
-                this.startJump = false;
-                this.jumpAnimationPlayed = false;
-                setTimeout(function () {
-
-                    currentbeeDrone.grabCoolDown = false;
-                    console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 1500);
             }
 
     }

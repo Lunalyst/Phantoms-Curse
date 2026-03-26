@@ -19,6 +19,12 @@ class beeGrub extends beeGrubAbsorb {
         this.isPlayingMissedAnims = false;
         this.attemptingGrab = false;
 
+        this.beeDroneSoundCoolDown = false;
+
+        this.beeSFX = "wingFlapSFX0";
+
+        //this.struggleValue = 10;
+
         this.spitUp = false;
         //make a hitbox so the bee can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
@@ -30,30 +36,41 @@ class beeGrub extends beeGrubAbsorb {
 
         //defines beeGrub animations based on the players sex.
       
-        this.anims.create({ key: 'beeGrubIdle', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
-        this.anims.create({ key: 'beeGrubIdleFast', frames: this.anims.generateFrameNames('beeGrub', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
-        this.anims.create({ key: 'beeGrubWalk', frames: this.anims.generateFrameNames('beeGrub', { start: 4, end: 10 }), frameRate: 12, repeat: 0 });
-        this.anims.create({ key: 'beeGrubWalkFast', frames: this.anims.generateFrameNames('beeGrub', { start: 4, end: 10 }), frameRate: 16, repeat: 0 });
+        this.anims.create({ key: 'beeGrubIdle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 0, end: 3 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubIdleFast', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 0, end: 3 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'beeGrubWalk', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 4, end: 10 }), frameRate: 12, repeat: 0 });
+        this.anims.create({ key: 'beeGrubWalkFast', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 4, end: 10 }), frameRate: 16, repeat: 0 });
         
-        this.anims.create({ key: 'beeGrubFedMale', frames: this.anims.generateFrameNames('beeGrub', { start: 11, end: 16 }), frameRate: 8, repeat: -1 });
-        this.anims.create({ key: 'beeGrubFedFemale', frames: this.anims.generateFrameNames('beeGrub', { start: 17, end: 22 }), frameRate: 8, repeat: -1 });
-        this.anims.create({ key: 'beeGrubToungLashStart', frames: this.anims.generateFrameNames('beeGrub', { start: 23, end: 27 }), frameRate: 8, repeat: 0 });
-        this.anims.create({ key: 'beeGrubToungLashEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 28, end: 32 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'beeGrubFedMale', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 11, end: 16 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubFedFemale', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 17, end: 22 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'beeGrubToungLashStart', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 23, end: 27 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'beeGrubToungLashMiddle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 28, end: 29 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'beeGrubToungLashEnd', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 30, end: 32 }), frameRate: 8, repeat: 0 });
         
          if (sex === 0) {
-            this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrub', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 38, end: 41 }), frameRate: 8, repeat: 2 });
-            this.anims.create({ key: 'beeGrubSwallowComplete', frames: this.anims.generateFrameNames('beeGrub', { start: 42, end: 47 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubIdleStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 48, end: 53 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubDownStruggle', frames: this.anims.generateFrameNames('beeGrub', { start: 54, end: 59 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 38, end: 41 }), frameRate: 8, repeat: 2 });
+            this.anims.create({ key: 'beeGrubSwallowComplete', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 42, end: 47 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubIdleStruggle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 48, end: 53 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubDownStruggle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 54, end: 59 }), frameRate: 8, repeat: 0 });
             
-            this.anims.create({ key: 'beeGrubAbsorbCurse', frames: this.anims.generateFrameNames('beeGrub', { start: 60, end: 69 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubCacoon', frames: this.anims.generateFrameNames('beeGrub', { start: 69, end: 69 }), frameRate: 8, repeat: -1 });
-            this.anims.create({ key: 'beeGrubAbsorbMorph', frames: this.anims.generateFrameNames('beeGrub', { start: 70, end: 85 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeDroneFloat', frames: this.anims.generateFrameNames('beeGrub', { start: 86, end: 91 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurseSquishStart', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 60, end: 66 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurseSquishIdle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 67, end: 71 }), frameRate: 7, repeat: 0 });
 
-            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrub', { start: 92, end: 94 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 95, end: 104 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse1', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 72, end: 73 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse2', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 74, end: 75 }), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse3', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 76, end: 76 }), frameRate: 4, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse4', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 77, end: 77 }), frameRate: 3, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse5', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 78, end: 84 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'beeGrubCacoon', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 85, end: 85 }), frameRate: 8, repeat: -1 });
+
+            this.anims.create({ key: 'beeGrubAbsorbMorph1', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 0, end: 14 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbMorph2', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 15, end: 15 }), frameRate: 8, repeat: 0 });
+            
+            this.anims.create({ key: 'beeDroneFloat', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 16, end: 21 }), frameRate: 8, repeat: -1 });
+
+            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrub', { start: 22, end: 24 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 25, end: 34 }), frameRate: 8, repeat: 0 });
 
          }else{
 
@@ -142,13 +159,24 @@ class beeGrub extends beeGrubAbsorb {
                         this.isPlayingMissedAnims = true;
                         //set value to play missed grabb animation
                         
-                        this.anims.play('beeGrubToungLashEnd').once('animationcomplete', () => {
-                            this.setDepth(6);
-                            this.hitboxActive = false;
+                        this.anims.play('beeGrubToungLashMiddle').once('animationcomplete', () => {
+
+                             this.hitboxActive = false;
                             this.attemptingGrab = false;
-                            this.grabTimer = false;
-                            this.isPlayingMissedAnims = false;    
-                            this.grabTimer = false;
+                                
+                            this.anims.play('beeGrubToungLashEnd').once('animationcomplete', () => {
+                                this.setDepth(5);
+
+                                this.isPlayingMissedAnims = false;  
+                                this.grabTimer = false;
+
+                                /*let currentEnemy = this;
+                                setTimeout(function () {
+                                    currentEnemy.grabTimer = false;
+                                    currentEnemy.scene.grabCoolDown = false;
+                                    console.log("grab cooldown has ended. player can be grabbed agian.");
+                                }, 2000);*/
+                            });
                         });
                     }
                 }else if(!this.checkYRangeFromPlayer(65, 65) && !this.grabTimer === true && !this.attemptingGrab === true){
@@ -240,12 +268,12 @@ class beeGrub extends beeGrubAbsorb {
             //hitbox should be to left if player is to the left
             if(this.flipX === true){
                 console.log("moving cat hitbox to the left");
-                this.grabHitBox.x = this.x-45;
+                this.grabHitBox.x = this.x-50;
 
             //otherwise put it to the right.
             }else{
                 console.log("moving cat hitbox to the right");
-                this.grabHitBox.x = this.x+45;
+                this.grabHitBox.x = this.x+50;
             }
             this.grabHitBox.y = this.y+25;
 
@@ -313,15 +341,17 @@ class beeGrub extends beeGrubAbsorb {
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-            //makes the struggle bar visible
-            struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
-            struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
+            //hides the mobile controls in the way of the tab/skip indicator.
+            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
+            //displays the give up option on screen
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
 
             //logic for when the player is grabbed
             this.beeGrubGrabTrue(playerHealthObject);
 
-            //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator);
+             //displays the give up option on screen
+            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
             
             //if the player is not defeated
             if (this.playerDefeated === false) {
@@ -336,7 +366,7 @@ class beeGrub extends beeGrubAbsorb {
 
             //logic for if the player is not defeated and struggling
             if(playerHealthObject.playerHealth >= 1 && this.struggleCounter <= 100){
-
+            
             //calls a function to handle the player taking damage
             this.playerIsStrugglingLogic();
 
@@ -344,7 +374,7 @@ class beeGrub extends beeGrubAbsorb {
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerHealth >= 1){
 
                 //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
 
@@ -354,11 +384,14 @@ class beeGrub extends beeGrubAbsorb {
             }else  if(playerHealthObject.playerHealth === 0){
 
                 //hide the giveup indicator
-                giveUpIndicatorEmitter.emit(giveUpIndicator.deactivateGiveUpIndicator);
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 //makes the struggle bar invisible
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
             
+                //hides the mobile controls in the way of the tab/skip indicator.
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
                 //handle the defeated logic that plays defeated animations
                 this.playerIsDefeatedLogic(playerHealthObject);
             }
@@ -372,7 +405,7 @@ class beeGrub extends beeGrubAbsorb {
         // puts the player hitbox out of the way and locked to a specific location.
         this.scene.player1.y = this.y - 150;
         // makes the key prompts visible.
-        this.scene.KeyDisplay.visible = true;
+        //this.scene.KeyDisplay.visible = true;
  
         this.playerGrabbed = true;
         //if the player is grabbed then do the following.
@@ -427,6 +460,20 @@ class beeGrub extends beeGrubAbsorb {
     beeGrubDefeatedPlayerAnimation() {
 
         
+    }
+
+     playWingFlapSound(type,delay){
+        //console.log("playing flap sound")
+        if(this.beeDroneSoundCoolDown === false){
+            this.scene.initSoundEffect(this.beeSFX,type,0.5);
+            this.beeDroneSoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.beeDroneSoundCoolDown = false;
+            }, delay);
+        }
+
     }
     
 }

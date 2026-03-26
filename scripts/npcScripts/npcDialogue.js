@@ -3053,6 +3053,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "bee_grub_tf":{
+                    "node1":{
+                        "dialogue": "The grub was excited to see you. It was happy to gobble you up. Sucking you into its warm fleshy body from the bottom up. As it pulsed rythmically your strength began to fade, until you just relaxed and let the grub have its way. The walls began to tighten around you, Squishing and absorbing your body. Once the process was finished, you were just another member of the hive, and fortunately for you, the queen bee took a liking to you. So much so that she keeps you close. You spend the rest of your days as her favorite little drone.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
                 "bat_male_tf":{
                     "node1":{
                         "dialogue": "You where completely stunned by the bat's massive rear. Before you could get up, the bat was on top of you, rubbing his cock on your head.  When you were too tired to fight back he forced his cock into your mouth, as he pleasured you. Humping you with his soft pudgy gut squishing against your chest. After a while both you and him climaxed. With your new body, you gained the ability to fly and hang upside down just like your new partner. now you spend your days snuggling upside down as the two of you begin a new colony.",

@@ -138,6 +138,10 @@ class hiveChamber1 extends defaultScene {
         
       }
 
+      this.setUpEnemyBarriers();
+      this.initBarrier(350,1016-30,30,140);
+      this.initBarrier(1187,1016-30,38,540);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
       setTimeout(function(){

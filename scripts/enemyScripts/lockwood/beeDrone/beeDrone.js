@@ -102,6 +102,7 @@ class beeDrone extends beeDroneAbduct {
             this.anims.create({ key: 'beeDroneDefeatedFallLinger', frames: this.anims.generateFrameNames('beeDroneMale2', { start: 57, end: 62}), frameRate: 8, repeat: 0 });
 
             this.anims.create({ key: 'beeDroneDefeatedLinger', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 0, end: 3}), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'beeDroneBow', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 0, end: 0}), frameRate: 6, repeat: -1 });
             
             this.anims.create({ key: 'beeDroneDefeatedWillingTVEnd', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 23, end: 26}), frameRate: 6, repeat: -1 });
             this.anims.create({ key: 'beeDroneDefeatedWillingTVEndingQ', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 27, end: 30}), frameRate: 6, repeat: 10 });
@@ -153,7 +154,8 @@ class beeDrone extends beeDroneAbduct {
             this.anims.create({ key: 'beeDroneDefeatedFallLinger', frames: this.anims.generateFrameNames('beeDroneFemale2', { start: 57, end: 62}), frameRate: 8, repeat: 0 });
 
             this.anims.create({ key: 'beeDroneDefeatedLinger', frames: this.anims.generateFrameNames('beeDroneFemale3', { start: 0, end: 3}), frameRate: 6, repeat: -1 });
-            
+            this.anims.create({ key: 'beeDroneBow', frames: this.anims.generateFrameNames('beeDroneFemale3', { start: 0, end: 0}), frameRate: 6, repeat: -1 });
+
             this.anims.create({ key: 'beeDroneDefeatedWillingTVEnd', frames: this.anims.generateFrameNames('beeDroneFemale3', { start: 23, end: 26}), frameRate: 6, repeat: -1 });
             this.anims.create({ key: 'beeDroneDefeatedWillingTVEndingQ', frames: this.anims.generateFrameNames('beeDroneFemale3', { start: 27, end: 30}), frameRate: 6, repeat: 10 });
             this.anims.create({ key: 'beeDroneDefeatedFallDown', frames: this.anims.generateFrameNames('beeDroneFemale3', { start: 31, end: 32}), frameRate: 6, repeat: 0 });

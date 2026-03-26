@@ -29,7 +29,14 @@ class gameoverManager extends A3SoundEffects {
             hiveGameover: function hiveGameover() {
                 tempGameover.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("hiveGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Grub_Hive_Gameover.json");
-                tempGameover.load.spritesheet('beeGrub', 'assets/enemys/beeGrub.png',{frameWidth: 525, frameHeight: 237 });
+
+                tempGameover.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+                    "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+                  ]);
+            },
+            hiveThroneGameover: function hiveThroneGameover() {
+                tempGameover.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
+                tempGameover.load.tilemapTiledJSON("hiveThroneGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Throne_Hive_Gameover .json");
 
                 tempGameover.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
                     "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
@@ -360,6 +367,19 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.layer2.setPipeline('Light2D');
                 tempSceneRef.processMap.layer3.setPipeline('Light2D');
             },
+            hiveThroneGameover: function hiveGameover() {
+
+                tempSceneRef.lights.enable().setAmbientColor(0x555555);
+
+                tempSceneRef.lightingSystemActive = false;
+                tempSceneRef.processMap.tilesetNameInTiled = "Hive_Tileset";
+                tempSceneRef.processMap.setTiles('hive_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer0.setPipeline('Light2D');
+                tempSceneRef.processMap.layer1.setPipeline('Light2D');
+                tempSceneRef.processMap.layer2.setPipeline('Light2D');
+                tempSceneRef.processMap.layer3.setPipeline('Light2D');
+            },
             blueSlimeGameover: function blueSlimeGameover() {
                 tempSceneRef.lightingSystemActive = true;
 
@@ -522,6 +542,43 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.gameOverSecret(tempSceneRef.playerSex);
                 tempSceneRef.defeatedTitle = 'cursed';
 
+            },
+            bee_grub_tf: function beeGrubTFFunction() {
+                tempSceneRef.defeatedTitle = 'cursed';
+
+                tempSceneRef.queenBee = tempSceneRef.add.sprite(480, 515, "Queen-Bee-Grub-Gameover");
+                tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+                tempSceneRef.queenBee.anims.play("idle", true);
+                tempSceneRef.queenBee.setScale(1/3);
+                tempSceneRef.queenBee.setDepth(2);
+                tempSceneRef.queenBee.setPipeline('Light2D');
+
+                tempSceneRef.enemy = new beeDrone(tempSceneRef,385, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
+                tempSceneRef.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.anims.play("beeDroneBow",true);
+                tempSceneRef.enemy.setDepth(1)
+
+                let drone1 = new beeDrone(tempSceneRef,575, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
+                drone1.setPipeline('Light2D');
+                drone1.anims.play("beeDroneBow",true);
+                drone1.flipX = true;
+                drone1.setDepth(1);
+
+                let drone2 = new beeDrone(tempSceneRef,575+75, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
+                drone2.setPipeline('Light2D');
+                drone2.anims.play("beeDroneBow",true);
+                drone2.flipX = true;
+                drone2.setDepth(1)
+
+                let drone3 = new beeDrone(tempSceneRef,385-75, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
+                drone3.setPipeline('Light2D');
+                drone3.anims.play("beeDroneBow",true);
+                drone3.setDepth(1)
+                //tempSceneRef.enemy.visible = false;
+                //tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
+                
+
+              
             },
             bat_male_tf: function maleBatTFFunction() {
                 tempSceneRef.preferance = 0;
@@ -1032,6 +1089,10 @@ class gameoverManager extends A3SoundEffects {
             bee_drone_female_secret: function maleBeeDroneFunction() {
 
                 
+            },
+            bee_grub_tf: function beeGrubTFFunction() {
+
+              
             },
             bat_male_vore: function maleBatFunction() {
 

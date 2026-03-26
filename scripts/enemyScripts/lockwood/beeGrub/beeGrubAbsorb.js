@@ -12,20 +12,75 @@ class beeGrubAbsorb extends enemy {
 
     playerIsNotDefeatedInputsAbduct(playerHealthObject){
         // correct keys to escape can be ASD
+
+        //this.initSoundEffect('plapSFX','plap5',1);
+        console.log("this.struggleValue", this.struggleValue);
+        this.struggleValue = Math.floor(playerHealthObject.playerHealth/2) + 10;
+
         if(this.startedGrab === true && this.struggleFree === false){
             console.log("this.scene.player1.x: ",this.scene.player1.x, " this.x: ",this.x);
             if(this.scene.checkAPressed() === true) {
 
                 this.struggleDecrease(); 
+
+                if(this.struggleAnimationInterupt === false){
+
+                    this.scene.initSoundEffect('plapSFX','plap5',1);
+
+                    this.struggleAnimationInterupt = true;
+
+                    this.anims.play('beeGrubDownStruggle').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.struggleAnimationInterupt = false;
+                    });
+                }
+
             }else if(this.scene.checkDPressed() === true) {
 
                 this.struggleDecrease();
+
+                if(this.struggleAnimationInterupt === false){
+
+                    this.scene.initSoundEffect('plapSFX','plap5',1);
+
+                    this.struggleAnimationInterupt = true;
+
+                    this.anims.play('beeGrubDownStruggle').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.struggleAnimationInterupt = false;
+                    });
+                }
             }else if(this.scene.checkSPressed() === true) {
                 
                 this.struggleDecrease();
+
+                if(this.struggleAnimationInterupt === false){
+
+                    this.scene.initSoundEffect('plapSFX','plap5',1);
+
+                    this.struggleAnimationInterupt = true;
+
+                    this.anims.play('beeGrubDownStruggle').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.struggleAnimationInterupt = false;
+                    });
+                }
+
             }else if(this.scene.checkWPressed() === true) {
                 
                 this.struggleIncrease(playerHealthObject);
+
+                if(this.struggleAnimationInterupt === false){
+
+                    this.scene.initSoundEffect('plapSFX','plap5',1);
+
+                    this.struggleAnimationInterupt = true;
+
+                    this.anims.play('beeGrubDownStruggle').once('animationcomplete', () => {
+                        this.animationPlayed = false;
+                        this.struggleAnimationInterupt = false;
+                    });
+                }
             }
         }
         
@@ -53,21 +108,25 @@ class beeGrubAbsorb extends enemy {
 
             // plays the gram animation then starts tween and struggle animation
             this.anims.play('beeGrubToungLashGrab').once('animationcomplete', () => {
-
+                this.playPlapSound('plap4',1000);
                 this.anims.play('beeGrubHalfInStruggle').once('animationcomplete', () => {
-
+                    this.playPlapSound('plap3',1000);
                    this.anims.play('beeGrubSwallowComplete').once('animationcomplete', () => {
 
                     this.startedGrab = true;
                     this.animationPlayed = false;
 
+                    //if the player escapes hide the give up indicator.
+                    giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
+
                     //makes the struggle bar visible
                     struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
+                    struggleEmitter.emit(struggleEvent.updateStruggleBarCap,100);
                     struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.struggleCap);
                     // makes the key prompts visible.
                     this.scene.KeyDisplay.visible = true;
 
-                    //this.anims.play('beeDroneStruggle', true);
+                    this.setDepth(7);
     
                 });
     
@@ -77,8 +136,7 @@ class beeGrubAbsorb extends enemy {
       
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
             this.anims.play('beeGrubIdleStruggle', true);
-            this.playJumpySound('2',800); 
-           
+            this.playPlapSound('plap5',1000);
         }
     }
 
@@ -92,13 +150,13 @@ class beeGrubAbsorb extends enemy {
             this.playerDamageTimer = true;
 
             if(this.animationPlayed === false){
-                //healthEmitter.emit(healthEvent.loseHealth,2);
+                healthEmitter.emit(healthEvent.loseHealth,2);
             }
 
             let currentEnemy = this;
             setTimeout(function () {
                 currentEnemy.playerDamageTimer = false;
-            }, 2000);
+            }, 1000);
             
         }   
     }
@@ -125,8 +183,11 @@ class beeGrubAbsorb extends enemy {
                     this.playPlapSound('plap5',500);
                     //this.scene.initSoundEffect('stomachSFX','4',0.1);
 
+                    //hides the mobile controls in the way of the tab/skip indicator.
+                    controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+
                     //play spitup animation
-                    this.flipX = true;
+                    //this.flipX = true;
                     this.anims.play("beeGrubFullSpitUpStart").once('animationcomplete', () => {
                         this.anims.play("beeGrubFullSpitUpEnd").once('animationcomplete', () => {
                             //then free player.
@@ -147,20 +208,25 @@ class beeGrubAbsorb extends enemy {
                             
                             this.scene.player1.mainHitbox.x = this.x - 60;
 
+                            if(this.flipX){
+                                this.scene.player1.mainHitbox.x = this.x - 50;
+                            }else{
+                                this.scene.player1.mainHitbox.x = this.x + 50;
+                            }
+
+                            this.setDepth(5);
+
                             let currentEnemy = this;
                             setTimeout(function () {
                                 currentEnemy.grabCoolDown = false;
                                 currentEnemy.scene.grabCoolDown = false;
                                 console.log("grab cooldown has ended. player can be grabbed agian.");
-                             }, 1000);
+                             }, 2000);
                         
                         });
                     });
 
                 }
-
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
                     
 
 
@@ -197,8 +263,9 @@ class beeGrubAbsorb extends enemy {
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
-                     this.playerDefeatedAnimationStage !== 3 &&
-                      this.playerDefeatedAnimationStage !== 4) {
+                     this.playerDefeatedAnimationStage !== 1 &&
+                      this.playerDefeatedAnimationStage !== 3 &&
+                      this.playerDefeatedAnimationStage !== 5) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -217,15 +284,11 @@ class beeGrubAbsorb extends enemy {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > this.playerDefeatedAnimationStageMax && this.scene.checkDIsDown())) {
                 
-                if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleTF;
-                }else{
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneFemaleTF;
-                }
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.beeGrubTF;
 
-                this.scene.gameoverLocation = "hiveGameover";
+                this.scene.gameoverLocation = "hiveThroneGameover";
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
                 this.scene.changeToGameover();
@@ -238,68 +301,92 @@ class beeGrubAbsorb extends enemy {
 
     enemyDefeatedPlayerAnimationAbduct(){
           let currentbeeDrone = this;
-        if (this.playerDefeatedAnimationStage === 1) {
 
-            //sets the ending value correctly once this enemy defeated animation activates.
-            this.playerDefeatedAnimationStageMax = 5;
+          //sets the ending value correctly once this enemy defeated animation activates.
+            this.playerDefeatedAnimationStageMax = 6;
+
+          if (this.playerDefeatedAnimationStage === 1) {
 
             if (!this.animationPlayed) {
-            
+                this.playPlapSound('plap6',800);
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow1').once('animationcomplete', () => {
+                this.anims.play('beeGrubAbsorbCurseSquishStart').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                    
+                    this.inStartDefeatedLogic = false; 
+
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('beeDroneTailStruggle', true);
+            this.anims.play('beeGrubAbsorbCurseSquishIdle', true);
+            this.playPlapSound('plap5',1000);
 
-            this.playPlapSound('plap3',800);
-
-            let thisbeeDrone = this;
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 30));
-                let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBlack',"@heart@");
-                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat1.setScale(1/4);
-                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-                setTimeout(function () {
-                    thisbeeDrone.onomatPlayed = false;
-                }, 600);
-            }
-           
         }else if (this.playerDefeatedAnimationStage === 3) {
+
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow2').once('animationcomplete', () => {
-                    //this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
+                this.anims.play('beeGrubAbsorbCurse1').once('animationcomplete', () => {
+                   this.anims.play('beeGrubAbsorbCurse2').once('animationcomplete', () => {
+                        this.anims.play('beeGrubAbsorbCurse3').once('animationcomplete', () => {
+                            this.anims.play('beeGrubAbsorbCurse4').once('animationcomplete', () => {
+                                this.scene.initSoundEffect('curseSFX','curse',0.3);
+                                this.anims.play('beeGrubAbsorbCurse5').once('animationcomplete', () => {
+                                    //this.scene.onomat.destroy();
+                                    this.animationPlayed = false;
+                                    this.playerDefeatedAnimationStage++;
+                                    this.inStartDefeatedLogic = false;
+                                    
+                                });
+                            });
+                        });
+                    });
                     
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 4) {
+            this.anims.play('beeGrubCacoon', true);
+           
+        }else if (this.playerDefeatedAnimationStage === 5) {
+
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('beeDroneTailSwallow3').once('animationcomplete', () => {
-                    //this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
+                this.anims.play('beeGrubAbsorbMorph1').once('animationcomplete', () => {
+                    this.body.setGravityY(0);
+                    this.setVelocityY(-100);
+                    this.anims.play('beeGrubAbsorbMorph2').once('animationcomplete', () => {
                     
+                            //this.scene.onomat.destroy();
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                            this.inStartDefeatedLogic = false; 
+
+                           let temp = this;
+                            setTimeout(function () {
+
+                               temp.beeHover = temp.scene.tweens.add({
+                                    targets: temp,
+                                    props : {
+                                    y: { value : '+='+10},
+                                    }, 
+                                    ease: 'linear',
+                                    duration: 350,
+                                    repeat: -1,
+                                    yoyo: true
+                                });
+                               
+                            }, 100);
+                            
+                                            
+                        });
                 });
             }
-        } else if (this.playerDefeatedAnimationStage === 5) {
-            this.anims.play('beeDroneTailJiggle', true);
-           
+        }else if (this.playerDefeatedAnimationStage === 6) {
+            this.anims.play('beeDroneFloat', true);
+            this.playWingFlapSound('1',800);
+         
         }
     }
 

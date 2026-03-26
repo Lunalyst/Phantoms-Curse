@@ -328,8 +328,9 @@ class beeDroneAbduct extends enemy {
         this.anims.play('beeDroneGameover').once('animationcomplete', () => {
 
             this.gameoverAnimationComplete = true;
-            let fedGrub = new beeGrub(this.scene, this.x-61, this.y-29,playerSex,1);
+            let fedGrub = new beeGrub(this.scene, this.x-90, this.y-29,playerSex,1);
             fedGrub.setSize(70, 70, true);
+            fedGrub.body.setGravityY(0); 
             
             fedGrub.setPipeline('Light2D');
             if(playerSex === 0){

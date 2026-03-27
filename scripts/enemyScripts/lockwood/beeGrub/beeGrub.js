@@ -47,6 +47,9 @@ class beeGrub extends beeGrubAbsorb {
         this.anims.create({ key: 'beeGrubToungLashMiddle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 28, end: 29 }), frameRate: 8, repeat: 0 });
         this.anims.create({ key: 'beeGrubToungLashEnd', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 30, end: 32 }), frameRate: 8, repeat: 0 });
         
+        this.anims.create({ key: 'beeGrubDefeated', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 35, end: 39 }), frameRate: 8, repeat: 0 });
+        this.anims.create({ key: 'beeGrubDefeatedIdle', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 39, end: 39 }), frameRate: 8, repeat: -1 });
+
          if (sex === 0) {
             this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
             this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrubMale1', { start: 38, end: 41 }), frameRate: 8, repeat: 2 });
@@ -69,11 +72,35 @@ class beeGrub extends beeGrubAbsorb {
             
             this.anims.create({ key: 'beeDroneFloat', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 16, end: 21 }), frameRate: 8, repeat: -1 });
 
-            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrub', { start: 22, end: 24 }), frameRate: 8, repeat: 0 });
-            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrub', { start: 25, end: 34 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 22, end: 24 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrubMale2', { start: 25, end: 34 }), frameRate: 8, repeat: 0 });
 
          }else{
+            this.anims.create({ key: 'beeGrubToungLashGrab', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 33, end: 37 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubHalfInStruggle', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 38, end: 41 }), frameRate: 8, repeat: 2 });
+            this.anims.create({ key: 'beeGrubSwallowComplete', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 42, end: 47 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubIdleStruggle', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 48, end: 53 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubDownStruggle', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 54, end: 59 }), frameRate: 8, repeat: 0 });
+            
+            this.anims.create({ key: 'beeGrubAbsorbCurseSquishStart', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 60, end: 66 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurseSquishIdle', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 67, end: 71 }), frameRate: 7, repeat: 0 });
 
+            this.anims.create({ key: 'beeGrubAbsorbCurse1', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 72, end: 73 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse2', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 74, end: 75 }), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse3', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 76, end: 76 }), frameRate: 4, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse4', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 77, end: 77 }), frameRate: 3, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbCurse5', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 78, end: 84 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'beeGrubCacoon', frames: this.anims.generateFrameNames('beeGrubFemale1', { start: 85, end: 85 }), frameRate: 8, repeat: -1 });
+
+            this.anims.create({ key: 'beeGrubAbsorbMorph1', frames: this.anims.generateFrameNames('beeGrubFemale2', { start: 0, end: 14 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubAbsorbMorph2', frames: this.anims.generateFrameNames('beeGrubFemale2', { start: 15, end: 15 }), frameRate: 8, repeat: 0 });
+            
+            this.anims.create({ key: 'beeDroneFloat', frames: this.anims.generateFrameNames('beeGrubFemale2', { start: 16, end: 21 }), frameRate: 8, repeat: -1 });
+
+            this.anims.create({ key: 'beeGrubFullSpitUpStart', frames: this.anims.generateFrameNames('beeGrubFemale2', { start: 22, end: 24 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'beeGrubFullSpitUpEnd', frames: this.anims.generateFrameNames('beeGrubFemale2', { start: 25, end: 34 }), frameRate: 8, repeat: 0 });
+
+            
          }
 
         //applys lighting to the enemy.
@@ -87,8 +114,8 @@ class beeGrub extends beeGrubAbsorb {
 
         this.anims.play('beeGrubIdle',true);
 
-         this.setSize(270, 74, true);
-         this.setOffset(200, 150);
+         this.setSize(270, 80, true);
+         this.setOffset(200, 150-6);
 
         this.body.setGravityY(600); 
 
@@ -96,6 +123,7 @@ class beeGrub extends beeGrubAbsorb {
 
     //functions that move beeGrub objects.
     move(){
+        if (this.enemyHP > 0) {
         
         if (this.checkXRangeFromPlayer(400, 400) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
             //checks to see if slime should jump to move if the move cycle is correct for the current instance of slime.
@@ -281,6 +309,7 @@ class beeGrub extends beeGrubAbsorb {
             this.grabHitBox.x = this.x;
             this.grabHitBox.y = this.y + 3000; 
         }
+    }
 
         
 
@@ -447,13 +476,90 @@ class beeGrub extends beeGrubAbsorb {
     }
 
     // controls the damage resistance of the beeGrub.
-    damage() {
-       
+    damage(refrence) {
+        this.setVelocityX(0);
+        if (this.damageCoolDown === false) {
+            this.damageCoolDown = true;
+            this.setTint(0xff7a7a);
+            if (this.enemyHP > 0) {
+                //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
+               this.calcDamage(
+                    refrence.sliceDamage,
+                    refrence.bluntDamage,
+                    refrence.pierceDamage,
+                    refrence.heatDamage,
+                    refrence.lightningDamage,
+                    refrence.coldDamage,
+                    refrence.curseDamage
+                );
+
+                
+                this.playJumpySound('2',700);
+                
+                if (this.enemyHP <= 0) {
+
+                    //remove colliders since we no longer need them.
+                    this.removeColliders();
+
+                    //this.scene.sound.get(this.beeDroneSFX).stop();
+                    this.grabHitBox.destroy();
+
+                    //this.body.setGravityY(600);
+                    this.setVelocityX(0);
+
+                    
+                    //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
+                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                    //if( dropChance > 0){
+                        this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,26,1,dropAmount,"GRUB GOO","GRUB JUICES. GROSS.","drop",4);
+                    //}
+
+                    this.anims.play('beeGrubDefeated').once('animationcomplete', () => {
+                    //then destroy slime.
+                        this.anims.play('beeGrubDefeatedIdle');
+                     });
+                    
+
+                    
+                }
+            }
+            console.log("damage cool down:" + this.damageCoolDown);
+            let that = this;
+
+            setTimeout(function () {
+                that.damageCoolDown = false;
+                console.log("damage cool down:" + that.damageCoolDown);
+                that.clearTint();
+            }, 100);
+        }
     }
 
     //handles damage types for blue beeGrub. get these damage types from the attack that hits the enemy
-    calcDamage(slice, blunt, pierce, heat, lightning, cold) {
-      
+    //handles damage types for blue beeDrone. get these damage types from the attack that hits the enemy
+    calcDamage(slice, blunt, pierce, heat, lightning, cold, curse) {
+        console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
+        if (slice > 0) {
+            this.enemyHP -= (slice);
+        }
+        if (blunt > 0) {
+            this.enemyHP -= (blunt);
+        }
+        if (pierce > 0) {
+            this.enemyHP -= (pierce);
+        }
+        if (heat > 0) {
+            this.enemyHP -= (heat * 4);
+        }
+        if (lightning > 0) {
+            this.enemyHP -= (lightning * 2);
+        }
+        if (cold > 0) {
+            this.enemyHP -= (cold / 2);
+        }
+        if (curse > 0) {
+            this.enemyHP -= curse;
+        }
     }
 
     // plays the beeGrub defeated player animations.

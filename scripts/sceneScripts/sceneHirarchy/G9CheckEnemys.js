@@ -582,7 +582,9 @@ class G9CheckEnemys extends G8InitEnemys {
           //calls to make each instance of a bat move.
             tempBeeDrone.move(scene.player1,scene);
         }else{
-           tempBeeDrone.moveIdle()
+           if(tempBeeDrone.enemyHP > 0){
+            tempBeeDrone.moveIdle()
+          }
         }
         
         //if the hitbox overlaps the drone, then  deal damage to that drone
@@ -627,7 +629,10 @@ class G9CheckEnemys extends G8InitEnemys {
           //calls to make each instance of a bat move.
             tempBeeGrub.move(scene.player1,scene);
         }else{
-           tempBeeGrub.moveIdle()
+          if(tempBeeGrub.enemyHP > 0){
+            tempBeeGrub.moveIdle()
+          }
+           
         }
         
         //if the hitbox overlaps the drone, then  deal damage to that drone

@@ -26,6 +26,11 @@ class itemContainer extends Phaser.Physics.Arcade.Sprite{
             this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 9, end: 13}),frameRate: 7,repeat: 0});
             this.anims.create({key: 'opened',frames: this.anims.generateFrameNames('chest', { start: 13, end: 13}),frameRate: 7,repeat: -1});
   
+        }else if(type === "wax"){
+            this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 14, end: 14}),frameRate: 7,repeat: -1});
+            this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 14, end: 18}),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'opened',frames: this.anims.generateFrameNames('chest', { start: 18, end: 18}),frameRate: 7,repeat: -1});
+  
         }else{
             this.anims.create({key: 'closed',frames: this.anims.generateFrameNames('chest', { start: 0, end: 0}),frameRate: 3.5,repeat: -1});
             this.anims.create({key: 'opening',frames: this.anims.generateFrameNames('chest', { start: 0, end: 4}),frameRate: 7,repeat: 0});

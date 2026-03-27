@@ -286,6 +286,15 @@ const oneTimeItemArray = {
         itemAmount: 1,
         itemType: "weapon",
         sellValue: 70
+    },
+    obtained_waxed_axe:{
+        itemID: 27,
+        itemName: 'WAXED AXE',
+        itemDescription: 'HARDENED WAX AXE.',
+        itemStackable: 0,
+        itemAmount: 1,
+        itemType: "weapon",
+        sellValue: 40
     }
     
     };
@@ -468,6 +477,10 @@ const bestiaryTextList = {
       bee_drone_male_secret: {
         title: "MALE BEE TIRED",
         summary: "Some bees of the hive are known to have more endurance than others. But few get to experience a prey that willingly gives themselves up after they defeat their predator. Such an act is quite confusing for them.",
+      },
+      bee_grub_tf: {
+        title: "BEE GRUB",
+        summary: "These grubs are created directly from the queen. They will slowly over time morph into a bee drone given long enough; however, being fed a cursed or human will speed up the process. When fed this way, it could create stronger and sometimes unique bees.",
       },
       bat_female_tf: {
         title: "FEMALE BAT FED",

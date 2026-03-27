@@ -74,6 +74,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         
         tempSceneRef.load.spritesheet('beeGrubMale1', 'assets/enemys/beeGrubMale1.png',{frameWidth: 675, frameHeight: 237 });
         tempSceneRef.load.spritesheet('beeGrubMale2', 'assets/enemys/beeGrubMale2.png',{frameWidth: 675, frameHeight: 237 });
+        tempSceneRef.load.spritesheet('beeGrubFemale1', 'assets/enemys/beeGrubFemale1.png',{frameWidth: 675, frameHeight: 237 });
+        tempSceneRef.load.spritesheet('beeGrubFemale2', 'assets/enemys/beeGrubFemale2.png',{frameWidth: 675, frameHeight: 237 });
+        
         
         tempSceneRef.load.audioSprite('blueSlimeSFX','audio/used-audio/blue-slime-sounds/blue-slime-sounds.json',[
           "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
@@ -104,6 +107,8 @@ class G6PreloadEnemys extends G5InitNPCs{
 
         tempSceneRef.load.spritesheet('beeGrubMale1', 'assets/enemys/beeGrubMale1.png',{frameWidth: 675, frameHeight: 237 });
         tempSceneRef.load.spritesheet('beeGrubMale2', 'assets/enemys/beeGrubMale2.png',{frameWidth: 675, frameHeight: 237 });
+        tempSceneRef.load.spritesheet('beeGrubFemale1', 'assets/enemys/beeGrubFemale1.png',{frameWidth: 675, frameHeight: 237 });
+        tempSceneRef.load.spritesheet('beeGrubFemale2', 'assets/enemys/beeGrubFemale2.png',{frameWidth: 675, frameHeight: 237 });
         
         tempSceneRef.load.spritesheet('Queen-Bee-Grub-Gameover', 'assets/bosses/Queen-Bee-Grub-Gameover.png',{frameWidth: 693, frameHeight: 561 });
 

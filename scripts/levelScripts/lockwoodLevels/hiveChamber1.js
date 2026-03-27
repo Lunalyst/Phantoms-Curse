@@ -107,6 +107,15 @@ class hiveChamber1 extends defaultScene {
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 
+
+
+      let waxAxe = oneTimeItemArray.obtained_waxed_axe;
+          
+      //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
+      this.initItemContainer(1808,698,waxAxe,true,"obtained_waxed_axe","wax");
+          
+      
+
       if(this.player1.x >= 450 && this.player1.x < 465 ){
         if(this.preferance === 0){
           this.defeatedBee = this.add.sprite(410, 1024, "beeDroneMale4");

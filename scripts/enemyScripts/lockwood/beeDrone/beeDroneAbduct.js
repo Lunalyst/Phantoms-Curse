@@ -382,9 +382,7 @@ class beeDroneAbduct extends enemy {
         //function to show off animation 
     animationGrabAbduct(){
 
-       
-
-            this.key
+    
             let currentbeeDrone = this;
             //first checks if beeDrone object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
             this.clearTint();

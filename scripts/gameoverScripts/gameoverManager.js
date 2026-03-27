@@ -547,11 +547,20 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'cursed';
 
                 tempSceneRef.queenBee = tempSceneRef.add.sprite(480, 515, "Queen-Bee-Grub-Gameover");
-                tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+                
+                if(tempSceneRef.playerSex === 1){
+                    tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+                }else{
+                    tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+                }
+                
                 tempSceneRef.queenBee.anims.play("idle", true);
                 tempSceneRef.queenBee.setScale(1/3);
                 tempSceneRef.queenBee.setDepth(2);
                 tempSceneRef.queenBee.setPipeline('Light2D');
+
+                tempSceneRef.curseLight = tempSceneRef.lights.addLight(480, 515-50, 65, 0xb317ff);
+
 
                 tempSceneRef.enemy = new beeDrone(tempSceneRef,385, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
                 tempSceneRef.enemy.setPipeline('Light2D');

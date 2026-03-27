@@ -303,6 +303,11 @@ class player extends Phaser.GameObjects.Container{
       this.weaponLayer9.anims.create({key: 'weapon-conidia-caster2',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 45, end: 45 }),frameRate: 9,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-conidia-caster3',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 46, end: 47 }),frameRate: 9,repeat: 0});
 
+      //WAX AXE
+      //axe
+      this.weaponLayer9.anims.create({key: 'weapon-start-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 48, end: 50 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-finish-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 51, end: 53 }),frameRate: 9,repeat: 0});
+
       if(sex === 0){
         //this.booba8
         //idle male specific frames
@@ -911,7 +916,34 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
               this.setAttackHitboxSize(20,30);
               this.HitBox(300,30);
               break;
-              case (1):
+            case (27):
+              if(this.playedAttackAnimation === false){
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','heavy',0.1);
+                this.playerSwipeAnimation9FPS();
+                
+                this.weaponLayer9.anims.play("weapon-start-wax-axe").once('animationcomplete', () => {
+                  //sends the weapon layer to the back
+                  this.sendToBack(this.weaponLayer9);
+                  this.moveUpXTimes(this.weaponPositionBack);
+
+                  this.weaponLayer9.anims.play("weapon-finish-wax-axe").once('animationcomplete', () => {
+                    this.moveUpXTimes(this.weaponPositionfront);
+
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+                    this.sliceDamage = 0;
+                    this.curseDamage = 0;
+                  });
+                });
+              }
+              this.sliceDamage = 6;
+              this.curseDamage = 4;
+              this.setAttackHitboxSize(20,30);
+              this.HitBox(300,30);
+              break;
+            case (1):
               if(this.playedAttackAnimation === false){
                 this.playedAttackAnimation = true;
                 this.scene.initSoundEffect('weaponSFX','high2',0.1);
@@ -929,7 +961,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
               this.setAttackHitboxSize(60,30);
               this.HitBox(400,35);
               break;
-              case (3):
+            case (3):
               if(this.playedAttackAnimation === false){
                 this.playedAttackAnimation = true;
                 this.scene.initSoundEffect('weaponSFX','high2',0.1);
@@ -1232,6 +1264,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         tempPlayer.dropChance = 1;
       },
       25: function Funct25() {
+        tempPlayer.dropChance = 1;
+      },
+      27: function Funct25() {
         tempPlayer.dropChance = 1;
       },
       

@@ -241,7 +241,7 @@ class tutorialCave extends defaultScene {
           let oar = oneTimeItemArray.cave_tutorial_chest_with_oar;
           
           //creates the container object in the scene takes, x and y in scene, a item object, a bool if it should only be opened once, and a flag to tell.
-          thisScene.initItemContainer(1185,1757-3,oar,true,"cave_tutorial_chest_with_oar");
+          thisScene.initItemContainer(1185,1757-3,oar,true,"cave_tutorial_chest_with_oar",);
           
         },2000);
 

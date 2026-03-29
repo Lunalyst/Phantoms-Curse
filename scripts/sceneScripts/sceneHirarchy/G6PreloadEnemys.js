@@ -240,6 +240,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         
         tempSceneRef.load.spritesheet('TShadow', 'assets/enemys/TShadow.png',{frameWidth: 225, frameHeight: 378 });
 
+        tempSceneRef.load.spritesheet('curseShadowSecretMale', 'assets/enemys/curseShadowMaleSecret.png',{frameWidth: 303, frameHeight: 219 });
+        tempSceneRef.load.spritesheet('curseShadowSecretFemale', 'assets/enemys/curseShadowFemaleSecret.png',{frameWidth: 303, frameHeight: 219 });
+
         tempSceneRef.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
           "audio/used-audio/earie-sounds/earie-sounds.mp3"
         ]);

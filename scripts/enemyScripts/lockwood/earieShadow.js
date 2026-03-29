@@ -232,7 +232,7 @@ class EarieShadow extends enemy {
         this.scene.player1.visible = false;
 
         this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowEarie;
-        this.scene.gameoverLocation = "abyssGameover";
+        this.scene.gameoverLocation = "shadowGameover";
         this.scene.KeyDisplay.visible = false;
 
         this.scene.changeToGameover();
@@ -259,7 +259,7 @@ class EarieShadow extends enemy {
                     this.scene.player1.visible = false;
 
                     this.scene.enemyThatDefeatedPlayer = bestiaryKey.shadowEarie;
-                    this.scene.gameoverLocation = "abyssGameover";
+                    this.scene.gameoverLocation = "shadowGameover";
                     this.scene.KeyDisplay.visible = false;
 
                     this.scene.changeToGameover();

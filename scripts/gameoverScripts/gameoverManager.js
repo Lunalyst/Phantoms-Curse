@@ -716,10 +716,10 @@ class gameoverManager extends A3SoundEffects {
             },
             shadow_earie_tf: function earieShadowFunction() {
 
-                tempSceneRef.enemy = new curseShadow(tempSceneRef,450, 570+32,tempSceneRef.playerSex);
+                tempSceneRef.enemy = new curseShadow(tempSceneRef,450, 570+34,tempSceneRef.playerSex);
                 tempSceneRef.enemy.visible = false;
 
-                tempSceneRef.shadowPlayer = tempSceneRef.add.sprite(450,520, "curseShadowSecret");
+                tempSceneRef.shadowPlayer = tempSceneRef.add.sprite(450,520+53, "curseShadowSecret");
                 tempSceneRef.shadowPlayer.setScale(1/3);
                 //applys lighting to the enemy. cursed light is reused as a way for the player to see whats going on when grabbed.
                 if(tempSceneRef.lightingSystemActive === true){ 

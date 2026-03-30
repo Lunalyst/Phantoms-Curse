@@ -732,10 +732,15 @@ class blueSlime extends enemy {
                 console.log("this.scene.internalView: ",this.scene.internalView)
                 this.playSlimeSound('4',800);
                 this.animationPlayed = true;
+                //animations completes but the player escapes and destroys the object causing an arror
                 this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.scene.internalView.anims.play("slimeWiggle1");
+                    //animations completes but the player escapes and destroys the object causing an arror unless we do a saftey check
+                    if(this.scene.internalView !== null && this.scene.internalView !== undefined ){
+                        this.scene.internalView.anims.play("slimeWiggle1");
+                    }
+                    
                 });
             }else if(this.playerDefeatedAnimationStage === 4){
                 console.log("this.scene.internalView: ",this.scene.internalView)
@@ -1359,7 +1364,10 @@ class blueSlime extends enemy {
                 this.anims.play('largeSlimeGrabDefeated2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.scene.internalView.anims.play("slimeWiggle1");
+                    //animations completes but the player escapes and destroys the object causing an arror unless we do a saftey check
+                    if(this.scene.internalView !== null && this.scene.internalView !== undefined ){
+                        this.scene.internalView.anims.play("slimeWiggle1");
+                    }
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 4) {

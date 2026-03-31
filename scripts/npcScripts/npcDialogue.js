@@ -3061,6 +3061,38 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "grubSecret1":{
+                    "node1":{
+                        "dialogue": "awwwwww.......",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Why are you crying?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Isn't this what you wanted?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Its too late now...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "they can't help you...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                },
                 "bat_male_tf":{
                     "node1":{
                         "dialogue": "You where completely stunned by the bat's massive rear. Before you could get up, the bat was on top of you, rubbing his cock on your head.  When you were too tired to fight back he forced his cock into your mouth, as he pleasured you. Humping you with his soft pudgy gut squishing against your chest. After a while both you and him climaxed. With your new body, you gained the ability to fly and hang upside down just like your new partner. now you spend your days snuggling upside down as the two of you begin a new colony.",

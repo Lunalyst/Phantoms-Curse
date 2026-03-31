@@ -41,6 +41,10 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
                     "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
                   ]);
+
+                tempGameover.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
+                    "audio/used-audio/earie-sounds/earie-sounds.mp3"
+                ]);
             },
             blueSlimeGameover: function blueSlimeGameover() {
                 tempGameover.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
@@ -549,10 +553,18 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.queenBee = tempSceneRef.add.sprite(480, 515, "Queen-Bee-Grub-Gameover");
                 
                 if(tempSceneRef.playerSex === 1){
-                    tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+                    tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 20, end: 23 }), frameRate: 6, repeat: -1 });
+                    tempSceneRef.queenBee.anims.create({ key: 'hugStart', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 24, end: 24 }), frameRate: 6, repeat: 0 }); 
+                    
                 }else{
                     tempSceneRef.queenBee.anims.create({ key: 'idle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+                    tempSceneRef.queenBee.anims.create({ key: 'hugStart', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 4, end: 4 }), frameRate: 6, repeat: 0 }); 
                 }
+
+                tempSceneRef.queenBee.anims.create({ key: 'hugEnd', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 5, end: 6 }), frameRate: 6, repeat: 0 });
+                tempSceneRef.queenBee.anims.create({ key: 'hugSmother', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 7, end: 10 }), frameRate: 6, repeat: -1 });
+                tempSceneRef.queenBee.anims.create({ key: 'hugChains', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 11, end: 15 }), frameRate: 3, repeat: 0 });
+                tempSceneRef.queenBee.anims.create({ key: 'hugChainsIdle', frames: tempSceneRef.anims.generateFrameNames('Queen-Bee-Grub-Gameover', { start: 16, end: 19 }), frameRate: 6, repeat: -1 });
                 
                 tempSceneRef.queenBee.anims.play("idle", true);
                 tempSceneRef.queenBee.setScale(1/3);
@@ -582,9 +594,55 @@ class gameoverManager extends A3SoundEffects {
                 let drone3 = new beeDrone(tempSceneRef,385-75, 576,tempSceneRef.playerSex,1,'wingFlapSFX');
                 drone3.setPipeline('Light2D');
                 drone3.anims.play("beeDroneBow",true);
-                drone3.setDepth(1)
+                drone3.setDepth(1);
                 //tempSceneRef.enemy.visible = false;
                 //tempSceneRef.enemy.gameOver(tempSceneRef.playerSex);
+
+                setTimeout(function () {
+                    
+                    tempSceneRef.queenBee.anims.play("hugStart").once('animationcomplete', () => {
+                        tempSceneRef.enemy.gameoverLoopingSounds = 1;
+                        tempSceneRef.queenBee.anims.play("hugEnd").once('animationcomplete', () => {
+
+                            tempSceneRef.queenBee.anims.play("hugSmother", true);
+
+                            setTimeout(function () {
+                                //interupt dialogue by reseting objects, and hiding buttons
+                                tempSceneRef.dialogueInterupt = true;
+                                tempSceneRef.resetGameoverText();
+                                tempSceneRef.mobileW.visible = false;
+                                tempSceneRef.gameOverSign.visible = false;
+                                tempSceneRef.tryAgian.visible = false;
+
+                               tempSceneRef.initLoopingSound('earieSFX','earieCave', 0.5);
+
+                               tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+
+                                tempSceneRef.queenBee.anims.play("hugChains").once('animationcomplete', () => {
+                                    tempSceneRef.queenBee.anims.play("hugChainsIdle", true);
+
+                                });
+
+                                setTimeout(function () {
+                                    tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                    setTimeout(function () {
+                                        tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                        setTimeout(function () {
+                                            tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                            setTimeout(function () {
+                                                tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                                setTimeout(function () {
+                                                    tempSceneRef.tryAgianLoad(tempSceneRef);
+                                                },5000)
+                                            },5000);
+                                        },5000);
+                                    },5000);
+                                },5000);
+                            },5000);
+                
+                        });
+                    });
+                },5000);
                 
 
               
@@ -1100,7 +1158,9 @@ class gameoverManager extends A3SoundEffects {
                 
             },
             bee_grub_tf: function beeGrubTFFunction() {
-
+                if(tempSceneRef.enemy.gameoverLoopingSounds === 1){
+                    tempSceneRef.enemy.playJumpySound('10',800); 
+                }
               
             },
             bat_male_vore: function maleBatFunction() {

@@ -94,13 +94,13 @@ class woodBarrier extends Phaser.Physics.Arcade.Sprite{
     calcDamage(slice, blunt, pierce, heat, lightning, cold) {
       console.log("slice " + slice + " blunt " + blunt + " pierce " + pierce + " heat " + heat + " lightning " + lightning + " cold " + cold);
       if (slice > 0) {
-        this.hp -= (slice - 2);
+        this.hp -= (slice);
       }
       if (blunt > 0) {
-        this.hp -= (blunt/2 - 2);
+        this.hp -= (blunt);
       }
       if (pierce > 0) {
-        this.hp -= (pierce - 3);
+        this.hp -= (pierce );
       }
       if (heat > 0) {
         this.hp -= (heat * 4);

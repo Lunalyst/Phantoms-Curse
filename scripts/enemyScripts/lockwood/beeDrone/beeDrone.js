@@ -105,7 +105,7 @@ class beeDrone extends beeDroneAbduct {
             this.anims.create({ key: 'beeDroneBow', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 0, end: 0}), frameRate: 6, repeat: -1 });
             
             this.anims.create({ key: 'beeDroneDefeatedWillingTVEnd', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 23, end: 26}), frameRate: 6, repeat: -1 });
-            this.anims.create({ key: 'beeDroneDefeatedWillingTVEndingQ', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 27, end: 30}), frameRate: 6, repeat: 10 });
+            this.anims.create({ key: 'beeDroneDefeatedWillingTVEndingQ', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 27, end: 30}), frameRate: 6, repeat: 20 });
             this.anims.create({ key: 'beeDroneDefeatedFallDown', frames: this.anims.generateFrameNames('beeDroneMale3', { start: 31, end: 32}), frameRate: 6, repeat: 0 });
             
         }else{
@@ -521,7 +521,7 @@ class beeDrone extends beeDroneAbduct {
                     if(this.scene.playerLocation === "sunFlowerField"){
                         this.scene.beesDefeated++;
                         console.log("incrementing bee counter for defeated bees! ",this.scene.beesDefeated);
-                        if(this.scene.beesDefeated > 0){
+                        if(this.scene.beesDefeated > 2){
                             //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
                             let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
 

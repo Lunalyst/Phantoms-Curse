@@ -84,6 +84,18 @@
             "start": 19.6,
             "end": 20.63,
             "loop": false
+        },"zip1":{
+            "start": 33.20,
+            "end": 33.60,
+            "loop": false
+        },"zip2":{
+            "start": 34.12,
+            "end": 34.48,
+            "loop": false
+        },"zip3":{
+            "start": 34.88,
+            "end": 36.89,
+            "loop": false
         }
         
     }

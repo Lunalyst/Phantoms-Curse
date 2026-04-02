@@ -113,7 +113,7 @@ class batCave extends defaultScene {
 
      
       //this.initPortals(510,797-13,2359,1080,"warpCaveOutside","hiveChamber1");
-      this.initPortals(510,797-13,1000,700,"warpCaveOutside","hiveChamber1");
+      this.initPortals(510,797-13,2359,1080,"warpCaveOutside","hiveChamber1");
 
       //sets up containers
       this.setUpContainers();

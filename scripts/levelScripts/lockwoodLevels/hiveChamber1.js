@@ -91,7 +91,7 @@ class hiveChamber1 extends defaultScene {
       this.setUpTextBox();
 
       //this.initPortals(1570,829-13,281,1277,"warpCaveInside","ForestRavineHome");
-      this.initPortals(2359,1080-13,510,797,"warpCaveOutside","batCave");
+      this.initPortals(2359,1080-8,510,797,"warpCaveOutside","batCave");
       //this.initPortals(661,829-13,395,1053,"warpCaveInside","sunFlowerField");
       this.initSavePoints(1453,984-10);
       this.savePointCover = this.add.sprite(1453,984-10, "savePointCover");

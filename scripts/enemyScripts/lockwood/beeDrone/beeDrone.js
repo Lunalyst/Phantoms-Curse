@@ -342,7 +342,7 @@ class beeDrone extends beeDroneAbduct {
 
     //simple idle function played when the player is grabbed by something that isnt this beeDrone.
     moveIdle() {
-        if(this.enemyHP > 0){
+        if(this.enemyHP > 0 && this.inSafeMode === false){
             this.anims.play('beeDroneIdle', true);
             this.setVelocityX(0);
             this.setVelocityY(0);

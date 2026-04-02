@@ -38,9 +38,14 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("hiveThroneGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Throne_Hive_Gameover .json");
 
+                tempGameover.load.spritesheet('Queen-Bee-Grub-Gameover', 'assets/bosses/Queen-Bee-Grub-Gameover.png',{frameWidth: 693, frameHeight: 561 });
                 tempGameover.load.audioSprite('wingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
                     "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
                   ]);
+
+                tempGameover.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
+                    "audio/used-audio/button-sounds/button-sounds.mp3"
+                ]);
 
                 tempGameover.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
                     "audio/used-audio/earie-sounds/earie-sounds.mp3"
@@ -617,7 +622,7 @@ class gameoverManager extends A3SoundEffects {
                                tempSceneRef.initLoopingSound('earieSFX','earieCave', 0.5);
 
                                tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
-
+                                tempSceneRef.initSoundEffect('bossSFX','zip1',.2);
                                 tempSceneRef.queenBee.anims.play("hugChains").once('animationcomplete', () => {
                                     tempSceneRef.queenBee.anims.play("hugChainsIdle", true);
 

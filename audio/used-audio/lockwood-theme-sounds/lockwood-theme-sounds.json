@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/lockood-theme-sounds/lockwood your cockwood.mp3"
+    ],
+    "spritemap": {
+        "lockwood your cockwood":{
+            "start": 0,
+            "end": 169,
+            "loop": true
+        }
+    }
+}

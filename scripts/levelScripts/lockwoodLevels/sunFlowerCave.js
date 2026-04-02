@@ -62,7 +62,7 @@ class sunFlowerCave extends defaultScene {
       this.grabbed = false;
 
       //sets up ambient lighting
-      //this.setupLightingSystem(0x555555);
+      this.setupLightingSystem(0x555555);
 
       //creates tileset
       this.setUpTileSet("Sun_Flower_Cave","Forest_Tileset","forest_source_map");

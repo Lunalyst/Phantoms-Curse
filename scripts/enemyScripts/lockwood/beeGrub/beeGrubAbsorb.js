@@ -416,8 +416,7 @@ class beeGrubAbsorb extends enemy {
 
         //function to show off animation 
     animationGrabAbduct(){
-        let currentbeeDrone = this;
-        //first checks if beeDrone object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
+        //first checks if bat object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
         
         //stops the x velocity of the enemy
@@ -427,25 +426,18 @@ class beeGrubAbsorb extends enemy {
         // if the grabbed is false but this function is called then do the following.
         if (this.playerGrabbed === false) {
 
-            this.beeDroneGrabFalse();
+            this.enemyGrabFalse();
             this.isViewingAnimation = true;
             this.playerProgressingAnimation = false;
-
-            this.anims.play("beeDroneStruggle",true);
-
+            
         //if the player is grabbed then.
         } else if(this.playerGrabbed === true) {
 
             //object is on view layer 5 so enemy is infront of others.
-            this.setDepth(5);
+            this.setDepth(6);
 
             //hides the mobile controls in the way of the tab/skip indicator.
             controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-
-            //plays jumpy sound during grab.
-            if (this.playerProgressingAnimation === false) {
-                this.playJumpySound('3',700);
-            }
 
             //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
             let playerHealthObject = {
@@ -457,37 +449,70 @@ class beeGrubAbsorb extends enemy {
         
             // if the player is properly grabbed then change some attribute of thep lay to get there hitbox out of the way.
             this.scene.player1.y = this.y - 150;
-            //this.scene.player1.body.setGravityY(0);
-            //this.body.setGravityY(0);
-            //this.scene.player1.setSize(10, 10, true);
-            //puts the key display in the correct location.
-            this.scene.KeyDisplay.visible = true;
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 90;
-            // deals damage to the player. should remove the last part of the ifstatement once small defeated animation function is implemented.
-            
+
             //if the player is not defeated
             if (this.playerProgressingAnimation === false) {
 
-            // handles input for progressing animation
-            if (this.scene.checkDPressed() === true) {
-                this.playerProgressingAnimation = true;
-                }
 
-                // displays inputs while in the first stage of the animation viewing.
-                if (this.keyAnimationPlayed === false) {
-                    //console.log(" setting keyW display");
-                    this.scene.KeyDisplay.playDKey();
-                    this.keyAnimationPlayed = true;
-                }      
+                //needed for the animation viewer
+                if(this.animationPlayed === false && this.startAnimationPlayed === false){
+                    this.animationPlayed = true;
+                    this.anims.play('beeGrubToungLashGrab').once('animationcomplete', () => {
+                        this.playPlapSound('plap4',1000);
+                        this.anims.play('beeGrubHalfInStruggle').once('animationcomplete', () => {
+                            this.playPlapSound('plap3',1000);
+                            this.anims.play('beeGrubSwallowComplete').once('animationcomplete', () => {
+
+                                    //play struggle animation afterward.
+                                    this.anims.play("absorbIdle", true);
+                                    this.startAnimationPlayed = true;
+                                    this.animationPlayed = false;
+
+                                    //puts the key display in the correct location.
+                                    this.scene.KeyDisplay.visible = true;
+                                    this.scene.KeyDisplay.x = this.x;
+                                    this.scene.KeyDisplay.y = this.y + 65;
+                                }); 
+                        }); 
+                    });       
+                }else if(this.startAnimationPlayed === true){
+
+                    // displays inputs while in the first stage of the animation viewing.
+                    if (this.keyAnimationPlayed === false) {
+                        //console.log(" setting keyW display");
+                        this.scene.KeyDisplay.playWKey();
+                        this.keyAnimationPlayed = true;
+                    }
+                    // handles input for progressing animation
+                    if (this.scene.checkWPressed() === true) {
+                        this.playerProgressingAnimation = true;
+                        
+                    }else if(this.scene.checkAPressed() === true || this.scene.checkDPressed() === true || this.scene.checkSPressed()) {
+
+                        if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
+
+
+                            this.struggleAnimationInterupt = true;
+                            this.anims.play('beeGrubDownStruggle').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.struggleAnimationInterupt = false;
+                            });
+                        }
+                    }else if(this.struggleAnimationInterupt === false){
+                        this.anims.play('beeGrubIdleStruggle', true);
+                        this.playPlapSound('plap5',1000);
+                    }   
+                }   
             }
 
             if( this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
                 if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
-                    //handle the defeated logic that plays defeated animations 
-                    this.playerIsDefeatedLogicAbduct(playerHealthObject);
+                    //handle the defeated logic that plays defeated animations
+                     this.playerIsDefeatedLogicAbduct();
+
+                
                 }else{
                     //hide the tab indicator and key prompts
                     skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);

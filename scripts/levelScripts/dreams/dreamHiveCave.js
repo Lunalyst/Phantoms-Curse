@@ -130,7 +130,7 @@ class dreamHiveCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(1303,1038,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
+          thisScene.initEnemy(1300,1038,thisScene.playerSex,'beeDrone',true,'wingFlapSFX2');
         }
 
         object1 = {
@@ -148,7 +148,20 @@ class dreamHiveCave extends defaultScene {
         inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
 
         if((object1.foundFlag === true || object2.foundFlag === true)){
-          thisScene.initEnemy(1123,1057,thisScene.playerSex,'beeDroneSecret',true,'wingFlapSFX2');
+          thisScene.initEnemy(1150,1057,thisScene.playerSex,'beeDroneSecret',true,'wingFlapSFX2');
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.beeGrubTF,
+          foundFlag: false,
+        };
+
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+
+        if((object1.foundFlag === true )){
+          //thisScene.initEnemy(1123,1057,thisScene.playerSex,'beeDroneSecret',true,'wingFlapSFX2');
+          thisScene.initEnemy(1000, 1057,thisScene.playerSex,'beeGrub',true);
         }
 
         

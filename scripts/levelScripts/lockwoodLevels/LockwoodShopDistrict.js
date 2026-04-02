@@ -48,6 +48,38 @@ class LockwoodShopDistrict extends defaultScene {
       this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
       
       this.load.spritesheet("randi" , "assets/npcs/randi.png" , {frameWidth: 273 , frameHeight: 273 });
+
+      //extras for postcard.
+
+      //vivian
+      this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
+      this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
+      //istara
+      this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
+      //dayns
+      this.load.spritesheet("dayns" , "assets/npcs/dayns.png" , {frameWidth: 333 , frameHeight: 333 });
+      //roxie
+      this.load.spritesheet("roxie" , "assets/npcs/roxie.png" , {frameWidth: 393 , frameHeight: 453 });
+      //kale
+      this.load.spritesheet("kale" , "assets/npcs/kale.png" , {frameWidth: 393 , frameHeight: 393 });
+      //sofia
+      this.load.spritesheet("sofia" , "assets/npcs/sofia.png" , {frameWidth: 393 , frameHeight: 393 });
+      //regi
+      this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
+      //daeuge
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      //milo
+      this.load.spritesheet("miloMaskedIdle" , "assets/npcs/miloMaskedIdle.png" , {frameWidth: 459 , frameHeight: 300 });
+      //olivia
+      this.load.spritesheet("olivia" , "assets/npcs/olivia.png" , {frameWidth: 249 , frameHeight: 279 });
+
+      //siricle
+      this.load.spritesheet("Siracle" , "assets/npcs/Siracle.png" , {frameWidth: 393 , frameHeight: 483 });
+
+      //lunalyst
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      //TSA
+       this.load.spritesheet("TSA" , "assets/bosses/TSACorrupted.png" , {frameWidth: 459 , frameHeight: 459 });
       
       this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
       
@@ -63,8 +95,8 @@ class LockwoodShopDistrict extends defaultScene {
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
+      this.load.audioSprite('lockwoodSFX','audio/used-audio/lockwood-theme-sounds/lockwood-theme-sounds.json',[
+        "audio/used-audio/lockwood-theme-sounds/lockwood your cockwood.mp3"
       ]);
 
     }
@@ -100,7 +132,7 @@ class LockwoodShopDistrict extends defaultScene {
       //adds looping sound effect.
       //this.initLoopingSound('forestSFX','forest',1,"ambience");
 
-      //this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
+      this.initLoopingSound('lockwoodSFX','lockwood your cockwood',0.01,"music");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -154,9 +186,9 @@ class LockwoodShopDistrict extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initSavePoints(1539,728-10);
+      this.initSavePoints(12189,728-10);
 
-      this.autumn = this.add.sprite(2768, 728-8, "autumn");
+      /*this.autumn = this.add.sprite(2768, 728-8, "autumn");
       this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
       this.autumn.setScale(1/3);
@@ -164,7 +196,95 @@ class LockwoodShopDistrict extends defaultScene {
       this.randi = this.add.sprite(1038, 728-6, "randi");
       this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.randi.anims.play("idle", true);
+      this.randi.setScale(1/3);*/
+
+      // postcard poses
+
+      this.roxie = this.add.sprite(1651, 728-64, "roxie");
+      this.roxie.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('roxie', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.roxie.anims.play("idle", true);
+      this.roxie.setScale(1/3);
+
+      this.autumn = this.add.sprite(1684, 728-8, "autumn");
+      this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.autumn.anims.play("idle", true);
+      this.autumn.setScale(1/3)
+
+      
+
+      this.tsa = this.add.sprite(1739, 728+15, "TSA");
+      this.tsa.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('TSA', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.tsa.anims.play("idle", true);
+      this.tsa.setScale(1/8);
+
+
+      this.randi = this.add.sprite(1765, 728-6, "randi");
+      this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.randi.anims.play("idle", true);
       this.randi.setScale(1/3);
+
+      this.kale = this.add.sprite(1568, 728-23, "kale");
+      this.kale.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('kale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.kale.anims.play("idle", true);
+      this.kale.setScale(1/3);
+
+      this.sofia = this.add.sprite(1522, 728-5, "sofia");
+      this.sofia.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('sofia', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.sofia.anims.play("idle", true);
+      this.sofia.setScale(1/3);
+
+      this.olivia = this.add.sprite(1609, 728-1, "olivia");
+      this.olivia.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('olivia', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.olivia.anims.play("idle", true);
+      this.olivia.setScale(1/3);
+
+      
+      this.dayns = this.add.sprite(1718, 728-15, "dayns");
+      this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.dayns.anims.play("idle", true);
+      this.dayns.setScale(1/3);
+
+      this.istara = this.add.sprite(2039, 728-32, "istara");
+      this.istara.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }), frameRate: 7, repeat: -1 });
+      this.istara.anims.play("idle", true);
+      this.istara.setScale(1/3);
+
+      this.lunalyst = this.add.sprite(1993, 728, "lunalyst");
+      this.lunalyst.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('lunalyst', { start: 1, end: 4 }), frameRate: 7, repeat: -1 });
+      this.lunalyst.anims.play("idle", true);
+      this.lunalyst.setScale(1/3);
+
+      this.vivian = this.add.sprite(1935, 728-1, "vivian");
+      this.vivian.anims.create({key: 'vivianShopIdle',frames: this.anims.generateFrameNames('vivian', { start: 24, end: 27 }),frameRate: 7,repeat: -1});
+      this.vivian.anims.play("vivianShopIdle", true);
+      this.vivian.setScale(1/3);
+
+      this.Siracle = this.add.sprite(1962, 728-21, "Siracle");
+      this.Siracle.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('Siracle', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.Siracle.anims.play("idle", true);
+      this.Siracle.setScale(1/3);
+
+      this.deaugh = this.add.sprite(1877, 728-17, "deaugh");
+      this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.deaugh.anims.play("idle", true);
+      this.deaugh.setScale(1/3);
+
+      this.regi = this.add.sprite(2084, 728-16, "regi");
+      this.regi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('regi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.regi.anims.play("idle", true);
+      this.regi.setScale(1/3);
+
+      this.milo = this.add.sprite(2026, 728-7, "miloMaskedIdle");
+      this.milo.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloMaskedIdle', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.milo.anims.play("idle", true);
+      this.milo.flipX = true;
+      this.milo.setScale(1/3);
+
+ 
+
+
+ 
+
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

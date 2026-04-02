@@ -2,7 +2,7 @@
 //implementation for the beeGrub enemy.
 class beeGrub extends beeGrubAbsorb {
     
-    constructor(scene, xPos, yPos, sex, id) {
+    constructor(scene, xPos, yPos, sex, id, inSafeMode) {
         
         //on set up, need to decide if beeGrub is make or female, using preference variable in settings.
         super(scene, xPos, yPos, sex, id, 20, 'beeGrub');
@@ -24,6 +24,7 @@ class beeGrub extends beeGrubAbsorb {
         this.beeSFX = "wingFlapSFX0";
 
         //this.struggleValue = 10;
+        this.inSafeMode = inSafeMode;
 
         this.spitUp = false;
         //make a hitbox so the bee can grab the player.
@@ -562,12 +563,6 @@ class beeGrub extends beeGrubAbsorb {
         }
     }
 
-    // plays the beeGrub defeated player animations.
-    beeGrubDefeatedPlayerAnimation() {
-
-        
-    }
-
      playWingFlapSound(type,delay){
         //console.log("playing flap sound")
         if(this.beeDroneSoundCoolDown === false){
@@ -580,6 +575,10 @@ class beeGrub extends beeGrubAbsorb {
             }, delay);
         }
 
+    }
+
+    animationGrab(){
+        this.animationGrabAbduct();
     }
     
 }

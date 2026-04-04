@@ -56,6 +56,10 @@ class LockwoodShopDistrict extends defaultScene {
       this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
       //istara
       this.load.spritesheet("istara" , "assets/npcs/istara.png" , {frameWidth: 783 , frameHeight: 432 });
+      
+      //
+      this.load.spritesheet("Fursagi" , "assets/npcs/Fursagi.png" , {frameWidth: 393 , frameHeight: 393 });
+      
       //dayns
       this.load.spritesheet("dayns" , "assets/npcs/dayns.png" , {frameWidth: 333 , frameHeight: 333 });
       //roxie
@@ -169,7 +173,7 @@ class LockwoodShopDistrict extends defaultScene {
       this.setUpPlayerCraftingBench();
       this.initPlayerCraftingBench(1149, 728-9);
 
-      this.initPortals(1818,728-8,1776,728,"warpCaveInside","LockwoodOverrootCenter",false);
+      //this.initPortals(1818,728-8,1776,728,"warpCaveInside","LockwoodOverrootCenter",false);
 
       //this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 
@@ -200,7 +204,12 @@ class LockwoodShopDistrict extends defaultScene {
 
       // postcard poses
 
-      this.roxie = this.add.sprite(1651, 728-64, "roxie");
+      this.istara = this.add.sprite(2039, 728-32, "istara");
+      this.istara.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }), frameRate: 7, repeat: -1 });
+      this.istara.anims.play("idle", true);
+      this.istara.setScale(1/3);
+
+      this.roxie = this.add.sprite(1955, 654, "roxie");
       this.roxie.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('roxie', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.roxie.anims.play("idle", true);
       this.roxie.setScale(1/3);
@@ -217,6 +226,11 @@ class LockwoodShopDistrict extends defaultScene {
       this.tsa.anims.play("idle", true);
       this.tsa.setScale(1/8);
 
+
+      this.fursagi = this.add.sprite(1651, 660-6, "Fursagi");
+      this.fursagi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('Fursagi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.fursagi.anims.play("idle", true);
+      this.fursagi.setScale(1/3);
 
       this.randi = this.add.sprite(1765, 728-6, "randi");
       this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
@@ -243,11 +257,6 @@ class LockwoodShopDistrict extends defaultScene {
       this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.dayns.anims.play("idle", true);
       this.dayns.setScale(1/3);
-
-      this.istara = this.add.sprite(2039, 728-32, "istara");
-      this.istara.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }), frameRate: 7, repeat: -1 });
-      this.istara.anims.play("idle", true);
-      this.istara.setScale(1/3);
 
       this.lunalyst = this.add.sprite(1993, 728, "lunalyst");
       this.lunalyst.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('lunalyst', { start: 1, end: 4 }), frameRate: 7, repeat: -1 });

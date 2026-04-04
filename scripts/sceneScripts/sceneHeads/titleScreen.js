@@ -159,9 +159,14 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Alpha V0.30.04");
+            this.version = new makeText(this,this.screenWidth-210,this.screenHeight-25,'charBubble',"Alpha V0.30.05");
             this.version.visible = true;
             this.version.setDepth(51);
+
+            this.versionName = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Light and Dark");
+            this.versionName.visible = true;
+            this.versionName.setDepth(51);
+
             this.elements.add(this.version);
 
             this.creditsArray = [
@@ -174,6 +179,7 @@ class titleScreen extends A3SoundEffects {
                 '- Paws and Wait',
                 '- Whats Good Slime',
                 '- In Defiance of the Curse',
+                '- Lockwood your Cockwood',
                 'KALE13: spritework assistance',
                  '- M bat F player TF sprite',
                 'Stiefeljackal: rabbit gameover moddification',
@@ -181,8 +187,8 @@ class titleScreen extends A3SoundEffects {
                 "Scarlet: orthographer, inspiration, bug testing",
                 'Kashindolly: orthographer',
                 'Otpfurry1: donation, inspiration',
-                'Tyler Ritchie: patreon',
                 'Vik : patreon, commision, gameover dialogue,',
+                'Tyler Ritchie: patreon',
                 'Leo: patreon',
                 'Inquisitor Kobold: patreon',
                 'Zealotdkd: patreon',
@@ -192,6 +198,7 @@ class titleScreen extends A3SoundEffects {
                 'Foxymew: patreon',
                 'Senro: patreon',
                 'Djodjow: patreon',
+                'Lexi: patreon',
                 'Irongelatin: gameover dialogue',
                 'Istara: commission & inspiration',
                 'inspiration, bug testing',

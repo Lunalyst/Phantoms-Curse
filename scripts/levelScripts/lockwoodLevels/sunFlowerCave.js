@@ -42,8 +42,8 @@ class sunFlowerCave extends defaultScene {
       this.load.spritesheet("secretWall1" , "assets/gameObjects/secretWall1.png" , {frameWidth: 864 , frameHeight: 288 });
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
-      this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
-        "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
+      this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
+        "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
       ]);
 
     }
@@ -72,8 +72,9 @@ class sunFlowerCave extends defaultScene {
       //adds looping sound effect.
       //this.initLoopingSound('forestSFX','forest',1);
 
-      this.initLoopingSound('sunflowerThemeSFX','bertsz',0.05,"music");
-
+      //activates sound
+      this.initLoopingSound('caveSFX','cave', 0.1,"music");
+      
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 
@@ -121,7 +122,11 @@ class sunFlowerCave extends defaultScene {
       this.secretWall1 = this.add.sprite(4943.6-4160, 1072.2, "secretWall1");
       this.secretWall1.setDepth(7);
       this.secretWall1.setScale(0.335);
-      //this.secretWall1.setPipeline('Light2D');
+      this.secretWall1.setPipeline('Light2D');
+
+      this.lightSource1 = this.lights.addLight(480,580, 70, 0xffffff);
+      this.lightSource1.intensity = 1.7;
+      console.log("this.lightSource1: ",this.lightSource1)
       
       //sets up containers
       this.setUpContainers();

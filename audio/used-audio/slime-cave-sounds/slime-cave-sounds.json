@@ -5,7 +5,7 @@
     "spritemap": {
         "slimeCave":{
             "start": 0,
-            "end": 18,
+            "end": 19,
             "loop": true
         }
     }

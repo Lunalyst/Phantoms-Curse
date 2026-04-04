@@ -103,7 +103,7 @@ class caveToSunflowers2 extends defaultScene {
 
       this.initPortals(1570,829-13,5812,1181,"warpCaveInside","TestForest");
 
-      this.initPortals(661,829-13,6763-4160,1469,"warpCaveInside","sunFlowerCave");
+      this.initPortals(661,829-13,6763-4160,1469,"warpCaveOutside","sunFlowerCave");
 
       this.initPortals(1123,888-8,2815,1368,"warpCaveShadow","ShadowCave");
    

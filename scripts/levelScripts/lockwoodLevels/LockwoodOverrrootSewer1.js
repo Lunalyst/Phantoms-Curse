@@ -180,8 +180,6 @@ class LockwoodOverrootSewer1 extends defaultScene {
       this.lightSource1 = this.lights.addLight(1792,50, 80, 0xffffff);
       this.lightSource1.intensity = 3;
       console.log("this.lightSource1: ",this.lightSource1)
-
-     
       
       this.dayns = this.add.sprite(1166, 440-15+32, "dayns");
       this.dayns.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('dayns', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });

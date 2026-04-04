@@ -1370,7 +1370,7 @@ class blueSlime extends enemy {
                     }
                 });
             }
-        } else if (this.playerDefeatedAnimationStage === 4) {
+        }else if(this.playerDefeatedAnimationStage === 4) {
             console.log("this.scene.internalView: ",this.scene.internalView)
             this.playSlimeSound('1',600);
             this.playPlapSound('plap10',1800);

@@ -155,10 +155,11 @@ class blueSlimeCave1 extends defaultScene {
       let thisScene = this;
       setTimeout(function(){
           thisScene.initEnemy(934, 1341,thisScene.playerSex,'blueSlimeHM',false);
-          thisScene.initEnemy(1037, 1331,thisScene.playerSex,'blueSlimeLarge',false);
+          thisScene.initEnemy(891, 568,thisScene.playerSex,'blueSlimeLarge',false);
           thisScene.initEnemy(1037, 1021,thisScene.playerSex,'blueSlimeHM',false);
-          thisScene.initEnemy(1377, 1085,thisScene.playerSex,'blueSlimeHS',false);
+          //thisScene.initEnemy(1377, 1085,thisScene.playerSex,'blueSlimeHS',false);
           
+          //thisScene.initEnemy(899, 568,thisScene.playerSex,'blueSlimeHM',false);
           thisScene.spawnedEnemys = true;
         },1000);
 

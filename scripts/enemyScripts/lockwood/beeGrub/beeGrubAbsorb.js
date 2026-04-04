@@ -391,7 +391,7 @@ class beeGrubAbsorb extends enemy {
     }
 
     // functioned called to play animation when the player is defeated by the beeDrone in gameover.
-    gameOver(playerSex) {
+    gameOver(playerSex){
         this.setSize(70, 180, true);
 
         this.gameoverAnimationComplete = false;

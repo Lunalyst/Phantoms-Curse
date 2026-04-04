@@ -643,7 +643,7 @@ class gameoverManager extends A3SoundEffects {
                                         },5000);
                                     },5000);
                                 },5000);
-                            },5000);
+                            },30000);
                 
                         });
                     });
@@ -1283,7 +1283,7 @@ class gameoverManager extends A3SoundEffects {
                         },3000);
                     });
                 }
-
+                
                 if(tempSceneRef.enemy.gameoverMove === null || tempSceneRef.enemy.gameoverMove === undefined){
 
                     //sound state machine for ifferent stages.

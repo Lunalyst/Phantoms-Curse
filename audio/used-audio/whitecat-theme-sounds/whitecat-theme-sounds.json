@@ -5,7 +5,7 @@
     "spritemap": {
         "theme":{
             "start": 0,
-            "end": 145,
+            "end": 87,
             "loop": true
         }
     }

@@ -110,7 +110,15 @@ class blueSlimeHSAbsorb extends enemy {
                 this.keyAnimationPlayed = false;
                 this.scene.grabbed = false;
                 this.jumpAnimationPlayed = false;
-                  this.startedGrab = false;
+                this.startedGrab = false;
+
+                this.scene.player1.x = this.x
+                this.scene.player1.y = this.y-10;
+
+                this.scene.player1.mainHitbox.x = this.x
+                this.scene.player1.mainHitbox.y = this.y-10
+
+
 
                 //sets the cooldown to true, then calls the built in function of the scene to 
                 //set it to false in 3 seconds. need to do this in scene to be safe

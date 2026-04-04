@@ -76,6 +76,9 @@ class chestMimic extends enemy {
             this.anims.create({ key: 'mimicAngryRightGrabStart', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:19, end: 22 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'mimicAngryRightGrabMiss', frames: this.anims.generateFrameNames('mimicMale-evan-vore', { start:23, end: 25 }), frameRate: 7, repeat: 0 });
             
+            this.anims.create({ key: 'mimicDefeatedFall', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 41, end: 45 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'mimicDefeatedIdle', frames: this.anims.generateFrameNames('mimicMale-evelyn-TF', { start: 46, end: 49 }), frameRate: 7, repeat: -1 });
+               
             if(sex === 0 ){
                 this.anims.create({ key: 'mimicGrabbed', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 26, end: 36 }), frameRate: 7, repeat: 0 });
                 this.anims.create({ key: 'mimicDefeatedTF1', frames: this.anims.generateFrameNames('mimicMale-evan-TF', { start: 46-9, end: 48-9 }), frameRate: 7, repeat: 0 });
@@ -132,6 +135,9 @@ class chestMimic extends enemy {
             this.anims.create({ key: 'mimicAngryLeftGrabMiss', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:16, end: 18 }), frameRate: 7, repeat: 0 });
             this.anims.create({ key: 'mimicAngryRightGrabStart', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:19, end: 22 }), frameRate: 20, repeat: 0 });
             this.anims.create({ key: 'mimicAngryRightGrabMiss', frames: this.anims.generateFrameNames('mimicFemale-evan-vore', { start:23, end: 25 }), frameRate: 7, repeat: 0 });
+            
+            this.anims.create({ key: 'mimicDefeatedFall', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 77, end: 81 }), frameRate: 7, repeat: 0 });
+            this.anims.create({ key: 'mimicDefeatedIdle', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 82, end: 85 }), frameRate: 7, repeat: -1 });
             
             if(sex === 0 ){
                 this.anims.create({ key: 'mimicGrabbed', frames: this.anims.generateFrameNames('mimicFemale-evan-TF', { start: 26, end: 37 }), frameRate: 7, repeat: 0 });
@@ -203,234 +209,253 @@ class chestMimic extends enemy {
         this.setSize(200,100,true);
         this.setOffset(90, 200);
         console.log("this.hiding: ",this.hiding,"this.attacked: ",this.attacked)
+        if (this.enemyHP > 0) {
+            if(this.hiding === true){
+                //handles the devious fake prompt to the player to open the mimic chest >:3
+                if(this.attacked === false && (this.scene.player1.x > this.x - 40 && this.scene.player1.x < this.x + 40) && (this.scene.player1.y > this.y - 40 && this.scene.player1.y < this.y + 40)){
+                    //handles displaying the mimic key prompts
+                    this.containerKeyPrompts.visible = true;
 
-        if(this.hiding === true){
-            //handles the devious fake prompt to the player to open the mimic chest >:3
-            if(this.attacked === false && (this.scene.player1.x > this.x - 40 && this.scene.player1.x < this.x + 40) && (this.scene.player1.y > this.y - 40 && this.scene.player1.y < this.y + 40)){
-                //handles displaying the mimic key prompts
-                this.containerKeyPrompts.visible = true;
+                    if(this.keyPlayed === false){
+                        this.containerKeyPrompts.playWKey(); 
+                        this.keyPlayed = true;
+                    }
 
-                if(this.keyPlayed === false){
-                    this.containerKeyPrompts.playWKey(); 
-                    this.keyPlayed = true;
-                }
+                    //if w is pressed infront of the mimic
+                    if(this.scene.checkWPressed()){
+                        this.grabbing = true;
 
-                //if w is pressed infront of the mimic
-                if(this.scene.checkWPressed()){
-                    this.grabbing = true;
-
-                    //plays creek sound effect 
-                    this.scene.initSoundEffect('creakSFX','wood',0.05);
-                    this.anims.play('mimicFrontGrabStart').once('animationcomplete', () => {
-
-                        this.hiding = false;
-                        this.containerKeyPrompts.visible = false;
-                        this.keyPlayed  = false;
-                        this.grabHitBox.x = this.x;
-                        this.grabHitBox.y = this.y;
-                        this.grabHitBox.setSize(70,10,true);
-                        this.grabHitBox.body.enable = true;
-
-                        this.playJumpySound('3',700);
-
-                        this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
-                            this.grabHitBox.body.enable = false;
-                            this.grabbing = false;
-
-                            this.anims.play('mimicAngryIdleTwice').once('animationcomplete', () => {
-                            this.attacked = true;
-                            console.log("setting angery to true!")
-                            if(this.playerDefeated === false){
-                                this.angry = true; 
-                            }
-                            });
-                        
-                        });
-                        
-                    });
-
-                }
-
-                
-            }else if(this.attacked === true){
-
-                if(this.attackedGrabPlayed === false){
-
-                    this.grabbing = true;
-                    this.attackedGrabPlayed = true;
-                    //plays creek sound effect 
-                    this.scene.initSoundEffect('creakSFX','wood',0.05);
-
-                    this.anims.play('mimicFrontGrabStart').once('animationcomplete', () => {
-                        this.hiding = false;
-                        this.containerKeyPrompts.visible = false;
-                        this.keyPlayed  = false;
-                        this.grabHitBox.setSize(70,10,true);
-                        this.grabHitBox.x = this.x;
-                        this.grabHitBox.y = this.y;
-                        this.grabHitBox.body.enable = true;
-
-                        this.playJumpySound('3',700);
-        
-                        this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
-                            this.grabHitBox.body.enable = false;
-                            this.grabbing = false;
-        
-                            this.anims.play('mimicAngryIdleTwice').once('animationcomplete', () => {
-                            this.attacked = true;
-                            this.attackedGrabPlayed = false;
-                            console.log("setting angery to true!")
-                            if(this.playerDefeated === false){
-                                this.angry = true; 
-                            }
-                            
-                            });
-                        
-                        });
-                        
-                    });
-                }
-            //if the mimic is just hiding then 
-            }else{
-                // button prompt since player is out of range
-                this.containerKeyPrompts.visible = false;
-                this.keyPlayed  = false;
-
-                //check the player idle timer to see if the player is afk
-                if(this.scene.player1.idleTimer === 2000){
-                    //if so then do peek animation
-                    if(this.peeking === false){
-
-                        this.peeking = true;
                         //plays creek sound effect 
                         this.scene.initSoundEffect('creakSFX','wood',0.05);
-
-                        this.anims.play('mimicPeak',true).once('animationcomplete', () => {
-                            //this.peeking = false;
-                            this.anims.play('mimicHide',true); 
-
-                            //after peek animation played, then reset it in 3 seconds to peak agian.
-                            let mimic = this;
-                            setTimeout(function(){
-                                mimic.peeking = false;
-                            },3000);
-                        });   
-                    }
-                }else if(this.grabbing === false){
-                    this.peeking = false;
-                    this.anims.play('mimicHide',true);  
-                }
-            }
-        
-        //if the player dodged the initial grab, then she becomes angry and will now attempt to vore the player >:3
-        }else if(this.angry === true){
-            if((this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 90) && (this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y+20 )){
-                //check if player is right 
-                if(this.scene.player1.x > this.x+50 && this.attackedGrabPlayed === false){
-
-                    if(this.attackedGrabPlayed === false){
-                        this.attackedGrabPlayed = true;
-                        this.angryGrabbedPosition = 2;
-                        //this.grabHitBox.setSize(100,10,true);
-                        
-                        //attempt to grab them if in range
-                        this.anims.play('mimicAngryRightGrabStart').once('animationcomplete', () => {
-                            this.grabHitBox.body.enable = true;
-                            this.grabHitBox.setSize(64,10,true);
-                            this.grabHitBox.x = this.x+35;
-                            this.grabHitBox.y = this.y;
-                            
-                            this.playJumpySound('3',700);
-                        
-                            this.anims.play('mimicAngryRightGrabMiss').once('animationcomplete', () => {
-                                this.grabHitBox.body.enable = false;
-                                this.grabbing = false;
-                                this.attackedGrabPlayed = false;
-                            
-                            });
-                            
-                        });
-                    }
-                
-                //else if thep layer is to the left.    
-                }else if(this.scene.player1.x < this.x-50 && this.attackedGrabPlayed === false){
-
-                    if(this.attackedGrabPlayed === false){
-                        this.attackedGrabPlayed = true;
-                        this.angryGrabbedPosition = 0;
-                        //this.grabHitBox.setSize(100,10,true);
-                        
-                        //attempt to grab them if in range
-                        this.anims.play('mimicAngryLeftGrabStart').once('animationcomplete', () => {
-                            
-                            this.grabHitBox.body.enable = true;
-                            this.grabHitBox.setSize(64,10,true);
-                            this.grabHitBox.x = this.x-35;
-                            this.grabHitBox.y = this.y;
-
-                            this.playJumpySound('3',700);
-
-                            this.anims.play('mimicAngryLeftGrabMiss').once('animationcomplete', () => {
-                                this.grabHitBox.body.enable = false;
-                                this.grabbing = false;
-                                this.attackedGrabPlayed = false;
-                            
-                            });
-                            
-                        });
-                    }
-                //if the player is in the middle of the mimic then grab center
-                }else{
-
-                    if(this.attackedGrabPlayed === false){
-                        this.attackedGrabPlayed = true;
-                        this.angryGrabbedPosition = 1; 
-                        this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
+                        this.anims.play('mimicFrontGrabStart').once('animationcomplete', () => {
 
                             this.hiding = false;
                             this.containerKeyPrompts.visible = false;
                             this.keyPlayed  = false;
-                            this.grabHitBox.x = this.x;
-                            this.grabHitBox.y = this.y;
-                            this.grabHitBox.setSize(70,10,true);
-                            this.grabHitBox.body.enable = true;
+                            if (this.enemyHP > 0) {
+                                this.grabHitBox.x = this.x;
+                                this.grabHitBox.y = this.y;
+                                this.grabHitBox.setSize(70,10,true);
+                                this.grabHitBox.body.enable = true;
+                            }
 
                             this.playJumpySound('3',700);
 
                             this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
-                                this.grabHitBox.body.enable = false;
-                                this.grabbing = false;
+                                 if (this.enemyHP > 0) {
+                                    this.grabHitBox.body.enable = false;
+                                    this.grabbing = false;
+                                 }
+
+                                this.anims.play('mimicAngryIdleTwice').once('animationcomplete', () => {
+                                this.attacked = true;
+                                console.log("setting angery to true!")
+                                if(this.playerDefeated === false){
+                                    this.angry = true; 
+                                }
+                                });
+                            
+                            });
+                            
+                        });
+
+                    }
+
+                    
+                }else if(this.attacked === true){
+
+                    if(this.attackedGrabPlayed === false){
+
+                        this.grabbing = true;
+                        this.attackedGrabPlayed = true;
+                        //plays creek sound effect 
+                        this.scene.initSoundEffect('creakSFX','wood',0.05);
+
+                        this.anims.play('mimicFrontGrabStart').once('animationcomplete', () => {
+                            this.hiding = false;
+                            this.containerKeyPrompts.visible = false;
+                            this.keyPlayed  = false;
+                            if (this.enemyHP > 0) {
+                                this.grabHitBox.setSize(70,10,true);
+                                this.grabHitBox.x = this.x;
+                                this.grabHitBox.y = this.y;
+                                this.grabHitBox.body.enable = true;
+                            }
+
+                            this.playJumpySound('3',700);
+            
+                            this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
+                                 if (this.enemyHP > 0) {
+                                    this.grabHitBox.body.enable = false;
+                                    this.grabbing = false;
+                                 }
+            
+                                this.anims.play('mimicAngryIdleTwice').once('animationcomplete', () => {
+                                this.attacked = true;
                                 this.attackedGrabPlayed = false;
+                                console.log("setting angery to true!")
+                                if(this.playerDefeated === false){
+                                    this.angry = true; 
+                                }
+                                
+                                });
                             
                             });
                             
                         });
                     }
+                //if the mimic is just hiding then 
+                }else{
+                    // button prompt since player is out of range
+                    this.containerKeyPrompts.visible = false;
+                    this.keyPlayed  = false;
+
+                    //check the player idle timer to see if the player is afk
+                    if(this.scene.player1.idleTimer === 2000){
+                        //if so then do peek animation
+                        if(this.peeking === false){
+
+                            this.peeking = true;
+                            //plays creek sound effect 
+                            this.scene.initSoundEffect('creakSFX','wood',0.05);
+
+                            this.anims.play('mimicPeak',true).once('animationcomplete', () => {
+                                //this.peeking = false;
+                                this.anims.play('mimicHide',true); 
+
+                                //after peek animation played, then reset it in 3 seconds to peak agian.
+                                let mimic = this;
+                                setTimeout(function(){
+                                    mimic.peeking = false;
+                                },3000);
+                            });   
+                        }
+                    }else if(this.grabbing === false){
+                        this.peeking = false;
+                        this.anims.play('mimicHide',true);  
+                    }
                 }
-            //if the player is within 100 pixels play agressive idle animations
-            }else if((this.scene.player1.x > this.x - 210 && this.scene.player1.x < this.x + 210) && (this.scene.player1.y > this.y - 200 && this.scene.player1.y < this.y + 200)){
-                
-                //check if player is right 
-                if(this.attackedGrabPlayed === false && this.scene.player1.x > this.x+20){
-                    this.anims.play('mimicAngryRight',true);
-                
-                //else if thep layer is to the left.    
-                }else if(this.attackedGrabPlayed === false && this.scene.player1.x < this.x-20){
-                    this.anims.play('mimicAngryLeft',true);
+            
+            //if the player dodged the initial grab, then she becomes angry and will now attempt to vore the player >:3
+            }else if(this.angry === true){
+                if((this.scene.player1.x > this.x - 90 && this.scene.player1.x < this.x + 90) && (this.scene.player1.y > this.y - 400 && this.scene.player1.y < this.y+20 )){
+                    //check if player is right 
+                    if(this.scene.player1.x > this.x+50 && this.attackedGrabPlayed === false){
+
+                        if(this.attackedGrabPlayed === false){
+                            this.attackedGrabPlayed = true;
+                            this.angryGrabbedPosition = 2;
+                            //this.grabHitBox.setSize(100,10,true);
+                            
+                            //attempt to grab them if in range
+                            this.anims.play('mimicAngryRightGrabStart').once('animationcomplete', () => {
+                                if (this.enemyHP > 0) {
+                                    this.grabHitBox.body.enable = true;
+                                    this.grabHitBox.setSize(64,10,true);
+                                    this.grabHitBox.x = this.x+35;
+                                    this.grabHitBox.y = this.y;
+                                }
+                                
+                                this.playJumpySound('3',700);
+                            
+                                this.anims.play('mimicAngryRightGrabMiss').once('animationcomplete', () => {
+                                     if (this.enemyHP > 0) {
+                                        this.grabHitBox.body.enable = false;
+                                        this.grabbing = false;
+                                        this.attackedGrabPlayed = false;
+                                     }
+                                
+                                });
+                                
+                            });
+                        }
+                    
+                    //else if thep layer is to the left.    
+                    }else if(this.scene.player1.x < this.x-50 && this.attackedGrabPlayed === false){
+
+                        if(this.attackedGrabPlayed === false){
+                            this.attackedGrabPlayed = true;
+                            this.angryGrabbedPosition = 0;
+                            //this.grabHitBox.setSize(100,10,true);
+                            
+                            //attempt to grab them if in range
+                            this.anims.play('mimicAngryLeftGrabStart').once('animationcomplete', () => {
+                                if (this.enemyHP > 0) {
+                                    this.grabHitBox.body.enable = true;
+                                    this.grabHitBox.setSize(64,10,true);
+                                    this.grabHitBox.x = this.x-35;
+                                    this.grabHitBox.y = this.y;
+                                }
+
+                                this.playJumpySound('3',700);
+
+                                this.anims.play('mimicAngryLeftGrabMiss').once('animationcomplete', () => {
+                                     if (this.enemyHP > 0) {
+                                        this.grabHitBox.body.enable = false;
+                                        this.grabbing = false;
+                                        this.attackedGrabPlayed = false;
+                                     }
+                                
+                                });
+                                
+                            });
+                        }
+                    //if the player is in the middle of the mimic then grab center
+                    }else{
+
+                        if(this.attackedGrabPlayed === false){
+                            this.attackedGrabPlayed = true;
+                            this.angryGrabbedPosition = 1; 
+                            this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
+
+                                this.hiding = false;
+                                this.containerKeyPrompts.visible = false;
+                                this.keyPlayed  = false;
+
+                                 if (this.enemyHP > 0) {
+                                    this.grabHitBox.x = this.x;
+                                    this.grabHitBox.y = this.y;
+                                    this.grabHitBox.setSize(70,10,true);
+                                    this.grabHitBox.body.enable = true;
+                                 }
+
+                                this.playJumpySound('3',700);
+
+                                this.anims.play('mimicFrontGrabMiss').once('animationcomplete', () => {
+                                    this.grabHitBox.body.enable = false;
+                                    this.grabbing = false;
+                                    this.attackedGrabPlayed = false;
+                                
+                                });
+                                
+                            });
+                        }
+                    }
+                //if the player is within 100 pixels play agressive idle animations
+                }else if((this.scene.player1.x > this.x - 210 && this.scene.player1.x < this.x + 210) && (this.scene.player1.y > this.y - 200 && this.scene.player1.y < this.y + 200)){
+                    
+                    //check if player is right 
+                    if(this.attackedGrabPlayed === false && this.scene.player1.x > this.x+20){
+                        this.anims.play('mimicAngryRight',true);
+                    
+                    //else if thep layer is to the left.    
+                    }else if(this.attackedGrabPlayed === false && this.scene.player1.x < this.x-20){
+                        this.anims.play('mimicAngryLeft',true);
+                    }else{
+                        if(this.attackedGrabPlayed === false){
+                            this.anims.play('mimicAngryIdle',true);
+                        }
+                        
+                    }
+                //otherwise if the player is too far away
                 }else{
                     if(this.attackedGrabPlayed === false){
+                        //play frustrated animation.
                         this.anims.play('mimicAngryIdle',true);
                     }
-                    
                 }
-            //otherwise if the player is too far away
-            }else{
-                if(this.attackedGrabPlayed === false){
-                    //play frustrated animation.
-                    this.anims.play('mimicAngryIdle',true);
-                }
-            }
 
+            }
         }
         
 
@@ -938,7 +963,20 @@ class chestMimic extends enemy {
                     this.scene.sound.get(this.chestMimicSFX).stop();
                     this.grabHitBox.destroy();
                     this.containerKeyPrompts.destroy();
-                    this.destroy();
+
+                   //calculate item drtop chance
+                    let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
+
+                    this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,18,1,dropAmount+2,"MIMIC BLOB","CHUNK OF MIMIC GOO. ITS STICKY...","drop",5);
+                        
+                        //this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,12,1,1,"BLUE SLIME CORE","PULSES AND THROBS IN YOUR HAND.","drop",10);
+                        //play defeated animation.
+                        this.anims.play('mimicDefeatedFall').once('animationcomplete', () => {
+                            //then destroy slime.
+                            this.anims.play('mimicDefeatedIdle',true);
+
+                        });
+
                 }
             }
             console.log("damage cool down:" + this.damageCoolDown);

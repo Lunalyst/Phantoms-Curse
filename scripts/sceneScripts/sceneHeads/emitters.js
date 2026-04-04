@@ -602,7 +602,7 @@ const bestiaryTextList = {
         'KeyS', 'KeyT', 'KeyU', 'KeyV', 'KeyW', 'KeyX', 'KeyY', 'KeyZ', 'Digit1', 'Digit2',
          'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0',
           'Comma', 'Period', 'Slash', 'Semicolon', 'Quote', 'BracketLeft', 'BracketRight',
-           'Backslash', 'Minus', /*'Equal'*/, 'Tab', 'CapsLock', 'ShiftLeft', "Enter","Backspace",
+           'Backslash', 'Minus', 'Equal', 'Tab', 'CapsLock', 'ShiftLeft', "Enter","Backspace",
             'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'ArrowUp',
              'ArrowLeft', 'ArrowDown', 'ArrowRight', /*'NumLock', 'NumpadDivide', 'NumpadMultiply',*/
               'NumpadSubtract', 'Numpad7', 'Numpad8', 'Numpad9', 'NumpadAdd', 'Numpad4',

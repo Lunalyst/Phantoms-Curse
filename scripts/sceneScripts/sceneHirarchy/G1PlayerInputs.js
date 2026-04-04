@@ -8,6 +8,7 @@ class G1PlayerInputs extends A3SoundEffects {
   setUpPlayerInputs(){
     // allows detection of key inputs for movement and player attacks
     console.log("Phaser.Input.Keyboard.KeyCodes: ",Phaser.Input.Keyboard);
+    console.log("Phaser.Input.Keyboard.KeyCodes: ",Phaser.Input.Keyboard.KeyCodes);
     this.secretLoad();
 
     //ok so idea, use a map as a junction box to conver the symbols. i hate it but, it seems to probably be the best way.

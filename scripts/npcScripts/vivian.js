@@ -815,8 +815,6 @@ class vivian extends npc{
       //have to do things a bit differently
       //if the first node has not been activated then activate it. 
       this.nodeHandler("vivian","Behavior2",selective,);
-      
-      
 
       //console.log("this.scene.sceneTextBox.textInterupt: ",this.scene.sceneTextBox.textInterupt);
       //console.log("this.currentDictNode: ",this.currentDictNode);

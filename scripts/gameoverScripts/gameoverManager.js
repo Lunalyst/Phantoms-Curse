@@ -611,25 +611,26 @@ class gameoverManager extends A3SoundEffects {
 
                             tempSceneRef.queenBee.anims.play("hugSmother", true);
 
-                            setTimeout(function () {
-                                //interupt dialogue by reseting objects, and hiding buttons
-                                tempSceneRef.dialogueInterupt = true;
-                                tempSceneRef.resetGameoverText();
-                                tempSceneRef.mobileW.visible = false;
-                                tempSceneRef.gameOverSign.visible = false;
-                                tempSceneRef.tryAgian.visible = false;
-
-                               tempSceneRef.initLoopingSound('earieSFX','earieCave', 0.5);
-
-                               tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
-                                tempSceneRef.initSoundEffect('bossSFX','zip1',.2);
-                                tempSceneRef.queenBee.anims.play("hugChains").once('animationcomplete', () => {
-                                    tempSceneRef.queenBee.anims.play("hugChainsIdle", true);
-
-                                });
-
+                            this.randomInput = Math.floor((Math.random() * 3));
+                            console.log("this.randomInput: ",this.randomInput);
+                            if(this.randomInput === 0){
                                 setTimeout(function () {
-                                    tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                    //interupt dialogue by reseting objects, and hiding buttons
+                                    tempSceneRef.dialogueInterupt = true;
+                                    tempSceneRef.resetGameoverText();
+                                    tempSceneRef.mobileW.visible = false;
+                                    tempSceneRef.gameOverSign.visible = false;
+                                    tempSceneRef.tryAgian.visible = false;
+
+                                tempSceneRef.initLoopingSound('earieSFX','earieCave', 0.5);
+
+                                tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                    tempSceneRef.initSoundEffect('bossSFX','zip1',.2);
+                                    tempSceneRef.queenBee.anims.play("hugChains").once('animationcomplete', () => {
+                                        tempSceneRef.queenBee.anims.play("hugChainsIdle", true);
+
+                                    });
+
                                     setTimeout(function () {
                                         tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
                                         setTimeout(function () {
@@ -637,13 +638,16 @@ class gameoverManager extends A3SoundEffects {
                                             setTimeout(function () {
                                                 tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
                                                 setTimeout(function () {
-                                                    tempSceneRef.tryAgianLoad(tempSceneRef);
-                                                },5000)
+                                                    tempSceneRef.npcGameover.nodeHandler("gameover","cursed","grubSecret1");
+                                                    setTimeout(function () {
+                                                        tempSceneRef.tryAgianLoad(tempSceneRef);
+                                                    },5000)
+                                                },5000);
                                             },5000);
                                         },5000);
                                     },5000);
-                                },5000);
-                            },30000);
+                                },30000);
+                            }
                 
                         });
                     });

@@ -67,7 +67,7 @@ class LockwoodShopDistrict extends defaultScene {
       //kale
       this.load.spritesheet("kale" , "assets/npcs/kale.png" , {frameWidth: 393 , frameHeight: 393 });
       //sofia
-      this.load.spritesheet("sofia" , "assets/npcs/sofia.png" , {frameWidth: 393 , frameHeight: 393 });
+      this.load.spritesheet("sofia" , "assets/npcs/Sofia.png" , {frameWidth: 393 , frameHeight: 393 });
       //regi
       this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
       //daeuge

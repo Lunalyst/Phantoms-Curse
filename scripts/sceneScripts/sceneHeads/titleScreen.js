@@ -212,6 +212,7 @@ class titleScreen extends A3SoundEffects {
                 'patrickster: bug testing',
                 'Aaron: bug testing',
                 'Dolly-decimal: bug testing',
+                'luna: bug testing',
                 'Kaynstarr: inspiration',
                 'Fluffstuff: inspiration',
                 'Manny: inspiration',

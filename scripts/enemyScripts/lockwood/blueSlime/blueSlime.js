@@ -790,7 +790,7 @@ class blueSlime extends enemy {
             this.scene.enemyThatDefeatedPlayer = bestiaryKey.blueSlimeTF;
 
             // if we start the player defeated animation then we need to set a few things.
-            ///HERE! NEEDS TO CHECK FI PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
+            ///HERE! NEEDS TO CHECK if PALYER DEFEATED, TO START THE DEFEATED PROGRESSION AND SETTING OF KEYPROMPTS, LOCKS OUT SO IT ONLY HAPPENS ONCE. 
             //CANT USE STAGE TO CHECK BECAUSE IF WE PROGRESS THEN IT WILL BREAK THINGS IF THIS ACTIVATES CONSTANTLY. LIKE WHAT HAPPENED WHEN I TRYED.
             if (this.inStartDefeatedLogic === false) {
 
@@ -799,8 +799,12 @@ class blueSlime extends enemy {
                 //console.log("this.playerDefeatedAnimationStage: "+this.playerDefeatedAnimationStage);
                 // delay the button prompt so the animation can play.
                 setTimeout(function () {
+                    console.log("defeated animation delay.");
+                    console.log("currentSlime.scene: ",currentSlime.scene);
+                    if(currentSlime.scene !== undefined && currentSlime.scene !== null){
                     currentSlime.scene.KeyDisplay.visible = true;
                     currentSlime.scene.KeyDisplay.playDKey();
+                    }
                     //incriment the animation prompt since we want to move on to the next animation after the current one finishes
                     console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
                 }, 1000);
@@ -826,12 +830,14 @@ class blueSlime extends enemy {
                 let currentSlime = this;
                 console.log("currentSlime.playerDefeatedAnimationStage: " + currentSlime.playerDefeatedAnimationStage);
 
-                this.currentSlime = this;// massively important. allows for the settimeout functions to acess variables attached to this object.
                 setTimeout(function () {
                     console.log("defeated animation delay.");
-                    currentSlime.scene.KeyDisplay.visible = true;
-                    currentSlime.scene.KeyDisplay.playDKey();
-                    currentSlime.playerDefeatedAnimationCooldown = false;
+                    console.log("currentSlime.scene: ",currentSlime.scene);
+                    if(currentSlime.scene !== undefined && currentSlime.scene !== null){
+                        currentSlime.scene.KeyDisplay.visible = true;
+                        currentSlime.scene.KeyDisplay.playDKey();
+                        currentSlime.playerDefeatedAnimationCooldown = false;
+                    } 
                 }, 3000);
             }
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.

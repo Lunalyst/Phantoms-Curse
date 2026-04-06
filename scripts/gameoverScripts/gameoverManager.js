@@ -264,11 +264,16 @@ class gameoverManager extends A3SoundEffects {
         let gameoverThat = this;
 
         setTimeout(function(){
-            if(gameoverThat.showTryAgain === false){
+            
+            if(gameoverThat.enemyThatDefeatedPlayer === "shadow_earie_tf"){
                 gameoverThat.tryAgian.visible = false;
             }else{
                 gameoverThat.tryAgian.visible = true;
             }
+            console.log("+++++++++++++++++++++++++++++++++++++");
+            console.log("gameoverThat.enemyThatDefeatedPlayer: ", gameoverThat.enemyThatDefeatedPlayer);
+            console.log("gameoverThat.tryAgian.visible: ",gameoverThat.tryAgian.visible);
+            console.log("+++++++++++++++++++++++++++++++++++++");
             
         },1000);
 

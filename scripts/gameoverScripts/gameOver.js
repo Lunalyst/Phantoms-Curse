@@ -45,7 +45,7 @@ class gameOver extends gameoverManager {
         this.dialogueInterupt = false;
 
 
-        this.showTryAgain = true;
+        //this.showTryAgain = true;
         
         }
 
@@ -58,8 +58,6 @@ class gameOver extends gameoverManager {
 
             //function to create a map of functions to preload the correct map needed based in the location string.
             this.preloadMapOfTileMaps();
-
-            //this.showTryAgain = true;
 
             //console.log("this.mapOfTileMapsJSON[this.gameoverLocation](): ",this.mapOfTileMapsJSON);
             this.mapOfTileMapsJSON[this.gameoverLocation]();
@@ -84,15 +82,21 @@ class gameOver extends gameoverManager {
                 "audio/used-audio/plap-sounds/plap.mp3"
               ]);
 
-            this.load.scenePlugin({
+            /*this.load.scenePlugin({
                 key: 'AnimatedTiles',
                 url: 'lib/vendors/AnimatedTiles.js',
                 sceneKey: 'AnimatedTiles'
-            });
+            });*/
 
         }
 
         create(){
+
+            this.showTryAgain = true;
+            
+            console.log("+++++++++++++++++++++++++++++++++++++");
+            console.log("this.showTryAgain", this.showTryAgain);
+            console.log("+++++++++++++++++++++++++++++++++++++");
 
             this.setUpPlayerControls();
 
@@ -115,8 +119,10 @@ class gameOver extends gameoverManager {
 
             console.log("loading gameover tileset: ", this.gameoverLocation);
             console.log("this.processMap: ",this.processMap);
+
+            //this.KeyDisplay = new keyPrompts(this, 450, 500,'keyPrompts');
+            //this.KeyDisplay.visible = false;
             
-           
             //handles scene transition and fade out for scene transition
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
 

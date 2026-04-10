@@ -336,7 +336,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     //check if the dialogue node is set.
     this.scene.sceneTextBox.npcReset();
 
-    //console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
+    console.log("this.dialogueDictSet: ",this.dialogueDictSet," this.finished: ,",this.finished);
     //if the dialogue isnt set and we arnt finished with dialogue
     if(this.dialogueDictSet === false && this.finished === false ){
 
@@ -362,7 +362,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           //if the length is greater than zero then progress pass the next node
           if(this.currentDictNode.children.length > 0){
 
-            //console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
+            console.log("progressing to node ->",this.currentDictNode.children[0].nodeName);
             this.progressNode(this.currentDictNode.children[0].nodeName);
 
             //time out for our node progression.
@@ -370,6 +370,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
           //otherwise progress with blank node.
           }else {
+            console.log("progressing to generic node" )
             this.progressNode("");
           }
 

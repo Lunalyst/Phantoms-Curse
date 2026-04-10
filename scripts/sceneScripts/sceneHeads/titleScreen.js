@@ -173,7 +173,7 @@ class titleScreen extends A3SoundEffects {
                 "Lunalyst: lead developer",
                 'Justanotherjames: development assistance',
                 'chocola(NiniMimi): Export & Import Save Functionality',
-                "nobody's death: sound composer",
+                "Ximena: sound composer",
                 'tracks:',
                 '- Hare-raising Harmonies',
                 '- Paws and Wait',

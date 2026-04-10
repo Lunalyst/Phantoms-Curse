@@ -31,6 +31,27 @@ class devRoom2 extends defaultScene {
 
       this.load.spritesheet('memoryPoint', 'assets/gameObjects/memoryStatue.png',{frameWidth: 213, frameHeight: 300 });
 
+      this.load.spritesheet('sporeCloud', 'assets/gameObjects/sporeCloud.png',{frameWidth: 219, frameHeight: 219 });
+        
+      this.load.audioSprite('sporeCloudSFX1','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('sporeCloudSFX2','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+      ]);
+
+      this.load.audioSprite('sporeCloudSFX3','audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.json',[
+          "audio/used-audio/spore-cloud-sounds/spore-cloud-sounds.mp3"
+      ]);
+
+      //test sprites
+      this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
+      this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
+      this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+      this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
+
+
       this.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
         "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
       ]);
@@ -101,6 +122,8 @@ class devRoom2 extends defaultScene {
       this.portals = this.physics.add.group();
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
+
+      this.sporeCloudLoop = false;
       
       //this.initSavePoints(2050,558);
         // as well as signs.
@@ -125,6 +148,15 @@ class devRoom2 extends defaultScene {
       this.initSigns(1343,617,"generic","devRoomJoke1");
 
       this.initSigns(418,536+17,"generic","devRoomStatue");
+
+      this.initMilo(1551, 600-7,"test");
+      //this.Milo.visible = false;
+      this.setUpMiloNPCCollider();
+
+      this.setUpPCMilo(1551, 600);
+      this.setUpPlayer2Collider();
+
+      this.setUpSporeClouds();
 
       //this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
@@ -160,8 +192,23 @@ class devRoom2 extends defaultScene {
 
     update(){
 
+      //curse buildup tester
+      if(this.sporeCloudLoop === false){
+        this.sporeCloudLoop = true;
+        this.initSporeCloud(1914,696,"still",80,1700);
+
+        let temp = this;
+        setTimeout(function () {
+          temp.sporeCloudLoop = false;
+        }, 1000);
+      }
+
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-      
+      if(this.player2Active === true){
+        this.player2Update();
+      }else{
+        this.defaultUpdate();
+      }
       //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
         this.backround.x += 0.7;
@@ -177,9 +224,6 @@ class devRoom2 extends defaultScene {
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.backround.y += 0.3;
       }
-      
-      //calls the built in update function
-      this.defaultUpdate();
 
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);

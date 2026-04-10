@@ -55,7 +55,11 @@ class gameHud extends A3SoundEffects {
 
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
+
       this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 129 });
+      this.load.spritesheet('hpBarCurseStage', 'assets/hudElements/hpBarCurseStage.png',{frameWidth: 96, frameHeight: 129 });
+      this.load.spritesheet('hpBarFace', 'assets/hudElements/hpBarFace.png',{frameWidth: 96, frameHeight: 129 });
+      
       this.load.spritesheet('bossBar', 'assets/hudElements/bossBar.png',{frameWidth: 1083, frameHeight: 75});
       this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
       this.load.spritesheet('bestiary1', 'assets/hudElements/bestiary1.png',{frameWidth: 462, frameHeight: 630 });
@@ -115,7 +119,7 @@ class gameHud extends A3SoundEffects {
         });
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
-        this.healthDisplay = new hpBar(this,170,20);
+        this.healthDisplay = new hpBar(this,237,27);
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.bossHealthDisplay = new bossBar(this,this.screenWidth/2,880);
@@ -129,6 +133,8 @@ class gameHud extends A3SoundEffects {
         
         //first we need the data from the json which was updated by the titlescreen or another screen
         this.loadGameHudData();
+
+        this.healthDisplay.setFace();
 
         //set volume for groups before any sounds activate to ensure the values are loaded.
         this.setupSoundGroupVolumes(this.settings.musicVolume, this.settings.ambienceVolume);
@@ -774,8 +780,6 @@ class gameHud extends A3SoundEffects {
             
           });
 
-          
-
           //emitter to search the inventory, to see if a item is present.
           inventoryKeyEmitter.on(inventoryKey.isItemInInventory,(object) =>{
             console.log("find item in inventory object: ",object )
@@ -896,7 +900,7 @@ class gameHud extends A3SoundEffects {
           });
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,130,115);
+          this.playerInventory = new inventory(this,130,145);
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
@@ -1225,7 +1229,7 @@ class gameHud extends A3SoundEffects {
 
         endTimeTest();
 
-        //this.setupDebugHud();
+        this.setupDebugHud();
     }
 
     setupDebugHud(){
@@ -1358,7 +1362,7 @@ class gameHud extends A3SoundEffects {
     //update loop.
     update(){
       
-      //this.updateDebugHud();
+      this.updateDebugHud();
       
     }
 

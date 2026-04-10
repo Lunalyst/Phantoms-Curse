@@ -76,9 +76,10 @@ class milo extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'test'){
       this.test();
-    }if(this.npcType === 'inYourTimeOfNeed'){
+    }else if(this.npcType === 'inYourTimeOfNeed'){
       this.inYourTimeOfNeed();
     }else{
+      
       this.default();
     }
   }
@@ -88,6 +89,8 @@ class milo extends npc{
   }
 
   test(){
+    console.log("this.isPlayerControlled: ", this.isPlayerControlled)
+
     if(this.isPlayerControlled === false){
       this.nodeHandler("milo","Behavior1","test");
       this.scene.player1.mainHitbox.x = this.x;
@@ -99,7 +102,7 @@ class milo extends npc{
 
     if(this.currentDictNode !== null){
 
-      if(this.isPlayerControlled === false){
+     if(this.isPlayerControlled === false){
           if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
             this.inDialogue = true;
             //set variable approperiately
@@ -184,6 +187,7 @@ class milo extends npc{
             this.inDialogue = true;
             
         }else if(this.currentDictNode.nodeName === "node6"){
+          
           this.scene.player2Active = true;
           this.visible = false;
           this.scene.player2.visible = true;

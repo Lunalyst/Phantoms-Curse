@@ -191,10 +191,11 @@ class textBox extends Phaser.GameObjects.Container{
         if(this.textCoolDown){
 
         //exception to text, if the text we are meant to display is @HIDETEXT@ then hide the whole text box.
-        console.log("this.lastLine: >",this?.lastLine?.trim(),"<");
+        //console.log("this.lastLine: >",this?.lastLine?.trim(),"<");
+       // console.log("this.currentText: ",this.currentText);
         if(this?.lastLine?.trim() === "*HIDETEXT*"){
           //sets visibility of this text box entity
-          //console.log("HIDING TEXTBOX!");
+          console.log("HIDING TEXTBOX!");
           this.hidingText = true;
           this.visible = false;
           this.textBoxProfileImage.visible = false;
@@ -204,6 +205,7 @@ class textBox extends Phaser.GameObjects.Container{
           this.completedText = false;
         }else{
           //sets visibility of this text box entity
+          //console.log("doing default logic for last line");
           this.hidingText = false;
           this.visible = true;
           this.textBoxProfileImage.visible = true;
@@ -227,6 +229,8 @@ class textBox extends Phaser.GameObjects.Container{
           this.startPosition = this.endPosition;
           this.endPosition = this.endPosition+textEnd;
 
+          //console.log("displaying text function")
+          //console.log("this.lastLine: >",this?.lastLine?.trim(),"<");
           //calls function to display that next set of text
           this.displayText(this.startPosition,this.endPosition);
         }
@@ -378,6 +382,8 @@ class textBox extends Phaser.GameObjects.Container{
 
     //displays text to textbox.
     displayText(start,end){
+
+        console.log("display funct please fucking worWETOwetgrihoWGERPOJNUIBgawrejk ;");
         let textPos = 0;
         //clear the text character first.
         for(let counter = start;counter < end+1;counter++){

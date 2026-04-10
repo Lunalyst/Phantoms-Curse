@@ -51,6 +51,8 @@ class LockwoodShopDistrict extends defaultScene {
 
       //extras for postcard.
 
+      this.load.spritesheet("Lockwood Postcard Sign" , "assets/gameObjects/Lockwood Postcard Sign.png" , {frameWidth: 699 , frameHeight: 231 });
+
       //vivian
       this.load.spritesheet("vivian" , "assets/npcs/vivian.png" , {frameWidth: 351 , frameHeight: 315 });
       this.load.spritesheet("vivianExtension" , "assets/npcs/vivianExtension.png" , {frameWidth: 351 , frameHeight: 315 });
@@ -83,8 +85,15 @@ class LockwoodShopDistrict extends defaultScene {
       //lunalyst
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
       //TSA
-       this.load.spritesheet("TSA" , "assets/bosses/TSACorrupted.png" , {frameWidth: 459 , frameHeight: 459 });
+      this.load.spritesheet("TSA" , "assets/bosses/TSACorrupted.png" , {frameWidth: 459 , frameHeight: 459 });
       
+      //ximena
+      this.load.spritesheet("spidermena" , "assets/npcs/spiderximena.png" , {frameWidth: 399 , frameHeight: 399 });
+      
+      //luna
+      this.load.spritesheet("luna" , "assets/npcs/luna.png" , {frameWidth: 633 , frameHeight: 633 });
+      
+
       this.load.spritesheet('craftingBench', 'assets/gameObjects/craftingBench.png',{frameWidth: 291, frameHeight: 291 });
       
       this.load.spritesheet('Overroot_Cafe', 'assets/parrallax/Overroot_Cafe.png',{frameWidth: 1920 , frameHeight: 2880});
@@ -190,7 +199,7 @@ class LockwoodShopDistrict extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initSavePoints(12189,728-10);
+      this.initSavePoints(2189,728-10);
 
       /*this.autumn = this.add.sprite(2768, 728-8, "autumn");
       this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
@@ -203,6 +212,14 @@ class LockwoodShopDistrict extends defaultScene {
       this.randi.setScale(1/3);*/
 
       // postcard poses
+
+      this.titleSign = this.add.sprite(1801, 552, "Lockwood Postcard Sign");
+      this.titleSign.setScale(1/3);
+
+      this.luna = this.add.sprite(1572, 728-36, "luna");
+      this.luna.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('luna', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.luna.anims.play("idle", true);
+      this.luna.setScale(1/3);
 
       this.istara = this.add.sprite(2039, 728-32, "istara");
       this.istara.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('istara', { start: 16, end: 23 }), frameRate: 7, repeat: -1 });
@@ -232,7 +249,7 @@ class LockwoodShopDistrict extends defaultScene {
       this.fursagi.anims.play("idle", true);
       this.fursagi.setScale(1/3);
 
-      this.randi = this.add.sprite(1765, 728-6, "randi");
+      this.randi = this.add.sprite(1759, 728-6, "randi");
       this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.randi.anims.play("idle", true);
       this.randi.setScale(1/3);
@@ -262,6 +279,11 @@ class LockwoodShopDistrict extends defaultScene {
       this.lunalyst.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('lunalyst', { start: 1, end: 4 }), frameRate: 7, repeat: -1 });
       this.lunalyst.anims.play("idle", true);
       this.lunalyst.setScale(1/3);
+
+      this.spidermena = this.add.sprite(1901, 728-6, "spidermena");
+      this.spidermena.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('spidermena', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.spidermena.anims.play("idle", true);
+      this.spidermena.setScale(1/3);
 
       this.vivian = this.add.sprite(1935, 728-1, "vivian");
       this.vivian.anims.create({key: 'vivianShopIdle',frames: this.anims.generateFrameNames('vivian', { start: 24, end: 27 }),frameRate: 7,repeat: -1});

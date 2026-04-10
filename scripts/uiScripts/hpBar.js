@@ -12,7 +12,18 @@ class hpBar extends Phaser.GameObjects.Container{
 
         super(scene, xPos, yPos);
 
+        this.scene = scene;
+
         this.outSide = scene.add.sprite(this.x, this.y, 'healthBar');
+        this.outSide.setTint(0x004168);
+        this.add(this.outSide);
+        
+        this.face = scene.add.sprite(this.x-540, this.y, 'hpBarFace');
+        this.add(this.face);
+
+        this.curseStage = scene.add.sprite(this.x-540, this.y, 'hpBarCurseStage');
+        this.add(this.curseStage);
+
 
         this.outSide.anims.create({key: '0',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
         this.outSide.anims.create({key: '1',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
@@ -57,14 +68,38 @@ class hpBar extends Phaser.GameObjects.Container{
 
         this.curseBar = new Phaser.GameObjects.Graphics(scene);
         
-        this.add(this.outSide);
         this.add(this.hpBar);
         this.add(this.curseBar);
 
         scene.add.existing(this);
-        this.setScale(.4);
+        this.setScale(2/3);
 
         
+    }
+
+    setFace(){
+
+        console.log("this.scene.playerSex: ",this.scene.playerSex);
+
+        this.face.anims.create({key: '1playerGreen',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 7, end: 7 }),frameRate: 1,repeat: -1});
+        this.face.anims.create({key: '1playerYellow',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 8, end: 8 }),frameRate: 1,repeat: -1});
+        this.face.anims.create({key: '1playerRed',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 9, end: 9 }),frameRate: 1,repeat: -1});  
+        this.face.anims.create({key: '1playerZero',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 10, end: 13 }),frameRate: 6,repeat: -1});  
+
+        this.face.anims.create({key: '0playerGreen',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+        this.face.anims.create({key: '0playerYellow',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        this.face.anims.create({key: '0playerRed',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
+        this.face.anims.create({key: '0playerZero',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 3, end: 6 }),frameRate: 6,repeat: -1});     
+        
+
+        if (this.playerHealth < (this.playerHealthMax/3)){
+            this.face.anims.play(this.scene.playerSex+"playerRed",true);
+        }else if(this.playerHealth < (this.playerHealthMax/2)){
+            this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+        }else{
+            this.face.anims.play(this.scene.playerSex+"playerGreen",true);
+        }
+
     }
 
     //simple function using if statements to update display using animations defined above.
@@ -77,14 +112,18 @@ class hpBar extends Phaser.GameObjects.Container{
 
         let barLength = Math.floor(this.hpBarWidth * percentage);
 
-        
-        if (this.playerHealth < (this.playerHealthMax/3))
+        if(this.playerHealth === 0 ){
+            this.face.anims.play(this.scene.playerSex+"playerZero",true);
+        }else if (this.playerHealth < (this.playerHealthMax/3))
         {
             this.hpBar.fillStyle(0xff0000);
+            this.face.anims.play(this.scene.playerSex+"playerRed",true);
         }else if(this.playerHealth < (this.playerHealthMax/2)){
             this.hpBar.fillStyle(0xffff00);
+            this.face.anims.play(this.scene.playerSex+"playerYellow",true);
         }else{
             this.hpBar.fillStyle(0x00ff00);
+            this.face.anims.play(this.scene.playerSex+"playerGreen",true);
         }
 
         //this.bar.setScale(.4);

@@ -115,8 +115,6 @@ class yes extends Phaser.Physics.Arcade.Sprite{
             
             // otherwise we call the fadeout function of the game huds which reloads the webpage.
             }else{
-            //
-            that.scene.healthDisplay.updateDisplay();
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             that.scene.cameras.main.fadeOut(500, 0, 0, 0);
             }

@@ -44,6 +44,9 @@ class G1PlayerInputs extends A3SoundEffects {
       if(this.lightingSystemActive){
         this.player1.setLighting();
       }
+
+      //resets gamehud using damage function but with no damage so hpbar profile is acurate to player sex.
+      healthEmitter.emit(healthEvent.loseHealth,0);
   }
 
 setUpPCMilo(x,y){

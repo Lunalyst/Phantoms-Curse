@@ -105,6 +105,7 @@ class gameHud extends A3SoundEffects {
         //creates fadeout when fadeout function is called in the camera object
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
           location.reload();
+          console.log("reloading?");
         })
         
         // need this to keep track of pointer position

@@ -22,6 +22,16 @@ class hpBar extends Phaser.GameObjects.Container{
         this.add(this.face);
 
         this.curseStage = scene.add.sprite(this.x-540, this.y, 'hpBarCurseStage');
+        this.curseStage.anims.create({key: '0',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '1',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '2',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '3',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 3, end: 3 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '4',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 4, end: 4 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '5',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 5, end: 5 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '6',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 6, end: 6 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '7',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 7, end: 7 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '8',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 8, end: 8 }),frameRate: 10,repeat: -1});
+        this.curseStage.anims.create({key: '9',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
         this.add(this.curseStage);
 
 
@@ -111,6 +121,9 @@ class hpBar extends Phaser.GameObjects.Container{
         let percentage = (this.playerHealth/this.playerHealthMax);
 
         let barLength = Math.floor(this.hpBarWidth * percentage);
+
+        this.scene.playerSaveSlotData
+        this.curseStage.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
 
         if(this.playerHealth === 0 ){
             this.face.anims.play(this.scene.playerSex+"playerZero",true);

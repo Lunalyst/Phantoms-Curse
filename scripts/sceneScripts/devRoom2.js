@@ -149,12 +149,12 @@ class devRoom2 extends defaultScene {
 
       this.initSigns(418,536+17,"generic","devRoomStatue");
 
-      this.initMilo(1551, 600-7,"test");
+     /* this.initMilo(1551, 600-7,"test");
       //this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
       this.setUpPCMilo(1551, 600);
-      this.setUpPlayer2Collider();
+      this.setUpPlayer2Collider();*/
 
       this.setUpSporeClouds();
 
@@ -178,7 +178,7 @@ class devRoom2 extends defaultScene {
           //generates enemys
           //thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
 
-          thisScene.initHealthUpgrade(2190, 696, '1');
+          /*thisScene.initHealthUpgrade(2190, 696, '1');
           thisScene.initHealthUpgrade(2210, 696, '2');
           thisScene.initHealthUpgrade(2230, 696, '3');
           thisScene.initHealthUpgrade(2250, 696, '4');
@@ -187,7 +187,7 @@ class devRoom2 extends defaultScene {
           thisScene.initHealthUpgrade(2310, 696, '7');
           thisScene.initHealthUpgrade(2330, 696, '8');
           thisScene.initHealthUpgrade(2350, 696, '9');
-          thisScene.initHealthUpgrade(2370, 696, '10');
+          thisScene.initHealthUpgrade(2370, 696, '10');*/
 
       
           thisScene.spawnedEnemys = true;
@@ -205,7 +205,7 @@ class devRoom2 extends defaultScene {
     update(){
 
       //curse buildup tester
-      if(this.sporeCloudLoop === false){
+      /*if(this.sporeCloudLoop === false){
         this.sporeCloudLoop = true;
         this.initSporeCloud(1914,696,"still",80,1700);
 
@@ -213,7 +213,7 @@ class devRoom2 extends defaultScene {
         setTimeout(function () {
           temp.sporeCloudLoop = false;
         }, 1000);
-      }
+      }*/
 
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       if(this.player2Active === true){

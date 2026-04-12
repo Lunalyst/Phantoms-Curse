@@ -486,7 +486,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
                 console.log("playerHealthObject.curse: ",playerHealthObject.curse)
-              if(playerHealthObject.playerCurse > 15 &&  this.playedAttackAnimation === false){
+              if(playerHealthObject.playerCurse >= 15 &&  this.playedAttackAnimation === false){
 
                 if(this.playedAttackAnimation === false){
 

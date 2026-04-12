@@ -134,7 +134,7 @@ class nectar extends npc{
       this.scene.physics.add.collider(this, this.scene.processMap.layer1);
 
       this.setSize(350,350,true);
-      this.setOffset(280, 390-154);
+      this.setOffset(280, 390-152);
 
       this.setDepth(7);
       this.clearTint();
@@ -220,6 +220,9 @@ class nectar extends npc{
               this.anims.play('swallowingPlayer3').once('animationcomplete', () => {
                 this.scene.initSoundEffect('swallowSFX','3',0.6);
                 this.anims.play('swallowingPlayer4').once('animationcomplete', () => {
+
+                  //hide player hp bar.
+                  healthEmitter.emit(healthEvent.healthVisibility,false);
                   this.anims.play('swallowedPlayerIdle',true);
                   //this.choke = false;
                   this.scene.sceneTextBox.textInterupt = false;
@@ -781,6 +784,9 @@ class nectar extends npc{
             //this.scene.sceneTextBox.textInterupt = true;
 
             this.spearRaise = true;
+
+            healthEmitter.emit(healthEvent.healthVisibility,true);
+            healthEmitter.emit(healthEvent.setMiloHealth,true,true);
 
             this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
 

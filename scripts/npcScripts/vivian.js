@@ -399,9 +399,9 @@ class vivian extends npc{
   rummaging(){
 
     //orient the player so it looks like they are facing vivian.
-    this.scene.player1.x = 521;
+    this.scene.player1.x = 490;
     this.scene.player1.y = 696;
-    this.scene.player1.mainHitbox.x = 521;
+    this.scene.player1.mainHitbox.x = 490;
     this.scene.player1.mainHitbox.y = 696;
     this.scene.player1.mainHitbox.setVelocityX(0);
     this.scene.player1.mainHitbox.setVelocityY(0);
@@ -777,7 +777,8 @@ class vivian extends npc{
       if(vivianDialogue2.foundFlag === true){
         selective = "cleaningMean";
       }
-
+      
+      console.log("trying to progress vivian dialogue?")
       this.nodeHandler("vivian","Behavior1",selective);
 
 

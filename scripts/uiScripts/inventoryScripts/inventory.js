@@ -53,7 +53,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
 
       //makes the label for the inventory
-      this.inventoryLabel = new makeText(scene,-90,-35,'charBubble',"INVENTORY");
+      this.inventoryLabel = new makeText(scene,-90,-17,'charBubble',"INVENTORY");
       this.inventoryLabel.setScale(2/3);
       this.inventoryLabel.visible = false;
       this.add(this.inventoryLabel);
@@ -161,7 +161,7 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
        //create text button which can be used to split a stack
-       this.split = new makeText(this.scene,45,-55,'charBubble',"SPLIT",true);
+       this.split = new makeText(this.scene,45,-55+18,'charBubble',"SPLIT",true);
        this.split.addHitbox();
        this.split.clicked = false;
        this.split.setScrollFactor(0);
@@ -210,7 +210,7 @@ class inventory extends Phaser.GameObjects.Container{
        },this);
        
        //create text button which can be used to split a stack
-       this.single = new makeText(this.scene,155,-55,'charBubble',"SINGLE",true);
+       this.single = new makeText(this.scene,155,-55+18,'charBubble',"SINGLE",true);
        this.single.addHitbox();
        this.single.clicked = false;
        this.single.setScrollFactor(0);

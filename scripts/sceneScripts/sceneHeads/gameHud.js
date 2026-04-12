@@ -240,8 +240,18 @@ class gameHud extends A3SoundEffects {
           
         });
 
-         healthEmitter.on(healthEvent.setBossHealthVisible,(visible) =>{
+        healthEmitter.on(healthEvent.setBossHealthVisible,(visible) =>{
             this.bossHealthDisplay.visible = visible;
+        });
+
+        healthEmitter.on(healthEvent.healthVisibility,(visible) =>{
+            this.healthDisplay.visible = visible;
+        });
+
+        healthEmitter.on(healthEvent.setMiloHealth,(active,masked) =>{
+            this.healthDisplay.miloMode = active;
+            this.healthDisplay.miloMask = masked;
+            this.healthDisplay.miloTransition();
         });
 
 
@@ -901,7 +911,7 @@ class gameHud extends A3SoundEffects {
           });
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,130,145);
+          this.playerInventory = new inventory(this,130,133);
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({

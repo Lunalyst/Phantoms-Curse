@@ -197,6 +197,8 @@ class milo extends npc{
           this.scene.player1.x = this.x;
           this.scene.player1.setDepth(5);
           this.scene.player2.setDepth(6);
+          healthEmitter.emit(healthEvent.setMiloHealth,true,true);
+
         }
       }else{
         if(this.currentDictNode.nodeName === "node2"){
@@ -209,6 +211,7 @@ class milo extends npc{
           this.scene.player1.x = this.x;
           this.scene.player1.setDepth(6);
           this.scene.player2.setDepth(5);
+          healthEmitter.emit(healthEvent.setMiloHealth,false,false);
         }
       }
       

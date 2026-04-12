@@ -45,8 +45,8 @@ const healthEvent = {
     maxBossHealth:'max_Boss_health',
     setBossHealth:'set_boss_health',
     setBossHealthVisible:'set_boss_health_visible',
-
-    setMiloHp: 'set_milo_hp',
+    healthVisibility:'health_visibility',
+    setMiloHealth: 'set_milo_health',
     
 };
 

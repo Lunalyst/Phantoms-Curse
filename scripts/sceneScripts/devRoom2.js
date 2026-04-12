@@ -179,14 +179,15 @@ class devRoom2 extends defaultScene {
           //thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
 
           thisScene.initHealthUpgrade(2190, 696, '1');
-          thisScene.initHealthUpgrade(2200, 696, '2');
-          thisScene.initHealthUpgrade(2210, 696, '3');
-          thisScene.initHealthUpgrade(2220, 696, '4');
-          thisScene.initHealthUpgrade(2230, 696, '5');
-          thisScene.initHealthUpgrade(2240, 696, '6');
-          thisScene.initHealthUpgrade(2250, 696, '7');
-          thisScene.initHealthUpgrade(2260, 696, '8');
-          thisScene.initHealthUpgrade(2270, 696, '9');
+          thisScene.initHealthUpgrade(2210, 696, '2');
+          thisScene.initHealthUpgrade(2230, 696, '3');
+          thisScene.initHealthUpgrade(2250, 696, '4');
+          thisScene.initHealthUpgrade(2270, 696, '5');
+          thisScene.initHealthUpgrade(2290, 696, '6');
+          thisScene.initHealthUpgrade(2310, 696, '7');
+          thisScene.initHealthUpgrade(2330, 696, '8');
+          thisScene.initHealthUpgrade(2350, 696, '9');
+          thisScene.initHealthUpgrade(2370, 696, '10');
 
       
           thisScene.spawnedEnemys = true;

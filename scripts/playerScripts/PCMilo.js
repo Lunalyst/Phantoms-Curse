@@ -119,7 +119,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-    this.curseReductiontimer = false;
+    this.curseIncreaseTimer = false;
 
     this.curseBuildUpCooldown = false;
 
@@ -378,6 +378,28 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           this.lastKey = "a";
         }
 
+        let playerHealthObject = {
+            playerHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+      //increase curse energy overtime.
+      if(this.curseIncreaseTimer === false){
+
+        //reduce it by one every two seconds.
+        this.curseIncreaseTimer = true;
+        let tempPlayer = this;
+        setTimeout(function () {
+          tempPlayer.curseIncreaseTimer = false;
+          if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+            healthEmitter.emit(healthEvent.curseBuildUp,1);
+          }  
+        }, 2000);
+        
+      }
+
         //console.log("from move PCMilo this.lastKey: ",this.lastKey);
     }
 
@@ -388,9 +410,8 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     //temp variable of this object to be used my timeout functions
     let that = this;
     //this.setSize(10,60,true);
-    //this.setOffset(12, -4 ); 
-
-    
+    //this.setOffset(12, -4 );
+  
       //plays attack animations based on what the PCMilo has equipt when the PCMilo is not in the air,PCMilo now locked into the animation until it completes
       if(this.body.blocked.down && this.isAttacking === true){
 
@@ -455,62 +476,79 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
               this.HitBox(600,35);
               break;
             case ("special"):
+    
+              let playerHealthObject = {
+                  playerHealth: null,
+                  playerMaxHealth: null
+                };
 
-              if(this.playedAttackAnimation === false){
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-                this.playedAttackAnimation = true;
-                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+                console.log("playerHealthObject.curse: ",playerHealthObject.curse)
+              if(playerHealthObject.playerCurse > 15 &&  this.playedAttackAnimation === false){
 
-                if(this.lastKey === 'd'){
+                if(this.playedAttackAnimation === false){
 
-                this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
+                  this.playedAttackAnimation = true;
+                  this.scene.initSoundEffect('weaponSFX','high2',0.1);
 
-                this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
-
-
-                  this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
-
-                   //console.log("here!");
-                   this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
-
-                    this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
-
-                      this.isAttacking = false;
-                      this.playedAttackAnimation = false;
-                      console.log("attack is over so stoping");
-                      this.bluntDamage = 0;
-
-                    });
-                  });
-
-                });
-                 
-                }else if(this.lastKey === 'a'){
+                  if(this.lastKey === 'd'){
 
                   this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
-                  this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
+                  this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
-                    this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
 
-                      this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
+                    this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
 
-                      this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
+                    //console.log("here!");
+                    this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
+                      
+                      healthEmitter.emit(healthEvent.reduceCurse,15);
+
+                      this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
 
                         this.isAttacking = false;
                         this.playedAttackAnimation = false;
                         console.log("attack is over so stoping");
                         this.bluntDamage = 0;
 
+                      });
                     });
-                  });
 
-                });
+                  });
+                  
+                  }else if(this.lastKey === 'a'){
+
+                    this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
+
+                    this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
+
+                      this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
+
+                        this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
+
+                         healthEmitter.emit(healthEvent.reduceCurse,15);
+                        this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
+
+                          this.isAttacking = false;
+                          this.playedAttackAnimation = false;
+                          console.log("attack is over so stoping");
+                          this.bluntDamage = 0;
+
+                      });
+                    });
+
+                  });
+                  }
                 }
+                this.bluntDamage = 3;
+                this.setAttackHitboxSize(20,40);
+                this.HitBox(600,35);
+              }else if(this.playedAttackAnimation === false){
+                this.isAttacking = false;
               }
-              this.bluntDamage = 3;
-              this.setAttackHitboxSize(20,40);
-              this.HitBox(600,35);
               break;
             default:
 

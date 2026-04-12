@@ -1,9 +1,11 @@
 let healthBar;
 const startMaxWidth = 284;
+const HPMaxWidthArr = [284,434,584,659,734,809,881,929,974,1019];
 const startmaxHight = 57;
 const startPlayerHealth = 20;
 
 const startMaxWidth1 = 230;
+const curseMaxWidthArr = [230,304,345,391,428,456,478,494,508,519];
 const startmaxHight1 = 27;
 const startPlayerCurse = 18;
 class hpBar extends Phaser.GameObjects.Container{
@@ -47,10 +49,6 @@ class hpBar extends Phaser.GameObjects.Container{
         this.outSide.anims.create({key: '9',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 9, end: 9 }),frameRate: 10,repeat: -1});
         this.outSide.anims.create({key: '10',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 10, end: 10 }),frameRate: 10,repeat: -1});
 
-        this.outSide.anims.create({key: 'miloMasked',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 11, end: 11 }),frameRate: 10,repeat: -1});
-        this.outSide.anims.create({key: 'milo',frames: this.outSide.anims.generateFrameNames('healthBar', { start: 12, end: 12 }),frameRate: 10,repeat: -1});
-
-
 
         //sets the proper health upgrade animation frame
         
@@ -83,6 +81,8 @@ class hpBar extends Phaser.GameObjects.Container{
 
         scene.add.existing(this);
         this.setScale(2/3);
+
+        this.miloMode = false;
 
         
     }
@@ -117,46 +117,131 @@ class hpBar extends Phaser.GameObjects.Container{
 
         //update hp bar
         this.hpBar.clear();
-        
-        let percentage = (this.playerHealth/this.playerHealthMax);
 
-        let barLength = Math.floor(this.hpBarWidth * percentage);
+        if(this.miloMode){
+            let percentage = (this.playerHealth/this.playerHealthMax);
 
-        this.scene.playerSaveSlotData
-        this.curseStage.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
+            this.hpBarWidth = HPMaxWidthArr[5];
 
-        if(this.playerHealth === 0 ){
-            this.face.anims.play(this.scene.playerSex+"playerZero",true);
-        }else if (this.playerHealth < (this.playerHealthMax/3))
-        {
-            this.hpBar.fillStyle(0xff0000);
-            this.face.anims.play(this.scene.playerSex+"playerRed",true);
-        }else if(this.playerHealth < (this.playerHealthMax/2)){
-            this.hpBar.fillStyle(0xffff00);
-            this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+            let barLength = Math.floor(this.hpBarWidth * percentage);
+
+            //sets the max length of the ba
+
+            console.log("health barLength: ",barLength);
+
+            this.outSide.anims.play("5",true);
+
+            this.curseStage.anims.play("9",true);
+
+            if(this.playerHealth === 0 ){
+                if(this.miloMask === true){
+                    this.face.anims.play("mask",true);
+                }else{
+                    this.face.anims.play(this.scene.playerSex+"playerZero",true);
+                }
+                
+            }else if (this.playerHealth < (this.playerHealthMax/3))
+            {
+                this.hpBar.fillStyle(0xff0000);
+                if(this.miloMask === true){
+                    this.face.anims.play("mask",true);
+                }else{
+                    this.face.anims.play(this.scene.playerSex+"playerRed",true);
+                }
+            }else if(this.playerHealth < (this.playerHealthMax/2)){
+                this.hpBar.fillStyle(0xffff00);
+                if(this.miloMask === true){
+                    this.face.anims.play("mask",true);
+                }else{
+                    this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+                }
+                
+            }else{
+                this.hpBar.fillStyle(0x00ff00);
+                if(this.miloMask === true){
+                    this.face.anims.play("mask",true);
+                }else{
+                    this.face.anims.play(this.scene.playerSex+"playerGreen",true);
+                }
+                
+            }
+
+            //this.bar.setScale(.4);
+            this.hpBar.fillRect(-33,  407, barLength,  this.hpBarHight);
+            this.hpBar.x = this.outSide.x-450;
+            this.hpBar.y = this.outSide.y-450;
+
+            //curse bar update
+            this.curseBar.clear();
+
+            percentage = (this.playerCurse/this.playerCurseMax);
+
+            this.curseBarWidth = curseMaxWidthArr["5"];
+
+            barLength = Math.floor(this.curseBarWidth * percentage);
+
+            console.log("curse barLength: ",barLength);
+
+            this.curseBar.fillStyle(0xb317ff);
+
+            //this.bar.setScale(.4);
+            this.curseBar.fillRect(-33,  473, barLength,  this.curseBarHight);
+            this.curseBar.x = this.outSide.x-450;
+            this.curseBar.y = this.outSide.y-450;
+            
         }else{
-            this.hpBar.fillStyle(0x00ff00);
-            this.face.anims.play(this.scene.playerSex+"playerGreen",true);
+            let percentage = (this.playerHealth/this.playerHealthMax);
+
+            this.hpBarWidth = HPMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+            this.outSide.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
+
+            let barLength = Math.floor(this.hpBarWidth * percentage);
+
+            //sets the max length of the ba
+
+            console.log("health barLength: ",barLength);
+
+            this.curseStage.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
+
+            if(this.playerHealth === 0 ){
+                this.face.anims.play(this.scene.playerSex+"playerZero",true);
+            }else if (this.playerHealth < (this.playerHealthMax/3))
+            {
+                this.hpBar.fillStyle(0xff0000);
+                this.face.anims.play(this.scene.playerSex+"playerRed",true);
+            }else if(this.playerHealth < (this.playerHealthMax/2)){
+                this.hpBar.fillStyle(0xffff00);
+                this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+            }else{
+                this.hpBar.fillStyle(0x00ff00);
+                this.face.anims.play(this.scene.playerSex+"playerGreen",true);
+            }
+
+            //this.bar.setScale(.4);
+            this.hpBar.fillRect(-33,  407, barLength,  this.hpBarHight);
+            this.hpBar.x = this.outSide.x-450;
+            this.hpBar.y = this.outSide.y-450;
+
+            //curse bar update
+            this.curseBar.clear();
+
+            percentage = (this.playerCurse/this.playerCurseMax);
+
+            this.curseBarWidth = curseMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+
+            barLength = Math.floor(this.curseBarWidth * percentage);
+
+            console.log("curse barLength: ",barLength);
+
+            this.curseBar.fillStyle(0xb317ff);
+
+            //this.bar.setScale(.4);
+            this.curseBar.fillRect(-33,  473, barLength,  this.curseBarHight);
+            this.curseBar.x = this.outSide.x-450;
+            this.curseBar.y = this.outSide.y-450;
         }
-
-        //this.bar.setScale(.4);
-        this.hpBar.fillRect(-33,  407, barLength,  this.hpBarHight);
-        this.hpBar.x = this.outSide.x-450;
-        this.hpBar.y = this.outSide.y-450;
-
-        //curse bar update
-        this.curseBar.clear();
-
-        percentage = (this.playerCurse/this.playerCurseMax);
-
-        barLength = Math.floor(this.curseBarWidth * percentage);
-
-        this.curseBar.fillStyle(0xb317ff);
-
-        //this.bar.setScale(.4);
-        this.curseBar.fillRect(-33,  473, barLength,  this.curseBarHight);
-        this.curseBar.x = this.outSide.x-450;
-        this.curseBar.y = this.outSide.y-450;
+        
+        
 
     }
 
@@ -291,6 +376,46 @@ class hpBar extends Phaser.GameObjects.Container{
 
         }
         console.log("this.playerHealthMax: ",this.playerHealthMax);
+    }
+
+    miloTransition(){
+
+        if(this.miloMode){
+
+            this.outSide.setTint(0x194800);
+            this.face.anims.create({key: 'mask',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 14, end: 14 }),frameRate: 6,repeat: -1});     
+            this.face.anims.play('mask', true);
+
+            this.tempHP = this.playerHealth;
+            this.tempMaxHP = this.playerHealthMax;
+
+            this.tempCurse = this.playerCurse;
+            this.tempMaxCurse =  this.playerCurseMax;
+             
+            //this.playerCurseMax = startPlayerCurse;
+            this.playerHealthMax = 50;
+
+            this.playerCurseMax = 40;
+
+             this.playerCurse = this.playerCurseMax;
+
+            this.playerHealth = this.playerHealthMax;
+
+            this.updateDisplay();
+            
+        }else{
+            this.outSide.setTint(0x004168);
+
+            this.playerHealth = this.tempHP;
+            this.playerHealthMax = this.tempMaxHP;
+
+            this.playerCurse = this.tempCurse;
+            this.playerCurseMax = this.tempMaxCurse;  
+             
+
+            this.updateDisplay();
+        }
+        
     }
 
 }

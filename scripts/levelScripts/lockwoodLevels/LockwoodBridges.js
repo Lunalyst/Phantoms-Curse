@@ -202,8 +202,8 @@ class LockwoodBridges extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initLockwoodDrawBridge(1632,736-48,'up');
-      //this.initLockwoodDrawBridge(1632,736-48,'down');
+      //this.initLockwoodDrawBridge(1632,736-48,'up');
+      this.initLockwoodDrawBridge(1632,736-48,'down');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

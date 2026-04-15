@@ -203,6 +203,30 @@ class LockwoodBridges extends defaultScene {
       //this.initLockwoodDrawBridge(1632,736-48,'up');
       this.initLockwoodDrawBridge(1632,736-48,'down');
 
+      this.SkippedNectarDialogue = false;
+
+      //if player loads in on this spot then load milo, hide player and spawn boss.
+      if(this.player1.x === 1954){
+
+        this.SkippedNectarDialogue = true;
+
+        this.player2Active = true;
+        this.Milo.visible = false;
+        this.player2.visible = true;
+        this.player2.anims.play('MenacingSpearHold',true);
+        this.player2.x = 1895;
+        this.player2.y = 728;
+        this.dialogueCatch = false;
+        this.player2.setDepth(6);
+
+        healthEmitter.emit(healthEvent.setMiloHealth,true,true);
+
+        this.player1.visible = false;
+
+        this.initEnemy(2094,650,this.playerSex,"nectar",false,this);
+         
+      }
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){
@@ -270,15 +294,13 @@ class LockwoodBridges extends defaultScene {
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
-      if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850){
+      if(this.nectarBossFlag === false && this.triggerEncounter === false && this.player1.x < 1850 && this.SkippedNectarDialogue === false){
 
         this.triggerEncounter = true;
         this.initNectar(2230, 480, 'ambush');
 
       }
 
-
-      
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
         this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,2000,0.5);

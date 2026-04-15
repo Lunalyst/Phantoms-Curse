@@ -70,7 +70,7 @@ class nectarBoss extends enemy {
             this.anims.create({key: 'PEJumpLandStart',frames: this.anims.generateFrameNames('nectar3', { start: 24, end: 26 }),frameRate: 7,repeat: 0});
             this.anims.create({key: 'PEJumpLandEnd',frames: this.anims.generateFrameNames('nectar3', { start: 27, end: 29 }),frameRate: 7,repeat: 0});
 
-            this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar4', { start: 0, end: 10 }),frameRate: 7,repeat: -1});
+            this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar4', { start: 0, end: 10 }),frameRate: 15,repeat: -1});
             this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar4', { start: 11, end: 14}),frameRate: 7,repeat: -1});
             this.anims.create({key: 'sideFeatherAtkStart',frames: this.anims.generateFrameNames('nectar4', { start: 15, end: 17 }),frameRate: 7,repeat: 0});
             this.anims.create({key: 'sideFeatherAtkMiddle',frames: this.anims.generateFrameNames('nectar4', { start: 18, end: 18 }),frameRate: 7,repeat: 0});
@@ -136,28 +136,28 @@ class nectarBoss extends enemy {
             healthEmitter.emit(healthEvent.setBossHealthVisible,true);
         }else{
         //console.log("testing nectar main combat ai.");
-        if (this.checkXRangeFromPlayer2(400, 400) && this.checkYRangeFromPlayer2(200,100)) {
+        if (this.checkXRangeFromPlayer2(700, 700) && this.checkYRangeFromPlayer2(200,100)) {
 
             //IF THE PLAYER IS TOO CLOSE MOVE NECTAR AWAY FROM THEM.
-            if(this.checkXRangeFromPlayer2(62, 62) && this.attackTimer === false && this.attemptingAttack === false ) {
+            if(this.checkXRangeFromPlayer2(112, 112) && this.attackTimer === false && this.attemptingAttack === false ) {
                 console.log("nectar is too clsoe moving her in better position");
                 if(this.scene.player2.x > this.x){
-                    this.setVelocityX(40 * -1);
-                    this.flipX = true;
-                }else{
-                    this.setVelocityX(40 * 1);
+                    this.setVelocityX(200 * -1);
                     this.flipX = false;
+                }else{
+                    this.setVelocityX(200 * 1);
+                    this.flipX = true;
                 } 
 
                 this.anims.play('sideWalk',true);
 
 
-            }else if(this.checkXRangeFromPlayer2(65, 65) || this.attackTimer === true || this.attemptingAttack === true) {
+            }else if(this.checkXRangeFromPlayer2(132, 132) || this.attackTimer === true || this.attemptingAttack === true) {
                 this.nectarMove = false;
                 this.setVelocityX(0);
                 console.log("nectar attack logic");
 
-                if(this.attackTimer === false && this.checkYRangeFromPlayer2(65, 65)){
+                if(this.attackTimer === false && this.checkYRangeFromPlayer2(132, 132)){
 
                     this.attackTimer = true;
                     this.setDepth(7);
@@ -195,20 +195,20 @@ class nectarBoss extends enemy {
                             });
                         });
                     }
-                }else if(!this.checkYRangeFromPlayer2(65, 65) && !this.attackTimer === true && !this.attemptingAttack === true){
+                }else if(!this.checkYRangeFromPlayer2(132, 132) && !this.attackTimer === true && !this.attemptingAttack === true){
                     this.anims.play('sideIdle',true);
                     this.setVelocityX(0);
 
                 }
 
-            }else if(this.checkXRangeFromPlayer2(350, 350) && this.attackTimer === false && this.attemptingAttack === false) {
+            }else if(this.checkXRangeFromPlayer2(700, 700) && this.attackTimer === false && this.attemptingAttack === false) {
 
                 console.log("nectar too far away. this.scene.player2.x: ",this.scene.player2.x ,"this.x",);
                if(this.scene.player2.x > this.x){
-                    this.setVelocityX(40 * 1);
+                    this.setVelocityX(200 * 1);
                     this.flipX = true;
                 }else{
-                    this.setVelocityX(40 * -1);
+                    this.setVelocityX(200 * -1);
                     this.flipX = false;
                 } 
 

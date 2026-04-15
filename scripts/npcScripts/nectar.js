@@ -336,6 +336,108 @@ class nectar extends npc{
     }
   }
 
+  // overwrite function so that we can skip the scene by loading into the scene again in the correct position.
+  overlapActivateNpc(){
+     //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcFinished: ",this.triggerNpcFinished);
+    //if the id matches and we havent activated the trigger yet.
+
+    //console.log("this.scene.activatedNpcId === this.npcId: ",this.scene.activatedNpcId === this.npcId, "this.triggerNpcFinished: ",this.triggerNpcFinished);
+    if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
+
+      //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      console.log("flag logic function acxtivated!")
+      this.flagLogic();
+        
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
+
+      //lock out starting logic.
+      this.triggerNpcActivated = true;
+
+    //otherwise if the trigger was activated, and the player is in dialogue, then have w progress dialogue.
+    
+    }else if(this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.triggerNpcFinished === false){
+
+      //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
+
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      //console.log("flag logic function acxtivated!")
+      this.flagLogic();
+        
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
+
+      //choke to make sure this cant be activated agian.
+      if(!this.scene.sceneTextBox.visible && this.scene.sceneTextBox.hidingText === false){
+        this.triggerNpcFinished = true;
+
+      }
+          
+    }
+    console.log("testing if skipping nectar dialogue")
+    //skip case for nectars cutscene.
+    if(this.scene.checkSkipIndicatorIsDown()){
+      //here is where we apply the warp code 
+      console.log(" skipping nectar scene")
+
+      //creates a object to hold data for scene transition
+            let playerDataObject = {
+              saveX: null,
+              saveY: null,
+              playerHpValue: null,
+              playerSex: null,
+              playerLocation: null,
+              inventoryArray: null,
+              playerBestiaryData: null,
+              playerSkillsData: null,
+              playerSaveSlotData: null,
+              flagValues: null,
+              settings:null,
+              dreamReturnLocation:null,
+              playerCurseValue:null
+            };
+
+            //console.log(playerDataObject)
+
+            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+        
+            //then we set the correct location values to the scene transition data.
+            playerDataObject.saveX = 1954;
+            playerDataObject.saveY = 728;
+            playerDataObject.playerSex = this.scene.playerSex;
+            playerDataObject.playerLocation = "LockwoodBridges";
+
+            // then we save the scene transition data.
+            this.scene.saveGame(playerDataObject);
+
+            //kills gameplay emitters so they dont pile up between scenes
+            this.scene.clearGameplayEmmitters();
+
+             //stops player momentum in update loop.
+            this.scene.playerWarping = true;
+
+            this.scene.portalId = 0;
+            //for loop looks through all the looping music playing within a given scene and stops the music.
+            for(let counter = 0; counter < this.scene.sound.sounds.length; counter++){
+              this.scene.sound.get(this.scene.sound.sounds[counter].key).stop();
+            }
+
+            this.scene.player1.visible = false;
+
+            //warps player to the next scene
+            this.scene.destination = "LockwoodBridges";
+            this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+    } 
+  }
+
   ambushMakeRiddleChoice(position){
     if(this.riddleOptions.length > 0){
 
@@ -578,11 +680,11 @@ class nectar extends npc{
 
     this.nodeHandler("nectar","Behavior1","ambush");
     
-    
-    
     if(this.currentDictNode !== null){
-
-          if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
+           if(this.currentDictNode.nodeName === "node1"){
+            //calls emitter to show the tabtoskip graphic
+            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+           }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
             this.inDialogue = true;
             //set variable approperiately
@@ -814,7 +916,8 @@ class nectar extends npc{
 
           //this.tempPlayer1Ref = this.scene.player1;
           //this.scene.player1 = this.scene.player2;
-          this.scene.initEnemy(this.x,this.y-20,this.scene.playerSex,"nectar",false,this);
+          console.log("nectars this.x: ",this.x," this.y-21: ",this.y-21);
+          this.scene.initEnemy(this.x,this.y-21,this.scene.playerSex,"nectar",false,this);
           }
 
           

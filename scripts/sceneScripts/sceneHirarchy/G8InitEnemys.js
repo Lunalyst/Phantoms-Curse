@@ -1068,6 +1068,62 @@ class G8InitEnemys extends G7EnemyCollisions{
         mush.grabType = "cock";
 
       },
+
+       nectar: function nectarFunction(startX, startY, playerSex,inSafeMode,rootNode) {
+
+        let nectar = new nectarBoss(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+      
+        tempSceneRef.enemyId++;
+        console.log("created nectar id: ",nectar.enemyId);
+        tempSceneRef.enemys.add(nectar);
+        tempSceneRef.nectars.add(nectar);
+
+
+        if(inSafeMode === false){
+
+          let  collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, nectar, function () {
+              console.log("overlap with nectar occuring!");
+              nectar.hitboxOverlaps = true;
+          });
+          nectar.addColliderRef(collider1);
+
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, nectar.grabHitBox, function () {
+
+              let isWindowObject = {
+                isOpen: null
+              };
+            
+              inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+
+              if (isWindowObject.isOpen === true) {
+                inventoryKeyEmitter.emit(inventoryKey.activateWindow,tempSceneRef);
+                
+              }
+
+              if (nectar.grabCoolDown === false && tempSceneRef.grabCoolDown === false) {
+                //stop the velocity of the player
+                tempSceneRef.player1.mainHitbox.setVelocityX(0);
+                //calls the grab function
+                nectar.grab();
+                //sets the scene grab value to true since the player has been grabbed
+                // tells instance of slime that it has grabbed player
+                nectar.grabCoolDown = true;
+                nectar.playerGrabbed = true;
+                tempSceneRef.grabbed = true;
+                tempSceneRef.grabCoolDown = true;
+                console.log('player grabbed by nectar');
+              }
+          });
+          nectar.addColliderRef(collider1);
+          //attack hitbox logic
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, nectar.attackHitBox, function () {
+           //need to apply damage to milo function
+
+          });
+          nectar.addColliderRef(collider1);
+        }
+      },
+
       genericDefeat: function genericDefeatFunction(startX, startY, playerSex,inSafeMode) {
         let defeat = new genericDefeat(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
         tempSceneRef.enemyId++;

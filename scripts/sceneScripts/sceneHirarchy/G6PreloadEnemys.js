@@ -334,6 +334,20 @@ class G6PreloadEnemys extends G5InitNPCs{
 
 
       },
+
+      nectar: function nectarFunction() {
+
+        tempSceneRef.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar4" , "assets/bosses/nectar4.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar5" , "assets/bosses/nectar5.png" , {frameWidth: 933 , frameHeight: 591 });
+
+      },
       genericDefeats: function genericDefeatFunction() {
 
       },

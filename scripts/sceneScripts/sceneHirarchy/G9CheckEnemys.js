@@ -337,6 +337,8 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.checkMushroomDefeatsInteractions(tempSceneRef);
       },matangoRoot: function matangoRootFunction(){
         tempSceneRef.matangoRootInteractions(tempSceneRef);
+      },nectar: function nectarFunction(){
+        tempSceneRef.nectarInteractions(tempSceneRef);
       },genericDefeats:function genericDefeatsFunction(){
         tempSceneRef.genericDefeatInteractions(tempSceneRef);
       }
@@ -990,6 +992,37 @@ class G9CheckEnemys extends G8InitEnemys {
         tempMushrooms.setVelocityX(0);
         tempMushrooms.safePrompts.visible = false;
         tempMushrooms.playedSafePrompts = false;
+      }
+        
+    }, this);
+  }
+
+  nectarInteractions(scene){
+
+     scene.nectars.children.each(function (nectarBoss) {
+      //console.log(" testing nectar check interactions loop");
+      //safty check to improve performance. only does overlap if in range.
+      if(this.objectsInRangeX(nectarBoss,this.player2,3000) && this.objectsInRangeY(nectarBoss,this.player2,3000) && nectarBoss.inSafeMode === false){
+        //console.log("nectarBoss.inSafeMode: ",nectarBoss.inSafeMode);
+       
+          nectarBoss.move(scene.player1,scene);
+        
+        if(nectarBoss.hitboxOverlaps === true) {
+          nectarBoss.damage(this.player2);
+          console.log("damaging nectar node!")
+          nectarBoss.hitboxOverlaps = false;
+        }
+       
+      // creates a overlap between the damage hitbox and the slime so that slime can take damage
+      }else if(this.objectsInRangeX(nectarBoss,scene.player1,50) && this.objectsInRangeY(nectarBoss,scene.player1,80)){
+
+        this.viewAnimationLogic(nectarBoss);
+      // otherwise hid the prompt from the player.
+      }else{
+        nectarBoss.setVelocityY(0);
+        nectarBoss.setVelocityX(0);
+        nectarBoss.safePrompts.visible = false;
+        nectarBoss.playedSafePrompts = false;
       }
         
     }, this);

@@ -42,8 +42,12 @@ class nectar extends npc{
        this.dialogueCompleted = false;
        this.completedText = false;
 
+
        this.animationPlayed = false;
        this.scene = scene;
+
+       //leave a refrence to this npc version fo nectar so the enemy version can talk to it.
+       this.scene.npcNectar = this;
 
        this.spearRaise = false;
 
@@ -807,7 +811,13 @@ class nectar extends npc{
           this.dialogueCatch = false;
           this.scene.player2.setDepth(6);
           this.setDepth(5);
+
+          //this.tempPlayer1Ref = this.scene.player1;
+          //this.scene.player1 = this.scene.player2;
+          this.scene.initEnemy(this.x,this.y-20,this.scene.playerSex,"nectar",false,this);
           }
+
+          
     }
       
     

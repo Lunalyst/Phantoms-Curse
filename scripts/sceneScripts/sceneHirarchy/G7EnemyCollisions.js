@@ -122,6 +122,11 @@ class G7EnemyCollisions extends G6PreloadEnemys{
 
             
           },
+          nectar: function nectarFunction() {
+            console.log("adding matangoRoot group");
+            tempSceneRef.nectars = tempSceneRef.physics.add.group();   
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.nectars );
+          },
           genericDefeats: function genericDefeatFunction() {
             console.log("adding generic defeat");
             tempSceneRef.genericDefeats = tempSceneRef.add.group();

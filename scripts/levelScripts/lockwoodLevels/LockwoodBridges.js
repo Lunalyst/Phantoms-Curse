@@ -29,7 +29,7 @@ class LockwoodBridges extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = [];
+      this.enemyGroupArray = ['nectar'];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -57,9 +57,10 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
       this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
 
-      this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
-      this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
-      this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
+      //note nectars sprites are loaded in g6enemypreload.
+      //this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
+      //this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
+      //this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
       
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
@@ -77,9 +78,6 @@ class LockwoodBridges extends defaultScene {
           "audio/used-audio/bush-sounds/bush-sounds.mp3"
       ]);
 
-      this.load.audioSprite('bossSFX','audio/used-audio/button-sounds/button-sounds.json',[
-            "audio/used-audio/button-sounds/button-sounds.mp3"
-        ]);
     }
 
     create(){
@@ -265,6 +263,10 @@ class LockwoodBridges extends defaultScene {
       }else{
         this.defaultUpdate();
       }
+
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
+
       
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
@@ -274,6 +276,8 @@ class LockwoodBridges extends defaultScene {
         this.initNectar(2230, 480, 'ambush');
 
       }
+
+
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

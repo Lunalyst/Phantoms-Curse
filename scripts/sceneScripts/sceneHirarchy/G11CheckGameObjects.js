@@ -201,6 +201,31 @@ class G11CheckGameObjects extends G10CheckNPCS {
     }, this);
   }
 
+  checkNectarProjectiles(){
+    
+    this.nectarProjectiles.children.each(function (tempProjectile) {
+      //ensures gravity is applied,
+      console.log("tempProjectile.savedGravity: ",tempProjectile.savedGravity);
+      tempProjectile.body.setGravityY(tempProjectile.savedGravity);
+
+      //applies velocity of projectile if predefined but only if it hasn't hit the ground.
+      if(!tempProjectile.body.blocked.down){
+        tempProjectile.setVelocityX(tempProjectile.savedVelocityX);
+      }else{
+        tempProjectile.setVelocityX(0);
+      }
+      
+      //if projectile hits the ground then
+      if(tempProjectile.body.blocked.down && !tempProjectile.hitTheGround){
+        console.log("feather projectile hit ground!")
+        //call slime projectile to destroy its self 
+        tempProjectile.destroyNectarProjectile();
+        tempProjectile.hitTheGround = true;
+      }
+
+    }, this);
+  }
+
   checkCursedHeartProjectiles(){
 
     this.CursedHearts.children.each(function (tempProjectile) {

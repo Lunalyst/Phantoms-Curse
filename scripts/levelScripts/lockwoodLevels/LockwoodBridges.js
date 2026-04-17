@@ -154,6 +154,9 @@ class LockwoodBridges extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.setUpNectarProjectiles();
+      this.setUpNectarProjectilesBarriers();
+
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
@@ -218,6 +221,9 @@ class LockwoodBridges extends defaultScene {
         this.player2.y = 728;
         this.dialogueCatch = false;
         this.player2.setDepth(6);
+
+        //make sure hp bar is visible if the player skips the cutscene while its not visible.
+        healthEmitter.emit(healthEvent.healthVisibility,true);
 
         healthEmitter.emit(healthEvent.setMiloHealth,true,true);
 

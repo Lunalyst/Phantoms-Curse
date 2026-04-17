@@ -96,6 +96,10 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     this.physics.add.collider(this.processMap.layer1, this.slimeProjectiles);
   }
 
+  setUpNectarProjectilesBarriers(){
+    this.physics.add.collider(this.processMap.layer1, this.nectarProjectiles);
+  }
+
   setUpCursedHeartsProjectilesBarriers(){
     this.physics.add.collider(this.processMap.layer1, this.CursedHearts);
   }

@@ -180,7 +180,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
             barLength = Math.floor(this.curseBarWidth * percentage);
 
-            console.log("curse barLength: ",barLength);
+            //console.log("curse barLength: ",barLength);
 
             this.curseBar.fillStyle(0xb317ff);
 
@@ -199,7 +199,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
             //sets the max length of the ba
 
-            console.log("health barLength: ",barLength);
+            //console.log("health barLength: ",barLength);
 
             this.curseStage.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
 
@@ -231,7 +231,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
             barLength = Math.floor(this.curseBarWidth * percentage);
 
-            console.log("curse barLength: ",barLength);
+            //console.log("curse barLength: ",barLength);
 
             this.curseBar.fillStyle(0xb317ff);
 

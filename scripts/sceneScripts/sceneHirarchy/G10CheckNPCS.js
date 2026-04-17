@@ -8,11 +8,11 @@ class G10CheckNPCS extends G9CheckEnemys {
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
       if ((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40) && scene.grabbed === false) {
-        console.log("within npc range");
+        //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
       } else {
-        console.log("outside npc range");
+        //console.log("outside npc range");
         tempNpc.safeToSpeak = false;
       }
       //console.log("activating npc!")

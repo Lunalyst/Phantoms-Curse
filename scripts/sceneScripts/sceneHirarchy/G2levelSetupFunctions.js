@@ -97,6 +97,13 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.usingSlimeProjectiles = true;
   }
 
+  setUpNectarProjectiles(){
+    //set up the slime projectile group
+    console.log('created nectar feather group');
+    this.nectarProjectiles = this.physics.add.group();
+    this.usingNectarProjectiles = true;
+  }
+
   setUpCursedHeartProjectiles(){
     //set up the slime projectile group
     console.log('created curse hearts group');

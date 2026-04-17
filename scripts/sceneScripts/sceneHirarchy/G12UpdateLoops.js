@@ -309,6 +309,11 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
       this.checkPlayerProjectiles();
 
+      console.log("this.usingNectarProjectiles: ",this.usingNectarProjectiles);
+      if(this.usingNectarProjectiles === true){
+        this.checkNectarProjectiles();
+      }
+
       //not sure what these are for. saftey net when loading in?
       if(this.loadCoolDown === true){
         //this.checkWarp(this.playerLocation);

@@ -379,6 +379,35 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     }
 
+    initNectarProjectile(x,y,velocityX,savedGravity,rotation){
+
+      let tempProjectile = new nectarProjectile(this,x,y,velocityX,savedGravity,rotation);
+
+      //this.physics.add.existing(tempProjectile);
+      this.nectarProjectiles.add(tempProjectile);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        tempProjectile.setPipeline('Light2D');
+        
+      }
+
+      let tempScene = this;
+
+      //if projectile overlaps with player then
+      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+
+        if(tempProjectile.body.blocked.down === false){
+          //set up player stuck grab and 
+          
+        }
+
+
+      });
+
+
+    }
+
     initCursedHeartProjectile(x,y,velocityX,enemy,direction){
 
       let tempProjectile = new cursedHeartProjectile(this,x,y,velocityX,enemy,direction);

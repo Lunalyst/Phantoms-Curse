@@ -227,6 +227,58 @@ class nectar extends npc{
 
                   //hide player hp bar.
                   healthEmitter.emit(healthEvent.healthVisibility,false);
+
+                  //use emitter to check nectar ambush skip flag
+                let nectarFlag = {
+                  flagToFind: "nectarAmbushSkip",
+                  foundFlag: false,
+                };
+
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+                //if the encounter has not happened, then set variables. 
+                if(nectarFlag.foundFlag === false){
+
+                  //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
+                  inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
+
+                  //creates a object to hold data for scene transition
+                  let playerDataObject = {
+                      saveX: null,
+                      saveY: null,
+                      playerHpValue: null,
+                      playerMaxHP: null,
+                      playerSex: null,
+                      playerLocation: null,
+                      inventoryArray: null,
+                      playerBestiaryData: null,
+                      playerSkillsData: null,
+                      playerSaveSlotData: null,
+                      flagValues: null,
+                      settings:null,
+                      dreamReturnLocation:null,
+                      playerCurseValue:null
+                    };
+                    
+                  //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                  inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+                  playerDataObject.saveX = 2254;
+                  playerDataObject.saveY = 728;
+                  playerDataObject.playerSex = this.scene.playerSex;
+                  playerDataObject.playerLocation = "LockwoodBridges";
+
+                  //maxes out hp.
+                  playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
+
+                  //saves the game by calling the save game file function in the scene
+                  this.scene.saveGameFile(playerDataObject);
+
+                  //makes graphic to show player the game is saved
+                  //inventoryKeyEmitter.emit(inventoryKey.playGameSaved);
+
+                }
+                
                   this.anims.play('swallowedPlayerIdle',true);
                   //this.choke = false;
                   this.scene.sceneTextBox.textInterupt = false;
@@ -381,11 +433,11 @@ class nectar extends npc{
       }
           
     }
-    console.log("testing if skipping nectar dialogue")
+    //console.log("testing if skipping nectar dialogue")
     //skip case for nectars cutscene.
     if(this.scene.checkSkipIndicatorIsDown()){
       //here is where we apply the warp code 
-      console.log(" skipping nectar scene")
+      //console.log(" skipping nectar scene")
 
       //creates a object to hold data for scene transition
             let playerDataObject = {
@@ -682,8 +734,23 @@ class nectar extends npc{
     
     if(this.currentDictNode !== null){
            if(this.currentDictNode.nodeName === "node1"){
-            //calls emitter to show the tabtoskip graphic
-            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
+            //use emitter to check nectar ambush skip flag
+            let nectarFlag = {
+              flagToFind: "nectarAmbushSkip",
+              foundFlag: false,
+            };
+
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+            //if the encounter has not happened, then set variables. 
+            if(nectarFlag.foundFlag === true){
+
+              //calls emitter to show the tabtoskip graphic
+              skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+              
+            }
+            
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
             this.inDialogue = true;
@@ -895,9 +962,6 @@ class nectar extends npc{
             healthEmitter.emit(healthEvent.setMiloHealth,true,true);
 
             this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
-
-                //this.inDialogue = false;
-                //this.scene.sceneTextBox.textInterupt = false;
 
                 this.scene.Milo.anims.play('MenacingSpearHold',true);
             });

@@ -57,6 +57,8 @@ class nectar extends npc{
 
        this.isPlayerControlled = false;
 
+       this.skipFlagFound = false;
+
        this.riddleArray = [];
        this.riddlePositionsArray = [];
 
@@ -225,6 +227,9 @@ class nectar extends npc{
                 this.scene.initSoundEffect('swallowSFX','3',0.6);
                 this.anims.play('swallowingPlayer4').once('animationcomplete', () => {
 
+                  //hides inventory ui button?
+                  inventoryKeyEmitter.emit(inventoryKey.inventoryVisible,false);
+        
                   //hide player hp bar.
                   healthEmitter.emit(healthEvent.healthVisibility,false);
 
@@ -435,7 +440,7 @@ class nectar extends npc{
     }
     //console.log("testing if skipping nectar dialogue")
     //skip case for nectars cutscene.
-    if(this.scene.checkSkipIndicatorIsDown()){
+    if(this.scene.checkSkipIndicatorIsDown() && this.skipFlagFound === true){
       //here is where we apply the warp code 
       //console.log(" skipping nectar scene")
 
@@ -544,7 +549,9 @@ class nectar extends npc{
         this.scene.sceneTextBox.textInterupt = false;
 
         if(tempOption.letterString === "Stapler"){
+
           this.progressNode("node23",true);
+
         }else{
               this.scene.sceneTextBox.textInterupt = false;
 
@@ -743,13 +750,54 @@ class nectar extends npc{
 
             inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
 
+            
+
             //if the encounter has not happened, then set variables. 
             if(nectarFlag.foundFlag === true){
+
+              this.skipFlagFound = true;
 
               //calls emitter to show the tabtoskip graphic
               skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
               
             }
+
+            //saving game on node 1 trigger, that way if the player leaves nectars fight and comes back ,that they have a checkpoint save before the fight
+
+            //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
+            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
+
+            //creates a object to hold data for scene transition
+            let playerDataObject = {
+                      saveX: null,
+                      saveY: null,
+                      playerHpValue: null,
+                      playerMaxHP: null,
+                      playerSex: null,
+                      playerLocation: null,
+                      inventoryArray: null,
+                      playerBestiaryData: null,
+                      playerSkillsData: null,
+                      playerSaveSlotData: null,
+                      flagValues: null,
+                      settings:null,
+                      dreamReturnLocation:null,
+                      playerCurseValue:null
+            };
+                    
+            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+            playerDataObject.saveX = 2254;
+            playerDataObject.saveY = 728;
+            playerDataObject.playerSex = this.scene.playerSex;
+            playerDataObject.playerLocation = "LockwoodBridges";
+
+            //maxes out hp.
+            playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
+
+            //saves the game by calling the save game file function in the scene
+            this.scene.saveGameFile(playerDataObject);
             
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            

@@ -62,7 +62,7 @@ class nectarBoss extends enemy {
 
         this.visible = false;
 
-        //make a hitbox so the cat can grab the player.
+       //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
         this.hitBoxHide();
@@ -88,7 +88,13 @@ class nectarBoss extends enemy {
             this.anims.create({key: 'sideFeatherAtkEnd',frames: this.anims.generateFrameNames('nectar4', { start: 19, end: 20 }),frameRate: 7,repeat: 0});
 
             this.anims.create({key: 'sideFeatherAtkEnd',frames: this.anims.generateFrameNames('nectar4', { start: 19, end: 20 }),frameRate: 7,repeat: 0});
-      
+            
+            this.anims.create({key: 'PEJumpUpFeather',frames: this.anims.generateFrameNames('nectar5', { start: 0, end: 2 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PEJumpDownFeather1',frames: this.anims.generateFrameNames('nectar5', { start: 3, end: 3 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PEJumpDownFeather2',frames: this.anims.generateFrameNames('nectar5', { start: 4, end: 23-18 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PEJumpLandStartFeather',frames: this.anims.generateFrameNames('nectar5', { start: 24-18, end: 26-18 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PEJumpLandEndFeather',frames: this.anims.generateFrameNames('nectar5', { start: 27-18, end: 29-18 }),frameRate: 7,repeat: 0});
+
             /*if(sex === 0) {
                 this.anims.create({ key: 'analStart', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
 
@@ -124,7 +130,7 @@ class nectarBoss extends enemy {
 
         this.body.setGravityY(600);
         //idea, check to see if play isnt in dialogue. if so then hide npc version show this one and do boss stuff.
-
+        console.log("this.attackState: ",this.attackState);
         if (this.enemyHP > 0) {
 
         //if we havent started the fight and the player is free from dialogue then set up the fight
@@ -134,15 +140,21 @@ class nectarBoss extends enemy {
 
             this.scene.initSoundEffect('bossSFX','bossStart',0.1);
 
+            this.scene.isPaused = false;
+
             this.visible = true;
 
             this.scene.npcNectar.visible = false;
 
             let healthObject = {
                 bossName: "Nectar",
-                bossHealth: this.enemyHP,
+                bossHealth: this.enemyHP-7,
                 bossMaxHealth: this.enemyHP,
             };
+
+            this.enemyHP-7
+
+            this.bossMaxHealth = this.enemyHP;
 
             healthEmitter.emit(healthEvent.setBossHealth,healthObject);
             healthEmitter.emit(healthEvent.setBossHealthVisible,true);
@@ -163,11 +175,12 @@ class nectarBoss extends enemy {
 
                 this.anims.play('sideWalk',true);
 
+                this.nectarBorderCheck();
 
             }else if(this.checkXRangeFromPlayer2(132, 132) || this.attackTimer === true || this.attemptingAttack === true) {
 
                 this.setVelocityX(0);
-                console.log("nectar attack logic");
+                //console.log("nectar attack logic");
 
                 if(this.attackTimer === false && this.checkYRangeFromPlayer2(132, 132)){
 
@@ -185,8 +198,16 @@ class nectarBoss extends enemy {
                     this.anims.play('PESwipeStart').once('animationcomplete', () => {
                     
                         this.hitboxActive = true;
-                        this.grabHitBox.body.enable = true;
+                        this.attackHitBox.body.enable = true;
                         this.attemptingAttack = true;
+
+                        if(this.flipX === true){
+                            this.attackHitBoxPositionActive(this.x+115,this.y+30);
+                        }else{
+                            this.attackHitBoxPositionActive(this.x-115,this.y+30);
+                        } 
+                        
+                        this.attackHitBox.setSize(70, 120, true);
 
                     });
 
@@ -211,7 +232,7 @@ class nectarBoss extends enemy {
                                 let tempBoss = this;
                                 setTimeout(function () {
                                     tempBoss.attackTimer = false;
-                                    tempBoss.attackState = 1;
+                                    tempBoss.nectarStateController();
 
                                 }, 1000);
                                
@@ -239,7 +260,7 @@ class nectarBoss extends enemy {
 
             if(this.checkXRangeFromPlayer2(132, 132) || this.preJump === true) {
 
-                console.log("this.preJump",this.preJump ,"this.nectarIsUp: ",this.nectarIsUp, " this.nectarIsFalling: ",this.nectarIsFalling, " this.hasLanded: ",this.hasLanded);
+                //console.log("this.preJump",this.preJump ,"this.nectarIsUp: ",this.nectarIsUp, " this.nectarIsFalling: ",this.nectarIsFalling, " this.hasLanded: ",this.hasLanded);
 
                 if(this.nectarIsUp === true && this.nectarIsFalling === false){
                     if(this.scene.player2.x < this.x){
@@ -289,10 +310,14 @@ class nectarBoss extends enemy {
                     this.setVelocityX(0);
                     this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
+                    this.attackHitBoxPositionActive(this.x-2,this.y+95);
+                    this.attackHitBox.setSize(130, 40, true);
+                    this.hitboxActive = true;
+                    this.attackHitBox.body.enable = true;
+
                     this.anims.play('PEJumpLandStart').once('animationcomplete', () => {
                     
-                        this.hitboxActive = true;
-                        this.grabHitBox.body.enable = true;
+                        
                         this.attemptingAttack = true;
 
                     });
@@ -328,7 +353,7 @@ class nectarBoss extends enemy {
                                 tempBoss.hasLanded = false;
                                 tempBoss.attackTimer = false;
 
-                                tempBoss.attackState = 2;
+                                tempBoss.nectarStateController();
 
                             }, 1000);
                                
@@ -356,6 +381,7 @@ class nectarBoss extends enemy {
             //IF THE PLAYER IS TOO CLOSE MOVE NECTAR AWAY FROM THEM.
             if(this.checkXRangeFromPlayer2(212, 212) && this.attackTimer === false && this.attemptingAttack === false ) {
                 console.log("nectar is too clsoe moving her in better position");
+                
                 if(this.scene.player2.x > this.x){
                     this.setVelocityX(200 * -1);
                     this.flipX = false;
@@ -366,11 +392,13 @@ class nectarBoss extends enemy {
 
                 this.anims.play('sideWalk',true);
 
+                 this.nectarBorderCheck();
+                
 
             }else if(this.checkXRangeFromPlayer2(232, 232) || this.attackTimer === true || this.attemptingAttack === true) {
 
                 this.setVelocityX(0);
-                console.log("nectar attack logic");
+                //console.log("nectar attack logic");
 
                 if(this.attackTimer === false && this.checkYRangeFromPlayer2(132, 132)){
 
@@ -388,7 +416,6 @@ class nectarBoss extends enemy {
                     this.anims.play('sideFeatherAtkStart').once('animationcomplete', () => {
                     
                         this.hitboxActive = true;
-                        this.grabHitBox.body.enable = true;
                         this.attemptingAttack = true;
 
                         if(this.scene.player2.x > this.x){
@@ -412,7 +439,7 @@ class nectarBoss extends enemy {
                         this.setDepth(7);
                         this.anims.play('sideFeatherAtkMiddle').once('animationcomplete', () => {
 
-                             this.hitboxActive = false;
+                            this.hitboxActive = false;
                             this.attemptingAttack = false;
                                 
                             this.anims.play('sideFeatherAtkEnd').once('animationcomplete', () => {
@@ -425,7 +452,7 @@ class nectarBoss extends enemy {
                                 let tempBoss = this;
                                 setTimeout(function () {
                                     tempBoss.attackTimer = false;
-                                    tempBoss.attackState = 0;
+                                    tempBoss.nectarStateController();
 
                                 }, 1000);
                                
@@ -447,6 +474,240 @@ class nectarBoss extends enemy {
 
                 this.anims.play('sideWalk',true);
             }
+        }else if(this.attackState === 3){
+
+            if(this.checkXRangeFromPlayer2(132, 132) || this.preJump === true) {
+
+                //console.log("this.preJump",this.preJump ,"this.nectarIsUp: ",this.nectarIsUp, " this.nectarIsFalling: ",this.nectarIsFalling, " this.hasLanded: ",this.hasLanded);
+
+                if(this.nectarIsUp === true && this.nectarIsFalling === false){
+                    if(this.scene.player2.x < this.x){
+                        this.setVelocityX(100 * -1);
+                    }else{
+                        this.setVelocityX(100 * 1);
+                    }
+                }
+
+                if(this.preJump === false && this.nectarIsUp === false){
+
+                    this.preJump = true;
+                    this.setVelocityX(0);
+
+                    //play animation fo her going up
+                    this.anims.play('PEJumpUpFeather').once('animationcomplete', () => {
+                    // set velocity of y to haver her jump
+                    this.setVelocityY(400*-1);
+                    this.nectarIsUp = true;
+
+                    });
+
+                //once she begins to fall, play animation where she is falling
+                }else if(this.nectarIsFalling === false && this.enemyPreviousY > this.y && this.nectarIsUp === true){
+                    this.nectarIsFalling = true;
+
+                    
+
+                    //play animation fo her going up
+                    this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                    this.anims.play('PEJumpDownFeather1').once('animationcomplete', () => {
+
+                        this.scene.initNectarProjectile(this.x+60,this.y+0,300,100,(2*3.14)/3);
+                        this.scene.initNectarProjectile(this.x+50,this.y+10,260,150,(3*3.14)/4);
+                        this.scene.initNectarProjectile(this.x+40,this.y+20,220,200,(5*3.14)/6);
+            
+                        this.scene.initNectarProjectile(this.x-60,this.y+0,-300,100,-(2*3.14)/3);
+                        this.scene.initNectarProjectile(this.x-50,this.y+10,-260,150,-(3*3.14)/4);
+                        this.scene.initNectarProjectile(this.x-40,this.y+20,-220,200,-(5*3.14)/6);
+                        this.anims.play('PEJumpDownFeather2').once('animationcomplete', () => {
+
+                        });
+                    });
+
+                    // after animation finishes let logic know she has landed so do the attack.
+
+
+                }else if(this.nectarIsFalling === true && this.hasLanded === false){
+
+                    if(this.body.blocked.down){
+                        this.hasLanded = true;
+
+                    }
+
+                }else if(this.attackTimer === false && this.hasLanded === true){
+
+                    this.attackTimer = true;
+                    //this.setDepth(7);
+                    this.setVelocityX(0);
+                    this.scene.initSoundEffect('bossSFX','explosion',0.06);
+
+                    this.attackHitBoxPositionActive(this.x-2,this.y+95);
+                    this.attackHitBox.setSize(130, 40, true);
+                    this.hitboxActive = true;
+                    this.attackHitBox.body.enable = true;
+
+                    this.anims.play('PEJumpLandStartFeather').once('animationcomplete', () => {
+                    
+                        this.hitboxActive = true;
+                        this.attackHitBox.body.enable = true;
+                        this.attemptingAttack = true;
+
+                    });
+
+                }else if(this.attemptingAttack === true){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+
+                        this.hitboxActive = false;
+                        this.attemptingAttack = false;
+                        this.anims.play('PEJumpLandEndFeather').once('animationcomplete', () => {
+
+                            //this.setDepth(5);
+
+                            this.isPlayingMissedAnims = false;  
+
+                            this.anims.play('sideIdle',true);
+
+                            if(this.scene.player2.x > this.x){
+                                this.flipX = true;
+                            }else{
+                                this.flipX = false;
+                            } 
+
+                            let tempBoss = this;
+                            setTimeout(function () {
+                                //jump attack bools
+                                tempBoss.preJump = false;
+                                tempBoss.nectarIsUp = false;
+                                tempBoss.nectarIsFalling = false;
+                                tempBoss.hasLanded = false;
+                                tempBoss.attackTimer = false;
+
+                                tempBoss.nectarStateController();
+
+                            }, 1000);
+                               
+                        });
+                    }
+                }
+
+            }else if(this.checkXRangeFromPlayer2(2000, 2000) && this.preJump === false) {
+
+                console.log("nectar too far away. this.scene.player2.x: ",this.scene.player2.x ,"this.x",);
+               if(this.scene.player2.x > this.x){
+                    this.setVelocityX(200 * 1);
+                    this.flipX = true;
+                }else{
+                    this.setVelocityX(200 * -1);
+                    this.flipX = false;
+                } 
+
+                this.anims.play('sideWalk',true);
+            }
+
+        }else if(this.attackState === 4){
+
+            //IF THE PLAYER IS TOO CLOSE MOVE NECTAR AWAY FROM THEM.
+            if(this.checkXRangeFromPlayer2(112, 112) && this.attackTimer === false && this.attemptingAttack === false ) {
+                console.log("nectar is too clsoe moving her in better position");
+                if(this.scene.player2.x > this.x){
+                    this.setVelocityX(200 * -1);
+                    this.flipX = false;
+                }else{
+                    this.setVelocityX(200 * 1);
+                    this.flipX = true;
+                } 
+
+                this.anims.play('sideWalk',true);
+
+                this.nectarBorderCheck();
+
+            }else if(this.checkXRangeFromPlayer2(132, 132) || this.attackTimer === true || this.attemptingAttack === true) {
+
+                this.setVelocityX(0);
+                //console.log("nectar attack logic");
+
+                if(this.attackTimer === false && this.checkYRangeFromPlayer2(132, 132)){
+
+                    this.attackTimer = true;
+                   
+
+                    if(this.scene.player2.x > this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    } 
+
+                    this.scene.initSoundEffect('weaponSFX','medium',0.1);
+
+                    this.anims.play('PESwipeStart').once('animationcomplete', () => {
+
+                        if(this.scene.player2.x > this.x){
+                            this.scene.initNectarClawProjectile(this.x+150,this.y+35,0,0,true);
+                        }else{
+                            this.scene.initNectarClawProjectile(this.x-150,this.y+35,0,0,false);
+                        } 
+                    
+                        this.hitboxActive = true;
+                        this.attackHitBox.body.enable = true;
+                        this.attemptingAttack = true;
+
+                        if(this.flipX === true){
+                            this.attackHitBoxPositionActive(this.x+115,this.y+30);
+                        }else{
+                            this.attackHitBoxPositionActive(this.x-115,this.y+30);
+                        } 
+                        
+                        this.attackHitBox.setSize(70, 120, true);
+
+                    });
+
+                }else if(this.attemptingAttack === true){
+
+                    if(this.isPlayingMissedAnims === false){
+                        this.isPlayingMissedAnims = true;
+                        //set value to play missed grabb animation
+                        this.setDepth(7);
+                        this.anims.play('PESwipeMiddle').once('animationcomplete', () => {
+
+                             this.hitboxActive = false;
+                            this.attemptingAttack = false;
+                                
+                            this.anims.play('PESwipeEnd').once('animationcomplete', () => {
+                                this.setDepth(5);
+
+                                this.isPlayingMissedAnims = false;  
+
+                                this.anims.play('sideIdle',true);
+
+                                let tempBoss = this;
+                                setTimeout(function () {
+                                    tempBoss.attackTimer = false;
+                                    tempBoss.nectarStateController();
+
+                                }, 1000);
+                               
+                            });
+                        });
+                    }
+                }
+
+            }else if(this.checkXRangeFromPlayer2(2000, 2000) && this.attackTimer === false && this.attemptingAttack === false) {
+
+                console.log("nectar too far away. this.scene.player2.x: ",this.scene.player2.x ,"this.x",);
+               if(this.scene.player2.x > this.x){
+                    this.setVelocityX(200 * 1);
+                    this.flipX = true;
+                }else{
+                    this.setVelocityX(200 * -1);
+                    this.flipX = false;
+                } 
+
+                this.anims.play('sideWalk',true);
+            }
+
+            let currentSlime = this;
         }
         
         }
@@ -457,26 +718,54 @@ class nectarBoss extends enemy {
      //handles hit box positioning
     if(this.hitboxActive === true){
 
-    //hitbox should be to left if player is to the left
-    if(this.flipX === true){
-        console.log("moving cat hitbox to the left");
-        this.grabHitBox.x = this.x-50;
-
-    //otherwise put it to the right.
-    }else{
-        console.log("moving cat hitbox to the right");
-        this.grabHitBox.x = this.x+50;
-    }
-    this.grabHitBox.y = this.y+25;
 
     }else{
-        this.grabHitBox.x = this.x;
-        this.grabHitBox.y = this.y + 3000; 
+        this.attackHitBox.x = this.x;
+        this.attackHitBox.y = this.y + 3000; 
     }
+    
 
     //updates the previous y value to tell if beenectar is falling or going up in its jump.
     this.enemyPreviousY = this.y;
 
+    }
+
+    nectarStateController(){
+
+       
+        if(this.enemyHP > (this.bossMaxHealth/3) * 2){
+
+            //this.attackState = Math.floor(Math.random() * 2);
+            this.attackState = Math.floor(Math.random() * 5);
+
+            if(this.attackState === 1){
+                this.attackState = 3;
+            }
+
+        }else if(this.enemyHP > this.bossMaxHealth/2){
+
+            this.attackState = Math.floor(Math.random() * 3);
+
+        }else{
+            this.attackState = Math.floor(Math.random() * 5);
+
+            if(this.attackState === 1){
+                this.attackState = 3;
+            }
+        }
+        
+         
+
+        //test cases
+        //this.attackState = 4;
+    }
+
+    nectarBorderCheck(){
+        // if nectar is to the right and too close to the border of the arena
+        if(this.x > 2641-100 || this.x < 1716+100){
+            console.log("nectar too close to right border of the arena now fixing")
+            this.attackState = 1;
+        }
     }
 
     //simple idle function played when the player is grabbed by something that isnt this enemy.
@@ -671,8 +960,10 @@ class nectarBoss extends enemy {
 
     // controls the damage resistance of the enemy.
     damage(refrence) {
+
+        console.log("damaging nectar! ");
   
-        if (this.damageCoolDown === false && this.poppedOut === true && refrence.type !== 'sporeCloud') {
+        if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.playJumpySound('3',100);
             this.setTint(0xff7a7a);
@@ -692,56 +983,13 @@ class nectarBoss extends enemy {
                 if (this.enemyHP <= 0) {
 
                     //STOP MUSIC
-                    this.scene.sound.get("battleMyceliumSFX").stop();
-                    this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
-
-                    //MAKE HANDS DISSAPEAR
-                    this.rightHand.anims.play('handSink').once('animationcomplete', () => {
-                        this.rightHand.visible = false;
-                        this.rightHand.curseLight.visible = false;
-                    });
-                    this.leftHand.anims.play('handSink').once('animationcomplete', () => {
-                        this.leftHand.visible = false;
-                        this.leftHand.curseLight.visible = false;
-                    });
-
-                    //play secret text?
-                    let temp = this;
-                    setTimeout(function(){
-
-                        temp.form1 = new makeEcrus(temp.scene,temp.x-230, temp.y+150,"@00011@ @10101@ @01@ @1011@ @11010@ @100@ @01@ @1011@ @1111@ @00001@ @100@ @01@ @10101@ @1100@ @00000@ @01@ @10100@ @100@ @11100@ @00100@ @1111@ @00010@ @100@ @01@ @00101@ @11010@ @11100@ @1011@ @01@ @1111@ @110110@ @01@ @11101@ @1100@ @1111@ @0011@ @11101@ @01@ @1100@ @0011@ @110111@");
-                        temp.form1.setScale(0.4);
-                        temp.form1.setAlpha(0.6);
-                        temp.form1.textFadeIn(4000);
-                        temp.form1.textWave();
-                        temp.form1.textWob();
-
-                        setTimeout(function(){
-                            temp.form1.textFadeOutAndDestroy(1000);
-
-                            setTimeout(function(){
-
-                                temp.form2 = new makeEcrus(temp.scene,temp.x-110, temp.y+150,"@11110@ @110@ @01@ @11100@ @0011@ @101@ @101@ @01@ @11101@ @100@ @01@ @110@ @000@ @000@ @01@ @101@ @11111@ @110@ @100@ @0010@");
-                                temp.form2.setScale(0.4);
-                                temp.form2.setAlpha(0.6);
-                                temp.form2.textFadeIn(4000);
-                                temp.form2.textWave();
-                                temp.form2.textWob();
-
-                                setTimeout(function(){
-                                    temp.form2.textFadeOutAndDestroy(1000);
-                                },6000);
-
-                            },2000);
-
-                        },7000);
-        
-                    },10000);
+                    //this.scene.sound.get("battleMyceliumSFX").stop();
+                    //this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
                     
      
                     this.enemyDefeated = true;
 
-                    this.scene.initSoundEffect('bossRoarSFX','defeat',0.1);
+                    //this.scene.initSoundEffect('bossRoarSFX','defeat',0.1);
 
                     //play boss defeated animation
                     this.anims.play('rawr').once('animationcomplete', () => {
@@ -814,7 +1062,7 @@ class nectarBoss extends enemy {
                 that.damageCoolDown = false;
                 console.log("damage cool down:" + that.damageCoolDown);
                 that.clearTint();
-            }, 500);
+            }, 250);
         }
     }
 

@@ -938,6 +938,13 @@ class gameHud extends A3SoundEffects {
               }
           });
 
+          //emitter to opem and close the inventory when the tab input is recieved from the scene
+          inventoryKeyEmitter.on(inventoryKey.inventoryVisible,(visible) =>{
+              
+            this.playerInventory.visible = false;
+              
+          });
+
 
           this.playerStorage = null;
 

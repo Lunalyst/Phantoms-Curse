@@ -127,7 +127,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
             //sets the max length of the ba
 
-            console.log("health barLength: ",barLength);
+            //console.log("health barLength: ",barLength);
 
             this.outSide.anims.play("5",true);
 
@@ -337,8 +337,8 @@ class hpBar extends Phaser.GameObjects.Container{
         // sets the outer sprite of the health bar.
         let animationNumber = "";
         animationNumber = animationNumber + size;
-        console.log("animationNumber for hpbar: " + animationNumber);
-        console.log("this.outSide",this.outSide)
+        //console.log("animationNumber for hpbar: " + animationNumber);
+       // console.log("this.outSide",this.outSide)
         this.outSide.anims.play(animationNumber);
 
         //need to reset the bar value, so that when the next upgrade is added, the bar and player hp is set correctly based of the starting bar length and player start health.
@@ -350,7 +350,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
         //sets the size of the interior health bar to be correct. heal increase becomes less with more upgrades.
         for(let counter = 0; counter < size; counter++){
-            console.log("upgrade counter: ", counter);
+            //console.log("upgrade counter: ", counter);
             if(counter < 2){
                 this.hpBarWidth += Math.floor(startMaxWidth * .53);
                 this.playerHealthMax += Math.floor(startPlayerHealth * .40);
@@ -375,7 +375,7 @@ class hpBar extends Phaser.GameObjects.Container{
             }
 
         }
-        console.log("this.playerHealthMax: ",this.playerHealthMax);
+        //console.log("this.playerHealthMax: ",this.playerHealthMax);
     }
 
     miloTransition(){

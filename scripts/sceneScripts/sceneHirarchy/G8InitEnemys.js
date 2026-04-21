@@ -1087,7 +1087,7 @@ class G8InitEnemys extends G7EnemyCollisions{
           });
           nectar.addColliderRef(collider1);
 
-          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, nectar.grabHitBox, function () {
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player2, nectar.grabHitBox, function () {
 
               let isWindowObject = {
                 isOpen: null
@@ -1116,9 +1116,43 @@ class G8InitEnemys extends G7EnemyCollisions{
           });
           nectar.addColliderRef(collider1);
           //attack hitbox logic
-          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player1.mainHitbox, nectar.attackHitBox, function () {
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player2, nectar.attackHitBox, function () {
            //need to apply damage to milo function
 
+           //idea, use the state machine on nectar to tell what damage to deal 
+           console.log("tempSceneRef.damagedPlayer: ",tempSceneRef.damagedPlayer)
+
+            if(nectar.attackState === 0 || nectar.attackState === 4 ){
+
+              if(tempSceneRef.damagedPlayer === false){
+
+                tempSceneRef.player2.setTint(0xFF0000);
+                setTimeout(function () {
+                  tempSceneRef.player2.clearTint();
+                }, 250);
+
+                tempSceneRef.damagedPlayer = true;
+                healthEmitter.emit(healthEvent.loseHealth,7);
+                setTimeout(function () {
+                  tempSceneRef.damagedPlayer = false;
+                }, 2000);
+              }
+
+             
+            }else if(nectar.attackState === 1 || nectar.attackState === 3){
+              if(tempSceneRef.damagedPlayer === false){
+
+                  tempSceneRef.player2.setTint(0xFF0000);
+                  setTimeout(function () {
+                    tempSceneRef.player2.clearTint();
+                  }, 250);
+                  tempSceneRef.damagedPlayer = true;
+                  healthEmitter.emit(healthEvent.loseHealth,10);
+                  setTimeout(function () {
+                    tempSceneRef.damagedPlayer = false;
+                  }, 2000);
+              }
+            }
           });
           nectar.addColliderRef(collider1);
         }

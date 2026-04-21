@@ -60,7 +60,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
       }
 
       //if tab is press while the player isnt grabbed or in the pause menue then
-      if(this.checkInventoryIsDown() && this.grabbed === false &&this.playerStuckGrab === false && this.pausedInTextBox === false){
+      if(this.checkInventoryIsDown() && this.grabbed === false && this.playerStuckGrab === false && this.pausedInTextBox === false && this.cutSceneActive === false){
         //activate inventory
         inventoryKeyEmitter.emit(inventoryKey.activateWindow,this); 
       }
@@ -309,7 +309,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
       this.checkPlayerProjectiles();
 
-      console.log("this.usingNectarProjectiles: ",this.usingNectarProjectiles);
+      //console.log("this.usingNectarProjectiles: ",this.usingNectarProjectiles);
       if(this.usingNectarProjectiles === true){
         this.checkNectarProjectiles();
       }
@@ -438,9 +438,6 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
         }
       //if we are paused
-      }else if(this.isPaused === true){
-        //console.log("pausing physics");
-        this.physics.pause();
       }
 
       //updates the previous y value. used to animate the falling animation of the player.

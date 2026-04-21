@@ -157,6 +157,11 @@ class LockwoodBridges extends defaultScene {
       this.setUpNectarProjectiles();
       this.setUpNectarProjectilesBarriers();
 
+      //define barriers whee enemys cannot go.
+      this.setUpEnemyBarriers();
+      this.initBarrier(1716,728-30,38,540);
+      this.initBarrier(2641,728-30,38,540);
+
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
@@ -221,6 +226,9 @@ class LockwoodBridges extends defaultScene {
         this.player2.y = 728;
         this.dialogueCatch = false;
         this.player2.setDepth(6);
+
+        //hides inventory ui button?
+        inventoryKeyEmitter.emit(inventoryKey.inventoryVisible,false);
 
         //make sure hp bar is visible if the player skips the cutscene while its not visible.
         healthEmitter.emit(healthEvent.healthVisibility,true);

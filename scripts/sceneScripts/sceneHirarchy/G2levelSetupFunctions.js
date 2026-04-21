@@ -102,6 +102,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     console.log('created nectar feather group');
     this.nectarProjectiles = this.physics.add.group();
     this.usingNectarProjectiles = true;
+    
   }
 
   setUpCursedHeartProjectiles(){

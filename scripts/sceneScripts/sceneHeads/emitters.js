@@ -132,7 +132,7 @@ inventoryKey = {
     changeCurrency: 'change_currency',
     displayCurrency:'display_currency',
 
-    hideInventory:'hide_inventory',
+    inventoryVisible:'inventory_visible',
 
 
 

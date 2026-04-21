@@ -18,15 +18,28 @@ class nectarProjectile extends Phaser.Physics.Arcade.Sprite{
       this.savedGravity = savedGravity;
       this.hitTheGround = false;
       this.setRotation(rotation); 
+      this.setDepth(7);
       
     }
 
 
     //destroys platform after the animation is played.
     destroyNectarProjectile(){
+      
+      this.collider.destroy();
+      let temp = this;
+      this.scene.tweens.add({
+          targets: this,
+          duration: 1000,
+          alpha: { from: 1, to: 0 },
+          ease: 'Sine.InOut',
+          repeat: 0,
+          onComplete: function (tween, targets) {
+            temp.destroy();
+          },
+      });
+      
       //this.anims.play('nectarProjectileDestroy').once('animationcomplete' , () =>{
-        this.collider.destroy();
-        this.destroy();
       //});
     }
 }

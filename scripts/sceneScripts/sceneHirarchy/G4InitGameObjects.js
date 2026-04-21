@@ -399,6 +399,55 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
         if(tempProjectile.body.blocked.down === false){
           //set up player stuck grab and 
+           if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down){
+
+                  tempScene.damagedPlayer = true;
+                  tempScene.player2.setTint(0xFF0000);
+                  setTimeout(function () {
+                    tempScene.player2.clearTint();
+                  }, 250);
+                  healthEmitter.emit(healthEvent.loseHealth,5);
+                  setTimeout(function () {
+                    tempScene.damagedPlayer = false;
+                  }, 2000);
+              }
+          
+        }
+
+
+      });
+
+
+    }
+
+    initNectarClawProjectile(x,y,velocityX,savedGravity,flip){
+
+      let tempProjectile = new nectarClawProjectile(this,x,y,velocityX,savedGravity,flip);
+
+      this.nectarProjectiles.add(tempProjectile);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        tempProjectile.setPipeline('Light2D');
+        
+      }
+
+      tempProjectile.destroyNectarProjectile();
+
+      let tempScene = this;
+
+      //if projectile overlaps with player then
+      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+
+        if(tempProjectile.exploding === true && tempProjectile.explosionDamagedPlayer === false){
+
+           tempProjectile.explosionDamagedPlayer = true;
+            tempScene.player2.setTint(0xFF0000);
+            setTimeout(function () {
+              tempScene.player2.clearTint();
+            }, 250);
+            healthEmitter.emit(healthEvent.loseHealth,17);
+           
           
         }
 

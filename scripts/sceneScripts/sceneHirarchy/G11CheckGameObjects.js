@@ -205,7 +205,7 @@ class G11CheckGameObjects extends G10CheckNPCS {
     
     this.nectarProjectiles.children.each(function (tempProjectile) {
       //ensures gravity is applied,
-      console.log("tempProjectile.savedGravity: ",tempProjectile.savedGravity);
+      //console.log("tempProjectile.savedGravity: ",tempProjectile.savedGravity);
       tempProjectile.body.setGravityY(tempProjectile.savedGravity);
 
       //applies velocity of projectile if predefined but only if it hasn't hit the ground.

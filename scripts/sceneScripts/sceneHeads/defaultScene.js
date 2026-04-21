@@ -258,5 +258,7 @@ class defaultScene extends G12UpdateLoops {
 
   this.enemyAnimationsActive = false;
 
+  this.damagedPlayer = false;
+
   }
 }

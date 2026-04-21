@@ -154,6 +154,7 @@ class playerProjectile extends Phaser.Physics.Arcade.Sprite{
             console.log("projectile has hit enemy");
             temp.destroying = true;
             temp.scene.initSoundEffect('playerProjectileSFX','missileCrash',0.05);
+            temp.isMoving = false;
             temp.anims.play("spindleMissileDestroy").once('animationcomplete' , () =>{
               temp.collision.destroy();
               temp.colliderRefrenceGround.destroy();

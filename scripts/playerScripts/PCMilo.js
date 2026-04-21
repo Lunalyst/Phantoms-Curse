@@ -68,7 +68,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.visible = false;
 
     this.setSize(60,200,true);
-    this.setOffset(185, 91);
+    this.setOffset(203, 91);
     // hitbox cooldown.
     this.hitboxCoolDown = false;
     this.hitboxState = false;
@@ -472,7 +472,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 }
               }
               this.bluntDamage = 3;
-              this.setAttackHitboxSize(20,40);
+              this.setAttackHitboxSize(72,40);
               this.HitBox(600,35);
               break;
             case ("special"):
@@ -544,8 +544,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   }
                 }
                 this.bluntDamage = 3;
-                this.setAttackHitboxSize(20,40);
+                this.setAttackHitboxSize(60,40);
                 this.HitBox(600,35);
+                
               }else if(this.playedAttackAnimation === false){
                 this.isAttacking = false;
               }

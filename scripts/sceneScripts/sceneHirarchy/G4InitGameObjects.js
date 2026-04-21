@@ -278,6 +278,17 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     }
 
+    initPlayerBarrier(x,y,width,height){
+
+      let invisWall = this.add.sprite(x, y,'barrier');
+      this.physics.add.existing(invisWall);
+      invisWall.body.setSize(width, height, true);
+      invisWall.body.pushable = false;
+      this.playerInvisibleBarriers.add(invisWall);
+      
+      return invisWall;
+    }
+
     initWoodenBarrier(x,y){
 
       let woodWall = new woodBarrier(this,x,y);

@@ -35,6 +35,8 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     //set up the invisible barriers group
     this.invisibleBarriers = this.add.group();
 
+    this.playerInvisibleBarriers = this.add.group();
+
     //sets npc group.
     this.npcs = this.add.group();
 

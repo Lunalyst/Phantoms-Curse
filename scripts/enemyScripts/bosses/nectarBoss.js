@@ -40,6 +40,7 @@ class nectarBoss extends enemy {
         //this.grabType = "unbirth";
 
         this.fightStarted = false;
+        this.fightDelay = false;
         
         this.attackTimer = false;
         this.attemptingAttack = false;
@@ -134,9 +135,20 @@ class nectarBoss extends enemy {
         if (this.enemyHP > 0) {
 
         //if we havent started the fight and the player is free from dialogue then set up the fight
-        if(this.scene.pausedInTextBox === false && this.fightStarted === false){
+        if(this.scene.pausedInTextBox === false && this.fightStarted === false && this.fightDelay === false){
+            this.fightDelay = true;
+            
+            let temp = this;
+            setTimeout(function(){
+                temp.fightStarted = true; 
+            },2000);
 
-            this.fightStarted = true; 
+            //set up player barries for the fight
+            this.scene.setUpPlayerBarriers();
+            this.leftBarrier = this.scene.initPlayerBarrier(1716,728-30,38,540);
+            this.rightBarrier = this.scene.initPlayerBarrier(2641,728-30,38,540);
+
+            this.anims.play('sideIdle',true);
 
             this.scene.initSoundEffect('bossSFX','bossStart',0.1);
 
@@ -158,7 +170,9 @@ class nectarBoss extends enemy {
 
             healthEmitter.emit(healthEvent.setBossHealth,healthObject);
             healthEmitter.emit(healthEvent.setBossHealthVisible,true);
-        }else{
+
+        }else if(this.fightStarted === true){
+
         //console.log("testing nectar main combat ai.");
         if (this.attackState === 0) {
 
@@ -735,12 +749,7 @@ class nectarBoss extends enemy {
        
         if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
-            //this.attackState = Math.floor(Math.random() * 2);
-            this.attackState = Math.floor(Math.random() * 5);
-
-            if(this.attackState === 1){
-                this.attackState = 3;
-            }
+            this.attackState = Math.floor(Math.random() * 2);
 
         }else if(this.enemyHP > this.bossMaxHealth/2){
 

@@ -69,6 +69,11 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
     this.EnemyInvisBarriersGroup = this.physics.add.collider(this.enemys, this.invisibleBarriers);
   }
 
+  setUpPlayerBarriers(){
+    this.PlayerInvisBarriersGroup1 = this.physics.add.collider(this.player1.mainHitbox, this.playerInvisibleBarriers);
+    this.PlayerInvisBarriersGroup2 = this.physics.add.collider(this.player2, this.playerInvisibleBarriers);
+  }
+
   setUpWoodBarriersCollider(){
     console.log('setting up wooden barrier colliders');
     //this.physics.add.collider(this.enemys, this.woodenBarriers);

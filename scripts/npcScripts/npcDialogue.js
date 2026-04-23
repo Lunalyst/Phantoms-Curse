@@ -1594,6 +1594,120 @@ const npcDialogue = {
 
 
                 },
+                "playerDigested":{
+                    "node1":{
+                        "dialogue": "huuurrkk.....",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "UUURRRRPPPPPP!",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Nothing left of them for you to save. ",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Some \"hero\"  you are. you can have what is left of them. ",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "I'm growing tired of this little scuffle.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "consider yourself lucky i am leaving.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Otherwise you would have met the same fate.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "No.....",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "I'm Sorry I couldn't Save you...",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["node10"]
+                    },
+                },
+                "playerDigested":{
+                    "node1":{
+                        "dialogue": "Pathedic....",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "You cant even save yourself, let alone someone else.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                     "node2":{
+                        "dialogue": "Not to worry however. its about time you join that tasty human.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Im sure you two will have plenty to talk about while digesting in my gut.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                    "node8":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node8":{
+                        "dialogue": "milo? are you out here?",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node8":{
+                        "dialogue": "Time to get out of here.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node8":{
+                        "dialogue": "Dont need any more interuptions while im digesting my meal.",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                }
+                
+                
 
                 //player run out of time
             },

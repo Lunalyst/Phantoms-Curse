@@ -344,6 +344,8 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('nectarProjectile', 'assets/gameObjects/nectarProjectile.png',{frameWidth: 84, frameHeight: 84 });
         tempSceneRef.load.spritesheet('nectarClawProjectile', 'assets/gameObjects/nectarClawProjectile.png',{frameWidth: 360, frameHeight: 360 });
 
+        tempSceneRef.load.spritesheet('digestionTimerMale', 'assets/hudElements/playerDigestionTimerMale.png',{frameWidth: 321, frameHeight: 171 });
+
         tempSceneRef.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });

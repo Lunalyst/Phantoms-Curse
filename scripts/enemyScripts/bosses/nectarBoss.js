@@ -54,8 +54,7 @@ class nectarBoss extends enemy {
         this.hasLanded = false;
         
         //have nectar move left or right on the way up of jump attack but then stop x movemento n way down.
-
-
+    
         this.body.setGravityY(600); 
 
         this.setSize(350,350,true);
@@ -107,6 +106,43 @@ class nectarBoss extends enemy {
 
         this.inSafeMode = inSafeMode;
 
+        //nectar digestion timer graphic
+
+        this.digestionTimerValue = 0;
+        this.digestionTimerAnimationPlayed = false;
+        this.player1IsDigested = false;
+
+        this.digestionTimer = this.scene.add.sprite((this.scene.screenWidth/2) + 60,250, "digestionTimerMale");
+        this.digestionTimer.setScrollFactor(0);
+        this.digestionTimer.setScale(1/3);
+        this.digestionTimer.visible = false;
+        this.digestionTimer.setDepth(9);
+
+        if(sex === 0) {
+            this.digestionTimer.anims.create({ key: 'stomachOpen', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 0, end: 3 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState1', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState1-2', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 8, end: 8 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState2', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 9, end:12 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState2-3', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 13, end:13 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState3', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 14, end:17 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState3-4', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 18, end:18 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState4', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 19, end:22 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState4-5', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 23, end:23 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState5', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 24, end:27 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState5-6', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 28, end:28 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState6', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 29, end:32 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState6-Finish', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 33, end:36 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinish', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 37, end:40 }), frameRate: 6, repeat: 5 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishOpen', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 41, end:42 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishOpenIdle', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 43, end:46 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishClose', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 47, end:49 }), frameRate: 6, repeat: 0 });
+     
+     
+        }else{
+     
+        }
+        
+
         //applys lighting to the enemy.
         if(this.scene.lightingSystemActive === true){ 
             this.setPipeline('Light2D');
@@ -131,8 +167,7 @@ class nectarBoss extends enemy {
 
         this.body.setGravityY(600);
         //idea, check to see if play isnt in dialogue. if so then hide npc version show this one and do boss stuff.
-        console.log("this.attackState: ",this.attackState);
-        if (this.enemyHP > 0) {
+        if (this.enemyHP > 0 && this.player1IsDigested === false) {
 
         //if we havent started the fight and the player is free from dialogue then set up the fight
         if(this.scene.pausedInTextBox === false && this.fightStarted === false && this.fightDelay === false){
@@ -147,6 +182,11 @@ class nectarBoss extends enemy {
             this.scene.setUpPlayerBarriers();
             this.leftBarrier = this.scene.initPlayerBarrier(1716,728-30,38,540);
             this.rightBarrier = this.scene.initPlayerBarrier(2641,728-30,38,540);
+
+            this.digestionTimer.visible = true;
+            this.digestionTimer.anims.play('stomachOpen').once('animationcomplete', () => {
+                this.digestionTimer.anims.play('stomachState1');
+            });
 
             this.anims.play('sideIdle',true);
 
@@ -746,7 +786,7 @@ class nectarBoss extends enemy {
 
     nectarStateController(){
 
-       
+        // handle attack pattern based on hp range
         if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
             this.attackState = Math.floor(Math.random() * 2);
@@ -762,11 +802,82 @@ class nectarBoss extends enemy {
                 this.attackState = 3;
             }
         }
-        
-         
 
-        //test cases
-        //this.attackState = 4;
+        //handle digestion timer
+        this.digestionTimerValue++;
+        console.log("this.digestionTimerValue: ",this.digestionTimerValue);
+        console.log("this.attackState: ",this.attackState);
+
+        //random stomach sound every other increment.
+        if(this.digestionTimerValue % 2 !== 0){
+            this.scene.initSoundEffect('stomachSFX','17',0.1);
+        }
+
+        if(this.digestionTimerValue === 12-6){
+            this.scene.initSoundEffect('stomachSFX','6',0.1);
+            if(this.digestionTimerAnimationPlayed === false){
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState1-2').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachState2');
+                    this.digestionTimerAnimationPlayed = false;
+                });
+            }
+            
+        }else if(this.digestionTimerValue === 22-6){
+            this.scene.initSoundEffect('stomachSFX','8',0.1);
+            if(this.digestionTimerAnimationPlayed === false){
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState2-3').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachState3');
+                    this.digestionTimerAnimationPlayed = false;
+                });
+            }
+
+        }else if(this.digestionTimerValue === 30-6){
+            this.scene.initSoundEffect('stomachSFX','11',0.1);
+            if(this.digestionTimerAnimationPlayed === false){
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState3-4').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachState4');
+                    this.digestionTimerAnimationPlayed = false;
+                });
+            }
+        }else if(this.digestionTimerValue === 36-6){
+            this.scene.initSoundEffect('stomachSFX','13',0.1);
+            if(this.digestionTimerAnimationPlayed === false){
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState4-5').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachState5');
+                    this.digestionTimerAnimationPlayed = false;
+                });
+            }
+        }else if(this.digestionTimerValue === 40-6){
+             this.scene.initSoundEffect('stomachSFX','5',0.1);
+            if(this.digestionTimerAnimationPlayed === false){
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState5-6').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachState6');
+                    this.digestionTimerAnimationPlayed = false;
+                });
+            }
+        }else if(this.digestionTimerValue === 42-6){
+            if(this.digestionTimerAnimationPlayed === false){
+                this.player1IsDigested = true;
+                this.digestionTimerAnimationPlayed = true;
+                this.digestionTimer.anims.play('stomachState6-Finish').once('animationcomplete', () => {
+                    this.scene.initSoundEffect('stomachSFX','1',0.1);
+                    this.digestionTimer.anims.play('stomachStateFinish').once('animationcomplete', () => {
+                        this.scene.initSoundEffect('stomachSFX','19',0.1);
+                        this.digestionTimer.anims.play('stomachStateFinishOpen').once('animationcomplete', () => {
+                            this.scene.initSoundEffect('stomachSFX','12',0.1);
+                            this.digestionTimer.anims.play('stomachStateFinishOpenIdle');
+                            this.digestionTimerAnimationPlayed = false;
+                        });
+                    });
+                });
+            }
+        }
+        
     }
 
     nectarBorderCheck(){

@@ -1120,7 +1120,7 @@ class G8InitEnemys extends G7EnemyCollisions{
            //need to apply damage to milo function
 
            //idea, use the state machine on nectar to tell what damage to deal 
-           console.log("tempSceneRef.damagedPlayer: ",tempSceneRef.damagedPlayer)
+           //console.log("tempSceneRef.damagedPlayer: ",tempSceneRef.damagedPlayer)
 
             if(nectar.attackState === 0 || nectar.attackState === 4 ){
 

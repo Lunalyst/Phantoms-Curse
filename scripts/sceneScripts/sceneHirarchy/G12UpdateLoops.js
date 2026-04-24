@@ -7,7 +7,6 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
       //checks to see if items dropped can be picked up
       this.checkItemPickUp();
-
       //checks to see if containers can be opened.
       this.checkContainerPickUp();
 

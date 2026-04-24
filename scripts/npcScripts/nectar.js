@@ -89,6 +89,22 @@ class nectar extends npc{
           this.setDepth(-1);
           this.setTint(0x505050);
 
+       }else if(this.npcType === 'digestedPlayer'){
+
+          this.anims.play('sideIdle',true); 
+
+          this.customTrigger = true;
+          this.npcTriggerRange = true;
+
+          this.nectarDropped = false;
+
+          this.npcTriggerRangeX = 3000;
+          this.npcTriggerRangeY = 3000;
+          
+          this.cameraPan1 = false;
+          this.choke = false;
+
+  
        }
 
   }
@@ -96,6 +112,15 @@ class nectar extends npc{
   customTriggerFunction(){
     //console.log("this.nectarDropped: ",this.nectarDropped)
 
+    if(this.npcType === "ambush"){
+    this.customTriggerFunctionAmbush();
+    }else if(this.npcType === "digestedPlayer"){
+      this.customTriggerFunctionDigestedPlayer();
+    }
+  }
+
+  customTriggerFunctionAmbush(){
+    
     if(this.cameraPan1 === false && this.choke === false){
       this.choke = true;
 
@@ -198,10 +223,111 @@ class nectar extends npc{
     }else if(this.nectarInPosition === true){
       this.overlapActivateNpc();
     }
+  }
 
-    
+  customTriggerFunctionDigestedPlayer(){
+    if(this.cameraPan1 === false && this.choke === false){
+      this.choke = true;
 
-    
+      this.scene.player1.x =  this.playerTriggerSceneLocX;
+      this.scene.player1.y = 728;
+      this.scene.player1.mainHitbox.x =  this.playerTriggerSceneLocX;
+      this.scene.player1.mainHitbox.y = 728;
+      this.scene.player1.mainHitbox.setVelocityX(0);
+      this.scene.player1.mainHitbox.setVelocityY(0);
+
+      this.scene.player1.playerIdleAnimation();
+
+      //pause physics of scene
+      this.scene.cutSceneActive = true;
+      
+      this.scene.cameras.main.pan(this.x, this.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+          //call back finction that occurs during the duration of the camera pan.
+      });
+
+
+      this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+          console.log('Camera pan has completed!');
+          this.choke = false;
+          this.cameraPan1 = true;
+      },this);
+      
+    }else if(this.nectarDropped === false && this.choke === false){
+
+      this.dialogueLogicStart();
+
+  
+      this.scene.mycamera.startFollow(this);
+      this.scene.cameras.main.zoom = 2;
+      this.scene.cameras.main.followOffset.set(0,70);
+
+      this.scene.initSoundEffect('bushSFX','1',1);
+
+      this.setVelocity(0,-200);
+      
+      this.body.setGravityY(600); 
+
+      this.scene.physics.add.collider(this, this.scene.processMap.layer1);
+
+      this.setSize(350,350,true);
+      this.setOffset(280, 390-152);
+
+      this.setDepth(7);
+      this.clearTint();
+
+      //this.scene.pausedInTextBox = true;
+
+      this.choke = true;
+      this.anims.play('JumpDownStart').once('animationcomplete', () => {
+            this.nectarDropped = true;
+            this.choke = false;  
+      });
+
+
+    }else if(this.nectarDropped === true && this.body.blocked.down && this.choke === false && this.nectarLanded === false){
+      this.scene.initSoundEffect('bossSFX','explosion',0.06);
+      this.choke = true;
+        this.anims.play('JumpDownEnd').once('animationcomplete', () => {
+           this.nectarLanded = true;
+           this.nectarInPosition = false;
+           this.choke = false;
+
+        });
+    }else if (this.nectarLanded === true && this.nectarInPosition === false){
+
+       if(this.x > 2100){
+        this.setVelocity(-300,0);
+        this.anims.play('sideWalk',true);
+       }else{
+        this.setVelocity(0,0);
+        this.anims.play('sideIdle',true);
+        console.log("this.choke ",this.choke)
+        if(this.choke === false){
+          this.choke = true;
+
+            this.scene.cameras.main.pan(this.scene.player1.x, this.scene.player1.y-70, 1000, 'Sine.easeInOut', true, (camera, progress) => {
+              //call back finction that occurs during the duration of the camera pan.
+            });
+
+
+          this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+              console.log('Camera pan has completed!');
+              this.scene.mycamera.startFollow(this.scene.player1,true,1,1);
+              this.scene.cameras.main.zoom = 2;
+              this.scene.cameras.main.followOffset.set(0,70);
+              this.nectarInPosition = true;
+
+          },this);
+        }
+       
+
+        
+
+       }
+
+    }else if(this.nectarInPosition === true){
+      this.overlapActivateNpc();
+    }
   }
 
   MoveNPC(){
@@ -388,6 +514,8 @@ class nectar extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'ambush'){
       this.ambush();
+    }else if(this.npcType === 'digestedPlayer'){
+      this.digestedPlayer();
     }else{
       this.default();
     }
@@ -1036,5 +1164,18 @@ class nectar extends npc{
     }
       
     
+  }
+  
+  digestedPlayer(){
+
+    this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
+   //console.log("checking nectar npc dialogue");
+
+    this.nodeHandler("nectar","Behavior1","playerDigested");
+    
+    if(this.currentDictNode !== null){
+           if(this.currentDictNode.nodeName === "node1"){
+           }
+      }
   }
 }

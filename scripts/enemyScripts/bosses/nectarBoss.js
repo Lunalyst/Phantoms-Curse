@@ -108,9 +108,12 @@ class nectarBoss extends enemy {
 
         //nectar digestion timer graphic
 
-        this.digestionTimerValue = 0;
+        //this.digestionTimerValue = 0;
+        this.digestionTimerValue = 34;
         this.digestionTimerAnimationPlayed = false;
         this.player1IsDigested = false;
+
+        this.spawnGameoverNpc = false;
 
         this.digestionTimer = this.scene.add.sprite((this.scene.screenWidth/2) + 60,250, "digestionTimerMale");
         this.digestionTimer.setScrollFactor(0);
@@ -767,7 +770,13 @@ class nectarBoss extends enemy {
         }
 
        
-    }
+        }else if(this.player1IsDigested === true &&  this.spawnGameoverNpc === false){
+
+            this.spawnGameoverNpc = true;
+            this.scene.initNectar(this.x, this.y, 'digestedPlayer');
+            this.visible = false;
+            
+        }
 
      //handles hit box positioning
     if(this.hitboxActive === true){

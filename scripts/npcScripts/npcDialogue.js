@@ -74,8 +74,42 @@ const npcDialogue = {
                         "textvoice":"lightPiano",
                         "children":[]
                     },
-                }
-            }
+                },
+            },
+            "nectar":{
+                "nectarAteMiloAndPlayer":{
+                    "node1":{
+                        "dialogue": "Ugggggg...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Your still in one piece?",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Im sorry I couldnt get you out of here.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Couldn't even keep myself safe....",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "At least you dont have to face this alone...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                },
+            },
         },
 
         "tutorial":{

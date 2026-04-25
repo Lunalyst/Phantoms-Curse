@@ -161,12 +161,11 @@ class nectarBoss extends enemy {
         }else{
             
         }
-        
+        }
 
-    }
+    move(){
 
-    //functions that move enemy objects.
-     move(){
+        this.digestionTimer.flipX = this.flipX;
 
         this.body.setGravityY(600);
         //idea, check to see if play isnt in dialogue. if so then hide npc version show this one and do boss stuff.
@@ -770,11 +769,27 @@ class nectarBoss extends enemy {
         }
 
        
-        }else if(this.player1IsDigested === true &&  this.spawnGameoverNpc === false){
+        }else if(this.player1IsDigested === true &&  this.spawnGameoverNpc === false && this.body.blocked.down){
 
+            console.log("now setting nectare gameover digested player npc!")
             this.spawnGameoverNpc = true;
-            this.scene.initNectar(this.x, this.y, 'digestedPlayer');
+            this.scene.npcNectar.npcType = "digestedPlayer";
+            this.scene.npcNectar.visible = true;
+
+            this.setVelocityX(0);
+
+            this.scene.npcNectar.triggerNpcFinished = false;
+            this.scene.npcNectar.x = this.x;
+            this.scene.npcNectar.y = this.y;
+            this.scene.npcNectar.setNectarToDigestPlayer();
+
             this.visible = false;
+
+            //destroy player barriers
+            this.leftBarrier.destroy();
+            this.rightBarrier.destroy();
+
+            healthEmitter.emit(healthEvent.setBossHealthVisible,false);
             
         }
 
@@ -794,23 +809,6 @@ class nectarBoss extends enemy {
     }
 
     nectarStateController(){
-
-        // handle attack pattern based on hp range
-        if(this.enemyHP > (this.bossMaxHealth/3) * 2){
-
-            this.attackState = Math.floor(Math.random() * 2);
-
-        }else if(this.enemyHP > this.bossMaxHealth/2){
-
-            this.attackState = Math.floor(Math.random() * 3);
-
-        }else{
-            this.attackState = Math.floor(Math.random() * 5);
-
-            if(this.attackState === 1){
-                this.attackState = 3;
-            }
-        }
 
         //handle digestion timer
         this.digestionTimerValue++;
@@ -871,7 +869,6 @@ class nectarBoss extends enemy {
             }
         }else if(this.digestionTimerValue === 42-6){
             if(this.digestionTimerAnimationPlayed === false){
-                this.player1IsDigested = true;
                 this.digestionTimerAnimationPlayed = true;
                 this.digestionTimer.anims.play('stomachState6-Finish').once('animationcomplete', () => {
                     this.scene.initSoundEffect('stomachSFX','1',0.1);
@@ -881,11 +878,38 @@ class nectarBoss extends enemy {
                             this.scene.initSoundEffect('stomachSFX','12',0.1);
                             this.digestionTimer.anims.play('stomachStateFinishOpenIdle');
                             this.digestionTimerAnimationPlayed = false;
+                            this.player1IsDigested = true;
                         });
                     });
                 });
             }
         }
+
+        // handle attack pattern based on hp range
+        if(this.digestionTimerValue < 42-6){
+
+            if(this.enemyHP > (this.bossMaxHealth/3) * 2){
+
+            this.attackState = Math.floor(Math.random() * 2);
+            this.attackState = 1;
+
+            }else if(this.enemyHP > this.bossMaxHealth/2){
+
+                this.attackState = Math.floor(Math.random() * 3);
+
+            }else{
+                this.attackState = Math.floor(Math.random() * 5);
+
+                if(this.attackState === 1){
+                    this.attackState = 3;
+                }
+            }
+
+            //but if the player has bee digested, then stop attack paterning.
+        }else{
+            this.attackState === null;
+        }
+        
         
     }
 
@@ -1114,8 +1138,7 @@ class nectarBoss extends enemy {
                     //STOP MUSIC
                     //this.scene.sound.get("battleMyceliumSFX").stop();
                     //this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
-                    
-     
+                
                     this.enemyDefeated = true;
 
                     //this.scene.initSoundEffect('bossRoarSFX','defeat',0.1);

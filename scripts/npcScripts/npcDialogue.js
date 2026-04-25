@@ -1631,7 +1631,7 @@ const npcDialogue = {
                 "playerDigested":{
                     "node1":{
                         "dialogue": "huuurrkk.....",
-                        "profile":"nectarSmile",
+                        "profile":"nectarHurt",
                         "textvoice":"wah",
                         "children":["node2"]
                     },
@@ -1687,10 +1687,10 @@ const npcDialogue = {
                         "dialogue": "I'm Sorry I couldn't Save you...",
                         "profile":"miloEyeRaise",
                         "textvoice":"trumpet",
-                        "children":["node10"]
+                        "children":[]
                     },
                 },
-                "playerDigested":{
+                "playerAndMiloEaten":{
                     "node1":{
                         "dialogue": "Pathedic....",
                         "profile":"nectarSmile",
@@ -1701,21 +1701,21 @@ const npcDialogue = {
                         "dialogue": "You cant even save yourself, let alone someone else.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node2"]
+                        "children":["node3"]
                     },
-                     "node2":{
+                     "node3":{
                         "dialogue": "Not to worry however. its about time you join that tasty human.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node2"]
+                        "children":["node4"]
                     },
-                    "node2":{
+                    "node4":{
                         "dialogue": "Im sure you two will have plenty to talk about while digesting in my gut.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node2"]
+                        "children":["node5"]
                     },
-                    "node8":{
+                    "node5":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"nectarSmile",
                         "textvoice":"wah",

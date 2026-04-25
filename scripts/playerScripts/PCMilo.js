@@ -43,9 +43,12 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     
     this.anims.create({key: 'flipLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 63, end: 71 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'flipRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 72, end: 80 }),frameRate: 10,repeat: 0});
-       
+      
+    this.anims.create({key: 'standingThere',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 84, end: 87 }),frameRate: 7,repeat: -1});
+    this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
     this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
-        
+    
+    
      
     this.anims.play('angleIdleLeft');
 

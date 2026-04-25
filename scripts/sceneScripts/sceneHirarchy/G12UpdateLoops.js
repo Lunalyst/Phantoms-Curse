@@ -331,10 +331,14 @@ class G12UpdateLoops extends G11CheckGameObjects{
       if(this.pausedInTextBox === true && this.gameStartedDelay === false){
 
         //activate the scene text box
-        this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
+        //this.sceneTextBox.activateTextBox(this,this.keyW,this.isPaused,this.pausedInTextBox);
         //pause physics of scene
         // console.log("pausing physics");
-        this.physics.pause();
+
+        if(this.CutscenePhysics === false){
+           //console.log("pausing physics");
+          this.physics.pause();
+        }
         
         //makes a temp object
         let isWindowObject = {
@@ -360,7 +364,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
       }
 
       //if we arnt paused
-      if(this.isPaused === false){
+      if(this.isPaused === false && this.cutSceneActive === false){
 
           //cry. for lighting entity it needs to stay at the correct position so manualy do so. i hate this.
           if(this.lightingSystemActive === true){ 
@@ -396,6 +400,8 @@ class G12UpdateLoops extends G11CheckGameObjects{
           this.mycamera.startFollow(this.player2);
           this.cameras.main.zoom = 2;
           this.cameras.main.followOffset.set(0,70);
+          
+          
 
 
           //call player function to see if there attacking
@@ -437,6 +443,12 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
         }
       //if we are paused
+      }else if(this.isPaused === true){
+         
+        if(this.CutscenePhysics === false){
+          //console.log("pausing physics");
+          this.physics.pause();
+        }
       }
 
       //updates the previous y value. used to animate the falling animation of the player.

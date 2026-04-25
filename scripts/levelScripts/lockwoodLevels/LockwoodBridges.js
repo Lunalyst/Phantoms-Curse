@@ -237,7 +237,18 @@ class LockwoodBridges extends defaultScene {
 
         this.player1.visible = false;
 
+        // spawn in boss verison of nectar who is ready
         this.initEnemy(2094,650,this.playerSex,"nectar",false,this);
+
+        //the hidden npc version for gameovers / milo win
+        this.initNectar(2230, 480, 'digestedPlayer');
+
+        //important to set this tyo true so nectar doesnt trigger dialogue at the beggining of fight. 
+        this.npcNectar.triggerNpcFinished = true;
+        this.npcNectar.visible = false;
+
+        // if the cutscene was skippen enuse the camera should be following milo
+        this.cutSceneActive = false;
          
       }
 

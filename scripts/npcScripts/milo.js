@@ -32,6 +32,9 @@ class milo extends npc{
       this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
       
+      this.anims.create({key: 'MenacingSpearRaiseRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 94, end: 96 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'MenacingSpearHoldRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 97, end: 100 }),frameRate: 7,repeat: -1});
+      
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;

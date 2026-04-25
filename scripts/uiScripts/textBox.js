@@ -383,7 +383,6 @@ class textBox extends Phaser.GameObjects.Container{
     //displays text to textbox.
     displayText(start,end){
 
-        console.log("display funct please fucking worWETOwetgrihoWGERPOJNUIBgawrejk ;");
         let textPos = 0;
         //clear the text character first.
         for(let counter = start;counter < end+1;counter++){

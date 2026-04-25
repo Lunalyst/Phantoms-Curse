@@ -13,6 +13,7 @@ class nectar extends npc{
 
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'SideSwipeEnd',frames: this.anims.generateFrameNames('nectar2', { start: 4, end: 5 }),frameRate: 12,repeat: 0});
+
       if(scene.playerSex === 0){
         this.anims.create({key: 'swallowingPlayer1',frames: this.anims.generateFrameNames('nectar2', { start: 6, end: 12 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'swallowingPlayer2',frames: this.anims.generateFrameNames('nectar2', { start: 13, end: 16 }),frameRate: 7,repeat: 0});
@@ -25,6 +26,8 @@ class nectar extends npc{
       this.anims.create({key: 'swallowedPlayerHurtIdle',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: 1});
       this.anims.create({key: 'swallowedPlayerHurtIdleLoop',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
+
+      this.anims.create({key: 'playerDigestedBurp',frames: this.anims.generateFrameNames('nectar5', { start: 12, end: 18 }),frameRate: 7,repeat: 0});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -133,6 +136,10 @@ class nectar extends npc{
       this.miloInPosition = false;
       this.choke = false;
 
+      //this.body.setGravityY(600); 
+
+      this.burped = false;
+
       //allows the trigger npc to activate again instead fo needing the player to press w.
       this.triggerNpcActivated = false;
   }
@@ -193,7 +200,7 @@ class nectar extends npc{
       this.scene.physics.add.collider(this, this.scene.processMap.layer1);
 
       this.setSize(350,350,true);
-      this.setOffset(280, 390-152);
+      this.setOffset(280, 390-158);
 
       this.setDepth(7);
       this.clearTint();
@@ -306,7 +313,7 @@ class nectar extends npc{
       this.scene.physics.add.collider(this, this.scene.processMap.layer1);
 
       this.setSize(350,350,true);
-      this.setOffset(280, 390-152);
+      this.setOffset(280, 390-158);
 
       this.setDepth(7);
 
@@ -536,11 +543,11 @@ class nectar extends npc{
           this.scene.Milo.x  = this.scene.player2.x;
           this.scene.Milo.y = this.scene.player2.y;
 
-          this.scene.Milo.flipX = true; 
+          //this.scene.Milo.flipX = true; 
 
-          this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
+          this.scene.Milo.anims.play('MenacingSpearRaiseRight').once('animationcomplete', () => {
 
-                this.scene.Milo.anims.play('MenacingSpearHold',true);
+                this.scene.Milo.anims.play('MenacingSpearHoldRight',true);
           });
 
 
@@ -1117,6 +1124,7 @@ class nectar extends npc{
             
           }else if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
 
+            console.log('this.y : ',this.y,'_________________________________')
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-300);
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-260);
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-220);
@@ -1234,7 +1242,27 @@ class nectar extends npc{
     this.nodeHandler("nectar","Behavior1","playerDigested");
     
     if(this.currentDictNode !== null){
-           if(this.currentDictNode.nodeName === "node1"){
+           if(this.currentDictNode.nodeName === "node2"){
+
+            if(this.burped === false){
+
+              this.burped = true;
+              this.scene.sceneTextBox.textInterupt = true;
+              this.scene.initSoundEffect('burpSFX','2',0.3);
+              this.anims.play('playerDigestedBurp').once('animationcomplete', () => {
+
+                  this.anims.play('sideIdle');
+                  this.scene.sceneTextBox.textInterupt = false;
+               });
+
+              this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishOpen').once('animationcomplete', () => {
+                this.scene.initSoundEffect('stomachSFX','12',0.1);
+                this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishOpenIdle');
+                           
+              });
+
+            }
+
            }
       }
   }

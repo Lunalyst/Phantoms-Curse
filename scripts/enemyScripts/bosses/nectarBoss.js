@@ -37,6 +37,10 @@ class nectarBoss extends enemy {
 
         this.animationViewTransferValue = 0;
 
+        //leave a refrence to this npc version fo nectar so the enemy version can talk to it.
+        this.scene.bossNectar = this;
+
+
         //this.grabType = "unbirth";
 
         this.fightStarted = false;
@@ -58,7 +62,7 @@ class nectarBoss extends enemy {
         this.body.setGravityY(600); 
 
         this.setSize(350,350,true);
-        this.setOffset(280, 390-152);
+        this.setOffset(280, 390-158);
 
         this.visible = false;
 
@@ -135,7 +139,7 @@ class nectarBoss extends enemy {
             this.digestionTimer.anims.create({ key: 'stomachState5-6', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 28, end:28 }), frameRate: 6, repeat: 0 });
             this.digestionTimer.anims.create({ key: 'stomachState6', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 29, end:32 }), frameRate: 6, repeat: -1 });
             this.digestionTimer.anims.create({ key: 'stomachState6-Finish', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 33, end:36 }), frameRate: 6, repeat: 0 });
-            this.digestionTimer.anims.create({ key: 'stomachStateFinish', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 37, end:40 }), frameRate: 6, repeat: 5 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinish', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 37, end:40 }), frameRate: 6, repeat:-1 });
             this.digestionTimer.anims.create({ key: 'stomachStateFinishOpen', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 41, end:42 }), frameRate: 6, repeat: 0 });
             this.digestionTimer.anims.create({ key: 'stomachStateFinishOpenIdle', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 43, end:46 }), frameRate: 6, repeat: -1 });
             this.digestionTimer.anims.create({ key: 'stomachStateFinishClose', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 47, end:49 }), frameRate: 6, repeat: 0 });
@@ -780,7 +784,7 @@ class nectarBoss extends enemy {
 
             this.scene.npcNectar.triggerNpcFinished = false;
             this.scene.npcNectar.x = this.x;
-            this.scene.npcNectar.y = this.y;
+            this.scene.npcNectar.y = 672.5;
             this.scene.npcNectar.setNectarToDigestPlayer();
 
             this.visible = false;
@@ -872,15 +876,12 @@ class nectarBoss extends enemy {
                 this.digestionTimerAnimationPlayed = true;
                 this.digestionTimer.anims.play('stomachState6-Finish').once('animationcomplete', () => {
                     this.scene.initSoundEffect('stomachSFX','1',0.1);
-                    this.digestionTimer.anims.play('stomachStateFinish').once('animationcomplete', () => {
+                    this.digestionTimer.anims.play('stomachStateFinish',true)
                         this.scene.initSoundEffect('stomachSFX','19',0.1);
-                        this.digestionTimer.anims.play('stomachStateFinishOpen').once('animationcomplete', () => {
-                            this.scene.initSoundEffect('stomachSFX','12',0.1);
-                            this.digestionTimer.anims.play('stomachStateFinishOpenIdle');
-                            this.digestionTimerAnimationPlayed = false;
-                            this.player1IsDigested = true;
-                        });
-                    });
+                        this.digestionTimerAnimationPlayed = false;
+                        this.player1IsDigested = true;
+                        
+                
                 });
             }
         }

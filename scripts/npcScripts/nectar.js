@@ -28,6 +28,7 @@ class nectar extends npc{
       this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
 
       this.anims.create({key: 'playerDigestedBurp',frames: this.anims.generateFrameNames('nectar5', { start: 12, end: 18 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'playerDigestedSpitUpCloths',frames: this.anims.generateFrameNames('nectar5', { start: 19, end: 28 }),frameRate: 7,repeat: 0});
 
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -139,6 +140,7 @@ class nectar extends npc{
       //this.body.setGravityY(600); 
 
       this.burped = false;
+      this.spitUpCloths = false;
 
       //allows the trigger npc to activate again instead fo needing the player to press w.
       this.triggerNpcActivated = false;
@@ -521,7 +523,7 @@ class nectar extends npc{
   }
 
   MoveNPCDigestedPlayer() {
-
+    console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
   //move milo to nectar for player digested cutscene
    if(this.miloInPosition === false){
 
@@ -567,7 +569,31 @@ class nectar extends npc{
         }
 
         
+      }else{
+        this.scene.player2.anims.play('jumpDownLeft',true);
       }
+   }else if(this.forceCameraToFollowCloths === false){
+
+    this.scene.mycamera.startFollow(this.playerCloths);
+    this.scene.cameras.main.zoom = 2;
+    this.scene.cameras.main.followOffset.set(0,70);
+
+   }else if(this.moveNectarOffScreen === false){
+    
+    if(this.x < 2700){
+
+      this.setVelocityX(200);
+      this.anims.play('sideWalk',true);
+    }else{
+
+       this.setVelocityX(0);
+      this.moveNectarOffScreen = true;
+      this.scene.sceneTextBox.textInterupt = true;
+      this.miloRemoveMask = false;
+    }
+    
+   }else if(this.miloRemoveMask === false){
+    this.scene.Milo.anims.play('angleIdleLeft',true);
    }
   }
   //overwrites base npc classes function with flagging logic specific to nectar.
@@ -1263,7 +1289,63 @@ class nectar extends npc{
 
             }
 
-           }
+           }else if(this.currentDictNode.nodeName === "node4"){
+
+            if(this.spitUpCloths === false){
+
+              this.spitUpCloths = true;
+              this.scene.sceneTextBox.textInterupt = true;
+              this.scene.initSoundEffect('swallowSFX','4',0.02);
+              this.anims.play('playerDigestedSpitUpCloths').once('animationcomplete', () => {
+
+                  this.anims.play('sideIdle');
+                  this.scene.sceneTextBox.textInterupt = false;
+                  this.progressNode("");
+                   this.scene.sceneTextBox.textInterupt = true;
+
+                  this.playerCloths = this.scene.add.sprite(this.x+60,this.y+89, "playerClothsProp");
+                  this.playerCloths.setScale(1/3);
+                  this.playerCloths.setDepth(5);
+
+                  this.scene.cameras.main.pan(this.playerCloths.x, this.playerCloths.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+                      //call back finction that occurs during the duration of the camera pan.
+                  });
+
+
+                  this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                      console.log('Camera pan has completed!');
+                      this.forceCameraToFollowCloths = false;
+                      this.scene.sceneTextBox.textInterupt = false;
+   
+                  },this);
+
+                  
+               });
+
+              this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishClose').once('animationcomplete', () => {
+                this.scene.initSoundEffect('stomachSFX','13',0.1);
+                this.scene.bossNectar.digestionTimer.visible = false;
+
+                
+                           
+              });
+
+            }
+
+           }else if(this.currentDictNode.nodeName === "node9"){
+
+            //turn off forcing the camera in move funct to follow player cloths.
+            this.forceCameraToFollowCloths = true; 
+            
+              this.scene.moveFunctionActive = true;
+              this.moveNectarOffScreen = false;
+              this.scene.sceneTextBox.textInterupt = false;
+
+              this.scene.mycamera.startFollow(this.playerCloths);
+              this.scene.cameras.main.zoom = 2;
+              this.scene.cameras.main.followOffset.set(0,70);
+
+          }
       }
   }
 }

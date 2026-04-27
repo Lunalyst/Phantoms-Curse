@@ -123,7 +123,6 @@ class G10CheckNPCS extends G9CheckEnemys {
         //console.log('this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX): ',this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX), "tempNpc.npcTriggerRangeX: ",tempNpc.npcTriggerRangeX)
         if (this.objectsInRangeX(tempNpc,scene.player2,tempNpc.npcTriggerRangeX) && this.objectsInRangeY(tempNpc,scene.player2,tempNpc.npcTriggerRangeY) && tempNpc.triggerNpcFinished === false) {
           
-          console.log("in range");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
 
@@ -132,7 +131,7 @@ class G10CheckNPCS extends G9CheckEnemys {
           }else{
             tempNpc.overlapActivateNpc();
           }
-
+          console.log("this.moveFunctionActive: ",this.moveFunctionActive);
           if(this.moveFunctionActive === true){
              tempNpc.MoveNPC()
           }

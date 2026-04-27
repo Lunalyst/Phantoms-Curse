@@ -1444,6 +1444,57 @@ const npcDialogue = {
                         "textvoice":"trumpet",
                         "children":[]
                     },
+                },
+                "":{
+                    "node1":{
+                        "dialogue": "Hey....",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Back there....",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "I couldn't help but despise her...",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "im confident I have never met her but....",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node5":{
+                        "dialogue": "I feel like she was someone who use to be important to me.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node6":{
+                        "dialogue": "All I could feel was betrayal. As if she broke a promise.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node6":{
+                        "dialogue": "though I guess it doesnt matter now.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    "node7":{
+                        "dialogue": "we Have to continue deeper.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["node2"]
+                    },
+                    
                 }
             }
         },
@@ -1642,48 +1693,54 @@ const npcDialogue = {
                         "children":["node3"]
                     },
                     "node3":{
-                        "dialogue": "Nothing left of them for you to save. ",
+                        "dialogue": "Not Much left of them for you to save. ",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "Some \"hero\"  you are. you can have what is left of them. ",
-                        "profile":"nectarSmile",
+                        "dialogue": "huurrk...",
+                        "profile":"nectarHurt",
                         "textvoice":"wah",
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "I'm growing tired of this little scuffle.",
+                        "dialogue": "Some \"hero\"  you are. you can have what is left of them. ",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "consider yourself lucky i am leaving.",
+                        "dialogue": "I'm growing tired of this little scuffle.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "Otherwise you would have met the same fate.",
+                        "dialogue": "consider yourself lucky I am leaving.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "*HIDETEXT*",
+                        "dialogue": "Otherwise you would have met the same fate.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node9"]
                     },
                     "node9":{
-                        "dialogue": "No.....",
-                        "profile":"miloEyeRaise",
-                        "textvoice":"trumpet",
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
                         "children":["node10"]
                     },
                     "node10":{
+                        "dialogue": "No.....",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["node11"]
+                    },
+                    "node11":{
                         "dialogue": "I'm Sorry I couldn't Save you...",
                         "profile":"miloEyeRaise",
                         "textvoice":"trumpet",

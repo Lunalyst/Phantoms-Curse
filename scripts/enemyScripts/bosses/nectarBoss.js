@@ -187,7 +187,7 @@ class nectarBoss extends enemy {
             //set up player barries for the fight
             this.scene.setUpPlayerBarriers();
             this.leftBarrier = this.scene.initPlayerBarrier(1716,728-30,38,540);
-            this.rightBarrier = this.scene.initPlayerBarrier(2641,728-30,38,540);
+            this.rightBarrier = this.scene.initPlayerBarrier(2600,728-30,38,540);
 
             this.digestionTimer.visible = true;
             this.digestionTimer.anims.play('stomachOpen').once('animationcomplete', () => {

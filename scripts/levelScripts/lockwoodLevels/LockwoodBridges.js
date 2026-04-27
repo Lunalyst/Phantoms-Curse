@@ -55,6 +55,10 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
       this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+
+      this.load.spritesheet('miloProps', 'assets/gameObjects/miloProps.png',{frameWidth: 78 , frameHeight: 171});
+
+
       this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
 
       //note nectars sprites are loaded in g6enemypreload.
@@ -160,7 +164,7 @@ class LockwoodBridges extends defaultScene {
       //define barriers whee enemys cannot go.
       this.setUpEnemyBarriers();
       this.initBarrier(1716,728-30,38,540);
-      this.initBarrier(2641,728-30,38,540);
+      this.initBarrier(2600,728-30,38,540);
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();

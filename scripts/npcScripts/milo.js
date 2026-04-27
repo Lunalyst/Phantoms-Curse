@@ -32,8 +32,13 @@ class milo extends npc{
       this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
       
-      this.anims.create({key: 'MenacingSpearRaiseRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 94, end: 96 }),frameRate: 5,repeat: 0});
-      this.anims.create({key: 'MenacingSpearHoldRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 97, end: 100 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'standThereRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 94, end: 97 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'MenacingSpearRaiseRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 98, end: 99 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'MenacingSpearHoldRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 100, end: 103 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'MenacingSpearLowerRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 104, end: 105 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'dropSpearAndShield',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 106, end: 109 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'dropMask',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 110, end: 123 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'dropMaskEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 124, end: 124 }),frameRate: 5,repeat: 0});
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');

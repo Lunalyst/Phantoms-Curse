@@ -580,7 +580,7 @@ class nectar extends npc{
 
    }else if(this.moveNectarOffScreen === false){
     
-    if(this.x < 2700){
+    if(this.x < 3300){
 
       this.setVelocityX(200);
       this.anims.play('sideWalk',true);
@@ -588,12 +588,46 @@ class nectar extends npc{
 
        this.setVelocityX(0);
       this.moveNectarOffScreen = true;
-      this.scene.sceneTextBox.textInterupt = true;
       this.miloRemoveMask = false;
     }
     
    }else if(this.miloRemoveMask === false){
-    this.scene.Milo.anims.play('angleIdleLeft',true);
+
+    this.miloRemoveMask = true;
+    this.scene.Milo.anims.play('MenacingSpearLowerRight').once('animationcomplete', () => {
+
+      this.scene.Milo.anims.play('dropSpearAndShield').once('animationcomplete', () => {
+
+
+        this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
+        this.spear.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.spear.anims.play("idle", true);
+        this.spear.setScale(1/3);
+        this.spear.setDepth(1);
+
+        this.shield = this.scene.add.sprite(this.scene.Milo.x+3,this.scene.Milo.y+19, "miloProps");
+        this.shield.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.shield.anims.play("idle", true);
+        this.shield.setScale(1/3);
+        this.shield.setDepth(1);
+         
+        this.scene.Milo.setDepth(7);
+
+        this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
+
+          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y, "miloProps");
+          this.miloMask = this.miloMask.anims.create({key: 'mask',frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }),frameRate: 1,repeat: 0});
+          this.miloMask.anims.play("shield");
+          this.miloMask.setScale(1/3);
+          this.miloMask.setDepth(5); 
+
+          this.scene.Milo.anims.play('dropMaskEnd',true);
+        });
+      });
+  });
+
+    
+   
    }
   }
   //overwrites base npc classes function with flagging logic specific to nectar.
@@ -1304,6 +1338,7 @@ class nectar extends npc{
                    this.scene.sceneTextBox.textInterupt = true;
 
                   this.playerCloths = this.scene.add.sprite(this.x+60,this.y+89, "playerClothsProp");
+                  this.playerCloths.flipX = true;
                   this.playerCloths.setScale(1/3);
                   this.playerCloths.setDepth(5);
 
@@ -1339,7 +1374,7 @@ class nectar extends npc{
             
               this.scene.moveFunctionActive = true;
               this.moveNectarOffScreen = false;
-              this.scene.sceneTextBox.textInterupt = false;
+              this.scene.sceneTextBox.textInterupt = true;
 
               this.scene.mycamera.startFollow(this.playerCloths);
               this.scene.cameras.main.zoom = 2;

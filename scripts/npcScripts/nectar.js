@@ -615,19 +615,31 @@ class nectar extends npc{
 
         this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
 
-          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y, "miloProps");
-          this.miloMask = this.miloMask.anims.create({key: 'mask',frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }),frameRate: 1,repeat: 0});
-          this.miloMask.anims.play("shield");
+          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y+19, "miloProps");
+          this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+          this.miloMask.anims.play("idle", true);
           this.miloMask.setScale(1/3);
-          this.miloMask.setDepth(5); 
+          this.miloMask.setDepth(1);
 
-          this.scene.Milo.anims.play('dropMaskEnd',true);
+          this.miloRemoveMask = true;
+          this.moveMiloToPile = false;
         });
       });
   });
 
     
    
+   }else if(this.moveMiloToPile === false){
+    if(this.playerCloths.x + 40 < this.scene.Milo.x){
+       this.scene.Milo.anims.play('walk',true);
+       this.scene.Milo.flipX = true;
+       this.scene.Milo.setVelocityX(-100);
+    }else{
+
+      this.moveMiloToPile = true;
+      this.scene.Milo.anims.play('idle',true);
+      this.scene.Milo.setVelocityX(0);
+    }
    }
   }
   //overwrites base npc classes function with flagging logic specific to nectar.

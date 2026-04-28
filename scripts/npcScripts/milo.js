@@ -11,8 +11,9 @@ class milo extends npc{
       //then we call this next line to give it collision
       scene.physics.add.existing(this);
 
-      this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'angleIdle',frames: this.anims.generateFrameNames('milo', { start: 6, end: 9 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('miloUnarmed', { start: 7, end: 16 }),frameRate: 7,repeat: -1});
+
       this.anims.create({key: 'angleIdleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'angleIdleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'walkLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 9, end: 18 }),frameRate: 17,repeat: -1});

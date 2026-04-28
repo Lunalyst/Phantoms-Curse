@@ -52,7 +52,7 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("lunalyst" ,  "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       //test sprites
-      this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
+      this.load.spritesheet("miloUnarmed" , "assets/npcs/miloUnarmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
 

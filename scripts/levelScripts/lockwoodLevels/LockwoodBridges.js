@@ -169,7 +169,7 @@ class LockwoodBridges extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initMilo(1895-(12*32), 728-7-(10*32),"inYourTimeOfNeed");
+      this.initMilo(1895-(12*32), 354,"inYourTimeOfNeed");
       this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
@@ -308,7 +308,12 @@ class LockwoodBridges extends defaultScene {
     }
 
     update(){
+      console.log("this.Milo.x: ",this.Milo.x, "this.Milo.y: ",this.Milo.y)
       
+      /*if(this.Milo.y > 750){
+        this.Milo.y = 401;
+      }*/
+      //this.Milo.visible = true;
       //calls the built in update function
 
       if(this.player2Active === true){

@@ -345,7 +345,11 @@ class nectar extends npc{
 
   MoveNPCAmbush() {
     //console.log("this.currentDictNode.nodeName: ",this.currentDictNode.nodeName)
-    console.log("this.scene.Milo.x: ",this.scene.Milo.x, "this.scene.Milo.y: ",this.scene.Milo.y)
+    //this.scene.Milo.x = 1511;
+    //this.scene.Milo.y = 401;
+    //this.scene.Milo.visible = true;
+
+    //console.log("this.scene.Milo.x: ",this.scene.Milo.x, "this.scene.Milo.y: ",this.scene.Milo.y)
     if(this.currentDictNode.nodeName === "node8" || this.currentDictNode.nodeName === "nodeC"){
       //console.log("activating cuytsom move function");
       if(this.x > 2020){
@@ -1174,6 +1178,7 @@ class nectar extends npc{
             
           }else if(this.currentDictNode.nodeName === "node18" && this.inDialogue === false){
 
+            this.scene.Milo.visible = true;
             console.log("this.scene.Milo: ",this.scene.Milo);
 
             this.inDialogue = true;
@@ -1193,8 +1198,6 @@ class nectar extends npc{
               temp.scene.sceneTextBox.textInterupt = true;
               
               temp.scene.Milo.visible = true;
-              temp.scene.Milo.x = 1511;
-              temp.scene.Milo.y = 836;
               temp.scene.Milo.anims.play('standingThere',true);
 
                   temp.scene.cameras.main.pan(temp.scene.Milo.x, temp.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
@@ -1204,9 +1207,7 @@ class nectar extends npc{
                   temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
                       console.log('Camera pan has completed!');
                       //this.choke = false;
-                      temp.scene.Milo.x = 1511;
-                      temp.scene.Milo.y = 836;
-
+                    
                       temp.scene.mycamera.startFollow(temp.scene.Milo,true,1,1);
                       temp.scene.cameras.main.zoom = 2;
                       temp.scene.cameras.main.followOffset.set(0,70);

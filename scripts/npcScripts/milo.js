@@ -3,7 +3,7 @@ class milo extends npc{
     // every class needs constructor
     constructor(scene, xPos, yPos,npcType){
       
-      super(scene, xPos, yPos, 'milo');
+      super(scene, xPos, yPos, 'miloUnarmed');
 
       //then we add new instance into the scene. 
       scene.add.existing(this);

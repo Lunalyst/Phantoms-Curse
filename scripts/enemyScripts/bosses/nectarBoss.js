@@ -877,7 +877,7 @@ class nectarBoss extends enemy {
                 this.digestionTimer.anims.play('stomachState6-Finish').once('animationcomplete', () => {
                     this.scene.initSoundEffect('stomachSFX','1',0.1);
                     this.digestionTimer.anims.play('stomachStateFinish',true)
-                        this.scene.initSoundEffect('stomachSFX','19',0.1);
+                        this.scene.initSoundEffect('stomachSFX','18',0.1);
                         this.digestionTimerAnimationPlayed = false;
                         this.player1IsDigested = true;
                         

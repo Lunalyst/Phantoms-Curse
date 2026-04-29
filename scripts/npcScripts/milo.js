@@ -12,7 +12,9 @@ class milo extends npc{
       scene.physics.add.existing(this);
 
       this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('miloUnarmed', { start: 7, end: 16 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('miloUnarmed', { start: 7, end: 16 }),frameRate: 9,repeat: -1});
+      this.anims.create({key: 'FailedFall',frames: this.anims.generateFrameNames('miloUnarmed', { start: 22, end: 25 }),frameRate: 6,repeat: 0});
+      this.anims.create({key: 'FailedIdle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 26, end: 29 }),frameRate: 6,repeat: -1});
 
       this.anims.create({key: 'angleIdleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'angleIdleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});

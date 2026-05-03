@@ -138,6 +138,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.add(this.no);
 
         //rexUI scene slider plugin
+        console.log("scene: ",scene)
         this.volumeSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
                

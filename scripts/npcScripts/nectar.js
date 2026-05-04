@@ -46,6 +46,8 @@ class nectar extends npc{
        this.dialogueCompleted = false;
        this.completedText = false;
 
+       this.gameoverStarted = false;
+
 
        this.animationPlayed = false;
        this.scene = scene;
@@ -962,7 +964,16 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
            if(this.currentDictNode.nodeName === "node1"){
 
-            //use emitter to check nectar ambush skip flag
+            //for testing gameovers so i dont have to go through the whole process to get them.
+            /*this.scene.gameoverLocation = "nectarCaveGameover";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
+            this.scene.changeToGameover();
+            this.scene.sceneTextBox.textInterupt = true;
+            this.scene.sceneTextBox.textCoolDown = true;
+            this.scene.cutSceneActive = false;*/
+
+
+           //use emitter to check nectar ambush skip flag
             let nectarFlag = {
               flagToFind: "nectarAmbushSkip",
               foundFlag: false,
@@ -1018,7 +1029,7 @@ class nectar extends npc{
 
             //saves the game by calling the save game file function in the scene
             this.scene.saveGameFile(playerDataObject);
-            
+
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
             this.inDialogue = true;
@@ -1340,6 +1351,8 @@ class nectar extends npc{
 
            }else if(this.currentDictNode.nodeName === "node9"){
 
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+
             //turn off forcing the camera in move funct to follow player cloths.
             if(this.node9Start === undefined){
               this.node9Start = true;
@@ -1356,6 +1369,20 @@ class nectar extends npc{
             }
               
 
+          }else if(this.currentDictNode.nodeName === "node11"){
+            this.scene.gameoverLocation = "nectarCaveGameover";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
+            this.scene.sceneTextBox.textInterupt = true;
+            this.scene.sceneTextBox.textCoolDown = true;
+            this.scene.cutSceneActive = false;
+            if(this.gameoverStarted === false){
+              this.gameoverStarted = true;
+              let temp = this;
+              setTimeout(function () {
+                temp.scene.changeToGameover();
+              }, 3000);
+            }
+            
           }
       }
   }

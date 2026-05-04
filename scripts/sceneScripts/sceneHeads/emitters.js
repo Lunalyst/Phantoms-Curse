@@ -312,7 +312,8 @@ const Groupings = [
 "whiteCat",
 "shadow",
 "istara",
-"vivian"
+"vivian",
+"nectar"
 ];
 //process to convert bestiary entries.
 /*
@@ -405,6 +406,8 @@ const bestiaryKey = {
   vivianTF:"vivian_tf",
   vivianVore1:"vivian_vore_1",
   vivianVore2:"vivian_vore_2",
+
+  nectarVore1:"nectar_vore_1",
  
 }
 
@@ -589,6 +592,10 @@ const bestiaryTextList = {
       matangoRoot_male_cock:{
         title: "MALE MATANGO COCK",
         summary: "The matango's cock can also be used to catch prey, stuffing them deep into his balls.His prey is melted into fertile cum and when the matango cums from the pleasure of the process, a new matango is born.",
+      },
+      nectar_vore_1:{
+        title: "NECTAR",
+        summary: "mean old spyinx :P",
       },
 
       back: {

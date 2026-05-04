@@ -98,6 +98,8 @@ class nectarBoss extends enemy {
             this.anims.create({key: 'PEJumpDownFeather2',frames: this.anims.generateFrameNames('nectar5', { start: 4, end: 23-18 }),frameRate: 7,repeat: 0});
             this.anims.create({key: 'PEJumpLandStartFeather',frames: this.anims.generateFrameNames('nectar5', { start: 24-18, end: 26-18 }),frameRate: 7,repeat: 0});
             this.anims.create({key: 'PEJumpLandEndFeather',frames: this.anims.generateFrameNames('nectar5', { start: 27-18, end: 29-18 }),frameRate: 7,repeat: 0});
+            
+            this.anims.create({key: 'nectarDigestedPlayerGameover',frames: this.anims.generateFrameNames('nectar5', { start: 29, end: 32 }),frameRate: 3,repeat: -1});
 
             /*if(sex === 0) {
                 this.anims.create({ key: 'analStart', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
@@ -926,6 +928,10 @@ class nectarBoss extends enemy {
     moveIdle() {
         this.anims.play('sideIdle',true);
         this.setVelocityX(0);
+    }
+
+    nectarDigestedPlayerGameover(){
+        this.anims.play('nectarDigestedPlayerGameover',true);
     }
 
     resetVariables(){

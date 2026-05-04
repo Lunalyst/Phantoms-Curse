@@ -308,7 +308,7 @@ class LockwoodBridges extends defaultScene {
     }
 
     update(){
-      console.log("this.Milo.x: ",this.Milo.x, "this.Milo.y: ",this.Milo.y)
+      //console.log("this.Milo.x: ",this.Milo.x, "this.Milo.y: ",this.Milo.y)
       
       /*if(this.Milo.y > 750){
         this.Milo.y = 401;

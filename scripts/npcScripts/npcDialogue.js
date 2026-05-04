@@ -1736,13 +1736,13 @@ const npcDialogue = {
                     },
                     "node10":{
                         "dialogue": "No.....",
-                        "profile":"miloEyeRaise",
+                        "profile":"miloScared",
                         "textvoice":"trumpet",
                         "children":["node11"]
                     },
                     "node11":{
                         "dialogue": "I'm Sorry I couldn't Save you...",
-                        "profile":"miloEyeRaise",
+                        "profile":"miloScared",
                         "textvoice":"trumpet",
                         "children":[]
                     },
@@ -3155,6 +3155,15 @@ const npcDialogue = {
                 "matangoRoot_male_cock":{
                     "node1":{
                         "dialogue": "You were knocked down. Before you could get up, a strong fungus hand grabbed you. You tried to struggle free, but you couldn't get free in time. You felt a warm soft sleeve quickly start to pull you in. Looking back, it was the Matango's massive cock swallowing you. You were stuffed down his urethra and slid comfortably into the matangos warm, cum filled sack. You tried to struggle free, but you were not strong enough to escape. As he sensed your vigor fading, he started to clench his balls, tightening the cramped space and sealing off your one exit. With your fate sealed, he began to pleasure himself while you melted in his sac. When he finally climaxed, what was left of you was spurted onto the cave floor. Now you spend your time slowly reforming as a brand new matango. ",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+
+                "nectar_vore_1":{
+                    "node1":{
+                        "dialogue": "Hot and gurgly, inevitable fate, Reduced to nothing more than weight. What am I? The answer: you. ",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

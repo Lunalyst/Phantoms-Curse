@@ -38,7 +38,7 @@ use classes tab as a guide for how to set up the header. each object has differe
 // important. to fix tile bleeding we follow the guide here using tile extruder.
 https://github.com/sporadic-labs/tile-extruder
 //use this code in cmd
-// dont forget our tiles are 96 by 96 then downscaled by a third
+//dont forget our tiles are 96 by 96 then downscaled by a third
 //tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
 
 

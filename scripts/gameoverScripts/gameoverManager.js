@@ -80,6 +80,11 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.spritesheet("vivianEmots" , "assets/hudElements/VivianEmots.png" , {frameWidth: 75 , frameHeight: 66 });
                 
                             
+            },nectarCaveGameover: function nectarCaveGameover() {
+                tempGameover.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
+                tempGameover.load.tilemapTiledJSON("nectarCaveGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Nectar_Cave_Gameover.json");
+                tempGameover.load.spritesheet('PlumGameover', 'assets/npcs/PlumGameover.png',{frameWidth: 630, frameHeight: 429 });
+                tempGameover.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
             },
 
         
@@ -443,6 +448,23 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.processMap.tilesetNameInTiled = "Home_Interior_Tileset";
                 tempSceneRef.processMap.setTiles('home_source_map',tempSceneRef);
 
+            },nectarCaveGameover: function nectarCaveGameover() {
+                tempSceneRef.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                tempSceneRef.lights.enable().setAmbientColor(0x555555);
+
+                tempSceneRef.processMap.tilesetNameInTiled = "Cave_Tileset";
+                tempSceneRef.processMap.setTiles('cave_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer0.setPipeline('Light2D');
+                tempSceneRef.processMap.layer1.setPipeline('Light2D');
+                tempSceneRef.processMap.layer2.setPipeline('Light2D');
+                tempSceneRef.processMap.layer3.setPipeline('Light2D');
+
+                tempSceneRef.light1 = new wallLight(tempSceneRef,250, 470,'torch');
+                tempSceneRef.light2 = new wallLight(tempSceneRef,660, 470,'torch');
+                
             },
 
         }
@@ -1051,6 +1073,29 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.mushroomNode2.visible = false;
             },
 
+            nectar_vore_1: function nectar_vore_1Function() {
+
+                tempSceneRef.enemy = new nectarBoss(tempSceneRef,470, 510,tempSceneRef.playerSex,0,true);
+
+                tempSceneRef.enemy.nectarDigestedPlayerGameover();
+                tempSceneRef.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.body.setGravityY(0);
+                tempSceneRef.enemy.visible = true; 
+                tempSceneRef.enemy.setDepth(3);
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                tempSceneRef.plum = tempSceneRef.add.sprite(327,536,"PlumGameover");
+                tempSceneRef.plum.setScale(1/3);
+                tempSceneRef.plum.setDepth(2);
+                tempSceneRef.plum.setPipeline('Light2D');
+                tempSceneRef.anims.create({key: 'plumPetNectar',frames: tempSceneRef.plum.anims.generateFrameNames('PlumGameover', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
+                tempSceneRef.plum.anims.play("plumPetNectar",true);
+
+                
+                
+                
+            },
+
             generic: function genericFunction(){
 
             },
@@ -1623,6 +1668,10 @@ class gameoverManager extends A3SoundEffects {
             },
 
             matangoRoot_male_cock: function matangoRootMalecockFunction() {
+                
+            },
+
+            nectar_vore_1: function nectar_vore_1Function() {
                 
             },
 

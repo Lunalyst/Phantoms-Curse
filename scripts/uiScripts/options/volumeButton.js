@@ -58,7 +58,13 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
 
             //set sound volume in scene
             if(this.groupType === "music"){
-                this.scene.sound.soundGroups[this.groupType].forEach((soundKey) => soundKey.setVolume(value * musicDampen));
+                console.log("this.scene.sound.soundGroups: ",this.scene.sound.soundGroups);
+                this.scene.sound.soundGroups[this.groupType].forEach((soundKey) => 
+                    {
+                        if(soundKey.volumeNode !== null){
+                            soundKey.setVolume(value * musicDampen)
+                        }
+            });
                 this.optionsMenu.currentSoundMusicValue = value;
                 this.scene.sound.soundGroupVolumes["music"] = value;
 

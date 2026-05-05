@@ -35,6 +35,9 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
 
         this.scene = scene;
 
+        // leave a refrence so npcs can activate bridge.
+        this.scene.lockwoodDrawBridge = this;
+
         this.bridgePosition = bridgePosition;
         this.bridgeAnimationLoc = false;
     
@@ -109,6 +112,34 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
             this.promptCooldown = false;
         }
           
+    }
+
+    manualActivate(){
+        if(this.bridgePosition === "up" && this.bridgeAnimationLoc === false){
+                this.bridgeAnimationLoc = true;
+
+                this.anims.play('bridgeLowering').once('animationcomplete', () => {
+                    this.bridgeAnimationLoc = false;
+                    this.setSize(800, 170, true);
+                    this.setOffset(0, 576);
+                    this.anims.play("bridgeDown",true);
+                    this.bridgePosition ="down";
+
+                   
+
+                });
+            }else if(this.bridgePosition === "down" && this.bridgeAnimationLoc === false){
+                this.bridgeAnimationLoc = true;
+                    this.setSize(620, 2000, true);
+                    this.setOffset(105, -1000);
+                this.anims.play('bridgeRaising').once('animationcomplete', () => {
+                    this.bridgeAnimationLoc = false;
+
+                    this.anims.play("bridgeUp",true);
+                     this.bridgePosition ="up";
+
+                });
+            }
     }
 
   

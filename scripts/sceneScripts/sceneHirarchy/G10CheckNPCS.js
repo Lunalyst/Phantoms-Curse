@@ -55,7 +55,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         //console.log("scene.grabbed:", scene.grabbed, " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished);
         if (this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
           
-          console.log("activating overlap npc in G10CHECKNPCS");
+          //console.log("activating overlap npc in G10CHECKNPCS");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
 
@@ -75,7 +75,7 @@ class G10CheckNPCS extends G9CheckEnemys {
           //console.log("in range");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
-
+          
           if(tempNpc.customTrigger === true){
             tempNpc.customTriggerFunction();
           }else{
@@ -86,8 +86,9 @@ class G10CheckNPCS extends G9CheckEnemys {
         } 
       }
 
+      //console.log("this.moveFunctionActive: ",this.moveFunctionActive);
        if(tempNpc.moveFunctionActive === true){
-        tempNpc.MoveNPC()
+        tempNpc.MoveNPC();
       }
       
     }, scene);
@@ -131,7 +132,7 @@ class G10CheckNPCS extends G9CheckEnemys {
           }else{
             tempNpc.overlapActivateNpc();
           }
-          console.log("this.moveFunctionActive: ",this.moveFunctionActive);
+          //console.log("this.moveFunctionActive: ",this.moveFunctionActive);
           if(this.moveFunctionActive === true){
              tempNpc.MoveNPC()
           }

@@ -197,13 +197,22 @@ class optionsMenu extends Phaser.GameObjects.Container{
                     if(value === 0){
                         that.volumeMusicButton.isOn = false;
                         that.volumeMusicButton.anims.play("volumeOffInActive");
-                        that.scene.sound.soundGroups["music"].forEach((soundKey) => soundKey.setVolume(0));
+                        that.scene.sound.soundGroups["music"].forEach((soundKey) => {
+                            console.log("soundKey: ",soundKey);
+                            if(soundKey.volumeNode !== null){
+                                soundKey.setVolume(0);
+                                }
+                            });
                         that.currentSoundMusicValue = 0; 
                         that.scene.sound.soundGroupVolumes["music"] = 0;
                     }else{
                         that.volumeMusicButton.isOn = true;
                         that.volumeMusicButton.anims.play("volumeOnInActive");
-                        that.scene.sound.soundGroups["music"].forEach((soundKey) => soundKey.setVolume(value *musicDampen));
+                        that.scene.sound.soundGroups["music"].forEach((soundKey) => {
+                            if(soundKey.volumeNode !== null){
+                                soundKey.setVolume(value *musicDampen)
+                                }
+                            });
                         that.currentSoundMusicValue = value; 
                         that.scene.sound.soundGroupVolumes["music"] = value;
                     }

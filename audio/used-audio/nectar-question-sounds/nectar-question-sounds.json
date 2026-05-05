@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/nectar-question-sounds/Ravinous Riddle.mp3"
+    ],
+    "spritemap": {
+        "question":{
+            "start": 0,
+            "end": 6.8,
+            "loop": true
+        }
+    }
+}

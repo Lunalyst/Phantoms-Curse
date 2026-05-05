@@ -99,8 +99,8 @@ class nectarBoss extends enemy {
             this.anims.create({key: 'PEJumpLandStartFeather',frames: this.anims.generateFrameNames('nectar5', { start: 24-18, end: 26-18 }),frameRate: 7,repeat: 0});
             this.anims.create({key: 'PEJumpLandEndFeather',frames: this.anims.generateFrameNames('nectar5', { start: 27-18, end: 29-18 }),frameRate: 7,repeat: 0});
             
-            this.anims.create({key: 'nectarDigestedPlayerGameover',frames: this.anims.generateFrameNames('nectar5', { start: 29, end: 32 }),frameRate: 3,repeat: -1});
-
+            this.anims.create({key: 'nectarDigestedPlayerGameover',frames: this.anims.generateFrameNames('nectar6', { start: 0, end: 3 }),frameRate: 3,repeat: -1});
+            
             /*if(sex === 0) {
                 this.anims.create({ key: 'analStart', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
 
@@ -126,6 +126,7 @@ class nectarBoss extends enemy {
         this.digestionTimer.setScale(1/3);
         this.digestionTimer.visible = false;
         this.digestionTimer.setDepth(9);
+        console.log("creating Digestion Timer: ",this.digestionTimer ," ----------------------------------------------------------------");
 
         if(sex === 0) {
             this.digestionTimer.anims.create({ key: 'stomachOpen', frames: this.anims.generateFrameNames('digestionTimerMale', { start: 0, end: 3 }), frameRate: 6, repeat: 0 });

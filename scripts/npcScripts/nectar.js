@@ -30,6 +30,12 @@ class nectar extends npc{
       this.anims.create({key: 'playerDigestedBurp',frames: this.anims.generateFrameNames('nectar5', { start: 12, end: 18 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'playerDigestedSpitUpCloths',frames: this.anims.generateFrameNames('nectar5', { start: 19, end: 28 }),frameRate: 7,repeat: 0});
 
+      this.anims.create({key: 'nectarAngrySlamStart',frames: this.anims.generateFrameNames('nectar6', { start: 4, end: 5 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'nectarAngrySlamMiddleRepeat1',frames: this.anims.generateFrameNames('nectar6', { start: 6, end: 8 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'nectarAngrySlamMiddleRepeat2',frames: this.anims.generateFrameNames('nectar6', { start: 9, end: 10 }),frameRate: 12,repeat: 0});
+      this.anims.create({key: 'nectarAngrySlamMiddleEnd',frames: this.anims.generateFrameNames('nectar6', { start: 11, end: 14 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'nectarLostAngryIdle',frames: this.anims.generateFrameNames('nectar6', { start: 15, end: 18 }),frameRate: 7,repeat: -1});
+
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -72,6 +78,8 @@ class nectar extends npc{
        this.RiddleTakingTooLong = false;
 
        this.miloJumpDelay = false;
+
+       this.bossSpawned = false;
 
        // idea for mini game. options slowly pop up and vanish. under the hood its an array, that roles a random number based on the length of the array. then it removes that options so theres no repeats. 
        this.riddleOptions = ["Tiger","Snake","Vampire","Nothing","Sphinx","Lets Fight","Shark","Stapler","Staples","Spider","I don’t want to answer","The concept of death","can you repeat the riddle?","all of the above?"];
@@ -189,6 +197,19 @@ class nectar extends npc{
     }else if(this.nectarDropped === false && this.choke === false){
 
       this.dialogueLogicStart();
+
+      //init sound effect music to play 
+      this.scene.initSoundEffect('nectarEntranceSFX','entrance',0.3,'music');
+      //get refrence to sound key
+      let entranceSound = this.scene.getSFX('nectarEntranceSFX');
+      //add on complete for that.
+      entranceSound.on('complete', function (sound){
+
+          //'sound' is a reference to the Sound that emitted the event
+          console.log('entrance sound finished playing');
+          this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
+          
+      },this);
 
   
       this.scene.mycamera.startFollow(this);
@@ -338,8 +359,12 @@ class nectar extends npc{
   }
 
   MoveNPC(){
+      //console.log("this.npcType: ",this.npcType);
+
       if(this.npcType === 'ambush'){
-        this.MoveNPCAmbush();
+        if(this.currentDictNode !== null){
+           this.MoveNPCAmbush();
+        }
       }else if(this.npcType === 'digestedPlayer'){
         this.MoveNPCDigestedPlayer();
       }
@@ -350,7 +375,7 @@ class nectar extends npc{
     //this.scene.Milo.x = 1511;
     //this.scene.Milo.y = 401;
     //this.scene.Milo.visible = true;
-
+     //console.log("moving nectar. "
     //console.log("this.scene.Milo.x: ",this.scene.Milo.x, "this.scene.Milo.y: ",this.scene.Milo.y)
     if(this.currentDictNode.nodeName === "node8" || this.currentDictNode.nodeName === "nodeC"){
       //console.log("activating cuytsom move function");
@@ -365,6 +390,7 @@ class nectar extends npc{
           this.choke = true;
 
           this.scene.player1.visible = false;
+          inventoryKeyEmitter.emit(inventoryKey.inventoryVisible,false);
 
           this.anims.play('swallowingPlayer1').once('animationcomplete', () => {
             this.scene.initSoundEffect('swallowSFX','2',0.6);
@@ -471,6 +497,89 @@ class nectar extends npc{
             
           }
       }
+    // cases for if the player manages to get the riddle correct. 
+    }else if(this.moveNectarOffScreen === false){
+    console.log("moving nectar. ")
+    if(this.x < 2600){
+      this.flipX = true;
+      this.setVelocityX(200);
+      this.anims.play('sideWalk',true);
+
+    }else{
+
+      //nectar walks out of trigger ranges so make sure it increases so dialogue can progress.
+      this.npcTriggerRangeX = 8000
+      this.setVelocityX(0);
+      this.moveNectarOffScreen = true;
+      this.lowerBridge = false;
+      this.lowerBridgeChoke = false;
+      this.miloRemoveMask = false;
+      this.visible = false;
+
+    }
+    // after nectar is off screne, lower bridge. then pan to milo who is on the other side. 
+    }else if(this.lowerBridge === false && this.lowerBridgeChoke === false){
+      this.lowerBridgeChoke = true;
+      this.scene.lockwoodDrawBridge.manualActivate();
+
+      this.scene.player1.flipXcontainer(true);
+      //ned a oince lockout here
+
+      //this.player2Active = true;
+        this.scene.Milo.visible = true;
+        this.scene.Milo.x = 1520;
+        this.scene.Milo.y = 720;
+
+        this.scene.Milo.anims.play("idle",true);
+
+      //timeout to pan to milo.
+      let temp = this;
+      setTimeout(function () {
+        temp.scene.cameras.main.pan(temp.scene.Milo.x, temp.scene.Milo.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+          //call back finction that occurs during the duration of the camera pan.
+          });
+
+        temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+          console.log('Camera pan has completed!: ',temp);
+            //this.choke = false;
+                
+          temp.scene.mycamera.startFollow(temp.scene.Milo,true,1,1);
+          temp.scene.cameras.main.zoom = 2;
+          temp.scene.cameras.main.followOffset.set(0,70);
+
+          console.log("temp.scene.sceneTextBox.textInterupt: ",temp.scene.sceneTextBox.textInterupt);
+
+          temp.scene.sceneTextBox.textInterupt = false;
+          temp.progressNode("");
+          temp.scene.sceneTextBox.textInterupt = true;
+
+          
+          setTimeout(function () {
+            temp.lowerBridge = true;
+            temp.moveMiloToPlayer = false;
+          }, 1500);
+          //temp.scene.Milo.moveFunctionActive = true;
+
+          temp.moveFunctionActive = true;
+
+        },temp);
+      },1000);
+    }else if(this.moveMiloToPlayer === false){
+
+      if(this.scene.player1.x - 80 > this.scene.Milo.x){
+        this.scene.Milo.anims.play('walk',true);
+        this.scene.Milo.setVelocityX(100);
+      }else{
+        
+        this.scene.Milo.anims.play("idle",true);
+        
+        this.moveMiloToPlayer = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("");
+
+        this.scene.Milo.setVelocityX(0);
+      }
     }
   }
 
@@ -529,6 +638,8 @@ class nectar extends npc{
     this.scene.mycamera.startFollow(this.playerCloths);
     this.scene.cameras.main.zoom = 2;
     this.scene.cameras.main.followOffset.set(0,70);
+    this.scene.bossNectar.digestionTimer.visible = false;
+    //this.scene.bossNectar.digestionTimer.destroy();
 
    }else if(this.moveNectarOffScreen === false){
     
@@ -571,7 +682,7 @@ class nectar extends npc{
           this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
           this.miloMask.anims.play("idle", true);
           this.miloMask.setScale(1/3);
-          this.miloMask.setDepth(1);
+          this.miloMask.setDepth(10);
 
           this.miloRemoveMask = true;
           this.moveMiloToPile = false;
@@ -774,6 +885,8 @@ class nectar extends npc{
 
           this.progressNode("node23",true);
 
+          this.scene.sound.get('nectarLoopSFX').pause();
+
         }else{
               this.scene.sceneTextBox.textInterupt = false;
 
@@ -783,6 +896,8 @@ class nectar extends npc{
               
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
+
+                this.scene.sound.get('nectarLoopSFX').pause();
 
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
@@ -880,6 +995,8 @@ class nectar extends npc{
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
+                this.scene.sound.get('nectarLoopSFX').pause();
+
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
@@ -956,7 +1073,6 @@ class nectar extends npc{
 
   ambush(){
   
-    this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
    //console.log("checking nectar npc dialogue");
 
     this.nodeHandler("nectar","Behavior1","ambush");
@@ -964,6 +1080,7 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
            if(this.currentDictNode.nodeName === "node1"){
 
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
             //for testing gameovers so i dont have to go through the whole process to get them.
             /*this.scene.gameoverLocation = "nectarCaveGameover";
             this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
@@ -991,12 +1108,12 @@ class nectar extends npc{
               //calls emitter to show the tabtoskip graphic
               skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
               
+            }else{
+              //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
+              inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
             }
 
             //saving game on node 1 trigger, that way if the player leaves nectars fight and comes back ,that they have a checkpoint save before the fight
-
-            //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
-            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
 
             //creates a object to hold data for scene transition
             let playerDataObject = {
@@ -1104,6 +1221,8 @@ class nectar extends npc{
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
                this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
+                this.scene.sound.get('nectarLoopSFX').pause();
+
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
                 //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
@@ -1164,6 +1283,10 @@ class nectar extends npc{
             this.inDialogue = true;
             
           }else if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
+
+            //hide skip and turnoff skip otion.
+            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+            this.skipFlagFound = false;
 
             console.log('this.y : ',this.y,'_________________________________')
             this.riddlePositionsArray.push(this.scene.sceneTextBox.y-300);
@@ -1249,27 +1372,91 @@ class nectar extends npc{
 
           }else if(this.currentDictNode.nodeName === "node22"){
 
-          this.scene.player2Active = true;
-          this.scene.Milo.visible = false;
-          this.scene.player2.visible = true;
-          this.scene.player2.anims.play('MenacingSpearHold',true);
-          this.scene.player2.x = this.scene.Milo.x;
-          this.scene.player2.y = this.scene.Milo.y;
-          this.dialogueCatch = false;
-          this.scene.player2.setDepth(6);
-          this.setDepth(5);
+          if(this.bossSpawned === false){
+            this.bossSpawned = true;
 
-          //this.tempPlayer1Ref = this.scene.player1;
-          //this.scene.player1 = this.scene.player2;
-          console.log("nectars this.x: ",this.x," this.y-21: ",this.y-21);
-          this.scene.initEnemy(this.x,this.y-21,this.scene.playerSex,"nectar",false,this);
+            this.scene.player2Active = true;
+            this.scene.Milo.visible = false;
+            this.scene.player2.visible = true;
+            this.scene.player2.anims.play('MenacingSpearHold',true);
+            this.scene.player2.x = this.scene.Milo.x;
+            this.scene.player2.y = this.scene.Milo.y;
+            this.dialogueCatch = false;
+            this.scene.player2.setDepth(6);
+            this.setDepth(5);
 
-          //calls emitter to show the tabtoskip graphic
-          skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
-          this.skipFlagFound = false;
+            //this.tempPlayer1Ref = this.scene.player1;
+            //this.scene.player1 = this.scene.player2;
+            console.log("nectars this.x: ",this.x," this.y-21: ",this.y-21);
+            this.scene.initEnemy(this.x,this.y-21,this.scene.playerSex,"nectar",false,this);
+
+            //calls emitter to show the tabtoskip graphic
+            skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+            this.skipFlagFound = false;
+          }
+          
+
+          }else if(this.currentDictNode.nodeName === "node25" && this.scene.sceneTextBox.textInterupt === false){
+
+
+            this.scene.sceneTextBox.textInterupt = true;
+
+            this.anims.play('nectarAngrySlamStart').once('animationcomplete', () => {
+              this.anims.play('nectarAngrySlamMiddleRepeat1').once('animationcomplete', () => {
+                this.anims.play('nectarAngrySlamMiddleRepeat2').once('animationcomplete', () => {
+                  this.anims.play('nectarAngrySlamMiddleRepeat1').once('animationcomplete', () => {
+                    this.anims.play('nectarAngrySlamMiddleRepeat2').once('animationcomplete', () => {
+                     this.anims.play('nectarAngrySlamMiddleRepeat1').once('animationcomplete', () => {
+                        this.anims.play('nectarAngrySlamMiddleRepeat2').once('animationcomplete', () => {
+                          this.anims.play('nectarAngrySlamMiddleEnd').once('animationcomplete', () => {
+                          
+                            this.anims.play('nectarLostAngryIdle',true);
+                            this.scene.sceneTextBox.textInterupt = false;
+                          }); 
+                        });
+                      this.scene.initSoundEffect('bossSFX','explosion',0.06);
+                      });  
+                    });
+                  this.scene.initSoundEffect('bossSFX','explosion',0.06);
+                  });   
+                });
+              this.scene.initSoundEffect('bossSFX','explosion',0.06);
+              });
+            });
+
+          }else if(this.currentDictNode.nodeName === "node27"){
+
+            //have nectar walk away like in digestion 
+
+            //once nectar is out of the way drop the draw bridge
+
+            //pan to milo
+            
+            //console.log("activating nectar walk away.");
+
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+
+            //turn off forcing the camera in move funct to follow player cloths.
+            if(this.node9Start === undefined){
+              this.node9Start = true;
+
+              //add collider to milo and the bridge so he can walk on it.
+              this.scene.physics.add.collider(this.scene.Milo, this.scene.lockwoodDrawBridges);
+              
+              //this.forceCameraToFollowCloths = true; 
+              this.moveFunctionActive = true;
+              this.moveNectarOffScreen = false;
+              this.scene.sceneTextBox.textInterupt = true;
+
+              this.scene.physics.resume();
+              this.scene.CutscenePhysics = true;
+
+              this.scene.cutSceneActive = true;
+            }
+              
+
 
           }
-
           
     }
       
@@ -1277,14 +1464,15 @@ class nectar extends npc{
   }
   
   digestedPlayer(){
-
-    this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
    //console.log("checking nectar npc dialogue");
-
     this.nodeHandler("nectar","Behavior1","playerDigested");
     
     if(this.currentDictNode !== null){
-           if(this.currentDictNode.nodeName === "node2"){
+      if(this.currentDictNode.nodeName === "node1"){
+        
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+
+      }else if(this.currentDictNode.nodeName === "node2"){
 
             if(this.burped === false){
 
@@ -1342,6 +1530,9 @@ class nectar extends npc{
               this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishClose').once('animationcomplete', () => {
                 //this.scene.initSoundEffect('stomachSFX','13',0.1);
                 this.scene.bossNectar.digestionTimer.visible = false;
+                //this.scene.bossNectar.digestionTimer.destroy();
+
+                console.log("this.scene.bossNectar.digestionTimer: ",this.scene.bossNectar.digestionTimer);
 
                 
                            
@@ -1369,12 +1560,14 @@ class nectar extends npc{
             }
               
 
-          }else if(this.currentDictNode.nodeName === "node11"){
+          }else if(this.currentDictNode.nodeName === "node11" && this.inDialogue === false){
+            this.inDialogue = true;
             this.scene.gameoverLocation = "nectarCaveGameover";
             this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
             this.scene.sceneTextBox.textInterupt = true;
             this.scene.sceneTextBox.textCoolDown = true;
             this.scene.cutSceneActive = false;
+
             if(this.gameoverStarted === false){
               this.gameoverStarted = true;
               let temp = this;

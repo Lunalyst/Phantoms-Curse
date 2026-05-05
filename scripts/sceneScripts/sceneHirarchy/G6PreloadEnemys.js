@@ -341,6 +341,14 @@ class G6PreloadEnemys extends G5InitNPCs{
             "audio/used-audio/button-sounds/button-sounds.mp3"
         ]);
 
+        tempSceneRef.load.audioSprite('nectarEntranceSFX','audio/used-audio/nectar-entrance-sounds/nectar-entrance-sounds.json',[
+            "audio/used-audio/nectar-entrance-sounds/Ravinous Riddle.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('nectarLoopSFX','audio/used-audio/nectar-question-sounds/nectar-question-sounds.json',[
+            "audio/used-audio/nectar-question-sounds/Ravinous Riddle.mp3"
+        ]);
+
         tempSceneRef.load.spritesheet('nectarProjectile', 'assets/gameObjects/nectarProjectile.png',{frameWidth: 84, frameHeight: 84 });
         tempSceneRef.load.spritesheet('nectarClawProjectile', 'assets/gameObjects/nectarClawProjectile.png',{frameWidth: 360, frameHeight: 360 });
 
@@ -353,6 +361,7 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar4" , "assets/bosses/nectar4.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar5" , "assets/bosses/nectar5.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar6" , "assets/bosses/nectar6.png" , {frameWidth: 933 , frameHeight: 591 });
 
       },
       genericDefeats: function genericDefeatFunction() {

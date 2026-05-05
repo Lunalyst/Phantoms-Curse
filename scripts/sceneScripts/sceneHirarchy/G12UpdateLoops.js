@@ -3,7 +3,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
   //does the default interaction needed for the update loop. need to factor out slime interaction from this loop and make a seperate update for the slimes.
   defaultUpdate(){
 
-    console.log("player 1 active");
+    //console.log("player 1 active");
 
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     this.checkPlayerOutOfBounds();
@@ -102,7 +102,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
       }
 
-      console.log("this.cutSceneActive: ",this.cutSceneActive)
+      //console.log("this.cutSceneActive: ",this.cutSceneActive)
       //if we arnt paused
       if(this.isPaused === false && this.cutSceneActive === false){
 
@@ -146,7 +146,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
             this.player1.mainHitbox.setVelocityX(0);
           }
           
-          console.log("FOLLOWING PLAYER 1")
+          //console.log("FOLLOWING PLAYER 1")
           //sets the camera to follow the player and changes the scale as well
           this.mycamera.startFollow(this.player1);
           this.cameras.main.zoom = 2;
@@ -298,7 +298,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
     player2Update(){
 
-      console.log("player 2 active");
+      //console.log("player 2 active");
     //checks to see if player has been grabbed.if not grabbed, move player and check if collisions between player and slime.
     //this.checkPlayerOutOfBounds();
 

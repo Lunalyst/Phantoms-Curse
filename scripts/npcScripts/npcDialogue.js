@@ -1666,7 +1666,7 @@ const npcDialogue = {
                         "textvoice":"wah",
                         "children":["node25"]
                     },"node25":{
-                        "dialogue": "dam you! ",
+                        "dialogue": "dam you! dam you! dam you!",
                         "profile":"nectarMad",
                         "textvoice":"wah",
                         "children":["node26"]
@@ -1674,6 +1674,42 @@ const npcDialogue = {
                         "dialogue": "this Isn't the last you will see of me! ",
                         "profile":"nectarMad",
                         "textvoice":"wah",
+                        "children":["node27"]
+                    },
+                    "node27":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node28"]
+                    },
+                    "node28":{
+                        "dialogue": "Heya Stranger!",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["node29"]
+                    },
+                    "node29":{
+                        "dialogue": "Don't know what you told her, but getting her to leave without a fight is mighty impressive. ",
+                        "profile":"miloStarEyes",
+                        "textvoice":"trumpet",
+                        "children":["node30"]
+                    },
+                    "node30":{
+                        "dialogue": "past this castle lies Lockwood village, its a safe haven for those who still have there wits about them.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["node31"]
+                    },
+                    "node31":{
+                        "dialogue": "your free to enter, but I think we should have our doctor look at you before you proceed.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["node32"]
+                    },
+                    "node32":{
+                        "dialogue": "come along with me.",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
                         "children":[]
                     },
 

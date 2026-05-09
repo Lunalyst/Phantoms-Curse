@@ -12,9 +12,16 @@ class milo extends npc{
       scene.physics.add.existing(this);
 
       this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
-      this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('miloUnarmed', { start: 7, end: 16 }),frameRate: 9,repeat: -1});
+      this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('miloUnarmed', { start: 7, end: 16 }),frameRate: 11,repeat: -1});
       this.anims.create({key: 'FailedFall',frames: this.anims.generateFrameNames('miloUnarmed', { start: 22, end: 25 }),frameRate: 6,repeat: 0});
       this.anims.create({key: 'FailedIdle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 26, end: 29 }),frameRate: 6,repeat: -1});
+
+      this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('miloUnarmed', { start: 30, end: 33 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'raiseHand',frames: this.anims.generateFrameNames('miloUnarmed', { start: 34, end: 36 }),frameRate: 6,repeat: 0});
+      this.anims.create({key: 'wave',frames: this.anims.generateFrameNames('miloUnarmed', { start: 37, end: 40 }),frameRate: 6,repeat: 3});
+      this.anims.create({key: 'lowerHand',frames: this.anims.generateFrameNames('miloUnarmed', { start: 41, end: 44 }),frameRate: 6,repeat: 0});
+      this.anims.create({key: 'offerHand',frames: this.anims.generateFrameNames('miloUnarmed', { start: 44, end: 45 }),frameRate: 6,repeat: 0});
+      this.anims.create({key: 'holdOutHand',frames: this.anims.generateFrameNames('miloUnarmed', { start: 46, end: 49 }),frameRate: 6,repeat: -1});
 
       this.anims.create({key: 'angleIdleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'angleIdleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
@@ -42,6 +49,7 @@ class milo extends npc{
       this.anims.create({key: 'dropSpearAndShield',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 106, end: 109 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'dropMask',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 110, end: 123 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'dropMaskEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 124, end: 124 }),frameRate: 5,repeat: 0});
+      
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');

@@ -182,7 +182,7 @@ class LockwoodShopDistrict extends defaultScene {
       this.setUpPlayerCraftingBench();
       this.initPlayerCraftingBench(1149, 728-9);
 
-      //this.initPortals(1818,728-8,1776,728,"warpCaveInside","LockwoodOverrootCenter",false);
+      this.initPortals(1818,728-8,1776,728,"warpCaveInside","LockwoodOverrootCenter",false);
 
       //this.initSigns(819,728+18,"generic","lockwoodEntranceSign",false);
 

@@ -1689,24 +1689,30 @@ const npcDialogue = {
                         "children":["node29"]
                     },
                     "node29":{
-                        "dialogue": "Don't know what you told her, but getting her to leave without a fight is mighty impressive. ",
-                        "profile":"miloStarEyes",
-                        "textvoice":"trumpet",
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
                         "children":["node30"]
                     },
                     "node30":{
-                        "dialogue": "past this castle lies Lockwood village, its a safe haven for those who still have there wits about them.",
-                        "profile":"miloNeutral",
+                        "dialogue": "Don't know what you told her, but getting her to leave without a fight is mighty impressive. ",
+                        "profile":"miloStarEyes",
                         "textvoice":"trumpet",
                         "children":["node31"]
                     },
                     "node31":{
-                        "dialogue": "your free to enter, but I think we should have our doctor look at you before you proceed.",
+                        "dialogue": "past this castle lies Lockwood village, its a safe haven for those who still have there wits about them.",
                         "profile":"miloNeutral",
                         "textvoice":"trumpet",
                         "children":["node32"]
                     },
                     "node32":{
+                        "dialogue": "your free to enter, but I think we should have our doctor look at you before you proceed.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["node33"]
+                    },
+                    "node33":{
                         "dialogue": "come along with me.",
                         "profile":"miloHappy",
                         "textvoice":"trumpet",

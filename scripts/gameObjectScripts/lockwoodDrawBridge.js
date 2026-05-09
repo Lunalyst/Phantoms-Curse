@@ -40,6 +40,8 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
 
         this.bridgePosition = bridgePosition;
         this.bridgeAnimationLoc = false;
+
+        this.setDepth(0);
     
         
 

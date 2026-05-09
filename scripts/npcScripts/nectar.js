@@ -81,6 +81,8 @@ class nectar extends npc{
 
        this.bossSpawned = false;
 
+       this.holdOutHand = false;
+
        // idea for mini game. options slowly pop up and vanish. under the hood its an array, that roles a random number based on the length of the array. then it removes that options so theres no repeats. 
        this.riddleOptions = ["Tiger","Snake","Vampire","Nothing","Sphinx","Lets Fight","Shark","Stapler","Staples","Spider","I don’t want to answer","The concept of death","can you repeat the riddle?","all of the above?"];
 
@@ -530,7 +532,7 @@ class nectar extends npc{
         this.scene.Milo.x = 1520;
         this.scene.Milo.y = 720;
 
-        this.scene.Milo.anims.play("idle",true);
+        this.scene.Milo.anims.play("sideIdle",true);
 
       //timeout to pan to milo.
       let temp = this;
@@ -549,15 +551,26 @@ class nectar extends npc{
 
           console.log("temp.scene.sceneTextBox.textInterupt: ",temp.scene.sceneTextBox.textInterupt);
 
-          temp.scene.sceneTextBox.textInterupt = false;
-          temp.progressNode("");
-          temp.scene.sceneTextBox.textInterupt = true;
+          temp.scene.Milo.anims.play("raiseHand").once('animationcomplete', () => {
+            temp.scene.sceneTextBox.textInterupt = false;
+            temp.progressNode("");
+            temp.scene.sceneTextBox.textInterupt = true;
 
+            
+           
+            temp.scene.Milo.anims.play("wave").once('animationcomplete', () => {
+              temp.scene.sceneTextBox.textInterupt = false;
+              temp.progressNode("");
+              temp.scene.sceneTextBox.textInterupt = true;
+
+              temp.scene.Milo.anims.play("lowerHand").once('animationcomplete', () => {
+                temp.lowerBridge = true;
+                temp.moveMiloToPlayer = false;
+                
+              });
+            });
+          });
           
-          setTimeout(function () {
-            temp.lowerBridge = true;
-            temp.moveMiloToPlayer = false;
-          }, 1500);
           //temp.scene.Milo.moveFunctionActive = true;
 
           temp.moveFunctionActive = true;
@@ -571,7 +584,7 @@ class nectar extends npc{
         this.scene.Milo.setVelocityX(100);
       }else{
         
-        this.scene.Milo.anims.play("idle",true);
+        this.scene.Milo.anims.play("sideIdle",true);
         
         this.moveMiloToPlayer = true;
         //set variable approperiately
@@ -1456,6 +1469,21 @@ class nectar extends npc{
               
 
 
+          }else if(this.currentDictNode.nodeName === "node33" && this.holdOutHand === false){
+
+            this.holdOutHand = true;
+            this.scene.sceneTextBox.textInterupt = true;
+
+            this.scene.Milo.anims.play('offerHand').once('animationcomplete', () => {
+
+                this.scene.sceneTextBox.textInterupt = false;
+                this.progressNode("");
+                this.scene.sceneTextBox.textInterupt = true;
+
+                this.scene.Milo.anims.play('holdOutHand',true);
+
+                //time out function which leads to deaugh cutscene here.
+          });
           }
           
     }

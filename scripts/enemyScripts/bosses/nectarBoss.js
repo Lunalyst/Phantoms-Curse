@@ -114,8 +114,8 @@ class nectarBoss extends enemy {
 
         //nectar digestion timer graphic
 
-        //this.digestionTimerValue = 0;
-        this.digestionTimerValue = 34;
+        this.digestionTimerValue = 0;
+        //this.digestionTimerValue = 34;
         this.digestionTimerAnimationPlayed = false;
         this.player1IsDigested = false;
 

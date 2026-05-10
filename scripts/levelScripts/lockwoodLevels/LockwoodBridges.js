@@ -136,11 +136,6 @@ class LockwoodBridges extends defaultScene {
       this.regi.anims.play("idle", true);
       this.regi.setScale(1/3);
 
-      this.deaugh = this.add.sprite(686, 728-17, "deaugh");
-      this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.deaugh.anims.play("idle", true);
-      this.deaugh.setScale(1/3);
-
       /*this.nectar = this.add.sprite(2319, 520, "nectar");
       this.nectar.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('nectar', { start: 0, end: 0 }), frameRate: 6, repeat: -1 });
       this.nectar.anims.play("idle", true);
@@ -205,6 +200,8 @@ class LockwoodBridges extends defaultScene {
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
       this.initPortals(961,728-8,1122+320,728,"warpCaveInside","LockwoodCenter",false);
 
+      this.initPortals(574,728-8,700,728+32,"door1","WaitingRoom",false);
+
       //this.initLunalyst(935,1083,'clearingTheWay');
       
 
@@ -212,8 +209,8 @@ class LockwoodBridges extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initLockwoodDrawBridge(1632,736-48,'up');
-      //this.initLockwoodDrawBridge(1632,736-48,'down');
+      //this.initLockwoodDrawBridge(1632,736-48,'up');
+      this.initLockwoodDrawBridge(1632,736-48,'down');
 
       this.SkippedNectarDialogue = false;
 

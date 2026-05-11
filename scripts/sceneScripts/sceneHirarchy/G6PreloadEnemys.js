@@ -363,6 +363,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet("nectar5" , "assets/bosses/nectar5.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar6" , "assets/bosses/nectar6.png" , {frameWidth: 933 , frameHeight: 591 });
 
+        tempSceneRef.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
+      
+
       },
       genericDefeats: function genericDefeatFunction() {
 

@@ -58,14 +58,14 @@ class LockwoodBridges extends defaultScene {
 
       this.load.spritesheet('miloProps', 'assets/gameObjects/miloProps.png',{frameWidth: 78 , frameHeight: 171});
 
+      this.load.audioSprite('miloThemeLeadInSFX','audio/used-audio/milo-entrance-sounds/milo-entrance-sounds.json',[
+        "audio/used-audio/milo-entrance-sounds/Milos Theme4.mp3"
+      ]);
 
-      this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
+      this.load.audioSprite('miloThemeSFX','audio/used-audio/milo-theme-sounds/milo-theme-sounds.json',[
+        "audio/used-audio/milo-theme-sounds/Milos Theme4.mp3"
+      ]);
 
-      //note nectars sprites are loaded in g6enemypreload.
-      //this.load.spritesheet("nectar1" , "assets/bosses/nectar1.png" , {frameWidth: 933 , frameHeight: 591 });
-      //this.load.spritesheet("nectar2" , "assets/bosses/nectar2.png" , {frameWidth: 933 , frameHeight: 591 });
-      //this.load.spritesheet("nectar3" , "assets/bosses/nectar3.png" , {frameWidth: 933 , frameHeight: 591 });
-      
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
       
@@ -200,7 +200,7 @@ class LockwoodBridges extends defaultScene {
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
       this.initPortals(961,728-8,1122+320,728,"warpCaveInside","LockwoodCenter",false);
 
-      this.initPortals(574,728-8,700,728+32,"door1","WaitingRoom",false);
+      this.initPortals(611,728-8,700,728+32,"door1","WaitingRoom",false);
 
       //this.initLunalyst(935,1083,'clearingTheWay');
       
@@ -243,6 +243,9 @@ class LockwoodBridges extends defaultScene {
 
         //the hidden npc version for gameovers / milo win
         this.initNectar(2230, 480, 'digestedPlayer');
+
+        this.initSoundEffect('miloThemeSFX','question',0.3,'music');
+
 
         //important to set this tyo true so nectar doesnt trigger dialogue at the beggining of fight. 
         this.npcNectar.triggerNpcFinished = true;

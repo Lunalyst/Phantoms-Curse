@@ -1,11 +1,11 @@
 {
     "resources":[
-        "../audio/used-audio/nectar-entrance-sounds/Ravinous Riddle.mp3"
+        "../audio/used-audio/milo-entrance-sounds/Milos Theme4.mp3"
     ],
     "spritemap": {
         "entrance":{
             "start": 0,
-            "end": 3.47,
+            "end": 11.08,
             "loop": false
         }
     }

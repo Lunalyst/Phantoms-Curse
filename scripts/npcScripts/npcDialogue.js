@@ -564,6 +564,151 @@ const npcDialogue = {
                     }
                 },
             },
+            "question":{
+                "Fundamentals of Cursed Energy":{
+                    "node1":{
+                        "dialogue": "One book on the shelf stands out to you.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "it is titled \"Fundamentals of Cursed Energy\" by Wolf",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read it?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "The curses which afflicts almost everyone on this island are created from cursed energy. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "It\'s seeped it way through to this island in many forms, being spread through animals and flora.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "Once a human has come into contact with cursed energy, there human body expels it little by little.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "It can be used to manifest ones desires allowing for the creation of enhancement marks and ability marks. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "Enhancement marks are marks created to passively improve the user\'s body. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "Whether it be running faster, jumping higher. These marks do not take cursed energy to maintain, and remain part of the user.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "Ability marks are less so marks in the traditional sense. It\'s more like a manifestation of a desire to take action. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },"node9":{
+                        "dialogue": "As an example one might want to use cursed energy to make an object levitate, or create a projectile out of cursed energy.  ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "These take cursed energy to maintain and take quite a lot of practice and concentration to use.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the book on the shelf.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                    
+                },
+                "The Curse Mark Plague":{
+                    "node1":{
+                        "dialogue": "One book on the shelf stands out to you.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "it is titled \"The Curse Mark Plague\" by Wolf",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read it?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "The cursed plague currently ravages the island. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "It’s theorized that long ago, there was a great collapse of a previous civilization and during that collapse the first strains of the curse marks emerged. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "These strains where somehow mutated from enhancement marks to create infectious variants that drastically alter the physiology and mental state of the human it inhabits.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "Those afflicted by these curses often lose their sense of self and seek to spread the curse if they sense a human nearby.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "When spreading the curse, they often try to engage in sexual behavior to transmit cursed energy to the victim. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "Having high levels of cursed energy in the human’s body is the catalyst for the transformations. There needs to be clear intent to spread the curse for it to be transferred.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "However the process is not perfect and strange things can occur. Mutations in the mark can lead to new variations in the cursed. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },"node9":{
+                        "dialogue": "Those who go through this process but managed to retain their sense of self are all mutations of existing marks. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "That being said, a cursed that still retains their sense of self is likely to still suffer from some mental alterations, and spreading there mutated curse mark isn’t safe either. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Nearly every cursed produces cursed energy passively, which makes them a useful source of cursed energy. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the book on the shelf.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                    
+                },
+            },
             "Fervor":{
                 "love1":{
                     "node1":{
@@ -1526,7 +1671,7 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "If you can answer a riddle of mine I’ll let you live.",
+                        "dialogue": "If you can answer a riddle of mine I\'ll let you live.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node6"]
@@ -1578,7 +1723,7 @@ const npcDialogue = {
                         "children":["node14","node16","node23"]
                     },
                     "node14":{
-                        "dialogue": "Better hurry up. I’m getting awfully hungry.",
+                        "dialogue": "Better hurry up. I\'m getting awfully hungry.",
                         "profile":"nectarSquint",
                         "textvoice":"wah",
                         "children":["node15","node16","node23"]
@@ -1586,7 +1731,7 @@ const npcDialogue = {
 
                     //if player takes too long
                      "node15":{
-                        "dialogue": "If you’re not going to answer...",
+                        "dialogue": "If you\'re not going to answer...",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["nodeC"]
@@ -1599,7 +1744,7 @@ const npcDialogue = {
                     },
                     //if player guesses incorrectly
                     "node16":{
-                        "dialogue": "That’s incorrect.",
+                        "dialogue": "That\'s incorrect.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node8"]
@@ -1607,7 +1752,7 @@ const npcDialogue = {
                     
                     //player loses swallowing sequence
                     "node17":{
-                        "dialogue": "hmmmm awfully tasty, but I’m still not full... ",
+                        "dialogue": "hmmmm awfully tasty, but I\'m still not full... ",
                         "profile":"nectarNeutral",
                         "textvoice":"wah",
                         "children":["nodeA"]
@@ -1666,7 +1811,7 @@ const npcDialogue = {
                         "textvoice":"wah",
                         "children":["node25"]
                     },"node25":{
-                        "dialogue": "dam you! dam you! dam you!",
+                        "dialogue": "damn you! damn you! damn you!",
                         "profile":"nectarMad",
                         "textvoice":"wah",
                         "children":["node26"]
@@ -1879,7 +2024,7 @@ const npcDialogue = {
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "Dont scare me like that! Tch, figures it’s a human.",
+                        "dialogue": "Dont scare me like that! Tch, figures it\'s a human.",
                         "profile":"vivianAngry",
                         "textvoice":"lightVoice",
                         "children":["node7"]
@@ -1898,7 +2043,7 @@ const npcDialogue = {
                     },
                     //three branches for dialogue firs is if the player has enough money
                     "node8":{
-                        "dialogue": "...Oh, really?!? Didn’t think you had that much...",
+                        "dialogue": "...Oh, really?!? Didn\'t think you had that much...",
                         "profile":"vivianShocked",
                         "textvoice":"lightVoice",
                         "children":["node9"]
@@ -1966,7 +2111,7 @@ const npcDialogue = {
                         "children":["node19"]
                     },
                     "node19":{
-                        "dialogue": "Well, let’s just say that I’ll get a prize of my own. ",
+                        "dialogue": "Well, let\'s just say that I\'ll get a prize of my own. ",
                         "profile":"vivianSmugTongue",
                         "textvoice":"lightVoice",
                         "children":["node32"]
@@ -1998,7 +2143,7 @@ const npcDialogue = {
                         "children":["node24"]
                     },
                     "node24":{
-                        "dialogue": "Heh, let’s just say the lantern won’t be the only thing I’ll be keeping. ",
+                        "dialogue": "Heh, let\'s just say the lantern won\'t be the only thing I\'ll be keeping. ",
                         "profile":"vivianWink",
                         "textvoice":"lightVoice",
                         "children":["node25"]
@@ -2011,13 +2156,13 @@ const npcDialogue = {
                     },
                     // extra branch if they refuse. if they say yess to the game
                     "node26":{
-                        "dialogue": "Hah, great! Haven’t had fun like this in forever.",
+                        "dialogue": "Hah, great! Haven\'t had fun like this in forever.",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":["node27"]
                     },
                     "node27":{
-                        "dialogue": "But uh, first let me clean up this mess of a shack. Come back in a little and I’ll have everything set up.",
+                        "dialogue": "But uh, first let me clean up this mess of a shack. Come back in a little and I\'ll have everything set up.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":["node28"]
@@ -2051,7 +2196,7 @@ const npcDialogue = {
 
                     //dialogue for yes in first dialogue branch
                     "node32":{
-                        "dialogue": "Let me clean up this mess of a shack. Come back in a little and I’ll have everything set up.",
+                        "dialogue": "Let me clean up this mess of a shack. Come back in a little and I\'ll have everything set up.",
                         "profile":"vivianSmug",
                         "textvoice":"lightVoice",
                         "children":["node28"]
@@ -2196,7 +2341,7 @@ const npcDialogue = {
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "dialogue": "Well I\'m just your local wandering wolf girl, Vivian.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":["node11"]
@@ -2340,7 +2485,7 @@ const npcDialogue = {
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "dialogue": "Well I\'m just your local wandering wolf girl, Vivian.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":["node11"]
@@ -2480,7 +2625,7 @@ const npcDialogue = {
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "dialogue": "Well I\'m just your local wandering wolf girl, Vivian.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":["node11"]
@@ -2730,7 +2875,7 @@ const npcDialogue = {
                         "children":["node10"]
                     },
                     "node10":{
-                        "dialogue": "Well I’m just your local wandering wolf girl, Vivian.",
+                        "dialogue": "Well I\'m just your local wandering wolf girl, Vivian.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":["node11"]
@@ -2923,7 +3068,7 @@ const npcDialogue = {
                     },
                     //idle in the chest
                      "node2":{
-                        "dialogue": "That was the wrong choice! But don’t worry.",
+                        "dialogue": "That was the wrong choice! But don\'t worry.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node3"]
@@ -2958,7 +3103,7 @@ const npcDialogue = {
                     },
                     //player falls into vivians breasts 
                     "node7":{
-                        "dialogue": "You were cute as a human, but now you’re SO much better as another wolf girl like me.",
+                        "dialogue": "You were cute as a human, but now you\'re SO much better as another wolf girl like me.",
                         "profile":"vivianHappy",
                         "textvoice":"lightVoice",
                         "children":[ "node8"]
@@ -3083,7 +3228,7 @@ const npcDialogue = {
                 },
                 "mimic_male_vore":{
                     "node1":{
-                        "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn’t save you now. Your death was simply an open-and-shut case.",
+                        "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn\'t save you now. Your death was simply an open-and-shut case.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3091,7 +3236,7 @@ const npcDialogue = {
                 },
                 "mimic_female_vore":{
                     "node1":{
-                        "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn’t save you now. Your death was simply an open-and-shut case.",
+                        "dialogue": "Greed. A five-letter word that can spell doom for even the most seasoned of adventurers, and you were far from seasoned. A single moment of greed was all it took for you to cause your own doom. Your last thoughts as your body melted in the guts of the mimic were of regret. All the treasure in the world couldn\'t save you now. Your death was simply an open-and-shut case.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3099,7 +3244,7 @@ const npcDialogue = {
                 },
                 "whiteCat_female_vore":{
                     "node1":{
-                        "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat’s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a girl kisser, or at least, you’re part of one.",
+                        "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat\'s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a girl kisser, or at least, you\'re part of one.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3107,7 +3252,7 @@ const npcDialogue = {
                 },
                 "whiteCat_male_vore":{
                     "node1":{
-                        "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat’s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a boy kisser, or at least, you’re part of one.",
+                        "dialogue": "Your short-lived adventure has come to an unfortunate, though not undeserved, end. You were quickly overpowered by an angry feline, forcefully shoved into its ravenous rear. Your exploratory trip into a cat\'s bowels was one-way trip to an eternity as cat pudge, though it seems that your soul is going to stay around for a while. It turns out you'really are a boy kisser, or at least, you\'re part of one.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3139,7 +3284,7 @@ const npcDialogue = {
                 },
                 "vivian_vore_1":{
                     "node1":{
-                        "dialogue": "You knew the risks of playing with a hungry wolf girl. As soon as you opened the wrong chest, your fate was sealed. Vivian swiftly swallowed you up with ease. She enjoyed her newest meal as you struggled and squirmed all the way into her belly. There was little time to get comfortable, as Vivian's stomach made quick work of you. Before long, your form melted in with the stomach acids completely, and began to be absorbed into the wolf girl’s body. All that remains of you is your clothing that is now being stretched out by Vivian, and the wolf pudge that you've become.",
+                        "dialogue": "You knew the risks of playing with a hungry wolf girl. As soon as you opened the wrong chest, your fate was sealed. Vivian swiftly swallowed you up with ease. She enjoyed her newest meal as you struggled and squirmed all the way into her belly. There was little time to get comfortable, as Vivian's stomach made quick work of you. Before long, your form melted in with the stomach acids completely, and began to be absorbed into the wolf girl\'s body. All that remains of you is your clothing that is now being stretched out by Vivian, and the wolf pudge that you've become.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3147,7 +3292,7 @@ const npcDialogue = {
                 },
                 "vivian_vore_2":{
                     "node1":{
-                        "dialogue": "You were warned. You were told that this would happen if you didn’t knock right. And yet you still messed up. As you slide down the hungry wolf girl’s throat, you can’t even remember if you forgot the code or if you intentionally made a mistake. Either way, your adventure ends here, now as belly fat for Vivian.",
+                        "dialogue": "You were warned. You were told that this would happen if you didn\'t knock right. And yet you still messed up. As you slide down the hungry wolf girl\'s throat, you can\'t even remember if you forgot the code or if you intentionally made a mistake. Either way, your adventure ends here, now as belly fat for Vivian.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3303,7 +3448,7 @@ const npcDialogue = {
                 },
                 "bat_female_tf":{
                     "node1":{
-                        "dialogue": "The newly pudgy bat caught you and decided your face would make an excellent seat for her exceedingly plush rear. Did you plan for this? Doesn’t matter, she enjoyed your body as she smothered you in her fattened folds, pleasuring herself and you, until your orgasm filled her horny maw, and her orgasm filled your mouth. Wings and ears grew, as your entire body became covered in fur. New body, and a new partner? Now that’s a good deal~",
+                        "dialogue": "The newly pudgy bat caught you and decided your face would make an excellent seat for her exceedingly plush rear. Did you plan for this? Doesn\'t matter, she enjoyed your body as she smothered you in her fattened folds, pleasuring herself and you, until your orgasm filled her horny maw, and her orgasm filled your mouth. Wings and ears grew, as your entire body became covered in fur. New body, and a new partner? Now that\'s a good deal~",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

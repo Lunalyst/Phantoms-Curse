@@ -126,6 +126,7 @@ class nectarBoss extends enemy {
         this.digestionTimer.setScale(1/3);
         this.digestionTimer.visible = false;
         this.digestionTimer.setDepth(9);
+        
         console.log("creating Digestion Timer: ",this.digestionTimer ," ----------------------------------------------------------------");
 
         if(sex === 0) {

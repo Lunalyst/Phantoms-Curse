@@ -189,30 +189,20 @@ class nectar extends npc{
           //call back finction that occurs during the duration of the camera pan.
       });
 
-
-      this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+      // need to destroy pan listener once finished so it doesnt fire multiple times.
+      let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
           console.log('Camera pan has completed!');
           this.choke = false;
           this.cameraPan1 = true;
+          
+          // need to destroy pan listener once finished so it doesnt fire multiple times.
+          panRef._events.camerapancomplete = null;
+          console.log("panRef._events:",panRef._events);
       },this);
       
     }else if(this.nectarDropped === false && this.choke === false){
 
       this.dialogueLogicStart();
-
-      //init sound effect music to play 
-      this.scene.initSoundEffect('nectarEntranceSFX','entrance',0.3,'music');
-      //get refrence to sound key
-      let entranceSound = this.scene.getSFX('nectarEntranceSFX');
-      //add on complete for that.
-      entranceSound.on('complete', function (sound){
-
-          //'sound' is a reference to the Sound that emitted the event
-          console.log('entrance sound finished playing');
-          this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
-          
-      },this);
-
   
       this.scene.mycamera.startFollow(this);
       this.scene.cameras.main.zoom = 2;
@@ -249,6 +239,19 @@ class nectar extends npc{
            this.nectarInPosition = false;
            this.choke = false;
 
+           //init sound effect music to play 
+            this.scene.initSoundEffect('nectarEntranceSFX','entrance',0.3,'music');
+            //get refrence to sound key
+            let entranceSound = this.scene.getSFX('nectarEntranceSFX');
+            //add on complete for that.
+            entranceSound.on('complete', function (sound){
+
+                //'sound' is a reference to the Sound that emitted the event
+                console.log('entrance sound finished playing');
+                this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
+                
+            },this);
+
         });
     }else if (this.nectarLanded === true && this.nectarInPosition === false){
 
@@ -267,12 +270,16 @@ class nectar extends npc{
             });
 
 
-          this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+          let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
               console.log('Camera pan has completed!');
               this.scene.mycamera.startFollow(this.scene.player1,true,1,1);
               this.scene.cameras.main.zoom = 2;
               this.scene.cameras.main.followOffset.set(0,70);
               this.nectarInPosition = true;
+
+               // need to destroy pan listener once finished so it doesnt fire multiple times.
+              panRef._events.camerapancomplete = null;
+              console.log("panRef._events:",panRef._events);
 
           },this);
         }
@@ -302,6 +309,8 @@ class nectar extends npc{
 
       this.anims.play('swallowedPlayerHurtIdleLoop',true);
 
+      this.scene.sound.get('miloThemeSFX').pause();
+
       //have the pc version of milo walk up to nectar
       this.scene.moveFunctionActive = true;
       //angle nector correctly with boss version.
@@ -319,11 +328,16 @@ class nectar extends npc{
       });
 
 
-      this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+      let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
           console.log('Camera pan has completed!');
           this.choke = false;
           this.cameraPan1 = true;
           this.panToNectar = false;
+
+           // need to destroy pan listener once finished so it doesnt fire multiple times.
+          panRef._events.camerapancomplete = null;
+          console.log("panRef._events:",panRef._events);
+
       },this);
       
     // camera must have finished panning and the player milo must be in position.
@@ -455,7 +469,7 @@ class nectar extends npc{
           this.scene.Milo.setVelocityY(-350);
           this.scene.Milo.setVelocityX(250);
           this.scene.Milo.anims.play('jumpUpLeft',true);
-
+          this.choke = false;
           this.scene.initSoundEffect('playerJumpSFX','1',0.1);
           let temp = this;
           setTimeout(function () {
@@ -463,13 +477,12 @@ class nectar extends npc{
           }, 200);
 
         }else if(this.miloJumpDown === true){
-          if(this.scene.Milo.x < 1850 && this.scene.Milo.body.blocked.down){
+          if(this.scene.Milo.body.blocked.down){
             this.scene.Milo.setVelocityX(0);
-            this.choke = false;
             //this.scene.Milo.anims.play('walkLeft',true);
           }else if(this.scene.Milo.x < 1850){
             this.scene.Milo.setVelocityX(200);
-
+            
           }else{
 
             this.scene.Milo.setVelocityX(0);
@@ -541,7 +554,7 @@ class nectar extends npc{
           //call back finction that occurs during the duration of the camera pan.
           });
 
-        temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+        let panRef = temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
           console.log('Camera pan has completed!: ',temp);
             //this.choke = false;
                 
@@ -574,6 +587,10 @@ class nectar extends npc{
           //temp.scene.Milo.moveFunctionActive = true;
 
           temp.moveFunctionActive = true;
+
+           // need to destroy pan listener once finished so it doesnt fire multiple times.
+          panRef._events.camerapancomplete = null;
+          console.log("panRef._events:",panRef._events);
 
         },temp);
       },1000);
@@ -646,14 +663,6 @@ class nectar extends npc{
       }else{
         this.scene.player2.anims.play('jumpDownLeft',true);
       }
-   }else if(this.forceCameraToFollowCloths === false){
-
-    this.scene.mycamera.startFollow(this.playerCloths);
-    this.scene.cameras.main.zoom = 2;
-    this.scene.cameras.main.followOffset.set(0,70);
-    this.scene.bossNectar.digestionTimer.visible = false;
-    //this.scene.bossNectar.digestionTimer.destroy();
-
    }else if(this.moveNectarOffScreen === false){
     
     if(this.x < 3300){
@@ -1351,7 +1360,7 @@ class nectar extends npc{
                   //call back finction that occurs during the duration of the camera pan.
                   });
 
-                  temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                  let panRef = temp.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
                       console.log('Camera pan has completed!');
                       //this.choke = false;
                     
@@ -1362,6 +1371,10 @@ class nectar extends npc{
                       //temp.scene.Milo.moveFunctionActive = true;
 
                       temp.moveFunctionActive = true;
+
+                      // need to destroy pan listener once finished so it doesnt fire multiple times.
+                      panRef._events.camerapancomplete = null;
+                      console.log("panRef._events:",panRef._events);
 
                   },temp);
             }, 1500);
@@ -1377,6 +1390,19 @@ class nectar extends npc{
 
             healthEmitter.emit(healthEvent.healthVisibility,true);
             healthEmitter.emit(healthEvent.setMiloHealth,true,true);
+
+            //init sound effect music to play 
+            this.scene.initSoundEffect('miloThemeLeadInSFX','entrance',0.3,'music');
+            //get refrence to sound key
+            let entranceSound = this.scene.getSFX('miloThemeLeadInSFX');
+            //add on complete for that.
+            entranceSound.on('complete', function (sound){
+
+              //'sound' is a reference to the Sound that emitted the event
+              console.log('entrance sound finished playing');
+              this.scene.initSoundEffect('miloThemeSFX','question',0.3,'music');
+         
+            },this);
 
             this.scene.Milo.anims.play('MenacingSpearRaise').once('animationcomplete', () => {
 
@@ -1545,10 +1571,19 @@ class nectar extends npc{
                   });
 
 
-                  this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                  let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
                       console.log('Camera pan has completed!');
-                      this.forceCameraToFollowCloths = false;
+
+                      this.scene.mycamera.startFollow(this.playerCloths);
+                      this.scene.cameras.main.zoom = 2;
+                      this.scene.cameras.main.followOffset.set(0,70);
+                      this.scene.bossNectar.digestionTimer.visible = false;
+
                       this.scene.sceneTextBox.textInterupt = false;
+
+                      // need to destroy pan listener once finished so it doesnt fire multiple times.
+                      panRef._events.camerapancomplete = null;
+                      console.log("panRef._events:",panRef._events);
    
                   },this);
 
@@ -1575,8 +1610,6 @@ class nectar extends npc{
             //turn off forcing the camera in move funct to follow player cloths.
             if(this.node9Start === undefined){
               this.node9Start = true;
-              
-              this.forceCameraToFollowCloths = true; 
             
               this.scene.moveFunctionActive = true;
               this.moveNectarOffScreen = false;

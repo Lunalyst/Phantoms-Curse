@@ -100,6 +100,8 @@ class WaitingRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){

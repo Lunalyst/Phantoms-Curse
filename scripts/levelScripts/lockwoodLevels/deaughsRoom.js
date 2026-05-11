@@ -90,13 +90,13 @@ class DeaughsRoom extends defaultScene {
 
       this.initPortalsWithTransparency(774,728+25,487,760,"door1","WaitingRoom",0.75);
 
-      
- 
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initSigns(865,760+16,"question","Fundamentals of Cursed Energy",false);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

@@ -57,8 +57,6 @@ class WaitingRoom extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

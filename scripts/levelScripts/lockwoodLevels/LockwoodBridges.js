@@ -66,7 +66,7 @@ class LockwoodBridges extends defaultScene {
         "audio/used-audio/milo-theme-sounds/Milos Theme4.mp3"
       ]);
 
-      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      //this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       this.load.spritesheet("regi" , "assets/npcs/regi.png" , {frameWidth: 273 , frameHeight: 363 });
       
 

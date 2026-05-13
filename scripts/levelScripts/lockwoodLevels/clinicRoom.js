@@ -28,7 +28,10 @@ class ClinicRoom extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
       this.load.tilemapTiledJSON("clinic_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Clinic_Room.json");
-     
+      
+      this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      
 
       this.defaultPreload();
 
@@ -88,19 +91,24 @@ class ClinicRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
+      
+
       this.initPortalsWithTransparency(386,728+25,862,760,"door1","WaitingRoom",0.75);
 
       
-      this.deaugh = this.add.sprite(665, 728+16, "deaugh");
+      /*this.deaugh = this.add.sprite(665, 728+16, "deaugh");
       this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.deaugh.anims.play("idle", true);
-      this.deaugh.setScale(1/3);
+      this.deaugh.setScale(1/3);*/
+
  
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initWolf(665, 728+16, 'healingPlayer');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

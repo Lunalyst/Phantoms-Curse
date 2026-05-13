@@ -159,4 +159,27 @@ class G5InitNPCs extends G4InitGameObjects {
 
   }
 
+  initWolf(x, y, type){
+
+    //sets up the special text box object for nectar
+    this.sceneTextBox.textBoxProfileImage.setUpWolfEmots();
+    //create istara npc
+    let Wolf = new wolf(this, x, y, type);
+
+    Wolf.npcId = this.npcId;
+    this.npcId++;
+
+    //notice, we add vivian to both the trigger npcs group and the regular npc group
+    //this is so that the trigger dialogue always occurs first
+    //we then flag in the npc logic to changer the dialogue after the trigger version
+
+    if(type === "healingPlayer"){
+      //this.npcTriggers.add(wolf);
+      this.npcs.add(Wolf);  
+    }else{
+      this.npcs.add(Wolf);
+    }
+
+  }
+
 }

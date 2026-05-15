@@ -78,13 +78,15 @@ class milo extends npc{
 
        this.jumpDelay = false;
 
-       this.body.setGravityY(600); 
+      
 
         this.setSize(60,200,true);
         this.setOffset(185, 91);
  
        if(this.npcType === 'test'){
-          this.anims.play('angleIdleLeft');
+          this.anims.play('sideIdle');
+       }else{
+         this.body.setGravityY(600); 
        }
 
   }

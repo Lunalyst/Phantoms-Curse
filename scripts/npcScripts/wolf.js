@@ -12,9 +12,11 @@ class wolf extends npc{
       scene.physics.add.existing(this);
 
       this.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('deaugh', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
+      this.anims.create({ key: 'sideHeal', frames: this.anims.generateFrameNames('deaugh', { start: 8, end: 11 }), frameRate: 7, repeat: -1 });
       
       //makes a key promptsa object to be displayed to the user
-       this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 80,'keyPrompts');
+       this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
        this.npcKeyPrompts.visible = false;
        this.promptCooldown = false;
  
@@ -44,7 +46,14 @@ class wolf extends npc{
         this.setOffset(185, 91);
  
        if(this.npcType === 'healingPlayer'){
-          this.anims.play('idle');
+          this.anims.play('sideHeal');
+          this.flipX = true;
+
+          this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
+          this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+          this.playerOnStrecher.anims.play("idle", true);
+          this.playerOnStrecher.flipX = true;
+          this.playerOnStrecher.setScale(1/3);
        }
 
   }

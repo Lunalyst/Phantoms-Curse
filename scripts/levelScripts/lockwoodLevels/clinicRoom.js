@@ -32,6 +32,14 @@ class ClinicRoom extends defaultScene {
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       
+      this.load.spritesheet("playerOnStrecher" , "assets/gameObjects/playerOnStrecher.png" , {frameWidth: 264 , frameHeight: 222 });
+      
+      this.load.spritesheet("miloUnarmed" , "assets/npcs/miloUnarmed.png" , {frameWidth: 459 , frameHeight: 300 });
+      this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
+      this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+
+      this.load.spritesheet('miloProps', 'assets/gameObjects/miloProps.png',{frameWidth: 78 , frameHeight: 171});
+
 
       this.defaultPreload();
 
@@ -108,7 +116,11 @@ class ClinicRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initWolf(665, 728+16, 'healingPlayer');
+      this.initWolf(819, 728+16, 'healingPlayer');
+
+      this.initMilo(676, 728+25,"test");
+
+      this.initSavePoints(502,760-10);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

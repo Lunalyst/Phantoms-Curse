@@ -5,7 +5,7 @@
     "spritemap": {
         "question":{
             "start": 0,
-            "end": 6.8,
+            "end": 6.85,
             "loop": true
         }
     }

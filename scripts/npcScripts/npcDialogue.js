@@ -3159,6 +3159,55 @@ const npcDialogue = {
                 
             }
         },
+        "wolf":{
+             "Behavior1":{
+                // three scenarios. 1) the player got eaten by nectar 2) answered riddle at full hp 3) player answered riddle below max hp.
+                "nectarFinish":{
+                    "node1":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar1Male","nodeEatenByNectar1Female"]
+                    },
+                    "nodeEatenByNectar1Male":{
+                        "dialogue": "There we go. he should be all better now.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar2"]
+                    },
+                    "nodeEatenByNectar1Female":{
+                        "dialogue": "There we go. she should be all better now.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar2"]
+                    },
+                    "nodeEatenByNectar2":{
+                        "dialogue": "Your finally awake. You really got roughed up there.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar3"]
+                    },
+                    "nodeEatenByNectar3":{
+                        "dialogue": "Whoa, easy there. Easy. Your safe here I promise.",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar4"]
+                    },
+                    "nodeEatenByNectar4":{
+                        "dialogue": "You\'re quite lucky all things considered.",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEatenByNectar5"]
+                    },
+                    "nodeEatenByNectar5":{
+                        "dialogue": "If Milo wasn\'t there to save you, then you probably would have just ended up as pudge on that monster.",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                }
+            }
+        },
         "gameover":{
 
             "eaten":{

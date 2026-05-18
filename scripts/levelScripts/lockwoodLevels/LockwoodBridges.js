@@ -82,6 +82,10 @@ class LockwoodBridges extends defaultScene {
           "audio/used-audio/bush-sounds/bush-sounds.mp3"
       ]);
 
+      this.load.audioSprite('bridgeSFX','audio/used-audio/button-sounds/button-sounds.json',[
+        "audio/used-audio/button-sounds/button-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -209,8 +213,8 @@ class LockwoodBridges extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      //this.initLockwoodDrawBridge(1632,736-48,'up');
-      this.initLockwoodDrawBridge(1632,736-48,'down');
+      this.initLockwoodDrawBridge(1632,736-48,'up');
+      //this.initLockwoodDrawBridge(1632,736-48,'down');
 
       this.SkippedNectarDialogue = false;
 
@@ -254,6 +258,9 @@ class LockwoodBridges extends defaultScene {
         // if the cutscene was skippen enuse the camera should be following milo
         this.cutSceneActive = false;
          
+      }else{
+        this.isPaused = false
+        this.cutSceneActive = false;
       }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
@@ -305,10 +312,12 @@ class LockwoodBridges extends defaultScene {
         this.backroundCastle.setScale(1/3);
         this.backroundCastle.setDepth(-50);
         this.backroundCastle.setTint(0x303030);
+
+        
     }
 
     update(){
-      //console.log("this.Milo.x: ",this.Milo.x, "this.Milo.y: ",this.Milo.y)
+      //console.log("this.isPaused: ",this.isPaused, "this.cutSceneActive: ",this.cutSceneActive)
       
       /*if(this.Milo.y > 750){
         this.Milo.y = 401;

@@ -1802,17 +1802,17 @@ const npcDialogue = {
 
                     "node23":{
                         "dialogue": "what!?! ",
-                        "profile":"nectarMad",
+                        "profile":"nectarShock",
                         "textvoice":"wah",
                         "children":["node24"]
                     },"node24":{
                         "dialogue": "thats correct... ",
-                        "profile":"nectarMad",
+                        "profile":"nectarNeutral",
                         "textvoice":"wah",
                         "children":["node25"]
                     },"node25":{
                         "dialogue": "damn you! damn you! damn you!",
-                        "profile":"nectarMad",
+                        "profile":"nectarHurt",
                         "textvoice":"wah",
                         "children":["node26"]
                     },"node26":{
@@ -3169,20 +3169,22 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["nodeEatenByNectar1Male","nodeEatenByNectar1Female"]
                     },
+
+                    // 1) the player got eaten by nectar
                     "nodeEatenByNectar1Male":{
                         "dialogue": "There we go. he should be all better now.",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodeEatenByNectar2"]
                     },
                     "nodeEatenByNectar1Female":{
                         "dialogue": "There we go. she should be all better now.",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":["nodeEatenByNectar2"]
                     },
                     "nodeEatenByNectar2":{
-                        "dialogue": "Your finally awake. You really got roughed up there.",
+                        "dialogue": "So Your finally awake. You really got roughed up there.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodeEatenByNectar3"]
@@ -3195,16 +3197,267 @@ const npcDialogue = {
                     },
                     "nodeEatenByNectar4":{
                         "dialogue": "You\'re quite lucky all things considered.",
-                        "profile":"wolfKO",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeEatenByNectar5"]
                     },
                     "nodeEatenByNectar5":{
                         "dialogue": "If Milo wasn\'t there to save you, then you probably would have just ended up as pudge on that monster.",
-                        "profile":"wolfKO",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["nodeEatenByNectar6"]
                     },
+                    "nodeEatenByNectar6":{
+                        "dialogue": "hey I\'m just happy to help those in need. It\'s my job as a guard here. ",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["nodeEatenByNectar7"]
+                    },
+                    "nodeEatenByNectar7":{
+                        "dialogue": "Besides, it\'s been a long while since we have had a human guest. ",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["nodeEatenByNectar8"]
+                    },
+                    "nodeEatenByNectar8":{
+                        "dialogue": "Though I\'m sure just being here must be quite jarring. Wolf you\'re the expert here, maybe some explanation about what we are is in order.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["nodeConverge"]
+                    },
+
+                    //player answered riddle correctly with full hp.
+                    "nodeRiddleAnsweredFullHp":{
+                        "dialogue": "doesnt seem like theres a scratch on you.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeRiddleAnsweredConverge"]
+                    },
+
+                    //player answered riddle correctly but was injured.
+                    "nodeRiddleAnsweredHurt1":{
+                        "dialogue": "seems you got a little roughed up out there.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeRiddleAnsweredConverge"]
+                    },
+                    "nodeRiddleAnsweredHurt2":{
+                        "dialogue": "not to worry. should be all better now.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeRiddleAnsweredConverge"]
+                    },
+
+                    //answered riddle correctly converge on this node
+                    "nodeRiddleAnsweredConverge":{
+                        "dialogue": "your quite the impressive human. It\'s not easy making it this deep into the island.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeRiddleAnswered1"]
+                    },
+                    "nodeRiddleAnswered1":{
+                        "dialogue": "I\'m still pretty suprised you got through that without a fight. ",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["nodeRiddleAnswered2"]
+                    },
+                    "nodeRiddleAnswered2":{
+                        "dialogue": "you seem to already know what going on here to some degree, but we would be happy to answer any question you might have.",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["nodeConverge"]
+                    },
+
+                    //player answered riddle correctly with less than full hp.
+                    "nodeConverge":{
+                        "dialogue": "well does our new guest have any questions?",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals1","nodeStorm1","nodeLockwood1","nodeSkip1"]
+                    },
+
+                    //why do you all look like animals?)
+                    "nodeAnimals1":{
+                        "dialogue": "Well on this island, there is a great curse. Think of it like a virus with different strains. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals2"]
+                    },
+                    "nodeAnimals2":{
+                        "dialogue": "Everyone on this island use to be human, and many of us washed up here on the island after getting too close.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals3"]
+                    },
+                    "nodeAnimals3":{
+                        "dialogue": "Ruins on the island indicate a prior civilization that lived here long ago, and likely caused the Curse.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals4"]
+                    },
+                    "nodeAnimals4":{
+                        "dialogue": "Regardless those infected seek to spread the curse to new victims through sexual acts",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals5"]
+                    },
+                    "nodeAnimals5":{
+                        "dialogue": "Some of us got lucky and managed to keep our personalities through this process.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals6"]
+                    },
+                    "nodeAnimals6":{
+                        "dialogue": "Though many simply get there personalities over written to act mostly like a feral animals. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals7"]
+                    },
+                    "nodeAnimals7":{
+                        "dialogue": "I wrote a book about it, that should be somewhere around here. ",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAnimals8"]
+                    },
+                    "nodeAnimals8":{
+                        "dialogue": "Regardless we are quite lucky, as the feral cursed on the island will chase uninfected individuals relentlessly. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge2"]
+                    },
+
+                    //What with the storm surrounding the island?)
+                    "nodeStorm1":{
+                        "dialogue": "There is a perpetual storm surrounding this island that traps us here.  ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm2"]
+                    },
+                    "nodeStorm2":{
+                        "dialogue": "With the physical enhancement of the curse, some have tried to swim or fly through it, while other tried conventional means. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm3"]
+                    },
+                    "nodeStorm3":{
+                        "dialogue": "though any attempt to escape has been met with failure. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm4"]
+                    },
+                    "nodeStorm4":{
+                        "dialogue": "often we find ... ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm5"]
+                    },
+                    "nodeStorm5":{
+                        "dialogue": "Remnants of them washing ashore...",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm6"]
+                    },
+                     "nodeStorm6":{
+                        "dialogue": "It\'s like the storm itself is alive.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge2"]
+                    },
+
+                    //What is this place?)
+                    "nodeLockwood1":{
+                        "dialogue": "We are currently on the edges of one of the few settlements on the island.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeLockwood2"]
+                    },
+                    "nodeLockwood2":{
+                        "dialogue": "Lockwood was founded a long time ago by a group of cursed individuals who wanted to make a safe haven for everyone who still had their sense of self intact.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeLockwood3"]
+                    },
+                    "nodeLockwood3":{
+                        "dialogue": "Today it\'s quite a bustling little town with plenty of lovely folks.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStorm2"]
+                    },
+                    "nodeLockwood3":{
+                        "dialogue": "If you\'re looking to get away from the dangers if the island, then this is one of the best places to do so.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge2"]
+                    },
+
+                    //I don’t really have any questions. 
+                    "nodeSkip1":{
+                        "dialogue": "oh really?",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSkip2"]
+                    },
+                    "nodeSkip2":{
+                        "dialogue": "Well fair enough.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSkip3"]
+                    },
+                    "nodeSkip3":{
+                        "dialogue": "If you have gotten this far I\'m sure you get the gist of how this island works. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge2"]
+                    },
+
+                    // converge node2
+                    "nodeConverge2":{
+                        "dialogue": "Either way you\'re now free to explore Lockwood. Everything about you seems normal for a human. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodefinish1"]
+                    },
+
+                    "nodefinish1":{
+                        "dialogue": "Though please do try to avoid getting in trouble. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodefinish2"]
+                    },
+
+                    "nodefinish2":{
+                        "dialogue": "feel free to say as long as you need.  ",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":["nodefinish3"]
+                    },
+                    "nodefinish3":{
+                        "dialogue": "though you seem like the adventurous type.",
+                        "profile":"miloEyeRaise",
+                        "textvoice":"trumpet",
+                        "children":["nodefinish4"]
+                    },
+                    "nodefinish4":{
+                        "dialogue": "Maybe I could help you get stronger. I could use a good buddy for some training exercises.",
+                        "profile":"miloExcited",
+                        "textvoice":"trumpet",
+                        "children":["nodefinish5"]
+                    },
+                    "nodefinish5":{
+                        "dialogue": "For now though, I think I\'m going to head back to the barracks.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["nodefinish6"]
+                    },
+                    "nodefinish6":{
+                        "dialogue": " See you around.",
+                        "profile":"miloHappy",
+                        "textvoice":"trumpet",
+                        "children":[]
+                    },
+
+
+
                 }
             }
         },

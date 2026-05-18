@@ -77,7 +77,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
     }
 
     setUpWolfEmots(){
-      this.anims.create({key: 'wolfNeutral',frames: this.anims.generateFrameNames('wolfEmots', { start: 0, end: 4 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfNeutral',frames: this.anims.generateFrameNames('wolfEmots', { start: 0, end: 4 }),frameRate: 3,repeat: -1});
       this.anims.create({key: 'wolfHappy1',frames: this.anims.generateFrameNames('wolfEmots', { start: 6, end: 9 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfHappy2',frames: this.anims.generateFrameNames('wolfEmots', { start: 11, end: 14 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfKO',frames: this.anims.generateFrameNames('wolfEmots', { start: 16, end: 19 }),frameRate: 5,repeat: -1});

@@ -106,7 +106,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
             //warps player to the next scene
             scene1.destination = this.destination;
             scene1.cameras.main.fadeOut(500, 0, 0, 0);
-              //otherwise we show the key prompt if the player is within range
+
+            //otherwise we show the key prompt if the player is within range
           }else if(this.safeToLoad === true && activeId === this.warpPortalId && this.promptCooldown === false && scene1.isPaused === false){
             console.log("safe to press w to warp scenes");
               this.portalKeyPrompts.visible = true;

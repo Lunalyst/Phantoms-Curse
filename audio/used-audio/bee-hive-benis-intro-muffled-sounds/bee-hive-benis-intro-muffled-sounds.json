@@ -1,11 +1,11 @@
 {
     "resources":[
-        "../audio/used-audio/milo-entrance-sounds/Milos Theme4.mp3"
+        "../audio/used-audio/bee-hive-benis-intro-muffled-sounds/bee-hive-benis-intro-muffled-sounds.mp3"
     ],
     "spritemap": {
         "entrance":{
             "start": 0,
-            "end": 11.88,
+            "end": 16.74,
             "loop": false
         }
     }

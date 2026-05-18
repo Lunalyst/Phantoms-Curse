@@ -96,6 +96,18 @@
             "start": 34.88,
             "end": 36.89,
             "loop": false
+        },"heal":{
+            "start": 36.71,
+            "end": 37.68,
+            "loop": false
+        },"bridgeLower":{
+            "start": 38.83,
+            "end": 40.62,
+            "loop": false
+        },"bridgeRaise":{
+            "start": 40.57,
+            "end": 42.31,
+            "loop": false
         }
         
     }

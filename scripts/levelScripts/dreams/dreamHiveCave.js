@@ -37,9 +37,13 @@ class dreamHiveCave extends defaultScene {
 
       this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
 
-      /*this.load.audioSprite('slimeCaveSFX','audio/used-audio/slime-cave-sounds/slime-cave-sounds.json',[
-        "audio/used-audio/slime-cave-sounds/slime-cave-sounds.mp3"
-      ]);*/
+
+      this.load.audioSprite('beeHiveBenisMuffledIntroSFX','audio/used-audio/bee-hive-benis-intro-muffled-sounds/bee-hive-benis-intro-muffled-sounds.json',[
+        "audio/used-audio/bee-hive-benis-intro-muffled-sounds/bee-hive-benis-intro-muffled-sounds.mp3"
+      ]);
+      this.load.audioSprite('beeHiveBenisMuffledSFX','audio/used-audio/bee-hive-benis-muffled-sounds/bee-hive-benis-muffled-sounds.json',[
+        "audio/used-audio/bee-hive-benis-muffled-sounds/bee-hive-benis-muffled-sounds.mp3"
+      ]);
 
     }
 
@@ -82,7 +86,19 @@ class dreamHiveCave extends defaultScene {
       this.setUpGameplayEmitters();
 
       //adds looping sound effect.
-      //this.initLoopingSound('slimeCaveSFX','slimeCave', 0.02,"music");
+
+      //init sound effect music to play 
+      this.initSoundEffect('beeHiveBenisMuffledIntroSFX','entrance',0.7,'music');
+      //get refrence to sound key
+      let entranceSound = this.getSFX('beeHiveBenisMuffledIntroSFX');
+      //add on complete for that.
+      entranceSound.on('complete', function (sound){
+
+        //'sound' is a reference to the Sound that emitted the event
+        console.log('entrance sound finished playing');
+        this.initSoundEffect('beeHiveBenisMuffledSFX','theme',0.7,'music');
+         
+      },this);
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();

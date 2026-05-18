@@ -161,7 +161,7 @@ class textBox extends Phaser.GameObjects.Container{
           this.progressionAmount = 0;
               
           //reset sound type once dialogue is over.
-          this.soundType = "default";
+          //this.soundType = "default";
 
           this.completedText = true;
           //use emmitter to show the mobile controls if there on.
@@ -264,7 +264,7 @@ class textBox extends Phaser.GameObjects.Container{
           },300);
             
           //reset sound type once dialogue is over.
-          this.soundType = "default";
+          //this.soundType = "default";
 
           this.completedText = true;
           //use emmitter to show the mobile controls if there on.
@@ -358,7 +358,7 @@ class textBox extends Phaser.GameObjects.Container{
         this.progressionAmount = 0;
         
         //reset sound type once dialogue is over.
-        this.soundType = "default";
+        //this.soundType = "default";
 
         this.completedText = true;
         //use emmitter to show the mobile controls if there on.
@@ -414,6 +414,7 @@ class textBox extends Phaser.GameObjects.Container{
           if(this.visible && this.currentText.charAt(counter) !== ' '){
             //decision making for sound that player during dialogue
             //
+            //console.log("this.soundType: ",this.soundType);
             if(this.soundType === "default"){
               this.scene.initSoundEffect('buttonSFX','oldButton',0.05);
             }else if(this.soundType === "hit"){

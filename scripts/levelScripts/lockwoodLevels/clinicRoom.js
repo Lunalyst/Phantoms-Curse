@@ -47,6 +47,10 @@ class ClinicRoom extends defaultScene {
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
 
+      this.load.audioSprite('healSFX','audio/used-audio/button-sounds/button-sounds.json',[
+        "audio/used-audio/button-sounds/button-sounds.mp3"
+      ]);
+
     }
 
     create(){
@@ -116,11 +120,65 @@ class ClinicRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initWolf(819, 728+16, 'healingPlayer');
+      //for this segment we need three flags
+      //riddleAnsweredFullHp
+      //RiddleAnsweredHurt
+      //miloSavedThePlayer
 
-      this.initMilo(676, 728+25,"test");
+      //use emitter to check nectar riddle boss battle flag.
+      let riddleFull = {
+        flagToFind: "riddleAnsweredFullHp",
+        foundFlag: false,
+      };
 
-      this.initSavePoints(502,760-10);
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
+
+      let riddleHurt = {
+        flagToFind: "RiddleAnsweredHurt",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
+
+      let miloSaved = {
+        flagToFind: "miloSavedThePlayer",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloSaved);
+
+      if(this.player1.x === 752){
+        //this.cutSceneActive = true;
+
+        //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+        this.scene.grabbed = true;
+
+        this.mycamera.startFollow(this.player1);
+        this.cameras.main.zoom = 2;
+        this.cameras.main.followOffset.set(0,70);
+
+        this.initMilo(676, 728+25,"test");
+
+        if(riddleHurt.foundFlag === true){
+          console.log("RiddleAnsweredHurt");
+          this.initWolf(819, 728+16, "RiddleAnsweredHurt");
+        }else if(riddleFull.foundFlag === true){
+          console.log("riddleAnsweredFullHp");
+          this.initWolf(819, 728+16, "riddleAnsweredFullHp");
+        }else if(miloSaved.foundFlag === true){
+          console.log("miloSavedThePlayer");
+          this.initWolf(819, 728+16, "miloSavedThePlayer");
+
+          this.player1.visible = false;
+
+        }
+      }
+      
+
+
+      
+
+      //this.initSavePoints(502,760-10);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

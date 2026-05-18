@@ -11,9 +11,11 @@ class wolf extends npc{
       //then we call this next line to give it collision
       scene.physics.add.existing(this);
 
-      this.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('deaugh', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
-      this.anims.create({ key: 'sideHeal', frames: this.anims.generateFrameNames('deaugh', { start: 8, end: 11 }), frameRate: 7, repeat: -1 });
+      this.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('deaugh', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'sideHeal', frames: this.anims.generateFrameNames('deaugh', { start: 8, end: 11 }), frameRate: 4, repeat: -1 });
+      this.anims.create({ key: 'finishHeal', frames: this.anims.generateFrameNames('deaugh', { start: 12, end: 14 }), frameRate: 4, repeat: 0 });
+      this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 9, repeat: -1 });
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -45,15 +47,46 @@ class wolf extends npc{
         this.setSize(60,200,true);
         this.setOffset(185, 91);
  
-       if(this.npcType === 'healingPlayer'){
-          this.anims.play('sideHeal');
-          this.flipX = true;
+       if(this.npcType === 'miloSavedThePlayer'){
 
-          this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
-          this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-          this.playerOnStrecher.anims.play("idle", true);
-          this.playerOnStrecher.flipX = true;
-          this.playerOnStrecher.setScale(1/3);
+        this.anims.play('sideHeal');
+        this.scene.initSoundEffect('healSFX','heal',0.1);
+        this.flipX = true;
+
+        //this.scene.player1.visible = false;
+
+        this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
+        this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'upIdle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.play("idleHeal", true);
+        this.playerOnStrecher.flipX = true;
+        this.playerOnStrecher.setScale(1/3);
+
+        //this.customTrigger = true;
+        this.npcTriggerRange = true;
+        this.npcTriggerRangeX = 2000;
+        this.npcTriggerRangeY = 2000;
+
+        this.moveWolf = false;
+
+       }else if(this.npcType === 'riddleAnsweredFullHp'){
+
+       }else if(this.npcType === 'RiddleAnsweredHurt'){
+
+        //this.scene.player1.visible = false;
+
+        this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
+        this.playerOnStrecher.anims.create({ key: 'sittingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.play("idle", true);
+        this.playerOnStrecher.flipX = true;
+        this.playerOnStrecher.setScale(1/3);
+        
+
        }
 
   }
@@ -62,7 +95,11 @@ class wolf extends npc{
   flagLogic(){
     
     //logic to decide what the npcs activated function is.
-    if(this.npcType === 'healingPlayer'){
+    if(this.npcType === 'miloSavedThePlayer'){
+      this.miloSavedThePlayer();
+    }else if(this.npcType === 'riddleAnsweredFullHp'){
+      this.healingPlayer();
+    }else if(this.npcType === 'RiddleAnsweredHurt'){
       this.healingPlayer();
     }else{
       
@@ -71,21 +108,365 @@ class wolf extends npc{
   }
 
   MoveNPC(){
-  
+    if(this.npcType === 'miloSavedThePlayer'){
+      this.MoveNPCMiloSavedThePlayer();
+    }
   }
 
-  healingPlayer(){
+  MoveNPCMiloSavedThePlayer(){
+    if(this.moveWolf === false){
+       if(this.x > 425){
+
+        this.setVelocityX(-80);
+        this.anims.play('sideWalk',true);
+
+        this.setDepth(9);
+      }else{
+
+        this.visible = false;
+        this.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("nodefinish2");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+        this.moveWolf = true;
+
+      }
+    }else if(this.moveMilo === false){
+       if(this.scene.Milo.x > 425){
+
+        this.scene.Milo.setVelocityX(-80);
+        this.scene.Milo.anims.play('walk',true);
+        this.scene.Milo.setDepth(9);
+        this.scene.Milo.flipX = true;
+      }else{
+
+        this.scene.Milo.visible = false;
+        this.scene.Milo.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+
+        this.scene.sceneTextBox.textInterupt = false;
+        //this.progressNode("nodefinish2");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+
+      }
+    }
+  }
+
+  miloSavedThePlayer(){
 
     console.log("this.isPlayerControlled: ", this.isPlayerControlled)
 
     //if(this.isPlayerControlled === false){
-      //this.nodeHandler("wolf","Behavior1","test");
+    this.nodeHandler("wolf","Behavior1","nectarFinish");
       //this.scene.player1.mainHitbox.x = this.x;
     //}
 
     
 
     if(this.currentDictNode !== null){
+
+      //hault on first node
+      if(this.currentDictNode.nodeName === "node1" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //now that player is safely in npc dialogue set grabbed variable to false.
+        this.scene.grabbed = false;
+
+        let temp = this;
+        setTimeout(function () {
+          temp.anims.play('finishHeal', true).once('animationcomplete', () => {
+            temp.anims.play('sideIdle', true);
+          });
+
+          temp.playerOnStrecher.anims.play('healFade').once('animationcomplete', () => {
+
+            temp.playerOnStrecher.anims.play('idle', true);
+            temp.scene.sceneTextBox.textInterupt = false;
+      
+            if(temp.scene.playerSex === 0){
+              temp.progressNode("nodeEatenByNectar1Male");
+            }else{
+              temp.progressNode("nodeEatenByNectar1Female");
+            }
+            temp.scene.sceneTextBox.textInterupt = true;
+
+            setTimeout(function () {
+              temp.playerOnStrecher.anims.play('eyeOpen').once('animationcomplete', () => {
+                temp.playerOnStrecher.anims.play('idleEyeOpen', true);
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.progressNode("nodeEatenByNectar2");
+                temp.inDialogue = false;
+
+              });
+            }, 2000);
+
+
+          }, 2000);
+
+          
+
+        });
+
+      }else if(this.currentDictNode.nodeName === "nodeEatenByNectar3" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+        this.playerOnStrecher.anims.play('gettingUp').once('animationcomplete', () => {
+          this.playerOnStrecher.anims.play('upIdle', true);
+          this.inDialogue = false;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+        });
+
+      }else if(this.currentDictNode.nodeName === "nodeConverge" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+        
+        //create dialogue buttons for player choice
+        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"why do you all look like animals?",true);
+        this.scene.npcChoice1.textWob();
+        this.scene.npcChoice1.setScrollFactor(0);
+        this.scene.npcChoice1.addHitbox();
+        this.scene.npcChoice1.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice1.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice1.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice1.on('pointerout',function(pointer){
+          this.scene.npcChoice1.clearTextTint();
+        },this);
+
+        this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeAnimals1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+35,'charBubble',"What with the storm surrounding the island? ",true);
+        this.scene.npcChoice2.textWob();
+        this.scene.npcChoice2.setScrollFactor(0);
+        this.scene.npcChoice2.addHitbox();
+        this.scene.npcChoice2.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice2.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice2.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice2.on('pointerout',function(pointer){
+          this.scene.npcChoice2.clearTextTint();
+        },this);
+
+        this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeStorm1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+70,'charBubble',"What is this place? ",true);
+        this.scene.npcChoice3.textWob();
+        this.scene.npcChoice3.setScrollFactor(0);
+        this.scene.npcChoice3.addHitbox();
+        this.scene.npcChoice3.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice3.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice3.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice3.on('pointerout',function(pointer){
+          this.scene.npcChoice3.clearTextTint();
+        },this);
+
+        this.scene.npcChoice3.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeLockwood1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+105,'charBubble',"I don\'t really have any questions. ",true);
+        this.scene.npcChoice4.textWob();
+        this.scene.npcChoice4.setScrollFactor(0);
+        this.scene.npcChoice4.addHitbox();
+        this.scene.npcChoice4.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice4.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice4.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice4.on('pointerout',function(pointer){
+          this.scene.npcChoice4.clearTextTint();
+        },this);
+
+        this.scene.npcChoice4.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeSkip1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+        },this);
+      }else if(this.currentDictNode.nodeName === "nodefinish1" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.moveFunctionActive = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+
+      }else if(this.currentDictNode.nodeName === "nodefinish6" && this.inDialogue === false){
+        
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.moveFunctionActive = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+
+        this.moveMilo = false;
+
+        let temp = this;
+            setTimeout(function () {
+              //creates a object to hold data for scene transition
+              let playerDataObject = {
+                saveX: null,
+                saveY: null,
+                playerHpValue: null,
+                playerSex: null,
+                playerLocation: null,
+                inventoryArray: null,
+                playerBestiaryData: null,
+                playerSkillsData: null,
+                playerSaveSlotData: null,
+                flagValues: null,
+                settings:null,
+                dreamReturnLocation:null,
+                playerCurseValue:null
+              };
+              
+              temp.scene.cutSceneActive = false;
+              //console.log(playerDataObject)
+
+              //grabs the latests data values from the gamehud. also sets hp back to max hp.
+              inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+          
+              //then we set the correct location values to the scene transition data.
+              playerDataObject.saveX = 752+30;
+              playerDataObject.saveY = 760;
+              playerDataObject.playerSex = temp.scene.playerSex;
+              playerDataObject.playerLocation = "ClinicRoom";
+              //this.scene.destination = "ClinicRoom";
+
+              // then we save the scene transition data.
+              temp.scene.saveGame(playerDataObject);
+
+              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null
+                };
+
+              //kills gameplay emitters so they dont pile up between scenes
+              temp.scene.clearGameplayEmmitters();
+
+              //stops player momentum in update loop.
+              temp.scene.playerWarping = true;
+
+              //for loop looks through all the looping music playing within a given scene and stops the music.
+              for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+              }
+
+              temp.scene.player1.visible = false;
+              //warps player to the next scene
+              temp.scene.destination = "ClinicRoom";
+              temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                  //time out function which leads to deaugh cutscene here.
+          },4000);
+      }
+      
       
     }
   }

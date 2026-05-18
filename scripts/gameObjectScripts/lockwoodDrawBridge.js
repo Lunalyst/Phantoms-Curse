@@ -74,7 +74,7 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
 
             if(this.bridgePosition === "up" && this.bridgeAnimationLoc === false){
                 this.bridgeAnimationLoc = true;
-
+                this.scene.initSoundEffect('bridgeSFX','bridgeLower',0.3);
                 this.anims.play('bridgeLowering').once('animationcomplete', () => {
                     this.bridgeAnimationLoc = false;
                     this.setSize(800, 170, true);
@@ -89,6 +89,8 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
                 this.bridgeAnimationLoc = true;
                     this.setSize(620, 2000, true);
                     this.setOffset(105, -1000);
+
+                this.scene.initSoundEffect('bridgeSFX','bridgeRaise',0.3);
                 this.anims.play('bridgeRaising').once('animationcomplete', () => {
                     this.bridgeAnimationLoc = false;
 
@@ -120,6 +122,7 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
         if(this.bridgePosition === "up" && this.bridgeAnimationLoc === false){
                 this.bridgeAnimationLoc = true;
 
+                 this.scene.initSoundEffect('bridgeSFX','bridgeLower',0.3);
                 this.anims.play('bridgeLowering').once('animationcomplete', () => {
                     this.bridgeAnimationLoc = false;
                     this.setSize(800, 170, true);
@@ -134,6 +137,7 @@ class lockwoodDrawBridge extends Phaser.Physics.Arcade.Sprite{
                 this.bridgeAnimationLoc = true;
                     this.setSize(620, 2000, true);
                     this.setOffset(105, -1000);
+                    this.scene.initSoundEffect('bridgeSFX','bridgeRaise',0.3);
                 this.anims.play('bridgeRaising').once('animationcomplete', () => {
                     this.bridgeAnimationLoc = false;
 

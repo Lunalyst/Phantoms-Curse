@@ -145,55 +145,57 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   progressNode(nextNodeName,bypass){
     //console.log("attempting to progress node: ",nextNodeName);
     //safty case, if the length of the currnodes array is one, then progress that node.
-    if(this.currentDictNode.children.length === 1){
+    if(this.currentDictNode !== null){
+      if(this.currentDictNode.children.length === 1){
 
-      //sets current node to the only child node.
-      this.currentDictNode = this.currentDictNode.children[0];
+        //sets current node to the only child node.
+        this.currentDictNode = this.currentDictNode.children[0];
 
-      //add node data to string, push profile to array, and set text voice.
-      this.profileArray.push(this.currentDictNode.profile);
-      this.textToDisplay += this.currentDictNode.dialogue;
-      this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
+        //add node data to string, push profile to array, and set text voice.
+        this.profileArray.push(this.currentDictNode.profile);
+        this.textToDisplay += this.currentDictNode.dialogue;
+        this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
 
-      //activates textbox since we progressed to the next node
-      this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
-      this.scene.sceneTextBox.setProfileArray(this.profileArray);
-      this.scene.sceneTextBox.activateNPCTextBox(bypass);
+        //activates textbox since we progressed to the next node
+        this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
+        this.scene.sceneTextBox.setProfileArray(this.profileArray);
+        this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
-    }else{
-      this.nodeProgressionDelay = false;
-      let foundNode = false;
-      //search the currentNodes children
-      for(let counter = 0; counter < this.currentDictNode.children.length;counter++){
+      }else{
+        this.nodeProgressionDelay = false;
+        let foundNode = false;
+        //search the currentNodes children
+        for(let counter = 0; counter < this.currentDictNode.children.length;counter++){
 
-        //if the child name matches the name we are looknig for.
-        if(this.currentDictNode.children[counter].nodeName === nextNodeName){
+          //if the child name matches the name we are looknig for.
+          if(this.currentDictNode.children[counter].nodeName === nextNodeName){
 
-          console.log("Found node: ",nextNodeName);
-          foundNode = true;
+            console.log("Found node: ",nextNodeName);
+            foundNode = true;
 
-          //set the current node to the child that matches
-          this.currentDictNode = this.currentDictNode.children[counter];
+            //set the current node to the child that matches
+            this.currentDictNode = this.currentDictNode.children[counter];
 
-          //add node data to string, push profile to array, and set text voice.
-          this.profileArray.push(this.currentDictNode.profile);
-          this.textToDisplay += this.currentDictNode.dialogue;
-          this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
+            //add node data to string, push profile to array, and set text voice.
+            this.profileArray.push(this.currentDictNode.profile);
+            this.textToDisplay += this.currentDictNode.dialogue;
+            this.scene.sceneTextBox.soundType = this.currentDictNode.textVoice;
 
-          //activates textbox since we progressed to the next node
-          this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
-          this.scene.sceneTextBox.setProfileArray(this.profileArray);
-          this.scene.sceneTextBox.activateNPCTextBox(bypass);
+            //activates textbox since we progressed to the next node
+            this.scene.sceneTextBox.setText(this.textToDisplay,this.currentDictNode.dialogue);
+            this.scene.sceneTextBox.setProfileArray(this.profileArray);
+            this.scene.sceneTextBox.activateNPCTextBox(bypass);
 
-          
-          //break free of the loop.
-          break;
+            
+            //break free of the loop.
+            break;
+          }
         }
-      }
 
-      // improtant check. if we are at the last node because we couldnt find a child, makesure dialogue catch is set to false so we dont get stuck at the end of a dialogue braNCH
-      if(foundNode === false){
-        this.dialogueCatch = false;
+        // improtant check. if we are at the last node because we couldnt find a child, makesure dialogue catch is set to false so we dont get stuck at the end of a dialogue braNCH
+        if(foundNode === false){
+          this.dialogueCatch = false;
+        }
       }
     }
     
@@ -242,7 +244,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     //resets catch so dialogue can end. useful for shop ui.
     this.dialogueCatch = false;
     
-    this.scene.sceneTextBox.soundType = "default";
+    //this.scene.sceneTextBox.soundType = "default";
     
   }
 

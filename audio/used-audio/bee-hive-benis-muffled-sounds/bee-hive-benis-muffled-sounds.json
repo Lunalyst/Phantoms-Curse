@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/bee-hive-benis-muffled-sounds/bee-hive-benis-muffled-sounds.mp3"
+    ],
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 16.74,
+            "loop": true
+        }
+    }
+}

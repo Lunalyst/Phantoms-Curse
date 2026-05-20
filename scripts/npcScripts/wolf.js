@@ -62,7 +62,8 @@ class wolf extends npc{
         this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
         this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
         this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'upIdle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
+         this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
         this.playerOnStrecher.anims.play("idleHeal", true);
         this.playerOnStrecher.flipX = true;
         this.playerOnStrecher.setScale(1/3);
@@ -120,7 +121,7 @@ class wolf extends npc{
         this.setVelocityX(-80);
         this.anims.play('sideWalk',true);
 
-        this.setDepth(9);
+        this.setDepth(10);
       }else{
 
         this.visible = false;
@@ -129,6 +130,7 @@ class wolf extends npc{
         this.inDialogue = false;
         this.scene.sceneTextBox.textInterupt = false;
         this.progressNode("nodefinish2");
+        this.playerOnStrecher.anims.play('upIdleBackward', true);
         this.scene.CutscenePhysics = false;
         this.scene.cutSceneActive = false;
         this.moveWolf = true;
@@ -149,7 +151,6 @@ class wolf extends npc{
         this.inDialogue = false;
 
         this.scene.sceneTextBox.textInterupt = false;
-        //this.progressNode("nodefinish2");
         this.scene.CutscenePhysics = false;
         this.scene.cutSceneActive = false;
 
@@ -221,17 +222,23 @@ class wolf extends npc{
         //set variable approperiately
         this.scene.sceneTextBox.textInterupt = true;
         this.playerOnStrecher.anims.play('gettingUp').once('animationcomplete', () => {
-          this.playerOnStrecher.anims.play('upIdle', true);
+          this.playerOnStrecher.anims.play('upIdleForward', true);
           this.inDialogue = false;
           //set variable approperiately
           this.scene.sceneTextBox.textInterupt = false;
         });
 
+      }else if(this.currentDictNode.nodeName === "nodeEatenByNectar6"){
+
+        this.playerOnStrecher.anims.play('upIdleBackward', true);
+       
       }else if(this.currentDictNode.nodeName === "nodeConverge" && this.inDialogue === false){
 
         this.inDialogue = true;
         //set variable approperiately
         this.scene.sceneTextBox.textInterupt = true;
+
+        this.playerOnStrecher.anims.play('upIdleForward', true);
         
         //create dialogue buttons for player choice
         this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"why do you all look like animals?",true);

@@ -3346,7 +3346,7 @@ const npcDialogue = {
                         "children":["nodeStorm4"]
                     },
                     "nodeStorm4":{
-                        "dialogue": "often we find ... ",
+                        "dialogue": "often we find... ",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeStorm5"]

@@ -88,7 +88,7 @@ class keyPrompts extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: "Enter",frames: this.anims.generateFrameNames('keyPrompts', { start: 193, end: 195 }),frameRate: 7,repeat: -1});
         this.anims.create({key: "NumpadEnter",frames: this.anims.generateFrameNames('keyPrompts', { start: 193, end: 195 }),frameRate: 7,repeat: -1});
         
-        this.anims.create({key: "?",frames: this.anims.generateFrameNames('keyPrompts', { start: 196, end: 198 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: "?",frames: this.anims.generateFrameNames('keyPrompts', { start: 195, end: 197 }),frameRate: 7,repeat: -1});
         this.anims.create({key: "INVENTORY",frames: this.anims.generateFrameNames('keyPrompts', { start: 199, end: 201 }),frameRate: 7,repeat: -1});
 
         this.anims.create({key: "Space",frames: this.anims.generateFrameNames('keyPrompts', { start: 201, end: 203 }),frameRate: 7,repeat: -1});

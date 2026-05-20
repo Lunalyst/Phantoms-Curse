@@ -159,7 +159,7 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-210,this.screenHeight-25,'charBubble',"Alpha V0.30.05");
+            this.version = new makeText(this,this.screenWidth-210,this.screenHeight-25,'charBubble',"Alpha V0.30.06");
             this.version.visible = true;
             this.version.setDepth(51);
 
@@ -180,6 +180,7 @@ class titleScreen extends A3SoundEffects {
                 '- Whats Good Slime',
                 '- In Defiance of the Curse',
                 '- Lockwood your Cockwood',
+                '- Bee Hive Benis',
                 'KALE13: spritework assistance',
                  '- M bat F player TF sprite',
                 'Stiefeljackal: rabbit gameover moddification',

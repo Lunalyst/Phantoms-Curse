@@ -86,7 +86,7 @@ class WaitingRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(700,728+25,574,728,"door1","LockwoodBridges",0.75);
+      this.initPortalsWithTransparency(700,728+25,611,728,"door1","LockwoodBridges",0.75);
       
       this.initPortals(487,728+25,774,760,"door2","DeaughsRoom");
 

@@ -34,6 +34,8 @@ class gameHud extends A3SoundEffects {
       this.isStorageOpen = false;
       this.displayCurrencyIcon = null;
 
+      this.debugToggle = false;
+
       this.screenWidth = 1200;
       this.screenHeight = 900;
 
@@ -1246,8 +1248,9 @@ class gameHud extends A3SoundEffects {
         console.log("create function in hud finished-------------------------------------------------------");
 
         endTimeTest();
-
-        this.setupDebugHud();
+          if(this.debugToggle === true){
+            this.setupDebugHud();
+          }
     }
 
     setupDebugHud(){
@@ -1379,8 +1382,9 @@ class gameHud extends A3SoundEffects {
 
     //update loop.
     update(){
-      
-      this.updateDebugHud();
+      if(this.debugToggle === true){
+        this.updateDebugHud();
+      }
       
     }
 

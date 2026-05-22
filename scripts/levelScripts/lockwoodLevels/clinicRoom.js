@@ -125,20 +125,12 @@ class ClinicRoom extends defaultScene {
       //RiddleAnsweredHurt
       //miloSavedThePlayer
 
-      //use emitter to check nectar riddle boss battle flag.
-      let riddleFull = {
-        flagToFind: "riddleAnsweredFullHp",
+      let riddleAnswered = {
+        flagToFind: "riddleAnswered",
         foundFlag: false,
       };
 
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
-
-      let riddleHurt = {
-        flagToFind: "RiddleAnsweredHurt",
-        foundFlag: false,
-      };
-
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleAnswered);
 
       let miloSaved = {
         flagToFind: "miloSavedThePlayer",
@@ -159,12 +151,11 @@ class ClinicRoom extends defaultScene {
 
         this.initMilo(676, 728+25,"test");
 
-        if(riddleHurt.foundFlag === true){
-          console.log("RiddleAnsweredHurt");
-          this.initWolf(819, 728+16, "RiddleAnsweredHurt");
-        }else if(riddleFull.foundFlag === true){
-          console.log("riddleAnsweredFullHp");
-          this.initWolf(819, 728+16, "riddleAnsweredFullHp");
+        if(riddleAnswered.foundFlag === true){
+          console.log("riddleAnswered");
+          this.initWolf(819, 728+16, "riddleAnswered");
+          this.player1.visible = false;
+
         }else if(miloSaved.foundFlag === true){
           console.log("miloSavedThePlayer");
           this.initWolf(819, 728+16, "miloSavedThePlayer");

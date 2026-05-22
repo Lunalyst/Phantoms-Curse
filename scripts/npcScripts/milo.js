@@ -82,9 +82,9 @@ class milo extends npc{
 
         this.setSize(60,200,true);
         this.setOffset(185, 91);
-        this.setDepth(9);
  
        if(this.npcType === 'test'){
+          this.setDepth(9);
           this.anims.play('sideIdle');
           this.scene.Milo = this; 
        }else{

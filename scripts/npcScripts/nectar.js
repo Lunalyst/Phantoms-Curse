@@ -252,7 +252,8 @@ class nectar extends npc{
 
                 //'sound' is a reference to the Sound that emitted the event
                 console.log('entrance sound finished playing');
-                this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
+                this.scene.initSoundEffect('nectarEntranceLoopSFX','entranceLoop',0.3,'music');
+                //this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
                 
             },this);
 
@@ -313,7 +314,8 @@ class nectar extends npc{
 
       this.anims.play('swallowedPlayerHurtIdleLoop',true);
 
-      this.scene.sound.get('miloThemeSFX').pause();
+
+      this.scene.sound.get('nectarLoopSFX').pause();
 
       //have the pc version of milo walk up to nectar
       this.scene.moveFunctionActive = true;
@@ -911,7 +913,11 @@ class nectar extends npc{
 
           this.progressNode("node23",true);
 
-          this.scene.sound.get('nectarLoopSFX').pause();
+          if(this.scene.sound.get('nectarEntranceLoopSFX') !== null){
+            this.scene.sound.get('nectarEntranceLoopSFX').pause();
+          }else{
+            this.scene.sound.get('nectarEntranceSFX').pause();
+          }
 
         }else{
               this.scene.sceneTextBox.textInterupt = false;
@@ -923,7 +929,11 @@ class nectar extends npc{
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
-                this.scene.sound.get('nectarLoopSFX').pause();
+                if(this.scene.sound.get('nectarEntranceLoopSFX') !== null){
+                  this.scene.sound.get('nectarEntranceLoopSFX').pause();
+                }else{
+                  this.scene.sound.get('nectarEntranceSFX').pause();
+                }
 
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
@@ -1021,7 +1031,11 @@ class nectar extends npc{
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
               this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
-                this.scene.sound.get('nectarLoopSFX').pause();
+                if(this.scene.sound.get('nectarEntranceLoopSFX') !== null){
+                  this.scene.sound.get('nectarEntranceLoopSFX').pause();
+                }else{
+                  this.scene.sound.get('nectarEntranceSFX').pause();
+                }
 
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
@@ -1163,19 +1177,12 @@ class nectar extends npc{
                 //gets the hp value using a emitter
                 healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-                let riddleHurt = {
-                  flagToFind: "RiddleAnsweredHurt",
+                let riddleAnswered = {
+                  flagToFind: "riddleAnswered",
                   foundFlag: false,
                 };
 
-                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleHurt);
-
-                let riddleFull = {
-                  flagToFind: "riddleAnsweredFullHp",
-                  foundFlag: false,
-                };
-
-                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleAnswered);
 
                 let miloSaved = {
                   flagToFind: "miloSavedThePlayer",
@@ -1184,35 +1191,15 @@ class nectar extends npc{
 
                 inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloSaved);
 
-                if(riddleHurt.foundFlag === true || riddleFull.foundFlag === true || miloSaved.foundFlag === true){
+                if( !(miloSaved.foundFlag === true || riddleAnswered.foundFlag === true) ){
+                   //need a saftey check to make sure these flags are only added once
 
-                }else {
-                  //need a saftey check to make sure these flags are only added once.
-                  if(playerHealthObject.playerHealth < playerHealthObject.playerHealthMax){
-
-                    if(riddleHurt.foundFlag === false){
+                    if(riddleAnswered.foundFlag === false){
                       //now to add the flag 
-                      inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"RiddleAnsweredHurt");
+                      inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"riddleAnswered");
                     }
-                    
-                  }else{
-
-                    if(riddleFull.foundFlag === false){
-                      //now to add the flag 
-                      //inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"riddleAnsweredFullHp");
-                      inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"miloSavedThePlayer");
-                    }
-
-                    
-                  }
                 }
 
-
-                
-
-
-
-                
 
                 //kills gameplay emitters so they dont pile up between scenes
                 temp.scene.clearGameplayEmmitters();
@@ -1233,7 +1220,7 @@ class nectar extends npc{
                     //time out function which leads to deaugh cutscene here.
             },3000);*/
           
-          /// testers ends here
+          // testers ends here
           
           
            //use emitter to check nectar ambush skip flag
@@ -1293,7 +1280,7 @@ class nectar extends npc{
             //saves the game by calling the save game file function in the scene
             this.scene.saveGameFile(playerDataObject);
             
-
+            
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
             this.inDialogue = true;
@@ -1368,7 +1355,14 @@ class nectar extends npc{
               this.scene.initSoundEffect('weaponSFX','medium',0.1);
                this.anims.play('SideSwipeStart').once('animationcomplete', () => {
 
-                this.scene.sound.get('nectarLoopSFX').pause();
+                console.log("this.scene.sound.get('nectarEntranceLoopSFX'): ",this.scene.sound.get('nectarEntranceLoopSFX'))
+
+                if(this.scene.sound.get('nectarEntranceLoopSFX') !== null){
+                  this.scene.sound.get('nectarEntranceLoopSFX').pause();
+                }else{
+                  this.scene.sound.get('nectarEntranceSFX').pause();
+                }
+                
 
                 this.scene.initSoundEffect('bossSFX','explosion',0.06);
 
@@ -1604,6 +1598,7 @@ class nectar extends npc{
             if(this.node9Start === undefined){
               this.node9Start = true;
 
+              this.scene.Milo.setDepth(9);
               //add collider to milo and the bridge so he can walk on it.
               this.scene.physics.add.collider(this.scene.Milo, this.scene.lockwoodDrawBridges);
               
@@ -1638,109 +1633,89 @@ class nectar extends npc{
             this.scene.Milo.anims.play('holdOutHand',true);
 
            let temp = this;
-            setTimeout(function () {
-              //creates a object to hold data for scene transition
-              let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData: null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null,
-                dreamReturnLocation:null,
-                playerCurseValue:null
-              };
-              
-              temp.scene.cutSceneActive = false;
-              //console.log(playerDataObject)
+              setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
 
-              //grabs the latests data values from the gamehud. also sets hp back to max hp.
-              inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-          
-              //then we set the correct location values to the scene transition data.
-              playerDataObject.saveX = 752;
-              playerDataObject.saveY = 760;
-              playerDataObject.playerSex = temp.scene.playerSex;
-              playerDataObject.playerLocation = "ClinicRoom";
-              //this.scene.destination = "ClinicRoom";
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 752;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "ClinicRoom";
+                //this.scene.destination = "ClinicRoom";
 
-              // then we save the scene transition data.
-              temp.scene.saveGame(playerDataObject);
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
 
-              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-                let playerHealthObject = {
-                    playerHealth: null
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                let riddleAnswered = {
+                  flagToFind: "riddleAnswered",
+                  foundFlag: false,
                 };
 
-              //gets the hp value using a emitter
-              healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleAnswered);
 
-              let riddleHurt = {
-                flagToFind: "RiddleAnsweredHurt",
-                foundFlag: false,
-              };
+                let miloSaved = {
+                  flagToFind: "miloSavedThePlayer",
+                  foundFlag: false,
+                };
 
-              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleHurt);
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloSaved);
 
-              let riddleFull = {
-                flagToFind: "riddleAnsweredFullHp",
-                foundFlag: false,
-              };
+                if( !(miloSaved.foundFlag === true || riddleAnswered.foundFlag === true) ){
+                   //need a saftey check to make sure these flags are only added once
 
-              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleFull);
-
-              let miloSaved = {
-                flagToFind: "miloSavedThePlayer",
-                foundFlag: false,
-              };
-
-              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloSaved);
-
-              if(riddleHurt.foundFlag === true || riddleFull.foundFlag === true || miloSaved.foundFlag === true){
-
-              }else {
-                //need a saftey check to make sure these flags are only added once.
-                if(playerHealthObject.playerHealth < playerHealthObject.playerHealthMax){
-
-                  if(riddleHurt.foundFlag === false){
-                    //now to add the flag 
-                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"RiddleAnsweredHurt");
-                  }
-                  
-                }else{
-
-                  if(riddleFull.foundFlag === false){
-                    //now to add the flag 
-                    //inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"riddleAnsweredFullHp");
-                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"miloSavedThePlayer");
-                  }
-
-                  
+                    if(riddleAnswered.foundFlag === false){
+                      //now to add the flag 
+                      inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"riddleAnswered");
+                    }
                 }
-              }
 
-              //kills gameplay emitters so they dont pile up between scenes
-              temp.scene.clearGameplayEmmitters();
 
-              //stops player momentum in update loop.
-              temp.scene.playerWarping = true;
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
 
-              //for loop looks through all the looping music playing within a given scene and stops the music.
-              for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
-                temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
-              }
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
 
-              //temp.scene.player1.visible = false;
-              //warps player to the next scene
-              temp.scene.destination = "ClinicRoom";
-              temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
 
-                  //time out function which leads to deaugh cutscene here.
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "ClinicRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
             },3000);
           });
           }

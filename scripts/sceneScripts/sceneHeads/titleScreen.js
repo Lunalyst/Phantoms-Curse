@@ -181,6 +181,7 @@ class titleScreen extends A3SoundEffects {
                 '- In Defiance of the Curse',
                 '- Lockwood your Cockwood',
                 '- Bee Hive Benis',
+                '- Give Me Neck-Tar',
                 'KALE13: spritework assistance',
                  '- M bat F player TF sprite',
                 'Stiefeljackal: rabbit gameover moddification',

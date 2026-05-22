@@ -200,8 +200,26 @@ class nectarBoss extends enemy {
 
             this.anims.play('sideIdle',true);
 
+            if(this.scene.sound.get('miloThemeSFX') !== null){
+                this.scene.sound.get('miloThemeSFX').pause();
+            }
+
+            if(this.scene.sound.get('miloThemeLeadInSFX') !== null){
+                this.scene.sound.get('miloThemeLeadInSFX').pause();
+            }
+
             this.scene.initSoundEffect('bossSFX','bossStart',0.1);
 
+            //get refrence to sound key
+            let bossStart = this.scene.getSFX('bossSFX');
+            //add on complete for that.
+            bossStart.on('complete', function (sound){
+
+            //this.scene.initSoundEffect('nectarEntranceSFX','entranceLoop',0.3,'music');
+            this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
+                    
+            },this);
+            
             this.scene.isPaused = false;
 
             this.visible = true;

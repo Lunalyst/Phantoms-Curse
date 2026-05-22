@@ -49,7 +49,21 @@ class wolf extends npc{
  
        if(this.npcType === 'miloSavedThePlayer'){
 
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+          playerHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+        //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+        let dropToOne = playerHealthObject.playerHealth - 1;
+        console.log("dropToOne: ",dropToOne);
+        healthEmitter.emit(healthEvent.loseHealth,dropToOne);
+
         this.anims.play('sideHeal');
+        this.restoreHp();
         this.scene.initSoundEffect('healSFX','heal',0.1);
         this.flipX = true;
 
@@ -63,7 +77,7 @@ class wolf extends npc{
         this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
         this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
         this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
-         this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
         this.playerOnStrecher.anims.play("idleHeal", true);
         this.playerOnStrecher.flipX = true;
         this.playerOnStrecher.setScale(1/3);
@@ -75,18 +89,53 @@ class wolf extends npc{
 
         this.moveWolf = false;
 
-       }else if(this.npcType === 'riddleAnsweredFullHp'){
+       }else if(this.npcType === 'riddleAnswered'){
 
-       }else if(this.npcType === 'RiddleAnsweredHurt'){
+        this.flipX = true;
 
         //this.scene.player1.visible = false;
 
         this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
-        this.playerOnStrecher.anims.create({ key: 'sittingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 11 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.play("idle", true);
+        this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
+        this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
+        this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
         this.playerOnStrecher.flipX = true;
         this.playerOnStrecher.setScale(1/3);
-        
+
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+          playerHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+        console.log("playerHealthObject: ",playerHealthObject);
+
+        if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
+          console.log("player hp not at max.")
+          this.playerOnStrecher.anims.play("idleHeal", true);
+          this.restoreHp();
+          this.anims.play('sideHeal');
+          this.scene.initSoundEffect('healSFX','heal',0.1);
+          
+        }else{
+          console.log("player is max.")
+          this.playerOnStrecher.anims.play("upIdleForward", true);
+          this.anims.play('sideIdle');
+          
+        }
+
+        //this.customTrigger = true;
+        this.npcTriggerRange = true;
+        this.npcTriggerRangeX = 2000;
+        this.npcTriggerRangeY = 2000;
+
 
        }
 
@@ -98,23 +147,67 @@ class wolf extends npc{
     //logic to decide what the npcs activated function is.
     if(this.npcType === 'miloSavedThePlayer'){
       this.miloSavedThePlayer();
-    }else if(this.npcType === 'riddleAnsweredFullHp'){
-      this.healingPlayer();
-    }else if(this.npcType === 'RiddleAnsweredHurt'){
-      this.healingPlayer();
+    }else if(this.npcType === 'riddleAnswered'){
+      this.riddleAnswered();
     }else{
       
       this.default();
     }
   }
 
+  restoreHp(){
+
+    //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+    let playerHealthObject = {
+      playerHealth: null
+    };
+
+    //gets the hp value using a emitter
+    healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+    console.log("playerHealthObject: ",playerHealthObject);
+
+    // need to build up player curse
+    healthEmitter.emit(healthEvent.curseBuildUp,playerHealthObject.playerCurseMax);
+
+    this.recurseRestoreHp(playerHealthObject);
+    // then use recursion to 
+    // 1 decrease player curse
+    // increase player hp
+
+  }
+
+  recurseRestoreHp(playerHealthObject){
+
+    if(playerHealthObject.playerHealth === playerHealthObject.playerMaxHealth){
+      console.log("player fully heal by wolf.")
+
+    }else{
+
+      //reduce curse and increase hp
+      healthEmitter.emit(healthEvent.reduceCurse,1);
+      healthEmitter.emit(healthEvent.gainHealth,1);
+      
+      //call emiter to update object holding hp and curse values
+      //gets the hp value using a emitter
+      healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+      let temp = this;
+      setTimeout(function () {
+        temp.recurseRestoreHp(playerHealthObject);
+      }, 500);
+    }
+
+  }
+
   MoveNPC(){
-    if(this.npcType === 'miloSavedThePlayer'){
+    if(this.npcType === 'miloSavedThePlayer' || this.npcType === 'riddleAnswered'){
       this.MoveNPCMiloSavedThePlayer();
     }
   }
 
   MoveNPCMiloSavedThePlayer(){
+    //console.log("this.moveWolf: ",this.moveWolf);
     if(this.moveWolf === false){
        if(this.x > 425){
 
@@ -159,8 +252,6 @@ class wolf extends npc{
   }
 
   miloSavedThePlayer(){
-
-    console.log("this.isPlayerControlled: ", this.isPlayerControlled)
 
     //if(this.isPlayerControlled === false){
     this.nodeHandler("wolf","Behavior1","nectarFinish");
@@ -399,6 +490,349 @@ class wolf extends npc{
         this.scene.physics.resume();
         this.scene.CutscenePhysics = true;
         this.scene.cutSceneActive = true;
+
+      }else if(this.currentDictNode.nodeName === "nodefinish6" && this.inDialogue === false){
+        
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.moveFunctionActive = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+
+        this.moveMilo = false;
+
+        let temp = this;
+            setTimeout(function () {
+              //creates a object to hold data for scene transition
+              let playerDataObject = {
+                saveX: null,
+                saveY: null,
+                playerHpValue: null,
+                playerSex: null,
+                playerLocation: null,
+                inventoryArray: null,
+                playerBestiaryData: null,
+                playerSkillsData: null,
+                playerSaveSlotData: null,
+                flagValues: null,
+                settings:null,
+                dreamReturnLocation:null,
+                playerCurseValue:null
+              };
+              
+              temp.scene.cutSceneActive = false;
+              //console.log(playerDataObject)
+
+              //grabs the latests data values from the gamehud. also sets hp back to max hp.
+              inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+          
+              //then we set the correct location values to the scene transition data.
+              playerDataObject.saveX = 752+30;
+              playerDataObject.saveY = 760;
+              playerDataObject.playerSex = temp.scene.playerSex;
+              playerDataObject.playerLocation = "ClinicRoom";
+              //this.scene.destination = "ClinicRoom";
+
+              // then we save the scene transition data.
+              temp.scene.saveGame(playerDataObject);
+
+              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                let playerHealthObject = {
+                    playerHealth: null
+                };
+
+              //kills gameplay emitters so they dont pile up between scenes
+              temp.scene.clearGameplayEmmitters();
+
+              //stops player momentum in update loop.
+              temp.scene.playerWarping = true;
+
+              //for loop looks through all the looping music playing within a given scene and stops the music.
+              for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+              }
+
+              temp.scene.player1.visible = false;
+              //warps player to the next scene
+              temp.scene.destination = "ClinicRoom";
+              temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                  //time out function which leads to deaugh cutscene here.
+          },4000);
+      }
+      
+      
+    }
+  }
+
+  riddleAnswered(){
+
+    //if(this.isPlayerControlled === false){
+    this.nodeHandler("wolf","Behavior1","nectarFinish");
+      //this.scene.player1.mainHitbox.x = this.x;
+    //}
+
+    
+
+    if(this.currentDictNode !== null){
+
+      //hault on first node
+      if(this.currentDictNode.nodeName === "node1" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //now that player is safely in npc dialogue set grabbed variable to false.
+        this.scene.grabbed = false;
+
+        console.log("starting dialogue?")
+
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+          playerHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+        console.log("playerHealthObject: ",playerHealthObject);
+
+         let temp = this;
+
+        if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
+
+          console.log("player hp not at max.")
+
+          setTimeout(function () {
+          temp.anims.play('finishHeal', true).once('animationcomplete', () => {
+            temp.anims.play('sideIdle', true);
+          });
+
+          temp.playerOnStrecher.anims.play('healFade').once('animationcomplete', () => {
+
+            temp.playerOnStrecher.anims.play('idle', true);
+            temp.scene.sceneTextBox.textInterupt = false;
+      
+            temp.progressNode("nodeRiddleAnsweredHurt1");
+            
+            temp.scene.sceneTextBox.textInterupt = true;
+
+            setTimeout(function () {
+              temp.playerOnStrecher.anims.play('eyeOpen').once('animationcomplete', () => {
+                 temp.playerOnStrecher.anims.play('gettingUp').once('animationcomplete', () => {
+                  temp.playerOnStrecher.anims.play('upIdleForward', true);
+                  });
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.progressNode("nodeRiddleAnsweredHurt2");
+                temp.inDialogue = false;
+
+              });
+            }, 2000);
+
+
+          }, 2000);
+
+          
+
+        });
+       
+
+        }else{
+
+            console.log("player is max.")
+            setTimeout(function () {
+         
+            temp.scene.sceneTextBox.textInterupt = false;
+
+            temp.progressNode("nodeRiddleAnsweredFullHp");
+
+            temp.inDialogue = false;
+
+        },1000);
+            }
+
+
+       
+       
+
+      }else if(this.currentDictNode.nodeName === "nodeEatenByNectar6"){
+
+        this.playerOnStrecher.anims.play('upIdleBackward', true);
+       
+      }else if(this.currentDictNode.nodeName === "nodeConverge" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.playerOnStrecher.anims.play('upIdleForward', true);
+        
+        //create dialogue buttons for player choice
+        this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"why do you all look like animals?",true);
+        this.scene.npcChoice1.textWob();
+        this.scene.npcChoice1.setScrollFactor(0);
+        this.scene.npcChoice1.addHitbox();
+        this.scene.npcChoice1.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice1.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice1.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice1.on('pointerout',function(pointer){
+          this.scene.npcChoice1.clearTextTint();
+        },this);
+
+        this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeAnimals1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+35,'charBubble',"What with the storm surrounding the island? ",true);
+        this.scene.npcChoice2.textWob();
+        this.scene.npcChoice2.setScrollFactor(0);
+        this.scene.npcChoice2.addHitbox();
+        this.scene.npcChoice2.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice2.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice2.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice2.on('pointerout',function(pointer){
+          this.scene.npcChoice2.clearTextTint();
+        },this);
+
+        this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeStorm1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        //create dialogue buttons for player choice
+        this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+70,'charBubble',"What is this place? ",true);
+        this.scene.npcChoice3.textWob();
+        this.scene.npcChoice3.setScrollFactor(0);
+        this.scene.npcChoice3.addHitbox();
+        this.scene.npcChoice3.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice3.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice3.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice3.on('pointerout',function(pointer){
+          this.scene.npcChoice3.clearTextTint();
+        },this);
+
+        this.scene.npcChoice3.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeLockwood1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+              
+
+        },this);
+
+        this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300+105,'charBubble',"I don\'t really have any questions. ",true);
+        this.scene.npcChoice4.textWob();
+        this.scene.npcChoice4.setScrollFactor(0);
+        this.scene.npcChoice4.addHitbox();
+        this.scene.npcChoice4.setScale(.8);
+
+        //set up dialogue option functionality so they work like buttons
+        this.scene.npcChoice4.on('pointerover',function(pointer){
+          this.scene.initSoundEffect('buttonSFX','1',0.05);
+          this.scene.npcChoice4.setTextTint(0xff7a7a);
+        },this);
+
+        this.scene.npcChoice4.on('pointerout',function(pointer){
+          this.scene.npcChoice4.clearTextTint();
+        },this);
+
+        this.scene.npcChoice4.on('pointerdown', function (pointer) {
+            
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("nodeSkip1",true);
+          
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          this.inDialogue = false;
+
+        },this);
+      }else if(this.currentDictNode.nodeName === "nodefinish1" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.moveFunctionActive = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+
+        this.moveWolf = false;
 
       }else if(this.currentDictNode.nodeName === "nodefinish6" && this.inDialogue === false){
         

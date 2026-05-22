@@ -3167,7 +3167,7 @@ const npcDialogue = {
                         "dialogue": "*HIDETEXT*",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
-                        "children":["nodeEatenByNectar1Male","nodeEatenByNectar1Female"]
+                        "children":["nodeEatenByNectar1Male","nodeEatenByNectar1Female","nodeRiddleAnsweredFullHp","nodeRiddleAnsweredHurt1"]
                     },
 
                     // 1) the player got eaten by nectar
@@ -3239,7 +3239,7 @@ const npcDialogue = {
                         "dialogue": "seems you got a little roughed up out there.",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
-                        "children":["nodeRiddleAnsweredConverge"]
+                        "children":["nodeRiddleAnsweredHurt2"]
                     },
                     "nodeRiddleAnsweredHurt2":{
                         "dialogue": "not to worry. should be all better now.",
@@ -3262,7 +3262,7 @@ const npcDialogue = {
                         "children":["nodeRiddleAnswered2"]
                     },
                     "nodeRiddleAnswered2":{
-                        "dialogue": "you seem to already know what going on here to some degree, but we would be happy to answer any question you might have.",
+                        "dialogue": "you seem to already know whats going on here to some degree, but we would be happy to answer any question you might have.",
                         "profile":"miloHappy",
                         "textvoice":"trumpet",
                         "children":["nodeConverge"]

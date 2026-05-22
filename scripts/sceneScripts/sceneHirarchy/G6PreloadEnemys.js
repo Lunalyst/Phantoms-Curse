@@ -345,6 +345,10 @@ class G6PreloadEnemys extends G5InitNPCs{
             "audio/used-audio/nectar-entrance-sounds/Ravinous Riddle.mp3"
         ]);
 
+        tempSceneRef.load.audioSprite('nectarEntranceLoopSFX','audio/used-audio/nectar-entrance-sounds/nectar-entrance-sounds.json',[
+            "audio/used-audio/nectar-entrance-sounds/Ravinous Riddle.mp3"
+        ]);
+
         tempSceneRef.load.audioSprite('nectarLoopSFX','audio/used-audio/nectar-question-sounds/nectar-question-sounds.json',[
             "audio/used-audio/nectar-question-sounds/Ravinous Riddle.mp3"
         ]);

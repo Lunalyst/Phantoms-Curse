@@ -56,6 +56,8 @@ class nectarBoss extends enemy {
         this.nectarIsUp = false;
         this.nectarIsFalling = false;
         this.hasLanded = false;
+
+        this.miloDefeated = false;
         
         //have nectar move left or right on the way up of jump attack but then stop x movemento n way down.
     
@@ -177,7 +179,7 @@ class nectarBoss extends enemy {
 
         this.body.setGravityY(600);
         //idea, check to see if play isnt in dialogue. if so then hide npc version show this one and do boss stuff.
-        if (this.enemyHP > 0 && this.player1IsDigested === false) {
+        if (this.enemyHP > 0 && this.player1IsDigested === false && this.miloDefeated === false ) {
 
         //if we havent started the fight and the player is free from dialogue then set up the fight
         if(this.scene.pausedInTextBox === false && this.fightStarted === false && this.fightDelay === false){
@@ -471,6 +473,10 @@ class nectarBoss extends enemy {
                     this.setVelocityX(200 * 1);
                     this.flipX = true;
                 } 
+
+                if(this.x >= 1716+20 || this.x <= 2600-20){
+                    this.attackState = 0;
+                }
 
                 this.anims.play('sideWalk',true);
 
@@ -794,6 +800,21 @@ class nectarBoss extends enemy {
         
         }
 
+        //emiter check to see if the player has beeen defeated. if so set milo defeat to true.
+
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+          playerHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+        console.log("playerHealthObject: ",playerHealthObject);
+
+        if(playerHealthObject.playerHealth === 0){
+            this.miloDefeated = true;
+        }
+
        
         }else if(this.player1IsDigested === true &&  this.spawnGameoverNpc === false && this.body.blocked.down){
 
@@ -817,6 +838,27 @@ class nectarBoss extends enemy {
 
             healthEmitter.emit(healthEvent.setBossHealthVisible,false);
             
+        }else if(this.miloDefeated === true && this.spawnGameoverNpc === false && this.body.blocked.down){
+
+            console.log("now setting nectare gameover digested player npc!")
+            this.spawnGameoverNpc = true;
+            this.scene.npcNectar.npcType = "eatMilo";
+            this.scene.npcNectar.visible = true;
+
+            this.setVelocityX(0);
+
+            this.scene.npcNectar.triggerNpcFinished = false;
+            this.scene.npcNectar.x = this.x;
+            this.scene.npcNectar.y = 672.5;
+            this.scene.npcNectar.setNectarToEatMilo();
+
+            this.visible = false;
+
+            //destroy player barriers
+            this.leftBarrier.destroy();
+            this.rightBarrier.destroy();
+
+            healthEmitter.emit(healthEvent.setBossHealthVisible,false);
         }
 
      //handles hit box positioning
@@ -914,7 +956,7 @@ class nectarBoss extends enemy {
             if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
             this.attackState = Math.floor(Math.random() * 2);
-            this.attackState = 1;
+            //this.attackState = 4;
 
             }else if(this.enemyHP > this.bossMaxHealth/2){
 

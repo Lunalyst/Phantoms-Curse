@@ -1963,25 +1963,25 @@ const npcDialogue = {
                         "dialogue": "*HIDETEXT*",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node9"]
+                        "children":["node6"]
                     },
-                    "node8":{
+                    "node6":{
                         "dialogue": "milo? are you out here?",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node9"]
+                        "children":["node7"]
                     },
-                    "node8":{
+                    "node7":{
                         "dialogue": "Time to get out of here.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node9"]
+                        "children":["node8"]
                     },
                     "node8":{
                         "dialogue": "Dont need any more interuptions while im digesting my meal.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
-                        "children":["node9"]
+                        "children":[]
                     },
                 }
                 

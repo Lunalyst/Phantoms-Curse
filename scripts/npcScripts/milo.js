@@ -46,9 +46,14 @@ class milo extends npc{
       this.anims.create({key: 'MenacingSpearRaiseRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 98, end: 99 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'MenacingSpearHoldRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 100, end: 103 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'MenacingSpearLowerRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 104, end: 105 }),frameRate: 5,repeat: 0});
-      this.anims.create({key: 'dropSpearAndShield',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 106, end: 109 }),frameRate: 5,repeat: 0});
-      this.anims.create({key: 'dropMask',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 110, end: 123 }),frameRate: 5,repeat: 0});
-      this.anims.create({key: 'dropMaskEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 124, end: 124 }),frameRate: 5,repeat: 0});
+      
+      this.anims.create({key: 'dropSpearAndShield',frames: this.anims.generateFrameNames('miloCutScene', { start: 106-106, end: 109-106 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'dropMask',frames: this.anims.generateFrameNames('miloCutScene', { start: 110-106, end: 123-106 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'dropMaskEnd',frames: this.anims.generateFrameNames('miloCutScene', { start: 124-106, end: 124-106 }),frameRate: 5,repeat: 0});
+
+      this.anims.create({key: 'dropSpearAndShieldDefeat',frames: this.anims.generateFrameNames('miloCutScene', { start: 106-106, end: 109-106 }),frameRate: 8,repeat: 0});
+      this.anims.create({key: 'miloFall',frames: this.anims.generateFrameNames('miloCutScene', { start: 19, end: 23 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'miloDefeated',frames: this.anims.generateFrameNames('miloCutScene', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
       
       
       //makes a key promptsa object to be displayed to the user

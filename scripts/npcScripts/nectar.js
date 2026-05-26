@@ -27,6 +27,10 @@ class nectar extends npc{
       this.anims.create({key: 'swallowedPlayerHurtIdleLoop',frames: this.anims.generateFrameNames('nectar3', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'swallowedPlayerAngry',frames: this.anims.generateFrameNames('nectar3', { start: 8, end: 11 }),frameRate: 7,repeat: -1});
 
+
+      this.anims.create({key: 'sideWalkWithPlayer1',frames: this.anims.generateFrameNames('nectar4', { start: 0, end: 10 }),frameRate: 15,repeat: -1});
+            
+
       this.anims.create({key: 'playerDigestedBurp',frames: this.anims.generateFrameNames('nectar5', { start: 12, end: 18 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'playerDigestedSpitUpCloths',frames: this.anims.generateFrameNames('nectar5', { start: 19, end: 28 }),frameRate: 7,repeat: 0});
 
@@ -111,6 +115,10 @@ class nectar extends npc{
 
         this.setNectarToDigestPlayer();
 
+       }else if(this.npcType === 'eatMilo'){
+
+        this.setNectarToEatMilo();
+
        }
 
   }
@@ -161,6 +169,54 @@ class nectar extends npc{
 
       this.npcInteractionFinished = false;
   }
+
+  setNectarToEatMilo(){
+
+      this.npcKeyPrompts.visible = false;
+      this.promptCooldown = false;
+ 
+      //more variables which help the sign object tell when to display prompts and textbox
+      this.playerOverlapingNpc = false;
+      this.safeToSpeak = false;
+      this.activated = false;
+      this.dialogueCompleted = false;
+      this.completedText = false;
+      this.animationPlayed = false;
+
+      this.spearRaise = false;
+
+      this.inDialogue = false;
+
+      this.formattingText = false;
+
+      this.skipFlagFound = false;
+
+
+      this.anims.play('sideIdle',true); 
+
+      this.customTrigger = true;
+      this.npcTriggerRange = true;
+
+      this.nectarDropped = false;
+
+      this.npcTriggerRangeX = 3000;
+      this.npcTriggerRangeY = 3000;
+          
+      this.cameraPan1 = false;
+      this.nectarInPositionToEatMilo = false;
+      this.miloHasFallen = false;
+      this.choke = false;
+
+      //this.body.setGravityY(600); 
+
+      this.burped = false;
+      this.spitUpCloths = false;
+
+      //allows the trigger npc to activate again instead fo needing the player to press w.
+      this.triggerNpcActivated = false;
+
+      this.npcInteractionFinished = false;
+  }
   
   customTriggerFunction(){
     //console.log("this.nectarDropped: ",this.nectarDropped)
@@ -169,6 +225,8 @@ class nectar extends npc{
     this.customTriggerFunctionAmbush();
     }else if(this.npcType === "digestedPlayer"){
       this.customTriggerFunctionDigestedPlayer();
+    }else if(this.npcType === "eatMilo"){
+      this.customTriggerFunctionEatMilo();
     }
   }
 
@@ -380,6 +438,81 @@ class nectar extends npc{
     }
   }
 
+  customTriggerFunctionEatMilo(){
+
+    //console.log("this.cameraPan1 ", this.cameraPan1," this.miloInPosition ", this.miloInPosition," this.panToNectar ", this.panToNectar ," this.choke: ",this.choke )
+    //need to move milo and nectar into correct position.
+    if(this.nectarInPositionToEatMilo === false && this.choke === false){
+
+      console.log("milo Defeated!");
+
+      this.choke = true;
+
+      this.scene.sound.get('nectarLoopSFX').pause();
+
+      //have the pc version of milo walk up to nectar
+      this.scene.moveFunctionActive = true;
+      //angle nector correctly with boss version.
+
+      //stop player
+      this.scene.player2.anims.play("angleIdleLeft", true);
+      this.scene.player2.setVelocityX(0);
+      this.scene.player2.setVelocityY(0);
+
+      //pause physics of scene
+      this.scene.cutSceneActive = true;
+      this.scene.CutscenePhysics = true;
+
+      //this.choke = false;
+      
+      /*this.scene.cameras.main.pan(this.x, this.y, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+          //call back finction that occurs during the duration of the camera pan.
+      });
+
+
+      let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+          console.log('Camera pan has completed!');
+          this.choke = false;
+          this.cameraPan1 = true;
+          this.panToNectar = false;
+
+           // need to destroy pan listener once finished so it doesnt fire multiple times.
+          panRef._events.camerapancomplete = null;
+          console.log("panRef._events:",panRef._events);
+
+      },this);*/
+      
+    // camera must have finished panning and the player milo must be in position.
+    }else if( this.nectarGloating === false && this.choke === false){
+
+      this.dialogueLogicStart();
+
+      console.log("giving nectar physics and following her now");
+
+      //this.scene.mycamera.startFollow(this);
+      //this.scene.cameras.main.zoom = 2;
+      //this.scene.cameras.main.followOffset.set(0,0);
+
+      this.scene.physics.add.collider(this, this.scene.processMap.layer1);
+
+      this.setSize(350,350,true);
+      this.setOffset(280, 390-158);
+
+      this.setDepth(7);
+
+      //here play animation where nectar spits up the player.
+      this.nectarGloating = true;
+      this.choke = false; 
+      this.panToNectar = true; 
+      this.nectarInPosition = true;
+
+
+    }else if(this.nectarInPosition === true && this.npcInteractionFinished === false){
+
+      this.overlapActivateNpc();
+    }
+  }
+
   MoveNPC(){
       //console.log("this.npcType: ",this.npcType);
 
@@ -389,6 +522,8 @@ class nectar extends npc{
         }
       }else if(this.npcType === 'digestedPlayer'){
         this.MoveNPCDigestedPlayer();
+      }else if(this.npcType === 'eatMilo'){
+        this.MoveNPCEatMilo();
       }
   }
 
@@ -741,6 +876,161 @@ class nectar extends npc{
     }
    }
   }
+
+  MoveNPCEatMilo() {
+
+    console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
+  //move milo to nectar for player digested cutscene
+   if(this.nectarInPositionToEatMilo === false){
+
+    //if milo is on the ground move him to nectars position and face her
+      if(this.scene.player2.body.blocked.down){
+
+        if(this.miloHasFallen === false){
+
+          this.miloHasFallen = true;
+
+          this.scene.Milo.visible = true;
+          this.scene.player2.visible = false;
+          this.scene.Milo.x  = this.scene.player2.x;
+          this.scene.Milo.y = this.scene.player2.y;
+          this.scene.Milo.flipX = true;
+          this.scene.Milo.setDepth(9);
+
+          this.scene.Milo.anims.play('dropSpearAndShieldDefeat').once('animationcomplete', () => {
+
+            this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
+            this.spear.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+            this.spear.anims.play("idle", true);
+            this.spear.setScale(1/3);
+            this.spear.setDepth(1);
+
+            this.shield = this.scene.add.sprite(this.scene.Milo.x+3,this.scene.Milo.y+19, "miloProps");
+            this.shield.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+            this.shield.anims.play("idle", true);
+            this.shield.setScale(1/3);
+            this.shield.setDepth(1);
+
+            this.scene.Milo.anims.play('miloFall').once('animationcomplete', () => {
+              this.scene.Milo.anims.play('miloDefeated',true);
+
+              this.miloMask = this.scene.add.sprite(this.scene.Milo.x+55,this.scene.Milo.y+19, "miloProps");
+              this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
+              this.miloMask.anims.play("idle", true);
+              this.miloMask.setScale(1/3);
+              this.miloMask.setDepth(10);
+            });
+
+          });
+
+        }
+        
+        //(this.x - 120)
+        //left thresh (this.x - 120)-10
+        //right Thresh (this.x - 120)+10
+
+        //check to see if player is within range
+        if(this.x > (this.scene.player2.x + 180)-10 && this.x < (this.scene.player2.x + 180)+10){
+          this.setVelocityX(0);
+          
+          this.choke = false;
+          this.nectarInPositionToEatMilo = true;
+          this.nectarGloating = false;
+
+          this.anims.play('swallowedPlayerAngry',true);
+          this.flipX = false;
+
+
+        //if milo is to the left of where he needs to be move him right
+        }else if(this.x > (this.scene.player2.x + 180)-10){
+          this.setVelocity(-200,0);
+          this.anims.play('sideWalkWithPlayer1',true);
+
+        //if milo is at the correct position then progress
+        }else if(this.x < (this.scene.player2.x + 180)+10){
+          this.setVelocity(200,0);
+          this.anims.play('sideWalkWithPlayer1',true);
+
+          this.flipX = true;
+
+        }
+
+        
+      }else{
+        this.scene.player2.anims.play('jumpDownLeft',true);
+      }
+   }else if(this.moveNectarOffScreen === false){
+    
+    if(this.x < 3300){
+
+      this.setVelocityX(200);
+      this.anims.play('sideWalk',true);
+    }else{
+
+       this.setVelocityX(0);
+      this.moveNectarOffScreen = true;
+      this.miloRemoveMask = false;
+    }
+    
+   }else if(this.miloRemoveMask === false){
+
+    this.miloRemoveMask = true;
+    this.scene.Milo.anims.play('MenacingSpearLowerRight').once('animationcomplete', () => {
+
+      this.scene.Milo.anims.play('dropSpearAndShield').once('animationcomplete', () => {
+
+
+        this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
+        this.spear.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.spear.anims.play("idle", true);
+        this.spear.setScale(1/3);
+        this.spear.setDepth(1);
+
+        this.shield = this.scene.add.sprite(this.scene.Milo.x+3,this.scene.Milo.y+19, "miloProps");
+        this.shield.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.shield.anims.play("idle", true);
+        this.shield.setScale(1/3);
+        this.shield.setDepth(1);
+         
+        this.scene.Milo.setDepth(7);
+
+        this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
+
+          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y+19, "miloProps");
+          this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+          this.miloMask.anims.play("idle", true);
+          this.miloMask.setScale(1/3);
+          this.miloMask.setDepth(10);
+
+          this.miloRemoveMask = true;
+          this.moveMiloToPile = false;
+        });
+      });
+  });
+
+    
+   
+   }else if(this.moveMiloToPile === false){
+
+    if(this.playerCloths.x + 80 < this.scene.Milo.x){
+       this.scene.Milo.anims.play('walk',true);
+       this.scene.Milo.flipX = true;
+       this.scene.Milo.setVelocityX(-100);
+    }else{
+
+      this.moveMiloToPile = true;
+      this.scene.Milo.anims.play('FailedFall').once('animationcomplete', () => {
+        
+        this.scene.Milo.anims.play('FailedIdle',true);
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("");
+
+      });
+      this.scene.Milo.setVelocityX(0);
+    }
+   }
+  }
   //overwrites base npc classes function with flagging logic specific to nectar.
   flagLogic(){
     
@@ -749,6 +1039,8 @@ class nectar extends npc{
       this.ambush();
     }else if(this.npcType === 'digestedPlayer'){
       this.digestedPlayer();
+    }else if(this.npcType === 'eatMilo'){
+      this.eatMilo();
     }else{
       this.default();
     }
@@ -1830,6 +2122,38 @@ class nectar extends npc{
               
 
           }else if(this.currentDictNode.nodeName === "node11" && this.inDialogue === false){
+            this.inDialogue = true;
+            this.scene.gameoverLocation = "nectarCaveGameover";
+            this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
+            this.scene.sceneTextBox.textInterupt = true;
+            this.scene.sceneTextBox.textCoolDown = true;
+            this.scene.cutSceneActive = false;
+            this.npcInteractionFinished = true;
+
+            if(this.gameoverStarted === false){
+              this.gameoverStarted = true;
+              let temp = this;
+              setTimeout(function () {
+                temp.scene.changeToGameover();
+              }, 3000);
+            }
+            
+          }
+      }
+  }
+
+  eatMilo(){
+   //console.log("checking nectar npc dialogue");
+    this.nodeHandler("nectar","Behavior1","playerAndMiloEaten");
+    
+    if(this.currentDictNode !== null){
+
+      if(this.currentDictNode.nodeName === "node1"){
+        
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+
+      }else if(this.currentDictNode.nodeName === "node8" && this.inDialogue === false){
+
             this.inDialogue = true;
             this.scene.gameoverLocation = "nectarCaveGameover";
             this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;

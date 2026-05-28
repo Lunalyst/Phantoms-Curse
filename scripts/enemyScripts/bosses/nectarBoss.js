@@ -809,7 +809,7 @@ class nectarBoss extends enemy {
 
         //gets the hp value using a emitter
         healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-        console.log("playerHealthObject: ",playerHealthObject);
+        //console.log("playerHealthObject: ",playerHealthObject);
 
         if(playerHealthObject.playerHealth === 0){
             this.miloDefeated = true;
@@ -955,8 +955,8 @@ class nectarBoss extends enemy {
 
             if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
-            this.attackState = Math.floor(Math.random() * 2);
-            //this.attackState = 4;
+            //this.attackState = Math.floor(Math.random() * 2);
+            this.attackState = 4;
 
             }else if(this.enemyHP > this.bossMaxHealth/2){
 

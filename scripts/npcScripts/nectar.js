@@ -40,6 +40,13 @@ class nectar extends npc{
       this.anims.create({key: 'nectarAngrySlamMiddleEnd',frames: this.anims.generateFrameNames('nectar6', { start: 11, end: 14 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'nectarLostAngryIdle',frames: this.anims.generateFrameNames('nectar6', { start: 15, end: 18 }),frameRate: 7,repeat: -1});
 
+      this.anims.create({key: 'swallowingMilo1',frames: this.anims.generateFrameNames('nectar7', { start: 6-6, end: 12-6 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'swallowingMilo2',frames: this.anims.generateFrameNames('nectar7', { start: 13-6, end: 16-6 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'swallowingMilo3',frames: this.anims.generateFrameNames('nectar7', { start: 17-6, end: 21-6 }),frameRate: 7,repeat: 0});
+      this.anims.create({key: 'swallowingMilo4',frames: this.anims.generateFrameNames('nectar7', { start: 22-6, end: 21 }),frameRate: 7,repeat: 0});
+      
+      this.anims.create({key: 'nectarFullIdleLookBack',frames: this.anims.generateFrameNames('nectar7', { start: 22, end: 25 }),frameRate: 7,repeat: -1});
+      
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -503,7 +510,7 @@ class nectar extends npc{
       //here play animation where nectar spits up the player.
       this.nectarGloating = true;
       this.choke = false; 
-      this.panToNectar = true; 
+     // this.panToNectar = true; 
       this.nectarInPosition = true;
 
 
@@ -879,7 +886,7 @@ class nectar extends npc{
 
   MoveNPCEatMilo() {
 
-    console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
+  console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
   //move milo to nectar for player digested cutscene
    if(this.nectarInPositionToEatMilo === false){
 
@@ -935,6 +942,7 @@ class nectar extends npc{
           
           this.choke = false;
           this.nectarInPositionToEatMilo = true;
+
           this.nectarGloating = false;
 
           this.anims.play('swallowedPlayerAngry',true);
@@ -957,78 +965,62 @@ class nectar extends npc{
 
         
       }else{
+        //play falling animation if milo is in the air.
         this.scene.player2.anims.play('jumpDownLeft',true);
       }
-   }else if(this.moveNectarOffScreen === false){
-    
-    if(this.x < 3300){
 
-      this.setVelocityX(200);
-      this.anims.play('sideWalk',true);
-    }else{
+   }else if(this.nectarHasEatenMilo === false){
 
-       this.setVelocityX(0);
-      this.moveNectarOffScreen = true;
-      this.miloRemoveMask = false;
-    }
-    
-   }else if(this.miloRemoveMask === false){
+      //console.log("activating cuytsom move function");
+      if(this.x > this.scene.Milo.x + 80){
+        this.setVelocity(-200,0);
+        this.anims.play('sideWalk',true);
+       }else{
+        this.x = this.scene.Milo.x + 80;
+        this.setVelocity(0,0);
+        //this.anims.play('sideIdle',true);
+        if(this.choke === false){
+          this.choke = true;
 
-    this.miloRemoveMask = true;
-    this.scene.Milo.anims.play('MenacingSpearLowerRight').once('animationcomplete', () => {
+          this.scene.Milo.visible = false;
+          inventoryKeyEmitter.emit(inventoryKey.inventoryVisible,false);
 
-      this.scene.Milo.anims.play('dropSpearAndShield').once('animationcomplete', () => {
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("node5");
+
+          this.scene.sceneTextBox.textInterupt = true;
+
+          this.anims.play('swallowingMilo1').once('animationcomplete', () => {
+            this.scene.initSoundEffect('swallowSFX','2',0.6);
+            this.anims.play('swallowingMilo2').once('animationcomplete', () => {
+              this.anims.play('swallowingMilo3').once('animationcomplete', () => {
+                this.scene.initSoundEffect('swallowSFX','3',0.6);
+                this.anims.play('swallowingMilo4').once('animationcomplete', () => {
+
+                  //hide player hp bar.
+                  healthEmitter.emit(healthEvent.healthVisibility,false);
+                  this.anims.play('nectarFullIdleLookBack',true);
+                  //this.choke = false;
+                  this.scene.sceneTextBox.textInterupt = false;
+
+                  //this.progressNode("node17");
+
+                  //this.choke = false;
+
+                  this.scene.sceneTextBox.textInterupt = true;
 
 
-        this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
-        this.spear.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-        this.spear.anims.play("idle", true);
-        this.spear.setScale(1/3);
-        this.spear.setDepth(1);
-
-        this.shield = this.scene.add.sprite(this.scene.Milo.x+3,this.scene.Milo.y+19, "miloProps");
-        this.shield.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
-        this.shield.anims.play("idle", true);
-        this.shield.setScale(1/3);
-        this.shield.setDepth(1);
-         
-        this.scene.Milo.setDepth(7);
-
-        this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
-
-          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y+19, "miloProps");
-          this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
-          this.miloMask.anims.play("idle", true);
-          this.miloMask.setScale(1/3);
-          this.miloMask.setDepth(10);
-
-          this.miloRemoveMask = true;
-          this.moveMiloToPile = false;
-        });
-      });
-  });
-
-    
-   
-   }else if(this.moveMiloToPile === false){
-
-    if(this.playerCloths.x + 80 < this.scene.Milo.x){
-       this.scene.Milo.anims.play('walk',true);
-       this.scene.Milo.flipX = true;
-       this.scene.Milo.setVelocityX(-100);
-    }else{
-
-      this.moveMiloToPile = true;
-      this.scene.Milo.anims.play('FailedFall').once('animationcomplete', () => {
+                });
+              });
+            });
+          });
+        }
         
-        this.scene.Milo.anims.play('FailedIdle',true);
-        //set variable approperiately
-        this.scene.sceneTextBox.textInterupt = false;
-        this.progressNode("");
-
-      });
-      this.scene.Milo.setVelocityX(0);
+       
+       
     }
+    
    }
   }
   //overwrites base npc classes function with flagging logic specific to nectar.
@@ -1140,7 +1132,7 @@ class nectar extends npc{
               this.scene.sound.get(this.scene.sound.sounds[counter].key).stop();
             }
 
-            this.scene.player1.visible = false;
+            //this.scene.player1.visible = false;
 
             //warps player to the next scene
             this.scene.destination = "LockwoodBridges";
@@ -1835,6 +1827,10 @@ class nectar extends npc{
             this.scene.player2.setDepth(6);
             this.setDepth(5);
 
+            //destroy bridge npc so it doesnt appear in the fight.
+            this.scene.nectarBridgeDownNpc.destroy();
+
+
             //this.tempPlayer1Ref = this.scene.player1;
             //this.scene.player1 = this.scene.player2;
             console.log("nectars this.x: ",this.x," this.y-21: ",this.y-21);
@@ -2151,6 +2147,17 @@ class nectar extends npc{
       if(this.currentDictNode.nodeName === "node1"){
         
         this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+        
+        this.scene.mycamera.startFollow(this.scene.Milo,true,1,1);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
+
+      }else if(this.currentDictNode.nodeName === "node4" && this.inDialogue === false){
+        
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.nectarHasEatenMilo = false;
 
       }else if(this.currentDictNode.nodeName === "node8" && this.inDialogue === false){
 

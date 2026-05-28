@@ -106,6 +106,30 @@ const npcDialogue = {
                         "dialogue": "At least you dont have to face this alone...",
                         "profile":"",
                         "textvoice":"lightPiano",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "our bodys are....",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "melting....",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "so why does this feel...",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "soo goood......",
+                        "profile":"",
+                        "textvoice":"lightPiano",
                         "children":[]
                     },
                 },
@@ -1936,7 +1960,7 @@ const npcDialogue = {
                 },
                 "playerAndMiloEaten":{
                     "node1":{
-                        "dialogue": "Pathedic....",
+                        "dialogue": "Pathetic....",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node2"]
@@ -1954,7 +1978,7 @@ const npcDialogue = {
                         "children":["node4"]
                     },
                     "node4":{
-                        "dialogue": "Im sure you two will have plenty to talk about while digesting in my gut.",
+                        "dialogue": "Im sure you two will have plenty to talk about while in my gut.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
                         "children":["node5"]

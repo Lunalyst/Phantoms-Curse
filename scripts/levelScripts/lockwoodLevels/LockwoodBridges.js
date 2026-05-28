@@ -187,7 +187,7 @@ class LockwoodBridges extends defaultScene {
         this.nectarBossFlag = true;
 
       }else{
-        this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
+        this.nectarBridgeDownNpc = this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
         this.nectarBossFlag = false;
         this.triggerEncounter = false;
       }
@@ -223,6 +223,8 @@ class LockwoodBridges extends defaultScene {
       if(this.player1.x === 1954){
 
         this.SkippedNectarDialogue = true;
+
+        this.nectarBridgeDownNpc.destroy();
 
         this.player2Active = true;
         this.Milo.visible = false;

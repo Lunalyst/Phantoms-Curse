@@ -37,6 +37,9 @@ class G5InitNPCs extends G4InitGameObjects {
       if(this.lightingSystemActive === true){ 
         sign1.setPipeline('Light2D');
       }
+
+      //return sign incase we need a refrence to it.
+      return sign1;
       
   }
 

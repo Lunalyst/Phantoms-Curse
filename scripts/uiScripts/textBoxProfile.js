@@ -90,4 +90,9 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'wolfSmirk2',frames: this.anims.generateFrameNames('wolfEmots', { start: 55 , end:  59}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfKiss',frames: this.anims.generateFrameNames('wolfEmots', { start: 61 , end:  65}),frameRate: 5,repeat: -1});
     }
+
+    setUpRegiEmots(){
+      this.anims.create({key: 'regiNeutral',frames: this.anims.generateFrameNames('regiEmots', { start: 0, end: 0 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'regiHappy',frames: this.anims.generateFrameNames('regiEmots', { start: 1, end: 1 }),frameRate: 5,repeat: -1});
+    }
 }

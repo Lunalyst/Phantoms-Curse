@@ -408,6 +408,7 @@ const bestiaryKey = {
   vivianVore2:"vivian_vore_2",
 
   nectarVore1:"nectar_vore_1",
+  nectarVore2:"nectar_vore_2",
  
 }
 

@@ -57,6 +57,8 @@ class LockwoodBridges extends defaultScene {
       this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
 
+      this.load.spritesheet("regiEmots" , "assets/hudElements/regiEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+
       this.load.spritesheet('miloProps', 'assets/gameObjects/miloProps.png',{frameWidth: 78 , frameHeight: 171});
 
       this.load.audioSprite('miloThemeLeadInSFX','audio/used-audio/milo-entrance-sounds/milo-entrance-sounds.json',[

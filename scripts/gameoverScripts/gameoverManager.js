@@ -1096,6 +1096,22 @@ class gameoverManager extends A3SoundEffects {
                 
             },
 
+            nectar_vore_2: function nectar_vore_2Function() {
+
+                tempSceneRef.enemy = new nectarBoss(tempSceneRef,470-30, 510+2,tempSceneRef.playerSex,0,true);
+
+                tempSceneRef.enemy.nectarDigestedMiloGameover();
+                tempSceneRef.enemy.setPipeline('Light2D');
+                tempSceneRef.enemy.body.setGravityY(0);
+                tempSceneRef.enemy.visible = true; 
+                tempSceneRef.enemy.setDepth(3);
+                tempSceneRef.defeatedTitle = 'eaten';
+
+                
+                
+                
+            },
+
             generic: function genericFunction(){
 
             },
@@ -1672,6 +1688,10 @@ class gameoverManager extends A3SoundEffects {
             },
 
             nectar_vore_1: function nectar_vore_1Function() {
+                
+            },
+
+            nectar_vore_2: function nectar_vore_2Function() {
                 
             },
 

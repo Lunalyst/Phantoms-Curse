@@ -47,6 +47,9 @@ class nectar extends npc{
       
       this.anims.create({key: 'nectarFullIdleLookBack',frames: this.anims.generateFrameNames('nectar7', { start: 22, end: 25 }),frameRate: 7,repeat: -1});
       
+      this.anims.create({key: 'nectarFullWalk',frames: this.anims.generateFrameNames('nectar8', { start: 0, end:  10}),frameRate: 15,repeat: -1});
+      this.anims.create({key: 'nectarFullIdle',frames: this.anims.generateFrameNames('nectar8', { start: 11, end:  14}),frameRate: 7,repeat: -1});
+      
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -317,6 +320,7 @@ class nectar extends npc{
 
                 //'sound' is a reference to the Sound that emitted the event
                 console.log('entrance sound finished playing');
+                console.log('this.scene: ',this.scene);
                 this.scene.initSoundEffect('nectarEntranceLoopSFX','entranceLoop',0.3,'music');
                 //this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
                 
@@ -761,7 +765,7 @@ class nectar extends npc{
     }
   }
 
-  MoveNPCDigestedPlayer() {
+  MoveNPCDigestedPlayer(){
     console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
   //move milo to nectar for player digested cutscene
    if(this.miloInPosition === false){
@@ -881,10 +885,30 @@ class nectar extends npc{
       });
       this.scene.Milo.setVelocityX(0);
     }
+   }else if(this.moveMiloToPile === false){
+
+    if(this.playerCloths.x + 80 < this.scene.Milo.x){
+       this.scene.Milo.anims.play('walk',true);
+       this.scene.Milo.flipX = true;
+       this.scene.Milo.setVelocityX(-100);
+    }else{
+
+      this.moveMiloToPile = true;
+      this.scene.Milo.anims.play('FailedFall').once('animationcomplete', () => {
+        
+        this.scene.Milo.anims.play('FailedIdle',true);
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("");
+
+      });
+      this.scene.Milo.setVelocityX(0);
+    }
    }
+
   }
 
-  MoveNPCEatMilo() {
+  MoveNPCEatMilo(){
 
   console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
   //move milo to nectar for player digested cutscene
@@ -942,7 +966,7 @@ class nectar extends npc{
           
           this.choke = false;
           this.nectarInPositionToEatMilo = true;
-
+          this.inDialogue = false;
           this.nectarGloating = false;
 
           this.anims.play('swallowedPlayerAngry',true);
@@ -971,7 +995,7 @@ class nectar extends npc{
 
    }else if(this.nectarHasEatenMilo === false){
 
-      //console.log("activating cuytsom move function");
+      console.log("this.nectarHasEatenMilo: ",this.nectarHasEatenMilo);
       if(this.x > this.scene.Milo.x + 80){
         this.setVelocity(-200,0);
         this.anims.play('sideWalk',true);
@@ -985,12 +1009,6 @@ class nectar extends npc{
           this.scene.Milo.visible = false;
           inventoryKeyEmitter.emit(inventoryKey.inventoryVisible,false);
 
-          this.scene.sceneTextBox.textInterupt = false;
-
-          this.progressNode("node5");
-
-          this.scene.sceneTextBox.textInterupt = true;
-
           this.anims.play('swallowingMilo1').once('animationcomplete', () => {
             this.scene.initSoundEffect('swallowSFX','2',0.6);
             this.anims.play('swallowingMilo2').once('animationcomplete', () => {
@@ -1001,15 +1019,22 @@ class nectar extends npc{
                   //hide player hp bar.
                   healthEmitter.emit(healthEvent.healthVisibility,false);
                   this.anims.play('nectarFullIdleLookBack',true);
-                  //this.choke = false;
-                  this.scene.sceneTextBox.textInterupt = false;
 
-                  //this.progressNode("node17");
+                  let temp = this;
 
-                  //this.choke = false;
+                  setTimeout(function () {
+                    temp.scene.lockwoodDrawBridge.manualActivate();
+                    temp.anims.play('nectarFullIdle',true);
+                  },2000);
 
-                  this.scene.sceneTextBox.textInterupt = true;
+                  setTimeout(function () {
+                    temp.scene.sceneTextBox.textInterupt = false;
+                    temp.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+                    temp.progressNode("node7");
+                    temp.nectarHasEatenMilo = true;
 
+                    //temp.scene.sceneTextBox.textInterupt = true;
+                  },4000);
 
                 });
               });
@@ -1021,6 +1046,19 @@ class nectar extends npc{
        
     }
     
+   }else if(this.moveNectarOffScreen === false){
+     
+    if(this.x < 3300){
+
+      this.setVelocityX(200);
+      this.anims.play('nectarFullWalk',true);
+      this.flipX = true;
+    }else{
+
+       this.setVelocityX(0);
+      this.moveNectarOffScreen = true;
+      
+    }
    }
   }
   //overwrites base npc classes function with flagging logic specific to nectar.
@@ -2152,32 +2190,51 @@ class nectar extends npc{
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
 
-      }else if(this.currentDictNode.nodeName === "node4" && this.inDialogue === false){
+      }else if(this.currentDictNode.nodeName === "node5" && this.inDialogue === false){
         
         this.inDialogue = true;
         this.scene.sceneTextBox.textInterupt = true;
 
         this.nectarHasEatenMilo = false;
 
+      }else if(this.currentDictNode.nodeName === "node7"){
+
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+
+        this.inDialogue = false;
+
+        //this.moveNectarOffScreen = false;
+
+
+
       }else if(this.currentDictNode.nodeName === "node8" && this.inDialogue === false){
 
-            this.inDialogue = true;
-            this.scene.gameoverLocation = "nectarCaveGameover";
-            this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
-            this.scene.sceneTextBox.textInterupt = true;
-            this.scene.sceneTextBox.textCoolDown = true;
-            this.scene.cutSceneActive = false;
-            this.npcInteractionFinished = true;
+        this.inDialogue = true;
+        this.scene.gameoverLocation = "nectarCaveGameover";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore2;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.scene.sceneTextBox.textCoolDown = true;
+        //this.scene.cutSceneActive = false;
+        this.npcInteractionFinished = true;
 
-            if(this.gameoverStarted === false){
-              this.gameoverStarted = true;
-              let temp = this;
-              setTimeout(function () {
-                temp.scene.changeToGameover();
-              }, 3000);
-            }
+        let temp = this;
+        setTimeout(function () {
+          temp.moveNectarOffScreen = false;
+          temp.scene.sceneTextBox.textInterupt = false;
+          temp.progressNode("node9");
+          temp.scene.sceneTextBox.textInterupt = true;
+
+          temp.nectarHasEatenMilo = true;
+        }, 4000);
+
+        if(this.gameoverStarted === false){
+          this.gameoverStarted = true;
+          setTimeout(function () {
+            temp.scene.changeToGameover();
+          }, 8000);
+        }
             
-          }
       }
+    }
   }
 }

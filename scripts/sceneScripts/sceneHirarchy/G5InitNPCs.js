@@ -143,6 +143,7 @@ class G5InitNPCs extends G4InitGameObjects {
 
     //sets up the special text box object for nectar
     this.sceneTextBox.textBoxProfileImage.setUpNectarEmots();
+    this.sceneTextBox.textBoxProfileImage.setUpRegiEmots();
     //create istara npc
     let Nectar = new nectar(this, x, y, type);
 

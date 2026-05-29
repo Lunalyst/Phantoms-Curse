@@ -1991,8 +1991,8 @@ const npcDialogue = {
                     },
                     "node6":{
                         "dialogue": "milo? are you out here?",
-                        "profile":"nectarSmile",
-                        "textvoice":"wah",
+                        "profile":"regiNeutral",
+                        "textvoice":"lightVoice",
                         "children":["node7"]
                     },
                     "node7":{
@@ -2005,8 +2005,15 @@ const npcDialogue = {
                         "dialogue": "Dont need any more interuptions while im digesting my meal.",
                         "profile":"nectarSmile",
                         "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
                         "children":[]
                     },
+                
                 }
                 
                 
@@ -3677,6 +3684,14 @@ const npcDialogue = {
                 "nectar_vore_1":{
                     "node1":{
                         "dialogue": "Hot and gurgly, inevitable fate, Reduced to nothing more than weight. What am I? The answer: you. ",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
+                "nectar_vore_2":{
+                    "node1":{
+                        "dialogue": "devoured by Nectar together, nothing of you two remains save for pudge. You are gone, but not unappreciated.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

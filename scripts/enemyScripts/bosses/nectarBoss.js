@@ -103,6 +103,8 @@ class nectarBoss extends enemy {
             
             this.anims.create({key: 'nectarDigestedPlayerGameover',frames: this.anims.generateFrameNames('nectar6', { start: 0, end: 3 }),frameRate: 3,repeat: -1});
             
+            this.anims.create({key: 'nectarFullGameover',frames: this.anims.generateFrameNames('nectar8', { start: 15, end:  18}),frameRate: 7,repeat: -1});
+      
             /*if(sex === 0) {
                 this.anims.create({ key: 'analStart', frames: this.anims.generateFrameNames('Matango-Root-M-2', { start: 0, end: 10 }), frameRate: 7, repeat: 0 });
 
@@ -994,6 +996,10 @@ class nectarBoss extends enemy {
 
     nectarDigestedPlayerGameover(){
         this.anims.play('nectarDigestedPlayerGameover',true);
+    }
+
+    nectarDigestedMiloGameover(){
+        this.anims.play('nectarFullGameover',true);
     }
 
     resetVariables(){

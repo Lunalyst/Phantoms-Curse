@@ -47,7 +47,7 @@ class nectar extends npc{
       
       this.anims.create({key: 'nectarFullIdleLookBack',frames: this.anims.generateFrameNames('nectar7', { start: 22, end: 25 }),frameRate: 7,repeat: -1});
       
-      this.anims.create({key: 'nectarFullWalk',frames: this.anims.generateFrameNames('nectar8', { start: 0, end:  10}),frameRate: 15,repeat: -1});
+      this.anims.create({key: 'nectarFullWalk',frames: this.anims.generateFrameNames('nectar8', { start: 0, end:  10}),frameRate: 24,repeat: -1});
       this.anims.create({key: 'nectarFullIdle',frames: this.anims.generateFrameNames('nectar8', { start: 11, end:  14}),frameRate: 7,repeat: -1});
       
        //makes a key promptsa object to be displayed to the user
@@ -910,7 +910,7 @@ class nectar extends npc{
 
   MoveNPCEatMilo(){
 
-  console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
+  //console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
   //move milo to nectar for player digested cutscene
    if(this.nectarInPositionToEatMilo === false){
 
@@ -995,7 +995,7 @@ class nectar extends npc{
 
    }else if(this.nectarHasEatenMilo === false){
 
-      console.log("this.nectarHasEatenMilo: ",this.nectarHasEatenMilo);
+      //console.log("this.nectarHasEatenMilo: ",this.nectarHasEatenMilo);
       if(this.x > this.scene.Milo.x + 80){
         this.setVelocity(-200,0);
         this.anims.play('sideWalk',true);
@@ -1050,7 +1050,7 @@ class nectar extends npc{
      
     if(this.x < 3300){
 
-      this.setVelocityX(200);
+      this.setVelocityX(300);
       this.anims.play('nectarFullWalk',true);
       this.flipX = true;
     }else{
@@ -1145,7 +1145,7 @@ class nectar extends npc{
             };
 
             //console.log(playerDataObject)
-
+            
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
         
@@ -1541,6 +1541,9 @@ class nectar extends npc{
 
                     //time out function which leads to deaugh cutscene here.
             },3000);*/
+
+          //tests milo digested cutscene.
+          //this.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
           
           // testers ends here
           
@@ -1601,7 +1604,6 @@ class nectar extends npc{
 
             //saves the game by calling the save game file function in the scene
             this.scene.saveGameFile(playerDataObject);
-            
             
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
@@ -2190,6 +2192,14 @@ class nectar extends npc{
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
 
+        this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishClose').once('animationcomplete', () => {
+
+          this.scene.bossNectar.digestionTimer.visible = false;
+
+          console.log("this.scene.bossNectar.digestionTimer: ",this.scene.bossNectar.digestionTimer);
+                     
+        });
+
       }else if(this.currentDictNode.nodeName === "node5" && this.inDialogue === false){
         
         this.inDialogue = true;
@@ -2210,12 +2220,11 @@ class nectar extends npc{
       }else if(this.currentDictNode.nodeName === "node8" && this.inDialogue === false){
 
         this.inDialogue = true;
-        this.scene.gameoverLocation = "nectarCaveGameover";
-        this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore2;
         this.scene.sceneTextBox.textInterupt = true;
         this.scene.sceneTextBox.textCoolDown = true;
-        //this.scene.cutSceneActive = false;
         this.npcInteractionFinished = true;
+
+        this.scene.transitionToCutscene = true;
 
         let temp = this;
         setTimeout(function () {
@@ -2230,7 +2239,7 @@ class nectar extends npc{
         if(this.gameoverStarted === false){
           this.gameoverStarted = true;
           setTimeout(function () {
-            temp.scene.changeToGameover();
+            temp.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
           }, 8000);
         }
             

@@ -766,6 +766,88 @@ class G11CheckGameObjects extends G10CheckNPCS {
 
   }
 
+  //function which destroys this scene and starts the cutscene.
+  changeToCutscene(destination){
+  
+
+      this.destination = destination;
+      let playerSaveSlotDataObject = {
+        playerSaveSlotData: null
+      };
+    
+      playerSaveSlotEmitter.emit(playerSaveSlot.getSaveSlot,playerSaveSlotDataObject)
+
+      console.log("this.playerSaveSlotData sent to gameover: ",playerSaveSlotDataObject.playerSaveSlotData);
+
+      if(playerSaveSlotDataObject.playerSaveSlotData !== null){
+    
+      //this.saveGameoverFile(this.playerSex,this.gameoverLocation,this.enemyThatDefeatedPlayer,playerSaveSlotDataObject.playerSaveSlotData,this.defeatedTitle);
+
+      //clears emitters
+      this.clearAllEmmitters();
+      this.clearGameplayEmmitters();
+
+      //for loop looks through all the looping music playing within a given scene and stops the music.
+      for(let counter = 0; counter < this.sound.sounds.length; counter++){
+        this.sound.get(this.sound.sounds[counter].key).stop();
+      }
+
+      this.transitionToCutscene = true;
+      this.cameras.main.fadeOut(500, 0, 0, 0);
+    }
+    
+
+  }
+
+  changeToGameoverFromCutscene(gameoverLocation,enemyThatDefeatedPlayer){
+
+      this.healthDisplay = {
+        playerHealth: 0, 
+        playerCurse: 0
+      };
+
+      this.loadGameHudData();
+      //need the hud data here
+      console.log("this.playerSaveSlotData sent to gameover: ",this.playerSaveSlotData);
+
+      if(this.playerSaveSlotData !== null){
+    
+      this.saveGameoverFile(this.playerSex,gameoverLocation,enemyThatDefeatedPlayer,this.playerSaveSlotData,this.defeatedTitle);
+
+      //clears emitters
+      this.clearAllEmmitters();
+      this.clearGameplayEmmitters();
+
+      //for loop looks through all the looping music playing within a given scene and stops the music.
+      for(let counter = 0; counter < this.sound.sounds.length; counter++){
+        this.sound.get(this.sound.sounds[counter].key).stop();
+      }
+
+      this.playerDefeated = true;
+
+       //warps player to the next scene
+      console.log('sending player to: ',this.destination);
+      console.log('this.playerDefeated: ',this.playerDefeated);
+      if(this.transitionToCutscene === true){
+        this.scene.stop('gameHud');
+        this.scene.start(this.destination);
+        this.playerDefeated = false;
+      }else if(this.playerDefeated === true){
+        this.scene.stop('gameHud');
+        this.scene.start('gameOver');
+        this.playerDefeated = false;
+      }else{
+        this.scene.stop();
+        this.scene.start(this.destination); 
+      }
+
+      //creates cool fade in effect on scene load
+      this.cameras.main.fadeIn(500, 0, 0, 0);
+    }
+    
+
+  }
+
   
 
   

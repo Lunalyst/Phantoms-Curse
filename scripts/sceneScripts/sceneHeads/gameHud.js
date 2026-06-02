@@ -146,6 +146,9 @@ class gameHud extends A3SoundEffects {
         //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
         healthEmitter.on(healthEvent.loseHealth,(damage) =>{
             console.log('emitter activating damage to health: ', damage)
+
+            this.healthDisplay.scene = this;
+            console.log("this.healthDisplay.scene: ",this.healthDisplay.scene);
             this.healthDisplay.damageCoolDown = false;
             this.healthDisplay.calcDamage(damage)
             console.log('health is now:  ', this.healthDisplay.playerHealth)            
@@ -1382,6 +1385,7 @@ class gameHud extends A3SoundEffects {
 
     //update loop.
     update(){
+      
       if(this.debugToggle === true){
         this.updateDebugHud();
       }

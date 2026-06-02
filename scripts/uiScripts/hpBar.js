@@ -192,7 +192,12 @@ class hpBar extends Phaser.GameObjects.Container{
         }else{
             let percentage = (this.playerHealth/this.playerHealthMax);
 
+            console.log("this.scene: ",this.scene);
+
+            console.log("this.scene: ",this.scene);
+            console.log("********************************************************************************************");
             this.hpBarWidth = HPMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+            console.log("this: ",this);
             this.outSide.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
 
             let barLength = Math.floor(this.hpBarWidth * percentage);

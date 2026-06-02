@@ -178,7 +178,12 @@ class G2levelSetupFunctions extends G1PlayerInputs {
        //warps player to the next scene
       console.log('sending player to: ',this.destination);
       console.log('this.playerDefeated: ',this.playerDefeated);
-      if(this.playerDefeated === true){
+      console.log('this.transitionToCutscene: ',this.transitionToCutscene);
+      if(this.transitionToCutscene === true){
+        this.scene.stop('gameHud');
+        this.scene.start(this.destination);
+        this.transitionToCutscene = false;
+      }else if(this.playerDefeated === true){
         this.scene.stop('gameHud');
         this.scene.start('gameOver');
         this.playerDefeated = false;
@@ -228,6 +233,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
 
   }
 
+  
   //function to allow the gameplay scene to talk to the game hud.
   setUpGameplayEmitters(){
 

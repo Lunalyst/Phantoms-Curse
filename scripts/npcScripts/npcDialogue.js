@@ -80,55 +80,85 @@ const npcDialogue = {
                 "nectarAteMiloAndPlayer":{
                     "node1":{
                         "dialogue": "Ugggggg...",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "profile":"miloPain",
+                        "textvoice":"trumpet",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "Your still in one piece?",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
                         "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "Im sorry I couldnt get you out of here.",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
                         "children":["node4"]
                     },
                     "node4":{
                         "dialogue": "Couldn't even keep myself safe....",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
                         "children":["node5"]
                     },
                     "node5":{
                         "dialogue": "At least you dont have to face this alone...",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
                         "children":["node6"]
                     },
                     "node6":{
-                        "dialogue": "our bodys are....",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "melting....",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "dialogue": "ugggg...... sooo tight.....",
+                        "profile":"miloPain",
+                        "textvoice":"trumpet",
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "so why does this feel...",
-                        "profile":"",
-                        "textvoice":"lightPiano",
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
                         "children":["node9"]
                     },
                     "node9":{
+                        "dialogue": "our bodys are....",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "melting....",
+                        "profile":"miloPain",
+                        "textvoice":"trumpet",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "so why does this feel...",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
+                        "children":["node12"]
+                    },
+                    "node12":{
                         "dialogue": "soo goood......",
-                        "profile":"",
+                        "profile":"miloKO",
+                        "textvoice":"trumpet",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"blank",
                         "textvoice":"lightPiano",
                         "children":[]
                     },
@@ -1961,13 +1991,13 @@ const npcDialogue = {
                 "playerAndMiloEaten":{
                     "node1":{
                         "dialogue": "Pathetic....",
-                        "profile":"nectarSmile",
+                        "profile":"nectarWideSmile",
                         "textvoice":"wah",
                         "children":["node2"]
                     },
                     "node2":{
-                        "dialogue": "You cant even save yourself, let alone someone else.",
-                        "profile":"nectarSmile",
+                        "dialogue": "You can\'t even save yourself, let alone someone else.",
+                        "profile":"nectarSquint",
                         "textvoice":"wah",
                         "children":["node3"]
                     },
@@ -1979,7 +2009,7 @@ const npcDialogue = {
                     },
                     "node4":{
                         "dialogue": "Im sure you two will have plenty to talk about while in my gut.",
-                        "profile":"nectarSmile",
+                        "profile":"nectarWideSmile",
                         "textvoice":"wah",
                         "children":["node5"]
                     },
@@ -1997,13 +2027,13 @@ const npcDialogue = {
                     },
                     "node7":{
                         "dialogue": "Time to get out of here.",
-                        "profile":"nectarSmile",
+                        "profile":"nectarNeutral",
                         "textvoice":"wah",
                         "children":["node8"]
                     },
                     "node8":{
                         "dialogue": "Dont need any more interuptions while im digesting my meal.",
-                        "profile":"nectarSmile",
+                        "profile":"nectarNeutral",
                         "textvoice":"wah",
                         "children":["node9"]
                     },

@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/bun-bun-ranch-sounds/bun bun ranch.mp3"
+    ],
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 30.9,
+            "loop": true
+        }
+    }
+}

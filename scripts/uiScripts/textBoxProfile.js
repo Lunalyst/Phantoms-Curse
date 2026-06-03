@@ -63,6 +63,9 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'miloStarEyes',frames: this.anims.generateFrameNames('miloEmots', { start: 18, end: 21 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'miloExcited',frames: this.anims.generateFrameNames('miloEmots', { start: 22, end: 25 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'miloPain',frames: this.anims.generateFrameNames('miloEmots', { start: 26, end: 29 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloBlank',frames: this.anims.generateFrameNames('miloEmots', { start: 30, end: 30 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloblush1',frames: this.anims.generateFrameNames('miloEmots', { start: 31, end: 31 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'miloblush2',frames: this.anims.generateFrameNames('miloEmots', { start: 32, end: 32 }),frameRate: 5,repeat: -1});
     }
 
     setUpNectarEmots(){

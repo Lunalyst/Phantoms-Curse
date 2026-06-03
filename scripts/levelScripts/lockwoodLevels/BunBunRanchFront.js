@@ -55,8 +55,8 @@ class BunBunRanchFront extends defaultScene {
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
 
-      this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
-        "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
+      this.load.audioSprite('bunBunThemeSFX','audio/used-audio/bun-bun-ranch-sounds/bun-bun-ranch-sounds.json',[
+        "audio/used-audio/bun-bun-ranch-sounds/bun bun ranch.mp3"
       ]);
 
     }
@@ -90,9 +90,9 @@ class BunBunRanchFront extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      //this.initLoopingSound('forestSFX','forest',1,"ambience");
+      this.initLoopingSound('forestSFX','forest',1,"ambience");
 
-      //this.initLoopingSound('forestThemeSFX','bertsz',0.01,"music");
+      this.initLoopingSound('bunBunThemeSFX','theme',0.01,"music");
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();

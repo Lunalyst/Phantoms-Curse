@@ -316,15 +316,19 @@ class nectar extends npc{
             //get refrence to sound key
             let entranceSound = this.scene.getSFX('nectarEntranceSFX');
             //add on complete for that.
+            let temp = this;
             entranceSound.on('complete', function (sound){
 
                 //'sound' is a reference to the Sound that emitted the event
                 console.log('entrance sound finished playing');
                 console.log('this.scene: ',this.scene);
-                this.scene.initSoundEffect('nectarEntranceLoopSFX','entranceLoop',0.3,'music');
+                console.log('temp: ',temp);
+                if( temp.scene !== undefined){
+                  temp.scene.initSoundEffect('nectarEntranceLoopSFX','entranceLoop',0.3,'music');
+                }
                 //this.scene.initSoundEffect('nectarLoopSFX','question',0.3,'music');
                 
-            },this);
+            });
 
         });
     }else if (this.nectarLanded === true && this.nectarInPosition === false){
@@ -544,6 +548,9 @@ class nectar extends npc{
     //this.scene.Milo.y = 401;
     //this.scene.Milo.visible = true;
      //console.log("moving nectar. "
+
+     console.log("moving nectar. ");
+     
     //console.log("this.scene.Milo.x: ",this.scene.Milo.x, "this.scene.Milo.y: ",this.scene.Milo.y)
     if(this.currentDictNode.nodeName === "node8" || this.currentDictNode.nodeName === "nodeC"){
       //console.log("activating cuytsom move function");
@@ -1839,11 +1846,15 @@ class nectar extends npc{
             //get refrence to sound key
             let entranceSound = this.scene.getSFX('miloThemeLeadInSFX');
             //add on complete for that.
+            //note for some reason using this sometimes comes back as undefined, so leaving a temp variable refrence is the way to go.
+            let temp = this;
             entranceSound.on('complete', function (sound){
 
               //'sound' is a reference to the Sound that emitted the event
               console.log('entrance sound finished playing');
-              this.scene.initSoundEffect('miloThemeSFX','question',0.3,'music');
+               if( temp.scene !== undefined){
+                temp.scene.initSoundEffect('miloThemeSFX','question',0.3,'music');
+               }
          
             },this);
 

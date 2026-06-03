@@ -2044,7 +2044,100 @@ const npcDialogue = {
                         "children":[]
                     },
                 
-                }
+                },
+                "playerRegurgitated":{
+                    "node1":{
+                        "dialogue": "huuurrkk.....",
+                        "profile":"nectarHurt",
+                        "textvoice":"wah",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "BLOOOOGGGGHHHH!",
+                        "profile":"nectarHurt",
+                        "textvoice":"wah",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "uggggg......",
+                        "profile":"nectarSquint",
+                        "textvoice":"wah",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Damit you stupid little rabbit! There goes my meal. ",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "Your more trouble than you worth.",
+                        "profile":"nectarNeutral",
+                        "textvoice":"wah",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "But dont think im going to forget this you little pest....",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "I\'m going to make you regret saving them.",
+                        "profile":"nectarMad",
+                        "textvoice":"wah",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "so you better watch you back. ",
+                        "profile":"nectarSquint",
+                        "textvoice":"wah",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "There hanging on by just a thread.",
+                        "profile":"miloNeutral",
+                        "textvoice":"trumpet",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "I got to get you to the clinic imediately.",
+                        "profile":"miloScared",
+                        "textvoice":"trumpet",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "oh.....",
+                        "profile":"miloBlank",
+                        "textvoice":"trumpet",
+                        "children":["node13"]
+                    },
+                     "node13":{
+                        "dialogue": "ummmm....",
+                        "profile":"miloblush1",
+                        "textvoice":"trumpet",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "There a lot cuter up close....",
+                        "profile":"miloblush2",
+                        "textvoice":"trumpet",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"nectarSmile",
+                        "textvoice":"wah",
+                        "children":[]
+                    },
+                },
+
                 
                 
 

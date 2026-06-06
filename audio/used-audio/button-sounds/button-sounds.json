@@ -108,6 +108,10 @@
             "start": 40.57,
             "end": 42.31,
             "loop": false
+        },"squeak":{
+            "start": 42.31,
+            "end": 42.77,
+            "loop": false
         }
         
     }

@@ -15,8 +15,11 @@ class nectarBoss extends enemy {
         //randomizes variables
         this.collision = 170;
 
-        this.enemyHP = 200;
+        //this.enemyHP = 200;
+        this.enemyHP = 50;
         this.enemyHPMax = 200;
+
+        this.bossEndThresh = 40;
         
         this.idleState = 0;
 
@@ -119,7 +122,7 @@ class nectarBoss extends enemy {
         //nectar digestion timer graphic
 
         this.digestionTimerValue = 0;
-        this.digestionTimerValue = 34;
+        //this.digestionTimerValue = 34;
         this.digestionTimerAnimationPlayed = false;
         this.player1IsDigested = false;
 
@@ -173,7 +176,7 @@ class nectarBoss extends enemy {
         }else{
             
         }
-        }
+    }
 
     move(){
 
@@ -181,7 +184,7 @@ class nectarBoss extends enemy {
 
         this.body.setGravityY(600);
         //idea, check to see if play isnt in dialogue. if so then hide npc version show this one and do boss stuff.
-        if (this.enemyHP > 0 && this.player1IsDigested === false && this.miloDefeated === false ) {
+        if (this.enemyHP > this.bossEndThresh && this.player1IsDigested === false && this.miloDefeated === false ) {
 
         //if we havent started the fight and the player is free from dialogue then set up the fight
         if(this.scene.pausedInTextBox === false && this.fightStarted === false && this.fightDelay === false){
@@ -861,6 +864,28 @@ class nectarBoss extends enemy {
             this.rightBarrier.destroy();
 
             healthEmitter.emit(healthEvent.setBossHealthVisible,false);
+        }else if(this.nectarDefeated === true && this.spawnGameoverNpc === false && this.body.blocked.down){
+            console.log("now setting nectare gameover digested player npc!")
+            this.spawnGameoverNpc = true;
+
+            //this.scene.npcNectar.npcType = "nectarDefeated";
+             this.scene.npcNectar.npcType = "nectarDefeated";
+            this.scene.npcNectar.visible = true;
+
+            this.setVelocityX(0);
+
+            this.scene.npcNectar.triggerNpcFinished = false;
+            this.scene.npcNectar.x = this.x;
+            this.scene.npcNectar.y = 672.5;
+            this.scene.npcNectar.setNectarToDigestPlayer();
+
+            this.visible = false;
+
+            //destroy player barriers
+            this.leftBarrier.destroy();
+            this.rightBarrier.destroy();
+
+            healthEmitter.emit(healthEvent.setBossHealthVisible,false);
         }
 
      //handles hit box positioning
@@ -957,8 +982,8 @@ class nectarBoss extends enemy {
 
             if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
-            //this.attackState = Math.floor(Math.random() * 2);
-            this.attackState = 4;
+            this.attackState = Math.floor(Math.random() * 2);
+            //this.attackState = 4;
 
             }else if(this.enemyHP > this.bossMaxHealth/2){
 
@@ -1002,190 +1027,6 @@ class nectarBoss extends enemy {
         this.anims.play('nectarFullGameover',true);
     }
 
-    resetVariables(){
-        
-        //console.log("reseting boss veriables 44444444444444444444444444444444444444444444")
-        this.flipX = false;
-        this.struggleFree = false;
-        this.playerBrokeFree = 0;
-        this.turning = false;
-        this.knockdownCheck = false;
-
-        this.handAnimationLockout = false;
-
-        this.isAttacking = false;
-
-        this.struggleCounter = 0;
-        this.animationPlayed = false;
-        this.playerDamaged = false;
-        this.playerGrabbed = false;
-        this.keyAnimationPlayed = false;
-        this.scene.player2.visible = true;
-        this.isPlayingMissedAnims = false;
-        this.attackTimer = false;
-
-        this.startedGrab = false;
-        this.playerDefeatedAnimationStage = 0;
-        this.struggleAnimationInterupt = false;
-        this.spitUp = false;
-
-        this.scene.player2.mainHitbox.x = this.x;
-        ///this.scene.player2.y = this.y;
-        this.scene.grabbed = false;
-        this.scene.KeyDisplay.visible = false;
-
-        this.scene.player2.lightSource.visible = true;
-    }
-
-    //the grab function. is called when player has overlaped with an enemy enemy.
-    grab(){ 
-        let currentEnemy = this;
-        //first checks if enemy object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
-        this.clearTint();
-        // moves player attackhitbox out of the way.
-
-        this.scene.attackHitBox.y = this.scene.player2.y + 10000;
-        // if the grabbed is false but this function is called then do the following.
-        if (this.playerGrabbed === false) {
-
-            this.enemyGrabFalse();
-
-        } else if (this.playerGrabbed === true) {
-
-            this.setDepth(5);
-
-            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-            let playerHealthObject = {
-                playerHealth: null,
-                playerMaxHealth: null
-            };
-
-            //gets the hp value using a emitter
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-
-            //console.log("playerHealthObject: ",playerHealthObject);
-
-            //hides the mobile controls in the way of the tab/skip indicator.
-            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-
-            //puts the key display in the correct location.
-            this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 96;
-
-            //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
-            
-            //if the player is not defeated
-            if (this.playerDefeated === false) {
-
-                //then allow the player to use controls to escape.
-                this.playerIsNotDefeatedInputs(playerHealthObject);
-
-                //allows the player to press tab to let the enemy defeat them
-                this.tabToGiveUp();
-                
-            }
-
-            //logic for if the player is not defeated and struggling
-            if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && playerHealthObject.playerHealth > 0 && this.struggleCounter <= 100){
-
-            //calls a function to handle the player taking damage
-            this.playerIsStrugglingLogic(playerHealthObject);
-
-            //logic for if the player escapes the grab
-            }else if(this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
-                
-                //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
-
-                struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
-
-                this.playerEscaped(playerHealthObject);
-
-            //logic for if the player is defeated
-            }else if(playerHealthObject.playerCurse === playerHealthObject.playerCurseMax || playerHealthObject.playerHealth === 0){
-
-                //hide the giveup indicator
-                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
-
-                //makes the struggle bar invisible
-                struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-                
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-            
-                //handle the defeated logic that plays defeated animations
-                this.playerIsDefeatedLogic(playerHealthObject);
-            }
-            //console.log("playerHealthObject",playerHealthObject);
-            
-        }
-
-    }
-
-    //function handles the player struggle buttons
-    playerIsNotDefeatedInputs(playerHealthObject){
-
-        if(this.grabType === "unbirth"){
-            this.playerIsNotDefeatedInputsUnbirth(playerHealthObject);
-        }else if(this.grabType === "absorb"){
-            this.playerIsNotDefeatedInputsAbsorb(playerHealthObject);
-        }else if(this.grabType === "oral"){
-            this.playerIsNotDefeatedInputsOral(playerHealthObject);
-        }else if(this.grabType === "anal"){
-            this.playerIsNotDefeatedInputsAnal(playerHealthObject);
-        }else if(this.grabType === "cock"){
-            this.playerIsNotDefeatedInputsCock(playerHealthObject);
-        }
-      
-    }
-
-    //function to handle player health loss.
-    playerIsStrugglingLogic(playerHealthObject){
-
-        if(this.grabType === "unbirth"){
-            this.playerIsStrugglingLogicUnbirth(playerHealthObject);
-        }else if(this.grabType === "absorb"){
-            this.playerIsStrugglingLogicAbsorb(playerHealthObject);
-        }else if(this.grabType === "oral"){
-            this.playerIsStrugglingLogicOral(playerHealthObject);
-        }else if(this.grabType === "anal"){
-            this.playerIsStrugglingLogicAnal(playerHealthObject);
-        }else if(this.grabType === "cock"){
-            this.playerIsStrugglingLogicCock(playerHealthObject);
-        }
-               
-    }
-
-    playerIsDefeatedLogic(){
-        if(this.grabType === "unbirth"){
-            this.playerIsDefeatedLogicUnbirth();
-        }else if(this.grabType === "absorb"){
-            this.playerIsDefeatedLogicAbsorb();
-        }else if(this.grabType === "oral"){
-            this.playerIsDefeatedLogicOral();
-        }else if(this.grabType === "anal"){
-            this.playerIsDefeatedLogicAnal();
-        }else if(this.grabType === "cock"){
-            this.playerIsDefeatedLogicCock();
-        }
-    }
-
-    playerEscaped(playerHealthObject){
-
-        if(this.grabType === "unbirth"){
-            this.playerEscapedUnbirth(playerHealthObject);
-        }else if(this.grabType === "absorb"){
-            this.playerEscapedAbsorb(playerHealthObject);
-        }else if(this.grabType === "oral"){
-            this.playerEscapedOral(playerHealthObject);
-        }else if(this.grabType === "anal"){
-            this.playerEscapedAnal(playerHealthObject);
-        }else if(this.grabType === "cock"){
-            this.playerEscapedCock(playerHealthObject);
-        }
-    }
-
     // controls the damage resistance of the enemy.
     damage(refrence) {
 
@@ -1208,70 +1049,21 @@ class nectarBoss extends enemy {
                 );
                 
                 //if the enemys hp is at zero
-                if (this.enemyHP <= 0) {
+                if (this.enemyHP <= this.bossEndThresh) {
 
                     //STOP MUSIC
                     //this.scene.sound.get("battleMyceliumSFX").stop();
                     //this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
                 
                     this.enemyDefeated = true;
+                    this.nectarDefeated = true;
 
-                    //this.scene.initSoundEffect('bossRoarSFX','defeat',0.1);
+                    this.attackState === null;
+                   
+                    healthEmitter.emit(healthEvent.setBossHealthVisible,false);
 
-                    //play boss defeated animation
-                    this.anims.play('rawr').once('animationcomplete', () => {
-
-                        healthEmitter.emit(healthEvent.setBossHealthVisible,false);
-
-                        this.anims.play('bossDefeated').once('animationcomplete', () => {
-
-                            this.curseLight.visible = false;
-                            this.visible = false;
-
-                            this.rootNode.visible = true;
-                            this.rootNode.curseLight.visible = true;
-                            this.rootNode.anims.play("root1",true);
-
-                            //drop health upgrade
-                            //creates health upgrade object in level
-                            this.scene.initHealthUpgrade(this.x, this.y, 'healthUpgradenectarBoss');
-
-                            //drop new weapon
-                            let object = {
-                                flagToFind: "obtained_conidia_caster",
-                                foundFlag: false,
-                            };
+                        
                 
-                            // call the emitter to check if the value already was picked up.
-                            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
-
-                            if(object.foundFlag === false){
-                                //create a temp variable to hold our item that is passed to the player
-                            let item = oneTimeItemArray.obtained_conidia_caster;
-
-                            //used to tell if the item was added
-                            let addedToInventory = {
-                                added: false
-                            };
-
-                            //emitter to add object to inventory.
-                            inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
-                    
-                            //now to add the flag to the player data so the player cant open this container multiple times.
-                            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
-
-                            //show item drop like a chest
-                            //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
-                            this.scene.initFakeItemDrop(this.x , this.y-15,25); 
-                            }
-
-                            this.rootNode.deactivateMushroomBarriers();
-
-
-                        });
-
-
-                    });
                 
 
                     //remove colliders since we no longer need them.
@@ -1319,6 +1111,10 @@ class nectarBoss extends enemy {
             this.enemyHP -= curse;
         }
 
+        //special case for when nectar.... goes below 40 hp
+        if(this.enemyHP <= this.bossEndThresh){
+            this.enemyHP = 20;
+        }
         //update the boss hp bar
         healthEmitter.emit(healthEvent.loseBossHealth,prevHp-this.enemyHP);
 
@@ -1326,19 +1122,6 @@ class nectarBoss extends enemy {
 
     //function to show off animation 
     animationGrab(){
-
-        //console.log(' activating cat view grab logic');
-        if(this.grabType === "unbirth"){
-            this.animationGrabUnbirth();
-        }else if(this.grabType === "absorb"){
-            this.animationGrabAbsorb();
-        }else if(this.grabType === "oral"){
-            this.animationGrabOral();
-        }else if(this.grabType === "anal"){
-            this.animationGrabAnal();
-        }else if(this.grabType === "cock"){
-            this.animationGrabCock();
-        }
 
     }
     

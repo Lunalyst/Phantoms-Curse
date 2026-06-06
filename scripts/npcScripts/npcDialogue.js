@@ -164,6 +164,59 @@ const npcDialogue = {
                     },
                 },
             },
+            "memorys":{
+                "memory1":{
+                    "node1":{
+                        "dialogue": "Hello?",
+                        "profile":"memoryNeutral",
+                        "textvoice":"squeak",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Can you hear me? ",
+                        "profile":"memoryEyeRaise",
+                        "textvoice":"squeak",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "I saw you get swallowed back there... ",
+                        "profile":"memoryNeutral",
+                        "textvoice":"squeak",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "I\'m glad I got to you in time. ",
+                        "profile":"memoryHappy",
+                        "textvoice":"squeak",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "I have seen too many people get eaten and I wasn\'t about to sit by and let another person be consumed.  ",
+                        "profile":"memoryMad",
+                        "textvoice":"squeak",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "Whats your name? ",
+                        "profile":"memoryEyeRaise",
+                        "textvoice":"squeak",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Issac is it? Well it\'s nice to meet you. ",
+                        "profile":"memoryHappy",
+                        "textvoice":"squeak",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "my...... name...... is..............",
+                        "profile":"memoryHappyGlitch",
+                        "textvoice":"squeak",
+                        "children":[]
+                    },
+                },
+            },
+
         },
 
         "tutorial":{
@@ -2089,7 +2142,7 @@ const npcDialogue = {
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "so you better watch you back. ",
+                        "dialogue": "so your better watch you back. ",
                         "profile":"nectarSquint",
                         "textvoice":"wah",
                         "children":["node9"]
@@ -2107,7 +2160,7 @@ const npcDialogue = {
                         "children":["node11"]
                     },
                     "node11":{
-                        "dialogue": "I got to get you to the clinic imediately.",
+                        "dialogue": "I got to get you to the clinic immediately.",
                         "profile":"miloScared",
                         "textvoice":"trumpet",
                         "children":["node12"]

@@ -9,6 +9,7 @@ class nectar extends npc{
       this.anims.create({key: 'JumpDownStart',frames: this.anims.generateFrameNames('nectar1', { start: 0+4, end: 6+4 }),frameRate: 10,repeat: 0});
       this.anims.create({key: 'JumpDownEnd',frames: this.anims.generateFrameNames('nectar1', { start: 7+4, end: 11+4 }),frameRate: 12,repeat: 0});
       this.anims.create({key: 'sideWalk',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 15,repeat: -1});
+      this.anims.create({key: 'sideRun',frames: this.anims.generateFrameNames('nectar1', { start: 13+4, end: 22+4 }),frameRate: 24,repeat: -1});
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('nectar1', { start: 23+4, end: 26+4 }),frameRate: 7,repeat: -1});
 
       this.anims.create({key: 'SideSwipeStart',frames: this.anims.generateFrameNames('nectar2', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
@@ -49,6 +50,8 @@ class nectar extends npc{
       
       this.anims.create({key: 'nectarFullWalk',frames: this.anims.generateFrameNames('nectar8', { start: 0, end:  10}),frameRate: 24,repeat: -1});
       this.anims.create({key: 'nectarFullIdle',frames: this.anims.generateFrameNames('nectar8', { start: 11, end:  14}),frameRate: 7,repeat: -1});
+
+      this.anims.create({key: 'nectarSpitUpPlayer',frames: this.anims.generateFrameNames('nectar9', { start: 0, end:  14}),frameRate: 7,repeat: 0});
       
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -128,6 +131,10 @@ class nectar extends npc{
        }else if(this.npcType === 'eatMilo'){
 
         this.setNectarToEatMilo();
+
+       }else if(this.npcType === 'nectarDefeated'){
+
+        this.setNectarDefeated();
 
        }
 
@@ -228,6 +235,53 @@ class nectar extends npc{
       this.npcInteractionFinished = false;
   }
   
+   setNectarDefeated(){
+
+      this.npcKeyPrompts.visible = false;
+      this.promptCooldown = false;
+ 
+      //more variables which help the sign object tell when to display prompts and textbox
+      this.playerOverlapingNpc = false;
+      this.safeToSpeak = false;
+      this.activated = false;
+      this.dialogueCompleted = false;
+      this.completedText = false;
+      this.animationPlayed = false;
+
+      this.spearRaise = false;
+
+      this.inDialogue = false;
+
+      this.formattingText = false;
+
+      this.skipFlagFound = false;
+
+
+      this.anims.play('sideIdle',true); 
+
+      this.customTrigger = true;
+      this.npcTriggerRange = true;
+
+      this.nectarDropped = false;
+
+      this.npcTriggerRangeX = 3000;
+      this.npcTriggerRangeY = 3000;
+          
+      this.cameraPan1 = false;
+      this.miloInPosition = false;
+      this.choke = false;
+
+      //this.body.setGravityY(600); 
+
+      this.burped = false;
+      this.spitUpCloths = false;
+
+      //allows the trigger npc to activate again instead fo needing the player to press w.
+      this.triggerNpcActivated = false;
+
+      this.npcInteractionFinished = false;
+  }
+
   customTriggerFunction(){
     //console.log("this.nectarDropped: ",this.nectarDropped)
 
@@ -237,6 +291,8 @@ class nectar extends npc{
       this.customTriggerFunctionDigestedPlayer();
     }else if(this.npcType === "eatMilo"){
       this.customTriggerFunctionEatMilo();
+    }else if(this.npcType === "nectarDefeated"){
+      this.customTriggerFunctionDigestedPlayer();
     }
   }
 
@@ -539,6 +595,8 @@ class nectar extends npc{
         this.MoveNPCDigestedPlayer();
       }else if(this.npcType === 'eatMilo'){
         this.MoveNPCEatMilo();
+      }else if(this.npcType === 'nectarDefeated'){
+        this.MoveNPCNectarDefeated();
       }
   }
 
@@ -892,26 +950,7 @@ class nectar extends npc{
       });
       this.scene.Milo.setVelocityX(0);
     }
-   }else if(this.moveMiloToPile === false){
-
-    if(this.playerCloths.x + 80 < this.scene.Milo.x){
-       this.scene.Milo.anims.play('walk',true);
-       this.scene.Milo.flipX = true;
-       this.scene.Milo.setVelocityX(-100);
-    }else{
-
-      this.moveMiloToPile = true;
-      this.scene.Milo.anims.play('FailedFall').once('animationcomplete', () => {
-        
-        this.scene.Milo.anims.play('FailedIdle',true);
-        //set variable approperiately
-        this.scene.sceneTextBox.textInterupt = false;
-        this.progressNode("");
-
-      });
-      this.scene.Milo.setVelocityX(0);
-    }
-   }
+  }
 
   }
 
@@ -1068,6 +1107,175 @@ class nectar extends npc{
     }
    }
   }
+
+  MoveNPCNectarDefeated(){
+    console.log("this.moveNectarOffScreen: ",this.moveNectarOffScreen);
+  //move milo to nectar for player digested cutscene
+   if(this.miloInPosition === false){
+
+    //if milo is on the ground move him to nectars position and face her
+      if(this.scene.player2.body.blocked.down){
+
+        //(this.x - 120)
+        //left thresh (this.x - 120)-10
+        //right Thresh (this.x - 120)+10
+
+        //check to see if player is within range
+        if(this.scene.player2.x > (this.x + 180)-10 && this.scene.player2.x < (this.x + 180)+10){
+          this.scene.player2.setVelocityX(0);
+          this.scene.player2.visible = false;
+          // make milo npc version visible
+
+          this.scene.Milo.visible = true;
+          this.scene.player2.visible = false;
+          this.scene.Milo.x  = this.scene.player2.x;
+          this.scene.Milo.y = this.scene.player2.y;
+
+          //this.scene.Milo.flipX = true; 
+
+          this.scene.Milo.anims.play('MenacingSpearRaiseRight').once('animationcomplete', () => {
+
+                this.scene.Milo.anims.play('MenacingSpearHoldRight',true);
+          });
+
+
+          this.miloInPosition = true;
+          this.choke = false;
+
+        //if milo is to the left of where he needs to be move him right
+        }else if(this.scene.player2.x < (this.x + 180)-10){
+          this.scene.player2.setVelocityX(250);
+          this.scene.player2.anims.play("walkLeft",true);
+
+        //if milo is at the correct position then progress
+        }else if(this.scene.player2.x >= (this.x + 180)+10){
+          this.scene.player2.setVelocityX(-250);
+          this.scene.player2.anims.play("walkRight",true);
+
+        }
+
+        
+      }else{
+        this.scene.player2.anims.play('jumpDownLeft',true);
+      }
+   }else if(this.moveNectarOffScreen === false){
+    
+    if(this.x < 3300){
+
+      this.setVelocityX(300);
+      this.anims.play('sideRun',true);
+    }else{
+
+       this.setVelocityX(0);
+      this.moveNectarOffScreen = true;
+      this.miloRemoveMask = false;
+    }
+    
+   }else if(this.miloRemoveMask === false){
+
+    this.miloRemoveMask = true;
+    this.scene.Milo.anims.play('MenacingSpearLowerRight').once('animationcomplete', () => {
+
+      this.scene.Milo.anims.play('dropSpearAndShield').once('animationcomplete', () => {
+
+
+        this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
+        this.spear.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.spear.anims.play("idle", true);
+        this.spear.setScale(1/3);
+        this.spear.setDepth(1);
+
+        this.shield = this.scene.add.sprite(this.scene.Milo.x+3,this.scene.Milo.y+19, "miloProps");
+        this.shield.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.shield.anims.play("idle", true);
+        this.shield.setScale(1/3);
+        this.shield.setDepth(1);
+         
+        this.scene.Milo.setDepth(7);
+
+        this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
+
+          this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y+19, "miloProps");
+          this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+          this.miloMask.anims.play("idle", true);
+          this.miloMask.setScale(1/3);
+          this.miloMask.setDepth(10);
+
+          this.miloRemoveMask = true;
+          this.moveMiloToPile = false;
+        });
+      });
+  });
+
+    
+   
+   }else if(this.moveMiloToPile === false){
+
+    if(this.playerCloths.x + 50 < this.scene.Milo.x){
+       this.scene.Milo.anims.play('walk',true);
+       this.scene.Milo.flipX = true;
+       this.scene.Milo.setVelocityX(-100);
+    }else{
+
+      this.moveMiloToPile = true;
+
+      this.scene.Milo.anims.play('sideIdle',true);
+      //set variable approperiately
+      this.scene.sceneTextBox.textInterupt = false;
+      this.progressNode("node10");
+      this.scene.sceneTextBox.textInterupt = true;
+  
+      this.scene.Milo.setVelocityX(0);
+
+      let temp = this;
+
+      setTimeout(function () {
+        temp.PickupPlayer = false;
+      }, 1500);
+
+      
+    }
+   }else if(this.PickupPlayer === false){
+    if(this.playerCloths.x < this.scene.Milo.x){
+       this.scene.Milo.anims.play('walk',true);
+       this.scene.Milo.flipX = true;
+       this.scene.Milo.setVelocityX(-100);
+    }else{
+
+      this.PickupPlayer = true;
+
+      this.scene.Milo.setVelocityX(0);
+
+      this.scene.Milo.anims.play('miloPickUpPlayerStart',true).once('animationcomplete', () => {;
+        this.playerCloths.visible = false;
+        this.scene.Milo.flipX = false;
+        this.scene.Milo.anims.play('miloPickUpPlayerEndMale',true).once('animationcomplete', () => {;
+        //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //add collider to milo and the bridge so he can walk on it.
+          this.scene.physics.add.collider(this.scene.Milo, this.scene.lockwoodDrawBridges);
+
+          this.scene.lockwoodDrawBridge.manualActivate();
+
+          this.scene.Milo.anims.play('miloHoldingPlayerMale',true);
+
+          this.progressNode("node11");
+       
+        },);
+      },);
+    }
+   }else if(this.miloCarryingPlayer === false){
+     if(600 < this.scene.Milo.x){
+       this.scene.Milo.anims.play('miloHoldingPlayerWhileRunningMale',true);
+       this.scene.Milo.flipX = false;
+       this.scene.Milo.setVelocityX(-200);
+    }else{
+      this.scene.Milo.setVelocityX(0);
+    }
+   }
+
+  }
   //overwrites base npc classes function with flagging logic specific to nectar.
   flagLogic(){
     
@@ -1078,6 +1286,8 @@ class nectar extends npc{
       this.digestedPlayer();
     }else if(this.npcType === 'eatMilo'){
       this.eatMilo();
+    }else if(this.npcType === 'nectarDefeated'){
+      this.nectarDefeated();
     }else{
       this.default();
     }
@@ -2256,5 +2466,223 @@ class nectar extends npc{
             
       }
     }
+  }
+
+  nectarDefeated(){
+   //console.log("checking nectar npc dialogue");
+    this.nodeHandler("nectar","Behavior1","playerRegurgitated");
+    
+    if(this.currentDictNode !== null){
+      if(this.currentDictNode.nodeName === "node1"){
+        
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+
+      }else if(this.currentDictNode.nodeName === "node2"){
+
+            if(this.spitUpCloths === false){
+
+              this.spitUpCloths = true;
+              this.scene.sceneTextBox.textInterupt = true;
+              this.scene.initSoundEffect('swallowSFX','4',0.02);
+              healthEmitter.emit(healthEvent.healthVisibility,false);
+              this.anims.play('nectarSpitUpPlayer').once('animationcomplete', () => {
+
+                  this.anims.play('sideIdle');
+                  this.scene.sceneTextBox.textInterupt = false;
+                  this.progressNode("");
+                  this.scene.sceneTextBox.textInterupt = true;
+
+
+                  this.playerCloths = this.scene.add.sprite(this.x+63,this.y+55, "malePlayerStucks");
+                  this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("malePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
+                  this.playerCloths.anims.play("spatUp",true);
+                  
+                  //this.playerCloths.flipX = true;
+                  this.playerCloths.setScale(1/3);
+                  this.playerCloths.setDepth(5);
+
+                  this.scene.cameras.main.pan(this.playerCloths.x, this.playerCloths.y-70, 2000, 'Sine.easeInOut', true, (camera, progress) => {
+                      //call back finction that occurs during the duration of the camera pan.
+                  });
+
+                  let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
+                      console.log('Camera pan has completed!');
+
+                      this.scene.mycamera.startFollow(this.playerCloths);
+                      this.scene.cameras.main.zoom = 2;
+                      this.scene.cameras.main.followOffset.set(0,70);
+                      this.scene.bossNectar.digestionTimer.visible = false;
+
+                      healthEmitter.emit(healthEvent.healthVisibility,true);
+                      healthEmitter.emit(healthEvent.setMiloHealth,false,false);
+
+                      //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                      let playerHealthObject = {
+                          playerHealth: null
+                      };
+
+                      //gets the hp value using a emitter
+                      healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                      //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+                      let dropToOne = playerHealthObject.playerHealth - 1;
+                      console.log("dropToOne: ",dropToOne);
+                      healthEmitter.emit(healthEvent.loseHealth,dropToOne);
+
+                      this.scene.sceneTextBox.textInterupt = false;
+
+                      // need to destroy pan listener once finished so it doesnt fire multiple times.
+                      panRef._events.camerapancomplete = null;
+                      console.log("panRef._events:",panRef._events);
+   
+                  },this);
+
+                  
+               });
+
+              this.scene.bossNectar.digestionTimer.anims.play('stomachStateFinishClose').once('animationcomplete', () => {
+                //this.scene.initSoundEffect('stomachSFX','13',0.1);
+                this.scene.bossNectar.digestionTimer.visible = false;
+                //this.scene.bossNectar.digestionTimer.destroy();
+
+                console.log("this.scene.bossNectar.digestionTimer: ",this.scene.bossNectar.digestionTimer);
+
+                
+                           
+              });
+
+            }
+
+           }else if(this.currentDictNode.nodeName === "node9"){
+
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+
+            //turn off forcing the camera in move funct to follow player cloths.
+            if(this.node9Start === undefined){
+              this.node9Start = true;
+            
+              this.scene.moveFunctionActive = true;
+              this.moveNectarOffScreen = false;
+              this.scene.sceneTextBox.textInterupt = true;
+
+              this.scene.mycamera.startFollow(this.playerCloths);
+              this.scene.cameras.main.zoom = 2;
+              this.scene.cameras.main.followOffset.set(0,70);
+            }
+              
+
+          }else if(this.currentDictNode.nodeName === "node14" && this.inDialogue === false){
+            this.inDialogue = true;
+            this.scene.sceneTextBox.textInterupt = true;
+            this.scene.sceneTextBox.textCoolDown = true;
+            
+            let temp = this;
+
+              setTimeout(function () {
+                temp.progressNode("node15");
+                temp.miloCarryingPlayer = false;
+
+              }, 2000);
+
+              setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 752;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "ClinicRoom";
+                //this.scene.destination = "ClinicRoom"
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                let riddleAnswered = {
+                  flagToFind: "riddleAnswered",
+                  foundFlag: false,
+                };
+
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, riddleAnswered);
+
+                let miloSaved = {
+                  flagToFind: "miloSavedThePlayer",
+                  foundFlag: false,
+                };
+
+                inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloSaved);
+
+                if( !(miloSaved.foundFlag === true || riddleAnswered.foundFlag === true) ){
+                   //need a saftey check to make sure these flags are only added once
+
+                    if(riddleAnswered.foundFlag === false){
+                      //now to add the flag 
+                      inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"miloSavedThePlayer");
+                    }
+                }
+
+                // then we save the scene transition data. remebering to save after we add the flag XD
+                temp.scene.saveGame(playerDataObject);
+
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                temp.scene.transitionToCutscene = true;
+
+                //let temp = this;
+              
+                if(temp.gameoverStarted === false){
+                  temp.gameoverStarted = true;
+                  temp.scene.changeToCutscene("memory1");
+                }
+
+                //stops player momentum in update loop.
+                /*temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "ClinicRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                temp.scene.cutSceneActive = false;*/
+
+                    //time out function which leads to deaugh cutscene here.
+            },6000);
+
+            this.npcInteractionFinished = true;
+            
+          }
+      }
   }
 }

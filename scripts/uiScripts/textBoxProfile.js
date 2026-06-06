@@ -98,4 +98,13 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'regiNeutral',frames: this.anims.generateFrameNames('regiEmots', { start: 0, end: 0 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'regiHappy',frames: this.anims.generateFrameNames('regiEmots', { start: 1, end: 1 }),frameRate: 5,repeat: -1});
     }
+
+    setUpMemoryEmots(){
+      this.anims.create({key: 'memoryNeutral',frames: this.anims.generateFrameNames('memoryEmots', { start: 0, end: 0 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'memoryHappy',frames: this.anims.generateFrameNames('memoryEmots', { start: 1, end: 1 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'memoryMad',frames: this.anims.generateFrameNames('memoryEmots', { start: 2, end: 2 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'memoryEyeRaise',frames: this.anims.generateFrameNames('memoryEmots', { start: 3, end: 3 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'memoryHappyGlitch',frames: this.anims.generateFrameNames('memoryEmots', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
+
+    }
 }

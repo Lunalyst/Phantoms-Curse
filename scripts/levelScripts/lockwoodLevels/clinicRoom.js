@@ -151,6 +151,8 @@ class ClinicRoom extends defaultScene {
 
         this.initMilo(676, 728+25,"test");
 
+        console.log("miloSaved.foundFlag: ",miloSaved.foundFlag);
+
         if(riddleAnswered.foundFlag === true){
           console.log("riddleAnswered");
           this.initWolf(819, 728+16, "riddleAnswered");

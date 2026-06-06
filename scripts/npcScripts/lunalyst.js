@@ -224,7 +224,7 @@ class lunalyst extends npc{
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Got any suppplies?",true);
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Got any supplies?",true);
           this.scene.npcChoice2.textWob();
           this.scene.npcChoice2.setScrollFactor(0);
           this.scene.npcChoice2.addHitbox();

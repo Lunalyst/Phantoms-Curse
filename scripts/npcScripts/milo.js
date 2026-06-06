@@ -55,6 +55,13 @@ class milo extends npc{
       this.anims.create({key: 'miloFall',frames: this.anims.generateFrameNames('miloCutScene', { start: 19, end: 23 }),frameRate: 7,repeat: 0});
       this.anims.create({key: 'miloDefeated',frames: this.anims.generateFrameNames('miloCutScene', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
       
+      this.anims.create({key: 'miloPickUpPlayerStart',frames: this.anims.generateFrameNames('miloCutScene', { start: 28, end: 30 }),frameRate: 5,repeat: 0});
+
+      this.anims.create({key: 'miloPickUpPlayerEndMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 31, end: 33 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'miloHoldingPlayerMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 34, end: 37 }),frameRate: 6,repeat: -1});
+
+      this.anims.create({key: 'miloHoldingPlayerWhileRunningMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 38, end: 47 }),frameRate: 18,repeat: -1});
+      
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');

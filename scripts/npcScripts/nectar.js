@@ -1821,6 +1821,9 @@ class nectar extends npc{
 
             //saves the game by calling the save game file function in the scene
             this.scene.saveGameFile(playerDataObject);
+
+            //this.scene.changeToCutscene("memory1");
+          
             
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            

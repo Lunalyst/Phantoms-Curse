@@ -27,6 +27,8 @@ class memory1 extends defaultScene {
     this.load.spritesheet("memoryEmots" , "assets/hudElements/memoryEmots.png" , {frameWidth: 135 , frameHeight: 120 });
     this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
     this.load.image('skip', 'assets/hudElements/skip.png');
+
+    this.load.spritesheet("memoryNPC1" , "assets/npcs/memoryNPC1.png" , {frameWidth: 393 , frameHeight: 393 });
       
   }
   create(){
@@ -40,6 +42,16 @@ class memory1 extends defaultScene {
 
     //loads local save data.
     this.loadGamePlayData();
+
+    this.SceneSprite = this.add.sprite(600, 400, "memoryNPC1");
+    this.SceneSprite.anims.create({ key: 'idle', frames: this.SceneSprite.anims.generateFrameNames('memoryNPC1', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+    this.SceneSprite.anims.create({ key: 'idleGlitch', frames: this.SceneSprite.anims.generateFrameNames('memoryNPC1', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
+    
+    this.SceneSprite.anims.play('idle',true);
+
+    this.sceneSpriteSize = 0.6;
+
+    this.SceneSprite.setScale(this.sceneSpriteSize);
 
     this.sceneTextBox = new textBox(this,600-40,800,'charBlack');
     this.sceneTextBox.setScale(1.3);
@@ -122,7 +134,7 @@ class memory1 extends defaultScene {
     this.fadeInFunction();
 
     //dramatic fade in.
-    this.cameras.main.fadeIn(500, 0, 0, 0);
+    this.cameras.main.fadeIn(1500, 0, 0, 0);
   
   }
 
@@ -142,14 +154,28 @@ class memory1 extends defaultScene {
     let that = this; 
 
     switch (this.displayArrayPosition) {
+      case 7:
+        this.displayArrayPosition++;  
+        this.SceneSprite.anims.play('idleGlitch',true);
+        setTimeout(function () {
+
+          //call fade out after calling fadeoutfunction to set up the camera object fadeout function
+          that.fadeInFunction();
+            
+          }, 1000);
+         break;
       case 8:
-    
+          console.log("memory cutscene ending");
         this.fadeOutFunction();
-        that.cameras.main.fadeOut(2000, 0, 0, 0);
+        that.cameras.main.fadeOut(1000, 0, 0, 0);
         break;
   
       default:
         this.displayArrayPosition++;  
+
+        this.sceneSpriteSize = this.sceneSpriteSize + 0.1;
+        this.SceneSprite.setScale(this.sceneSpriteSize);
+
           setTimeout(function () {
 
           //call fade out after calling fadeoutfunction to set up the camera object fadeout function

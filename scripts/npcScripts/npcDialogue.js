@@ -191,7 +191,7 @@ const npcDialogue = {
                         "children":["node5"]
                     },
                     "node5":{
-                        "dialogue": "I have seen too many people get eaten and I wasn\'t about to sit by and let another person be consumed.  ",
+                        "dialogue": "I wasn\'t about to sit by and let another person be consumed.",
                         "profile":"memoryMad",
                         "textvoice":"squeak",
                         "children":["node6"]
@@ -203,7 +203,7 @@ const npcDialogue = {
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "Issac is it? Well it\'s nice to meet you. ",
+                        "dialogue": "Luke is it? Well it\'s nice to meet you. ",
                         "profile":"memoryHappy",
                         "textvoice":"squeak",
                         "children":["node8"]

@@ -13,6 +13,9 @@ class textBox extends Phaser.GameObjects.Container{
       this.setScrollFactor(0);
       this.setScale(.7);
 
+      this.delayText = false;
+      this.delayTextTime = 0;
+
       //makes base sprite to boarder the text
       this.outSide = scene.add.sprite(0, 0, 'textBox');
       this.outSide.anims.create({key: 'blank',frames: this.outSide.anims.generateFrameNames('textBox', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
@@ -440,6 +443,7 @@ class textBox extends Phaser.GameObjects.Container{
             }
 
           }
+          
           if(this.textTint !== null){
             this.lines[textPos].setTint(this.textTint);
           }else{
@@ -447,14 +451,32 @@ class textBox extends Phaser.GameObjects.Container{
           }
           this.lines[textPos].settint
           this.lines[textPos].anims.play(this.currentText.charAt(counter)/*.toUpperCase()*/).once('animationcomplete', () => {
-          this.displayHelper(counter+1,textPos+1,end,wPosition);
+
+          if(this.delayText === true){
+              let temp = this;
+              console.log("this.delayTextTime: ",this.delayTextTime);
+              setTimeout(function () {
+                temp.displayHelper(counter+1,textPos+1,end,wPosition);
+              },this.delayTextTime);
+            }else{
+              this.displayHelper(counter+1,textPos+1,end,wPosition);
+            }
           });
         
           //else we fill in the rest with spaces, dialogue over
         }else{
   
           this.lines[textPos].anims.play(' ').once('animationcomplete', () => {
-          this.displayHelper(counter+1,textPos+1,end,wPosition);
+            if(this.delayText === true){
+              let temp = this;
+              console.log("this.delayTextTime: ",this.delayTextTime);
+              setTimeout(function () {
+                temp.displayHelper(counter+1,textPos+1,end,wPosition);
+              },this.delayTextTime);
+            }else{
+              this.displayHelper(counter+1,textPos+1,end,wPosition);
+            }
+            
         });
 
         }

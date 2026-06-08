@@ -1759,9 +1759,6 @@ class nectar extends npc{
                     //time out function which leads to deaugh cutscene here.
             },3000);*/
 
-          //tests milo digested cutscene.
-          //this.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
-          
           // testers ends here
           
           
@@ -1823,6 +1820,10 @@ class nectar extends npc{
             this.scene.saveGameFile(playerDataObject);
 
             //this.scene.changeToCutscene("memory1");
+
+            //tests milo digested cutscene.
+            //this.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
+          
           
             
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
@@ -2486,7 +2487,10 @@ class nectar extends npc{
 
               this.spitUpCloths = true;
               this.scene.sceneTextBox.textInterupt = true;
-              this.scene.initSoundEffect('swallowSFX','4',0.02);
+              let temp = this;
+              setTimeout(function(){
+                temp.scene.initSoundEffect('swallowSFX','4',0.02);
+              },400);
               healthEmitter.emit(healthEvent.healthVisibility,false);
               this.anims.play('nectarSpitUpPlayer').once('animationcomplete', () => {
 

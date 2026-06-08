@@ -15,8 +15,8 @@ class nectarBoss extends enemy {
         //randomizes variables
         this.collision = 170;
 
-        //this.enemyHP = 200;
-        this.enemyHP = 50;
+        this.enemyHP = 200;
+        //this.enemyHP = 50;
         this.enemyHPMax = 200;
 
         this.bossEndThresh = 40;
@@ -105,6 +105,10 @@ class nectarBoss extends enemy {
             this.anims.create({key: 'PEJumpLandEndFeather',frames: this.anims.generateFrameNames('nectar5', { start: 27-18, end: 29-18 }),frameRate: 7,repeat: 0});
             
             this.anims.create({key: 'nectarDigestedPlayerGameover',frames: this.anims.generateFrameNames('nectar6', { start: 0, end: 3 }),frameRate: 3,repeat: -1});
+
+            this.anims.create({key: 'PESwipeStartPurple',frames: this.anims.generateFrameNames('nectar6', { start: 19, end: 21 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PESwipeMiddlePurple',frames: this.anims.generateFrameNames('nectar6', { start: 22, end: 23 }),frameRate: 7,repeat: 0});
+            this.anims.create({key: 'PESwipeEndPurple',frames: this.anims.generateFrameNames('nectar6', { start: 24, end: 24 }),frameRate: 7,repeat: 0});
             
             this.anims.create({key: 'nectarFullGameover',frames: this.anims.generateFrameNames('nectar8', { start: 15, end:  18}),frameRate: 7,repeat: -1});
       
@@ -236,7 +240,7 @@ class nectarBoss extends enemy {
             let healthObject = {
                 bossName: "Nectar",
                 bossHealth: this.enemyHP-7,
-                bossMaxHealth: this.enemyHP,
+                bossMaxHealth: this.enemyHPMax,
             };
 
             this.enemyHP-7
@@ -734,7 +738,7 @@ class nectarBoss extends enemy {
 
                     this.scene.initSoundEffect('weaponSFX','medium',0.1);
 
-                    this.anims.play('PESwipeStart').once('animationcomplete', () => {
+                    this.anims.play('PESwipeStartPurple').once('animationcomplete', () => {
 
                         if(this.scene.player2.x > this.x){
                             this.scene.initNectarClawProjectile(this.x+150,this.y+35,0,0,true);
@@ -762,12 +766,12 @@ class nectarBoss extends enemy {
                         this.isPlayingMissedAnims = true;
                         //set value to play missed grabb animation
                         this.setDepth(7);
-                        this.anims.play('PESwipeMiddle').once('animationcomplete', () => {
+                        this.anims.play('PESwipeMiddlePurple').once('animationcomplete', () => {
 
                              this.hitboxActive = false;
                             this.attemptingAttack = false;
                                 
-                            this.anims.play('PESwipeEnd').once('animationcomplete', () => {
+                            this.anims.play('PESwipeEndPurple').once('animationcomplete', () => {
                                 this.setDepth(5);
 
                                 this.isPlayingMissedAnims = false;  

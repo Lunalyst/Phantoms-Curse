@@ -209,7 +209,7 @@ const npcDialogue = {
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "my...... name...... is..............",
+                        "dialogue": "my...name...is..............",
                         "profile":"memoryHappyGlitch",
                         "textvoice":"squeak",
                         "children":[]
@@ -3633,7 +3633,7 @@ const npcDialogue = {
                     },
 
                     "nodefinish2":{
-                        "dialogue": "feel free to say as long as you need.  ",
+                        "dialogue": "feel free to stay as long as you need.  ",
                         "profile":"miloHappy",
                         "textvoice":"trumpet",
                         "children":["nodefinish3"]

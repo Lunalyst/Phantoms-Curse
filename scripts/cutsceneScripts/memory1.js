@@ -48,6 +48,7 @@ class memory1 extends defaultScene {
     this.SceneSprite.anims.create({ key: 'idleGlitch', frames: this.SceneSprite.anims.generateFrameNames('memoryNPC1', { start: 4, end: 7 }), frameRate: 7, repeat: -1 });
     
     this.SceneSprite.anims.play('idle',true);
+    this.SceneSprite.visible = false;
 
     this.sceneSpriteSize = 0.6;
 
@@ -130,19 +131,34 @@ class memory1 extends defaultScene {
 
     },this);
 
-    //calls our function to define the fadein complete function.
-    this.fadeInFunction();
+    let that = this;
 
-    //dramatic fade in.
-    this.cameras.main.fadeIn(1500, 0, 0, 0);
+    setTimeout(function () {
+      //calls our function to define the fadein complete function.
+      that.fadeInFunction();
+
+      //dramatic fade in.
+      that.cameras.main.fadeIn(1500, 0, 0, 0);
+
+      //show our scene sprite
+      that.SceneSprite.visible = true;
+      that.tweens.add({
+        targets: that.SceneSprite,
+        duration: 30000,
+        alpha: { from: 0, to: 1 },
+        ease: 'Sine.InOut',
+        repeat: 0,
+      });
+
+      that.growSceneSprite = false;
+      that.chokeGrowth = false;
+
+    }, 3000);
+
+    
+
+    
   
-  }
-
-
-  update(){
-    /*if(this.digestionTimerValue % 2 !== 0){
-            this.initSoundEffect('stomachSFX','17',0.1);
-    }*/
   }
 
   //function to cause fade in and fade out correctly
@@ -157,6 +173,13 @@ class memory1 extends defaultScene {
       case 7:
         this.displayArrayPosition++;  
         this.SceneSprite.anims.play('idleGlitch',true);
+        that.chokeGrowth = true;
+        //this.tweens.timeScale = 0.5; 
+        // tweens this.physics.world.timeScale = 0.5; 
+        this.time.timeScale = 0.001;
+        this.sceneTextBox.delayText = true;
+        this.sceneTextBox.delayTextTime = 100;
+
         setTimeout(function () {
 
           //call fade out after calling fadeoutfunction to set up the camera object fadeout function
@@ -167,14 +190,14 @@ class memory1 extends defaultScene {
       case 8:
           console.log("memory cutscene ending");
         this.fadeOutFunction();
-        that.cameras.main.fadeOut(1000, 0, 0, 0);
+        that.cameras.main.fadeOut(2000, 0, 0, 0);
         break;
   
       default:
         this.displayArrayPosition++;  
 
-        this.sceneSpriteSize = this.sceneSpriteSize + 0.1;
-        this.SceneSprite.setScale(this.sceneSpriteSize);
+        /*this.sceneSpriteSize = this.sceneSpriteSize + 0.1;
+        this.SceneSprite.setScale(this.sceneSpriteSize);*/
 
           setTimeout(function () {
 
@@ -204,12 +227,28 @@ class memory1 extends defaultScene {
 
         setTimeout(function () {
             that.scene.start("ClinicRoom");
-        }, 1000);
+        }, 4000);
 
         
 
 
     });
+  }
+
+  update(){
+    if(this.growSceneSprite === false && this.chokeGrowth === false){
+      let that = this;
+      this.growSceneSprite = true;
+      setTimeout(function () {
+        
+        that.sceneSpriteSize = that.sceneSpriteSize + 0.01;
+        that.SceneSprite.setScale(that.sceneSpriteSize);
+        that.growSceneSprite = false;
+
+        console.log("that.sceneSpriteSize: ",that.sceneSpriteSize)
+      }, 400);
+    }
+    
   }
 }
 

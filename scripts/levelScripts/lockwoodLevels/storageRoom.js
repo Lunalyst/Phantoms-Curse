@@ -1,14 +1,14 @@
 
 
-class DeaughsRoom extends defaultScene {
+class StorageRoom extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'DeaughsRoom',active: false ,physics:{default:'arcade'}});
+    super({key: 'StorageRoom',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "DeaughsRoom";
+    this.playerLocation = "StorageRoom";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -27,7 +27,7 @@ class DeaughsRoom extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("deaughs_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Deaughs_Room.json");
+      this.load.tilemapTiledJSON("Storage_Room_Prequest_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Storage_Room_Prequest.json");
      
 
       this.defaultPreload();
@@ -49,7 +49,7 @@ class DeaughsRoom extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("deaughs_room_map","Castle_Interior_Tileset","castle_source_map");
+      this.setUpTileSet("Storage_Room_Prequest_map","Castle_Interior_Tileset","castle_source_map");
     
       //creates player object
       this.setUpPlayer();
@@ -57,8 +57,6 @@ class DeaughsRoom extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");
 
-      //creates a group of slime objects
-      this.slimes = this.physics.add.group();
 
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
@@ -88,7 +86,7 @@ class DeaughsRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(774,728+25,487,760,"door2","WaitingRoom",0.75);
+      this.initPortalsWithTransparency(578,728+25,1024,760,"door1","DeaughsRoom",0.75);
 
       //sets up containers
       this.setUpContainers();
@@ -96,9 +94,7 @@ class DeaughsRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initSigns(865,760+16,"question","Fundamentals of Cursed Energy",false);
-
-      this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
+      //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

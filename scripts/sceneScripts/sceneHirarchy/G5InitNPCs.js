@@ -47,6 +47,8 @@ class G5InitNPCs extends G4InitGameObjects {
   initLunalyst(x, y, text) {
     let luna = new lunalyst(this, x, y, text);
 
+    this.lunalyst = luna
+    
     luna.npcId = this.npcId;
     this.npcId++;
 

@@ -15,6 +15,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.inDialogue = false;
       this.animationPlayed = false;
 
+      this.ignoreTriggerRange = false;
+
       this.npcDelay = false;
       
       //sets scale of object
@@ -194,6 +196,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
         // improtant check. if we are at the last node because we couldnt find a child, makesure dialogue catch is set to false so we dont get stuck at the end of a dialogue braNCH
         if(foundNode === false){
+          //console.log("ending dialogue")
           this.dialogueCatch = false;
         }
       }
@@ -227,6 +230,14 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+  }
+
+  forceDialogueEnd(){
+    //resets this npc's values.
+      this.resetVariables();
+    
+      //progress the dialogue so the textbox goes through its finishing procedure.
+      this.scene.sceneTextBox.activateNPCTextBox();
   }
 
   //generic reset function for variables.

@@ -17,6 +17,12 @@ class lunalyst extends npc{
       this.anims.create({key: 'lunalystFemaleHug',frames: this.anims.generateFrameNames('lunalyst', { start: 35, end: 39 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunalystFemaleHugEnd',frames: this.anims.generateFrameNames('lunalyst', { start: 40, end: 42 }),frameRate: 5,repeat: 0});
 
+      this.anims.create({key: 'lunalystSkimpyIdle',frames: this.anims.generateFrameNames('lunalyst', { start: 43, end: 46 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'lunalystSkimpySideIdle',frames: this.anims.generateFrameNames('lunalyst', { start: 47, end: 50 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'lunalystSkimpySideWalk',frames: this.anims.generateFrameNames('lunalyst', { start: 51, end: 60 }),frameRate: 12,repeat: -1});
+      this.anims.create({key: 'lunalystSkimpyBoxSideIdle',frames: this.anims.generateFrameNames('lunalyst', { start: 61, end: 64 }),frameRate: 6,repeat: -1});
+      this.anims.create({key: 'lunalystSkimpyBoxSideWalk',frames: this.anims.generateFrameNames('lunalyst', { start: 65, end: 74 }),frameRate: 14,repeat: -1});
+
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 50,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -49,7 +55,12 @@ class lunalyst extends npc{
           this.anims.play('lunalystChairSleep');
        }else if(this.npcType === 'clearingTheWay'){
           this.anims.play('lunalystIdle');
-       }
+       }else if(this.npcType === 'wolfQuest'){
+          this.anims.play('lunalystSkimpyBoxSideIdle');
+          this.flipX = true;
+          this.triggerNpcFinished = true;
+          this.visible = false;
+        }
 
   }
 
@@ -63,6 +74,8 @@ class lunalyst extends npc{
       this.devRoom2();
     }else if(this.npcType === 'clearingTheWay'){
       this.ClearingTheWay();
+    }else if(this.npcType === 'wolfQuest'){
+      this.wolfQuest();
     }else{
       this.default();
     }
@@ -582,6 +595,10 @@ class lunalyst extends npc{
     //progress the dialogue by one stage so the button moves dialogue forward.
     this.scene.sceneTextBox.progressDialogue();
            
+  }
+
+  wolfQuest(){
+
   }
 
   

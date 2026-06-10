@@ -3665,7 +3665,208 @@ const npcDialogue = {
 
 
 
+                },
+                "labEncounter1":{
+                    "node1":{
+                        "dialogue": "Oh hello dear.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Is there something I can help you with?",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk1","nodeSupplies1","nodeStoppingBy1"]
+                    },
+
+                    "nodeAsk1":{
+                        "dialogue": "me? Well I guess I never gave you a proper introduction did I? ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk2"]
+                    },
+                    "nodeAsk2":{
+                        "dialogue": "My name is wolf and I ended up on this island like many others.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk3"]
+                    },
+                    "nodeAsk3":{
+                        "dialogue": "Washing ashore after the ship I was on got recked by the perpetual storm. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk4"]
+                    },
+                    "nodeAsk4":{
+                        "dialogue": "It didn\'t take long for me to be transformed. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk5"]
+                    },
+                    "nodeAsk5":{
+                        "dialogue": "I was enamored by the creatures of this island. You see, I always wanted to have fur and a tail. ",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk6"]
+                    },
+                    "nodeAsk6":{
+                        "dialogue": "Thanks to the curse my dream came true, though it wasn’t without its risks.",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk7"]
+                    },
+                    "nodeAsk7":{
+                        "dialogue": "But it\'s also thanks to the curse that I\'m able to do so much more than just look pretty. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk8"]
+                    },
+                    "nodeAsk8":{
+                        "dialogue": "I have cultivated an ability to use cursed energy to heal others which allowed me to save many people over the years.",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk9"]
+                    },
+                    "nodeAsk9":{
+                        "dialogue": "For now my focus is on researching the curse and understanding it.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeconverge1"]
+                    },
+
+                    "nodeSupplies1":{
+                        "dialogue": "well normally I would. I do sell some medicine on the side. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSupplies2"]
+                    },
+                    "nodeSupplies2":{
+                        "dialogue": "but lately I have been low on supplies. ",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSupplies3"]
+                    },
+                    "nodeSupplies3":{
+                        "dialogue": "One of my good friends should be stopping by soon with a shipment I need.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeconverge1"]
+                    },
+
+
+                    "nodeStoppingBy1":{
+                        "dialogue": "oh.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStoppingBy2"]
+                    },
+                    "nodeStoppingBy2":{
+                        "dialogue": "Well it\'s nice you stopped in.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeStoppingBy3"]
+                    },
+                    "nodeStoppingBy3":{
+                        "dialogue": "glad to see your doing alright.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeconverge1"]
+                    },
+
+                    "nodeconverge1":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+
+                    "node3":{
+                        "dialogue": "hey wolf! ",
+                        "profile":"lunaHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "I brought you the supplies you asked for.  ",
+                        "profile":"lunaNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "oh? perfect timing.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "You should put those in the storage room and then wait there.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "I\'ll meet you over there in just a moment. ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": " I need your help with something else\'s in the storage room. ",
+                        "profile":"wolfWink",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "sounds good. I\'m just happy to help out. ",
+                        "profile":"lunaHappy",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "Also I\'m wearing my more revealing maid outfit just like you asked for.",
+                        "profile":"lunaFingerTouch",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "I see that. you look adorable dear.",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "It\'s going to be very important for the little experiment I need your help with.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "I have to attend to my lovely bat friend.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "See you in a little while.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
                 }
+                    
             }
         },
         "gameover":{

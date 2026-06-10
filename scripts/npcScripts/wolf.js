@@ -16,6 +16,7 @@ class wolf extends npc{
       this.anims.create({ key: 'sideHeal', frames: this.anims.generateFrameNames('deaugh', { start: 8, end: 11 }), frameRate: 4, repeat: -1 });
       this.anims.create({ key: 'finishHeal', frames: this.anims.generateFrameNames('deaugh', { start: 12, end: 14 }), frameRate: 4, repeat: 0 });
       this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 9, repeat: -1 });
+      this.anims.create({ key: 'fastSideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 18, repeat: -1 });
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -41,6 +42,8 @@ class wolf extends npc{
        this.formattingText = false;
 
        this.isPlayerControlled = false;
+
+       this.playerInPosition = false;
 
        //this.body.setGravityY(600); 
 
@@ -137,6 +140,8 @@ class wolf extends npc{
         this.npcTriggerRangeY = 2000;
 
 
+       }else if(this.npcType === 'labEncounter1'){
+        this.advancedIdleAnimation = true;
        }
 
   }
@@ -149,11 +154,64 @@ class wolf extends npc{
       this.miloSavedThePlayer();
     }else if(this.npcType === 'riddleAnswered'){
       this.riddleAnswered();
+    }else if(this.npcType === 'labEncounter1'){
+      this.labEncounter1();
     }else{
       
       this.default();
     }
   }
+
+  activateNpc(){
+
+    //if the player meets activation requiements for the sign display the text box
+    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
+
+      //console.log("this.currentDictNode: ",this.currentDictNode);
+
+      //logic to start dialogue
+      this.dialogueLogicStart();
+
+      //calls function overwritten children class to handle npc logic.
+      console.log("flag logic function acxtivated!")
+      this.flagLogic();
+        
+      //ending dialoguce logic.
+      this.dialogueLogicEnd();
+          
+      //otherwise we want to display the key prompts 
+    }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
+
+      this.npcKeyPrompts.visible = true;
+      this.npcKeyPrompts.playWKey();
+      this.promptCooldown = true;        
+  
+    }
+        
+    // resets variables.
+    if(this.safeToSpeak === false){
+      this.npcKeyPrompts.visible = false;
+      this.promptCooldown = false;
+
+    }
+
+    if(this.advancedIdleAnimation === true){
+      if(this.npcType === "labEncounter1"){
+        if(this.scene.player1.x < this.x - 39){
+          this.anims.play('sideIdle',true);
+          this.flipX = true;
+        }else if(this.scene.player1.x > this.x + 39){
+          this.anims.play('sideIdle',true);
+          this.flipX = false;
+        }else{
+          this.anims.play('idle',true);
+        }
+      }
+    }
+
+
+  }
+
 
   restoreHp(){
 
@@ -201,15 +259,18 @@ class wolf extends npc{
   }
 
   MoveNPC(){
+    console.log("activating move function")
     if(this.npcType === 'miloSavedThePlayer' || this.npcType === 'riddleAnswered'){
       this.MoveNPCMiloSavedThePlayer();
+    }else if(this.npcType === 'labEncounter1'){
+      this.MoveLabEncounter1();
     }
   }
 
   MoveNPCMiloSavedThePlayer(){
     //console.log("this.moveWolf: ",this.moveWolf);
     if(this.moveWolf === false){
-       if(this.x > 425){
+      if(this.x > 425){
 
         this.setVelocityX(-80);
         this.anims.play('sideWalk',true);
@@ -246,6 +307,99 @@ class wolf extends npc{
         this.scene.sceneTextBox.textInterupt = false;
         this.scene.CutscenePhysics = false;
         this.scene.cutSceneActive = false;
+
+      }
+    }
+  }
+
+  MoveLabEncounter1(){
+    console.log("activating lab walking function")
+     if(this.moveLunaToPosition1 === false){
+      
+       if(this.scene.lunalyst.x > 550){
+        this.scene.lunalyst.y = 763;
+        this.scene.lunalyst.visible = true;
+        this.scene.lunalyst.setVelocityX(-120);
+        this.scene.lunalyst.anims.play('lunalystSkimpyBoxSideWalk',true);
+        this.scene.lunalyst.setDepth(9);
+        this.scene.lunalyst.flipX = true;
+        this.npcKeyPrompts.visible = false;
+      }else{
+
+        this.npcKeyPrompts.visible = true;
+        this.scene.lunalyst.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+
+        this.moveLunaToPosition1 = true;
+
+        this.scene.lunalyst.anims.play('lunalystSkimpyBoxSideIdle',true);
+
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("node3");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+
+        //have the player face the correct way
+
+        if(this.scene.player1.x > this.x){
+          this.scene.player1.flipXcontainer(false);
+        }
+
+      }
+    }else if(this.moveLunaToPosition2 === false){
+
+      if(this.scene.lunalyst.x < 863){
+        this.scene.lunalyst.setVelocityX(120);
+        this.scene.lunalyst.anims.play('lunalystSkimpyBoxSideWalk',true);
+        this.scene.lunalyst.setDepth(9);
+        this.scene.lunalyst.flipX = false;
+        this.npcKeyPrompts.visible = false;
+      }else{
+        this.npcKeyPrompts.visible = true;
+        this.scene.lunalyst.visible = false;
+        this.scene.lunalyst.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+
+        this.moveLunaToPosition2 = true;
+
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("node14");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+
+        if(this.scene.player1.x > this.x){
+          this.scene.player1.flipXcontainer(true);
+        }
+
+      }
+    }else if(this.moveWolfOut === false){
+      if(this.x < 821){
+
+        this.ignoreTriggerRange = true;
+        this.setVelocityX(160);
+        this.anims.play('fastSideWalk',true);
+        this.npcKeyPrompts.visible = false;
+
+        this.setDepth(10);
+      }else{
+
+        this.npcKeyPrompts.visible = true;
+        this.visible = false;
+        this.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+        this.visible = false;
+        this.triggerNpcFinished = true;
+        this.moveWolfOut = true;
+        console.log("this.currentDictNode",this.currentDictNode)
+
+        this.forceDialogueEnd();
 
       }
     }
@@ -909,6 +1063,207 @@ class wolf extends npc{
       }
       
       
+    }
+  }
+
+  labEncounter1(){
+    this.nodeHandler("wolf","Behavior1","labEncounter1");
+
+    if(this.currentDictNode !== null){
+
+      //orient the player so it looks like they are facing vivian.
+      if(this.playerInPosition === false){
+        this.playerInPosition = true;
+        this.advancedIdleAnimation = false;
+
+        if(this.scene.player1.x < this.x){
+
+          this.scene.player1.flipXcontainer(false);
+          this.anims.play('sideIdle',true);
+          this.flipX = true;
+        }else{
+
+          this.scene.player1.flipXcontainer(true);
+          this.anims.play('sideIdle',true);
+          this.flipX = false;
+        }
+      }
+
+      if(this.scene.player1.x < 461){
+          this.scene.player1.x = 461-40;
+          this.scene.player1.mainHitbox.x = 461-40;
+        }else{
+          this.scene.player1.x = 461+40;
+          this.scene.player1.mainHitbox.x = 461+40;
+        }
+        
+        
+      if(this.currentDictNode.nodeName === "node2" && this.inDialogue === false){
+            this.inDialogue = true;
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"who are you?",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              this.progressNode("nodeAsk1",true);
+          
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+              this.scene.npcChoice3.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+
+            //dialogue option for no.
+            this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"do you have an supplies?",true);
+            this.scene.npcChoice2.textWob();
+            this.scene.npcChoice2.setScrollFactor(0);
+            this.scene.npcChoice2.addHitbox();
+            this.scene.npcChoice2.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice2.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice2.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice2.on('pointerout',function(pointer){
+                this.scene.npcChoice2.clearTextTint();
+            },this);
+
+            this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node10
+              this.progressNode("nodeSupplies1");
+
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+              this.scene.npcChoice3.destroy();
+
+              this.inDialogue = false;
+
+            },this);
+
+            this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-220,'charBubble',"just stopping by.",true);
+            this.scene.npcChoice3.textWob();
+            this.scene.npcChoice3.setScrollFactor(0);
+            this.scene.npcChoice3.addHitbox();
+            this.scene.npcChoice3.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice3.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice3.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice3.on('pointerout',function(pointer){
+                this.scene.npcChoice3.clearTextTint();
+            },this);
+
+            this.scene.npcChoice3.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node10
+              this.progressNode("nodeStoppingBy1");
+
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+              this.scene.npcChoice3.destroy();
+
+              this.inDialogue = false;
+
+            },this);
+            
+            //call scene variable to create interupt.
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //let the npc know they are in dialogue
+            this.inDialogue = true;
+            
+      }else if(this.currentDictNode.nodeName === "nodeconverge1" && this.inDialogue === false){
+        this.inDialogue = true;
+        this.moveFunctionActive = true;
+        this.moveLunaToPosition1 = false;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+      }else if(this.currentDictNode.nodeName === "node5"|| this.currentDictNode.nodeName === "node11"){
+        
+        if(this.scene.player1.x > this.x){
+          this.scene.player1.flipXcontainer(true);
+        }
+      }else if(this.currentDictNode.nodeName === "node9"){
+        
+        if(this.scene.player1.x > this.x){
+          this.scene.player1.flipXcontainer(false);
+        }
+      }else if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
+
+        if(this.scene.player1.x > this.x){
+          this.scene.player1.flipXcontainer(false);
+        }
+
+        this.inDialogue = true;
+        this.moveFunctionActive = true;
+        this.moveLunaToPosition2 = false;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+      }else if(this.currentDictNode.nodeName === "node16" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.moveFunctionActive = true;
+        this.moveWolfOut = false;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;
+        
+      }
     }
   }
 

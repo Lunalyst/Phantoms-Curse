@@ -138,7 +138,7 @@ class milo extends npc{
     if(this.currentDictNode !== null){
 
      if(this.isPlayerControlled === false){
-          if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
+        if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
             this.inDialogue = true;
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = true;

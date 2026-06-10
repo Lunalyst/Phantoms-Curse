@@ -28,7 +28,12 @@ class DeaughsRoom extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
       this.load.tilemapTiledJSON("deaughs_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Deaughs_Room.json");
-     
+      
+      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+
+      this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      
 
       this.defaultPreload();
 
@@ -99,6 +104,22 @@ class DeaughsRoom extends defaultScene {
       this.initSigns(865,760+16,"question","Fundamentals of Cursed Energy",false);
 
       this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
+
+      this.initSavePoints(953,760-10);
+
+      let lab1 = {
+        flagToFind: "lab1Complete",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab1);
+
+       if(lab1.foundFlag === true){
+
+       }else{
+        this.initWolf(461, 728+16, "labEncounter1");
+        this.initLunalyst(773,600,'wolfQuest');
+       }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

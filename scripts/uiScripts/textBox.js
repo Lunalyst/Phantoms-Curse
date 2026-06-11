@@ -440,6 +440,8 @@ class textBox extends Phaser.GameObjects.Container{
               this.scene.initSoundEffect('buttonSFX','wah',0.03);
             }else if(this.soundType === "squeak"){
               this.scene.initSoundEffect('buttonSFX','squeak',0.03);
+            }else if(this.soundType === "batChirp"){
+              this.scene.initSoundEffect('buttonSFX','batChirp',0.2);
             }
 
           }

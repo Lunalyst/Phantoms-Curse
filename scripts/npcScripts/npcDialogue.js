@@ -1328,27 +1328,27 @@ const npcDialogue = {
                     },"node2":{
                         "dialogue": "What the..... How did you get in here? ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "You should probably tell me how you got in here.",
                         "profile":"lunaKO",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "This place should be hard to reach.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Oh, but don't worry, I'm not opposed to visitors. ",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "Anyway I have to get back to my research. The exit's by the heater.",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
                 },
@@ -1357,42 +1357,42 @@ const npcDialogue = {
                     "node1":{
                         "dialogue": "Oh? Still sticking around?",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "You're quite the cute boy. You should be careful.",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "The cursed love eating and transforming guys like you.",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "I was human once before I washed up here. ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "One of the bats caught me... ",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "But I got lucky, and didn't lose my mind.",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "My appearance quite different from theirs.",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "I wonder why that is.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
                 },
@@ -1401,42 +1401,42 @@ const npcDialogue = {
                      "node1":{
                         "dialogue": "Oh? still sticking around?",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "You're quite the cute girl. You should be careful.",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "The cursed love eating and transforming girls like you.",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "I was human once before I washed up here. ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "One of the bats caught me... ",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "But I got lucky, and didnt lose my mind.",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "My appearance quite different from theirs.",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "I wonder why that is.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
                 },
@@ -1449,27 +1449,27 @@ const npcDialogue = {
                     },"node2":{
                         "dialogue": "What the... Oh no. You're back...",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "You should probably tell me how you got in here, if something weird happened.",
                         "profile":"lunaKO",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "This place should be hard to reach, but it might no longer be.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "If you got in here safely however, its probably fine. ",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "Anyway, Make your self comfortable if you wish. Exit's by the heater. ",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
                 },
@@ -1477,32 +1477,32 @@ const npcDialogue = {
                     "node1":{
                         "dialogue": "Oh? Sticking Around?  ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "Make yourself comfortable. ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "I have been trying to clear a path to Lockwood in my spare time.",
                         "profile":"lunaKO",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "It's a nice town in the trees. Plenty of folks like me reside there.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Progress is slow however, due to the cursed. Even though I'm cursed, they still try to eat me. ",
                         "profile":"lunaAngryEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "It's almost like they know I'm not one of them.",
                         "profile":"lunaCry",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     }
                 },
@@ -1521,32 +1521,32 @@ const npcDialogue = {
                     "node1":{
                         "dialogue": "Oh, hello Human!",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "My name is Lunalyst, and I'm sure you can tell I'm not quite human anymore.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },"node3":{
                         "dialogue": "However I'm not gona try and eat or fornicate with you, promise.",
                         "profile":"lunaKO",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "Just a humble maid helping those in need.",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Unfortinately, the gate to lockwood is closed.",
                         "profile":"lunaKO",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "maybe some day soon it will open.",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
                 },
@@ -1554,82 +1554,82 @@ const npcDialogue = {
                     "node1":{
                         "dialogue": "Hello again. ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "I hope your doing well!",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "How can I assist you?  ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5","node10","node12","node13"]
                     },"node5":{
                         "dialogue": "Oh? Of course! ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "Come here. Everythings going to be alright. ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "",
                         "profile":"lunaHearts",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node9"]
                     },"node9":{
                         "dialogue": "Stay safe out there.",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },"node10":{
                         "dialogue": "Supplies? Sure we can do some trading.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node11"]
                     },"node11":{
                         "dialogue": "Here's what I got.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },"node12":{
                         "dialogue": "Goodbye.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     },"node13":{
                         "dialogue": "The door to Lockwood is currently close and I am not sure where everyone is. ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node14"]
                     },"node14":{
                         "dialogue": "I just get this feeling, that this is going to be the beginning of something special.",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node15"]
                     },"node15":{
                         "dialogue": "I get the impression that your going to get yourself in danger. ",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node16"]
                     },"node16":{
                         "dialogue": "and when all hope seems lost... ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node17"]
                     },"node17":{
                         "dialogue": "someone will be there for you, in your time of need. ",
                         "profile":"lunaStarEyes",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":[]
                     }
                 }
@@ -3777,20 +3777,20 @@ const npcDialogue = {
                     "nodeconverge1":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node3"]
                     },
 
                     "node3":{
                         "dialogue": "hey wolf! ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node4"]
                     },
                     "node4":{
                         "dialogue": "I brought you the supplies you asked for.  ",
                         "profile":"lunaNeutral",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node5"]
                     },
                     "node5":{
@@ -3820,13 +3820,13 @@ const npcDialogue = {
                     "node9":{
                         "dialogue": "sounds good. I\'m just happy to help out. ",
                         "profile":"lunaHappy",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node10"]
                     },
                     "node10":{
                         "dialogue": "Also I\'m wearing my more revealing maid outfit just like you asked for.",
                         "profile":"lunaFingerTouch",
-                        "textvoice":"lightVoice",
+                        "textvoice":"batChirp",
                         "children":["node11"]
                     },
                     "node11":{

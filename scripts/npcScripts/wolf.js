@@ -316,7 +316,15 @@ class wolf extends npc{
     console.log("activating lab walking function")
      if(this.moveLunaToPosition1 === false){
       
-       if(this.scene.lunalyst.x > 550){
+       if(this.scene.lunalyst.x > 560 && this.playerIsOnRight === true){
+        this.scene.lunalyst.y = 763;
+        this.scene.lunalyst.visible = true;
+        this.scene.lunalyst.setVelocityX(-120);
+        this.scene.lunalyst.anims.play('lunalystSkimpyBoxSideWalk',true);
+        this.scene.lunalyst.setDepth(9);
+        this.scene.lunalyst.flipX = true;
+        this.npcKeyPrompts.visible = false;
+      }else if(this.scene.lunalyst.x > 520 && this.playerIsOnLeft === true){
         this.scene.lunalyst.y = 763;
         this.scene.lunalyst.visible = true;
         this.scene.lunalyst.setVelocityX(-120);
@@ -371,16 +379,21 @@ class wolf extends npc{
 
         if(this.scene.player1.x > this.x){
           this.scene.player1.flipXcontainer(true);
+        }else{
+          this.flipX = true;
         }
 
       }
     }else if(this.moveWolfOut === false){
+
       if(this.x < 821){
 
         this.ignoreTriggerRange = true;
         this.setVelocityX(160);
         this.anims.play('fastSideWalk',true);
         this.npcKeyPrompts.visible = false;
+
+        this.flipX = false;
 
         this.setDepth(10);
       }else{
@@ -402,6 +415,12 @@ class wolf extends npc{
         this.forceDialogueEnd();
 
       }
+
+       if(this.scene.player1.x < this.x){
+        
+        this.scene.player1.flipXcontainer(false);
+
+        }
     }
   }
 
@@ -1078,11 +1097,12 @@ class wolf extends npc{
 
         if(this.scene.player1.x < this.x){
 
+          this.playerIsOnLeft = true;
           this.scene.player1.flipXcontainer(false);
           this.anims.play('sideIdle',true);
           this.flipX = true;
         }else{
-
+          this.playerIsOnRight = true;
           this.scene.player1.flipXcontainer(true);
           this.anims.play('sideIdle',true);
           this.flipX = false;
@@ -1232,6 +1252,8 @@ class wolf extends npc{
         
         if(this.scene.player1.x > this.x){
           this.scene.player1.flipXcontainer(true);
+        }else{
+          this.flipX = false;
         }
       }else if(this.currentDictNode.nodeName === "node9"){
         

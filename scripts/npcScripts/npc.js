@@ -235,6 +235,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
   forceDialogueEnd(){
     //resets this npc's values.
       this.resetVariables();
+
+      this.scene.sceneTextBox.setNPCRef(this);
     
       //progress the dialogue so the textbox goes through its finishing procedure.
       this.scene.sceneTextBox.activateNPCTextBox();

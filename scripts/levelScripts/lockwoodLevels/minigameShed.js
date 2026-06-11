@@ -114,7 +114,7 @@ class minigameShed extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(1005,600-8,2753,824,"door1","PondForest",0.75);
+      this.initPortalsWithTransparency(1005,600-8,2753,824,"door2","PondForest",0.75);
 
       //sets up containers
       this.setUpContainers();

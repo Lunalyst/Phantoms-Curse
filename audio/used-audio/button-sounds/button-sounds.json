@@ -112,6 +112,10 @@
             "start": 42.31,
             "end": 42.77,
             "loop": false
+        },"batChirp":{
+            "start": 42.77,
+            "end": 43.34,
+            "loop": false
         }
         
     }

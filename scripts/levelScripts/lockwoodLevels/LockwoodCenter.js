@@ -49,6 +49,11 @@ class LockwoodCenter extends defaultScene {
 
       this.load.spritesheet('Lockwood_Brick_Wall', 'assets/parrallax/Lockwood_Brick_Wall.png',{frameWidth: 960 , frameHeight: 960});
 
+
+      this.load.spritesheet("chiaki" , "assets/npcs/chiaki.png" , {frameWidth: 393 , frameHeight: 393 });
+      
+      this.load.spritesheet("Siracle" , "assets/npcs/Siracle.png" , {frameWidth: 393 , frameHeight: 483 });
+
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -138,7 +143,16 @@ class LockwoodCenter extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-     
+
+      this.chiaki = this.add.sprite(1787, 728-17, "chiaki");
+      this.chiaki.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('chiaki', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.chiaki.anims.play("idle", true);
+      this.chiaki.setScale(1/3);
+
+      this.Siracle = this.add.sprite(1075, 728-21, "Siracle");
+      this.Siracle.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('Siracle', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      this.Siracle.anims.play("idle", true);
+      this.Siracle.setScale(1/3);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

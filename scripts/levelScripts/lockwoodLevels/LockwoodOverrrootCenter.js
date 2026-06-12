@@ -50,6 +50,9 @@ class LockwoodOverrootCenter extends defaultScene {
 
       this.load.spritesheet("olivia" , "assets/npcs/olivia.png" , {frameWidth: 249 , frameHeight: 279 });
 
+      this.load.spritesheet("Fursagi" , "assets/npcs/Fursagi.png" , {frameWidth: 393 , frameHeight: 393 });
+      
+
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
@@ -154,6 +157,11 @@ class LockwoodOverrootCenter extends defaultScene {
         this.olivia.anims.play("idle", true);
         this.olivia.setScale(1/3);
         this.olivia.setDepth(2);
+
+        this.fursagi = this.add.sprite(693, 660-6, "Fursagi");
+        this.fursagi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('Fursagi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+        this.fursagi.anims.play("idle", true);
+        this.fursagi.setScale(1/3);
 
         this.backroundXOrigin = 2360;
         this.backroundYOrigin = 500;

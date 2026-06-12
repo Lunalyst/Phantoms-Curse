@@ -414,6 +414,27 @@ class wolf extends npc{
 
         this.forceDialogueEnd();
 
+        //spawn wolfs cloths on the ground.
+        this.headBand = this.scene.add.sprite(1050,760+37, "wolfProps");
+        this.headBand.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.headBand.anims.play("idle", true);
+        this.headBand.setScale(1/3);
+        this.headBand.setDepth(1);
+
+        this.LabCoat = this.scene.add.sprite(985,760+37, "wolfProps");
+        this.LabCoat.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.LabCoat.anims.play("idle", true);
+        this.LabCoat.setScale(1/3);
+        this.LabCoat.setDepth(1);
+
+        this.pants = this.scene.add.sprite(940,760+37, "wolfProps");
+        this.pants.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+        this.pants.anims.play("idle", true);
+        this.pants.setScale(1/3);
+        this.pants.setDepth(1);
+
+
+
       }
 
        if(this.scene.player1.x < this.x){

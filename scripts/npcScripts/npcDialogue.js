@@ -223,7 +223,7 @@ const npcDialogue = {
             "beach":{
                 "movement":{
                     "node1":{
-                        "dialogue": "Welcome to the island beyond the storm.",
+                        "dialogue": "Welcome to Kuko Nui, the island beyond the storm.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["nodeA"]
@@ -325,7 +325,7 @@ const npcDialogue = {
                 ,"saveStones":{
 
                     "node1":{
-                        "dialogue": "Use these shrines to save your progress. You will find them scattered all over the island.",
+                        "dialogue": "Use these shrines to save your progress. You will find them scattered all over Kuko Nui.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node2"]
@@ -364,7 +364,7 @@ const npcDialogue = {
                 ,"combat":{
 
                     "node1":{
-                        "dialogue": "Be wary of monsters on this island. They are dangerous, and will try to curse or eat you.",
+                        "dialogue": "Be wary of monsters on Kuko Nui. They are dangerous, and will try to curse or eat you.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":["node2"]
@@ -531,7 +531,7 @@ const npcDialogue = {
                 },
                 "ominousOmen3":{
                     "node1":{
-                        "dialogue": "The heart of this island hungers for you. Devouring Memories, and sweet sentiments unfilled. Spurned on by an intense yearning, for something it cannot yet perceive. When it reaches out its hand, will you take it?",
+                        "dialogue": "The heart of Kuko Nui hungers for you. Devouring Memories, and sweet sentiments unfilled. Spurned on by an intense yearning, for something it cannot yet perceive. When it reaches out its hand, will you take it?",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -689,12 +689,12 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
-                        "dialogue": "The curses which afflicts almost everyone on this island are created from cursed energy. ",
+                        "dialogue": "The curses which afflicts almost everyone on Kuko Nui where created from cursed energy. ",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
-                        "dialogue": "It\'s seeped it way through to this island in many forms, being spread through animals and flora.",
+                        "dialogue": "It\'s imbedded itself through out Kuko Nui by spreading through animals and flora.",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":["node4"]
@@ -758,7 +758,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
-                        "dialogue": "The cursed plague currently ravages the island. ",
+                        "dialogue": "The cursed plague currently ravages Kuko Nui. ",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":["node3"] 
@@ -3485,13 +3485,13 @@ const npcDialogue = {
 
                     //why do you all look like animals?)
                     "nodeAnimals1":{
-                        "dialogue": "Well on this island, there is a great curse. Think of it like a virus with different strains. ",
+                        "dialogue": "Well on this island known as Kuko Nui, there is a great curse. Think of it like a virus with different strains. ",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeAnimals2"]
                     },
                     "nodeAnimals2":{
-                        "dialogue": "Everyone on this island use to be human, and many of us washed up here on the island after getting too close.",
+                        "dialogue": "Everyone on this island use to be human, and many of us washed up here on Kuko Nui after getting too close.",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeAnimals3"]
@@ -3527,7 +3527,7 @@ const npcDialogue = {
                         "children":["nodeAnimals8"]
                     },
                     "nodeAnimals8":{
-                        "dialogue": "Regardless we are quite lucky, as the feral cursed on the island will chase uninfected individuals relentlessly. ",
+                        "dialogue": "Regardless we are quite lucky, as the feral cursed on Kuko Nui will chase uninfected individuals relentlessly. ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodeConverge2"]
@@ -3535,7 +3535,7 @@ const npcDialogue = {
 
                     //What with the storm surrounding the island?)
                     "nodeStorm1":{
-                        "dialogue": "There is a perpetual storm surrounding this island that traps us here.  ",
+                        "dialogue": "There is a perpetual storm surrounding Kuko Nui that traps us here.  ",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeStorm2"]
@@ -3591,7 +3591,7 @@ const npcDialogue = {
                         "children":["nodeStorm2"]
                     },
                     "nodeLockwood3":{
-                        "dialogue": "If you\'re looking to get away from the dangers if the island, then this is one of the best places to do so.",
+                        "dialogue": "If you\'re looking to get away from the dangers of the island, then this is one of the best places to do so.",
                         "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":["nodeConverge2"]
@@ -3687,7 +3687,7 @@ const npcDialogue = {
                         "children":["nodeAsk2"]
                     },
                     "nodeAsk2":{
-                        "dialogue": "My name is wolf and I ended up on this island like many others.",
+                        "dialogue": "My name is wolf and I ended up on Kuko Nui like many others.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodeAsk3"]
@@ -3865,6 +3865,240 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
                     },
+                },
+                //smart idea. at the end of the door part of the quest, add flag, then turn wolf into the door npc to trigger the next part of the quest.
+                "storageRoomDoor":{
+                    "node1":{
+                        "dialogue": "wolf\’s cloths are scattered across the floor...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "the door is locked from the inside.",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Ease drop on them?",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node4","node6"]
+                    },
+                    "node4":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "best to give them their privacy...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                    "node6":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "you listen closely to the door...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                },
+
+                "wolfXLunalyst":{
+                    "node1":{
+                        "dialogue": "all right I set the supplies over there. ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Is that where you would like them?",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "yes lunalyst that\'s perfect.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Your such a good boy.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "i am? ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node4":{
+                        "dialogue": "yes you are.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "yay!",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "how can I help you next? ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "what the experiment i\'m going to be helping you with? ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node4":{
+                        "dialogue": "well about that. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "There isn\'t an experiment I wanted to do. I just wanted an excuse to get you alone. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "You wanted me alone? But why? ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node4":{
+                        "dialogue": "you have been helping me so much lately, and I wanted to reward you.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "You\'re always so helpful and sweet.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "awww you\'re too kind. I just like feeling useful is all.",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node4":{
+                        "dialogue": "I know, and you do a great job.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "Lately I have been, wanting to just hold you.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "Can I hold you?",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "sure, I wouldn\'t mind spending some time in your arms.",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "your so comfy and warm....*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "I ummmmm......*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "ahhhh! ",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "im sorry...",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node4":{
+                        "dialogue": "awww your so cute down there.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node4":{
+                        "dialogue": "Perhaps I could help you with that if you wish? ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "ahhhh....",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "yes Please!",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node2":{
+                        "dialogue": "hmmmm.....",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
                 }
                     
             }
@@ -3882,7 +4116,7 @@ const npcDialogue = {
                 },
                 "tiger_female_vore":{
                     "node1":{
-                        "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. The good news is, the tiger enjoyed you very much. In fact, she thought you were grrrrrrrrrreat!",
+                        "dialogue": "Kuko Nui is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. The good news is, the tiger enjoyed you very much. In fact, she thought you were grrrrrrrrrreat!",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]
@@ -3890,7 +4124,7 @@ const npcDialogue = {
                 },
                 "tiger_male_vore":{
                     "node1":{
-                        "dialogue": "This island is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. As your body melted, you could feel yourself being absorbed into the tiger's body. The rest of your existence will be spent as padding on the tiger. At least on the bright side, when the tiger pleaures himself, you feel it too.",
+                        "dialogue": "Kuko Nui is inhabited by quite a few dangerous predators, so perhaps some caution would have helped you survive. For you, however, there will never be a second chance. The tiger ambushed you and quickly devoured you with all the skill youd expect from such a predator. The tiger's powerful stomach quickly churned you into a nutritious stew like the weak meal you were. As your body melted, you could feel yourself being absorbed into the tiger's body. The rest of your existence will be spent as padding on the tiger. At least on the bright side, when the tiger pleaures himself, you feel it too.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

@@ -88,10 +88,10 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'wolfConcentrate',frames: this.anims.generateFrameNames('wolfEmots', { start: 28 , end: 31 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfHeartEyes',frames: this.anims.generateFrameNames('wolfEmots', { start: 33 , end: 37 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfSmirk1',frames: this.anims.generateFrameNames('wolfEmots', { start: 39 , end: 42 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'wolfWink',frames: this.anims.generateFrameNames('wolfEmots', { start: 44 , end: 48 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'wolfMad',frames: this.anims.generateFrameNames('wolfEmots', { start: 50 , end:  53}),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'wolfSmirk2',frames: this.anims.generateFrameNames('wolfEmots', { start: 55 , end:  59}),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'wolfKiss',frames: this.anims.generateFrameNames('wolfEmots', { start: 61 , end:  65}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfWink',frames: this.anims.generateFrameNames('wolfEmots', { start: 44 , end: 50 }),frameRate: 4,repeat: -1});
+      this.anims.create({key: 'wolfMad',frames: this.anims.generateFrameNames('wolfEmots', { start: 52 , end:  53+2}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfSmirk2',frames: this.anims.generateFrameNames('wolfEmots', { start: 55+2 , end:  59+2}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfKiss',frames: this.anims.generateFrameNames('wolfEmots', { start: 61+2 , end:  65+2}),frameRate: 5,repeat: -1});
     }
 
     setUpRegiEmots(){

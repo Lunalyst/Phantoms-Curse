@@ -30,10 +30,12 @@ class DeaughsRoom extends defaultScene {
       this.load.tilemapTiledJSON("deaughs_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Deaughs_Room.json");
       
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-
+      
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
       
+      this.load.spritesheet("wolfProps" , "assets/gameObjects/wolfProps.png" , {frameWidth: 96 , frameHeight: 96 });
+
 
       this.defaultPreload();
 
@@ -105,7 +107,7 @@ class DeaughsRoom extends defaultScene {
 
       this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
 
-      this.initSavePoints(953,760-10);
+      this.initSavePoints(669,760-10);
 
       let lab1 = {
         flagToFind: "lab1Complete",

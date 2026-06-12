@@ -3935,169 +3935,211 @@ const npcDialogue = {
                         "dialogue": "Your such a good boy.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node5"]
                     },
-                    "node2":{
+                    "node5":{
                         "dialogue": "i am? ",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node6"]
                     },
-                    "node4":{
+                    "node6":{
                         "dialogue": "yes you are.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node7"]
                     },
-                    "node2":{
+                    "node7":{
                         "dialogue": "yay!",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node8"]
                     },
-                    "node2":{
+                    "node8":{
                         "dialogue": "how can I help you next? ",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node9"]
                     },
-                    "node2":{
+                    "node9":{
                         "dialogue": "what the experiment i\'m going to be helping you with? ",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node10"]
                     },
-                    "node4":{
+                    "node10":{
                         "dialogue": "well about that. ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node11"]
                     },
-                    "node4":{
+                    "node11":{
                         "dialogue": "There isn\'t an experiment I wanted to do. I just wanted an excuse to get you alone. ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node12"]
                     },
-                    "node2":{
+                    "node12":{
                         "dialogue": "You wanted me alone? But why? ",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node13"]
                     },
-                    "node4":{
+                    "node13":{
                         "dialogue": "you have been helping me so much lately, and I wanted to reward you.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node14"]
                     },
-                    "node4":{
+                    "node14":{
                         "dialogue": "You\'re always so helpful and sweet.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node15"]
                     },
-                    "node2":{
+                    "node15":{
                         "dialogue": "awww you\'re too kind. I just like feeling useful is all.",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node16"]
                     },
-                    "node4":{
+                    "node16":{
                         "dialogue": "I know, and you do a great job.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node17"]
                     },
-                    "node4":{
+                    "node17":{
                         "dialogue": "Lately I have been, wanting to just hold you.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node18"]
                     },
-                    "node4":{
+                    "node18":{
                         "dialogue": "Can I hold you?",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node19"]
                     },
-                    "node2":{
+                    "node19":{
                         "dialogue": "sure, I wouldn\'t mind spending some time in your arms.",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node20"]
                     },
-                    "node2":{
+                    "node20":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node21"]
                     },
-                    "node2":{
+                    "node21":{
                         "dialogue": "your so comfy and warm....*",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node22"]
                     },
-                    "node2":{
+                    "node22":{
                         "dialogue": "I ummmmm......*",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node23"]
                     },
-                    "node2":{
+                    "node23":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node24"]
                     },
-                    "node2":{
+                    "node24":{
                         "dialogue": "ahhhh! ",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node25"]
                     },
-                    "node2":{
+                    "node25":{
                         "dialogue": "im sorry...",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node26"]
                     },
-                    "node4":{
+                    "node26":{
                         "dialogue": "awww your so cute down there.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node27"]
                     },
-                    "node4":{
+                    "node27":{
                         "dialogue": "Perhaps I could help you with that if you wish? ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["node2"]
+                        "children":["node28"]
                     },
-                    "node2":{
+                    "node28":{
                         "dialogue": "ahhhh....",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node29"]
                     },
-                    "node2":{
+                    "node29":{
                         "dialogue": "yes Please!",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node30"]
                     },
-                    "node2":{
+                    "node30":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node31"]
                     },
-                    "node2":{
+                    "node31":{
                         "dialogue": "hmmmm.....",
                         "profile":"lunaHappy",
                         "textvoice":"batChirp",
-                        "children":["node3"]
+                        "children":["node32"]
+                    },
+                    "node32":{
+                        "dialogue": "that it... who\'s a good boy?",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node33"]
+                    },
+                    "node33":{
+                        "dialogue": "ahhhhh... I am...",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node34"]
+                    },
+                    "node34":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node35"]
+                    },
+                    "node35":{
+                        "dialogue": "you\'re so adorable like this.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node36"]
+                    },
+                    "node36":{
+                        "dialogue": "mmmhhmmmm.....",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node37"]
+                    },
+                    "node37":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["node38"]
+                    },
+                    "node38":{
+                        "dialogue": "Good boy! I\'m so proud of you~",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
                     },
                 }
                     

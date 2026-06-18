@@ -20,7 +20,7 @@ class wolf extends npc{
       
       this.anims.create({ key: 'nudeIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'nudeSideIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 10, repeat: -1 });
       this.anims.create({ key: 'sitDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 18, end: 19 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'sittingDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 20, end: 23 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLap', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 24, end: 27 }), frameRate: 6, repeat: 0 });
@@ -32,10 +32,10 @@ class wolf extends npc{
       this.anims.create({ key: 'lunaSitOnLapGrabPenor', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 48, end: 51 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapJorkinIt1', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 52, end: 55 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLapJorkinItTrans', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 56, end: 59 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'lunaSitOnLapJorkinIt2', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 60, end: 63 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'lunaSitOnLapJorkinIt3', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 64, end: 67 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'lunaSitOnLapJorkinIt4', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 68, end: 71 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'lunaSitOnLapJorkinItFinished1', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 72, end: 76 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt2', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 60, end: 63 }), frameRate: 8, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt3', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 64, end: 67 }), frameRate: 10, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt4', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 68, end: 71 }), frameRate: 14, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinItFinished1', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 72, end: 76 }), frameRate: 8, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapJorkinItFinished2', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 77, end: 83 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapFinishedIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 84, end: 87 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHugStart', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 88, end: 91 }), frameRate: 6, repeat: 0 });
@@ -67,6 +67,8 @@ class wolf extends npc{
        this.isPlayerControlled = false;
 
        this.playerInPosition = false;
+
+       this.choke = false;
 
        //this.body.setGravityY(600); 
 
@@ -364,7 +366,7 @@ class wolf extends npc{
 
   MoveLabEncounter1(){
     console.log("activating lab walking function")
-     if(this.moveLunaToPosition1 === false){
+    if(this.moveLunaToPosition1 === false){
       
        if(this.scene.lunalyst.x > 560 && this.playerIsOnRight === true){
         this.scene.lunalyst.y = 763;
@@ -816,7 +818,7 @@ class wolf extends npc{
   MoveWolfxLuna(){
     if(this.moveWolfToPosition === false){
 
-        if(this.x < 780){
+      if(this.x < 782){
 
         this.ignoreTriggerRange = true;
         this.setVelocityX(80);
@@ -833,10 +835,46 @@ class wolf extends npc{
         this.progressNode("node3");
         this.scene.CutscenePhysics = false;
         this.scene.cutSceneActive = false;
-        this.moveWolfToPosition = false;
+        this.moveWolfToPosition = true;
         this.anims.play('nudeSideIdle',true);
 
         console.log("this.currentDictNode",this.currentDictNode);
+
+      }
+    }else if(this.moveLunaToWolf === false){
+
+      console.log("this.scene.lunalyst.x: ",this.scene.lunalyst.x)
+      if(this.scene.lunalyst.x > 790){
+        this.scene.lunalyst.setVelocityX(-120);
+        this.scene.lunalyst.anims.play('lunalystSkimpySideWalk',true);
+        this.scene.lunalyst.setDepth(11);
+        this.scene.lunalyst.flipX = true;
+      }else{
+        this.scene.lunalyst.setVelocityX(0);
+        this.scene.lunalyst.visible = false;
+
+        if(this.choke === false){
+          this.choke = true;
+          this.scene.lunalyst.anims.play('lunalystSkimpySideIdle',true);
+          this.anims.play('lunaSitOnLap', true).once('animationcomplete', () => {
+            this.anims.play('lunaSitOnLapIdle', true);
+            this.choke = false;
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+             
+
+          this.moveFunctionActive = false;
+          this.inDialogue = false;
+
+          this.moveLunaToWolf = true;
+
+          this.progressNode("node21");
+          this.scene.CutscenePhysics = false;
+          this.scene.cutSceneActive = false;
+          });
+        }        
+
+       
 
       }
     }
@@ -1557,7 +1595,7 @@ class wolf extends npc{
                 temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
                     //time out function which leads to deaugh cutscene here.
-            },1000);
+            },2000);
       }
     }
   }
@@ -1580,6 +1618,198 @@ class wolf extends npc{
         this.scene.sceneTextBox.textInterupt = true;
         this.moveWolfToPosition = false;
         
+      }else if(this.currentDictNode.nodeName === "node16" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('sitDown', true).once('animationcomplete', () => {
+             console.log("starting wolf sit down Finished")
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            this.anims.play('sittingDown', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "node20" && this.inDialogue === false){
+        //console.log("activating move function for luna?")
+
+        this.choke = false;
+        
+        this.inDialogue = true;
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;  
+        this.moveFunctionActive = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.moveLunaToWolf = false;
+        
+      }else if(this.currentDictNode.nodeName === "node22" ){
+      
+        this.anims.play('lunaSitOnLapIdleHoldingBack', true);
+
+      }else if(this.currentDictNode.nodeName === "node23" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('lunaSitOnLapPoppinIt', true).once('animationcomplete', () => {
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            this.progressNode("node24");
+
+            this.anims.play('lunaSitOnLapIdleErrect', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "node25" ){
+      
+        this.choke = false;
+
+      }else if(this.currentDictNode.nodeName === "node26" ){
+      
+        this.anims.play('lunaSitOnLapIdleErrectExcited', true);
+
+      }else if(this.currentDictNode.nodeName === "node29" ){
+      
+        this.anims.play('lunaSitOnLapIdleErrectExcited', true);
+
+      }else if(this.currentDictNode.nodeName === "node30" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('lunaSitOnLapGrabPenor', true).once('animationcomplete', () => {
+
+            let temp = this;
+            setTimeout(function () {
+              temp.inDialogue = false;
+              temp.scene.sceneTextBox.textInterupt = false;
+              temp.progressNode("node31");
+              temp.choke = false;
+            }, 3000);
+
+            this.anims.play('lunaSitOnLapJorkinIt1', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "node32" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('lunaSitOnLapJorkinItTrans', true).once('animationcomplete', () => {
+
+            let temp = this;
+            setTimeout(function () {
+              temp.inDialogue = false;
+              temp.scene.sceneTextBox.textInterupt = false;
+              temp.progressNode("node33");
+              temp.choke = false;
+            }, 2000);
+
+            this.anims.play('lunaSitOnLapJorkinIt2', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "node34" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        if(this.choke === false){
+
+          this.choke = true;
+           
+          let temp = this;
+          setTimeout(function () {
+
+          temp.inDialogue = false;
+          temp.scene.sceneTextBox.textInterupt = false;
+          temp.choke = false;
+          temp.progressNode("node35");
+
+          }, 3000);
+
+          this.anims.play('lunaSitOnLapJorkinIt3', true);
+        }        
+      }else if(this.currentDictNode.nodeName === "nodeA" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        if(this.choke === false){
+
+          this.choke = true;
+           
+          let temp = this;
+          setTimeout(function () {
+
+          temp.inDialogue = false;
+          temp.scene.sceneTextBox.textInterupt = false;
+          temp.choke = false;
+          temp.progressNode("nodeB");
+
+          }, 3000);
+
+        
+          this.anims.play('lunaSitOnLapJorkinIt4', true);
+        }        
+      }else if(this.currentDictNode.nodeName === "node36" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('lunaSitOnLapJorkinItFinished1', true).once('animationcomplete', () => {
+
+            this.anims.play('lunaSitOnLapJorkinItFinished2', true).once('animationcomplete', () => {
+
+              let temp = this;
+              setTimeout(function () {
+                temp.inDialogue = false;
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.progressNode("node37");
+                temp.choke = false;
+              }, 3000);
+
+              this.anims.play('lunaSitOnLapFinishedIdle', true);
+            });
+          
+          });
+          
+        }       
+      }else if(this.currentDictNode.nodeName === "node38" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+
+          this.choke = true;
+           this.anims.play('lunaSitOnLapFinishedHugStart', true).once('animationcomplete', () => {
+
+            let temp = this;
+            setTimeout(function () {
+              //load back to player in deaughs lab room
+            }, 2000);
+
+            this.anims.play('lunaSitOnLapFinishedHug', true);
+            
+          });
+          
+        }       
       }
     }
   }

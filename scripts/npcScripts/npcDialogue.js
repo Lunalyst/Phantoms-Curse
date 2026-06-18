@@ -3933,7 +3933,7 @@ const npcDialogue = {
                     },
                     "node4":{
                         "dialogue": "Your such a good boy.",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["node5"]
                     },
@@ -3969,7 +3969,7 @@ const npcDialogue = {
                     },
                     "node10":{
                         "dialogue": "well about that. ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["node11"]
                     },
@@ -3987,7 +3987,7 @@ const npcDialogue = {
                     },
                     "node13":{
                         "dialogue": "you have been helping me so much lately, and I wanted to reward you.",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":["node14"]
                     },
@@ -4011,13 +4011,13 @@ const npcDialogue = {
                     },
                     "node17":{
                         "dialogue": "Lately I have been, wanting to just hold you.",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["node18"]
                     },
                     "node18":{
                         "dialogue": "Can I hold you?",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["node19"]
                     },
@@ -4065,13 +4065,13 @@ const npcDialogue = {
                     },
                     "node26":{
                         "dialogue": "awww your so cute down there.",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["node27"]
                     },
                     "node27":{
                         "dialogue": "Perhaps I could help you with that if you wish? ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfHeartEyes",
                         "textvoice":"lightVoice",
                         "children":["node28"]
                     },
@@ -4101,7 +4101,7 @@ const npcDialogue = {
                     },
                     "node32":{
                         "dialogue": "that it... who\'s a good boy?",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["node33"]
                     },
@@ -4119,7 +4119,25 @@ const npcDialogue = {
                     },
                     "node35":{
                         "dialogue": "you\'re so adorable like this.",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeA"]
+                    },
+                    "nodeA":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"lunaHappy",
+                        "textvoice":"batChirp",
+                        "children":["nodeB"]
+                    },
+                    "nodeB":{
+                        "dialogue": "that\'s it.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeC"]
+                    },
+                    "nodeC":{
+                        "dialogue": "Now cum for me.",
+                        "profile":"wolfSmirk2",
                         "textvoice":"lightVoice",
                         "children":["node36"]
                     },
@@ -4130,14 +4148,14 @@ const npcDialogue = {
                         "children":["node37"]
                     },
                     "node37":{
-                        "dialogue": "*HIDETEXT*",
-                        "profile":"lunaHappy",
-                        "textvoice":"batChirp",
+                        "dialogue": "Good boy! ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
                         "children":["node38"]
                     },
                     "node38":{
-                        "dialogue": "Good boy! I\'m so proud of you~",
-                        "profile":"wolfHappy1",
+                        "dialogue": "I\'m so proud of you~",
+                        "profile":"wolfKiss",
                         "textvoice":"lightVoice",
                         "children":[]
                     },

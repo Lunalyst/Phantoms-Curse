@@ -104,7 +104,7 @@ class StorageRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(578,728+25,1024,760,"door1","DeaughsRoom",0.75);
+      this.initPortalsWithTransparency(578,728+25,1024,760,"door2","DeaughsRoom",0.75);
 
       //sets up containers
       this.setUpContainers();

@@ -12,18 +12,26 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.setScale(.7);
       
       this.anims.create({key: 'signLoop',frames: this.anims.generateFrameNames('textBoxProfile', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'blank',frames: this.anims.generateFrameNames('textBoxProfile', { start:4, end: 4 }),frameRate: 5,repeat: -1});
 
-      this.anims.create({key: 'lunaNeutral',frames: this.anims.generateFrameNames('textBoxProfile', { start: 4, end: 13 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaCry',frames: this.anims.generateFrameNames('textBoxProfile', { start: 14, end: 21 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaHearts',frames: this.anims.generateFrameNames('textBoxProfile', { start: 22, end: 28 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaHappy',frames: this.anims.generateFrameNames('textBoxProfile', { start:29, end: 32 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaKO',frames: this.anims.generateFrameNames('textBoxProfile', { start:33, end: 36 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaHeartEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:37, end: 40 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaStarEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:41, end: 44 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaAngryEyes',frames: this.anims.generateFrameNames('textBoxProfile', { start:45, end: 48 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaSleeping',frames: this.anims.generateFrameNames('textBoxProfile', { start:49, end: 54 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('textBoxProfile', { start:55, end: 58 }),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'blank',frames: this.anims.generateFrameNames('textBoxProfile', { start:59, end: 59 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaNeutral',frames: this.anims.generateFrameNames('lunalystEmots', { start: 0, end: 9 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaCry',frames: this.anims.generateFrameNames('lunalystEmots', { start: 10, end: 17 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHearts',frames: this.anims.generateFrameNames('lunalystEmots', { start: 18, end: 24 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaSquish',frames: this.anims.generateFrameNames('lunalystEmots', { start: 25, end: 30 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHappy',frames: this.anims.generateFrameNames('lunalystEmots', { start:31, end: 35 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaWink',frames: this.anims.generateFrameNames('lunalystEmots', { start:36, end: 42 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaKO',frames: this.anims.generateFrameNames('lunalystEmots', { start:43, end: 46 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHeartEyes',frames: this.anims.generateFrameNames('lunalystEmots', { start:47, end: 51 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaStarEyes',frames: this.anims.generateFrameNames('lunalystEmots', { start:52, end: 57 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaAngryEyes',frames: this.anims.generateFrameNames('lunalystEmots', { start:58, end: 61 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaSleeping',frames: this.anims.generateFrameNames('lunalystEmots', { start:62, end: 67 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaFingerTouch',frames: this.anims.generateFrameNames('lunalystEmots', { start:68, end: 71 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaWave',frames: this.anims.generateFrameNames('lunalystEmots', { start:72, end:  75}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaShock1',frames: this.anims.generateFrameNames('lunalystEmots', { start:76, end:  76}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaShock2',frames: this.anims.generateFrameNames('lunalystEmots', { start:77, end:  77}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaEyeRaise',frames: this.anims.generateFrameNames('lunalystEmots', { start:78, end:  78}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaHorny',frames: this.anims.generateFrameNames('lunalystEmots', { start:79, end:  86}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'lunaClimax',frames: this.anims.generateFrameNames('lunalystEmots', { start:87, end:  87}),frameRate: 5,repeat: -1});
 
       this.anims.play("blank",true); 
     }

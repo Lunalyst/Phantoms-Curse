@@ -3914,14 +3914,14 @@ const npcDialogue = {
 
                 "wolfXLunalyst":{
                     "node1":{
-                        "dialogue": "all right I set the supplies over there. ",
-                        "profile":"lunaHappy",
+                        "dialogue": "all right I set the supplies over there.",
+                        "profile":"lunaNeutral",
                         "textvoice":"batChirp",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "Is that where you would like them?",
-                        "profile":"lunaHappy",
+                        "profile":"lunaNeutral",
                         "textvoice":"batChirp",
                         "children":["node3"]
                     },
@@ -3939,7 +3939,7 @@ const npcDialogue = {
                     },
                     "node5":{
                         "dialogue": "i am? ",
-                        "profile":"lunaHappy",
+                        "profile":"lunaFingerTouch",
                         "textvoice":"batChirp",
                         "children":["node6"]
                     },
@@ -3963,7 +3963,7 @@ const npcDialogue = {
                     },
                     "node9":{
                         "dialogue": "what the experiment i\'m going to be helping you with? ",
-                        "profile":"lunaHappy",
+                        "profile":"lunaEyeRaise",
                         "textvoice":"batChirp",
                         "children":["node10"]
                     },
@@ -3981,7 +3981,7 @@ const npcDialogue = {
                     },
                     "node12":{
                         "dialogue": "You wanted me alone? But why? ",
-                        "profile":"lunaHappy",
+                        "profile":"lunaEyeRaise",
                         "textvoice":"batChirp",
                         "children":["node13"]
                     },
@@ -3999,7 +3999,7 @@ const npcDialogue = {
                     },
                     "node15":{
                         "dialogue": "awww you\'re too kind. I just like feeling useful is all.",
-                        "profile":"lunaHappy",
+                        "profile":"lunaFingerTouch",
                         "textvoice":"batChirp",
                         "children":["node16"]
                     },
@@ -4034,14 +4034,14 @@ const npcDialogue = {
                         "children":["node21"]
                     },
                     "node21":{
-                        "dialogue": "your so comfy and warm....*",
-                        "profile":"lunaHappy",
+                        "dialogue": "your so comfy and warm....",
+                        "profile":"lunaHearts",
                         "textvoice":"batChirp",
                         "children":["node22"]
                     },
                     "node22":{
-                        "dialogue": "I ummmmm......*",
-                        "profile":"lunaHappy",
+                        "dialogue": "I ummmmm......",
+                        "profile":"lunaSquish",
                         "textvoice":"batChirp",
                         "children":["node23"]
                     },
@@ -4053,13 +4053,13 @@ const npcDialogue = {
                     },
                     "node24":{
                         "dialogue": "ahhhh! ",
-                        "profile":"lunaHappy",
+                        "profile":"lunaShock1",
                         "textvoice":"batChirp",
                         "children":["node25"]
                     },
                     "node25":{
                         "dialogue": "im sorry...",
-                        "profile":"lunaHappy",
+                        "profile":"lunaShock2",
                         "textvoice":"batChirp",
                         "children":["node26"]
                     },
@@ -4077,13 +4077,13 @@ const npcDialogue = {
                     },
                     "node28":{
                         "dialogue": "ahhhh....",
-                        "profile":"lunaHappy",
+                        "profile":"lunaShock2",
                         "textvoice":"batChirp",
                         "children":["node29"]
                     },
                     "node29":{
                         "dialogue": "yes Please!",
-                        "profile":"lunaHappy",
+                        "profile":"lunaSquish",
                         "textvoice":"batChirp",
                         "children":["node30"]
                     },
@@ -4095,7 +4095,7 @@ const npcDialogue = {
                     },
                     "node31":{
                         "dialogue": "hmmmm.....",
-                        "profile":"lunaHappy",
+                        "profile":"lunaSquish",
                         "textvoice":"batChirp",
                         "children":["node32"]
                     },
@@ -4107,7 +4107,7 @@ const npcDialogue = {
                     },
                     "node33":{
                         "dialogue": "ahhhhh... I am...",
-                        "profile":"lunaHappy",
+                        "profile":"lunaHorny",
                         "textvoice":"batChirp",
                         "children":["node34"]
                     },
@@ -4124,8 +4124,8 @@ const npcDialogue = {
                         "children":["node36"]
                     },
                     "node36":{
-                        "dialogue": "mmmhhmmmm.....",
-                        "profile":"lunaHappy",
+                        "dialogue": "mmmhhmmmmahhhhh!",
+                        "profile":"lunaClimax",
                         "textvoice":"batChirp",
                         "children":["node37"]
                     },

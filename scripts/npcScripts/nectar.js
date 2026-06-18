@@ -1824,8 +1824,6 @@ class nectar extends npc{
             //tests milo digested cutscene.
             //this.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
           
-          
-            
            }else if(this.currentDictNode.nodeName === "node6" && this.inDialogue === false){
            
             this.inDialogue = true;
@@ -2185,8 +2183,8 @@ class nectar extends npc{
 
             this.scene.Milo.anims.play('holdOutHand',true);
 
-           let temp = this;
-              setTimeout(function () {
+            let temp = this;
+            setTimeout(function () {
                 //creates a object to hold data for scene transition
                 let playerDataObject = {
                   saveX: null,

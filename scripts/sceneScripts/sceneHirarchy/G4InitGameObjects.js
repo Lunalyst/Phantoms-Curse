@@ -28,8 +28,10 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
         //add a door light
         portal1.doorLight = this.lights.addLight(x,y+7, 300);
       }
-     
+
     }
+
+    return(portal1);
     //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
     //console.log(" scene.portalId: "+ scene.portalId);
   }
@@ -49,6 +51,8 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
     if(this.lightingSystemActive === true){ 
       portal1.setPipeline('Light2D');
     }
+
+    return(portal1);
 
     //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
     //console.log(" scene.portalId: "+ scene.portalId);
@@ -71,6 +75,8 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
     if(this.lightingSystemActive === true){ 
       portal1.setPipeline('Light2D');
     }
+
+    return(portal1);
 
     //console.log(" portal1.warpPortalId: "+ portal1.warpPortalId);
     //console.log(" scene.portalId: "+ scene.portalId);

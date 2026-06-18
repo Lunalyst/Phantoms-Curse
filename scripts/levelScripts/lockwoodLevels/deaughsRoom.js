@@ -18,10 +18,6 @@ class DeaughsRoom extends defaultScene {
     this.processMap;
     this.myMap;
 
-  
-
-    
-
     }
 
     preload(){
@@ -33,6 +29,7 @@ class DeaughsRoom extends defaultScene {
       
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 363 , frameHeight: 363 });
       
       this.load.spritesheet("wolfProps" , "assets/gameObjects/wolfProps.png" , {frameWidth: 96 , frameHeight: 96 });
 
@@ -105,18 +102,45 @@ class DeaughsRoom extends defaultScene {
 
       this.initSigns(865,760+16,"question","Fundamentals of Cursed Energy",false);
 
-      this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
+      this.storageRoomDoor = this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
 
       this.initSavePoints(669,760-10);
 
       let lab1 = {
-        flagToFind: "lab1Complete",
+        flagToFind: "labEncounter1Flag1",
         foundFlag: false,
       };
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab1);
 
        if(lab1.foundFlag === true){
+        //spawn wofls cloths on the ground
+
+        //spawn wolfs cloths on the ground.
+        this.headBand = this.add.sprite(1050,760+37, "wolfProps");
+        this.headBand.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.headBand.anims.play("idle", true);
+        this.headBand.setScale(1/3);
+        this.headBand.setDepth(1);
+
+        this.LabCoat = this.add.sprite(985,760+37, "wolfProps");
+        this.LabCoat.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.LabCoat.anims.play("idle", true);
+        this.LabCoat.setScale(1/3);
+        this.LabCoat.setDepth(1);
+
+        this.pants = this.add.sprite(940,760+37, "wolfProps");
+        this.pants.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+        this.pants.anims.play("idle", true);
+        this.pants.setScale(1/3);
+        this.pants.setDepth(1);
+
+        //init npc for the next part of the quest.
+        //remove interactable door, place false one, and spawn wolf npc for door.
+        console.log("this.scene.storageRoomDoor: ",this.storageRoomDoor);
+        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y,'door2');
+        this.initWolf(this.storageRoomDoor.x, this.storageRoomDoor.y-10, "storageRoomDoor");
+        this.storageRoomDoor.destroy();
 
        }else{
         this.initWolf(461, 728+16, "labEncounter1");

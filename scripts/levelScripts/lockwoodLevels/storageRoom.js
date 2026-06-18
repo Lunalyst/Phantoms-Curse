@@ -18,17 +18,23 @@ class StorageRoom extends defaultScene {
     this.processMap;
     this.myMap;
 
-  
+    //labEncounter1Flag2
 
     
 
     }
 
     preload(){
+
+
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
       this.load.tilemapTiledJSON("Storage_Room_Prequest_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Storage_Room_Prequest.json");
-     
+      this.load.tilemapTiledJSON("Storage_Room_Postquest_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Storage_Room_Postquest.json");
+      
+      this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 273 , frameHeight: 363 });
 
       this.defaultPreload();
 
@@ -48,9 +54,23 @@ class StorageRoom extends defaultScene {
       
       this.grabbed = false;
 
-      //creates tileset
-      this.setUpTileSet("Storage_Room_Prequest_map","Castle_Interior_Tileset","castle_source_map");
-    
+      
+      let flag1 = {
+        flagToFind: "labEncounter1Flag2",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, flag1);
+
+      if(flag1.foundFlag === true){
+        //creates tileset
+        console.log("found labEncounter1Flag2")
+        this.setUpTileSet("Storage_Room_Postquest_map","Castle_Interior_Tileset","castle_source_map");
+      }else{
+        //creates tileset\
+        console.log("missing labEncounter1Flag2")
+        this.setUpTileSet("Storage_Room_Prequest_map","Castle_Interior_Tileset","castle_source_map");
+      }
       //creates player object
       this.setUpPlayer();
 
@@ -78,8 +98,6 @@ class StorageRoom extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
       //this.initSavePoints(2050,558);
         // as well as signs.
 
@@ -93,6 +111,18 @@ class StorageRoom extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      //make cutscene of wolf x luna if player is loaded into this exact spot
+      if(this.player1.x === 640){
+
+        this.player1.visible = false;
+
+        //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+        this.grabbed = true;
+
+        this.initWolf(636, 728+16, "wolfxLuna");
+        this.initLunalyst(827+20,763,'wolfxLuna');
+      }
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

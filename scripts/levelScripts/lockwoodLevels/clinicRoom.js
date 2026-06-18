@@ -143,7 +143,7 @@ class ClinicRoom extends defaultScene {
         //this.cutSceneActive = true;
 
         //used to prevent the player from moving while in the scene load in before the trigger npc activates.
-        this.scene.grabbed = true;
+        this.grabbed = true;
 
         this.mycamera.startFollow(this.player1);
         this.cameras.main.zoom = 2;

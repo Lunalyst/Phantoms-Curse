@@ -18,6 +18,29 @@ class wolf extends npc{
       this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 9, repeat: -1 });
       this.anims.create({ key: 'fastSideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 18, repeat: -1 });
       
+      this.anims.create({ key: 'nudeIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'nudeSideIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'sitDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 18, end: 19 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'sittingDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 20, end: 23 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLap', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 24, end: 27 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 28, end: 31 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapIdleHoldingBack', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 32, end: 35 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapPoppinIt', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 36, end: 39 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapIdleErrect', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 40, end: 43 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapIdleErrectExcited', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 44, end: 47 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapGrabPenor', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 48, end: 51 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt1', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 52, end: 55 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinItTrans', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 56, end: 59 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt2', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 60, end: 63 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt3', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 64, end: 67 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinIt4', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 68, end: 71 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinItFinished1', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 72, end: 76 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapJorkinItFinished2', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 77, end: 83 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapFinishedIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 84, end: 87 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'lunaSitOnLapFinishedHugStart', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 88, end: 91 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'lunaSitOnLapFinishedHug', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 92, end: 95 }), frameRate: 6, repeat: -1 });
+
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -92,6 +115,10 @@ class wolf extends npc{
 
         this.moveWolf = false;
 
+        this.scene.mycamera.startFollow(this.playerOnStrecher);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
+
        }else if(this.npcType === 'riddleAnswered'){
 
         this.flipX = true;
@@ -139,9 +166,26 @@ class wolf extends npc{
         this.npcTriggerRangeX = 2000;
         this.npcTriggerRangeY = 2000;
 
+        this.scene.mycamera.startFollow(this.playerOnStrecher);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
+
 
        }else if(this.npcType === 'labEncounter1'){
         this.advancedIdleAnimation = true;
+       }else if(this.npcType === 'storageRoomDoor'){
+        this.visible = false;
+       }else if (this.npcType === 'wolfxLuna'){
+
+        this.ignoreTriggerRange = true;
+        this.anims.play('nudeSideIdle');
+        this.moveWolf = false;
+
+        this.npcTriggerRange = true;
+
+        this.scene.mycamera.startFollow(this);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
        }
 
   }
@@ -156,6 +200,10 @@ class wolf extends npc{
       this.riddleAnswered();
     }else if(this.npcType === 'labEncounter1'){
       this.labEncounter1();
+    }else if(this.npcType === 'storageRoomDoor'){
+      this.storageRoomDoor();
+    }else if(this.npcType === 'wolfxLuna'){
+      this.wolfxLuna();
     }else{
       
       this.default();
@@ -264,6 +312,8 @@ class wolf extends npc{
       this.MoveNPCMiloSavedThePlayer();
     }else if(this.npcType === 'labEncounter1'){
       this.MoveLabEncounter1();
+    }else if(this.npcType === 'wolfxLuna'){
+      this.MoveWolfxLuna();
     }
   }
 
@@ -760,6 +810,35 @@ class wolf extends npc{
       }
       
       
+    }
+  }
+
+  MoveWolfxLuna(){
+    if(this.moveWolfToPosition === false){
+
+        if(this.x < 780){
+
+        this.ignoreTriggerRange = true;
+        this.setVelocityX(80);
+        this.anims.play('nudeSideWalk',true);
+        this.flipX = false;
+
+        this.setDepth(10);
+      }else{
+
+        this.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("node3");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+        this.moveWolfToPosition = false;
+        this.anims.play('nudeSideIdle',true);
+
+        console.log("this.currentDictNode",this.currentDictNode);
+
+      }
     }
   }
 
@@ -1305,6 +1384,201 @@ class wolf extends npc{
         this.scene.physics.resume();
         this.scene.CutscenePhysics = true;
         this.scene.cutSceneActive = true;
+
+        //set flag for first part of the quest being finished
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag1");
+
+        //init npc for the next part of the quest.
+        //remove interactable door, place false one, and spawn wolf npc for door.
+        console.log("this.scene.storageRoomDoor: ",this.scene.storageRoomDoor);
+        this.scene.fakeWarp1 = new fakeWarp(this.scene,this.scene.storageRoomDoor.x,this.scene.storageRoomDoor.y,'door2');
+        this.scene.initWolf(this.scene.storageRoomDoor.x, this.scene.storageRoomDoor.y-10, "storageRoomDoor");
+        this.scene.storageRoomDoor.destroy();
+      }
+    }
+  }
+
+  storageRoomDoor(){
+
+    this.nodeHandler("wolf","Behavior1","storageRoomDoor");
+
+    if(this.currentDictNode !== null){
+
+      if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
+            this.inDialogue = true;
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"yes",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              this.progressNode("node6",true);
+          
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+             
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+
+            //dialogue option for no.
+            this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"no",true);
+            this.scene.npcChoice2.textWob();
+            this.scene.npcChoice2.setScrollFactor(0);
+            this.scene.npcChoice2.addHitbox();
+            this.scene.npcChoice2.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice2.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice2.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice2.on('pointerout',function(pointer){
+                this.scene.npcChoice2.clearTextTint();
+            },this);
+
+            this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node10
+              this.progressNode("node4");
+
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+              
+
+              this.inDialogue = false;
+
+            },this);
+            
+            //call scene variable to create interupt.
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //let the npc know they are in dialogue
+            this.inDialogue = true;
+            
+      }if(this.currentDictNode.nodeName === "node7" && this.inDialogue === false){
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        //set flag for first part of the quest being finished
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag2");
+
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 640;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "StorageRoom";
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "StorageRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },1000);
+      }
+    }
+  }
+
+  wolfxLuna(){
+    
+    this.nodeHandler("wolf","Behavior1","wolfXLunalyst");
+
+    if(this.currentDictNode !== null){
+
+      if(this.currentDictNode.nodeName === "node1"){
+        this.scene.lunalyst.anims.play("lunalystSkimpySideIdle",true);
+      }else if(this.currentDictNode.nodeName === "node2" && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
+        this.scene.cutSceneActive = true;  
+        this.moveFunctionActive = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.moveWolfToPosition = false;
         
       }
     }

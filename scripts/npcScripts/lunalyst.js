@@ -60,6 +60,10 @@ class lunalyst extends npc{
           this.flipX = true;
           this.triggerNpcFinished = true;
           this.visible = false;
+        }else if(this.npcType === 'wolfxLuna'){
+          this.anims.play('lunalystSkimpyIdle');
+          this.flipX = true;
+          this.triggerNpcFinished = true;
         }
 
   }
@@ -76,6 +80,8 @@ class lunalyst extends npc{
       this.ClearingTheWay();
     }else if(this.npcType === 'wolfQuest'){
       this.wolfQuest();
+    }else if(this.npcType === 'wolfxLuna'){
+      this.wolfxLuna();
     }else{
       this.default();
     }
@@ -598,6 +604,10 @@ class lunalyst extends npc{
   }
 
   wolfQuest(){
+
+  }
+
+  wolfxLuna(){
 
   }
 

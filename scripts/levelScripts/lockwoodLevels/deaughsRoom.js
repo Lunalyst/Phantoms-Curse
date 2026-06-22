@@ -111,9 +111,50 @@ class DeaughsRoom extends defaultScene {
         foundFlag: false,
       };
 
+      let lab3 = {
+        flagToFind: "labEncounter1Flag3",
+        foundFlag: false,
+      };
+
+      let lab4 = {
+        flagToFind: "labEncounter1Flag4",
+        foundFlag: false,
+      };
+
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab1);
 
-       if(lab1.foundFlag === true){
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab3);
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
+      if(lab4.foundFlag === true){
+
+      }else if(lab3.foundFlag === true){
+
+        //spawn wolfs cloths on the ground.
+        this.headBand = this.add.sprite(1050,760+37, "wolfProps");
+        this.headBand.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+        this.headBand.anims.play("idle", true);
+        this.headBand.setScale(1/3);
+        this.headBand.setDepth(1);
+
+        this.LabCoat = this.add.sprite(985,760+37, "wolfProps");
+        this.LabCoat.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 1, end: 1 }), frameRate: 7, repeat: -1 });
+        this.LabCoat.anims.play("idle", true);
+        this.LabCoat.setScale(1/3);
+        this.LabCoat.setDepth(1);
+
+        this.pants = this.add.sprite(940,760+37, "wolfProps");
+        this.pants.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('wolfProps', { start: 2, end: 2 }), frameRate: 7, repeat: -1 });
+        this.pants.anims.play("idle", true);
+        this.pants.setScale(1/3);
+        this.pants.setDepth(1);
+
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag4");
+
+        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y,'door2');
+        this.storageRoomDoor.destroy();
+
+       }else if(lab1.foundFlag === true){
         //spawn wofls cloths on the ground
 
         //spawn wolfs cloths on the ground.

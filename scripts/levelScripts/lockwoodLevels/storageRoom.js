@@ -56,7 +56,7 @@ class StorageRoom extends defaultScene {
 
       
       let flag1 = {
-        flagToFind: "labEncounter1Flag2",
+        flagToFind: "labEncounter1Flag4",
         foundFlag: false,
       };
 
@@ -64,7 +64,7 @@ class StorageRoom extends defaultScene {
 
       if(flag1.foundFlag === true){
         //creates tileset
-        console.log("found labEncounter1Flag2")
+        console.log("found labEncounter1Flag4")
         this.setUpTileSet("Storage_Room_Postquest_map","Castle_Interior_Tileset","castle_source_map");
       }else{
         //creates tileset\

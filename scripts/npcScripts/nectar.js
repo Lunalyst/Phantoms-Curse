@@ -922,6 +922,7 @@ class nectar extends npc{
           this.miloMask.anims.play("idle", true);
           this.miloMask.setScale(1/3);
           this.miloMask.setDepth(10);
+          healthEmitter.emit(healthEvent.setMiloUnmask);
 
           this.miloRemoveMask = true;
           this.moveMiloToPile = false;
@@ -940,6 +941,7 @@ class nectar extends npc{
     }else{
 
       this.moveMiloToPile = true;
+      
       this.scene.Milo.anims.play('FailedFall').once('animationcomplete', () => {
         
         this.scene.Milo.anims.play('FailedIdle',true);
@@ -974,6 +976,7 @@ class nectar extends npc{
           this.scene.Milo.flipX = true;
           this.scene.Milo.setDepth(9);
 
+         
           this.scene.Milo.anims.play('dropSpearAndShieldDefeat').once('animationcomplete', () => {
 
             this.spear = this.scene.add.sprite(this.scene.Milo.x-13,this.scene.Milo.y+19, "miloProps");
@@ -990,12 +993,14 @@ class nectar extends npc{
 
             this.scene.Milo.anims.play('miloFall').once('animationcomplete', () => {
               this.scene.Milo.anims.play('miloDefeated',true);
-
+              
               this.miloMask = this.scene.add.sprite(this.scene.Milo.x+55,this.scene.Milo.y+19, "miloProps");
               this.miloMask.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('miloProps', { start: 3, end: 3 }), frameRate: 7, repeat: -1 });
               this.miloMask.anims.play("idle", true);
               this.miloMask.setScale(1/3);
               this.miloMask.setDepth(10);
+
+              healthEmitter.emit(healthEvent.setMiloUnmask);
             });
 
           });
@@ -1192,7 +1197,7 @@ class nectar extends npc{
         this.shield.setDepth(1);
          
         this.scene.Milo.setDepth(7);
-
+        
         this.scene.Milo.anims.play('dropMask').once('animationcomplete', () => {
 
           this.miloMask = this.scene.add.sprite(this.scene.Milo.x,this.scene.Milo.y+19, "miloProps");
@@ -1200,7 +1205,7 @@ class nectar extends npc{
           this.miloMask.anims.play("idle", true);
           this.miloMask.setScale(1/3);
           this.miloMask.setDepth(10);
-
+          
           this.miloRemoveMask = true;
           this.moveMiloToPile = false;
         });
@@ -1660,6 +1665,7 @@ class nectar extends npc{
            if(this.currentDictNode.nodeName === "node1"){
 
             this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
+
             //for testing gameovers so i dont have to go through the whole process to get them.
 
             //test for gameovers
@@ -1818,6 +1824,22 @@ class nectar extends npc{
 
             //saves the game by calling the save game file function in the scene
             this.scene.saveGameFile(playerDataObject);
+
+            //after making temp save remove quest assiciated flags if they exist 
+            //testing remove emitters
+            let riddleAnswered = {
+              flagToFind: "riddleAnswered",
+              foundFlag: false,
+            };
+
+            inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, riddleAnswered);
+
+            let miloSaved = {
+              flagToFind: "miloSavedThePlayer",
+              foundFlag: false,
+            };
+
+            inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, miloSaved);
 
             //this.scene.changeToCutscene("memory1");
 

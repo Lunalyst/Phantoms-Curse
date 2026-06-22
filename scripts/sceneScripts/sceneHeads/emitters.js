@@ -47,6 +47,7 @@ const healthEvent = {
     setBossHealthVisible:'set_boss_health_visible',
     healthVisibility:'health_visibility',
     setMiloHealth: 'set_milo_health',
+    setMiloUnmask: 'set_milo_unmask',
     
 };
 
@@ -119,6 +120,7 @@ inventoryKey = {
     addItem: 'add_item',
     addContainerFlag: 'add_container_flag',
     checkContainerFlag: 'check_container_flag',
+    removeContainerFlag: 'remove_container_flag',
     checkBestiaryFlag: 'check_bestiary_flag',
     updateOnomat: 'update_onomat',
     updateInternalView: 'update_internal_view',

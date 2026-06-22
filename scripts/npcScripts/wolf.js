@@ -15,12 +15,12 @@ class wolf extends npc{
       this.anims.create({ key: 'sideIdle', frames: this.anims.generateFrameNames('deaugh', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'sideHeal', frames: this.anims.generateFrameNames('deaugh', { start: 8, end: 11 }), frameRate: 4, repeat: -1 });
       this.anims.create({ key: 'finishHeal', frames: this.anims.generateFrameNames('deaugh', { start: 12, end: 14 }), frameRate: 4, repeat: 0 });
-      this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 9, repeat: -1 });
-      this.anims.create({ key: 'fastSideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 18, repeat: -1 });
+      this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 12, repeat: -1 });
+      this.anims.create({ key: 'fastSideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 20, repeat: -1 });
       
       this.anims.create({ key: 'nudeIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'nudeSideIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 10, repeat: -1 });
+      this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 12, repeat: -1 });
       this.anims.create({ key: 'sitDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 18, end: 19 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'sittingDown', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 20, end: 23 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLap', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 24, end: 27 }), frameRate: 6, repeat: 0 });
@@ -497,6 +497,71 @@ class wolf extends npc{
     }
   }
 
+  MoveWolfxLuna(){
+    if(this.moveWolfToPosition === false){
+
+      if(this.x < 782){
+
+        this.ignoreTriggerRange = true;
+        this.setVelocityX(80);
+        this.anims.play('nudeSideWalk',true);
+        this.flipX = false;
+
+        this.setDepth(10);
+      }else{
+
+        this.setVelocityX(0);
+        this.moveFunctionActive = false;
+        this.inDialogue = false;
+        this.scene.sceneTextBox.textInterupt = false;
+        this.progressNode("node3");
+        this.scene.CutscenePhysics = false;
+        this.scene.cutSceneActive = false;
+        this.moveWolfToPosition = true;
+        this.anims.play('nudeSideIdle',true);
+
+        console.log("this.currentDictNode",this.currentDictNode);
+
+      }
+    }else if(this.moveLunaToWolf === false){
+
+      console.log("this.scene.lunalyst.x: ",this.scene.lunalyst.x)
+      if(this.scene.lunalyst.x > 790){
+        this.scene.lunalyst.setVelocityX(-120);
+        this.scene.lunalyst.anims.play('lunalystSkimpySideWalk',true);
+        this.scene.lunalyst.setDepth(11);
+        this.scene.lunalyst.flipX = true;
+      }else{
+        this.scene.lunalyst.setVelocityX(0);
+        this.scene.lunalyst.visible = false;
+
+        if(this.choke === false){
+          this.choke = true;
+          this.scene.lunalyst.anims.play('lunalystSkimpySideIdle',true);
+          this.anims.play('lunaSitOnLap', true).once('animationcomplete', () => {
+            this.anims.play('lunaSitOnLapIdle', true);
+            this.choke = false;
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+             
+
+          this.moveFunctionActive = false;
+          this.inDialogue = false;
+
+          this.moveLunaToWolf = true;
+
+          this.progressNode("node21");
+          this.scene.CutscenePhysics = false;
+          this.scene.cutSceneActive = false;
+          });
+        }        
+
+       
+
+      }
+    }
+  }
+
   miloSavedThePlayer(){
 
     //if(this.isPlayerControlled === false){
@@ -738,6 +803,20 @@ class wolf extends npc{
         this.scene.cutSceneActive = true;
 
       }else if(this.currentDictNode.nodeName === "nodefinish6" && this.inDialogue === false){
+
+        //use emitter to check nectar ambush skip flag
+        let nectarFlag = {
+          flagToFind: "nectarAmbushComplete",
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+        //if the encounter has not happened, then set variables. 
+        if(nectarFlag.foundFlag === false){
+          //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
+        }
         
         this.inDialogue = true;
         //set variable approperiately
@@ -812,71 +891,6 @@ class wolf extends npc{
       }
       
       
-    }
-  }
-
-  MoveWolfxLuna(){
-    if(this.moveWolfToPosition === false){
-
-      if(this.x < 782){
-
-        this.ignoreTriggerRange = true;
-        this.setVelocityX(80);
-        this.anims.play('nudeSideWalk',true);
-        this.flipX = false;
-
-        this.setDepth(10);
-      }else{
-
-        this.setVelocityX(0);
-        this.moveFunctionActive = false;
-        this.inDialogue = false;
-        this.scene.sceneTextBox.textInterupt = false;
-        this.progressNode("node3");
-        this.scene.CutscenePhysics = false;
-        this.scene.cutSceneActive = false;
-        this.moveWolfToPosition = true;
-        this.anims.play('nudeSideIdle',true);
-
-        console.log("this.currentDictNode",this.currentDictNode);
-
-      }
-    }else if(this.moveLunaToWolf === false){
-
-      console.log("this.scene.lunalyst.x: ",this.scene.lunalyst.x)
-      if(this.scene.lunalyst.x > 790){
-        this.scene.lunalyst.setVelocityX(-120);
-        this.scene.lunalyst.anims.play('lunalystSkimpySideWalk',true);
-        this.scene.lunalyst.setDepth(11);
-        this.scene.lunalyst.flipX = true;
-      }else{
-        this.scene.lunalyst.setVelocityX(0);
-        this.scene.lunalyst.visible = false;
-
-        if(this.choke === false){
-          this.choke = true;
-          this.scene.lunalyst.anims.play('lunalystSkimpySideIdle',true);
-          this.anims.play('lunaSitOnLap', true).once('animationcomplete', () => {
-            this.anims.play('lunaSitOnLapIdle', true);
-            this.choke = false;
-            this.inDialogue = false;
-            this.scene.sceneTextBox.textInterupt = false;
-             
-
-          this.moveFunctionActive = false;
-          this.inDialogue = false;
-
-          this.moveLunaToWolf = true;
-
-          this.progressNode("node21");
-          this.scene.CutscenePhysics = false;
-          this.scene.cutSceneActive = false;
-          });
-        }        
-
-       
-
-      }
     }
   }
 
@@ -1146,6 +1160,20 @@ class wolf extends npc{
         this.moveWolf = false;
 
       }else if(this.currentDictNode.nodeName === "nodefinish6" && this.inDialogue === false){
+
+        //use emitter to check nectar ambush skip flag
+        let nectarFlag = {
+          flagToFind: "nectarAmbushComplete",
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+        //if the encounter has not happened, then set variables. 
+        if(nectarFlag.foundFlag === false){
+          //now to add the flag to the player data so the health upgrade doesn't spawn multiple times.
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,nectarFlag.flagToFind);
+        }
         
         this.inDialogue = true;
         //set variable approperiately
@@ -1516,6 +1544,31 @@ class wolf extends npc{
               this.scene.npcChoice1.destroy();
               this.scene.npcChoice2.destroy();
               
+              //set flag for first part of the quest being finished
+              //set flag for first part of the quest being finished
+
+              let lab3 = {
+                  flagToFind: "labEncounter1Flag3",
+                  foundFlag: false,
+              };
+
+              let lab4 = {
+                  flagToFind: "labEncounter1Flag4",
+                  foundFlag: false,
+              };
+
+              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab3);
+
+              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
+
+              if(lab3.foundFlag === false){
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag3");
+              }
+
+              if(lab4.foundFlag === false){
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag4");
+              }
+              
 
               this.inDialogue = false;
 
@@ -1532,8 +1585,18 @@ class wolf extends npc{
         //set variable approperiately
         this.scene.sceneTextBox.textInterupt = true;
 
-        //set flag for first part of the quest being finished
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag2");
+        let lab2 = {
+          flagToFind: "labEncounter1Flag2",
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab2);
+  
+        if(lab2.foundFlag === false){
+          
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag2");
+
+        }
 
         let temp = this;
             setTimeout(function () {
@@ -1800,10 +1863,71 @@ class wolf extends npc{
           this.choke = true;
            this.anims.play('lunaSitOnLapFinishedHugStart', true).once('animationcomplete', () => {
 
+
+            //set flag for first part of the quest being finished
+            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag3");
+
             let temp = this;
-            setTimeout(function () {
-              //load back to player in deaughs lab room
-            }, 2000);
+              setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 1027;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "DeaughsRoom";
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "DeaughsRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },2000);
 
             this.anims.play('lunaSitOnLapFinishedHug', true);
             

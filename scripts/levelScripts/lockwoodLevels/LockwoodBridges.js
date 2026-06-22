@@ -177,7 +177,7 @@ class LockwoodBridges extends defaultScene {
 
       //use emitter to check nectar riddle boss battle flag.
       let nectarFlag = {
-        flagToFind: "nectarRiddle",
+        flagToFind: "nectarAmbushComplete",
         foundFlag: false,
       };
 

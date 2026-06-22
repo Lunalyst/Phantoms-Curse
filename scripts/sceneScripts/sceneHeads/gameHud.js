@@ -259,6 +259,11 @@ class gameHud extends A3SoundEffects {
             this.healthDisplay.miloTransition();
         });
 
+        healthEmitter.on(healthEvent.setMiloUnmask,() =>{
+            this.healthDisplay.miloMask = false;
+            this.healthDisplay.updateDisplay();
+        });
+
 
         struggleEmitter.on(struggleEvent.activateStruggleBar,(visible) =>{
           //console.log("setting this.struggleEventBar.visible: ", visible);
@@ -1182,6 +1187,28 @@ class gameHud extends A3SoundEffects {
               }
 
           console.log("search for flag complete: ",object);
+          console.log("this.flagValues.containerFlags: ",this.flagValues.containerFlags);
+
+          });
+
+          //emitter to check if the value within this.flagValues.containerFlags exists. if it set object to true. otherwise, set it to false.
+          inventoryKeyEmitter.on(inventoryKey.removeContainerFlag,(object) =>{
+            console.log("after emitterchecking if flag exists. : ",object);
+
+            for (let [key, value] of Object.entries(this.flagValues.containerFlags)) {
+              //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
+              if (object.flagToFind  === value) {
+                console.log("found flag: ",object.flagToFind, "now removing flag");
+                delete this.flagValues.containerFlags[key]
+                object.foundFlag = true;
+                }
+              }
+
+              if(object.foundFlag === true){
+                 console.log("delete flag: ",object);
+              }else{
+                console.log("could not find flag to delete: ",object);
+              }
           console.log("this.flagValues.containerFlags: ",this.flagValues.containerFlags);
 
           });

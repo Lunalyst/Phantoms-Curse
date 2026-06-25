@@ -20,6 +20,17 @@ class nectar extends npc{
         this.anims.create({key: 'swallowingPlayer2',frames: this.anims.generateFrameNames('nectar2', { start: 13, end: 16 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'swallowingPlayer3',frames: this.anims.generateFrameNames('nectar2', { start: 17, end: 21 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'swallowingPlayer4',frames: this.anims.generateFrameNames('nectar2', { start: 22, end: 25 }),frameRate: 7,repeat: 0});
+
+        this.anims.create({key: 'nectarSpitUpPlayer',frames: this.anims.generateFrameNames('nectar9', { start: 0, end:  14}),frameRate: 7,repeat: 0});
+      
+      }else{
+        this.anims.create({key: 'swallowingPlayer1',frames: this.anims.generateFrameNames('nectar10', { start: 6-6, end: 12-6 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer2',frames: this.anims.generateFrameNames('nectar10', { start: 13-6, end: 16-6 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer3',frames: this.anims.generateFrameNames('nectar10', { start: 17-6, end: 21-6 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallowingPlayer4',frames: this.anims.generateFrameNames('nectar10', { start: 22-6, end: 25-6 }),frameRate: 7,repeat: 0});
+
+        this.anims.create({key: 'nectarSpitUpPlayer',frames: this.anims.generateFrameNames('nectar11', { start: 0, end:  14}),frameRate: 7,repeat: 0});
+      
       }
 
       this.anims.create({key: 'swallowedPlayerIdle',frames: this.anims.generateFrameNames('nectar2', { start: 26, end: 29 }),frameRate: 7,repeat: -1});
@@ -51,7 +62,6 @@ class nectar extends npc{
       this.anims.create({key: 'nectarFullWalk',frames: this.anims.generateFrameNames('nectar8', { start: 0, end:  10}),frameRate: 24,repeat: -1});
       this.anims.create({key: 'nectarFullIdle',frames: this.anims.generateFrameNames('nectar8', { start: 11, end:  14}),frameRate: 7,repeat: -1});
 
-      this.anims.create({key: 'nectarSpitUpPlayer',frames: this.anims.generateFrameNames('nectar9', { start: 0, end:  14}),frameRate: 7,repeat: 0});
       
        //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
@@ -1251,10 +1261,11 @@ class nectar extends npc{
 
       this.scene.Milo.setVelocityX(0);
 
+      
       this.scene.Milo.anims.play('miloPickUpPlayerStart',true).once('animationcomplete', () => {;
         this.playerCloths.visible = false;
         this.scene.Milo.flipX = false;
-        this.scene.Milo.anims.play('miloPickUpPlayerEndMale',true).once('animationcomplete', () => {;
+        this.scene.Milo.anims.play('miloPickUpPlayerEnd',true).once('animationcomplete', () => {;
         //set variable approperiately
           this.scene.sceneTextBox.textInterupt = false;
 
@@ -1263,7 +1274,7 @@ class nectar extends npc{
 
           this.scene.lockwoodDrawBridge.manualActivate();
 
-          this.scene.Milo.anims.play('miloHoldingPlayerMale',true);
+          this.scene.Milo.anims.play('miloHoldingPlayer',true);
 
           this.progressNode("node11");
        
@@ -1272,7 +1283,7 @@ class nectar extends npc{
     }
    }else if(this.miloCarryingPlayer === false){
      if(600 < this.scene.Milo.x){
-       this.scene.Milo.anims.play('miloHoldingPlayerWhileRunningMale',true);
+       this.scene.Milo.anims.play('miloHoldingPlayerWhileRunning',true);
        this.scene.Milo.flipX = false;
        this.scene.Milo.setVelocityX(-200);
     }else{
@@ -2519,10 +2530,18 @@ class nectar extends npc{
                   this.progressNode("");
                   this.scene.sceneTextBox.textInterupt = true;
 
+                  if(this.scene.playerSex === 0){
 
-                  this.playerCloths = this.scene.add.sprite(this.x+63,this.y+55, "malePlayerStucks");
-                  this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("malePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
-                  this.playerCloths.anims.play("spatUp",true);
+                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+55, "malePlayerStucks");
+                    this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("malePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
+                    this.playerCloths.anims.play("spatUp",true);
+                    
+                  }else{
+                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+56, "femalePlayerStucks");
+                    this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("femalePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
+                    this.playerCloths.anims.play("spatUp",true);
+                    
+                  }
                   
                   //this.playerCloths.flipX = true;
                   this.playerCloths.setScale(1/3);

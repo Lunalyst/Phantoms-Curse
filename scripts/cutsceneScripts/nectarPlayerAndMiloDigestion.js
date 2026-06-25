@@ -25,6 +25,7 @@ class NectarPlayerAndMiloDigestion extends defaultScene {
 
   preload(){
     this.load.spritesheet('playerAndMiloDigestionMale', 'assets/cutscenes/playerAndMiloDigestionMale.png',{frameWidth: 267, frameHeight: 147});
+    this.load.spritesheet('playerAndMiloDigestionFemale', 'assets/cutscenes/playerAndMiloDigestionFemale.png',{frameWidth: 267, frameHeight: 147});
     this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
     this.load.image('skip', 'assets/hudElements/skip.png');
       
@@ -34,6 +35,8 @@ class NectarPlayerAndMiloDigestion extends defaultScene {
     //set ip intro cutscene sprite
     this.SceneSprite = this.add.sprite(600, 400, "playerAndMiloDigestionMale");
     //set up intro cutscene animations.
+
+
     this.SceneSprite.anims.create({ key: '1M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 0, end: 5 }), frameRate: 5, repeat: 0 });
     this.SceneSprite.anims.create({ key: '2M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 6, end: 10 }), frameRate: 6, repeat: -1 });
     this.SceneSprite.anims.create({ key: '3M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 9, end: 13 }), frameRate: 5, repeat: 0 });
@@ -46,6 +49,23 @@ class NectarPlayerAndMiloDigestion extends defaultScene {
     this.SceneSprite.anims.create({ key: '10M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 40, end: 43 }), frameRate: 5, repeat: -1 });
     this.SceneSprite.anims.create({ key: '11M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 44, end: 45 }), frameRate: 5, repeat: 0 });
     this.SceneSprite.anims.create({ key: '12M', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionMale', { start: 46, end: 49 }), frameRate: 5, repeat: -1 });
+      
+
+    this.SceneSprite.anims.create({ key: '1F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 0, end: 5 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '2F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 6, end: 10 }), frameRate: 6, repeat: -1 });
+    this.SceneSprite.anims.create({ key: '3F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 9, end: 13 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '4F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 14, end: 17 }), frameRate: 5, repeat: -1 });
+    this.SceneSprite.anims.create({ key: '5F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 18, end: 21 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '6F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 22, end: 25 }), frameRate: 5, repeat: -1 });
+    this.SceneSprite.anims.create({ key: '7F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 26, end: 32 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '8F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 32, end: 36 }), frameRate: 5, repeat: -1 });
+    this.SceneSprite.anims.create({ key: '9F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 37, end: 39 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '10F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 40, end: 43 }), frameRate: 5, repeat: -1 });
+    this.SceneSprite.anims.create({ key: '11F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 44, end: 45 }), frameRate: 5, repeat: 0 });
+    this.SceneSprite.anims.create({ key: '12F', frames: this.SceneSprite.anims.generateFrameNames('playerAndMiloDigestionFemale', { start: 46, end: 49 }), frameRate: 5, repeat: -1 });
+      
+    
+    
     this.SceneSprite.visible = true;
     this.SceneSprite.setScale(1.7);
 

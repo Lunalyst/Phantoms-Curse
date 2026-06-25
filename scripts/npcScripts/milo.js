@@ -57,10 +57,19 @@ class milo extends npc{
       
       this.anims.create({key: 'miloPickUpPlayerStart',frames: this.anims.generateFrameNames('miloCutScene', { start: 28, end: 30 }),frameRate: 5,repeat: 0});
 
-      this.anims.create({key: 'miloPickUpPlayerEndMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 31, end: 33 }),frameRate: 5,repeat: 0});
-      this.anims.create({key: 'miloHoldingPlayerMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 34, end: 37 }),frameRate: 6,repeat: -1});
+      if(scene.playerSex === 0){
 
-      this.anims.create({key: 'miloHoldingPlayerWhileRunningMale',frames: this.anims.generateFrameNames('miloCutScene', { start: 38, end: 47 }),frameRate: 18,repeat: -1});
+        this.anims.create({key: 'miloPickUpPlayerEnd',frames: this.anims.generateFrameNames('miloCutScene', { start: 31, end: 33 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'miloHoldingPlayer',frames: this.anims.generateFrameNames('miloCutScene', { start: 34, end: 37 }),frameRate: 6,repeat: -1});
+
+      }else{
+
+        this.anims.create({key: 'miloPickUpPlayerEnd',frames: this.anims.generateFrameNames('miloCutScene', { start: 48, end: 50 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'miloHoldingPlayer',frames: this.anims.generateFrameNames('miloCutScene', { start: 51, end: 54 }),frameRate: 6,repeat: -1});
+
+      }
+      
+      this.anims.create({key: 'miloHoldingPlayerWhileRunning',frames: this.anims.generateFrameNames('miloCutScene', { start: 38, end: 47 }),frameRate: 18,repeat: -1});
       
       
       //makes a key promptsa object to be displayed to the user

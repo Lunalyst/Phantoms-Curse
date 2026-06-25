@@ -22,6 +22,7 @@ class G6PreloadEnemys extends G5InitNPCs{
           "audio/used-audio/blue-slime-sounds/blue-slime-sounds.mp3"
         ]);
       },
+      
       tigers: function tigersFunction() {
 
         tempSceneRef.load.spritesheet('tigerFemale', 'assets/enemys/tigerFemaleAll.png',{frameWidth: 345, frameHeight: 279 });
@@ -357,6 +358,7 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('nectarClawProjectile', 'assets/gameObjects/nectarClawProjectile.png',{frameWidth: 360, frameHeight: 360 });
 
         tempSceneRef.load.spritesheet('digestionTimerMale', 'assets/hudElements/playerDigestionTimerMale.png',{frameWidth: 321, frameHeight: 171 });
+        tempSceneRef.load.spritesheet('digestionTimerFemale', 'assets/hudElements/playerDigestionTimerFemale.png',{frameWidth: 321, frameHeight: 171 });
 
         tempSceneRef.load.spritesheet('playerClothsProp', 'assets/gameObjects/playerClothsProp.png',{frameWidth: 93, frameHeight: 42 });
 
@@ -369,6 +371,8 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet("nectar7" , "assets/bosses/nectar7.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar8" , "assets/bosses/nectar8.png" , {frameWidth: 933 , frameHeight: 591 });
         tempSceneRef.load.spritesheet("nectar9" , "assets/bosses/nectar9.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar10" , "assets/bosses/nectar10.png" , {frameWidth: 933 , frameHeight: 591 });
+        tempSceneRef.load.spritesheet("nectar11" , "assets/bosses/nectar11.png" , {frameWidth: 933 , frameHeight: 591 });
 
         tempSceneRef.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
       

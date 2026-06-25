@@ -98,14 +98,9 @@ class wolf extends npc{
         //this.scene.player1.visible = false;
 
         this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
-        this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
+
+        this.loadStrecherAnimations();
+  
         this.playerOnStrecher.anims.play("idleHeal", true);
         this.playerOnStrecher.flipX = true;
         this.playerOnStrecher.setScale(1/3);
@@ -128,14 +123,9 @@ class wolf extends npc{
         //this.scene.player1.visible = false;
 
         this.playerOnStrecher = this.scene.add.sprite(752, 760+3, "playerOnStrecher");
-        this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
-        this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
-        this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecher', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });
+
+        this.loadStrecherAnimations();
+
         this.playerOnStrecher.flipX = true;
         this.playerOnStrecher.setScale(1/3);
 
@@ -190,6 +180,30 @@ class wolf extends npc{
         this.scene.cameras.main.followOffset.set(0,70);
        }
 
+  }
+
+  loadStrecherAnimations(){
+    if(this.scene.playerSex === 0){
+      this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecherMale', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });      
+    
+    }else{
+      this.playerOnStrecher.anims.create({ key: 'idleHeal', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'healFade', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 0, end: 5 }), frameRate: 4, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'idle', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 5, end: 5 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'eyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 5, end: 7 }), frameRate: 7, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'idleEyeOpen', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 7, end: 7 }), frameRate: 7, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'gettingUp', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 8, end: 11 }), frameRate: 7, repeat: 0 });
+      this.playerOnStrecher.anims.create({ key: 'upIdleForward', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 11, end: 14 }), frameRate: 5, repeat: -1 });
+      this.playerOnStrecher.anims.create({ key: 'upIdleBackward', frames: this.scene.anims.generateFrameNames('playerOnStrecherFemale', { start: 15, end: 18 }), frameRate: 5, repeat: -1 });      
+    
+    }
   }
 
   //overwrites base npc classes function with flagging logic specific to wolf.

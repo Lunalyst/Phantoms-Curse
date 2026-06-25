@@ -161,6 +161,23 @@ class nectarBoss extends enemy {
      
      
         }else{
+            this.digestionTimer.anims.create({ key: 'stomachOpen', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 0, end: 3 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState1', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState1-2', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 8, end: 8 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState2', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 9, end:12 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState2-3', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 13, end:13 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState3', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 14, end:17 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState3-4', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 18, end:18 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState4', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 19, end:22 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState4-5', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 23, end:23 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState5', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 24, end:27 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState5-6', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 28, end:28 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachState6', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 29, end:32 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachState6-Finish', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 33, end:36 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinish', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 37, end:40 }), frameRate: 6, repeat:-1 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishOpen', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 41, end:42 }), frameRate: 6, repeat: 0 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishOpenIdle', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 43, end:46 }), frameRate: 6, repeat: -1 });
+            this.digestionTimer.anims.create({ key: 'stomachStateFinishClose', frames: this.anims.generateFrameNames('digestionTimerFemale', { start: 47, end:49 }), frameRate: 6, repeat: 0 });
      
         }
         

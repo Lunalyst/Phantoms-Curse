@@ -342,6 +342,10 @@ class G6PreloadEnemys extends G5InitNPCs{
             "audio/used-audio/button-sounds/button-sounds.mp3"
         ]);
 
+        tempSceneRef.load.audioSprite('bossProjSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
+
         tempSceneRef.load.audioSprite('nectarEntranceSFX','audio/used-audio/nectar-entrance-sounds/nectar-entrance-sounds.json',[
             "audio/used-audio/nectar-entrance-sounds/Ravinous Riddle.mp3"
         ]);

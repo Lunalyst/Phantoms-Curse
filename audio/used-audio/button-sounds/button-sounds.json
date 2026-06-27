@@ -116,6 +116,10 @@
             "start": 42.77,
             "end": 43.34,
             "loop": false
+        },"explosionProjectile":{
+            "start": 43.32,
+            "end": 43.82,
+            "loop": false
         }
         
     }

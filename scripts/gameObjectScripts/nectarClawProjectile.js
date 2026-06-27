@@ -42,6 +42,7 @@ class nectarClawProjectile extends Phaser.Physics.Arcade.Sprite{
         temp.anims.play('clawSwipeExpStart').once('animationcomplete' , () =>{
             temp.exploding = true;
             temp.setSize(200,200,true);
+            temp.scene.initSoundEffect('bossProjSFX','explosionProjectile',0.1);
             temp.anims.play('clawSwipeExpMiddle').once('animationcomplete' , () =>{
               this.exploding = false;
               temp.anims.play('clawSwipeExpEnd').once('animationcomplete' , () =>{

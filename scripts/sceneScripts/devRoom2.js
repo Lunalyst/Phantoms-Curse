@@ -49,6 +49,7 @@ class devRoom2 extends defaultScene {
       //this.load.spritesheet("milo" , "assets/npcs/milo.png" , {frameWidth: 429 , frameHeight: 300 });
       this.load.spritesheet("miloUnarmed" , "assets/npcs/miloUnarmed.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloMaskedAndArmed" , "assets/npcs/miloMaskedAndArmed.png" , {frameWidth: 459 , frameHeight: 300 });
+      this.load.spritesheet("miloCutScene" , "assets/npcs/miloCutScene.png" , {frameWidth: 459 , frameHeight: 300 });
       this.load.spritesheet("miloEmots" , "assets/hudElements/miloEmots.png" , {frameWidth: 111 , frameHeight: 117 });
       this.load.spritesheet("nectarEmots" , "assets/hudElements/nectarEmots.png" , {frameWidth: 171 , frameHeight: 147 });
 
@@ -150,12 +151,13 @@ class devRoom2 extends defaultScene {
 
       this.initSigns(418,536+17,"generic","devRoomStatue");
 
-     /* this.initMilo(1551, 600-7,"test");
+      //milos terser code
+      this.initMilo(1551, 600-7,"test");
       //this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
       this.setUpPCMilo(1551, 600);
-      this.setUpPlayer2Collider();*/
+      this.setUpPlayer2Collider();
 
       this.setUpSporeClouds();
 

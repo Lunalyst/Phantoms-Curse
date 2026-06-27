@@ -24,13 +24,13 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({key: 'jumpDownLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 31, end: 32 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'jumpUpRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 33, end: 34 }),frameRate: 10,repeat: 0});
     this.anims.create({key: 'jumpDownRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 35, end: 36 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'lightAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'lightAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'lightAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 15,repeat: 0});
+    this.anims.create({key: 'lightAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 15,repeat: 0});
+    this.anims.create({key: 'lightAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 15,repeat: 0});
     
-    this.anims.create({key: 'lightAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'lightAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 20,repeat: 0});
-    this.anims.create({key: 'lightAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 20,repeat: 0});
+    this.anims.create({key: 'lightAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 15,repeat: 0});
+    this.anims.create({key: 'lightAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 15,repeat: 0});
+    this.anims.create({key: 'lightAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 15,repeat: 0});
     
 
     this.anims.create({key: 'specialAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 53, end: 53 }),frameRate: 8,repeat: 0});
@@ -74,7 +74,11 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.setOffset(203, 91);
     // hitbox cooldown.
     this.hitboxCoolDown = false;
+
     this.hitboxState = false;
+    this.hitboxX = 0;
+    this.hitboxY = 10000;
+
     this.isAttacking = false;
     this.playedAttackAnimation = false;
 
@@ -441,8 +445,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                 if(this.lastKey === 'd'){
                 this.anims.play("lightAttackStartLeft").once('animationcomplete', () => {
-
+                  this.hitboxState = true;
                   this.anims.play("lightAttackMiddleLeft").once('animationcomplete', () => {
+                    this.hitboxState = false;
 
                     this.anims.play("lightAttackEndLeft").once('animationcomplete', () => {
 
@@ -458,9 +463,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                  
                 }else if(this.lastKey === 'a'){
                   this.anims.play("lightAttackStartRight").once('animationcomplete', () => {
-
+                    this.hitboxState = true;
                   this.anims.play("lightAttackMiddleRight").once('animationcomplete', () => {
-
+                    this.hitboxState = false;
                     this.anims.play("lightAttackEndRight").once('animationcomplete', () => {
 
                       this.isAttacking = false;
@@ -475,8 +480,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 }
               }
               this.bluntDamage = 3;
-              this.setAttackHitboxSize(72,40);
-              this.HitBox(600,35);
+              this.setAttackHitboxSize(48,30);
+              this.hitboxX = 51;
+              this.hitboxY = 10;
               break;
             case ("special"):
     
@@ -502,9 +508,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                   this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
-
+                    this.hitboxState = true;
                     this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
-
+                      this.hitboxState = false;
                     //console.log("here!");
                     this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
                       
@@ -527,9 +533,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                     this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
                     this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
-
+                      this.hitboxState = true;
                       this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
-
+                        this.hitboxState = false;
                         this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
 
                          healthEmitter.emit(healthEvent.reduceCurse,15);
@@ -547,8 +553,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   }
                 }
                 this.bluntDamage = 3;
-                this.setAttackHitboxSize(60,40);
-                this.HitBox(600,35);
+                this.setAttackHitboxSize(48,30);
+                this.hitboxX = 51;
+                this.hitboxY = 10;
                 
               }else if(this.playedAttackAnimation === false){
                 this.isAttacking = false;
@@ -575,65 +582,49 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         this.scene.initSoundEffect('weaponSFX','medium',0);
         this.scene.sound.get('weaponSFX').stop();
       }
+      console.log("testing hitbox?")
+      this.hitboxActive(51,10);
     
       
     
   
   }
 
-  //handles hitbox position when attacking right, note this function is only activated if shift is down. that is handle
-  //note make a function that given a size number can change the shape of the hitbox?
-  HitBox(delay,distance){
+  
+  //replaces hitbox function  handles if the player should have there attack box showing.
+  hitboxActive(){
 
     //stop the PCMilos velocity
-    this.setVelocityX(0);
+    //this.setVelocityX(0);
     
     //start by having the PCMilo press shift state should be false
     if(this.hitboxState === false){
       
-      //PCMilo is swinging so  set the state to true
-      this.hitboxState = true;
-
-      // now we start a timer that will activate the hitbox
-      let tempPCMilo = this;
-      setTimeout(function(){
-
-        //after half the delay given we check the hitbox state if its still true
-        //console.log("Phaser.Input.Keyboard.JustDown(this.scene.shift) ",Phaser.Input.Keyboard.JustDown(this.scene.shift))
-        if(tempPCMilo.hitboxState === true){
+      //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
+      this.scene.attackHitBox.x = this.x;
+      this.scene.attackHitBox.y = this.y+10000;
+     
+    }else if(this.hitboxState === true){
           
-          //put hitbox infront of the PCMilo in the way there facing
-          if(tempPCMilo.lastKey === 'd'){
-            tempPCMilo.scene.attackHitBox.x = tempPCMilo.x+distance;
+      //put hitbox infront of the PCMilo in the way there facing
+      if(this.lastKey === 'd'){
+        this.scene.attackHitBox.x = this.x+this.hitboxX;
 
-            //has the PCMilo move forward slightly
-            if(!tempPCMilo.scene.PCMiloGrabbed){
-              tempPCMilo.setVelocityX(20);
-            }
-          }else{
-            tempPCMilo.scene.attackHitBox.x = tempPCMilo.x-distance;
-
-            if(!tempPCMilo.scene.PCMiloGrabbed){
-              tempPCMilo.setVelocityX(-20);
-            }
-          }
-          tempPCMilo.scene.attackHitBox.y = tempPCMilo.y
-
-          //set a timeout function so the hitbox lingeres for a tenth of a second
-          setTimeout(function(){
-            
-            //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
-            tempPCMilo.scene.attackHitBox.x = tempPCMilo.x;
-            tempPCMilo.scene.attackHitBox.y = tempPCMilo.y+10000;
-            tempPCMilo.hitboxState = false;
-
-          },100);
-
-        //otherwise reset state of attack hitbox
+        //has the PCMilo move forward slightly
+        if(!this.scene.PCMiloGrabbed){
+          this.setVelocityX(20);
         }
+      }else{
+        this.scene.attackHitBox.x = this.x-this.hitboxX;
 
-      },delay/2);
+        if(!this.scene.PCMiloGrabbed){
+          this.setVelocityX(-20);
+        }
+      }
+      this.scene.attackHitBox.y = this.y+this.hitboxY;
+
     }
+
   }
 
   // function to activate the weapon swing effect

@@ -53,6 +53,11 @@ class nectarBoss extends enemy {
         this.attemptingAttack = false;
 
         this.attackState = 0;
+        
+        this.attackStateMax = 1;
+        this.attackStateMin = 0;
+
+        this.currentAttackDownTime = 400;
 
         //jump attack bools
         this.preJump = false;
@@ -66,8 +71,8 @@ class nectarBoss extends enemy {
     
         this.body.setGravityY(600); 
 
-        this.setSize(350,350,true);
-        this.setOffset(280, 390-158);
+        this.setSize(330,350,true);
+        this.setOffset(290, 390-158);
 
         this.visible = false;
 
@@ -129,6 +134,7 @@ class nectarBoss extends enemy {
         //this.digestionTimerValue = 34;
         this.digestionTimerAnimationPlayed = false;
         this.player1IsDigested = false;
+        this.nectarDefeated = false;
 
         this.spawnGameoverNpc = false;
 
@@ -344,7 +350,7 @@ class nectarBoss extends enemy {
                                     tempBoss.attackTimer = false;
                                     tempBoss.nectarStateController();
 
-                                }, 1000);
+                                }, this.currentAttackDownTime);
                                
                             });
                         });
@@ -465,7 +471,7 @@ class nectarBoss extends enemy {
 
                                 tempBoss.nectarStateController();
 
-                            }, 1000);
+                            }, this.currentAttackDownTime);
                                
   
                         });
@@ -499,10 +505,6 @@ class nectarBoss extends enemy {
                     this.setVelocityX(200 * 1);
                     this.flipX = true;
                 } 
-
-                if(this.x >= 1716+20 || this.x <= 2600-20){
-                    this.attackState = 0;
-                }
 
                 this.anims.play('sideWalk',true);
 
@@ -568,7 +570,7 @@ class nectarBoss extends enemy {
                                     tempBoss.attackTimer = false;
                                     tempBoss.nectarStateController();
 
-                                }, 1000);
+                                }, this.currentAttackDownTime);
                                
                             });
                         });
@@ -700,7 +702,7 @@ class nectarBoss extends enemy {
 
                                 tempBoss.nectarStateController();
 
-                            }, 1000);
+                            }, this.currentAttackDownTime);
                                
                         });
                     }
@@ -800,7 +802,7 @@ class nectarBoss extends enemy {
                                     tempBoss.attackTimer = false;
                                     tempBoss.nectarStateController();
 
-                                }, 1000);
+                                }, this.currentAttackDownTime);
                                
                             });
                         });
@@ -1001,22 +1003,7 @@ class nectarBoss extends enemy {
         // handle attack pattern based on hp range
         if(this.digestionTimerValue < 42-6){
 
-            if(this.enemyHP > (this.bossMaxHealth/3) * 2){
-
-            this.attackState = Math.floor(Math.random() * 2);
-            //this.attackState = 4;
-
-            }else if(this.enemyHP > this.bossMaxHealth/2){
-
-                this.attackState = Math.floor(Math.random() * 3);
-
-            }else{
-                this.attackState = Math.floor(Math.random() * 5);
-
-                if(this.attackState === 1){
-                    this.attackState = 3;
-                }
-            }
+            this.attackState = this.generateAttackStateNumber();
 
             //but if the player has bee digested, then stop attack paterning.
         }else{
@@ -1026,11 +1013,87 @@ class nectarBoss extends enemy {
         
     }
 
+    generateAttackStateNumber(){
+
+        let newAttackState = 0;
+
+        if(this.enemyHP > (this.bossMaxHealth/3) * 2){
+
+            //newAttackState = this.attackStateRanger();
+            console.log("setting attack state to 1")
+            newAttackState = 1;
+           
+        }else if(this.enemyHP > this.bossMaxHealth/2){
+
+            this.currentAttackDownTime = 200;
+            this.attackStateMax = 2;
+            newAttackState = this.attackStateRanger();
+
+        }else{
+
+            this.currentAttackDownTime = 70;
+
+            this.attackStateMax = 4;
+            newAttackState = this.attackStateRanger();
+
+            if(newAttackState === 1){
+                newAttackState = 3;
+            }
+
+            if(newAttackState === 0){
+                newAttackState = 4;
+            }
+
+        }
+
+        return newAttackState;
+    
+    }
+
+    attackStateRanger(){
+        // so idea. to generate a random number without repeating the last one
+
+        //could have a random number rage. two to be exact. 
+        //where the divide of the two ranges is the value selected?
+
+        //0 1 2 3 4
+        //[]0[ 1 2 3 4]
+        //[0 1 ]2[3 4]
+         //two ranges
+        let range1 = Math.floor(Math.random() * (this.attackState - this.attackStateMin )) + this.attackStateMin;
+        //console.log("range1: ",range1)
+        let range2 = Math.floor(Math.random() * (this.attackStateMax-1 - this.attackState+1 )) + this.attackState+1;
+        //console.log("range2: ",range2)
+        
+        //edge cases, first is if the attak state = this.attackStateMin
+        if(this.attackState === this.attackStateMin){
+            console.log("attackstate was min rage: ",range2);
+            return range2;
+        }else if(this.attackState === this.attackStateMax){
+            console.log("attackstate was max rage: ",range1);
+            return range1;
+        }else{
+
+            //flip a coin to pick the range we go with. 
+            let coin = Math.floor(Math.random() * (2 - 0 )) + 0;
+            if(coin === 1){
+                console.log("new attackstate:  ",range1);
+                return range1;
+            }else{
+                console.log("new attackstate:  ",range2);
+                return range2;
+            }
+
+        }
+        
+
+    }
+
     nectarBorderCheck(){
         // if nectar is to the right and too close to the border of the arena
-        if(this.x > 2641-100 || this.x < 1716+100){
-            console.log("nectar too close to right border of the arena now fixing")
-            this.attackState = 1;
+        if(!(this.x > 1800 && this.x < 2500)){
+            console.log("player is on the border of the arena")
+            this.attackState = 0;
         }
     }
 

@@ -1124,7 +1124,7 @@ class G8InitEnemys extends G7EnemyCollisions{
 
             if(nectar.attackState === 0 || nectar.attackState === 4 ){
 
-              if(tempSceneRef.damagedPlayer === false){
+              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false){
 
                 tempSceneRef.player2.setTint(0xFF0000);
                 setTimeout(function () {
@@ -1132,7 +1132,7 @@ class G8InitEnemys extends G7EnemyCollisions{
                 }, 250);
 
                 tempSceneRef.damagedPlayer = true;
-                healthEmitter.emit(healthEvent.loseHealth,7);
+                healthEmitter.emit(healthEvent.loseHealth,9);
                 setTimeout(function () {
                   tempSceneRef.damagedPlayer = false;
                 }, 2000);
@@ -1140,14 +1140,14 @@ class G8InitEnemys extends G7EnemyCollisions{
 
              
             }else if(nectar.attackState === 1 || nectar.attackState === 3){
-              if(tempSceneRef.damagedPlayer === false){
+              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false){
 
                   tempSceneRef.player2.setTint(0xFF0000);
                   setTimeout(function () {
                     tempSceneRef.player2.clearTint();
                   }, 250);
                   tempSceneRef.damagedPlayer = true;
-                  healthEmitter.emit(healthEvent.loseHealth,10);
+                  healthEmitter.emit(healthEvent.loseHealth,12);
                   setTimeout(function () {
                     tempSceneRef.damagedPlayer = false;
                   }, 2000);

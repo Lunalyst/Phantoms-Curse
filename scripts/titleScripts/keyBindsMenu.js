@@ -35,7 +35,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         let tempArray = [170];
         for(let index = 0;index < 9;index++){
             
-            tempArray.push((170) + ((index+1) * 60) );
+            tempArray.push((170) + ((index+1) * 55) );
         }
 
         this.interact = new keyBindUnit(scene,-40,tempArray[0],"Interact",this.scene.bindSettings.keyWBind,this);
@@ -69,6 +69,10 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.special = new keyBindUnit(scene,-40,tempArray[7],"Special",this.scene.bindSettings.specialBind,this);
         this.add(this.special);
         this.bindArray.push(this.special);
+
+        this.block = new keyBindUnit(scene,-40,tempArray[8],"Block",this.scene.bindSettings.blockBind,this);
+        this.add(this.block);
+        this.bindArray.push(this.block);
 
         this.defaultButton = new makeText(scene,-160,685,'charBubble',"Default");
         this.defaultButton.addHitboxBinds();
@@ -112,6 +116,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.activeBindsArray.push(this.scene.bindSettings.keyTABBind);
         this.activeBindsArray.push(this.scene.bindSettings.shiftBind);
         this.activeBindsArray.push(this.scene.bindSettings.specialBind);
+        this.activeBindsArray.push(this.scene.bindSettings.blockBind);
 
         console.log("current keys in use: ",this.activeBindsArray);
 
@@ -211,6 +216,10 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
                     this.scene.bindSettings.specialBind = 'KeyE';
                     bind.unitKey = 'KeyE'; 
                     bind.keyDisplay.playKey('KeyE'+"-S");
+                }else if(bind.unitName === "Block"){
+                    this.scene.bindSettings.specialBind = 'KeyR';
+                    bind.unitKey = 'KeyR'; 
+                    bind.keyDisplay.playKey('KeyR'+"-S");
                 }
                 
             });
@@ -227,7 +236,8 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
             shiftBind:this.scene.bindSettings.shiftBind,
             healBind:"KeyH",
             specialBind:this.scene.bindSettings.specialBind,
-            blockBind:"KeyR"
+            blockBind:this.scene.bindSettings.blockBind
+            
             }
 
             };
@@ -273,6 +283,7 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             if(this.menu.activelySelecting === false && this.isSelected === false){
                 this.scene.initSoundEffect('buttonSFX','1',0.05);
                 this.title.setTextTint(0xff7a7a);
+                console.log("this.unitKey: ",this.unitKey);
                 this.keyDisplay.playKey(this.unitKey);
             }
         },this);
@@ -337,6 +348,8 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             this.scene.bindSettings.shiftBind = newKey;
         }else if(this.unitName === "Special"){
             this.scene.bindSettings.specialBind = newKey;
+        }else if(this.unitName === "Block"){
+            this.scene.bindSettings.blockBind = newKey;
         }
 
         let tempObject = {
@@ -351,7 +364,7 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             shiftBind:this.scene.bindSettings.shiftBind,
             healBind:"KeyH",
             specialBind:this.scene.bindSettings.specialBind,
-            blockBind:"KeyR"
+            blockBind:this.scene.bindSettings.blockBind
             }
 
         };

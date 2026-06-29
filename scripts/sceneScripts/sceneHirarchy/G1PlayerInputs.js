@@ -24,6 +24,7 @@ class G1PlayerInputs extends A3SoundEffects {
     this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.spaceBind]]);
     this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.shiftBind]]);
     this.special = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.specialBind]]);
+    this.blocking = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.blockBind]]);
 
   }
 
@@ -60,7 +61,8 @@ setUpPCMilo(x,y){
   if(this.playerProjectiles === null || this.playerProjectiles === undefined){
     this.playerProjectiles = this.add.group();
   }
-  
+  this.blockHitbox = new hitBoxes(this,this.player2.x,this.player2.y+10000);
+
   //moves the player hitbox out of the way
   this.attackHitBox.x = this.x;
   this.attackHitBox.y = this.y+10000;
@@ -400,7 +402,7 @@ setUpKeyPrompts(){
 
   checkSpecialPressed(){
 
-    if(Phaser.Input.Keyboard.JustDown(this.this.special)){
+    if(Phaser.Input.Keyboard.JustDown(this.special)){
       return true; 
     }else{
 
@@ -423,6 +425,50 @@ setUpKeyPrompts(){
   checkSpecialIsDown(){
 
     if(this.special.isDown){
+      return true;
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+
+        return false;
+    } 
+  }
+
+  checkBlockPressed(){
+
+    if(Phaser.Input.Keyboard.JustDown(this.blocking)){
+      return true; 
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+     return false;
+    } 
+  }
+
+  //mobile button control for expecting if the a key is down and can be held down.
+  checkBlockIsDown(){
+
+    if(this.blocking.isDown){
       return true;
     }else{
 

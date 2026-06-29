@@ -1114,6 +1114,7 @@ class G8InitEnemys extends G7EnemyCollisions{
                 console.log('player grabbed by nectar');
               }
           });
+
           nectar.addColliderRef(collider1);
           //attack hitbox logic
           collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player2, nectar.attackHitBox, function () {
@@ -1124,7 +1125,7 @@ class G8InitEnemys extends G7EnemyCollisions{
 
             if(nectar.attackState === 0 || nectar.attackState === 4 ){
 
-              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false){
+              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false && tempSceneRef.player2.isBlocking === false){
 
                 tempSceneRef.player2.setTint(0xFF0000);
                 setTimeout(function () {
@@ -1136,11 +1137,19 @@ class G8InitEnemys extends G7EnemyCollisions{
                 setTimeout(function () {
                   tempSceneRef.damagedPlayer = false;
                 }, 2000);
+              
+              }else if(tempSceneRef.damagedPlayer === false && tempSceneRef.player2.isBlocking === true) {
+                console.log("sucessful block")
+                tempSceneRef.initSoundEffect('blockSFX','blockBell',0.1);
+                tempSceneRef.damagedPlayer = true;
+                setTimeout(function () {
+                  tempSceneRef.damagedPlayer = false;
+                }, 2000);
               }
 
              
             }else if(nectar.attackState === 1 || nectar.attackState === 3){
-              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false){
+              if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false && tempSceneRef.player2.isBlocking === false){
 
                   tempSceneRef.player2.setTint(0xFF0000);
                   setTimeout(function () {
@@ -1151,10 +1160,26 @@ class G8InitEnemys extends G7EnemyCollisions{
                   setTimeout(function () {
                     tempSceneRef.damagedPlayer = false;
                   }, 2000);
+              }else if(tempSceneRef.damagedPlayer === false && tempSceneRef.player2.isBlocking === true) {
+                console.log("sucessful block")
+                tempSceneRef.initSoundEffect('blockSFX','blockBell',0.1);
+                tempSceneRef.damagedPlayer = true;
+                setTimeout(function () {
+                  tempSceneRef.damagedPlayer = false;
+                }, 2000);
               }
             }
           });
           nectar.addColliderRef(collider1);
+
+          //collider between block hitbox and nectar attack
+          /*collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.blockHitbox, nectar.attackHitBox, function () {
+
+
+          });*/
+
+          nectar.addColliderRef(collider1);
+
         }
       },
 

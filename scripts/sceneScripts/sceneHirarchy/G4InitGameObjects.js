@@ -416,7 +416,36 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
         if(tempProjectile.body.blocked.down === false){
           //set up player stuck grab and 
-           if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false){
+           if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
+
+                  tempScene.damagedPlayer = true;
+                  tempScene.player2.setTint(0xFF0000);
+                  setTimeout(function () {
+                    tempScene.player2.clearTint();
+                  }, 250);
+
+                  healthEmitter.emit(healthEvent.loseHealth,7);
+                  setTimeout(function () {
+                    tempScene.damagedPlayer = false;
+                  }, 2000);
+              }
+          
+        }else if(tempScene.player2.isBlocking === true) {
+
+                tempScene.damagedPlayer = true;
+                setTimeout(function () {
+                  tempSceneRef.damagedPlayer = false;
+                }, 2000);
+            }
+
+
+      });
+
+      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+
+        if(tempProjectile.body.blocked.down === false){
+          //set up player stuck grab and 
+           if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
 
                   tempScene.damagedPlayer = true;
                   tempScene.player2.setTint(0xFF0000);
@@ -432,6 +461,14 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
           
         }
 
+
+      });
+
+      tempProjectile.colliderBlock = this.physics.add.overlap(this.blockHitbox, tempProjectile, function () {
+        tempScene.initSoundEffect('blockSFX','blockBell',0.1);
+        tempProjectile.blockedNectarProjectile();
+
+       //block sfx here
 
       });
 
@@ -457,7 +494,7 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       //if projectile overlaps with player then
       tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
 
-        if(tempProjectile.exploding === true && tempProjectile.explosionDamagedPlayer === false && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false){
+        if(tempProjectile.exploding === true && tempProjectile.explosionDamagedPlayer === false && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
 
            tempProjectile.explosionDamagedPlayer = true;
             tempScene.player2.setTint(0xFF0000);
@@ -467,6 +504,13 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
             healthEmitter.emit(healthEvent.loseHealth,17);
            
           
+        }else if(tempProjectile.explosionDamagedPlayer === false && tempScene.player2.isBlocking === true) {
+
+          
+           tempProjectile.explosionDamagedPlayer = true;
+            tempScene.initSoundEffect('blockSFX','blockBell',0.1);
+          //blocks sfx here
+                
         }
 
 

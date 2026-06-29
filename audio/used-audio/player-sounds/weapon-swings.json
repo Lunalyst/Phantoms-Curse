@@ -58,6 +58,11 @@
             "start": 15.01,
             "end": 16.50,
             "loop": false
+        },
+        "blockBell":{
+            "start": 16.68,
+            "end": 17.50,
+            "loop": false
         }
         
     }

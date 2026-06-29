@@ -508,7 +508,7 @@ class nectarBoss extends enemy {
 
                 this.anims.play('sideWalk',true);
 
-                 this.nectarBorderCheck();
+                this.nectarBorderCheck();
                 
 
             }else if(this.checkXRangeFromPlayer2(232, 232) || this.attackTimer === true || this.attemptingAttack === true) {
@@ -1019,9 +1019,9 @@ class nectarBoss extends enemy {
 
         if(this.enemyHP > (this.bossMaxHealth/3) * 2){
 
-            //newAttackState = this.attackStateRanger();
-            console.log("setting attack state to 1")
-            newAttackState = 1;
+            newAttackState = this.attackStateRanger();
+            //console.log("setting attack state to 1")
+            //newAttackState = 1;
            
         }else if(this.enemyHP > this.bossMaxHealth/2){
 
@@ -1091,7 +1091,7 @@ class nectarBoss extends enemy {
 
     nectarBorderCheck(){
         // if nectar is to the right and too close to the border of the arena
-        if(!(this.x > 1800 && this.x < 2500)){
+        if(!(this.x > 1900 && this.x < 2500)){
             console.log("player is on the border of the arena")
             this.attackState = 0;
         }

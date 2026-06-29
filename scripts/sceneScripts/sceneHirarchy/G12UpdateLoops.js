@@ -410,18 +410,23 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
 
           //call player function to see if there attacking
-          if(this.player2.body.blocked.down && this.shift.isDown){
+          if(this.player2.body.blocked.down && this.checkATKIsDown()){
             this.player2.isAttacking = true;
             this.player2.attackType = "light";
             this.player2.attackPlayer(this);
-          }else if(this.player2.body.blocked.down && this.special.isDown){
+          }else if(this.player2.body.blocked.down && this.checkSpecialIsDown()){
             this.player2.isAttacking = true;
             this.player2.attackType = "special";
+            this.player2.attackPlayer(this);
+          }else if(this.player2.body.blocked.down && this.checkBlockIsDown()){
+            this.player2.isAttacking = true;
+            this.player2.attackType = "block";
             this.player2.attackPlayer(this);
           }
 
           //handle the attack hitbox. need to see at every tick if its present or not.
-          this.player2.hitboxActive();
+          this.player2.attackHitboxActive();
+          this.player2.blockHitboxActive();
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){

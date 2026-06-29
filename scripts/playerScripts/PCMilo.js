@@ -48,6 +48,15 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
     this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
     
+     this.anims.create({key: 'rightBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 125, end: 128 }),frameRate: 15,repeat: 0});
+     this.anims.create({key: 'rightBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 129, end: 129 }),frameRate: 2,repeat: 0});
+     this.anims.create({key: 'rightBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 130, end: 132 }),frameRate: 15,repeat: 0});
+
+     this.anims.create({key: 'leftBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 133, end: 136 }),frameRate: 15,repeat: 0});
+     this.anims.create({key: 'leftBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 137, end: 137 }),frameRate: 2,repeat: 0});
+     this.anims.create({key: 'leftBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 138, end: 140 }),frameRate: 15,repeat: 0});
+    
+    
     
      
     this.anims.play('angleIdleLeft');
@@ -67,6 +76,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     //object is on view layer 6
     this.setDepth(6);
     this.setScale(1/3);
+    
 
     this.visible = false;
 
@@ -75,12 +85,16 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     // hitbox cooldown.
     this.hitboxCoolDown = false;
 
-    this.hitboxState = false;
+    this.attackHitboxState = false;
+    this.blockHitboxState = false;
+   
     this.hitboxX = 0;
     this.hitboxY = 10000;
 
     this.isAttacking = false;
     this.playedAttackAnimation = false;
+
+    this.isBlocking = false;
 
     //used to tell what damage type the PCMilo is dealing with melee weapons.
     this.sliceDamage = 0;
@@ -435,7 +449,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         this.idleTimer = 0;
 
           //case to determine attack animation
-          console.log("this.attackType: ",this.attackType);
+          //console.log("this.attackType: ",this.attackType);
           switch(this.attackType) {
             case ("light"):
               if(this.playedAttackAnimation === false){
@@ -445,9 +459,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                 if(this.lastKey === 'd'){
                 this.anims.play("lightAttackStartLeft").once('animationcomplete', () => {
-                  this.hitboxState = true;
+                  this.attackHitboxState = true;
                   this.anims.play("lightAttackMiddleLeft").once('animationcomplete', () => {
-                    this.hitboxState = false;
+                    this.attackHitboxState = false;
 
                     this.anims.play("lightAttackEndLeft").once('animationcomplete', () => {
 
@@ -463,9 +477,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                  
                 }else if(this.lastKey === 'a'){
                   this.anims.play("lightAttackStartRight").once('animationcomplete', () => {
-                    this.hitboxState = true;
+                    this.attackHitboxState = true;
                   this.anims.play("lightAttackMiddleRight").once('animationcomplete', () => {
-                    this.hitboxState = false;
+                    this.attackHitboxState = false;
                     this.anims.play("lightAttackEndRight").once('animationcomplete', () => {
 
                       this.isAttacking = false;
@@ -503,14 +517,15 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   this.scene.initSoundEffect('weaponSFX','high2',0.1);
 
                   if(this.lastKey === 'd'){
+                    
 
                   this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
                   this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
-                    this.hitboxState = true;
+                    this.attackHitboxState = true;
                     this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
-                      this.hitboxState = false;
+                      this.attackHitboxState = false;
                     //console.log("here!");
                     this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
                       
@@ -533,9 +548,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                     this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
                     this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
-                      this.hitboxState = true;
+                      this.attackHitboxState = true;
                       this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
-                        this.hitboxState = false;
+                        this.attackHitboxState = false;
                         this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
 
                          healthEmitter.emit(healthEvent.reduceCurse,15);
@@ -561,6 +576,66 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 this.isAttacking = false;
               }
               break;
+            case ("block"):
+    
+              
+              if(this.playedAttackAnimation === false){
+
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high2',0.1);
+
+                  if(this.lastKey === 'd'){
+
+                  this.anims.play("rightBlockStart").once('animationcomplete', () => {
+
+                    this.blockHitboxState = true;
+                    this.isBlocking = true;
+                    this.anims.play("rightBlockMiddle").once('animationcomplete', () => {
+                      this.blockHitboxState = false;
+                      this.isBlocking = false;
+                    //console.log("here!");
+
+                      this.anims.play("rightBlockEnd").once('animationcomplete', () => {
+
+                        this.isAttacking = false;
+                        this.playedAttackAnimation = false;
+                        console.log("attack is over so stoping");
+
+                      });
+                    });
+
+                  });
+                  
+                  }else if(this.lastKey === 'a'){
+
+                    this.anims.play("leftBlockStart").once('animationcomplete', () => {
+                      this.blockHitboxState = true;
+                      this.isBlocking = true;
+                      this.anims.play("leftBlockMiddle").once('animationcomplete', () => {
+                        this.blockHitboxState = false;
+                        this.isBlocking = false;
+               
+                        this.anims.play("leftBlockEnd").once('animationcomplete', () => {
+
+                          this.isAttacking = false;
+                          this.playedAttackAnimation = false;
+                          console.log("attack is over so stoping");
+
+                      });
+                    });
+
+                  });
+                  
+                }
+              
+                this.setBlockHitboxSize(20,50);
+                this.hitboxX = 27;
+                this.hitboxY = 15;
+                
+              }else if(this.playedAttackAnimation === false){
+                this.isAttacking = false;
+              }
+              break;
             default:
 
             }
@@ -573,7 +648,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         this.scene.attackHitBox.y = this.y+10000;
 
         //important reset of the hitbox state incase the PCMilo isnt swinging set this to false.
-        this.hitboxState = false;
+        this.attackHitboxState = false;
 
         //resets variable so PCMilo only swings once per press of shift
         this.isAttacking = false;
@@ -582,8 +657,8 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         this.scene.initSoundEffect('weaponSFX','medium',0);
         this.scene.sound.get('weaponSFX').stop();
       }
-      console.log("testing hitbox?")
-      this.hitboxActive(51,10);
+      //console.log("testing hitbox?")
+      //this.hitboxActive(51,10);
     
       
     
@@ -592,36 +667,56 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
   
   //replaces hitbox function  handles if the player should have there attack box showing.
-  hitboxActive(){
+  attackHitboxActive(){
 
     //stop the PCMilos velocity
     //this.setVelocityX(0);
     
     //start by having the PCMilo press shift state should be false
-    if(this.hitboxState === false){
+    if(this.attackHitboxState === false){
       
-      //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
+      //after that time is up put the hitbox back to its idle location and reset the attackHitboxstate variable. 
       this.scene.attackHitBox.x = this.x;
       this.scene.attackHitBox.y = this.y+10000;
      
-    }else if(this.hitboxState === true){
+    }else if(this.attackHitboxState === true){
           
       //put hitbox infront of the PCMilo in the way there facing
       if(this.lastKey === 'd'){
         this.scene.attackHitBox.x = this.x+this.hitboxX;
 
         //has the PCMilo move forward slightly
-        if(!this.scene.PCMiloGrabbed){
-          this.setVelocityX(20);
-        }
+
       }else{
         this.scene.attackHitBox.x = this.x-this.hitboxX;
 
-        if(!this.scene.PCMiloGrabbed){
-          this.setVelocityX(-20);
-        }
       }
       this.scene.attackHitBox.y = this.y+this.hitboxY;
+
+    }
+
+  }
+
+  blockHitboxActive(){
+    
+    //start by having the PCMilo press shift state should be false
+    if(this.blockHitboxState === false){
+      
+      //after that time is up put the hitbox back to its idle location and reset the attackHitboxstate variable. 
+      this.scene.blockHitbox.x = this.x;
+      this.scene.blockHitbox.y = this.y+10000;
+     
+    }else if(this.blockHitboxState === true){
+          
+      //put hitbox infront of the PCMilo in the way there facing
+      if(this.lastKey === 'd'){
+        this.scene.blockHitbox.x = this.x+this.hitboxX;
+
+      }else{
+        this.scene.blockHitbox.x = this.x-this.hitboxX;
+
+      }
+      this.scene.blockHitbox.y = this.y+this.hitboxY;
 
     }
 
@@ -826,7 +921,12 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
   //sets size of hitbox while attacking.
   setAttackHitboxSize(width,height){
+    console.log("changing attack box size: ",this.scene.attackHitBox);
     this.scene.attackHitBox.setSize(width,height);
+  }
+
+  setBlockHitboxSize(width,height){
+    this.scene.blockHitbox.setSize(width,height);
   }
 
   

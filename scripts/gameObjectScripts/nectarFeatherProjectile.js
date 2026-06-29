@@ -27,6 +27,7 @@ class nectarProjectile extends Phaser.Physics.Arcade.Sprite{
     destroyNectarProjectile(){
       
       this.collider.destroy();
+      this.colliderBlock.destroy();
       let temp = this;
       this.scene.tweens.add({
           targets: this,
@@ -41,5 +42,13 @@ class nectarProjectile extends Phaser.Physics.Arcade.Sprite{
       
       //this.anims.play('nectarProjectileDestroy').once('animationcomplete' , () =>{
       //});
+    }
+
+    blockedNectarProjectile(){
+
+      this.collider.destroy();
+      this.colliderBlock.destroy();
+      this.destroy();
+      
     }
 }

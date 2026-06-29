@@ -1093,7 +1093,7 @@ class nectarBoss extends enemy {
         // if nectar is to the right and too close to the border of the arena
         if(!(this.x > 1900 && this.x < 2500)){
             console.log("player is on the border of the arena")
-            this.attackState = 0;
+            this.attackState = 1;
         }
     }
 

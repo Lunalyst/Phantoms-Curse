@@ -33,13 +33,11 @@ class G1PlayerInputs extends A3SoundEffects {
       //creates a player object with the given values
       this.player1 = new player(this,this.warpToX,this.warpToY,this.playerSex);
       //creates a hitbox which will be used to 
-      this.attackHitBox = new hitBoxes(this,this.player1.x,this.player1.y);
+      this.attackHitBox = new hitBoxes(this,0,10000);
 
       this.playerProjectiles = this.add.group();
 
-      //moves the player hitbox out of the way
-      this.attackHitBox.x = this.x;
-      this.attackHitBox.y = this.y+10000;
+      console.log("this.attackHitBox.x: ",this.attackHitBox.x, " this.attackHitBox.y: ",this.attackHitBox.y);
 
       //apply lighting to player
       if(this.lightingSystemActive){
@@ -56,16 +54,14 @@ setUpPCMilo(x,y){
   this.player2 = new PCMilo(this,x,y);
 
   if(this.attackHitBox === null || this.attackHitBox === undefined){
-    this.attackHitBox = new hitBoxes(this,this.player2.x,this.player2.y);
+  this.attackHitBox = new hitBoxes(this,this.player2.x,this.player2.y);
   }
+
   if(this.playerProjectiles === null || this.playerProjectiles === undefined){
     this.playerProjectiles = this.add.group();
   }
   this.blockHitbox = new hitBoxes(this,this.player2.x,this.player2.y+10000);
 
-  //moves the player hitbox out of the way
-  this.attackHitBox.x = this.x;
-  this.attackHitBox.y = this.y+10000;
 
   //apply lighting to player
   if(this.lightingSystemActive){

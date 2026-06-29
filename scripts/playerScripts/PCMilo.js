@@ -452,6 +452,8 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           //console.log("this.attackType: ",this.attackType);
           switch(this.attackType) {
             case ("light"):
+
+              console.log("this.attackHitboxState: ",this.attackHitboxState);
               if(this.playedAttackAnimation === false){
 
                 this.playedAttackAnimation = true;
@@ -578,7 +580,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
               break;
             case ("block"):
     
-              
+             
               if(this.playedAttackAnimation === false){
 
                 this.playedAttackAnimation = true;
@@ -673,6 +675,8 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     //this.setVelocityX(0);
     
     //start by having the PCMilo press shift state should be false
+
+    console.log("this.attackHitboxState: ",this.attackHitboxState);
     if(this.attackHitboxState === false){
       
       //after that time is up put the hitbox back to its idle location and reset the attackHitboxstate variable. 
@@ -680,7 +684,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
       this.scene.attackHitBox.y = this.y+10000;
      
     }else if(this.attackHitboxState === true){
-          
+
       //put hitbox infront of the PCMilo in the way there facing
       if(this.lastKey === 'd'){
         this.scene.attackHitBox.x = this.x+this.hitboxX;
@@ -691,6 +695,8 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         this.scene.attackHitBox.x = this.x-this.hitboxX;
 
       }
+      console.log("this.scene.attackHitBox: ",this.scene.attackHitBox)
+      console.log("this.scene.attackHitBox.y: ",this.scene.attackHitBox.y)
       this.scene.attackHitBox.y = this.y+this.hitboxY;
 
     }
@@ -921,7 +927,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
   //sets size of hitbox while attacking.
   setAttackHitboxSize(width,height){
-    console.log("changing attack box size: ",this.scene.attackHitBox);
+    //console.log("changing attack box size: ",this.scene.attackHitBox);
     this.scene.attackHitBox.setSize(width,height);
   }
 

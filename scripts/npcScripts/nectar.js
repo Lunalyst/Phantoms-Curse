@@ -1359,8 +1359,8 @@ class nectar extends npc{
     if(this.scene.checkSkipIndicatorIsDown() && this.skipFlagFound === true){
       //here is where we apply the warp code 
       //console.log(" skipping nectar scene")
-
-      //creates a object to hold data for scene transition
+      if(this.npcType === "ambush" ){
+        //creates a object to hold data for scene transition
             let playerDataObject = {
               saveX: null,
               saveY: null,
@@ -1408,6 +1408,28 @@ class nectar extends npc{
             //warps player to the next scene
             this.scene.destination = "LockwoodBridges";
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+      }else if(this.npcType === "eatMilo" ){
+         if(this.gameoverStarted === false){
+          this.gameoverStarted = true;
+          this.scene.changeToCutscene("nectarPlayerAndMiloDigestion");
+
+        }
+      }else if(this.npcType === "digestedPlayer" ){
+          this.inDialogue = true;
+          this.scene.gameoverLocation = "nectarCaveGameover";
+          this.scene.enemyThatDefeatedPlayer = bestiaryKey.nectarVore1;
+          this.scene.sceneTextBox.textInterupt = true;
+          this.scene.sceneTextBox.textCoolDown = true;
+          this.scene.cutSceneActive = false;
+          this.npcInteractionFinished = true;
+
+          if(this.gameoverStarted === false){
+            this.gameoverStarted = true;
+            this.scene.changeToGameover();
+
+          }
+      }
+    
     } 
   }
 
@@ -2316,6 +2338,11 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
       if(this.currentDictNode.nodeName === "node1"){
         
+        this.skipFlagFound = true;
+
+        //calls emitter to show the tabtoskip graphic
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
         this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
 
       }else if(this.currentDictNode.nodeName === "node2"){
@@ -2441,6 +2468,11 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
 
       if(this.currentDictNode.nodeName === "node1"){
+
+        this.skipFlagFound = true;
+
+        //calls emitter to show the tabtoskip graphic
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
         
         this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
         

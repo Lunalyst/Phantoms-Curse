@@ -48,11 +48,11 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
     this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
     
-     this.anims.create({key: 'rightBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 125, end: 128 }),frameRate: 15,repeat: 0});
+     this.anims.create({key: 'rightBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 125, end: 128 }),frameRate: 20,repeat: 0});
      this.anims.create({key: 'rightBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 129, end: 129 }),frameRate: 2,repeat: 0});
      this.anims.create({key: 'rightBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 130, end: 132 }),frameRate: 15,repeat: 0});
 
-     this.anims.create({key: 'leftBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 133, end: 136 }),frameRate: 15,repeat: 0});
+     this.anims.create({key: 'leftBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 133, end: 136 }),frameRate: 20,repeat: 0});
      this.anims.create({key: 'leftBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 137, end: 137 }),frameRate: 2,repeat: 0});
      this.anims.create({key: 'leftBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 138, end: 140 }),frameRate: 15,repeat: 0});
     
@@ -470,7 +470,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
                       console.log("attack is over so stoping");
-                      this.bluntDamage = 0;
+                      this.pierceDamage = 0;
 
                     });
                   });
@@ -487,7 +487,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
                       console.log("attack is over so stoping");
-                      this.bluntDamage = 0;
+                      this.pierceDamage = 0;
 
                     });
                   });
@@ -495,7 +495,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 });
                 }
               }
-              this.bluntDamage = 3;
+              this.pierceDamage = 3;
               this.setAttackHitboxSize(48,30);
               this.hitboxX = 51;
               this.hitboxY = 10;
@@ -538,7 +538,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                         this.isAttacking = false;
                         this.playedAttackAnimation = false;
                         console.log("attack is over so stoping");
-                        this.bluntDamage = 0;
+                        this.pierceDamage = 0;
 
                       });
                     });
@@ -561,7 +561,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                           this.isAttacking = false;
                           this.playedAttackAnimation = false;
                           console.log("attack is over so stoping");
-                          this.bluntDamage = 0;
+                          this.pierceDamage = 0;
 
                       });
                     });
@@ -569,7 +569,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   });
                   }
                 }
-                this.bluntDamage = 3;
+                this.pierceDamage = 3;
                 this.setAttackHitboxSize(48,30);
                 this.hitboxX = 51;
                 this.hitboxY = 10;

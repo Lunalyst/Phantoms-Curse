@@ -322,7 +322,7 @@ class LockwoodBridges extends defaultScene {
     }
 
     update(){
-      console.log("this.attackHitBox.x: : ",this.attackHitBox.x, " this.attackHitBox.y: : ",this.attackHitBox.y);
+      //console.log("this.attackHitBox.x: : ",this.attackHitBox.x, " this.attackHitBox.y: : ",this.attackHitBox.y);
       
       /*if(this.Milo.y > 750){
         this.Milo.y = 401;

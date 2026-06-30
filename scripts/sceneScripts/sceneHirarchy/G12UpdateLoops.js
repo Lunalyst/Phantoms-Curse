@@ -458,7 +458,14 @@ class G12UpdateLoops extends G11CheckGameObjects{
         }
       //if we are paused
       }else if(this.isPaused === true){
-         
+
+        //make sure that player hitboxes are out of the way if paused. 
+        this.blockHitbox.x = 0;
+        this.blockHitbox.y = 10000;
+
+        this.attackHitBox.x = 0;
+        this.attackHitBox.y = 10000;
+
         if(this.CutscenePhysics === false){
           //console.log("pausing physics");
           this.physics.pause();

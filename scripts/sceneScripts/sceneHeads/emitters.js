@@ -598,7 +598,11 @@ const bestiaryTextList = {
       },
       nectar_vore_1:{
         title: "NECTAR",
-        summary: "mean old spyinx :P",
+        summary: "An ancient sphinx sorceress who insists that she’s only 35. Clever and curious, she enjoys naps, eating anything smaller than her, and being a bit of a yandere towards a certain anaconda...",
+      },
+      nectar_vore_2:{
+        title: "NECTAR & PLUM",
+        summary: "After a good meal, Nectar goes home to relax with her partner, Plum. Sometimes, she just naps, other times, she reads a book. Whenever she’s upset, however, beware, for the sphinx is not the true danger within this cave...",
       },
 
       back: {

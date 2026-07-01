@@ -617,6 +617,38 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "nectarMemoryText":{
+                     "node1":{
+                        "dialogue": "before you, lies a significant memory.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node3":{
+                        "dialogue": "serving as a marker of how far you have come.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                     "node4":{
+                        "dialogue": "yet this memory is more than it seems.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                     "node2":{
+                        "dialogue": "in between the world of the waking, and the sleeping, reality grows thin.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                     "node2":{
+                        "dialogue": "Perhaps if this outcome isnt what you desire, reliving this memory may alter things in the waking world... ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
                 "demoEnd":{
                      "node1":{
                         "dialogue": "this place marks the end of the current version of phantoms curse.",
@@ -2142,7 +2174,7 @@ const npcDialogue = {
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "so your better watch you back. ",
+                        "dialogue": "so your better watch your back. ",
                         "profile":"nectarSquint",
                         "textvoice":"wah",
                         "children":["node9"]
@@ -3515,7 +3547,7 @@ const npcDialogue = {
                         "children":["nodeAnimals6"]
                     },
                     "nodeAnimals6":{
-                        "dialogue": "Though many simply get there personalities over written to act mostly like a feral animals. ",
+                        "dialogue": "Though many simply get there personalities over written to act mostly like feral animals. ",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeAnimals7"]

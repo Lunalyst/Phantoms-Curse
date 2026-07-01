@@ -91,6 +91,8 @@ class dreamHub extends defaultScene {
 
       this.initPortals(1392,925-13,882,925,"warpCaveOutside","DreamForest");
 
+      this.initPortals(1683,925-13,1294,728,"warpCaveOutside","dreamLockwoodEntrance",false);
+
       this.initBedPortals(1031, 925+15);
 
       this.initSavePoints(863,925-15);

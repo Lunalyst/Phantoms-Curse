@@ -152,12 +152,12 @@ class devRoom2 extends defaultScene {
       this.initSigns(418,536+17,"generic","devRoomStatue");
 
       //milos terser code
-      this.initMilo(1551, 600-7,"test");
+      /*this.initMilo(1551, 600-7,"test");
       //this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
       this.setUpPCMilo(1551, 600);
-      this.setUpPlayer2Collider();
+      this.setUpPlayer2Collider();*/
 
       this.setUpSporeClouds();
 

@@ -253,8 +253,6 @@ class dreamForest extends defaultScene {
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
         this.backround.x -= 0.7;
       }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
 
       //updates the y value of the scrolling backround.
       if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){

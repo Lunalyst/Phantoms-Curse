@@ -175,24 +175,7 @@ class LockwoodBridges extends defaultScene {
       this.Milo.visible = false;
       this.setUpMiloNPCCollider();
 
-      //use emitter to check nectar riddle boss battle flag.
-      let nectarFlag = {
-        flagToFind: "nectarAmbushComplete",
-        foundFlag: false,
-      };
-
-      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
-
-      //if the encounter has not happened, then set variables. 
-      if(nectarFlag.foundFlag === true){
-
-        this.nectarBossFlag = true;
-
-      }else{
-        this.nectarBridgeDownNpc = this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
-        this.nectarBossFlag = false;
-        this.triggerEncounter = false;
-      }
+      
 
 
       
@@ -200,8 +183,6 @@ class LockwoodBridges extends defaultScene {
       this.setUpPCMilo(1895, 728);
       this.setUpPlayer2Collider();
 
-      this.setUpLockwoodDrawBridges();
-      this.setUpLockwoodDrawBridgesCollider();
       //this.initSavePoints(1406,1112-10);
 
       this.initPortals(3566,728-8,785,1083,"warpCaveInside","LockwoodEntrance",false);
@@ -214,10 +195,31 @@ class LockwoodBridges extends defaultScene {
 
       this.initSavePoints(1099,728-10);
 
-      //this.initSavePoints(1805,728-10);
+     
+      this.setUpLockwoodDrawBridges();
+      this.setUpLockwoodDrawBridgesCollider();
+      
 
-      this.initLockwoodDrawBridge(1632,736-48,'up');
-      //this.initLockwoodDrawBridge(1632,736-48,'down');
+      //use emitter to check nectar riddle boss battle flag.
+      let nectarFlag = {
+        flagToFind: "nectarAmbushComplete",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarFlag);
+
+      //if the encounter has not happened, then set variables. 
+      if(nectarFlag.foundFlag === true){
+
+        this.nectarBossFlag = true;
+        this.initLockwoodDrawBridge(1632,736-48,'down');
+
+      }else{
+        this.nectarBridgeDownNpc = this.initSigns(1766,728+18,"generic","nectarBridgeUp",false);
+        this.nectarBossFlag = false;
+        this.triggerEncounter = false;
+        this.initLockwoodDrawBridge(1632,736-48,'up');
+      }
 
       this.SkippedNectarDialogue = false;
 

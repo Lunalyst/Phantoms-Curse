@@ -1360,6 +1360,7 @@ class nectar extends npc{
       //here is where we apply the warp code 
       //console.log(" skipping nectar scene")
       if(this.npcType === "ambush" ){
+
         //creates a object to hold data for scene transition
             let playerDataObject = {
               saveX: null,
@@ -1386,8 +1387,8 @@ class nectar extends npc{
             playerDataObject.saveX = 1954;
             playerDataObject.saveY = 728;
             playerDataObject.playerSex = this.scene.playerSex;
-            playerDataObject.playerLocation = "LockwoodBridges";
 
+            
             // then we save the scene transition data.
             this.scene.saveGame(playerDataObject);
 
@@ -1406,7 +1407,16 @@ class nectar extends npc{
             //this.scene.player1.visible = false;
 
             //warps player to the next scene
-            this.scene.destination = "LockwoodBridges";
+            //this.scene.destination = "LockwoodBridges";
+
+            // code to make sure dream viewer version stay in the dream.
+            if(this.scene.playerLocation === "dreamLockwoodBridges"){
+
+             this.scene.destination = "dreamLockwoodBridges";
+            }else{
+              this.scene.destination = "LockwoodBridges";
+            }
+
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
       }else if(this.npcType === "eatMilo" ){
          if(this.gameoverStarted === false){
@@ -1850,7 +1860,8 @@ class nectar extends npc{
             playerDataObject.saveX = 2254;
             playerDataObject.saveY = 728;
             playerDataObject.playerSex = this.scene.playerSex;
-            playerDataObject.playerLocation = "LockwoodBridges";
+
+            playerDataObject.playerLocation = this.scene.playerLocation;
 
             //maxes out hp.
             playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
@@ -2256,6 +2267,20 @@ class nectar extends npc{
                   dreamReturnLocation:null,
                   playerCurseValue:null
                 };
+
+                //check if the level is the dream version
+                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+                if(temp.scene.playerLocation === "dreamLockwoodBridges"){
+
+                    //then add container flag. 
+                    let nectarMiloDream = {
+                        flagToFind: "nectarMiloDream",
+                        foundFlag: false,
+                    };
+
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"nectarMiloDream");
+                    
+                }
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)
@@ -2318,6 +2343,7 @@ class nectar extends npc{
 
                 //temp.scene.player1.visible = false;
                 //warps player to the next scene
+                
                 temp.scene.destination = "ClinicRoom";
                 temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
 

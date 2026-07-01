@@ -274,33 +274,33 @@ class nectarBoss extends enemy {
             healthEmitter.emit(healthEvent.setBossHealth,healthObject);
             healthEmitter.emit(healthEvent.setBossHealthVisible,true);
 
-            //do a flag check for milo tutorial 
+            temp.tutorialText1  = new makeText(temp.scene,temp.scene.sceneTextBox.x-40,temp.scene.sceneTextBox.y-160,'charBubble',"Block With "+ bindConversion[temp.scene.bindSettings.blockBind],true);
+            temp.tutorialText1.setScrollFactor(0);
+            temp.tutorialText1.setScale(.5);
+            temp.tutorialText1.textWob();
+            temp.tutorialText1.textFadeOutAndDestroy(4000);
 
-             let miloFlag = {
-              flagToFind: "miloTutorial1",
-              foundFlag: false,
-            };
+            setTimeout(function(){
+                temp.tutorialText2  = new makeText(temp.scene,temp.scene.sceneTextBox.x-65,temp.scene.sceneTextBox.y-160,'charBubble',"Spindle Spear With "+ bindConversion[temp.scene.bindSettings.specialBind],true);
+                temp.tutorialText2.setScrollFactor(0);
+                temp.tutorialText2.setScale(.5);
+                temp.tutorialText2.textWob();
+                temp.tutorialText2.textFadeOutAndDestroy(4000);
+                   
+            },5000);
 
-            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, miloFlag);
+            //check if the level is the dream version
+            if(this.scene.playerLocation === "dreamLockwoodBridges"){
 
-            //if flag not found. play tutorial make text then add flag.
-            if(miloFlag.foundFlag === false){
+                //then add container flag. 
+                let nectarMiloDream = {
+                    flagToFind: "nectarMiloDream",
+                    foundFlag: false,
+                };
 
-                temp.tutorialText1  = new makeText(temp.scene,temp.scene.sceneTextBox.x-40,temp.scene.sceneTextBox.y-160,'charBubble',"Block With "+ bindConversion[temp.scene.bindSettings.blockBind],true);
-                temp.tutorialText1.setScrollFactor(0);
-                temp.tutorialText1.setScale(.5);
-                temp.tutorialText1.textWob();
-                temp.tutorialText1.textFadeOutAndDestroy(4000);
-
-                setTimeout(function(){
-                    temp.tutorialText2  = new makeText(temp.scene,temp.scene.sceneTextBox.x-65,temp.scene.sceneTextBox.y-160,'charBubble',"Spindle Spear With "+ bindConversion[temp.scene.bindSettings.specialBind],true);
-                    temp.tutorialText2.setScrollFactor(0);
-                    temp.tutorialText2.setScale(.5);
-                    temp.tutorialText2.textWob();
-                    temp.tutorialText2.textFadeOutAndDestroy(4000);
-                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,miloFlag.flagToFind);
-                },5000);
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"nectarMiloDream");
             }
+              
             
 
         }else if(this.fightStarted === true){

@@ -1199,7 +1199,7 @@ class gameHud extends A3SoundEffects {
               //console.log("TESTING EQUAlity,key:",key," object.flagToFind: ",object.flagToFind, " value:", value)
               if (object.flagToFind  === value) {
                 console.log("found flag: ",object.flagToFind, "now removing flag");
-                delete this.flagValues.containerFlags[key]
+                this.flagValues.containerFlags.splice(key, 1);
                 object.foundFlag = true;
                 }
               }

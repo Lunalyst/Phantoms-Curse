@@ -866,15 +866,35 @@ class wolf extends npc{
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
 
+              //after flag has been removed, if in dream add the dreamflag.
+              let nectarMiloDream = {
+                flagToFind: "nectarMiloDream",
+                foundFlag: false,
+              };
+
+              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarMiloDream);
+
+
+              if(nectarMiloDream.foundFlag === true){
+                // remove flag, and
+                inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, nectarMiloDream);
+
+                playerDataObject.saveX = 2254;
+                playerDataObject.saveY = 728;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "dreamLockwoodBridges";
+
+              }else{
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 752+30;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "ClinicRoom";
+              } 
+
               //grabs the latests data values from the gamehud. also sets hp back to max hp.
               inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-          
-              //then we set the correct location values to the scene transition data.
-              playerDataObject.saveX = 752+30;
-              playerDataObject.saveY = 760;
-              playerDataObject.playerSex = temp.scene.playerSex;
-              playerDataObject.playerLocation = "ClinicRoom";
-              //this.scene.destination = "ClinicRoom";
+              
 
               // then we save the scene transition data.
               temp.scene.saveGame(playerDataObject);
@@ -897,7 +917,11 @@ class wolf extends npc{
 
               temp.scene.player1.visible = false;
               //warps player to the next scene
-              temp.scene.destination = "ClinicRoom";
+              if(nectarMiloDream.foundFlag === true){
+                temp.scene.destination = "dreamLockwoodBridges";
+              }else{
+                temp.scene.destination = "ClinicRoom";
+              }
               temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
                   //time out function which leads to deaugh cutscene here.
@@ -1223,16 +1247,37 @@ class wolf extends npc{
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
 
+              //right here do a check for deam viewer flag!
+
+              //after flag has been removed, if in dream add the dreamflag.
+              let nectarMiloDream = {
+                flagToFind: "nectarMiloDream",
+                foundFlag: false,
+              };
+
+              inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, nectarMiloDream);
+
+
+              if(nectarMiloDream.foundFlag === true){
+                // remove flag, and
+                inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, nectarMiloDream);
+
+                playerDataObject.saveX = 2254;
+                playerDataObject.saveY = 728;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "dreamLockwoodBridges";
+
+              }else{
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 752+30;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "ClinicRoom";
+              } 
+
               //grabs the latests data values from the gamehud. also sets hp back to max hp.
               inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-          
-              //then we set the correct location values to the scene transition data.
-              playerDataObject.saveX = 752+30;
-              playerDataObject.saveY = 760;
-              playerDataObject.playerSex = temp.scene.playerSex;
-              playerDataObject.playerLocation = "ClinicRoom";
-              //this.scene.destination = "ClinicRoom";
-
+              
               // then we save the scene transition data.
               temp.scene.saveGame(playerDataObject);
 
@@ -1254,7 +1299,13 @@ class wolf extends npc{
 
               temp.scene.player1.visible = false;
               //warps player to the next scene
-              temp.scene.destination = "ClinicRoom";
+
+              if(nectarMiloDream.foundFlag === true){
+                temp.scene.destination = "dreamLockwoodBridges";
+              }else{
+                temp.scene.destination = "ClinicRoom";
+              }
+
               temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
                   //time out function which leads to deaugh cutscene here.

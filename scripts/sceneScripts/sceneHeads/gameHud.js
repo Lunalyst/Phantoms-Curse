@@ -34,7 +34,7 @@ class gameHud extends A3SoundEffects {
       this.isStorageOpen = false;
       this.displayCurrencyIcon = null;
 
-      this.debugToggle = true;
+      this.debugToggle = false;
 
       this.screenWidth = 1200;
       this.screenHeight = 900;

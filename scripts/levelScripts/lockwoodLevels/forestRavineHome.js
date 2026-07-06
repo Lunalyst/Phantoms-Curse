@@ -106,7 +106,7 @@ class ForestRavineHome extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initSigns(813,1757+12,"generic","tutorialCabin");
+      //this.initSigns(813,1757+12,"generic","tutorialCabin");
 
       this.initPortals(390,1904,1777,541,"warpCaveOutside","tutorialCaveLevel");
 

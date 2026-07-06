@@ -443,7 +443,7 @@ const npcDialogue = {
             "generic":{
                 "tutorialSign1":{
                     "node1":{
-                        "dialogue": "To anyone who wash up here, head towards the cave to the right. ~Siracle",
+                        "dialogue": "To anyone who wash up here, head towards the cave to the right. ",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -451,7 +451,7 @@ const npcDialogue = {
                 },
                 "tutorialCabin":{
                     "node1":{
-                        "dialogue": "Follow the platforms upward. We have a small lodging for those that wash up here. It's not much, but it's the best we could do for you. You could wait for one of us to come get you; however, it's been a long time since anyone was up here and we don't check this cabin often. ~Siracle",
+                        "dialogue": "",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]
@@ -841,6 +841,250 @@ const npcDialogue = {
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the book on the shelf.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                    
+                },
+
+                "memoryLog2":{
+                    "node1":{
+                        "dialogue": "there is a book on the barrel.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "Inside it are some tattered papers between pages.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read them?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "Turns out the wild life of this island is quite strange.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "Traveling deeper inland I found a densely wooded forest.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "At first I thought I saw a person among the brush. But as I got closer, they weren\'t exactly human. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "They had white fur, round ears, and a tail. When it noticed me, could tell there was something wrong with it.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "It gave me this animalistic look, and began to chase me. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "I eventually managed to lose it after a while. But it clearly couldn\'t or wouldn\'t respond to my please for it to stop chasing me.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "No telling what it wanted to do to me... ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the pages in the book.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "memoryLog5":{
+                    "node1":{
+                        "dialogue": "theres a tattered red book.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "Inside it are some tattered papers between pages.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read them?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "I\'m finally not alone!",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "Found another survivor and her name is Rachel.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "She said she washed up after the ship she was on sunk.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "It was nice having some company, though it did take her a while to get over my appearance.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "I warned her about the dangerous creatures of the island. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "Hopefully she doesn\'t have to go through what I did.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "Even if it was enjoyable, I think I got lucky.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]   
+                    },"node9":{
+                        "dialogue": "Why am I still me, while those creatures seem feral?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the pages in the book.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "memoryLog6":{
+                    "node1":{
+                        "dialogue": "theres a dusty book.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "Inside it are some tattered papers between pages.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read them?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "This is terrible...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "Rachel, she\'s gone...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "we found a high spot in these hills to camp out for the night.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "We both must have fallen asleep.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "I was woken up to the sound of her muffled crys, as a bat creature had her head up its rear...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "I tried to pull her free but she slipped all the way in...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "I couldn\'t save her. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]   
+                    },"node9":{
+                        "dialogue": "whats wrong with me?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "she\'s gone and my brain is full of terrible thoughts...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "it\'s like they were attracted to her.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node12"]
+                    },"node12":{
+                        "dialogue": "Sort of like they were attracted to me before I turned...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the pages in the book.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "memoryLog11":{
+                    "node1":{
+                        "dialogue": "the bookshelf hold many dusty books.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "some tattered pages stick out to you.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read them?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "Together we built this little cabin out in the woods.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "A little place to call our own, far enough away from town but close enough in case we need anything. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "I figured it would be a good spot since it\'s close to the shore.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "If anyone washes up like we did, they have a nice place to rest.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the pages on the shelf.",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":[]

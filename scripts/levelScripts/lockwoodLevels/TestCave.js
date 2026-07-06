@@ -144,6 +144,8 @@ class TestCave extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      this.initSigns(1105,664+18,"question","memoryLog2",false);
+
       
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       //setTimeout(function(){

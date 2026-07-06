@@ -193,6 +193,13 @@ class PondForest extends defaultScene {
 
       this.initSigns(2571,1080+17,"generic","ominousOmen1");
 
+      this.initSigns(499,1592+18,"question","memoryLog5",false);
+
+      if(vivianDialogue1.foundFlag === true){
+        //creates tileset
+       this.initSigns(2511,824+18,"question","memoryLog6",false);
+      }
+
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 

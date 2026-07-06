@@ -98,6 +98,9 @@ class HomeInterior1 extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+
+      this.initSigns(610,600+18,"question","memoryLog11",false);
+
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
         setTimeout(function(){

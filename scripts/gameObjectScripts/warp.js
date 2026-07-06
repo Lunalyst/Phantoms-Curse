@@ -3,7 +3,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, xPos, yPos){
         //super() calls the constructor() from the parent class we are extending
-        super(scene, xPos, yPos, 'warpSprites');
+        super(scene, xPos, yPos-7, 'warpSprites');
         //then we add new instance into the scene.
         scene.add.existing(this);
         //then we call this next line to give it collision
@@ -40,7 +40,9 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'warpCaveShadowMenace',frames: this.anims.generateFrameNames('warpSprites', { start: 11, end: 14}),frameRate: 7,repeat: -1});
         //this.anims.create({key: 'warpCaveOutsideRaised',frames: this.anims.generateFrameNames('warpSprites', { start: 15, end: 15}),frameRate: 7,repeat: -1});
         this.anims.create({key: 'lockwoodIronGate',frames: this.anims.generateFrameNames('warpSprites', { start: 20, end: 20}),frameRate: 7,repeat: -1});
-        
+        this.anims.create({key: 'largeDoorWindow',frames: this.anims.generateFrameNames('warpSprites', { start: 21, end: 21}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'largeDoor',frames: this.anims.generateFrameNames('warpSprites', { start: 22, end: 22}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'largeDoorVIP',frames: this.anims.generateFrameNames('warpSprites', { start: 23, end: 23}),frameRate: 7,repeat: -1});
     }
 
 

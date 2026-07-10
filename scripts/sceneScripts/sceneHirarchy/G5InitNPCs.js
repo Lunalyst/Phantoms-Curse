@@ -103,8 +103,8 @@ class G5InitNPCs extends G4InitGameObjects {
     //this is so that the trigger dialogue always occurs first
     //we then flag in the npc logic to changer the dialogue after the trigger version
     if(type === "rummaging"){
+      Vivian.addTriggerNPCToRegularNPC = true;
       this.npcTriggers.add(Vivian);
-      this.npcs.add(Vivian);  
     }else{
       this.npcs.add(Vivian);
     }
@@ -126,6 +126,29 @@ class G5InitNPCs extends G4InitGameObjects {
     this.npcId++;
 
     this.npcs.add(this.Milo);
+
+  }
+
+  initAutumn(x, y, type){
+
+    //sets up the special text box object for istara
+    //this.sceneTextBox.textBoxProfileImage.setUpMiloEmots();
+
+    this.autumn = new autumn(this, x, y, type);
+
+    this.autumn.npcId = this.npcId;
+    this.npcId++;
+
+    if(type === "introToFastTravel"){
+      this.autumn.addTriggerNPCToRegularNPC = true;
+      this.npcTriggers.add(this.autumn);
+  
+      
+    }else{
+      this.npcs.add(this.autumn);
+    }
+
+    return this.autumn;
 
   }
 
@@ -158,7 +181,7 @@ class G5InitNPCs extends G4InitGameObjects {
 
     if(type === "ambush" || type === 'digestedPlayer'){
       this.npcTriggers.add(Nectar);
-      //this.npcs.add(Nectar);  
+ 
     }else{
       this.npcs.add(Nectar);
     }
@@ -181,7 +204,7 @@ class G5InitNPCs extends G4InitGameObjects {
 
     if(type === "miloSavedThePlayer" || type === "riddleAnswered" || type === "wolfxLuna"){
       this.npcTriggers.add(Wolf);
-      //this.npcs.add(Wolf);  
+     
     }else{
       this.npcs.add(Wolf);
     }

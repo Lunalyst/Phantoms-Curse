@@ -202,7 +202,7 @@ class vivian extends npc{
 
   //for this npc we need to overwrite the activatino function to account for the under water animation.
   activateNpc(){
-
+    
     //if the player meets activation requiements for the sign display the text box
     if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false){
       //overworld knocking loggic true
@@ -254,6 +254,7 @@ class vivian extends npc{
       this.promptCooldown = true;        
   
     }
+
 
     //function to manage vivian looking at the player depending on the player position
     if(this.advancedIdleAnimation === true){

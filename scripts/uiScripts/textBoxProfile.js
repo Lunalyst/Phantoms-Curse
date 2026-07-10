@@ -33,6 +33,9 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'lunaHorny',frames: this.anims.generateFrameNames('lunalystEmots', { start:79, end:  86}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunaClimax',frames: this.anims.generateFrameNames('lunalystEmots', { start:87, end:  87}),frameRate: 5,repeat: -1});
 
+      this.anims.create({key: 'autumnSmile',frames: this.anims.generateFrameNames('autumnEmots', { start:0, end:  3}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnHappy',frames: this.anims.generateFrameNames('autumnEmots', { start:4, end:  7}),frameRate: 5,repeat: -1});
+
       this.anims.play("blank",true); 
     }
 

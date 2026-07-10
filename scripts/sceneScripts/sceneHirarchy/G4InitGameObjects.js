@@ -97,6 +97,21 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  initFastTravelPoint(x, y,mode) {
+
+      let fastPoint1 = new fastTravelPoint(this, x, y,this.playerLocation+"FastTravel",mode);
+      fastPoint1.saveStoneId = this.saveStoneId;
+      this.saveStoneId++;
+
+      this.saveStonePoints.add(fastPoint1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        fastPoint1.setPipeline('Light2D');
+      }
+
+  }
+
   initMemoryPoints(x, y) {
       let savePoint1 = new memoryPoint(this, x, y);
       savePoint1.saveStoneId = this.saveStoneId;

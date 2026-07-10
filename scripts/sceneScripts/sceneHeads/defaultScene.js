@@ -105,6 +105,11 @@ class defaultScene extends G12UpdateLoops {
        this.load.spritesheet('itemDrops', 'assets/gameObjects/itemDrops.png',{frameWidth: 96, frameHeight: 96});
        this.load.spritesheet('chest', 'assets/gameObjects/chest.png',{frameWidth: 381, frameHeight: 303});
 
+       //adding fast travel stuff
+       this.load.spritesheet('fastTravelPoint', 'assets/gameObjects/fastTravelPoint.png',{frameWidth: 363, frameHeight: 390});
+       this.load.spritesheet("autumnMale" , "assets/npcs/autumnMale.png" , {frameWidth: 483 , frameHeight: 459 });
+       this.load.spritesheet("autumnEmots" , "assets/hudElements/autumnEmots.png" , {frameWidth: 111 , frameHeight: 117 });
+
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
          
        this.load.spritesheet('penning', 'assets/internalViews/penning.png',{frameWidth: 213, frameHeight: 213});

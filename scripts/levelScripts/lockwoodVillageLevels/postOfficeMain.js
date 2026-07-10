@@ -93,17 +93,19 @@ class postOfficeMain extends defaultScene {
       this.fakeWarp1 = new fakeWarp(this,517,760-7,'largeDoorVIP');
       this.fakeWarp1.setDepth(3);
 
-      this.autumn = this.add.sprite(640, 760-8, "autumn");
-      this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
+      //this.autumn = this.add.sprite(640, 760-30, "autumnMale");
+      /*this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
       this.autumn.setScale(1/3);
-      this.autumn.setDepth(0);
+      this.autumn.setDepth(0);*/
 
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+       this.initAutumn(640, 760-30,"postOffice");
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

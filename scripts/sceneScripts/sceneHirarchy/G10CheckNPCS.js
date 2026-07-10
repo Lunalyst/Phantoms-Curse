@@ -5,14 +5,17 @@ class G10CheckNPCS extends G9CheckEnemys {
 
   //checks to see if the player can activate a npc object
   checkNpc(scene) {
+
+   
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
-      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
-        //console.log("within npc range");
+      
+      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false ) {
+        console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
       } else {
-        //console.log("outside npc range");
+        console.log("outside npc range");
         tempNpc.safeToSpeak = false;
       }
       //console.log("activating npc!")
@@ -30,7 +33,7 @@ class G10CheckNPCS extends G9CheckEnemys {
   Player2checkNpc(scene) {
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
-      if ((((scene.player2.x > tempNpc.x - 40 && scene.player2.x < tempNpc.x + 40) && (scene.player2.y > tempNpc.y - 40 && scene.player2.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true)&& scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
+      if ((((scene.player2.x > tempNpc.x - 40 && scene.player2.x < tempNpc.x + 40) && (scene.player2.y > tempNpc.y - 40 && scene.player2.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true)&& scene.grabbed === false) {
         //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
@@ -64,7 +67,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         //console.log("scene.grabbed:", scene.grabbed, " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished);
         if (((this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
           
-          //console.log("activating overlap npc in G10CHECKNPCS");
+          console.log("activating overlap npc in G10CHECKNPCS");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
 
@@ -88,6 +91,7 @@ class G10CheckNPCS extends G9CheckEnemys {
           if(tempNpc.customTrigger === true){
             tempNpc.customTriggerFunction();
           }else{
+            //console.log("default overlapnpc function")
             tempNpc.overlapActivateNpc();
           }
 

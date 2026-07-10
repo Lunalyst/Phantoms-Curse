@@ -45,7 +45,7 @@ class LockwoodShopDistrict extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-      this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
+      //this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
       
       this.load.spritesheet("randi" , "assets/npcs/randi.png" , {frameWidth: 273 , frameHeight: 273 });
 
@@ -203,12 +203,14 @@ class LockwoodShopDistrict extends defaultScene {
 
       //this.initSavePoints(1805,728-10);
 
-      this.initSavePoints(2189,728-10);
+      this.initSavePoints(3097,728-10);
 
-      this.autumn = this.add.sprite(2768, 728-8, "autumn");
+      this.initFastTravelPoint(2768, 728,"lockwood");
+
+      /*this.autumn = this.add.sprite(2768, 728-8, "autumn");
       this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumn', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
-      this.autumn.setScale(1/3);
+      this.autumn.setScale(1/3);*/
 
       this.randi = this.add.sprite(1038, 728-6, "randi");
       this.randi.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('randi', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });

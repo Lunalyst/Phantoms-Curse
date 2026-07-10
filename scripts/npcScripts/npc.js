@@ -63,6 +63,8 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.npcState = 0;
 
       this.moveFunctionActive = false;
+
+      this.addTriggerNPCToRegularNPC = false;
       
       this.scene = scene;
   }
@@ -273,7 +275,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
-      console.log("flag logic function acxtivated!")
+      //console.log("flag logic function acxtivated!")
       this.flagLogic();
         
       //ending dialoguce logic.
@@ -302,7 +304,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
      //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcFinished: ",this.triggerNpcFinished);
     //if the id matches and we havent activated the trigger yet.
 
-    //console.log("this.scene.activatedNpcId === this.npcId: ",this.scene.activatedNpcId === this.npcId, "this.triggerNpcFinished: ",this.triggerNpcFinished);
+    //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId ," this.npcId: ",this.npcId, "this.triggerNpcFinished: ",this.triggerNpcFinished," this.triggerNpcActivated: ",this.triggerNpcActivated);
     if(this.scene.activatedNpcId === this.npcId && this.triggerNpcActivated === false){
 
       //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
@@ -310,7 +312,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.dialogueLogicStart();
 
       //calls function overwritten children class to handle npc logic.
-      console.log("flag logic function acxtivated!")
+      console.log("starting dialogue for trigger npc!")
       this.flagLogic();
         
       //ending dialoguce logic.
@@ -325,6 +327,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
       //console.log("this.scene.activatedNpcId: ",this.scene.activatedNpcId, " this.triggerNpcActivated: ",this.triggerNpcActivated);
 
+      console.log("continuing dialogue for trigger npc!")
       //logic to start dialogue
       this.dialogueLogicStart();
 
@@ -338,6 +341,17 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //choke to make sure this cant be activated agian.
       if(!this.scene.sceneTextBox.visible && this.scene.sceneTextBox.hidingText === false){
         this.triggerNpcFinished = true;
+
+        //here is a good place to put things that need to happen after dialogue is finished!
+        if(this.addTriggerNPCToRegularNPC === true){
+          console.log("trigger npc finished, now adding them to the regular npc pool");
+
+          this.scene.npcs.add(this);
+
+          console.log("this.scene.npcs: ", this.scene.npcs)
+        }
+        
+
 
       }
           

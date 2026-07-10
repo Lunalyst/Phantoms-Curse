@@ -1266,8 +1266,88 @@ const npcDialogue = {
                 }
             }
         },
+        "autumn":{
+            "Behavior1":{
+                "introFastTravel":{
+                    "node1":{
+                        "dialogue": "Oh! A new face in town!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Name\'s Autumn, and me and my friend Moff are in charge of this lovely post office behind you!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "We here are in the business of  transporting packages, and we also offer a public transit service.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "If there\'s a place you have been to, then I would be happy to take you, for a small fee of course.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "Just let me know if you\'re interested! ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                },
+                "fastTravel":{
+                    "node1":{
+                        "dialogue": "What\'s up? ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "how can I help you?",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node3","nodeCarryMe1","nodeAutumnInfo","nodeAutumnExit"]
+                    },
+                    //I would like to travel.(opens up the fast travel menu)
+                    "node3":{
+                        "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    //thoughts, could use the dialogue box like i do in shop menu. have that dialogue in npc
 
-        "istara":{
+                    //how are you going to carry me?
+                    "nodeCarryMe1":{
+                        "dialogue": "im gonig to carry in my belly.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+
+                    //tell me about yourself
+                    "nodeAutumnInfo":{
+                        "dialogue": "i am a bat spider lady and stuff!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+
+                    //exit dialogue
+                    "nodeAutumnExit":{
+                        "dialogue": "fair enough, see you around!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                },
+            },
+        },"istara":{
             "Behavior1":{
                 "istaraCaveDialogue1":{
                     "node1":{
@@ -4439,6 +4519,7 @@ const npcDialogue = {
                     
             }
         },
+
         "gameover":{
 
             "eaten":{

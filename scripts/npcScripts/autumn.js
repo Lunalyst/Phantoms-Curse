@@ -56,6 +56,8 @@ class autumn extends npc{
 
        this.activatedMapUI  = false;
 
+       this.addedLockwoodFlag = false;
+
         this.setSize(60,200,true);
         this.setOffset(185, 91);
       
@@ -180,10 +182,153 @@ class autumn extends npc{
 
           // set the trigger flag to be added at the end of the dialogue.
           this.scene.sceneTextBox.storeFlag(autumnDialogue1);
+
+          if(this.addedLockwoodFlag === false){
+            this.addedLockwoodFlag = true;
+            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"LockwoodShopDistrictFastTravel");
+          }
+          
         }
       }
 
     }else{
+      this.fastTravel();
+    }
+    
+
+  }
+
+  postOffice(){
+    console.log("this.isPlayerControlled: ", this.isPlayerControlled)
+
+    if(this.isPlayerControlled === false){
+      this.nodeHandler("autumn","Behavior1","test");
+      this.scene.player1.mainHitbox.x = this.x;
+    }else{
+      this.nodeHandler("autumn","Behavior1","testRelease");
+    }
+
+    
+
+    if(this.currentDictNode !== null){
+
+     if(this.isPlayerControlled === false){
+        if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
+            this.inDialogue = true;
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"its Your Turn autumn",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              this.progressNode("node5",true);
+          
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+
+            //dialogue option for no.
+            this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"maybe later",true);
+            this.scene.npcChoice2.textWob();
+            this.scene.npcChoice2.setScrollFactor(0);
+            this.scene.npcChoice2.addHitbox();
+            this.scene.npcChoice2.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice2.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice2.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice2.on('pointerout',function(pointer){
+                this.scene.npcChoice2.clearTextTint();
+            },this);
+
+            this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //progress to node branch with state name node10
+              this.progressNode("node4");
+
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+            },this);
+            
+            //call scene variable to create interupt.
+            this.scene.sceneTextBox.textInterupt = true;
+
+            //let the npc know they are in dialogue
+            this.inDialogue = true;
+            
+        }else if(this.currentDictNode.nodeName === "node6"){
+          
+          this.scene.player2Active = true;
+          this.visible = false;
+          this.scene.player2.visible = true;
+          this.isPlayerControlled = true;
+          this.scene.player1.mainHitbox.x = this.x;
+          this.scene.player1.mainHitbox.setVelocity(0,0);
+          this.scene.player1.x = this.x;
+          this.scene.player1.setDepth(5);
+          this.scene.player2.setDepth(6);
+          healthEmitter.emit(healthEvent.setautumnHealth,true,true);
+
+        }
+      }else{
+        if(this.currentDictNode.nodeName === "node2"){
+          this.scene.player2Active = false;
+          this.visible = true;
+          this.scene.player2.visible = false;
+          this.scene.player2.x = this.x;
+          this.isPlayerControlled = false;
+          this.scene.player1.mainHitbox.x = this.x;
+          this.scene.player1.x = this.x;
+          this.scene.player1.setDepth(6);
+          this.scene.player2.setDepth(5);
+          healthEmitter.emit(healthEvent.setautumnHealth,false,false);
+        }
+      }
+      
+    }
+  }
+
+  fastTravel(){
       this.nodeHandler("autumn","Behavior1","fastTravel");
 
       if(this.currentDictNode !== null){
@@ -352,143 +497,7 @@ class autumn extends npc{
 
         }
       }
-    }
     
-
-  }
-
-  postOffice(){
-    console.log("this.isPlayerControlled: ", this.isPlayerControlled)
-
-    if(this.isPlayerControlled === false){
-      this.nodeHandler("autumn","Behavior1","test");
-      this.scene.player1.mainHitbox.x = this.x;
-    }else{
-      this.nodeHandler("autumn","Behavior1","testRelease");
-    }
-
-    
-
-    if(this.currentDictNode !== null){
-
-     if(this.isPlayerControlled === false){
-        if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
-            this.inDialogue = true;
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = true;
-
-            //create dialogue buttons for player choice
-            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"its Your Turn autumn",true);
-            this.scene.npcChoice1.textWob();
-            this.scene.npcChoice1.setScrollFactor(0);
-            this.scene.npcChoice1.addHitbox();
-            this.scene.npcChoice1.setScale(.8);
-
-            //set up dialogue option functionality so they work like buttons
-            this.scene.npcChoice1.on('pointerover',function(pointer){
-              this.scene.initSoundEffect('buttonSFX','1',0.05);
-              this.scene.npcChoice1.setTextTint(0xff7a7a);
-            },this);
-
-            this.scene.npcChoice1.on('pointerout',function(pointer){
-                this.scene.npcChoice1.clearTextTint();
-            },this);
-
-            this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-              this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-              //set variable approperiately
-              this.scene.sceneTextBox.textInterupt = false;
-
-              this.progressNode("node5",true);
-          
-              //destroy itself and other deciosions
-              this.scene.npcChoice1.destroy();
-              this.scene.npcChoice2.destroy();
-
-              this.inDialogue = false;
-
-              
-
-            },this);
-
-            //dialogue option for no.
-            this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"maybe later",true);
-            this.scene.npcChoice2.textWob();
-            this.scene.npcChoice2.setScrollFactor(0);
-            this.scene.npcChoice2.addHitbox();
-            this.scene.npcChoice2.setScale(.8);
-
-
-            //set up dialogue option functionality so they work like buttons
-            this.scene.npcChoice2.on('pointerover',function(pointer){
-              this.scene.initSoundEffect('buttonSFX','1',0.05);
-              this.scene.npcChoice2.setTextTint(0xff7a7a);
-            },this);
-
-            this.scene.npcChoice2.on('pointerout',function(pointer){
-                this.scene.npcChoice2.clearTextTint();
-            },this);
-
-            this.scene.npcChoice2.on('pointerdown', function (pointer) {
-            
-              this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-              //set variable approperiately
-              this.scene.sceneTextBox.textInterupt = false;
-
-              //progress to node branch with state name node10
-              this.progressNode("node4");
-
-              //destroy itself and other deciosions
-              this.scene.npcChoice1.destroy();
-              this.scene.npcChoice2.destroy();
-
-              this.inDialogue = false;
-
-            },this);
-            
-            //call scene variable to create interupt.
-            this.scene.sceneTextBox.textInterupt = true;
-
-            //let the npc know they are in dialogue
-            this.inDialogue = true;
-            
-        }else if(this.currentDictNode.nodeName === "node6"){
-          
-          this.scene.player2Active = true;
-          this.visible = false;
-          this.scene.player2.visible = true;
-          this.isPlayerControlled = true;
-          this.scene.player1.mainHitbox.x = this.x;
-          this.scene.player1.mainHitbox.setVelocity(0,0);
-          this.scene.player1.x = this.x;
-          this.scene.player1.setDepth(5);
-          this.scene.player2.setDepth(6);
-          healthEmitter.emit(healthEvent.setautumnHealth,true,true);
-
-        }
-      }else{
-        if(this.currentDictNode.nodeName === "node2"){
-          this.scene.player2Active = false;
-          this.visible = true;
-          this.scene.player2.visible = false;
-          this.scene.player2.x = this.x;
-          this.isPlayerControlled = false;
-          this.scene.player1.mainHitbox.x = this.x;
-          this.scene.player1.x = this.x;
-          this.scene.player1.setDepth(6);
-          this.scene.player2.setDepth(5);
-          healthEmitter.emit(healthEvent.setautumnHealth,false,false);
-        }
-      }
-      
-    }
-  }
-
-  fastTravel(){
-
   }
 
 }

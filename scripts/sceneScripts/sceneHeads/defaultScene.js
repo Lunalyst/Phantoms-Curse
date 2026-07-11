@@ -98,6 +98,10 @@ class defaultScene extends G12UpdateLoops {
       this.load.audioSprite('lickSFX','audio/used-audio/lick-sounds/lick-sounds.json',[
         "audio/used-audio/lick-sounds/lick.mp3"
       ]);
+
+      this.load.audioSprite('fastTravelSFX','audio/used-audio/button-sounds/button-sounds.json',[
+        "audio/used-audio/button-sounds/button-sounds.mp3"
+      ]);
   
        this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 231, frameHeight: 330});
        this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });
@@ -109,7 +113,7 @@ class defaultScene extends G12UpdateLoops {
        this.load.spritesheet('fastTravelPoint', 'assets/gameObjects/fastTravelPoint.png',{frameWidth: 363, frameHeight: 390});
        this.load.spritesheet("autumnMale" , "assets/npcs/autumnMale.png" , {frameWidth: 483 , frameHeight: 459 });
        this.load.spritesheet("autumnEmots" , "assets/hudElements/autumnEmots.png" , {frameWidth: 111 , frameHeight: 117 });
-
+      
        this.load.spritesheet('doubleJumpEffect', 'assets/gameObjects/doubleJumpEffect.png',{frameWidth: 69, frameHeight: 15 });
          
        this.load.spritesheet('penning', 'assets/internalViews/penning.png',{frameWidth: 213, frameHeight: 213});

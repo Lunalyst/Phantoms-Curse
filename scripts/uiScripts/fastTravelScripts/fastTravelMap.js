@@ -25,7 +25,7 @@ should display name of place and glow on that point
 */
 class fastTravelMap extends Phaser.GameObjects.Container{
     // every class needs constructor
-    constructor(scene, xPos, yPos){
+    constructor(scene, xPos, yPos,npcRef){
       //super() calls the constructor() from the parent class we are extending
       super(scene, xPos, yPos);
       //then we add new instance into the scene. when ising this inside a class definition is refering to the instance of the class
@@ -48,14 +48,17 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       this.slotOffset = 4
       this.fastTravelMapArray = [];
 
+      this.npcRef = npcRef;
+
 
 
       //when adding new pages, we need this variable to tell what page we are on.
       this.itemPage = 0;
 
       this.fastTravelMap = scene.add.sprite(0, 0, 'KukoNuiMap');
-      this.fastTravelMap.anims.create({key: 'fastTravelMap',frames: this.fastTravelMap.anims.generateFrameNames('KukoNuiMap', { start: 0, end: 0 }),frameRate: 0,repeat: -1});
-      this.fastTravelMap.anims.play("fastTravelMap",true);
+      this.fastTravelMap.anims.create({key: 'Lockwood',frames: this.fastTravelMap.anims.generateFrameNames('KukoNuiMap', { start: 0, end: 0 }),frameRate: 0,repeat: -1});
+      this.fastTravelMap.anims.create({key: 'BoomerangBay',frames: this.fastTravelMap.anims.generateFrameNames('KukoNuiMap', { start: 1, end: 1 }),frameRate: 0,repeat: -1});
+      
       this.fastTravelMap.setScale();
       this.add(this.fastTravelMap);
 
@@ -78,7 +81,48 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       this.closingButton.setupClosingButtonMap(this);
       this.add(this.closingButton);
 
+      //pointer to show where we are
+      this.currentPositionArrow = this.scene.add.sprite(0, 0, "fastTravelDot");
+      this.currentPositionArrow.anims.create({key: 'arrowBounce',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 3, end: 6 }),frameRate: 6,repeat: -1});
+      //this.currentPositionArrow.visible = false;
+      this.currentPositionArrow.anims.play("arrowBounce",true);
+      this.currentPositionArrow.setScale(1/3);
+      this.add(this.currentPositionArrow);
+      this.currentPositionArrowSet = false;
+
       this.scene = scene;
+
+      //here lies the challenge. how do I tell what location the player is in? i need to know. do i define it in level? hmmmm attack it to the flag some how?
+
+      //use map to find the base locations of the player.
+      this.fastTravelMap.anims.play(fastTravelLocationFinder[this.scene.playerLocation],true);
+
+      //for each point in the group of fast travel keys
+      //console.log("fastTravelLocationFinder[this.scene.playerLocation]: ",fastTravelLocationFinder[this.scene.playerLocation]);
+      //console.log("fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]: ",fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]);
+
+      this.travelPointArray = [];
+      Object.entries(fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]).forEach(([key, value]) => {
+        //console.log(`${key}: ${value}`);
+
+        //shows where the player currently is.
+        console.log("key: ",key , " this.scene.playerLocation: ",this.npcRef.scene.playerLocation);
+        if(key === this.npcRef.scene.playerLocation && this.currentPositionArrowSet === false){
+          this.currentPositionArrowSet = true;
+
+          this.currentPositionArrow.visible = true;
+          this.currentPositionArrow.x = value.mapPositionX;
+          this.currentPositionArrow.y = value.mapPositionY-30;
+        }
+        
+        //make new point on the map 
+        console.log("key.landingX: ",value.mapPositionX, " key.landingY",value.mapPositionY);
+        let point = this.scene.add.sprite(value.mapPositionX, value.mapPositionY, "fastTravelDot").setInteractive();
+        point.setScale(1/3);
+        this.add(point);
+      });
+
+
 
       //this.inventoryElements.add(this); 
       console.log('created the fast travel map.');

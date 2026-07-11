@@ -305,6 +305,35 @@ const oneTimeItemArray = {
     
     };
 
+  //check for flags only in pannel section 
+  const fastTravelKey = {
+    Lockwood: {
+      ForestRavineHome:{
+        title:"Forest Edge",
+        flag:"ForestRavineHomeFastTravel",
+        landingX: 2070,
+        landingY: 1336,
+        mapPositionX:-38,
+        mapPositionY:135,
+      },
+      
+      LockwoodShopDistrict:{
+        title:"Lockwood Village",
+        flag:"LockwoodShopDistrictFastTravel",
+        landingX: 2768,
+        landingY: 728,
+        mapPositionX:-136,
+        mapPositionY:-50,
+      },
+    },
+  };
+
+  //map to figure out what the correct map to display is 
+  const fastTravelLocationFinder = {
+    ForestRavineHome:"Lockwood",
+    LockwoodShopDistrict:"Lockwood"
+  };
+
 //each catigory for the bestiary groupings.
 const Groupings = [
 "blueSlime",

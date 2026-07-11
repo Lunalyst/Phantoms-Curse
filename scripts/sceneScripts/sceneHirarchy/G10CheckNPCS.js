@@ -11,11 +11,11 @@ class G10CheckNPCS extends G9CheckEnemys {
     scene.npcs.children.each(function (tempNpc) {
       
       if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false ) {
-        console.log("within npc range");
+        //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
       } else {
-        console.log("outside npc range");
+        //console.log("outside npc range");
         tempNpc.safeToSpeak = false;
       }
       //console.log("activating npc!")
@@ -67,7 +67,7 @@ class G10CheckNPCS extends G9CheckEnemys {
         //console.log("scene.grabbed:", scene.grabbed, " tempNpc.triggerNpcFinished: ",tempNpc.triggerNpcFinished);
         if (((this.objectsInRangeX(tempNpc,scene.player1,20) && this.objectsInRangeY(tempNpc,scene.player1,300)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.triggerNpcFinished === false) {
           
-          console.log("activating overlap npc in G10CHECKNPCS");
+          //console.log("activating overlap npc in G10CHECKNPCS");
           //set id to this object.
           this.activatedNpcId = tempNpc.npcId;
 

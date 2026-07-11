@@ -118,7 +118,9 @@ class ForestRavineHome extends defaultScene {
 
       this.initPortals(1470,1725-13,637,605,"door2","DevRoom1");
 
-      
+      this.initFastTravelPoint(2070, 1336,'default');
+
+      this.initSavePoints(2199,1336-10);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

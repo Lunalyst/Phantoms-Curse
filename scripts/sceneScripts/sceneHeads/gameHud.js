@@ -75,7 +75,8 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
       
       this.load.spritesheet('KukoNuiMap', 'assets/hudElements/KukoNuiMap.png',{frameWidth: 633, frameHeight: 633 });
-      
+      this.load.spritesheet("fastTravelDot" , "assets/hudElements/fastTravelDot.png" , {frameWidth: 99 , frameHeight: 105 });
+
 
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
@@ -787,7 +788,7 @@ class gameHud extends A3SoundEffects {
 
             if(this.travelMap === null){
               //adds player storage ui
-              this.travelMap = new fastTravelMap(this,this.screenWidth/2,350);
+              this.travelMap = new fastTravelMap(this,this.screenWidth/2,350, object.NPCRef);
               
               //set npc ref in object.
               this.travelMap.npc = object.NPCRef;

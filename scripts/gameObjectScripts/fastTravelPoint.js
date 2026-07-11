@@ -31,6 +31,9 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
         this.light;
         this.mode = mode;
+
+        this.pointLit = false;
+        this.bellRinging = false;
         
         //sets scale
         this.setScale(1/3);
@@ -40,6 +43,14 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
             this.light = this.scene.lights.addLight(this.x,this.y+4, 65, 0xffffff);
             this.light.visible = false;
         }
+        // do a flag check for flag this warp is looking for. 
+        //has player encountered autumn or moff yet?
+        this.fastTravelFlag = {
+            flagToFind: this.scene.playerLocation + "FastTravel",
+            foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, this.fastTravelFlag);
 
         if(this.mode === "lockwood"){
             this.anims.play("lit");
@@ -60,24 +71,83 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
             if(autumnDialogue1.foundFlag === false){
                 this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"introToFastTravel");
             }else{
-
+                this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"fastTravel");
             }
 
-        }else if(this.mode === "activated"){
-            this.anims.play("lit");
         }else{
-            this.anims.play("unlit");
+
+            //make autumn npc and hide her above save warp point
+            this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"fastTravel");
+            this.autumn.y = this.autumn.y- 1000;
+            this.autumn.visible = false;
+
             this.fastTravelNPCPresent = false;
-        }
+            if(this.fastTravelFlag.foundFlag === true){
+                this.anims.play("lit");    
+            }else{
+                this.anims.play("unlit");
+            }
+        } 
         
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with
     savePointSaveGame(scene1,keyW,activeId,saveX,saveY){
+
         if(this.fastTravelNPCPresent === false){
             //if the player is withing the correct range, and the press w and the cooldown is false then save the game
             if( this.safeToSave === true && scene1.checkWPressed() && this.saveCoolDown === false && scene1.isPaused === false){
-                
+                console.log("activating fast travel?")
+                //if we dont find the flag, that means fast travel point is unlit
+                if(this.fastTravelFlag.foundFlag === false && this.pointLit === false){
+
+                    this.pointLit = true;
+                    //so add flag
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.fastTravelFlag.flagToFind);
+
+                    //play animation 
+                    this.anims.play('lighting').once('animationcomplete', () => {
+                        this.anims.play('lit');
+                       
+                    });
+                    
+                 }else if(this.bellRinging === false){
+                    console.log("ringing bell")
+                    this.bellRinging = true;
+                    this.fastTravelNPCPresent = true;
+                    //play bell animation 
+
+                    this.scene.initSoundEffect('fastTravelSFX','bellJingle',0.05);
+
+                    this.anims.play('bell').once('animationcomplete', () => {
+                        this.anims.play('lit');
+
+                        let travelNpcCheckAutumn = {
+                            flagToFind: "autumnIntroToFastTravel",
+                            foundFlag: false,
+                        };
+
+                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, travelNpcCheckAutumn);
+
+                        let travelNpcCheckMoff = {
+                            flagToFind: "moffIntroToFastTravel",
+                            foundFlag: false,
+                        };
+
+                        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, travelNpcCheckMoff);
+
+                        if(travelNpcCheckAutumn.foundFlag === true || travelNpcCheckMoff.foundFlag === true){
+                            
+                            this.saveStoneKeyPrompts.visible = false;
+                            this.promptCooldown = false;
+                            this.autumn.y = this.autumn.y + 1000;
+                            this.autumn.visible = true;
+                        }
+                        
+                       
+                    });
+                 }
+               
 
             //this code plays the animation for the w key under the save stone
             }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false){

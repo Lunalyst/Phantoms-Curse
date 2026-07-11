@@ -113,4 +113,50 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
         },this);
 
     }
+
+    setupClosingButtonMap(map){
+
+        this.map = map;
+
+        this.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.anims.play("closingButtonActive");  
+        },this);
+
+        this.on('pointerout',function(pointer){
+            this.anims.play("closingButtonInActive");
+        },this);
+
+        this.on('pointerdown', function (pointer) {
+            //plays button sound
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+            
+            let object = {
+                NPCRef: this.map.npc,
+              };
+
+
+            //call emiter to destroy shop and free up some resources.
+            inventoryKeyEmitter.emit(inventoryKey.destroyMap);
+
+            //reset finished, and other variables
+            //including dialogue catch which frees us from the text box.
+            this.map.npc.scene.sceneTextBox.npcRef.resetVariables();
+
+            //reset the trading value in the npc 
+            this.map.npc.activatedMapUI = false;
+
+            this.map.npc.finished = false;
+
+            //progress the dialogue so the textbox goes through its finishing procedure.
+            this.map.npc.scene.sceneTextBox.activateNPCTextBox();
+            this.map.npc.scene.sceneTextBox.progressDialogue();
+            console.log("this.map.npc.scene.sceneTextBox.textInterupt: ",this.map.npc.scene.sceneTextBox.textInterupt);
+            this.map.npc.scene.sceneTextBox.textInterupt = false;
+            console.log("this.map.npc.scene.sceneTextBox.textInterupt: ",this.map.npc.scene.sceneTextBox.textInterupt);
+
+
+        },this);
+
+    }
 }

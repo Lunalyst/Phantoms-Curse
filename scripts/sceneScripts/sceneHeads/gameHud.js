@@ -36,6 +36,8 @@ class gameHud extends A3SoundEffects {
 
       this.debugToggle = true;
 
+      this.travelMap = null;
+
       this.screenWidth = 1200;
       this.screenHeight = 900;
 
@@ -72,6 +74,9 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('buttons', 'assets/hudElements/buttons.png',{frameWidth: 75, frameHeight: 75 });
       this.load.spritesheet('mobileButtons', 'assets/hudElements/mobileButtons.png',{frameWidth: 213, frameHeight: 213 });
       
+      this.load.spritesheet('KukoNuiMap', 'assets/hudElements/KukoNuiMap.png',{frameWidth: 633, frameHeight: 633 });
+      
+
       this.load.image('hitbox', 'assets/gameObjects/hitbox.png');
 
 
@@ -770,6 +775,35 @@ class gameHud extends A3SoundEffects {
             //stop the tweens for the containers.
             this.playerShopTween1.stop();
             this.playerShopTween2.stop();
+            
+          });
+
+
+           //sets the buy array in the shop ui
+          inventoryKeyEmitter.on(inventoryKey.createMap,(object) =>{
+
+            console.log("setting up map for fast travel.",)
+            //if the shop ui isnt already created.
+
+            if(this.travelMap === null){
+              //adds player storage ui
+              this.travelMap = new fastTravelMap(this,this.screenWidth/2,350);
+              
+              //set npc ref in object.
+              this.travelMap.npc = object.NPCRef;
+
+            }
+             
+
+          });
+
+          inventoryKeyEmitter.on(inventoryKey.destroyMap,() =>{
+
+            console.log("destroying shop inventory ui since we are done using it.",)
+
+            //destroy the shop ui container
+            this.travelMap.destroy();
+            this.travelMap = null;
             
           });
 

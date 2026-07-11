@@ -54,7 +54,7 @@ class autumn extends npc{
 
        this.jumpDelay = false;
 
-      
+       this.activatedMapUI  = false;
 
         this.setSize(60,200,true);
         this.setOffset(185, 91);
@@ -335,6 +335,19 @@ class autumn extends npc{
             this.scene.npcChoice4.destroy();
 
           },this);
+
+
+        }else if(this.currentDictNode.nodeName === "node4" && this.activatedMapUI === false){
+          this.activatedMapUI = true;
+          this.scene.sceneTextBox.textInterupt = true;
+
+          let object = {
+              NPCRef: this,
+            };
+    
+
+          inventoryKeyEmitter.emit(inventoryKey.createMap,object);
+    
 
 
         }

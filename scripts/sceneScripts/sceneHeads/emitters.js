@@ -134,6 +134,10 @@ inventoryKey = {
     changeCurrency: 'change_currency',
     displayCurrency:'display_currency',
 
+    createMap: 'create_Map',
+    activateMap: 'activate_Map',
+    destroyMap: 'destroy_Map',
+
     inventoryVisible:'inventory_visible',
 
 

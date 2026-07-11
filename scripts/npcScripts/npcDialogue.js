@@ -1315,6 +1315,12 @@ const npcDialogue = {
                     },
                     //I would like to travel.(opens up the fast travel menu)
                     "node3":{
+                        "dialogue": "lets check the map. ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4"]
+                    },
+                    "node4":{
                         "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",

@@ -120,4 +120,41 @@ class yes extends Phaser.Physics.Arcade.Sprite{
             }
         });
     }
+
+    setupYesFastTravel(map){
+
+        let that = this;
+        this.map = map;
+
+        this.visible = false;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("noActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
+        });
+        this.on('pointerout',function(pointer){
+            that.anims.play("noInActive");
+        });
+
+        this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //hide buttons
+            that.map.yes.visible = false;
+            that.visible = false;
+
+            that.map.npcRef.scene.sceneTextBox.textInterupt = false;
+            that.map.npcRef.activatedMapUI = false;
+
+            that.map.npcRef.progressNode("nodeAccept");
+
+            //call emitter to kill map object
+            inventoryKeyEmitter.emit(inventoryKey.destroyMap);
+
+            //free npc to continue dialogue
+
+
+            
+        });
+    }
 }

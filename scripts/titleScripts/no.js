@@ -82,4 +82,32 @@ class no extends Phaser.Physics.Arcade.Sprite{
             
         });
     }
+
+    setupNoFastTravel(map){
+
+        let that = this;
+        this.map = map;
+
+        this.visible = false;
+
+        this.on('pointerover',function(pointer){
+            that.anims.play("noActive");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
+        });
+        this.on('pointerout',function(pointer){
+            that.anims.play("noInActive");
+        });
+
+        this.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //hide buttons
+            that.map.yes.visible = false;
+            that.visible = false;
+
+            //play no dialogue
+           that.map.npcRef.differentPlace();
+            
+        });
+    }
 }

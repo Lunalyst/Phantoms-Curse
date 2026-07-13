@@ -899,6 +899,7 @@ class gameHud extends A3SoundEffects {
             console.log("object.saveSlot: ",object.saveSlot);
             object.saveSlot = this.playerSaveSlotData.saveSlot;
           });
+          
 
           //emitter to return the updated data within the gamehud as the game is playing.
           inventoryKeyEmitter.on(inventoryKey.getCurrentData,(object) =>{

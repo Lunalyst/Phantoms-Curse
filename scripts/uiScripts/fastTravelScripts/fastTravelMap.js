@@ -90,6 +90,18 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       this.add(this.currentPositionArrow);
       this.currentPositionArrowSet = false;
 
+      this.yes = new yes(scene,-70, 255);
+      this.yes.setupYesFastTravel(this);
+      this.add(this.yes);
+
+      this.no = new no(scene,70, 255);
+      this.no.setupNoFastTravel(this);
+      this.add(this.no);
+
+
+
+
+
       this.scene = scene;
 
       //here lies the challenge. how do I tell what location the player is in? i need to know. do i define it in level? hmmmm attack it to the flag some how?
@@ -111,13 +123,89 @@ class fastTravelMap extends Phaser.GameObjects.Container{
           this.currentPositionArrowSet = true;
 
           this.currentPositionArrow.visible = true;
+
           this.currentPositionArrow.x = value.mapPositionX;
-          this.currentPositionArrow.y = value.mapPositionY-30;
+          this.currentPositionArrow.y = value.mapPositionY-30;   
         }
         
         //make new point on the map 
         console.log("key.landingX: ",value.mapPositionX, " key.landingY",value.mapPositionY);
         let point = this.scene.add.sprite(value.mapPositionX, value.mapPositionY, "fastTravelDot").setInteractive();
+
+        point.anims.create({key: 'blank',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 0, end: 0 }),frameRate: 6,repeat: -1});
+        point.anims.create({key: 'lightUp',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 1, end: 1 }),frameRate: 6,repeat: -1});
+        point.anims.create({key: 'notFound',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 1, end: 1 }),frameRate: 6,repeat: -1});
+      
+        point.title = value.title;
+        point.flag = value.flag;
+        point.key = key;
+        point.landingX = value.landingX;
+        point.landingY = value.landingY;
+
+        //check flag for 
+        //check to see if flag already exists
+        let checkTravelFlag = {
+          flagToFind: value.flag,
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, checkTravelFlag);
+
+        if(checkTravelFlag.foundFlag){
+          point.anims.play("blank",true);
+          point.isActive = true;
+        }else{
+          point.anims.play("notFound",true);
+          point.isActive = false;
+        }
+        
+        let that = this;
+
+        point.on('pointerover',function(pointer){
+          if(point.isActive === true){
+            point.anims.play("lightUp");
+            that.scene.initSoundEffect('buttonSFX','1',0.05);
+          }
+           
+        });
+        point.on('pointerout',function(pointer){
+          if(point.isActive === true){
+            point.anims.play("blank");
+          }
+        });
+
+
+        point.on('pointerdown', function (pointer) {
+            that.scene.initSoundEffect('buttonSFX','2',0.05);
+            console.log("activateing warp point.");
+            that.npc.travelPointerTitle = point.title;
+
+            if(point.key === that.npcRef.scene.playerLocation){
+              that.npc.alreadyThere();
+              that.yes.visible = false;
+              that.no.visible = false;
+            }else{
+              that.npc.travelQuestion();
+
+              that.yes.visible = true;
+              that.no.visible = true;
+
+              //set location, along with x and y position into the npc
+              that.npcRef.sendPlayerTo = point.key;
+              that.npcRef.sendPlayerX = point.landingX;
+              that.npcRef.sendPlayerY = point.landingY;
+
+              console.log("that.npcRef: ",that.npcRef);
+
+
+            }
+            
+            
+           
+           
+        });
+
+
         point.setScale(1/3);
         this.add(point);
       });
@@ -128,5 +216,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       console.log('created the fast travel map.');
 
     }
+
+    
   
 }

@@ -68,6 +68,8 @@ class wolf extends npc{
 
        this.playerInPosition = false;
 
+       this.lockoutNPC = false;
+
        this.choke = false;
 
        //this.body.setGravityY(600); 
@@ -227,37 +229,42 @@ class wolf extends npc{
   }
 
   activateNpc(){
+    if(this.lockoutNPC === false){
+      //if the player meets activation requiements for the sign display the text box
+      if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
 
-    //if the player meets activation requiements for the sign display the text box
-    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
+        //console.log("this.currentDictNode: ",this.currentDictNode);
 
-      //console.log("this.currentDictNode: ",this.currentDictNode);
+        //logic to start dialogue
+        this.dialogueLogicStart();
 
-      //logic to start dialogue
-      this.dialogueLogicStart();
-
-      //calls function overwritten children class to handle npc logic.
-      console.log("flag logic function acxtivated!")
-      this.flagLogic();
-        
-      //ending dialoguce logic.
-      this.dialogueLogicEnd();
+        //calls function overwritten children class to handle npc logic.
+        console.log("flag logic function acxtivated!")
+        this.flagLogic();
           
-      //otherwise we want to display the key prompts 
-    }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
+        //ending dialoguce logic.
+        this.dialogueLogicEnd();
+            
+        //otherwise we want to display the key prompts 
+      }else if(this.safeToSpeak === true && this.scene.activatedNpcId === this.npcId && this.promptCooldown === false ){
 
-      this.npcKeyPrompts.visible = true;
-      this.npcKeyPrompts.playWKey();
-      this.promptCooldown = true;        
-  
+        this.npcKeyPrompts.visible = true;
+        this.npcKeyPrompts.playWKey();
+        this.promptCooldown = true;        
+    
+      }
+          
+    }else{
+       this.npcKeyPrompts.visible = false;
     }
-        
-    // resets variables.
-    if(this.safeToSpeak === false){
-      this.npcKeyPrompts.visible = false;
-      this.promptCooldown = false;
 
-    }
+     // resets variables.
+      if(this.safeToSpeak === false){
+        this.npcKeyPrompts.visible = false;
+        this.promptCooldown = false;
+
+      }
+    
 
     if(this.advancedIdleAnimation === true){
       if(this.npcType === "labEncounter1"){
@@ -1522,9 +1529,14 @@ class wolf extends npc{
         //init npc for the next part of the quest.
         //remove interactable door, place false one, and spawn wolf npc for door.
         console.log("this.scene.storageRoomDoor: ",this.scene.storageRoomDoor);
-        this.scene.fakeWarp1 = new fakeWarp(this.scene,this.scene.storageRoomDoor.x,this.scene.storageRoomDoor.y,'door2');
-        this.scene.initWolf(this.scene.storageRoomDoor.x, this.scene.storageRoomDoor.y-10, "storageRoomDoor");
+        this.scene.fakeWarp1 = new fakeWarp(this.scene,this.scene.storageRoomDoor.x,this.scene.storageRoomDoor.y+13,'door2');
+        this.scene.initWolf(this.scene.storageRoomDoor.x, this.scene.storageRoomDoor.y-7, "storageRoomDoor");
         this.scene.storageRoomDoor.destroy();
+        this.lockoutNPC = true;
+        this.npcKeyPrompts.visible = false;
+        this.safeToSpeak = false;
+
+        //need to lock out this npc here!
       }
     }
   }

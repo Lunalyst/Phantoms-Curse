@@ -1313,6 +1313,7 @@ const npcDialogue = {
                         "textvoice":"batChirp",
                         "children":["node3","nodeCarryMe1","nodeAutumnInfo","nodeAutumnExit"]
                     },
+
                     //I would like to travel.(opens up the fast travel menu)
                     "node3":{
                         "dialogue": "lets check the map. ",
@@ -1324,8 +1325,75 @@ const npcDialogue = {
                         "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
+                        "children":["nodeAccept"]
+                    },
+                    "nodeAccept":{
+                        "dialogue": "sounds good.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "that will be 25 shell.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node6","node8","node13"]
+                    },
+                    //here you go (and has the shell.)
+                    "node6":{
+                        "dialogue": "alrighty, now stand still.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "and off we go!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
                         "children":[]
                     },
+
+                    //I dont have enough.
+                    "node8":{
+                        "dialogue": "oh... well I can still take you....",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "Though I am likely to take my payment another way. ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "if your not careful. ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "now stand still.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "and off we go!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+
+                    //never mind.
+
+                    "node13":{
+                        "dialogue": "oh... ok. let me know if you change your mind.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+
                     //thoughts, could use the dialogue box like i do in shop menu. have that dialogue in npc
 
                     //how are you going to carry me?

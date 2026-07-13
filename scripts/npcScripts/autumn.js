@@ -58,10 +58,19 @@ class autumn extends npc{
 
        this.addedLockwoodFlag = false;
 
+       this.travelPointerTitle = "";
+
         this.setSize(60,200,true);
         this.setOffset(185, 91);
       
         this.advancedIdleAnimation = true;
+
+        this.sendPlayerTo = "";
+        this.sendPlayerX = 0;
+        this.sendPlayerY = 0;
+
+        this.departing = false;
+
 
       if(this.npcType === 'postOffice'){
 
@@ -484,7 +493,6 @@ class autumn extends npc{
 
         }else if(this.currentDictNode.nodeName === "node4" && this.activatedMapUI === false){
           this.activatedMapUI = true;
-          this.scene.sceneTextBox.textInterupt = true;
 
           let object = {
               NPCRef: this,
@@ -492,12 +500,376 @@ class autumn extends npc{
     
 
           inventoryKeyEmitter.emit(inventoryKey.createMap,object);
+
+          this.scene.sceneTextBox.textInterupt = true;
     
 
 
+        }else if(this.currentDictNode.nodeName === "node5" && this.inDialogue === false){
+          
+          //display currency the player has on screen
+          inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
+
+          // fetches the player currency amount from the ui
+          let shell = {
+            currency: null
+          };
+
+          inventoryKeyEmitter.emit(inventoryKey.getCurrency,shell);
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //if the player has enough shell, display a different option.
+          if(shell.currency >= 25){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"here you go.",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+             //subtract amount from players currency
+              let currencyObject = {
+                  changeType:'-',
+                  changeAmount:25,
+              };
+                inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
+
+
+              //console.log("shell.currency: ",shell.currency);
+              //check player currency, if player has enough then pro
+              //progress to node branch with state name node5
+              this.progressNode("node6",true);
+
+              //plays animation of vivian shocked and sfx agian.
+              /*if(!this.animationPlayed){
+
+                  this.animationPlayed = true;
+
+                  this.anims.play('vivianrummagingShock');
+                  this.scene.initSoundEffect('foxSFX','1',0.05);
+
+                  let temp = this;
+                  setTimeout(function () {
+                    temp.animationPlayed = false;
+                }, 500);
+
+              } */
+                
+              //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+              this.dialogueCatch = true;
+              
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+          }else{
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I dont have enough.",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              // fetches the player currency amount from the ui
+              let shell = {
+                currency: null
+              };
+              inventoryKeyEmitter.emit(inventoryKey.getCurrency,shell);
+
+              //console.log("shell.currency: ",shell.currency);
+              //check player currency, if player has enough then pro
+              //progress to node branch with state name node5
+              this.progressNode("node8",true);
+
+              //add flag to tell that the player is doing risky fast travel. then reomve flag from player if they get out before they arte digested.
+
+              //plays animation of vivian shocked and sfx agian.
+              /*if(!this.animationPlayed){
+
+                  this.animationPlayed = true;
+
+                  this.anims.play('vivianrummagingShock');
+                  this.scene.initSoundEffect('foxSFX','1',0.05);
+
+                  let temp = this;
+                  setTimeout(function () {
+                    temp.animationPlayed = false;
+                }, 500);
+
+              } */
+                
+              //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+              this.dialogueCatch = true;
+              
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+          }
+          
+          //dialogue option for no.
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"never mind.",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+          
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10
+            this.progressNode("node20");
+
+            //hide currency
+            inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+
+            this.inDialogue = false;
+
+          },this);
+          
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+        }else if((this.currentDictNode.nodeName === "node12" || this.currentDictNode.nodeName === "node7") && this.departing === false){
+
+            this.departing = true;
+            this.scene.sceneTextBox.textInterupt = true;
+
+            this.scene.sceneTextBox.textCoolDown = true;
+
+
+            let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+
+                //check if the level is the dream version
+                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+
+                // add flag here for risky
+                if(temp.currentDictNode.nodeName === "node12"){
+
+                    //then add container flag. 
+                    let riskyTravel = {
+                        flagToFind: "riskyTravel",
+                        foundFlag: false,
+                    };
+
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
+                    
+                }
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = temp.sendPlayerX;
+                playerDataObject.saveY = temp.sendPlayerY;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = temp.sendPlayerTo;
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                
+                temp.scene.destination = temp.sendPlayerTo;
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },1000);
+     
         }
       }
     
+  }
+
+  travelQuestion(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "batChirp";
+
+    let location = (this.travelPointerTitle+"?").padEnd(25, ' '); 
+    
+    this.textToDisplay += 
+    'travel to                '+
+    location+
+    '                         ';
+    //'1234567891234567891234567';
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('autumnSmile');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  alreadyThere(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "batChirp";
+
+    let location = (this.travelPointerTitle+"...").padEnd(25, ' '); 
+    
+    this.textToDisplay += 
+    'we are already at        '+
+     location+
+    '                         ';
+    
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+    this.profileArray.push('autumnSmile');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+  }
+
+  differentPlace(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "batChirp";
+    
+    this.textToDisplay += 
+    'somewhere else then?     '+
+    '                         '+
+    '                         ';
+    
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+    this.profileArray.push('autumnSmile');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
   }
 
 }

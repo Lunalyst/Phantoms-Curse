@@ -68,8 +68,6 @@ class wolf extends npc{
 
        this.playerInPosition = false;
 
-       this.lockoutNPC = false;
-
        this.choke = false;
 
        //this.body.setGravityY(600); 
@@ -505,6 +503,8 @@ class wolf extends npc{
         this.pants.anims.play("idle", true);
         this.pants.setScale(1/3);
         this.pants.setDepth(1);
+
+        this.scene.lunalyst.lockoutNPC = true;
 
 
 
@@ -1529,8 +1529,8 @@ class wolf extends npc{
         //init npc for the next part of the quest.
         //remove interactable door, place false one, and spawn wolf npc for door.
         console.log("this.scene.storageRoomDoor: ",this.scene.storageRoomDoor);
-        this.scene.fakeWarp1 = new fakeWarp(this.scene,this.scene.storageRoomDoor.x,this.scene.storageRoomDoor.y+13,'door2');
-        this.scene.initWolf(this.scene.storageRoomDoor.x, this.scene.storageRoomDoor.y-7, "storageRoomDoor");
+        this.scene.fakeWarp1 = new fakeWarp(this.scene,this.scene.storageRoomDoor.x,this.scene.storageRoomDoor.y+7,'door2');
+        this.scene.initWolf(this.scene.storageRoomDoor.x, this.scene.storageRoomDoor.y, "storageRoomDoor");
         this.scene.storageRoomDoor.destroy();
         this.lockoutNPC = true;
         this.npcKeyPrompts.visible = false;

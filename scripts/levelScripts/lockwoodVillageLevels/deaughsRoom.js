@@ -100,7 +100,7 @@ class DeaughsRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initSigns(865,760+16,"question","Fundamentals of Cursed Energy",false);
+      this.initSigns(865,760+20,"question","Fundamentals of Cursed Energy",false);
 
       this.storageRoomDoor = this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
 
@@ -151,7 +151,7 @@ class DeaughsRoom extends defaultScene {
 
         inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"labEncounter1Flag4");
 
-        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y,'door2');
+        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y+7,'door2');
         this.storageRoomDoor.destroy();
 
        }else if(lab1.foundFlag === true){
@@ -179,8 +179,8 @@ class DeaughsRoom extends defaultScene {
         //init npc for the next part of the quest.
         //remove interactable door, place false one, and spawn wolf npc for door.
         console.log("this.scene.storageRoomDoor: ",this.storageRoomDoor);
-        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y,'door2');
-        this.initWolf(this.storageRoomDoor.x, this.storageRoomDoor.y-10, "storageRoomDoor");
+        this.fakeWarp1 = new fakeWarp(this,this.storageRoomDoor.x,this.storageRoomDoor.y+7,'door2');
+        this.initWolf(this.storageRoomDoor.x, this.storageRoomDoor.y, "storageRoomDoor");
         this.storageRoomDoor.destroy();
 
        }else{

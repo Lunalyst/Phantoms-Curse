@@ -134,7 +134,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
 
         point.anims.create({key: 'blank',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 0, end: 0 }),frameRate: 6,repeat: -1});
         point.anims.create({key: 'lightUp',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 1, end: 1 }),frameRate: 6,repeat: -1});
-        point.anims.create({key: 'notFound',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 1, end: 1 }),frameRate: 6,repeat: -1});
+        point.anims.create({key: 'notFound',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 2, end: 2 }),frameRate: 6,repeat: -1});
       
         point.title = value.title;
         point.flag = value.flag;
@@ -176,6 +176,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
 
 
         point.on('pointerdown', function (pointer) {
+          if(point.isActive === true){
             that.scene.initSoundEffect('buttonSFX','2',0.05);
             console.log("activateing warp point.");
             that.npc.travelPointerTitle = point.title;
@@ -199,14 +200,12 @@ class fastTravelMap extends Phaser.GameObjects.Container{
 
 
             }
-            
-            
-           
-           
+          }
+                
         });
 
 
-        point.setScale(1/3);
+        point.setScale(1/2);
         this.add(point);
       });
 

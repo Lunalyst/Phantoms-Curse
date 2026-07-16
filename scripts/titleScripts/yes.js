@@ -129,11 +129,11 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         this.visible = false;
 
         this.on('pointerover',function(pointer){
-            that.anims.play("noActive");
+            that.anims.play("yesActive");
             that.scene.initSoundEffect('buttonSFX','1',0.05);
         });
         this.on('pointerout',function(pointer){
-            that.anims.play("noInActive");
+            that.anims.play("yesInActive");
         });
 
         this.on('pointerdown', function (pointer) {

@@ -162,7 +162,8 @@ class PondForest extends defaultScene {
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0x444444);
 
-      this.initSavePoints(2990,824-10);
+      this.initSavePoints(2885,824-10);
+
 
       //this.initSavePoints(2150,1368-10);
 
@@ -190,6 +191,8 @@ class PondForest extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      this.initFastTravelPoint(2994, 824,'default');
 
       this.initSigns(2571,1080+17,"generic","ominousOmen1");
 

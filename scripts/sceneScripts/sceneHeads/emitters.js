@@ -313,8 +313,8 @@ const oneTimeItemArray = {
         flag:"ForestRavineHomeFastTravel",
         landingX: 2070,
         landingY: 1336,
-        mapPositionX:-38,
-        mapPositionY:135,
+        mapPositionX:-39,
+        mapPositionY:145,
       },
       
       LockwoodShopDistrict:{
@@ -322,8 +322,17 @@ const oneTimeItemArray = {
         flag:"LockwoodShopDistrictFastTravel",
         landingX: 2768,
         landingY: 728,
-        mapPositionX:-136,
-        mapPositionY:-50,
+        mapPositionX:-137,
+        mapPositionY:-49,
+      },
+
+      PondForest:{
+        title:"Waterfall Cliffs",
+        flag:"PondForestFastTravel",
+        landingX: 2994,
+        landingY: 824,
+        mapPositionX:75,
+        mapPositionY:0,
       },
     },
   };
@@ -331,7 +340,8 @@ const oneTimeItemArray = {
   //map to figure out what the correct map to display is 
   const fastTravelLocationFinder = {
     ForestRavineHome:"Lockwood",
-    LockwoodShopDistrict:"Lockwood"
+    LockwoodShopDistrict:"Lockwood",
+    PondForest:"Lockwood"
   };
 
 //each catigory for the bestiary groupings.

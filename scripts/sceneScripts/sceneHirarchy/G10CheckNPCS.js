@@ -10,7 +10,7 @@ class G10CheckNPCS extends G9CheckEnemys {
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
       
-      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false ) {
+      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.lockoutNPC === false) {
         //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;
@@ -33,7 +33,7 @@ class G10CheckNPCS extends G9CheckEnemys {
   Player2checkNpc(scene) {
     //applies a function to each portal object in the scene
     scene.npcs.children.each(function (tempNpc) {
-      if ((((scene.player2.x > tempNpc.x - 40 && scene.player2.x < tempNpc.x + 40) && (scene.player2.y > tempNpc.y - 40 && scene.player2.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true)&& scene.grabbed === false) {
+      if ((((scene.player2.x > tempNpc.x - 40 && scene.player2.x < tempNpc.x + 40) && (scene.player2.y > tempNpc.y - 40 && scene.player2.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true)&& scene.grabbed === false && tempNpc.lockoutNPC === false) {
         //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;

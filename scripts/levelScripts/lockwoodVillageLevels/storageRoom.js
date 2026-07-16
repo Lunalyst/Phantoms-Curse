@@ -56,7 +56,7 @@ class StorageRoom extends defaultScene {
 
       
       let flag1 = {
-        flagToFind: "labEncounter1Flag4",
+        flagToFind: "labEncounter1Flag1",
         foundFlag: false,
       };
 

@@ -43,6 +43,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //variable to lock out the flag search during dialogue.
       this.flagLockout = false;
       
+      this.lockoutNPC = false;
       //value to tell if a triggernpc has caught the player.
       this.triggerNpcActivated = false;
       this.triggerNpcFinished = false;

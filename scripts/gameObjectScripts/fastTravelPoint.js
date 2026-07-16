@@ -1,7 +1,7 @@
 //savestone that allows players to save there progress.
 class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, xPos, yPos,locationFlag,mode){
+    constructor(scene, xPos, yPos,mode){
         //super() calls the constructor() from the parent class we are extending
         super(scene, xPos-30, yPos-25, 'fastTravelPoint');
         //then we add new instance into the scene. 
@@ -37,6 +37,8 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
         
         //sets scale
         this.setScale(1/3);
+
+        this.setDepth(5);
 
         //if lighting system is on then
         if(this.scene.lightingSystemActive === true){

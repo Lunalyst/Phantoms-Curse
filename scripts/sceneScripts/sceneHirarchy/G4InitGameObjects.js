@@ -99,7 +99,7 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   initFastTravelPoint(x, y,mode) {
 
-      let fastPoint1 = new fastTravelPoint(this, x, y,this.playerLocation+"FastTravel",mode);
+      let fastPoint1 = new fastTravelPoint(this, x, y,mode);
       fastPoint1.saveStoneId = this.saveStoneId;
       this.saveStoneId++;
 

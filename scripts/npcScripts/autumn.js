@@ -62,8 +62,12 @@ class autumn extends npc{
 
         this.setSize(60,200,true);
         this.setOffset(185, 91);
+
+        this.setDepth(5);
       
         this.advancedIdleAnimation = true;
+        this.playerInPosition = false;
+
 
         this.sendPlayerTo = "";
         this.sendPlayerX = 0;
@@ -76,13 +80,13 @@ class autumn extends npc{
 
       }else if(this.npcType === 'fastTravel'){
         this.anims.play("idle", true);
-        this.setDepth(0);
+        //this.setDepth(0);
       }else if(this.npcType === 'introToFastTravel'){
 
         this.anims.play("sideIdle", true);
         //set up triggler range 
         this.npcTriggerRange = true;
-        this.npcTriggerRangeX = 70;
+        this.npcTriggerRangeX = 60;
         this.npcTriggerRangeY = 900;
 
       }
@@ -164,13 +168,6 @@ class autumn extends npc{
   introToFastTravel(){
 
     console.log("autumn intro travel logic")
-    //orient the player so it looks like they are facing vivian.
-    this.scene.player1.x = 2813;
-    this.scene.player1.y = 728;
-    this.scene.player1.mainHitbox.x = 2813;
-    this.scene.player1.mainHitbox.y = 728;
-    this.scene.player1.mainHitbox.setVelocityX(0);
-    this.scene.player1.mainHitbox.setVelocityY(0);
 
     //check to see if flag already exists
     let autumnDialogue1 = {
@@ -185,7 +182,37 @@ class autumn extends npc{
 
       this.nodeHandler("autumn","Behavior1","introFastTravel");
 
+
+
+      if(this.scene.player1.x < this.x){
+
+        this.playerIsOnLeft = true;
+        this.scene.player1.flipXcontainer(false);
+        this.anims.play('sideIdle',true);
+        this.flipX = true;
+      }else{
+        this.playerIsOnRight = true;
+        this.scene.player1.flipXcontainer(true);
+        this.anims.play('sideIdle',true);
+        this.flipX = false;
+      }
+
+      if(this.scene.player1.x < this.x){
+        this.scene.player1.x = this.x-40;
+        this.scene.player1.mainHitbox.x = this.x-40;
+      }else{
+        this.scene.player1.x = this.x+40;
+        this.scene.player1.mainHitbox.x = this.x+40;
+      }
+
+      this.scene.player1.mainHitbox.setVelocityX(0);
+      this.scene.player1.mainHitbox.setVelocityY(0);
+      
+
       if(this.currentDictNode !== null){
+
+        //orient the player so it looks like they are facing vivian.
+        
 
         if(this.currentDictNode.nodeName === "node1"){
 
@@ -208,137 +235,34 @@ class autumn extends npc{
   }
 
   postOffice(){
-    console.log("this.isPlayerControlled: ", this.isPlayerControlled)
 
-    if(this.isPlayerControlled === false){
-      this.nodeHandler("autumn","Behavior1","test");
-      this.scene.player1.mainHitbox.x = this.x;
-    }else{
-      this.nodeHandler("autumn","Behavior1","testRelease");
-    }
-
-    
-
-    if(this.currentDictNode !== null){
-
-     if(this.isPlayerControlled === false){
-        if(this.currentDictNode.nodeName === "node3" && this.inDialogue === false){
-            this.inDialogue = true;
-            //set variable approperiately
-            this.scene.sceneTextBox.textInterupt = true;
-
-            //create dialogue buttons for player choice
-            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"its Your Turn autumn",true);
-            this.scene.npcChoice1.textWob();
-            this.scene.npcChoice1.setScrollFactor(0);
-            this.scene.npcChoice1.addHitbox();
-            this.scene.npcChoice1.setScale(.8);
-
-            //set up dialogue option functionality so they work like buttons
-            this.scene.npcChoice1.on('pointerover',function(pointer){
-              this.scene.initSoundEffect('buttonSFX','1',0.05);
-              this.scene.npcChoice1.setTextTint(0xff7a7a);
-            },this);
-
-            this.scene.npcChoice1.on('pointerout',function(pointer){
-                this.scene.npcChoice1.clearTextTint();
-            },this);
-
-            this.scene.npcChoice1.on('pointerdown', function (pointer) {
-            
-              this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-              //set variable approperiately
-              this.scene.sceneTextBox.textInterupt = false;
-
-              this.progressNode("node5",true);
-          
-              //destroy itself and other deciosions
-              this.scene.npcChoice1.destroy();
-              this.scene.npcChoice2.destroy();
-
-              this.inDialogue = false;
-
-              
-
-            },this);
-
-            //dialogue option for no.
-            this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"maybe later",true);
-            this.scene.npcChoice2.textWob();
-            this.scene.npcChoice2.setScrollFactor(0);
-            this.scene.npcChoice2.addHitbox();
-            this.scene.npcChoice2.setScale(.8);
-
-
-            //set up dialogue option functionality so they work like buttons
-            this.scene.npcChoice2.on('pointerover',function(pointer){
-              this.scene.initSoundEffect('buttonSFX','1',0.05);
-              this.scene.npcChoice2.setTextTint(0xff7a7a);
-            },this);
-
-            this.scene.npcChoice2.on('pointerout',function(pointer){
-                this.scene.npcChoice2.clearTextTint();
-            },this);
-
-            this.scene.npcChoice2.on('pointerdown', function (pointer) {
-            
-              this.scene.initSoundEffect('buttonSFX','2',0.05);
-
-              //set variable approperiately
-              this.scene.sceneTextBox.textInterupt = false;
-
-              //progress to node branch with state name node10
-              this.progressNode("node4");
-
-              //destroy itself and other deciosions
-              this.scene.npcChoice1.destroy();
-              this.scene.npcChoice2.destroy();
-
-              this.inDialogue = false;
-
-            },this);
-            
-            //call scene variable to create interupt.
-            this.scene.sceneTextBox.textInterupt = true;
-
-            //let the npc know they are in dialogue
-            this.inDialogue = true;
-            
-        }else if(this.currentDictNode.nodeName === "node6"){
-          
-          this.scene.player2Active = true;
-          this.visible = false;
-          this.scene.player2.visible = true;
-          this.isPlayerControlled = true;
-          this.scene.player1.mainHitbox.x = this.x;
-          this.scene.player1.mainHitbox.setVelocity(0,0);
-          this.scene.player1.x = this.x;
-          this.scene.player1.setDepth(5);
-          this.scene.player2.setDepth(6);
-          healthEmitter.emit(healthEvent.setautumnHealth,true,true);
-
-        }
-      }else{
-        if(this.currentDictNode.nodeName === "node2"){
-          this.scene.player2Active = false;
-          this.visible = true;
-          this.scene.player2.visible = false;
-          this.scene.player2.x = this.x;
-          this.isPlayerControlled = false;
-          this.scene.player1.mainHitbox.x = this.x;
-          this.scene.player1.x = this.x;
-          this.scene.player1.setDepth(6);
-          this.scene.player2.setDepth(5);
-          healthEmitter.emit(healthEvent.setautumnHealth,false,false);
-        }
-      }
-      
-    }
   }
-
   fastTravel(){
       this.nodeHandler("autumn","Behavior1","fastTravel");
+
+      if(this.scene.player1.x < this.x){
+
+        this.playerIsOnLeft = true;
+        this.scene.player1.flipXcontainer(false);
+        this.anims.play('sideIdle',true);
+        this.flipX = true;
+      }else{
+        this.playerIsOnRight = true;
+        this.scene.player1.flipXcontainer(true);
+        this.anims.play('sideIdle',true);
+        this.flipX = false;
+      }
+
+      if(this.scene.player1.x < this.x){
+        this.scene.player1.x = this.x-40;
+        this.scene.player1.mainHitbox.x = this.x-40;
+      }else{
+        this.scene.player1.x = this.x+40;
+        this.scene.player1.mainHitbox.x = this.x+40;
+      }
+
+      this.scene.player1.mainHitbox.setVelocityX(0);
+      this.scene.player1.mainHitbox.setVelocityY(0);
 
       if(this.currentDictNode !== null){
 

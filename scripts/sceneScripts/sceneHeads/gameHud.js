@@ -879,7 +879,7 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.displayCurrency,() =>{
 
             if(this.displayCurrencyIcon === null){
-              this.displayCurrencyIcon = new shellMark(this,100,93);
+              this.displayCurrencyIcon = new shellMark(this,100,93+20+20);
               this.displayCurrencyLetters = new makeText(this,this.displayCurrencyIcon.x + 30,this.displayCurrencyIcon.y+25,'charBubble',""+ this.playerSaveSlotData.currency);
               //this.displayCurrencyIcon.setScale(.6);
               this.displayCurrencyIcon.visible = true;

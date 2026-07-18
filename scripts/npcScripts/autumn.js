@@ -13,19 +13,23 @@ class autumn extends npc{
 
       this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'flyDown',frames: this.anims.generateFrameNames('autumnMale', { start: 8, end: 13 }),frameRate: 7,repeat: -1});
 
-      
       if(scene.playerSex === 0){
 
-        this.anims.create({key: 'autumnPickUpPlayerEnd',frames: this.anims.generateFrameNames('autumnCutScene', { start: 31, end: 33 }),frameRate: 5,repeat: 0});
-        this.anims.create({key: 'autumnHoldingPlayer',frames: this.anims.generateFrameNames('autumnCutScene', { start: 34, end: 37 }),frameRate: 6,repeat: -1});
+        this.anims.create({key: 'liftUp',frames: this.anims.generateFrameNames('autumnMale', { start: 14, end: 21 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'liftUpIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 22, end: 25 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'swallow1',frames: this.anims.generateFrameNames('autumnMale', { start: 26, end: 30 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallow2',frames: this.anims.generateFrameNames('autumnMale', { start: 31, end: 36 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'swallow3',frames: this.anims.generateFrameNames('autumnMale', { start: 37, end: 45 }),frameRate: 7,repeat: 0});
 
       }else{
 
-        this.anims.create({key: 'autumnPickUpPlayerEnd',frames: this.anims.generateFrameNames('autumnCutScene', { start: 48, end: 50 }),frameRate: 5,repeat: 0});
-        this.anims.create({key: 'autumnHoldingPlayer',frames: this.anims.generateFrameNames('autumnCutScene', { start: 51, end: 54 }),frameRate: 6,repeat: -1});
-
       }
+
+      this.anims.create({key: 'swallowIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 46, end: 49 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'fullFlyUp',frames: this.anims.generateFrameNames('autumnMale', { start: 50, end: 55 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'fullFlyDown',frames: this.anims.generateFrameNames('autumnMale', { start: 56, end: 61 }),frameRate: 7,repeat: -1});
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 90,'keyPrompts');
@@ -44,6 +48,7 @@ class autumn extends npc{
        this.completedText = false;
 
        this.animationPlayed = false;
+
        this.scene = scene;
 
        this.inDialogue = false;
@@ -75,15 +80,29 @@ class autumn extends npc{
 
         this.departing = false;
 
+        this.inFastTravelScene = false;
+
+        this.flyDown = false;
+
+        this.fastTravelLandingY = 0;
+
+        this.batSoundCoolDown = false;
+
+        this.flyUp = false;
+
+        this.fastTravelPlatformRef = null;
+
 
       if(this.npcType === 'postOffice'){
+        this.isInPosition = true;
 
       }else if(this.npcType === 'fastTravel'){
-        this.anims.play("idle", true);
+        //this.anims.play("idle", true);
+        this.isInPosition = false;
         //this.setDepth(0);
       }else if(this.npcType === 'introToFastTravel'){
-
-        this.anims.play("sideIdle", true);
+        this.isInPosition = true;
+        //this.anims.play("sideIdle", true);
         //set up triggler range 
         this.npcTriggerRange = true;
         this.npcTriggerRangeX = 60;
@@ -109,8 +128,8 @@ class autumn extends npc{
   }
 
   activateNpc(){
-    
-      //if the player meets activation requiements for the sign display the text box
+    if(this.isInPosition === true){
+         //if the player meets activation requiements for the sign display the text box
       if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
 
         //console.log("this.currentDictNode: ",this.currentDictNode);
@@ -140,12 +159,92 @@ class autumn extends npc{
         this.promptCooldown = false;
 
       }
+
+      if(this.inFastTravelScene === true){
+        if(this.scene.checkSkipIndicatorIsDown()){
+          let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+
+                //check if the level is the dream version
+                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+
+                // add flag here for risky
+                if(temp.currentDictNode.nodeName === "node12"){
+
+                    //then add container flag. 
+                    let riskyTravel = {
+                        flagToFind: "riskyTravel",
+                        foundFlag: false,
+                    };
+
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
+                    
+                }
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = temp.sendPlayerX;
+                playerDataObject.saveY = temp.sendPlayerY;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = temp.sendPlayerTo;
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                
+                temp.scene.destination = temp.sendPlayerTo;
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },100);    
+        } 
+      }
     
 
 
 
     if(this.advancedIdleAnimation === true){
-      if(this.npcType === "postOffice" || this.npcType === "fastTravel" || this.npcType === "introToFastTravel"){
+      if((this.npcType === "postOffice" || this.npcType === "fastTravel" || this.npcType === "introToFastTravel") && this.advancedIdleAnimation === true){
         if(this.scene.player1.x < this.x - 39){
           this.anims.play('sideIdle',true);
           this.flipX = true;
@@ -159,10 +258,141 @@ class autumn extends npc{
     }
 
 
+    }
+   
   }
 
+   playWingFlapSound(type,delay){
+
+        if(this.batSoundCoolDown === false){
+            this.scene.initSoundEffect("fastTravelWingFlapSFX",type,0.3);
+            this.batSoundCoolDown = true;
+    
+            let enemy = this;
+            setTimeout(function () {
+                enemy.batSoundCoolDown = false;
+            }, delay);
+        }
+
+    }
+
   MoveNPC(){
-  
+    if(this.npcType === 'fastTravel'){
+      this.MoveNPCFastTravel();
+    }
+  }
+
+  MoveNPCFastTravel(){
+
+    if(this.isInPosition === false){
+      if(this.y < this.fastTravelLandingY){
+
+        this.setVelocityY(200);
+        this.anims.play('flyDown',true);
+        this.playWingFlapSound('1',800);
+      }else{
+
+        this.setVelocityY(0);
+        this.isInPosition = true;
+        this.moveFunctionActive = false;
+        this.anims.play('idle',true);
+        this.y = this.fastTravelLandingY;
+      }
+    }else if(this.flyUp === false){
+
+      if(this.y > this.fastTravelLandingY-700){
+
+        this.setVelocityY(-200);
+        this.anims.play('fullFlyUp',true);
+        this.playWingFlapSound('1',800);
+
+      }else{
+
+        this.setVelocityY(0);
+        this.flyUp = true;
+        this.moveFunctionActive = false;
+        this.anims.play('idle',true);
+
+        //this.y = this.fastTravelLandingY;
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+
+                //check if the level is the dream version
+                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+
+                // add flag here for risky
+                if(temp.currentDictNode.nodeName === "node12"){
+
+                    //then add container flag. 
+                    let riskyTravel = {
+                        flagToFind: "riskyTravel",
+                        foundFlag: false,
+                    };
+
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
+                    
+                }
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = temp.sendPlayerX;
+                playerDataObject.saveY = temp.sendPlayerY;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = temp.sendPlayerTo;
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                
+                temp.scene.destination = temp.sendPlayerTo;
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },100);
+     
+      }
+    }
+
   }
 
   introToFastTravel(){
@@ -183,19 +413,21 @@ class autumn extends npc{
       this.nodeHandler("autumn","Behavior1","introFastTravel");
 
 
+      if(this.advancedIdleAnimation === true){
+        if(this.scene.player1.x < this.x){
 
-      if(this.scene.player1.x < this.x){
-
-        this.playerIsOnLeft = true;
-        this.scene.player1.flipXcontainer(false);
-        this.anims.play('sideIdle',true);
-        this.flipX = true;
-      }else{
-        this.playerIsOnRight = true;
-        this.scene.player1.flipXcontainer(true);
-        this.anims.play('sideIdle',true);
-        this.flipX = false;
+          this.playerIsOnLeft = true;
+          this.scene.player1.flipXcontainer(false);
+          this.anims.play('sideIdle',true);
+          this.flipX = true;
+        }else{
+          this.playerIsOnRight = true;
+          this.scene.player1.flipXcontainer(true);
+          this.anims.play('sideIdle',true);
+          this.flipX = false;
+        }
       }
+      
 
       if(this.scene.player1.x < this.x){
         this.scene.player1.x = this.x-40;
@@ -240,18 +472,21 @@ class autumn extends npc{
   fastTravel(){
       this.nodeHandler("autumn","Behavior1","fastTravel");
 
-      if(this.scene.player1.x < this.x){
+      if(this.advancedIdleAnimation === true){
+        if(this.scene.player1.x < this.x){
 
-        this.playerIsOnLeft = true;
-        this.scene.player1.flipXcontainer(false);
-        this.anims.play('sideIdle',true);
-        this.flipX = true;
-      }else{
-        this.playerIsOnRight = true;
-        this.scene.player1.flipXcontainer(true);
-        this.anims.play('sideIdle',true);
-        this.flipX = false;
+          this.playerIsOnLeft = true;
+          this.scene.player1.flipXcontainer(false);
+          this.anims.play('sideIdle',true);
+          this.flipX = true;
+        }else{
+          this.playerIsOnRight = true;
+          this.scene.player1.flipXcontainer(true);
+          this.anims.play('sideIdle',true);
+          this.flipX = false;
+        }
       }
+      
 
       if(this.scene.player1.x < this.x){
         this.scene.player1.x = this.x-40;
@@ -484,22 +719,7 @@ class autumn extends npc{
               //console.log("shell.currency: ",shell.currency);
               //check player currency, if player has enough then pro
               //progress to node branch with state name node5
-              this.progressNode("node6",true);
-
-              //plays animation of vivian shocked and sfx agian.
-              /*if(!this.animationPlayed){
-
-                  this.animationPlayed = true;
-
-                  this.anims.play('vivianrummagingShock');
-                  this.scene.initSoundEffect('foxSFX','1',0.05);
-
-                  let temp = this;
-                  setTimeout(function () {
-                    temp.animationPlayed = false;
-                }, 500);
-
-              } */
+              this.progressNode("nodeE",true);
                 
               //sets the dialogue catch so the textbox stays open during the shop ui interactions.
               this.dialogueCatch = true;
@@ -626,90 +846,79 @@ class autumn extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if((this.currentDictNode.nodeName === "node12" || this.currentDictNode.nodeName === "node7") && this.departing === false){
+        }else if((this.currentDictNode.nodeName === "node6" || this.currentDictNode.nodeName === "node11") && this.inDialogue === false){
+
+          //set variable so skip functionality works.
+          this.advancedIdleAnimation = false;
+
+          this.inFastTravelScene = true;
+
+          this.inDialogue = true;
+          //focus on warp point. 
+          this.scene.mycamera.startFollow(this.fastTravelPlatformRef);
+          this.scene.cameras.main.zoom = 2;
+          this.scene.cameras.main.followOffset.set(0,30);
+
+          //calls emitter to show the tabtoskip graphic
+          skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
+
+          //hide player 
+          this.scene.player1.visible = false;
+        
+          if(this.animationPlayed === false){
+
+            this.animationPlayed = true;
+            
+            //apply interuption to dialogue
+            this.scene.sceneTextBox.textInterupt = true;
+
+            console.log("lifting up player?")
+
+            this.anims.play('liftUp').once('animationcomplete', () => {
+              this.anims.play('liftUpIdle',true);
+
+              this.scene.sceneTextBox.amountWIsPressed++;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.animationPlayed = false;
+              //hide ui and dialogue box.
+              this.inDialogue = false;
+
+              this.progressNode("",true);
+              this.scene.sceneTextBox.textInterupt = true;
+
+              this.anims.play('swallow1').once('animationcomplete', () => {
+              this.scene.initSoundEffect('swallowSFX','5',0.1);
+              this.anims.play('swallow2').once('animationcomplete', () => {
+                this.scene.initSoundEffect('swallowSFX','5',0.1);
+                this.anims.play('swallow3').once('animationcomplete', () => {
+                  this.anims.play('swallowIdle',true);
+
+                  this.scene.sceneTextBox.amountWIsPressed++;
+                  this.scene.sceneTextBox.textInterupt = false;
+                  this.animationPlayed = false;
+                  //hide ui and dialogue box.
+
+                  this.progressNode("",true);
+                
+                });
+              });
+            });
+
+            });
+        }
+
+        }else if((this.currentDictNode.nodeName === "nodeB" || this.currentDictNode.nodeName === "node14") && this.departing === false){
 
             this.departing = true;
             this.scene.sceneTextBox.textInterupt = true;
 
             this.scene.sceneTextBox.textCoolDown = true;
 
+             this.moveFunctionActive = true;
 
-            let temp = this;
-            setTimeout(function () {
-                //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+             this.scene.physics.resume();
+             this.scene.CutscenePhysics = true;
 
-                //check if the level is the dream version
-                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
-
-                // add flag here for risky
-                if(temp.currentDictNode.nodeName === "node12"){
-
-                    //then add container flag. 
-                    let riskyTravel = {
-                        flagToFind: "riskyTravel",
-                        foundFlag: false,
-                    };
-
-                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
-                    
-                }
-
-                //grabs the latests data values from the gamehud. also sets hp back to max hp.
-                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-            
-                //then we set the correct location values to the scene transition data.
-                playerDataObject.saveX = temp.sendPlayerX;
-                playerDataObject.saveY = temp.sendPlayerY;
-                playerDataObject.playerSex = temp.scene.playerSex;
-                playerDataObject.playerLocation = temp.sendPlayerTo;
-                //this.scene.destination = "ClinicRoom";
-
-                // then we save the scene transition data.
-                temp.scene.saveGame(playerDataObject);
-
-                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-                  let playerHealthObject = {
-                      playerHealth: null
-                  };
-
-                //gets the hp value using a emitter
-                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-
-                //kills gameplay emitters so they dont pile up between scenes
-                temp.scene.clearGameplayEmmitters();
-
-                //stops player momentum in update loop.
-                temp.scene.playerWarping = true;
-
-                //for loop looks through all the looping music playing within a given scene and stops the music.
-                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
-                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
-                }
-
-                //temp.scene.player1.visible = false;
-                //warps player to the next scene
-                
-                temp.scene.destination = temp.sendPlayerTo;
-                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
-
-                    //time out function which leads to deaugh cutscene here.
-            },1000);
-     
         }
       }
     

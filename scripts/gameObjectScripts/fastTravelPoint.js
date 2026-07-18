@@ -54,7 +54,17 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
         inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, this.fastTravelFlag);
 
-        if(this.mode === "lockwood"){
+        //ok so we need to find the landing x and y from the current location 
+        let temp = fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]
+        temp[this.scene.playerLocation].landingX;
+
+        console.log("landing location x =", temp[this.scene.playerLocation].landingX);
+        //have to make a case where the player is landing from a fast travel. so check if the player x is equal to this fast travel points landing x.
+        if(this.scene.player1.x ===  temp[this.scene.playerLocation].landingX){
+            console.log("player now landing! ")
+            this.scene.player1.visible = false;
+        }else if(this.mode === "lockwood"){
+
             this.anims.play("lit");
             //if we are in lockwood then always spawn autumn/ moff
             this.promptCooldown = true;
@@ -76,12 +86,16 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                 this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"fastTravel");
             }
 
+            this.autumn.isInPosition = true;
+            this.autumn.fastTravelPlatformRef = this;
+
         }else{
 
             //make autumn npc and hide her above save warp point
             this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"fastTravel");
-            this.autumn.y = this.autumn.y- 1000;
+            this.autumn.y = this.autumn.y- 700;
             this.autumn.visible = false;
+            this.autumn.fastTravelPlatformRef = this;
 
             this.fastTravelNPCPresent = false;
             if(this.fastTravelFlag.foundFlag === true){
@@ -142,8 +156,13 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                             
                             this.saveStoneKeyPrompts.visible = false;
                             this.promptCooldown = false;
-                            this.autumn.y = this.autumn.y + 1000;
+                            //need move function npc call here.
+                            //set move to be active
+                            this.autumn.moveFunctionActive = true;
+                            this.autumn.fastTravelLandingY = this.y-15;
                             this.autumn.visible = true;
+
+                            
                         }
                         
                        

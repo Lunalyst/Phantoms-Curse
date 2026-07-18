@@ -102,6 +102,10 @@ class defaultScene extends G12UpdateLoops {
       this.load.audioSprite('fastTravelSFX','audio/used-audio/button-sounds/button-sounds.json',[
         "audio/used-audio/button-sounds/button-sounds.mp3"
       ]);
+
+      this.load.audioSprite('fastTravelWingFlapSFX','audio/used-audio/wing-flap-sounds/wing-flap-sounds.json',[
+        "audio/used-audio/wing-flap-sounds/wing-flap-sounds.mp3"
+      ]);
   
        this.load.spritesheet('warpSprites', 'assets/gameObjects/warpSprites.png',{frameWidth: 231, frameHeight: 330});
        this.load.spritesheet('savePoint', 'assets/gameObjects/saveStatue.png',{frameWidth: 213, frameHeight: 300 });

@@ -1337,17 +1337,35 @@ const npcDialogue = {
                         "dialogue": "that will be 25 shell.",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
-                        "children":["node6","node8","node13"]
+                        "children":["nodeE","node8","node13"]
                     },
                     //here you go (and has the shell.)
+                    "nodeE":{
+                        "dialogue": "perfect!",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node6"]
+                    },
                     "node6":{
-                        "dialogue": "alrighty, now stand still.",
+                        "dialogue": "up and...",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["nodeA"]
+                    },
+                    "nodeA":{
+                        "dialogue": "In you go.",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
                         "children":["node7"]
                     },
                     "node7":{
-                        "dialogue": "and off we go!",
+                        "dialogue": "now lets embark.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["nodeB"]
+                    },
+                    "nodeB":{
+                        "dialogue": "*HIDETEXT*",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
                         "children":[]
@@ -1373,18 +1391,29 @@ const npcDialogue = {
                         "children":["node11"]
                     },
                     "node11":{
-                        "dialogue": "now stand still.",
+                        "dialogue": "up and...",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
                         "children":["node12"]
                     },
                     "node12":{
-                        "dialogue": "and off we go!",
+                        "dialogue": "In you go.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "now lets embark.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "*HIDETEXT*",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
                         "children":[]
                     },
-
                     //never mind.
 
                     "node13":{

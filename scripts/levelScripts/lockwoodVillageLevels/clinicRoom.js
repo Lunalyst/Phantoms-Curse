@@ -147,9 +147,9 @@ class ClinicRoom extends defaultScene {
         //used to prevent the player from moving while in the scene load in before the trigger npc activates.
         this.grabbed = true;
 
-        this.mycamera.startFollow(this.player1);
+        this.mycamera.startFollow(this);
         this.cameras.main.zoom = 2;
-        this.cameras.main.followOffset.set(0,70);
+        this.cameras.main.followOffset.set(0,30);
 
         this.initMilo(676, 728+25,"test");
 

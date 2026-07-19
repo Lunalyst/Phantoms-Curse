@@ -61,8 +61,23 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
         console.log("landing location x =", temp[this.scene.playerLocation].landingX);
         //have to make a case where the player is landing from a fast travel. so check if the player x is equal to this fast travel points landing x.
         if(this.scene.player1.x ===  temp[this.scene.playerLocation].landingX){
+
             console.log("player now landing! ")
             this.scene.player1.visible = false;
+
+            this.scene.mycamera.startFollow(this);
+            this.scene.cameras.main.zoom = 2;
+            this.scene.cameras.main.followOffset.set(-30,30);
+
+            this.scene.grabbed = true;
+
+            this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"landingSequence");
+            this.autumn.y = this.autumn.y - 700;
+            this.autumn.fastTravelLandingY = this.y-15;
+            this.autumn.moveFunctionActive = true;
+
+
+
         }else if(this.mode === "lockwood"){
 
             this.anims.play("lit");

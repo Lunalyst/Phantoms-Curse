@@ -109,6 +109,10 @@ class autumn extends npc{
         this.npcTriggerRangeY = 900;
 
       }
+      else if(this.npcType === 'landingSequence'){
+       this.isInPosition = false;
+
+      }
 
   }
 
@@ -122,6 +126,8 @@ class autumn extends npc{
       this.fastTravel();
     }else if(this.npcType === 'introToFastTravel'){
       this.introToFastTravel();
+    }else if(this.npcType === 'landingSequence'){
+      this.landingSequence();
     }else{  
       this.default();
     }
@@ -279,6 +285,8 @@ class autumn extends npc{
   MoveNPC(){
     if(this.npcType === 'fastTravel'){
       this.MoveNPCFastTravel();
+    }else if(this.npcType === 'landingSequence'){
+      this.MoveNPCLandingSequence();
     }
   }
 
@@ -395,6 +403,26 @@ class autumn extends npc{
 
   }
 
+  MoveNPCLandingSequence(){
+
+    console.log("moving autumn?")
+     if(this.isInPosition === false){
+      if(this.y < this.fastTravelLandingY){
+
+        this.setVelocityY(200);
+        this.anims.play('fullFlyDown',true);
+        this.playWingFlapSound('1',800);
+
+      }else{
+        this.setVelocityY(0);
+        this.isInPosition = true;
+        this.moveFunctionActive = false;
+        this.anims.play('swallowIdle',true);
+        this.y = this.fastTravelLandingY;
+      }
+    }
+  }
+
   introToFastTravel(){
 
     console.log("autumn intro travel logic")
@@ -466,9 +494,14 @@ class autumn extends npc{
 
   }
 
+  landingSequence(){
+
+  }
+
   postOffice(){
 
   }
+
   fastTravel(){
       this.nodeHandler("autumn","Behavior1","fastTravel");
 
@@ -857,8 +890,10 @@ class autumn extends npc{
           //focus on warp point. 
           this.scene.mycamera.startFollow(this.fastTravelPlatformRef);
           this.scene.cameras.main.zoom = 2;
-          this.scene.cameras.main.followOffset.set(0,30);
+          this.scene.cameras.main.followOffset.set(-30,30);
 
+          //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+          
           //calls emitter to show the tabtoskip graphic
           skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 

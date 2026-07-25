@@ -139,7 +139,7 @@ class G5InitNPCs extends G4InitGameObjects {
     this.autumn.npcId = this.npcId;
     this.npcId++;
 
-    if(type === "introToFastTravel"){
+    if(type === "introToFastTravel" || type === "landingSequence"){
       this.autumn.addTriggerNPCToRegularNPC = true;
       this.npcTriggers.add(this.autumn);
   

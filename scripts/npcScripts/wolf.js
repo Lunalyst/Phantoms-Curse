@@ -469,7 +469,7 @@ class wolf extends npc{
         this.setDepth(10);
       }else{
 
-        this.npcKeyPrompts.visible = true;
+        //this.npcKeyPrompts.visible = true;
         this.visible = false;
         this.setVelocityX(0);
         this.moveFunctionActive = false;

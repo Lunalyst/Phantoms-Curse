@@ -71,10 +71,13 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
             this.scene.grabbed = true;
 
+
+            //here is where we change autumns landing sequence based on if the player payed.
             this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"landingSequence");
-            this.autumn.y = this.autumn.y - 700;
+            this.autumn.y = this.autumn.y - 300;
             this.autumn.fastTravelLandingY = this.y-15;
             this.autumn.moveFunctionActive = true;
+            this.autumn.fastTravelPlatformRef = this;
 
 
 

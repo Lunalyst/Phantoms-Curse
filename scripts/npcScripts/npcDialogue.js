@@ -1449,6 +1449,71 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                "landingSequence":{
+                    "node1":{
+                        "dialogue": "We’ve made it dear, just go ahead and squirm your way out.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "once you start i'll help you out on my end. ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    //on this hide the button prompt pos up
+                    "node3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4","node5"]
+                    },
+
+                    //on progression to this node play escape animation and then progress to exit
+                    "node4":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    "node5":{
+                        "dialogue": "Hmm? Did you fall asleep in there honey?",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node6","node7"]
+                    },
+
+                    //on progression to this node play escape animation and then progress to exit
+                    "node6":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+
+                    //if player still doesnt struggle out then do warp to post office area.
+                    "node7":{
+                        "dialogue": "Don\'t want out dear?",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "Mmm, I understand, just close your cute little eyes and I\'ll take care of the rest",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                }
+
+
             },
         },"istara":{
             "Behavior1":{

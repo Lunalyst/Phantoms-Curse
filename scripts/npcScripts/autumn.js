@@ -23,6 +23,10 @@ class autumn extends npc{
         this.anims.create({key: 'swallow2',frames: this.anims.generateFrameNames('autumnMale', { start: 31, end: 36 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'swallow3',frames: this.anims.generateFrameNames('autumnMale', { start: 37, end: 45 }),frameRate: 7,repeat: 0});
 
+        this.anims.create({key: 'release1',frames: this.anims.generateFrameNames('autumnMale', { start: 66, end: 73 }),frameRate: 7,repeat: 0});
+        this.anims.create({key: 'release2',frames: this.anims.generateFrameNames('autumnMale', { start: 74, end: 82 }),frameRate: 7,repeat: 0});
+
+
       }else{
 
       }
@@ -30,6 +34,7 @@ class autumn extends npc{
       this.anims.create({key: 'swallowIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 46, end: 49 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'fullFlyUp',frames: this.anims.generateFrameNames('autumnMale', { start: 50, end: 55 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'fullFlyDown',frames: this.anims.generateFrameNames('autumnMale', { start: 56, end: 61 }),frameRate: 7,repeat: -1});
+      this.anims.create({key: 'fullIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 62, end: 65 }),frameRate: 7,repeat: -1});
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 90,'keyPrompts');
@@ -112,6 +117,11 @@ class autumn extends npc{
       else if(this.npcType === 'landingSequence'){
        this.isInPosition = false;
 
+       this.landingSequenceFinished = false;
+       this.settingPlayerNotGettingout = false;
+       this.releasingPlayerFromTravel = false;
+
+       this.addTriggerNPCToRegularNPC = true;
       }
 
   }
@@ -134,6 +144,7 @@ class autumn extends npc{
   }
 
   activateNpc(){
+    console.log("autumn is in range.")
     if(this.isInPosition === true){
          //if the player meets activation requiements for the sign display the text box
       if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
@@ -250,7 +261,7 @@ class autumn extends npc{
 
 
     if(this.advancedIdleAnimation === true){
-      if((this.npcType === "postOffice" || this.npcType === "fastTravel" || this.npcType === "introToFastTravel") && this.advancedIdleAnimation === true){
+      if((this.npcType === "postOffice" || this.npcType === "fastTravel" || this.npcType === "introToFastTravel" || this.npcType === "landingSequence") && this.advancedIdleAnimation === true){
         if(this.scene.player1.x < this.x - 39){
           this.anims.play('sideIdle',true);
           this.flipX = true;
@@ -310,7 +321,7 @@ class autumn extends npc{
 
       if(this.y > this.fastTravelLandingY-700){
 
-        this.setVelocityY(-200);
+        this.setVelocityY(-100);
         this.anims.play('fullFlyUp',true);
         this.playWingFlapSound('1',800);
 
@@ -407,9 +418,9 @@ class autumn extends npc{
 
     console.log("moving autumn?")
      if(this.isInPosition === false){
-      if(this.y < this.fastTravelLandingY){
+      if(this.y < this.fastTravelLandingY+10){
 
-        this.setVelocityY(200);
+        this.setVelocityY(100);
         this.anims.play('fullFlyDown',true);
         this.playWingFlapSound('1',800);
 
@@ -417,8 +428,106 @@ class autumn extends npc{
         this.setVelocityY(0);
         this.isInPosition = true;
         this.moveFunctionActive = false;
-        this.anims.play('swallowIdle',true);
-        this.y = this.fastTravelLandingY;
+        this.anims.play('fullIdle',true);
+        this.y = this.fastTravelLandingY+10;
+
+        //this.customTrigger = true;
+        this.npcTriggerRange = true;
+        this.npcTriggerRangeX = 2000;
+        this.npcTriggerRangeY = 2000;
+      }
+    }else if(this.flyUp === false){
+
+      if(this.y > this.fastTravelLandingY-700){
+
+        this.setVelocityY(-100);
+        this.anims.play('fullFlyUp',true);
+        this.playWingFlapSound('1',800);
+
+      }else{
+
+        this.setVelocityY(0);
+        this.flyUp = true;
+        this.moveFunctionActive = false;
+        this.anims.play('idle',true);
+
+        //this.y = this.fastTravelLandingY;
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = {
+                  saveX: null,
+                  saveY: null,
+                  playerHpValue: null,
+                  playerSex: null,
+                  playerLocation: null,
+                  inventoryArray: null,
+                  playerBestiaryData: null,
+                  playerSkillsData: null,
+                  playerSaveSlotData: null,
+                  flagValues: null,
+                  settings:null,
+                  dreamReturnLocation:null,
+                  playerCurseValue:null
+                };
+
+                //check if the level is the dream version
+                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+
+                // add flag here for risky
+                if(temp.currentDictNode.nodeName === "node12"){
+
+                    //then add container flag. 
+                    let riskyTravel = {
+                        flagToFind: "riskyTravel",
+                        foundFlag: false,
+                    };
+
+                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
+                    
+                }
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = temp.sendPlayerX;
+                playerDataObject.saveY = temp.sendPlayerY;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = temp.sendPlayerTo;
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                
+                temp.scene.destination = temp.sendPlayerTo;
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },100);
+     
       }
     }
   }
@@ -495,6 +604,80 @@ class autumn extends npc{
   }
 
   landingSequence(){
+
+
+    //if autumn hasnt released the player then do that logic
+    if(this.landingSequenceFinished === false){
+
+      this.nodeHandler("autumn","Behavior1","landingSequence");
+
+     if(this.currentDictNode !== null){
+
+      //idea so we can just use nodes to progress it.
+       if(this.currentDictNode.nodeName === "node3" && this.settingPlayerNotGettingout === false){
+      //turn in button prompts 
+
+        this.settingPlayerNotGettingout = true;
+        this.npcKeyPrompts.visible = true;
+        this.npcKeyPrompts.playWKey();
+        
+      //if we progress to this node then do release animation then progressout of dialogue.
+       }else if(this.currentDictNode.nodeName === "node4" || this.currentDictNode.nodeName === "node6" && this.releasingPlayerFromTravel === false){
+
+        this.releasingPlayerFromTravel = true;
+
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.flipX = true;
+
+        this.npcKeyPrompts.visible = false;
+
+        //play animation then manually progress node. also make player visiable at the end, free from grab ect.
+         this.anims.play('release1', true).once('animationcomplete', () => {
+           this.anims.play('release2', true).once('animationcomplete', () => {
+            this.anims.play('sideIdle', true);
+
+             //set variable approperiately
+
+            this.scene.grabbed = false;
+            this.scene.player1.visible = true;
+
+            this.scene.cutSceneActive = false;
+            
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            this.progressNode("");
+            this.scene.CutscenePhysics = false;
+            this.scene.cutSceneActive = false;
+            this.triggerNpcFinished = true;
+
+            this.scene.player1.x = this.x+30;
+            this.scene.player1.y = this.y+25;
+            this.scene.player1.mainHitbox.x = this.x+30;
+            this.scene.player1.mainHitbox.y = this.y+25;
+
+            this.flipX = false;
+            
+            console.log("this.currentDictNode",this.currentDictNode)
+
+            this.forceDialogueEnd(true);
+
+            this.landingSequenceFinished = true;
+
+          });
+        });
+
+       }
+
+     }
+
+     //otherwise do regular fast travel logic
+     //also set npc type to travel version
+    }else{
+      this.fastTravel();
+    }
+
 
   }
 

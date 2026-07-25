@@ -235,7 +235,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   }
 
-  forceDialogueEnd(){
+  forceDialogueEnd(setToRegularNPC){
     //resets this npc's values.
       this.resetVariables();
 
@@ -243,6 +243,20 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     
       //progress the dialogue so the textbox goes through its finishing procedure.
       this.scene.sceneTextBox.activateNPCTextBox();
+
+      this.triggerNpcFinished = true;
+
+      //here is a good place to put things that need to happen after dialogue is finished!
+      console.log("checking if trigger npc is going to be added to regular npc group");
+      if(setToRegularNPC === true){
+        console.log("trigger npc finished, now adding them to the regular npc pool");
+
+        this.scene.npcs.add(this);
+
+        console.log("this.scene.npcs: ", this.scene.npcs)
+      }
+
+
   }
 
   //generic reset function for variables.
@@ -344,6 +358,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
         this.triggerNpcFinished = true;
 
         //here is a good place to put things that need to happen after dialogue is finished!
+        console.log("checking if trigger npc is going to be added to regular npc group");
         if(this.addTriggerNPCToRegularNPC === true){
           console.log("trigger npc finished, now adding them to the regular npc pool");
 

@@ -1454,12 +1454,6 @@ const npcDialogue = {
                         "dialogue": "We’ve made it dear, just go ahead and squirm your way out.",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
-                        "children":["node2"]
-                    },
-                    "node2":{
-                        "dialogue": "once you start i'll help you out on my end. ",
-                        "profile":"autumnSmile",
-                        "textvoice":"batChirp",
                         "children":["node3"]
                     },
                     //on this hide the button prompt pos up

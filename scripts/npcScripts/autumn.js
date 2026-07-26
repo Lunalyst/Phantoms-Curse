@@ -620,6 +620,22 @@ class autumn extends npc{
         this.settingPlayerNotGettingout = true;
         this.npcKeyPrompts.visible = true;
         this.npcKeyPrompts.playWKey();
+
+        let temp = this;
+        setTimeout(function () {
+          
+          if(temp.releasingPlayerFromTravel === false){
+            temp.progressNode("node5");
+          }
+            setTimeout(function () {
+      
+              if(temp.releasingPlayerFromTravel === false){
+                temp.progressNode("node7");
+              }
+
+            }, 2000);
+
+        }, 2000);
         
       //if we progress to this node then do release animation then progressout of dialogue.
        }else if(this.currentDictNode.nodeName === "node4" || this.currentDictNode.nodeName === "node6" && this.releasingPlayerFromTravel === false){
@@ -652,9 +668,9 @@ class autumn extends npc{
             this.scene.cutSceneActive = false;
             this.triggerNpcFinished = true;
 
-            this.scene.player1.x = this.x+30;
+            this.scene.player1.x = this.x+40;
             this.scene.player1.y = this.y+25;
-            this.scene.player1.mainHitbox.x = this.x+30;
+            this.scene.player1.mainHitbox.x = this.x+40;
             this.scene.player1.mainHitbox.y = this.y+25;
 
             this.flipX = false;

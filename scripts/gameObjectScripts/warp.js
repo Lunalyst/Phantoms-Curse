@@ -43,6 +43,10 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'largeDoorWindow',frames: this.anims.generateFrameNames('warpSprites', { start: 21, end: 21}),frameRate: 7,repeat: -1});
         this.anims.create({key: 'largeDoor',frames: this.anims.generateFrameNames('warpSprites', { start: 22, end: 22}),frameRate: 7,repeat: -1});
         this.anims.create({key: 'largeDoorVIP',frames: this.anims.generateFrameNames('warpSprites', { start: 23, end: 23}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'spiralStairs',frames: this.anims.generateFrameNames('warpSprites', { start: 24, end: 24}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'spiralStairTop',frames: this.anims.generateFrameNames('warpSprites', { start: 25, end: 25}),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'spiralStairVIP',frames: this.anims.generateFrameNames('warpSprites', { start: 26, end: 26}),frameRate: 7,repeat: -1});
+        
     }
 
 

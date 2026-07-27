@@ -438,7 +438,7 @@ class autumn extends npc{
       }
     }else if(this.flyUp === false){
 
-      if(this.y > this.fastTravelLandingY-700){
+      if(this.y > this.fastTravelLandingY-300){
 
         this.setVelocityY(-100);
         this.anims.play('fullFlyUp',true);

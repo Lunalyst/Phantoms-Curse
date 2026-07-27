@@ -32,8 +32,8 @@ class WaitingRoom extends defaultScene {
 
       this.defaultPreload();
 
-      this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
-        "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
+      this.load.audioSprite('wardSFX','audio/used-audio/ward-sounds/wolfs ward.json',[
+        "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
 
     }
@@ -55,7 +55,7 @@ class WaitingRoom extends defaultScene {
       this.setUpPlayer();
 
       //adds looping sound effect.
-      this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");
+      this.initLoopingSound('wardSFX','wolfs ward',0.01,"music");
 
 
       //sets up the player key prompts for when the player is grabbed

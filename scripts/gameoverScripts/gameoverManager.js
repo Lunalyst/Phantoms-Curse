@@ -766,7 +766,7 @@ class gameoverManager extends A3SoundEffects {
             },
            whiteCat_female_vore: function whiteCatFemaleVoreFunction() {
                 tempSceneRef.preferance = 1;
-                tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
+                tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 571,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';
@@ -780,7 +780,7 @@ class gameoverManager extends A3SoundEffects {
             },
             whiteCat_male_vore: function whiteCatMaleVoreFunction() {
                 tempSceneRef.preferance = 0;
-                tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 570,tempSceneRef.playerSex);
+                tempSceneRef.enemy = new whiteCat(tempSceneRef,450, 571,tempSceneRef.playerSex);
                 //this.enemy.setPipeline('Light2D');
                 tempSceneRef.enemy.gameOver(1);
                 tempSceneRef.defeatedTitle = 'eaten';

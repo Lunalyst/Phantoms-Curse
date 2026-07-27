@@ -1,14 +1,14 @@
 
 
-class postOfficeMain extends defaultScene {
+class postOfficeHallway extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'postOfficeMain',active: false ,physics:{default:'arcade'}});
+    super({key: 'postOfficeHallway',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "postOfficeMain";
+    this.playerLocation = "postOfficeHallway";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -23,9 +23,9 @@ class postOfficeMain extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("lockwood_house_interior_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Lockwood_House_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("post_office_main_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Post_Office_Main.json");
+      this.load.tilemapTiledJSON("post_office_hallway_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Post_Office_Hallway.json");
       
-      this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
+      //this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
       
 
       this.defaultPreload();
@@ -47,10 +47,10 @@ class postOfficeMain extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("post_office_main_map","Lockwood_House_Interior_Tileset","lockwood_house_interior_map");
+      this.setUpTileSet("post_office_hallway_map","Lockwood_House_Interior_Tileset","lockwood_house_interior_map");
       
-      this.processMap.layer1.setDepth(1);
-      this.processMap.layer0.setDepth(2);
+      //this.processMap.layer1.setDepth(1);
+      //this.processMap.layer0.setDepth(2);
       //creates player object
       this.setUpPlayer();
 
@@ -90,11 +90,8 @@ class postOfficeMain extends defaultScene {
 
       this.initPortalsWithTransparency(394,760-7,2872,728,"largeDoorWindow","LockwoodShopDistrict",0.75);
 
-      //this.fakeWarp1 = new fakeWarp(this,517,760-7,'spiralStairVIP');
-      //this.fakeWarp1.setDepth(3);
-      //need to return object so we set depth to be higher than wall
-      this.warp1 = this.initPortals(517,760-7,916,760,"spiralStairVIP","postOfficeHallway",true);
-      this.warp1.setDepth(3);
+      this.warp1 = this.initPortals(916,760-7,517,760,"spiralStairTop","postOfficeMain",true);
+
       //this.autumn = this.add.sprite(640, 760-30, "autumnMale");
       /*this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
@@ -107,7 +104,7 @@ class postOfficeMain extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initAutumn(640, 760-30,"postOffice");
+       //this.initAutumn(640, 760-30,"postOffice");
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

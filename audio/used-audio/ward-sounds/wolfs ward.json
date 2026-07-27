@@ -1,0 +1,13 @@
+{
+    "resources":[
+        "../audio/used-audio/ward-sounds/wolf's ward.mp3"
+        
+    ],
+    "spritemap": {
+        "wolfs ward":{
+            "start": 0,
+            "end": 54.67,
+            "loop": true
+        }
+    }
+}

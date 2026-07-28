@@ -1,14 +1,14 @@
 
 
-class postOfficeHallway extends defaultScene {
+class AutumnsRoom extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'postOfficeHallway',active: false ,physics:{default:'arcade'}});
+    super({key: 'AutumnsRoom',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "postOfficeHallway";
+    this.playerLocation = "AutumnsRoom";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -23,7 +23,7 @@ class postOfficeHallway extends defaultScene {
     preload(){
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("lockwood_house_interior_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Lockwood_House_Interior_Tileset.png");
-      this.load.tilemapTiledJSON("post_office_hallway_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Post_Office_Hallway.json");
+      this.load.tilemapTiledJSON("autumns_room_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Autumns_Room.json");
       
       //this.load.spritesheet("autumn" , "assets/npcs/autumn.png" , {frameWidth: 483 , frameHeight: 339 });
       
@@ -47,10 +47,11 @@ class postOfficeHallway extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("post_office_hallway_map","Lockwood_House_Interior_Tileset","lockwood_house_interior_map");
+      this.setUpTileSet("autumns_room_map","Lockwood_House_Interior_Tileset","lockwood_house_interior_map");
       
       //this.processMap.layer1.setDepth(1);
       //this.processMap.layer0.setDepth(2);
+      this.processMap.layer2.setTint(0xFFFFFF);
       //creates player object
       this.setUpPlayer();
 
@@ -86,10 +87,7 @@ class postOfficeHallway extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.warp1 = this.initPortals(916,760-7,517,760,"spiralStairTop","postOfficeMain",true);
-
-      this.initPortals(1420,760-7,912,760,"largeDoor","AutumnsRoom",true);
-
+      this.initPortals(912,760-7,1420,760,"largeDoor","postOfficeHallway",true);
       //this.autumn = this.add.sprite(640, 760-30, "autumnMale");
       /*this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
@@ -101,12 +99,6 @@ class postOfficeHallway extends defaultScene {
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
-
-      //this.initAutumn(640, 760-30,"postOffice");
-
-      this.initSigns(736,760+21,"question","Devourment on the Island.",false);
-
-      //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

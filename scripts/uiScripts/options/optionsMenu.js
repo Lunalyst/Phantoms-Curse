@@ -439,6 +439,10 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
     }
 
+   /* saveSettings(){
+        
+    }*/
+
     //save settings 
     saveSettings(){
 

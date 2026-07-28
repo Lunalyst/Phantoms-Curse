@@ -106,9 +106,7 @@ class ClinicRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      
-
-      this.initPortalsWithTransparency(386,728+25,862,760,"door1","WaitingRoom",0.75);
+      this.initPortalsWithTransparency(386,728+21,862,760,"door1","WaitingRoom",0.75);
 
       
       /*this.deaugh = this.add.sprite(665, 728+16, "deaugh");

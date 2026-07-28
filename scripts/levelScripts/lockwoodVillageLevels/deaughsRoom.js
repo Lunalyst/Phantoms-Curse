@@ -101,7 +101,7 @@ class DeaughsRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initSigns(865,760+20,"question","Fundamentals of Cursed Energy",false);
+      this.initSigns(865,760+21,"question","Fundamentals of Cursed Energy",false);
 
       this.storageRoomDoor = this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
 

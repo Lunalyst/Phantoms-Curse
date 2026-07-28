@@ -101,6 +101,10 @@ class autumn extends npc{
       if(this.npcType === 'postOffice'){
         this.isInPosition = true;
 
+        this.setDepth(0);
+        this.anims.play("sideIdle",true);
+        this.flipX = true;
+
       }else if(this.npcType === 'fastTravel'){
         //this.anims.play("idle", true);
         this.isInPosition = false;
@@ -113,6 +117,8 @@ class autumn extends npc{
         this.npcTriggerRangeX = 60;
         this.npcTriggerRangeY = 900;
 
+        this.anims.play("sideIdle",true);
+
       }
       else if(this.npcType === 'landingSequence'){
        this.isInPosition = false;
@@ -120,6 +126,8 @@ class autumn extends npc{
        this.landingSequenceFinished = false;
        this.settingPlayerNotGettingout = false;
        this.releasingPlayerFromTravel = false;
+       this.playerEndoSequence = false;
+       this.animationView = false;
 
        this.addTriggerNPCToRegularNPC = true;
       }
@@ -144,7 +152,7 @@ class autumn extends npc{
   }
 
   activateNpc(){
-    console.log("autumn is in range.")
+    //console.log("autumn is in range.")
     if(this.isInPosition === true){
          //if the player meets activation requiements for the sign display the text box
       if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
@@ -262,9 +270,12 @@ class autumn extends npc{
 
     if(this.advancedIdleAnimation === true){
       if((this.npcType === "postOffice" || this.npcType === "fastTravel" || this.npcType === "introToFastTravel" || this.npcType === "landingSequence") && this.advancedIdleAnimation === true){
+        //console.log("managing idle animation?")
         if(this.scene.player1.x < this.x - 39){
+
           this.anims.play('sideIdle',true);
           this.flipX = true;
+
         }else if(this.scene.player1.x > this.x + 39){
           this.anims.play('sideIdle',true);
           this.flipX = false;
@@ -319,7 +330,7 @@ class autumn extends npc{
       }
     }else if(this.flyUp === false){
 
-      if(this.y > this.fastTravelLandingY-700){
+      if(this.y > this.fastTravelLandingY-400){
 
         this.setVelocityY(-100);
         this.anims.play('fullFlyUp',true);
@@ -451,82 +462,63 @@ class autumn extends npc{
         this.moveFunctionActive = false;
         this.anims.play('idle',true);
 
-        //this.y = this.fastTravelLandingY;
         let temp = this;
-            setTimeout(function () {
-                //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+        setTimeout(function(){
+                          
+                      if(temp.animationView === false){
+                          //creates a object to hold data for scene transition
+                          let playerDataObject = {
+                              saveX: null,
+                              saveY: null,
+                              playerHpValue: null,
+                              playerMaxHP: null,
+                              playerSex: null,
+                              playerLocation: null,
+                              inventoryArray: null,
+                              playerBestiaryData: null,
+                              playerSkillsData: null,
+                              playerSaveSlotData: null,
+                              flagValues: null,
+                              settings:null,
+                              dreamReturnLocation:null,
+                              playerCurseValue:null
+                            };
 
-                //check if the level is the dream version
-                console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
+                            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
 
-                // add flag here for risky
-                if(temp.currentDictNode.nodeName === "node12"){
+                            //modifies the object with the new relivant information.
+                            playerDataObject.saveX = 541;
+                            playerDataObject.saveY = 760;
+                            playerDataObject.playerSex = temp.scene.playerSex;
+                            playerDataObject.playerLocation = "AutumnsRoom";
 
-                    //then add container flag. 
-                    let riskyTravel = {
-                        flagToFind: "riskyTravel",
-                        foundFlag: false,
-                    };
+                            //saves the game by calling the save game file function in the scene
+                            temp.scene.saveGameFile(playerDataObject);
 
-                    inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,riskyTravel.flagToFind);
-                    
-                }
+                      }
 
-                //grabs the latests data values from the gamehud. also sets hp back to max hp.
-                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
-            
-                //then we set the correct location values to the scene transition data.
-                playerDataObject.saveX = temp.sendPlayerX;
-                playerDataObject.saveY = temp.sendPlayerY;
-                playerDataObject.playerSex = temp.scene.playerSex;
-                playerDataObject.playerLocation = temp.sendPlayerTo;
-                //this.scene.destination = "ClinicRoom";
+                        temp.scene.setupGameoverLocation("hiveGameover");
 
-                // then we save the scene transition data.
-                temp.scene.saveGame(playerDataObject);
+                      
+                        temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
+                       
 
-                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
-                  let playerHealthObject = {
-                      playerHealth: null
-                  };
+                        setTimeout(function () {
+                              
+                          temp.scene.changeToGameover();
+                              
+                        }, 1000);
 
-                //gets the hp value using a emitter
-                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+                        temp.scene.sceneTextBox.textInterupt = true;
+                        temp.scene.sceneTextBox.textCoolDown = true;
 
-                //kills gameplay emitters so they dont pile up between scenes
-                temp.scene.clearGameplayEmmitters();
 
-                //stops player momentum in update loop.
-                temp.scene.playerWarping = true;
 
-                //for loop looks through all the looping music playing within a given scene and stops the music.
-                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
-                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
-                }
+        },4000);
 
-                //temp.scene.player1.visible = false;
-                //warps player to the next scene
-                
-                temp.scene.destination = temp.sendPlayerTo;
-                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
-
-                    //time out function which leads to deaugh cutscene here.
-            },100);
+        this.scene.sceneTextBox.textInterupt = true;
+                        
      
       }
     }
@@ -631,6 +623,8 @@ class autumn extends npc{
       
               if(temp.releasingPlayerFromTravel === false){
                 temp.progressNode("node7");
+
+                temp
               }
 
             }, 2000);
@@ -684,6 +678,17 @@ class autumn extends npc{
           });
         });
 
+       }else if(this.currentDictNode.nodeName === "node9" && this.departing ===false){
+
+        this.departing = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.scene.sceneTextBox.textCoolDown = true;
+
+        this.moveFunctionActive = true;
+
+        this.scene.physics.resume();
+        this.scene.CutscenePhysics = true;
        }
 
      }
@@ -887,6 +892,7 @@ class autumn extends npc{
 
           let object = {
               NPCRef: this,
+
             };
     
 
@@ -1107,7 +1113,7 @@ class autumn extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             console.log("lifting up player?")
-
+            
             this.anims.play('liftUp').once('animationcomplete', () => {
               this.anims.play('liftUpIdle',true);
 

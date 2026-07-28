@@ -143,7 +143,6 @@ class G5InitNPCs extends G4InitGameObjects {
       this.autumn.addTriggerNPCToRegularNPC = true;
       this.npcTriggers.add(this.autumn);
   
-      
     }else{
       this.npcs.add(this.autumn);
     }

@@ -847,6 +847,162 @@ const npcDialogue = {
                     },
                     
                 },
+                "Devourment on the Island.":{
+                     "node1":{
+                        "dialogue": "One book on the shelf stands out to you.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "it is titled \"Devourment on the Island.\" by Wolf",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read it?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "The cursed plague has done strange things to those it infects.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "Both feral and Sentient cursed have been known to swallow humans and even other cursed whole.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "It seems that the strange changes to the body are not limited to external body changes but also internal changes as well. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "Many cursed have gained the ability to extend their stomach many times the size of a regular human, Allowing for them to swallow individual whole.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "Whether it is for nutritional needs, or for some strange mental urge brought on by the curse itself, a variety of factors can cause this behavior. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "When a prey has been swallowed they will begin to digest and be absorbed into the cursed body, though some cursed can completely halt this process.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "Of those who have escaped the harrowing ordeal, many have expressed positive sentiment about the process. Stating how the stomach acid made them feel good as the process began.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },"node9":{
+                        "dialogue": "Analyzing the stomach acid samples I have collected reveals that the acid insides cursed stomach functions both as a sedative and an aphrodisiac.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "Those who stay inside the stomach of a cursed get absorbed fully into their body causing the cursed to gain a bit of weight.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Strangely those who are consumed may not be dead in some cases. Observation of their curse mark reviles that the curse mark changes slightly after this process.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node12"]
+                    },"node12":{
+                        "dialogue": "Leading some to theorize that prey becomes fully apart of the preds body, and that there mind resides within their curse mark.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the book on the shelf.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "Types of Cursed":{
+                     "node1":{
+                        "dialogue": "One book on the shelf stands out to you.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "it is titled \"Types of Cursed\" by Wolf",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read it?",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "There are many types of cursed on the island. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "Any given curse mark could be considered its own species, but they can be generally put into a few categories.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "First is the category of sentient curse, and the second is feral cursed. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "Sentient cursed retaining their sense of self while gaining the other traits of the curse marks, while feral cursed lose their sense of self.  ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "In addition to this, cursed can sometimes mutate so much that they become specialized.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "Royal curse marks are very rare, but allow the holder the host of this mark the ability to transmit a lesser version of their curse to other. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "Even being able to overwrite a curse mark of other cursed, Though this process does often come with downsides for those who receive the lesser version. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node9"]
+                    },"node9":{
+                        "dialogue": "Those who go through this process but managed to retain their sense of self are all mutations of existing marks. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "Even if these cursed retain their sense of self, they are often wholly subject to the desires of the royal curse holder. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Royal curse holders can be powerful allies who can be used to help quell the ever increasing number of cursed on the island, or dangerous enemies with many minions at their disposal. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node12"]
+                    },"node12":{
+                        "dialogue": "Not every royal curse holder is sentient, which could lead to a dangerous scenario of the island being overrun if left unchecked.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the book on the shelf.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
 
                 "memoryLog2":{
                     "node1":{

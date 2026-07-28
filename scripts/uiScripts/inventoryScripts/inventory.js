@@ -456,7 +456,8 @@ class inventory extends Phaser.GameObjects.Container{
     //special function to close the hud when the player when they save there new settings from options menu
     closeInventoryForSettings(){
       //console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
-  
+      
+      this.scene.
       //set variables to reflect that
       this.openDelay = false;
       this.isOpen = false;

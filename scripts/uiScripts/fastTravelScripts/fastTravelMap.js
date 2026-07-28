@@ -107,14 +107,16 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       //here lies the challenge. how do I tell what location the player is in? i need to know. do i define it in level? hmmmm attack it to the flag some how?
 
       //use map to find the base locations of the player.
-      this.fastTravelMap.anims.play(fastTravelLocationFinder[this.scene.playerLocation],true);
+      console.log("this.npcRef.scene.playerLocation: ", this.npcRef.scene.playerLocation);
+      //console.log("this.scene.playerLocation: ", this.scene.player1.scene.playerLocation);
+      this.fastTravelMap.anims.play(fastTravelLocationFinder[this.npcRef.scene.playerLocation],true);
 
       //for each point in the group of fast travel keys
       //console.log("fastTravelLocationFinder[this.scene.playerLocation]: ",fastTravelLocationFinder[this.scene.playerLocation]);
       //console.log("fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]: ",fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]);
 
       this.travelPointArray = [];
-      Object.entries(fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]).forEach(([key, value]) => {
+      Object.entries(fastTravelKey[fastTravelLocationFinder[this.npcRef.scene.playerLocation]]).forEach(([key, value]) => {
         //console.log(`${key}: ${value}`);
 
         //shows where the player currently is.

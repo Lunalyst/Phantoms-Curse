@@ -35,6 +35,15 @@ class autumn extends npc{
       this.anims.create({key: 'fullFlyUp',frames: this.anims.generateFrameNames('autumnMale', { start: 50, end: 55 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'fullFlyDown',frames: this.anims.generateFrameNames('autumnMale', { start: 56, end: 61 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'fullIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 62, end: 65 }),frameRate: 7,repeat: -1});
+
+      this.anims.create({key: 'endoGameover1',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 0, end: 3 }),frameRate: 6,repeat: 7});
+      this.anims.create({key: 'endoGameover2',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 4, end: 6 }),frameRate: 5,repeat: 0});
+      this.anims.create({key: 'endoGameover3',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 7, end: 10 }),frameRate: 4,repeat: -1});
+
+
+
+
+
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 90,'keyPrompts');
@@ -330,7 +339,7 @@ class autumn extends npc{
       }
     }else if(this.flyUp === false){
 
-      if(this.y > this.fastTravelLandingY-400){
+      if(this.y > this.fastTravelLandingY-320){
 
         this.setVelocityY(-100);
         this.anims.play('fullFlyUp',true);
@@ -449,7 +458,7 @@ class autumn extends npc{
       }
     }else if(this.flyUp === false){
 
-      if(this.y > this.fastTravelLandingY-300){
+      if(this.y > this.fastTravelLandingY-320){
 
         this.setVelocityY(-100);
         this.anims.play('fullFlyUp',true);
@@ -498,10 +507,9 @@ class autumn extends npc{
 
                       }
 
-                        temp.scene.setupGameoverLocation("hiveGameover");
+                        temp.scene.setupGameoverLocation("autumnGameover");
 
-                      
-                        temp.scene.enemyThatDefeatedPlayer = bestiaryKey.beeDroneMaleSecret;
+                        temp.scene.enemyThatDefeatedPlayer = bestiaryKey.autumnVore1;
                        
 
                         setTimeout(function () {
@@ -515,7 +523,7 @@ class autumn extends npc{
 
 
 
-        },4000);
+        },200);
 
         this.scene.sceneTextBox.textInterupt = true;
                         
@@ -623,8 +631,8 @@ class autumn extends npc{
       
               if(temp.releasingPlayerFromTravel === false){
                 temp.progressNode("node7");
-
-                temp
+                temp.npcKeyPrompts.visible = false;
+                
               }
 
             }, 2000);
@@ -1243,6 +1251,15 @@ class autumn extends npc{
 
     //progress the dialogue by one stage so the button moves dialogue forward.
     this.scene.sceneTextBox.progressDialogue();
+  }
+
+  gameOverVore(){
+    this.anims.play('endoGameover1', true).once('animationcomplete', () => {
+      this.anims.play('endoGameover2', true).once('animationcomplete', () => {
+        this.anims.play('endoGameover3',true);
+      });
+    });
+    
   }
 
 }

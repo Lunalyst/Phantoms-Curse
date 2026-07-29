@@ -454,6 +454,8 @@ const bestiaryKey = {
 
   nectarVore1:"nectar_vore_1",
   nectarVore2:"nectar_vore_2",
+
+  autumnVore1:"autumn_vore_1",
  
 }
 
@@ -646,6 +648,10 @@ const bestiaryTextList = {
       nectar_vore_2:{
         title: "NECTAR & PLUM",
         summary: "After a good meal, Nectar goes home to relax with her partner, Plum. Sometimes, she just naps, other times, she reads a book. Whenever she’s upset, however, beware, for the sphinx is not the true danger within this cave...",
+      },
+      autumn_vore_1:{
+        title: "AUTUMN",
+        summary: "cute bat spider who loves having folks in here belly :3",
       },
 
       back: {

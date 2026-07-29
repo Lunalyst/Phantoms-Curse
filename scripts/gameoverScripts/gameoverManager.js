@@ -86,6 +86,14 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.spritesheet('PlumGameover', 'assets/npcs/PlumGameover.png',{frameWidth: 630, frameHeight: 429 });
                 tempGameover.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
             },
+            autumnGameover: function autumnGameover() {
+
+                tempGameover.load.image("lockwood_house_interior_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Lockwood_House_Interior_Tileset.png");
+                tempGameover.load.tilemapTiledJSON("autumnGameover" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Autumns_Room_Gameover.json");
+                
+                //tempGameover.load.spritesheet('PlumGameover', 'assets/npcs/PlumGameover.png',{frameWidth: 630, frameHeight: 429 });
+                //tempGameover.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
+            },
 
         
  
@@ -257,6 +265,9 @@ class gameoverManager extends A3SoundEffects {
         //creates animations for try agian button
         this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'continueInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'continueActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 3, end: 3 }),frameRate: 1,repeat: -1});
+        
         this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 8 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
@@ -290,10 +301,19 @@ class gameoverManager extends A3SoundEffects {
 
         //plays animation for pointer lighting up when mouse hovers over it.
         this.tryAgian.on('pointerover',function(pointer){
-            gameoverThat.tryAgian.anims.play("tryAgianActive");
+            if(gameoverThat.continue === true){
+                gameoverThat.tryAgian.anims.play("continueActive");
+            }else{
+                gameoverThat.tryAgian.anims.play("tryAgianActive");
+            }
         })
         this.tryAgian.on('pointerout',function(pointer){
-            gameoverThat.tryAgian.anims.play("tryAgianInActive");
+
+            if(gameoverThat.continue === true){
+                gameoverThat.tryAgian.anims.play("continueInActive");
+            }else{
+                gameoverThat.tryAgian.anims.play("tryAgianInActive");
+            }
         })
 
         this.tryAgian.visible = false;
@@ -466,6 +486,16 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.light2 = new wallLight(tempSceneRef,660, 470,'torch');
                 
             },
+            autumnGameover: function autumnGameover() {
+                console.log("activating vivian preloadmap");
+                tempSceneRef.processMap.tilesetNameInTiled = "Lockwood_House_Interior_Tileset";
+                tempSceneRef.processMap.setTiles('lockwood_house_interior_map',tempSceneRef);
+                tempSceneRef.processMap.layer2.setTint(0xFFFFFF);
+                if(tempSceneRef.enemyThatDefeatedPlayer === "autumn_vore_1"){
+                    tempSceneRef.continue = true;
+                }
+                
+            }
 
         }
 
@@ -1111,6 +1141,14 @@ class gameoverManager extends A3SoundEffects {
                 
                 
             },
+            autumn_vore_1: function  autumnVoreFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new autumn(tempSceneRef,444, 504,"voreSequence");
+                tempSceneRef.enemy.gameOverVore();
+                tempSceneRef.defeatedTitle = 'eaten';
+                tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
+
+            },
 
             generic: function genericFunction(){
 
@@ -1692,6 +1730,10 @@ class gameoverManager extends A3SoundEffects {
             },
 
             nectar_vore_2: function nectar_vore_2Function() {
+                
+            },
+
+            autumn_vore_1: function  autumnVoreFunction() {
                 
             },
 

@@ -44,6 +44,8 @@ class gameOver extends gameoverManager {
         //variable used to tell if dialogue should be interupted.
         this.dialogueInterupt = false;
 
+        this.continue = false;
+
 
         //this.showTryAgain = true;
         

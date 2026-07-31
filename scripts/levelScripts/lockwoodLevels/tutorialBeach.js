@@ -22,7 +22,7 @@ class tutorialBeach extends defaultScene {
     }
 
     preload(){
-      
+
       this.load.tilemapTiledJSON("beach_map" , "assets/tiledMap/LockWood/Beach_Tileset/Tutorial_Beach.json");
 
       //preload of object which are scene specific
@@ -193,9 +193,11 @@ class tutorialBeach extends defaultScene {
 
     update(){
 
+      
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
-      
+      //console.log("this.mycamera:",this.mycamera )
+      console.log("scene:",this)
       //calls the built in update function
       this.defaultUpdate();
 

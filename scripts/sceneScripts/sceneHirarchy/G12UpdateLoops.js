@@ -148,9 +148,15 @@ class G12UpdateLoops extends G11CheckGameObjects{
           
           //console.log("FOLLOWING PLAYER 1")
           //sets the camera to follow the player and changes the scale as well
-          this.mycamera.startFollow(this.player1);
+          //if(this.playerFollowSet === undefined){
+          console.log("this.player.x: ",this.player1.x, "this.player.y: ",this.player1.y)
+          this.playerFollowSet = true;
+          this.mycamera.startFollow(this.player1,true,0,0,0,70);
           this.cameras.main.zoom = 2;
-          this.cameras.main.followOffset.set(0,70);
+          //this.mycamera.centerOn(this.player1.x,this.player1.y);
+          //this.cameras.main.followOffset.set(0,70);
+          //}
+          
 
 
           //call player function to see if there attacking
@@ -402,7 +408,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
           }
           
           //sets the camera to follow the player and changes the scale as well
-          this.mycamera.startFollow(this.player2);
+          this.mycamera.startFollow(this.player2,true,0,0);
           this.cameras.main.zoom = 2;
           this.cameras.main.followOffset.set(0,70);
           

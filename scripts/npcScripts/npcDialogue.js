@@ -5045,7 +5045,7 @@ const npcDialogue = {
                 },
                 "autumn_vore_1":{
                     "node1":{
-                        "dialogue": "you where the bat spiders, soft belly seemed to have other plans. you became so comfortable on the ride there you fell asleep. when she arrived, she noticed you had dozed off long ago. seeing that you where a special customer, she happily took you back to the post office for some private time. holding you close and snuggling her belly. eventually she dozed off too.",
+                        "dialogue": "you where going somewhere, but the bat spiders soft belly seemed to have other plans. you became so comfortable on the ride there that you fell asleep. when she arrived, she noticed you had dozed off long ago. seeing that you where a special customer, she happily took you back to the post office for some private time. holding you close and snuggling her belly, eventually she dozed off too.",
                         "profile":"",
                         "textvoice":"digest",
                         "children":[]

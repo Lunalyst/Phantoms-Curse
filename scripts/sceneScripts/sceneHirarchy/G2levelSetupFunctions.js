@@ -65,6 +65,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
     this.lockwoodDrawBridges = this.add.group();
     this.usingLockwoodDrawBridges = true;
   }
+  
   //
   setUpRockPile(){
     //set up the invisible barriers group
@@ -141,8 +142,9 @@ class G2levelSetupFunctions extends G1PlayerInputs {
   setUpPlayerCamera(){
     //sets up camera to follow player.
     this.mycamera = this.cameras.main;
-    this.mycamera.startFollow(this.player1 ,false,0,0,-700,-200);
+    this.mycamera.startFollow(this.player1 ,true,0,0,-700,-200);
     this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels); 
+    //this.mycamera.setRoundPixels(true);
     this.cameras.main.followOffset.set(0,-1500);
 
     //puts the gamehud scene above the gameplay scene

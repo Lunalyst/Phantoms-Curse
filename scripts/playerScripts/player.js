@@ -452,6 +452,9 @@ class player extends Phaser.GameObjects.Container{
 
     this.x = this.mainHitbox.x;
     this.y = this.mainHitbox.y;
+
+    this.x = Math.floor(this.x);
+    this.y = Math.floor(this.y);
    
     //console.log("this.animationPlayedGoingUp:", this.animationPlayedGoingUp," this.animationPlayedGoingDown: ", this.animationPlayedGoingDown," this.animationInAir: ", this.animationInAir);
   //console.log("in player move, this.scene.checkWPressed(): ",this.scene.checkWPressed());

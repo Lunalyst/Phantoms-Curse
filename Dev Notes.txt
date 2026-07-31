@@ -41,6 +41,7 @@ https://github.com/sporadic-labs/tile-extruder
 //dont forget our tiles are 96 by 96 then downscaled by a third
 //tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
 
+ctrl + shift + f to find a line of text for all files in project.
 
 for new tileset, 
 Orthogonal
@@ -131,6 +132,14 @@ notes: use cmd to work on this. directory is users in C:
 having trouble getting ios  android package to work. may need to downgrade cordova version 
 
 Bugs:
+
+pixel tearing was caused by the camera not having the pixel mode on round pixels. 
+its the second param below
+this.mycamera.startFollow(this.player1,true,0,0,0,70);
+leading to some odd rendering. we also want to use the floor function on all moving sprites that the camera follows.
+that way the following sprite doesn't jitter with the new setting fix. 
+need to update all set follows with correct params otherwise there reset to the default which causes issues.
+
 
 tiles not showing up?
 https://phaser.discourse.group/t/tiled-tilemap-partially-invisible-but-no-console-errors/4079

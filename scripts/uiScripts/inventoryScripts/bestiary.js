@@ -86,23 +86,23 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.pageNumber = 0;
     this.groupNumber = 0;
     //group in our array
-    this.setScale(.45);
+    this.setScale(.5);
     
     //create refrence to bestiaryTextList where bestiary data is stored.
     this.bestiaryTextList = bestiaryTextList;
     
     //creates the buttons on the left and right of the bestiary menu when its open.
-    this.bestiaryLeft = new UIControls(scene, this.openX - 170, this.openY + 280, "UIControls").setInteractive();
+    this.bestiaryLeft = new UIControls(scene, this.openX - 170, this.openY + 300, "UIControls").setInteractive();
     this.bestiaryLeft.anims.play("pointLeft");
     this.bestiaryLeft.visible = false;
-    this.bestiaryRight = new UIControls(scene, this.openX + 170, this.openY + 280, "UIControls").setInteractive();
+    this.bestiaryRight = new UIControls(scene, this.openX + 170, this.openY + 300, "UIControls").setInteractive();
     this.bestiaryRight.anims.play("pointRight");
     this.bestiaryRight.visible = false;
 
-    this.bestiaryUp = new UIControls(scene, this.openX - 110, this.openY , "UIControls").setInteractive();
+    this.bestiaryUp = new UIControls(scene, this.openX - 130, this.openY , "UIControls").setInteractive();
     this.bestiaryUp.anims.play("pointUp");
     this.bestiaryUp.visible = false;
-    this.bestiaryDown = new UIControls(scene, this.openX - 110, this.openY + 300, "UIControls").setInteractive();
+    this.bestiaryDown = new UIControls(scene, this.openX - 130, this.openY + 300, "UIControls").setInteractive();
     this.bestiaryDown.anims.play("pointDown");
     this.bestiaryDown.visible = false;
 
@@ -110,8 +110,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.reloadBestiaryPages(scene,true);
 
     //handles the positioning of the title text sprites.
-    let startingX = -190;
-    let startingY = -215;
+    let startingX = -210;
+    let startingY = -230;
     let spacing = 0;
 
     let titleSize = "PLACEHOLDER MONSTER TITLE";
@@ -254,7 +254,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
       console.log("this.isOpen from bestiary " + this.isOpen);
       this.anims.play(this.activeBestiaryPages[this.activeBestiaryGroups[this.groupNumber]][this.pageNumber]);
       this.openDelay = true;
-      this.setScale(.9);
+      this.setScale(1);
       this.setDepth(60);
 
       this.x = this.openX;

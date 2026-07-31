@@ -110,6 +110,8 @@ class gameHud extends A3SoundEffects {
         console.log("create function in hud activated")
         startTimeTest("game hud setup");
 
+        this.cameras.main.roundPixels = true;
+
         //creates fadeout when fadeout function is called in the camera object
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
           location.reload();
@@ -1448,7 +1450,7 @@ class gameHud extends A3SoundEffects {
 
     //update loop.
     update(){
-      
+      console.log("this.cameras.main: ",this.cameras.main);
       if(this.debugToggle === true){
         this.updateDebugHud();
       }

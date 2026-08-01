@@ -824,6 +824,8 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     this.x = this.mainHitbox.x;
     this.y = this.mainHitbox.y; 
 
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
     //temp object sent to be sent to a emitter
     this.playerDataObject = {
       playerInventoryData: null

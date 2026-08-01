@@ -75,8 +75,8 @@ class NectarPlayerAndMiloDigestion extends defaultScene {
     //loads local save data.
     this.loadGamePlayData();
 
-    this.sceneTextBox = new textBox(this,600-40,800,'charBlack');
-    this.sceneTextBox.setScale(1.3);
+    this.sceneTextBox = new textBox(this,600+40,800,'charBlack');
+    this.sceneTextBox.setScale(2);
     this.sceneTextBox.activateTitleScreenTextbox(
       this,//scene
       false,// is the text box visible?

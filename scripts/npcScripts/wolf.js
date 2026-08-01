@@ -527,6 +527,7 @@ class wolf extends npc{
         this.setVelocityX(80);
         this.anims.play('nudeSideWalk',true);
         this.flipX = false;
+        this.x = Math.round(this.x);
 
         this.setDepth(10);
       }else{

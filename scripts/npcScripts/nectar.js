@@ -113,7 +113,7 @@ class nectar extends npc{
        this.npcInteractionFinished = false;
 
        //.6
-       this.textboxScaleProfile = 1/3;
+       this.textboxScaleProfile = .7;
        //default
        this.textboxScaleProfileDefault = 1/3;
 
@@ -1091,8 +1091,8 @@ class nectar extends npc{
 
                   setTimeout(function () {
                     temp.scene.sceneTextBox.textInterupt = false;
-                    temp.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfile)
-                    temp.progressNode("node7");
+                    temp.scene.sceneTextBox.textBoxProfileImage.setScale(0.7);
+                    temp.progressNode("node6");
                     temp.nectarHasEatenMilo = true;
 
                     //temp.scene.sceneTextBox.textInterupt = true;
@@ -2524,12 +2524,10 @@ class nectar extends npc{
 
       }else if(this.currentDictNode.nodeName === "node7"){
 
-        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
-
         this.inDialogue = false;
 
         //this.moveNectarOffScreen = false;
-
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
 
 
       }else if(this.currentDictNode.nodeName === "node8" && this.inDialogue === false){

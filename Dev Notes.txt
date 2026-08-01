@@ -140,6 +140,7 @@ leading to some odd rendering. we also want to use the floor function on all mov
 that way the following sprite doesn't jitter with the new setting fix. 
 need to update all set follows with correct params otherwise there reset to the default which causes issues.
 
+shouyld make it a rule that any enbtity that has the camera following iut should now have this.x = Math.round(this.x); to some capacity.
 
 tiles not showing up?
 https://phaser.discourse.group/t/tiled-tilemap-partially-invisible-but-no-console-errors/4079

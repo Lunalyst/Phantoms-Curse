@@ -1,65 +1,76 @@
 
-class PCMilo extends Phaser.Physics.Arcade.Sprite {
+class PCMilo extends Phaser.GameObjects.Container {
   // every class needs constructor
   constructor(scene, xPos, yPos){
     //super() calls the constructor() from the parent class we are extending
-    super(scene, xPos, yPos,"milo");
+    super(scene, xPos, yPos-7);
     //then we add new instance into the scene. 
     scene.add.existing(this);
 
     //then we call this next line to give it collision
-    scene.physics.add.existing(this);
+    //
 
-    /*this.anims.create({key: 'idle',frames: this.anims.generateFrameNames('milo', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
-    this.anims.create({key: 'angleIdle',frames: this.anims.generateFrameNames('milo', { start: 6, end: 9 }),frameRate: 7,repeat: -1});
-    this.anims.create({key: 'walk',frames: this.anims.generateFrameNames('milo', { start: 11, end: 20 }),frameRate: 20,repeat: -1});
-    this.anims.create({key: 'jumpUp',frames: this.anims.generateFrameNames('milo', { start: 21, end: 22 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'jumpDown',frames: this.anims.generateFrameNames('milo', { start: 23, end: 24 }),frameRate: 10,repeat: 0});*/
+    //add the ten layers that make up the sprite
+    this.MiloSprite = scene.add.sprite(0,0, 'milo');
+    this.add(this.MiloSprite);
+    this.MiloSprite.setScale(1/3);
+  
+    this.mainHitbox = scene.physics.add.sprite(xPos, yPos, 'hitbox');
+    scene.physics.add.existing(this.mainHitbox);
 
-    this.anims.create({key: 'angleIdleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
-    this.anims.create({key: 'angleIdleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
-    this.anims.create({key: 'walkLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 9, end: 18 }),frameRate: 17,repeat: -1});
-    this.anims.create({key: 'walkRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 19, end: 28 }),frameRate: 17,repeat: -1});
-    this.anims.create({key: 'jumpUpLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 29, end: 30 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'jumpDownLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 31, end: 32 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'jumpUpRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 33, end: 34 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'jumpDownRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 35, end: 36 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'lightAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 15,repeat: 0});
-    this.anims.create({key: 'lightAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 15,repeat: 0});
-    this.anims.create({key: 'lightAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 15,repeat: 0});
+    this.mainHitbox.body.setGravityY(600); 
+
+    //scene.physics.add.existing(this);
+    /*this.MiloSprite.anims.create({key: 'idle',frames: this.MiloSprite.anims.generateFrameNames('milo', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'angleIdle',frames: this.MiloSprite.anims.generateFrameNames('milo', { start: 6, end: 9 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'walk',frames: this.MiloSprite.anims.generateFrameNames('milo', { start: 11, end: 20 }),frameRate: 20,repeat: -1});
+    this.MiloSprite.anims.create({key: 'jumpUp',frames: this.MiloSprite.anims.generateFrameNames('milo', { start: 21, end: 22 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'jumpDown',frames: this.MiloSprite.anims.generateFrameNames('milo', { start: 23, end: 24 }),frameRate: 10,repeat: 0});*/
+
+    this.MiloSprite.anims.create({key: 'angleIdleLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 1, end: 4 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'angleIdleRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 5, end: 8 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'walkLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 9, end: 18 }),frameRate: 17,repeat: -1});
+    this.MiloSprite.anims.create({key: 'walkRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 19, end: 28 }),frameRate: 17,repeat: -1});
+    this.MiloSprite.anims.create({key: 'jumpUpLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 29, end: 30 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'jumpDownLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 31, end: 32 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'jumpUpRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 33, end: 34 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'jumpDownRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 35, end: 36 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackStartLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 37, end: 39 }),frameRate: 15,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackMiddleLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 40, end: 41 }),frameRate: 15,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackEndLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 42, end: 44 }),frameRate: 15,repeat: 0});
     
-    this.anims.create({key: 'lightAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 15,repeat: 0});
-    this.anims.create({key: 'lightAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 15,repeat: 0});
-    this.anims.create({key: 'lightAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 15,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackStartRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 45, end: 47 }),frameRate: 15,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackMiddleRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 48, end: 49 }),frameRate: 15,repeat: 0});
+    this.MiloSprite.anims.create({key: 'lightAttackEndRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 50, end: 52 }),frameRate: 15,repeat: 0});
     
 
-    this.anims.create({key: 'specialAttackStartLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 53, end: 53 }),frameRate: 8,repeat: 0});
-    this.anims.create({key: 'specialAttackMiddleLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 54, end: 55 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'specialAttackEndLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 56, end: 57 }),frameRate: 7,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackStartLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 53, end: 53 }),frameRate: 8,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackMiddleLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 54, end: 55 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackEndLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 56, end: 57 }),frameRate: 7,repeat: 0});
     
-    this.anims.create({key: 'specialAttackStartRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 58, end: 58 }),frameRate: 8,repeat: 0});
-    this.anims.create({key: 'specialAttackMiddleRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 59, end: 60 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'specialAttackEndRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 61, end: 62 }),frameRate: 7,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackStartRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 58, end: 58 }),frameRate: 8,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackMiddleRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 59, end: 60 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'specialAttackEndRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 61, end: 62 }),frameRate: 7,repeat: 0});
     
-    this.anims.create({key: 'flipLeft',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 63, end: 71 }),frameRate: 10,repeat: 0});
-    this.anims.create({key: 'flipRight',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 72, end: 80 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'flipLeft',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 63, end: 71 }),frameRate: 10,repeat: 0});
+    this.MiloSprite.anims.create({key: 'flipRight',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 72, end: 80 }),frameRate: 10,repeat: 0});
       
-    this.anims.create({key: 'standingThere',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 84, end: 87 }),frameRate: 7,repeat: -1});
-    this.anims.create({key: 'MenacingSpearRaise',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
-    this.anims.create({key: 'MenacingSpearHold',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'standingThere',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 84, end: 87 }),frameRate: 7,repeat: -1});
+    this.MiloSprite.anims.create({key: 'MenacingSpearRaise',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 88, end: 89 }),frameRate: 5,repeat: 0});
+    this.MiloSprite.anims.create({key: 'MenacingSpearHold',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 90, end: 93 }),frameRate: 7,repeat: -1});
     
-     this.anims.create({key: 'rightBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 125, end: 128 }),frameRate: 20,repeat: 0});
-     this.anims.create({key: 'rightBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 129, end: 129 }),frameRate: 2,repeat: 0});
-     this.anims.create({key: 'rightBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 130, end: 132 }),frameRate: 15,repeat: 0});
+     this.MiloSprite.anims.create({key: 'rightBlockStart',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 125, end: 128 }),frameRate: 20,repeat: 0});
+     this.MiloSprite.anims.create({key: 'rightBlockMiddle',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 129, end: 129 }),frameRate: 2,repeat: 0});
+     this.MiloSprite.anims.create({key: 'rightBlockEnd',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 130, end: 132 }),frameRate: 15,repeat: 0});
 
-     this.anims.create({key: 'leftBlockStart',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 133, end: 136 }),frameRate: 20,repeat: 0});
-     this.anims.create({key: 'leftBlockMiddle',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 137, end: 137 }),frameRate: 2,repeat: 0});
-     this.anims.create({key: 'leftBlockEnd',frames: this.anims.generateFrameNames('miloMaskedAndArmed', { start: 138, end: 140 }),frameRate: 15,repeat: 0});
+     this.MiloSprite.anims.create({key: 'leftBlockStart',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 133, end: 136 }),frameRate: 20,repeat: 0});
+     this.MiloSprite.anims.create({key: 'leftBlockMiddle',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 137, end: 137 }),frameRate: 2,repeat: 0});
+     this.MiloSprite.anims.create({key: 'leftBlockEnd',frames: this.MiloSprite.anims.generateFrameNames('miloMaskedAndArmed', { start: 138, end: 140 }),frameRate: 15,repeat: 0});
     
     
     
      
-    this.anims.play('angleIdleLeft');
+    this.MiloSprite.anims.play('angleIdleLeft');
 
     // creates a custome property to make it easy to track the identity of the PCMilo sprite.
     this.custom_id = 'PCMilo';
@@ -72,16 +83,16 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.PCMiloPreviousY = 0;
     this.animationInAir = false;
     //sets PCMilo gravity in the scene
-    this.body.setGravityY(600); 
+
     //object is on view layer 6
     this.setDepth(6);
-    this.setScale(1/3);
+    //this.setScale(1/3);
     
 
     this.visible = false;
 
-    this.setSize(60,200,true);
-    this.setOffset(203, 90);
+    this.mainHitbox.setSize(13,60,true);
+    this.mainHitbox.setOffset(12, 3);
     // hitbox cooldown.
     this.hitboxCoolDown = false;
 
@@ -162,8 +173,13 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     movePlayer(PCMiloPreviousY,scene){
       
     this.speed = 270;
+
+    this.x = this.mainHitbox.x;
+    this.y = this.mainHitbox.y;
+
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
+
     console.log(" this.x: ", this.x, " this.y: ",this.y);
 
     //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
@@ -179,7 +195,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
       //move the PCMilo left
 
       //if s is pressed fall through the platform by destoying the collision of PCMilo 0.
-      if(this.scene.checkSIsDown() && this.body.blocked.down && this.fallThroughLayer0 === false){
+      if(this.scene.checkSIsDown() && this.mainHitbox.body.blocked.down && this.fallThroughLayer0 === false){
       this.scene.player2Layer0Collider.destroy();
       this.fallThroughLayer0 = true;
 
@@ -190,42 +206,42 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
       },300);
 
       //moves the PCMilo right
-      }else if(this.scene.checkAIsDown() && this.body.blocked.down){
+      }else if(this.scene.checkAIsDown() && this.mainHitbox.body.blocked.down){
           this.lastKey = "a";
           this.idleTimer = 0;
-          this.setVelocityX(-this.speed);
-          if(this.body.blocked.down){
-            this.anims.play('walkRight',true);
+          this.mainHitbox.setVelocityX(-this.speed);
+          if(this.mainHitbox.body.blocked.down){
+            this.MiloSprite.anims.play('walkRight',true);
             //this.flipX = true
           }
 
       //moves the PCMilo right
-      } else if(this.scene.checkDIsDown() && this.body.blocked.down){
+      } else if(this.scene.checkDIsDown() && this.mainHitbox.body.blocked.down){
           this.lastKey = "d";
           this.idleTimer = 0;
-          this.setVelocityX(this.speed);
-          if(this.body.blocked.down){
-            this.anims.play('walkLeft',true);
+          this.mainHitbox.setVelocityX(this.speed);
+          if(this.mainHitbox.body.blocked.down){
+            this.MiloSprite.anims.play('walkLeft',true);
             //this.flipX = false;
             //console.log("moving Right");
           }
 
       //if the PCMilo doesnt move for long enough, play idle animation
       }else if(this.idleTimer === 2000){
-          this.setVelocityX(0);
+          this.mainHitbox.setVelocityX(0);
           //this.PCMilosleepAnimation();
 
       //otherwise we play idle animation
       }else{
       
-        this.setVelocityX(0);
+        this.mainHitbox.setVelocityX(0);
 
           if(this.animationInAir === false){
             if(this.lastKey === "d"){
-              this.anims.play('angleIdleLeft',true);
+              this.MiloSprite.anims.play('angleIdleLeft',true);
               //this.flipX = false;
             }else if(this.lastKey === "a"){
-              this.anims.play('angleIdleRight',true);
+              this.MiloSprite.anims.play('angleIdleRight',true);
               //this.flipX = true;
             }
           }
@@ -244,7 +260,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         }
 
       //if the PCMilo is down, then reset variables.   
-      if(this.body.blocked.down){
+      if(this.mainHitbox.body.blocked.down){
         this.animationPlayedGoingUp = false;
         this.animationPlayedGoingDown = false;
         this.animationInAir = false;
@@ -256,14 +272,14 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
       //if space is pressed and the PCMilo is on the ground then jump
       //special note, always have the checkpressed at the end if the if statement. programming trick
       //first check if the PCMilo is down.
-      if (this.body.blocked.down){
+      if (this.mainHitbox.body.blocked.down){
         //console.log("PCMilo is down.")
         // then we have to check if jump was pressed once. we have to structure it this way so that the jump doesnt get locked out.
         if(this.scene.checkJMPPressed()){
 
           //console.log("first jump")
           this.idleTimer = 0;
-          this.setVelocityY(-350);
+          this.mainHitbox.setVelocityY(-350);
           let that = this;
 
         }
@@ -271,9 +287,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
       }
 
       //if the PCMilo is  in the air and moving to the left
-      if(this.scene.checkAIsDown() && !this.body.blocked.down){
+      if(this.scene.checkAIsDown() && !this.mainHitbox.body.blocked.down){
       //console.log("IN AIR AND MOVING LEFT");
-        this.setVelocityX(-this.speed);
+        this.mainHitbox.setVelocityX(-this.speed);
         this.animationInAir = true;
         //this.flipX = true;
         let that = this;
@@ -286,7 +302,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
             this.doubleJumpActivation = true;
             this.animationPlayedGoingUp = false;
             this.animationPlayedGoingDown = false;
-            this.setVelocityY(-350);
+            this.mainHitbox.setVelocityY(-350);
             this.scene.initSoundEffect('playerJumpSFX','1',0.1);
             scene.tempPlatform = new doubleJumpEffect(scene,scene.player2.x,scene.player2.y+40,'doubleJumpEffect');
             
@@ -295,9 +311,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           if(PCMiloPreviousY > this.y && this.animationPlayedGoingUp === false){
 
             if(this.doubleJumpActivation === false){
-               this.anims.play('jumpUpRight',true);
+               this.MiloSprite.anims.play('jumpUpRight',true);
             }else{
-              this.anims.play('flipRight',true);
+              this.MiloSprite.anims.play('flipRight',true);
             }
 
             //this.flipX = true;
@@ -306,7 +322,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
             
           }else if(PCMiloPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
             if(this.doubleJumpActivation === false){
-               this.anims.play('jumpDownRight',true);
+               this.MiloSprite.anims.play('jumpDownRight',true);
             }
             //this.flipX = true;
             this.animationPlayedGoingDown = true;
@@ -315,9 +331,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
         //checks to see if PCMilo is moving right and not touching the ground.
 
       //if the PCMilo is  in the air and moving to the right
-      }else if(this.scene.checkDIsDown() && !this.body.blocked.down){
+      }else if(this.scene.checkDIsDown() && !this.mainHitbox.body.blocked.down){
           //console.log("IN AIR AND MOVING RIGHT");
-          this.setVelocityX(this.speed);
+          this.mainHitbox.setVelocityX(this.speed);
           this.animationInAir = true;
           //this.flipX = false;
           //if the PCMilo has the double jump ability, allow them to jupm agian.
@@ -326,16 +342,16 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
             this.doubleJumpActivation = true;
             this.animationPlayedGoingUp = false;
             this.animationPlayedGoingDown = false;
-            this.setVelocityY(-350);
+            this.mainHitbox.setVelocityY(-350);
             this.scene.initSoundEffect('playerJumpSFX','1',0.1);
             scene.tempPlatform = new doubleJumpEffect(scene,scene.player2.x,scene.player2.y+40,'doubleJumpEffect');
           }
 
           if(PCMiloPreviousY > this.y && this.animationPlayedGoingUp === false){
             if(this.doubleJumpActivation === false){
-               this.anims.play('jumpUpLeft',true);
+               this.MiloSprite.anims.play('jumpUpLeft',true);
             }else{
-              this.anims.play('flipLeft',true);
+              this.MiloSprite.anims.play('flipLeft',true);
             }
             //this.flipX = false
             this.animationPlayedGoingUp = true;
@@ -344,7 +360,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           }else if(PCMiloPreviousY <= this.y &&  this.animationPlayedGoingDown === false){
 
             if(this.doubleJumpActivation === false){
-               this.anims.play('jumpDownLeft',true);
+               this.MiloSprite.anims.play('jumpDownLeft',true);
             }
             
             //this.flipX = false
@@ -354,7 +370,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           }
 
       //if the PCMilo is in the air.
-      }else if(!this.body.blocked.down){
+      }else if(!this.mainHitbox.body.blocked.down){
           this.idleTimer = 0;
           this.animationInAir = true;
           //if the PCMilo has the double jump ability, allow them to jupm agian.
@@ -363,28 +379,28 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
             this.doubleJumpActivation = true;
             this.animationPlayedGoingUp = false;
             this.animationPlayedGoingDown = false;
-            this.setVelocityY(-350);
+            this.mainHitbox.setVelocityY(-350);
             this.scene.initSoundEffect('playerJumpSFX','1',0.1);
             scene.tempPlatform = new doubleJumpEffect(scene,scene.player2.x,scene.player2.y+40,'doubleJumpEffect');
           }
 
           if(PCMiloPreviousY > this.y && this.lastKey === "d"&& this.animationPlayedGoingUp === false){
-            this.anims.play('jumpUpLeft',true);
+            this.MiloSprite.anims.play('jumpUpLeft',true);
             //this.flipX = false;
             this.animationPlayedGoingUp = true;
             //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           }else if(PCMiloPreviousY <= this.y && this.lastKey === "d"&&  this.animationPlayedGoingDown === false){
-            this.anims.play('jumpDownLeft',true);
+            this.MiloSprite.anims.play('jumpDownLeft',true);
             //this.flipX = false;
             this.animationPlayedGoingDown = true;
             //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           }else if(PCMiloPreviousY > this.y && this.lastKey === "a"&& this.animationPlayedGoingUp === false){
-            this.anims.play('jumpUpRight',true);
+            this.MiloSprite.anims.play('jumpUpRight',true);
             //this.flipX = true;
             this.animationPlayedGoingUp = true;
             //console.log(" jumping and velocity is up, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
           }else if(PCMiloPreviousY <= this.y && this.lastKey === "a"&&  this.animationPlayedGoingDown === false){
-            this.anims.play('jumpDownRight',true);
+            this.MiloSprite.anims.play('jumpDownRight',true);
             //this.flipX = true;
             this.animationPlayedGoingDown = true;
             //console.log(" jumping and velocity is down, this.doubleJumpActivation: ",this.doubleJumpActivation," space.isDown: ",space.isDown," scene.PCMiloSkillsData.jump: ",scene.PCMiloSkillsData.jump," this.doubleJumpActivation: ",this.doubleJumpActivation);
@@ -433,11 +449,15 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     //console.log("activating attack function");
     //temp variable of this object to be used my timeout functions
     let that = this;
-    //this.setSize(10,60,true);
-    //this.setOffset(12, -4 );
-  
+
+    this.x = this.mainHitbox.x;
+    this.y = this.mainHitbox.y;
+
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
+
       //plays attack animations based on what the PCMilo has equipt when the PCMilo is not in the air,PCMilo now locked into the animation until it completes
-      if(this.body.blocked.down && this.isAttacking === true){
+      if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
 
         //console.log("attacking activated.")
 
@@ -463,12 +483,12 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 this.scene.initSoundEffect('weaponSFX','high2',0.1);
 
                 if(this.lastKey === 'd'){
-                this.anims.play("lightAttackStartLeft").once('animationcomplete', () => {
+                this.MiloSprite.anims.play("lightAttackStartLeft").once('animationcomplete', () => {
                   this.attackHitboxState = true;
-                  this.anims.play("lightAttackMiddleLeft").once('animationcomplete', () => {
+                  this.MiloSprite.anims.play("lightAttackMiddleLeft").once('animationcomplete', () => {
                     this.attackHitboxState = false;
 
-                    this.anims.play("lightAttackEndLeft").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("lightAttackEndLeft").once('animationcomplete', () => {
 
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
@@ -481,11 +501,11 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                 });
                  
                 }else if(this.lastKey === 'a'){
-                  this.anims.play("lightAttackStartRight").once('animationcomplete', () => {
+                  this.MiloSprite.anims.play("lightAttackStartRight").once('animationcomplete', () => {
                     this.attackHitboxState = true;
-                  this.anims.play("lightAttackMiddleRight").once('animationcomplete', () => {
+                  this.MiloSprite.anims.play("lightAttackMiddleRight").once('animationcomplete', () => {
                     this.attackHitboxState = false;
-                    this.anims.play("lightAttackEndRight").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("lightAttackEndRight").once('animationcomplete', () => {
 
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
@@ -526,17 +546,17 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                   this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
-                  this.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
+                  this.MiloSprite.anims.play("specialAttackStartLeft").once('animationcomplete', () => {
 
                     this.attackHitboxState = true;
-                    this.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("specialAttackMiddleLeft").once('animationcomplete', () => {
                       this.attackHitboxState = false;
                     //console.log("here!");
                     this.scene.initPlayerProjectile(this.x+67,this.y+7,"spindleMissile","left",400,0,1000,0);
                       
                       healthEmitter.emit(healthEvent.reduceCurse,15);
 
-                      this.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
+                      this.MiloSprite.anims.play("specialAttackEndLeft").once('animationcomplete', () => {
 
                         this.isAttacking = false;
                         this.playedAttackAnimation = false;
@@ -552,14 +572,14 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                     this.scene.initSoundEffect('weaponSFX','missileCharge',0.05);
 
-                    this.anims.play("specialAttackStartRight").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("specialAttackStartRight").once('animationcomplete', () => {
                       this.attackHitboxState = true;
-                      this.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
+                      this.MiloSprite.anims.play("specialAttackMiddleRight").once('animationcomplete', () => {
                         this.attackHitboxState = false;
                         this.scene.initPlayerProjectile(this.x-67,this.y+7,"spindleMissile","right",400,0,1000,0);
 
                          healthEmitter.emit(healthEvent.reduceCurse,15);
-                        this.anims.play("specialAttackEndRight").once('animationcomplete', () => {
+                        this.MiloSprite.anims.play("specialAttackEndRight").once('animationcomplete', () => {
 
                           this.isAttacking = false;
                           this.playedAttackAnimation = false;
@@ -591,16 +611,16 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
 
                   if(this.lastKey === 'd'){
 
-                  this.anims.play("rightBlockStart").once('animationcomplete', () => {
+                  this.MiloSprite.anims.play("rightBlockStart").once('animationcomplete', () => {
 
                     this.blockHitboxState = true;
                     this.isBlocking = true;
-                    this.anims.play("rightBlockMiddle").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("rightBlockMiddle").once('animationcomplete', () => {
                       this.blockHitboxState = false;
                       this.isBlocking = false;
                     //console.log("here!");
 
-                      this.anims.play("rightBlockEnd").once('animationcomplete', () => {
+                      this.MiloSprite.anims.play("rightBlockEnd").once('animationcomplete', () => {
 
                         this.isAttacking = false;
                         this.playedAttackAnimation = false;
@@ -613,14 +633,14 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
                   
                   }else if(this.lastKey === 'a'){
 
-                    this.anims.play("leftBlockStart").once('animationcomplete', () => {
+                    this.MiloSprite.anims.play("leftBlockStart").once('animationcomplete', () => {
                       this.blockHitboxState = true;
                       this.isBlocking = true;
-                      this.anims.play("leftBlockMiddle").once('animationcomplete', () => {
+                      this.MiloSprite.anims.play("leftBlockMiddle").once('animationcomplete', () => {
                         this.blockHitboxState = false;
                         this.isBlocking = false;
                
-                        this.anims.play("leftBlockEnd").once('animationcomplete', () => {
+                        this.MiloSprite.anims.play("leftBlockEnd").once('animationcomplete', () => {
 
                           this.isAttacking = false;
                           this.playedAttackAnimation = false;
@@ -675,7 +695,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
   attackHitboxActive(){
 
     //stop the PCMilos velocity
-    //this.setVelocityX(0);
+    //this.mainHitbox.setVelocityX(0);
     
     //start by having the PCMilo press shift state should be false
 

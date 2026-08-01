@@ -41,8 +41,8 @@ class G3SetupCollisionFunctions extends G2levelSetupFunctions {
   setUpPlayer2Collider(){
     // resets out of bounds check.
     this.PlayerOutOfBounds = false;
-    this.physics.add.collider(this.player2,this.processMap.layer1);
-    this.player2Layer0Collider = this.physics.add.collider(this.player2,this.processMap.layer0);
+    this.physics.add.collider(this.player2.mainHitbox,this.processMap.layer1);
+    this.player2Layer0Collider = this.physics.add.collider(this.player2.mainHitbox,this.processMap.layer0);
   }
 
   setUpMiloNPCCollider(){

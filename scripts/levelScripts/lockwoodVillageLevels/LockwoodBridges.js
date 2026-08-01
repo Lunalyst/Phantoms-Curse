@@ -233,9 +233,11 @@ class LockwoodBridges extends defaultScene {
         this.player2Active = true;
         this.Milo.visible = false;
         this.player2.visible = true;
-        this.player2.anims.play('MenacingSpearHold',true);
-        this.player2.x = 1895;
-        this.player2.y = 728;
+        this.player2.MiloSprite.anims.play('MenacingSpearHold',true);
+        this.player2.mainHitbox.x = 1895;
+        this.player2.mainHitbox.y = 728;
+        this.player2.x = this.player2.mainHitbox.x;
+        this.player2.y = this.player2.mainHitbox.y;
         this.dialogueCatch = false;
         this.player2.setDepth(6);
 

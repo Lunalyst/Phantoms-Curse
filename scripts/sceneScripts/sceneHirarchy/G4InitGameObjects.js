@@ -427,16 +427,16 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       let tempScene = this;
 
       //if projectile overlaps with player then
-      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+      tempProjectile.collider = this.physics.add.overlap(this.player2.mainHitbox, tempProjectile, function () {
 
         if(tempProjectile.body.blocked.down === false){
           //set up player stuck grab and 
            if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
 
                   tempScene.damagedPlayer = true;
-                  tempScene.player2.setTint(0xFF0000);
+                  tempScene.player2.MiloSprite.setTint(0xFF0000);
                   setTimeout(function () {
-                    tempScene.player2.clearTint();
+                    tempScene.player2.MiloSprite.clearTint();
                   }, 250);
 
                   healthEmitter.emit(healthEvent.loseHealth,7);
@@ -456,16 +456,16 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
       });
 
-      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+      tempProjectile.collider = this.physics.add.overlap(this.player2.mainHitbox, tempProjectile, function () {
 
         if(tempProjectile.body.blocked.down === false){
           //set up player stuck grab and 
            if(tempScene.damagedPlayer === false && !tempProjectile.body.blocked.down && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
 
                   tempScene.damagedPlayer = true;
-                  tempScene.player2.setTint(0xFF0000);
+                  tempScene.player2.MiloSprite.setTint(0xFF0000);
                   setTimeout(function () {
-                    tempScene.player2.clearTint();
+                    tempScene.player2.MiloSprite.clearTint();
                   }, 250);
 
                   healthEmitter.emit(healthEvent.loseHealth,7);
@@ -507,14 +507,14 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
       let tempScene = this;
 
       //if projectile overlaps with player then
-      tempProjectile.collider = this.physics.add.overlap(this.player2, tempProjectile, function () {
+      tempProjectile.collider = this.physics.add.overlap(this.player2.mainHitbox, tempProjectile, function () {
 
         if(tempProjectile.exploding === true && tempProjectile.explosionDamagedPlayer === false && tempScene.bossNectar.player1IsDigested === false && tempScene.bossNectar.nectarDefeated === false && tempScene.player2.isBlocking === false){
 
            tempProjectile.explosionDamagedPlayer = true;
-            tempScene.player2.setTint(0xFF0000);
+            tempScene.player2.MiloSprite.setTint(0xFF0000);
             setTimeout(function () {
-              tempScene.player2.clearTint();
+              tempScene.player2.MiloSprite.clearTint();
             }, 250);
             healthEmitter.emit(healthEvent.loseHealth,17);
            

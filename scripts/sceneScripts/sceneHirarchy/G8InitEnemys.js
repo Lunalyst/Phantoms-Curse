@@ -1117,7 +1117,7 @@ class G8InitEnemys extends G7EnemyCollisions{
 
           nectar.addColliderRef(collider1);
           //attack hitbox logic
-          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player2, nectar.attackHitBox, function () {
+          collider1 = tempSceneRef.physics.add.overlap(tempSceneRef.player2.mainHitbox, nectar.attackHitBox, function () {
            //need to apply damage to milo function
 
            //idea, use the state machine on nectar to tell what damage to deal 
@@ -1127,9 +1127,9 @@ class G8InitEnemys extends G7EnemyCollisions{
 
               if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false && tempSceneRef.player2.isBlocking === false){
 
-                tempSceneRef.player2.setTint(0xFF0000);
+                tempSceneRef.player2.MiloSprite.setTint(0xFF0000);
                 setTimeout(function () {
-                  tempSceneRef.player2.clearTint();
+                  tempSceneRef.player2.MiloSprite.clearTint();
                 }, 250);
 
                 tempSceneRef.damagedPlayer = true;
@@ -1151,9 +1151,9 @@ class G8InitEnemys extends G7EnemyCollisions{
             }else if(nectar.attackState === 1 || nectar.attackState === 3){
               if(tempSceneRef.damagedPlayer === false && tempSceneRef.bossNectar.player1IsDigested === false && tempSceneRef.bossNectar.nectarDefeated === false && tempSceneRef.player2.isBlocking === false){
 
-                  tempSceneRef.player2.setTint(0xFF0000);
+                  tempSceneRef.player2.MiloSprite.setTint(0xFF0000);
                   setTimeout(function () {
-                    tempSceneRef.player2.clearTint();
+                    tempSceneRef.player2.MiloSprite.clearTint();
                   }, 250);
                   tempSceneRef.damagedPlayer = true;
                   healthEmitter.emit(healthEvent.loseHealth,12);

@@ -385,7 +385,7 @@ class G12UpdateLoops extends G11CheckGameObjects{
         if(this.grabbed === false && this.playerStuckGrab === false){ 
 
          //call player function to see if there attacking and not in the air
-          if(this.player2.isAttacking === false || !this.player2.body.blocked.down  ){
+          if(this.player2.isAttacking === false || !this.player2.mainHitbox.body.blocked.down  ){
              //console.log("moving player");
             //as long as thep layer isnt wapring.
             //console.log("player warping: ",this.playerWarping);
@@ -394,13 +394,13 @@ class G12UpdateLoops extends G11CheckGameObjects{
               this.player2.movePlayer(this.player2.playerPreviousY,this);
             //otherwise kill player x velocity
             }else{
-              this.player2.setVelocityX(0);
-              this.player2.playerIdleAnimation();
+              this.player2.mainHitbox.setVelocityX(0);
+              //this.player2.playerIdleAnimation();
             }
           }else{
             
             //if the player isnt moving, or is in a attack Animation, then stop there x velocity
-            this.player2.setVelocityX(0);
+            this.player2.mainHitbox.setVelocityX(0);
           }
           
           //sets the camera to follow the player and changes the scale as well
@@ -412,15 +412,15 @@ class G12UpdateLoops extends G11CheckGameObjects{
 
 
           //call player function to see if there attacking
-          if(this.player2.body.blocked.down && this.checkATKIsDown()){
+          if(this.player2.mainHitbox.body.blocked.down && this.checkATKIsDown()){
             this.player2.isAttacking = true;
             this.player2.attackType = "light";
             this.player2.attackPlayer(this);
-          }else if(this.player2.body.blocked.down && this.checkSpecialIsDown()){
+          }else if(this.player2.mainHitbox.body.blocked.down && this.checkSpecialIsDown()){
             this.player2.isAttacking = true;
             this.player2.attackType = "special";
             this.player2.attackPlayer(this);
-          }else if(this.player2.body.blocked.down && this.checkBlockIsDown()){
+          }else if(this.player2.mainHitbox.body.blocked.down && this.checkBlockIsDown()){
             this.player2.isAttacking = true;
             this.player2.attackType = "block";
             this.player2.attackPlayer(this);

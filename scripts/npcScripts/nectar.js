@@ -465,9 +465,9 @@ class nectar extends npc{
       this.scene.moveFunctionActive = true;
       //angle nector correctly with boss version.
 
-      this.scene.player2.anims.play("angleIdleLeft", true);
-      this.scene.player2.setVelocityX(0);
-      this.scene.player2.setVelocityY(0);
+      this.scene.player2.MiloSprite.anims.play("angleIdleLeft", true);
+      this.scene.player2.mainHitbox.setVelocityX(0);
+      this.scene.player2.mainHitbox.setVelocityY(0);
 
       //pause physics of scene
       this.scene.cutSceneActive = true;
@@ -541,9 +541,9 @@ class nectar extends npc{
       //angle nector correctly with boss version.
 
       //stop player
-      this.scene.player2.anims.play("angleIdleLeft", true);
-      this.scene.player2.setVelocityX(0);
-      this.scene.player2.setVelocityY(0);
+      this.scene.player2.MiloSprite.anims.play("angleIdleLeft", true);
+      this.scene.player2.mainHitbox.setVelocityX(0);
+      this.scene.player2.mainHitbox.setVelocityY(0);
 
       //pause physics of scene
       this.scene.cutSceneActive = true;
@@ -847,22 +847,24 @@ class nectar extends npc{
    if(this.miloInPosition === false){
 
     //if milo is on the ground move him to nectars position and face her
-      if(this.scene.player2.body.blocked.down){
+      if(this.scene.player2.mainHitbox.body.blocked.down){
 
         //(this.x - 120)
         //left thresh (this.x - 120)-10
         //right Thresh (this.x - 120)+10
 
         //check to see if player is within range
-        if(this.scene.player2.x > (this.x + 180)-10 && this.scene.player2.x < (this.x + 180)+10){
-          this.scene.player2.setVelocityX(0);
+        if(this.scene.player2.mainHitbox.x > (this.x + 180)-10 && this.scene.player2.mainHitbox.x < (this.x + 180)+10){
+          this.scene.player2.mainHitbox.setVelocityX(0);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
           this.scene.player2.visible = false;
           // make milo npc version visible
 
           this.scene.Milo.visible = true;
           this.scene.player2.visible = false;
-          this.scene.Milo.x  = this.scene.player2.x;
-          this.scene.Milo.y = this.scene.player2.y;
+          this.scene.Milo.x  = this.scene.player2.mainHitbox.x;
+          this.scene.Milo.y = this.scene.player2.mainHitbox.y;
 
           //this.scene.Milo.flipX = true; 
 
@@ -876,20 +878,24 @@ class nectar extends npc{
           this.choke = false;
 
         //if milo is to the left of where he needs to be move him right
-        }else if(this.scene.player2.x < (this.x + 180)-10){
-          this.scene.player2.setVelocityX(250);
-          this.scene.player2.anims.play("walkLeft",true);
+        }else if(this.scene.player2.mainHitbox.x < (this.x + 180)-10){
+          this.scene.player2.mainHitbox.setVelocityX(250);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
+          this.scene.player2.MiloSprite.anims.play("walkLeft",true);
 
         //if milo is at the correct position then progress
-        }else if(this.scene.player2.x >= (this.x + 180)+10){
-          this.scene.player2.setVelocityX(-250);
-          this.scene.player2.anims.play("walkRight",true);
+        }else if(this.scene.player2.mainHitbox.x >= (this.x + 180)+10){
+          this.scene.player2.mainHitbox.setVelocityX(-250);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
+          this.scene.player2.MiloSprite.anims.play("walkRight",true);
 
         }
 
         
       }else{
-        this.scene.player2.anims.play('jumpDownLeft',true);
+        this.scene.player2.MiloSprite.anims.play('jumpDownLeft',true);
       }
    }else if(this.moveNectarOffScreen === false){
     
@@ -974,7 +980,7 @@ class nectar extends npc{
    if(this.nectarInPositionToEatMilo === false){
 
     //if milo is on the ground move him to nectars position and face her
-      if(this.scene.player2.body.blocked.down){
+      if(this.scene.player2.mainHitbox.body.blocked.down){
 
         if(this.miloHasFallen === false){
 
@@ -982,8 +988,8 @@ class nectar extends npc{
 
           this.scene.Milo.visible = true;
           this.scene.player2.visible = false;
-          this.scene.Milo.x  = this.scene.player2.x;
-          this.scene.Milo.y = this.scene.player2.y;
+          this.scene.Milo.x  = this.scene.player2.mainHitbox.x;
+          this.scene.Milo.y = this.scene.player2.mainHitbox.y;
           this.scene.Milo.flipX = true;
           this.scene.Milo.setDepth(9);
 
@@ -1023,7 +1029,7 @@ class nectar extends npc{
         //right Thresh (this.x - 120)+10
 
         //check to see if player is within range
-        if(this.x > (this.scene.player2.x + 180)-10 && this.x < (this.scene.player2.x + 180)+10){
+        if(this.x > (this.scene.player2.mainHitbox.x + 180)-10 && this.x < (this.scene.player2.mainHitbox.x + 180)+10){
           this.setVelocityX(0);
           
           this.choke = false;
@@ -1036,12 +1042,12 @@ class nectar extends npc{
 
 
         //if milo is to the left of where he needs to be move him right
-        }else if(this.x > (this.scene.player2.x + 180)-10){
+        }else if(this.x > (this.scene.player2.mainHitbox.x + 180)-10){
           this.setVelocity(-200,0);
           this.anims.play('sideWalkWithPlayer1',true);
 
         //if milo is at the correct position then progress
-        }else if(this.x < (this.scene.player2.x + 180)+10){
+        }else if(this.x < (this.scene.player2.mainHitbox.x + 180)+10){
           this.setVelocity(200,0);
           this.anims.play('sideWalkWithPlayer1',true);
 
@@ -1052,7 +1058,7 @@ class nectar extends npc{
         
       }else{
         //play falling animation if milo is in the air.
-        this.scene.player2.anims.play('jumpDownLeft',true);
+        this.scene.player2.MiloSprite.anims.play('jumpDownLeft',true);
       }
 
    }else if(this.nectarHasEatenMilo === false){
@@ -1130,22 +1136,24 @@ class nectar extends npc{
    if(this.miloInPosition === false){
 
     //if milo is on the ground move him to nectars position and face her
-      if(this.scene.player2.body.blocked.down){
+      if(this.scene.player2.mainHitbox.body.blocked.down){
 
         //(this.x - 120)
         //left thresh (this.x - 120)-10
         //right Thresh (this.x - 120)+10
 
         //check to see if player is within range
-        if(this.scene.player2.x > (this.x + 180)-10 && this.scene.player2.x < (this.x + 180)+10){
-          this.scene.player2.setVelocityX(0);
+        if(this.scene.player2.mainHitbox.x > (this.x + 180)-10 && this.scene.player2.mainHitbox.x < (this.x + 180)+10){
+          this.scene.player2.mainHitbox.setVelocityX(0);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
           this.scene.player2.visible = false;
           // make milo npc version visible
 
           this.scene.Milo.visible = true;
           this.scene.player2.visible = false;
-          this.scene.Milo.x  = this.scene.player2.x;
-          this.scene.Milo.y = this.scene.player2.y;
+          this.scene.Milo.x  = this.scene.player2.mainHitbox.x;
+          this.scene.Milo.y = this.scene.player2.mainHitbox.y;
 
           //this.scene.Milo.flipX = true; 
 
@@ -1159,20 +1167,24 @@ class nectar extends npc{
           this.choke = false;
 
         //if milo is to the left of where he needs to be move him right
-        }else if(this.scene.player2.x < (this.x + 180)-10){
-          this.scene.player2.setVelocityX(250);
-          this.scene.player2.anims.play("walkLeft",true);
+        }else if(this.scene.player2.mainHitbox.x < (this.x + 180)-10){
+          this.scene.player2.mainHitbox.setVelocityX(250);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
+          this.scene.player2.MiloSprite.anims.play("walkLeft",true);
 
         //if milo is at the correct position then progress
-        }else if(this.scene.player2.x >= (this.x + 180)+10){
-          this.scene.player2.setVelocityX(-250);
-          this.scene.player2.anims.play("walkRight",true);
+        }else if(this.scene.player2.mainHitbox.x >= (this.x + 180)+10){
+          this.scene.player2.mainHitbox.setVelocityX(-250);
+          this.scene.player2.x = this.scene.player2.mainHitbox.x;
+          this.scene.player2.y = this.scene.player2.mainHitbox.y;
+          this.scene.player2.MiloSprite.anims.play("walkRight",true);
 
         }
 
         
       }else{
-        this.scene.player2.anims.play('jumpDownLeft',true);
+        this.scene.player2.MiloSprite.anims.play('jumpDownLeft',true);
       }
    }else if(this.moveNectarOffScreen === false){
     
@@ -2150,9 +2162,11 @@ class nectar extends npc{
             this.scene.player2Active = true;
             this.scene.Milo.visible = false;
             this.scene.player2.visible = true;
-            this.scene.player2.anims.play('MenacingSpearHold',true);
-            this.scene.player2.x = this.scene.Milo.x;
-            this.scene.player2.y = this.scene.Milo.y;
+            this.scene.player2.MiloSprite.anims.play('MenacingSpearHold',true);
+            this.scene.player2.mainHitbox.x = this.scene.Milo.x;
+            this.scene.player2.mainHitbox.y = this.scene.Milo.y;
+            this.scene.player2.x = this.scene.player2.mainHitbox.x;
+            this.scene.player2.y = this.scene.player2.mainHitbox.y;
             this.dialogueCatch = false;
             this.scene.player2.setDepth(6);
             this.setDepth(5);

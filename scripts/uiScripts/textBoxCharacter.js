@@ -9,7 +9,7 @@ class textBoxCharacter extends Phaser.Physics.Arcade.Sprite{
       this.setDepth(50);
       //this.setScrollFactor(0);
       this.visible = false;
-      this.setScale(1/12);
+      this.setScale(1/6);
 
       //console.log('font ',font);
       this.repeats = 0;

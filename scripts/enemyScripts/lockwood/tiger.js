@@ -255,7 +255,10 @@ class tiger extends enemy {
 
     //functions that move tiger objects.
     move(){
-                
+
+        //this.x = Math.round(this.x);
+        //this.y = Math.round(this.y);  
+
         //sets the gravity for tiger
         this.body.setGravityY(600);
         //possitions her sprite box correctly along with her hitbox

@@ -1450,7 +1450,7 @@ class gameHud extends A3SoundEffects {
 
     //update loop.
     update(){
-      console.log("this.cameras.main: ",this.cameras.main);
+      //console.log("this.cameras.main: ",this.cameras.main);
       if(this.debugToggle === true){
         this.updateDebugHud();
       }

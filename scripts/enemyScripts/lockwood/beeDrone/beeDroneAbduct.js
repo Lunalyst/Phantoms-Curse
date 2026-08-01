@@ -62,7 +62,11 @@ class beeDroneAbduct extends enemy {
                     ease: 'linear',
                     duration: 350,
                     repeat: -1,
-                    yoyo: true
+                    yoyo: true,
+                    onUpdate: () => {
+                        this.x = Math.round(this.x);
+                        this.y = Math.round(this.y);
+                    }
                 });
 
                 this.startedGrab = true;
@@ -84,6 +88,8 @@ class beeDroneAbduct extends enemy {
             this.playJumpySound('2',800); 
            
         }else{
+            this.x = Math.round(this.x);
+            this.y = Math.round(this.y);
             this.setVelocityY(-100);
         }
     }

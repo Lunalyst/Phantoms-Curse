@@ -257,7 +257,7 @@ class G2levelSetupFunctions extends G1PlayerInputs {
   //sets up text box in scene
   setUpTextBox(){
     //note scenewidth defined later in default scene
-    this.sceneTextBox = new textBox(this,this.screenWidth/2,620,'charBlack');
+    this.sceneTextBox = new textBox(this,(this.screenWidth/2),630,'charBlack');
   }
 
   //contains most default timeout functions

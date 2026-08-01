@@ -112,7 +112,7 @@ class wolf extends npc{
 
         this.moveWolf = false;
 
-        this.scene.mycamera.startFollow(this.playerOnStrecher);
+        this.scene.mycamera.startFollow(this.playerOnStrecher,true);
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
 
@@ -158,7 +158,7 @@ class wolf extends npc{
         this.npcTriggerRangeX = 2000;
         this.npcTriggerRangeY = 2000;
 
-        this.scene.mycamera.startFollow(this.playerOnStrecher);
+        this.scene.mycamera.startFollow(this.playerOnStrecher,true);
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
 
@@ -175,7 +175,7 @@ class wolf extends npc{
 
         this.npcTriggerRange = true;
 
-        this.scene.mycamera.startFollow(this);
+        this.scene.mycamera.startFollow(this,true);
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
        }

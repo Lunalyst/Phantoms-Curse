@@ -374,7 +374,11 @@ class beeGrubAbsorb extends enemy {
                                     ease: 'linear',
                                     duration: 350,
                                     repeat: -1,
-                                    yoyo: true
+                                    yoyo: true,
+                                    onUpdate: () => {
+                                        temp.x = Math.round(temp.x);
+                                        temp.y = Math.round(temp.y);
+                                    }
                                 });
                                
                             }, 100);

@@ -197,7 +197,8 @@ class tutorialBeach extends defaultScene {
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
       
       //console.log("this.mycamera:",this.mycamera )
-      console.log("scene:",this)
+      //console.log("scene:",this)
+      
       //calls the built in update function
       this.defaultUpdate();
 

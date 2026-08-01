@@ -81,7 +81,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     this.visible = false;
 
     this.setSize(60,200,true);
-    this.setOffset(203, 91);
+    this.setOffset(203, 90);
     // hitbox cooldown.
     this.hitboxCoolDown = false;
 
@@ -162,6 +162,9 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     movePlayer(PCMiloPreviousY,scene){
       
     this.speed = 270;
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
+    console.log(" this.x: ", this.x, " this.y: ",this.y);
 
     //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
     let PCMiloHealthObject = {
@@ -453,7 +456,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
           switch(this.attackType) {
             case ("light"):
 
-              console.log("this.attackHitboxState: ",this.attackHitboxState);
+              //console.log("this.attackHitboxState: ",this.attackHitboxState);
               if(this.playedAttackAnimation === false){
 
                 this.playedAttackAnimation = true;
@@ -676,7 +679,7 @@ class PCMilo extends Phaser.Physics.Arcade.Sprite {
     
     //start by having the PCMilo press shift state should be false
 
-    console.log("this.attackHitboxState: ",this.attackHitboxState);
+    //console.log("this.attackHitboxState: ",this.attackHitboxState);
     if(this.attackHitboxState === false){
       
       //after that time is up put the hitbox back to its idle location and reset the attackHitboxstate variable. 

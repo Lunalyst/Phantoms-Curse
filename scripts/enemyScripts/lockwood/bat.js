@@ -233,7 +233,7 @@ class bat extends enemy {
 
     //functions that move bat objects.
     move(){
-
+        
     if(this.target === null){
         console.log("target is null for no fucking reason so setting it back to the player!");
         console.log("this.target: ", this.target);

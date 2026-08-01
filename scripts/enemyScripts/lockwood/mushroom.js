@@ -114,6 +114,7 @@ class mushroom extends enemy {
 
     //functions that move enemy objects.
     move() {
+
         this.setSize(70, 180, true);
         this.setOffset(115, 59);
 

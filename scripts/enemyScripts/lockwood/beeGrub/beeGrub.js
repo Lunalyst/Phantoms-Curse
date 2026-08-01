@@ -124,6 +124,7 @@ class beeGrub extends beeGrubAbsorb {
 
     //functions that move beeGrub objects.
     move(){
+
         if (this.enemyHP > 0) {
         
         if (this.checkXRangeFromPlayer(400, 400) && this.checkYRangeFromPlayer(200,100) && this.enemyDefeated === false) {
@@ -317,6 +318,9 @@ class beeGrub extends beeGrubAbsorb {
         //updates the previous y value to tell if beeGrub is falling or going up in its jump.
         this.enemyPreviousY = this.y;
 
+        //this.x = Math.round(this.x);
+        //this.y = Math.round(this.y);
+
     }
 
     //simple idle function played when the player is grabbed by something that isnt this beeGrub.
@@ -436,6 +440,9 @@ class beeGrub extends beeGrubAbsorb {
         this.scene.player1.y = this.y - 150;
         // makes the key prompts visible.
         //this.scene.KeyDisplay.visible = true;
+
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
  
         this.playerGrabbed = true;
         //if the player is grabbed then do the following.

@@ -112,6 +112,11 @@ class nectar extends npc{
 
        this.npcInteractionFinished = false;
 
+       //.6
+       this.textboxScaleProfile = 1/3;
+       //default
+       this.textboxScaleProfileDefault = 1/3;
+
        // idea for mini game. options slowly pop up and vanish. under the hood its an array, that roles a random number based on the length of the array. then it removes that options so theres no repeats. 
        this.riddleOptions = ["Tiger","Snake","Vampire","Nothing","Sphinx","Lets Fight","Shark","Stapler","Staples","Spider","I don’t want to answer","The concept of death","can you repeat the riddle?","all of the above?"];
 
@@ -342,7 +347,7 @@ class nectar extends npc{
 
       this.dialogueLogicStart();
   
-      this.scene.mycamera.startFollow(this);
+      this.scene.mycamera.startFollow(this,true);
       this.scene.cameras.main.zoom = 2;
       this.scene.cameras.main.followOffset.set(0,70);
 
@@ -492,7 +497,7 @@ class nectar extends npc{
 
       console.log("giving nectar physics and following her now");
 
-      this.scene.mycamera.startFollow(this);
+      this.scene.mycamera.startFollow(this,true);
       this.scene.cameras.main.zoom = 2;
       //this.scene.cameras.main.followOffset.set(0,0);
 
@@ -569,10 +574,6 @@ class nectar extends npc{
       this.dialogueLogicStart();
 
       console.log("giving nectar physics and following her now");
-
-      //this.scene.mycamera.startFollow(this);
-      //this.scene.cameras.main.zoom = 2;
-      //this.scene.cameras.main.followOffset.set(0,0);
 
       this.scene.physics.add.collider(this, this.scene.processMap.layer1);
 
@@ -1090,7 +1091,7 @@ class nectar extends npc{
 
                   setTimeout(function () {
                     temp.scene.sceneTextBox.textInterupt = false;
-                    temp.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+                    temp.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfile)
                     temp.progressNode("node7");
                     temp.nectarHasEatenMilo = true;
 
@@ -1707,7 +1708,7 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
            if(this.currentDictNode.nodeName === "node1"){
 
-            this.scene.sceneTextBox.textBoxProfileImage.setScale(.5)
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault)
 
             //for testing gameovers so i dont have to go through the whole process to get them.
 
@@ -2209,7 +2210,7 @@ class nectar extends npc{
             
             //console.log("activating nectar walk away.");
 
-            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfile)
 
             //turn off forcing the camera in move funct to follow player cloths.
             if(this.node9Start === undefined){
@@ -2369,7 +2370,7 @@ class nectar extends npc{
         //calls emitter to show the tabtoskip graphic
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
 
-        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
 
       }else if(this.currentDictNode.nodeName === "node2"){
 
@@ -2419,7 +2420,7 @@ class nectar extends npc{
                   let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
                       console.log('Camera pan has completed!');
 
-                      this.scene.mycamera.startFollow(this.playerCloths);
+                      this.scene.mycamera.startFollow(this.playerCloths,true);
                       this.scene.cameras.main.zoom = 2;
                       this.scene.cameras.main.followOffset.set(0,70);
                       this.scene.bossNectar.digestionTimer.visible = false;
@@ -2450,7 +2451,7 @@ class nectar extends npc{
 
            }else if(this.currentDictNode.nodeName === "node9"){
 
-            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfile)
 
             //turn off forcing the camera in move funct to follow player cloths.
             if(this.node9Start === undefined){
@@ -2460,7 +2461,7 @@ class nectar extends npc{
               this.moveNectarOffScreen = false;
               this.scene.sceneTextBox.textInterupt = true;
 
-              this.scene.mycamera.startFollow(this.playerCloths);
+              this.scene.mycamera.startFollow(this.playerCloths,true);
               this.scene.cameras.main.zoom = 2;
               this.scene.cameras.main.followOffset.set(0,70);
             }
@@ -2500,7 +2501,7 @@ class nectar extends npc{
         //calls emitter to show the tabtoskip graphic
         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,true);
         
-        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
         
         this.scene.mycamera.startFollow(this.scene.Milo,true,1,1);
         this.scene.cameras.main.zoom = 2;
@@ -2523,7 +2524,7 @@ class nectar extends npc{
 
       }else if(this.currentDictNode.nodeName === "node7"){
 
-        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
 
         this.inDialogue = false;
 
@@ -2568,7 +2569,7 @@ class nectar extends npc{
     if(this.currentDictNode !== null){
       if(this.currentDictNode.nodeName === "node1"){
         
-        this.scene.sceneTextBox.textBoxProfileImage.setScale(.5);
+        this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfileDefault);
 
       }else if(this.currentDictNode.nodeName === "node2"){
 
@@ -2612,7 +2613,7 @@ class nectar extends npc{
                   let panRef = this.scene.cameras.main.on(Phaser.Cameras.Scene2D.Events.PAN_COMPLETE, () => {
                       console.log('Camera pan has completed!');
 
-                      this.scene.mycamera.startFollow(this.playerCloths);
+                      this.scene.mycamera.startFollow(this.playerCloths,true);
                       this.scene.cameras.main.zoom = 2;
                       this.scene.cameras.main.followOffset.set(0,70);
                       this.scene.bossNectar.digestionTimer.visible = false;
@@ -2659,7 +2660,7 @@ class nectar extends npc{
 
            }else if(this.currentDictNode.nodeName === "node9"){
 
-            this.scene.sceneTextBox.textBoxProfileImage.setScale(.6)
+            this.scene.sceneTextBox.textBoxProfileImage.setScale(this.textboxScaleProfile)
 
             //turn off forcing the camera in move funct to follow player cloths.
             if(this.node9Start === undefined){
@@ -2669,7 +2670,7 @@ class nectar extends npc{
               this.moveNectarOffScreen = false;
               this.scene.sceneTextBox.textInterupt = true;
 
-              this.scene.mycamera.startFollow(this.playerCloths);
+              this.scene.mycamera.startFollow(this.playerCloths,true);
               this.scene.cameras.main.zoom = 2;
               this.scene.cameras.main.followOffset.set(0,70);
             }

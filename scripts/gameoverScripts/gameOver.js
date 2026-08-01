@@ -15,6 +15,24 @@ class gameOver extends gameoverManager {
         this.gameOverSign;
         //try agian button 
         this.tryAgain;
+        this.tryAgainX = 1200/2;
+        this.tryAgainY = 645;
+
+        this.sceneTextBoxX = 1200/2+10;
+        this.sceneTextBoxY = 575;
+        this.textboxScale = 0.51;
+
+        //450,400
+        this.gameoverSignX = 450;
+        this.gameoverSignY = 400;
+        this.gameoverSignScale = 0;
+
+        //270,685
+        this.mobileWX = 320;
+        this.mobileWY = 645;
+
+        //this.gameover
+        
         //function to acess other functions. should factor this out.
         this.allFunctions;
         //sets up camera object
@@ -192,8 +210,8 @@ class gameOver extends gameoverManager {
                 this.physics.add.collider(this.processMap.layer1, this.npcGameover);
 
                 //game over sign.
-                this.gameOverSign = this.add.sprite(450,380,"gameOverSign");
-                this.gameOverSign.setScale(.3);
+                this.gameOverSign = this.add.sprite(this.gameoverSignX,this.gameoverSignY,"gameOverSign");
+                this.gameOverSign.setScale(1/6);
                 this.gameOverSign.setDepth(7);
                 
                 if(this.defeatedTitle === 'eaten'){
@@ -229,12 +247,14 @@ class gameOver extends gameoverManager {
 
             //sets up camera to follow player.
             this.mycamera = this.cameras.main;
-            //this.mycamera.startFollow(this.enemy);
+            
             this.mycamera.setBounds( 0, 0, this.myMap.widthInPixels, this.myMap.HeightInPixels);
-            this.cameras.main.zoom = 2.5;
+            this.cameras.main.zoom = 3;
             //this.cameras.main.followOffset.set(-450,-100);
           
-            this.mycamera.setScroll(-135, 60);
+            this.mycamera.setScroll(-135, 70);
+            this.mycamera.setRoundPixels(true);
+            console.log("this.mycamera: ",this.mycamera);
                 
             this.initSoundEffect('gameoverSFX','gameover',0.05);
 

@@ -389,7 +389,7 @@ class nectarBoss extends enemy {
 
             }else if(this.checkXRangeFromPlayer2(2000, 2000) && this.attackTimer === false && this.attemptingAttack === false) {
 
-                console.log("nectar too far away. this.scene.player2.x: ",this.scene.player2.x ,"this.x",);
+                //console.log("nectar too far away. this.scene.player2.x: ",this.scene.player2.x ,"this.x",);
                if(this.scene.player2.x > this.x){
                     this.setVelocityX(200 * 1);
                     this.flipX = true;

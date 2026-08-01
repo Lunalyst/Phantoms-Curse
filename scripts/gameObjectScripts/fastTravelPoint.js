@@ -54,6 +54,25 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
         inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, this.fastTravelFlag);
 
+        //has player encountered autumn or moff yet?
+        let autumnDialogue1 = {
+            flagToFind: "autumnIntroToFastTravel",
+            foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, autumnDialogue1);
+
+        //has player encountered autumn or moff yet?
+        let moffDialogue1 = {
+            flagToFind: "moffIntroToFastTravel",
+            foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, moffDialogue1);
+
+        this.moffEncountered = moffDialogue1.foundFlag;
+
+
         //ok so we need to find the landing x and y from the current location 
         let temp = fastTravelKey[fastTravelLocationFinder[this.scene.playerLocation]]
         temp[this.scene.playerLocation].landingX;
@@ -65,7 +84,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
             console.log("player now landing! ")
             this.scene.player1.visible = false;
 
-            this.scene.mycamera.startFollow(this);
+            this.scene.mycamera.startFollow(this,true);
             this.scene.cameras.main.zoom = 2;
             this.scene.cameras.main.followOffset.set(-30,30);
 
@@ -88,14 +107,6 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
             this.promptCooldown = true;
 
             this.fastTravelNPCPresent = true;
-
-            //has player encountered autumn or moff yet?
-            let autumnDialogue1 = {
-            flagToFind: "autumnIntroToFastTravel",
-            foundFlag: false,
-            };
-
-            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, autumnDialogue1);
 
             //if not spawn intro version of autumn.
             if(autumnDialogue1.foundFlag === false){
@@ -129,6 +140,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
     savePointSaveGame(scene1,keyW,activeId,saveX,saveY){
 
         if(this.fastTravelNPCPresent === false){
+
             //if the player is withing the correct range, and the press w and the cooldown is false then save the game
             if( this.safeToSave === true && scene1.checkWPressed() && this.saveCoolDown === false && scene1.isPaused === false){
                 console.log("activating fast travel?")
@@ -145,7 +157,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                        
                     });
                     
-                 }else if(this.bellRinging === false){
+                 }else if(this.bellRinging === false && (this.autumnEncountered === true ||this.moffEncountered === true)){
                     console.log("ringing bell")
                     this.bellRinging = true;
                     this.fastTravelNPCPresent = true;
@@ -189,7 +201,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                
 
             //this code plays the animation for the w key under the save stone
-            }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false){
+            }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false && (this.autumnEncountered === true ||this.moffEncountered === true)){
                 console.log("prompts active");
                 this.saveStoneKeyPrompts.visible = true;
                 this.saveStoneKeyPrompts.playWKey();

@@ -233,7 +233,7 @@ class gameoverManager extends A3SoundEffects {
         //call allscenes object, maybe its time to make a default ui screen class? or just do the loading in the title screen and gameover.
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         //define a key and make it interactive
-        this.mobileW = new mobileButton(this,300,660).setInteractive(this.input.makePixelPerfect());
+        this.mobileW = new mobileButton(this,this.mobileWX,this.mobileWY).setInteractive(this.input.makePixelPerfect());
         this.mobileW.playWKey(0);
         this.mobileW.setScale(1/3);
 
@@ -259,8 +259,8 @@ class gameoverManager extends A3SoundEffects {
 
         
 
-        //creates try again button
-        this.tryAgian = this.add.sprite(650, 660, "tryAgianSign").setInteractive();
+        //creates try again butto
+        this.tryAgian = this.add.sprite(this.tryAgainX, this.tryAgainY, "tryAgianSign").setInteractive();
 
         //creates animations for try agian button
         this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
@@ -274,7 +274,7 @@ class gameoverManager extends A3SoundEffects {
         this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
 
         this.tryAgian.anims.play('tryAgianInActive');
-        this.tryAgian.setScale(.5);
+        this.tryAgian.setScale(1/3);
         this.tryAgian.setDepth(7);
 
         let gameoverThat = this;
@@ -319,9 +319,8 @@ class gameoverManager extends A3SoundEffects {
         this.tryAgian.visible = false;
 
         //textbox for new character 
-        this.sceneTextBox = new textBox(this,1200/2-30,580,'charWhite');
-        this.sceneTextBox.setScale(1/2);
-        this.sceneTextBox.y = 600;
+        this.sceneTextBox = new textBox(this,this.sceneTextBoxX,this.sceneTextBoxY,'charWhite');
+        this.sceneTextBox.setScale(this.textboxScale);
         this.sceneTextBox.setTextboxBackground("cursed");
         this.sceneTextBox.textTint = 0x9d00e0;
         

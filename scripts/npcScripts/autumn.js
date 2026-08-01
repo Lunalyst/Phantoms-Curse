@@ -1101,7 +1101,7 @@ class autumn extends npc{
 
           this.inDialogue = true;
           //focus on warp point. 
-          this.scene.mycamera.startFollow(this.fastTravelPlatformRef);
+          this.scene.mycamera.startFollow(this.fastTravelPlatformRef,true);
           this.scene.cameras.main.zoom = 2;
           this.scene.cameras.main.followOffset.set(-30,30);
 

@@ -259,7 +259,7 @@ class istara extends npc{
           this.anims.play('istaraStart',true);
 
           //follow istara and zoom the camera in
-          this.scene.mycamera.startFollow(this);
+          this.scene.mycamera.startFollow(this,true);
 
         }else if(this.currentDictNode.nodeName === "node17" && this.animationPlayed === false ){
           
@@ -465,7 +465,7 @@ class istara extends npc{
           this.anims.play('istaraStart',true);
 
           //follow istara and zoom the camera in
-          this.scene.mycamera.startFollow(this);
+          this.scene.mycamera.startFollow(this,true);
 
         }else if(this.currentDictNode.nodeName === "node17" && this.animationPlayed === false ){
           

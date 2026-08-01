@@ -206,6 +206,7 @@ class chestMimic extends enemy {
 
     //functions that move chestMimic objects.
     move(){
+
         this.setSize(200,100,true);
         this.setOffset(90, 200);
         console.log("this.hiding: ",this.hiding,"this.attacked: ",this.attacked)

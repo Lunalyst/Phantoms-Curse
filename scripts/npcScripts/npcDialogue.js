@@ -1046,7 +1046,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
-                        "dialogue": "I eventually managed to lose it after a while. But it clearly couldn\'t or wouldn\'t respond to my please for it to stop chasing me.",
+                        "dialogue": "I eventually managed to lose it after a while. But it clearly couldn\'t or wouldn\'t respond to my pleas for it to stop chasing me.",
                         "profile":"blank",
                         "textvoice":"default",
                         "children":["node8"]

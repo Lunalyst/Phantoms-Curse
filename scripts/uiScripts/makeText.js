@@ -30,6 +30,15 @@ class makeText extends Phaser.GameObjects.Container{
         this.middleX = 0;
         this.creditschoke = false;
 
+        this.defaultDuration = 600;
+
+        if(font === "charBubble"){
+          this.setScale(1);
+        }else{
+          this.setScale(1);
+        }
+        
+
 
         //fills the array fill of textboxcharacters
         for (let counter = 0; counter < this.letterString.length; counter++) {
@@ -37,7 +46,13 @@ class makeText extends Phaser.GameObjects.Container{
           if(this.letterString.charAt(counter) !== '@' && specialCharacter === false){
             this.letters.push(new textBoxCharacter(scene, this.x + startingX, this.y + startingY,font));
             this.letters[this.letters.length-1].anims.play(this.letterString.charAt(counter));
-            this.letters[this.letters.length-1].setScale(1/6);
+
+            //if(font === "charBubble"){
+              //this.letters[this.letters.length-1].setScale(1/3);
+            //}else{
+              this.letters[this.letters.length-1].setScale(1/6);
+            //}
+            
             
 
           // if the character is a @ then we set specialchar to true
@@ -149,10 +164,14 @@ class makeText extends Phaser.GameObjects.Container{
             rotation: 0
           }, 
           ease: 'linear',
-          duration: 300,
+          duration: this.defaultDuration,
           delay: counter*100,
           repeat: -1,
-          yoyo: true
+          yoyo: true,
+          onUpdate: () => {
+            this.letters[counter].x = Math.round(this.letters[counter].x);
+            this.letters[counter].y = Math.round(this.letters[counter].y);
+          }
       });
       }
     }
@@ -172,10 +191,13 @@ class makeText extends Phaser.GameObjects.Container{
             //rotation: 0
           }, 
           ease: 'linear',
-          duration: 600,
+          duration: this.defaultDuration,
           delay: counter*10,
           repeat: -1,
-          yoyo: true
+          yoyo: true,onUpdate: () => {
+            this.letters[counter].x = Math.round(this.letters[counter].x);
+            this.letters[counter].y = Math.round(this.letters[counter].y);
+          }
       });
       }
     }
@@ -195,9 +217,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: 0,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }else{
           this.scene.tweens.add({
@@ -209,9 +235,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: 0,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }
       }
@@ -234,7 +264,11 @@ class makeText extends Phaser.GameObjects.Container{
             ease: 'linear',
             duration: time,
             repeat: 0,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }else{
           this.scene.tweens.add({
@@ -248,7 +282,11 @@ class makeText extends Phaser.GameObjects.Container{
             ease: 'linear',
             duration: time,
             repeat: 0,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }
       }
@@ -269,9 +307,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: -1,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }else{
           this.scene.tweens.add({
@@ -283,9 +325,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: -1,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         }
       }
@@ -306,9 +352,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: -1,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
 
       }
@@ -328,9 +378,13 @@ class makeText extends Phaser.GameObjects.Container{
               rotation: 0
             }, 
             ease: 'linear',
-            duration: 600,
+            duration: this.defaultDuration,
             repeat: -1,
-            yoyo: true
+            yoyo: true,
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
 
       }
@@ -349,7 +403,11 @@ class makeText extends Phaser.GameObjects.Container{
           scale: (top/(bottom)/6),
           ease: 'Sine.InOut',
           repeat: 0,  
-          onComplete: this.textFadeOutAndDestroy(time*3)
+          onComplete: this.textFadeOutAndDestroy(time*3),
+          onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
 
 
@@ -366,6 +424,10 @@ class makeText extends Phaser.GameObjects.Container{
           alpha: { from: 0, to: 1 },
           ease: 'Sine.InOut',
           repeat: 0,
+          onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
       }
     }
@@ -378,6 +440,10 @@ class makeText extends Phaser.GameObjects.Container{
           alpha: { from: 1, to: 0 },
           ease: 'Sine.InOut',
           repeat: 0,
+          onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
       }
     }
@@ -390,7 +456,11 @@ class makeText extends Phaser.GameObjects.Container{
           alpha: { from: 1, to: 0 },
           ease: 'Sine.InOut',
           repeat: 0,
-          onComplete: this.remove(time)
+          onComplete: this.remove(time),
+          onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
       }
     }
@@ -410,7 +480,11 @@ class makeText extends Phaser.GameObjects.Container{
             duration: time,
             repeat: 0,
             yoyo: false,
-            onComplete: this.removeCredits(time,isLast)
+            onComplete: this.removeCredits(time,isLast),
+            onUpdate: () => {
+              this.letters[counter].x = Math.round(this.letters[counter].x);
+              this.letters[counter].y = Math.round(this.letters[counter].y);
+            }
         });
         
       }

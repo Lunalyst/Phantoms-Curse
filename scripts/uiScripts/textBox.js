@@ -11,13 +11,15 @@ class textBox extends Phaser.GameObjects.Container{
       scene.add.existing(this);
       this.visible = false;
       this.setScrollFactor(0);
-      this.setScale(.7);
+      //this.setScale(1);
+
+      this.textboxOffsetX = 50;
 
       this.delayText = false;
       this.delayTextTime = 0;
 
       //makes base sprite to boarder the text
-      this.outSide = scene.add.sprite(0, 0, 'textBox');
+      this.outSide = scene.add.sprite(0+this.textboxOffsetX, 0, 'textBox');
       this.outSide.anims.create({key: 'blank',frames: this.outSide.anims.generateFrameNames('textBox', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
       this.outSide.anims.create({key: 'default',frames: this.outSide.anims.generateFrameNames('textBox', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
       this.outSide.anims.create({key: 'cursed',frames: this.outSide.anims.generateFrameNames('textBox', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
@@ -33,16 +35,16 @@ class textBox extends Phaser.GameObjects.Container{
 
       //sets up text for the textbox there are 75 text characters used
       for(let i = 0; i < textEnd+1; i++){
-        let textChar = new textBoxCharacter(scene, spacing, y,font);
-        textChar.setScale(1/6);
+        let textChar = new textBoxCharacter(scene, spacing+this.textboxOffsetX, y,font);
+        //textChar.setScale(1/12);
 
         this.add(textChar);
         this.lines.push(textChar);
 
-        spacing = spacing + 20;
+        spacing = spacing + 14;
         if(i === lineLength || i === lineLength*2+1){
           
-          y += 27;
+          y += 19;
           spacing = -200;
         }
  
@@ -51,7 +53,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.completedText = false;
 
       //displays prtofile sprite meant to resemble what is currently talking to the player.
-      this.textBoxProfileImage = new textBoxProfile(scene, -250, 0);
+      this.textBoxProfileImage = new textBoxProfile(scene, -250+this.textboxOffsetX, 0);
       this.add(this.textBoxProfileImage);
       
       this.currentText = "empty";
@@ -625,7 +627,7 @@ class textBox extends Phaser.GameObjects.Container{
       }
       this.textBoxProfileImage.x = this.textBoxProfileImage.x-109;
       this.textBoxProfileImage.y = this.textBoxProfileImage.y-5;
-      this.textBoxProfileImage.setScale(.6);
+      this.textBoxProfileImage.setScale(1/3);
 
     }
 
@@ -645,6 +647,7 @@ class textBox extends Phaser.GameObjects.Container{
             
            
             this.displayText(0,textEnd);
-            this.visible = isVisible;    
+            this.visible = isVisible;  
+            console.log("textbox: ",this)  
     }
 }

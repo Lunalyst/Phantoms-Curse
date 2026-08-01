@@ -90,7 +90,7 @@ class npc extends Phaser.Physics.Arcade.Sprite{
 
   //pauses the animations of the enemys.
   pauseAnimations(scene) {
-    console.log("scene.inventoryOpen: ",scene.inventoryOpen);
+    //console.log("scene.inventoryOpen: ",scene.inventoryOpen);
     if (scene.inventoryOpen === true) {
       //console.log("pausing npc animation");
       this.anims.pause();

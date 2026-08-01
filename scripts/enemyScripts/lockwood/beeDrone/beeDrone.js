@@ -173,6 +173,10 @@ class beeDrone extends beeDroneAbduct {
 
     //functions that move beeDrone objects.
     move(){
+
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
+        
         //console.log(' this.enemyId: ', this.enemyId,' this.playerGrabbed: ',this.playerGrabbed, ' this.grabTimer: ',this.grabTimer);
          if (this.enemyHP > 0) {
 

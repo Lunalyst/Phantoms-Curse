@@ -1326,7 +1326,7 @@ class vivian extends npc{
               temp.scene.initSoundEffect('creakSFX','wood',0.05);
 
               //have the camera follow vivian.
-              temp.scene.mycamera.startFollow(temp);
+              temp.scene.mycamera.startFollow(temp,true);
 
               if(temp.animationPlayed === false){
             
@@ -1494,7 +1494,7 @@ class vivian extends npc{
               temp.scene.initSoundEffect('creakSFX','wood',0.05);
 
               //have the camera follow vivian.
-              temp.scene.mycamera.startFollow(temp);
+              temp.scene.mycamera.startFollow(temp,true);
 
               if(temp.animationPlayed === false){
             
@@ -1766,7 +1766,7 @@ class vivian extends npc{
               temp.scene.initSoundEffect('creakSFX','wood',0.05);
 
               //have the camera follow vivian.
-              temp.scene.mycamera.startFollow(temp);
+              temp.scene.mycamera.startFollow(temp,true);
 
               if(temp.animationPlayed === false){
             
@@ -2184,7 +2184,7 @@ class vivian extends npc{
           }
 
           //have the camera follow vivian.
-          this.scene.mycamera.startFollow(this);
+          this.scene.mycamera.startFollow(this,true);
 
            if(this.animationPlayed === false){
         
@@ -2372,7 +2372,7 @@ class vivian extends npc{
           }
 
           //have the camera follow vivian.
-          this.scene.mycamera.startFollow(this);
+          this.scene.mycamera.startFollow(this,true);
 
            if(this.animationPlayed === false){
         
@@ -2400,7 +2400,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
+            //this.scene.sceneTextBox.visible = false;
            
             this.anims.play('vivianTFMove').once('animationcomplete', () => {
               this.anims.play('vivianTFInChestIdle',true);
@@ -2409,7 +2409,7 @@ class vivian extends npc{
               this.animationPlayed = false;
               //hide ui and dialogue box.
               //this.progressNode("",true);
-              this.scene.sceneTextBox.visible = true;
+              //this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
             });
           }
@@ -2423,18 +2423,18 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
+            //this.scene.sceneTextBox.visible = false;
            
             this.anims.play('vivianTFGrabBottle').once('animationcomplete', () => {
               this.anims.play('vivianTFBottleIdle',true);
               this.scene.sceneTextBox.textInterupt = false;
               this.animationPlayed = false;
-              this.scene.sceneTextBox.visible = true;
+              //this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
             });
           }
         
-        }else if(this.currentDictNode.nodeName === "node4"){
+        }else if(this.currentDictNode.nodeName === "node5"){
 
           this.scene.player1.visible = false;
           if(this.animationPlayed === false){
@@ -2445,7 +2445,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
+            //this.scene.sceneTextBox.visible = false;
            this.scene.initSoundEffect('swallowSFX','5',0.02);
             this.anims.play('vivianTFBottleToDrink').once('animationcomplete', () => {
               this.anims.play('vivianTFBottleToHitGround').once('animationcomplete', () => {
@@ -2458,13 +2458,13 @@ class vivian extends npc{
                   this.animationPlayed = false;
                   //hide ui and dialogue box.
                   //this.progressNode("",true);
-                  this.scene.sceneTextBox.visible = true;
+                  //this.scene.sceneTextBox.visible = true;
                   this.dialogueCatch = false;
                 });
               });
             });
           }
-        }else if(this.currentDictNode.nodeName === "node5"){
+        }else if(this.currentDictNode.nodeName === "node6"){
 
           this.scene.player1.visible = false;
           if(this.animationPlayed === false){
@@ -2475,7 +2475,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
+            //this.scene.sceneTextBox.visible = false;
             
             this.scene.initSoundEffect('curseSFX','curse',0.3);
             this.anims.play('vivianTFTransform').once('animationcomplete', () => {
@@ -2485,7 +2485,7 @@ class vivian extends npc{
               this.animationPlayed = false;
               //hide ui and dialogue box.
               this.progressNode("",true);
-              this.scene.sceneTextBox.visible = true;
+              //this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
             });
           }
@@ -2501,7 +2501,7 @@ class vivian extends npc{
             this.scene.sceneTextBox.textInterupt = true;
 
             //hide ui and dialogue box.
-            this.scene.sceneTextBox.visible = false;
+            //this.scene.sceneTextBox.visible = false;
            
             this.anims.play('vivianTFMoveToHug').once('animationcomplete', () => {
               this.anims.play('vivianTFHugIdle',true);
@@ -2510,7 +2510,7 @@ class vivian extends npc{
               this.animationPlayed = false;
               //hide ui and dialogue box.
               //this.progressNode("",true);
-              this.scene.sceneTextBox.visible = true;
+              //this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
             });
           }

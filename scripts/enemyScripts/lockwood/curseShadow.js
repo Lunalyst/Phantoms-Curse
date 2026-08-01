@@ -384,7 +384,7 @@ class curseShadow extends enemy {
                         currentEnemy.scene.npcGameover.nodeHandler("gameover","cursed","curseShadowSecret1");
                         //let the update loop know to move the enemy.
                         currentEnemy.gameoverMove = true;
-                        currentEnemy.scene.mycamera.startFollow(currentEnemy );
+                        currentEnemy.scene.mycamera.startFollow(currentEnemy,true);
                         currentEnemy.scene.mycamera.setFollowOffset(0,93); 
                         //currentEnemy.scene.mycamera.setLerp(.05, .05);
 

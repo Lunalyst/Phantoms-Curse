@@ -270,7 +270,7 @@ class rabbit extends enemy {
         //checks to see if rabbit should move if the player is within range.
         if (this.checkXRangeFromPlayer(350, 350) && this.enemyInDefeatedLogic === false) {
             this.setSize(70, 179, true);
-            this.setOffset(180, 110);
+            this.setOffset(180, 109);
 
              //code to change rabbit behavior
              //console.log("this.scene.player1.ringType: ",this.scene.player1.ringType)
@@ -786,7 +786,7 @@ class rabbit extends enemy {
     gameOver() {
         const femalePreferance = this.scene.preferance !== 0
 
-        this.setSize(70, 180, true);
+        this.setSize(70, 179, true);
         this.setOffset(180, 110);
         this.anims.play('rabbitGameover', true);
 

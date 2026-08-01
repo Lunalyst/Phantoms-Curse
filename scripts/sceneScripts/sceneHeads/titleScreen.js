@@ -69,6 +69,9 @@ class titleScreen extends A3SoundEffects {
 
         this.screenWidth = 1200;
         this.screenHeight = 900;
+
+        this.textWidth = 84
+        this.textHight = 108
        
         }
 
@@ -90,9 +93,9 @@ class titleScreen extends A3SoundEffects {
             this.load.spritesheet("neutralSexSelectIcons" , "assets/titleScreen/neutralSexSelectIcons.png" , {frameWidth: 75 , frameHeight: 75 });
             this.load.spritesheet('textBox', 'assets/hudElements/textBox.png',{frameWidth: 600, frameHeight: 100 });
             //notice, the charcters sprites are x12 there normal size since they are so small.
-            this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth: 84, frameHeight: 108});
-            this.load.spritesheet('charWhite', 'assets/hudElements/whiteCharacterSet.png',{frameWidth: 84, frameHeight: 108});
+            this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
+            this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
+            this.load.spritesheet('charWhite', 'assets/hudElements/whiteCharacterSet.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
             this.load.spritesheet('ercus', 'assets/hudElements/ercus.png',{frameWidth: 84, frameHeight: 108});
 
             this.load.spritesheet('textBoxProfile', 'assets/hudElements/textBoxProfile.png',{frameWidth: 105, frameHeight: 96 });
@@ -161,6 +164,8 @@ class titleScreen extends A3SoundEffects {
             let that = this;
 
             this.elements = this.physics.add.group();
+
+            this.cameras.main.zoom = 1;
 
             //displays the current game version
             this.version = new makeText(this,this.screenWidth-210,this.screenHeight-25,'charBubble',"Alpha V0.30.07");
@@ -304,7 +309,7 @@ class titleScreen extends A3SoundEffects {
             //title sprite
             //this.titleLogo.setScale();
             this.title = this.add.sprite(this.screenWidth/2, 65, "title");
-            this.title.setScale(1/3 + 1/7);
+            this.title.setScale(1/3);
 
             this.increment = 0;
             this.reset = false;
@@ -321,8 +326,11 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.sceneTextBox = new textBox(this,this.screenWidth/2-40,630,'charWhite');
-            this.sceneTextBox.setScale(1.2);
+            this.textboxX = this.screenWidth/2;
+            this.textboxY = 630;
+            
+            this.sceneTextBox = new textBox(this, this.textboxX,this.textboxY,'charWhite');
+            this.sceneTextBox.setScale(1);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             this.sceneTextBox.activateTitleScreenTextbox(
@@ -482,7 +490,7 @@ class titleScreen extends A3SoundEffects {
 
                     this.showSaveSlots(true, false);
 
-                    this.sceneTextBox.setPosition(this.screenWidth / 2 - 40, 820);
+                    this.sceneTextBox.setPosition( this.textboxX, 820);
                     this.sceneTextBox.activateTitleScreenTextbox(
                         this, true, ['sign'],
                         'Select a slot to export as a .json file.'
@@ -513,7 +521,7 @@ class titleScreen extends A3SoundEffects {
                     this.subMenuVisibility(false);
 
                     this.showSaveSlots(true, false);
-                    this.sceneTextBox.setPosition(this.screenWidth / 2 - 40, 820);
+                    this.sceneTextBox.setPosition(this.textboxX, 820);
                     this.sceneTextBox.activateTitleScreenTextbox(
                         this, true, ['sign'],
                         'Select a slot to import a .json save into.'
@@ -689,7 +697,7 @@ class titleScreen extends A3SoundEffects {
                 this.isInNewGameSelect = true;
                 this.tempNewGameSlotID = slot;
                 console.log("that.tempNewGameSlotID: "+this.tempNewGameSlotID);
-                this.sceneTextBox.setPosition(this.screenWidth/2-40,630);
+                this.sceneTextBox.setPosition(this.textboxX,630);
                 this.sceneTextBox.activateTitleScreenTextbox(
                     this,//scene
                     true,// is the text box visible?

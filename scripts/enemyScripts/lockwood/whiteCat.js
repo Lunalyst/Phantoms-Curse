@@ -247,7 +247,8 @@ class whiteCat extends enemy {
     }
 
     //functions that move cat objects.
-    move() {  
+    move() {
+        
         this.setSize(50, 220, true);
         this.setOffset(110,60);
 

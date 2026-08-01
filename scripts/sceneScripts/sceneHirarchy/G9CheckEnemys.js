@@ -17,7 +17,7 @@ class G9CheckEnemys extends G8InitEnemys {
           this.playerStuckGrabCap = 0;
 
           //focus on the tiger that grabbed the player
-          this.mycamera.startFollow(tempEnemy);
+          this.mycamera.startFollow(tempEnemy,true,0,0,0,0);
           this.cameras.main.zoom = 4;
           this.grabbed = tempEnemy.playerGrabbed;
           //scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD

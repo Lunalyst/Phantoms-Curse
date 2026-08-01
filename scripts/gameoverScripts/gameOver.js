@@ -18,7 +18,7 @@ class gameOver extends gameoverManager {
         this.tryAgainX = 1200/2;
         this.tryAgainY = 645;
 
-        this.sceneTextBoxX = 1200/2+10;
+        this.sceneTextBoxX = 1200/2-15;
         this.sceneTextBoxY = 575;
         this.textboxScale = 0.51;
 
@@ -28,7 +28,7 @@ class gameOver extends gameoverManager {
         this.gameoverSignScale = 0;
 
         //270,685
-        this.mobileWX = 320;
+        this.mobileWX = 340;
         this.mobileWY = 645;
 
         //this.gameover

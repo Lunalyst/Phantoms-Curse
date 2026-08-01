@@ -515,7 +515,7 @@ const npcDialogue = {
                 },
                 "ominousOmen1":{
                     "node1":{
-                        "dialogue": "All that you are, and all that you could be. Your heart becomes apart from me. From your seed sprouted a great tree. With branches so wide, that in its shade, our nightmares could hide.",
+                        "dialogue": "All that you are, and all that you could be. Your heart becomes apart of me. From your seed sprouted a great tree. With branches so wide, that in its shade, our nightmares could hide.",
                         "profile":"signLoop",
                         "textvoice":"default",
                         "children":[]

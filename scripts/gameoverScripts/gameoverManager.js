@@ -1000,6 +1000,11 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.rightHand.anims.play('grabTell',true);
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
+                //450,400
+                tempSceneRef.gameoverSignX = 450;
+                tempSceneRef.gameoverSignY = 400;
+                tempSceneRef.gameoverSignScale = 1/6;
+
             },
 
             matangoRoot_female_oral: function matangoRootFemaleOralFunction() {
@@ -1028,6 +1033,11 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.rightHand.anims.play('grabTell',true);
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
+                //450,400
+                tempSceneRef.gameoverSignX = 450;
+                tempSceneRef.gameoverSignY = 400;
+                tempSceneRef.gameoverSignScale = 1/6;
+
             },
 
              matangoRoot_male_anal: function matangoRootMaleAnalFunction() {
@@ -1054,6 +1064,11 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.rightHand.anims.play('grabTell',true);
                 tempSceneRef.leftHand.anims.play('grabTell',true);
 
+                //450,400
+                tempSceneRef.gameoverSignX = 450;
+                tempSceneRef.gameoverSignY = 400;
+                tempSceneRef.gameoverSignScale = 1/6;
+
             },
 
             matangoRoot_male_absorb: function matangoRootMaleAbsorbFunction() {
@@ -1078,6 +1093,11 @@ class gameoverManager extends A3SoundEffects {
 
                 tempSceneRef.rightHand.anims.play('grabTell',true);
                 tempSceneRef.leftHand.anims.play('grabTell',true);
+
+                //450,400
+                tempSceneRef.gameoverSignX = 450;
+                tempSceneRef.gameoverSignY = 400;
+                tempSceneRef.gameoverSignScale = 1/6;
 
             },
 

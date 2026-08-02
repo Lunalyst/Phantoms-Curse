@@ -24,8 +24,8 @@ class gameOver extends gameoverManager {
 
         //450,400
         this.gameoverSignX = 450;
-        this.gameoverSignY = 400;
-        this.gameoverSignScale = 0;
+        this.gameoverSignY = 425;
+        this.gameoverSignScale = 1/6;
 
         //270,685
         this.mobileWX = 340;
@@ -211,7 +211,7 @@ class gameOver extends gameoverManager {
 
                 //game over sign.
                 this.gameOverSign = this.add.sprite(this.gameoverSignX,this.gameoverSignY,"gameOverSign");
-                this.gameOverSign.setScale(1/6);
+                this.gameOverSign.setScale(this.gameoverSignScale);
                 this.gameOverSign.setDepth(7);
                 
                 if(this.defeatedTitle === 'eaten'){

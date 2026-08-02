@@ -34,6 +34,9 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
         this.pointLit = false;
         this.bellRinging = false;
+
+        this.autumnEncountered = false;
+        this.moffEncountered = false;
         
         //sets scale
         this.setScale(1/3);
@@ -61,6 +64,8 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
         };
 
         inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, autumnDialogue1);
+
+        this.autumnEncountered = autumnDialogue1.foundFlag;
 
         //has player encountered autumn or moff yet?
         let moffDialogue1 = {

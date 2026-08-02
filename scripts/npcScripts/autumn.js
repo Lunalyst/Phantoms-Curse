@@ -316,13 +316,20 @@ class autumn extends npc{
   MoveNPC(){
     if(this.npcType === 'fastTravel'){
       this.MoveNPCFastTravel();
+    }else if(this.npcType === 'introToFastTravel'){
+      this.MoveNPCFastTravel();
     }else if(this.npcType === 'landingSequence'){
-      this.MoveNPCLandingSequence();
+       if(this.landingSequenceFinished === false){
+        this.MoveNPCLandingSequence();
+       }else{
+        this.MoveNPCFastTravel();
+       }
+      
     }
   }
 
   MoveNPCFastTravel(){
-
+    console.log("this.flyUp: ",this.flyUp);
     if(this.isInPosition === false){
       if(this.y < this.fastTravelLandingY){
 
@@ -338,7 +345,7 @@ class autumn extends npc{
         this.y = this.fastTravelLandingY;
       }
     }else if(this.flyUp === false){
-
+      console.log("moving autumn up out of the scene")
       if(this.y > this.fastTravelLandingY-320){
 
         this.setVelocityY(-100);
@@ -1073,7 +1080,7 @@ class autumn extends npc{
             this.scene.sceneTextBox.textInterupt = false;
 
             //progress to node branch with state name node10
-            this.progressNode("node20");
+            this.progressNode("node13");
 
             //hide currency
             inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
@@ -1163,7 +1170,7 @@ class autumn extends npc{
             this.scene.sceneTextBox.textCoolDown = true;
 
              this.moveFunctionActive = true;
-
+            this.flyUp = false;
              this.scene.physics.resume();
              this.scene.CutscenePhysics = true;
 

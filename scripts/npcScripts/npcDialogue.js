@@ -1427,13 +1427,13 @@ const npcDialogue = {
                 "introFastTravel":{
                     "node1":{
                         "dialogue": "Oh! A new face in town!",
-                        "profile":"autumnSmile",
+                        "profile":"autumnStarEyes",
                         "textvoice":"batChirp",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "Name\'s Autumn, and me and my friend Moff are in charge of this lovely post office behind you!",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["node3"]
                     },
@@ -1445,13 +1445,13 @@ const npcDialogue = {
                     },
                     "node4":{
                         "dialogue": "If there\'s a place you have been to, then I would be happy to take you, for a small fee of course.",
-                        "profile":"autumnSmile",
+                        "profile":"autumnWinkAndHeart",
                         "textvoice":"batChirp",
                         "children":["node5"]
                     },
                     "node5":{
                         "dialogue": "Just let me know if you\'re interested! ",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":[]
                     },
@@ -1459,7 +1459,7 @@ const npcDialogue = {
                 "fastTravel":{
                     "node1":{
                         "dialogue": "What\'s up? ",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["node2"]
                     },
@@ -1479,7 +1479,7 @@ const npcDialogue = {
                     },
                     "node4":{
                         "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["nodeAccept"]
                     },
@@ -1491,26 +1491,26 @@ const npcDialogue = {
                     },
                     "node5":{
                         "dialogue": "that will be 25 shell.",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["nodeE","node8","node13"]
                     },
                     //here you go (and has the shell.)
                     "nodeE":{
                         "dialogue": "perfect!",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["node6"]
                     },
                     "node6":{
                         "dialogue": "up and...",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["nodeA"]
                     },
                     "nodeA":{
                         "dialogue": "In you go.",
-                        "profile":"autumnSmile",
+                        "profile":"autumnSmirk",
                         "textvoice":"batChirp",
                         "children":["node7"]
                     },
@@ -1530,25 +1530,25 @@ const npcDialogue = {
                     //I dont have enough.
                     "node8":{
                         "dialogue": "oh... well I can still take you....",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["node9"]
                     },
                     "node9":{
                         "dialogue": "Though I am likely to take my payment another way. ",
-                        "profile":"autumnSmile",
+                        "profile":"autumnWink",
                         "textvoice":"batChirp",
                         "children":["node10"]
                     },
                     "node10":{
                         "dialogue": "if your not careful. ",
-                        "profile":"autumnSmile",
+                        "profile":"autumnSmirk",
                         "textvoice":"batChirp",
                         "children":["node11"]
                     },
                     "node11":{
                         "dialogue": "up and...",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["node12"]
                     },
@@ -1574,7 +1574,7 @@ const npcDialogue = {
 
                     "node13":{
                         "dialogue": "oh... ok. let me know if you change your mind.",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":[]
                     },
@@ -1600,14 +1600,14 @@ const npcDialogue = {
                     //exit dialogue
                     "nodeAutumnExit":{
                         "dialogue": "fair enough, see you around!",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":[]
                     },
                 },
                 "landingSequence":{
                     "node1":{
-                        "dialogue": "We’ve made it dear, just go ahead and squirm your way out.",
+                        "dialogue": "We\'ve made it dear, just go ahead and squirm your way out.",
                         "profile":"autumnSmile",
                         "textvoice":"batChirp",
                         "children":["node3"]
@@ -1629,7 +1629,7 @@ const npcDialogue = {
                     },
                     "node5":{
                         "dialogue": "Hmm? Did you fall asleep in there honey?",
-                        "profile":"autumnSmile",
+                        "profile":"autumnNeutral",
                         "textvoice":"batChirp",
                         "children":["node6","node7"]
                     },
@@ -1651,7 +1651,7 @@ const npcDialogue = {
                     },
                     "node8":{
                         "dialogue": "Mmm, I understand, just close your cute little eyes and I\'ll take care of the rest",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["node9"]
                     },

@@ -53,7 +53,7 @@ class textBox extends Phaser.GameObjects.Container{
       this.completedText = false;
 
       //displays prtofile sprite meant to resemble what is currently talking to the player.
-      this.textBoxProfileImage = new textBoxProfile(scene, -250+this.textboxOffsetX, 0);
+      this.textBoxProfileImage = new textBoxProfile(scene, -257+this.textboxOffsetX, 0);
       this.add(this.textBoxProfileImage);
       
       this.currentText = "empty";

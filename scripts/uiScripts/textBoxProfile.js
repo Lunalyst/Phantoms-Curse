@@ -34,7 +34,17 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'lunaClimax',frames: this.anims.generateFrameNames('lunalystEmots', { start:87, end:  87}),frameRate: 5,repeat: -1});
 
       this.anims.create({key: 'autumnSmile',frames: this.anims.generateFrameNames('autumnEmots', { start:0, end:  3}),frameRate: 5,repeat: -1});
-      this.anims.create({key: 'autumnHappy',frames: this.anims.generateFrameNames('autumnEmots', { start:4, end:  7}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnNeutral',frames: this.anims.generateFrameNames('autumnEmots', { start:4, end:  4}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnHappy',frames: this.anims.generateFrameNames('autumnEmots', { start:5, end:  8}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnWink',frames: this.anims.generateFrameNames('autumnEmots', { start:9, end:  14}),frameRate: 4,repeat: -1});
+      this.anims.create({key: 'autumnWinkAndHeart',frames: this.anims.generateFrameNames('autumnEmots', { start:15, end:  20}),frameRate: 4,repeat: -1});
+      this.anims.create({key: 'autumnKO',frames: this.anims.generateFrameNames('autumnEmots', { start:21, end:  24}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnStarEyes',frames: this.anims.generateFrameNames('autumnEmots', { start:25, end:  30}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnSquish',frames: this.anims.generateFrameNames('autumnEmots', { start:31, end:  34}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnHeartEyes',frames: this.anims.generateFrameNames('autumnEmots', { start:35, end:  39}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnSmirk',frames: this.anims.generateFrameNames('autumnEmots', { start:40, end:  43}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnAngry',frames: this.anims.generateFrameNames('autumnEmots', { start:44, end:  47}),frameRate: 5,repeat: -1});
+      
 
       this.anims.play("blank",true); 
     }

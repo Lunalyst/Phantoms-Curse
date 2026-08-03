@@ -30,7 +30,7 @@ class makeText extends Phaser.GameObjects.Container{
         this.middleX = 0;
         this.creditschoke = false;
 
-        this.defaultDuration = 600;
+        this.defaultDuration = 500;
 
         if(font === "charBubble"){
           this.setScale(1);
@@ -194,10 +194,11 @@ class makeText extends Phaser.GameObjects.Container{
           duration: this.defaultDuration,
           delay: counter*10,
           repeat: -1,
-          yoyo: true,onUpdate: () => {
+          yoyo: true,
+          /*onUpdate: () => {
             this.letters[counter].x = Math.round(this.letters[counter].x);
             this.letters[counter].y = Math.round(this.letters[counter].y);
-          }
+          }*/
       });
       }
     }

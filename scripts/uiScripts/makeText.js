@@ -168,10 +168,10 @@ class makeText extends Phaser.GameObjects.Container{
           delay: counter*100,
           repeat: -1,
           yoyo: true,
-          onUpdate: () => {
+          /*onUpdate: () => {
             this.letters[counter].x = Math.round(this.letters[counter].x);
             this.letters[counter].y = Math.round(this.letters[counter].y);
-          }
+          }*/
       });
       }
     }
@@ -221,10 +221,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: 0,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }else{
           this.scene.tweens.add({
@@ -239,10 +239,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: 0,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }
       }
@@ -266,10 +266,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: time,
             repeat: 0,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }else{
           this.scene.tweens.add({
@@ -284,10 +284,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: time,
             repeat: 0,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }
       }
@@ -311,10 +311,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: -1,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }else{
           this.scene.tweens.add({
@@ -329,10 +329,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: -1,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         }
       }
@@ -356,10 +356,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: -1,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
 
       }
@@ -382,10 +382,10 @@ class makeText extends Phaser.GameObjects.Container{
             duration: this.defaultDuration,
             repeat: -1,
             yoyo: true,
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
 
       }
@@ -405,10 +405,10 @@ class makeText extends Phaser.GameObjects.Container{
           ease: 'Sine.InOut',
           repeat: 0,  
           onComplete: this.textFadeOutAndDestroy(time*3),
-          onUpdate: () => {
+          /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
 
 
@@ -425,10 +425,10 @@ class makeText extends Phaser.GameObjects.Container{
           alpha: { from: 0, to: 1 },
           ease: 'Sine.InOut',
           repeat: 0,
-          onUpdate: () => {
+          /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
       }
     }
@@ -441,10 +441,10 @@ class makeText extends Phaser.GameObjects.Container{
           alpha: { from: 1, to: 0 },
           ease: 'Sine.InOut',
           repeat: 0,
-          onUpdate: () => {
+          /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
       }
     }
@@ -458,10 +458,10 @@ class makeText extends Phaser.GameObjects.Container{
           ease: 'Sine.InOut',
           repeat: 0,
           onComplete: this.remove(time),
-          onUpdate: () => {
+          /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
       }
     }
@@ -482,10 +482,10 @@ class makeText extends Phaser.GameObjects.Container{
             repeat: 0,
             yoyo: false,
             onComplete: this.removeCredits(time,isLast),
-            onUpdate: () => {
+            /*onUpdate: () => {
               this.letters[counter].x = Math.round(this.letters[counter].x);
               this.letters[counter].y = Math.round(this.letters[counter].y);
-            }
+            }*/
         });
         
       }

@@ -65,20 +65,24 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       this.buyIndexLeft = new UIControls(scene, -370, 0, "UIControls").setInteractive();
       this.buyIndexLeft.anims.play("pointRight");
       this.buyIndexLeft.setRotation(3.14/2+3.14/2);
+      this.buyIndexLeft.visible = false;
       this.add(this.buyIndexLeft);
 
       this.buyIndexRight = new UIControls(scene, 370, 0, "UIControls").setInteractive();
       this.buyIndexRight.anims.play("pointRight");
+      this.buyIndexRight.visible = false;
       this.add(this.buyIndexRight);
 
       //makes the label for the inventory
       this.mapLabel = new makeText(scene,-260,-240,'charBlack',"Lockwood");
+      //this.mapLabel.setScale(1)
       this.add(this.mapLabel);
 
       //this.buyIndexUp.visible = false;
       
-      this.closingButton = new closingButton(scene,this,null,260,-260);
+      this.closingButton = new closingButton(scene,this,null,250,-250);
       this.closingButton.setupClosingButtonMap(this);
+      this.closingButton.setScale(1);
       this.add(this.closingButton);
 
       //pointer to show where we are
@@ -86,7 +90,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
       this.currentPositionArrow.anims.create({key: 'arrowBounce',frames: this.fastTravelMap.anims.generateFrameNames('fastTravelDot', { start: 3, end: 6 }),frameRate: 6,repeat: -1});
       //this.currentPositionArrow.visible = false;
       this.currentPositionArrow.anims.play("arrowBounce",true);
-      this.currentPositionArrow.setScale(1/3);
+      //this.currentPositionArrow.setScale(1/3);
       this.add(this.currentPositionArrow);
       this.currentPositionArrowSet = false;
 
@@ -127,7 +131,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
           this.currentPositionArrow.visible = true;
 
           this.currentPositionArrow.x = value.mapPositionX;
-          this.currentPositionArrow.y = value.mapPositionY-30;   
+          this.currentPositionArrow.y = value.mapPositionY-60;   
         }
         
         //make new point on the map 
@@ -207,7 +211,7 @@ class fastTravelMap extends Phaser.GameObjects.Container{
         });
 
 
-        point.setScale(1/2);
+        //point.setScale(1/2);
         this.add(point);
       });
 

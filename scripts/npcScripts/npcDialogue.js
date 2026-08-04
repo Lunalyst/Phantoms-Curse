@@ -1479,7 +1479,7 @@ const npcDialogue = {
                     },
                     "node4":{
                         "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
-                        "profile":"autumnHappy",
+                        "profile":"autumnStarEyes",
                         "textvoice":"batChirp",
                         "children":["nodeAccept"]
                     },
@@ -1583,23 +1583,41 @@ const npcDialogue = {
 
                     //how are you going to carry me?
                     "nodeCarryMe1":{
-                        "dialogue": "im gonig to carry in my belly.",
-                        "profile":"autumnSmile",
+                        "dialogue": "You haven\'t guessed by now? ",
+                        "profile":"autumnEyeRaise",
+                        "textvoice":"batChirp",
+                        "children":["nodeCarryMe2"]
+                    },
+                    "nodeCarryMe2":{
+                        "dialogue": "Heh, you\'re cute~ ",
+                        "profile":"autumnSmirk",
+                        "textvoice":"batChirp",
+                        "children":["nodeCarryMe3"]
+                    },
+                    "nodeCarryMe3":{
+                        "dialogue": "You\'ll be riding along in my belly of course!",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":[]
                     },
 
                     //tell me about yourself
                     "nodeAutumnInfo":{
-                        "dialogue": "i am a bat spider lady and stuff!",
+                        "dialogue": "I\'m just your friendly neighborhood spiderma- err, spider bat!",
                         "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["nodeAutumnInfo1"]
+                    },
+                    "nodeAutumnInfo1":{
+                        "dialogue": "Also loves apples!",
+                        "profile":"autumnSmirk",
                         "textvoice":"batChirp",
                         "children":[]
                     },
 
                     //exit dialogue
                     "nodeAutumnExit":{
-                        "dialogue": "fair enough, see you around!",
+                        "dialogue": "Carry on then cutie, I\'ll be here if you need me!",
                         "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":[]
@@ -1629,7 +1647,7 @@ const npcDialogue = {
                     },
                     "node5":{
                         "dialogue": "Hmm? Did you fall asleep in there honey?",
-                        "profile":"autumnNeutral",
+                        "profile":"autumnEyeRaise",
                         "textvoice":"batChirp",
                         "children":["node6","node7"]
                     },
@@ -1645,13 +1663,13 @@ const npcDialogue = {
                     //if player still doesnt struggle out then do warp to post office area.
                     "node7":{
                         "dialogue": "Don\'t want out dear?",
-                        "profile":"autumnSmile",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["node8"]
                     },
                     "node8":{
-                        "dialogue": "Mmm, I understand, just close your cute little eyes and I\'ll take care of the rest",
-                        "profile":"autumnHappy",
+                        "dialogue": "Mmm, I understand, I\'ll take care of the rest.",
+                        "profile":"autumnHeartEyes",
                         "textvoice":"batChirp",
                         "children":["node9"]
                     },

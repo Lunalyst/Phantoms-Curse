@@ -1223,7 +1223,7 @@ class autumn extends npc{
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
     
-    this.profileArray.push('autumnSmile');
+    this.profileArray.push('autumnNeutral');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);
@@ -1248,7 +1248,7 @@ class autumn extends npc{
 
     //console.log("this.textToDisplay: ",this.textToDisplay);
     
-    this.profileArray.push('autumnSmile');
+    this.profileArray.push('autumnEyeRaise');
 
     //update the dialogue in the next box.
     this.scene.sceneTextBox.setText(this.textToDisplay);

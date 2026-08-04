@@ -724,7 +724,7 @@ class gameHud extends A3SoundEffects {
             //if the shop ui isnt already created.
             if(this.playerShop === null){
               //adds player storage ui
-              this.playerShop = new shop(this,this.screenWidth/2-160,190);
+              this.playerShop = new shop(this,this.screenWidth/2-160,260);
               //this.playerShop.applyUIControlElements();
 
               //makes a tween for the inventory object so the interior is see through

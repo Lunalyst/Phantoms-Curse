@@ -41,7 +41,7 @@ class textBox extends Phaser.GameObjects.Container{
         this.add(textChar);
         this.lines.push(textChar);
 
-        spacing = spacing + 14;
+        spacing = spacing + 14.1;
         if(i === lineLength || i === lineLength*2+1){
           
           y += 19;

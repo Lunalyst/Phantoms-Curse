@@ -649,6 +649,14 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+                  "PostOfficeVIP":{
+                    "node1":{
+                        "dialogue": "only VIPs past this point!",
+                        "profile":"VIP",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
                 "demoEnd":{
                      "node1":{
                         "dialogue": "this place marks the end of the current version of phantoms curse.",
@@ -707,67 +715,67 @@ const npcDialogue = {
                 "Fundamentals of Cursed Energy":{
                     "node1":{
                         "dialogue": "One book on the shelf stands out to you.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "it is titled \"Fundamentals of Cursed Energy\" by Wolf",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read it?",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "The curses which afflicts almost everyone on Kuko Nui where created from cursed energy. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "It\'s imbedded itself through out Kuko Nui by spreading through animals and flora.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "Once a human has come into contact with cursed energy, there human body expels it little by little.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "It can be used to manifest ones desires allowing for the creation of enhancement marks and ability marks. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "Enhancement marks are marks created to passively improve the user\'s body. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "Whether it be running faster, jumping higher. These marks do not take cursed energy to maintain, and remain part of the user.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "Ability marks are less so marks in the traditional sense. It\'s more like a manifestation of a desire to take action. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node9"]
                     },"node9":{
                         "dialogue": "As an example one might want to use cursed energy to make an object levitate, or create a projectile out of cursed energy.  ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
                         "dialogue": "These take cursed energy to maintain and take quite a lot of practice and concentration to use.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the book on the shelf.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -776,72 +784,72 @@ const npcDialogue = {
                 "The Curse Mark Plague":{
                     "node1":{
                         "dialogue": "One book on the shelf stands out to you.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "it is titled \"The Curse Mark Plague\" by Wolf",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read it?",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "The cursed plague currently ravages Kuko Nui. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
-                        "dialogue": "It’s theorized that long ago, there was a great collapse of a previous civilization and during that collapse the first strains of the curse marks emerged. ",
-                        "profile":"blank",
+                        "dialogue": "It\'s theorized that long ago, there was a great collapse of a previous civilization and during that collapse the first strains of the curse marks emerged. ",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "These strains where somehow mutated from enhancement marks to create infectious variants that drastically alter the physiology and mental state of the human it inhabits.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Those afflicted by these curses often lose their sense of self and seek to spread the curse if they sense a human nearby.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "When spreading the curse, they often try to engage in sexual behavior to transmit cursed energy to the victim. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "Having high levels of cursed energy in the human’s body is the catalyst for the transformations. There needs to be clear intent to spread the curse for it to be transferred.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "However the process is not perfect and strange things can occur. Mutations in the mark can lead to new variations in the cursed. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node9"]
                     },"node9":{
                         "dialogue": "Those who go through this process but managed to retain their sense of self are all mutations of existing marks. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
                         "dialogue": "That being said, a cursed that still retains their sense of self is likely to still suffer from some mental alterations, and spreading there mutated curse mark isn’t safe either. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node11"]
                     },"node11":{
                         "dialogue": "Nearly every cursed produces cursed energy passively, which makes them a useful source of cursed energy. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the book on the shelf.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -850,77 +858,77 @@ const npcDialogue = {
                 "Devourment on the Island.":{
                      "node1":{
                         "dialogue": "One book on the shelf stands out to you.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "it is titled \"Devourment on the Island.\" by Wolf",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read it?",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "The cursed plague has done strange things to those it infects.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "Both feral and Sentient cursed have been known to swallow humans and even other cursed whole.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "It seems that the strange changes to the body are not limited to external body changes but also internal changes as well. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Many cursed have gained the ability to extend their stomach many times the size of a regular human, Allowing for them to swallow individual whole.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "Whether it is for nutritional needs, or for some strange mental urge brought on by the curse itself, a variety of factors can cause this behavior. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "When a prey has been swallowed they will begin to digest and be absorbed into the cursed body, though some cursed can completely halt this process.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "Of those who have escaped the harrowing ordeal, many have expressed positive sentiment about the process. Stating how the stomach acid made them feel good as the process began.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node9"]
                     },"node9":{
                         "dialogue": "Analyzing the stomach acid samples I have collected reveals that the acid insides cursed stomach functions both as a sedative and an aphrodisiac.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
                         "dialogue": "Those who stay inside the stomach of a cursed get absorbed fully into their body causing the cursed to gain a bit of weight.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node11"]
                     },"node11":{
-                        "dialogue": "Strangely those who are consumed may not be dead in some cases. Observation of their curse mark reviles that the curse mark changes slightly after this process.",
-                        "profile":"blank",
+                        "dialogue": "Strangely those who are consumed may not be dead in some cases. Observation of their curse mark reveals that the curse mark changes slightly after this process.",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node12"]
                     },"node12":{
                         "dialogue": "Leading some to theorize that prey becomes fully apart of the preds body, and that there mind resides within their curse mark.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the book on the shelf.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -928,77 +936,77 @@ const npcDialogue = {
                 "Types of Cursed":{
                      "node1":{
                         "dialogue": "One book on the shelf stands out to you.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "it is titled \"Types of Cursed\" by Wolf",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read it?",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "There are many types of cursed on the island. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "Any given curse mark could be considered its own species, but they can be generally put into a few categories.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "First is the category of sentient curse, and the second is feral cursed. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "Sentient cursed retaining their sense of self while gaining the other traits of the curse marks, while feral cursed lose their sense of self.  ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "In addition to this, cursed can sometimes mutate so much that they become specialized.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "Royal curse marks are very rare, but allow the holder the host of this mark the ability to transmit a lesser version of their curse to other. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "Even being able to overwrite a curse mark of other cursed, Though this process does often come with downsides for those who receive the lesser version. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node9"]
                     },"node9":{
                         "dialogue": "Those who go through this process but managed to retain their sense of self are all mutations of existing marks. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
                         "dialogue": "Even if these cursed retain their sense of self, they are often wholly subject to the desires of the royal curse holder. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node11"]
                     },"node11":{
                         "dialogue": "Royal curse holders can be powerful allies who can be used to help quell the ever increasing number of cursed on the island, or dangerous enemies with many minions at their disposal. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node12"]
                     },"node12":{
                         "dialogue": "Not every royal curse holder is sentient, which could lead to a dangerous scenario of the island being overrun if left unchecked.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the book on the shelf.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -1007,57 +1015,57 @@ const npcDialogue = {
                 "memoryLog2":{
                     "node1":{
                         "dialogue": "there is a book on the barrel.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "Inside it are some tattered papers between pages.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read them?",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "Turns out the wild life of this island is quite strange.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "Traveling deeper inland I found a densely wooded forest.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "At first I thought I saw a person among the brush. But as I got closer, they weren\'t exactly human. ",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "They had white fur, round ears, and a tail. When it noticed me, could tell there was something wrong with it.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "It gave me this animalistic look, and began to chase me. ",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "I eventually managed to lose it after a while. But it clearly couldn\'t or wouldn\'t respond to my pleas for it to stop chasing me.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "No telling what it wanted to do to me... ",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the pages in the book.",
-                        "profile":"blank",
+                        "profile":"blueBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -1065,62 +1073,62 @@ const npcDialogue = {
                 "memoryLog5":{
                     "node1":{
                         "dialogue": "theres a tattered red book.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "Inside it are some tattered papers between pages.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read them?",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "I\'m finally not alone!",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "Found another survivor and her name is Rachel.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "She said she washed up after the ship she was on sunk.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "It was nice having some company, though it did take her a while to get over my appearance.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "I warned her about the dangerous creatures of the island. ",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "Hopefully she doesn\'t have to go through what I did.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "Even if it was enjoyable, I think I got lucky.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":["node9"]   
                     },"node9":{
                         "dialogue": "Why am I still me, while those creatures seem feral?",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the pages in the book.",
-                        "profile":"blank",
+                        "profile":"redBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -1128,77 +1136,77 @@ const npcDialogue = {
                 "memoryLog6":{
                     "node1":{
                         "dialogue": "theres a dusty book.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "Inside it are some tattered papers between pages.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read them?",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "This is terrible...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "Rachel, she\'s gone...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "we found a high spot in these hills to camp out for the night.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "We both must have fallen asleep.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node6"]
                     },"node6":{
                         "dialogue": "I was woken up to the sound of her muffled crys, as a bat creature had her head up its rear...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
                         "dialogue": "I tried to pull her free but she slipped all the way in...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node8"]
                     },"node8":{
                         "dialogue": "I couldn\'t save her. ",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node9"]   
                     },"node9":{
                         "dialogue": "whats wrong with me?",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
                         "dialogue": "she\'s gone and my brain is full of terrible thoughts...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node11"]
                     },"node11":{
                         "dialogue": "it\'s like they were attracted to her.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node12"]
                     },"node12":{
                         "dialogue": "Sort of like they were attracted to me before I turned...",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the pages in the book.",
-                        "profile":"blank",
+                        "profile":"yellowBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -1206,42 +1214,42 @@ const npcDialogue = {
                 "memoryLog11":{
                     "node1":{
                         "dialogue": "the bookshelf hold many dusty books.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "some tattered pages stick out to you.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeQuestion"]
                     },"nodeQuestion":{
                         "dialogue": "Will you read them?",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["nodeYes","nodeNo"]
                     },"nodeYes":{
                         "dialogue": "Together we built this little cabin out in the woods.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node3"] 
                     },"node3":{
                         "dialogue": "A little place to call our own, far enough away from town but close enough in case we need anything. ",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
                         "dialogue": "I figured it would be a good spot since it\'s close to the shore.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node5"]
                     },"node5":{
                         "dialogue": "If anyone washes up like we did, they have a nice place to rest.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the pages on the shelf.",
-                        "profile":"blank",
+                        "profile":"brownBook",
                         "textvoice":"default",
                         "children":[]
                     },
@@ -1481,7 +1489,7 @@ const npcDialogue = {
                         "dialogue": "Point me to it, and a hop, slurp, and a gulp, and we\'ll be there!",
                         "profile":"autumnStarEyes",
                         "textvoice":"batChirp",
-                        "children":["nodeAccept"]
+                        "children":["nodeAccept","nodeAcceptDiscount"]
                     },
                     "nodeAccept":{
                         "dialogue": "sounds good.",
@@ -1492,6 +1500,19 @@ const npcDialogue = {
                     "node5":{
                         "dialogue": "that will be 25 shell.",
                         "profile":"autumnNeutral",
+                        "textvoice":"batChirp",
+                        "children":["nodeE","node8","node13"]
+                    },
+
+                    "nodeAcceptDiscount":{
+                        "dialogue": "since your a VIP... ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["nodeDiscount"]
+                    },
+                    "nodeDiscount":{
+                        "dialogue": "that will be 15 shell.",
+                        "profile":"autumnHappy",
                         "textvoice":"batChirp",
                         "children":["nodeE","node8","node13"]
                     },
@@ -1679,7 +1700,131 @@ const npcDialogue = {
                         "textvoice":"batChirp",
                         "children":[]
                     },
+                },
+                "endoSequence1":{
+                    "node1":{
+                        "dialogue": "zzzzzzz.......",
+                        "profile":"autumnEyesClosed",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    //on this hide the button prompt pos up
+                    "node3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4"]
+                    },
+
+                    "node4":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node5"]
+                    },
+
+                    "node5":{
+                        "dialogue": "ugh...",
+                        "profile":"autumnSquish",
+                        "textvoice":"batChirp",
+                        "children":["node6"]
+                    },
+
+                    "node6":{
+                        "dialogue": "five more minutes..?",
+                        "profile":"autumnSmirk",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    
+
+                },
+                "endoSequence2":{
+                    "node1":{
+                        "dialogue": "i had a lovely time dear.",
+                        "profile":"autumnEyesClosed",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    //on this hide the button prompt pos up
+                    "node3":{
+                        "dialogue": "your a special cutomer and i would love to do this again some time",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4"]
+                    },
+
+                    "node4":{
+                        "dialogue": "since you enjoy being a gut slut",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node5"]
+                    },
+
+                    "node5":{
+                        "dialogue": "ill give you a special discount on travel.",
+                        "profile":"autumnSquish",
+                        "textvoice":"batChirp",
+                        "children":["node6"]
+                    },
+
+                    "node6":{
+                        "dialogue": "I still need to wake up for a bit so im just going to chill here.",
+                        "profile":"autumnSmirk",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    
+                },
+                "endoSequence3":{
+                    "node1":{
+                        "dialogue": "thanks for another great time dear!",
+                        "profile":"autumnEyesClosed",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    //on this hide the button prompt pos up
+                    "node3":{
+                        "dialogue": "its always a pleasure keeping you in my tummby while I sleep.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node4"]
+                    },
+
+                    "node4":{
+                        "dialogue": "I hope you feel well rested. ",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":["node5"]
+                    },
+
+                    "node5":{
+                        "dialogue": "I still need to wake up for a bit so im just going to chill here.",
+                        "profile":"autumnSmirk",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    
+
+                },
+                "fastTravelEndoWakingUp":{
+                    "node1":{
+                        "dialogue": "hmmmmhhmmm....",
+                        "profile":"autumnEyesClosed",
+                        "textvoice":"batChirp",
+                        "children":["node3"]
+                    },
+                    //on this hide the button prompt pos up
+                    "node3":{
+                        "dialogue": "I still need to wake up for a bit. ill see you around.",
+                        "profile":"autumnSmile",
+                        "textvoice":"batChirp",
+                        "children":[]
+                    },
+                    
+
                 }
+
 
 
             },

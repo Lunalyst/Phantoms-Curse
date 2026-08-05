@@ -13,6 +13,12 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       
       this.anims.create({key: 'signLoop',frames: this.anims.generateFrameNames('textBoxProfile', { start: 0, end: 3 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'blank',frames: this.anims.generateFrameNames('textBoxProfile', { start:4, end: 4 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'brownBook',frames: this.anims.generateFrameNames('textBoxProfile', { start:5, end: 5 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'blueBook',frames: this.anims.generateFrameNames('textBoxProfile', { start:6, end: 6 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'yellowBook',frames: this.anims.generateFrameNames('textBoxProfile', { start:7, end: 7 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'redBook',frames: this.anims.generateFrameNames('textBoxProfile', { start:8, end: 8 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'greenBook',frames: this.anims.generateFrameNames('textBoxProfile', { start:9, end: 9 }),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'VIP',frames: this.anims.generateFrameNames('textBoxProfile', { start:10, end: 10 }),frameRate: 5,repeat: -1});
 
       this.anims.create({key: 'lunaNeutral',frames: this.anims.generateFrameNames('lunalystEmots', { start: 0, end: 9 }),frameRate: 5,repeat: -1});
       this.anims.create({key: 'lunaCry',frames: this.anims.generateFrameNames('lunalystEmots', { start: 10, end: 17 }),frameRate: 5,repeat: -1});
@@ -45,6 +51,7 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'autumnSmirk',frames: this.anims.generateFrameNames('autumnEmots', { start:40, end:  43}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'autumnAngry',frames: this.anims.generateFrameNames('autumnEmots', { start:44, end:  47}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'autumnEyeRaise',frames: this.anims.generateFrameNames('autumnEmots', { start:48, end:  48}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'autumnEyesClosed',frames: this.anims.generateFrameNames('autumnEmots', { start:49, end:  49}),frameRate: 5,repeat: -1});
       
 
       this.anims.play("blank",true); 

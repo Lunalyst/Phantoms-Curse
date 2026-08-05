@@ -146,7 +146,19 @@ class yes extends Phaser.Physics.Arcade.Sprite{
             that.map.npcRef.scene.sceneTextBox.textInterupt = false;
             that.map.npcRef.activatedMapUI = false;
 
-            that.map.npcRef.progressNode("nodeAccept");
+            //check to see if flag already exists
+            let fastTravelDiscount = {
+            flagToFind: "fastTravelDiscount",
+            foundFlag: false,
+            };
+
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelDiscount);
+
+            if(fastTravelDiscount.foundFlag === true){
+                that.map.npcRef.progressNode("nodeAcceptDiscount");
+            }else{
+                that.map.npcRef.progressNode("nodeAccept");
+            }
 
             //call emitter to kill map object
             inventoryKeyEmitter.emit(inventoryKey.destroyMap);

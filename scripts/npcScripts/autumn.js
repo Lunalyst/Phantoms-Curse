@@ -15,6 +15,8 @@ class autumn extends npc{
       this.anims.create({key: 'sideIdle',frames: this.anims.generateFrameNames('autumnMale', { start: 4, end: 7 }),frameRate: 7,repeat: -1});
       this.anims.create({key: 'flyDown',frames: this.anims.generateFrameNames('autumnMale', { start: 8, end: 13 }),frameRate: 7,repeat: -1});
 
+      this.anims.create({key: 'autumnSleeping',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 11, end: 14 }),frameRate: 4,repeat: -1});
+
       if(scene.playerSex === 0){
 
         this.anims.create({key: 'liftUp',frames: this.anims.generateFrameNames('autumnMale', { start: 14, end: 21 }),frameRate: 7,repeat: 0});
@@ -26,6 +28,11 @@ class autumn extends npc{
         this.anims.create({key: 'release1',frames: this.anims.generateFrameNames('autumnMale', { start: 66, end: 73 }),frameRate: 7,repeat: 0});
         this.anims.create({key: 'release2',frames: this.anims.generateFrameNames('autumnMale', { start: 74, end: 82 }),frameRate: 7,repeat: 0});
 
+
+        this.anims.create({key: 'autumnSleepReleasePlayer1',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 15, end: 19 }),frameRate: 6,repeat: 0});
+        this.anims.create({key: 'autumnSleepReleasePlayer2',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 20, end: 24 }),frameRate: 6,repeat: 0});
+        this.anims.create({key: 'autumnSleepReleasePlayer3',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 25, end: 28 }),frameRate: 6,repeat: -1});
+      
 
       }else{
 
@@ -39,6 +46,8 @@ class autumn extends npc{
       this.anims.create({key: 'endoGameover1',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 0, end: 3 }),frameRate: 6,repeat: 7});
       this.anims.create({key: 'endoGameover2',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 4, end: 6 }),frameRate: 5,repeat: 0});
       this.anims.create({key: 'endoGameover3',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 7, end: 10 }),frameRate: 4,repeat: -1});
+      this.anims.create({key: 'autumnSittingOnBed',frames: this.anims.generateFrameNames('autumnMaleExtension', { start: 29, end: 32 }),frameRate: 6,repeat: -1});
+      
 
 
 
@@ -106,6 +115,8 @@ class autumn extends npc{
 
         this.fastTravelPlatformRef = null;
 
+        this.selective = "";
+
 
       if(this.npcType === 'postOffice'){
         this.isInPosition = true;
@@ -128,8 +139,7 @@ class autumn extends npc{
 
         this.anims.play("sideIdle",true);
 
-      }
-      else if(this.npcType === 'landingSequence'){
+      }else if(this.npcType === 'landingSequence'){
        this.isInPosition = false;
 
        this.landingSequenceFinished = false;
@@ -139,6 +149,32 @@ class autumn extends npc{
        this.animationView = false;
 
        this.addTriggerNPCToRegularNPC = true;
+      }else if(this.npcType === 'endoSequence1'){
+        this.isInPosition = true;
+        this.departing = false;
+
+        this.npcTriggerRange = true;
+        this.npcTriggerRangeX = 600;
+        this.npcTriggerRangeY = 900;
+
+       this.releasingPlayerFromTravel = false;
+       this.playerEndoSequence = false;
+       this.animationView = false;
+       this.anims.play("autumnSleeping",true);
+
+      }else if(this.npcType === 'endoSequence2'){
+        this.isInPosition = true;
+        this.departing = false;
+
+        this.npcTriggerRange = true;
+        this.npcTriggerRangeX = 600;
+        this.npcTriggerRangeY = 900;
+
+       this.releasingPlayerFromTravel = false;
+       this.playerEndoSequence = false;
+       this.animationView = false;
+       this.anims.play("autumnSittingOnBed",true);
+
       }
 
   }
@@ -155,6 +191,10 @@ class autumn extends npc{
       this.introToFastTravel();
     }else if(this.npcType === 'landingSequence'){
       this.landingSequence();
+    }else if(this.npcType === 'endoSequence1'){
+      this.endoSequence1();
+    }else if(this.npcType === 'endoSequence2'){
+      this.endoSequence2();
     }else{  
       this.default();
     }
@@ -618,7 +658,7 @@ class autumn extends npc{
 
       this.nodeHandler("autumn","Behavior1","landingSequence");
 
-     if(this.currentDictNode !== null){
+      if(this.currentDictNode !== null){
 
       //idea so we can just use nodes to progress it.
        if(this.currentDictNode.nodeName === "node3" && this.settingPlayerNotGettingout === false){
@@ -715,6 +755,198 @@ class autumn extends npc{
     }
 
 
+  }
+
+  endoSequence1(){
+    this.nodeHandler("autumn","Behavior1","endoSequence1");
+
+      if(this.currentDictNode !== null){
+
+      //idea so we can just use nodes to progress it.
+       if(this.currentDictNode.nodeName === "node3"){
+      //turn in button prompts 
+
+        this.npcKeyPrompts.visible = true;
+        this.npcKeyPrompts.playWKey();
+  
+      //if we progress to this node then do release animation then progressout of dialogue.
+       }else if(this.currentDictNode.nodeName === "node4" && this.releasingPlayerFromTravel === false){
+
+        this.releasingPlayerFromTravel = true;
+
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.npcKeyPrompts.visible = false;
+
+        //play animation then manually progress node. also make player visiable at the end, free from grab ect.
+         this.anims.play('autumnSleepReleasePlayer1', true).once('animationcomplete', () => {
+          this.anims.play('autumnSleepReleasePlayer2', true).once('animationcomplete', () => {
+            this.anims.play('autumnSleepReleasePlayer3', true);
+
+             //set variable approperiately
+
+            //this.scene.grabbed = false;
+            //this.scene.player1.visible = true;
+
+            this.scene.cutSceneActive = false;
+            
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            this.progressNode("");
+            this.scene.CutscenePhysics = false;
+            this.scene.cutSceneActive = false;
+            //this.triggerNpcFinished = true;
+            
+            console.log("this.currentDictNode",this.currentDictNode)
+
+            
+        });
+        });
+
+       }else if(this.currentDictNode.nodeName === "node6" && this.departing ===false){
+
+        this.departing = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        this.scene.sceneTextBox.textCoolDown = true;
+
+        this.moveFunctionActive = true;
+
+        this.landingSequenceFinished = true;
+
+        let temp = this;
+        setTimeout(function(){
+                          
+          if(temp.animationView === false){
+            //creates a object to hold data for scene transition
+                          let playerDataObject = {
+                              saveX: null,
+                              saveY: null,
+                              playerHpValue: null,
+                              playerMaxHP: null,
+                              playerSex: null,
+                              playerLocation: null,
+                              inventoryArray: null,
+                              playerBestiaryData: null,
+                              playerSkillsData: null,
+                              playerSaveSlotData: null,
+                              flagValues: null,
+                              settings:null,
+                              dreamReturnLocation:null,
+                              playerCurseValue:null
+                            };
+
+                            //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                            inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+                            //modifies the object with the new relivant information.
+                            playerDataObject.saveX = 642;
+                            playerDataObject.saveY = 760;
+                            playerDataObject.playerSex = temp.scene.playerSex;
+                            playerDataObject.playerLocation = "AutumnsRoom";
+
+                            // then we save the scene transition data.
+                            temp.scene.saveGame(playerDataObject);
+
+                            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                              let playerHealthObject = {
+                                  playerHealth: null
+                              };
+                      }
+
+                       //kills gameplay emitters so they dont pile up between scenes
+                      temp.scene.clearGameplayEmmitters();
+
+                      //stops player momentum in update loop.
+                      temp.scene.playerWarping = true;
+
+                      //for loop looks through all the looping music playing within a given scene and stops the music.
+                      for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                        temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                      }
+
+                      //temp.scene.player1.visible = false;
+                      //warps player to the next scene
+                      
+                      temp.scene.destination = "AutumnsRoom";
+                      temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                        temp.scene.sceneTextBox.textInterupt = true;
+                        temp.scene.sceneTextBox.textCoolDown = true;
+
+
+
+        },3000);
+       }
+    }
+  }
+
+  endoSequence2(){
+
+    //check to see if flag already exists
+    let fastTravelDiscount = {
+      flagToFind: "fastTravelDiscount",
+      foundFlag: false,
+    };
+
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelDiscount);
+
+    let fastTravelEndoWakingUp = {
+      flagToFind: "fastTravelEndoWakingUp",
+      foundFlag: false,
+    };
+
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelEndoWakingUp);
+
+    if(fastTravelDiscount.foundFlag === false){
+
+        this.nodeHandler("autumn","Behavior1","endoSequence2");
+
+        //stores flag to be added at the end of dialogue.
+        this.scene.sceneTextBox.storeFlag(fastTravelDiscount);
+
+        if(this.currentDictNode !== null){
+
+        //idea so we can just use nodes to progress it.
+        if(this.currentDictNode.nodeName === "node1"){
+
+          //need to display thep layer character correctly on load in since all loads ins that the npc grabs the player have special sprites.
+          this.scene.grabbed = false;
+
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"fastTravelEndoWakingUp");
+          
+        
+    
+        }
+      }
+
+    }else if(fastTravelDiscount.foundFlag === true && fastTravelEndoWakingUp.foundFlag === false){
+
+       this.nodeHandler("autumn","Behavior1","endoSequence3");
+
+        //stores flag to be added at the end of dialogue.
+        this.scene.sceneTextBox.storeFlag(fastTravelEndoWakingUp);
+
+        if(this.currentDictNode !== null){
+
+        //idea so we can just use nodes to progress it.
+        if(this.currentDictNode.nodeName === "node1"){
+
+          //need to display thep layer character correctly on load in since all loads ins that the npc grabs the player have special sprites.
+          this.scene.grabbed = false;
+
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"fastTravelEndoWakingUp");
+          
+        
+    
+        }
+      }
+    }else{
+      this.nodeHandler("autumn","Behavior1","fastTravelEndoWakingUp");
+    }
+
+    
   }
 
   postOffice(){
@@ -965,6 +1197,188 @@ class autumn extends npc{
               let currencyObject = {
                   changeType:'-',
                   changeAmount:25,
+              };
+                inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
+
+
+              //console.log("shell.currency: ",shell.currency);
+              //check player currency, if player has enough then pro
+              //progress to node branch with state name node5
+              this.progressNode("nodeE",true);
+                
+              //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+              this.dialogueCatch = true;
+              
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+          }else{
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"I dont have enough.",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+              // fetches the player currency amount from the ui
+              let shell = {
+                currency: null
+              };
+              inventoryKeyEmitter.emit(inventoryKey.getCurrency,shell);
+
+              //console.log("shell.currency: ",shell.currency);
+              //check player currency, if player has enough then pro
+              //progress to node branch with state name node5
+              this.progressNode("node8",true);
+
+              //add flag to tell that the player is doing risky fast travel. then reomve flag from player if they get out before they arte digested.
+
+              //plays animation of vivian shocked and sfx agian.
+              /*if(!this.animationPlayed){
+
+                  this.animationPlayed = true;
+
+                  this.anims.play('vivianrummagingShock');
+                  this.scene.initSoundEffect('foxSFX','1',0.05);
+
+                  let temp = this;
+                  setTimeout(function () {
+                    temp.animationPlayed = false;
+                }, 500);
+
+              } */
+                
+              //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+              this.dialogueCatch = true;
+              
+              //destroy itself and other deciosions
+              this.scene.npcChoice1.destroy();
+              this.scene.npcChoice2.destroy();
+
+              this.inDialogue = false;
+
+              
+
+            },this);
+          }
+          
+          //dialogue option for no.
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-260,'charBubble',"never mind.",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+          
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10
+            this.progressNode("node13");
+
+            //hide currency
+            inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+
+            this.inDialogue = false;
+
+          },this);
+          
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+        }else if(this.currentDictNode.nodeName === "nodeDiscount" && this.inDialogue === false){
+          
+          //display currency the player has on screen
+          inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
+
+          // fetches the player currency amount from the ui
+          let shell = {
+            currency: null
+          };
+
+          inventoryKeyEmitter.emit(inventoryKey.getCurrency,shell);
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //if the player has enough shell, display a different option.
+          if(shell.currency >= 15){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-300,'charBubble',"here you go.",true);
+            this.scene.npcChoice1.textWob();
+            this.scene.npcChoice1.setScrollFactor(0);
+            this.scene.npcChoice1.addHitbox();
+            this.scene.npcChoice1.setScale(.8);
+
+
+            //set up dialogue option functionality so they work like buttons
+            this.scene.npcChoice1.on('pointerover',function(pointer){
+              this.scene.initSoundEffect('buttonSFX','1',0.05);
+              this.scene.npcChoice1.setTextTint(0xff7a7a);
+            },this);
+
+            this.scene.npcChoice1.on('pointerout',function(pointer){
+                this.scene.npcChoice1.clearTextTint();
+            },this);
+
+            this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+              this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+              //set variable approperiately
+              this.scene.sceneTextBox.textInterupt = false;
+
+             //subtract amount from players currency
+              let currencyObject = {
+                  changeType:'-',
+                  changeAmount:15,
               };
                 inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
 

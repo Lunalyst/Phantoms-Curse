@@ -88,17 +88,43 @@ class AutumnsRoom extends defaultScene {
       this.setUpTextBox();
 
       this.initPortals(912,760-7,1420,760,"largeDoor","postOfficeHallway",true);
-      //this.autumn = this.add.sprite(640, 760-30, "autumnMale");
-      /*this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
-      this.autumn.anims.play("idle", true);
-      this.autumn.setScale(1/3);
-      this.autumn.setDepth(0);*/
 
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();
+
+      if(this.player1.x === 541){
+        //console.log("player now endoing!");
+
+        this.player1.visible = false;
+
+        this.grabbed = true;
+
+        //here is where we change autumns landing sequence based on if the player payed.
+        this.autumn = this.initAutumn(541+20, 760-26,"endoSequence1");
+        //this.autumn.y = this.autumn.y - 300;
+
+        this.mycamera.startFollow(this.autumn,true);
+        this.cameras.main.zoom = 2;
+        this.cameras.main.followOffset.set(-30,30);
+      }else if(this.player1.x === 642){
+        //console.log("player now endoing!");
+
+        //this.player1.visible = false;
+        this.grabbed = true;
+        //here is where we change autumns landing sequence based on if the player payed.
+        this.autumn = this.initAutumn(541+20, 760-26,"endoSequence2");
+        //this.autumn.y = this.autumn.y - 300;
+
+        this.mycamera.startFollow(this.player1,true,0,0,0,70);
+        this.cameras.main.zoom = 2;
+        //this.cameras.main.followOffset.set(-70,0);
+
+        this.player1.flipXcontainer(true);
+        this.player1.setPlayerOnLoadNPCDialogue();
+      }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

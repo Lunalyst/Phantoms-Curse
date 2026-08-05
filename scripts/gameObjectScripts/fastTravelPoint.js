@@ -83,6 +83,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
         temp[this.scene.playerLocation].landingX;
 
         console.log("landing location x =", temp[this.scene.playerLocation].landingX);
+
         //have to make a case where the player is landing from a fast travel. so check if the player x is equal to this fast travel points landing x.
         if(this.scene.player1.x ===  temp[this.scene.playerLocation].landingX){
 
@@ -99,7 +100,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
             //here is where we change autumns landing sequence based on if the player payed.
             this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"landingSequence");
             this.autumn.y = this.autumn.y - 300;
-            this.autumn.fastTravelLandingY = this.y-15;
+            this.autumn.fastTravelLandingY = this.y-14;
             this.autumn.moveFunctionActive = true;
             this.autumn.fastTravelPlatformRef = this;
 
@@ -115,6 +116,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
 
             //if not spawn intro version of autumn.
             if(autumnDialogue1.foundFlag === false){
+                console.log("setting intreo to fastravel?")
                 this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"introToFastTravel");
             }else{
                 this.autumn = this.scene.initAutumn(this.x+28, this.y-11,"fastTravel");
@@ -194,7 +196,7 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                             //need move function npc call here.
                             //set move to be active
                             this.autumn.moveFunctionActive = true;
-                            this.autumn.fastTravelLandingY = this.y-15;
+                            this.autumn.fastTravelLandingY = this.y-14;
                             this.autumn.visible = true;
 
                             

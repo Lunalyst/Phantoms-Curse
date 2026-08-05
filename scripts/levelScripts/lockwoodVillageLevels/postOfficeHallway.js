@@ -85,7 +85,7 @@ class postOfficeHallway extends defaultScene {
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
-
+      
       this.warp1 = this.initPortals(916,760-7,517,760,"spiralStairTop","postOfficeMain",true);
 
       this.initPortals(1420,760-7,912,760,"largeDoor","AutumnsRoom",true);
@@ -104,7 +104,21 @@ class postOfficeHallway extends defaultScene {
 
       //this.initAutumn(640, 760-30,"postOffice");
 
-      this.initSigns(736,760+21,"question","Devourment on the Island.",false);
+      this.initSigns(736,760+23,"question","Devourment on the Island.",false);
+
+      //after flag has been removed, if in dream add the dreamflag.
+      let fastTravelEndoWakingUp = {
+        flagToFind: "fastTravelEndoWakingUp",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelEndoWakingUp);
+
+      if(fastTravelEndoWakingUp.foundFlag === true){
+        // remove flag, and
+        inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, fastTravelEndoWakingUp);
+
+      }
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

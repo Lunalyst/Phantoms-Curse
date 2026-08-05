@@ -797,7 +797,30 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       //console.log("from move player this.lastKey: ",this.lastKey);
   }
 
+  setPlayerOnLoadNPCDialogue(){
+    this.mainHitbox.setSize(10,60,true);
+    this.mainHitbox.setOffset(12, -4 );
 
+    this.x = this.mainHitbox.x;
+    this.y = this.mainHitbox.y; 
+
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
+
+     this.playerDataObject = {
+      playerInventoryData: null
+    };
+    // call to emitter to get player inventory data.
+    inventoryKeyEmitter.emit(inventoryKey.getInventory,this.playerDataObject);
+
+    if(this.playerDataObject.playerInventoryData[3].itemID === 20){
+      this.clothed = true;
+    }else{
+      this.clothed = false;
+    }
+
+    this.playerIdleAnimation();
+  }
 
   velocityHandlerY(){
     // make delta's x and y based of where the player is and where we want them to go

@@ -93,8 +93,10 @@ class postOfficeMain extends defaultScene {
       //this.fakeWarp1 = new fakeWarp(this,517,760-7,'spiralStairVIP');
       //this.fakeWarp1.setDepth(3);
       //need to return object so we set depth to be higher than wall
-      this.warp1 = this.initPortals(517,760-7,916,760,"spiralStairVIP","postOfficeHallway",true);
-      this.warp1.setDepth(3);
+
+      //this.signPoints = this.physics.add.group();
+
+      
       //this.autumn = this.add.sprite(640, 760-30, "autumnMale");
       /*this.autumn.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('autumnMale', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });
       this.autumn.anims.play("idle", true);
@@ -108,6 +110,25 @@ class postOfficeMain extends defaultScene {
       this.setUpItemDropCollider();
 
       this.initAutumn(640, 760-30,"postOffice");
+
+      //check to see if flag already exists
+      let fastTravelDiscount = {
+        flagToFind: "fastTravelDiscount",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelDiscount);
+
+      if(fastTravelDiscount.foundFlag === true){
+        this.warp1 = this.initPortals(517,760-7,916,760,"spiralStairVIP","postOfficeHallway",true);
+        this.warp1.setDepth(3);
+      
+      }else{
+        this.fakeWarp1 = new fakeWarp(this,517,760-7,'spiralStairVIP');
+        this.fakeWarp1.setDepth(3);
+
+        this.initSigns(517,760+18,"generic","PostOfficeVIP",false);
+      }
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

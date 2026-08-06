@@ -27,10 +27,10 @@ class inventory extends Phaser.GameObjects.Container{
       this.costumeLabel;
       this.bestiaryLabel;
       this.skillLabel;
-      this.inventoryBorder;
+      //this.inventoryBorder;
       this.bestiaryUI;
       this.skillUI;
-      this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
+      //this.inventoryInterior = scene.add.sprite(this.x, this.y, 'inventory');
       this.settingsButton;
       this.settingsUI;
       this.settingsOpen = false;
@@ -40,27 +40,28 @@ class inventory extends Phaser.GameObjects.Container{
 
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
-      this.numberOfInventorySlots = 28;
+      this.numberOfInventorySlots = 28-6-3 +1;
+
+      this.numberOfColumns = 3;
+      this.numberOfRows = 5;
 
       //setting the interior object of the inventory as a back drop for other objects.
-      this.inventoryInterior.setScale(1/2);
-      this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
-      this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-      this.inventoryInterior.anims.play("closed");
-      this.add(this.inventoryInterior);
+      //this.inventoryInterior.setScale(1);
+      //this.inventoryInterior.anims.create({key: 'closed',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
+      //this.inventoryInterior.anims.create({key: 'open',frames: this.inventoryInterior.anims.generateFrameNames('inventory', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+      //this.inventoryInterior.anims.play("closed");
+      //this.add(this.inventoryInterior);
 
       //object for turning of and on the visiblity of our inventory.
       this.inventoryElements = new Phaser.GameObjects.Group(scene); 
 
-      //makes the label for the inventory
-      this.inventoryLabel = new makeText(scene,-90,-17,'charBubble',"INVENTORY");
-      this.inventoryLabel.setScale(2/3);
-      this.inventoryLabel.visible = false;
-      this.add(this.inventoryLabel);
-
       //this.inventoryElements.add(this); 
       console.log('created the inevntory in the for the player');
     
+    }
+
+    makeEquipSlot(){
+      
     }
 
     //creates the intem slots displayed in the inventory.
@@ -69,16 +70,28 @@ class inventory extends Phaser.GameObjects.Container{
       let index = 0;
       let col = 0;
       let row = 0;
+
+      let settingsYOffset = 355;
       
       let equipX = 200;
 
+       //creates boarder which is not translucent
+      this.inventoryBorder = new inventoryBorder(scene,this.x+12,this.y+125,'inventoryBorder');
+      this.inventoryElements.add(this.inventoryBorder);
+      this.add(this.inventoryBorder);
+
+      //makes the label for the inventory
+      this.inventoryLabel = new makeText(scene,-90,5,'charBubble',"INVENTORY");
+      this.inventoryLabel.visible = false;
+      this.add(this.inventoryLabel);
+
       //weapon slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-125+8,'inventorySlots').setInteractive();
+
+      this.inventoryArray[index] = new inventorySlots(scene,this.x-190 + (index * 101),this.y+235,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.weaponLabel = new makeText(scene,this.x+175,this.y-145+10,'charBlack',"WEAPON");
+      this.weaponLabel = new makeText(scene,this.inventoryArray[index].x-38,this.inventoryArray[index].y-37,'charBubble',"WEAPON");
       this.weaponLabel.visible = false;
-      this.weaponLabel.setScale(2/3);
       this.inventoryElements.add(this.weaponLabel);
       this.add(this.weaponLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
@@ -86,48 +99,103 @@ class inventory extends Phaser.GameObjects.Container{
       this.inventoryElements.add(this.inventoryArray[index].number2);
       this.add(this.inventoryArray[index].number2);
 
+      //sets up bestiary and its label
+      console.log("activated bestiary controls");
+      this.bestiaryUI = new bestiary(scene,this.x-180 + (index * 101),this.y+settingsYOffset,this.x+705,this.y+60).setInteractive(scene.input.makePixelPerfect());
+      this.inventoryElements.add(this.bestiaryUI);
+      this.add(this.bestiaryUI);
+
+      //fun fact any sprite object thats a sub object like the buttons for the bestiary, need to be added to the list otherwise they will not be aligned properly
+      this.add(this.bestiaryUI.bestiaryLeft);
+      this.add(this.bestiaryUI.bestiaryRight);
+
+      //need to add the text to this container object.
+      for(let counter = 0; counter < this.bestiaryUI.bestiaryTitle.length;counter++){
+        this.add(this.bestiaryUI.bestiaryTitle[counter]);
+      }
+
+      for(let counter = 0; counter < this.bestiaryUI.bestiarySummary.length;counter++){
+        this.add(this.bestiaryUI.bestiarySummary[counter]);
+      }
+
+      this.bestiaryLabel = new makeText(scene,this.bestiaryUI.x-43,this.bestiaryUI.y-29,'charBubble',"BESTIARY");
+      this.bestiaryLabel.visible = false;
+      this.inventoryElements.add(this.bestiaryLabel);
+      this.add(this.bestiaryLabel);
+      this.bestiaryUI.visible = this.isOnScreen;
+      this.bestiaryUI.applyUIControlElements();
+
       //increments index so that the ring slot does not over write the weapon slot in the array.
       index++;
 
       //ring slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y-60+8,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x-190 + (index * 101),this.y+235,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ringLabel = new makeText(scene,this.x+185,this.y-77+8,'charBlack',"RING");
+      this.ringLabel = new makeText(scene,this.inventoryArray[index].x-23,this.inventoryArray[index].y-37,'charBubble',"RING");
       this.ringLabel.visible = false;
-      this.ringLabel.setScale(2/3);
       this.inventoryElements.add(this.ringLabel);
       this.add(this.ringLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
       this.add(this.inventoryArray[index].number1);
       this.inventoryElements.add(this.inventoryArray[index].number2);
       this.add(this.inventoryArray[index].number2);
+
+      //adding settings menu
+      this.settingsUI = new optionsMenu(scene,this,this.x+840,this.y-200);
+      //this.add(this.settingsUI);
+
+      //adds settings menu button
+      this.settingsButton = new settingsButton(scene,this.x-190 + (index * 101)+50,this.y+settingsYOffset,this.settingsUI,this);
+      this.settingsButton.setupSettingsButton();
+      this.add(this.settingsButton);
+
+      this.settingsLabel = new makeText(scene,this.settingsButton.x-43,this.settingsButton.y-29,'charBubble',"SETTINGS");
+      this.settingsLabel.visible = false;
+      this.inventoryElements.add(this.settingsLabel);
+      this.add(this.settingsLabel);
       
       index++;
 
       //ammo slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+5+8,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x-190 + (index * 101),this.y+235,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.ammoLabel = new makeText(scene,this.x+185,this.y-4,'charBlack',"AMMO");
+      this.ammoLabel = new makeText(scene,this.inventoryArray[index].x-23,this.inventoryArray[index].y-37,'charBubble',"AMMO");
       this.ammoLabel.visible = false;
-      this.ammoLabel.setScale(2/3);
       this.inventoryElements.add(this.ammoLabel);
       this.add(this.ammoLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
       this.add(this.inventoryArray[index].number1);
       this.inventoryElements.add(this.inventoryArray[index].number2);
       this.add(this.inventoryArray[index].number2);
+
+            //adds currency counter
+      this.shellIcon = new shellMark(scene,this.x-190 + (index * 101)+90,this.y+settingsYOffset);
+      this.inventoryElements.add(this.shellIcon);
+      this.add(this.shellIcon);
+
+ 
+      //while this does add the currency value its just so it can be over written when the inventory is open. actually update code is further down.
+      if (scene.playerSaveSlotData !== undefined) {
+        let animationNumber = "";
+        animationNumber += scene.playerSaveSlotData.currency;
+        console.log("animationNumber for currency: " + animationNumber);
+        this.shellLetters = new makeText(scene,0,0,'charBubble',""+ scene.playerSaveSlotData.currency);
+        this.shellLetters.visible = false;
+        this.inventoryElements.add(this.shellLetters);
+        this.add(this.shellLetters);
+  
+      }
       
       index++;
 
       //ammo slot and its label setup
-      this.inventoryArray[index] = new inventorySlots(scene,this.x+equipX,this.y+65+11,'inventorySlots').setInteractive();
+      this.inventoryArray[index] = new inventorySlots(scene,this.x-190 + (index * 101),this.y+235,'inventorySlots').setInteractive();
       this.inventoryElements.add(this.inventoryArray[index]);
       this.add(this.inventoryArray[index]);
-      this.costumeLabel = new makeText(scene,this.x+175,this.y+50+9,'charBlack',"VANITY");
+      this.costumeLabel = new makeText(scene,this.inventoryArray[index].x-38,this.inventoryArray[index].y-37,'charBubble',"VANITY");
       this.costumeLabel.visible = false;
-      this.costumeLabel.setScale(2/3);
       this.inventoryElements.add(this.costumeLabel);
       this.add(this.costumeLabel);
       this.inventoryElements.add(this.inventoryArray[index].number1);
@@ -136,13 +204,28 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryArray[index].number2);
       
       index++;
+
+      //ammo slot and its label setup
+      this.inventoryArray[index] = new inventorySlots(scene,this.x-190 + (index * 101),this.y+235,'inventorySlots').setInteractive();
+      this.inventoryElements.add(this.inventoryArray[index]);
+      this.add(this.inventoryArray[index]);
+      this.consumableLabel = new makeText(scene,this.inventoryArray[index].x-43,this.inventoryArray[index].y-37,'charBubble',"CONSUME");
+      this.consumableLabel.visible = false;
+      this.inventoryElements.add(this.consumableLabel);
+      this.add(this.consumableLabel);
+      this.inventoryElements.add(this.inventoryArray[index].number1);
+      this.add(this.inventoryArray[index].number1);
+      this.inventoryElements.add(this.inventoryArray[index].number2);
+      this.add(this.inventoryArray[index].number2);
+      
+      index++;
+
       
       //nested for loop that generates rows and collums of the inventory slots.
-      for(col = 0; col < 4; col++){
-        for(row = 0; row < 6; row++){
-          
+      for(col = 0; col < this.numberOfColumns; col++){
+        for(row = 0; row < this.numberOfRows; row++){
           //creates the slots as the loop generats the slots
-          this.inventoryArray[index] = new inventorySlots(scene,(this.x-190) + (row*60), (this.y-115) +(col*60),'inventorySlots').setInteractive();
+          this.inventoryArray[index] = new inventorySlots(scene,(this.x-190) + (row*101), (this.y-90) +(col*101),'inventorySlots').setInteractive();
           //adds the object to this container.
           this.add(this.inventoryArray[index]);
           //adds this to a group to set sprite visibility.
@@ -161,11 +244,10 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
        //create text button which can be used to split a stack
-       this.split = new makeText(this.scene,45,-55+18,'charBubble',"SPLIT",true);
+       this.split = new makeText(this.scene,200,-26,'charBubble',"SPLIT",true);
        this.split.addHitbox();
        this.split.clicked = false;
        this.split.setScrollFactor(0);
-       this.split.setScale(.8);
        this.split.visible = false;
        this.inventoryElements.add(this.split);
        this.add(this.split);
@@ -210,11 +292,10 @@ class inventory extends Phaser.GameObjects.Container{
        },this);
        
        //create text button which can be used to split a stack
-       this.single = new makeText(this.scene,155,-55+18,'charBubble',"SINGLE",true);
+       this.single = new makeText(this.scene,300,-26,'charBubble',"SINGLE",true);
        this.single.addHitbox();
        this.single.clicked = false;
        this.single.setScrollFactor(0);
-       this.single.setScale(.8);
        this.single.visible = false;
        this.inventoryElements.add(this.single);
        this.add(this.single);
@@ -267,75 +348,6 @@ class inventory extends Phaser.GameObjects.Container{
             + | +
     */
     //when making a container and adding object keep in mind the graph above for where it should be placed when setting up its x and y position.
-    
-
-      //sets up bestiary and its label
-      console.log("activated bestiary controls");
-      this.bestiaryUI = new bestiary(scene,this.x-193,this.y+130,this.x+705,this.y+60).setInteractive(scene.input.makePixelPerfect());
-      this.inventoryElements.add(this.bestiaryUI);
-      this.add(this.bestiaryUI);
-
-      //fun fact any sprite object thats a sub object like the buttons for the bestiary, need to be added to the list otherwise they will not be aligned properly
-      this.add(this.bestiaryUI.bestiaryLeft);
-      this.add(this.bestiaryUI.bestiaryRight);
-
-      //need to add the text to this container object.
-      for(let counter = 0; counter < this.bestiaryUI.bestiaryTitle.length;counter++){
-        this.add(this.bestiaryUI.bestiaryTitle[counter]);
-      }
-
-      for(let counter = 0; counter < this.bestiaryUI.bestiarySummary.length;counter++){
-        this.add(this.bestiaryUI.bestiarySummary[counter]);
-      }
-
-      this.bestiaryLabel = new makeText(scene,this.x-230,this.y+175,'charBubble',"BESTIARY");
-      this.bestiaryLabel.visible = false;
-      this.bestiaryLabel.setScale(2/3);
-      this.inventoryElements.add(this.bestiaryLabel);
-      this.add(this.bestiaryLabel);
-      this.bestiaryUI.visible = this.isOnScreen;
-      this.bestiaryUI.applyUIControlElements();
-      
-      //creates boarder which is not translucent
-      this.inventoryBorder = new inventoryBorder(scene,this.x,this.y,'inventoryBorder');
-      this.inventoryBorder.setScale(1/2);
-      this.inventoryElements.add(this.inventoryBorder);
-      this.add(this.inventoryBorder);
-
-     
-      //adds currency counter
-      this.shellIcon = new shellMark(scene,this.x-120,this.y+130);
-      this.shellIcon.setScale(.6);
-      this.inventoryElements.add(this.shellIcon);
-      this.add(this.shellIcon);
-      let startingX = 29;
-      let startingY = 22;
-      let spacing = 0;
-
-      //adds currency letters
-      //sets the currency icon and number in the inventory.
-      if (scene.playerSaveSlotData !== undefined) {
-        let animationNumber = "";
-        animationNumber += scene.playerSaveSlotData.currency;
-        console.log("animationNumber for currency: " + animationNumber);
-        this.shellLetters = new makeText(scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
-        this.shellLetters.visible = false;
-        this.inventoryElements.add(this.shellLetters);
-        this.add(this.shellLetters);
-  
-      }
-
-      //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this,this.x+840,this.y-200);
-      //this.add(this.settingsUI);
-
-      //adds settings menu button
-      this.settingsButton = new settingsButton(scene,this.x-193,this.y+210,this.settingsUI,this);
-      this.settingsButton.setupSettingsButton();
-      this.add(this.settingsButton);
-
-      
-
 
     }
     
@@ -351,7 +363,7 @@ class inventory extends Phaser.GameObjects.Container{
         if(this.isOpen === false && this.openDelay === false){
             //set variables to reflect it is now open
             this.isOpen = true;
-            this.inventoryInterior.anims.play("open");
+            //this.inventoryInterior.anims.play("open");
             this.openDelay = true;
             this.isOnScreen = true;
             scene.isPaused = true;
@@ -390,7 +402,7 @@ class inventory extends Phaser.GameObjects.Container{
         }else if(this.isOpen === true && this.openDelay === false){
             //set variables to reflect that
             this.isOpen = false;
-            this.inventoryInterior.anims.play("closed");
+            //this.inventoryInterior.anims.play("closed");
             this.openDelay = true;
             this.isOnScreen = false;
             scene.isPaused = false;
@@ -500,8 +512,8 @@ class inventory extends Phaser.GameObjects.Container{
 
       //after we toggle inventory elements we want to leave some specific elements present, or have to manually hide those elements
       //displays closed inventory icon.
-      this.inventoryInterior.anims.play("closed");
-      this.inventoryInterior.visible = true;
+      //this.inventoryInterior.anims.play("closed");
+      //this.inventoryInterior.visible = true;
 
       //loops through all slots to hide there numbers on closing.
       for(let counter = 0; counter < 28 ;counter++){
@@ -520,7 +532,7 @@ class inventory extends Phaser.GameObjects.Container{
     // controls if the inventory slots are viewable. makes them invisable if inventory is closed.
     updateCurrency(scene){
 
-      let startingX = 29;
+      let startingX = 39;
       let startingY = 22;
 
       this.shellLetters.destroy();
@@ -558,8 +570,8 @@ class inventory extends Phaser.GameObjects.Container{
       index++;
       
       //nested loop to loop through all the rows and columns of the inventory slots
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
+      for(let col = 0; col < this.numberOfColumns; col++){
+        for(let row = 0; row < this.numberOfRows; row++){
           console.log("slot: ", )
           this.inventoryArray[index].anims.play(""+scene.inventoryDataArray[index].itemID);
           this.inventoryArray[index].clearTint();

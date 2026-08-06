@@ -10,7 +10,7 @@ class settingsButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        this.setScale(1);
       
         this.anims.create({key: 'settingsActive',frames: this.anims.generateFrameNames('buttons', { start: 15, end: 15 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'settingsInActive',frames: this.anims.generateFrameNames('buttons', { start: 14, end: 14 }),frameRate: 1,repeat: -1});

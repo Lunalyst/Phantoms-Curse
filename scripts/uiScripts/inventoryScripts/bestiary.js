@@ -308,7 +308,7 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     //if bestiary is open then close it and set open delay.
     } else if (this.isOpen === true && this.openDelay === false) {
       this.isOpen = false;
-      this.setScale(.45);
+      this.setScale(1);
       this.setDepth(52);
 
       this.x = this.originalX;

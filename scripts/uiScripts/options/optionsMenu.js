@@ -117,7 +117,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //need textbox to display exit
         this.optionsTextBox = new textBox(scene,-167,625+160,'charBlack');
-        this.optionsTextBox.setScale(1.1);
+        this.optionsTextBox.setScale(1);
         this.add(this.optionsTextBox);
 
         //closing settings button

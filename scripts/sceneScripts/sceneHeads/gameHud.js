@@ -48,7 +48,7 @@ class gameHud extends A3SoundEffects {
            
       //hud specific 
       this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 969 , frameHeight: 714 });
-      this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 969 , frameHeight: 714 });
+      this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 618 , frameHeight: 618 });
       this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 825 , frameHeight: 564 });
       this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
 
@@ -882,7 +882,7 @@ class gameHud extends A3SoundEffects {
 
             if(this.displayCurrencyIcon === null){
               this.displayCurrencyIcon = new shellMark(this,100,93+20+20);
-              this.displayCurrencyLetters = new makeText(this,this.displayCurrencyIcon.x + 30,this.displayCurrencyIcon.y+25,'charBubble',""+ this.playerSaveSlotData.currency);
+              this.displayCurrencyLetters = new makeText(this,this.displayCurrencyIcon.x + 39,this.displayCurrencyIcon.y+25,'charBubble',""+ this.playerSaveSlotData.currency);
               //this.displayCurrencyIcon.setScale(.6);
               this.displayCurrencyIcon.visible = true;
             }else{
@@ -1418,7 +1418,7 @@ class gameHud extends A3SoundEffects {
         setTimeout(function(){
           let reduced = originalAmount-1;
           scene.displayCurrencyLetters.textFadeOutAndDestroy(0);
-          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 30,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
+          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 39,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
           scene.currencyAnimation(scene,reduced,newAmount)
         },0.1);
 
@@ -1428,7 +1428,7 @@ class gameHud extends A3SoundEffects {
         setTimeout(function(){
           let reduced = originalAmount+1;
           scene.displayCurrencyLetters.textFadeOutAndDestroy(0);
-          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 30,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
+          scene.displayCurrencyLetters = new makeText(scene,scene.displayCurrencyIcon.x + 39,scene.displayCurrencyIcon.y+25,'charBubble',""+reduced);
           scene.currencyAnimation(scene,reduced,newAmount)
         },0.1);
 

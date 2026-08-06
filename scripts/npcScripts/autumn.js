@@ -117,6 +117,8 @@ class autumn extends npc{
 
         this.selective = "";
 
+        this.autumnHasWokenUp = false;
+
 
       if(this.npcType === 'postOffice'){
         this.isInPosition = true;
@@ -899,6 +901,11 @@ class autumn extends npc{
 
     inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, fastTravelEndoWakingUp);
 
+    if(this.autumnHasWokenUp === false && fastTravelEndoWakingUp.foundFlag === true){
+      inventoryKeyEmitter.emit(inventoryKey.removeContainerFlag, fastTravelEndoWakingUp);
+      fastTravelEndoWakingUp.foundFlag = false;
+    }
+
     if(fastTravelDiscount.foundFlag === false){
 
         this.nodeHandler("autumn","Behavior1","endoSequence2");
@@ -913,8 +920,8 @@ class autumn extends npc{
 
           //need to display thep layer character correctly on load in since all loads ins that the npc grabs the player have special sprites.
           this.scene.grabbed = false;
-
           inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"fastTravelEndoWakingUp");
+          this.autumnHasWokenUp = true;
           
         
     
@@ -935,14 +942,12 @@ class autumn extends npc{
 
           //need to display thep layer character correctly on load in since all loads ins that the npc grabs the player have special sprites.
           this.scene.grabbed = false;
-
-          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"fastTravelEndoWakingUp");
+          this.autumnHasWokenUp = true;
           
-        
-    
         }
       }
     }else{
+
       this.nodeHandler("autumn","Behavior1","fastTravelEndoWakingUp");
     }
 

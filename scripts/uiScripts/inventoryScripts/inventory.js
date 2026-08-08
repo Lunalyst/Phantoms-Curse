@@ -616,14 +616,14 @@ class inventory extends Phaser.GameObjects.Container{
           
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
           scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter].itemName);
-          scene.itemName.setScale(0.7);
+          scene.itemName.setScale(1);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter].itemDescription);
-          scene.itemDescription.setScale(0.7);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',scene.inventoryDataArray[counter].itemDescription);
+          scene.itemDescription.setScale(1);
           scene.itemDescription.setDepth(21);
           if(scene.inventoryDataArray[counter].itemID !== 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
-            scene.itemValue.setScale(0.7);
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
+            scene.itemValue.setScale(1);
             scene.itemValue.setDepth(21);
           }
           

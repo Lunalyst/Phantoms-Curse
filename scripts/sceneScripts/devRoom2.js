@@ -163,6 +163,24 @@ class devRoom2 extends defaultScene {
 
       //this.initItemDrop(1218,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
       //this.initItemDrop(1118,660,22,1,10,"SHADOW GLOB","A PIECE OF WISPY SHADOW","drop",8);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+      
+      this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
+
+
+
+
 
        this.setUpEnemyCollider(this.enemyGroupArray);
 

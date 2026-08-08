@@ -47,38 +47,28 @@ class shop extends Phaser.GameObjects.Container{
       this.activeSlot2 = -2;
       //value for determining what the slot offset should be, we currently have weapon, and ring slot, so we 
       // should have 2 as the offset.
-      this.slotOffset = 4
+      this.slotOffset = 5
       this.shopArray = [];
 
       //when adding new pages, we need this variable to tell what page we are on.
       this.itemPage = 0;
 
-      //defines the inventory border and background
-      this.playerInventoryInterior = scene.add.sprite(-220, 0, 'storage');
-      this.playerInventoryInterior.setScale(1/2);
-      this.add(this.playerInventoryInterior);
+      this.buySellXOffset = 238;
 
-      this.inventoryBorder = scene.add.sprite(-220, 0, 'storageBorder');
-      this.inventoryBorder.setScale(1/2);
+      this.inventoryBorder = scene.add.sprite(-165, 140, 'storage');
+      this.inventoryBorder.setScale(1);
       this.add(this.inventoryBorder);
 
       //makes the label for the inventory
-      this.inventoryLabel = new makeText(scene,-405,-112,'charBubble',"INVENTORY");
-      this.inventoryLabel.setScale(2/3);
+      this.inventoryLabel = new makeText(scene,-405,-120,'charBubble',"INVENTORY");
       this.add(this.inventoryLabel);
 
-      // defines the shop background and border.
-      this.shopInterior = scene.add.sprite(220, 0, 'shop');
-      this.shopInterior.setScale(1/2);
-      this.add(this.shopInterior);
-
-      this.shopBorder = scene.add.sprite(220, 0, 'shop');
-      this.shopBorder.anims.create({key: 'shopBorder',frames: this.shopBorder.anims.generateFrameNames('shop', { start: 1, end: 1 }),frameRate: 0,repeat: -1});
+      this.shopBorder = scene.add.sprite(250 + this.buySellXOffset, 90, 'storage');
+      this.shopBorder.anims.create({key: 'shopBorder',frames: this.shopBorder.anims.generateFrameNames('storage', { start: 2, end: 2 }),frameRate: 0,repeat: -1});
       this.shopBorder.anims.play("shopBorder",true);
-      this.shopBorder.setScale(1/2);
       this.add(this.shopBorder);
       
-      this.closingButton = new closingButton(scene,this,null,220+135,-124);
+      this.closingButton = new closingButton(scene,this,null,717 ,-130);
       this.closingButton.setupClosingButtonShop();
       this.add(this.closingButton);
 
@@ -113,6 +103,9 @@ class shop extends Phaser.GameObjects.Container{
 
       this.buyOnceArray = null;
       this.buyOnceFlags = null;
+
+      this.numberOfColumns = 3;
+      this.numberOfRows = 5;
 
     }
     
@@ -211,10 +204,10 @@ class shop extends Phaser.GameObjects.Container{
       let row = 0;
 
       //nested for loop that generates rows and columns of the inventory slots.
-      for(col = 0; col < 4; col++){
-        for(row = 0; row < 6; row++){
+      for(col = 0; col < this.numberOfColumns; col++){
+        for(row = 0; row < this.numberOfRows; row++){
           //creates the slots as the loop generats the slots
-          this.shopArray.push(new inventorySlots(scene,(-370) + (row*60), (-80) +(col*60),'inventorySlots').setInteractive());
+          this.shopArray.push(new inventorySlots(scene,(-370) + (row*101), (-80) +(col*101),'inventorySlots').setInteractive());
           //adds the object to this container.
           this.add(this.shopArray[index]);
           //adds this to a group to set sprite visibility.
@@ -234,11 +227,11 @@ class shop extends Phaser.GameObjects.Container{
       }
 
       //adds currency counter
-      this.shellIcon = new shellMark(scene,-320,160);
-      this.shellIcon.setScale(.6);
+      this.shellIcon = new shellMark(scene,-380,200);
+      //this.shellIcon.setScale(.6);
       this.inventoryElements.add(this.shellIcon);
       this.add(this.shellIcon);
-      let startingX = 29;
+      let startingX = 39;
       let startingY = 22;
       let spacing = 0;
 
@@ -255,11 +248,10 @@ class shop extends Phaser.GameObjects.Container{
       }
 
       //create text button which can be used to split a stack
-      this.split = new makeText(this.scene,-70,-140,'charBubble',"SPLIT",true);
+      this.split = new makeText(this.scene,10,-150,'charBubble',"SPLIT",true);
       this.split.addHitbox();
       this.split.clicked = false;
       this.split.setScrollFactor(0);
-      this.split.setScale(.8);
       this.split.visible = false;
       this.inventoryElements.add(this.split);
       this.add(this.split);
@@ -304,11 +296,11 @@ class shop extends Phaser.GameObjects.Container{
       },this);
       
       //create text button which can be used to split a stack
-      this.single = new makeText(this.scene,-175,-140,'charBubble',"SINGLE",true);
+      this.single = new makeText(this.scene,-105,-150,'charBubble',"SINGLE",true);
       this.single.addHitbox();
       this.single.clicked = false;
       this.single.setScrollFactor(0);
-      this.single.setScale(.8);
+      
       this.single.visible = false;
       this.inventoryElements.add(this.single);
       this.add(this.single);
@@ -358,7 +350,7 @@ class shop extends Phaser.GameObjects.Container{
     for(col = 0; col < 3; col++){
        for(row = 0; row < 3; row++){
         //creates the slots as the loop generats the slots
-        let temp = new inventorySlots(scene,(160) + (row*60), (-60) +(col*60),'inventorySlots').setInteractive();
+        let temp = new inventorySlots(scene,(160 + this.buySellXOffset) + (row*101), (-45) +(col*101),'inventorySlots').setInteractive();
         this.shopArray.push(temp);
         //adds the object to this container.
         this.add(this.shopArray[index]);
@@ -381,7 +373,7 @@ class shop extends Phaser.GameObjects.Container{
     } 
 
       //create text button which can be used to split a stack
-      this.sellSwitch = new makeText(this.scene,220+65,-170,'charBubble',"SELL",true);
+      this.sellSwitch = new makeText(this.scene,220+65+70 + this.buySellXOffset,-190,'charBubble',"SELL",true);
       this.sellSwitch.addHitbox();
       this.sellSwitch.clicked = false;
       this.sellSwitch.setScrollFactor(0);
@@ -408,7 +400,7 @@ class shop extends Phaser.GameObjects.Container{
         this.sellElements.toggleVisible();
 
         //loop through sell slots
-        for(let counter = 24; counter < 33;counter++){
+        for(let counter = 15; counter < 24;counter++){
 
           //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
           this.shopArray[counter].isLitUp = false;
@@ -444,15 +436,15 @@ class shop extends Phaser.GameObjects.Container{
     },this);
 
     //adds currency counter
-    this.shellSellIcon = new shellMark(scene,180,-110);
-    this.shellSellIcon.setScale(.6);
+    this.shellSellIcon = new shellMark(scene,220 + this.buySellXOffset,-130);
+    //this.shellSellIcon.setScale(.6);
     this.inventoryElements.add(this.shellSellIcon);
     this.sellElements.add(this.shellSellIcon);
     this.add(this.shellSellIcon);
 
     //text to display value amount in sell slots.
     this.sellNumber = 0;
-    this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+    this.sellText = new makeText(this.scene,240 + this.buySellXOffset,-130,'charBubble',"  = "+this.sellNumber,true);
     this.sellText.setScrollFactor(0);
     this.sellText.visible = false;
     this.inventoryElements.add(this.sellText);
@@ -460,7 +452,7 @@ class shop extends Phaser.GameObjects.Container{
     this.add(this.sellText);
 
     //create text button which can be used to split a stack
-    this.sellButton = new makeText(this.scene,150,100,'charBubble',"SELL ITEMS",true);
+    this.sellButton = new makeText(this.scene,190 + this.buySellXOffset,215,'charBubble',"SELL ITEMS",true);
     this.sellButton.addHitbox();
     this.sellButton.setScrollFactor(0);
     this.sellButton.visible = false;
@@ -499,7 +491,7 @@ class shop extends Phaser.GameObjects.Container{
       this.sellNumber = 0;
 
       //loop through the nine slots
-      for(let counter = 24; counter < 33; counter++){
+      for(let counter = 15; counter < 24; counter++){
 
         // temp item to clear the slot
         let temp = {
@@ -528,7 +520,7 @@ class shop extends Phaser.GameObjects.Container{
 
       //destroy and reset the sell text.
       this.sellText.destroy();
-      this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+      this.sellText = new makeText(this.scene,240 + this.buySellXOffset,-130,'charBubble',"  = "+this.sellNumber,true);
       this.sellText.setScrollFactor(0);
       if(this.sellSwitch.clicked === false){
         this.sellText.visible = false;
@@ -545,7 +537,7 @@ class shop extends Phaser.GameObjects.Container{
     //buy, and buy related objects ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //create text button which can be used to buySwitch a stack
-    this.buySwitch = new makeText(this.scene,220-95,-170,'charBubble',"BUY",true);
+    this.buySwitch = new makeText(this.scene,220-95-25 + this.buySellXOffset,-190,'charBubble',"BUY",true);
     this.buySwitch.addHitbox();
     this.buySwitch.clicked = true;
     this.buySwitch.setTextTint(0xff0000);
@@ -573,7 +565,7 @@ class shop extends Phaser.GameObjects.Container{
         this.sellElements.toggleVisible();
 
         //loop through sell slots
-        for(let counter = 24; counter < 33;counter++){
+        for(let counter = 15; counter < 24;counter++){
 
           //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
           this.shopArray[counter].isLitUp = false;
@@ -628,8 +620,8 @@ class shop extends Phaser.GameObjects.Container{
     },this);
 
     //define up button for buy inventory
-    this.buyIndexUp = new UIControls(this.scene, 220,-126, "UIControls").setInteractive();
-    this.buyIndexUp.setScale(0.3);
+    this.buyIndexUp = new UIControls(this.scene,420 + this.buySellXOffset,-80, "UIControls").setInteractive();
+    //this.buyIndexUp.setScale(0.3);
     this.buyIndexUp.anims.play("pointRight");
     this.buyIndexUp.setRotation(3.14/2+3.14/2+3.14/2)
     this.buyIndexUp.visible = false;
@@ -672,8 +664,8 @@ class shop extends Phaser.GameObjects.Container{
       this.buyIndexUp.clearTint();
     },this);
 
-    this.buyIndexDown = new UIControls(this.scene, 220, 166, "UIControls").setInteractive();
-    this.buyIndexDown.setScale(0.3);
+    this.buyIndexDown = new UIControls(this.scene, 420 + this.buySellXOffset,170, "UIControls").setInteractive();
+    //this.buyIndexDown.setScale(0.3);
     this.buyIndexDown.anims.play("pointRight");
     this.buyIndexDown.setRotation(3.14/2)
     this.buyIndexDown.visible = false;
@@ -744,8 +736,8 @@ class shop extends Phaser.GameObjects.Container{
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots
       let index = 0;
       //nested loop to loop through all the rows and columns of the inventory slots
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
+      for(let col = 0; col < this.numberOfColumns; col++){
+        for(let row = 0; row < this.numberOfRows; row++){
           //console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
           this.shopArray[index].anims.play(""+this.copyDataArray[this.getDataLocation(index)].itemID);
           this.shopArray[index].clearTint();
@@ -789,7 +781,7 @@ class shop extends Phaser.GameObjects.Container{
         //destroy and reset the sell text on aditional shop opens.
         this.sellNumber = 0;
         this.sellText.destroy();
-        this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+        this.sellText = new makeText(this.scene,240 + this.buySellXOffset,-130,'charBubble',"  = "+this.sellNumber,true);
         if(this.sellSwitch.clicked === false){
           this.sellText.visible = false;
         }
@@ -811,7 +803,7 @@ class shop extends Phaser.GameObjects.Container{
         this.sellElements.toggleVisible();
 
         //loop through sell slots
-        for(let counter = 24; counter < 33;counter++){
+        for(let counter = 15; counter < 24;counter++){
 
           //resets slots in selltab. saftey so things cant be wrongly transfered into the sell slots while in buytab.
           this.shopArray[counter].isLitUp = false;
@@ -874,7 +866,7 @@ class shop extends Phaser.GameObjects.Container{
       let activeSlot = 0;
 
       // applys  lightupslot function to slots when clicked.
-      for(let counter = 0; counter < 33;counter++){
+      for(let counter = 0; counter < 24;counter++){
         //console.log("counter: ",counter);
         // code that handles applying interaction on slots
         this.shopArray[counter].on('pointerdown', function (pointer) {
@@ -888,14 +880,14 @@ class shop extends Phaser.GameObjects.Container{
         this.shopArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
           scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
-          scene.itemName.setScale(0.7);
+          scene.itemName.setScale(1);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
-          scene.itemDescription.setScale(0.7);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
+          scene.itemDescription.setScale(1);
           scene.itemDescription.setDepth(21);
           if(tempshop.copyDataArray[counter+ tempshop.slotOffset].itemID !== 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
-            scene.itemValue.setScale(0.7);
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
+            scene.itemValue.setScale(1);
             scene.itemValue.setDepth(21);
           }
         });
@@ -1180,7 +1172,7 @@ class shop extends Phaser.GameObjects.Container{
            this.sellNumber = 0;
 
           //loop through the nine slots
-          for(let counter = 24; counter < 33; counter++){
+          for(let counter = 15; counter < 24; counter++){
 
             //add the price of the items in the sell slots to the sellnumber by multiplying the item amount by its sell value.
             this.sellNumber += this.copyDataArray[this.getDataLocation(counter)].itemAmount * this.copyDataArray[this.getDataLocation(counter)].sellValue;
@@ -1189,7 +1181,7 @@ class shop extends Phaser.GameObjects.Container{
 
           //destroy and reset the sell text.
           this.sellText.destroy();
-          this.sellText = new makeText(this.scene,190,-110,'charBubble',"  = "+this.sellNumber,true);
+          this.sellText = new makeText(this.scene,240 + this.buySellXOffset,-130,'charBubble',"  = "+this.sellNumber,true);
           if(this.sellSwitch.clicked === false){
             this.sellText.visible = false;
           }
@@ -1239,8 +1231,9 @@ class shop extends Phaser.GameObjects.Container{
     setUpBuyContainers(){
 
       //loop through the buyback array
-      let startX = 220-60;
-      let startY = -70;
+      let startX = 220-90;
+      let startY = -80;
+      let slotSpace = 120;
 
       
       //if the buy array is defined, and we have 5 or less elements.
@@ -1251,14 +1244,14 @@ class shop extends Phaser.GameObjects.Container{
           console.log("this.buyArray[counter]",this.buyArray[counter]);
           let temp;
           if(this.buyOnceArray !== null){
-            temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter],this.buyOnceArray[counter],this.buyOnceFlags[counter]);
+            temp = new buyContainer(this.scene,startX + this.buySellXOffset ,startY,this,this.buyArray[counter],this.buyOnceArray[counter],this.buyOnceFlags[counter]);
           }else{
-            temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter],null,null);
+            temp = new buyContainer(this.scene,startX + this.buySellXOffset ,startY,this,this.buyArray[counter],null,null);
           }
           
           this.buyElements.add(temp);
           this.buyContainerArray.push(temp);
-          startY += 85;
+          startY += slotSpace;
         }
 
         //hide both index buttons
@@ -1271,10 +1264,10 @@ class shop extends Phaser.GameObjects.Container{
         //loop through and make new container
         for(let counter = this.buyIndexStart; counter < this.buyIndexStart+this.amountOfBuyContainers ; counter++){
           //console.log("this.buyArray[counter]",this.buyArray[counter]);
-          let temp = new buyContainer(this.scene,startX,startY,this,this.buyArray[counter]);
+          let temp = new buyContainer(this.scene,startX + this.buySellXOffset ,startY,this,this.buyArray[counter]);
           this.buyElements.add(temp);
           this.buyContainerArray.push(temp);
-          startY += 85;
+          startY += slotSpace;
         }
 
         //hide both index buttons
@@ -1306,7 +1299,7 @@ class shop extends Phaser.GameObjects.Container{
 
     
     updatePlayerCurrency(){
-      let startingX = 29;
+      let startingX = 39;
       let startingY = 22;
 
       let animationNumber = "";
@@ -1323,8 +1316,8 @@ class shop extends Phaser.GameObjects.Container{
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots
       let index = 0;
       //nested loop to loop through all the rows and columns of the inventory slots
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
+      for(let col = 0; col < this.numberOfColumns; col++){
+        for(let row = 0; row < this.numberOfRows; row++){
           //console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
           this.shopArray[index].anims.play(""+this.copyDataArray[this.getDataLocation(index)].itemID);
           this.shopArray[index].clearTint();

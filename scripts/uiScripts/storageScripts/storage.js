@@ -21,38 +21,34 @@ class storage extends Phaser.GameObjects.Container{
       this.activeSlot2 = -2;
       //value for determining what the slot offset should be, we currently have weapon, and ring slot, so we 
       // should have 2 as the offset.
-      this.slotOffset = 4
+      this.slotOffset = 5
       this.storageArray = [];
+
+      this.inventoryRows = 5;
+      this.inventoryColumns = 3;
+
+      this.storageRows = 5;
+      this.storageColumns = 5;
 
       //when adding new pages, we need this variable to tell what page we are on.
       this.itemPage = 0;
 
       //defines the inventory border and background
-      this.storageInterior = scene.add.sprite(-220, 0, 'storage');
-      this.storageInterior.setScale(1/2);
-      this.add(this.storageInterior);
-      this.inventoryBorder = new storageBorder(scene,-220,0);
-      this.inventoryBorder.setScale(1/2);
+      this.inventoryBorder = scene.add.sprite(-170, 210, 'storage');
       this.add(this.inventoryBorder);
 
       //makes the label for the inventory
-      this.inventoryLabel = new makeText(scene,-405,-112,'charBubble',"INVENTORY");
-      this.inventoryLabel.setScale(2/3);
+      this.inventoryLabel = new makeText(scene,-405,-40,'charBubble',"INVENTORY");
       this.add(this.inventoryLabel);
 
       // defines the storage background and border.
-      this.playerInventoryInterior = scene.add.sprite(220, 0, 'storage');
-      this.playerInventoryInterior.setScale(1/2);
-      this.playerInventoryInterior.flipX = true;
-      this.add(this.playerInventoryInterior);
-      this.playerInventoryBorder = new storageBorder(scene,220,0);
-      this.playerInventoryBorder.setScale(1/2);
-      this.playerInventoryBorder.flipX = true;
+      this.playerInventoryBorder = scene.add.sprite(482, 210, 'storage');
+      this.playerInventoryBorder.anims.create({key: 'storage',frames: this.playerInventoryBorder.anims.generateFrameNames('storage', { start: 1, end: 1 }),frameRate: 0,repeat: -1});
+      this.playerInventoryBorder.anims.play("storage",true);
       this.add(this.playerInventoryBorder);
 
       //defines the storage label text
-      this.storageLabel = new makeText(scene,330,-112,'charBubble',"STORAGE");
-      this.storageLabel.setScale(2/3);
+      this.storageLabel = new makeText(scene,240,-40,'charBubble',"STORAGE");
       this.add(this.storageLabel);
 
       this.scene = scene;
@@ -69,23 +65,53 @@ class storage extends Phaser.GameObjects.Container{
       this.storageLeft;
       this.storageRight;
 
-      this.storageLeft = new UIControls(scene, 45,  170, "UIControls").setInteractive();
+      this.storageLeft = new UIControls(scene, 310,  480, "UIControls").setInteractive();
       this.storageLeft.anims.play("pointLeft");
       this.storageLeft.visible = false;
       this.add(this.storageLeft);
 
-      this.storageRight = new UIControls(scene,45 + 350, 170, "UIControls").setInteractive();
+      this.storageRight = new UIControls(scene,310 + 350, 480, "UIControls").setInteractive();
       this.storageRight.anims.play("pointRight");
       this.storageRight.visible = false;
       this.add(this.storageRight);
 
       this.pageNumber = 0;
-      this.maxPageNumber = ((scene.inventoryDataArray.length - 4) / 24) - 1;
+      //saftey check here
+      //if value below is not a whole number then we dont have a clean amount of slots
+      this.maxPageNumber = ((scene.inventoryDataArray.length - 20) / 25) - 1;
+
+      console.log("this.maxPageNumber: ",this.maxPageNumber)
+
+      console.log("scene.inventoryDataArray.length: ",scene.inventoryDataArray.length)
+
+      console.log("(scene.inventoryDataArray.length - 20) % 25: ",(scene.inventoryDataArray.length - 20) % 25)
+
+      if((scene.inventoryDataArray.length - 20) % 25 !== 0){
+
+        //get the number of pages by using the remainder to get a clean divisable number.
+      let numberOfPages = (((scene.inventoryDataArray.length - 20) - ((scene.inventoryDataArray.length - 20) % 25)) /25) + 1;
+      //safty check for old saves. make sure there are enough empty slots to fill the page since old saves worked in different page sizes.
+          while(this.scene.inventoryDataArray.length < (20 + (numberOfPages * 25) )){
+            console.log("adding extra slots!");
+            let item = {
+                        itemID: 0,
+                        itemName: ' ',
+                        itemDescription: ' ',
+                        itemStackable: 1,
+                        itemAmount: 0 ,
+                        itemType: "",
+                        sellValue: 0
+            };
+            
+            this.scene.inventoryDataArray.push(item);
+
+          }
+      }
       
-      this.storageStartPosition = 47;
+      this.storageStartPosition = 39;
 
       let pageVal = this.pageNumber+1;
-      this.storageLabel = new makeText(this.scene,45 + (350)/2,170+35,'charBubble',""+pageVal);
+      this.storageLabel = new makeText(this.scene,310 + (350)/2, 480+35,'charBubble',""+pageVal);
       this.storageLabel.setScale(1.5);
       this.add(this.storageLabel);
     }
@@ -93,8 +119,8 @@ class storage extends Phaser.GameObjects.Container{
     // function opens the storage ui. has a delay so that the player cant quickly open the inventory
     setView(scene,hud){
         //updates max page number on opening or closing.
-        this.maxPageNumber = ((this.scene.inventoryDataArray.length - 4) / 24) - 1;
-        console.log("this.maxPageNumber: ",this.maxPageNumber)
+        this.maxPageNumber = ((this.scene.inventoryDataArray.length - 20) / 25);
+        console.log("this.scene.inventoryDataArray.length: ",this.scene.inventoryDataArray.length)
 
         console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay);
         // if the player hasnt opened the inventory and the delay is false then
@@ -169,6 +195,10 @@ class storage extends Phaser.GameObjects.Container{
             if(this.scene.itemDescription !== undefined){
               this.scene.itemDescription.destroy();
             }
+
+            if(this.scene.itemValue !== undefined){
+              this.scene.itemValue.destroy();
+            }
             
             //set time out for delay.
             let storageThat = this;
@@ -192,10 +222,11 @@ class storage extends Phaser.GameObjects.Container{
       let row = 0;
 
       //nested for loop that generates rows and columns of the inventory slots.
-      for(col = 0; col < 4; col++){
-        for(row = 0; row < 6; row++){
+      for(col = 0; col < this.inventoryColumns; col++){
+        for(row = 0; row < this.inventoryRows; row++){
+
           //creates the slots as the loop generats the slots
-          this.storageArray.push(new inventorySlots(scene,(-370) + (row*60), (-80) +(col*60),'inventorySlots').setInteractive());
+          this.storageArray.push(new inventorySlots(scene,(-375) + (row*101), (2) +(col*101),'inventorySlots').setInteractive());
           //adds the object to this container.
           this.add(this.storageArray[index]);
           //adds this to a group to set sprite visibility.
@@ -215,10 +246,10 @@ class storage extends Phaser.GameObjects.Container{
       }
 
       //nested for loop that generates rows and columns of the storage slots.
-      for(col = 0; col < 4; col++){
-        for(row = 0; row < 6; row++){
+      for(col = 0; col < this.storageColumns; col++){
+        for(row = 0; row < this.storageRows; row++){
           //creates the slots as the loop generats the slots
-          this.storageArray.push(new inventorySlots(scene,(70) + (row*60), (-80) +(col*60),'inventorySlots').setInteractive());
+          this.storageArray.push(new inventorySlots(scene,(280) + (row*101), (2) +(col*101),'inventorySlots').setInteractive());
           //adds the object to this container.
           this.add(this.storageArray[index]);
           //adds this to a group to set sprite visibility.
@@ -240,11 +271,10 @@ class storage extends Phaser.GameObjects.Container{
       console.log("this.storageArray: ", this.storageArray);
 
       //create text button which can be used to split a stack
-      this.split = new makeText(this.scene,50,-140,'charBubble',"SPLIT",true);
+      this.split = new makeText(this.scene,-100,-70,'charBubble',"SPLIT",true);
       this.split.addHitbox();
       this.split.clicked = false;
       this.split.setScrollFactor(0);
-      this.split.setScale(.8);
       this.split.visible = false;
       this.inventoryElements.add(this.split);
       this.add(this.split);
@@ -289,11 +319,10 @@ class storage extends Phaser.GameObjects.Container{
       },this);
       
       //create text button which can be used to split a stack
-      this.single = new makeText(this.scene,155,-140,'charBubble',"SINGLE",true);
+      this.single = new makeText(this.scene,-10,-70,'charBubble',"SINGLE",true);
       this.single.addHitbox();
       this.single.clicked = false;
       this.single.setScrollFactor(0);
-      this.single.setScale(.8);
       this.single.visible = false;
       this.inventoryElements.add(this.single);
       this.add(this.single);
@@ -351,10 +380,11 @@ class storage extends Phaser.GameObjects.Container{
       console.log("this.maxPageNumber: ",this.maxPageNumber);
       //console.log("this.split: ",this.split);
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots
+
       let index = 0;
       //nested loop to loop through all the rows and columns of the inventory slots
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
+      for(let col = 0; col < this.inventoryColumns; col++){
+        for(let row = 0; row < this.inventoryRows; row++){
           console.log('first loop this.scene.inventoryDataArray[',this.getDataLocation(index),']: ',this.scene.inventoryDataArray[this.getDataLocation(index)].itemID)
           this.storageArray[index].anims.play(""+this.scene.inventoryDataArray[this.getDataLocation(index)].itemID);
           this.storageArray[index].clearTint();
@@ -368,8 +398,9 @@ class storage extends Phaser.GameObjects.Container{
       }
 
       //plays info from storage in player data do the storage slots.
-      for(let col = 0; col < 4; col++){
-        for(let row = 0; row < 6; row++){
+      for(let col = 0; col < this.storageColumns; col++){
+        for(let row = 0; row < this.storageRows; row++){
+
           console.log('second loop this.scene.inventoryDataArray[',this.getDataLocation(index),']: ',this.scene.inventoryDataArray[this.getDataLocation(index)].itemID);
           this.storageArray[index].anims.play(""+this.scene.inventoryDataArray[this.getDataLocation(index)].itemID);
           this.storageArray[index].clearTint();
@@ -391,7 +422,7 @@ class storage extends Phaser.GameObjects.Container{
       let activeSlot = 0;
 
       // applys  lightupslot function to slots when clicked.
-      for(let counter = 0; counter <= 47;counter++){
+      for(let counter = 0; counter <= this.storageStartPosition;counter++){
 
         // code that handles applying interaction on slots
         this.storageArray[counter].on('pointerdown', function (pointer) {
@@ -405,15 +436,15 @@ class storage extends Phaser.GameObjects.Container{
         this.storageArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
           scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemName);
-          scene.itemName.setScale(0.7);
+          scene.itemName.setScale(1);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+15,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
-          scene.itemDescription.setScale(0.7);
+          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
+          scene.itemDescription.setScale(1);
           scene.itemDescription.setDepth(21);
           console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + this.slotOffset].itemID);
           if(scene.inventoryDataArray[counter + this.slotOffset].itemID > 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+30,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
-            scene.itemValue.setScale(0.7);
+            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
+            scene.itemValue.setScale(1);
             scene.itemValue.setDepth(21);
           }
         },this);
@@ -433,10 +464,10 @@ class storage extends Phaser.GameObjects.Container{
 
     //uses the activate slot number and the page number to get the position in dataaray which has the item we want to move.
     getDataLocation(activatedSlot){
-      if(activatedSlot < 24){
+      if(activatedSlot < 15){
         return activatedSlot + this.slotOffset;
       }else{
-        return activatedSlot + (this.pageNumber * 24) + this.slotOffset;
+        return activatedSlot + (this.pageNumber * 25) + this.slotOffset;
       }
       
     }
@@ -721,9 +752,11 @@ class storage extends Phaser.GameObjects.Container{
           //replace the page maketext object.
           this.storageLabel.destroy();
           let pageVal = this.pageNumber+1;
-          this.storageLabel = new makeText(this.scene,45 + (350)/2,170+35,'charBubble',""+pageVal);
+          this.storageLabel = new makeText(this.scene,310 + (350)/2, 480+35,'charBubble',""+pageVal);
           this.storageLabel.setScale(1.5);
           this.add(this.storageLabel);
+
+          
 
           //sets slots on transition
           this.setSlots();
@@ -732,6 +765,7 @@ class storage extends Phaser.GameObjects.Container{
           //then if the page number is the last one hide this button
           if (this.pageNumber === this.maxPageNumber - 1) {
             console.log(" hiding right storage arrow");
+
             this.storageRight.visible = false;
             this.storageLeft.visible = true;
           //else leave both buttons visible.
@@ -755,13 +789,13 @@ class storage extends Phaser.GameObjects.Container{
           //replace the page maketext object.
           this.storageLabel.destroy();
           let pageVal = this.pageNumber+1;
-          this.storageLabel = new makeText(this.scene,45 + (350)/2,170+35,'charBubble',""+pageVal);
+          this.storageLabel = new makeText(this.scene,310 + (350)/2, 480+35,'charBubble',""+pageVal);
           this.storageLabel.setScale(1.5);
           this.add(this.storageLabel);
 
           //calculate the start index of the next page
-          this.storageStartPosition -= 24;
-          let index = 24;
+          this.storageStartPosition -= 25;
+          let index = 20;
 
 
           //now we need to update the position both the player data object, and the slot view

@@ -30,6 +30,12 @@ class buyContainer extends Phaser.GameObjects.Container{
 
       this.scene = scene;
 
+      this.buyButtonX = 80;
+
+      this.itemXOffset = -78;
+
+      this.textXOffset = -10;
+
       this.buyOnceActivated = false;
 
       //if buyonce is active the set up button for that logic
@@ -46,44 +52,45 @@ class buyContainer extends Phaser.GameObjects.Container{
         if(checkFlag.foundFlag === true){
 
           this.buySlotBackground = scene.add.sprite(60, 5, 'shopSlot');
-          this.buySlotBackground.setScale(.49);
+          this.buySlotBackground.setScale(1);
           this.add(this.buySlotBackground);
           this.buySlotBackground.setTint(0x808080);
 
           //define the buy button
           //create text button which can be used to buyButtonDisplay a stack
-          this.buyButtonDisplay = new makeText(scene,-60,-5,'charBubble',"BUY",true);
+          this.buyButtonDisplay = new makeText(scene,this.buyButtonX + 100,-11,'charBubble',"BUY",true);
           this.buyButtonDisplay.addHitbox();
-          this.buyButtonDisplay.setScale(1.2);
+          this.buyButtonDisplay.setScale(1);
           this.add(this.buyButtonDisplay);
           this.buyButtonDisplay.setTextTint(0x808080);
 
           //define fake item drop as a display for the item.
-          this.buyDropDisplay = new itemDrop(scene, 10,-10,item.itemID,0,1,"","","",0);
-          this.buyDropDisplay.setScale(.7);
+          this.buyDropDisplay = new itemDrop(scene, this.itemXOffset,-5,item.itemID,0,1,"","","",0);
+          this.buyDropDisplay.itemGlow.destroy();
+          this.buyDropDisplay.setScale(1);
           this.add(this.buyDropDisplay);
           this.buyDropDisplay.setTint(0x808080);
 
-          this.buyNameDisplay = new makeText(scene,60,0,'charBubble',""+item.itemName);
-          this.buyNameDisplay.setScale(.8);
+          this.buyNameDisplay = new makeText(scene,this.textXOffset,0,'charBubble',""+item.itemName);
+          this.buyNameDisplay.setScale(1);
           this.add(this.buyNameDisplay);
           this.buyNameDisplay.setTextTint(0x808080);
 
-          this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT: ---");
-          this.buyAmountDisplay.setScale(.8);
+          this.buyAmountDisplay = new makeText(scene,this.textXOffset,20,'charBubble',"AMOUNT:---");
+          this.buyAmountDisplay.setScale(1);
           this.add(this.buyAmountDisplay);
           this.buyAmountDisplay.setTextTint(0x808080);
 
           //shell currency icon
-          this.shellIcon = new shellMark(scene,60,20);
-          this.shellIcon.setScale(.4);
+          this.shellIcon = new shellMark(scene,this.textXOffset,20);
+          this.shellIcon.setScale(1/3);
           this.shellIcon.visible = true;
           this.add(this.shellIcon);
           this.shellIcon.setTint(0x808080);
     
           //define make text object with the items name.
-          this.buyPriceDisplay = new makeText(scene,80,40,'charBubble'," ---");
-          this.buyPriceDisplay.setScale(.8);
+          this.buyPriceDisplay = new makeText(scene,this.textXOffset+ 20,40,'charBubble'," ---");
+          this.buyPriceDisplay.setScale(1);
           this.add(this.buyPriceDisplay);
           this.buyPriceDisplay.setTextTint(0x808080);
 
@@ -95,40 +102,41 @@ class buyContainer extends Phaser.GameObjects.Container{
 
           //make sure to give the flag on buy.
           this.buySlotBackground = scene.add.sprite(60, 5, 'shopSlot');
-          this.buySlotBackground.setScale(.49);
+          this.buySlotBackground.setScale(1);
           this.add(this.buySlotBackground);
 
           //define the buy button
           //create text button which can be used to buyButtonDisplay a stack
-          this.buyButtonDisplay = new makeText(scene,-60,-5,'charBubble',"BUY",true);
+          this.buyButtonDisplay = new makeText(scene,this.buyButtonX,-11,'charBubble',"BUY",true);
           this.buyButtonDisplay.addHitbox();
-          this.buyButtonDisplay.setScale(1.2);
+          this.buyButtonDisplay.setScale(1);
           this.add(this.buyButtonDisplay);
 
           //define fake item drop as a display for the item.
-          this.buyDropDisplay = new itemDrop(scene, 10,-10,item.itemID,0,1,"","","",0);
-          this.buyDropDisplay.setScale(.7);
+          this.buyDropDisplay = new itemDrop(scene, this.itemXOffset,-5,item.itemID,0,1,"","","",0);
+          this.buyDropDisplay.itemGlow.destroy();
+          this.buyDropDisplay.setScale(1);
           this.add(this.buyDropDisplay);
 
           
-          this.buyNameDisplay = new makeText(scene,60,0,'charBubble',""+item.itemName);
-          this.buyNameDisplay.setScale(.8);
+          this.buyNameDisplay = new makeText(scene,this.textXOffset,0,'charBubble',""+item.itemName);
+          this.buyNameDisplay.setScale(1);
           this.add(this.buyNameDisplay);
 
-          this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT: "+item.itemAmount);
-          this.buyAmountDisplay.setScale(.8);
+          this.buyAmountDisplay = new makeText(scene,this.textXOffset,20,'charBubble',"AMOUNT:"+item.itemAmount);
+          this.buyAmountDisplay.setScale(1);
           this.add(this.buyAmountDisplay);
 
           //shell currency icon
-          this.shellIcon = new shellMark(scene,60,20);
-          this.shellIcon.setScale(.4);
+          this.shellIcon = new shellMark(scene,this.textXOffset,20);
+          this.shellIcon.setScale(1/3);
           this.shellIcon.visible = true;
           this.add(this.shellIcon);
   
           //define make text object with the items name.
           let value = Math.floor(item.sellValue * this.shopUI.multiplier * item.itemAmount);
-          this.buyPriceDisplay = new makeText(scene,80,40,'charBubble',""+value);
-          this.buyPriceDisplay.setScale(.8);
+          this.buyPriceDisplay = new makeText(scene,this.textXOffset+ 20,40,'charBubble',""+value);
+          this.buyPriceDisplay.setScale(1);
           this.add(this.buyPriceDisplay);
 
           //set up button functionality for buyButtonDisplay button
@@ -209,14 +217,14 @@ class buyContainer extends Phaser.GameObjects.Container{
 
                   //delete text entitys of price and amount and replace them with ---
                   this.buyAmountDisplay.textFadeOutAndDestroy(0);
-                  this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT: ---");
-                  this.buyAmountDisplay.setScale(.8);
+                  this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT:---");
+                  this.buyAmountDisplay.setScale(1);
                   this.add(this.buyAmountDisplay);
                   this.buyAmountDisplay.setTextTint(0x808080);
 
                   this.buyPriceDisplay.textFadeOutAndDestroy(0);
                   this.buyPriceDisplay = new makeText(scene,80,40,'charBubble'," ---");
-                  this.buyPriceDisplay.setScale(.8);
+                  this.buyPriceDisplay.setScale(1);
                   this.add(this.buyPriceDisplay);
                   this.buyPriceDisplay.setTextTint(0x808080);
 
@@ -237,40 +245,40 @@ class buyContainer extends Phaser.GameObjects.Container{
       }else{
 
         this.buySlotBackground = scene.add.sprite(60, 5, 'shopSlot');
-        this.buySlotBackground.setScale(.49);
+        this.buySlotBackground.setScale(1);
         this.add(this.buySlotBackground);
 
         //define the buy button
         //create text button which can be used to buyButtonDisplay a stack
-        this.buyButtonDisplay = new makeText(scene,-60,-5,'charBubble',"BUY",true);
+        this.buyButtonDisplay = new makeText(scene,this.buyButtonX+110,-11,'charBubble',"BUY",true);
         this.buyButtonDisplay.addHitbox();
-        this.buyButtonDisplay.setScale(1.2);
         this.add(this.buyButtonDisplay);
 
         //define fake item drop as a display for the item.
-        this.buyDropDisplay = new itemDrop(scene, 10,-10,item.itemID,0,1,"","","",0);
-        this.buyDropDisplay.setScale(.7);
+        this.buyDropDisplay = new itemDrop(scene, this.itemXOffset,-1,item.itemID,0,1,"","","",0);
+        this.buyDropDisplay.itemGlow.destroy();
+        this.buyDropDisplay.setScale(1);
         this.add(this.buyDropDisplay);
 
         
-        this.buyNameDisplay = new makeText(scene,60,0,'charBubble',""+item.itemName);
-        this.buyNameDisplay.setScale(.8);
+        this.buyNameDisplay = new makeText(scene,this.textXOffset,0,'charBubble',""+item.itemName);
+        this.buyNameDisplay.setScale(1);
         this.add(this.buyNameDisplay);
 
-        this.buyAmountDisplay = new makeText(scene,60,20,'charBubble',"AMOUNT: "+item.itemAmount);
-        this.buyAmountDisplay.setScale(.8);
+        this.buyAmountDisplay = new makeText(scene,this.textXOffset,20,'charBubble',"AMOUNT:"+item.itemAmount);
+        this.buyAmountDisplay.setScale(1);
         this.add(this.buyAmountDisplay);
 
         //shell currency icon
-        this.shellIcon = new shellMark(scene,60,20);
-        this.shellIcon.setScale(.4);
+        this.shellIcon = new shellMark(scene,this.textXOffset,20);
+        this.shellIcon.setScale(1/3);
         this.shellIcon.visible = true;
         this.add(this.shellIcon);
  
         //define make text object with the items name.
         let value = Math.floor(item.sellValue * this.shopUI.multiplier * item.itemAmount);
-        this.buyPriceDisplay = new makeText(scene,80,40,'charBubble',""+value);
-        this.buyPriceDisplay.setScale(.8);
+        this.buyPriceDisplay = new makeText(scene,this.textXOffset+ 20,43,'charBubble',""+value);
+        this.buyPriceDisplay.setScale(1);
         this.add(this.buyPriceDisplay);
 
         //set up button functionality for buyButtonDisplay button

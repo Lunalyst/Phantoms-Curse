@@ -49,11 +49,10 @@ class gameHud extends A3SoundEffects {
       //hud specific 
       this.load.spritesheet('inventory', 'assets/hudElements/inventoryScreen.png',{frameWidth: 969 , frameHeight: 714 });
       this.load.spritesheet('inventoryBorder', 'assets/hudElements/inventoryBorder.png',{frameWidth: 618 , frameHeight: 618 });
-      this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 825 , frameHeight: 564 });
-      this.load.spritesheet('storageBorder', 'assets/hudElements/storageInventoryBorder.png',{frameWidth: 825 , frameHeight: 564 });
-
+      this.load.spritesheet('storage', 'assets/hudElements/storageInventory.png',{frameWidth: 621 , frameHeight: 621 });
+     
       this.load.spritesheet('shop', 'assets/hudElements/shop-ui.png',{frameWidth: 630 , frameHeight: 750 });
-      this.load.spritesheet('shopSlot', 'assets/hudElements/shop-slot-ui.png',{frameWidth: 594 , frameHeight: 159 });
+      this.load.spritesheet('shopSlot', 'assets/hudElements/shop-slot-ui.png',{frameWidth: 390 , frameHeight: 114 });
       
       this.load.spritesheet('optionsMenu', 'assets/hudElements/optionsMenu.png',{frameWidth: 1260 , frameHeight: 2160 });
 
@@ -724,7 +723,7 @@ class gameHud extends A3SoundEffects {
             //if the shop ui isnt already created.
             if(this.playerShop === null){
               //adds player storage ui
-              this.playerShop = new shop(this,this.screenWidth/2-160,260);
+              this.playerShop = new shop(this,this.screenWidth/2-160,250);
               //this.playerShop.applyUIControlElements();
 
               //makes a tween for the inventory object so the interior is see through
@@ -1151,7 +1150,8 @@ class gameHud extends A3SoundEffects {
                 //if the item still has not been added, then we need to expand the storage array, so add a new page to the storage.
                 //if inventory does not have 100 slots, then add those slots.
                 if(itemAdded === false) {
-                  for(let counter = 0; counter < 24; counter++){
+
+                  for(let counter = 0; counter < 25; counter++){
 
                     //for some reason, by defininging the object here, it creates new instances of the object, so that all the items in the array,
                     //are not refrencing the same object like it would be if this variable was defined outside this for loop.
@@ -1167,6 +1167,7 @@ class gameHud extends A3SoundEffects {
             
                     this.inventoryDataArray.push(item);
                   }
+                  
                   //attemot to add the item after space increase.
                   for(let counter = 4; counter < this.inventoryDataArray.length;counter++){
 

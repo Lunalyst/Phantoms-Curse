@@ -10,7 +10,7 @@ class closingButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
       
         this.anims.create({key: 'closingButtonActive',frames: this.anims.generateFrameNames('closingButton', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'closingButtonInActive',frames: this.anims.generateFrameNames('closingButton', { start: 0, end: 0 }),frameRate: 1,repeat: -1});

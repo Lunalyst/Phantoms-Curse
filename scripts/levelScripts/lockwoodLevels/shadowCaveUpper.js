@@ -131,6 +131,8 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initPortals(1642,503-7,1306,1112,"warpCaveInside","LockwoodEntrance");
 
+      this.initPortals(2796,600-7,548,632,"warpCaveInside","BridgeToLibertalia");
+
       //this.test = this.add.sprite(1040, 1016-65, "Mycelium Root");
       //this.test.setScale(1/3);
       //creates container objects.

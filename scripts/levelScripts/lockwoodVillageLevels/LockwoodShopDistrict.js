@@ -424,6 +424,12 @@ class LockwoodShopDistrict extends defaultScene {
         this.defaultUpdate();
       }
 
+      if(  732 < this.player1.x && this.player1.x < 3172 ){
+        this.processMap.layer0.setDepth(0);
+      }else{
+        this.processMap.layer0.setDepth(9);
+      }
+
       this.checkPlayerRightWarp(3510,"LockwoodCenter",400,728);
       this.checkPlayerLeftWarp(500,"BunBunRanchFront",3645,728+32);
       

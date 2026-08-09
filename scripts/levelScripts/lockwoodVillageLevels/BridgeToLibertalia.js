@@ -1,14 +1,14 @@
 
 
-class LockwoodEntrance extends defaultScene {
+class BridgeToLibertalia extends defaultScene {
   
   constructor(){
     // scene settings
-    super({key: 'LockwoodEntrance',active: false ,physics:{default:'arcade'}});
+    super({key: 'BridgeToLibertalia',active: false ,physics:{default:'arcade'}});
     //variables attached to the scene
 
     //this varialve stores the key so that when the player saves they load back in the correct location
-    this.playerLocation = "LockwoodEntrance";
+    this.playerLocation = "BridgeToLibertalia";
 
     //calls function apart of default scene to set up variables everyscene should need
     this.constructStockSceneVariables();
@@ -36,16 +36,16 @@ class LockwoodEntrance extends defaultScene {
       
       
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
-      this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
+      this.load.tilemapTiledJSON("bridge_to_libertalia_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bridge_To_Libertalia.json");
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-      this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
+      //this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
 
-      this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
+      ///this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
@@ -70,8 +70,11 @@ class LockwoodEntrance extends defaultScene {
       this.grabbed = false;
 
       //creates tileset
-      this.setUpTileSet("lockwood_etrance_map","Forest_Tileset","forest_source_map");
+      this.setUpTileSet("bridge_to_libertalia_map","Forest_Tileset","forest_source_map");
     
+      this.processMap.layer2.setTint(0xFFFFFF);
+      this.processMap.layer3.setTint(0x909090);
+
       //creates player object
       this.setUpPlayer();
 
@@ -116,20 +119,10 @@ class LockwoodEntrance extends defaultScene {
 
       //this.initSigns(813,1757+12,"generic","tutorialCabin");
 
-      this.initSavePoints(1406,1112-10);
-
-      this.toBeContinued = this.add.sprite(635,1035, "toBeContinued");
-      this.initSigns(635,1100,"generic","demoEnd",false);
-
-      this.toBeContinued.setScale(1/6);
+      this.initSavePoints(689,600-10);
       
-      this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
+      this.initPortals(548,632-8,2796,600,"warpCaveOutside","ShadowCaveUpper");
 
-      this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
-
-      this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
-
-      this.initLunalyst(935,1083,'clearingTheWay');
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;
@@ -150,23 +143,23 @@ class LockwoodEntrance extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backroundXOrigin = 0;
-        this.backroundYOrigin = 540;
+        this.backroundXOrigin = -500;
+        this.backroundYOrigin = -140;
         this.backround = this.add.tileSprite(0, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
         this.backround.setScale(1.2);
         //original pos - player pos * scrol factor
 
-        this.parrallax1XOrigin = 1500;
-        this.parrallax1YOrigin = 880;
-        this.parrallax1 = this.add.tileSprite(1500, this.parrallax1YOrigin, 1920*4 ,1920, "tree_parrallax");
+        this.parrallax1XOrigin = 500;
+        this.parrallax1YOrigin = 200;
+        this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*6 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
         this.parrallax1.setTint(0x444444);
 
-        this.parrallax2XOrigin = 1500;
-        this.parrallax2YOrigin = 880+600;
-        this.parrallax2 = this.add.tileSprite(1500, this.parrallax2YOrigin, 1920*4 ,1920, "ground_parrallax");
+        this.parrallax2XOrigin = 500;
+        this.parrallax2YOrigin = 200+600;
+        this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*6 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x444444);
@@ -178,7 +171,15 @@ class LockwoodEntrance extends defaultScene {
       this.defaultUpdate();
         //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 
-      this.checkPlayerRightWarp(2080,"BridgeToLibertalia",360,408);
+      this.checkPlayerLeftWarp(320,"LockwoodEntrance",2076,1080);
+      
+      if(  430 > this.player1.y){
+        this.processMap.layer0.setDepth(9);
+        this.processMap.layer1.setDepth(9);
+      }else{
+        this.processMap.layer0.setDepth(0);
+        this.processMap.layer1.setDepth(0);
+      }
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){

@@ -10,7 +10,7 @@ class onomatButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
         this.isOn = true;
       
         this.anims.create({key: 'onomatOnActive',frames: this.anims.generateFrameNames('buttons', { start: 11, end: 11 }),frameRate: 1,repeat: -1});

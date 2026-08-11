@@ -6,16 +6,16 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         this.setScrollFactor(0);
         //sets up inner andf outer menu interior and exterior
-        this.optionMenuInterior = scene.add.sprite(50, 385, 'optionsMenu');
-        this.optionMenuInterior.setScale(0.26);
-        this.optionMenuInterior.setAlpha(0.5);
-        this.add(this.optionMenuInterior);
+        //this.optionMenuInterior = scene.add.sprite(50, 385, 'optionsMenu');
+        //this.optionMenuInterior.setScale(0.26);
+        //this.optionMenuInterior.setAlpha(0.5);
+        //this.add(this.optionMenuInterior);
 
-        this.optionMenuBorder = scene.add.sprite(50, 385, 'optionsMenu');
-        this.optionMenuBorder.anims.create({key: 'border',frames: this.optionMenuBorder.anims.generateFrameNames('optionsMenu', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
-        this.optionMenuBorder.anims.play('border');
-        this.optionMenuBorder.setScale(0.26);
-        this.add(this.optionMenuBorder);
+        //this.optionMenuBorder = scene.add.sprite(50, 385, 'optionsMenu');
+        //this.optionMenuBorder.anims.create({key: 'border',frames: this.optionMenuBorder.anims.generateFrameNames('optionsMenu', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
+        //this.optionMenuBorder.anims.play('border');
+        //this.optionMenuBorder.setScale(0.26);
+        //this.add(this.optionMenuBorder);
 
         //refrences to the scene for some use later
         let that = this;
@@ -24,115 +24,124 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         this.inventory = inventory;
 
-        this.yIncrementButton = 190;
+        this.yIncrementButton = 260;
         this.yIncrementButtonLabel = 100;
+        this.buttonOffsetX = -215;
+        this.offsetX = -100;
+
+        this.increaseY1 = 50;
+        this.incrementY2 = 80;
+
+         //creates boarder which is not translucent
+        this.inventoryBorder = new inventoryBorder(scene,0,458,'inventoryBorder');
+        this.inventoryBorder.visible = true;
+        this.add(this.inventoryBorder);
+
 
         //add option menu elements and buttons
-        this.title = new makeText(scene,0*2,75*2,'charBubble',"SETTINGS");
+        this.title = new makeText(scene,-240,205,'charBubble',"SETTINGS");
         this.add(this.title);
 
-        this.soundText1 = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"MAIN VOLUME ");
-        this.add(this.soundText1);
-        this.yIncrementButtonLabel += 25;
-
-        this.volumeMainButton = new volumeButton(scene,this,-70,this.yIncrementButton);
+        this.volumeMainButton = new volumeButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
         this.volumeMainButton.setupVolumeButton();
         this.add(this.volumeMainButton);
-        this.yIncrementButton += 50;
 
-        this.soundText2 = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"MUSIC VOLUME ");
-        this.add(this.soundText2);
-        this.yIncrementButtonLabel += 25;
+        this.soundText1 = new makeText(scene,this.volumeMainButton.x + 50,this.volumeMainButton.y+10 ,'charBubble',"MAIN VOLUME ");
+        this.add(this.soundText1);
 
-        this.volumeMusicButton = new volumeButton(scene,this,-70,this.yIncrementButton);
+        this.yIncrementButton += this.incrementY2;
+
+        this.volumeMusicButton = new volumeButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
         this.volumeMusicButton.setupVolumeGroupButton("music");
         this.add(this.volumeMusicButton);
-        this.yIncrementButton += 50;
 
-        this.soundText3 = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"AMBIENCE VOLUME ");
-        this.add(this.soundText3);
-        this.yIncrementButtonLabel += 30;
+        this.soundText2 = new makeText(scene,this.volumeMusicButton.x + 50,this.volumeMusicButton.y + 10,'charBubble',"MUSIC");
+        this.add(this.soundText2);
+        
+        this.yIncrementButton += this.incrementY2;
 
-        this.volumeAmbienceButton = new volumeButton(scene,this,-70,this.yIncrementButton);
+        this.volumeAmbienceButton = new volumeButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
         this.volumeAmbienceButton.setupVolumeGroupButton("ambience");
         this.add(this.volumeAmbienceButton);
-        this.yIncrementButton += 50;
 
-        this.onomatText = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"ONOMATOPOEIA ");
-        this.add(this.onomatText);
-        this.yIncrementButtonLabel += 25;
+        this.soundText3 = new makeText(scene,this.volumeAmbienceButton.x + 50,this.volumeAmbienceButton.y + 10,'charBubble',"AMBIENCE");
+        this.add(this.soundText3);
 
-        this.onomatButton = new onomatButton(scene,this,-70,this.yIncrementButton);
+        this.yIncrementButton += this.incrementY2;
+
+        this.onomatButton = new onomatButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
         this.onomatButton.setupOnomatButton();
         this.add(this.onomatButton);
-        this.yIncrementButton += 50;
-
-        this.onomatText = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"INTERNAL VIEWS");
-        this.add(this.onomatText);
-        this.yIncrementButtonLabel += 25;
-
-        this.internalView = new internalViewButton(scene,this,-70,this.yIncrementButton);
-        this.internalView.setupInternalViewButton();
-        this.add(this.internalView);
-        this.yIncrementButton += 50;
-
-        this.preferanceText = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"PREFERENCE ");
-        this.add(this.preferanceText);
-        this.yIncrementButtonLabel += 25;
-
-        this.prefButton = new preferenceButton(scene,this,-70,this.yIncrementButton);
-        this.prefButton.setupPrefButton();
-        this.add(this.prefButton);
-        this.yIncrementButton += 50;
-
-        this.sexText = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"SEX ");
-        this.add(this.sexText);
-        this.yIncrementButtonLabel += 25;
-
-        this.sexButton = new sexSelectButton(scene,this,-70,this.yIncrementButton);
-        this.sexButton.setupSexButton();
-        this.add(this.sexButton);
-        this.yIncrementButton += 50;
-
-        //exit button text
-        this.mobileToggle = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"MOBILE CONTROLS");
-        this.add(this.mobileToggle);
-        this.yIncrementButtonLabel += 35;
-
-        //exit button
-        this.mobileButton = new mobileSettingsButton(scene,this,-70,this.yIncrementButton);
-        this.mobileButton.setupMobileButton();
-        this.add(this.mobileButton);
-        this.yIncrementButton += 70;
         
-        //exit button text
-        this.exitText = new makeText(scene,-10*2,this.yIncrementButtonLabel*2,'charBubble',"EXIT GAME");
-        this.add(this.exitText);
+        this.onomatText = new makeText(scene,this.onomatButton.x + 50,this.onomatButton.y + 25 ,'charBubble',"ONOMATOPOEIA ");
+        this.add(this.onomatText);
 
         //exit button
-        this.exitButton = new exitButton(scene,this,-70,this.yIncrementButton);
+        this.exitButton = new exitButton(scene,this,this.buttonOffsetX,this.yIncrementButton + 212);
         this.exitButton.setupExitButton();
         this.add(this.exitButton);
         
+        //exit button text
+        this.exitText = new makeText(scene,this.exitButton.x + 50,this.exitButton.y + 25,'charBubble',"EXIT GAME");
+        this.add(this.exitText);
+         
+        this.yIncrementButton = 260;
+        this.buttonOffsetX = this.buttonOffsetX + 265;
+
+        this.internalView = new internalViewButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
+        this.internalView.setupInternalViewButton();
+        this.add(this.internalView);
+
+        this.onomatText = new makeText(scene,this.internalView.x + 50,this.internalView.y + 25,'charBubble',"INTERNAL");
+        this.add(this.onomatText);
+
+        this.yIncrementButton += this.incrementY2;
+
+        this.prefButton = new preferenceButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
+        this.prefButton.setupPrefButton();
+        this.add(this.prefButton);
+
+        this.preferanceText = new makeText(scene,this.prefButton.x + 50,this.prefButton.y + 25,'charBubble',"PREFERENCE");
+        this.add(this.preferanceText);
+
+        this.yIncrementButton += this.incrementY2;
+
+        this.sexButton = new sexSelectButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
+        this.sexButton.setupSexButton();
+        this.add(this.sexButton);
+
+        this.sexText = new makeText(scene,this.sexButton.x + 50,this.sexButton.y + 25,'charBubble',"PLAYER SEX");
+        this.add(this.sexText);
+
+        this.yIncrementButton += this.incrementY2;
+
+        this.mobileButton = new mobileSettingsButton(scene,this,this.buttonOffsetX,this.yIncrementButton);
+        this.mobileButton.setupMobileButton();
+        this.add(this.mobileButton);
+
+        this.mobileToggle = new makeText(scene,this.mobileButton.x + 50,this.mobileButton.y + 25,'charBubble',"MOBILE");
+        this.add(this.mobileToggle);
+
+        this.yIncrementButton += this.incrementY2 + 20;
 
         //need textbox to display exit
-        this.optionsTextBox = new textBox(scene,-167,625+160,'charBlack');
-        this.optionsTextBox.setScale(1);
+        this.optionsTextBox = new textBox(scene,-267,625+250,'charBlack');
+        this.optionsTextBox.setScale(2);
         this.add(this.optionsTextBox);
 
         //closing settings button
-        this.closingButton = new closingButton(scene,inventory,this,190,170);
+        this.closingButton = new closingButton(scene,inventory,this,230,191);
         this.closingButton.setupClosingButton();
         this.add(this.closingButton);
 
         //need yes button to boot to main menu
-        this.yes = new yes(scene,-297, 535+160);
+        this.yes = new yes(scene,-685, 835);
         this.yes.setupYesSettings();
         this.yes.setOptionsMenu(this);
         this.add(this.yes);
 
         //need no to close prompt
-        this.no = new no(scene,-37, 535+160);
+        this.no = new no(scene,-685, 835 + 60);
         this.no.setOptionsMenu(this);
         this.no.setupNoSettings();
         this.add(this.no);
@@ -142,9 +151,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.volumeSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
                
-                x: 65,
-                y: 200,
-                width: 200,
+                x: this.volumeMainButton.x + 130,
+                y: this.volumeMainButton.y + 15,
+                width: 180,
                 height: 20,
                 orientation: 'x',
     
@@ -181,9 +190,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
             this.volumeMusicSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
                
-                x: 65,
-                y: 250,
-                width: 200,
+                x: this.volumeMusicButton.x + 130,
+                y: this.volumeMusicButton.y + 15,
+                width: 180,
                 height: 20,
                 orientation: 'x',
     
@@ -229,9 +238,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
             this.volumeAmbienceSlider = new RexPlugins.UI.Slider(scene,{
                 //formula to conver screen x and y to pixel x and y
                
-                x: 65,
-                y: 300,
-                width: 200,
+                x: this.volumeAmbienceButton.x + 130,
+                y: this.volumeAmbienceButton.y + 15,
+                width: 180,
                 height: 20,
                 orientation: 'x',
     

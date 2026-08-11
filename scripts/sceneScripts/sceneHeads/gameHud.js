@@ -34,7 +34,7 @@ class gameHud extends A3SoundEffects {
       this.isStorageOpen = false;
       this.displayCurrencyIcon = null;
 
-      this.debugToggle = true;
+      this.debugToggle = false;
 
       this.travelMap = null;
 
@@ -684,7 +684,7 @@ class gameHud extends A3SoundEffects {
           controlKeyEmitter.on(controlKeyEvent.toggleForTextBox,(toggle) =>{
 
             //check if the mobile controls are even visible.
-            if(this.settings.mobileControls === true){
+           if(this.settings.currentMobileControls === true){
               //if so then set the visibility of A,D,S,ATK,JMP,and Inventory.
               this.mobileA.visible = toggle;
               this.mobileS.visible = toggle;
@@ -695,6 +695,31 @@ class gameHud extends A3SoundEffects {
             //otherwise we only want to toggle the inventory button
             }else{
               this.mobileInventory.visible = toggle;
+            }
+            
+          });
+
+          //emitter to hide the mobile controls if the player enters dialogue
+          controlKeyEmitter.on(controlKeyEvent.toggleForInventory,(toggle) =>{
+
+            //check if the mobile controls are even visible.
+            console.log("this.playerInventory.settingsUI.currentMobileControls: ",this.playerInventory.settingsUI.currentMobileControls)
+            if(this.playerInventory.settingsUI.currentMobileControls === true){
+              //if so then set the visibility of A,D,S,ATK,JMP,and Inventory.
+              this.mobileW.visible = toggle;
+              this.mobileA.visible = toggle;
+              this.mobileS.visible = toggle;
+              this.mobileD.visible = toggle;
+              this.mobileJMP.visible = toggle;
+              this.mobileATK.visible = toggle;
+            //otherwise we only want to toggle the inventory button
+            }else{
+              this.mobileW.visible = false;
+              this.mobileA.visible = false;
+              this.mobileS.visible = false;
+              this.mobileD.visible = false;
+              this.mobileJMP.visible = false;
+              this.mobileATK.visible = false;
             }
             
           });

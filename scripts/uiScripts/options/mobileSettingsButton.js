@@ -10,7 +10,7 @@ class mobileSettingsButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
         this.sex = 0;
 
         this.isOn = false;
@@ -82,6 +82,7 @@ class mobileSettingsButton extends Phaser.Physics.Arcade.Sprite{
             }
 
             that.scene.mobileGroup.toggleVisible();
+            controlKeyEmitter.emit(controlKeyEvent.toggleForInventory,false);
                    
         });
 

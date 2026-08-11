@@ -84,6 +84,7 @@ controlKeyEvent = {
 
     toggleForTextBox:'toggle_for_text_box',
     toggleForStruggle:'toggle_for_Struggle',
+    toggleForInventory:'toggle_for_inventory',
 
     forcedScheduling: 'forced_scheduling'
 };

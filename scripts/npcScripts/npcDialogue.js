@@ -1828,7 +1828,8 @@ const npcDialogue = {
 
 
             },
-        },"istara":{
+        },
+        "istara":{
             "Behavior1":{
                 "istaraCaveDialogue1":{
                     "node1":{
@@ -4707,43 +4708,43 @@ const npcDialogue = {
                 "storageRoomDoor":{
                     "node1":{
                         "dialogue": "wolf\’s cloths are scattered across the floor...",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "the door is locked from the inside.",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "Ease drop on them?",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node4","node6"]
                     },
                     "node4":{
                         "dialogue": "...",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node5"]
                     },
                     "node5":{
                         "dialogue": "best to give them their privacy...",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":[]
                     },
                     "node6":{
                         "dialogue": "...",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node7"]
                     },
                     "node7":{
                         "dialogue": "you listen closely to the door...",
-                        "profile":"blank",
+                        "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":[]
                     },

@@ -10,7 +10,7 @@ class volumeButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
         this.isOn = true;
         this.groupType = "default";
       

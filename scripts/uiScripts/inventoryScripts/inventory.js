@@ -75,7 +75,7 @@ class inventory extends Phaser.GameObjects.Container{
       
       let equipX = 200;
 
-       //creates boarder which is not translucent
+      //creates boarder which is not translucent
       this.inventoryBorder = new inventoryBorder(scene,this.x+12,this.y+125,'inventoryBorder');
       this.inventoryElements.add(this.inventoryBorder);
       this.add(this.inventoryBorder);
@@ -142,7 +142,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryArray[index].number2);
 
       //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this,this.x+840,this.y-200);
+      this.settingsUI = new optionsMenu(scene,this,this.x+800,this.y-200);
       //this.add(this.settingsUI);
 
       //adds settings menu button
@@ -368,6 +368,8 @@ class inventory extends Phaser.GameObjects.Container{
             this.isOnScreen = true;
             scene.isPaused = true;
             this.visible = true;
+            controlKeyEmitter.emit(controlKeyEvent.toggleForInventory,false)
+
             this.settingsButton.visible = true;
             this.settingsUI.visible = false;
             
@@ -408,6 +410,7 @@ class inventory extends Phaser.GameObjects.Container{
             scene.isPaused = false;
             this.settingsButton.visible = false;
             this.settingsUI.visible = false;
+            controlKeyEmitter.emit(controlKeyEvent.toggleForInventory,true);
             //if the menu is closed the make sure to reset settings if its prematurely closed.
             this.settingsUI.resetSettings();
 

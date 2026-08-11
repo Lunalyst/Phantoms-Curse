@@ -10,7 +10,7 @@ class sexSelectButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
         this.sex = 0;
       
         this.anims.create({key: 'preMaleActive',frames: this.anims.generateFrameNames('buttons', { start: 1, end: 1 }),frameRate: 1,repeat: -1});

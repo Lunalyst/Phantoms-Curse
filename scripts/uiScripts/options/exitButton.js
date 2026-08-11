@@ -10,7 +10,7 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
         this.setScrollFactor(0);
         //this.visible = false;
         this.setInteractive();
-        this.setScale(.6);
+        //this.setScale(.6);
       
         this.anims.create({key: 'exitActive',frames: this.anims.generateFrameNames('buttons', { start: 17, end: 17 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'exitInActive',frames: this.anims.generateFrameNames('buttons', { start: 16, end: 16 }),frameRate: 1,repeat: -1});
@@ -48,6 +48,8 @@ class exitButton extends Phaser.Physics.Arcade.Sprite{
                     "if you quit to title, progress will be lost. is that ok? "//text sent to the text box.
                 );
                 that.optionsMenu.yes.visible = true;
+                //that.optionsMenu.yes.x = -297;
+                //that.optionsMenu.yes.y = 900;
                 that.optionsMenu.no.visible = true;
                 that.optionsMenu.isQuiting = true;
             

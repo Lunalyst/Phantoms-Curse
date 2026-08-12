@@ -128,7 +128,7 @@ class DeaughsRoom extends defaultScene {
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
       if(lab4.foundFlag === true){
-
+        this.initWolf(461, 728+16, "wolfShop1");
       }else if(lab3.foundFlag === true){
 
         //spawn wolfs cloths on the ground.

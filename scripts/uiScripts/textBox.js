@@ -298,10 +298,20 @@ class textBox extends Phaser.GameObjects.Container{
 
       //call emitter to add flag to data
       if(this.flag !== null){
-        //console.log(" adding flag through textbox.");
-        //console.log("this.flag.flagToFind: ",this.flag.flagToFind);
-        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag.flagToFind);
 
+        //use emitter to check nectar ambush skip flag
+        let checkFlag = {
+          flagToFind: this.flag.flagToFind,
+          foundFlag: false,
+        };
+
+        inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, checkFlag);
+
+        if(checkFlag.foundFlag === false){
+
+          inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,this.flag.flagToFind);
+        }
+        
          //then wipe flag value so it does not linger.
         this.flag = null;
       }else{

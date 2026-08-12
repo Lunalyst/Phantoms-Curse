@@ -70,6 +70,8 @@ class wolf extends npc{
 
        this.choke = false;
 
+       this.activatedTradeUI = false;
+
        //this.body.setGravityY(600); 
 
         this.setSize(60,200,true);
@@ -178,6 +180,8 @@ class wolf extends npc{
         this.scene.mycamera.startFollow(this,true);
         this.scene.cameras.main.zoom = 2;
         this.scene.cameras.main.followOffset.set(0,70);
+       }else if(this.npcType === 'wolfShop1'){
+          this.advancedIdleAnimation = true;
        }
 
   }
@@ -220,6 +224,8 @@ class wolf extends npc{
       this.storageRoomDoor();
     }else if(this.npcType === 'wolfxLuna'){
       this.wolfxLuna();
+    }else if(this.npcType === 'wolfShop1'){
+      this.wolfShop1();
     }else{
       
       this.default();
@@ -265,7 +271,7 @@ class wolf extends npc{
     
 
     if(this.advancedIdleAnimation === true){
-      if(this.npcType === "labEncounter1"){
+      if(this.npcType === "labEncounter1" || this.npcType === "wolfShop1"){
         if(this.scene.player1.x < this.x - 39){
           this.anims.play('sideIdle',true);
           this.flipX = true;
@@ -2015,5 +2021,365 @@ class wolf extends npc{
       }
     }
   }
+
+  wolfShop1(){
+
+    this.nodeHandler("wolf","Behavior1","wolfShop1");
+
+      if(this.currentDictNode !== null){
+        //state machine for dialogue 
+
+        //orient the player so it looks like they are facing vivian.
+      if(this.playerInPosition === false){
+        this.playerInPosition = true;
+        //this.advancedIdleAnimation = false;
+
+        if(this.scene.player1.x < this.x){
+
+          this.playerIsOnLeft = true;
+          this.scene.player1.flipXcontainer(false);
+          this.anims.play('sideIdle',true);
+          this.flipX = true;
+        }else{
+          this.playerIsOnRight = true;
+          this.scene.player1.flipXcontainer(true);
+          this.anims.play('sideIdle',true);
+          this.flipX = false;
+        }
+      }
+
+      if(this.scene.player1.x < 461){
+          this.scene.player1.x = 461-40;
+          this.scene.player1.mainHitbox.x = 461-40;
+        }else{
+          this.scene.player1.x = 461+40;
+          this.scene.player1.mainHitbox.x = 461+40;
+        }
+
+        console.log("this.currentDictNode:", this.currentDictNode);
+        console.log("this.inDialogue", this.inDialogue);
+        console.log(" this.activatedTradeUI: ", this.activatedTradeUI);
+
+        if(this.currentDictNode.nodeName === "node4" && this.inDialogue ===false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"who are you?",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+            
+            //sets position of player for the hug.
+            this.scene.player1.mainHitbox.x = this.x+20;
+            this.scene.player1.mainHitbox.y = this.y-3;
+            this.scene.player1.x = this.scene.player1.mainHitbox.x;
+            this.scene.player1.y = this.scene.player1.mainHitbox.y;
+
+            //progress to node branch with state name node5
+            this.progressNode("nodeAsk1");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Got any supplies?",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node10",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"See you later.",true);
+          this.scene.npcChoice3.textWob();
+          this.scene.npcChoice3.setScrollFactor(0);
+          this.scene.npcChoice3.addHitbox();
+          this.scene.npcChoice3.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice3.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice3.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice3.on('pointerout',function(pointer){
+              this.scene.npcChoice3.clearTextTint();
+          },this);
+
+          this.scene.npcChoice3.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+          
+          //progress to node branch with state name node5
+          this.progressNode("node12");
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+
+          },this);
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+        }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+
+            this.activatedTradeUI = true;
+            
+            let object = {
+              NPCRef: this,
+            };
+    
+            this.buyBack = [];
+    
+            this.buyBack.push(
+              {
+                itemID: 28,
+                itemName: 'JARED CURSE INK',
+                itemDescription: 'LIQUID CURSE ENERGY. CAUSES CURSE BUILD UP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 10
+              },
+              {
+                itemID: 29,
+                itemName: 'FRUIT JUICE',
+                itemDescription: 'FRUITY DRINK THAT RESTORES MODERATE AMOUNT OF HP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 20
+              },
+              {
+                itemID: 30,
+                itemName: 'CRACKED COCONUT.',
+                itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 5
+              }
+            );
+    
+    
+            //make a special object to pass to the listener
+            let buyArray = {
+              array: this.buyBack,
+              sellMultiplier: 1.8
+            };
+    
+            //send that object to the emiter so it can be set in the gamehud
+            inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
+    
+            //call emitter to tell if the onetime item is present in the inventory.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+    
+    
+            inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
+    
+            this.scene.sceneTextBox.textInterupt = true;
+      }
+  
+    }
+       
+    
+  }
+
+  //called by the shop ui.
+  sellButton(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'I will figure out a way  '+
+    'to use that for          '+
+    'something.               ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('wolfStarEyes');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  buyButton(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'Thanks for the purchase. '+
+    '                         '+
+    '                         ';
+
+    //console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('wolfHappy1');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  buyButtonFail(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'Sorry, but it looks like '+
+    'you dont have enough     '+
+    'shell.                   ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('wolfNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  sellSwitch(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'what do you have for me? '+
+    '                         '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('wolfSmirk1');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
+  //called by the shop ui.
+  buySwitch(){
+
+    //defines a line of dialogue to be displayed while in the shop ui
+    this.scene.sceneTextBox.soundType = "lightVoice";
+
+    this.textToDisplay += 
+    'These meds should help on'+
+    'your travels.            '+
+    '                         ';
+
+    console.log("this.textToDisplay: ",this.textToDisplay);
+    
+
+    this.profileArray.push('wolfNeutral');
+
+    //update the dialogue in the next box.
+    this.scene.sceneTextBox.setText(this.textToDisplay);
+    //this.scene.sceneTextBox.formatText();
+    this.scene.sceneTextBox.setProfileArray(this.profileArray);
+
+    //progress the dialogue by one stage so the button moves dialogue forward.
+    this.scene.sceneTextBox.progressDialogue();
+           
+  }
+
 
 }

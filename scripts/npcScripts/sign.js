@@ -26,6 +26,8 @@ class sign extends npc{
 
       //signs dont have branching paths, so we just need a key to know what is the correct dialogue to play. 
       this.textKey = textKey;
+
+      this.flag = null;
       
       //sets scale of object
       this.setScale(1/3);
@@ -93,6 +95,19 @@ class sign extends npc{
               this.scene.npcChoice2.destroy();
 
               this.inDialogue = false;
+
+              if(this.flag !== null){
+
+                //check to see if flag already exists
+                let addFlag = {
+                  flagToFind: this.flag,
+                  foundFlag: false,
+                };
+
+                //stores flag to be added at the end of dialogue.
+                this.scene.sceneTextBox.storeFlag(addFlag);
+
+              }
 
               
 

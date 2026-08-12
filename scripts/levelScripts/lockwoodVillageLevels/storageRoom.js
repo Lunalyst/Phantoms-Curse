@@ -61,6 +61,7 @@ class StorageRoom extends defaultScene {
       };
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, flag1);
+      //this.initSigns(865,760+21,"question","Fundamentals of Cursed Energy",false);
 
       if(flag1.foundFlag === true){
         //creates tileset
@@ -123,6 +124,11 @@ class StorageRoom extends defaultScene {
         this.initWolf(636, 728+16, "wolfxLuna");
         this.initLunalyst(827+20,763,'wolfxLuna');
       }
+
+      if(flag1.foundFlag === true){
+        this.initSigns(865,760+21,"question","memoryLog8",false);
+      }
+
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);
 

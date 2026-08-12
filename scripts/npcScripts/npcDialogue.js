@@ -823,7 +823,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node7"]
                     },"node7":{
-                        "dialogue": "Having high levels of cursed energy in the human’s body is the catalyst for the transformations. There needs to be clear intent to spread the curse for it to be transferred.",
+                        "dialogue": "Having high levels of cursed energy in the human\'s body is the catalyst for the transformations. There needs to be clear intent to spread the curse for it to be transferred.",
                         "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node8"]
@@ -838,7 +838,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
-                        "dialogue": "That being said, a cursed that still retains their sense of self is likely to still suffer from some mental alterations, and spreading there mutated curse mark isn’t safe either. ",
+                        "dialogue": "That being said, a cursed that still retains their sense of self is likely to still suffer from some mental alterations, and spreading there mutated curse mark isn\'t safe either. ",
                         "profile":"brownBook",
                         "textvoice":"default",
                         "children":["node11"]
@@ -1206,6 +1206,79 @@ const npcDialogue = {
                         "children":[]
                     },"nodeNo":{
                         "dialogue": "You Leave the pages in the book.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":[]
+                    },
+                },
+                "memoryLog8":{
+                    "node1":{
+                        "dialogue": "a box of supplies sits at the foot of the bookcase.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "Inside it are some tattered papers among the supplies.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["nodeQuestion"]
+                    },"nodeQuestion":{
+                        "dialogue": "Will you read them?",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["nodeYes","nodeNo"]
+                    },"nodeYes":{
+                        "dialogue": "I found more than I ever could have imagined. ",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node3"] 
+                    },"node3":{
+                        "dialogue": "There\'s a whole little village built into hills full of people just like me.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "Its seams than lots of people have washed up here over the years.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "Eventually enough survivors got to together to form a town.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "I got to talking with the town doctor. Wolf was her name?",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "she told me about how the curse works. It\'s sort of like a virus that spreads from person to person.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "I was right in thinking I was lucky, as most that are infected seems to lose their sense of self. But this curse is also a blessing in disguise.  ",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node9"]   
+                    },"node9":{
+                        "dialogue": "I\'m working on a little technique to create heat using this power. Hopefully I can use it to help others.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "For now I\'m choosing to reside outside the village. I got some building supplies from the builders league.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": ". I\'m going to make a shed out where I lost Rachel... hopefully I can build something to keeps other safe.",
+                        "profile":"yellowBook",
+                        "textvoice":"default",
+                        "children":[]
+                    },"nodeNo":{
+                        "dialogue": "You Leave the pages with the rest of the supplies.",
                         "profile":"yellowBook",
                         "textvoice":"default",
                         "children":[]
@@ -2471,10 +2544,7 @@ const npcDialogue = {
                         "children":[]
                     }
                 }
-               
-
-                
-
+            
             },
             "clearingTheWay":{
                 
@@ -4435,7 +4505,7 @@ const npcDialogue = {
                         "children":["nodeConverge2"]
                     },
 
-                    //I don’t really have any questions. 
+                    //I don\'t really have any questions. 
                     "nodeSkip1":{
                         "dialogue": "oh really?",
                         "profile":"wolfSmirk1",
@@ -4549,7 +4619,7 @@ const npcDialogue = {
                         "children":["nodeAsk6"]
                     },
                     "nodeAsk6":{
-                        "dialogue": "Thanks to the curse my dream came true, though it wasn’t without its risks.",
+                        "dialogue": "Thanks to the curse my dream came true, though it wasn\'t without its risks.",
                         "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["nodeAsk7"]
@@ -4707,7 +4777,7 @@ const npcDialogue = {
                 //smart idea. at the end of the door part of the quest, add flag, then turn wolf into the door npc to trigger the next part of the quest.
                 "storageRoomDoor":{
                     "node1":{
-                        "dialogue": "wolf\’s cloths are scattered across the floor...",
+                        "dialogue": "wolf\\'s cloths are scattered across the floor...",
                         "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node2"]
@@ -4997,6 +5067,101 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
                     },
+                },
+
+                "wolfShop1":{
+                    "node1":{
+                        "dialogue": "ohh welcome back cutie.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "my shipment arrived, so I how have some extra supplies. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "How can I assist you?  ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk1","node10","node12"]
+
+                    //who are you dialogue again. 
+                    },
+                    "nodeAsk1":{
+                        "dialogue": "me?",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk2"]
+                    },
+                    "nodeAsk2":{
+                        "dialogue": "My name is wolf and I ended up on Kuko Nui like many others.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk3"]
+                    },
+                    "nodeAsk3":{
+                        "dialogue": "Washing ashore after the ship I was on got recked by the perpetual storm. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk4"]
+                    },
+                    "nodeAsk4":{
+                        "dialogue": "It didn\'t take long for me to be transformed. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk5"]
+                    },
+                    "nodeAsk5":{
+                        "dialogue": "I was enamored by the creatures of this island. You see, I always wanted to have fur and a tail. ",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk6"]
+                    },
+                    "nodeAsk6":{
+                        "dialogue": "Thanks to the curse my dream came true, though it wasn\'t without its risks.",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk7"]
+                    },
+                    "nodeAsk7":{
+                        "dialogue": "But it\'s also thanks to the curse that I\'m able to do so much more than just look pretty. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk8"]
+                    },
+                    "nodeAsk8":{
+                        "dialogue": "I have cultivated an ability to use cursed energy to heal others which allowed me to save many people over the years.",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk9"]
+                    },
+                    "nodeAsk9":{
+                        "dialogue": "For now my focus is on researching the curse and understanding it.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    // shop inventory
+                    "node10":{
+                        "dialogue": "sure thing. I got some medical supplies.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Here\'s what I got.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    //leaving dialogue
+                    },"node12":{
+                        "dialogue": "stay safe out there, and don\'t get in any trouble.",
+                        "profile":"lunaHappy",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
                 }
                     
             }

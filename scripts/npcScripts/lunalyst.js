@@ -476,7 +476,7 @@ class lunalyst extends npc{
   sellButton(){
 
     //defines a line of dialogue to be displayed while in the shop ui
-    this.scene.sceneTextBox.soundType = "lightVoice";
+    this.scene.sceneTextBox.soundType = "batChirp";
 
     this.textToDisplay += 
     'I can take those off your'+
@@ -502,7 +502,7 @@ class lunalyst extends npc{
   buyButton(){
 
     //defines a line of dialogue to be displayed while in the shop ui
-    this.scene.sceneTextBox.soundType = "lightVoice";
+    this.scene.sceneTextBox.soundType = "batChirp";
 
     this.textToDisplay += 
     'enjoy!                   '+
@@ -529,7 +529,7 @@ class lunalyst extends npc{
   buyButtonFail(){
 
     //defines a line of dialogue to be displayed while in the shop ui
-    this.scene.sceneTextBox.soundType = "lightVoice";
+    this.scene.sceneTextBox.soundType = "batChirp";
 
     this.textToDisplay += 
     'Sorry, but it looks like '+
@@ -555,7 +555,7 @@ class lunalyst extends npc{
   sellSwitch(){
 
     //defines a line of dialogue to be displayed while in the shop ui
-    this.scene.sceneTextBox.soundType = "lightVoice";
+    this.scene.sceneTextBox.soundType = "batChirp";
 
     this.textToDisplay += 
     'lets see what you got.   '+
@@ -581,7 +581,7 @@ class lunalyst extends npc{
   buySwitch(){
 
     //defines a line of dialogue to be displayed while in the shop ui
-    this.scene.sceneTextBox.soundType = "lightVoice";
+    this.scene.sceneTextBox.soundType = "batChirp";
 
     this.textToDisplay += 
     'Heres what I got.        '+

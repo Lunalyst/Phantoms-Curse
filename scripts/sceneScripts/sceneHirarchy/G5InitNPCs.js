@@ -21,13 +21,18 @@ class G5InitNPCs extends G4InitGameObjects {
   }
 
    //creates a sign object in the scene
-  initSigns(x, y, text , textKey,visible) {
+  initSigns(x, y, text , textKey,visible,flag) {
 
       let sign1 = new sign(this, x, y, text, textKey);
       sign1.npcId = this.npcId;
       this.signId++;
 
       this.npcs.add(sign1);
+
+      //if we have a dialogue flag to set then added
+      if(flag !== undefined && flag !== null){
+        sign1.flag = flag;
+      }
 
       if(visible !== undefined && visible !== null){
         sign1.visible = visible;

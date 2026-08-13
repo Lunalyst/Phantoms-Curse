@@ -41,6 +41,15 @@ class wolf extends npc{
       this.anims.create({ key: 'lunaSitOnLapFinishedHugStart', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 88, end: 91 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHug', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 92, end: 95 }), frameRate: 6, repeat: -1 });
 
+      if(scene.playerSex === 0){
+
+        this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaugh', { start: 25, end: 29 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'healingKiss2', frames: this.anims.generateFrameNames('deaugh', { start: 30, end: 36 }), frameRate: 6, repeat: 0 });
+      
+      }else{
+
+
+      }
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
        this.npcKeyPrompts.visible = false;
@@ -272,10 +281,10 @@ class wolf extends npc{
 
     if(this.advancedIdleAnimation === true){
       if(this.npcType === "labEncounter1" || this.npcType === "wolfShop1"){
-        if(this.scene.player1.x < this.x - 39){
+        if(this.scene.player1.x < this.x - 25){
           this.anims.play('sideIdle',true);
           this.flipX = true;
-        }else if(this.scene.player1.x > this.x + 39){
+        }else if(this.scene.player1.x > this.x + 25){
           this.anims.play('sideIdle',true);
           this.flipX = false;
         }else{
@@ -301,7 +310,7 @@ class wolf extends npc{
     console.log("playerHealthObject: ",playerHealthObject);
 
     // need to build up player curse
-    healthEmitter.emit(healthEvent.curseBuildUp,playerHealthObject.playerCurseMax);
+    healthEmitter.emit(healthEvent.curseBuildUp,playerHealthObject.playerCurseMax-15);
 
     this.recurseRestoreHp(playerHealthObject);
     // then use recursion to 
@@ -2049,11 +2058,11 @@ class wolf extends npc{
       }
 
       if(this.scene.player1.x < 461){
-          this.scene.player1.x = 461-40;
-          this.scene.player1.mainHitbox.x = 461-40;
+          this.scene.player1.x = 461-30;
+          this.scene.player1.mainHitbox.x = 461-30;
         }else{
-          this.scene.player1.x = 461+40;
-          this.scene.player1.mainHitbox.x = 461+40;
+          this.scene.player1.x = 461+30;
+          this.scene.player1.mainHitbox.x = 461+30;
         }
 
         console.log("this.currentDictNode:", this.currentDictNode);
@@ -2091,12 +2100,6 @@ class wolf extends npc{
 
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = false;
-            
-            //sets position of player for the hug.
-            this.scene.player1.mainHitbox.x = this.x+20;
-            this.scene.player1.mainHitbox.y = this.y-3;
-            this.scene.player1.x = this.scene.player1.mainHitbox.x;
-            this.scene.player1.y = this.scene.player1.mainHitbox.y;
 
             //progress to node branch with state name node5
             this.progressNode("nodeAsk1");
@@ -2105,6 +2108,7 @@ class wolf extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
@@ -2143,11 +2147,12 @@ class wolf extends npc{
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
             this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
 
           },this);
 
           //create dialogue buttons for player choice
-          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"See you later.",true);
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"could you heal me?",true);
           this.scene.npcChoice3.textWob();
           this.scene.npcChoice3.setScrollFactor(0);
           this.scene.npcChoice3.addHitbox();
@@ -2169,6 +2174,52 @@ class wolf extends npc{
           this.scene.initSoundEffect('buttonSFX','2',0.05);
 
           this.scene.sceneTextBox.textInterupt = false;
+
+          //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+          if(playerHealthObject.playerHealth === playerHealthObject.playerMaxHealth){
+            this.progressNode("nodeHealFull1");
+          }else{
+            this.progressNode("nodeHeal1");
+          }
+          //progress to node branch with state name node5
+         
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+
+          },this);
+
+          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"See you later.",true);
+          this.scene.npcChoice4.textWob();
+          this.scene.npcChoice4.setScrollFactor(0);
+          this.scene.npcChoice4.addHitbox();
+          this.scene.npcChoice4.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice4.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice4.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice4.on('pointerout',function(pointer){
+              this.scene.npcChoice4.clearTextTint();
+          },this);
+
+          this.scene.npcChoice4.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
           
           //progress to node branch with state name node5
           this.progressNode("node12");
@@ -2177,6 +2228,7 @@ class wolf extends npc{
           this.scene.npcChoice1.destroy();
           this.scene.npcChoice2.destroy();
           this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
 
           },this);
 
@@ -2186,7 +2238,7 @@ class wolf extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+      }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
 
             this.activatedTradeUI = true;
             
@@ -2243,6 +2295,50 @@ class wolf extends npc{
             inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
     
             this.scene.sceneTextBox.textInterupt = true;
+      }else if(this.currentDictNode.nodeName === "nodeHealFull3" || this.currentDictNode.nodeName === "nodeHeal3" && this.animationPlayed === false){
+
+        this.scene.player1.visible = false;
+
+         if(this.animationPlayed === false){
+
+          this.animationPlayed = true;
+
+          this.advancedIdleAnimation = false;
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+          this.anims.play('healingKiss1').once('animationcomplete', () => {
+
+            this.restoreHp();
+
+            this.anims.play('healingKiss2').once('animationcomplete', () => {
+
+              ///this.anims.play('lunalystMaleHug',true);
+              this.animationPlayed = false;
+              this.advancedIdleAnimation  = true;
+              //this.scene.player1.visible = false;
+
+              //call scene variable to create interupt.
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //let the npc know they are in dialogue
+              this.inDialogue = false;
+
+              if(this.currentDictNode.nodeName === "nodeHealFull3"){
+                this.progressNode("nodeHealFull4");
+              }else{
+                this.progressNode("nodeHeal4");
+              }
+
+              this.scene.player1.visible = true;
+
+            });
+          });
+         }
       }
   
     }

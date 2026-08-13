@@ -1238,7 +1238,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
-                        "dialogue": "Its seams than lots of people have washed up here over the years.",
+                        "dialogue": "Its seems than lots of people have washed up here over the years.",
                         "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node5"]
@@ -1268,7 +1268,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node10"]
                     },"node10":{
-                        "dialogue": "For now I\'m choosing to reside outside the village. I got some building supplies from the builders league.",
+                        "dialogue": "For now I\'m choosing to reside outside the village. I got some building supplies.",
                         "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node11"]
@@ -5084,6 +5084,166 @@ const npcDialogue = {
                         "dialogue": "How can I assist you?  ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
+                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1"]
+
+                    //who are you dialogue again. 
+                    },
+                    "nodeAsk1":{
+                        "dialogue": "me?",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk2"]
+                    },
+                    "nodeAsk2":{
+                        "dialogue": "My name is wolf and I ended up on Kuko Nui like many others.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk3"]
+                    },
+                    "nodeAsk3":{
+                        "dialogue": "Washing ashore after the ship I was on got recked by the perpetual storm. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk4"]
+                    },
+                    "nodeAsk4":{
+                        "dialogue": "It didn\'t take long for me to be transformed. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk5"]
+                    },
+                    "nodeAsk5":{
+                        "dialogue": "I was enamored by the creatures of this island. You see, I always wanted to have fur and a tail. ",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk6"]
+                    },
+                    "nodeAsk6":{
+                        "dialogue": "Thanks to the curse my dream came true, though it wasn\'t without its risks.",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk7"]
+                    },
+                    "nodeAsk7":{
+                        "dialogue": "But it\'s also thanks to the curse that I\'m able to do so much more than just look pretty. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk8"]
+                    },
+                    "nodeAsk8":{
+                        "dialogue": "I have cultivated an ability to use cursed energy to heal others which allowed me to save many people over the years.",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk9"]
+                    },
+                    "nodeAsk9":{
+                        "dialogue": "For now my focus is on researching the curse and understanding it.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    // shop inventory
+                    "node10":{
+                        "dialogue": "sure thing. I got some medical supplies.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Here\'s what I got.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    //leaving dialogue
+                    },"node12":{
+                        "dialogue": "stay safe out there, and don\'t get in any trouble.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    
+                        //I'm hurt could you heal me? (but player isnt hurt)
+                    },"nodeHealFull1":{
+                        "dialogue": "there isn\'t a scratch on you silly.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull2"]
+                    },"nodeHealFull2":{
+                        "dialogue": "but i\'m happy to give you a kiss regardless. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull3"]
+                        
+                    },"nodeHealFull3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull4"]
+                    },"nodeHealFull4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull5"]
+                    },"nodeHealFull5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    },"nodeHeal1":{
+                        "dialogue": "oh dear.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal2"]
+                    },"nodeHeal2":{
+                        "dialogue": "don\'t worry I will patch you up. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal3"]
+                    },"nodeHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal4"]
+                    },"nodeHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal5"]
+                    },"nodeHeal5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    }
+                },
+
+                "wolfShop2":{
+                    "node1":{
+                        "dialogue": "what\'s the component I\'m missing? ",
+                        "profile":"wolfMad",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "After all this research I\'m still no closer to finding some reversal or cure...",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },"node2":{
+                        "dialogue": "Oh hello human. I\'m just doing some research.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "The curse is a fascination thing after all.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "anyway, how can I help you?",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
                         "children":["nodeAsk1","node10","node12"]
 
                     //who are you dialogue again. 
@@ -5158,10 +5318,19 @@ const npcDialogue = {
                     //leaving dialogue
                     },"node12":{
                         "dialogue": "stay safe out there, and don\'t get in any trouble.",
-                        "profile":"lunaHappy",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                        //quest leg.
+                    },"node13":{
+                        "dialogue": "ahhh so you read my book. It’s one of the goals of my research. ",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":[]
                     }
+
+                    
                 }
                     
             }

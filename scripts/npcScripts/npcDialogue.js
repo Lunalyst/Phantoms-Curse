@@ -4777,7 +4777,7 @@ const npcDialogue = {
                 //smart idea. at the end of the door part of the quest, add flag, then turn wolf into the door npc to trigger the next part of the quest.
                 "storageRoomDoor":{
                     "node1":{
-                        "dialogue": "wolf\\'s cloths are scattered across the floor...",
+                        "dialogue": "wolf\'s cloths are scattered across the floor...",
                         "profile":"wolfCloths",
                         "textvoice":"lightPiano",
                         "children":["node2"]
@@ -5084,7 +5084,7 @@ const npcDialogue = {
                         "dialogue": "How can I assist you?  ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1"]
+                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1"]
 
                     //who are you dialogue again. 
                     },
@@ -5169,11 +5169,10 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["nodeHealFull2"]
                     },"nodeHealFull2":{
-                        "dialogue": "but i\'m happy to give you a kiss regardless. ",
+                        "dialogue": "You dont need to lie if you want a smooch my sweet little cutie",
                         "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
-                        "children":["nodeHealFull3"]
-                        
+                        "children":["nodeHealFull3"]     
                     },"nodeHealFull3":{
                         "dialogue": "*HIDETEXT*",
                         "profile":"wolfHappy2",
@@ -5181,15 +5180,15 @@ const npcDialogue = {
                         "children":["nodeHealFull4"]
                     },"nodeHealFull4":{
                         "dialogue": "there we go.",
-                        "profile":"wolfKiss",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodeHealFull5"]
                     },"nodeHealFull5":{
-                        "dialogue": "should be all better in no time.",
-                        "profile":"wolfHappy1",
+                        "dialogue": "your so adorable.",
+                        "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":[]
-
+                    //can you heal me
                     },"nodeHeal1":{
                         "dialogue": "oh dear.",
                         "profile":"wolfNeutral",
@@ -5216,35 +5215,56 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
 
+                    },"nodeFirstHeal1":{
+                        "dialogue": " I can heal you up, though I won\'t need a curse iv drip this time.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal2"]
+                    },"nodeFirstHeal2":{
+                        "dialogue": "just stay still for a moment.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal3"]
+                    },"nodeFirstHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal4"]
+                    },"nodeFirstHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal5"]
+                    },"nodeFirstHeal5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
                     }
                 },
 
                 "wolfShop2":{
                     "node1":{
-                        "dialogue": "what\'s the component I\'m missing? ",
-                        "profile":"wolfMad",
+                        "dialogue": "what\'s the component I\'m missing?",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["node2"]
                     },"node2":{
-                        "dialogue": "After all this research I\'m still no closer to finding some reversal or cure...",
-                        "profile":"wolfKO",
+                        "dialogue": "After all the research I have done, I\'m still no closer to finding some reversal to the mental alterations...",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
-                        "children":["node4"]
-                    },"node2":{
-                        "dialogue": "Oh hello human. I\'m just doing some research.",
-                        "profile":"wolfHappy1",
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "oh hello. I\'m just thinking aloud.",
+                        "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["node4"]
                     },"node4":{
-                        "dialogue": "The curse is a fascination thing after all.",
-                        "profile":"wolfSmirk1",
-                        "textvoice":"lightVoice",
-                        "children":["node5"]
-                    },"node5":{
-                        "dialogue": "anyway, how can I help you?",
+                        "dialogue": "How can I assist you?",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["nodeAsk1","node10","node12"]
+                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1","nodequest1"]
 
                     //who are you dialogue again. 
                     },
@@ -5321,17 +5341,147 @@ const npcDialogue = {
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":[]
-
-                        //quest leg.
-                    },"node13":{
-                        "dialogue": "ahhh so you read my book. It’s one of the goals of my research. ",
+                    
+                        //I'm hurt could you heal me? (but player isnt hurt)
+                    },"nodeHealFull1":{
+                        "dialogue": "there isn\'t a scratch on you silly.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull2"]
+                    },"nodeHealFull2":{
+                        "dialogue": "You dont need to lie if you want a smooch my sweet little cutie.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull3"]     
+                    },"nodeHealFull3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull4"]
+                    },"nodeHealFull4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull5"]
+                    },"nodeHealFull5":{
+                        "dialogue": "your so adorable. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    //can you heal me
+                    },"nodeHeal1":{
+                        "dialogue": "oh dear.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal2"]
+                    },"nodeHeal2":{
+                        "dialogue": "don\'t worry I will patch you up. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal3"]
+                    },"nodeHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal4"]
+                    },"nodeHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal5"]
+                    },"nodeHeal5":{
+                        "dialogue": "should be all better in no time.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":[]
-                    }
 
-                    
-                }
+                    },"nodeFirstHeal1":{
+                        "dialogue": " I can heal you up, though I won\'t need a curse iv drip this time.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal2"]
+                    },"nodeFirstHeal2":{
+                        "dialogue": "just stay still for a moment.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal3"]
+                    },"nodeFirstHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal4"]
+                    },"nodeFirstHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal5"]
+                    },"nodeFirstHeal5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    }
+                    //asking about reversal
+                    ,"nodequest1":{
+                        "dialogue": "hmmmm well, since your asking there is one lead I have.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest2"]
+                    },"nodequest2":{
+                        "dialogue": "I need a sample of a mushroom cursed thats in the cave east of here.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest3"]
+                    },"nodequest3":{
+                        "dialogue": "they glow purple like cursed energy and shake spores at you when get to close. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest4"]
+                    },"nodequest4":{
+                        "dialogue": "I tryed to have someone else fech me a sample but, they always seemed slip away through there mycelium network.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest5"]
+                    },"nodequest5":{
+                        "dialogue": "I have a theory about them, but i\'m still in the process of writing a new book about it.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest6"]
+                    },"nodequest6":{
+                        "dialogue": "anyway theres also some shadows in that cave which are quite dangerous.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest7"]
+                    },"nodequest7":{
+                        "dialogue": "I wouldnt feel comfortable sending you out there without some supplies. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest8"]
+                    },"nodequest8":{
+                        "dialogue": "who knows what the mushrooms might do if you attack all of them. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest9"]
+                    },"nodequest9":{
+                        "dialogue": "it could cause the mycelium network to have a massive defensive response.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest10"]
+                    },"nodequest10":{
+                        "dialogue": "you should take these if your serious about getting that sample for me. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodequest11"]
+                    },"nodequest11":{
+                        "dialogue": "please stay safe, and try not to get cursd.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+                },
+
+                
                     
             }
         },

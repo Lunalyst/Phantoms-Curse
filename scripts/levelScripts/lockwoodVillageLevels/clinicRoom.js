@@ -30,7 +30,7 @@ class ClinicRoom extends defaultScene {
       this.load.tilemapTiledJSON("clinic_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Clinic_Room.json");
       
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
-      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 273 , frameHeight: 363 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
       
       this.load.spritesheet("playerOnStrecherMale" , "assets/gameObjects/playerOnStrecherMale.png" , {frameWidth: 264 , frameHeight: 222 });
       this.load.spritesheet("playerOnStrecherFemale" , "assets/gameObjects/playerOnStrecherFemale.png" , {frameWidth: 264 , frameHeight: 222 });
@@ -106,7 +106,7 @@ class ClinicRoom extends defaultScene {
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
-      this.initPortalsWithTransparency(386,728+21,862,760,"door1","WaitingRoom",0.75);
+      this.initPortalsWithTransparency(386,728+25,862,760,"door1","WaitingRoom",0.75);
 
       
       /*this.deaugh = this.add.sprite(665, 728+16, "deaugh");

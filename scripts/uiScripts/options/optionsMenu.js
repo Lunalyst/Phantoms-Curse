@@ -536,6 +536,9 @@ class optionsMenu extends Phaser.GameObjects.Container{
         this.prefButton.setValue(this.currentPrefValue);
         this.sexButton.setValue(this.currentSexValue);
 
+        //updates sex in hud so hp bar profile is reflective of the players sex as well.
+        this.scene.playerSex = this.currentSexValue;
+
         //resets the reload value
         this.reloadNeeded = false;
 

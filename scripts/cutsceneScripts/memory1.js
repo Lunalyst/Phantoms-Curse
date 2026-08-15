@@ -30,6 +30,9 @@ class memory1 extends defaultScene {
 
     this.load.spritesheet("memoryNPC1" , "assets/npcs/memoryNPC1.png" , {frameWidth: 393 , frameHeight: 393 });
       
+    this.load.audioSprite('memory1SFX','audio/used-audio/memory-sounds/memory-sounds.json',[
+        "audio/used-audio/memory-sounds/memory song.mp3"
+    ]);
   }
   create(){
 
@@ -51,6 +54,9 @@ class memory1 extends defaultScene {
     this.SceneSprite.visible = false;
 
     this.sceneSpriteSize = 0.6;
+
+    //adds looping sound effec
+    
 
     this.SceneSprite.setScale(this.sceneSpriteSize);
 
@@ -139,6 +145,10 @@ class memory1 extends defaultScene {
 
       //dramatic fade in.
       that.cameras.main.fadeIn(1500, 0, 0, 0);
+
+      setTimeout(function () {
+        that.initLoopingSound('memory1SFX','memory song',0.03,"music");
+      }, 2200);
 
       //show our scene sprite
       that.SceneSprite.visible = true;

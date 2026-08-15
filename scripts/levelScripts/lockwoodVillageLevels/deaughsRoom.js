@@ -122,12 +122,21 @@ class DeaughsRoom extends defaultScene {
         foundFlag: false,
       };
 
+      let readBook = {
+        flagToFind: "readCurseMarkPlague",
+        foundFlag: false,
+      };
+
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab1);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab3);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
-      if(lab4.foundFlag === true){
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, readBook);
+      if(lab4.foundFlag === true && readBook.foundFlag === true){
+        this.initWolf(531, 728+16, "wolfShop2");
+      }else if(lab4.foundFlag === true){
         this.initWolf(461, 728+16, "wolfShop1");
       }else if(lab3.foundFlag === true){
 

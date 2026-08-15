@@ -1,0 +1,12 @@
+{
+    "resources":[
+        "../audio/used-audio/memory-sounds/memory song.mp3"
+    ],
+    "spritemap": {
+        "memory song":{
+            "start": 0,
+            "end": 28,
+            "loop": false
+        }
+    }
+}

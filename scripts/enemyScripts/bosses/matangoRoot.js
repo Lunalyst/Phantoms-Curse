@@ -1417,7 +1417,44 @@ class matangoRoot extends matangoRootCock {
 
                             //show item drop like a chest
                             //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
-                            this.scene.initFakeItemDrop(this.x , this.y-15,25); 
+                            this.scene.initFakeItemDrop(this.x+20 , this.y-15,25); 
+                            }
+
+                            //drop new weapon
+                            let object1 = {
+                                flagToFind: "obtained_matango_sample",
+                                foundFlag: false,
+                            };
+                
+                            // call the emitter to check if the value already was picked up.
+                            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+                            if(object1.foundFlag === false){
+                                //create a temp variable to hold our item that is passed to the player
+                            let item = {
+                                itemID: 31,
+                                itemName: 'MYCELIUM SAMPLE',
+                                itemDescription: 'OBTAINED FROM THE SOURCE OF THE MYCELIUM...',
+                                itemStackable: 0,
+                                itemAmount: 1,
+                                itemType: "quest",
+                                sellValue: 0
+                            };
+
+                            //used to tell if the item was added
+                            let addedToInventory = {
+                                added: false
+                            };
+
+                            //emitter to add object to inventory.
+                            inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+                    
+                            //now to add the flag to the player data so the player cant open this container multiple times.
+                            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object1.flagToFind);
+
+                            //show item drop like a chest
+                            //spawn a special version on the item drop that floats out of the chest and hovers for a bit.
+                            this.scene.initFakeItemDrop(this.x-20 , this.y-15,31); 
                             }
 
                             this.rootNode.deactivateMushroomBarriers();

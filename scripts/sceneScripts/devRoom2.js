@@ -166,7 +166,7 @@ class devRoom2 extends defaultScene {
       
       //this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
 
-      this.initItemDrop(1865,660,31,1,1,"MYCELIUM SAMPLE","a piece of the matango root","quest",0);
+      this.initItemDrop(1865,660,31,1,1,"MYCELIUM SAMPLE","SAMPLE FROM THE SOURCE OF THE MYCELIUM...","quest",0);
 
 
 

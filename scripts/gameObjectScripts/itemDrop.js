@@ -44,6 +44,8 @@ class itemDrop extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: '28',frames: this.anims.generateFrameNames('itemDrops', { start: 28, end: 28 }),frameRate: 10,repeat: -1});
         this.anims.create({key: '29',frames: this.anims.generateFrameNames('itemDrops', { start: 29, end: 29 }),frameRate: 10,repeat: -1});
         this.anims.create({key: '30',frames: this.anims.generateFrameNames('itemDrops', { start: 30, end: 30 }),frameRate: 10,repeat: -1});
+        this.anims.create({key: '31',frames: this.anims.generateFrameNames('itemDrops', { start: 31, end: 31 }),frameRate: 10,repeat: -1});
+        
         
         
         //sets the given item data into a object

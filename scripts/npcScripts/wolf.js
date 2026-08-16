@@ -52,6 +52,8 @@ class wolf extends npc{
       }
 
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 43 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 44, end: 48 }), frameRate: 6, repeat: 0 });
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -83,6 +85,8 @@ class wolf extends npc{
        this.choke = false;
 
        this.activatedTradeUI = false;
+
+       this.doOnce = false;
 
        //this.body.setGravityY(600); 
 
@@ -342,7 +346,9 @@ class wolf extends npc{
     console.log("playerHealthObject: ",playerHealthObject);
 
     // need to build up player curse
-    healthEmitter.emit(healthEvent.curseBuildUp,playerHealthObject.playerCurseMax-15);
+    if(playerHealthObject.playerCurse < (playerHealthObject.playerCurseMax/2) ){
+      healthEmitter.emit(healthEvent.curseBuildUp,(playerHealthObject.playerCurseMax/3));
+    }
 
     this.recurseRestoreHp(playerHealthObject);
     // then use recursion to 
@@ -2584,12 +2590,66 @@ class wolf extends npc{
 
           },this);
 
-          //create dialogue buttons for player choice
-          this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"Can I help you with your research?",true);
-          this.scene.npcChoice4.textWob();
-          this.scene.npcChoice4.setScrollFactor(0);
-          this.scene.npcChoice4.addHitbox();
-          this.scene.npcChoice4.setScale(.8);
+          let findObject = {
+            findId: 31,
+            wasFound: false,
+            foundInventoryLoc: null
+          };
+
+          inventoryKeyEmitter.emit(inventoryKey.isSingleItemInInventory, findObject);
+
+          //check to see if player has quest flag.
+          let object = {
+            flagToFind: "WolfMatangoQuest1",
+            foundFlag: false,
+          };
+
+          //call the emitter to check if the value already was picked up.
+          inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+
+          //if item and quest variable
+          if(findObject.wasFound === true && object.foundFlag === true){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"is this the sample you need?",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+
+          //if item, and  no quest variable
+          }else if(findObject.wasFound === true && object.foundFlag === false){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"do you know what this is?",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+
+          //if no item and quest variable
+          }else if(findObject.wasFound === false && object.foundFlag === true){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"what do I do again?",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+
+          //if no item and no quest variable
+          }else{
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"Can I help you with your research?",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+          }
+
+         
 
           //set up dialogue option functionality so they work like buttons
           this.scene.npcChoice4.on('pointerover',function(pointer){
@@ -2608,9 +2668,44 @@ class wolf extends npc{
 
             //set variable approperiately
             this.scene.sceneTextBox.textInterupt = false;
+            
+            let findObject = {
+              findId: 31,
+              wasFound: false,
+              foundInventoryLoc: null
+            };
 
-            //progress to node branch with state name node10 special function which ignores lock out of text
-            this.progressNode("nodequest1",true);
+            inventoryKeyEmitter.emit(inventoryKey.isSingleItemInInventory, findObject);
+
+            //check to see if player has quest flag.
+            let object = {
+              flagToFind: "WolfMatangoQuest1",
+              foundFlag: false,
+            };
+
+            //call the emitter to check if the value already was picked up.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+
+            //if item and quest variable
+            if(findObject.wasFound === true && object.foundFlag === true){
+
+
+            //if item, and  no quest variable
+            }else if(findObject.wasFound === true && object.foundFlag === false){
+
+
+            //if no item and quest variable
+            }else if(findObject.wasFound === false && object.foundFlag === true){
+
+              this.progressNode("nodeHelp1",true);
+
+            //if no item and no quest variable
+            }else{
+
+              //progress to node branch with state name node10 special function which ignores lock out of text
+              this.progressNode("nodequest1",true);
+            }
 
             //sets the dialogue catch so the textbox stays open during the shop ui interactions.
             this.dialogueCatch = true;
@@ -2665,7 +2760,7 @@ class wolf extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-      }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+        }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
 
             this.activatedTradeUI = true;
             
@@ -2777,6 +2872,57 @@ class wolf extends npc{
             });
           });
          }
+      }else if(this.currentDictNode.nodeName === "nodequest10"){
+        
+        if(this.doOnce === false){
+
+            this.doOnce = true;
+
+            if(!this.animationPlayed){
+
+              this.animationPlayed = true;
+
+                //used to tell if the item was added
+                let addedToInventory = {
+                    added: false
+                };
+
+                let item = {
+                  itemID: 29,
+                  itemName: 'FRUIT JUICE',
+                  itemDescription: 'FRUITY DRINK THAT RESTORES MODERATE AMOUNT OF HP.',
+                  itemStackable: 1,
+                  itemAmount: 5,
+                  itemType: "consumable",
+                  sellValue: 20
+                };
+
+                inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+              
+              
+              //play animation of giving lantern // have the animation player after a period of time
+              //or if dialogue is skipped through, then make sure to destroy fake drop on next node.
+              this.anims.play('wolfGiveItem1').once('animationcomplete', () => {
+
+                    //spawn fake item that disapears.
+                  if(this.flipX === false){
+                    this.scene.initFakeItemDropWithSpeed(this.x+14 , this.y-13 ,29,1000);
+                  }else{
+                    this.scene.initFakeItemDropWithSpeed(this.x-14 , this.y-13 ,29,1000);
+                  }
+
+                    this.anims.play('wolfGiveItem2').once('animationcomplete', () => {
+                    this.anims.play('sideIdle',true);
+                    this.animationPlayed = false;
+
+                    //set flag for first part of the quest being finished
+                inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"WolfMatangoQuest1");
+                });
+              });
+
+            }
+
+          }
       }
   
     }

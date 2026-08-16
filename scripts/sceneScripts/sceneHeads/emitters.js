@@ -127,7 +127,11 @@ inventoryKey = {
     updateInternalView: 'update_internal_view',
     playGameSaved: 'play_game_saved',
     playCustomMessage: 'play_custom_message',
-    isItemInInventory: 'is_item_in_inventory',
+
+    isSingleItemInInventory: 'is_single_item_in_inventory',
+    ismultipleItemsInInventory: 'is_multiple_items_in_inventory',
+    removeItemFromIventory:'remove_item_from_inventory',
+
     setUpBuyArray: 'set_up_buy_array',
     destroyBuyArray: 'destroy_buy_array',
     reduceItemAmount: 'reduce_item_amount',

@@ -450,13 +450,9 @@ class npc extends Phaser.Physics.Arcade.Sprite{
           oneTimeKey: key,
           foundKey: false
         };
-
-        /*//call emitter to tell if the onetime item is present in the inventory.
-        inventoryKeyEmitter.emit(inventoryKey.isItemInInventory, object1);
-
       
         //if the item doesnt exist in the player inventory, then
-        if(!object1.foundKey){*/
+        //if(!object1.foundKey){*/
 
           //push the object to the buyBack array
           buyBack.push(oneTimeItemArray[key]);

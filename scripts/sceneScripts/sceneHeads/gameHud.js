@@ -862,18 +862,52 @@ class gameHud extends A3SoundEffects {
             
           });
 
-          //emitter to search the inventory, to see if a item is present.
-          inventoryKeyEmitter.on(inventoryKey.isItemInInventory,(object) =>{
+          //emitter to search the inventory, to see if a item is present use for non stackable items only!
+          inventoryKeyEmitter.on(inventoryKey.isSingleItemInInventory,(object) =>{
+            
             console.log("find item in inventory object: ",object )
+
             //then we need to search the inventory to see if the player has the object in there inventory.
-            for(let counter = 0; counter < this.inventoryDataArray.length;counter++){
+            for(let counter = 5; counter <= 19 ;counter++){
+
+              //if the item exists in the inventory
+              if(this.inventoryDataArray[counter].itemID === object.findId){
+                console.log("found instance of item with id :",object.findId);
+                object.wasFound = true;
+                object.foundInventoryLoc = counter;
+                break;
+              }
+
+            }
+
+            if(object.wasFound === false){
+              console.log("no item with id :",object.findId, " was found :( ");
+            }
+
+          });
+
+          //emitter to search the inventory, to see if a item is present.
+          inventoryKeyEmitter.on(inventoryKey.ismultipleItemsInInventory,(object) =>{
+            
+            console.log("find item in inventory object: ",object )
+
+            //sudo code for when i need this
+            //need to pass in a object with an array.
+            //that object stores any stack fo that item we find,
+            //that way at the end of finding all of those stacks in the inventory
+            //we can tell if theres enough for what the quest needs.
+
+            //this would be implemented if theres a quest where a npc nees 5 of a renewable item.
+            //find me 10 slime globs as an example.
+            //player could have multipe stacks of that item spread out in the inventory. so we find them all
+            //then tally them up.
+
+            //then we need to search the inventory to see if the player has the object in there inventory.
+            for(let counter = 5; counter <= 19 ;counter++){
 
               //if the item exists in the inventory
               if(this.inventoryDataArray[counter].itemID === oneTimeItemArray[object.oneTimeKey].itemID){
-                object.foundKey = true;
-                console.log("player has flag for (",object.oneTimeKey,") but doesnt have item in inventory");
-                //one we find one instance stop looking.
-                break;
+               
               }
 
             }

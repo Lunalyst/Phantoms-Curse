@@ -1138,30 +1138,51 @@ class shop extends Phaser.GameObjects.Container{
             this.activeSlot2 = -2;
            
           //if both slots are defined then switch the two items.
+          //here need a special case. need to make sure that quest items cannot be sold.  check if either slots are in the sell slots and check to see if item has "quest" as its catigory tag. 
           }else if(this.activeSlot1 !== -1 && this.activeSlot2 !== -2){
 
             console.log("switching items, this.copyDataArray[this.getDataLocation(this.activeSlot1)]: ",this.copyDataArray[this.getDataLocation(this.activeSlot1)],"switching items, this.copyDataArray[this.getDataLocation(this.activeSlot2)]: ",this.copyDataArray[this.getDataLocation(this.activeSlot2)]);
             //set temp to the item id in activeSlot1
-            let temp = this.copyDataArray[this.getDataLocation(this.activeSlot1)];
-            //set activeSlot1 to activeslot2 
-            this.copyDataArray[this.getDataLocation(this.activeSlot1)] = this.copyDataArray[this.getDataLocation(this.activeSlot2)];
-            //set activeslot2 to temp
-            this.copyDataArray[this.getDataLocation(this.activeSlot2)] = temp;
 
-            //set animation for activeSlot1
-            this.shopArray[this.activeSlot1].isLitUp = false;
-            this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
-            this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
-            this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
-            this.shopArray[this.activeSlot1].clearTint();
+            //safty check for quest items. we dont want thep layer selling them.
+            if((this.copyDataArray[
+              //if either slot has a quest item.
+              this.getDataLocation(this.activeSlot1)].itemType === "quest" || this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemType === "quest") &&
+              //and one of the slots is inside the sell slot range
+              (this.activeSlot1 >= 15 || this.activeSlot2 >= 15)){
 
-            //set animation for activeSlot2
-            this.shopArray[this.activeSlot2].isLitUp = false;
-            this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
-            this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
-            this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
-            this.shopArray[this.activeSlot2].clearTint();
+              this.shopArray[this.activeSlot1].isLitUp = false;
+              this.shopArray[this.activeSlot1].clearTint();
 
+              this.shopArray[this.activeSlot2].isLitUp = false;
+              this.shopArray[this.activeSlot2].clearTint();
+
+
+            }else{
+
+              let temp = this.copyDataArray[this.getDataLocation(this.activeSlot1)];
+              //set activeSlot1 to activeslot2 
+              this.copyDataArray[this.getDataLocation(this.activeSlot1)] = this.copyDataArray[this.getDataLocation(this.activeSlot2)];
+              //set activeslot2 to temp
+              this.copyDataArray[this.getDataLocation(this.activeSlot2)] = temp;
+
+
+              //set animation for activeSlot1
+              this.shopArray[this.activeSlot1].isLitUp = false;
+              this.shopArray[this.activeSlot1].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemID;
+              this.shopArray[this.activeSlot1].anims.play(''+this.shopArray[this.activeSlot1].animsNumber);
+              this.shopArray[this.activeSlot1].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot1)].itemAmount);
+              this.shopArray[this.activeSlot1].clearTint();
+
+              //set animation for activeSlot2
+              this.shopArray[this.activeSlot2].isLitUp = false;
+              this.shopArray[this.activeSlot2].animsNumber = this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemID;
+              this.shopArray[this.activeSlot2].anims.play(''+this.shopArray[this.activeSlot2].animsNumber);
+              this.shopArray[this.activeSlot2].setSlotNumber(this.copyDataArray[this.getDataLocation(this.activeSlot2)].itemAmount);
+              this.shopArray[this.activeSlot2].clearTint();
+
+            }
+            
             //clear both slots.
             this.activeSlot1 = -1;
             this.activeSlot2 = -2;

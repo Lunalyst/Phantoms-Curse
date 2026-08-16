@@ -5247,12 +5247,12 @@ const npcDialogue = {
                 "wolfShop2":{
                     "node1":{
                         "dialogue": "what\'s the component I\'m missing?",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfMad",
                         "textvoice":"lightVoice",
                         "children":["node2"]
                     },"node2":{
                         "dialogue": "After all the research I have done, I\'m still no closer to finding some reversal to the mental alterations...",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfKO",
                         "textvoice":"lightVoice",
                         "children":["node3"]
                     },"node3":{
@@ -5264,7 +5264,7 @@ const npcDialogue = {
                         "dialogue": "How can I assist you?",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1","nodequest1"]
+                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1","nodequest1","nodeHelp1"]
 
                     //who are you dialogue again. 
                     },
@@ -5425,7 +5425,7 @@ const npcDialogue = {
                     //asking about reversal
                     ,"nodequest1":{
                         "dialogue": "hmmmm well, since your asking there is one lead I have.",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodequest2"]
                     },"nodequest2":{
@@ -5440,7 +5440,7 @@ const npcDialogue = {
                         "children":["nodequest4"]
                     },"nodequest4":{
                         "dialogue": "I tryed to have someone else fech me a sample but, they always seemed slip away through there mycelium network.",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["nodequest5"]
                     },"nodequest5":{
@@ -5455,7 +5455,7 @@ const npcDialogue = {
                         "children":["nodequest7"]
                     },"nodequest7":{
                         "dialogue": "I wouldnt feel comfortable sending you out there without some supplies. ",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["nodequest8"]
                     },"nodequest8":{
@@ -5470,12 +5470,50 @@ const npcDialogue = {
                         "children":["nodequest10"]
                     },"nodequest10":{
                         "dialogue": "you should take these if your serious about getting that sample for me. ",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":["nodequest11"]
                     },"nodequest11":{
                         "dialogue": "please stay safe, and try not to get cursd.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+                    //player is lost and needs info again. 
+                    ,"nodeHelp1":{
+                        "dialogue": "oh you forgot?",
                         "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp2"]
+                    },
+                    "nodeHelp2":{
+                        "dialogue": "I need a sample of a mushroom cursed thats in the cave to the east. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp3"]
+                    },"nodeHelp3":{
+                        "dialogue": "they glow purple like cursed energy and shake spores at you when get too close. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp4"]
+                    },"nodeHelp4":{
+                        "dialogue": "you should try attacking them all. and then follow where they go. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp5"]
+                    },"nodeHelp5":{
+                        "dialogue": "it could cause the mycelium network to have a massive defensive response.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp6"]
+                    },"nodeHelp6":{
+                        "dialogue": "likely giving you the opertunity to get that sample for me.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHelp7"]
+                    },"nodeHelp7":{
+                        "dialogue": "please be careful and don\'t get eaten or cursed. ",
+                        "profile":"wolfKO",
                         "textvoice":"lightVoice",
                         "children":[]
                     }

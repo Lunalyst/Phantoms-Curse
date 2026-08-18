@@ -1,11 +1,21 @@
 {
     "resources":[
-        "../audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.mp3"
+        "../audio/used-audio/mycelium-battle-sounds/electric mushroom head boss fight full.mp3"
     ],
     "spritemap": {
         "theme":{
             "start": 0,
             "end": 22.5,
+            "loop": true
+        },
+        "entrance":{
+            "start": 0,
+            "end": 22.59,
+            "loop": false
+        },
+        "entranceLoop":{
+            "start": 22.59,
+            "end": 107.87,
             "loop": true
         }
     }

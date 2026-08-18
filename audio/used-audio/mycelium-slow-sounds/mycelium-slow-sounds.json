@@ -1,11 +1,11 @@
 {
     "resources":[
-        "../audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.mp3"
+        "../audio/used-audio/mycelium-slow-sounds/electric mushroom head calm.mp3"
     ],
     "spritemap": {
         "theme":{
             "start": 0,
-            "end": 50,
+            "end": 48.04,
             "loop": true
         }
     }

@@ -40,11 +40,15 @@ class ShadowCaveUpper extends defaultScene {
       this.load.spritesheet('mushroomBarrier', 'assets/gameObjects/mushroom-hand-barrier.png',{frameWidth: 123, frameHeight: 384 });
 
       this.load.audioSprite('slowMyceliumSFX','audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.json',[
-        "audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.mp3"
+        "audio/used-audio/mycelium-slow-sounds/electric mushroom head calm.mp3"
       ]);
 
-      this.load.audioSprite('battleMyceliumSFX','audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.json',[
-        "audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.mp3"
+      this.load.audioSprite('battleMyceliumSFX1','audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.json',[
+        "audio/used-audio/mycelium-battle-sounds/electric mushroom head boss fight full.mp3"
+      ]);
+
+      this.load.audioSprite('battleMyceliumSFX2','audio/used-audio/mycelium-battle-sounds/mycelium-battle-sounds.json',[
+        "audio/used-audio/mycelium-battle-sounds/electric mushroom head boss fight full.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[

@@ -5264,7 +5264,7 @@ const npcDialogue = {
                         "dialogue": "How can I assist you?",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1","nodequest1","nodeHelp1"]
+                        "children":["nodeAsk1","node10","node12","nodeHealFull1","nodeHeal1","nodeFirstHeal1","nodequest1","nodeHelp1","nodeEarly1","nodeComplete1"]
 
                     //who are you dialogue again. 
                     },
@@ -5485,8 +5485,7 @@ const npcDialogue = {
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeHelp2"]
-                    },
-                    "nodeHelp2":{
+                    },"nodeHelp2":{
                         "dialogue": "I need a sample of a mushroom cursed thats in the cave to the east. ",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
@@ -5517,6 +5516,167 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
                     }
+                    //if the player gets the mycelium star early
+                    ,"nodeEarly1":{
+                        "dialogue": "thats...",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEarly2"]
+                    },"nodeEarly2":{
+                        "dialogue": "oh! thats a sample of those purple mushroom cursed!",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeEarly3"]
+                    },"nodeEarly3":{
+                        "dialogue": "I was looking for someone get a sample for me so I could continue my research, but it seems you beat me to it. ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge1"]
+
+                    // if player has quest flag and has item in there inventory.
+                    },"nodeComplete1":{
+                        "dialogue": "yes!",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeComplete2"]
+                    },"nodeComplete2":{
+                        "dialogue": "That\'s exactly what I\'m looking for.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeConverge1"]
+
+                    //player choices (sure) (I want a reward for it.)
+                    },"nodeConverge1":{
+                        "dialogue": "Give it here so I can examine it.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSure1","nodeReward1"]
+                    },
+
+                    //sure option
+                    "nodeSure1":{
+                        "dialogue": "Thank you dear.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSure2"]
+                    },"nodeSure2":{
+                        "dialogue": "Here\'s a little bit of shell for a job well done.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeSure3"]
+                    },"nodeSure3":{
+                        "dialogue": "I\'m sure getting this was quite dangerous.",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+
+                    //i want a reward for it.
+                    ,"nodeReward1":{
+                        "dialogue": "oh?",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeReward2"]
+
+                        //player choice (some shell would be nice.) (How about I get a feel?)
+                    },"nodeReward2":{
+                        "dialogue": "what would you like for a reward?",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeReward3","vore1"]
+                    }
+
+                    //(some shell would be nice.) branches back to tf scene route.
+                    ,"nodeReward3":{
+                        "dialogue": "fair enough. I\'m sure getting it was dangerous.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeReward4"]
+                    },"nodeReward4":{
+                        "dialogue": "I was already planning to pay you for it regardless so here you go.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    //(How about I get a feel?)
+                    "vore1":{
+                        "dialogue": "Mh....?",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["vore2"]
+                    },"vore2":{
+                        "dialogue": "I see you\'re one of \"those\" kind of helpers. ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore3"]
+                    },"vore3":{
+                        "dialogue": "ahhhh.....",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["vore4"]
+                    },"vore4":{
+                        "dialogue": "well it cant be helped. By all means",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore5"]
+                    },"vore5":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore6"]
+                    },"vore6":{
+                        "dialogue": "Naughty, naughty...",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":["vore7"]
+                    },"vore7":{
+                        "dialogue": "has your mother never told you its very rude to ask such things to a lady?",
+                        "profile":"wolfMad",
+                        "textvoice":"lightVoice",
+                        "children":["vore8"]
+                    },"vore8":{
+                        "dialogue": "I\'m thinking that adding you to the source of your lust will help you learn to be polite. ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore9"]
+                    },"vore9":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore10"]
+                    },"vore10":{
+                        "dialogue": "Mhhhh~ this is always the best part~ ",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore11"]
+                    },"vore11":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["vore12"]
+                    },"vore12":{
+                        "dialogue": "Ahhhh....",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["vore13"]
+                    },"vore13":{
+                        "dialogue": "this feel perfect...",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["vore14"]
+                    },"vore14":{
+                        "dialogue": "gosh I\'m going to need a brand new bra because of you.",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["vore15"]
+                    },"vore15":{
+                        "dialogue": "Well then better get comfy because you\'ll be staying for a veeeery long time.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+
                 },
 
                 

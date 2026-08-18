@@ -2443,7 +2443,7 @@ class wolf extends npc{
             this.anims.play('sideIdle',true);
             this.flipX = false;
           }
-        }else if(this.currentDictNode.nodeName === "node4" && this.inDialogue ===false){
+      }else if(this.currentDictNode.nodeName === "node4" && this.inDialogue ===false){
 
           this.inDialogue = true;
           //set variable approperiately
@@ -2689,11 +2689,11 @@ class wolf extends npc{
 
             //if item and quest variable
             if(findObject.wasFound === true && object.foundFlag === true){
-
+              this.progressNode("nodeComplete1",true);
 
             //if item, and  no quest variable
             }else if(findObject.wasFound === true && object.foundFlag === false){
-
+               this.progressNode("nodeEarly1",true);
 
             //if no item and quest variable
             }else if(findObject.wasFound === false && object.foundFlag === true){
@@ -2760,7 +2760,7 @@ class wolf extends npc{
           //let the npc know they are in dialogue
           this.inDialogue = true;
 
-        }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+      }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
 
             this.activatedTradeUI = true;
             
@@ -2923,6 +2923,162 @@ class wolf extends npc{
             }
 
           }
+      }else if(this.currentDictNode.nodeName === "nodeConverge1" && this.inDialogue ===false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Sure.",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("nodeSure1");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+          
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"I want a reward for it.",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("nodeReward1",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+      
+          },this);
+
+      }else if(this.currentDictNode.nodeName === "nodeReward2" && this.inDialogue ===false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Some shell would be nice.",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("nodeReward3");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+          
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"How about I get a feel?",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("vore1",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+      
+          },this);
+
       }
   
     }

@@ -38,7 +38,7 @@ class ShadowCave extends defaultScene {
       this.defaultPreload();
 
        this.load.audioSprite('slowMyceliumSFX','audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.json',[
-        "audio/used-audio/mycelium-slow-sounds/mycelium-slow-sounds.mp3"
+        "audio/used-audio/mycelium-slow-sounds/electric mushroom head calm.mp3"
       ]);
 
       this.load.audioSprite('waterfallSFX','audio/used-audio/waterfall-sounds/waterfall-sounds.json',[

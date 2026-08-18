@@ -465,7 +465,32 @@ class matangoRoot extends matangoRootCock {
                     this.anims.play('rawr').once('animationcomplete', () => {
 
                         this.anims.play('forwardIdleEyesForward',true);
+
                         this.scene.initSoundEffect('bossSFX','bossStart',0.1);
+
+                        let bossStart = this.scene.getSFX('bossSFX');
+
+                        //add on complete for that.
+                        bossStart.on('complete', function (sound){
+                            console.log("starting entrance for matango root!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                            //this.scene.initSoundEffect('nectarEntranceSFX','entranceLoop',0.3,'music');
+                            this.scene.initSoundEffect('battleMyceliumSFX1','entrance',0.3,'music');
+
+                            //get refrence to sound key
+                            let entranceStart = this.scene.getSFX('battleMyceliumSFX1');
+
+                            //add on complete for that.
+                            entranceStart.on('complete', function (sound){
+                                console.log("starting main track for mushroom!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                                //this.scene.initSoundEffect('nectarEntranceSFX','entranceLoop',0.3,'music');
+                                this.scene.initSoundEffect('battleMyceliumSFX2','entranceLoop',0.3,'music');
+                                        
+                            },this);
+                                    
+                        },this);
+
+
+                        
 
                         //after animation of mushroom appearing we need to set up boss healthbar in the hud.
                         //start by setting boss hp name and making it visible.
@@ -479,11 +504,9 @@ class matangoRoot extends matangoRootCock {
                         healthEmitter.emit(healthEvent.setBossHealthVisible,true);
                         this.poppedOut = true;
 
-                        //play boss theme after a half second
-                        let mush = this;
-                        setTimeout(function () {
-                            mush.scene.initLoopingSound('battleMyceliumSFX','theme', 0.1,"music");
-                        }, 500);
+   
+
+                        
 
                         this.attackCooldown = true;
 
@@ -1322,7 +1345,14 @@ class matangoRoot extends matangoRootCock {
                 if (this.enemyHP <= 0) {
 
                     //STOP MUSIC
-                    this.scene.sound.get("battleMyceliumSFX").stop();
+                    if(this.scene.sound.get("battleMyceliumSFX1") !== null && this.scene.sound.get("battleMyceliumSFX1") !== undefined){
+                        this.scene.sound.get("battleMyceliumSFX1").stop();
+                    }
+
+                    if(this.scene.sound.get("battleMyceliumSFX2") !== null && this.scene.sound.get("battleMyceliumSFX2") !== undefined){
+                        this.scene.sound.get("battleMyceliumSFX2").stop();
+                    }
+                    
                     this.scene.initLoopingSound('slowMyceliumSFX','theme', 0.1,"music");
 
                     //MAKE HANDS DISSAPEAR

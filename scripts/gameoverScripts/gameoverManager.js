@@ -86,14 +86,19 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.spritesheet('PlumGameover', 'assets/npcs/PlumGameover.png',{frameWidth: 630, frameHeight: 429 });
                 tempGameover.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
             },
+            wolfGameover: function wolfGameover() {
+
+                tempGameover.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
+                tempGameover.load.tilemapTiledJSON("wolfGameover" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Deaughs_Room_Gameover.json");
+                
+            },
             autumnGameover: function autumnGameover() {
 
                 tempGameover.load.image("lockwood_house_interior_map" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Lockwood_House_Interior_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("autumnGameover" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Autumns_Room_Gameover.json");
                 
-                //tempGameover.load.spritesheet('PlumGameover', 'assets/npcs/PlumGameover.png',{frameWidth: 630, frameHeight: 429 });
-                //tempGameover.load.spritesheet("wallLights" , "assets/gameObjects/wallLights.png" , {frameWidth: 159 , frameHeight: 96 });
             },
+            
 
         
  
@@ -483,6 +488,16 @@ class gameoverManager extends A3SoundEffects {
 
                 tempSceneRef.light1 = new wallLight(tempSceneRef,250, 470,'torch');
                 tempSceneRef.light2 = new wallLight(tempSceneRef,660, 470,'torch');
+                
+            },wolfGameover: function wolfGameover() {
+
+                console.log("activating vivian preloadmap");
+                tempSceneRef.processMap.tilesetNameInTiled = "Castle_Interior_Tileset";
+                tempSceneRef.processMap.setTiles('castle_source_map',tempSceneRef);
+                //tempSceneRef.processMap.layer2.setTint(0xFFFFFF);
+                /*if(tempSceneRef.enemyThatDefeatedPlayer === "autumn_vore_1"){
+                    tempSceneRef.continue = true;
+                }*/
                 
             },
             autumnGameover: function autumnGameover() {
@@ -1160,6 +1175,15 @@ class gameoverManager extends A3SoundEffects {
                 
                 
             },
+
+            wolf_vore_1: function  wolfVore1Function() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new wolf(tempSceneRef,499, 551,"voreSequence");
+                tempSceneRef.enemy.gameOverVore();
+                tempSceneRef.defeatedTitle = 'eaten';
+                tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
+            },
+
             autumn_vore_1: function  autumnVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new autumn(tempSceneRef,444, 504,"voreSequence");
@@ -1749,6 +1773,10 @@ class gameoverManager extends A3SoundEffects {
             },
 
             nectar_vore_2: function nectar_vore_2Function() {
+                
+            },
+
+            wolf_vore_1: function  wolfVore1Function() {
                 
             },
 

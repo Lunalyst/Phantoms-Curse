@@ -3216,9 +3216,9 @@ class wolf extends npc{
         this.startGameoverActivated  = true;
         this.dialogueCatch = true;
 
-        //this.scene.gameoverLocation = "vivianGameover";
-        //this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianTF;
-        //this.scene.changeToGameover();
+        this.scene.gameoverLocation = "wolfGameover";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
+        this.scene.changeToGameover();
 
         this.scene.sceneTextBox.textInterupt = true;
         this.scene.sceneTextBox.textCoolDown = true;
@@ -3360,5 +3360,8 @@ class wolf extends npc{
            
   }
 
+  gameOverVore(){
+    this.anims.play('breastVoreGameover', true);
+  }
 
 }

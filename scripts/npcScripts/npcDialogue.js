@@ -5671,7 +5671,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["vore14"]
                     },"vore14":{
-                        "dialogue": "gosh I\'m going to need a brand new bra because of you.",
+                        "dialogue": "gosh I\'m going to need a new pair of pants because of you.",
                         "profile":"wolfStarEyes",
                         "textvoice":"lightVoice",
                         "children":["vore15"]

@@ -460,6 +460,8 @@ const bestiaryKey = {
   nectarVore1:"nectar_vore_1",
   nectarVore2:"nectar_vore_2",
 
+  wolfVore1: "wolf_vore_1",
+
   autumnVore1:"autumn_vore_1",
  
 }

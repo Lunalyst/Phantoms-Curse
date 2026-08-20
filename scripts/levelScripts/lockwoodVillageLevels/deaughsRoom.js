@@ -30,6 +30,7 @@ class DeaughsRoom extends defaultScene {
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
       this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
       this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 363 , frameHeight: 363 });
+      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 363 , frameHeight: 363 });
       
       this.load.spritesheet("wolfProps" , "assets/gameObjects/wolfProps.png" , {frameWidth: 96 , frameHeight: 96 });
 
@@ -135,9 +136,9 @@ class DeaughsRoom extends defaultScene {
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, readBook);
       if(lab4.foundFlag === true && readBook.foundFlag === true){
-        this.initWolf(531, 728+16, "wolfShop2");
+        this.initWolf(531, 729+16, "wolfShop2");
       }else if(lab4.foundFlag === true){
-        this.initWolf(461, 728+16, "wolfShop1");
+        this.initWolf(461, 729+16, "wolfShop1");
       }else if(lab3.foundFlag === true){
 
         //spawn wolfs cloths on the ground.

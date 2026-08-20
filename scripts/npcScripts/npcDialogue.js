@@ -5616,7 +5616,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["vore4"]
                     },"vore4":{
-                        "dialogue": "well it cant be helped. By all means",
+                        "dialogue": "well it cant be helped. By all means, help yourself.",
                         "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["vore5"]
@@ -5633,6 +5633,11 @@ const npcDialogue = {
                     },"vore7":{
                         "dialogue": "has your mother never told you its very rude to ask such things to a lady?",
                         "profile":"wolfMad",
+                        "textvoice":"lightVoice",
+                        "children":["voreA"]
+                    },"voreA":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["vore8"]
                     },"vore8":{
@@ -5661,7 +5666,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["vore13"]
                     },"vore13":{
-                        "dialogue": "this feel perfect...",
+                        "dialogue": "this feels perfect...",
                         "profile":"wolfHeartEyes",
                         "textvoice":"lightVoice",
                         "children":["vore14"]
@@ -5671,7 +5676,12 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["vore15"]
                     },"vore15":{
-                        "dialogue": "Well then better get comfy because you\'ll be staying for a veeeery long time.",
+                        "dialogue": "Well then better get comfy. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["vore16"]
+                    },"vore16":{
+                        "dialogue": "you\'ll be staying for a veeeery long time.",
                         "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":[]

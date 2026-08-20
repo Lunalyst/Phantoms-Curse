@@ -40,11 +40,17 @@ class wolf extends npc{
       this.anims.create({ key: 'lunaSitOnLapFinishedIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 84, end: 87 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHugStart', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 88, end: 91 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHug', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 92, end: 95 }), frameRate: 6, repeat: -1 });
-
+      
       if(scene.playerSex === 0){
 
         this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaugh', { start: 25, end: 29 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'healingKiss2', frames: this.anims.generateFrameNames('deaugh', { start: 30, end: 36 }), frameRate: 6, repeat: 0 });
+
+        this.anims.create({ key: 'grabBooba', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 0, end: 3 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'grabBoobaIdle', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'grabBoobaIdleHorny', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 9, end: 12 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'suckedIntoBooba1', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 13, end: 19 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'suckedIntoBooba2', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 20, end: 24 }), frameRate: 6, repeat: 0 });
       
       }else{
 
@@ -54,6 +60,24 @@ class wolf extends npc{
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 43 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 44, end: 48 }), frameRate: 6, repeat: 0 });
+
+      this.anims.create({ key: 'shookItemHold', frames: this.anims.generateFrameNames('deaugh', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
+
+      this.anims.create({ key: 'takeOffCoat', frames: this.anims.generateFrameNames('deaugh', { start: 53, end: 62 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'annoyedIdle', frames: this.anims.generateFrameNames('deaugh', { start: 63, end: 66 }), frameRate: 6, repeat: -1 });
+
+
+      this.anims.create({ key: 'bigBoobaSideIdle', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 25, end: 28 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'bigBoobaIdle', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 29, end: 32 }), frameRate: 6, repeat: -1 });
+
+      this.anims.create({ key: 'bigBoobaLift', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 33, end: 36 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'bigBoobaSquish', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 37, end: 42 }), frameRate: 6, repeat: 0 });
+
+      this.anims.create({ key: 'bigBoobaDigest', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 43, end: 52 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'bigBoobaFinish', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 53, end: 56 }), frameRate: 6, repeat: -1 });
+
+      this.anims.create({ key: 'breastVoreGameover', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 57, end: 62 }), frameRate: 6, repeat: -1 });
+      
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -3079,6 +3103,125 @@ class wolf extends npc{
       
           },this);
 
+      }else if(this.currentDictNode.nodeName === "vore4" && this.choke === false && this.inDialogue === false){
+       
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+          this.choke = true;
+           this.anims.play('takeOffCoat', true).once('animationcomplete', () => {
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+            this.choke = false;
+
+            this.anims.play('annoyedIdle', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "vore5" && this.choke === false && this.inDialogue === false){
+        this.scene.player1.visible = false;
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+          this.choke = true;
+           this.anims.play('grabBooba', true).once('animationcomplete', () => {
+
+            let temp = this;
+            setTimeout(function () {
+
+              temp.inDialogue = false;
+              temp.choke = false;
+              temp.scene.sceneTextBox.textInterupt = false;
+              temp.progressNode("vore6");
+
+              temp.anims.play('grabBoobaIdleHorny', true);
+            }, 1000);
+
+            this.anims.play('grabBoobaIdle', true);
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "voreA" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+          this.choke = true;
+           this.anims.play('suckedIntoBooba1', true).once('animationcomplete', () => {
+            this.anims.play('suckedIntoBooba2', true).once('animationcomplete', () => {
+             let temp = this;
+              setTimeout(function () {
+
+                temp.inDialogue = false;
+                temp.choke = false;
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.progressNode("vore8");
+
+                temp.anims.play('bigBoobaIdle', true);
+              }, 1000);
+
+            this.anims.play('bigBoobaSideIdle', true);
+          });
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "vore9" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+          this.choke = true;
+           this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+            this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
+
+              this.inDialogue = false;
+              this.choke = false;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.progressNode("vore10");
+
+              this.anims.play('bigBoobaIdle', true);
+          });
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "vore11" && this.choke === false && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+        if(this.choke === false){
+          this.choke = true;
+            this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
+              this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+                this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
+                  this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+                    this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+                      this.anims.play('bigBoobaDigest', true).once('animationcomplete', () => {
+                        this.inDialogue = false;
+                        this.choke = false;
+                        this.scene.sceneTextBox.textInterupt = false;
+
+                        this.progressNode("vore8");
+
+                        this.anims.play('bigBoobaFinish', true);
+                      });
+                    });
+                });
+              });
+            });
+          });
+        }        
+      }else if(this.currentDictNode.nodeName === "vore16"){
+
+        this.startGameoverActivated  = true;
+        this.dialogueCatch = true;
+
+        //this.scene.gameoverLocation = "vivianGameover";
+        //this.scene.enemyThatDefeatedPlayer = bestiaryKey.vivianTF;
+        //this.scene.changeToGameover();
+
+        this.scene.sceneTextBox.textInterupt = true;
+        this.scene.sceneTextBox.textCoolDown = true;
       }
   
     }

@@ -27,11 +27,15 @@ class gameOver extends gameoverManager {
         this.gameoverSignY = 425;
         this.gameoverSignScale = 1/6;
 
+        this.tryAgainSpriteInActive = "tryAgianInActive";
+        this.tryAgainSpriteActive = "tryAgianActive";
+
         //270,685
         this.mobileWX = 340;
         this.mobileWY = 645;
 
         //this.gameover
+        this.replaceW = false;
         
         //function to acess other functions. should factor this out.
         this.allFunctions;
@@ -85,6 +89,7 @@ class gameOver extends gameoverManager {
             
             this.load.spritesheet("gameOverSignCursed" , "assets/gameover/gameover cursed.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("gameOverSignEaten" , "assets/gameover/gameover eaten.png" , {frameWidth: 720 , frameHeight: 300 });
+            this.load.spritesheet("gameOverSignWolfFat" , "assets/gameover/gameover wolf fat.png" , {frameWidth: 720 , frameHeight: 300 });
             this.load.spritesheet("tryAgianSign" , "assets/gameover/try agian.png" , {frameWidth: 200 , frameHeight: 70 });
 
             this.load.tilemapTiledJSON("earie_cave_map" , "assets/tiledMap/LockWood/Cave_Tileset/Earie_Cave.json");
@@ -197,7 +202,10 @@ class gameOver extends gameoverManager {
                 this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
 
                 //set up textbox sound type.
-                if(this.defeatedTitle === 'eaten'){
+                if(this.enemyThatDefeatedPlayer === "wolf_vore_1"){
+                    this.sceneTextBox.soundType = "digest";
+                    this.sceneTextBox.textTint = 0xffffff;
+                }else if(this.defeatedTitle === 'eaten'){
                     this.sceneTextBox.soundType = "digest";
                     this.sceneTextBox.textTint = 0x80ff1e;
                 }else{
@@ -214,7 +222,13 @@ class gameOver extends gameoverManager {
                 this.gameOverSign.setScale(this.gameoverSignScale);
                 this.gameOverSign.setDepth(7);
                 
-                if(this.defeatedTitle === 'eaten'){
+
+                if(this.enemyThatDefeatedPlayer === "wolf_vore_1"){
+                    this.gameOverSign.anims.play("gameoverTitleAnimationWolfFat").once('animationcomplete', () => {
+                        this.gameOverSign.anims.play("gameoverTitleAnimationLoopWolfFat");
+                        
+                    });
+                }else if(this.defeatedTitle === 'eaten'){
                     this.gameOverSign.anims.play("gameoverTitleAnimationEaten").once('animationcomplete', () => {
                         this.gameOverSign.anims.play("gameoverTitleAnimationLoopEaten");
                         

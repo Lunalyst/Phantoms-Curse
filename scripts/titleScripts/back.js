@@ -40,7 +40,6 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     console.log("leaving new game sex select.");
                     
                     that.visible = true;
-                    that.scene.titleLogo.visible = false;
                     that.scene.isInSlotSelectNew = true;
                     that.scene.isInNewGameSelect = false;
     
@@ -62,6 +61,8 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.subMenuVisibility(true);
 
                     that.scene.resetSubMenuVariables();
+
+                    that.scene.title.visible = true;
                     
                     that.scene.saveslot1.visible = false;
                     that.scene.trashCan1.visible = false;
@@ -86,7 +87,6 @@ class back extends Phaser.Physics.Arcade.Sprite{
     
                     that.scene.newGame.visible = false;
                     that.scene.loadGame.visible = false;
-                    that.scene.titleLogo.visible = false;
                     
                     that.scene.back.visible = true;
                     that.scene.isInSlotSelectLoad = true;
@@ -101,6 +101,8 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.credits.visible = false;
 
                     that.scene.credits.stopCredits();
+
+                    that.scene.title.visible = true;
                    
                 }else if(that.scene.isInKeyBinds === true){
 
@@ -108,6 +110,8 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.subMenuVisibility(true);
 
                     that.scene.resetSubMenuVariables();
+
+                    that.scene.title.visible = true;
 
                     that.scene.keyBinds.hideKeyBinds();
                     //that.scene.keyBinds
@@ -139,6 +143,10 @@ class back extends Phaser.Physics.Arcade.Sprite{
                     that.scene.trashCan3.visible = false;
                     that.scene.saveslot3.showSlot();
 
+                    that.scene.version.visible = true;
+                    that.scene.versionName.visible = true;
+                    that.scene.title.visible = true;
+
                     that.scene.sceneTextBox.hideText(false);
                     that.scene.sceneTextBox.textBoxProfileImage.visible = false;
                     that.scene.sceneTextBox.visible = false;
@@ -157,7 +165,6 @@ class back extends Phaser.Physics.Arcade.Sprite{
         this.scene.newGame.visible = true;
         this.scene.loadGame.visible = true;
         this.scene.keyBinds.visible = true;
-        this.scene.titleLogo.visible = true;
         this.scene.curse.visible = true;
         this.scene.creditsButton.visible = true;
 

@@ -3104,7 +3104,15 @@ class wolf extends npc{
           },this);
 
       }else if(this.currentDictNode.nodeName === "vore4" && this.choke === false && this.inDialogue === false){
-       
+        
+        //for gameover testing purposes
+        /*this.startGameoverActivated  = true;
+        this.dialogueCatch = true;
+
+        this.scene.gameoverLocation = "wolfGameover";
+        this.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
+        this.scene.changeToGameover();*/
+
         this.inDialogue = true;
         this.scene.sceneTextBox.textInterupt = true;
         console.log("starting wolf sit down")
@@ -3173,8 +3181,34 @@ class wolf extends npc{
         if(this.choke === false){
           this.choke = true;
            this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+
+            let playerHealthObject = {
+              playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+          console.log("playerHealthObject: ",playerHealthObject);
+
+            if(playerHealthObject.playerHealth - 2 > 0 ){
+              healthEmitter.emit(healthEvent.loseHealth,2);
+              playerHealthObject.playerHealth = playerHealthObject.playerHealth - 2;
+              //otherwise set there hp to 1
+            }else{
+              healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+              playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+            }
             this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
 
+              if(playerHealthObject.playerHealth - 3 > 0 ){
+              healthEmitter.emit(healthEvent.loseHealth,3);
+              playerHealthObject.playerHealth = playerHealthObject.playerHealth - 3;
+              //otherwise set there hp to 1
+              }else{
+                healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+              }
               this.inDialogue = false;
               this.choke = false;
               this.scene.sceneTextBox.textInterupt = false;
@@ -3191,12 +3225,71 @@ class wolf extends npc{
         console.log("starting wolf sit down")
         if(this.choke === false){
           this.choke = true;
+
+          let playerHealthObject = {
+            playerHealth: null
+          };
+
+          //gets the hp value using a emitter
+          healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+          console.log("playerHealthObject: ",playerHealthObject);
+
+          //deal damage to the player if they have the hp to burn
+          if(playerHealthObject.playerHealth - 2 > 0 ){
+            healthEmitter.emit(healthEvent.loseHealth,2);
+            playerHealthObject.playerHealth = playerHealthObject.playerHealth - 2;
+            //otherwise set there hp to 1
+          }else{
+            healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+            playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+          }
             this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
+  
+              if(playerHealthObject.playerHealth - 3 > 0 ){
+                healthEmitter.emit(healthEvent.loseHealth,3);
+                playerHealthObject.playerHealth = playerHealthObject.playerHealth - 3;
+                //otherwise set there hp to 1
+              }else{
+                healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+              }
               this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+
+                if(playerHealthObject.playerHealth - 4 > 4 ){
+                  healthEmitter.emit(healthEvent.loseHealth,4);
+                  playerHealthObject.playerHealth = playerHealthObject.playerHealth - 4;
+                  //otherwise set there hp to 1
+                }else{
+                  healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                  playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+                }
                 this.anims.play('bigBoobaLift', true).once('animationcomplete', () => {
+                  if(playerHealthObject.playerHealth - 5 > 0 ){
+                    healthEmitter.emit(healthEvent.loseHealth,5);
+                    playerHealthObject.playerHealth = playerHealthObject.playerHealth - 5;
+                    //otherwise set there hp to 1
+                  }else{
+                    healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                    playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+                  }
                   this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+                    if(playerHealthObject.playerHealth - 6 > 0 ){
+                      healthEmitter.emit(healthEvent.loseHealth,6);
+                      playerHealthObject.playerHealth = playerHealthObject.playerHealth - 6;
+                      //otherwise set there hp to 1
+                    }else{
+                      healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                      playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+                    }
                     this.anims.play('bigBoobaSquish', true).once('animationcomplete', () => {
+
+                      healthEmitter.emit(healthEvent.loseHealth,(playerHealthObject.playerHealth-1));
+                      playerHealthObject.playerHealth = playerHealthObject.playerHealth - playerHealthObject.playerHealth-1;
+                      
                       this.anims.play('bigBoobaDigest', true).once('animationcomplete', () => {
+
+                        healthEmitter.emit(healthEvent.loseHealth,(1));
                         this.inDialogue = false;
                         this.choke = false;
                         this.scene.sceneTextBox.textInterupt = false;
@@ -3216,9 +3309,16 @@ class wolf extends npc{
         this.startGameoverActivated  = true;
         this.dialogueCatch = true;
 
-        this.scene.gameoverLocation = "wolfGameover";
-        this.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
-        this.scene.changeToGameover();
+        let temp = this;
+
+        setTimeout(function () {
+          temp.scene.gameoverLocation = "wolfGameover";
+          temp.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
+          temp.scene.changeToGameover();
+
+        },3000);
+
+       
 
         this.scene.sceneTextBox.textInterupt = true;
         this.scene.sceneTextBox.textCoolDown = true;

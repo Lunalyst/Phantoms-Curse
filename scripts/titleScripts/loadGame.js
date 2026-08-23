@@ -39,6 +39,8 @@ class loadGame extends Phaser.Physics.Arcade.Sprite{
             
             that.scene.isInSlotSelectLoad = true;
 
+            that.scene.title.visible = false;
+
             that.scene.subMenuVisibility(false);
             
             console.log("calling showsaveslots");

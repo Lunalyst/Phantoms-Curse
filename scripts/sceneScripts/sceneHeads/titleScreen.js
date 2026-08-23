@@ -1,6 +1,6 @@
 let playerUI;
 
-class titleScreen extends A3SoundEffects {
+class titleScreen extends defaultScene {
     constructor(){
         // scene settings
         super({key: 'titleScreen',active: true,physics:{default:'arcade'}});
@@ -156,6 +156,18 @@ class titleScreen extends A3SoundEffects {
                 sceneKey: 'rexUI'
             });
 
+            //titlescreen tileset.
+            //this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
+            //this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
+
+            this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
+            this.load.tilemapTiledJSON("bridge_to_libertalia_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bridge_To_Libertalia.json");
+            this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
+            this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
+            this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
+      
+
+
         }
 
         create(){
@@ -166,13 +178,14 @@ class titleScreen extends A3SoundEffects {
             this.elements = this.physics.add.group();
 
             this.cameras.main.zoom = 1;
-
+            
+        
             //displays the current game version
-            this.version = new makeText(this,this.screenWidth-210,this.screenHeight-25,'charBubble',"Alpha V0.30.07");
+            this.version = new makeText(this,this.screenWidth-230,this.screenHeight-25,'charBubble',"Alpha V0.30.08");
             this.version.visible = true;
             this.version.setDepth(51);
 
-            this.versionName = new makeText(this,this.screenWidth-210,this.screenHeight,'charBubble',"Light and Dark");
+            this.versionName = new makeText(this,this.screenWidth-230,this.screenHeight,'charBubble',"HAPPY HALLOWEEN!");
             this.versionName.visible = true;
             this.versionName.setDepth(51);
 
@@ -236,7 +249,7 @@ class titleScreen extends A3SoundEffects {
             
             //this.form = new makeEcrus(this,20, 200,"@011@ @00110@ @111@ @1101@ @111@ @011@ @01011@ @011@ @000@ @00111@ @0010@ @111@ @1101@ @11000@ @1001@ @1101@ @11001@ @1010@ @111@ @10111@ @10110@ @000@ @000@ @1010@ @011@ @1000@ @0100@ @111@ @1001@ @01010@ @000@ @1000@ @0100@ @0010@ @111@");
             //this.form.visible = true;
-            this.credits = new credits(this,this.screenWidth/2-400,240,this.creditsArray);
+            this.credits = new credits(this,this.screenWidth/2-400,205,this.creditsArray);
             this.credits.setDepth(51);
 
             //adds looping sound effect.
@@ -297,19 +310,65 @@ class titleScreen extends A3SoundEffects {
             this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
             this.backround.setScale(1.1);
 
+             //creates tileset
+            //this.setUpTileSet("lockwood_etrance_map","Forest_Tileset","forest_source_map");
+            //this.layerX = -2400;
+            //this.layerY = -2500;
+
+            this.layerX = -2980;
+            this.layerY = -1370;
+
+            this.parrallax1XOrigin = 500 + this.layerX;
+            this.parrallax1YOrigin = 200 + this.layerY;
+            this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*6 ,1920, "tree_parrallax");
+            this.parrallax1.setScale(1);
+            //this.parrallax1.setDepth(-50);
+            this.parrallax1.setTint(0x444444);
+
+            this.parrallax2XOrigin = 500+ this.layerX;
+            this.parrallax2YOrigin = 200+ (600*3) + this.layerY;
+            this.parrallax2 = this.add.tileSprite(this.parrallax2XOrigin, this.parrallax2YOrigin, 1920*6 ,1920, "ground_parrallax");
+            this.parrallax2.setScale(1);
+           // this.parrallax2.setDepth(-50);
+            this.parrallax2.setTint(0x444444);
+
+            this.setUpTileSet("bridge_to_libertalia_map","Forest_Tileset","forest_source_map");
+            this.processMap.layer2.setTint(0xFFFFFF);
+            this.processMap.layer3.setTint(0x909090);
+
+            this.layerScale = 1;
+            this.processMap.layer0.setPosition(this.layerX, this.layerY);
+            this.processMap.layer0.setScale(this.layerScale);
+            this.processMap.layer1.setPosition(this.layerX, this.layerY);
+            this.processMap.layer1.setScale(this.layerScale);
+            this.processMap.layer2.setPosition(this.layerX, this.layerY);
+            this.processMap.layer2.setScale(this.layerScale);
+            this.processMap.layer3.setPosition(this.layerX, this.layerY);
+            this.processMap.layer3.setScale(this.layerScale);
+
+            this.deaugh = this.add.sprite(525, 669, "deaugh");
+            this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 68, end: 71 }), frameRate: 6, repeat: -1 });
+            this.deaugh.anims.play("idle", true);
+            this.deaugh.setScale(1);
+            
+
             this.subMenuButtonsArray = [];
 
             //this.backround.setTint(0x4b4b4b);
-            this.titleLogo = this.add.sprite(this.screenWidth/2, 500, "titleLogo");
-            this.elements.add(this.titleLogo);
-            this.subMenuButtonsArray.push(this.titleLogo);
+            //this.titleLogo = this.add.sprite(this.screenWidth/2, 550, "titleLogo");
+            //this.elements.add(this.titleLogo);
+            //this.subMenuButtonsArray.push(this.titleLogo);
 
             
 
             //title sprite
             //this.titleLogo.setScale();
-            this.title = this.add.sprite(this.screenWidth/2, 65, "title");
-            this.title.setScale(1/3);
+            this.title = this.add.sprite(this.screenWidth/2, 110, "title");
+            this.title.setScale(1);
+
+            
+            //this.cameras.main.startFollow(this.titleLogo );
+            //this.cameras.main.setFollowOffset(0, 70);
 
             this.increment = 0;
             this.reset = false;
@@ -322,15 +381,15 @@ class titleScreen extends A3SoundEffects {
             console.log("this.colorArray.length: ",this.colorArray.length);
             
             //curse sprite that changes
-            this.curse = new curse(this, this.screenWidth/2 - 140,175);
+            this.curse = new curse(this, this.screenWidth/2 - 140,245);
             this.elements.add(this.curse);
 
             //textbox for new character 
-            this.textboxX = this.screenWidth/2;
+            this.textboxX = this.screenWidth/2-40;
             this.textboxY = 630;
             
             this.sceneTextBox = new textBox(this, this.textboxX,this.textboxY,'charWhite');
-            this.sceneTextBox.setScale(1);
+            this.sceneTextBox.setScale(2);
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             this.sceneTextBox.activateTitleScreenTextbox(
@@ -344,21 +403,21 @@ class titleScreen extends A3SoundEffects {
             this.elements.add(this.sceneTextBox);
 
             //sets up the three save slots
-            this.saveslot1 = new saveSlot(this, this.screenWidth/2, 220);
+            this.saveslot1 = new saveSlot(this, this.screenWidth/2, 190);
             this.elements.add(this.saveslot1);
 
             this.trashCan1 = new removeSlot(this, this.saveslot1.x+350, this.saveslot1.y);
             this.trashCan1.setupRemoveSlot(1);
             this.elements.add(this.trashCan1);
             
-            this.saveslot2 = new saveSlot(this, this.screenWidth/2, 440);
+            this.saveslot2 = new saveSlot(this, this.screenWidth/2, 395);
             this.elements.add(this.saveslot2);
 
             this.trashCan2 = new removeSlot(this, this.saveslot2.x+350, this.saveslot2.y);
             this.trashCan2.setupRemoveSlot(2);
             this.elements.add(this.trashCan2);
 
-            this.saveslot3 = new saveSlot(this, this.screenWidth/2, 660);
+            this.saveslot3 = new saveSlot(this, this.screenWidth/2, 600);
             this.elements.add(this.saveslot3);
 
             this.trashCan3 = new removeSlot(this, this.saveslot3.x+350, this.saveslot3.y);
@@ -495,6 +554,10 @@ class titleScreen extends A3SoundEffects {
                         this, true, ['sign'],
                         'Select a slot to export as a .json file.'
                     );
+
+                    this.version.visible = false;
+                    this.versionName.visible = false;
+                    this.title.visible = false;
                 });
 
             this.exportSaveButton.anims.create({ key: 'inActive', frames: this.anims.generateFrameNames('exportSave', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
@@ -526,6 +589,10 @@ class titleScreen extends A3SoundEffects {
                         this, true, ['sign'],
                         'Select a slot to import a .json save into.'
                     );
+
+                    this.version.visible = false;
+                    this.versionName.visible = false;
+                    this.title.visible = false;
                 });
 
             this.importSaveButton.anims.create({ key: 'inActive', frames: this.anims.generateFrameNames('importSave', { start: 0, end: 0 }), frameRate: 7, repeat: -1 });
@@ -606,7 +673,7 @@ class titleScreen extends A3SoundEffects {
             this.titleLetterLoop();
 
             //code handles the title screen phantom logo animation.
-            if(this.logoToggle === false){
+            /*if(this.logoToggle === false){
                 if(this.logoAnimationPlayed === false && this.titleLogo.visible === true){
                     this.logoAnimationPlayed = true;
                     this.curse.visible = true;
@@ -628,7 +695,7 @@ class titleScreen extends A3SoundEffects {
                     });
                 }
 
-            }
+            }*/
             
         }
 

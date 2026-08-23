@@ -265,18 +265,25 @@ class gameoverManager extends A3SoundEffects {
         
 
         //creates try again butto
-        this.tryAgian = this.add.sprite(this.tryAgainX, this.tryAgainY, "tryAgianSign").setInteractive();
+        this.tryAgian = this.add.sprite(this.tryAgainX, this.tryAgainY, "tryAgianSign").setInteractive(this.input.makePixelPerfect());
 
         //creates animations for try agian button
         this.anims.create({key: 'tryAgianInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'tryAgianActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'continueInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
         this.anims.create({key: 'continueActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 3, end: 3 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'drawingBoardInActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 5, end: 5 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'drawingBoardActive',frames: this.anims.generateFrameNames('tryAgianSign', { start: 6, end: 6 }),frameRate: 1,repeat: -1});
+        this.anims.create({key: 'drawingBoardDisguise',frames: this.anims.generateFrameNames('tryAgianSign', { start: 4, end: 4 }),frameRate: 1,repeat: -1});
         
+
+
         this.anims.create({key: 'gameoverTitleAnimationCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'gameoverTitleAnimationLoopCursed',frames: this.anims.generateFrameNames('gameOverSignCursed', { start: 2, end: 8 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'gameoverTitleAnimationEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 0, end: 5 }),frameRate: 5,repeat: 0});
         this.anims.create({key: 'gameoverTitleAnimationLoopEaten',frames: this.anims.generateFrameNames('gameOverSignEaten', { start: 2, end: 5 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'gameoverTitleAnimationWolfFat',frames: this.anims.generateFrameNames('gameOverSignWolfFat', { start: 0, end: 2 }),frameRate: 5,repeat: 0});
+        this.anims.create({key: 'gameoverTitleAnimationLoopWolfFat',frames: this.anims.generateFrameNames('gameOverSignWolfFat', { start: 3, end: 8 }),frameRate: 7,repeat: -1});
 
         this.tryAgian.anims.play('tryAgianInActive');
         this.tryAgian.setScale(1/3);
@@ -309,7 +316,7 @@ class gameoverManager extends A3SoundEffects {
             if(gameoverThat.continue === true){
                 gameoverThat.tryAgian.anims.play("continueActive");
             }else{
-                gameoverThat.tryAgian.anims.play("tryAgianActive");
+                gameoverThat.tryAgian.anims.play(gameoverThat.tryAgainSpriteActive);
             }
         })
         this.tryAgian.on('pointerout',function(pointer){
@@ -317,7 +324,7 @@ class gameoverManager extends A3SoundEffects {
             if(gameoverThat.continue === true){
                 gameoverThat.tryAgian.anims.play("continueInActive");
             }else{
-                gameoverThat.tryAgian.anims.play("tryAgianInActive");
+                gameoverThat.tryAgian.anims.play(gameoverThat.tryAgainSpriteInActive);
             }
         })
 
@@ -1182,6 +1189,49 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.enemy.gameOverVore();
                 tempSceneRef.defeatedTitle = 'eaten';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
+
+
+                tempSceneRef.tryAgian.x = 1200/2 + 16;
+                tempSceneRef.tryAgian.y = 645 - 78;
+
+                tempSceneRef.tryAgainSpriteInActive = "drawingBoardInActive";
+                tempSceneRef.tryAgainSpriteActive = "drawingBoardActive";
+
+                tempSceneRef.tryAgian.anims.play("drawingBoardDisguise",true);
+
+                tempSceneRef.tryAgian.setScale(1);
+
+                 //creates try again butto
+                tempSceneRef.fakeTryAgian = tempSceneRef.add.sprite(1200/2, 645, "tryAgianSign").setInteractive(tempSceneRef.input.makePixelPerfect());
+                tempSceneRef.fakeTryAgian.setScale(1/3);
+                tempSceneRef.fakeTryAgian.setDepth(7);
+
+                tempSceneRef.anims.create({key: 'tryAgianInActive',frames: tempSceneRef.anims.generateFrameNames('tryAgianSign', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
+                tempSceneRef.anims.create({key: 'tryAgianActive',frames: tempSceneRef.anims.generateFrameNames('tryAgianSign', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
+        
+                //pointer events when button is pressed to activate set pressed to true in the key object
+                tempSceneRef.fakeTryAgian.on('pointerdown', function (pointer) {
+                    tempSceneRef.mobileW.IsPressed = true;
+                    tempSceneRef.mobileW.isJustDown = true;
+                    tempSceneRef.fakeTryAgian.anims.play("tryAgianActive");
+                });
+                
+                //pointer even so that when the button is not being pressed, set value to false.
+                tempSceneRef.fakeTryAgian.on('pointerover',function(pointer){
+                    tempSceneRef.mobileW.IsPressed = false;
+                    tempSceneRef.mobileW.isJustDown = false;
+                    tempSceneRef.fakeTryAgian.anims.play("tryAgianActive");
+                });
+
+                tempSceneRef.fakeTryAgian.on('pointerout',function(pointer){
+                    tempSceneRef.mobileW.IsPressed = false;
+                    tempSceneRef.mobileW.isJustDown = false;
+                    tempSceneRef.fakeTryAgian.anims.play("tryAgianInActive");
+                });
+
+
+
+
             },
 
             autumn_vore_1: function  autumnVoreFunction() {

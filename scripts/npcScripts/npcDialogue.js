@@ -5899,6 +5899,54 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "wolf_vore_1":{
+                    "node1":{
+                        "dialogue": "your lust as brought you to become one with wolfs breasts.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "you\'re stuck as wolf boob fat...",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "Why would you want to leave~?",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "Its so comfy here~",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "Her heartbeat is so soothing...",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node7"]
+                    },"node7":{
+                        "dialogue": "a little snooze would feel great~",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node8"]
+                    },"node8":{
+                        "dialogue": "Lips on you... it feels amazing~",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node9"]
+                    },"node9":{
+                        "dialogue": "you made her so big, that shes going to have trouble workin on her next book...",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":["node10"]
+                    },"node10":{
+                        "dialogue": "shes going to squish you up against the DRAWING BOARD Later.",
+                        "profile":"",
+                        "textvoice":"digest",
+                        "children":[]
+                    }
+                },
                 "autumn_vore_1":{
                     "node1":{
                         "dialogue": "you where going somewhere, but the bat spiders soft belly seemed to have other plans. you became so comfortable on the ride there that you fell asleep. when she arrived, she noticed you had dozed off long ago. seeing that you where a special customer, she happily took you back to the post office for some private time. holding you close and snuggling her belly, eventually she dozed off too.",

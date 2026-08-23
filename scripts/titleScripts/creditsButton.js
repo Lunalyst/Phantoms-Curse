@@ -38,6 +38,8 @@ class creditsButton extends Phaser.Physics.Arcade.Sprite{
             that.scene.isInCredits = true;
 
             that.scene.subMenuVisibility(false);
+
+            that.scene.title.visible = false;
             
             that.scene.credits.visible = true;
 

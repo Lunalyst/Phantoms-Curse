@@ -37,6 +37,8 @@ class newGame extends Phaser.Physics.Arcade.Sprite{
            
             that.scene.isInSlotSelectNew = true;
 
+            that.scene.title.visible = false;
+
             that.scene.subMenuVisibility(false);
 
             that.scene.showSaveSlots(true,false);

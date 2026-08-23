@@ -660,6 +660,10 @@ const bestiaryTextList = {
         title: "AUTUMN",
         summary: "cute bat spider who loves having folks in here belly :3",
       },
+      wolf_vore_1:{
+        title: "THICK WOLF",
+        summary: "The kind healer of lockwood has her limits. if someone tests those limits, then they might find themselves, a perminant addition to her figure. ",
+      },
 
       back: {
         title: "BESTIARY INFO",

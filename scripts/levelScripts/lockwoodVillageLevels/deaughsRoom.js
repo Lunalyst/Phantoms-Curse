@@ -136,9 +136,9 @@ class DeaughsRoom extends defaultScene {
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, readBook);
       if(lab4.foundFlag === true && readBook.foundFlag === true){
-        this.initWolf(531, 729+16, "wolfShop2");
+        this.initWolf(531, 729+15, "wolfShop2");
       }else if(lab4.foundFlag === true){
-        this.initWolf(461, 729+16, "wolfShop1");
+        this.initWolf(461, 729+15, "wolfShop1");
       }else if(lab3.foundFlag === true){
 
         //spawn wolfs cloths on the ground.
@@ -195,7 +195,8 @@ class DeaughsRoom extends defaultScene {
         this.storageRoomDoor.destroy();
 
        }else{
-        this.initWolf(461, 728+16, "labEncounter1");
+        
+        this.initWolf(461, 728+15, "labEncounter1");
         this.initLunalyst(773,600,'wolfQuest');
        }
 

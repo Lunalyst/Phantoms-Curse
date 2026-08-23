@@ -39,6 +39,8 @@ class keyBinds extends Phaser.Physics.Arcade.Sprite{
             // here is where we set up the three save slots.
             
             that.scene.isInKeyBinds = true;
+
+            that.scene.title.visible = false;
            
             that.scene.subMenuVisibility(false);
 

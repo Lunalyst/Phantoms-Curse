@@ -115,7 +115,13 @@
   
   <script src="scripts/playerScripts/doubleJumpEffect.js"></script>
   <script src="scripts/playerScripts/hitBoxes.js"></script>
-  <script src="scripts/playerScripts/player.js"></script>
+  
+  <script src="scripts/playerScripts/humanPlayer/playerAnimations.js"></script>
+  <script src="scripts/playerScripts/humanPlayer/playerAnimationFunctions.js"></script>
+  <script src="scripts/playerScripts/humanPlayer/playerItemMaps.js"></script>
+  <script src="scripts/playerScripts/humanPlayer/playerWeaponFunctions.js"></script>
+  <script src="scripts/playerScripts/humanPlayer/player.js"></script>
+
   <script src="scripts/playerScripts/PCMilo.js"></script>
   <script src="scripts/playerScripts/playerProjectile.js"></script>
 
@@ -284,7 +290,7 @@
           default: 'arcade',
           arcade: {
             // debug is excellent for testing velocity and hitboxes.
-            debug: false
+            debug: true
           }
         },
         input: {

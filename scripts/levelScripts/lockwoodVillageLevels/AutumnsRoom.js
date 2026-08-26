@@ -30,6 +30,11 @@ class AutumnsRoom extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -88,6 +93,9 @@ class AutumnsRoom extends defaultScene {
       this.setUpTextBox();
 
       this.initPortals(912,760-7,1420,760,"largeDoor","postOfficeHallway",true);
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up containers
       this.setUpContainers();

@@ -33,7 +33,7 @@ walk/run
 
 // */
 
-class player extends Phaser.GameObjects.Container{
+class player extends playerItemMaps{
   // every class needs constructor
   constructor(scene, xPos, yPos,sex){
     //super() calls the constructor() from the parent class we are extending
@@ -143,6 +143,10 @@ class player extends Phaser.GameObjects.Container{
     this.isAttacking = false;
     this.playedAttackAnimation = false;
 
+    this.attackHitboxState = false;
+    this.hitboxX = 0;
+    this.hitboxY = 10000;
+
     //used to tell what damage type the player is dealing with melee weapons.
     this.sliceDamage = 0;
     this.bluntDamage = 0;
@@ -207,7 +211,7 @@ class player extends Phaser.GameObjects.Container{
     this.xVelocity = 0;
     this.yVelocity = 0;
 
-
+    this.attackType = "light";
 
     this.curseBuildUpCooldown = false;
 
@@ -217,231 +221,16 @@ class player extends Phaser.GameObjects.Container{
     this.fallThroughLayer0 = false;
 
     //set up object of functions for item logic 
-
-      //composit idle animation 
-      this.backArm3.anims.create({key: 'back-arm-idle',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-idle',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.frontArm7.anims.create({key: 'front-arm-idle',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-idle',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-
-      //composite walk animation
-      this.backLeg1.anims.create({key: 'back-leg-walk',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 0, end: 7 }),frameRate: 15 * this.speedBoost,repeat: -1});
-      this.backLegCloths2.anims.create({key: 'back-leg-cloths-walk',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 0, end: 7 * this.speedBoost }),frameRate: 15,repeat: -1});
-      this.backArm3.anims.create({key: 'back-arm-walk',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost,repeat: -1});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-walk',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost,repeat: -1});
-      this.frontArm7.anims.create({key: 'front-arm-walk',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 8, end: 15}),frameRate: 15 * this.speedBoost,repeat: -1});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-walk',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 8, end: 15 }),frameRate: 15 * this.speedBoost ,repeat: -1});
-      
-      //jump up animation
-      this.frontArm7.anims.create({key: 'front-arm-jumpUp',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 16, end: 18}),frameRate: 10,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-jumpUp',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-
-      //down animation
-      this.frontArm7.anims.create({key: 'front-arm-jumpDown',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 19, end: 20}),frameRate: 10,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-jumpDown',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-
-      //sleep animation
-      this.frontArm7.anims.create({key: 'front-arm-sleep',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-sleep',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
-
-      //weapon swipe animation used for unarmed, knife and axe
-      this.backLeg1.anims.create({key: 'back-leg-swipe-12fps',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 8, end: 13 }),frameRate: 12,repeat: 0});
-      this.backLegCloths2.anims.create({key: 'back-leg-cloths-swipe-12fps',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 8, end: 13 }),frameRate: 12,repeat: 0});
-      this.backArm3.anims.create({key: 'back-arm-swipe-12fps',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 22, end: 27 }),frameRate: 12,repeat: 0});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-swipe-12fps',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
-      this.frontArm7.anims.create({key: 'front-arm-swipe-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 31, end: 36 }),frameRate: 12,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 37 }),frameRate: 12,repeat: 0});
-      this.weaponHand10.anims.create({key: 'weapon-hand-swipe-12fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 5 }),frameRate: 12,repeat: -1});
-
-      //weapon swipe animation used for unarmed, knife and axe
-      this.backLeg1.anims.create({key: 'back-leg-swipe-9fps',frames: this.backLeg1.anims.generateFrameNames('1-evan-back-leg', { start: 8, end: 13 }),frameRate: 9,repeat: 0});
-      this.backLegCloths2.anims.create({key: 'back-leg-cloths-swipe-9fps',frames: this.backLegCloths2.anims.generateFrameNames('2-evan-back-leg-cloths', { start: 8, end: 13 }),frameRate: 9,repeat: 0});
-      this.backArm3.anims.create({key: 'back-arm-swipe-9fps',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 22, end: 27 }),frameRate: 9,repeat: 0});
-      this.backArmCloths4.anims.create({key: 'back-arm-cloths-swipe-9fps',frames: this.backArmCloths4.anims.generateFrameNames('4-evan-back-arm-cloths', { start: 16, end: 21 }),frameRate: 9,repeat: 0});
-      this.frontArm7.anims.create({key: 'front-arm-swipe-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', {  start: 31, end: 36 }),frameRate: 9,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 36 }),frameRate: 9,repeat: 0});
-      this.weaponHand10.anims.create({key: 'weapon-hand-swipe-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 5 }),frameRate: 9,repeat: -1});
-
-      //weapon swipe animation used for unarmed, knife and axe
-      this.frontArm7.anims.create({key: 'front-arm-bonk-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-bonk-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 37, end: 42 }),frameRate: 9,repeat: 0});
-      this.weaponHand10.anims.create({key: 'weapon-hand-bonk-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 6, end: 11 }),frameRate: 9,repeat: -1});
-
-      //weapon swipe animation used for unarmed, knife and axe
-      this.frontArm7.anims.create({key: 'front-arm-poke-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
-      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-poke-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 43, end: 48}),frameRate: 12,repeat: 0});
-      this.weaponHand10.anims.create({key: 'weapon-hand-poke-12fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 12, end: 17 }),frameRate: 12,repeat: -1});
-
-
-      //unarmed animations
-      this.backArm3.anims.create({key: 'back-arm-unarmed',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-start-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 0, end: 2 }),frameRate: 12,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 3, end: 5 }),frameRate: 12,repeat: 0});
-  
-      //knife
-      this.weaponLayer9.anims.create({key: 'weapon-start-knife',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 6, end: 8 }),frameRate: 12,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-knife',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 9, end: 11 }),frameRate: 12,repeat: 0});
-
-      //axe
-      this.weaponLayer9.anims.create({key: 'weapon-start-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 12, end: 14 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 15, end: 17 }),frameRate: 9,repeat: 0});
-
-      //oar
-      this.weaponLayer9.anims.create({key: 'weapon-oar',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 18, end: 23 }),frameRate: 9,repeat: 0});
-
-      //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 24, end: 29 }),frameRate: 12,repeat: 0});
-
-      //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
-
-      //mourning star
-      this.weaponLayer9.anims.create({key: 'weapon-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 41 }),frameRate: 9,repeat: 0});
-
-      //conidia caster
-      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster1',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 42, end: 44 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster2',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 45, end: 45 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster3',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 46, end: 47 }),frameRate: 9,repeat: 0});
-
-      //WAX AXE
-      //axe
-      this.weaponLayer9.anims.create({key: 'weapon-start-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 48, end: 50 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 51, end: 53 }),frameRate: 9,repeat: 0});
-
-      if(sex === 0){
-        //this.booba8
-        //idle male specific frames
-        this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        
-        //walk frames
-        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
-        
-        //jump frames
-        this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpUp',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-
-
-        //jump down
-        this.mainBodySprite5.anims.create({key: 'main-body-jumpDown',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpDown',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-
-        //sleep
-        this.mainBodySprite5.anims.create({key: 'main-body-sleep',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-sleep',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 21, end: 30  }),frameRate: 3,repeat: -1});
-
-        //weapon swipe start
-        this.mainBodySprite5.anims.create({key: 'main-body-swipe-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
-        
-        //weapon swipe end 
-        this.mainBodySprite5.anims.create({key: 'main-body-swipe-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
-        
-        //weapon bonk 
-        this.mainBodySprite5.anims.create({key: 'main-body-bonk-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-bonk-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
-        
-        //weapon poke
-        this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
-        
-
-        //stuck animations
-        this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
-      
-      }else{
-
-        //idle male specific frames
-        this.mainBodySprite5.anims.create({key: 'main-body-idle',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-idle',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        this.booba8.anims.create({key: 'booba-idle',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        this.boobaCloths8.anims.create({key: 'booba-cloths-idle',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 0, end: 7 }),frameRate: 6,repeat: -1});
-        
-        //walk frames
-        this.mainBodySprite5.anims.create({key: 'main-body-walk',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-walk',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 8, end: 15 }),frameRate: 15* this.speedBoost,repeat: -1});
-        
-        //jump frames
-        this.mainBodySprite5.anims.create({key: 'main-body-jumpUp',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpUp',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 16, end: 18 }),frameRate: 10,repeat: 0});
-        
-        //jump down
-        this.mainBodySprite5.anims.create({key: 'main-body-jumpDown',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-jumpDown',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 19, end: 20 }),frameRate: 10,repeat: 0});
-
-        //sleep
-        this.mainBodySprite5.anims.create({key: 'main-body-sleep',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 21, end: 30 }),frameRate: 3,repeat: -1});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-sleep',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 21, end: 30  }),frameRate: 3,repeat: -1});
-        this.booba8.anims.create({key: 'booba-sleep',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 8, end: 17  }),frameRate: 3,repeat: -1});
-        this.boobaCloths8.anims.create({key: 'booba-cloths-sleep',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 8, end: 17  }),frameRate: 3,repeat: -1});
-        
-        //weapon swipe 12fps
-        this.mainBodySprite5.anims.create({key: 'main-body-swipe-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 31, end: 37 }),frameRate: 12,repeat: 0});
-        this.booba8.anims.create({key: 'booba-swipe-12fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 19, end: 23  }),frameRate: 12,repeat: 0});
-        this.boobaCloths8.anims.create({key: 'booba-cloths-swipe-12fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 19, end: 23  }),frameRate: 12,repeat: 0});
-        
-        //weapon swipe 9fps
-        this.mainBodySprite5.anims.create({key: 'main-body-swipe-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-swipe-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 31, end: 36 }),frameRate: 9,repeat: 0});
-        this.booba8.anims.create({key: 'booba-swipe-9fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 19, end: 23  }),frameRate: 9,repeat: 0});
-        this.boobaCloths8.anims.create({key: 'booba-cloths-swipe-9fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 19, end: 23  }),frameRate: 9,repeat: 0});
-        
-        //weapon bonk 
-        this.mainBodySprite5.anims.create({key: 'main-body-bonk-9fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-bonk-9fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
-        
-        //weapon poke
-        this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
-        this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
-        this.booba8.anims.create({key: 'booba-poke-12fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
-        this.boobaCloths8.anims.create({key: 'booba-sleep-poke-12fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
-        
-        //shift some layers down by two pixels to align with the female sprite.
-        this.backArm3.y = 2;
-        this.backArmCloths4.y = 2;
-        this.frontArm7.y = 2;
-        this.frontArmCloths8.y = 2;
-        this.weaponLayer9.y = 2;
-        this.weaponHand10.y = 2;
-
-        //stuck animations
-        this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedRepeat',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedWalk',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 8, end: 15 }),frameRate: 5,repeat: -1});
-        this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuatedFalling',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 18, end: 18 }),frameRate: 10,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'knockdown',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 20, end: 24 }),frameRate: 5,repeat: 0});
-        this.mainBodySprite5.anims.create({key: 'knockdownStruggle',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 24, end: 27 }),frameRate: 5,repeat: -1});
-
-      }
-
-    }
+    this.setupPlayerAnimations(sex);
     
-  //sets up lighting for each layer
-  setLighting(){
-    this.backLeg1.setPipeline('Light2D');
-    this.backLegCloths2.setPipeline('Light2D');
-    this.backArm3.setPipeline('Light2D');
-    this.backArmCloths4.setPipeline('Light2D');
-    this.mainBodySprite5.setPipeline('Light2D');
-    this.mainBodyCloths6.setPipeline('Light2D');
-    this.frontArm7.setPipeline('Light2D');
-    this.frontArmCloths8.setPipeline('Light2D');
-    this.weaponLayer9.setPipeline('Light2D');
-    this.weaponHand10.setPipeline('Light2D');
-    if(this.sex === 1){
-      this.booba8.setPipeline('Light2D');
-      this.boobaCloths8.setPipeline('Light2D');
-    }
+    //shift some layers down by two pixels to align with the female sprite.
+    this.backArm3.y = 2;
+    this.backArmCloths4.y = 2;
+    this.frontArm7.y = 2;
+    this.frontArmCloths8.y = 2;
+    this.weaponLayer9.y = 2;
+    this.weaponHand10.y = 2;
+
   }
     
   //built in move player function to handle how the player moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location
@@ -822,23 +611,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     this.playerIdleAnimation();
   }
 
-  velocityHandlerY(){
-    // make delta's x and y based of where the player is and where we want them to go
-    let delta_x =  pointX - this.mainHitbox.x;
-    let delta_y =  pointY - this.mainHitbox.y;
-
-    // make the direction in radians 
-    let direction_rad = Math.atan2(deltaY, deltaX);
-
-    //make the velocity x and y 
-    let vx = Math.cos(direction_rad) * this.speed;
-    let vy = Math.sin(direction_rad) * this.speed;
-    this.mainHitbox.setVelocity(vx, vy);
-  }
   // note on animations, if the current animation wont play it may be because in two places animations are being called. they keep overriding eachother causeing only one frame to be displayed.
   //this function handles player attack animations.
   attackPlayer(){
-    //console.log("activating attack function");
     //temp variable of this object to be used my timeout functions
     let that = this;
     this.mainHitbox.setSize(10,60,true);
@@ -849,6 +624,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
+
     //temp object sent to be sent to a emitter
     this.playerDataObject = {
       playerInventoryData: null
@@ -859,8 +635,6 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       
       //plays attack animations based on what the player has equipt when the player is not in the air,player now locked into the animation until it completes
       if(this.mainHitbox.body.blocked.down && this.isAttacking === true){
-
-        //console.log("attacking activated.")
 
         //depending on the key, decide which switch to enter for correctly oriented hitbox 
         if(this.lastKey === 'd'){
@@ -873,25 +647,51 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         this.idleTimer = 0;
 
           //case to determine attack animation
-          switch(this.playerDataObject.playerInventoryData[0].itemID) {
+          if(this.attackType === "light"){
+            switch(this.playerDataObject.playerInventoryData[0].itemID) {
             case (2):
+
               if(this.playedAttackAnimation === false){
+
                 this.playedAttackAnimation = true;
                 this.scene.initSoundEffect('weaponSFX','medium',0.1);
+
                 this.playerBonkAnimation9FPS();
+                //console.log("oar animation start: ", this.playedAttackAnimation);
 
-                this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
+                this.weaponLayer9.anims.play("weapon-start-oar").once('animationcomplete', () => {
+                  this.attackHitboxState = true;
+                  console.log("oar animation middle", this.playedAttackAnimation);
+                  if(this.playedAttackAnimation === false){
+                    
+                    this.playedAttackAnimation = true;
+                    console.log("detecting wrong boolean state!", this.playedAttackAnimation);
+                  }
+                  this.weaponLayer9.anims.play("weapon-middle-oar").once('animationcomplete', () => {
+                    this.attackHitboxState = false;
 
-                  this.isAttacking = false;
-                  this.playedAttackAnimation = false;
-                  console.log("attack is over so stoping");
-                  this.bluntDamage = 0;
+                    console.log("oar animation end", this.playedAttackAnimation);
+                    if(this.playedAttackAnimation === false){
+                      
+                      this.playedAttackAnimation = true;
+                      console.log("detecting wrong boolean state!", this.playedAttackAnimation);
+                    }
+                    this.weaponLayer9.anims.play("weapon-finish-oar").once('animationcomplete', () => {
+
+                        this.isAttacking = false;
+                        this.playedAttackAnimation = false;
+                        console.log("attack is over so stoping");
+                        this.bluntDamage = 0;
+
+                      });
+                  });
 
                 });
               }
               this.bluntDamage = 3;
-              this.setAttackHitboxSize(20,40);
-              this.HitBox(600,35);
+              this.setAttackHitboxSize(25,40);
+              this.hitboxX = 23;
+              this.hitboxY = 10;
               break;
             case (4):
               console.log("starting knife animation");
@@ -1133,7 +933,92 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
               break;
             default:
               console.log("attacking animation unarmed");
+
               if(this.playedAttackAnimation === false){
+
+                this.playedAttackAnimation = true;
+                this.scene.initSoundEffect('weaponSFX','high1',0.1);
+
+                this.playerUnarmedAnimation();
+                this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
+                  this.attackHitboxState = true;
+                  this.weaponLayer9.anims.play("weapon-middle-unarmed").once('animationcomplete', () => {
+                    //sends the weapon layer to the back
+                    this.sendToBack(this.weaponLayer9);
+                    this.moveUpXTimes(this.weaponPositionBack);
+
+                    this.attackHitboxState = false;
+                    this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
+                      //sends weapon layer back to front -1
+                      this.moveUpXTimes(this.weaponPositionfront);
+                      console.log("unarmed finished way point");
+
+                      this.backLeg1.visible = false;
+                      this.backLegCloths2.visible = false;
+
+                      this.isAttacking = false;
+                      this.playedAttackAnimation = false;
+                      console.log("attack is over so stoping");
+                      this.bluntDamage = 0;
+                    });
+                  });
+                });
+              
+              }
+              this.bluntDamage = 1;
+              this.setAttackHitboxSize(10,20);
+              this.hitboxX = 14;
+              this.hitboxY = 10;
+            }
+          }else if(this.attackType === "heal"){
+
+            //grab player health object
+            let playerHealthObject = {
+              playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            switch(this.playerDataObject.playerInventoryData[4].itemID) {
+            case (28):
+
+              if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax-1){
+
+                if(this.playedAttackAnimation === false){
+                  this.playedAttackAnimation = true;
+                  this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                  this.playerBonkAnimation9FPS();
+                  this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+
+                    //if the players curse bar would be below the max then add to the curse build up
+                    if(playerHealthObject.playerCurse + 10 < playerHealthObject.playerCurseMax){
+
+                      healthEmitter.emit(healthEvent.curseBuildUp,10);
+
+                      //then remove one item off the consumable stack.
+                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+
+                    //otherwise 
+                    }else{
+
+                      //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
+                      healthEmitter.emit(healthEvent.curseBuildUp,(playerHealthObject.playerCurseMax-playerHealthObject.playerCurse)-1);
+
+                      //then remove one item off the consumable stack.
+                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+
+                    }
+                  
+                  });
+                }
+                
+              }else{
+
+                if(this.playedAttackAnimation === false){
 
                 this.playedAttackAnimation = true;
                 this.scene.initSoundEffect('weaponSFX','high1',0.1);
@@ -1156,22 +1041,51 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
                     this.backLegCloths2.visible = false;
                     this.isAttacking = false;
                     this.playedAttackAnimation = false;
+                    
                     console.log("attack is over so stoping");
-                    this.bluntDamage = 0;
                   });
                 });
               }
-              this.bluntDamage = 1;
-              this.setAttackHitboxSize(10,20);
-              this.HitBox(200,20);
+            
+              }
+            
+              break;
+            case (29):
+            if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
+                if(this.playedAttackAnimation === false){
+                  this.playedAttackAnimation = true;
+                  this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                  this.playerBonkAnimation9FPS();
+                  this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
+
+                    //need to heal the player,
+                    healthEmitter.emit(healthEvent.gainHealth,10);
+
+                    //then remove one item off the consumable stack.
+                    inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+
+
+                  
+                  });
+                }
+                
             }
+            break;
+            default:
+              
+            }
+          }
+          
             //console.log("isattacking: ", this.isAttacking);
 
       }else{
         console.log("attack else case")
         //important fall though caseto reset variables if the player is not swinging
-        this.scene.attackHitBox.x = this.x;
-        this.scene.attackHitBox.y = this.y+10000;
+        //this.scene.attackHitBox.x = this.x;
+        //this.scene.attackHitBox.y = this.y+10000;
 
         //important reset of the hitbox state incase the player isnt swinging set this to false.
         this.hitboxState = false;
@@ -1187,6 +1101,25 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       
     
   
+  }
+
+  resetAttack(){
+    //console.log("reseting attack animation values.")
+    this.moveUpXTimes(this.weaponPositionfront);
+
+    this.isAttacking = false;
+    this.playedAttackAnimation = false;
+    this.attackHitboxState = false;
+
+    this.sliceDamage = 0;
+    this.bluntDamage = 0;
+    this.pierceDamage = 0;
+    this.heatDamage = 0;
+    this.lightningDamage = 0;
+    this.coldDamage = 0;
+    this.curseDamage = 0;
+
+
   }
 
   //handles hitbox position when attacking right, note this function is only activated if shift is down. that is handle
@@ -1231,8 +1164,8 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
           setTimeout(function(){
             
             //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
-            tempPlayer.scene.attackHitBox.x = tempPlayer.x;
-            tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
+            //tempPlayer.scene.attackHitBox.x = tempPlayer.x;
+            //tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
             tempPlayer.hitboxState = false;
 
           },100);
@@ -1241,6 +1174,64 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
         }
 
       },delay/2);
+    }
+  }
+
+  shiftPlayerForward(){
+
+    if(this.attackHitboxState === true){
+      if(this.lastKey === 'd'){
+
+        if(!this.scene.playerGrabbed){
+          this.mainHitbox.setVelocityX(10);
+        }
+
+      }else{
+
+        if(!this.scene.playerGrabbed){
+          this.mainHitbox.setVelocityX(-10);
+        }
+      }
+
+    }else{
+      //stop the players velocity
+      this.mainHitbox.setVelocityX(0);
+    }
+
+      this.x = this.mainHitbox.x;
+      this.y = this.mainHitbox.y;
+  }
+
+
+  attackHitboxActive(){
+
+    //stop the PCMilos velocity
+
+    //console.log("this.attackHitboxState: ",this.attackHitboxState);
+    if(this.attackHitboxState === false){
+      //after that time is up put the hitbox back to its idle location and reset the attackHitboxstate variable. 
+      this.scene.attackHitBox.x = this.x;
+      this.scene.attackHitBox.y = this.y+10000;
+     
+    }else if(this.attackHitboxState === true){
+
+      //put hitbox infront of the PCMilo in the way there facing
+      if(this.lastKey === 'd'){
+        this.scene.attackHitBox.x = this.x+this.hitboxX;
+        //has the player move forward slightly
+        /*if(!this.scene.playerGrabbed){
+          this.mainHitbox.setVelocityX(20);
+        }*/
+
+      }else{
+        this.scene.attackHitBox.x = this.x-this.hitboxX;
+       /*if(!this.scene.playerGrabbed){
+          this.mainHitbox.setVelocityX(-20);
+        }*/
+
+      }
+
+      this.scene.attackHitBox.y = this.y+this.hitboxY;
     }
   }
 
@@ -1256,161 +1247,6 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
           player.soundCoolDown = false;
       }, delay);
     }
-  }
-
-  //array of weapon effect functions
-  setupWeaponPassivesMap(){
-    let tempPlayer = this;
-
-    this.weaponPassivesMap = {
-      // default if the player has no rings equipt
-      0: function Funct0() {
-        tempPlayer.dropChance = 1;
-      },
-      //rapier
-      1: function Funct1() {
-        tempPlayer.dropChance = 1;
-      },
-      //oar
-      2: function Funct2() {
-        tempPlayer.dropChance = 1;
-      },
-      //mimic rapier
-      3: function Funct3() {
-        //console.log("activating mimic rapier bonus")
-        tempPlayer.dropChance = 2;
-      },
-      //knife
-      4: function Funct4() {
-        tempPlayer.dropChance = 1;
-      },
-      //axe
-      10: function Funct10() {
-        tempPlayer.dropChance = 1;
-      },
-      24: function Funct24() {
-        tempPlayer.dropChance = 1;
-      },
-      25: function Funct25() {
-        tempPlayer.dropChance = 1;
-      },
-      27: function Funct25() {
-        tempPlayer.dropChance = 1;
-      },
-      
-    }
-
-  }
-  //array of ring effect functions
-  setupRingPassivesMap(){
-    let tempPlayer = this;
-
-    this.ringPassivesMap = {
-      // default if the player has no rings equipt
-      0: function Funct0() {
-         //console.log("no item equipt");
-        tempPlayer.speedBoost = 1;
-        tempPlayer.dropAmount = 1;
-        tempPlayer.ringType = 0;
-
-        tempPlayer.deactivatelight();
-
-      },
-      // if mimic ring is equipt
-      6: function Funct6() {
-        //console.log("activating mimic ring");
-        tempPlayer.speedBoost = 1;
-        tempPlayer.dropAmount = 2;
-        tempPlayer.ringType = 6;
-
-        tempPlayer.deactivatelight();
-      },
-      //if the player has the carrot ring equipt
-      8: function Funct8() {
-        //console.log("activating speed boost");
-        tempPlayer.speedBoost = 1.2;
-        tempPlayer.dropAmount = 1;
-        tempPlayer.ringType = 8;
-
-        tempPlayer.deactivatelight();
-      },
-      //if the player has the lantern
-      21: function Funct21() {
-
-        tempPlayer.speedBoost = 1;
-        tempPlayer.dropAmount = 1;
-        tempPlayer.ringType = 21;
-
-          if(tempPlayer.scene.lightingSystemActive === true){ 
-
-          //then check to see if the player has fuel.
-          if(tempPlayer.playerDataObject.playerInventoryData[2].itemID === 16){
-
-            //set a tween on the light source to make the lanturn flicker
-            if(tempPlayer.lanturnFlicker === undefined || tempPlayer.lanturnFlicker === null ){
-
-              tempPlayer.lightSource.setRadius(100);
-
-              tempPlayer.lanturnFlicker = tempPlayer.scene.tweens.add({
-                targets: tempPlayer.lightSource,
-                props : {
-                    radius: {value : '+=' +8},
-                    intensity: {value : '+=' +.15},
-      
-                }, 
-                ease: 'linear',
-                duration: 800,
-                repeat: -1,
-                yoyo: true
-              });
-            }
-            //console.log("this.fuelActivated: ", this.fuelActivated);
-            //apply timer to fuel source and reduce fuel amount by 1 every 45 seconds.
-            if(tempPlayer.fuelActivated === false){
-
-              tempPlayer.fuelActivated = true;
-
-              setTimeout(function(){
-                if(tempPlayer !== undefined && tempPlayer !== null){
-
-                  //calls emitter to reduce item amount at specific location
-                  // in this case reduce slot 2 by 1.
-                  inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,2,1);
-            
-                  tempPlayer.fuelActivated = false;
-
-
-                }
-
-              },10000);
-    
-          }
-
-
-          //otherwise if there is no fuel to burn, set lanturn to be off.
-          }else{
-            tempPlayer.lightSource.setRadius(0);
-            if(tempPlayer.lanturnFlicker !== undefined && tempPlayer.lanturnFlicker !== null ){
-              tempPlayer.lanturnFlicker.stop();
-              tempPlayer.lanturnFlicker = null;
-            }
-
-          }
-
-        //otherwise turn the lightsource off
-        }else if(tempPlayer.scene.lightingSystemActive === true){
-
-          tempPlayer.lightSource.setRadius(0);
-
-          if(tempPlayer.lanturnFlicker !== undefined && tempPlayer.lanturnFlicker !== null ){
-              tempPlayer.lanturnFlicker.stop();
-              tempPlayer.lanturnFlicker = null;
-          }
-        }
-      },
-      
-    }
-
   }
 
   overlapCurseBuildUp(){
@@ -1447,684 +1283,6 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
   //sets size of hitbox while attacking.
   setAttackHitboxSize(width,height){
     this.scene.attackHitBox.setSize(width,height);
-  }
-
-  //function to pause all out layers
-  pausePlayerAnimations(){
-    this.backLeg1.anims.pause();
-    this.backLegCloths2.anims.pause();
-    this.backArm3.anims.pause();
-    this.backArmCloths4.anims.pause();
-    this.mainBodySprite5.anims.pause();
-    this.mainBodyCloths6.anims.pause();
-    this.frontArm7.anims.pause();
-    this.frontArmCloths8.anims.pause();
-    this.weaponLayer9.anims.pause();
-    this.weaponHand10.anims.pause();
-
-    if(this.sex === 1){
-      this.booba8.anims.pause();
-      this.boobaCloths8.anims.pause();
-    }
-  }
-
-  //function to resume all of our layers.
-  resumePlayerAnimations(){
-    this.backLeg1.anims.resume();
-    this.backLegCloths2.anims.resume();
-    this.backArm3.anims.resume();
-    this.backArmCloths4.anims.resume();
-    this.mainBodySprite5.anims.resume();
-    this.mainBodyCloths6.anims.resume();
-    this.frontArm7.anims.resume();
-    this.frontArmCloths8.anims.resume();
-    this.weaponLayer9.anims.resume();
-    this.weaponHand10.anims.resume();
-
-    if(this.sex === 1){
-      this.booba8.anims.resume();
-      this.boobaCloths8.anims.resume();
-    }
-  }
-
-
-  //flips the sprites 
-  flipXcontainer(flip){
-
-    //applys flip x to our
-    this.backLeg1.flipX = flip;
-    this.backLegCloths2.flipX = flip;
-    this.backArm3.flipX = flip;
-    this.backArmCloths4.flipX = flip;
-    this.mainBodySprite5.flipX = flip;
-    this.mainBodyCloths6.flipX = flip;
-    this.frontArm7.flipX = flip;
-    this.frontArmCloths8.flipX = flip;
-    this.weaponLayer9.flipX = flip;
-    this.weaponHand10.flipX = flip;
-
-    if(this.sex === 1){
-      this.booba8.flipX = flip;
-      this.boobaCloths8.flipX = flip;
-    }
-  }
-
-  //moves the weapon layer  x times
-  moveUpXTimes(moves){
-
-    for(let i = 0; i < moves;i++){
-      this.moveUp(this.weaponLayer9);
-      this.moveUp(this.weaponHand10);
-
-    }
-  
-  }
-
-  resetAttack(){
-    //console.log("reseting attack animation values.")
-    this.moveUpXTimes(this.weaponPositionfront);
-    this.isAttacking = false;
-    this.playedAttackAnimation = false;
-    this.sliceDamage = 0;
-    this.bluntDamage = 0;
-    this.pierceDamage = 0;
-    this.heatDamage = 0;
-    this.lightningDamage = 0;
-    this.coldDamage = 0;
-    this.curseDamage = 0;
-
-
-  }
-
-
-  //idle animation for player
-  playerIdleAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backArm3.visible = true;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-    
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = true;
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      }
-    }else{
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      }
-    }
-
-    //play repeating animations.
-    //note, important, need to stop other animations not used. otherwise if that layer has a continuous animation called on it, then it will continue while invisble
-    //this is bad because if its used with the same animation, it can cause our layers to become out of sync with each other.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.play('back-arm-idle',true);
-    this.backArmCloths4.anims.play('back-arm-cloths-idle',true);
-    this.mainBodySprite5.anims.play('main-body-idle',true);
-    this.mainBodyCloths6.anims.play('main-body-cloths-idle',true);
-    this.frontArm7.anims.play('front-arm-idle',true);
-    this.frontArmCloths8.anims.play('front-arm-cloths-idle',true);
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-idle',true);
-      this.boobaCloths8.anims.play('booba-cloths-idle',true);
-    }
-
-  }
-
-  playerWalkAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = true;
-    this.backArm3.visible = true;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-      this.backArmCloths4.visible = true;
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      
-    }else{
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.play('back-leg-walk',true);
-    this.backLegCloths2.anims.play('back-leg-cloths-walk',true);
-    this.backArm3.anims.play('back-arm-walk',true);
-    this.backArmCloths4.anims.play('back-arm-cloths-walk',true);
-    this.mainBodySprite5.anims.play('main-body-walk',true);
-    this.mainBodyCloths6.anims.play('main-body-cloths-walk',true);
-    this.frontArm7.anims.play('front-arm-walk',true);
-    this.frontArmCloths8.anims.play('front-arm-cloths-walk',true);
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-
-  }
-
-  playerJumpUpAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-    }else{
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play('main-body-jumpUp');
-    this.mainBodyCloths6.anims.play('main-body-cloths-jumpUp');
-    this.frontArm7.anims.play('front-arm-jumpUp');
-    this.frontArmCloths8.anims.play('front-arm-cloths-jumpUp');
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-
-  }
-
-  playerJumpDownAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-    }else{
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play('main-body-jumpDown');
-    this.mainBodyCloths6.anims.play('main-body-cloths-jumpDown');
-    this.frontArm7.anims.play('front-arm-jumpDown');
-    this.frontArmCloths8.anims.play('front-arm-cloths-jumpDown');
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-
-  }
-
-  playersleepAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-    
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      } 
-    }else{
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      }
-      
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play('main-body-sleep',true);
-    this.mainBodyCloths6.anims.play('main-body-cloths-sleep',true);
-    this.frontArm7.anims.play('front-arm-sleep',true);
-    this.frontArmCloths8.anims.play('front-arm-cloths-sleep',true);
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-sleep',true);
-      this.boobaCloths8.anims.play('booba-cloths-sleep',true);
-    }
-
-  }
-
-  playerUnarmedAnimation(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = true;
-    this.backArm3.visible = true;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = true;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-      this.backArmCloths4.visible = true;
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      }
-      
-    }else{
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      }
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.play('back-leg-swipe-12fps');
-    this.backLegCloths2.anims.play('back-leg-cloths-swipe-12fps');
-    this.backArm3.anims.play('back-arm-unarmed');
-    this.backArmCloths4.anims.play('back-arm-cloths-swipe-12fps');
-    this.mainBodySprite5.anims.play('main-body-swipe-12fps');
-    this.mainBodyCloths6.anims.play('main-body-cloths-swipe-12fps');
-    this.frontArm7.anims.play('front-arm-swipe-12fps');
-    this.frontArmCloths8.anims.play('front-arm-cloths-swipe-12fps');
-    this.weaponHand10.anims.stop();
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-swipe-12fps',true);
-      this.boobaCloths8.anims.play('booba-cloths-swipe-12fps',true);
-    }
-
-  }
-
-  playerSwipeAnimation12FPS(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = true;
-    this.backArm3.visible = true;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = true;
-    this.weaponHand10.visible = true;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-      this.backArmCloths4.visible = true;
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      }
-    }else{
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      }
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.play('back-leg-swipe-12fps');
-    this.backLegCloths2.anims.play('back-leg-cloths-swipe-12fps');
-    this.backArm3.anims.play('back-arm-swipe-12fps');
-    this.backArmCloths4.anims.play('back-arm-cloths-swipe-12fps');
-    this.mainBodySprite5.anims.play('main-body-swipe-12fps');
-    this.mainBodyCloths6.anims.play('main-body-cloths-swipe-12fps');
-    this.frontArm7.anims.play('front-arm-swipe-12fps');
-    this.frontArmCloths8.anims.play('front-arm-cloths-swipe-12fps');
-    this.weaponHand10.anims.play('weapon-hand-swipe-12fps');
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-swipe-12fps',true);
-      this.boobaCloths8.anims.play('booba-cloths-swipe-12fps',true);
-    }
-  }
-
-  playerSwipeAnimation9FPS(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = true;
-    this.backArm3.visible = true;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = true;
-    this.weaponHand10.visible = true;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-
-      this.backArmCloths4.visible = true;
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      }
-      
-    }else{
-      this.backLegCloths2.visible = false;
-      this.backArmCloths4.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      }
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.play('back-leg-swipe-9fps');
-    this.backLegCloths2.anims.play('back-leg-cloths-swipe-9fps');
-    this.backArm3.anims.play('back-arm-swipe-9fps');
-    this.backArmCloths4.anims.play('back-arm-cloths-swipe-9fps');
-    this.mainBodySprite5.anims.play('main-body-swipe-9fps');
-    this.mainBodyCloths6.anims.play('main-body-cloths-swipe-9fps');
-    this.frontArm7.anims.play('front-arm-swipe-9fps');
-    this.frontArmCloths8.anims.play('front-arm-cloths-swipe-9fps');
-    this.weaponHand10.anims.play('weapon-hand-swipe-9fps');
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-swipe-9fps',true);
-      this.boobaCloths8.anims.play('booba-cloths-swipe-9fps',true);
-    }
-  }
-
-  playerBonkAnimation9FPS(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = true;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = true;
-    this.weaponHand10.visible = true;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-    }else{
-      this.backLegCloths2.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.play('back-leg-swipe-9fps');
-    this.backLegCloths2.anims.play('back-leg-cloths-swipe-9fps');
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play('main-body-bonk-9fps');
-    this.mainBodyCloths6.anims.play('main-body-cloths-bonk-9fps');
-    this.frontArm7.anims.play('front-arm-bonk-9fps');
-    this.frontArmCloths8.anims.play('front-arm-cloths-bonk-9fps');
-    this.weaponHand10.anims.play('weapon-hand-bonk-9fps');
-
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-  }
-
-  playerPokeAnimation12FPS(){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.frontArm7.visible = true;
-    this.weaponLayer9.visible = true;
-    this.weaponHand10.visible = true;
-    if(this.sex === 1){
-      this.booba8.visible = true;
-    }
-
-    //if player should be clothed then make those layers visible.
-    if(this.clothed === true){
-      if(this.sex === 1){
-        this.backLegCloths2.visible = false;
-      }else{
-        this.backLegCloths2.visible = true;
-      }
-      this.mainBodyCloths6.visible = true;
-      this.frontArmCloths8.visible = true;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = true;
-      } 
-    }else{
-      this.backLegCloths2.visible = false;
-      this.mainBodyCloths6.visible = false;
-      this.frontArmCloths8.visible = false;
-      if(this.sex === 1){
-        this.boobaCloths8.visible = false;
-      } 
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play('main-body-poke-12fps');
-    this.mainBodyCloths6.anims.play('main-body-cloths-poke-12fps');
-    this.frontArm7.anims.play('front-arm-poke-12fps');
-    this.frontArmCloths8.anims.play('front-arm-cloths-poke-12fps');
-    this.weaponHand10.anims.play('weapon-hand-poke-12fps');
-    if(this.sex === 1){
-      this.booba8.anims.play('booba-poke-12fps',true);
-      this.boobaCloths8.anims.play('booba-sleep-poke-12fps',true);
-    }
-  }
-
-  StuckRepeat(stuckString){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.mainBodyCloths6.visible = false;
-    this.frontArm7.visible = false;
-    this.frontArmCloths8.visible = false;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play(stuckString,true);
-    this.mainBodyCloths6.anims.stop();
-    this.frontArm7.anims.stop();
-    this.frontArmCloths8.anims.stop();
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-  }
-
-  Stuck(stuckString){
-
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.mainBodyCloths6.visible = false;
-    this.frontArm7.visible = false;
-    this.frontArmCloths8.visible = false;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-
-    //play repeating animations.
-    this.backLeg1.anims.stop();
-    this.backLegCloths2.anims.stop();
-    this.backArm3.anims.stop();
-    this.backArmCloths4.anims.stop();
-    this.mainBodySprite5.anims.play(stuckString);
-    this.mainBodyCloths6.anims.stop();
-    this.frontArm7.anims.stop();
-    this.frontArmCloths8.anims.stop();
-    this.weaponLayer9.anims.stop();
-    this.weaponHand10.anims.stop();
-    if(this.sex === 1){
-      this.booba8.stop();
-      this.boobaCloths8.stop();
-    }
-  }
-
-  setStuckVisiblity(){
-    
-    //set visibility of layers needed for the animation
-    this.backLeg1.visible = false;
-    this.backLegCloths2.visible = false;
-    this.backArm3.visible = false;
-    this.backArmCloths4.visible = false;
-    this.mainBodySprite5.visible = true;
-    this.mainBodyCloths6.visible = false;
-    this.frontArm7.visible = false;
-    this.frontArmCloths8.visible = false;
-    this.weaponLayer9.visible = false;
-    this.weaponHand10.visible = false;
-    if(this.sex === 1){
-      this.booba8.visible = false;
-      this.boobaCloths8.visible = false;
-    }
-  
   }
   
 }

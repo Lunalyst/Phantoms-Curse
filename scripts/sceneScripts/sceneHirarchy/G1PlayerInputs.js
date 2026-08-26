@@ -25,6 +25,7 @@ class G1PlayerInputs extends A3SoundEffects {
     this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.shiftBind]]);
     this.special = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.specialBind]]);
     this.blocking = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.blockBind]]);
+    this.healing = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[bindConversion[this.bindSettings.healBind]]);
 
   }
 
@@ -289,6 +290,7 @@ setUpKeyPrompts(){
 
   //mobile button control for expecting if the shift key is pressed only once until it is released.
   checkATKPressed(){
+    console.log("testing attackspressed");
     if(Phaser.Input.Keyboard.JustDown(this.shift)){
       return true;
     }else{
@@ -465,6 +467,50 @@ setUpKeyPrompts(){
   checkBlockIsDown(){
 
     if(this.blocking.isDown){
+      return true;
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+
+        return false;
+    } 
+  }
+
+  checkHealPressed(){
+
+    if(Phaser.Input.Keyboard.JustDown(this.healing)){
+      return true; 
+    }else{
+
+      /*let keyObject = {
+        isDown:false
+      };
+
+      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+
+      if(keyObject.isDown === true){
+        return true;
+      }else{
+        return false;
+      }*/
+     return false;
+    } 
+  }
+
+  //mobile button control for expecting if the a key is down and can be held down.
+  checkHealIsDown(){
+
+    if(this.healing.isDown){
       return true;
     }else{
 

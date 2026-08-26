@@ -28,9 +28,13 @@ class HomeInterior1 extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("home_source_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Home_Interior_Tileset.png");
       this.load.tilemapTiledJSON("home_interior1_map" , "assets/tiledMap/LockWood/Home_Interior_Tileset/Player_Home_Interior1.json");
-     
+      
 
       this.defaultPreload();
+
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
 
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
@@ -92,6 +96,9 @@ class HomeInterior1 extends defaultScene {
       
       this.initPortals(352,592,352,605,"door2","HomeInterior2");
       
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene

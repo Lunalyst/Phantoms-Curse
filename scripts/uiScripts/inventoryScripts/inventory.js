@@ -36,6 +36,8 @@ class inventory extends Phaser.GameObjects.Container{
       this.settingsOpen = false;
       this.bestiaryOpen = false;
 
+      this.specialSlotList = [0,1,2,3,4]
+
       this.scene = scene;
 
       this.ContainerArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
@@ -694,12 +696,9 @@ class inventory extends Phaser.GameObjects.Container{
               //here is where we need protection logic to stop items going in equip slots that arnt of the equip slot type.
               //this is half the solution, as this only covers when the protected slot is selected second.
               //if the active slot is the weapon slot and the item in this.activeslot1 is a weapon
-              if(
-                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "weapon" && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3) || // case where the first slot is a weapon object, and the second slot is the weapon slot.
-                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "weapon" && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) || // case where the first slot is the weapon slot, and the second slot is a weapon object
-                (this.activeSlot1 === 0 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) || // case where first slot is the weapon slot and the second is a blank slot.
-                (activeSlot === 0 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)    //case where first los is blank and second slot is weapon.
-              ){
+
+
+              if(this.isSpecialSwitchValid(activeSlot,0,"weapon")){
 
                 console.log(" weapon swap.");
                 //then set active slot 2, and allow for the swap to occur
@@ -709,12 +708,7 @@ class inventory extends Phaser.GameObjects.Container{
                 this.activeSlot2 = activeSlot;
 
               //same logic for ring
-              }else if(
-                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "ring" && this.activeSlot1 !== 0 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3) ||
-                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "ring" && activeSlot !== 0 && activeSlot !== 2 && activeSlot !== 3) ||
-                 (this.activeSlot1 === 1 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 2 && activeSlot !== 3) || 
-                 (activeSlot === 1 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)   
-                 ){
+              }else if(this.isSpecialSwitchValid(activeSlot,1,"ring")){
 
                   console.log(" ring swap.");
 
@@ -723,12 +717,7 @@ class inventory extends Phaser.GameObjects.Container{
                 this.activeSlot2 = activeSlot;
 
               //same logic for ammo
-              }else if(
-                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "ammo" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 3) || 
-                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "ammo" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 3) ||
-                (this.activeSlot1 === 2 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 3) || 
-                (activeSlot === 2 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 3)  
-              ){
+              }else if(this.isSpecialSwitchValid(activeSlot,2,"ammo")){
 
                 console.log(" ammo swap.");
                 this.inventoryArray[activeSlot].isLitUp = true;
@@ -736,12 +725,7 @@ class inventory extends Phaser.GameObjects.Container{
                 this.activeSlot2 = activeSlot;
 
               //same logic for vanity
-              }else if(
-                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "vanity" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2) ||
-                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "vanity" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2) ||
-                (this.activeSlot1 === 3 && scene.inventoryDataArray[activeSlot].itemType === "" && activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2) || 
-                (activeSlot === 3 && scene.inventoryDataArray[this.activeSlot1].itemType === "" && this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2)  
-              ){
+              }else if(this.isSpecialSwitchValid(activeSlot,3,"vanity")){
 
                 console.log(" vanity swap.");
 
@@ -749,9 +733,19 @@ class inventory extends Phaser.GameObjects.Container{
                 this.inventoryArray[activeSlot].setTint(0xd3d3d3);
                 this.activeSlot2 = activeSlot;
               
+
+                //same logic for consumable slot
+              }else if(this.isSpecialSwitchValid(activeSlot,4,"consumable")){
+
+                console.log(" consumable swap.");
+
+                this.inventoryArray[activeSlot].isLitUp = true;
+                this.inventoryArray[activeSlot].setTint(0xd3d3d3);
+                this.activeSlot2 = activeSlot;
+              
               //if we arnt trying to move a item into the equip slots, then highlight the correct slot.
               //case needs to ensure the active slot is not 0,1,2, or 3
-              }else if((activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3) && (this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3)){
+              }else if((activeSlot !== 0 && activeSlot !== 1 && activeSlot !== 2 && activeSlot !== 3 && activeSlot !== 4) && (this.activeSlot1 !== 0 && this.activeSlot1 !== 1 && this.activeSlot1 !== 2 && this.activeSlot1 !== 3 && this.activeSlot1 !== 4)){
 
                 console.log(" non protected slot swap detected.");
                 this.inventoryArray[activeSlot].isLitUp = true;
@@ -986,5 +980,54 @@ class inventory extends Phaser.GameObjects.Container{
           this.inventoryArray[activeSlot].anims.play(''+this.inventoryArray[activeSlot].animsNumber);
           //console.log("detecting click on inventory slot: "+ activeSlot +" this.activeSlot1: "+ this.activeSlot1 +" this.activeSlot2: "+this.activeSlot2);
     }
+
+    //tells if the item in active slot matches the correct slot location
+    doesSlotMatchItemTag(currentActiveSlot, slotNumber, activeSlotItemType, correctItemType){
+      if(currentActiveSlot === slotNumber && activeSlotItemType === correctItemType){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    //activeslot 1, 0
+    //checks to see if the current slot is the weapon slot 
+    isSpecialSlotCorrect(activeSlot,currentValidSlot){
+
+      //filter out the correct slot number out of the array.
+      let tempArray = this.specialSlotList.filter(item => item !== currentValidSlot);
+      
+      //loop through filtered array to see if active slot matches any of the values we dont want.
+      for(let i = 0; i < tempArray.length; i++){
+        // if so return false 
+        if(activeSlot === tempArray[i]){
+          return false;
+        }
+      }
+
+      //if the slot doesnt not match any of the special slots we dont want it to, then return true.
+      return true;
+    }
+
+    //ultimate function to see if switch to special slot is a valid scenario
+    isSpecialSwitchValid(activeSlot,specialSlotNumber,correctItemType){
+      // case where the first slot is contains a special item and the second slot is the weapon slot.
+      if((this.doesSlotMatchItemTag(activeSlot, specialSlotNumber, this.scene.inventoryDataArray[this.activeSlot1].itemType, correctItemType) && this.isSpecialSlotCorrect(this.activeSlot1,specialSlotNumber)) || 
+      // case where the first slot is the weapon slot, and the second slot is a weapon object
+      (this.doesSlotMatchItemTag(this.activeSlot1, specialSlotNumber, this.scene.inventoryDataArray[activeSlot].itemType, correctItemType ) && this.isSpecialSlotCorrect(activeSlot,specialSlotNumber))||
+      // case where first slot is the weapon slot and the second is a blank slot.
+      (this.doesSlotMatchItemTag(this.activeSlot1, specialSlotNumber, this.scene.inventoryDataArray[activeSlot].itemType, "" ) && this.isSpecialSlotCorrect(activeSlot,specialSlotNumber)) || 
+      //case where first los is blank and second slot is weapon.
+      (this.doesSlotMatchItemTag(activeSlot, specialSlotNumber, this.scene.inventoryDataArray[this.activeSlot1].itemType, "") && this.isSpecialSlotCorrect(this.activeSlot1,specialSlotNumber)))   
+      {
+        return true;
+
+      }else{
+
+        return false;
+      }    
+    }
+
+
     
 }

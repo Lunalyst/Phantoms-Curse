@@ -45,6 +45,10 @@ class ClinicRoom extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('wardSFX','audio/used-audio/ward-sounds/wolfs ward.json',[
         "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
@@ -114,7 +118,10 @@ class ClinicRoom extends defaultScene {
       this.deaugh.anims.play("idle", true);
       this.deaugh.setScale(1/3);*/
 
- 
+      
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+      
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene

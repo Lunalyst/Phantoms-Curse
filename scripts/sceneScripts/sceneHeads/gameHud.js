@@ -1147,7 +1147,7 @@ class gameHud extends A3SoundEffects {
 
             //loop through inventory item array to see if the item added already been picked up.
             //27
-              for(let counter = 4; counter < 28 ;counter++){
+              for(let counter = 5; counter < 19 ;counter++){
 
                   console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.itemID);
                   console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
@@ -1191,7 +1191,7 @@ class gameHud extends A3SoundEffects {
               //if the item doesnt exist in the players inventory or that item slot is full, then add it to the nearest item slot that is empty.
               if(itemAdded === false){
                 //loop through inventory item array
-                for(let counter = 28; counter < this.inventoryDataArray.length;counter++){
+                for(let counter = 19; counter < this.inventoryDataArray.length;counter++){
 
                   //if the item id is empty then add the new item to that id.
                   //note, add here a check for the first and second item slot so things that arnt, a weapon, ring, clothing item, or ammo end dont end up in those slots.
@@ -1228,7 +1228,7 @@ class gameHud extends A3SoundEffects {
                   }
                   
                   //attemot to add the item after space increase.
-                  for(let counter = 4; counter < this.inventoryDataArray.length;counter++){
+                  for(let counter = 5; counter < this.inventoryDataArray.length;counter++){
 
                     //if the item id is empty then add the new item to that id.
                     //note, add here a check for the first and second item slot so things that arnt, a weapon, ring, clothing item, or ammo end dont end up in those slots.

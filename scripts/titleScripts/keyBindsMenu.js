@@ -8,8 +8,8 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
 
         this.setScrollFactor(0);
         //sets up inner andf outer menu interior and exterior
-        this.optionMenuInterior = scene.add.sprite(0, 385, 'keyBindsMenu');
-        this.optionMenuInterior.setScale(.6);
+        this.optionMenuInterior = scene.add.sprite(0, 415, 'keyBindsMenu');
+        this.optionMenuInterior.setScale(.7);
         //this.optionMenuInterior.setAlpha(0.5);
         this.add(this.optionMenuInterior);
 
@@ -22,7 +22,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.activelySelecting = false;
 
         //add option menu elements and buttons
-        this.title = new makeText(scene,-50,130,'charBubble',"KEYBINDS");
+        this.title = new makeText(scene,-50,115,'charBubble',"KEYBINDS");
         this.add(this.title);
 
         console.log("menu is done:",this.x," ",this.y);
@@ -33,7 +33,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.setKeysInUse();
 
         let tempArray = [170];
-        for(let index = 0;index < 9;index++){
+        for(let index = 0;index < 10;index++){
             
             tempArray.push((170) + ((index+1) * 55) );
         }
@@ -74,7 +74,11 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.add(this.block);
         this.bindArray.push(this.block);
 
-        this.defaultButton = new makeText(scene,-160,685,'charBubble',"Default");
+        this.heal = new keyBindUnit(scene,-40,tempArray[9],"Heal",this.scene.bindSettings.healBind,this);
+        this.add(this.heal);
+        this.bindArray.push(this.heal);
+
+        this.defaultButton = new makeText(scene,-160,755,'charBubble',"Default");
         this.defaultButton.addHitboxBinds();
         this.add(this.defaultButton);
 
@@ -117,6 +121,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
         this.activeBindsArray.push(this.scene.bindSettings.shiftBind);
         this.activeBindsArray.push(this.scene.bindSettings.specialBind);
         this.activeBindsArray.push(this.scene.bindSettings.blockBind);
+        this.activeBindsArray.push(this.scene.bindSettings.healBind);
 
         console.log("current keys in use: ",this.activeBindsArray);
 
@@ -147,7 +152,8 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
                 }
                 
             });
-
+        
+            console.log("is key valid? : ",keyFound)
         return keyFound;
     }
 
@@ -155,6 +161,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
      isKeyInUse(newKey){
 
         let keyFound = false;
+        console.log("this.activeBindsArray: ",this.activeBindsArray)
          this.activeBindsArray.forEach((key) =>{
                 if(key === newKey){
                   keyFound = true;
@@ -162,6 +169,7 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
                 
             });
 
+         console.log("is key in use already? : ",keyFound)
         return keyFound;
     }
 
@@ -217,10 +225,15 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
                     bind.unitKey = 'KeyE'; 
                     bind.keyDisplay.playKey('KeyE'+"-S");
                 }else if(bind.unitName === "Block"){
-                    this.scene.bindSettings.specialBind = 'KeyR';
+                    this.scene.bindSettings.blockBind = 'KeyR';
                     bind.unitKey = 'KeyR'; 
                     bind.keyDisplay.playKey('KeyR'+"-S");
+                }else if(bind.unitName === "Heal"){
+                    this.scene.bindSettings.healBind = 'KeyF';
+                    bind.unitKey = 'KeyF'; 
+                    bind.keyDisplay.playKey('KeyF'+"-S");
                 }
+                
                 
             });
 
@@ -234,13 +247,15 @@ class keyBindsMenu extends Phaser.GameObjects.Container{
             keyTABBind:this.scene.bindSettings.keyTABBind,
             spaceBind:this.scene.bindSettings.spaceBind,
             shiftBind:this.scene.bindSettings.shiftBind,
-            healBind:"KeyH",
+            healBind:this.scene.bindSettings.healBind,
             specialBind:this.scene.bindSettings.specialBind,
             blockBind:this.scene.bindSettings.blockBind
             
             }
 
             };
+
+            console.log("tempObject: ",tempObject)
 
         this.scene.secretSave(tempObject);
         
@@ -350,6 +365,8 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             this.scene.bindSettings.specialBind = newKey;
         }else if(this.unitName === "Block"){
             this.scene.bindSettings.blockBind = newKey;
+        }else if(this.unitName === "Heal"){
+            this.scene.bindSettings.healBind = newKey;
         }
 
         let tempObject = {
@@ -362,7 +379,7 @@ class keyBindUnit extends Phaser.GameObjects.Container{
             keyTABBind:this.scene.bindSettings.keyTABBind,
             spaceBind:this.scene.bindSettings.spaceBind,
             shiftBind:this.scene.bindSettings.shiftBind,
-            healBind:"KeyH",
+            healBind:this.scene.bindSettings.healBind,
             specialBind:this.scene.bindSettings.specialBind,
             blockBind:this.scene.bindSettings.blockBind
             }

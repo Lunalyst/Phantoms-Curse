@@ -12,7 +12,9 @@ class G10CheckNPCS extends G9CheckEnemys {
     //console.log("scene.npcs:", scene.npcs);
     scene.npcs.children.each(function (tempNpc) {
       
-      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.lockoutNPC === false) {
+      if ((((scene.player1.x > tempNpc.x - 50 && scene.player1.x < tempNpc.x + 50) && 
+      (scene.player1.y > tempNpc.y - 40 && scene.player1.y < tempNpc.y + 40)) 
+      || tempNpc.ignoreTriggerRange === true) && scene.grabbed === false && tempNpc.lockoutNPC === false) {
         //console.log("within npc range");
         tempNpc.safeToSpeak = true;
         scene.activatedNpcId = tempNpc.npcId;

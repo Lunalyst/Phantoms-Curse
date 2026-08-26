@@ -232,6 +232,16 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       //progress the dialogue so the textbox goes through its finishing procedure.
       this.scene.sceneTextBox.activateNPCTextBox();
 
+      //important to reset the player attack variables. prevents a softlock where if player attacks while interacting with npc, then player cant move afterward.
+      this.scene.player1.resetAttack();
+
+      if(this.scene.player2 !== undefined && this.scene.player2 !== null){
+        console.log("this.scene.player2: ",this.scene.player2)
+        this.scene.player2.resetAttack();
+      }
+
+
+
     }
 
   }

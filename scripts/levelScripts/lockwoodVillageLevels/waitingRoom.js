@@ -32,6 +32,10 @@ class WaitingRoom extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('wardSFX','audio/used-audio/ward-sounds/wolfs ward.json',[
         "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
@@ -91,6 +95,9 @@ class WaitingRoom extends defaultScene {
       this.initPortals(487,728+25,774,760,"door2","DeaughsRoom");
 
       this.initPortals(862,728+25,386,760,"door2","ClinicRoom");
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up containers
       this.setUpContainers();

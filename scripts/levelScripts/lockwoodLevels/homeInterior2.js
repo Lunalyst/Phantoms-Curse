@@ -35,6 +35,10 @@ class HomeInterior2 extends defaultScene {
       //storageLocker with a lower case s
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -117,6 +121,10 @@ class HomeInterior2 extends defaultScene {
       this.initPortalsWithTransparency(352,592,352,605,"door2","HomeInterior1",0.75);
 
       this.initBedPortals(598, 592+29);
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
       //sets up containers
       this.setUpContainers();
 

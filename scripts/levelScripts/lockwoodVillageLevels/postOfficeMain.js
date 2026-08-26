@@ -30,6 +30,10 @@ class postOfficeMain extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -102,6 +106,9 @@ class postOfficeMain extends defaultScene {
       this.autumn.anims.play("idle", true);
       this.autumn.setScale(1/3);
       this.autumn.setDepth(0);*/
+
+       //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
 
       //sets up containers
       this.setUpContainers();

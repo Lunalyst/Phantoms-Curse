@@ -118,10 +118,24 @@ class G12UpdateLoops extends G11CheckGameObjects{
         if(this.grabbed === false && this.playerStuckGrab === false){ 
 
          //call player function to see if there attacking and not in the air
+         //console.log("here!")
           if(this.player1.mainHitbox.body.blocked.down && this.checkATKIsDown() && this.player1.isAttacking === false){
              //console.log("attack started");
             //set player attacking to true
-             this.player1.isAttacking = true;
+            this.player1.isAttacking = true;
+            this.player1.attackType = "light";
+
+            //call function to the player to have the attack animation
+            this.player1.attackPlayer(this);
+
+          //otherwise, if the player isnt attacking apply the move function.
+          //need to aacount for when the player taps shift. if the player is not grounded, or the attack is finished.
+          }else if(this.player1.mainHitbox.body.blocked.down && this.checkHealIsDown() && this.player1.isAttacking === false){
+            //console.log("attack started");
+            
+            //set player attacking to true
+            this.player1.isAttacking = true;
+            this.player1.attackType = "heal";
 
             //call function to the player to have the attack animation
             this.player1.attackPlayer(this);
@@ -141,10 +155,15 @@ class G12UpdateLoops extends G11CheckGameObjects{
               this.player1.playerIdleAnimation();
             }
           }else{
-            
             //if the player isnt moving, or is in a attack Animation, then stop there x velocity
-            this.player1.mainHitbox.setVelocityX(0);
+            //shifts the player forward while there attacking.
+            this.player1.shiftPlayerForward();
           }
+
+          //has the hitbox active at the middle of the attack animation
+          this.player1.attackHitboxActive();
+
+         
           
           //console.log("FOLLOWING PLAYER 1")
 
@@ -153,9 +172,9 @@ class G12UpdateLoops extends G11CheckGameObjects{
           this.cameras.main.zoom = 2;
         
           //call player function to see if there attacking
-          if(this.player1.mainHitbox.body.blocked.down && this.shift.isDown){
+          /*if(this.player1.mainHitbox.body.blocked.down && this.shift.isDown){
              this.player1.attackPlayer(this);
-          }
+          }*/
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){

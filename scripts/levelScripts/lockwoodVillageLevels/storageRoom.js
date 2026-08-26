@@ -38,6 +38,11 @@ class StorageRoom extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
+
       this.load.audioSprite('calmSFX','audio/used-audio/calm-sounds/calm-sounds.json',[
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
@@ -107,6 +112,9 @@ class StorageRoom extends defaultScene {
 
       this.initPortalsWithTransparency(578,728+25,1024,760,"door2","DeaughsRoom",0.75);
 
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+      
       //sets up containers
       this.setUpContainers();
       //sets up item drops for the scene

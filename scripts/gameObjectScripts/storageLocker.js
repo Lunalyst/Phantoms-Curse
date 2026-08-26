@@ -47,31 +47,48 @@ class storageLocker extends Phaser.Physics.Arcade.Sprite{
             
            
             //tells this object to play locker opening animation, and weather or not we need to make the ui or destroy it.
-            if(this.isOpen === false){
+            if(this.scene.isPaused === false){
+                if(this.isOpen === false){
 
-                this.isOpen = true;
+                    this.isOpen = true;
 
-                this.anims.play('opening');
+                    this.anims.play('opening');
 
-                console.log('activating locker');
+                    console.log('activating locker');
 
-                //call emitter to make the storage ui
-                inventoryKeyEmitter.emit(inventoryKey.makeStorage);
+                    //call emitter to make the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.makeStorage);
 
-                // call the emitter to activate the storage ui
-                inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
+                    // call the emitter to activate the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
+
+                }else{
+                    this.isOpen = false;
+                    this.anims.play('closing');
+
+                    console.log('closing locker');
+
+                    // call the emitter to activate the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
+
+                    //call emitter to destroy the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.destroyStorage);
+                }
             }else{
-                this.isOpen = false;
-                this.anims.play('closing');
+                if(this.isOpen === true){
+                    this.isOpen = false;
+                    this.anims.play('closing');
 
-                console.log('closing locker');
+                    console.log('closing locker');
 
-                // call the emitter to activate the storage ui
-                inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
+                    // call the emitter to activate the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.activateStorage,this.scene);
 
-                //call emitter to destroy the storage ui
-                inventoryKeyEmitter.emit(inventoryKey.destroyStorage);
+                    //call emitter to destroy the storage ui
+                    inventoryKeyEmitter.emit(inventoryKey.destroyStorage);
+                }
             }
+            
 
             
            

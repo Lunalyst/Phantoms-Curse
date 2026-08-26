@@ -35,9 +35,9 @@ class A1SaveAndLoad extends Phaser.Scene {
                       keyTABBind:"Tab",
                       spaceBind:"Space",
                       shiftBind:"ShiftLeft",
-                      healBind:"KeyR",
+                      healBind:"KeyF",
                       specialBind:"KeyE",
-                      blockBind:"KeyH"
+                      blockBind:"KeyR"
                   };
         
       }
@@ -54,8 +54,8 @@ class A1SaveAndLoad extends Phaser.Scene {
           keyTABBind:"Tab",
           spaceBind:"Space",
           shiftBind:"ShiftLeft",
-          healBind:"KeyH",
-          specialBind:"KeyF",
+          healBind:"KeyF",
+          specialBind:"KeyE",
           blockBind:"KeyR"
           }
         };
@@ -71,8 +71,8 @@ class A1SaveAndLoad extends Phaser.Scene {
                       keyTABBind:"Tab",
                       spaceBind:"Space",
                       shiftBind:"ShiftLeft",
-                      healBind:"KeyH",
-                      specialBind:"KeyF",
+                      healBind:"KeyF",
+                      specialBind:"KeyE",
                       blockBind:"KeyR"
                   }
 

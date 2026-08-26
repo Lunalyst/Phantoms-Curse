@@ -164,9 +164,11 @@ class PCMilo extends Phaser.GameObjects.Container {
       
     }
 
-    miloAnimationFunction(){
+    resetAttackVariables(){
+    this.isAttacking = false;
+    this.playedAttackAnimation = false;
+  }
 
-    }
     
   
     //built in move PCMilo function to handle how the PCMilo moves and is animated while moving. parameters are inputA, inputD, inputSpace, and previous Y location

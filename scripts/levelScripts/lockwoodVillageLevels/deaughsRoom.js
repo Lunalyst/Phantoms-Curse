@@ -37,6 +37,10 @@ class DeaughsRoom extends defaultScene {
 
       this.defaultPreload();
 
+      this.enemyGroupArray = [];
+
+      this.setUpEnemyPreload(this.enemyGroupArray);
+
       this.load.audioSprite('wardSFX','audio/used-audio/ward-sounds/wolfs ward.json',[
         "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
@@ -95,6 +99,10 @@ class DeaughsRoom extends defaultScene {
       this.setUpTextBox();
 
       this.initPortalsWithTransparency(774,728+25,487,760,"door2","WaitingRoom",0.75);
+
+      //sets up enemy colliders and groups
+      this.setUpEnemyCollider(this.enemyGroupArray);
+
 
       //sets up containers
       this.setUpContainers();

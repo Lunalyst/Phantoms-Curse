@@ -1136,6 +1136,18 @@ class vivian extends npc{
 
             this.buyBack.push(
               {
+                itemID: 21,
+                itemName: 'LANTURN',
+                itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
+                itemStackable: 0,
+                itemAmount: 1,
+                itemType: "ring",
+                sellValue: 999
+              }
+            );
+
+            this.buyBack.push(
+              {
                 itemID: 16,
                 itemName: 'FUEL ICHOR',
                 itemDescription: 'FUEL FOR A LANTERN.',
@@ -1148,13 +1160,13 @@ class vivian extends npc{
     
             this.buyBack.push(
               {
-                itemID: 21,
-                itemName: 'LANTURN',
-                itemDescription: 'PROVIDES LIGHT IF FUEL IS EQUIPT. TAKES UP RING SLOT.',
-                itemStackable: 0,
+                itemID: 28,
+                itemName: 'JARED CURSE INK',
+                itemDescription: 'LIQUID CURSE ENERGY. CAUSES CURSE BUILD UP.',
+                itemStackable: 1,
                 itemAmount: 1,
-                itemType: "ring",
-                sellValue: 999
+                itemType: "consumable",
+                sellValue: 10
               }
             );
     
@@ -1163,8 +1175,8 @@ class vivian extends npc{
             let buyArray = {
               array: this.buyBack,
               sellMultiplier: 1,
-              buyOnce: [false,true],
-              buyOnceFlags: ["null","obtained_lantern"]
+              buyOnce: [true,false,false],
+              buyOnceFlags: ["obtained_lantern","null","null",]
             };
     
             //send that object to the emiter so it can be set in the gamehud

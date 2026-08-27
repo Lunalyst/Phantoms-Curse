@@ -620,17 +620,19 @@ class inventory extends Phaser.GameObjects.Container{
 
         // applies logic to slot to display item name and description?
         let tempInventory = this;
+        let descriptionX = 30;
+        let descriptionY = 740;
         this.inventoryArray[counter].on('pointerover',function(pointer){
           
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter].itemName);
+          scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter].itemName);
           scene.itemName.setScale(1);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',scene.inventoryDataArray[counter].itemDescription);
+          scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter].itemDescription);
           scene.itemDescription.setScale(1);
           scene.itemDescription.setDepth(21);
           if(scene.inventoryDataArray[counter].itemID !== 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
+            scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
             scene.itemValue.setScale(1);
             scene.itemValue.setDepth(21);
           }

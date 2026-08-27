@@ -433,21 +433,44 @@ class storage extends Phaser.GameObjects.Container{
 
         // applies logic to slot to display item name and description
         let tempStorage = this;
-        this.storageArray[counter].on('pointerover',function(pointer){
-          //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemName);
-          scene.itemName.setScale(1);
-          scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
-          scene.itemDescription.setScale(1);
-          scene.itemDescription.setDepth(21);
-          console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + this.slotOffset].itemID);
-          if(scene.inventoryDataArray[counter + this.slotOffset].itemID > 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
-            scene.itemValue.setScale(1);
-            scene.itemValue.setDepth(21);
-          }
-        },this);
+        let descriptionX = 30;
+        let descriptionY = 740;
+
+        if(counter < 14){
+          this.storageArray[counter].on('pointerover',function(pointer){
+            //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemName);
+            scene.itemName.setScale(1);
+            scene.itemName.setDepth(21);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
+            scene.itemDescription.setScale(1);
+            scene.itemDescription.setDepth(21);
+            console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + this.slotOffset].itemID);
+
+            if(scene.inventoryDataArray[counter + this.slotOffset].itemID > 0){
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
+              scene.itemValue.setScale(1);
+              scene.itemValue.setDepth(21);
+            }
+          },this);
+        }else{
+          this.storageArray[counter].on('pointerover',function(pointer){
+            //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemName);
+            scene.itemName.setScale(1);
+            scene.itemName.setDepth(21);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemDescription);
+            scene.itemDescription.setScale(1);
+            scene.itemDescription.setDepth(21);
+            console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID);
+
+            if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID > 0){
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].sellValue);
+              scene.itemValue.setScale(1);
+              scene.itemValue.setDepth(21);
+            }
+          },this);
+        }
 
         // removes name and discription.
         this.storageArray[counter].on('pointerout',function(pointer){
@@ -756,6 +779,20 @@ class storage extends Phaser.GameObjects.Container{
           this.storageLabel.setScale(1.5);
           this.add(this.storageLabel);
 
+         
+          // clear slot select if slot select is active while switching pages.
+          //slot is no longer lit up
+          if(this.activeSlot1 !== -1){
+            this.storageArray[this.activeSlot1].isLitUp = false;
+            //play default darken animation.
+            //this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+            this.storageArray[this.activeSlot1].clearTint();
+            //reset activeslot1
+            this.activeSlot1 = -1;
+          }
+          
+       
+
           
 
           //sets slots on transition
@@ -803,6 +840,15 @@ class storage extends Phaser.GameObjects.Container{
 
           //sets slots on transition
           this.setSlots();
+
+          if(this.activeSlot1 !== -1){
+            this.storageArray[this.activeSlot1].isLitUp = false;
+            //play default darken animation.
+            //this.storageArray[activeSlot].animsNumber = scene.inventoryDataArray[activeSlot].itemID;
+            this.storageArray[this.activeSlot1].clearTint();
+            //reset activeslot1
+            this.activeSlot1 = -1;
+          }
 
           //then if the page number is the last one hide this button
           if (this.pageNumber === 0) {

@@ -61,7 +61,7 @@ class playerAnimations extends Phaser.GameObjects.Container{
       this.backArm3.anims.create({key: 'back-arm-unarmed',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-start-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-middle-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 3, end: 3 }),frameRate: 12,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 4, end: 4 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-finish-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 4, end: 5 }),frameRate: 12,repeat: 0});
   
       //knife
       this.weaponLayer9.anims.create({key: 'weapon-start-knife',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 6, end: 8 }),frameRate: 12,repeat: 0});
@@ -70,7 +70,8 @@ class playerAnimations extends Phaser.GameObjects.Container{
 
       //axe
       this.weaponLayer9.anims.create({key: 'weapon-start-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 12, end: 14 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 15, end: 17 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-middle-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 15, end: 15 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-finish-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 16, end: 17 }),frameRate: 9,repeat: 0});
 
       //oar
       this.weaponLayer9.anims.create({key: 'weapon-start-oar',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 18, end: 19 }),frameRate: 9,repeat: 0});
@@ -78,23 +79,30 @@ class playerAnimations extends Phaser.GameObjects.Container{
       this.weaponLayer9.anims.create({key: 'weapon-finish-oar',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 22, end: 22 }),frameRate: 9,repeat: 0});
 
       //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 24, end: 29 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-start-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 24, end: 25 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-middle-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 26, end: 27 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-end-rapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 28, end: 29 }),frameRate: 12,repeat: 0});
 
       //rapier
-      this.weaponLayer9.anims.create({key: 'weapon-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 35 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-start-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 30, end: 31 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-middle-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 32, end: 33 }),frameRate: 12,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-end-mimicRapier',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 34, end: 35 }),frameRate: 12,repeat: 0});
 
       //mourning star
-      this.weaponLayer9.anims.create({key: 'weapon-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 41 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-start-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 36, end: 37 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-middle-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 38, end: 39 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-end-mourning-star',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 40, end: 40 }),frameRate: 9,repeat: 0});
 
       //conidia caster
       this.weaponLayer9.anims.create({key: 'weapon-conidia-caster1',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 42, end: 44 }),frameRate: 9,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-conidia-caster2',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 45, end: 45 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster3',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 46, end: 47 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-conidia-caster3',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 46, end: 46 }),frameRate: 9,repeat: 0});
 
       //WAX AXE
       //axe
       this.weaponLayer9.anims.create({key: 'weapon-start-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 48, end: 50 }),frameRate: 9,repeat: 0});
-      this.weaponLayer9.anims.create({key: 'weapon-finish-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 51, end: 53 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-middle-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 51, end: 51 }),frameRate: 9,repeat: 0});
+      this.weaponLayer9.anims.create({key: 'weapon-finish-wax-axe',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 52, end: 53 }),frameRate: 9,repeat: 0});
 
       if(sex === 0){
         //this.booba8

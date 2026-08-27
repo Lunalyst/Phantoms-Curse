@@ -877,16 +877,18 @@ class shop extends Phaser.GameObjects.Container{
 
         // applies logic to slot to display item name and description
         let tempshop = this;
+        let descriptionX = 30;
+        let descriptionY = 540;
         this.shopArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,scene.pointer.x,scene.pointer.y,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
+          scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
           scene.itemName.setScale(1);
           scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,scene.itemName.x,scene.itemName.y+20,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
+          scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
           scene.itemDescription.setScale(1);
           scene.itemDescription.setDepth(21);
           if(tempshop.copyDataArray[counter+ tempshop.slotOffset].itemID !== 0){
-            scene.itemValue = new makeText(scene,scene.itemName.x,scene.itemName.y+40,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
+            scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
             scene.itemValue.setScale(1);
             scene.itemValue.setDepth(21);
           }

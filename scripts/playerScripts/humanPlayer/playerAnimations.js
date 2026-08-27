@@ -46,17 +46,23 @@ class playerAnimations extends Phaser.GameObjects.Container{
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-swipe-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {  start: 31, end: 36 }),frameRate: 9,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-swipe-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 0, end: 5 }),frameRate: 9,repeat: -1});
 
-      //weapon swipe animation used for unarmed, knife and axe
+      //weapon swipe animation used for heavy weapons like mace and oar
       this.frontArm7.anims.create({key: 'front-arm-bonk-9fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 37, end: 42  }),frameRate: 9,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-bonk-9fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', { start: 37, end: 42 }),frameRate: 9,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-bonk-9fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 6, end: 11 }),frameRate: 9,repeat: -1});
 
-      //weapon swipe animation used for unarmed, knife and axe
+      //weapon swipe animation for poking weapons
       this.frontArm7.anims.create({key: 'front-arm-poke-12fps',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-poke-12fps',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 43, end: 48}),frameRate: 12,repeat: 0});
       this.weaponHand10.anims.create({key: 'weapon-hand-poke-12fps',frames: this.weaponHand10.anims.generateFrameNames('10-weapon-hand', { start: 12, end: 17 }),frameRate: 12,repeat: -1});
 
+      //for consume item.
+      this.frontArm7.anims.create({key: 'front-arm-consume-start',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 49, end: 52 }),frameRate: 12,repeat: 0});
+      this.frontArm7.anims.create({key: 'front-arm-consume-end',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
 
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-consume-start',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 49, end: 52}),frameRate: 12,repeat: 0});
+      this.frontArmCloths8.anims.create({key: 'front-arm-cloths-consume-end',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 53, end: 54}),frameRate: 12,repeat: 0});
+     
       //unarmed animations
       this.backArm3.anims.create({key: 'back-arm-unarmed',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-start-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
@@ -143,6 +149,11 @@ class playerAnimations extends Phaser.GameObjects.Container{
         this.mainBodySprite5.anims.create({key: 'main-body-poke-12fps',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 43, end: 48 }),frameRate: 12,repeat: 0});
         this.mainBodyCloths6.anims.create({key: 'main-body-cloths-poke-12fps',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 43, end: 48}),frameRate: 12,repeat: 0});
         
+        //consume item
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-start',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 49, end: 52 }),frameRate: 12,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-end',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-start',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 49, end: 52}),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-end',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
 
         //stuck animations
         this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});

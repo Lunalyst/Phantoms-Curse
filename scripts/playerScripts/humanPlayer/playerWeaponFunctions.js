@@ -433,19 +433,11 @@ class playerWeaponFunctions extends playerItemMaps{
               if(this.playedAttackAnimation === false){
 
                 this.playedAttackAnimation = true;
-                this.scene.initSoundEffect('weaponSFX','high1',0.1);
+                //this.scene.initSoundEffect('weaponSFX','high1',0.1);
 
-                this.playerUnarmedAnimation();
+                this.playerConsumeStartAnimation();
 
-                this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
-
-                  this.fixAnimationVariable();
-                  
-                  this.weaponLayer9.anims.play("weapon-middle-unarmed").once('animationcomplete', () => {
-
-                    //sends the weapon layer to the back
-                    this.sendToBack(this.weaponLayer9);
-                    this.moveUpXTimes(this.weaponPositionBack);
+                this.mainBodySprite5.anims.play("main-body-consume-start").once('animationcomplete', () => {
                    
                     this.fixAnimationVariable();
 
@@ -468,20 +460,15 @@ class playerWeaponFunctions extends playerItemMaps{
 
                     }
 
-                    this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
-                      //sends weapon layer back to front -1
-                      this.moveUpXTimes(this.weaponPositionfront);
-                      console.log("unarmed finished way point");
+                    this.playerConsumeEndAnimation();
 
-                      this.backLeg1.visible = false;
-                      this.backLegCloths2.visible = false;
+                    this.mainBodySprite5.anims.play("main-body-consume-end").once('animationcomplete', () => {
 
                       this.isAttacking = false;
                       this.playedAttackAnimation = false;
-                      console.log("attack is over so stoping");
-                      this.bluntDamage = 0;
+
+                      console.log("consume is over so stoping");
                     });
-                  });
                 });
               
               }

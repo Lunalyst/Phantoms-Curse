@@ -678,6 +678,96 @@ class playerAnimationFunctions extends playerAnimations{
     }
   
   }
+
+  playerConsumeStartAnimation(){
+
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backLegCloths2.visible = false;
+    this.backArm3.visible = false;
+    this.backArmCloths4.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.frontArm7.visible = true;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    if(this.sex === 1){
+      this.booba8.visible = false;
+      this.boobaCloths8.visible = false;
+    }
+
+    //if player should be clothed then make those layers visible.
+    if(this.clothed === true){
+      this.mainBodyCloths6.visible = true;
+      this.frontArmCloths8.visible = true;
+    }else{
+      this.mainBodyCloths6.visible = false;
+      this.frontArmCloths8.visible = false;
+    }
+
+    //play repeating animations.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop();
+    this.backArmCloths4.anims.stop();
+    //this.mainBodySprite5.anims.play('main-body-consume-start');
+    this.mainBodyCloths6.anims.play('main-body-consume-start');
+    this.frontArm7.anims.play('front-arm-consume-start');
+    this.frontArmCloths8.anims.play('front-arm-cloths-consume-start');
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+
+    if(this.sex === 1){
+      this.booba8.stop();
+      this.boobaCloths8.stop();
+    }
+
+  }
+
+  playerConsumeEndAnimation(){
+
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backLegCloths2.visible = false;
+    this.backArm3.visible = false;
+    this.backArmCloths4.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.frontArm7.visible = true;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    if(this.sex === 1){
+      this.booba8.visible = false;
+      this.boobaCloths8.visible = false;
+    }
+
+    //if player should be clothed then make those layers visible.
+    if(this.clothed === true){
+      this.mainBodyCloths6.visible = true;
+      this.frontArmCloths8.visible = true;
+    }else{
+      this.mainBodyCloths6.visible = false;
+      this.frontArmCloths8.visible = false;
+    }
+
+    //play repeating animations.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop();
+    this.backArmCloths4.anims.stop();
+    //this.mainBodySprite5.anims.play('main-body-consume-start');
+    this.mainBodyCloths6.anims.play('main-body-consume-end');
+    this.frontArm7.anims.play('front-arm-consume-end');
+    this.frontArmCloths8.anims.play('front-arm-cloths-consume-end');
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+
+    if(this.sex === 1){
+      this.booba8.stop();
+      this.boobaCloths8.stop();
+    }
+
+  }
   
 }
 

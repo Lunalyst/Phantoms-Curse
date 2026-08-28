@@ -768,6 +768,116 @@ class playerAnimationFunctions extends playerAnimations{
     }
 
   }
+
+  //idle animation for player
+  playerConsumeFailStartAnimation(){
+
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backArm3.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.frontArm7.visible = true;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    if(this.sex === 1){
+      this.booba8.visible = true;
+    }
+    
+    //if player should be clothed then make those layers visible.
+    if(this.clothed === true){
+      this.backLegCloths2.visible = false;
+      this.backArmCloths4.visible = false;
+      this.mainBodyCloths6.visible = true;
+      this.frontArmCloths8.visible = false;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = true;
+      }
+    }else{
+      this.backLegCloths2.visible = false;
+      this.backArmCloths4.visible = false;
+      this.mainBodyCloths6.visible = false;
+      this.frontArmCloths8.visible = false;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = false;
+      }
+    }
+
+    //play repeating animations.
+    //note, important, need to stop other animations not used. otherwise if that layer has a continuous animation called on it, then it will continue while invisble
+    //this is bad because if its used with the same animation, it can cause our layers to become out of sync with each other.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop()
+    this.backArmCloths4.anims.stop();
+    //this.mainBodySprite5.anims.play('main-body-idle',true);
+    this.mainBodyCloths6.anims.play('main-body-consume-fail-start',true);
+    this.frontArm7.anims.play('front-arm-consume-fail-start',true);
+    this.frontArmCloths8.anims.stop();
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+
+    if(this.sex === 1){
+      this.booba8.anims.play('booba-consume-fail-start',true);
+      this.boobaCloths8.anims.play('booba-cloths-consume-fail-start',true);
+    }
+
+  }
+
+
+  playerConsumeFailEndAnimation(){
+
+    //set visibility of layers needed for the animation
+    this.backLeg1.visible = false;
+    this.backArm3.visible = false;
+    this.mainBodySprite5.visible = true;
+    this.frontArm7.visible = true;
+    this.weaponLayer9.visible = false;
+    this.weaponHand10.visible = false;
+
+    if(this.sex === 1){
+      this.booba8.visible = true;
+    }
+    
+    //if player should be clothed then make those layers visible.
+    if(this.clothed === true){
+      this.backLegCloths2.visible = false;
+      this.backArmCloths4.visible = false;
+      this.mainBodyCloths6.visible = true;
+      this.frontArmCloths8.visible = false;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = true;
+      }
+    }else{
+      this.backLegCloths2.visible = false;
+      this.backArmCloths4.visible = false;
+      this.mainBodyCloths6.visible = false;
+      this.frontArmCloths8.visible = false;
+      if(this.sex === 1){
+        this.boobaCloths8.visible = false;
+      }
+    }
+
+    //play repeating animations.
+    //note, important, need to stop other animations not used. otherwise if that layer has a continuous animation called on it, then it will continue while invisble
+    //this is bad because if its used with the same animation, it can cause our layers to become out of sync with each other.
+    this.backLeg1.anims.stop();
+    this.backLegCloths2.anims.stop();
+    this.backArm3.anims.stop()
+    this.backArmCloths4.anims.stop();
+    //this.mainBodySprite5.anims.play('main-body-idle',true);
+    this.mainBodyCloths6.anims.play('main-body-consume-fail-end',true);
+    this.frontArm7.anims.play('front-arm-consume-fail-end',true);
+    this.frontArmCloths8.anims.stop();
+    this.weaponLayer9.anims.stop();
+    this.weaponHand10.anims.stop();
+
+    if(this.sex === 1){
+      this.booba8.anims.play('booba-consume-fail-end',true);
+      this.boobaCloths8.anims.play('booba-cloths-consume-fail-end',true);
+    }
+
+  }
   
 }
 

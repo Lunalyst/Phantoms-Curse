@@ -223,13 +223,16 @@ class player extends playerWeaponFunctions{
     //set up object of functions for item logic 
     this.setupPlayerAnimations(sex);
     
-    //shift some layers down by two pixels to align with the female sprite.
-    this.backArm3.y = 2;
-    this.backArmCloths4.y = 2;
-    this.frontArm7.y = 2;
-    this.frontArmCloths8.y = 2;
-    this.weaponLayer9.y = 2;
-    this.weaponHand10.y = 2;
+    if(sex === 1){
+      //shift some layers down by two pixels to align with the female sprite.
+      this.backArm3.y = 2;
+      this.backArmCloths4.y = 2;
+      this.frontArm7.y = 2;
+      this.frontArmCloths8.y = 2;
+      this.weaponLayer9.y = 2;
+      this.weaponHand10.y = 2;
+    }
+   
 
   }
     
@@ -617,14 +620,15 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //console.log("activating attack function");
     //temp variable of this object to be used my timeout functions
     let that = this;
-    this.mainHitbox.setSize(10,60,true);
-    this.mainHitbox.setOffset(12, -4 );
+    //this.mainHitbox.setSize(10,60,true);
+    //this.mainHitbox.setOffset(12, -4 );
 
     this.x = this.mainHitbox.x;
-    this.y = this.mainHitbox.y; 
+    this.y = this.mainHitbox.y;
 
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
+
     //temp object sent to be sent to a emitter
     this.playerDataObject = {
       playerInventoryData: null
@@ -705,61 +709,6 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     }
   }
 
-  //handles hitbox position when attacking right, note this function is only activated if shift is down. that is handle
-  //note make a function that given a size number can change the shape of the hitbox?
-  HitBox(delay,distance){
-
-    //stop the players velocity
-    this.mainHitbox.setVelocityX(0);
-    
-    //start by having the player press shift state should be false
-    if(this.hitboxState === false){
-      
-      //player is swinging so  set the state to true
-      this.hitboxState = true;
-
-      // now we start a timer that will activate the hitbox
-      let tempPlayer = this;
-      setTimeout(function(){
-
-        //after half the delay given we check the hitbox state if its still true
-        //console.log("Phaser.Input.Keyboard.JustDown(this.scene.shift) ",Phaser.Input.Keyboard.JustDown(this.scene.shift))
-        if(tempPlayer.hitboxState === true){
-          
-          //put hitbox infront of the player in the way there facing
-          if(tempPlayer.lastKey === 'd'){
-            tempPlayer.scene.attackHitBox.x = tempPlayer.x+distance;
-
-            //has the player move forward slightly
-            if(!tempPlayer.scene.playerGrabbed){
-              tempPlayer.mainHitbox.setVelocityX(20);
-            }
-          }else{
-            tempPlayer.scene.attackHitBox.x = tempPlayer.x-distance;
-
-            if(!tempPlayer.scene.playerGrabbed){
-              tempPlayer.mainHitbox.setVelocityX(-20);
-            }
-          }
-          tempPlayer.scene.attackHitBox.y = tempPlayer.y
-
-          //set a timeout function so the hitbox lingeres for a tenth of a second
-          setTimeout(function(){
-            
-            //after that time is up put the hitbox back to its idle location and reset the hitboxstate variable. 
-            //tempPlayer.scene.attackHitBox.x = tempPlayer.x;
-            //tempPlayer.scene.attackHitBox.y = tempPlayer.y+10000;
-            tempPlayer.hitboxState = false;
-
-          },100);
-
-        //otherwise reset state of attack hitbox
-        }
-
-      },delay/2);
-    }
-  }
-
   shiftPlayerForward(){
 
     if(this.attackHitboxState === true){
@@ -783,6 +732,9 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
       this.x = this.mainHitbox.x;
       this.y = this.mainHitbox.y;
+
+      this.x = Math.round(this.x);
+      this.y = Math.round(this.y);
   }
 
 

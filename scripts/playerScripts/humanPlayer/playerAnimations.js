@@ -60,9 +60,12 @@ class playerAnimations extends Phaser.GameObjects.Container{
       this.frontArm7.anims.create({key: 'front-arm-consume-start',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 49, end: 52 }),frameRate: 12,repeat: 0});
       this.frontArm7.anims.create({key: 'front-arm-consume-end',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
 
+      this.frontArm7.anims.create({key: 'front-arm-consume-fail-start',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 55, end: 56 }),frameRate: 7,repeat: 0});
+      this.frontArm7.anims.create({key: 'front-arm-consume-fail-end',frames: this.frontArm7.anims.generateFrameNames('7-evan-front-arm', { start: 57, end: 58 }),frameRate: 7,repeat: 0});
+
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-consume-start',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 49, end: 52}),frameRate: 12,repeat: 0});
       this.frontArmCloths8.anims.create({key: 'front-arm-cloths-consume-end',frames: this.frontArmCloths8.anims.generateFrameNames('8-evan-front-arm-cloths', {start: 53, end: 54}),frameRate: 12,repeat: 0});
-     
+
       //unarmed animations
       this.backArm3.anims.create({key: 'back-arm-unarmed',frames: this.backArm3.anims.generateFrameNames('3-evan-back-arm', { start: 16, end: 21 }),frameRate: 12,repeat: 0});
       this.weaponLayer9.anims.create({key: 'weapon-start-unarmed',frames: this.weaponLayer9.anims.generateFrameNames('9-weapon-layer', { start: 0, end: 3 }),frameRate: 12,repeat: 0});
@@ -155,6 +158,13 @@ class playerAnimations extends Phaser.GameObjects.Container{
         this.mainBodyCloths6.anims.create({key: 'main-body-consume-start',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 49, end: 52}),frameRate: 12,repeat: 0});
         this.mainBodyCloths6.anims.create({key: 'main-body-consume-end',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
 
+        //consume fail 
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-fail-start',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 55, end: 56 }),frameRate: 7,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-fail-end',frames: this.mainBodySprite5.anims.generateFrameNames('5-evan-main-body', { start: 57, end: 58 }),frameRate: 7,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-fail-start',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 55, end: 56}),frameRate: 7,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-fail-end',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evan-main-body-cloths', { start: 57, end: 58}),frameRate: 7,repeat: 0});
+        
+
         //stuck animations
         this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
         this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('malePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});
@@ -212,6 +222,22 @@ class playerAnimations extends Phaser.GameObjects.Container{
         this.booba8.anims.create({key: 'booba-poke-12fps',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
         this.boobaCloths8.anims.create({key: 'booba-sleep-poke-12fps',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 24, end: 29  }),frameRate: 12,repeat: 0});
 
+        //consume item
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-start',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 49, end: 52 }),frameRate: 12,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-end',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-start',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 49, end: 52}),frameRate: 12,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-end',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 53, end: 54 }),frameRate: 12,repeat: 0});
+
+        //consume fail 
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-fail-start',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 55, end: 56 }),frameRate: 7,repeat: 0});
+        this.mainBodySprite5.anims.create({key: 'main-body-consume-fail-end',frames: this.mainBodySprite5.anims.generateFrameNames('5-evelyn-main-body', { start: 57, end: 58 }),frameRate: 7,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-fail-start',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 55, end: 56}),frameRate: 7,repeat: 0});
+        this.mainBodyCloths6.anims.create({key: 'main-body-consume-fail-end',frames: this.mainBodyCloths6.anims.generateFrameNames('6-evelyn-main-body-cloths', { start: 57, end: 58}),frameRate: 7,repeat: 0});
+        this.booba8.anims.create({key: 'booba-consume-fail-start',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 0, end: 1 }),frameRate: 7,repeat: 0});
+        this.booba8.anims.create({key: 'booba-consume-fail-end',frames: this.booba8.anims.generateFrameNames('8-1-evelyn-booba', { start: 2, end: 3 }),frameRate: 7,repeat: 0});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-consume-fail-start',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 0, end: 1 }),frameRate: 7,repeat: 0});
+        this.boobaCloths8.anims.create({key: 'booba-cloths-consume-fail-end',frames: this.boobaCloths8.anims.generateFrameNames('8-2-evelyn-booba-cloths', { start: 2, end: 3 }),frameRate: 7,repeat: 0});
+        
         //stuck animations
         this.mainBodySprite5.anims.create({key: 'blueSlimeStuck',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 0, end: 3 }),frameRate: 8,repeat: -1});
         this.mainBodySprite5.anims.create({key: 'cursedHeartInfatuated',frames: this.mainBodySprite5.anims.generateFrameNames('femalePlayerStucks', { start: 4, end: 7 }),frameRate: 5,repeat: 0});

@@ -472,79 +472,7 @@ class playerWeaponFunctions extends playerItemMaps{
                 });
               
               }
-
-            
-              
             break;
-            case (28):
-
-              if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax-1){
-
-                if(this.playedAttackAnimation === false){
-                  this.playedAttackAnimation = true;
-                  this.scene.initSoundEffect('weaponSFX','medium',0.1);
-                  this.playerBonkAnimation9FPS();
-                  this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
-                    this.isAttacking = false;
-                    this.playedAttackAnimation = false;
-                    console.log("attack is over so stoping");
-
-                    //if the players curse bar would be below the max then add to the curse build up
-                    if(playerHealthObject.playerCurse + 10 < playerHealthObject.playerCurseMax){
-
-                      healthEmitter.emit(healthEvent.curseBuildUp,10);
-
-                      //then remove one item off the consumable stack.
-                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
-
-                    //otherwise 
-                    }else{
-
-                      //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
-                      healthEmitter.emit(healthEvent.curseBuildUp,(playerHealthObject.playerCurseMax-playerHealthObject.playerCurse)-1);
-
-                      //then remove one item off the consumable stack.
-                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
-
-                    }
-                  
-                  });
-                }
-                
-              }else{
-
-                if(this.playedAttackAnimation === false){
-
-                this.playedAttackAnimation = true;
-                this.scene.initSoundEffect('weaponSFX','high1',0.1);
-                this.playerUnarmedAnimation();
-                console.log("this.playedAttackAnimation: ",this.playedAttackAnimation);
-                this.weaponLayer9.anims.play("weapon-start-unarmed").once('animationcomplete', () => {
-
-                  //sends the weapon layer to the back
-                  this.sendToBack(this.weaponLayer9);
-                  this.moveUpXTimes(this.weaponPositionBack);
-                  console.log("unarmed half way point SHOULD BE STARTING FINISHED HALF OF THE ANIMATION/");
-                  this.playedAttackAnimation = true;
-
-                  this.weaponLayer9.anims.play("weapon-finish-unarmed").once('animationcomplete', () => {
-                    //sends weapon layer back to front -1
-                    this.moveUpXTimes(this.weaponPositionfront);
-                    console.log("unarmed finished way point");
-
-                    this.backLeg1.visible = false;
-                    this.backLegCloths2.visible = false;
-                    this.isAttacking = false;
-                    this.playedAttackAnimation = false;
-                    
-                    console.log("attack is over so stoping");
-                  });
-                });
-              }
-            
-              }
-            
-              break;
             case (29):
             if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
                 if(this.playedAttackAnimation === false){
@@ -569,9 +497,33 @@ class playerWeaponFunctions extends playerItemMaps{
                 
             }
             break;
-            default:
-              //default case being empty means we get oftlocked
 
+            default:
+
+              //default case being empty means we get oftlocked
+              if(this.playedAttackAnimation === false){
+
+                this.playedAttackAnimation = true;
+                //this.scene.initSoundEffect('weaponSFX','high1',0.1);
+
+                this.playerConsumeFailStartAnimation();
+
+                this.mainBodySprite5.anims.play("main-body-consume-fail-start").once('animationcomplete', () => {
+                   
+                    this.fixAnimationVariable();
+
+                    this.playerConsumeFailEndAnimation();
+
+                    this.mainBodySprite5.anims.play("main-body-consume-fail-end").once('animationcomplete', () => {
+
+                      this.isAttacking = false;
+                      this.playedAttackAnimation = false;
+
+                      console.log("consume is over so stoping");
+                    });
+                });
+              
+              }
             }
   }
  

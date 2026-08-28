@@ -59,9 +59,9 @@ class gameHud extends A3SoundEffects {
       this.load.spritesheet('inventorySlots', 'assets/hudElements/InventorySlots.png',{frameWidth: 96 , frameHeight: 96 });
       this.load.spritesheet('closingButton', 'assets/hudElements/closingButton.png',{frameWidth: 51, frameHeight: 51 });
 
-      this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 129 });
-      this.load.spritesheet('hpBarCurseStage', 'assets/hudElements/hpBarCurseStage.png',{frameWidth: 96, frameHeight: 129 });
-      this.load.spritesheet('hpBarFace', 'assets/hudElements/hpBarFace.png',{frameWidth: 96, frameHeight: 129 });
+      this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 159 });
+      this.load.spritesheet('hpBarCurseStage', 'assets/hudElements/hpBarCurseStage.png',{frameWidth: 96, frameHeight: 159 });
+      this.load.spritesheet('hpBarFace', 'assets/hudElements/hpBarFace.png',{frameWidth: 96, frameHeight: 159 });
       
       this.load.spritesheet('bossBar', 'assets/hudElements/bossBar.png',{frameWidth: 1083, frameHeight: 75});
       this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
@@ -748,7 +748,7 @@ class gameHud extends A3SoundEffects {
             //if the shop ui isnt already created.
             if(this.playerShop === null){
               //adds player storage ui
-              this.playerShop = new shop(this,this.screenWidth/2-160,250);
+              this.playerShop = new shop(this,this.screenWidth/2-160,250+25);
               //this.playerShop.applyUIControlElements();
 
               //makes a tween for the inventory object so the interior is see through
@@ -1017,7 +1017,7 @@ class gameHud extends A3SoundEffects {
           });
 
           // create inventory hub object
-          this.playerInventory = new inventory(this,130,133);
+          this.playerInventory = new inventory(this,130,145);
           
           //makes a tween for the inventory object so the interior is see through
           this.inventoryTween = this.tweens.add({
@@ -1058,7 +1058,7 @@ class gameHud extends A3SoundEffects {
           inventoryKeyEmitter.on(inventoryKey.makeStorage,() =>{
             if(this.playerStorage === null){
                         //adds player storage ui
-              this.playerStorage = new storage(this,this.screenWidth/2-160,190);
+              this.playerStorage = new storage(this,this.screenWidth/2-160,190+17);
               this.playerStorage.applyUIControlElements();
 
                 //makes a tween for the inventory object so the interior is see through

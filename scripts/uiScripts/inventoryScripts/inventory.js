@@ -7,7 +7,7 @@ class inventory extends Phaser.GameObjects.Container{
       //so here in the subclass of sprite its refering to the image object we just made. 
       scene.add.existing(this);
 
-      //connects the sprite to the camera so that it sticks with the player.
+      //connects the sprite to the camera so that it sticks with the player."inventory"
       this.setScrollFactor(0);
       this.setDepth(20);
 
@@ -83,7 +83,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryBorder);
 
       //makes the label for the inventory
-      this.inventoryLabel = new makeText(scene,-90,5,'charBubble',"INVENTORY");
+      this.inventoryLabel = new makeText(scene,-90,17,'charBubble',"INVENTORY");
       this.inventoryLabel.visible = false;
       this.add(this.inventoryLabel);
 
@@ -144,7 +144,7 @@ class inventory extends Phaser.GameObjects.Container{
       this.add(this.inventoryArray[index].number2);
 
       //adding settings menu
-      this.settingsUI = new optionsMenu(scene,this,this.x+800,this.y-200);
+      this.settingsUI = new optionsMenu(scene,this,this.x+800,this.y-200+12);
       //this.add(this.settingsUI);
 
       //adds settings menu button
@@ -246,7 +246,7 @@ class inventory extends Phaser.GameObjects.Container{
       }
 
        //create text button which can be used to split a stack
-       this.split = new makeText(this.scene,200,-26,'charBubble',"SPLIT",true);
+       this.split = new makeText(this.scene,200,-26 + 12,'charBubble',"SPLIT",true);
        this.split.addHitbox();
        this.split.clicked = false;
        this.split.setScrollFactor(0);
@@ -294,7 +294,7 @@ class inventory extends Phaser.GameObjects.Container{
        },this);
        
        //create text button which can be used to split a stack
-       this.single = new makeText(this.scene,300,-26,'charBubble',"SINGLE",true);
+       this.single = new makeText(this.scene,300,-26+12,'charBubble',"SINGLE",true);
        this.single.addHitbox();
        this.single.clicked = false;
        this.single.setScrollFactor(0);
@@ -621,7 +621,7 @@ class inventory extends Phaser.GameObjects.Container{
         // applies logic to slot to display item name and description?
         let tempInventory = this;
         let descriptionX = 30;
-        let descriptionY = 740;
+        let descriptionY = 740+17;
         this.inventoryArray[counter].on('pointerover',function(pointer){
           
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');

@@ -878,7 +878,7 @@ class shop extends Phaser.GameObjects.Container{
         // applies logic to slot to display item name and description
         let tempshop = this;
         let descriptionX = 30;
-        let descriptionY = 540;
+        let descriptionY = 540+23;
         this.shopArray[counter].on('pointerover',function(pointer){
           //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
           scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);

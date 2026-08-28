@@ -16,14 +16,15 @@ class hpBar extends Phaser.GameObjects.Container{
 
         this.scene = scene;
 
-        this.outSide = scene.add.sprite(this.x, this.y, 'healthBar');
+        this.outSide = scene.add.sprite(this.x, this.y+15, 'healthBar');
         this.outSide.setTint(0x004168);
         this.add(this.outSide);
         
-        this.face = scene.add.sprite(this.x-540, this.y, 'hpBarFace');
+        this.face = scene.add.sprite(this.x-540, this.y+15, 'hpBarFace');
         this.add(this.face);
 
-        this.curseStage = scene.add.sprite(this.x-540, this.y, 'hpBarCurseStage');
+        this.curseStage = scene.add.sprite(this.x-540, this.y+15, 'hpBarCurseStage');
+
         this.curseStage.anims.create({key: '0',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 0, end: 0 }),frameRate: 10,repeat: -1});
         this.curseStage.anims.create({key: '1',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 1, end: 1 }),frameRate: 10,repeat: -1});
         this.curseStage.anims.create({key: '2',frames: this.curseStage.anims.generateFrameNames('hpBarCurseStage', { start: 2, end: 2 }),frameRate: 10,repeat: -1});
@@ -75,9 +76,12 @@ class hpBar extends Phaser.GameObjects.Container{
         this.curseBarHight = startmaxHight1;
 
         this.curseBar = new Phaser.GameObjects.Graphics(scene);
+
+        this.fullnessBar = new Phaser.GameObjects.Graphics(scene);
         
         this.add(this.hpBar);
         this.add(this.curseBar);
+        this.add(this.fullnessBar);
 
         scene.add.existing(this);
         this.setScale(2/3);
@@ -176,7 +180,7 @@ class hpBar extends Phaser.GameObjects.Container{
             }
 
             //this.bar.setScale(.4);
-            this.hpBar.fillRect(-33,  407, barLength,  this.hpBarHight);
+            this.hpBar.fillRect(-33,  507, barLength,  this.hpBarHight);
             this.hpBar.x = this.outSide.x-450;
             this.hpBar.y = this.outSide.y-450;
 
@@ -232,7 +236,7 @@ class hpBar extends Phaser.GameObjects.Container{
             }
 
             //this.bar.setScale(.4);
-            this.hpBar.fillRect(-33,  407, barLength,  this.hpBarHight);
+            this.hpBar.fillRect(-33,  392, barLength,  this.hpBarHight);
             this.hpBar.x = this.outSide.x-450;
             this.hpBar.y = this.outSide.y-450;
 
@@ -250,9 +254,32 @@ class hpBar extends Phaser.GameObjects.Container{
             this.curseBar.fillStyle(0xb317ff);
 
             //this.bar.setScale(.4);
-            this.curseBar.fillRect(-33,  473, barLength,  this.curseBarHight);
+            this.curseBar.fillRect(-33,  458, barLength,  this.curseBarHight);
             this.curseBar.x = this.outSide.x-450;
             this.curseBar.y = this.outSide.y-450;
+
+            //this.bar.setScale(.4);
+            this.hpBar.fillRect(-33,  392, barLength,  this.hpBarHight);
+            this.hpBar.x = this.outSide.x-450;
+            this.hpBar.y = this.outSide.y-450;
+
+            //fullness bar update
+            this.fullnessBar.clear();
+
+            percentage = (this.playerCurse/this.playerCurseMax);
+
+            this.curseBarWidth = curseMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+
+            barLength = Math.floor(this.curseBarWidth * percentage);
+
+            //console.log("curse barLength: ",barLength);
+
+            this.fullnessBar.fillStyle(0xFFA500);
+
+            //this.bar.setScale(.4);
+            this.fullnessBar.fillRect(-33,  493, barLength,  this.curseBarHight);
+            this.fullnessBar.x = this.outSide.x-450;
+            this.fullnessBar.y = this.outSide.y-450;
         }
         
         

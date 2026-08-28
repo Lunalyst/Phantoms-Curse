@@ -434,7 +434,7 @@ class storage extends Phaser.GameObjects.Container{
         // applies logic to slot to display item name and description
         let tempStorage = this;
         let descriptionX = 30;
-        let descriptionY = 740;
+        let descriptionY = 740+23;
 
         if(counter < 14){
           this.storageArray[counter].on('pointerover',function(pointer){

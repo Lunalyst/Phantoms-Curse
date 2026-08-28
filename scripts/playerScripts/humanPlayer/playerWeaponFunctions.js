@@ -428,50 +428,56 @@ class playerWeaponFunctions extends playerItemMaps{
 
             switch(this.playerDataObject.playerInventoryData[4].itemID) {
 
-            case (28):
+            case (28):  
+              //case to check if item use is valid.
+              if(playerHealthObject.playerCurse < playerHealthObject.playerCurseMax-1){
+                if(this.playedAttackAnimation === false){
 
-              if(this.playedAttackAnimation === false){
+                  this.playedAttackAnimation = true;
+                  //this.scene.initSoundEffect('weaponSFX','high1',0.1);
 
-                this.playedAttackAnimation = true;
-                //this.scene.initSoundEffect('weaponSFX','high1',0.1);
+                  this.playerConsumeStartAnimation();
 
-                this.playerConsumeStartAnimation();
+                  this.mainBodySprite5.anims.play("main-body-consume-start").once('animationcomplete', () => {
+                    
+                      this.fixAnimationVariable();
 
-                this.mainBodySprite5.anims.play("main-body-consume-start").once('animationcomplete', () => {
-                   
-                    this.fixAnimationVariable();
+                      //if the players curse bar would be below the max then add to the curse build up
+                      if(playerHealthObject.playerCurse + 10 < playerHealthObject.playerCurseMax){
 
-                    //if the players curse bar would be below the max then add to the curse build up
-                    if(playerHealthObject.playerCurse + 10 < playerHealthObject.playerCurseMax){
+                        healthEmitter.emit(healthEvent.curseBuildUp,10);
 
-                      healthEmitter.emit(healthEvent.curseBuildUp,10);
+                        //then remove one item off the consumable stack.
+                        inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
 
-                      //then remove one item off the consumable stack.
-                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+                      //otherwise 
+                      }else{
 
-                    //otherwise 
-                    }else{
+                        //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
+                        healthEmitter.emit(healthEvent.curseBuildUp,(playerHealthObject.playerCurseMax-playerHealthObject.playerCurse)-1);
 
-                      //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
-                      healthEmitter.emit(healthEvent.curseBuildUp,(playerHealthObject.playerCurseMax-playerHealthObject.playerCurse)-1);
+                        //then remove one item off the consumable stack.
+                        inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
 
-                      //then remove one item off the consumable stack.
-                      inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+                      }
 
-                    }
+                      this.playerConsumeEndAnimation();
 
-                    this.playerConsumeEndAnimation();
+                      this.mainBodySprite5.anims.play("main-body-consume-end").once('animationcomplete', () => {
 
-                    this.mainBodySprite5.anims.play("main-body-consume-end").once('animationcomplete', () => {
+                        this.isAttacking = false;
+                        this.playedAttackAnimation = false;
 
-                      this.isAttacking = false;
-                      this.playedAttackAnimation = false;
-
-                      console.log("consume is over so stoping");
-                    });
-                });
-              
+                        console.log("consume is over so stoping");
+                      });
+                  });
+                
+                } 
+              //if the player cursebar is one point below max, then do shrug instead.
+              }else{
+                this.consumeFailAnimation();
               }
+
             break;
             case (29):
             if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
@@ -497,34 +503,60 @@ class playerWeaponFunctions extends playerItemMaps{
                 
             }
             break;
+            case (29):
+            if(playerHealthObject.playerHealth !== playerHealthObject.playerMaxHealth){
+                if(this.playedAttackAnimation === false){
+                  this.playedAttackAnimation = true;
+                  this.scene.initSoundEffect('weaponSFX','medium',0.1);
+                  this.playerBonkAnimation9FPS();
+                  this.weaponLayer9.anims.play("weapon-oar").once('animationcomplete', () => {
+                    this.isAttacking = false;
+                    this.playedAttackAnimation = false;
+                    console.log("attack is over so stoping");
 
-            default:
+                    //need to heal the player,
+                    healthEmitter.emit(healthEvent.gainHealth,10);
 
-              //default case being empty means we get oftlocked
-              if(this.playedAttackAnimation === false){
+                    //then remove one item off the consumable stack.
+                    inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
 
-                this.playedAttackAnimation = true;
-                //this.scene.initSoundEffect('weaponSFX','high1',0.1);
 
-                this.playerConsumeFailStartAnimation();
-
-                this.mainBodySprite5.anims.play("main-body-consume-fail-start").once('animationcomplete', () => {
-                   
-                    this.fixAnimationVariable();
-
-                    this.playerConsumeFailEndAnimation();
-
-                    this.mainBodySprite5.anims.play("main-body-consume-fail-end").once('animationcomplete', () => {
-
-                      this.isAttacking = false;
-                      this.playedAttackAnimation = false;
-
-                      console.log("consume is over so stoping");
-                    });
-                });
-              
-              }
+                  
+                  });
+                }
+                
             }
+            break;
+            default:
+              this.consumeFailAnimation();
+            }
+  }
+
+  consumeFailAnimation(){
+    //default case being empty means we get oftlocked
+      if(this.playedAttackAnimation === false){
+
+        this.playedAttackAnimation = true;
+        //this.scene.initSoundEffect('weaponSFX','high1',0.1);
+
+        this.playerConsumeFailStartAnimation();
+
+        this.mainBodySprite5.anims.play("main-body-consume-fail-start").once('animationcomplete', () => {
+                   
+          this.fixAnimationVariable();
+
+          this.playerConsumeFailEndAnimation();
+
+          this.mainBodySprite5.anims.play("main-body-consume-fail-end").once('animationcomplete', () => {
+
+            this.isAttacking = false;
+            this.playedAttackAnimation = false;
+
+          console.log("consume is over so stoping");
+        });
+      });
+              
+    }
   }
  
 }

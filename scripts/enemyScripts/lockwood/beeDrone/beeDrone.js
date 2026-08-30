@@ -174,11 +174,13 @@ class beeDrone extends beeDroneAbduct {
     //functions that move beeDrone objects.
     move(){
 
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
+        //this.x = Math.round(this.x);
+        //this.y = Math.round(this.y);
         
         //console.log(' this.enemyId: ', this.enemyId,' this.playerGrabbed: ',this.playerGrabbed, ' this.grabTimer: ',this.grabTimer);
          if (this.enemyHP > 0) {
+
+            this.setSize(70, 193, true);
 
             if(this.tiredCounter > 4 && this.isTired === false){
                 //choke
@@ -260,7 +262,7 @@ class beeDrone extends beeDroneAbduct {
                             this.playWingFlapSound('1',500);
                             this.playingSound = true;
                         }
-                        this.setSize(70, 180, true);
+                        this.setSize(70, 191, true);
                 
                         //if bee is within range
                         if ((this.scene.player1.x > this.x - 50 && this.scene.player1.x < this.x + 50)){
@@ -533,7 +535,7 @@ class beeDrone extends beeDroneAbduct {
                                 this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
                             //}
                             
-
+                            this.setSize(70, 186, true);
                             this.anims.play('beeDroneDefeatedFallLinger').once('animationcomplete', () => {
                                 //then destroy slime.
                                 this.anims.play('beeDroneDefeatedLinger');

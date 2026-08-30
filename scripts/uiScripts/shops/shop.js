@@ -727,17 +727,21 @@ class shop extends Phaser.GameObjects.Container{
       this.copyDataArray = [];
 
       //fill the copydataarray with the item object from 3 to 27
-      for(let counter = 0; counter < 28;counter++){
+      for(let counter = 0; counter < 20;counter++){
         //note its easier to just grab the first 0-27 inventory items. since we call.getDataLocation
         //tagtofix
         this.copyDataArray.push(this.scene.inventoryDataArray[counter]);
+        
       }
+
+      console.log(this.copyDataArray);
       
       //index keeps track of the lost, we skip the first two slots as they are the equipment slots
       let index = 0;
       //nested loop to loop through all the rows and columns of the inventory slots
       for(let col = 0; col < this.numberOfColumns; col++){
         for(let row = 0; row < this.numberOfRows; row++){
+          console.log("col: ",col ," row: ",row);
           //console.log('first loop this.copyDataArray[',this.getDataLocation(index),']: ',this.copyDataArray[this.getDataLocation(index)].itemID)
           this.shopArray[index].anims.play(""+this.copyDataArray[this.getDataLocation(index)].itemID);
           this.shopArray[index].clearTint();
@@ -837,7 +841,7 @@ class shop extends Phaser.GameObjects.Container{
     SaveAndClearSlots(){
       
       //overwrite the values from 3-27 in the original storage array with the current copy.
-      for(let counter = 0; counter < 28;counter++){
+      for(let counter = 0; counter < 20;counter++){
         //overwrite slots in memory with new data
         this.scene.inventoryDataArray[counter] = this.copyDataArray[counter];
       }
@@ -848,7 +852,7 @@ class shop extends Phaser.GameObjects.Container{
       };
 
       //afterward check to see if anything is left in the sell slots.
-      for(let counter = 28; counter < 37;counter++){
+      for(let counter = 20; counter < 29;counter++){
         //if so then add them back to the player inventory using our built in emitter. that way items cant be lost.
         //if the inventory is full as an example, then the items left in the sell slots will end up in the storage locker.
         //emitter to add object to inventory.

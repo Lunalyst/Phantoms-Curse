@@ -305,9 +305,8 @@ class beeDrone extends beeDroneAbduct {
             
                     //if the be isnt within range of the player have them idle.  
                     }else{
-                        this.anims.play('beeDroneIdle', true);
-                        this.setVelocityX(0);
-                        this.setVelocityY(0);
+
+                        this.moveIdle();
 
                         if(this.scene.sound.get(this.beeSFX) !== null){
                             this.scene.sound.get(this.beeSFX).stop();
@@ -356,6 +355,8 @@ class beeDrone extends beeDroneAbduct {
             this.grabHitBox.y = this.y + 3000; 
             this.setDepth(4);
             this.grabTimer = false;
+            this.tiredCounter = 0; 
+            this.isTired = false;
         }
         
     }

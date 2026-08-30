@@ -241,7 +241,7 @@ class autumn extends npc{
           let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = this.scene.makePlayerDataObject();
+                let playerDataObject = temp.scene.makePlayerDataObject();
 
                 //check if the level is the dream version
                 console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
@@ -391,7 +391,7 @@ class autumn extends npc{
         let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = this.scene.makePlayerDataObject();
+                let playerDataObject = temp.scene.makePlayerDataObject();
 
                 //check if the level is the dream version
                 console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
@@ -497,7 +497,7 @@ class autumn extends npc{
                           
                       if(temp.animationView === false){
                           //creates a object to hold data for scene transition
-                          let playerDataObject = this.scene.makePlayerDataObject();
+                          let playerDataObject = temp.scene.makePlayerDataObject();
 
                             //grabs the latests data values from the gamehud. also sets hp back to max hp.
                             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
@@ -779,7 +779,7 @@ class autumn extends npc{
                           
           if(temp.animationView === false){
             //creates a object to hold data for scene transition
-                          let playerDataObject = this.scene.makePlayerDataObject();
+                          let playerDataObject = temp.scene.makePlayerDataObject();
 
                             //grabs the latests data values from the gamehud. also sets hp back to max hp.
                             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);

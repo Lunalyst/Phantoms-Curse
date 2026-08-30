@@ -579,15 +579,17 @@ class G9CheckEnemys extends G8InitEnemys {
 
         //calls drone function to move
 
-        //if the player is not sleeping
-        if(scene.player1.idleTimer !== 2000){
-          //calls to make each instance of a bat move.
-            tempBeeDrone.move(scene.player1,scene);
-        }else{
-           if(tempBeeDrone.enemyHP > 0){
+        
+        //calls to make each instance of a bat move.
+        tempBeeDrone.move(scene.player1,scene);
+
+        if(this.grabbed === true && tempBeeDrone.playerGrabbed === false){
+          if(tempBeeDrone.enemyHP > 0){
             tempBeeDrone.moveIdle()
           }
         }
+       
+        
         
         //if the hitbox overlaps the drone, then  deal damage to that drone
         if(tempBeeDrone.hitboxOverlaps === true) {
@@ -603,6 +605,16 @@ class G9CheckEnemys extends G8InitEnemys {
         }  
 
     //if the tempBeeDrone is in safe mode, and in range of the player then 
+    }else if(!scene.objectsInRangeX(tempBeeDrone,scene.player1,450) && tempBeeDrone.inSafeMode === false){
+  
+      tempBeeDrone.moveIdle();
+
+      if(this.sound.get(tempBeeDrone.beeSFX) !== null){
+        this.sound.get(tempBeeDrone.beeSFX).stop();
+      }
+
+      tempBeeDrone.playingSound = false;
+                                    
     }else if(this.objectsInRangeX(tempBeeDrone,scene.player1,30) && this.objectsInRangeY(tempBeeDrone,scene.player1,30)){
 
       this.viewAnimationLogic(tempBeeDrone);

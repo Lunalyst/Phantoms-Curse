@@ -482,56 +482,9 @@ class playerWeaponFunctions extends playerItemMaps{
 
             break;
             case (29):
-              let fullValue = 7
-            if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth && playerHealthObject.playerFull <= playerHealthObject.playerFullMax - fullValue){
-                if(this.playedAttackAnimation === false){
-
-                  this.playedAttackAnimation = true;
-                  //this.scene.initSoundEffect('weaponSFX','high1',0.1);
-
-                  this.playerConsumeStartAnimation();
-
-                  this.mainBodySprite5.anims.play("main-body-consume-start").once('animationcomplete', () => {
-                    
-                      this.fixAnimationVariable();
-
-                       healthEmitter.emit(healthEvent.fullBuildUp,7);
-
-                      //if the players curse bar would be below the max then add to the curse build up
-                      if(playerHealthObject.playerHealth + 10 < playerHealthObject.playerMaxHealth){
-
-                        healthEmitter.emit(healthEvent.gainHealth,10);
-
-                        //then remove one item off the consumable stack.
-                        inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
-
-                      //otherwise 
-                      }else{
-
-                        //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
-                        healthEmitter.emit(healthEvent.gainHealth,(playerHealthObject.playerMaxHealth - playerHealthObject.playerHealth));
-
-                        //then remove one item off the consumable stack.
-                        inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
-
-                      }
-
-                      this.playerConsumeEndAnimation();
-
-                      this.mainBodySprite5.anims.play("main-body-consume-end").once('animationcomplete', () => {
-
-                        this.isAttacking = false;
-                        this.playedAttackAnimation = false;
-
-                        console.log("consume is over so stoping");
-                      });
-                  });
-                
-                } 
-              //if the player cursebar is one point below max, then do shrug instead.
-              }else{
-                this.consumeFailAnimation();
-              }
+              this.genericHeal(playerHealthObject,7,10);
+            case (30):
+              this.genericHeal(playerHealthObject,4,5);
             break;
             default:
               this.consumeFailAnimation();
@@ -562,6 +515,58 @@ class playerWeaponFunctions extends playerItemMaps{
         });
       });
               
+    }
+  }
+
+  genericHeal(playerHealthObject,fullValue,restoreValue){
+    if(playerHealthObject.playerHealth < playerHealthObject.playerMaxHealth && playerHealthObject.playerFull <= playerHealthObject.playerFullMax - fullValue){
+      if(this.playedAttackAnimation === false){
+
+        this.playedAttackAnimation = true;
+        //this.scene.initSoundEffect('weaponSFX','high1',0.1);
+
+        this.playerConsumeStartAnimation();
+
+        this.mainBodySprite5.anims.play("main-body-consume-start").once('animationcomplete', () => {
+                    
+          this.fixAnimationVariable();
+
+          healthEmitter.emit(healthEvent.fullBuildUp,fullValue);
+
+          //if the players curse bar would be below the max then add to the curse build up
+          if(playerHealthObject.playerHealth + restoreValue < playerHealthObject.playerMaxHealth){
+
+            healthEmitter.emit(healthEvent.gainHealth,restoreValue);
+
+            //then remove one item off the consumable stack.
+            inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+
+            //otherwise 
+            }else{
+
+              //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
+              healthEmitter.emit(healthEvent.gainHealth,(playerHealthObject.playerMaxHealth - playerHealthObject.playerHealth));
+
+              //then remove one item off the consumable stack.
+              inventoryKeyEmitter.emit(inventoryKey.reduceItemAmount,4,1);
+
+            }
+
+            this.playerConsumeEndAnimation();
+
+            this.mainBodySprite5.anims.play("main-body-consume-end").once('animationcomplete', () => {
+
+              this.isAttacking = false;
+              this.playedAttackAnimation = false;
+
+              console.log("consume is over so stoping");
+            });
+          });
+                
+        } 
+    //if the player cursebar is one point below max, then do shrug instead.
+    }else{
+        this.consumeFailAnimation();
     }
   }
  

@@ -134,22 +134,7 @@ class mushroomNode extends Phaser.Physics.Arcade.Sprite{
                 //if the flag was not found, then save the players game with the flag.
                 if(object.foundFlag === false){
                     //creates a object to hold data for scene transition
-                    let playerDataObject = {
-                        saveX: null,
-                        saveY: null,
-                        playerHpValue: null,
-                        playerMaxHP: null,
-                        playerSex: null,
-                        playerLocation: null,
-                        inventoryArray: null,
-                        playerBestiaryData: null,
-                        playerSkillsData: null,
-                        playerSaveSlotData: null,
-                        flagValues: null,
-                        settings:null,
-                        dreamReturnLocation:null,
-                        playerCurseValue:null
-                    };
+                    let playerDataObject = this.scene.makePlayerDataObject();
                     
                     //grabs the latests data values from the gamehud. also sets hp back to max hp.
                     inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);

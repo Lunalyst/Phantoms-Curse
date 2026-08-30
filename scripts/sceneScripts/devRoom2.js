@@ -166,7 +166,7 @@ class devRoom2 extends defaultScene {
       
       //this.initItemDrop(1865,660,16,1,64,"FUEL ICHOR","FUEL FOR A LANTERN.","ammo",5);
 
-      this.initItemDrop(1865,660,31,1,1,"MYCELIUM SAMPLE","SAMPLE FROM THE SOURCE OF THE MYCELIUM...","quest",0);
+      //this.initItemDrop(1865,660,31,1,1,"MYCELIUM SAMPLE","SAMPLE FROM THE SOURCE OF THE MYCELIUM...","quest",0);
 
 
 
@@ -189,7 +189,7 @@ class devRoom2 extends defaultScene {
           //generates enemys
           //thisScene.initEnemy(1028,701-3,thisScene.playerSex,'whiteCat',false);
 
-          /*thisScene.initHealthUpgrade(2190, 696, '1');
+          thisScene.initHealthUpgrade(2190, 696, '1');
           thisScene.initHealthUpgrade(2210, 696, '2');
           thisScene.initHealthUpgrade(2230, 696, '3');
           thisScene.initHealthUpgrade(2250, 696, '4');
@@ -198,7 +198,7 @@ class devRoom2 extends defaultScene {
           thisScene.initHealthUpgrade(2310, 696, '7');
           thisScene.initHealthUpgrade(2330, 696, '8');
           thisScene.initHealthUpgrade(2350, 696, '9');
-          thisScene.initHealthUpgrade(2370, 696, '10');*/
+          //thisScene.initHealthUpgrade(2370, 696, '10');
 
       
           thisScene.spawnedEnemys = true;

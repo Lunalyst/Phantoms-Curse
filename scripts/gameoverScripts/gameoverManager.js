@@ -154,21 +154,7 @@ class gameoverManager extends A3SoundEffects {
             }
 
               //creates a object to hold data for scene transition
-                let playerDataObject = {
-                    saveX: gameoverThat.warpToX,
-                    saveY: gameoverThat.warpToY,
-                    playerHpValue: gameoverThat.playerHealth,
-                    playerSex:gameoverThat.playerSex,
-                    playerLocation: gameoverThat.playerLocation,
-                    inventoryArray: gameoverThat.inventoryDataArray,
-                    playerBestiaryData: gameoverThat.playerBestiaryData,
-                    playerSkillsData: gameoverThat.playerSkillsData,
-                    playerSaveSlotData: gameoverThat.playerSaveSlotData,
-                    flagValues: gameoverThat.flagValues,
-                    settings:gameoverThat.settings,
-                    dreamReturnLocation:gameoverThat.dreamReturnLocation,
-                    playerCurseValue:gameoverThat.playerCurseValue
-                };
+                let playerDataObject = gameoverThat.makeAndFillPlayerDataObject(gameoverThat);
 
             //call save function for temp save so when we start the scene agian, it has the correct data.
             gameoverThat.saveGame(playerDataObject);
@@ -195,21 +181,7 @@ class gameoverManager extends A3SoundEffects {
         console.log("attempting to load slot:" + slot);
 
         //creates a object to hold data for scene transition
-        let playerDataObject = {
-            saveX: gameoverThat.warpToX,
-            saveY: gameoverThat.warpToY,
-            playerHpValue: gameoverThat.playerHealth,
-            playerSex:gameoverThat.playerSex,
-            playerLocation: gameoverThat.playerLocation,
-            inventoryArray: gameoverThat.inventoryDataArray,
-            playerBestiaryData: gameoverThat.playerBestiaryData,
-            playerSkillsData: gameoverThat.playerSkillsData,
-            playerSaveSlotData: gameoverThat.playerSaveSlotData,
-            flagValues: gameoverThat.flagValues,
-            settings:gameoverThat.settings,
-            dreamReturnLocation:gameoverThat.dreamReturnLocation,
-            playerCurseValue:gameoverThat.playerCurseValue
-        };
+        let playerDataObject = gameoverThat.makeAndFillPlayerDataObject(gameoverThat);
 
         //call save function for temp save so when we start the scene agian, it has the correct data.
         gameoverThat.saveGame(playerDataObject);

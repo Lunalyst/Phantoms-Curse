@@ -1196,21 +1196,7 @@ class vivian extends npc{
           this.dialogueCatch = true;
           //warp player to new gameplay scene
           //creates a object to hold data for scene transition
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
@@ -2647,21 +2633,7 @@ class vivian extends npc{
           this.startGameoverActivated  = true;
           this.dialogueCatch = true;
 
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
@@ -2798,21 +2770,7 @@ class vivian extends npc{
           this.startGameoverActivated  = true;
           this.dialogueCatch = true;
 
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);

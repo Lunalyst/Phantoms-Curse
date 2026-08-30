@@ -167,6 +167,13 @@ class gameHud extends A3SoundEffects {
           this.healthDisplay.calcCurseReduction(damage);
           console.log('curse is now:  ', this.healthDisplay.playerCurse);        
         });
+
+        //health object emmitter listeners which allow classes outside this scope to interact with the hud and vice versa
+        healthEmitter.on(healthEvent.reduceFull,(damage) =>{
+          console.log('emitter reducing full by: ', damage)
+          this.healthDisplay.calcFullReduction(damage);
+          console.log('full is now:  ', this.healthDisplay.playerFull);        
+        });
         
         healthEmitter.on(healthEvent.gainHealth,(healing) =>{
             console.log('emitter activating healing')
@@ -178,6 +185,12 @@ class gameHud extends A3SoundEffects {
 
           this.healthDisplay.calcCurseBuildUp(healing);
         });
+
+        healthEmitter.on(healthEvent.fullBuildUp,(healing) =>{
+          console.log('building up full: ',healing)
+
+          this.healthDisplay.calcFullBuildUp(healing);
+        });
         
         healthEmitter.on(healthEvent.maxHealth,() =>{
           console.log('emitter activating health to max')
@@ -187,6 +200,11 @@ class gameHud extends A3SoundEffects {
         healthEmitter.on(healthEvent.maxCurse,() =>{
           console.log('emitter activating curse to max')
           this.healthDisplay.maxCurse();
+        });
+
+        healthEmitter.on(healthEvent.maxFull,() =>{
+          console.log('emitter activating full to max')
+          this.healthDisplay.maxFull();
         });
 
         healthEmitter.on(healthEvent.clearCurse,() =>{
@@ -200,6 +218,9 @@ class gameHud extends A3SoundEffects {
             healthObject.playerMaxHealth = this.healthDisplay.playerHealthMax;
             healthObject.playerCurse = this.healthDisplay.playerCurse;
             healthObject.playerCurseMax = this.healthDisplay.playerCurseMax;
+            healthObject.playerFull = this.healthDisplay.playerFull;
+            healthObject.playerFullMax = this.healthDisplay.playerFullMax;
+            
 
         });
 
@@ -974,6 +995,7 @@ class gameHud extends A3SoundEffects {
             object.dreamReturnLocation = this.dreamReturnLocation;
 
             object.playerCurseValue = this.healthDisplay.playerCurse;
+            object.playerFullValue = this.healthDisplay.playerFull;
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;
@@ -1390,16 +1412,17 @@ class gameHud extends A3SoundEffects {
       this.label2 = this.add.text(xValue, 15, 'Cursor Location: (x, y)', { fontFamily: '"Monospace"'});
       this.label3 = this.add.text(xValue, 30, 'player HP: (hp,hpMax)', { fontFamily: '"Monospace"'});
       this.label4 = this.add.text(xValue, 45, 'player Curse: (Curse,curseMax)', { fontFamily: '"Monospace"'});
-      this.label5 = this.add.text(xValue, 60, 'Saveslot: ', { fontFamily: '"Monospace"'});
-      this.label6 = this.add.text(xValue, 75, 'Player Loc: (x, y)', { fontFamily: '"Monospace"'});
-      this.label7 = this.add.text(xValue, 90, 'Num of SaveStones: ', { fontFamily: '"Monospace"'});
-      this.label8 = this.add.text(xValue, 105, 'Num of itemDrops: ', { fontFamily: '"Monospace"'});
-      this.label9 = this.add.text(xValue, 120, 'Num of itemContainers: ', { fontFamily: '"Monospace"'});
-      this.label10 = this.add.text(xValue, 135, 'Num of wallLights: ', { fontFamily: '"Monospace"'});
-      this.label11 = this.add.text(xValue, 150, 'Num of npcs: ', { fontFamily: '"Monospace"'});
-      this.label12 = this.add.text(xValue, 165, 'Num of npcTriggers: ', { fontFamily: '"Monospace"'});
-      this.label13 = this.add.text(xValue, 180, 'Num of Enemies: ', { fontFamily: '"Monospace"'});
-      this.label14 = this.add.text(xValue, 195, 'Num of colliders: ', { fontFamily: '"Monospace"'});
+      this.label15 = this.add.text(xValue, 60, 'player Full: (Full,fullMax)', { fontFamily: '"Monospace"'});
+      this.label5 = this.add.text(xValue, 75, 'Saveslot: ', { fontFamily: '"Monospace"'});
+      this.label6 = this.add.text(xValue, 90, 'Player Loc: (x, y)', { fontFamily: '"Monospace"'});
+      this.label7 = this.add.text(xValue, 105, 'Num of SaveStones: ', { fontFamily: '"Monospace"'});
+      this.label8 = this.add.text(xValue, 120, 'Num of itemDrops: ', { fontFamily: '"Monospace"'});
+      this.label9 = this.add.text(xValue, 135, 'Num of itemContainers: ', { fontFamily: '"Monospace"'});
+      this.label10 = this.add.text(xValue, 150, 'Num of wallLights: ', { fontFamily: '"Monospace"'});
+      this.label11 = this.add.text(xValue, 165, 'Num of npcs: ', { fontFamily: '"Monospace"'});
+      this.label12 = this.add.text(xValue, 180, 'Num of npcTriggers: ', { fontFamily: '"Monospace"'});
+      this.label13 = this.add.text(xValue, 195, 'Num of Enemies: ', { fontFamily: '"Monospace"'});
+      this.label14 = this.add.text(xValue, 210, 'Num of colliders: ', { fontFamily: '"Monospace"'});
 
     }
 
@@ -1407,6 +1430,7 @@ class gameHud extends A3SoundEffects {
       this.label2.setText('Cursor Location: (' + Math.floor(this.pointer.x) + ', ' + Math.floor(this.pointer.y) + ')'); 
       this.label3.setText('player HP: (' + this.healthDisplay.playerHealth + '/' + this.healthDisplay.playerHealthMax +')'); 
       this.label4.setText('player Curse: (' + this.healthDisplay.playerCurse + '/' + this.healthDisplay.playerCurseMax +')'); 
+      this.label15.setText('player Full: (' + this.healthDisplay.playerFull + '/' + this.healthDisplay.playerFullMax +')'); 
       this.label5.setText('Saveslot: (' + this.playerSaveSlotData.saveSlot +')');
       
       if(this.gameplaySceneRef !== undefined && this.gameplaySceneRef !== null ){

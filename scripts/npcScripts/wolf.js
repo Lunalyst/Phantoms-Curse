@@ -932,21 +932,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
               //creates a object to hold data for scene transition
-              let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData: null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null,
-                dreamReturnLocation:null,
-                playerCurseValue:null
-              };
+              let playerDataObject = this.scene.makePlayerDataObject();
               
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
@@ -1313,21 +1299,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
               //creates a object to hold data for scene transition
-              let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData: null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null,
-                dreamReturnLocation:null,
-                playerCurseValue:null
-              };
+              let playerDataObject = this.scene.makePlayerDataObject();
               
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
@@ -1753,21 +1725,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+                let playerDataObject = this.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)
@@ -2022,21 +1980,7 @@ class wolf extends npc{
             let temp = this;
               setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+                let playerDataObject = this.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)

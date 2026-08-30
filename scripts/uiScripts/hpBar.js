@@ -8,6 +8,12 @@ const startMaxWidth1 = 230;
 const curseMaxWidthArr = [230,304,345,391,428,456,478,494,508,519];
 const startmaxHight1 = 27;
 const startPlayerCurse = 18;
+
+const startMaxWidth2 = 230;
+const fullMaxWidthArr = [185,259,298,346,383,413,432,449,463,474];
+const startmaxHight2 = 27;
+const startPlayerFull = 10;
+
 class hpBar extends Phaser.GameObjects.Container{
 
     constructor(scene, xPos, yPos){
@@ -76,6 +82,11 @@ class hpBar extends Phaser.GameObjects.Container{
         this.curseBarHight = startmaxHight1;
 
         this.curseBar = new Phaser.GameObjects.Graphics(scene);
+
+        this.playerFull = startPlayerFull;
+        this.playerFullMax = startPlayerFull;
+        this.curseBarWidth = startMaxWidth2;
+        this.curseBarHight = startmaxHight2;
 
         this.fullnessBar = new Phaser.GameObjects.Graphics(scene);
         
@@ -180,7 +191,7 @@ class hpBar extends Phaser.GameObjects.Container{
             }
 
             //this.bar.setScale(.4);
-            this.hpBar.fillRect(-33,  507, barLength,  this.hpBarHight);
+            this.hpBar.fillRect(-33,  392, barLength,  this.hpBarHight);
             this.hpBar.x = this.outSide.x-450;
             this.hpBar.y = this.outSide.y-450;
 
@@ -198,9 +209,28 @@ class hpBar extends Phaser.GameObjects.Container{
             this.curseBar.fillStyle(0xb317ff);
 
             //this.bar.setScale(.4);
-            this.curseBar.fillRect(-33,  473, barLength,  this.curseBarHight);
+            this.curseBar.fillRect(-33,  458, barLength,  this.curseBarHight);
             this.curseBar.x = this.outSide.x-450;
             this.curseBar.y = this.outSide.y-450;
+
+             //fullness bar update
+            this.fullnessBar.clear();
+
+            percentage = (this.playerFull/this.playerFullMax);
+
+            this.fullBarWidth = fullMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+
+            barLength = Math.floor(this.fullBarWidth * percentage);
+
+            //console.log("curse barLength: ",barLength);
+
+            this.fullnessBar.fillStyle(0xFFA500);
+
+            //this.bar.setScale(.4);
+            this.fullnessBar.fillRect(-33,  493, barLength,  this.curseBarHight);
+
+            this.fullnessBar.x = this.outSide.x-450;
+            this.fullnessBar.y = this.outSide.y-450;
             
         }else{
             let percentage = (this.playerHealth/this.playerHealthMax);
@@ -258,19 +288,14 @@ class hpBar extends Phaser.GameObjects.Container{
             this.curseBar.x = this.outSide.x-450;
             this.curseBar.y = this.outSide.y-450;
 
-            //this.bar.setScale(.4);
-            this.hpBar.fillRect(-33,  392, barLength,  this.hpBarHight);
-            this.hpBar.x = this.outSide.x-450;
-            this.hpBar.y = this.outSide.y-450;
-
             //fullness bar update
             this.fullnessBar.clear();
 
-            percentage = (this.playerCurse/this.playerCurseMax);
+            percentage = (this.playerFull/this.playerFullMax);
 
-            this.curseBarWidth = curseMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
+            this.fullBarWidth = fullMaxWidthArr[this.scene.playerSaveSlotData.playerHealthUpgrades];
 
-            barLength = Math.floor(this.curseBarWidth * percentage);
+            barLength = Math.floor(this.fullBarWidth * percentage);
 
             //console.log("curse barLength: ",barLength);
 
@@ -278,6 +303,7 @@ class hpBar extends Phaser.GameObjects.Container{
 
             //this.bar.setScale(.4);
             this.fullnessBar.fillRect(-33,  493, barLength,  this.curseBarHight);
+
             this.fullnessBar.x = this.outSide.x-450;
             this.fullnessBar.y = this.outSide.y-450;
         }
@@ -300,6 +326,15 @@ class hpBar extends Phaser.GameObjects.Container{
           this.playerCurse -= damageTaken;
           if(this.playerCurse < 0){
             this.playerCurse = 0;
+          }
+          this.updateDisplay();   
+    }
+
+    calcFullReduction(damageTaken){
+        //calcs damage by updating the value first then the display. thes sets cool down so damage does not happen too quickly.
+          this.playerFull -= damageTaken;
+          if(this.playerFull < 0){
+            this.playerFull = 0;
           }
           this.updateDisplay();   
     }
@@ -333,6 +368,24 @@ class hpBar extends Phaser.GameObjects.Container{
         console.log("this.playerCurse: ", this.playerCurse);
     }
 
+    calcFullBuildUp(healthHealed){
+
+        //only heals the player if there hp is less that the given max
+        if(this.playerFull < this.playerFullMax && this.playerFull + healthHealed <= this.playerFullMax){
+            this.playerFull += healthHealed;
+            this.updateDisplay();
+
+        }else if(this.playerFull + healthHealed > this.playerFullMax){
+            this.playerFull = this.playerFullMax;
+            this.updateDisplay();
+        }
+        //used to fix hp value if it overflows past max hp value
+        if(this.playerFull > this.playerFullMax){
+            this.playerFull = this.playerFullMax;
+        }
+        console.log("this.playerFull: ", this.playerFull);
+    }
+
     maxHealth(){
         //maxes out the players current hp
         this.playerHealth = this.playerHealthMax;
@@ -345,10 +398,23 @@ class hpBar extends Phaser.GameObjects.Container{
         this.updateDisplay();
     }
 
+    maxFull(){
+        //maxes out the players current hp
+        this.playerFull  = this.playerFullMax;
+        this.updateDisplay();
+    }
+
     clearCurse(){
         
         //maxes out the players current hp
         this.playerCurse  = 0;
+        this.updateDisplay();
+    }
+
+    clearFull(){
+
+        //maxes out the players current hp
+        this.playerFull  = 0;
         this.updateDisplay();
     }
 
@@ -389,6 +455,11 @@ class hpBar extends Phaser.GameObjects.Container{
         this.curseBarWidth = startMaxWidth1;
         this.playerCurseMax = startPlayerCurse;
 
+        this.fullBarWidth = startMaxWidth2;
+        this.playerFullMax = startPlayerFull;
+        console.log("startPlayerFull: ",startPlayerFull);
+
+
         //sets the size of the interior health bar to be correct. heal increase becomes less with more upgrades.
         for(let counter = 0; counter < size; counter++){
             //console.log("upgrade counter: ", counter);
@@ -399,12 +470,22 @@ class hpBar extends Phaser.GameObjects.Container{
                 this.curseBarWidth += Math.floor(startMaxWidth1 * .32);
                 this.playerCurseMax += Math.floor(startPlayerCurse * .40);
 
+                console.log("this.playerfullMax: ",this.playerFullMax);
+
+                this.fullBarWidth += Math.floor(startMaxWidth2 * .79);
+                this.playerFullMax += Math.floor(startPlayerFull * .40);
+
+                console.log("this.playerfullMax: ",this.playerFullMax);
+
             }else if(counter < 6){
-                this.hpBarWidth +=  Math.floor(startMaxWidth * .265);
+                this.hpBarWidth +=  Math.floor(startMaxWidth * .32);
                 this.playerHealthMax += Math.floor(startPlayerHealth * .25);
 
                 this.curseBarWidth += Math.floor(startMaxWidth1 * .79);
                 this.playerCurseMax += Math.floor(startPlayerCurse * .25);
+
+                this.fullBarWidth += Math.floor(startMaxWidth2 * .79);
+                this.playerFullMax += Math.floor(startPlayerFull * .25);
 
             }else if(counter < 10){
                 this.hpBarWidth += Math.floor(startMaxWidth * .16);
@@ -413,8 +494,16 @@ class hpBar extends Phaser.GameObjects.Container{
                 this.curseBarWidth += Math.floor(startMaxWidth1 * .50);
                 this.playerCurseMax += Math.floor(startPlayerCurse * .15);
 
+                this.fullBarWidth += Math.floor(startMaxWidth2 * .50);
+                this.playerFullMax += Math.floor(startPlayerFull * .15);
+
+
             }
 
+        }
+
+        if(this.playerCurseMax === this.playerCurse){
+            this.playerCurse = this.playerCurse - 1;
         }
         //console.log("this.playerHealthMax: ",this.playerHealthMax);
     }
@@ -441,26 +530,37 @@ class hpBar extends Phaser.GameObjects.Container{
 
             this.tempCurse = this.playerCurse;
             this.tempMaxCurse =  this.playerCurseMax;
+
+            this.tempFull = this.playerFull;
+            this.tempMaxFull =  this.playerFullMax;
              
             //this.playerCurseMax = startPlayerCurse;
             this.playerHealthMax = 50;
 
             this.playerCurseMax = 40;
 
-             this.playerCurse = this.playerCurseMax;
+            this.playerFullMax = 30;
+
+            this.playerCurse = this.playerCurseMax;
 
             this.playerHealth = this.playerHealthMax;
+
+            this.playerFull = 0;
 
             this.updateDisplay();
             
         }else{
+
             this.outSide.setTint(0x004168);
 
             this.playerHealth = this.tempHP;
             this.playerHealthMax = this.tempMaxHP;
 
             this.playerCurse = this.tempCurse;
-            this.playerCurseMax = this.tempMaxCurse;  
+            this.playerCurseMax = this.tempMaxCurse;
+            
+            this.playerFull = this.tempFull;
+            this.playerFullMax = this.tempMaxFull;
              
 
             this.updateDisplay();

@@ -19,6 +19,8 @@ class memory1 extends defaultScene {
     this.sceneSpeed = 2000;
     this.tabPopUp = false;
     this.tabPopUpCooldown = false;
+
+    this.stoppedScene = false;
     
     
   }
@@ -120,6 +122,8 @@ class memory1 extends defaultScene {
     //if tabtoskip is clicked then 
     this.skipIndicator.on('pointerdown', function (pointer) {
 
+      this.stoppedScene = true;
+
        //for loop looks through all the looping music playing within a given scene and stops the music.
         for(let counter = 0; counter < this.sound.sounds.length; counter++){
             this.sound.get(this.sound.sounds[counter].key).stop();
@@ -147,7 +151,9 @@ class memory1 extends defaultScene {
       that.cameras.main.fadeIn(1500, 0, 0, 0);
 
       setTimeout(function () {
-        that.initLoopingSound('memory1SFX','memory song',0.03,"music");
+        if(that.stoppedScene === false){
+          that.initLoopingSound('memory1SFX','memory song',0.03,"music");
+        }
       }, 2200);
 
       //show our scene sprite

@@ -1375,21 +1375,7 @@ class nectar extends npc{
       if(this.npcType === "ambush" ){
 
         //creates a object to hold data for scene transition
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //console.log(playerDataObject)
             
@@ -1738,21 +1724,7 @@ class nectar extends npc{
             /*let temp = this;
               setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+                let playerDataObject = this.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)
@@ -1850,22 +1822,7 @@ class nectar extends npc{
             //saving game on node 1 trigger, that way if the player leaves nectars fight and comes back ,that they have a checkpoint save before the fight
 
             //creates a object to hold data for scene transition
-            let playerDataObject = {
-                      saveX: null,
-                      saveY: null,
-                      playerHpValue: null,
-                      playerMaxHP: null,
-                      playerSex: null,
-                      playerLocation: null,
-                      inventoryArray: null,
-                      playerBestiaryData: null,
-                      playerSkillsData: null,
-                      playerSaveSlotData: null,
-                      flagValues: null,
-                      settings:null,
-                      dreamReturnLocation:null,
-                      playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
                     
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
@@ -2267,21 +2224,7 @@ class nectar extends npc{
             let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+                let playerDataObject = temp.scene.makePlayerDataObject();
 
                 //check if the level is the dream version
                 console.log("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( location data: ", temp.scene.playerLocation);
@@ -2702,22 +2645,9 @@ class nectar extends npc{
               }, 2000);
 
               setTimeout(function () {
+
                 //creates a object to hold data for scene transition
-                let playerDataObject = {
-                  saveX: null,
-                  saveY: null,
-                  playerHpValue: null,
-                  playerSex: null,
-                  playerLocation: null,
-                  inventoryArray: null,
-                  playerBestiaryData: null,
-                  playerSkillsData: null,
-                  playerSaveSlotData: null,
-                  flagValues: null,
-                  settings:null,
-                  dreamReturnLocation:null,
-                  playerCurseValue:null
-                };
+                let playerDataObject = temp.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)

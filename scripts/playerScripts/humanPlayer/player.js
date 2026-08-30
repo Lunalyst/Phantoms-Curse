@@ -195,6 +195,7 @@ class player extends playerWeaponFunctions{
     }
 
     this.curseReductiontimer = false;
+    this.fullReductionTimer = false;
     /*
       playeridle: frames: 6 layer: 8 7 6 5 4 3
       playerWalk: frames: 15 layer: 1 2 3 4 5 6 7 8
@@ -303,6 +304,23 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
           healthEmitter.emit(healthEvent.reduceCurse,1);
         }  
       }, 2000);
+      
+    }
+
+    //reduce hunger as well
+    //console.log("playerHealthObject.playerFull: ",playerHealthObject.playerFull, " this.fullReductionTimer: ",this.fullReductionTimer);
+    if(playerHealthObject.playerFull > 0 && this.fullReductionTimer === false){
+
+      //reduce it by one every two seconds.
+      this.fullReductionTimer = true;
+      let tempPlayer = this;
+      setTimeout(function () {
+
+        //console.log("resetting full reduction timer")
+        tempPlayer.fullReductionTimer = false;
+        healthEmitter.emit(healthEvent.reduceFull,1);
+        
+      }, 4000);
       
     }
   

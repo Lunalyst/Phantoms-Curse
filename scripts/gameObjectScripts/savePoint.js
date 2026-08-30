@@ -50,22 +50,7 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             scene1.initSoundEffect('curseSFX','curse',0.3);
 
             //creates a object to hold data for scene transition
-            let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerMaxHP: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData: null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null,
-                dreamReturnLocation:null,
-                playerCurseValue:null
-              };
+            let playerDataObject = this.scene.makePlayerDataObject();
               
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);

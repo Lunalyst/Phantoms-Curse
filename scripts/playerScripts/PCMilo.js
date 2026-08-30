@@ -960,6 +960,23 @@ class PCMilo extends Phaser.GameObjects.Container {
     this.scene.blockHitbox.setSize(width,height);
   }
 
+  resetAttack(){
+    
+    this.isAttacking = false;
+    this.playedAttackAnimation = false;
+    this.attackHitboxState = false;
+
+    this.sliceDamage = 0;
+    this.bluntDamage = 0;
+    this.pierceDamage = 0;
+    this.heatDamage = 0;
+    this.lightningDamage = 0;
+    this.coldDamage = 0;
+    this.curseDamage = 0;
+
+
+  }
+
   
 }
 

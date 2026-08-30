@@ -285,20 +285,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         inventoryKeyEmitter.emit(inventoryKey.getSaveSlot,getSaveSlot);
 
         //makes a object to pass along the players data too
-        let playerDataObject = {
-            saveX: null,
-            saveY: null,
-            playerMaxHp: null,
-            playerSex:null,
-            playerLocation: null,
-            inventoryArray: null,
-            playerBestiaryData: null,
-            playerSkillsData: null,
-            playerSaveSlotData: null,
-            flagValues: null,
-            settings:null,
-            dreamReturnLocation: null
-        };
+        let playerDataObject = scene.makePlayerDataObject();
         
         // then we call the built in returnfile function from our custom scene class
         scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
@@ -391,21 +378,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         inventoryKeyEmitter.emit(inventoryKey.getSaveSlot,getSaveSlot);
 
         //makes a object to pass along the players data too
-        let playerDataObject = {
-            saveX: null,
-            saveY: null,
-            playerMaxHp: null,
-            playerSex:null,
-            playerLocation: null,
-            inventoryArray: null,
-            playerBestiaryData: null,
-            playerSkillsData: null,
-            playerSaveSlotData: null,
-            flagValues: null,
-            settings:null,
-            dreamReturnLocation:null,
-            
-        };
+        let playerDataObject = this.scene.makePlayerDataObject();
         
         // then we call the built in returnfile function from our custom scene class
         console.log("getting saveslot data for settings.")
@@ -469,20 +442,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         inventoryKeyEmitter.emit(inventoryKey.getSaveSlot,getSaveSlot);
 
         //makes a object to pass along the players data too
-        let playerDataObject = {
-            saveX: null,
-            saveY: null,
-            playerHpValue: null,
-            playerSex: null,
-            playerLocation: null,
-            inventoryArray: null,
-            playerBestiaryData: null,
-            playerSkillsData: null,
-            playerSaveSlotData: null,
-            flagValues: null,
-            settings:null,
-            dreamReturnLocation:null,
-        };
+        let playerDataObject = this.scene.makePlayerDataObject();
         
         // then we call the built in returnfile function from our custom scene class
         console.log("getting saveslot data for settings.")

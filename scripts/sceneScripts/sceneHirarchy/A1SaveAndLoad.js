@@ -160,7 +160,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       flags: dataObject.flagValues,
       settings: dataObject.settings,
       dreamReturnLocation: dataObject.dreamReturnLocation,
-      playerCurseValue:dataObject.playerCurseValue
+      playerCurseValue:dataObject.playerCurseValue,
+      playerFullValue:dataObject.playerFullValue
       };
 
       // these are the game variables that are hard saved when the player uses a save point.
@@ -177,7 +178,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.flagValues:",dataObject.flagValues," --> file.flags: ",file.flags);
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
-      console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.dreamReturnLocation: ",file.playerCurseValue);
+      console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.playerCurseValue: ",file.playerCurseValue);
+      console.log("dataObject.playerFullValue:",dataObject.playerFullValue," --> file.playerFullValue: ",file.playerFullValue);
       console.log("=======================================================");
       //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
       if (dataObject.playerSaveSlotData.saveSlot === 1) {
@@ -239,7 +241,8 @@ class A1SaveAndLoad extends Phaser.Scene {
         this.flagValues = file.flags;
         this.settings = file.settings;
         this.dreamReturnLocation = file.dreamReturnLocation;
-        this.playerCurseValue = 0;
+        this.playerCurseValue = file.playerCurseValue;
+        this.playerFullValue = file.playerFullValue;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
         
         console.log("[loadGameFile]============================================");
@@ -256,6 +259,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
         console.log("this.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("this.playerCurseValue:",this.playerCurseValue);
+        console.log("this.playerFullValue:",this.playerFullValue);
         console.log("=======================================================");
 
         }
@@ -310,6 +314,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     dataObject.settings = file.settings;
     dataObject.dreamReturnLocation = file.dreamReturnLocation;
     dataObject.playerCurseValue = file.playerCurseValue;
+    dataObject.playerFullValue = file.playerFullValue;
 
      console.log("[returnFile]==============================================");
       console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -325,6 +330,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," <-- file.playerCurseValue: ",file.playerCurseValue);
+      console.log("dataObject.playerFullValue:",dataObject.playerFullValue," <-- file.playerFullValue: ",file.playerFullValue);
       console.log("=======================================================");
     // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
    
@@ -349,7 +355,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       flags: dataObject.flagValues,
       settings: dataObject.settings,
       dreamReturnLocation: dataObject.dreamReturnLocation,
-      playerCurseValue: dataObject.playerCurseValue
+      playerCurseValue: dataObject.playerCurseValue,
+      playerFullValue: dataObject.playerFullValue
       }
       //console.log(dataObject);
       console.log("[saveGame]============================================");
@@ -366,6 +373,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.settings:",dataObject.settings," --> file.settings: ",file.settings);
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.playerCurseValue: ",file.playerCurseValue);
+      console.log("dataObject.playerFullValue:",dataObject.playerFullValue," --> file.playerFullValue: ",file.playerFullValue);
       console.log("=======================================================");
 
       localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
@@ -403,6 +411,7 @@ class A1SaveAndLoad extends Phaser.Scene {
 
     this.healthDisplay.playerHealth = file.playerHpValue;
     this.healthDisplay.playerCurse = file.playerCurseValue;
+    this.healthDisplay.playerFull = file.playerFullValue;
 
     this.playerSex = file.sex;
     this.playerLocation = file.locationName;
@@ -428,6 +437,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("this.settings:",this.settings," <-- file.settings: ",file.settings);
         console.log("dataObject.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("dataObject.playerCurseValue:",this.healthDisplay.playerCurse," <-- file.playerCurseValue: ",file.playerCurseValue);
+        console.log("dataObject.playerFullValue:",this.healthDisplay.playerFull," <-- file.playerFullValue: ",file.playerFullValue);
         console.log("=======================================================");
 
   }
@@ -450,6 +460,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     dataObject.settings = file.settings;
     dataObject.dreamReturnLocation = file.dreamReturnLocations;
     dataObject.playerCurseValue = file.playerCurseValue;
+    dataObject.playerFullValue = file.playerFullValue;
 
     console.log("[returnSave]==============================================");
     console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -464,7 +475,8 @@ class A1SaveAndLoad extends Phaser.Scene {
     console.log("dataObject.flagValues:",dataObject.flagValues," <-- file.flags: ",file.flags);
     console.log("dataObject.settings:",dataObject.settings," <-- file.settings: ",file.settings);
     console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
-     console.log("dataObject.dreamReturnLocation:",dataObject.playerCurseValue," <-- file.dreamReturnLocation: ",file.playerCurseValue);
+    console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," <-- file.playerCurseValue: ",file.playerCurseValue);
+    console.log("dataObject.playerFullValue:",dataObject.playerFullValue," <-- file.playerFullValue: ",file.playerFullValue);
     console.log("=======================================================");
   }
 
@@ -587,6 +599,7 @@ for(let counter = 0; counter < 95; counter++){
   playerObject.settings = settings;
   playerObject.dreamReturnLocation = dreamReturnLocation;
   playerObject.playerCurseValue = 0;
+  playerObject.playerFullValue = 0;
   }
 
   // ─── PC SAVE EXPORT ────────────────────────────────────────────────────────
@@ -1067,6 +1080,58 @@ for(let counter = 0; counter < 95; counter++){
       dataObject.playerCurseValue = 0;
 
     }
+
+    if(dataObject.playerFullValue === undefined || dataObject.playerFullValue === null){
+      dataObject.playerFullValue = 0;
+
+    }
+
+  }
+
+  //if adding new data to savefiles, then I need to update getCurrentData emitter in game hud as well
+
+  //function to be called to make a temperary save object. 
+  makePlayerDataObject(){
+
+    console.log("making a temp save file and returning it! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    return {
+      saveX: null,
+      saveY: null,
+      playerHpValue: null,
+      playerMaxHP: null,
+      playerSex: null,
+      playerLocation: null,
+      inventoryArray: null,
+      playerBestiaryData: null,
+      playerSkillsData: null,
+      playerSaveSlotData: null,
+      flagValues: null,
+      settings:null,
+      dreamReturnLocation:null,
+      playerCurseValue:null,
+      playerFullValue:null
+    };
+  }
+
+  //function to use the scene to fill entrys needed.
+  makeAndFillPlayerDataObject(currentScene){
+
+    return {
+      saveX: currentScene.warpToX,
+      saveY: currentScene.warpToY,
+      playerHpValue: currentScene.playerHealth,
+      playerSex:currentScene.playerSex,
+      playerLocation: currentScene.playerLocation,
+      inventoryArray: currentScene.inventoryDataArray,
+      playerBestiaryData: currentScene.playerBestiaryData,
+      playerSkillsData: currentScene.playerSkillsData,
+      playerSaveSlotData: currentScene.playerSaveSlotData,
+      flagValues: currentScene.flagValues,
+      settings:currentScene.settings,
+      dreamReturnLocation:currentScene.dreamReturnLocation,
+      playerCurseValue:currentScene.playerCurseValue,
+      playerFullValue:currentScene.playerFullValue
+    };
   }
 
 }

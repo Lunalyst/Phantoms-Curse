@@ -42,19 +42,7 @@ class yes extends Phaser.Physics.Arcade.Sprite{
             //clears slot so new file can be made.
             that.scene.clearSlotData();
             // empty data object
-            let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData:  null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null
-              };
+            let playerDataObject = that.scene.makePlayerDataObject();
 
               //need a save file slot. so we define that entity here
               let saveSlotData = {

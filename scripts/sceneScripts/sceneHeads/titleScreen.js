@@ -784,21 +784,7 @@ class titleScreen extends defaultScene {
                     this.initSoundEffect('buttonSFX','2',0.05);
 
                     //calls the scene transition load.
-                    let playerDataObject = {
-                        saveX: this.warpToX,
-                        saveY: this.warpToY,
-                        playerHpValue: this.playerHealth,
-                        playerSex:this.playerSex,
-                        playerLocation: this.playerLocation,
-                        inventoryArray: this.inventoryDataArray,
-                        playerBestiaryData: this.playerBestiaryData,
-                        playerSkillsData: this.playerSkillsData,
-                        playerSaveSlotData: this.playerSaveSlotData,
-                        flagValues: this.flagValues,
-                        settings:this.settings,
-                        dreamReturnLocation:this.dreamReturnLocation,
-                        playerCurseValue: 0
-                    };
+                    let playerDataObject = this.makeAndFillPlayerDataObject(this);
 
                     this.validateSaveFile(playerDataObject);
                     

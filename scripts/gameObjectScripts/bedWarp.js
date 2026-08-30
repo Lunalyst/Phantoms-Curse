@@ -28,6 +28,8 @@ class bedWarp extends Phaser.Physics.Arcade.Sprite{
         //stores the location string to tell which scene should be loaded.
         this.destination;
 
+        this.scene = scene;
+
         this.activated = false;
 
         //warp sprite animations
@@ -54,21 +56,7 @@ class bedWarp extends Phaser.Physics.Arcade.Sprite{
           
           this.activated = true;
            
-            //creates a object to hold data for scene transition
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //grabs the latests data values from the gamehud. also sets hp back to max hp.
             inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);

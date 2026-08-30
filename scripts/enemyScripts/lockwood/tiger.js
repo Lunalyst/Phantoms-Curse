@@ -797,7 +797,9 @@ class tiger extends enemy {
             this.tigerGrabTrue(playerHealthObject);
 
             //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
+            if(this.spitUp === false){
+                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
+            }
             
             if (this.playerDefeated === false) {
 
@@ -1604,6 +1606,10 @@ class tiger extends enemy {
                         this.scene.initSoundEffect('swallowSFX','4',0.02);
 
                         //play spitup animation
+                        //if the player escapes hide the give up indicator.
+
+                        giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+
                         this.anims.play("tigerSplitUpPlayer").once('animationcomplete', () => {
                             //then free player.
 

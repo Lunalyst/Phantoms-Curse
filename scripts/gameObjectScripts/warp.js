@@ -28,6 +28,8 @@ class warp extends Phaser.Physics.Arcade.Sprite{
         //stores the location string to tell which scene should be loaded.
         this.destination;
 
+        this.scene = scene;
+
         this.activated = false;
 
         //warp sprite animations
@@ -64,21 +66,7 @@ class warp extends Phaser.Physics.Arcade.Sprite{
           this.activated = true;
            
             //creates a object to hold data for scene transition
-            let playerDataObject = {
-              saveX: null,
-              saveY: null,
-              playerHpValue: null,
-              playerSex: null,
-              playerLocation: null,
-              inventoryArray: null,
-              playerBestiaryData: null,
-              playerSkillsData: null,
-              playerSaveSlotData: null,
-              flagValues: null,
-              settings:null,
-              dreamReturnLocation:null,
-              playerCurseValue:null
-            };
+            let playerDataObject = this.scene.makePlayerDataObject();
 
             //console.log(playerDataObject)
 

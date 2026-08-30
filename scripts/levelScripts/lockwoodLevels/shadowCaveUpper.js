@@ -116,8 +116,8 @@ class ShadowCaveUpper extends defaultScene {
       this.setUpTextBox();
 
       //section 3 
-      //this.initWallLight(1045,641,'ghostMushroom1');
-      //this.initWallLight(1055,634,'ghostMushroom2');
+      this.initWallLight(634,1016,'ghostMushroom1');
+      this.initWallLight(1295,1016,'ghostMushroom2');
 
       //this.initWallLight(526,593,'ghostMushroom3');
       //this.initWallLight(536,603,'ghostMushroom1');

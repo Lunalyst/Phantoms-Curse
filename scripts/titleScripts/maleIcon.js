@@ -37,20 +37,7 @@ class maleIcon extends Phaser.Physics.Arcade.Sprite{
             
             console.log("that.tempNewGameSlotID: "+that.scene.tempNewGameSlotID);
              
-            let playerDataObject = {
-                saveX: null,
-                saveY: null,
-                playerHpValue: null,
-                playerSex: null,
-                playerLocation: null,
-                inventoryArray: null,
-                playerBestiaryData: null,
-                playerSkillsData:  null,
-                playerSaveSlotData: null,
-                flagValues: null,
-                settings:null,
-                playerCurseValue:null
-              };
+            let playerDataObject = that.scene.makePlayerDataObject();
 
             //sets value to true, so scene knows to send the player through the intro cutscene
             that.scene.newGameActivated = true;

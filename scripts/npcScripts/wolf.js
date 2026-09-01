@@ -2286,7 +2286,7 @@ class wolf extends npc{
               },
               {
                 itemID: 30,
-                itemName: 'CRACKED COCONUT.',
+                itemName: 'CRACKED COCONUT',
                 itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
                 itemStackable: 1,
                 itemAmount: 1,

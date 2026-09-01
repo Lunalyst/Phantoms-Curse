@@ -161,7 +161,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       settings: dataObject.settings,
       dreamReturnLocation: dataObject.dreamReturnLocation,
       playerCurseValue:dataObject.playerCurseValue,
-      playerFullValue:dataObject.playerFullValue
+      playerFullValue:dataObject.playerFullValue,
+      forageValues:dataObject.forageValues
       };
 
       // these are the game variables that are hard saved when the player uses a save point.
@@ -180,6 +181,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.playerCurseValue: ",file.playerCurseValue);
       console.log("dataObject.playerFullValue:",dataObject.playerFullValue," --> file.playerFullValue: ",file.playerFullValue);
+      console.log("dataObject.forageValues:",dataObject.forageValues," --> file.forageValues: ",file.forageValues);
       console.log("=======================================================");
       //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
       if (dataObject.playerSaveSlotData.saveSlot === 1) {
@@ -243,6 +245,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         this.dreamReturnLocation = file.dreamReturnLocation;
         this.playerCurseValue = file.playerCurseValue;
         this.playerFullValue = file.playerFullValue;
+        this.forageValues = file.forageValues;
         // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
         
         console.log("[loadGameFile]============================================");
@@ -260,6 +263,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("this.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("this.playerCurseValue:",this.playerCurseValue);
         console.log("this.playerFullValue:",this.playerFullValue);
+        console.log("this.forageValues:",this.forageValues);
         console.log("=======================================================");
 
         }
@@ -315,6 +319,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     dataObject.dreamReturnLocation = file.dreamReturnLocation;
     dataObject.playerCurseValue = file.playerCurseValue;
     dataObject.playerFullValue = file.playerFullValue;
+    dataObject.forageValues = file.forageValues;
 
      console.log("[returnFile]==============================================");
       console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -331,6 +336,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," <-- file.playerCurseValue: ",file.playerCurseValue);
       console.log("dataObject.playerFullValue:",dataObject.playerFullValue," <-- file.playerFullValue: ",file.playerFullValue);
+      console.log("dataObject.forageValues:",dataObject.forageValues," <-- file.forageValues: ",file.forageValues);
       console.log("=======================================================");
     // loading the player location may be redundant. it has already been recieved to load the scene so why set it here?
    
@@ -356,7 +362,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       settings: dataObject.settings,
       dreamReturnLocation: dataObject.dreamReturnLocation,
       playerCurseValue: dataObject.playerCurseValue,
-      playerFullValue: dataObject.playerFullValue
+      playerFullValue: dataObject.playerFullValue,
+      forageValues: dataObject.forageValues
       }
       //console.log(dataObject);
       console.log("[saveGame]============================================");
@@ -374,6 +381,7 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," --> file.dreamReturnLocation: ",file.dreamReturnLocation);
       console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," --> file.playerCurseValue: ",file.playerCurseValue);
       console.log("dataObject.playerFullValue:",dataObject.playerFullValue," --> file.playerFullValue: ",file.playerFullValue);
+      console.log("dataObject.forageValues:",dataObject.forageValues," --> file.forageValues: ",file.forageValues);
       console.log("=======================================================");
 
       localStorage.setItem('saveBetweenScenes', JSON.stringify(file));
@@ -422,8 +430,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     this.flagValues = file.flags;
     this.settings = file.settings;
     this.dreamReturnLocation = file.dreamReturnLocation;
-
-   
+    this.forageValues = file.forageValues;
 
     console.log("[loadGameHudData]============================================");
         console.log("this.healthDisplay.playerHealth:",this.healthDisplay.playerHealth," <-- file.playerHpValue: ",file.playerHpValue);
@@ -438,6 +445,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("dataObject.dreamReturnLocation:",this.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
         console.log("dataObject.playerCurseValue:",this.healthDisplay.playerCurse," <-- file.playerCurseValue: ",file.playerCurseValue);
         console.log("dataObject.playerFullValue:",this.healthDisplay.playerFull," <-- file.playerFullValue: ",file.playerFullValue);
+        console.log("dataObject.forageValues:",this.forageValues," <-- file.forageValues: ",file.forageValues);
         console.log("=======================================================");
 
   }
@@ -461,6 +469,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     dataObject.dreamReturnLocation = file.dreamReturnLocations;
     dataObject.playerCurseValue = file.playerCurseValue;
     dataObject.playerFullValue = file.playerFullValue;
+    dataObject.forageValues = file.forageValues;
 
     console.log("[returnSave]==============================================");
     console.log("dataObject.saveX:",dataObject.saveX," <-- file.saveX: ",file.saveX);
@@ -477,6 +486,7 @@ class A1SaveAndLoad extends Phaser.Scene {
     console.log("dataObject.dreamReturnLocation:",dataObject.dreamReturnLocation," <-- file.dreamReturnLocation: ",file.dreamReturnLocation);
     console.log("dataObject.playerCurseValue:",dataObject.playerCurseValue," <-- file.playerCurseValue: ",file.playerCurseValue);
     console.log("dataObject.playerFullValue:",dataObject.playerFullValue," <-- file.playerFullValue: ",file.playerFullValue);
+    console.log("dataObject.forageValues:",dataObject.forageValues," <-- file.forageValues: ",file.forageValues);
     console.log("=======================================================");
   }
 
@@ -600,6 +610,7 @@ for(let counter = 0; counter < 95; counter++){
   playerObject.dreamReturnLocation = dreamReturnLocation;
   playerObject.playerCurseValue = 0;
   playerObject.playerFullValue = 0;
+  playerObject.forageValues = {};
   }
 
   // ─── PC SAVE EXPORT ────────────────────────────────────────────────────────
@@ -1086,6 +1097,11 @@ for(let counter = 0; counter < 95; counter++){
 
     }
 
+    if(dataObject.forageValues === undefined || dataObject.forageValues === null){
+      dataObject.forageValues = {};
+
+    }
+
   }
 
   //if adding new data to savefiles, then I need to update getCurrentData emitter in game hud as well
@@ -1109,7 +1125,8 @@ for(let counter = 0; counter < 95; counter++){
       settings:null,
       dreamReturnLocation:null,
       playerCurseValue:null,
-      playerFullValue:null
+      playerFullValue:null,
+      forageValues: null
     };
   }
 
@@ -1130,7 +1147,8 @@ for(let counter = 0; counter < 95; counter++){
       settings:currentScene.settings,
       dreamReturnLocation:currentScene.dreamReturnLocation,
       playerCurseValue:currentScene.playerCurseValue,
-      playerFullValue:currentScene.playerFullValue
+      playerFullValue:currentScene.playerFullValue,
+      forageValues:currentScene.forageValues
     };
   }
 

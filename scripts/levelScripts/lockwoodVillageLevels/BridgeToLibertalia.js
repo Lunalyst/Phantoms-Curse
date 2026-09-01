@@ -54,6 +54,9 @@ class BridgeToLibertalia extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
+
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
     }
 
     create(){
@@ -103,8 +106,6 @@ class BridgeToLibertalia extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
 
@@ -123,6 +124,56 @@ class BridgeToLibertalia extends defaultScene {
       
       this.initPortals(548,632-8,2796,600,"warpCaveOutside","ShadowCaveUpper");
 
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: null
+      };
+      console.log("checking foraging values?")
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      console.log("foragingObject: ",foragingObject);
+
+      if(foragingObject.foundKey === false){
+        console.log("KEY WAS NOT FOUND!")
+        let forageItem = {
+                itemID: 30,
+                itemName: 'CRACKED COCONUT',
+                itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 5
+              }
+
+        this.initForagingPoint(897,696,forageItem,2,4,15)
+
+
+        //inventoryKeyEmitter.emit(inventoryKey.reduceForageValue,this.playerLocation,13);
+
+        //inventoryKeyEmitter.emit(inventoryKey.increaseForageValue,this.playerLocation,13);
+
+      }else{
+
+        let forageItem = {
+          itemID: 30,
+          itemName: 'CRACKED COCONUT',
+          itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
+          itemStackable: 1,
+          itemAmount: 1,
+          itemType: "consumable",
+          sellValue: 5
+        }
+
+        if(foragingObject.abundance > 0){
+
+          this.initForagingPoint(897,696,forageItem,2,4,15);
+
+        }
+  
+
+      }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

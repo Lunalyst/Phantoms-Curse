@@ -64,6 +64,9 @@ class warp extends Phaser.Physics.Arcade.Sprite{
           console.log("warping scenes");
           
           this.activated = true;
+
+            //increase foraging values
+            inventoryKeyEmitter.emit(inventoryKey.increaseForageValue,3);
            
             //creates a object to hold data for scene transition
             let playerDataObject = this.scene.makePlayerDataObject();

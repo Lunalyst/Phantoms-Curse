@@ -148,9 +148,9 @@ inventoryKey = {
 
     inventoryVisible:'inventory_visible',
 
-
-
-
+    checkForageValue: 'add_forage_value',
+    reduceForageValue: 'reduce_forage_value',
+    increaseForageValue:'increase_forage_value'
 
 
 };

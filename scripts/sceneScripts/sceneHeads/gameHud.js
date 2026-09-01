@@ -999,6 +999,9 @@ class gameHud extends A3SoundEffects {
 
             //set for save object so it can set hp to max.
             object.playerMaxHP = this.healthDisplay.playerHealthMax;
+
+            //
+            object.forageValues = this.forageValues;
           });
 
           //game saved graphic
@@ -1071,6 +1074,71 @@ class gameHud extends A3SoundEffects {
               
             this.playerInventory.visible = false;
               
+          });
+
+          //emitter to check if key exists in foraging object
+          inventoryKeyEmitter.on(inventoryKey.checkForageValue,(object) =>{
+              
+            console.log("checking to see if foraging locations has been added : ",object);
+
+            for (let [key, value] of Object.entries(this.forageValues)) {
+
+              console.log("TESTING EQUAlity,object.keyToFind:",object.keyToFind," key ",key)
+              if (object.keyToFind === key) {
+                console.log("found key!")
+                object.foundKey = true;
+                object.abundance = this.forageValues[object.keyToFind].abundance
+                console.log("this.forageValues: ",this.forageValues);
+              }
+            }
+
+
+            if( object.foundKey === false){
+              console.log("could not find key, making it!")
+              this.forageValues[object.keyToFind] = 
+              {
+                abundance: 100
+              };
+            }
+
+          
+
+              
+          });
+
+          //case to reduce abundance fo areas abundance value
+          inventoryKeyEmitter.on(inventoryKey.reduceForageValue,(playerLocation,value) =>{
+
+            if(this.forageValues[playerLocation].abundance > 0 ){
+              console.log("value of abundance at : ",playerLocation," to ",this.forageValues[playerLocation].abundance);
+
+              this.forageValues[playerLocation].abundance = this.forageValues[playerLocation].abundance - value;
+
+              console.log("reduced value of abundance at : ",playerLocation," to ",this.forageValues[playerLocation].abundance);
+            }else{
+               console.log("value of abundance at : ",playerLocation," is already at zero. ");
+            }
+
+            console.log("object: ",this.forageValues);
+ 
+          });
+
+          inventoryKeyEmitter.on(inventoryKey.increaseForageValue,(incrementValue) =>{
+
+            console.log("increasing all foraging values.");
+            
+            for (let [key, value] of Object.entries(this.forageValues)) {
+
+              if(this.forageValues[key].abundance + incrementValue <= 100){
+                this.forageValues[key].abundance = this.forageValues[key].abundance + incrementValue;
+              }else{
+                this.forageValues[key].abundance = 100;
+              }
+
+              console.log("this.forageValues[ ",key," ].abundance: ",this.forageValues[key].abundance);
+                 
+            }
+ 
           });
 
 

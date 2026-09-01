@@ -227,6 +227,21 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  initForagingPoint(x, y,item,amountLower,amountUpper,reduceAbundance) {
+
+      let foragePoint1 = new foragingPoint(this, x, y,item,amountLower,amountUpper,reduceAbundance);
+      foragePoint1.saveStoneId = this.saveStoneId;
+      this.saveStoneId++;
+
+      this.saveStonePoints.add(foragePoint1);
+
+      //if we are using dark lighting
+      if(this.lightingSystemActive === true){ 
+        foragePoint1.setPipeline('Light2D');
+      }
+
+  }
+
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
     initHealthUpgrade(x, y, flag) {
 

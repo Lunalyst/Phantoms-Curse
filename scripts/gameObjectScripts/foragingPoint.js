@@ -18,12 +18,41 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
         this.saveStoneId;
 
         this.item = item;
-        
-        if(item.itemID = 30){
-
+        console.log(item.itemID)
+        if(item.itemID === 30){
             this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 0, end: 0}),frameRate: 1,repeat: -1});
             this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 1, end: 1}),frameRate: 1,repeat: -1});
-            
+        }else if(item.itemID === 9){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 2, end: 2}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 3, end: 3}),frameRate: 1,repeat: -1});
+        }else if(item.itemID === 11){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 4, end: 4}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 5, end: 5}),frameRate: 1,repeat: -1});
+        }else if(item.itemID === 32){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 6, end: 6}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 7, end: 7}),frameRate: 1,repeat: -1});
+        }else if(item.itemID === 33){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 8, end: 8}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 9, end: 9}),frameRate: 1,repeat: -1});
+        }else if(item.itemID === 36){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 10, end: 10}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 11, end: 11}),frameRate: 1,repeat: -1});
+
+            //if lighting system is on then
+            if(this.scene.lightingSystemActive === true){
+
+                this.curseLight = this.scene.lights.addLight(this.x,this.y+15, 65, 0xb317ff);
+                this.twean = this.scene.tweens.add({
+                    targets: this.curseLight,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+            }
         }
 
         this.anims.play("full", true)
@@ -45,18 +74,14 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
         //this.setDepth(2);
         let randomFlip = Math.round(Math.random());
 
-        if(randomFlip.flipX === 0 ){
+        //console.log("COIN FLIP IS ",randomFlip);
+        if(randomFlip === 0 ){
             this.flipX = false;
         }else{
             this.flipX = true;
         }
         //randomize flipX 
 
-        //if lighting system is on then
-        /*if(this.scene.lightingSystemActive === true){
-            this.curseLight = this.scene.lights.addLight(this.x,this.y+4, 65, 0xb317ff);
-            this.curseLight.visible = false;
-        }*/
     }
 
     //function which saves the game to the hard memory file when the boject is interacted with
@@ -91,6 +116,23 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
             this.harvested = true;
 
             this.safeToSave = false;
+
+            if(this.scene.lightingSystemActive === true){
+
+                this.twean.destroy();
+                this.curseLight.radius = 55;
+
+                this.twean = this.scene.tweens.add({
+                    targets: this.curseLight,
+                    props : {
+                        radius: {value : '+=' +10},
+                    }, 
+                    ease: 'linear',
+                    duration: 1000,
+                    repeat: -1,
+                    yoyo: true
+                });
+            }
 
         //this code plays the animation for the w key under the save stone
         }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false &&  this.harvested === false){

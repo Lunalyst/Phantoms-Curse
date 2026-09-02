@@ -45,6 +45,10 @@ class ForestRavineHome extends defaultScene {
       this.load.audioSprite('forestSFX','audio/used-audio/forest-sounds/forest-sounds.json',[
         "audio/used-audio/forest-sounds/birds4.mp3"
       ]);
+
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
+
     }
 
     create(){
@@ -117,6 +121,33 @@ class ForestRavineHome extends defaultScene {
       this.initPortals(281,1277-13,1570,829,"warpCaveOutside","caveToSunflowers1");
 
       this.initPortals(1470,1725-13,637,605,"door2","DevRoom1");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 9,
+        itemName: 'PORTOBELLO CAP',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 9
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(549,1304,forageItem,1,3,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1724,1752,forageItem,1,3,20);
+      }
 
       this.initFastTravelPoint(2070, 1336,'default');
 

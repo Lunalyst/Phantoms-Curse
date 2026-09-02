@@ -48,6 +48,8 @@ class TestForest extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
+
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
       
     }
 
@@ -133,6 +135,71 @@ class TestForest extends defaultScene {
       this.initPortals(378,1149-13,1892,829,"warpCaveOutside","TestCave");
 //5812,1181 1570,829
       this.initPortals(5812,1181-13,1570,829,"warpCaveOutside","caveToSunflowers2");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 9,
+        itemName: 'PORTOBELLO CAP',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 9
+      }
+
+      let forageItem1 = {
+        itemID: 11,
+        itemName: 'MOREL',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 15
+      }
+
+      let forageItem2 = {
+        itemID: 32,
+        itemName: 'CARROT',
+        itemDescription: 'MINOR INCREASE TO HEALTH. BUT MAKES SOME CURSED HUNGRY...',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 11
+      }
+
+      /*if(this.calculateForagingPointSpawn(foragingObject.abundance, 40)){
+        this.initForagingPoint(1299,1144,forageItem1,1,2,10);
+      }*/
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1478,1144,forageItem,1,3,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 40)){
+        this.initForagingPoint(2553,1240,forageItem1,1,2,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(3582,1240,forageItem2,1,2,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(3850,952,forageItem2,1,2,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(5005,1176,forageItem2,1,2,10);
+      }
+
+      
 
       //sets up containers
       this.setUpContainers();

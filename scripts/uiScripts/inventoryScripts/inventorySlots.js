@@ -40,6 +40,11 @@ class inventorySlots extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: '29',frames: this.anims.generateFrameNames('inventorySlots', { start: 29, end: 29 }),frameRate: 10,repeat: -1});
       this.anims.create({key: '30',frames: this.anims.generateFrameNames('inventorySlots', { start: 30, end: 30  }),frameRate: 10,repeat: -1});
       this.anims.create({key: '31',frames: this.anims.generateFrameNames('inventorySlots', { start: 31, end: 31  }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '32',frames: this.anims.generateFrameNames('inventorySlots', { start: 32, end: 32  }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '33',frames: this.anims.generateFrameNames('inventorySlots', { start: 33, end: 33  }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '34',frames: this.anims.generateFrameNames('inventorySlots', { start: 34, end: 34  }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '35',frames: this.anims.generateFrameNames('inventorySlots', { start: 35, end: 35  }),frameRate: 10,repeat: -1});
+      this.anims.create({key: '36',frames: this.anims.generateFrameNames('inventorySlots', { start: 36, end: 36  }),frameRate: 10,repeat: -1});
       
       this.anims.play("empty");
       this.animsNumber = 0;

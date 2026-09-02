@@ -44,6 +44,7 @@ class tutorialCave extends defaultScene {
       this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
       this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
 
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
 
       this.load.audioSprite('caveSFX','audio/used-audio/cave-sounds/cave-sounds.json',[
         "audio/used-audio/cave-sounds/szegvari-beach-coast-cave.mp3"
@@ -198,6 +199,37 @@ class tutorialCave extends defaultScene {
       this.initPortals(465,1808,3735,541,"warpCaveInside","tutorialBeachLevel");
 
       this.initPortals(1777,529,390,1917,"warpCaveInside","ForestRavineHome");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 36,
+        itemName: 'ECRUS CAP',
+        itemDescription: 'MINOR AMOUNT OF CURSE BUILD UP WHEN CONSUMED.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 7
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1581,1656,forageItem,1,3,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1327,1208,forageItem,1,3,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(885,568,forageItem,1,3,10);
+      }
       
       //this.form.visible = false;
 

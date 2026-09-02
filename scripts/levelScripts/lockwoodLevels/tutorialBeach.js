@@ -45,8 +45,8 @@ class tutorialBeach extends defaultScene {
         "audio/used-audio/ocean-sounds/norwayjohn__ocean-crete.ogg"
       ]);
 
-      
-   
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
     }
 
     create(){
@@ -167,11 +167,44 @@ class tutorialBeach extends defaultScene {
 
       this.initPortals(3735,528,465,1821,"warpCaveOutside","tutorialCaveLevel");
 
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 30,
+        itemName: 'CRACKED COCONUT',
+        itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 5
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(994,856,forageItem,1,2,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1716,792,forageItem,1,3,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(2816,568,forageItem,1,4,10);
+      }
+
       //make a sprite 
       this.tutorialSprite = new TutorialSprite(this, 600, 380);
 
       //sets up containers
       this.setUpContainers();
+
+      //this.initSavePoints(1328,664-10);
 
       this.initSigns(877,888+18,"generic","tutorialSign1");
       

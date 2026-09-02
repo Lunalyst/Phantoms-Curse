@@ -128,52 +128,31 @@ class BridgeToLibertalia extends defaultScene {
       let foragingObject = {
         keyToFind: this.playerLocation,
         foundKey: false,
-        abundance: null
+        abundance: 100
       };
-      console.log("checking foraging values?")
+
       inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
 
-      console.log("foragingObject: ",foragingObject);
+      let forageItem = {
+        itemID: 33,
+        itemName: 'PUMPKIN',
+        itemDescription: 'RESTORES HP, BUT FILLS UP FULLNESS BAR GREATLY',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 13
+      }
 
-      if(foragingObject.foundKey === false){
-        console.log("KEY WAS NOT FOUND!")
-        let forageItem = {
-                itemID: 30,
-                itemName: 'CRACKED COCONUT',
-                itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
-                itemStackable: 1,
-                itemAmount: 1,
-                itemType: "consumable",
-                sellValue: 5
-              }
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(897,696,forageItem,1,1,15);
+      }
 
-        this.initForagingPoint(897,696,forageItem,2,4,15)
-
-
-        //inventoryKeyEmitter.emit(inventoryKey.reduceForageValue,this.playerLocation,13);
-
-        //inventoryKeyEmitter.emit(inventoryKey.increaseForageValue,this.playerLocation,13);
-
-      }else{
-
-        let forageItem = {
-          itemID: 30,
-          itemName: 'CRACKED COCONUT',
-          itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
-          itemStackable: 1,
-          itemAmount: 1,
-          itemType: "consumable",
-          sellValue: 5
-        }
-
-        if(foragingObject.abundance > 0){
-
-          this.initForagingPoint(897,696,forageItem,2,4,15);
-
-        }
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1461,696,forageItem,1,1,15);
+      }
   
 
-      }
+      
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

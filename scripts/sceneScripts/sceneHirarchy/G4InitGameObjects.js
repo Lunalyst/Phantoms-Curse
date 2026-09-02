@@ -242,6 +242,27 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  calculateForagingPointSpawn(upperBound, spawnThresh){
+    //roll the dice to see if any of the foraging points spawn. 
+    //need a formula based on the abundance value. higher value = higher chance stuff spawns.
+    //need to calulate a upper and lower bounds for a random number. 
+    //multiply abundance by some value for uper bound.
+    //lower bound is a set number. lets say zero
+    //need to have a value above a specific amount for the check to pass.
+    let lowerBound = 0
+    console.log("upperBound:",upperBound);
+    let random = Math.floor((Math.random() * (upperBound - lowerBound + 1) + lowerBound));
+    //if the random number rolled is above the threshold then return true
+    if( random > spawnThresh){
+
+      console.log("spawning foraging point: (",random," > ",spawnThresh,")");
+      return true;
+    }
+
+    console.log("not spawning foraging point: (",random," <= ",spawnThresh,")");
+    return false;
+  }
+
     //creates a healthUpgrade object in the scene. checks the flag value to see if the object should be spawned or not.
     initHealthUpgrade(x, y, flag) {
 

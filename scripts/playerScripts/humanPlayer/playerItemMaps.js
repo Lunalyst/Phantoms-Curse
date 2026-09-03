@@ -36,7 +36,7 @@ class playerItemMaps extends playerAnimationFunctions{
       25: function Funct25() {
         tempPlayer.dropChance = 1;
       },
-      27: function Funct25() {
+      27: function Funct27() {
         tempPlayer.dropChance = 1;
       },
       
@@ -150,6 +150,54 @@ class playerItemMaps extends playerAnimationFunctions{
           }
         }
       },
+      
+    }
+
+  }
+
+  setupConsumablePassivesMap(){
+
+    let tempPlayer = this;
+
+    this.consumablePassivesMap = {
+      // default if the player has no rings equipt
+       0: function Funct0() {
+        tempPlayer.consumeType = 0;
+      },
+      9: function Funct0() {
+        tempPlayer.consumeType = 9;
+      },
+      11: function Funct0() {
+        tempPlayer.consumeType = 11;
+      },
+      28: function Funct0() {
+        tempPlayer.consumeType = 28;
+      },
+      29: function Funct0() {
+        tempPlayer.consumeType = 29;
+      },
+      30: function Funct0() {
+        tempPlayer.consumeType = 30;
+      },
+      32: function Funct0() {
+        tempPlayer.consumeType = 32;
+      },
+      33: function Funct0() {
+        tempPlayer.consumeType = 33;
+      },
+      34: function Funct0() {
+        tempPlayer.consumeType = 34;
+      },
+      35: function Funct0() {
+        tempPlayer.consumeType = 35;
+      },
+      36: function Funct0() {
+        tempPlayer.consumeType = 36;
+      },
+      37: function Funct0() {
+        tempPlayer.consumeType = 37;
+      },
+      
       
     }
 

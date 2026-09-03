@@ -54,6 +54,9 @@ class LockwoodEntrance extends defaultScene {
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
       ]);
+
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
     }
 
     create(){
@@ -130,6 +133,44 @@ class LockwoodEntrance extends defaultScene {
       this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
 
       this.initLunalyst(935,1083,'clearingTheWay');
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 9,
+        itemName: 'PORTOBELLO CAP',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 9
+      }
+
+      let forageItem1 = {
+        itemID: 11,
+        itemName: 'MOREL',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 15
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(1760,1080,forageItem,1,3,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 40)){
+        this.initForagingPoint(1281,888,forageItem1,1,2,10);
+      }
+
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

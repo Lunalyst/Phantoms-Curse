@@ -55,6 +55,8 @@ class ShadowCaveUpper extends defaultScene {
         "audio/used-audio/waterfall-sounds/waterfall.mp3"
       ]);
 
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
     }
 
     create(){
@@ -136,6 +138,33 @@ class ShadowCaveUpper extends defaultScene {
       this.initPortals(1642,503-7,1306,1112,"warpCaveInside","LockwoodEntrance");
 
       this.initPortals(2796,600-7,548,632,"warpCaveInside","BridgeToLibertalia");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 36,
+        itemName: 'ECRUS CAP',
+        itemDescription: 'MINOR AMOUNT OF CURSE BUILD UP WHEN CONSUMED.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 7
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(879,408,forageItem,1,3,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(2339,632,forageItem,1,3,10);
+      }
 
       //this.test = this.add.sprite(1040, 1016-65, "Mycelium Root");
       //this.test.setScale(1/3);

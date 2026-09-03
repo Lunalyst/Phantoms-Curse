@@ -89,7 +89,7 @@ class blueSlimeHS extends blueSlimeHSAbsorb {
 
         //if the slime is of size 1 then set its hit box to the correct size
         this.setSize(90, 90, true);
-        this.setOffset(80, 203);
+        this.setOffset(80, 201);
         this.body.setGravityY(600);
 
         if(this.enemyHP > 0){

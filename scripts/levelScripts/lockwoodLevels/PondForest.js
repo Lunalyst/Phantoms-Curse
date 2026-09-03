@@ -69,6 +69,9 @@ class PondForest extends defaultScene {
         "audio/used-audio/player-sounds/weapon-swings.mp3"
       ]);
 
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+      
+
     }
 
     create(){
@@ -175,7 +178,55 @@ class PondForest extends defaultScene {
 
       //here is where we can do a flag check to see if the player has interacted with vivian or not.
       this.initPortals(2752,824-8,1005,600,"door1","messyShed");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 9,
+        itemName: 'PORTOBELLO CAP',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 9
+      }
+
+      let forageItem1 = {
+        itemID: 11,
+        itemName: 'MOREL',
+        itemDescription: 'MINOR INCREASE TO HEALTH, AND MINOR CURSE BUILD UP.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 15
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(754,1496,forageItem,1,3,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 40)){
+        this.initForagingPoint(1680,1784,forageItem1,1,2,10);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(2146,1368,forageItem,1,3,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+        this.initForagingPoint(4192,1688,forageItem,1,3,20);
+      }
       
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 40)){
+        this.initForagingPoint(4517,1112,forageItem1,1,2,10);
+      }
       this.secret1 = 0;
 
 

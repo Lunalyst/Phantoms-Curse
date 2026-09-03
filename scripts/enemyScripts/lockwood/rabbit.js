@@ -274,13 +274,13 @@ class rabbit extends enemy {
 
              //code to change rabbit behavior
              //console.log("this.scene.player1.ringType: ",this.scene.player1.ringType)
-             if(this.scene.player1.ringType === 8){
+             if(this.scene.player1.ringType === 8 || this.scene.player1.consumeType === 32){
                 if(this.rabbitIsHungry === false){
                     this.rabbitIsHungryStart = true;
                 }
                 
-                
-             }else if(this.scene.player1.ringType !== 8 && this.rabbitIsHungry === true){
+                console.log("this.scene.player1.ringType: ",this.scene.player1.ringType, " this.scene.player1.consumeType: ",this.scene.player1.consumeType)
+             }else if((this.scene.player1.ringType !== 8 && this.scene.player1.consumeType !== 32) && this.rabbitIsHungry === true){
 
                 this.resetVariables();
                 this.setVelocityX(0);
@@ -513,7 +513,7 @@ class rabbit extends enemy {
                     this.animationPlayed = true;
                     this.anims.play('rabbitHungerIdle').once('animationcomplete', () => {
 
-                        
+                        this.anims.play('rabbitHungerIdleLoop',true);
                         this.rabbitIsHungry = true;
                         this.rabbitIsHungryStart = false;
                         this.animationPlayed = false;

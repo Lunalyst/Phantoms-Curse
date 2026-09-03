@@ -361,7 +361,7 @@ class bat extends enemy {
                                 this.playingSound = true;
                             }
                             this.setSize(70, 180, true);
-                            this.setOffset(100, 59);
+                            this.setOffset(100, 56);
                     
                             //if bat is within range
                             if (this.checkXRangeFromTarget(this.target, 10,10 )){
@@ -848,7 +848,7 @@ class bat extends enemy {
     // functioned called to play animation when the player is defeated by the bat in gameover.
     gameOver() {
         this.setSize(70, 180, true);
-        this.setOffset(100, 59);
+        this.setOffset(100, 56);
         this.anims.play('batGameover',true);
     }
     // functioned called to play animation when the player is defeated by the bat in gameover.
@@ -908,7 +908,7 @@ class bat extends enemy {
                             this.grabTimer = false;
                             this.enemyHP = 60;
                             this.setSize(70, 180, true);
-                            this.setOffset(100, 59);
+                            this.setOffset(100, 56);
                             this.y = this.y+70
 
                             this.target = this.scene.player1;
@@ -1053,7 +1053,7 @@ class bat extends enemy {
             this.setVelocityY(300);
 
             //change the side of the sprite so the tall version is possitioned correctly off the ground( not clipping through the ground in grab animation.)
-            this.setSize(70, 411, true);
+            this.setSize(70, 408, true);
 
             // change enemy y to be positioned based on player. 
             this.y = this.scene.player1.y-40;
@@ -1573,7 +1573,7 @@ class bat extends enemy {
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
                 this.setSize(70, 180, true);
-                this.setOffset(100, 59);
+                this.setOffset(100, 56);
                 this.playerDamaged = false;
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
@@ -1730,7 +1730,7 @@ class bat extends enemy {
         this.setDepth(5);
 
         this.setSize(70, 180, true);
-        this.setOffset(100, 59);
+        this.setOffset(100, 56);
 
         //this.scene.sound.get(this.batSFX).stop();
          this.setVelocityX(0);

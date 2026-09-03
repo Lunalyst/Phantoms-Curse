@@ -53,6 +53,9 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
                     yoyo: true
                 });
             }
+        }else if(item.itemID === 37){
+            this.anims.create({key: 'full',frames: this.anims.generateFrameNames('foragingPoint', { start: 12, end: 12}),frameRate: 1,repeat: -1});
+            this.anims.create({key: 'empty',frames: this.anims.generateFrameNames('foragingPoint', { start: 13, end: 13}),frameRate: 1,repeat: -1});
         }
 
         this.anims.play("full", true)

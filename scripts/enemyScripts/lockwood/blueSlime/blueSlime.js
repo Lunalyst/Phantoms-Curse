@@ -137,7 +137,7 @@ class blueSlime extends enemy {
         //else if the slime is size 2 then set its hit box to the correct size
         } else if (this.slimeSize === 2) {
             this.setSize(130, 90, true);
-            this.setOffset(82, 209);
+            this.setOffset(82, 207);
             this.body.setGravityY(700);
         }
 

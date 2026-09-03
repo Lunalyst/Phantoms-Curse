@@ -86,7 +86,31 @@ class tutorialBeach extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
       if(object.foundFlag === false){
-        this.initTutorialPrompt(578,920,"movement");
+
+        this.movementTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+      }
+
+      //make a temp object
+      object = {
+        flagToFind: "jump_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+
+        this.movementJump = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+
       }
 
       //make a temp object
@@ -254,6 +278,32 @@ class tutorialBeach extends defaultScene {
         
         this.backround.y -= 0.3;
       }
+
+      if( this.movementTutorial === true && this.player1.x > 400){
+        this.movementTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charBubble',"Move With "+ bindConversion[this.bindSettings.keyABind]+ " and "+bindConversion[this.bindSettings.keyDBind],true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textWob();
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.movementJump === true && this.player1.x > 597){
+        this.movementJump = false;
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charBubble',"Jump With "+ bindConversion[this.bindSettings.spaceBind],true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textWob();
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+
+
+
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

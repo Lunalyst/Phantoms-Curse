@@ -44,6 +44,10 @@ class sunFlowerField extends defaultScene {
       this.load.audioSprite('sunflowerThemeSFX','audio/used-audio/sunflower-theme-sounds/sunflower-theme-sounds.json',[
         "audio/used-audio/sunflower-theme-sounds/bertsz__calm.mp3"
       ]);
+
+      this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
+
     }
 
     create(){
@@ -123,6 +127,41 @@ class sunFlowerField extends defaultScene {
       this.initPortals(5119,1181-13,982,1597,"warpCaveOutside","sunFlowerCave");
 
       this.initPortals(5601,893-13,4001,541,"warpCaveOutside","batCave");
+
+      //code to handle value for spawning foraging objects.
+      let foragingObject = {
+        keyToFind: this.playerLocation,
+        foundKey: false,
+        abundance: 100
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkForageValue,foragingObject);
+
+      let forageItem = {
+        itemID: 37,
+        itemName: 'SUNFLOWER SEEDS',
+        itemDescription: 'MINOR INCREASE TO HEALTH.',
+        itemStackable: 1,
+        itemAmount: 1,
+        itemType: "consumable",
+        sellValue: 4
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(1591,1048,forageItem,4,9,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(2580,1048,forageItem,4,9,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(3863,1048,forageItem,4,9,20);
+      }
+
+      if(this.calculateForagingPointSpawn(foragingObject.abundance, 20)){
+        this.initForagingPoint(4126,1048,forageItem,4,9,20);
+      }
 
       //fake warps not implemented yet.
       

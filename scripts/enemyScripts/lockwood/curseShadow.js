@@ -113,7 +113,7 @@ class curseShadow extends enemy {
     move() {
 
         this.setSize(270, 100, true);
-        this.setOffset(15, 125);
+        this.setOffset(15, 121);
         //this.body.setGravityY(600);
 
         //determine shadows speed based on lanturn use

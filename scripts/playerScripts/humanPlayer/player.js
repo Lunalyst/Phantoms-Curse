@@ -208,6 +208,7 @@ class player extends playerWeaponFunctions{
 
     this.clothed = false;
     this.ringType = 0;
+    this.consumeType = 0;
 
     this.xVelocity = 0;
     this.yVelocity = 0;
@@ -218,6 +219,7 @@ class player extends playerWeaponFunctions{
 
     this.setupRingPassivesMap();
     this.setupWeaponPassivesMap();
+    this.setupConsumablePassivesMap();
 
     this.fallThroughLayer0 = false;
 
@@ -282,6 +284,8 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //console.log("activating ring map: ","F"+ this.playerDataObject.playerInventoryData[1].itemID);
     this.weaponPassivesMap[this.playerDataObject.playerInventoryData[0].itemID]();
     this.ringPassivesMap[this.playerDataObject.playerInventoryData[1].itemID]();
+    this.consumablePassivesMap[this.playerDataObject.playerInventoryData[4].itemID]();
+    
     
 
     //use a object of functions to do logic based on item id to do stuff. based on improvements from gameover 

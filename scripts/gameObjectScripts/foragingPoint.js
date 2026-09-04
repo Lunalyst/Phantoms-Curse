@@ -12,7 +12,7 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
         
         this.setPushable(false);
         //this object creates its own key prompts which it uses to tell the play if it can be acessed
-        this.saveStoneKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
+        this.saveStoneKeyPrompts = new keyPrompts(scene, xPos, yPos + 60,'keyPrompts');
         this.saveStoneKeyPrompts.visible = false;
         this.promptCooldown = false;
         this.saveStoneId;

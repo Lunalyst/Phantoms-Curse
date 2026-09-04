@@ -70,7 +70,7 @@ class HomeInterior2 extends defaultScene {
       this.tutorialSprite = new TutorialSprite(this, 600, 380);
 
       //tutorials
-      let object1 = {
+      /*let object1 = {
         flagToFind: "safe_tutorial",
         foundFlag: false,
       };
@@ -80,7 +80,7 @@ class HomeInterior2 extends defaultScene {
 
       if(object1.foundFlag === false){
         this.initTutorialPrompt(400,592+8,"safe");
-      }
+      }*/
 
       //adds looping sound effect.
       this.initLoopingSound('calmSFX','Paws and Rest',0.05,"music");

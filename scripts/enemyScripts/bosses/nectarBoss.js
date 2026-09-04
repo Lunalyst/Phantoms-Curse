@@ -274,17 +274,17 @@ class nectarBoss extends enemy {
             healthEmitter.emit(healthEvent.setBossHealth,healthObject);
             healthEmitter.emit(healthEvent.setBossHealthVisible,true);
 
-            temp.tutorialText1  = new makeText(temp.scene,temp.scene.sceneTextBox.x-40,temp.scene.sceneTextBox.y-160,'charBubble',"Block With "+ bindConversion[temp.scene.bindSettings.blockBind],true);
+            temp.tutorialText1  = new makeText(temp.scene,temp.scene.sceneTextBox.x-40,temp.scene.sceneTextBox.y-160,'charWhiteBlack',"Block With "+ bindConversion[temp.scene.bindSettings.blockBind],true);
             temp.tutorialText1.setScrollFactor(0);
             temp.tutorialText1.setScale(.5);
-            temp.tutorialText1.textWob();
+            //temp.tutorialText1.textWob();
             temp.tutorialText1.textFadeOutAndDestroy(4000);
 
             setTimeout(function(){
-                temp.tutorialText2  = new makeText(temp.scene,temp.scene.sceneTextBox.x-65,temp.scene.sceneTextBox.y-160,'charBubble',"Spindle Spear With "+ bindConversion[temp.scene.bindSettings.specialBind],true);
+                temp.tutorialText2  = new makeText(temp.scene,temp.scene.sceneTextBox.x-65,temp.scene.sceneTextBox.y-160,'charWhiteBlack',"Spindle Spear With "+ bindConversion[temp.scene.bindSettings.specialBind],true);
                 temp.tutorialText2.setScrollFactor(0);
                 temp.tutorialText2.setScale(.5);
-                temp.tutorialText2.textWob();
+                //temp.tutorialText2.textWob();
                 temp.tutorialText2.textFadeOutAndDestroy(4000);
                    
             },5000);

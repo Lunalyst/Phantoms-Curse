@@ -2546,12 +2546,12 @@ class nectar extends npc{
 
                   if(this.scene.playerSex === 0){
 
-                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+55, "malePlayerStucks");
+                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+56, "malePlayerStucks");
                     this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("malePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
                     this.playerCloths.anims.play("spatUp",true);
                     
                   }else{
-                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+56, "femalePlayerStucks");
+                    this.playerCloths = this.scene.add.sprite(this.x+63,this.y+57, "femalePlayerStucks");
                     this.playerCloths.anims.create({ key: 'spatUp', frames: this.playerCloths.anims.generateFrameNames("femalePlayerStucks", { start: 28, end: 28 }), frameRate: 7, repeat: -1 });
                     this.playerCloths.anims.play("spatUp",true);
                     

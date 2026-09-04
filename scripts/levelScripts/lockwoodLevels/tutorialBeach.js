@@ -115,6 +115,23 @@ class tutorialBeach extends defaultScene {
 
       //make a temp object
       object = {
+        flagToFind: "interact_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+
+        this.interact = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+      }
+
+      //make a temp object
+      object = {
         flagToFind: "platforms_tutorial",
         foundFlag: false,
       };
@@ -123,7 +140,11 @@ class tutorialBeach extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
       if(object.foundFlag === false){
-        this.initTutorialPrompt(1728,792,"platforms");
+
+        this.platforms = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
       }
 
       //make a temp object
@@ -136,17 +157,17 @@ class tutorialBeach extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
       if(object.foundFlag === false){
-        this.initTutorialPrompt(2811,568,"worldDrops");
-        this.initItemDrop(2901,568,14,1,1,"COCONUT"," APPLE OF THE SEA. ","drop",1);
-      //otherwise, random drop chance for coconut.
-      }else{
+
+        this.worldDrops = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
 
       }
 
-
       //make a temp object
       object = {
-        flagToFind: "warps_tutorial",
+        flagToFind: "heal_tutorial",
         foundFlag: false,
       };
 
@@ -154,7 +175,30 @@ class tutorialBeach extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
 
       if(object.foundFlag === false){
-        this.initTutorialPrompt(3569,504,"warps");
+
+        this.healingTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+      }
+
+      //make a temp object
+      object = {
+        flagToFind: "consume_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+
+        this.healingTutorial1 = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
       }
 
       //adds looping sound effect.
@@ -218,7 +262,9 @@ class tutorialBeach extends defaultScene {
         this.initForagingPoint(1716,792,forageItem,1,3,10);
       }
 
-      if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
+      if(this.healingTutorial === true){
+        this.initForagingPoint(2816,568,forageItem,1,4,10);
+      }else if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
         this.initForagingPoint(2816,568,forageItem,1,4,10);
       }
 
@@ -282,27 +328,88 @@ class tutorialBeach extends defaultScene {
       if( this.movementTutorial === true && this.player1.x > 400){
         this.movementTutorial = false;
 
-        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charBubble',"Move With "+ bindConversion[this.bindSettings.keyABind]+ " and "+bindConversion[this.bindSettings.keyDBind],true);
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Move With "+ bindConversion[this.bindSettings.keyABind]+ " and "+bindConversion[this.bindSettings.keyDBind],true);
         this.tutorialText1.setScrollFactor(0);
         this.tutorialText1.setScale(.5);
-        this.tutorialText1.textWob();
         this.tutorialText1.textFadeOutAndDestroy(4000); 
       }
 
       if(this.movementJump === true && this.player1.x > 597){
         this.movementJump = false;
+
         if(this.tutorialText1 !== undefined){
           this.tutorialText1.destroy();
         }
-        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charBubble',"Jump With "+ bindConversion[this.bindSettings.spaceBind],true);
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Jump With "+ bindConversion[this.bindSettings.spaceBind],true);
         this.tutorialText1.setScrollFactor(0);
         this.tutorialText1.setScale(.5);
-        this.tutorialText1.textWob();
         this.tutorialText1.textFadeOutAndDestroy(4000); 
       }
 
+      if(this.interact === true && this.player1.x > 770){
+        this.interact = false;
 
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
 
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Interact with "+ bindConversion[this.bindSettings.keyWBind],true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.platforms === true && this.player1.x > 1625){
+        this.platforms = false;
+
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Move through platforms with  "+ bindConversion[this.bindSettings.keySBind],true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.worldDrops === true && this.player1.x > 2362){
+        this.worldDrops = false;
+
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Open and close the inventory with "+ bindConversion[this.bindSettings.keyTABBind],true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.healingTutorial === true && this.player1.x > 2674){
+        this.healingTutorial = false;
+
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Equip coconuts into your consume slot.");
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.healingTutorial1 === true && this.player1.x > 3003){
+        this.healingTutorial1 = false;
+
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Consume items with "+ bindConversion[this.bindSettings.healBind]);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
 
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;

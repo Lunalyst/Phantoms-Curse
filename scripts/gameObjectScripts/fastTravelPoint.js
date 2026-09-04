@@ -213,10 +213,21 @@ class fastTravelPoint extends Phaser.Physics.Arcade.Sprite{
                 this.saveStoneKeyPrompts.visible = true;
                 this.saveStoneKeyPrompts.playWKey();
                 this.promptCooldown = true;       
+            }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false && this.pointLit === false){
+                console.log("prompts active");
+                this.saveStoneKeyPrompts.visible = true;
+                this.saveStoneKeyPrompts.playWKey();
+                this.promptCooldown = true;       
             }
 
             //set w key prompt to be invisible if the play is not over it.
             if(this.safeToSave === false){
+                this.saveStoneKeyPrompts.visible = false;
+                this.promptCooldown = false;
+            }
+
+            //set w key prompt to be invisible if the play is not over it.
+            if(!(this.autumnEncountered === true ||this.moffEncountered === true) && this.pointLit === true){
                 this.saveStoneKeyPrompts.visible = false;
                 this.promptCooldown = false;
             }

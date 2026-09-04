@@ -932,7 +932,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
               //creates a object to hold data for scene transition
-              let playerDataObject = this.scene.makePlayerDataObject();
+              let playerDataObject = temp.scene.makePlayerDataObject();
               
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
@@ -1299,7 +1299,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
               //creates a object to hold data for scene transition
-              let playerDataObject = this.scene.makePlayerDataObject();
+              let playerDataObject = temp.scene.makePlayerDataObject();
               
               temp.scene.cutSceneActive = false;
               //console.log(playerDataObject)
@@ -1725,7 +1725,7 @@ class wolf extends npc{
         let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = this.scene.makePlayerDataObject();
+                let playerDataObject = temp.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)
@@ -1980,7 +1980,7 @@ class wolf extends npc{
             let temp = this;
               setTimeout(function () {
                 //creates a object to hold data for scene transition
-                let playerDataObject = this.scene.makePlayerDataObject();
+                let playerDataObject = temp.scene.makePlayerDataObject();
                 
                 temp.scene.cutSceneActive = false;
                 //console.log(playerDataObject)

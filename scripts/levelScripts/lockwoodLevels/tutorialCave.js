@@ -95,7 +95,28 @@ class tutorialCave extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
 
       if(object1.foundFlag === false){
-        this.initTutorialPrompt(1068,1752,"containers");
+
+        this.containerTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object1.flagToFind);
+      }
+
+      //tutorials
+      object1 = {
+        flagToFind: "attack_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
+
+      if(object1.foundFlag === false){
+
+        this.attackTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object1.flagToFind);
       }
 
       //tutorials
@@ -108,7 +129,11 @@ class tutorialCave extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
 
       if(object1.foundFlag === false){
-        this.initTutorialPrompt(997,1240,"saveStones");
+
+        this.savestoneTutorial = true;
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object1.flagToFind);
+      
       }
 
       //plays looping sound
@@ -125,7 +150,10 @@ class tutorialCave extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object1);
 
       if(object1.foundFlag === false){
-        this.initTutorialPrompt(788,536,"combat");
+         this.combatTutorial = true;
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object1.flagToFind);
+      
       }
     
       //creates player object
@@ -306,6 +334,42 @@ class tutorialCave extends defaultScene {
 
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
+
+      if(this.containerTutorial === true && this.player1.x > 1044){
+        this.containerTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Open the chest.",true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.attackTutorial === true && this.player1.x > 1339){
+        this.attackTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Attack with "+this.bindSettings.shiftBind,true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.savestoneTutorial === true && this.player1.x < 1059 && this.player1.y < 1272){
+        this.savestoneTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Save your progress at the shrine.",true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.combatTutorial === true && this.player1.x > 763 && this.player1.y < 632){
+        this.combatTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"beware of cursed...",true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
 
     }
 

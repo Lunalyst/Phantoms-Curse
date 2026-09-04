@@ -438,48 +438,69 @@ class storage extends Phaser.GameObjects.Container{
 
         if(counter < 14){
           this.storageArray[counter].on('pointerover',function(pointer){
+            console.log("scene.inventoryDataArray[counter + this.slotOffset]: ",scene.inventoryDataArray[counter + this.slotOffset]);
+            if(scene.inventoryDataArray[counter + this.slotOffset].itemID !== 0){
             //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemName);
+             
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charWhiteBlack',scene.inventoryDataArray[counter + this.slotOffset].itemName);
             scene.itemName.setScale(1);
             scene.itemName.setDepth(21);
-            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charWhiteBlack',scene.inventoryDataArray[counter + this.slotOffset].itemDescription);
             scene.itemDescription.setScale(1);
             scene.itemDescription.setDepth(21);
             console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + this.slotOffset].itemID);
 
             if(scene.inventoryDataArray[counter + this.slotOffset].itemID > 0){
-              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charWhiteBlack',"$"+scene.inventoryDataArray[counter + this.slotOffset].sellValue);
               scene.itemValue.setScale(1);
               scene.itemValue.setDepth(21);
             }
+          }
           },this);
         }else{
           this.storageArray[counter].on('pointerover',function(pointer){
             //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemName);
+            console.log("scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset]: ",scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset]);
+            if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID !== 0){
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charWhiteBlack',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemName);
             scene.itemName.setScale(1);
             scene.itemName.setDepth(21);
-            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemDescription);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charWhiteBlack',scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemDescription);
             scene.itemDescription.setScale(1);
             scene.itemDescription.setDepth(21);
             console.log("tempStorage.storageArray[counter + tempStorage.slotOffset].itemID: ",scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID);
 
             if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID > 0){
-              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].sellValue);
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charWhiteBlack',"$"+scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].sellValue);
               scene.itemValue.setScale(1);
               scene.itemValue.setDepth(21);
             }
+          }
           },this);
         }
 
         // removes name and discription.
         this.storageArray[counter].on('pointerout',function(pointer){
-          this.scene.itemName.destroy();
-          this.scene.itemDescription.destroy();
 
-          if(this.scene.itemValue !== null && this.scene.itemValue !== undefined){
-            this.scene.itemValue.destroy();
+          if(counter < 14){
+            if(scene.inventoryDataArray[counter + this.slotOffset] !== 0){
+            this.scene.itemName.destroy();
+            this.scene.itemDescription.destroy();
+
+            if(this.scene.itemValue !== null && this.scene.itemValue !== undefined){
+              this.scene.itemValue.destroy();
+            }
+            }
+          }else{
+            if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID !== 0){
+            this.scene.itemName.destroy();
+            this.scene.itemDescription.destroy();
+
+            if(this.scene.itemValue !== null && this.scene.itemValue !== undefined){
+              this.scene.itemValue.destroy();
+            }
           }
+        }
         },this);
       }
 

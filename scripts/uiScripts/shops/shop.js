@@ -884,28 +884,34 @@ class shop extends Phaser.GameObjects.Container{
         let descriptionX = 30;
         let descriptionY = 540+23;
         this.shopArray[counter].on('pointerover',function(pointer){
-          //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
-          scene.itemName.setScale(1);
-          scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
-          scene.itemDescription.setScale(1);
-          scene.itemDescription.setDepth(21);
-          if(tempshop.copyDataArray[counter+ tempshop.slotOffset].itemID !== 0){
-            scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
-            scene.itemValue.setScale(1);
-            scene.itemValue.setDepth(21);
+          console.log("tempshop.copyDataArray[counter + tempshop.slotOffset]: ",tempshop.copyDataArray[counter + tempshop.slotOffset]);
+          if(tempshop.copyDataArray[counter + tempshop.slotOffset].itemID !== 0){
+          
+            //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charWhiteBlack',tempshop.copyDataArray[counter + tempshop.slotOffset].itemName);
+            scene.itemName.setScale(1);
+            scene.itemName.setDepth(21);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charWhiteBlack',tempshop.copyDataArray[counter + tempshop.slotOffset].itemDescription);
+            scene.itemDescription.setScale(1);
+            scene.itemDescription.setDepth(21);
+            if(tempshop.copyDataArray[counter+ tempshop.slotOffset].itemID !== 0){
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charWhiteBlack',"$"+tempshop.copyDataArray[counter + tempshop.slotOffset].sellValue);
+              scene.itemValue.setScale(1);
+              scene.itemValue.setDepth(21);
+            }
           }
         });
 
         // removes name and discription.
         this.shopArray[counter].on('pointerout',function(pointer){
+        if(tempshop.copyDataArray[counter + tempshop.slotOffset].itemID !== 0){
           tempshop.scene.itemName.destroy();
           tempshop.scene.itemDescription.destroy();
 
           if(tempshop.scene.itemValue !== null && tempshop.scene.itemValue !== undefined){
             tempshop.scene.itemValue.destroy();
           }
+        }
         });
       }
 

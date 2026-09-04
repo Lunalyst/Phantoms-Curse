@@ -95,6 +95,7 @@ class titleScreen extends defaultScene {
             //notice, the charcters sprites are x12 there normal size since they are so small.
             this.load.spritesheet('charBlack', 'assets/hudElements/blackCharacterSet.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
             this.load.spritesheet('charBubble', 'assets/hudElements/characterSetBubble.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
+            this.load.spritesheet('charWhiteBlack', 'assets/hudElements/whiteBlackCharacterSet.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
             this.load.spritesheet('charWhite', 'assets/hudElements/whiteCharacterSet.png',{frameWidth:  this.textWidth, frameHeight: this.textHight});
             this.load.spritesheet('ercus', 'assets/hudElements/ercus.png',{frameWidth: 84, frameHeight: 108});
 

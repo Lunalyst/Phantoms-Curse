@@ -88,7 +88,13 @@ class makeText extends Phaser.GameObjects.Container{
             this.letters[counter].y = this.letters[counter].y - 23;
             this.letters[counter].visible = true;
             this.add(this.letters[counter]);
-            spacing = spacing + 15;
+
+            if(font === "charWhiteBlack"){
+              spacing = spacing + 14;
+            }else{
+              spacing = spacing + 15;
+            }
+            
 
             //code to find middle position of text.
             if(counter === this.middle){

@@ -89,8 +89,29 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
                 }
             });
 
+            let playerHealthObject = {
+              playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            //heal the player to 60% thee max hp if below 60%
+            if(playerHealthObject.playerHealth < Math.floor(playerHealthObject.playerMaxHealth * 0.6)){
+
+                //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
+                healthEmitter.emit(healthEvent.gainHealth,(Math.floor(playerHealthObject.playerMaxHealth * 0.6) - playerHealthObject.playerHealth));
+
+            }
+
+            //also set there hunger to zero
+
+            healthEmitter.emit(healthEvent.reduceFull,playerHealthObject.playerFull);
+
+
+
             //heal the player back to full once they save
-            healthEmitter.emit(healthEvent.maxHealth);
+            //healthEmitter.emit(healthEvent.maxHealth);
 
             //create a refrence to the object so it can be accesed in our time out function
             let currentSaveStone = this;

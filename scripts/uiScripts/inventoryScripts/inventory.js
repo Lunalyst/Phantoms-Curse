@@ -623,30 +623,34 @@ class inventory extends Phaser.GameObjects.Container{
         let descriptionX = 30;
         let descriptionY = 740+17;
         this.inventoryArray[counter].on('pointerover',function(pointer){
-          
-          //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
-          scene.itemName = new makeText(scene,descriptionX,descriptionY,'charBubble',scene.inventoryDataArray[counter].itemName);
-          scene.itemName.setScale(1);
-          scene.itemName.setDepth(21);
-          scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charBubble',scene.inventoryDataArray[counter].itemDescription);
-          scene.itemDescription.setScale(1);
-          scene.itemDescription.setDepth(21);
           if(scene.inventoryDataArray[counter].itemID !== 0){
-            scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charBubble',"$"+scene.inventoryDataArray[counter].sellValue);
-            scene.itemValue.setScale(1);
-            scene.itemValue.setDepth(21);
+             //this.label.setText('(' + this.pointer.x + ', ' + this.pointer.y + ')');
+            scene.itemName = new makeText(scene,descriptionX,descriptionY,'charWhiteBlack',scene.inventoryDataArray[counter].itemName);
+            scene.itemName.setScale(1);
+            scene.itemName.setDepth(21);
+            scene.itemDescription = new makeText(scene,descriptionX,descriptionY+20,'charWhiteBlack',scene.inventoryDataArray[counter].itemDescription);
+            scene.itemDescription.setScale(1);
+            scene.itemDescription.setDepth(21);
+            if(scene.inventoryDataArray[counter].itemID !== 0){
+              scene.itemValue = new makeText(scene,descriptionX,descriptionY+40,'charWhiteBlack',"$"+scene.inventoryDataArray[counter].sellValue);
+              scene.itemValue.setScale(1);
+              scene.itemValue.setDepth(21);
+            }
           }
+         
           
         });
 
         // removes name and discription.
         this.inventoryArray[counter].on('pointerout',function(pointer){
+          if(scene.inventoryDataArray[counter].itemID !== 0){
           tempInventory.scene.itemName.destroy();
           tempInventory.scene.itemDescription.destroy();
           
           if(tempInventory.scene.itemValue !== null && tempInventory.scene.itemValue !== undefined){
             tempInventory.scene.itemValue.destroy();
           }
+        }
         });
       }
 

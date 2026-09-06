@@ -92,6 +92,10 @@ class bedWarp extends Phaser.Physics.Arcade.Sprite{
               //properly sets destination
               scene1.destination = this.destination;
 
+              //heal the player back to full once they save
+              healthEmitter.emit(healthEvent.maxHealth);
+
+
             }
 
             // then we save the scene transition data.

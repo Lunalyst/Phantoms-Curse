@@ -165,6 +165,8 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
     if(this.lightingSystemActive === true){ 
       storage.setPipeline('Light2D');
     }
+
+    return storage;
     
   }
 

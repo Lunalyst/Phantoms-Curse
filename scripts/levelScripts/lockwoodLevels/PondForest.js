@@ -71,7 +71,8 @@ class PondForest extends defaultScene {
 
       this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
       
-
+      this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
+      
     }
 
     create(){
@@ -239,6 +240,10 @@ class PondForest extends defaultScene {
       //sets up containers
       this.setUpContainers();
 
+      this.setUpPlayerStorage();
+      let storage = this.initStorage(2615, 824-8);
+
+      storage.setDepth(3);
       //sets up item drops for the scene
       this.setUpItemDrops();
       this.setUpItemDropCollider();

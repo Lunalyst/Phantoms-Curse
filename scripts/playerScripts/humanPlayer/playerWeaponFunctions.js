@@ -35,7 +35,7 @@ class playerWeaponFunctions extends playerItemMaps{
       }
 
       this.bluntDamage = 3;
-      this.setAttackHitboxSize(25,40);
+      this.setAttackHitboxSize(35,60);
       this.hitboxX = 23;
       this.hitboxY = 10;
       break;
@@ -75,7 +75,7 @@ class playerWeaponFunctions extends playerItemMaps{
       }
 
       this.sliceDamage = 4;
-      this.setAttackHitboxSize(25,40);
+      this.setAttackHitboxSize(25,60);
       this.hitboxX = 18;
       this.hitboxY = 10;  
       break;
@@ -111,7 +111,7 @@ class playerWeaponFunctions extends playerItemMaps{
       });
     }
     this.sliceDamage = 8;
-    this.setAttackHitboxSize(20,30);
+    this.setAttackHitboxSize(30,60);
     this.hitboxX = 23;
     this.hitboxY = 10;
 
@@ -151,7 +151,7 @@ class playerWeaponFunctions extends playerItemMaps{
 
       this.sliceDamage = 6;
       this.curseDamage = 4;
-      this.setAttackHitboxSize(20,30);
+      this.setAttackHitboxSize(30,60);
       this.hitboxX = 23;
       this.hitboxY = 10;
       break;
@@ -185,7 +185,7 @@ class playerWeaponFunctions extends playerItemMaps{
 
       }
       this.pierceDamage = 6;
-      this.setAttackHitboxSize(60,30);
+      this.setAttackHitboxSize(60,60);
       this.hitboxX = 33;
       this.hitboxY = 10;
       break;
@@ -219,7 +219,7 @@ class playerWeaponFunctions extends playerItemMaps{
     }
     this.pierceDamage = 4;
     this.curseDamage = 4;
-    this.setAttackHitboxSize(60,30);
+    this.setAttackHitboxSize(60,60);
     this.hitboxX = 33;
     this.hitboxY = 10;
     break;
@@ -257,7 +257,7 @@ class playerWeaponFunctions extends playerItemMaps{
     }
   this.bluntDamage = 6;
   this.pierceDamage = 2;
-  this.setAttackHitboxSize(20,40);
+  this.setAttackHitboxSize(35,60);
   this.hitboxX = 29;
   this.hitboxY = 10;
   break;
@@ -365,7 +365,7 @@ class playerWeaponFunctions extends playerItemMaps{
   this.bluntDamage = 2;
   this.curseDamage = 2;
 
-  this.setAttackHitboxSize(20,40);
+  this.setAttackHitboxSize(30,60);
   this.hitboxX = 29;
   this.hitboxY = 10;
   break;
@@ -411,7 +411,7 @@ class playerWeaponFunctions extends playerItemMaps{
               }
 
               this.bluntDamage = 1;
-              this.setAttackHitboxSize(10,20);
+              this.setAttackHitboxSize(10,60);
               this.hitboxX = 14;
               this.hitboxY = 10;
             }

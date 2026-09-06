@@ -49,6 +49,50 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //play save sound
             scene1.initSoundEffect('curseSFX','curse',0.3);
 
+             let playerHealthObject = {
+              playerHealth: null
+            };
+
+            //let restoreHP = playerHealthObject.playerMaxHealth * 0.6;
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            let restoreHP = playerHealthObject.playerFull;
+
+            let var1  = playerHealthObject.playerHealth + playerHealthObject.playerFull;
+
+
+            //heal the player to 60% thee max hp if below 60%
+            console.log("var1: ",var1)
+            console.log("playerHealthObject.playerHealth + restoreHP: ",playerHealthObject.playerHealth + restoreHP, " playerHealthObject.playerMaxHealth: ",playerHealthObject.playerMaxHealth)
+            if(var1 < playerHealthObject.playerMaxHealth ){
+
+                healthEmitter.emit(healthEvent.gainHealth,(Math.floor(restoreHP)));
+
+            }else if(restoreHP !== 0){
+                healthEmitter.emit(healthEvent.maxHealth);
+            }
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            let var2  = playerHealthObject.playerHealth + playerHealthObject.playerCurse;
+
+            if(var2 < playerHealthObject.playerMaxHealth ){
+
+                healthEmitter.emit(healthEvent.gainHealth,(Math.floor(playerHealthObject.playerCurse)));
+
+            }else if(restoreHP !== 0){
+                healthEmitter.emit(healthEvent.maxHealth);
+            }
+
+            //also set there hunger to zero
+            healthEmitter.emit(healthEvent.reduceFull,playerHealthObject.playerFull);
+
+            //also set there hunger to zero
+            healthEmitter.emit(healthEvent.reduceCurse,playerHealthObject.playerCurse);
+
             //creates a object to hold data for scene transition
             let playerDataObject = this.scene.makePlayerDataObject();
               
@@ -60,9 +104,6 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             playerDataObject.saveY = saveY+15;
             playerDataObject.playerSex = scene1.playerSex;
             playerDataObject.playerLocation = scene1.playerLocation;
-
-            //maxes out hp.
-            playerDataObject.playerHpValue = playerDataObject.playerMaxHP;
 
             //saves the game by calling the save game file function in the scene
             scene1.saveGameFile(playerDataObject);
@@ -88,30 +129,6 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
                     this.curseLight.visible = false;
                 }
             });
-
-            let playerHealthObject = {
-              playerHealth: null
-            };
-
-            //gets the hp value using a emitter
-            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
-
-            //heal the player to 60% thee max hp if below 60%
-            if(playerHealthObject.playerHealth < Math.floor(playerHealthObject.playerMaxHealth * 0.6)){
-
-                //take the difference of the current curse amoubtr from the max. then subtract that by 1 to get the amount of curse build up to add to the player without maxing it out
-                healthEmitter.emit(healthEvent.gainHealth,(Math.floor(playerHealthObject.playerMaxHealth * 0.6) - playerHealthObject.playerHealth));
-
-            }
-
-            //also set there hunger to zero
-
-            healthEmitter.emit(healthEvent.reduceFull,playerHealthObject.playerFull);
-
-
-
-            //heal the player back to full once they save
-            //healthEmitter.emit(healthEvent.maxHealth);
 
             //create a refrence to the object so it can be accesed in our time out function
             let currentSaveStone = this;

@@ -49,7 +49,7 @@ class mushroom extends enemy {
          this.direction = "right";
          this.transferSpeed = 300;
           
-         this.enemyHP = 20;
+         this.enemyHP = 10;
         //defines Enemy animations based on the players sex.
         if (this.enemySex === 0) {
             this.anims.create({ key: 'hiding', frames: this.anims.generateFrameNames('mushroom-male-tf', { start: 0, end: 3 }), frameRate: 7, repeat: -1 });

@@ -66,6 +66,42 @@ class HomeInterior2 extends defaultScene {
 
       this.setUpItemDropCollider();
 
+      //make a temp object
+      let object = {
+        flagToFind: "locker_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+
+        this.lockerTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+      }
+
+      //make a temp object
+      object = {
+        flagToFind: "bed_tutorial",
+        foundFlag: false,
+      };
+
+      // call the emitter to check if the value already was picked up.
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+      if(object.foundFlag === false){
+
+        this.bedTutorial = true;
+
+        //now to add the flag to the player data so the player cant open this container multiple times.
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+      }
+
       //make a sprite 
       this.tutorialSprite = new TutorialSprite(this, 600, 380);
 
@@ -153,6 +189,27 @@ class HomeInterior2 extends defaultScene {
     update(){
       //calls the built in update function
       this.defaultUpdate();
+
+      if(this.lockerTutorial === true && this.player1.x > 460){
+        this.lockerTutorial = false;
+
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Store extra items in the locker.",true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
+
+      if(this.bedTutorial === true && this.player1.x > 552){
+        this.bedTutorial = false;
+
+        if(this.tutorialText1 !== undefined){
+          this.tutorialText1.destroy();
+        }
+        this.tutorialText1  = new makeText(this,this.sceneTextBox.x-40,this.sceneTextBox.y-160,'charWhiteBlack',"Relive your memorys as you sleep...",true);
+        this.tutorialText1.setScrollFactor(0);
+        this.tutorialText1.setScale(.5);
+        this.tutorialText1.textFadeOutAndDestroy(4000); 
+      }
 
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
 

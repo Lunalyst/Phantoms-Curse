@@ -724,6 +724,7 @@ class blueSlime extends enemy {
                 
             }else if(this.playerDefeatedAnimationStage === 3 && this.animationPlayed === false){
                 //handles internal view
+                
                 this.scene.internalView = new internalView(this.scene,this.x,this.y+60,'slime');
                 this.scene.internalView.visible = this.scene.internalViewBool;
                 this.scene.internalView.anims.play("slimePening");
@@ -738,7 +739,10 @@ class blueSlime extends enemy {
                     this.playerDefeatedAnimationStage++;
                     //animations completes but the player escapes and destroys the object causing an arror unless we do a saftey check
                     if(this.scene.internalView !== null && this.scene.internalView !== undefined ){
-                        this.scene.internalView.anims.play("slimeWiggle1");
+                        console.log("this.scene.internalView HERE123: ",this.scene.internalView)
+                        if(this.scene.internalView.visible !== false){
+                            this.scene.internalView.anims.play("slimeWiggle1");
+                        }
                     }
                     
                 });

@@ -178,7 +178,7 @@ class beeGrub extends beeGrubAbsorb {
                     this.anims.play('beeGrubToungLashStart').once('animationcomplete', () => {
                     
                         this.hitboxActive = true;
-                        this.grabHitBox.body.enable = true;
+                        //this.grabHitBox.body.enable = true;
                         this.attemptingGrab = true;
 
                     });

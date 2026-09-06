@@ -250,7 +250,7 @@ class whiteCat extends enemy {
     move() {
         
         this.setSize(50, 220, true);
-        this.setOffset(110,60);
+        this.setOffset(110,56);
 
         this.body.setGravityY(600);
 

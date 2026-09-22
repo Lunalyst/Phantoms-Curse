@@ -6,7 +6,12 @@ class G9CheckEnemys extends G8InitEnemys {
 
   //contains the logic all enemys should follow when a player is grabbed
   checkEnemyGrab() {
+
+    console.log("this.enemys: ",this.enemys)
     this.enemys.children.each(function (tempEnemy) {
+
+      //console.log(" tempEnemy.playerGrabbed: ",tempEnemy.playerGrabbed);
+      //console.log(" tempEnemy: ",tempEnemy);
       if (tempEnemy.playerGrabbed === true) {
           
           //reset stuck grab values incase the player is in a stuck grab when grabbed
@@ -21,13 +26,15 @@ class G9CheckEnemys extends G8InitEnemys {
           this.cameras.main.zoom = 4;
           this.grabbed = tempEnemy.playerGrabbed;
           //scene, player1, KeyDisplay,keyTAB, keyW, keyS,keyA, keyD
+          
           if(tempEnemy.inSafeMode === false){
+            //console.log("testing enemy grab?");
             tempEnemy.grab();
           }else{
             tempEnemy.animationGrab();
           }
           
-          //console.log(" player grabbed by tiger tempTiger.tigerId: ",tempTiger.tigerId," tempTiger.playerGrabbed: ",tempTiger.playerGrabbed);
+          //console.log(" player grabbed by tiger tempEnemy.tigerId: ",tempEnemy.tigerId," tempEnemy.playerGrabbed: ",tempEnemy.playerGrabbed);
           
       } else {
           //if enemy didn't grab player but player was grabbed then play idle animation.
@@ -305,7 +312,6 @@ class G9CheckEnemys extends G8InitEnemys {
 
 
     let tempSceneRef = this;
-
     this.mapOfEnemyCheckFunctions = {
       blueSlimes: function blueSlimesFunction() {
         tempSceneRef.checkBlueSlimeInteractions(tempSceneRef);
@@ -339,6 +345,10 @@ class G9CheckEnemys extends G8InitEnemys {
         tempSceneRef.matangoRootInteractions(tempSceneRef);
       },nectar: function nectarFunction(){
         tempSceneRef.nectarInteractions(tempSceneRef);
+      },jackOVines: function jackOVinesFunction(){
+        tempSceneRef.checkjackOVineInteractions(tempSceneRef);
+      },vines: function vinesFunction(){
+        tempSceneRef.checkVineInteractions(tempSceneRef);
       },genericDefeats:function genericDefeatsFunction(){
         tempSceneRef.genericDefeatInteractions(tempSceneRef);
       }
@@ -475,42 +485,42 @@ class G9CheckEnemys extends G8InitEnemys {
   checkTigerInteractions(scene) {
 
     //applys a function to all tigers
-    scene.tigers.children.each(function (tempTiger) {
+    scene.tigers.children.each(function (tempEnemy) {
 
-      if(scene.objectsInRangeX(tempTiger,scene.player1,600) && scene.objectsInRangeY(tempTiger,scene.player1,250) && tempTiger.inSafeMode === false ){
+      if(scene.objectsInRangeX(tempEnemy,scene.player1,600) && scene.objectsInRangeY(tempEnemy,scene.player1,250) && tempEnemy.inSafeMode === false ){
          
-      if(tempTiger.enemyInDefeatedLogic === true){
-        tempTiger.enemyDefeatedLogic();
+      if(tempEnemy.enemyInDefeatedLogic === true){
+        tempEnemy.enemyDefeatedLogic();
       }else{
       
         if(scene.player1.idleTimer !== 2000){
           //calls to make each instance of a tiger move.
-           tempTiger.move(scene.player1,scene);
+           tempEnemy.move(scene.player1,scene);
         }else{
-           tempTiger.moveIdle()
+           tempEnemy.moveIdle()
         }
       }
       
         //if the hitbox overlaps the tiger, then  deal damage to that tiger
-        if(tempTiger.hitboxOverlaps === true) {
+        if(tempEnemy.hitboxOverlaps === true) {
         
-          console.log("tiger taking damage, tiger hp:" + tempTiger.enemyHP);
+          console.log("tiger taking damage, tiger hp:" + tempEnemy.enemyHP);
         
           //inflict damage to tiger
-          tempTiger.damage(this.player1);
+          tempEnemy.damage(this.player1);
         
           //clear overlap verable in tiger.
-          tempTiger.hitboxOverlaps = false;
+          tempEnemy.hitboxOverlaps = false;
         
         }
       
-    }else if(this.objectsInRangeX(tempTiger,scene.player1,30) && this.objectsInRangeY(tempTiger,scene.player1,30)){
+    }else if(this.objectsInRangeX(tempEnemy,scene.player1,30) && this.objectsInRangeY(tempEnemy,scene.player1,30)){
 
-      this.viewAnimationLogic(tempTiger);
+      this.viewAnimationLogic(tempEnemy);
     // otherwise hid the prompt from the player.
     }else{
-      tempTiger.safePrompts.visible = false;
-      tempTiger.playedSafePrompts = false;
+      tempEnemy.safePrompts.visible = false;
+      tempEnemy.playedSafePrompts = false;
     }
 
 
@@ -1038,6 +1048,82 @@ class G9CheckEnemys extends G8InitEnemys {
       }
         
     }, this);
+  }
+
+  //function keeps track of slime interactions
+  checkjackOVineInteractions(scene) {
+    //console.log(" checking vines?")
+    //applys a function to all tigers
+    scene.jackOVines.children.each(function (tempEnemy) {
+
+      if(scene.objectsInRangeX(tempEnemy,scene.player1,600) && scene.objectsInRangeY(tempEnemy,scene.player1,250) && tempEnemy.inSafeMode === false ){
+         
+      if(tempEnemy.enemyInDefeatedLogic === true){
+        tempEnemy.enemyDefeatedLogic();
+      }else{
+        
+        if(scene.player1.idleTimer !== 2000){
+          //calls to make each instance of a tiger move.
+          //console.log("jackovine? ",tempEnemy)
+           tempEnemy.move(scene.player1,scene);
+        }else{
+           tempEnemy.moveIdle()
+        }
+      }
+      
+        //if the hitbox overlaps the tiger, then  deal damage to that tiger
+        if(tempEnemy.hitboxOverlaps === true) {
+        
+          console.log("jackovine taking damage, jackovine hp:" + tempEnemy.enemyHP);
+        
+          //inflict damage to tiger
+          tempEnemy.damage(this.player1);
+        
+          //clear overlap verable in tiger.
+          tempEnemy.hitboxOverlaps = false;
+        
+        }
+      
+    }else if(this.objectsInRangeX(tempEnemy,scene.player1,30) && this.objectsInRangeY(tempEnemy,scene.player1,30)){
+
+      this.viewAnimationLogic(tempEnemy);
+    // otherwise hid the prompt from the player.
+    }else{
+      tempEnemy.safePrompts.visible = false;
+      tempEnemy.playedSafePrompts = false;
+    }
+
+
+  }, this);
+    
+  }
+
+  checkVineInteractions(scene) {
+
+    //console.log(" checking vines?")
+    //applys a function to all tigers
+
+    scene.vines.children.each(function (tempEnemy) {
+
+      if(tempEnemy.inSafeMode === false ){
+        //calls to make each instance of a tiger move.
+        tempEnemy.move(scene.player1,scene);
+
+        
+        //if the vine is out of moves then destroy it.
+        if(tempEnemy.currentMoves >= tempEnemy.maxMoves) {
+        
+          console.log("vine is out of moves, so destroying it.");
+        
+          //inflict damage to tiger
+          tempEnemy.damage();
+        
+        }
+      
+      }
+
+  }, this);
+    
   }
   
   genericDefeatInteractions (scene){

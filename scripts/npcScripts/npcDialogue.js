@@ -4443,7 +4443,7 @@ const npcDialogue = {
 
                     //What with the storm surrounding the island?)
                     "nodeStorm1":{
-                        "dialogue": "There is a perpetual storm surrounding Kuko Nui that traps us here.  ",
+                        "dialogue": "There is a perpetual storm surrounding Kuko Nui that traps us here.",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodeStorm2"]

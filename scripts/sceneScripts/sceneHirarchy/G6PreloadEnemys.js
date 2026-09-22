@@ -382,6 +382,35 @@ class G6PreloadEnemys extends G5InitNPCs{
       
 
       },
+
+
+      jackOVines: function jackOVineFunction() {
+        
+        tempSceneRef.load.spritesheet('jov-male-male-tf1', 'assets/enemys/jov-male-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-male-male-tf2', 'assets/enemys/jov-male-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-male-male-tf3', 'assets/enemys/jov-male-male-tf3.png',{frameWidth: 171, frameHeight: 141 });
+        
+        tempSceneRef.load.spritesheet('jov-female-male-tf1', 'assets/enemys/jov-female-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-female-male-tf2', 'assets/enemys/jov-female-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
+        
+        tempSceneRef.load.spritesheet('vines', 'assets/enemys/vines.png',{frameWidth: 131, frameHeight: 111 });
+        
+        tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
+          "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
+        ]);
+        /*tempSceneRef.load.spritesheet('curseShadowSecretFemale', 'assets/enemys/curseShadowFemaleSecret.png',{frameWidth: 303, frameHeight: 219 });
+
+        tempSceneRef.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
+          "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
+        ]);*/
+      },
+
+      vines: function vineFunction() {
+        
+        tempSceneRef.load.spritesheet('vines', 'assets/enemys/vines.png',{frameWidth: 131, frameHeight: 111 });
+        
+      },
+      
       genericDefeats: function genericDefeatFunction() {
 
       },

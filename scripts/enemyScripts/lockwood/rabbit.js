@@ -38,7 +38,7 @@ class rabbit extends enemy {
             }
         }
     
-        // sets gravity 
+        // sets gravity
         this.body.setGravityY(600); 
 
         // variables for movement
@@ -235,7 +235,7 @@ class rabbit extends enemy {
         this.anims.play('rabbitIdle',true);
 
         this.setSize(70, 178, true);
-        this.setOffset(180, 110);
+        //this.setOffset(180, 110);
     }
 
     resetVariables(){

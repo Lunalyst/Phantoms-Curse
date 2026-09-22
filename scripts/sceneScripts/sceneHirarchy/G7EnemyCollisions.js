@@ -127,6 +127,21 @@ class G7EnemyCollisions extends G6PreloadEnemys{
             tempSceneRef.nectars = tempSceneRef.physics.add.group();   
             tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.nectars );
           },
+
+          jackOVines: function jackOVinesFunction() {
+            console.log("adding jackOVines group");
+            tempSceneRef.jackOVines = tempSceneRef.add.group();
+            tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.jackOVines);
+          
+          },
+
+          vines: function vinesFunction() {
+            console.log("adding vines group");
+            tempSceneRef.vines = tempSceneRef.add.group();
+            //tempSceneRef.physics.add.collider(tempSceneRef.processMap.layer1, tempSceneRef.vines);
+          
+          },
+
           genericDefeats: function genericDefeatFunction() {
             console.log("adding generic defeat");
             tempSceneRef.genericDefeats = tempSceneRef.add.group();

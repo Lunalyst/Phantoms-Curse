@@ -29,7 +29,7 @@ class BridgeToLibertalia extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = [];
+      this.enemyGroupArray = ["jackOVines","vines"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -154,18 +154,12 @@ class BridgeToLibertalia extends defaultScene {
 
       
 
-      //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
-      let thisScene = this;
-        setTimeout(function(){
-          
-          //generates enemys
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(300, 500, 1,thisScene.playerSex);
-          //thisScene.initSlimes(2380, 500, 1,thisScene.playerSex);
       
-          thisScene.spawnedEnemys = true;
-        },1000);
-
+        this.initEnemy(901,696,this.playerSex,'jackOVine',false);
+       
+      
+        this.spawnedEnemys = true;
+     
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
@@ -199,7 +193,9 @@ class BridgeToLibertalia extends defaultScene {
       
       //calls the built in update function
       this.defaultUpdate();
-        //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
+
+      //handles enemy interactions
+      this.enemyUpdate(this.enemyGroupArray);
 
       this.checkPlayerLeftWarp(320,"LockwoodEntrance",2076,1080);
       

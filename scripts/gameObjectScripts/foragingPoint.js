@@ -90,8 +90,11 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
     //function which saves the game to the hard memory file when the boject is interacted with
     savePointSaveGame(scene1,keyW,activeId,saveX,saveY){
         
+        
+        if(this.scene.playerStuckGrab === true){
+
         //if the player is withing the correct range, and the press w and the cooldown is false then save the game
-        if( this.safeToSave === true && scene1.checkWPressed() && this.saveCoolDown === false && scene1.isPaused === false &&  this.harvested === false){
+        }else if( this.safeToSave === true && scene1.checkWPressed() && this.saveCoolDown === false && scene1.isPaused === false &&  this.harvested === false && this.scene.playerStuckGrab === false){
             
             //decrease the abundance value for this location.
 
@@ -138,7 +141,7 @@ class foragingPoint extends Phaser.Physics.Arcade.Sprite{
             }
 
         //this code plays the animation for the w key under the save stone
-        }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false &&  this.harvested === false){
+        }else if( this.safeToSave === true && activeId === this.saveStoneId && this.promptCooldown === false && scene1.isPaused === false &&  this.harvested === false && this.scene.playerStuckGrab === false){
             console.log("prompts active");
             this.saveStoneKeyPrompts.visible = true;
             this.saveStoneKeyPrompts.playWKey();

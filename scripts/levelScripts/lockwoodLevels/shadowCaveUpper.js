@@ -139,6 +139,8 @@ class ShadowCaveUpper extends defaultScene {
 
       this.initPortals(2796,600-7,548,632,"warpCaveInside","BridgeToLibertalia");
 
+      this.initPortals(1809,1048-7,1575,1400,"warpCaveOutside","ShadowCave");
+
       //code to handle value for spawning foraging objects.
       let foragingObject = {
         keyToFind: this.playerLocation,

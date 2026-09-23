@@ -51,7 +51,9 @@ class jackOVineMaleTF extends enemy {
             
 
             // plays the gram animation then starts tween and struggle animation
-            this.anims.play('jackOVineGrabbed').once('animationcomplete', () => {
+            this.anims.play('jackOVineGrabStart').once('animationcomplete', () => {
+
+                this.anims.play('jackOVineGrabEnd').once('animationcomplete', () => {
 
                 this.startedGrab = true;
                 this.animationPlayed = false;
@@ -65,16 +67,15 @@ class jackOVineMaleTF extends enemy {
                 //this.anims.play('jackOVineStruggle', true);
   
             });
+  
+            });
                 
       
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
-            this.anims.play('jackOVineStruggle', true);
+            this.anims.play('jackOVinePlowing1', true);
             this.playJumpySound('2',800); 
+ 
            
-        }else{
-            this.x = Math.round(this.x);
-            this.y = Math.round(this.y);
-            this.setVelocityY(-100);
         }
     }
 
@@ -82,7 +83,7 @@ class jackOVineMaleTF extends enemy {
 
         this.playerIsStrugglingLogicMaleTFASM();
 
-        console.log(this.playerDamageTimer, this.startedGrab)
+        console.log("attempting to gamage player? ",this.playerDamageTimer, this.startedGrab)
         if(this.playerDamageTimer === false && this.startedGrab === true){
 
             this.playerDamageTimer = true;

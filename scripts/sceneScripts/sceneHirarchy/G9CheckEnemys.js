@@ -7,7 +7,7 @@ class G9CheckEnemys extends G8InitEnemys {
   //contains the logic all enemys should follow when a player is grabbed
   checkEnemyGrab() {
 
-    console.log("this.enemys: ",this.enemys)
+    //console.log("this.enemys: ",this.enemys)
     this.enemys.children.each(function (tempEnemy) {
 
       //console.log(" tempEnemy.playerGrabbed: ",tempEnemy.playerGrabbed);
@@ -133,7 +133,8 @@ class G9CheckEnemys extends G8InitEnemys {
     }
     //makes sure the key display follows the player incase they where grabbed in air.
     this.KeyDisplay.x = this.player1.x;
-    this.KeyDisplay.y = this.player1.y+55;
+    this.KeyDisplay.y = this.player1.y+60;
+    this.KeyDisplay.setDepth(10);
 
     this.player1.x = this.player1.mainHitbox.x;
     this.player1.y = this.player1.mainHitbox.y; 

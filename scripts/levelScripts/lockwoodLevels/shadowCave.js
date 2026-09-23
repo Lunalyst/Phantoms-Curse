@@ -152,6 +152,8 @@ class ShadowCave extends defaultScene {
 
       this.initPortals(2815,1368-8,1123,888,"warpCaveOutside","caveToSunflowers2");
 
+      this.initPortals(1575,1400-7,1809,1048,"warpCaveOutside","ShadowCaveUpper");
+
       //creates container objects.
       this.setUpContainers();
 

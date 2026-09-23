@@ -1196,9 +1196,8 @@ class G8InitEnemys extends G7EnemyCollisions{
           let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempEnemy, function () {
           
             //sets overlap to be true
-            if(tempEnemy.tigerIsEating === false){
-              tempEnemy.hitboxOverlaps = true;
-            }
+            tempEnemy.hitboxOverlaps = true;
+
           });
 
           tempEnemy.addColliderRef(collider);
@@ -1293,17 +1292,21 @@ class G8InitEnemys extends G7EnemyCollisions{
 
             console.log('tempEnemy.grabCoolDown: ', tempEnemy.grabCoolDown, " tempSceneRef.grabCoolDown: ",tempSceneRef.grabCoolDown);
 
-         
-            //stop the velocity of the player
-            tempSceneRef.player1.mainHitbox.setVelocityX(0);
-            //calls the grab function
-            tempEnemy.grab();
-            //sets the scene grab value to true since the player has been grabbed
-            // tells instance of slime that it has grabbed player
-            tempEnemy.playerGrabbed = true;
-            tempSceneRef.grabbed = true;
-            tempSceneRef.grabCoolDown = true;
-            console.log('player grabbed by vine!');
+
+             if(tempSceneRef.grabbed === false){
+              //stop the velocity of the player
+              tempSceneRef.player1.mainHitbox.setVelocityX(0);
+              //calls the grab function
+           
+              tempEnemy.grab();
+              //sets the scene grab value to true since the player has been grabbed
+              // tells instance of slime that it has grabbed player
+              tempEnemy.playerGrabbed = true;
+              tempSceneRef.grabbed = true;
+              tempSceneRef.grabCoolDown = true;
+              console.log('player grabbed by vine!');
+            }
+            
           
           
           });

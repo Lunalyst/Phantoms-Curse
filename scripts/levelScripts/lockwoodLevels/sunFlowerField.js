@@ -128,6 +128,10 @@ class sunFlowerField extends defaultScene {
 
       this.initPortals(5601,893-13,4001,541,"warpCaveOutside","batCave");
 
+      this.initPortals(885,1469-416-13,1250,1565,"warpCaveOutside","blueSlimeCave1");
+
+      //this.fakeWarp2 = new fakeWarp(this,885,1469-416-13,'warpCaveOutsideRubble');
+
       //code to handle value for spawning foraging objects.
       let foragingObject = {
         keyToFind: this.playerLocation,
@@ -167,7 +171,7 @@ class sunFlowerField extends defaultScene {
       
       //this.fakeWarp1 = new fakeWarp(this,5601,893-13,'warpCaveOutsideRubble');
 
-      this.fakeWarp2 = new fakeWarp(this,885,1469-416-13,'warpCaveOutsideRubble');
+      
       
       //sets up containers
       this.setUpContainers();

@@ -29,7 +29,7 @@ class BridgeToLibertalia extends defaultScene {
       this.defaultPreload();
 
       //define an array of enemys we are using
-      this.enemyGroupArray = ["jackOVines","vines"];
+      this.enemyGroupArray = ["jackOVines","vines","genericDefeats"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -155,7 +155,9 @@ class BridgeToLibertalia extends defaultScene {
       
 
       
-        this.initEnemy(901,696,this.playerSex,'jackOVine',false);
+        this.initEnemy(1172,696,this.playerSex,'jackOVine',false);
+
+        this.initEnemy(0,0,this.playerSex,'genericDefeat',false);   
        
       
         this.spawnedEnemys = true;

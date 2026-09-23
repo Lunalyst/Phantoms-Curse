@@ -22,11 +22,12 @@ class vine extends enemy{
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
         this.hitBoxHide();
+
         this.grabCoolDown = false;
         this.isMoving = false;
         this.returnedWithPlayerGrabbed = false;
 
-         this.setDepth(9);
+         this.setDepth(6);
 
         this.originalX = xPos;
         this.originalY = yPos;
@@ -36,6 +37,7 @@ class vine extends enemy{
 
         this.animationPlaying = false;
         this.animationPlayed = false;
+        this.transitioningStates = false;
 
         this.anims.create({ key: 'travel', frames: this.anims.generateFrameNames('vines', { start: 0, end: 12 }), frameRate:  20, repeat: 0 });
         this.anims.create({ key: 'grabStart', frames: this.anims.generateFrameNames('vines', { start: 14, end: 20 }), frameRate:  10, repeat: 0 });
@@ -45,6 +47,9 @@ class vine extends enemy{
             this.anims.create({ key: 'PlayerGrabbedStart', frames: this.anims.generateFrameNames('vines', { start:30, end: 32 }), frameRate:  7, repeat: 0 });
             this.anims.create({ key: 'PlayerGrabbed', frames: this.anims.generateFrameNames('vines', { start:33, end: 36 }), frameRate:  7, repeat: -1 });
             this.anims.create({ key: 'PlayerGrabbedStruggle', frames: this.anims.generateFrameNames('vines', { start:37, end: 40 }), frameRate:  7, repeat: 0 });
+            
+            this.anims.create({ key: 'PlayerGrabbedTransition', frames: this.anims.generateFrameNames('vines', { start:41, end: 47 }), frameRate:  7, repeat: 0 });
+            this.anims.create({ key: 'PlayerGrabbedRestrained', frames: this.anims.generateFrameNames('vines', { start:48, end: 51 }), frameRate:  7, repeat: -1 });
         
         }else{
         
@@ -63,12 +68,26 @@ class vine extends enemy{
     }
 
     moveIdle() {
-        this.damage();
+
+        if(this.scene.playerStuckGrabbedBy === "knockdown"){
+            this.move();
+        }else{
+            this.damage();
+        }
     }
 
     move(){
 
-        if(this.checkXRangeFromPlayer(20, 20) && this.checkYRangeFromPlayer(120, 120)){
+        //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+        let playerHealthObject = {
+            playerHealth: null,
+            playerMaxHealth: null
+        };
+
+        //gets the hp value using a emitter
+        healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+        if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(80, 80) && playerHealthObject.playerHealth >= 1){
 
             if(this.animationPlaying === false){
                 this.animationPlaying = true;
@@ -137,15 +156,11 @@ class vine extends enemy{
         this.playerBrokeFree = 0;
         this.returnedWithPlayerGrabbed = false;
 
-        this.isAttacking = false;
-
         this.struggleCounter = 0;
         this.animationPlayed = false;
-        this.playerDamaged = false;
         this.playerGrabbed = false;
         this.keyAnimationPlayed = false;
         this.scene.player1.visible = true;
-        this.isPlayingMissedAnims = false;
         this.grabTimer = false;
 
         this.startedGrab = false;
@@ -191,7 +206,7 @@ class vine extends enemy{
     playerIsNotDefeatedInputs(playerHealthObject){
         // correct keys to escape can be ASD
        // console.log("testing vine grab?")
-        if(this.startedGrab === true && this.struggleFree === false && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && playerHealthObject.playerHealth > 0){
+        if(this.startedGrab === true && this.transitioningStates === false && this.struggleFree === false && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && playerHealthObject.playerHealth > 0){
             //console.log("this.scene.player1.x: ",this.scene.player1.x, " this.x: ",this.x);
             if(this.scene.checkAPressed() === true) {
 
@@ -203,7 +218,7 @@ class vine extends enemy{
             
                 }
                 
-                if(this.struggleAnimationInterupt === false){
+                if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
 
                     this.struggleAnimationInterupt = true;
 
@@ -211,6 +226,9 @@ class vine extends enemy{
                         this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
+                }else if(this.struggleAnimationInterupt === false){
+                    this.animationPlayed = false;
+                    this.struggleAnimationInterupt = false;
                 }
 
  
@@ -223,7 +241,7 @@ class vine extends enemy{
                 }
 
 
-                if(this.struggleAnimationInterupt === false){
+                if(this.struggleAnimationInterupt === false && this.playerDefeatedAnimationStage === 0){
 
                     this.struggleAnimationInterupt = true;
 
@@ -231,10 +249,11 @@ class vine extends enemy{
                         this.animationPlayed = false;
                         this.struggleAnimationInterupt = false;
                     });
+                }else if(this.struggleAnimationInterupt === false){
+                    this.animationPlayed = false;
+                    this.struggleAnimationInterupt = false;
                 }
 
-                //this.animationPlayed = false;
-                //this.struggleAnimationInterupt = false;
             }
         }
         
@@ -244,20 +263,11 @@ class vine extends enemy{
     }
 
 
-    playerIsStrugglingLogic(){
+    playerIsStrugglingLogic(playerHealthObject){
 
-        this.scene.player1.x = this.x;
-        if(this.x < this.originalX-10 &&  this.isMoving === true){
-          //this.setVelocityX(40);
-        }else if(this.x > this.originalX+10 &&  this.isMoving === true){
-          //this.setVelocityX(-40);
-        }else if(this.isMoving === true){
-          //this.setVelocityX(0);
-          //this.isMoving = false;
-          //this.returnedWithPlayerGrabbed = true;
-        }
+         //sets the scene to have a instance of the vine which grabbed the player.
+        this.scene.vineThatGrabbedPlayer = this;
       
-
         //console.log("this.startedGrab: ",this.startedGrab," this.animationPlayed: ",this.animationPlayed, " this.struggleAnimationInterupt: ",this.struggleAnimationInterupt);
         //start the grab ainimation where the player is sucked in. but dont damage them yet.
         if(this.startedGrab === false && this.animationPlayed === false){
@@ -284,9 +294,40 @@ class vine extends enemy{
                 },1000);
             });
             
-        }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
+        }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true && playerHealthObject.playerHealth >= playerHealthObject.playerMaxHealth/2){
             this.anims.play("PlayerGrabbed", true);
+        }else if(this.playerDefeatedAnimationStage === 0 && this.animationPlayed === false && playerHealthObject.playerHealth <= playerHealthObject.playerMaxHealth/2){
+            this.animationPlayed = true;
+            this.transitioningStates = true;
+
+            this.anims.play("PlayerGrabbedTransition", true).once('animationcomplete', () => {
+                this.animationPlayed = false;
+                this.playerDefeatedAnimationStage++;
+                this.transitioningStates = false;
+                this.struggleAnimationInterupt = false;
+                       
+                });
+        }else if(this.playerDefeatedAnimationStage === 1 && this.struggleAnimationInterupt === false && this.startedGrab === true){
+            this.anims.play("PlayerGrabbedRestrained", true);
         }
+
+        
+
+        if(this.playerDamageTimer === false && this.startedGrab === true){
+
+            this.playerDamageTimer = true;
+
+            console.log("damaging player ",playerHealthObject.playerHealth);
+            if(playerHealthObject.playerHealth >= playerHealthObject.playerMaxHealth/2){
+                healthEmitter.emit(healthEvent.loseHealth,2);
+            }
+
+            let currentEnemy = this;
+            setTimeout(function () {
+                currentEnemy.playerDamageTimer = false;
+            }, 2000);
+            
+        }   
     }
 
     playerEscaped(playerHealthObject){
@@ -301,7 +342,7 @@ class vine extends enemy{
             if (this.struggleFree === false && playerHealthObject.playerHealth >= 1) {
 
                 //if the palyer is grabbed, and in the tiger stomach
-                if(this.playerDefeatedAnimationStage === 0 && this.spitUp === false){
+                if(this.spitUp === false){
 
                     this.spitUp = true;
                     this.struggleFree = true;
@@ -309,7 +350,11 @@ class vine extends enemy{
                     //then free player.
                     this.resetVariables();
 
+                    this.scene.vineThatGrabbedPlayer = null;
+
                     this.scene.grabCoolDown = false;
+
+                    this.scene.playerStuckGrab = false;
                     
                     this.setVelocityX(0);
 
@@ -330,8 +375,10 @@ class vine extends enemy{
             }
     }
 
-    playerTransferToRoot(){
+    playerTransferToJackOVine(){
 
+
+        //basically hide ui for vine, and reset variables.
         this.scene.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
         //hides the mobile controls in the way of the tab/skip indicator.
@@ -342,15 +389,11 @@ class vine extends enemy{
         this.playerBrokeFree = 0;
         this.returnedWithPlayerGrabbed = false;
         this.grabCoolDown = false;
-        this.isAttacking = false;
 
         this.struggleCounter = 0;
         this.animationPlayed = false;
-        this.playerDamaged = false;
         
         this.keyAnimationPlayed = false;
-        //this.scene.player1.visible = true;
-        this.isPlayingMissedAnims = false;
         this.grabTimer = false;
 
         this.startedGrab = false;
@@ -359,15 +402,8 @@ class vine extends enemy{
         this.spitUp = false;
 
         this.scene.player1.mainHitbox.x = this.x;
-        ///this.scene.player1.y = this.y;
-        //this.scene.grabbed = false;
 
-        //console.log("this.matangoRoot", this.matangoRoot);
-                    
-        this.setVelocityX(0);
-        this.isMoving = false;
-
-        this.handRise();
+        this.playerGrabbed = false;
         
     }
 
@@ -400,7 +436,7 @@ class vine extends enemy{
 
             //puts the key display in the correct location.
             this.scene.KeyDisplay.x = this.x;
-            this.scene.KeyDisplay.y = this.y + 96;
+            this.scene.KeyDisplay.y = this.y + 70;
 
             //displays the give up option on screen
             giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);

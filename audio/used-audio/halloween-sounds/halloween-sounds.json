@@ -1,0 +1,14 @@
+{
+    "resources":[
+        "../audio/used-audio/halloween-muffled-sounds/halloween-muffled-sounds.mp3"
+        
+    ],
+
+    "spritemap": {
+        "theme":{
+            "start": 0,
+            "end": 37,
+            "loop": true
+        }
+    }
+}

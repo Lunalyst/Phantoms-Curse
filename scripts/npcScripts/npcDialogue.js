@@ -5689,6 +5689,72 @@ const npcDialogue = {
 
                 },
 
+                "wolfHalloween1":{
+
+                    "node1":{
+                        "dialogue": "Hi there! my names wolf.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "You must be new to the island.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "well....",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "Happy Halloween!",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "here, have some candy.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },"node6":{
+                        "dialogue": "Come back next year and I'll make a better batch~",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+                "wolfHalloween2":{
+
+                    "node1":{
+                        "dialogue": "Oh hello again. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "Don't mind me, I'm just doing some scouting.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },"node3":{
+                        "dialogue": "Hopefully next year we will have a fun little party if I find a good spot.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },"node4":{
+                        "dialogue": "For now hang in there.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },"node5":{
+                        "dialogue": "I'm sure I'll see you again sometime soon. ",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+                }
+
+
+
                 
                     
             }
@@ -6256,6 +6322,22 @@ const npcDialogue = {
                 "mushroom_male_tf":{
                     "node1":{
                         "dialogue": "You were allured by the mushrooms dancing. Against your better judgment, you lingered too close to the humanoid fungus. As it emitted its spores, your body slowly became infected.  Once a critical amount of cursed energy was present in your body, it was too late. A mushroom of your own began to grow on your head. It felt weird at first. Pulsing on your scalp, and eventually swallowing your head, but your body began to feel waves of pleasure with each throb.  And as the mushroom began to grow, you began to lose control of your body. Despite that, you enjoyed every second of it. As your body began to dance in a rhythmic way, the mushroom began to cover your penis. Eventually, your body became one with the mushroom.  Causing your penis, thighs, and chest to expand. Being fully transformed, your new body finds an emptier part of the cave to set up your mycelium. Parts of your body were able to shrink inside of you, allowing for you to spread throughout the surrounding ground. Eventually creating little offshoots of you who were ready to start the cycle all over again, if any unlucky visitors come your way.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "jackOVine_male_tf":{
+                    "node1":{
+                        "dialogue": "darkness falls across your eyes, the lustful hour was close at hand. pumpkin vines crawl in search of your seed, to terrorize your wobbling knees. and who so ever who shall be found with out the desire to be bound, must stand and take the penetration all the way through, and be stuck inside a pumpkins shell.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
+                "jackOVine_female_tf":{
+                    "node1":{
+                        "dialogue": "darkness falls across your eyes, the lustful hour was close at hand. pumpkin vines crawl in search of your seed, to terrorize your wobbling knees. and who so ever who shall be found with out the desire to be bound, must stand and take the penetration all the way through, and be stuck inside a pumpkins shell.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

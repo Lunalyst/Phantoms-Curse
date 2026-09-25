@@ -453,10 +453,10 @@ class playerWeaponFunctions extends playerItemMaps{
                 this.genericHeal(playerHealthObject,6,8);
               break;
               case (34):
-                this.genericHeal(playerHealthObject,3,12);
+                this.genericHeal(playerHealthObject,3,17);
               break;
               case (35):
-                this.genericCurse(playerHealthObject,3,12);
+                this.genericCurse(playerHealthObject,3,17);
               break;
               case (36):
                 this.genericCurse(playerHealthObject,1,5);

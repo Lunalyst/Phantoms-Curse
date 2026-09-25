@@ -43,6 +43,11 @@ class BridgeToLibertalia extends defaultScene {
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
+      this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 363 , frameHeight: 363 });
+      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 363 , frameHeight: 363 });
+
       //this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
 
       ///this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
@@ -56,6 +61,10 @@ class BridgeToLibertalia extends defaultScene {
       ]);
 
       this.load.spritesheet('foragingPoint',  'assets/gameObjects/foragingPoint.png',{frameWidth: 192 , frameHeight: 192});
+
+      this.load.audioSprite('halloweenMuffledSFX','audio/used-audio/halloween-muffled-sounds/halloween-muffled-sounds.json',[
+        "audio/used-audio/halloween-muffled-sounds/halloween-muffled-sounds.mp3"
+      ]);
 
     }
 
@@ -100,6 +109,8 @@ class BridgeToLibertalia extends defaultScene {
 
       //sets up gameplay emitters
       this.setUpGameplayEmitters();
+
+      this.initLoopingSound('halloweenMuffledSFX','theme', 0.6,"music");
       
       //creates a warp sprite and gives it a tag to tell it where to send the player.
       this.portals = this.physics.add.group();
@@ -121,6 +132,12 @@ class BridgeToLibertalia extends defaultScene {
       //this.initSigns(813,1757+12,"generic","tutorialCabin");
 
       this.initSavePoints(689,600-10);
+
+      if(/*new Date().getMonth() === 9*/ 1){
+
+        this.initWolf(1923, 632-16, "halloween");
+
+      }
       
       this.initPortals(548,632-8,2796,600,"warpCaveOutside","ShadowCaveUpper");
 
@@ -150,10 +167,6 @@ class BridgeToLibertalia extends defaultScene {
       if(this.calculateForagingPointSpawn(foragingObject.abundance, 30)){
         this.initForagingPoint(1461,696,forageItem,1,1,15);
       }
-  
-
-      
-
       
         this.initEnemy(1172,696,this.playerSex,'jackOVine',false);
 

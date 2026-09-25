@@ -89,7 +89,7 @@ class jackOVineMaleTF extends enemy {
             this.playerDamageTimer = true;
 
             if(this.animationPlayed === false){
-                healthEmitter.emit(healthEvent.loseHealth,2);
+                healthEmitter.emit(healthEvent.curseBuildUp,3);
             }
 
             let currentEnemy = this;
@@ -117,6 +117,14 @@ class jackOVineMaleTF extends enemy {
                 
                 this.resetVariables();
 
+                //this.scene.vineThatGrabbedPlayer.damage();
+
+                this.scene.vineThatGrabbedPlayer = null;
+
+                this.scene.grabCoolDown = false;
+
+                this.scene.playerStuckGrab = false;
+
                 //sets grabb cooldown for the scene
                 this.scene.startGrabCoolDown();
 
@@ -128,27 +136,37 @@ class jackOVineMaleTF extends enemy {
 
                 this.scene.KeyDisplay.visible = false;
 
+                this.summonVineDelayCooldown = true;
+                this.kickCoolDown = true;
+
                 //reset the jump variables if the player escapes this enemys grab
                 setTimeout(function () {
 
                     currentjackOVine.grabCoolDown = false;
+                    currentjackOVine.summonVineDelayCooldown = false;
+                    currentjackOVine.kickCoolDown = false;
                     console.log("grab cooldown has ended. player can be grabbed agian.");
-                }, 1500);
+                }, 2000);
             }
 
     }
 
     isStageProgressableMaleTF(){
 
-        if(this.playerDefeatedAnimationStage !== 3){
-            return true;
+        if(this.playerDefeatedAnimationStage === 2 &&
+            this.playerDefeatedAnimationStage === 4 &&
+            this.playerDefeatedAnimationStage === 6 &&
+            this.playerDefeatedAnimationStage === 8
+         ){
+            console.log("is a non skipable stage?: ",this.playerDefeatedAnimationStage)
+            return false;
         }
-
-        return false;
+         console.log("is a skipable stage?: ",this.playerDefeatedAnimationStage)
+        return true;
     }
 
     isMaxStageMaleTF(){
-        if(this.playerDefeatedAnimationStage > 4){
+        if(this.playerDefeatedAnimationStage > 9){
             return true;
         }
         return false;
@@ -179,7 +197,7 @@ class jackOVineMaleTF extends enemy {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
-       
+            //console.log("this.playerDefeatedAnimationCooldown: " + this.playerDefeatedAnimationCooldown, " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic,"  this.scene.KeyDisplay.visible: ",  this.scene.KeyDisplay.visible , " this.isStageProgressableMaleTF(): ",this.isStageProgressableMaleTF());
             if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
@@ -206,14 +224,15 @@ class jackOVineMaleTF extends enemy {
             if (this.scene.checkSkipIndicatorIsDown() || (this.isMaxStageMaleTF() && this.scene.checkDIsDown())) {
                 
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineTF;
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineMaleTF;
                 }else{
                     this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineFemaleTF;
                 }
 
-                this.scene.gameoverLocation = "hiveGameover";
+                this.scene.gameoverLocation = "pumpkinGameover";
                 this.scene.KeyDisplay.visible = false;
                 console.log("changing scene");
+
                 this.scene.changeToGameover();
             }
 
@@ -227,77 +246,97 @@ class jackOVineMaleTF extends enemy {
         if (this.playerDefeatedAnimationStage === 1) {
 
             //sets the ending value correctly once this enemy defeated animation activates.
-            this.playerDefeatedAnimationStageMax = 5;
+            this.playerDefeatedAnimationStageMax = 9;
+            this.inStartDefeatedLogic = false;
+            this.anims.play('jackOVinePlowing2', true);
 
-            if (!this.animationPlayed) {
+        }else if (this.playerDefeatedAnimationStage === 2) {
+
+             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('jackOVineTailSwallow1').once('animationcomplete', () => {
+                this.anims.play('jackOVineFillingPlayer').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
                     
                 });
-            }
-        }else if (this.playerDefeatedAnimationStage === 2) {
-            this.anims.play('jackOVineTailStruggle', true);
-
-            this.playPlapSound('plap3',800);
-
-            let thisjackOVine = this;
-            if (this.onomatPlayed === false) {
-                this.onomatPlayed = true;
-                let randX = Math.floor((Math.random() * 30));
-                let randY = Math.floor((Math.random() * 30));
-                this.scene.heartOnomat1 = new makeText(this.scene,this.x-randX,this.y-randY,'charBlack',"@heart@");
-                this.scene.heartOnomat1.visible = this.scene.onomatopoeia;
-                this.scene.heartOnomat1.setScale(1/4);
-                this.scene.heartOnomat1.textFadeOutAndDestroy(600);
-                setTimeout(function () {
-                    thisjackOVine.onomatPlayed = false;
-                }, 600);
             }
            
         }else if (this.playerDefeatedAnimationStage === 3) {
-            if (!this.animationPlayed) {
-            
-                this.animationPlayed = true;
-                this.anims.play('jackOVineTailSwallow2').once('animationcomplete', () => {
-                    //this.scene.onomat.destroy();
-                    this.animationPlayed = false;
-                    this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
-                    
-                });
-            }
+
+            this.anims.play('jackOVinePlowing3', true);
         }else if (this.playerDefeatedAnimationStage === 4) {
-            if (!this.animationPlayed) {
+
+             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('jackOVineTailSwallow3').once('animationcomplete', () => {
+                this.anims.play('jackOVineMoveTailVine').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
-                    this.inStartDefeatedLogic = false;
                     
                 });
             }
-        } else if (this.playerDefeatedAnimationStage === 5) {
-            this.anims.play('jackOVineTailJiggle', true);
            
+        }else if (this.playerDefeatedAnimationStage === 5) {
+
+            this.anims.play('jackOVinePlowing4', true);
+
+        }else if (this.playerDefeatedAnimationStage === 6) {
+
+             if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('jackOVineLinkingVine').once('animationcomplete', () => {
+                    //this.scene.onomat.destroy();
+                    this.animationPlayed = false;
+                    this.playerDefeatedAnimationStage++;
+                    
+                });
+            }
+           
+        }else if (this.playerDefeatedAnimationStage === 7) {
+
+            this.anims.play('jackOVinePlowing5', true);
+            
+        }else if (this.playerDefeatedAnimationStage === 8) {
+
+             if (!this.animationPlayed) {
+            
+                this.animationPlayed = true;
+                this.anims.play('jackOVineFinishing1').once('animationcomplete', () => {
+                    this.anims.play('jackOVineFinishing2').once('animationcomplete', () => {
+                        this.anims.play('jackOVineFinishingSmackStart').once('animationcomplete', () => {
+                            this.anims.play('jackOVineFinishingSmackEnd').once('animationcomplete', () => {
+                                //this.scene.onomat.destroy();
+                                this.animationPlayed = false;
+                                this.playerDefeatedAnimationStage++;
+                    
+                            });
+                    
+                        });
+                    
+                    });
+                    
+                });
+            }
+           
+        }else if (this.playerDefeatedAnimationStage === 9) {
+
+            this.anims.play('jackOVineFinishedIdle', true);
+            
         }
     }
 
     // functioned called to play animation when the player is defeated by the jackOVine in gameover.
     gameOver(playerSex) {
-        this.setSize(70, 180, true);
-        //this.setOffset(180, 110);
-        this.anims.play('jackOVineGameover').once('animationcomplete', () => {
 
-            this.anims.play('jackOVineMove', true);
-        
-        });
+        this.setSize(27, 70, true);
+        this.setOffset(72, 38);
+
+        this.anims.play('jackOVineGameover', true);
+
     }
 
 
@@ -316,11 +355,17 @@ class jackOVineMaleTF extends enemy {
             // if the grabbed is false but this function is called then do the following.
             if (this.playerGrabbed === false) {
 
-                this.jackOVineGrabFalse();
                 this.isViewingAnimation = true;
                 this.playerProgressingAnimation = false;
 
-                this.anims.play("jackOVineStruggle",true);
+                this.anims.play('jackOVineGrabStart').once('animationcomplete', () => {
+                    this.anims.play('jackOVineGrabEnd').once('animationcomplete', () => {
+                        //then destroy slime.
+                        this.jackOVineGrabFalse();
+                        this.anims.play("jackOVinePlowing1", true);
+                    });
+                });
+               
 
             //if the player is grabbed then.
             } else if(this.playerGrabbed === true) {

@@ -454,6 +454,9 @@ const bestiaryKey = {
   matangoRootMaleAbsorb:"matangoRoot_male_absorb",
   matangoRootMaleCock:"matangoRoot_male_cock",
 
+  jackOVineMaleTF: "jackOVine_male_tf",
+  jackOVineFemaleTF: "jackOVine_female_tf",
+
   istaraUnbirth:"istara_unbirth",
 
   vivianTF:"vivian_tf",
@@ -651,6 +654,15 @@ const bestiaryTextList = {
         title: "MALE MATANGO COCK",
         summary: "The matango's cock can also be used to catch prey, stuffing them deep into his balls.His prey is melted into fertile cum and when the matango cums from the pleasure of the process, a new matango is born.",
       },
+      jackOVine_male_tf:{
+        title: "JACK-O-VINE MALE",
+        summary: "Mimicking pumpkin plants, they pop out of the ground to catch any unsuspecting creatures off guard. using there vines they are happy to ensnare and deeply expore the internals of what they catch.",
+      },
+
+      jackOVine_female_tf:{
+        title: "JACK-O-VINE FEMALE",
+        summary: "once a new jack-o-vine has been created, they have to carve out space for there eyes. often leading to a spooky look. they are quite dangerous as there long legs can be used to to attack unwilling prey.",
+      },
       nectar_vore_1:{
         title: "NECTAR",
         summary: "An ancient sphinx sorceress who insists that she’s only 35. Clever and curious, she enjoys naps, eating anything smaller than her, and being a bit of a yandere towards a certain anaconda...",
@@ -667,6 +679,8 @@ const bestiaryTextList = {
         title: "THICK WOLF",
         summary: "The kind healer of lockwood has her limits. if someone tests those limits, then they might find themselves, a perminant addition to her figure. ",
       },
+
+      
 
       back: {
         title: "BESTIARY INFO",

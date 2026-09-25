@@ -124,12 +124,31 @@ class titleScreen extends defaultScene {
             
             this.secretLoad();
 
+            this.load.image("lockwood_entrance_source_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Entrance_Tileset.png");
+            this.load.tilemapTiledJSON("lockwood_bridges_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Bridges.json");
+
+            this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+
+            this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
+            this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
+
+            this.load.spritesheet('Lockwood_Center_background', 'assets/parrallax/Lockwood_Center_background.png',{frameWidth: 960 , frameHeight: 960});
+
+            this.load.spritesheet('Lockwood_Center_Castle', 'assets/parrallax/Lockwood_Center_Castle.png',{frameWidth: 3840 , frameHeight: 3072});
+
+            this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
+
+
             if(this.titleLogoType === "default"){
                 this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo.png" , {frameWidth: 720 , frameHeight: 760});
 
                 this.load.audioSprite('titleThemeSFX','audio/used-audio/titlescreen-sounds/titlescreen-sounds.json',[
                     "audio/used-audio/titlescreen-sounds/In Defiance Of The Curse by Gangstalka.mp3"
                   ]);
+
+                this.load.audioSprite('halloweenSFX','audio/used-audio/halloween-sounds/halloween-sounds.json',[
+                    "audio/used-audio/halloween-sounds/halloween-sounds.mp3"
+                ]);
 
             }else if(this.titleLogoType === "shadow"){
                 this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo shadow.png" , {frameWidth: 720 , frameHeight: 760});
@@ -180,7 +199,6 @@ class titleScreen extends defaultScene {
 
             this.cameras.main.zoom = 1;
             
-        
             //displays the current game version
             this.version = new makeText(this,this.screenWidth-230,this.screenHeight-25,'charBubble',"Alpha V0.30.08");
             this.version.visible = true;
@@ -253,11 +271,22 @@ class titleScreen extends defaultScene {
             this.credits = new credits(this,this.screenWidth/2-400,205,this.creditsArray);
             this.credits.setDepth(51);
 
+            this.month = new Date().getMonth();
+            ///this.month = 9;
+
             //adds looping sound effect.
             if(this.titleLogoType === "shadow"){
                 this.initLoopingSound('earieSFX','earieCave', 0.1);
             }else{
-                this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
+
+                if(this.month === 9){
+
+                    this.initLoopingSound('halloweenSFX','theme',0.1);
+
+                }else{
+                    this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
+                }
+               
             }
 
             console.log("this.scene.sound.soundGroups: ",this.sound.soundGroups);
@@ -307,14 +336,11 @@ class titleScreen extends defaultScene {
             this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 3 }),frameRate: 4,repeat: 0});
 
+            if(this.month === 9){
+
             //background definition.
             this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
             this.backround.setScale(1.1);
-
-             //creates tileset
-            //this.setUpTileSet("lockwood_etrance_map","Forest_Tileset","forest_source_map");
-            //this.layerX = -2400;
-            //this.layerY = -2500;
 
             this.layerX = -2980;
             this.layerY = -1370;
@@ -351,6 +377,37 @@ class titleScreen extends defaultScene {
             this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 68, end: 71 }), frameRate: 6, repeat: -1 });
             this.deaugh.anims.play("idle", true);
             this.deaugh.setScale(1);
+
+            }else{
+
+                //background definition.
+                this.backround = this.add.sprite(this.screenWidth/2 - 70, -20, "titleBackground");
+                this.backround.setScale(1.1);
+
+                this.layerX = -7250;
+                this.layerY = -1467-32;
+
+                this.parrallax1XOrigin = 3000-1620 + this.layerX;
+                this.parrallax1YOrigin = 100;
+                this.parrallax1 = this.add.tileSprite(this.parrallax1XOrigin, this.parrallax1YOrigin, 1920*8 ,1920, "tree_parrallax");
+                this.parrallax1.setScale(1);
+                this.parrallax1.setTint(0x303030);
+
+                this.setUpTileSet("lockwood_bridges_map","Lockwood_Entrance_Tileset","lockwood_entrance_source_map");
+                //this.processMap.layer2.setTint(0xFFFFFF);
+                //this.processMap.layer3.setTint(0x909090);
+
+                this.layerScale = 1;
+                this.processMap.layer0.setPosition(this.layerX, this.layerY);
+                this.processMap.layer0.setScale(this.layerScale);
+                this.processMap.layer1.setPosition(this.layerX, this.layerY);
+                this.processMap.layer1.setScale(this.layerScale);
+                this.processMap.layer2.setPosition(this.layerX, this.layerY);
+                this.processMap.layer2.setScale(this.layerScale);
+                this.processMap.layer3.setPosition(this.layerX, this.layerY);
+                this.processMap.layer3.setScale(this.layerScale);
+
+            }
             
 
             this.subMenuButtonsArray = [];

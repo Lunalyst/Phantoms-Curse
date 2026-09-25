@@ -17,7 +17,13 @@ class wolf extends npc{
       this.anims.create({ key: 'finishHeal', frames: this.anims.generateFrameNames('deaugh', { start: 12, end: 14 }), frameRate: 4, repeat: 0 });
       this.anims.create({ key: 'sideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 12, repeat: -1 });
       this.anims.create({ key: 'fastSideWalk', frames: this.anims.generateFrameNames('deaugh', { start: 15, end: 24 }), frameRate: 20, repeat: -1 });
-      
+
+      this.anims.create({ key: 'halloweenIdle', frames: this.anims.generateFrameNames('deaugh', { start: 68, end: 71 }), frameRate: 7, repeat: -1 });
+      this.anims.create({ key: 'halloweenSideIdle', frames: this.anims.generateFrameNames('deaugh', { start: 72, end: 75 }), frameRate: 7, repeat: -1 });
+
+      this.anims.create({ key: 'halloweenGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 76, end: 78 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'halloweenGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 79, end: 83 }), frameRate: 6, repeat: 0 });
+
       this.anims.create({ key: 'nudeIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'nudeSideIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'nudeSideWalk', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 8, end: 17 }), frameRate: 12, repeat: -1 });
@@ -225,6 +231,9 @@ class wolf extends npc{
        }else if(this.npcType === 'wolfShop2'){
           this.advancedIdleAnimation = false;
           this.anims.play("backIdle",true);
+       }else if(this.npcType === 'halloween'){
+          this.advancedIdleAnimation = true;
+          this.anims.play("halloweenIdle",true);
        }
 
   }
@@ -271,6 +280,8 @@ class wolf extends npc{
       this.wolfShop1();
     }else if(this.npcType === 'wolfShop2'){
       this.wolfShop2();
+    }else if(this.npcType === 'halloween'){
+      this.halloween();
     }else{
       
       this.default();
@@ -327,6 +338,18 @@ class wolf extends npc{
           this.flipX = false;
         }else{
           this.anims.play('idle',true);
+        }
+      }
+
+      if(this.npcType === "halloween"){
+        if(this.scene.player1.x < this.x - 25){
+          this.anims.play('halloweenSideIdle',true);
+          this.flipX = true;
+        }else if(this.scene.player1.x > this.x + 25){
+          this.anims.play('halloweenSideIdle',true);
+          this.flipX = false;
+        }else{
+          this.anims.play('halloweenIdle',true);
         }
       }
     }
@@ -1773,6 +1796,124 @@ class wolf extends npc{
     }
   }
 
+  halloween(){
+
+    //make a temp object
+    let object = {
+      flagToFind: "wolfHalloween1",
+      foundFlag: false,
+    };
+
+    //call the emitter to check if the value already was picked up.
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+    if(object.foundFlag === false){
+      this.nodeHandler("wolf","Behavior1","wolfHalloween1");
+    }else{
+      this.nodeHandler("wolf","Behavior1","wolfHalloween2");
+    }
+    
+
+    if(this.currentDictNode !== null){
+
+      //orient the player so it looks like they are facing wolf.
+      if(this.scene.player1.x < this.x){
+        this.scene.player1.x = this.x-30;
+        this.scene.player1.mainHitbox.x = this.x-30;
+      }else{
+        this.scene.player1.x = this.x+30;
+        this.scene.player1.mainHitbox.x = this.x+30;
+      }
+
+      if(this.scene.player1.x < this.x){
+
+        this.playerIsOnLeft = true;
+        this.scene.player1.flipXcontainer(false);
+        
+      }else{
+        this.playerIsOnRight = true;
+        this.scene.player1.flipXcontainer(true);
+       
+      }
+
+
+      if(this.currentDictNode.nodeName === "node1" && object.foundFlag === false){
+          //check to see if flag already exists
+          let wolfDialogue1 = {
+            flagToFind: "wolfHalloween1",
+            foundFlag: false,
+          };
+
+          // set the trigger flag to be added at the end of the dialogue.
+          this.scene.sceneTextBox.storeFlag(wolfDialogue1);
+          
+      }else if(this.currentDictNode.nodeName === "node5" && this.inDialogue === false && object.foundFlag === false){
+       
+        this.advancedIdleAnimation = false;
+        if(this.doOnce === false){
+
+            this.doOnce = true;
+
+            if(!this.animationPlayed){
+
+              this.animationPlayed = true;
+
+                //used to tell if the item was added
+                let addedToInventory = {
+                    added: false
+                };
+
+                let item = {
+                  itemID: 34,
+                  itemName: 'RED CANDY',
+                  itemDescription: 'A SPOOKY TREAT WHICH RESTORES A GREAT AMOUNT OF HP.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+                };
+
+                let item1 = {
+                  itemID: 35,
+                  itemName: 'PURPLE CANDY',
+                  itemDescription: 'A LUSTFUL TREAT WHICH FILLS THE CURSE BAR GREATLY.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+                };
+
+                inventoryKeyEmitter.emit(inventoryKey.addItem,item, addedToInventory);
+
+                inventoryKeyEmitter.emit(inventoryKey.addItem,item1, addedToInventory);
+              
+              //play animation of giving lantern // have the animation player after a period of time
+              //or if dialogue is skipped through, then make sure to destroy fake drop on next node.
+              this.anims.play('halloweenGiveItem1').once('animationcomplete', () => {
+
+                    //spawn fake item that disapears.
+                  if(this.flipX === false){
+                    this.scene.initFakeItemDropWithSpeed(this.x+14 , this.y-13 ,34,1000);
+                  }else{
+                    this.scene.initFakeItemDropWithSpeed(this.x-14 , this.y-13 ,34,1000);
+                  }
+
+                    this.anims.play('halloweenGiveItem2').once('animationcomplete', () => {
+                    this.advancedIdleAnimation = true;
+                    //this.anims.play('halloweenSideIdle',true);
+                    this.animationPlayed = false;
+
+                });
+              });
+
+            }
+
+          }
+      
+      }
+    }
+  }
+
   wolfxLuna(){
     
     this.nodeHandler("wolf","Behavior1","wolfXLunalyst");
@@ -2294,6 +2435,30 @@ class wolf extends npc{
                 sellValue: 5
               }
             );
+
+            if(new Date().getMonth() === 9){
+
+              this.buyBack.push(
+              {
+                 itemID: 34,
+                  itemName: 'RED CANDY',
+                  itemDescription: 'A SPOOKY TREAT WHICH RESTORES A GREAT AMOUNT OF HP.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              {
+                itemID: 35,
+                  itemName: 'PURPLE CANDY',
+                  itemDescription: 'A LUSTFUL TREAT WHICH FILLS THE CURSE BAR GREATLY.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              );
+            }
     
     
             //make a special object to pass to the listener
@@ -2767,6 +2932,30 @@ class wolf extends npc{
                 sellValue: 5
               }
             );
+
+            if(new Date().getMonth() === 9){
+
+              this.buyBack.push(
+              {
+                 itemID: 34,
+                  itemName: 'RED CANDY',
+                  itemDescription: 'A SPOOKY TREAT WHICH RESTORES A GREAT AMOUNT OF HP.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              {
+                itemID: 35,
+                  itemName: 'PURPLE CANDY',
+                  itemDescription: 'A LUSTFUL TREAT WHICH FILLS THE CURSE BAR GREATLY.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              );
+            }
     
     
             //make a special object to pass to the listener

@@ -392,9 +392,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         
         tempSceneRef.load.spritesheet('jov-female-male-tf1', 'assets/enemys/jov-female-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-female-male-tf2', 'assets/enemys/jov-female-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
-        
-        tempSceneRef.load.spritesheet('vines', 'assets/enemys/vines.png',{frameWidth: 131, frameHeight: 111 });
-        
+      
+        tempSceneRef.load.spritesheet('jov-male-tf-gameover', 'assets/enemys/jov-male-tf-gameover.png',{frameWidth: 171, frameHeight: 141 });
+      
         tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
           "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
         ]);

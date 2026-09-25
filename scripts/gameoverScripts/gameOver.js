@@ -199,6 +199,7 @@ class gameOver extends gameoverManager {
 
             }else{
                 console.log("this.enemyThatDefeatedPlayer: ",this.enemyThatDefeatedPlayer);
+                console.log("this.mapOfEnemyPreloads: ",this.mapOfEnemyPreloads)
                 this.mapOfEnemyPreloads[this.enemyThatDefeatedPlayer]();
 
                 //set up textbox sound type.

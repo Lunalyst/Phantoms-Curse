@@ -234,8 +234,8 @@ class rabbit extends enemy {
         
         this.anims.play('rabbitIdle',true);
 
-        this.setSize(70, 178, true);
-        //this.setOffset(180, 110);
+        this.setSize(70, 179, true);
+        this.setOffset(180, 110);
     }
 
     resetVariables(){

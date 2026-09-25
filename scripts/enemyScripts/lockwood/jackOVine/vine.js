@@ -285,6 +285,8 @@ class vine extends enemy{
                 struggleEmitter.emit(struggleEvent.activateStruggleBar, true);
                 struggleEmitter.emit(struggleEvent.updateStruggleBarCap,this.struggleCap);
                 // makes the key prompts visible.
+                console.log("this.scene.KeyDisplay: ",this.scene.KeyDisplay)
+                 console.log("this.scene: ",this.scene)
                 this.scene.KeyDisplay.visible = true;
 
                 let temp = this;
@@ -439,7 +441,7 @@ class vine extends enemy{
             this.scene.KeyDisplay.y = this.y + 70;
 
             //displays the give up option on screen
-            giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
+            //giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,true);
             
             //if the player is not defeated
             //console.log("is vine defeating the player?")
@@ -463,7 +465,7 @@ class vine extends enemy{
             }else if(this.struggleCounter >= 100 && playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
                 
                 //if the player escapes hide the give up indicator.
-                giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+                //giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
 
                 struggleEmitter.emit(struggleEvent.updateStruggleBar,this.struggleCounter);
 

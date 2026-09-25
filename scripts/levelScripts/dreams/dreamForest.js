@@ -25,7 +25,7 @@ class dreamForest extends defaultScene {
       this.defaultPreload();
       
       //define an array of enemys we are using
-      this.enemyGroupArray = ["beeDrones","rabbits","tigers","whiteCats"];
+      this.enemyGroupArray = ["beeDrones","rabbits","tigers","whiteCats","jackOVines","vines"];
 
       //call built in function to preload enemys assets.
       this.setUpEnemyPreload(this.enemyGroupArray);
@@ -111,7 +111,6 @@ class dreamForest extends defaultScene {
 
       //note when checking bestiary entry data to see if enemy view should spawn, need to push that to this array if its true.
       //sets up enemy colliders and groups
-      this.enemyGroupArray = ["beeDrones","rabbits","tigers","whiteCats"];
       this.setUpEnemyCollider(this.enemyGroupArray);
 
       //define barriers whee enemys cannot go.
@@ -173,6 +172,24 @@ class dreamForest extends defaultScene {
   
         if((object1.foundFlag === true || object2.foundFlag === true)){
           thisScene.initEnemy(1534,881,thisScene.playerSex,'rabbit',true);
+        }
+
+        object1 = {
+          flagToFind: bestiaryKey.jackOVineMaleTF,
+          foundFlag: false,
+        };
+
+        object2 = {
+          flagToFind: bestiaryKey.jackOVineFemaleTF,
+          foundFlag: false,
+        };
+  
+        // call the emitter to check if the value already was picked up.
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object1);
+        inventoryKeyEmitter.emit(inventoryKey.checkBestiaryFlag, object2);
+  
+        if((object1.foundFlag === true || object2.foundFlag === true)){
+          thisScene.initEnemy(1743,881,thisScene.playerSex,'jackOVine',true);
         }
 
         object1 = {

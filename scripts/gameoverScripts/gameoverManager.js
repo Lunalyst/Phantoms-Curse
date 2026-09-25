@@ -35,6 +35,7 @@ class gameoverManager extends A3SoundEffects {
                   ]);
             },
             hiveThroneGameover: function hiveThroneGameover() {
+
                 tempGameover.load.image("hive_source_map" , "assets/tiledMap/LockWood/Hive_Tileset/Hive_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("hiveThroneGameover" , "assets/tiledMap/LockWood/Hive_Tileset/Throne_Hive_Gameover .json");
 
@@ -51,6 +52,7 @@ class gameoverManager extends A3SoundEffects {
                     "audio/used-audio/earie-sounds/earie-sounds.mp3"
                 ]);
             },
+
             blueSlimeGameover: function blueSlimeGameover() {
                 tempGameover.load.image("blue_slime_source_map" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Cave_Tileset.png");
                 tempGameover.load.tilemapTiledJSON("blueSlimeGameover" , "assets/tiledMap/LockWood/Blue_Slime_Cave_Tileset/Blue_Slime_Gameover.json");
@@ -98,10 +100,14 @@ class gameoverManager extends A3SoundEffects {
                 tempGameover.load.tilemapTiledJSON("autumnGameover" , "assets/tiledMap/LockWood/Lockwood_Village_Interior_Tileset/Autumns_Room_Gameover.json");
                 
             },
-            
+            pumpkinGameover: function pumpkinGameover() {
+                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/Forest_Background_Static.png');
+                tempGameover.load.tilemapTiledJSON("pumpkinGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Pumpkin_Gameover.json");
+                tempGameover.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
+                tempGameover.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
-        
- 
+            },
+            
         }
 
 
@@ -488,7 +494,34 @@ class gameoverManager extends A3SoundEffects {
                     tempSceneRef.continue = true;
                 }
                 
-            }
+            },
+
+            pumpkinGameover: function pumpkinGameover() {
+
+                let backround = tempSceneRef.add.sprite(450, 120, "backgroundForestRavineLevel");
+                tempSceneRef.parrallax1XOrigin = 500;
+                tempSceneRef.parrallax1YOrigin = 0;
+                tempSceneRef.parrallax1 = tempSceneRef.add.tileSprite(tempSceneRef.parrallax1XOrigin, tempSceneRef.parrallax1YOrigin, 1920*6 ,1920, "tree_parrallax");
+                tempSceneRef.parrallax1.setScale(1/3);
+                //tempSceneRef.parrallax1.setDepth(-50);
+                tempSceneRef.parrallax1.setTint(0x444444);
+
+                tempSceneRef.parrallax2XOrigin = 500;
+                tempSceneRef.parrallax2YOrigin = 0+600;
+                tempSceneRef.parrallax2 = tempSceneRef.add.tileSprite(tempSceneRef.parrallax2XOrigin, tempSceneRef.parrallax2YOrigin, 1920*6 ,1920, "ground_parrallax");
+                tempSceneRef.parrallax2.setScale(1/3);
+                //tempSceneRef.parrallax2.setDepth(-50);
+                tempSceneRef.parrallax2.setTint(0x444444);
+                tempSceneRef.lightingSystemActive = false;
+
+                tempSceneRef.processMap.tilesetNameInTiled = "Forest_Tileset";
+                tempSceneRef.processMap.setTiles('forest_source_map',tempSceneRef);
+
+                tempSceneRef.processMap.layer2.setTint(0xFFFFFF);
+                tempSceneRef.processMap.layer3.setTint(0x909090);
+
+                
+            },
 
         }
 
@@ -513,7 +546,6 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'cursed';  
 
             },
-            
             blueSlime_large_tf: function largeBlueSlimeFunction() {
                 tempSceneRef.enemy = new blueSlime(tempSceneRef,450, 560,tempSceneRef.playerSex);
                 tempSceneRef.enemy.slimeSize = 2;
@@ -1115,7 +1147,7 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.mushroomNode2 = new mushroomNode(tempSceneRef,450+64, 547+64,"node2",tempSceneRef.mushroomRoot,false);
                 tempSceneRef.mushroomNode2.visible = false;
             },
-
+            
             nectar_vore_1: function nectar_vore_1Function() {
 
                 tempSceneRef.enemy = new nectarBoss(tempSceneRef,470, 510,tempSceneRef.playerSex,0,true);
@@ -1213,6 +1245,20 @@ class gameoverManager extends A3SoundEffects {
                 tempSceneRef.defeatedTitle = 'eaten';
                 tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
 
+            },
+
+            jackOVine_male_tf: function jackOVineMaleTFFunction() {
+                tempSceneRef.preferance = 0;
+                tempSceneRef.enemy = new jackOVine(tempSceneRef,450, 580,tempSceneRef.playerSex);
+                tempSceneRef.enemy.gameOver();
+                tempSceneRef.defeatedTitle = 'cursed';
+            },
+
+            jackOVine_female_tf: function jackOVinefemaleTFFunction() {
+                tempSceneRef.preferance = 1;
+                tempSceneRef.enemy = new jackOVine(tempSceneRef,450, 560,tempSceneRef.playerSex);
+                tempSceneRef.enemy.gameOver();
+                tempSceneRef.defeatedTitle = 'cursed';
             },
 
             generic: function genericFunction(){
@@ -1787,6 +1833,14 @@ class gameoverManager extends A3SoundEffects {
             },
 
             matangoRoot_male_cock: function matangoRootMalecockFunction() {
+                
+            },
+
+            jackOVine_male_tf: function jackOVineMaleTFFunction() {
+              
+            },
+
+            jackOVine_female_tf: function jackOVinefemaleTFFunction() {
                 
             },
 

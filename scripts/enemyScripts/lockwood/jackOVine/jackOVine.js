@@ -89,6 +89,9 @@ class jackOVine extends jackOVineMaleTF {
             
             this.anims.create({ key: 'jackOVineSpin', frames: this.anims.generateFrameNames('jov-male-male-tf1', { start: 61, end: 68 }), frameRate: 8, repeat: -1 });
             
+            this.anims.create({ key: 'jackOVineDefeatedFall', frames: this.anims.generateFrameNames('jov-male-male-tf1', { start: 69, end: 78 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'jackOVineDefeated', frames: this.anims.generateFrameNames('jov-male-male-tf1', { start: 79, end: 79 }), frameRate: 8, repeat: -1 });
+            
            
             //and the player is male, so only specific male on male animations
             if(sex === 0 ){
@@ -163,233 +166,236 @@ class jackOVine extends jackOVineMaleTF {
     //functions that move jackOVine objects.
     move(){
         //console.log("moving pumpkin");
-        if(this.isHidding === false){
 
-            console.log("jack o vine: ",this.summonVineDelay);
-            //if rabbit is too close, and grabb attempt is false, then 
-                if((this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false && this.kickCoolDown === false && this.summonVineDelay === false){
+        if(this.enemyHP > 0){
+            if(this.isHidding === false){
+
+                console.log("jack o vine: ",this.summonVineDelay);
+                //if rabbit is too close, and grabb attempt is false, then 
+                    if((this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false && this.kickCoolDown === false && this.summonVineDelay === false){
+                        
+                        // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
                     
-                    // IF THE PLAYER ISNT MOVING LEFT OR RIGHT then set velocity to zero so they dont over shoot the player.
-                
-                    this.setVelocityX(0);
-                    
-                    // otherwise keep the rabbits current momentum.
-                    this.grabTimer = true;
-
-                    //if player to the left move the grab hitbox to the left
-                    if(this.scene.player1.x < this.x){
-                        this.flipX = true;
-                    }else{
-                        this.flipX = false;
-                    }
-
-                    this.setDepth(7);
-                    
-                    this.anims.play('jackOVineKickStart').once('animationcomplete', () => {
-                        
-                       this.anims.play('jackOVineKickMiddle').once('animationcomplete', () => {
-                        
-                            //this.playJumpySound('3',700);
-                            this.setVelocityX(0);
-                            this.attackHitboxActive = true;
-                            this.attackHitBox.body.enable = true;
-                            this.attemptingGrab = true;
-                            this.playJumpySound('3',700);
-                            
-                        });
-                        
-                    });
-
-                //activate missed animation
-                }else if(this.checkXRangeFromPlayer(140, 140) && !this.checkXRangeFromPlayer(40, 40) && this.attemptingGrab === false && this.grabTimer === false && this.summonVineDelay === false){
-
-                     //stop momentum play idle loop
-                    this.setVelocityX(0);
-
-                    //if the enemy hasn't sent out a vine and the cool down isnt up
-                    if(this.summonVineDelayCooldown === false){
-
-                        this.summonVineDelayCooldown = true;
-                        this.summonVineDelay = true;
-
-                        if(this.scene.player1.x > this.x){
-                            this.flipX = false;
-                        }else{
-                            this.flipX = true;
-                        }
-
-                        this.anims.play('jackOVineSummonVineStart').once('animationcomplete', () => {
-                            //spawn vine 
-
-                            this.scene.initEnemy(this.x,this.y+13,this.scene.playerSex,'vine',this.flipX);
-                        
-                            this.anims.play('jackOVineSummonVineEnd').once('animationcomplete', () => {
-
-                                this.summonVineDelay = false;
-                                //after animation finishes set time out for next vine spawn
-                                let currentRabbit = this;
-                                setTimeout(function () {
-                                    currentRabbit.summonVineDelayCooldown = false;
-                                    console.log("kickCoolDown has ended. player can be grabbed agian.");
-                                }, 2000);
-                                                        
-                            });
-                         });
-
-                    }else{
-                        this.anims.play('jackOVineSideIdle', true);
-
-                        if(this.scene.player1.x > this.x){
-                            this.flipX = false;
-                        }else{
-                            this.flipX = true;
-                        }
-                    }
-
-                        
-
-                       
-
-                   
-                //attempt to grab the player
-                }else if(this.attemptingGrab === true && this.scene.playerStuckGrab === false && this.summonVineDelay === false){
-
-                    if(this.isPlayingMissedAnims === false){
-                        this.isPlayingMissedAnims = true;
-                        //set value to play missed grabb animation
-
                         this.setVelocityX(0);
                         
-                        this.anims.play('jackOVineKickEnd').once('animationcomplete', () => {
+                        // otherwise keep the rabbits current momentum.
+                        this.grabTimer = true;
 
-                            this.setDepth(5);
-                            this.attackHitboxActive = false;
-                            this.attemptingGrab = false;
-                            this.grabTimer = false;
-                            this.isPlayingMissedAnims = false;  
-                            //if(!this.checkYRangeFromPlayer(20,70)){
-                                this.anims.play('jackOVineSideIdle', true);
-                            //}
+                        //if player to the left move the grab hitbox to the left
+                        if(this.scene.player1.x < this.x){
+                            this.flipX = true;
+                        }else{
+                            this.flipX = false;
+                        }
+
+                        this.setDepth(7);
+                        
+                        this.anims.play('jackOVineKickStart').once('animationcomplete', () => {
                             
-                            this.kickCoolDown = true;
-                            let currentRabbit = this;
-                            setTimeout(function () {
-                                currentRabbit.kickCoolDown = false;
-                                console.log("kickCoolDown has ended. player can be grabbed agian.");
-                            }, 2000);
+                        this.anims.play('jackOVineKickMiddle').once('animationcomplete', () => {
+                            
+                                //this.playJumpySound('3',700);
+                                this.setVelocityX(0);
+                                this.attackHitboxActive = true;
+                                this.attackHitBox.body.enable = true;
+                                this.attemptingGrab = true;
+                                this.playJumpySound('3',700);
+                                
+                            });
+                            
                         });
-                    }
 
-                //move the rabbit right if the player isnt knocked down
-                }else if(this.scene.player1.x > this.x + 100 && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false && this.summonVineDelay === false) {
-                    //console.log("moving cat right"); 
-                    this.swallowDelay = false; 
-                    this.attemptingGrab = false;
-                    this.grabTimer = false;
-                    this.attackHitboxActive = false;            
-                    this.direction = "right";
-                    this.jumpAnimationPlayed = false; 
-                    this.hitboxActive = false;
-                    this.flipX = false;
+                    //activate missed animation
+                    }else if(this.checkXRangeFromPlayer(140, 140) && !this.checkXRangeFromPlayer(40, 40) && this.attemptingGrab === false && this.grabTimer === false && this.summonVineDelay === false){
 
-                    this.anims.play('jackOVineWalk', true);
-                    this.setVelocityX(200); 
-                    
-            
-                //if the player not knocked how move the rabbit left
-                }else if(this.scene.player1.x < this.x - 100 && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false && this.summonVineDelay === false) {
-                    //console.log("moving cat left");
-                    this.swallowDelay = false; 
-                    this.attemptingGrab = false;
-                    this.grabTimer = false;
-                    this.attackHitboxActive = false;  
-                    this.direction = "left";
-                    this.jumpAnimationPlayed = false;
-                    this.flipX = true;
-                    this.hitboxActive = false;
-                    this.anims.play('jackOVineWalk', true);
-                    this.setVelocityX(-200); 
-                    
-                }
+                        //stop momentum play idle loop
+                        this.setVelocityX(0);
 
-        }else if(this.isHidding === true){
-    
-                //if the player enters the activation range
-                if (this.playerEnteredActivationRange === false && this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange)){
-                    //set value to true
-                    this.playerEnteredActivationRange = true;
-    
-                //so when thep player leaves the range
-                }else if(this.playerEnteredActivationRange === true && !this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange)){
+                        //if the enemy hasn't sent out a vine and the cool down isnt up
+                        if(this.summonVineDelayCooldown === false){
+
+                            this.summonVineDelayCooldown = true;
+                            this.summonVineDelay = true;
+
+                            if(this.scene.player1.x > this.x){
+                                this.flipX = false;
+                            }else{
+                                this.flipX = true;
+                            }
+
+                            this.anims.play('jackOVineSummonVineStart').once('animationcomplete', () => {
+                                //spawn vine 
+
+                                this.scene.initEnemy(this.x,this.y+13,this.scene.playerSex,'vine',this.flipX);
+                            
+                                this.anims.play('jackOVineSummonVineEnd').once('animationcomplete', () => {
+
+                                    this.summonVineDelay = false;
+                                    //after animation finishes set time out for next vine spawn
+                                    let currentRabbit = this;
+                                    setTimeout(function () {
+                                        currentRabbit.summonVineDelayCooldown = false;
+                                        console.log("kickCoolDown has ended. player can be grabbed agian.");
+                                    }, 2000);
+                                                            
+                                });
+                            });
+
+                        }else{
+                            this.anims.play('jackOVineSideIdle', true);
+
+                            if(this.scene.player1.x > this.x){
+                                this.flipX = false;
+                            }else{
+                                this.flipX = true;
+                            }
+                        }
+
+                            
+
+                        
+
                     
-                    //play animation of tiger emerging from bush
-                    if (!this.animationPlayed) {
-                        this.animationPlayed = true;
-                        this.anims.play('jackOVineEmerge').once('animationcomplete', () => {
-                            this.animationPlayed = false;
-                            this.isHidding = false;
-                        });
-                    }
-    
-                //player hasnt been noticed but is within tigers range
-                }else if(this.noticedPlayer === false && (this.scene.player1.x > this.x - this.noticeRangeOuter && this.scene.player1.x < this.x + this.noticeRangeOuter)){
-    
-                    this.peakActivated = true;
-                    if (!this.animationPlayed) {
-                        this.animationPlayed = true;
-                        //this.scene.initSoundEffect('bushSFX','1',1);
-                        this.anims.play('jackOVinehidingPeak').once('animationcomplete', () => {
-                            this.animationPlayed = false;
-                            this.noticedPlayer =true;
-                        });
-                    }
-                    
-                //if the player hasn't been noticed and isnt in range
-                }else if(this.noticedPlayer === false && this.peakActivated === false){
-    
-                    //keep tiger hidden
-                    this.flipX = false;
-                    //this.scene.initSoundEffect('bushSFX','1',1);
-                    this.anims.play('jackOVineInActive', true);
-    
-                //if the player has been noticed and is to the right, look at them
-                }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x + this.noticeRangeInner && this.scene.player1.x < this.x + this.noticeRangeOuter)){
-    
-                    this.flipX = false;
-                    this.anims.play('jackOVinehidingMiddle', true);
-                    //this.scene.initSoundEffect('bushSFX','2',1);
-                    this.playerInOuterRange = false;
-    
-                //if the player has been noticed and is to the left, look at them
-                }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x - this.noticeRangeOuter && this.scene.player1.x < this.x - this.noticeRangeInner)){
-    
-                    this.flipX = false;
-                    this.anims.play('jackOVinehidingMiddle', true);
-                    //this.scene.initSoundEffect('bushSFX','2',1);
-                    this.playerInOuterRange = false;
-    
-                //once the player is spotted, hide agian
-                }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x  - this.noticedAndHiddenOuter && this.scene.player1.x < this.x + this.noticedAndHiddenOuter)){
-                    //plays the hiding animation
-                    this.activatedSuprise = true;
-                    if (!this.animationPlayed && this.playerInOuterRange === false) {
-                        this.animationPlayed = true;
+                    //attempt to grab the player
+                    }else if(this.attemptingGrab === true && this.scene.playerStuckGrab === false && this.summonVineDelay === false){
+
+                        if(this.isPlayingMissedAnims === false){
+                            this.isPlayingMissedAnims = true;
+                            //set value to play missed grabb animation
+
+                            this.setVelocityX(0);
+                            
+                            this.anims.play('jackOVineKickEnd').once('animationcomplete', () => {
+
+                                this.setDepth(5);
+                                this.attackHitboxActive = false;
+                                this.attemptingGrab = false;
+                                this.grabTimer = false;
+                                this.isPlayingMissedAnims = false;  
+                                //if(!this.checkYRangeFromPlayer(20,70)){
+                                    this.anims.play('jackOVineSideIdle', true);
+                                //}
+                                
+                                this.kickCoolDown = true;
+                                let currentRabbit = this;
+                                setTimeout(function () {
+                                    currentRabbit.kickCoolDown = false;
+                                    console.log("kickCoolDown has ended. player can be grabbed agian.");
+                                }, 2000);
+                            });
+                        }
+
+                    //move the rabbit right if the player isnt knocked down
+                    }else if(this.scene.player1.x > this.x + 100 && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false && this.scene.playerStuckGrab === false && this.summonVineDelay === false) {
+                        //console.log("moving cat right"); 
+                        this.swallowDelay = false; 
+                        this.attemptingGrab = false;
+                        this.grabTimer = false;
+                        this.attackHitboxActive = false;            
+                        this.direction = "right";
+                        this.jumpAnimationPlayed = false; 
+                        this.hitboxActive = false;
                         this.flipX = false;
-                        //this.scene.initSoundEffect('bushSFX','2',1);
-                        this.anims.play('jackOVineInActiveHide').once('animationcomplete', () => {
-                            this.animationPlayed = false;
-                            this.playerInOuterRange = true;
+
+                        this.anims.play('jackOVineWalk', true);
+                        this.setVelocityX(200); 
+                        
+                
+                    //if the player not knocked how move the rabbit left
+                    }else if(this.scene.player1.x < this.x - 100 && this.checkYRangeFromPlayer(20,70) && this.attemptingGrab === false && this.grabTimer === false  && this.scene.playerStuckGrab === false && this.summonVineDelay === false) {
+                        //console.log("moving cat left");
+                        this.swallowDelay = false; 
+                        this.attemptingGrab = false;
+                        this.grabTimer = false;
+                        this.attackHitboxActive = false;  
+                        this.direction = "left";
+                        this.jumpAnimationPlayed = false;
+                        this.flipX = true;
+                        this.hitboxActive = false;
+                        this.anims.play('jackOVineWalk', true);
+                        this.setVelocityX(-200); 
+                        
+                    }
+
+            }else if(this.isHidding === true){
+        
+                    //if the player enters the activation range
+                    if (this.playerEnteredActivationRange === false && this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange)){
+                        //set value to true
+                        this.playerEnteredActivationRange = true;
+        
+                    //so when thep player leaves the range
+                    }else if(this.playerEnteredActivationRange === true && !this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange)){
+                        
+                        //play animation of tiger emerging from bush
+                        if (!this.animationPlayed) {
+                            this.animationPlayed = true;
+                            this.anims.play('jackOVineEmerge').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.isHidding = false;
+                            });
+                        }
+        
+                    //player hasnt been noticed but is within tigers range
+                    }else if(this.noticedPlayer === false && (this.scene.player1.x > this.x - this.noticeRangeOuter && this.scene.player1.x < this.x + this.noticeRangeOuter)){
+        
+                        this.peakActivated = true;
+                        if (!this.animationPlayed) {
+                            this.animationPlayed = true;
                             //this.scene.initSoundEffect('bushSFX','1',1);
-                        });
-                    //if hiding animation has been played, play hide animation
-                    }else if (this.playerInOuterRange === true && this.activatedSuprise === false){
-                        //console.log('this.playerInOuterRange === true');
+                            this.anims.play('jackOVinehidingPeak').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.noticedPlayer =true;
+                            });
+                        }
+                        
+                    //if the player hasn't been noticed and isnt in range
+                    }else if(this.noticedPlayer === false && this.peakActivated === false){
+        
+                        //keep tiger hidden
                         this.flipX = false;
+                        //this.scene.initSoundEffect('bushSFX','1',1);
                         this.anims.play('jackOVineInActive', true);
-                    }
-                }else if(this.noticedPlayer === true && !this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange) ){
-                    this.anims.play('jackOVineInActive', true);
-                }  
+        
+                    //if the player has been noticed and is to the right, look at them
+                    }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x + this.noticeRangeInner && this.scene.player1.x < this.x + this.noticeRangeOuter)){
+        
+                        this.flipX = false;
+                        this.anims.play('jackOVinehidingMiddle', true);
+                        //this.scene.initSoundEffect('bushSFX','2',1);
+                        this.playerInOuterRange = false;
+        
+                    //if the player has been noticed and is to the left, look at them
+                    }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x - this.noticeRangeOuter && this.scene.player1.x < this.x - this.noticeRangeInner)){
+        
+                        this.flipX = false;
+                        this.anims.play('jackOVinehidingMiddle', true);
+                        //this.scene.initSoundEffect('bushSFX','2',1);
+                        this.playerInOuterRange = false;
+        
+                    //once the player is spotted, hide agian
+                    }else if(this.noticedPlayer === true && (this.scene.player1.x > this.x  - this.noticedAndHiddenOuter && this.scene.player1.x < this.x + this.noticedAndHiddenOuter)){
+                        //plays the hiding animation
+                        this.activatedSuprise = true;
+                        if (!this.animationPlayed && this.playerInOuterRange === false) {
+                            this.animationPlayed = true;
+                            this.flipX = false;
+                            //this.scene.initSoundEffect('bushSFX','2',1);
+                            this.anims.play('jackOVineInActiveHide').once('animationcomplete', () => {
+                                this.animationPlayed = false;
+                                this.playerInOuterRange = true;
+                                //this.scene.initSoundEffect('bushSFX','1',1);
+                            });
+                        //if hiding animation has been played, play hide animation
+                        }else if (this.playerInOuterRange === true && this.activatedSuprise === false){
+                            //console.log('this.playerInOuterRange === true');
+                            this.flipX = false;
+                            this.anims.play('jackOVineInActive', true);
+                        }
+                    }else if(this.noticedPlayer === true && !this.checkRangeFromPlayer(this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange, this.activateJackOVineRange) ){
+                        this.anims.play('jackOVineInActive', true);
+                    }  
+            }
         }
 
         //handles attack hit box positioning
@@ -419,7 +425,7 @@ class jackOVine extends jackOVineMaleTF {
 
     //simple idle function played when the player is grabbed by something that isnt this jackOVine.
     moveIdle() {
-        
+
         //first checks if jackOVine object has detected grab. then sets some values in acordance with that and sets this.playerGrabbed = true.
         this.clearTint();
 
@@ -788,6 +794,7 @@ class jackOVine extends jackOVineMaleTF {
         if (this.damageCoolDown === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
+
             if (this.enemyHP > 0) {
                 //apply damage function here. maybe keep ristances as a variable a part of enemy then make a function to calculate damage
                this.calcDamage(
@@ -812,15 +819,17 @@ class jackOVine extends jackOVineMaleTF {
 
                     this.setVelocityX(0);
 
+                    this.flipX = false;
                     
                     //drop item if applicable
                     //let dropChance = Math.round((Math.random() * ((75) - (45 * this.scene.player1.dropChance)) + (45 * this.scene.player1.dropChance))/100);
-                    //let dropAmount = Math.round((Math.random() * ((3 * this.scene.player1.dropAmount) - (1 * this.scene.player1.dropAmount)) + 1));
-                    //this.scene.initItemDrop(this.x + (Math.random() * (20 - 10) + 10)-10,this.y,17,1,dropAmount,"POLLEN","SUNFLOWER POLLEN.","drop",8);
-
+                    
                     //play defeat animation
                     this.anims.play('jackOVineDefeatedFall').once('animationcomplete', () => {
-                     //then destroy slime.
+
+                    let dropAmount = Math.round((Math.random() * ((10 * this.scene.player1.dropAmount) - (5 * this.scene.player1.dropAmount)) + 5));
+                    this.scene.initItemDrop(this.x-35,this.y+10,38,1,dropAmount,"PUMPKIN SEEDS","DUBIOUS SEEDS WHICH CAN BE CONSUMED TO REGAIN MINOR AMOUNT OF HP.","consumable",2);
+
                         this.anims.play('jackOVineDefeated');
                      });
             

@@ -429,10 +429,10 @@ class playerWeaponFunctions extends playerItemMaps{
             switch(this.playerDataObject.playerInventoryData[4].itemID) {
 
               case (9):
-                this.genericHealAndCurse(playerHealthObject,3,3,5)
+                this.genericHealAndCurse(playerHealthObject,3,3,5);
               break;
               case (11):
-                this.genericHealAndCurse(playerHealthObject,3,6,2)
+                this.genericHealAndCurse(playerHealthObject,3,6,2);
               break;
               case (28):
                 this.genericCurse(playerHealthObject,2,10);
@@ -463,6 +463,9 @@ class playerWeaponFunctions extends playerItemMaps{
               break;
               case (37):
                 this.genericHeal(playerHealthObject,1,1);
+              break;
+              case (38):
+                this.genericHealAndCurse(playerHealthObject,2,3,1)
               break;
               default:
               this.consumeFailAnimation();

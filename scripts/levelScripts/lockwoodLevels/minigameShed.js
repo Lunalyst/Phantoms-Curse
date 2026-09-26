@@ -215,7 +215,7 @@ class minigameShed extends defaultScene {
 
       }
       this.pausedInTextBox = false;
-      controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
+      //controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
 
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.

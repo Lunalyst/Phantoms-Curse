@@ -73,6 +73,10 @@ controlKeyEvent = {
     activateDKey: 'activate_d_key',
     activateSpaceKey: 'activate_space_key',
     activateATKKey: 'activate_atk_key',
+    activateSpecialKey: 'activate_special_key',
+    activateConsumeKey: 'activate_consume_key',
+    activateBlockKey: 'activate_block_key',
+    
 
     activateSkipIndicatorKey: 'activate_skip_indicator_key',
     activateGiveUpIndicatorKey: 'activate_give_up_indicator_key',
@@ -84,6 +88,10 @@ controlKeyEvent = {
     justDownDKey: 'just_down_d_key',
     justDownSpaceKey:'just_down_space_key',
     justDownATKKey: 'just_down_atk_key',
+    justDownSpecialkey: 'just_down_special_key',
+    justDownConsumekey: 'just_down_consume_key',
+    justDownBlockkey: 'just_down_block_key',
+    
 
     toggleForTextBox:'toggle_for_text_box',
     toggleForStruggle:'toggle_for_Struggle',

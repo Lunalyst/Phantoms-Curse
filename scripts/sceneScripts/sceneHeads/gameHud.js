@@ -530,7 +530,7 @@ class gameHud extends A3SoundEffects {
             this.mobileD.playDKey(0);
           },this);
 
-          this.mobileJMP = new mobileButton(this,this.screenWidth-100,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileJMP = new mobileButton(this,this.screenWidth-190,mobileY+100).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileJMP);
           this.mobileJMP.playJMPKey();
 
@@ -577,7 +577,7 @@ class gameHud extends A3SoundEffects {
             this.mobileJMP.playJMPKey(0);
           },this);
 
-          this.mobileATK = new mobileButton(this,this.screenWidth-100,mobileY-100).setInteractive(this.input.makePixelPerfect());
+          this.mobileATK = new mobileButton(this,this.screenWidth-230,mobileY).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileATK);
           this.mobileATK.playATKKey();
 
@@ -622,6 +622,153 @@ class gameHud extends A3SoundEffects {
             this.mobileATK.isJustDown =false;
             this.mobileATK.playATKKey(0);
           },this);
+
+          //==========================================================================================
+          this.mobileSpecial = new mobileButton(this,this.screenWidth-340,mobileY+100).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileSpecial);
+          this.mobileSpecial.playSpecialKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateSpecialKey,(object) =>{
+            object.isDown = this.mobileSpecial.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownSpecialkey,(object) =>{
+        
+            if(this.mobileSpecial.isJustDown === true){
+
+              this.mobileSpecial.isJustDown = false;
+              this.mobileSpecial.IsPressed = false;
+              this.mobileSpecial.playSpecialKey(0);
+
+              object.isDown = true;
+
+            }else{
+              object.isDown = false;
+            }
+            
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileSpecial.on('pointerdown', function (pointer) {
+            this.mobileSpecial.IsPressed = true;
+            this.mobileSpecial.isJustDown = true;
+            this.mobileSpecial.playSpecialKey(1);
+          },this);
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileSpecial.on('pointerup',function(pointer){
+            this.mobileSpecial.IsPressed = false;
+            this.mobileSpecial.isJustDown = false;
+            this.mobileSpecial.playSpecialKey(0);
+          },this);
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileSpecial.on('pointerout',function(pointer){
+            this.mobileSpecial.IsPressed = false;
+            this.mobileSpecial.isJustDown = false;
+            this.mobileSpecial.playSpecialKey(0);
+          },this);
+          //==========================================================================================
+
+          this.mobileConsume = new mobileButton(this,this.screenWidth-80,mobileY).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileConsume);
+          this.mobileConsume.playConsumeKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateConsumeKey,(object) =>{
+            object.isDown = this.mobileConsume.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownConsumekey,(object) =>{
+        
+            if(this.mobileConsume.isJustDown === true){
+
+              this.mobileConsume.isJustDown = false;
+              this.mobileConsume.IsPressed = false;
+              this.mobileConsume.playConsumeKey(0);
+
+              object.isDown = true;
+
+            }else{
+              object.isDown = false;
+            }
+            
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileConsume.on('pointerdown', function (pointer) {
+            this.mobileConsume.IsPressed = true;
+            this.mobileConsume.isJustDown = true;
+            this.mobileConsume.playConsumeKey(1);
+          },this);
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileConsume.on('pointerup',function(pointer){
+            this.mobileConsume.IsPressed = false;
+            this.mobileConsume.isJustDown = false;
+            this.mobileConsume.playConsumeKey(0);
+          },this);
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileConsume.on('pointerout',function(pointer){
+            this.mobileConsume.IsPressed = false;
+            this.mobileConsume.isJustDown = false;
+            this.mobileConsume.playConsumeKey(0);
+          },this);
+
+          //==========================================================================================
+
+          this.mobileBlock = new mobileButton(this,this.screenWidth-80,mobileY-100).setInteractive(this.input.makePixelPerfect());
+          this.mobileGroup.add(this.mobileBlock);
+          this.mobileBlock.playBlockKey();
+
+          //define a emitter so that the gameplay scene can check if the key is being used
+          controlKeyEmitter.on(controlKeyEvent.activateBlockKey,(object) =>{
+            object.isDown = this.mobileBlock.IsPressed;
+          });
+
+          //function mimics functionality of justdown, so our button can only be pressed once until it is freed
+          controlKeyEmitter.on(controlKeyEvent.justDownBlockkey,(object) =>{
+        
+            if(this.mobileBlock.isJustDown === true){
+
+              this.mobileBlock.isJustDown = false;
+              this.mobileBlock.IsPressed = false;
+              this.mobileBlock.playBlockKey(0);
+
+              object.isDown = true;
+
+            }else{
+              object.isDown = false;
+            }
+            
+          });
+
+          //pointer events when button is pressed to activate set pressed to true in the key object
+          this.mobileBlock.on('pointerdown', function (pointer) {
+            this.mobileBlock.IsPressed = true;
+            this.mobileBlock.isJustDown = true;
+            this.mobileBlock.playBlockKey(1);
+          },this);
+          
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileBlock.on('pointerup',function(pointer){
+            this.mobileBlock.IsPressed = false;
+            this.mobileBlock.isJustDown = false;
+            this.mobileBlock.playBlockKey(0);
+          },this);
+
+          //pointer even so that when the button is not being pressed, set value to false.
+          this.mobileBlock.on('pointerout',function(pointer){
+            this.mobileBlock.IsPressed = false;
+            this.mobileBlock.isJustDown = false;
+            this.mobileBlock.playBlockKey(0);
+          },this);
+
+          //==========================================================================================
 
           this.mobileInventory = new mobileButton(this,this.screenWidth-60,mobileY+100).setInteractive(this.input.makePixelPerfect());
           this.mobileInventory.playInventoryKey();
@@ -705,17 +852,22 @@ class gameHud extends A3SoundEffects {
           controlKeyEmitter.on(controlKeyEvent.toggleForTextBox,(toggle) =>{
 
             //check if the mobile controls are even visible.
-           if(this.settings.currentMobileControls === true){
+            console.log("this.settings:: ",this.settings);
+            console.log("this.settings.currentMobileControls: ",this.settings.mobileControls);
+           if(this.settings.mobileControls === true){
               //if so then set the visibility of A,D,S,ATK,JMP,and Inventory.
               this.mobileA.visible = toggle;
               this.mobileS.visible = toggle;
               this.mobileD.visible = toggle;
               this.mobileJMP.visible = toggle;
               this.mobileATK.visible = toggle;
+              this.mobileSpecial.visible = toggle;
+              this.mobileBlock.visible = toggle;
+              this.mobileConsume.visible = toggle;
               this.mobileInventory.visible = toggle;
             //otherwise we only want to toggle the inventory button
             }else{
-              this.mobileInventory.visible = toggle;
+              this.mobileInventory.visible = false;
             }
             
           });
@@ -733,6 +885,9 @@ class gameHud extends A3SoundEffects {
               this.mobileD.visible = toggle;
               this.mobileJMP.visible = toggle;
               this.mobileATK.visible = toggle;
+              this.mobileSpecial.visible = toggle;
+              this.mobileBlock.visible = toggle;
+              this.mobileConsume.visible = toggle;
             //otherwise we only want to toggle the inventory button
             }else{
               this.mobileW.visible = false;
@@ -741,6 +896,9 @@ class gameHud extends A3SoundEffects {
               this.mobileD.visible = false;
               this.mobileJMP.visible = false;
               this.mobileATK.visible = false;
+              this.mobileSpecial.visible = false;
+              this.mobileBlock.visible = false;
+              this.mobileConsume.visible = false;
             }
             
           });
@@ -754,6 +912,9 @@ class gameHud extends A3SoundEffects {
               this.mobileJMP.visible = toggle;
               this.mobileATK.visible = toggle;
               this.mobileInventory.visible = toggle;
+              this.mobileSpecial.visible = toggle;
+              this.mobileBlock.visible = toggle;
+              this.mobileConsume.visible = toggle;
             //otherwise we only want to toggle the inventory button
             }else{
               this.mobileInventory.visible = toggle;

@@ -404,18 +404,17 @@ setUpKeyPrompts(){
       return true; 
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.justDownSpecialkey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
-     return false;
+      }
     } 
   }
 
@@ -426,19 +425,17 @@ setUpKeyPrompts(){
       return true;
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.activateSpecialKey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
-
-        return false;
+      }
     } 
   }
 
@@ -448,18 +445,17 @@ setUpKeyPrompts(){
       return true; 
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.justDownBlockkey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
-     return false;
+      }
     } 
   }
 
@@ -470,19 +466,18 @@ setUpKeyPrompts(){
       return true;
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.activateBlockKey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
+      }
 
-        return false;
     } 
   }
 
@@ -492,18 +487,17 @@ setUpKeyPrompts(){
       return true; 
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.justDownAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.activateConsumeKey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
-     return false;
+      }
     } 
   }
 
@@ -514,19 +508,18 @@ setUpKeyPrompts(){
       return true;
     }else{
 
-      /*let keyObject = {
+      let keyObject = {
         isDown:false
       };
 
-      controlKeyEmitter.emit(controlKeyEvent.activateAKey,keyObject);
+      controlKeyEmitter.emit(controlKeyEvent.activateConsumeKey,keyObject);
 
       if(keyObject.isDown === true){
         return true;
       }else{
         return false;
-      }*/
+      }
 
-        return false;
     } 
   }
 

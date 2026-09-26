@@ -20,6 +20,13 @@ class mobileButton extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({key: 'jmpButtonInactive',frames: this.anims.generateFrameNames('mobileButtons', { start: 11, end: 11 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'jmpButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 12, end: 12 }),frameRate: 7,repeat: -1});
         this.anims.create({key: 'inventoryButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 13, end: 13 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'specialButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 14, end: 14 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'specialButtonInactive',frames: this.anims.generateFrameNames('mobileButtons', { start: 15, end: 15 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'consumeButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 16, end: 16 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'consumeButtonInactive',frames: this.anims.generateFrameNames('mobileButtons', { start: 17, end: 17 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'blockButtonActive',frames: this.anims.generateFrameNames('mobileButtons', { start: 18, end: 18 }),frameRate: 7,repeat: -1});
+        this.anims.create({key: 'blockButtonInactive',frames: this.anims.generateFrameNames('mobileButtons', { start: 19, end: 19 }),frameRate: 7,repeat: -1});
+        
         
         //connects the sprite to the camera so that it sticks with the player.
         //this.setScrollFactor(0);
@@ -82,6 +89,30 @@ class mobileButton extends Phaser.Physics.Arcade.Sprite{
 
     playInventoryKey(){
         this.anims.play("inventoryButtonActive");
+    }
+
+    playSpecialKey(mode){
+        if(mode === 1){
+            this.anims.play("specialButtonInactive");
+        }else{
+            this.anims.play("specialButtonActive");
+        }
+    }
+
+    playConsumeKey(mode){
+        if(mode === 1){
+            this.anims.play("consumeButtonInactive");
+        }else{
+            this.anims.play("consumeButtonActive");
+        }
+    }
+
+    playBlockKey(mode){
+        if(mode === 1){
+            this.anims.play("blockButtonInactive");
+        }else{
+            this.anims.play("blockButtonActive");
+        }
     }
 
 

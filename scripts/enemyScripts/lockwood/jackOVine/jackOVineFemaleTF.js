@@ -1,7 +1,7 @@
 //base for the boss, seperation for all grab struggle logic functions ect so they dont clutter main script
-class jackOVineMaleTF extends jackOVineFemaleTF {
+class jackOVineFemaleTF extends enemy {
     
-    randomizeInputMaleTF(){
+    randomizeInputFemaleTF(){
 
         if (this.keyAnimationPlayed === false) {
             this.scene.KeyDisplay.playWKey();
@@ -10,7 +10,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         
     }
 
-    playerIsNotDefeatedInputsMaleTF(playerHealthObject){
+    playerIsNotDefeatedInputsFemaleTF(playerHealthObject){
 
         // correct keys to escape can be ASD
         if(this.startedGrab === true && this.struggleFree === false){
@@ -30,12 +30,12 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             }
         }
         
-        this.randomizeInputMaleTF();
+        this.randomizeInputFemaleTF();
 
         this.reduceStruggleCounter();
     }
 
-    playerIsStrugglingLogicMaleTFASM(){
+    playerIsStrugglingLogicFemaleTFASM(){
         //this.rightHand.visible = false;
         //this.leftHand.visible = false;
         console.log("this.startedGrab: ",this.startedGrab," this.animationPlayed: ",this.animationPlayed);
@@ -79,9 +79,9 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         }
     }
 
-    playerIsStrugglingLogicMaleTF(){
+    playerIsStrugglingLogicFemaleTF(){
 
-        this.playerIsStrugglingLogicMaleTFASM();
+        this.playerIsStrugglingLogicFemaleTFASM();
 
         console.log("attempting to gamage player? ",this.playerDamageTimer, this.startedGrab)
         if(this.playerDamageTimer === false && this.startedGrab === true){
@@ -100,7 +100,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         }   
     }
 
-    playerEscapedMaleTF(playerHealthObject){
+    playerEscapedFemaleTF(playerHealthObject){
 
          let currentjackOVine = this;
 
@@ -151,7 +151,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
 
     }
 
-    isStageProgressableMaleTF(){
+    isStageProgressableFemaleTF(){
 
         if(this.playerDefeatedAnimationStage === 2 &&
             this.playerDefeatedAnimationStage === 4 &&
@@ -165,14 +165,14 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         return true;
     }
 
-    isMaxStageMaleTF(){
+    isMaxStageFemaleTF(){
         if(this.playerDefeatedAnimationStage > 9){
             return true;
         }
         return false;
     }
 
-    playerIsDefeatedLogicMaleTF(){
+    playerIsDefeatedLogicFemaleTF(){
 
            // these cases check if the player should be damages over time if grabbed. if so then damage the player based on the size of the jackOVine.
         this.playerDefeated = true;
@@ -197,12 +197,12 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
-            //console.log("this.playerDefeatedAnimationCooldown: " + this.playerDefeatedAnimationCooldown, " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic,"  this.scene.KeyDisplay.visible: ",  this.scene.KeyDisplay.visible , " this.isStageProgressableMaleTF(): ",this.isStageProgressableMaleTF());
+            //console.log("this.playerDefeatedAnimationCooldown: " + this.playerDefeatedAnimationCooldown, " this.inStartDefeatedLogic: ",this.inStartDefeatedLogic,"  this.scene.KeyDisplay.visible: ",  this.scene.KeyDisplay.visible , " this.isStageProgressableFemaleTF(): ",this.isStageProgressableFemaleTF());
             if (this.scene.checkDIsDown() &&
                  this.playerDefeatedAnimationCooldown === false &&
                   this.inStartDefeatedLogic === false &&
                    this.scene.KeyDisplay.visible === true &&
-                     this.isStageProgressableMaleTF()) {
+                     this.isStageProgressableFemaleTF()) {
 
                 this.scene.KeyDisplay.visible = false;
                 //this.stageTimer = 0;
@@ -221,12 +221,12 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             }
 
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-            if (this.scene.checkSkipIndicatorIsDown() || (this.isMaxStageMaleTF() && this.scene.checkDIsDown())) {
+            if (this.scene.checkSkipIndicatorIsDown() || (this.isMaxStageFemaleTF() && this.scene.checkDIsDown())) {
                 
                 if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineMaleTF;
-                }else{
                     this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineFemaleTF;
+                }else{
+                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineFeFemaleTF;
                 }
 
                 this.scene.gameoverLocation = "pumpkinGameover";
@@ -236,12 +236,12 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
                 this.scene.changeToGameover();
             }
 
-            this.enemyDefeatedPlayerAnimationMaleTF();
+            this.enemyDefeatedPlayerAnimationFemaleTF();
      
 
     }
 
-    enemyDefeatedPlayerAnimationMaleTF(){
+    enemyDefeatedPlayerAnimationFemaleTF(){
           let currentjackOVine = this;
         if (this.playerDefeatedAnimationStage === 1) {
 
@@ -255,7 +255,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
              if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('jackOVineFillingPlayer').once('animationcomplete', () => {
+                this.anims.play('jackOVineLickingPlayer').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -271,7 +271,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
              if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('jackOVineMoveTailVine').once('animationcomplete', () => {
+                this.anims.play('jackOVineFillingPlayer').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -288,7 +288,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
              if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                this.anims.play('jackOVineLinkingVine').once('animationcomplete', () => {
+                this.anims.play('jackOVineAllTheWayThrough').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -308,17 +308,10 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
                 this.anims.play('jackOVineFinishing1').once('animationcomplete', () => {
                     this.anims.play('jackOVineFinishing2').once('animationcomplete', () => {
                         this.anims.play('jackOVineFinishing3').once('animationcomplete', () => {
-                            this.anims.play('jackOVineFinishingSmackStart').once('animationcomplete', () => {
-                                this.anims.play('jackOVineFinishingSmackEnd').once('animationcomplete', () => {
-                                    //this.scene.onomat.destroy();
-                                    this.animationPlayed = false;
-                                    this.playerDefeatedAnimationStage++;
-                        
-                                });
-                        
-                            });
-                    
-                    });
+                            //this.scene.onomat.destroy();
+                            this.animationPlayed = false;
+                            this.playerDefeatedAnimationStage++;
+                        });
                     
                     });
                     
@@ -344,7 +337,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
 
 
     //function to show off animation 
-    animationGrabMaleTF(){
+    animationGrabFemaleTF(){
 
     
             let currentjackOVine = this;
@@ -424,7 +417,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
                     //calls animation grab code until the animation is finished
                     if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
                         //handle the defeated logic that plays defeated animations 
-                        this.playerIsDefeatedLogicMaleTF(playerHealthObject);
+                        this.playerIsDefeatedLogicFemaleTF(playerHealthObject);
                     }else{
                         //hide the tab indicator and key prompts
                         skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);

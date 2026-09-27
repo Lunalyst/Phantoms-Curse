@@ -246,6 +246,8 @@ class bestiary extends Phaser.Physics.Arcade.Sprite {
     this.activeBestiaryPages["zzzzz"] = ["back"];
     this.activeBestiaryGroups.push("zzzzz");
 
+    this.activeBestiaryGroups.sort();
+    
     console.log(this.activeBestiaryPages);
     console.log(this.activeBestiaryGroups);
   }

@@ -1057,7 +1057,7 @@ class G9CheckEnemys extends G8InitEnemys {
     //applys a function to all tigers
     scene.jackOVines.children.each(function (tempEnemy) {
 
-      if(scene.objectsInRangeX(tempEnemy,scene.player1,600) && scene.objectsInRangeY(tempEnemy,scene.player1,250) && tempEnemy.inSafeMode === false ){
+      if(scene.objectsInRangeX(tempEnemy,scene.player1,600) && scene.objectsInRangeY(tempEnemy,scene.player1,300) && tempEnemy.inSafeMode === false ){
          
       if(tempEnemy.enemyInDefeatedLogic === true){
         tempEnemy.enemyDefeatedLogic();

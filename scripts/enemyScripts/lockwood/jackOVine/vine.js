@@ -44,6 +44,7 @@ class vine extends enemy{
         this.anims.create({ key: 'grabMiddle', frames: this.anims.generateFrameNames('vines', { start: 21, end: 23 }), frameRate:  10, repeat: 0 });
         this.anims.create({ key: 'grabEnd', frames: this.anims.generateFrameNames('vines', { start: 24, end: 29 }), frameRate:  10, repeat: 0 });
         if(sex === 0 ){
+
             this.anims.create({ key: 'PlayerGrabbedStart', frames: this.anims.generateFrameNames('vines', { start:30, end: 32 }), frameRate:  7, repeat: 0 });
             this.anims.create({ key: 'PlayerGrabbed', frames: this.anims.generateFrameNames('vines', { start:33, end: 36 }), frameRate:  7, repeat: -1 });
             this.anims.create({ key: 'PlayerGrabbedStruggle', frames: this.anims.generateFrameNames('vines', { start:37, end: 40 }), frameRate:  7, repeat: 0 });
@@ -87,54 +88,59 @@ class vine extends enemy{
         //gets the hp value using a emitter
         healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
 
-        if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(80, 80) && playerHealthObject.playerHealth >= 1){
+        if(this.x >= 793 && this.x <= 1727 && this.scene.playerLocation === "BridgeToLibertalia"){
+            if(this.checkXRangeFromPlayer(30, 30) && this.checkYRangeFromPlayer(80, 80) && playerHealthObject.playerHealth >= 1){
 
-            if(this.animationPlaying === false){
-                this.animationPlaying = true;
+                if(this.animationPlaying === false){
+                    this.animationPlaying = true;
 
-                 this.x = this.scene.player1.x;
+                    this.x = this.scene.player1.x;
 
-                this.anims.play('grabStart').once('animationcomplete', () => {
-                    this.hitboxActive = true;
-                    console.log("this.scene.grabCoolDown: ",this.scene.grabCoolDown)
-            
-                    this.anims.play('grabMiddle').once('animationcomplete', () => {
-                        this.hitboxActive = false;
+                    this.anims.play('grabStart').once('animationcomplete', () => {
+                        this.hitboxActive = true;
+                        console.log("this.scene.grabCoolDown: ",this.scene.grabCoolDown)
+                
+                        this.anims.play('grabMiddle').once('animationcomplete', () => {
+                            this.hitboxActive = false;
 
-                        //saftey case
-                        if(this.playerGrabbed === false){
+                            //saftey case
+                            if(this.playerGrabbed === false){
 
-                            this.anims.play('grabEnd').once('animationcomplete', () => {
-                            
-                                //if vines missed the player, then destroy them.
-                                this.damage();
-                                        
-                            }); 
-                            
-                        }
-                                    
-                    });   
-                                    
-                });
-        }
-
-        }else{
-            if(this.animationPlaying === false){
-                this.animationPlaying = true;
-                this.anims.play('travel').once('animationcomplete', () => {
-                    this.currentMoves++; 
-                    this.animationPlaying = false; 
-
-                    if(this.flipX === false){
-                        this.x = this.x + 40;
-                    }else{
-                    this.x = this.x - 40;  
-                    }
-
-
+                                this.anims.play('grabEnd').once('animationcomplete', () => {
                                 
-                });
+                                    //if vines missed the player, then destroy them.
+                                    this.damage();
+                                            
+                                }); 
+                                
+                            }
+                                        
+                        });   
+                                        
+                    });
             }
+            
+
+            }else{
+                if(this.animationPlaying === false){
+                    this.animationPlaying = true;
+                    this.anims.play('travel').once('animationcomplete', () => {
+                        this.currentMoves++; 
+                        this.animationPlaying = false; 
+
+                        if(this.flipX === false){
+                            this.x = this.x + 40;
+                        }else{
+                        this.x = this.x - 40;  
+                        }
+
+
+                                    
+                    });
+                }
+            }
+        }else{
+            this.damage();
         }
 
         //handles hit box positioning
@@ -480,13 +486,19 @@ class vine extends enemy{
 
     damage() {
         
+        console.log("this.scene: ", this.scene)
         //remove colliders since we no longer need them.
-        this.removeColliders();
 
-        this.grabHitBox.destroy();
-        this.scene.enemyId--;
-    
-        this.destroy();
+        if(this.scene !== undefined){
+            this.removeColliders();
+
+            this.grabHitBox.destroy();
+            this.scene.enemyId--;
+        
+            this.destroy();
+        }
+        
+
     }
 
         

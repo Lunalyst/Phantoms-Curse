@@ -57,7 +57,7 @@ class jackOVine extends jackOVineMaleTF {
         if(this.enemySex === 0){
             this.grabType = "maleTF";
         }else{
-            this.grabType = "femmaleTF";
+            this.grabType = "femaleTF";
         }
         
 
@@ -108,15 +108,13 @@ class jackOVine extends jackOVineMaleTF {
                 this.anims.create({ key: 'jackOVinePlowing5', frames: this.anims.generateFrameNames('jov-male-male-tf2', { start: 60, end: 65 }), frameRate: 13, repeat: -1 });
 
                 this.anims.create({ key: 'jackOVineFinishing1', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 0, end: 4 }), frameRate: 8, repeat: 0 });
-                this.anims.create({ key: 'jackOVineFinishing2', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 5, end: 17 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing2', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 5, end: 5 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing3', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 6, end: 17 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'jackOVineFinishingSmackStart', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 18, end: 25 }), frameRate: 8, repeat: 0 });
                 this.anims.create({ key: 'jackOVineFinishingSmackEnd', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 26, end: 27 }), frameRate: 8, repeat: 0 });
 
                 this.anims.create({ key: 'jackOVineFinishedIdle', frames: this.anims.generateFrameNames('jov-male-male-tf3', { start: 19, end: 22 }), frameRate: 7, repeat: -1 });
-                
-                this.anims.create({ key: 'jackOVineGameover', frames: this.anims.generateFrameNames('jov-male-tf-gameover', { start: 0, end: 9 }), frameRate: 12, repeat: -1 });
-                
-                
+                     
             //and the player is female, so only specific male on female animations
             }else{
                 
@@ -125,15 +123,60 @@ class jackOVine extends jackOVineMaleTF {
         //otherwise enemy is female   
         }else{
             
+            this.anims.create({ key: 'jackOVineInActive', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 0, end: 0 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'jackOVineInActiveHide', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 0, end: 0 }), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'jackOVinehidingRight', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 1, end: 1 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'jackOVinehidingRightAngle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 2, end: 2 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'jackOVinehidingMiddle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 3, end: 3 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'jackOVinehidingPeak', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 3, end: 3 }), frameRate: 5, repeat: 0 });
+            this.anims.create({ key: 'jackOVinehidingLeftAngle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 4, end: 4 }), frameRate: 5, repeat: -1 });
+            this.anims.create({ key: 'jackOVinehidingLeft', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 5, end: 5 }), frameRate: 5, repeat: -1 });
+            
+            this.anims.create({ key: 'jackOVineEmerge', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 6, end: 12 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'jackOVineIdle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 13, end: 16 }), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'jackOVineWalk', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 17, end: 26 }), frameRate: 16, repeat: -1 });
+            this.anims.create({ key: 'jackOVineKickStart', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 27, end: 28 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'jackOVineKickMiddle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 29, end: 31 }), frameRate: 15, repeat: 0 });
+            this.anims.create({ key: 'jackOVineKickEnd', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 32, end: 34 }), frameRate: 10, repeat: 0 });
+
+            this.anims.create({ key: 'jackOVineSideIdle', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 35, end: 38 }), frameRate: 6, repeat: -1 });
+            this.anims.create({ key: 'jackOVineSummonVineStart', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 39, end: 41 }), frameRate: 6, repeat: 0 });
+            this.anims.create({ key: 'jackOVineSummonVineEnd', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 42, end: 42 }), frameRate: 6, repeat: 0 });
+
+            this.anims.create({ key: 'jackOVineSpin', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 57, end: 64 }), frameRate: 8, repeat: -1 });
+            
+            this.anims.create({ key: 'jackOVineDefeatedFall', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 65, end: 74 }), frameRate: 8, repeat: 0 });
+            this.anims.create({ key: 'jackOVineDefeated', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 75, end: 75 }), frameRate: 8, repeat: -1 });
+        
             //and the player is male, so only specific female on male animations
             if(sex === 0){
-            
+
+                this.anims.create({ key: 'jackOVineGrabStart', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 43, end: 44 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'jackOVineGrabEnd', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 45, end: 45 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing1', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 46, end: 49 }), frameRate: 9, repeat: 0 });
+
+                this.anims.create({ key: 'jackOVinePlowing2', frames: this.anims.generateFrameNames('jov-female-male-tf1', { start: 50, end: 56 }), frameRate: 10, repeat: -1 });
+                
+                this.anims.create({ key: 'jackOVineLickingPlayer', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 0, end: 6 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing3', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 7, end: 12 }), frameRate: 11, repeat: -1 });
+                this.anims.create({ key: 'jackOVineFillingPlayer', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 13, end: 19 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing4', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 20, end: 25 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'jackOVineAllTheWayThrough', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 26, end: 36 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing5', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 37, end: 43 }), frameRate: 13, repeat: -1 });
+
+                this.anims.create({ key: 'jackOVineFinishing1', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 44, end: 48 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing2', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 49, end: 58 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing3', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 59, end: 61 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishedIdle', frames: this.anims.generateFrameNames('jov-female-male-tf2', { start: 62, end: 65 }), frameRate: 7, repeat: -1 });
+                
             //and the player is female, so only specific female on female animations
             }else{
                
             }
 
         }
+
+        this.anims.create({ key: 'jackOVineGameover', frames: this.anims.generateFrameNames('jov-male-tf-gameover', { start: 0, end: 9 }), frameRate: 12, repeat: -1 });
 
         if(this.inSafeMode === true){
              this.anims.play("jackOVineIdle", true);
@@ -161,6 +204,9 @@ class jackOVine extends jackOVineMaleTF {
         this.summonVineDelay = false;
         this.summonVineDelayCooldown = false;
 
+        this.returnToSpawn = false;
+        this.returnToX = xPos;
+
     }
 
     //functions that move jackOVine objects.
@@ -170,7 +216,11 @@ class jackOVine extends jackOVineMaleTF {
         if(this.enemyHP > 0){
             if(this.isHidding === false){
 
+                if(this.thrashingRange()){
                 console.log("jack o vine: ",this.summonVineDelay);
+
+                 this.returnToSpawn = false;
+
                 //if rabbit is too close, and grabb attempt is false, then 
                     if((this.checkXRangeFromPlayer(40, 40) && this.checkYRangeFromPlayer(20,70) && this.grabTimer === false) && this.scene.playerStuckGrab === false && this.kickCoolDown === false && this.summonVineDelay === false){
                         
@@ -317,6 +367,81 @@ class jackOVine extends jackOVineMaleTF {
                         
                     }
 
+                
+                }else if((this.x > this.returnToX - 20 && this.x <= this.returnToX + 20)){
+                    
+                    this.setVelocityX(0);
+                    this.anims.play('jackOVineSideIdle', true);
+
+                    if(this.scene.player1.x < this.x){
+                        this.flipX = true;
+                    }else{
+                        this.flipX = false;
+                    }
+
+                }else{
+                    
+                    //variable to set position of where the jackovine should be 
+                    let correctPosition = this.returnToX;
+
+                    //since the jack o vine shouldnt be attcking then reset there variables for attack logic.
+                    this.resetMoveVariables();
+
+                    // in order to do that, we need to make a line from where the pumpkin is, to where it needs to go
+                    //this variable locks out the travel direction variable.
+                    if(this.setTravelDirection === false){
+
+                        this.setTravelDirection = true;
+                       
+
+                        //if the pumpkin is to the left of the player butt then 
+                        if(this.x < correctPosition){
+                            this.travelDirection = "left";
+                        }else{
+                            this.travelDirection = "right";
+                        }
+                    }
+
+                    if(this.travelDirection === "left"){
+
+                        //if the player is to the left of the correct position them move them to 
+                        if(this.x < correctPosition){
+                            this.flipX = false;
+                            this.anims.play('jackOVineWalk', true);
+                            this.setVelocityX(200); 
+
+                        }else if(this.x >= correctPosition){
+                            this.anims.play('jackOVineSideIdle', true);
+                            this.setVelocityX(0);
+                            //this.x = correctPosition;
+
+                            this.returnToSpawn = true;
+                            this.setTravelDirection = false;
+                        }
+
+                    }else if(this.travelDirection === "right"){
+
+                        //if the player is to the left of the correct position them move them to 
+                        if(this.x > correctPosition){
+                            this.flipX = true;
+                            this.anims.play('jackOVineWalk', true);
+                            this.setVelocityX(-200); 
+
+                        }else if(this.x <= correctPosition ){
+
+                            this.anims.play('jackOVineSideIdle', true);
+                            this.setVelocityX(0);
+                            //this.x = correctPosition;
+                            console.log("traveled from the right and arrived at ")
+                            this.returnToSpawn = true;
+                            this.setTravelDirection = false;
+
+                        }
+                    }
+
+                        
+                }
+
             }else if(this.isHidding === true){
         
                     //if the player enters the activation range
@@ -436,137 +561,208 @@ class jackOVine extends jackOVineMaleTF {
 
             }else{
 
-                if(this.scene.vineThatGrabbedPlayer === null){
-                    
-                }else if(this.scene.vineThatGrabbedPlayer.playerDefeatedAnimationStage === 0){
-
-                    //resets travel direction variables. vines always have to start at stage 0 and progress to stage 1
-                    this.setTravelDirection = false;
-                    this.travelDirection = false;
-
-                    if(this.x < this.scene.player1.x){
+                    if(this.scene.vineThatGrabbedPlayer === null){
                         
-                        if(this.checkXRangeFromPlayer(70, 70)){
+                    }else if(this.scene.vineThatGrabbedPlayer.playerDefeatedAnimationStage === 0){
 
-                            console.log("jackovine in postion")
-        
-                            this.flipX = true;
-                            this.anims.play('jackOVineWalk', true);
-                            this.setVelocityX(-200); 
+                        //resets travel direction variables. vines always have to start at stage 0 and progress to stage 1
+                        this.setTravelDirection = false;
+                        this.travelDirection = false;
 
-                        }else if(this.checkXRangeFromPlayer(80, 80)){
+                        if(this.x < this.scene.player1.x){
+                            
+                            if(this.checkXRangeFromPlayer(70, 70)){
 
-                            console.log("jackovine in postion")
-        
-                            this.anims.play('jackOVineSideIdle', true);
-                            this.flipX = false;
-                            this.setVelocityX(0);
-
-                        }else{
-                            this.flipX = false;
-                            this.anims.play('jackOVineWalk', true);
-                            this.setVelocityX(200); 
-                        }
-
-                    }else if(this.x >= this.scene.player1.x){
-                         if(this.checkXRangeFromPlayer(70, 70)){
-
-                            console.log("jackovine in postion")
-        
-                           this.flipX = false;
-                            this.anims.play('jackOVineWalk', true);
-                            this.setVelocityX(200); 
-
-                        }else if(this.checkXRangeFromPlayer(80, 80)){
-
-                            console.log("jackovine in postion")
-        
-                            this.anims.play('jackOVineSideIdle', true);
-                            this.flipX = true;
-                            this.setVelocityX(0);
-
-                        }else{
-                            this.flipX = true;
-                            this.anims.play('jackOVineWalk', true);
-                            this.setVelocityX(-200); 
-                        }
-                    }
-                }else if(this.scene.vineThatGrabbedPlayer.playerDefeatedAnimationStage === 1){
-
-                    //if thep layer is male then, position them behind the player butt
-                    if(this.enemySex === 0){
-
-                        //variable to set position of where the jackovine should be 
-                        let correctPosition = 0;
-
-                        //if the flipx is fauls then the players ass is to the left. need that jackovine to the left of that.
-                        if(this.scene.vineThatGrabbedPlayer.flipX === false){
-                            correctPosition = this.scene.vineThatGrabbedPlayer.x - 28;
-
-                        //otherwise the position should be to the right since the players ass is to the right.
-                        }else if(this.scene.vineThatGrabbedPlayer.flipX === true){ 
-                            correctPosition = this.scene.vineThatGrabbedPlayer.x + 28;
-
-                        }
-
-                        // in order to do that, we need to make a line from where the pumpkin is, to where it needs to go
-                        //this variable locks out the travel direction variable.
-                        if(this.setTravelDirection === false){
-
-                            this.setTravelDirection = true;
-
-                            //if the pumpkin is to the left of the player butt then 
-                            if(this.x <= correctPosition){
-                                this.travelDirection = "left";
-                            }else{
-                                this.travelDirection = "right";
-                            }
-                        }
-
-                        if(this.travelDirection === "left"){
-
-                            //if the player is to the left of the correct position them move them to 
-                            if(this.x < correctPosition){
-                                this.flipX = false;
-                                this.anims.play('jackOVineWalk', true);
-                                this.setVelocityX(200); 
-
-                             }else if(this.x >= correctPosition){
-                                this.anims.play('jackOVineSideIdle', true);
-                                this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
-                                this.setVelocityX(0);
-                                this.x = correctPosition;
-
-                                this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
-
-                                this.grab();
-
-                            }
-
-                        }else if(this.travelDirection === "right"){
-
-                            //if the player is to the left of the correct position them move them to 
-                            if(this.x > correctPosition){
+                                console.log("jackovine in postion")
+            
                                 this.flipX = true;
                                 this.anims.play('jackOVineWalk', true);
                                 this.setVelocityX(-200); 
 
-                            }else if(this.x <= correctPosition){
+                            }else if(this.checkXRangeFromPlayer(80, 80)){
+
+                                console.log("jackovine in postion")
+            
                                 this.anims.play('jackOVineSideIdle', true);
-                                this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
+                                this.flipX = false;
                                 this.setVelocityX(0);
-                                this.x = correctPosition;
 
-                                this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
+                            }else{
+                                this.flipX = false;
+                                this.anims.play('jackOVineWalk', true);
+                                this.setVelocityX(200); 
+                            }
 
-                                this.grab();
+                        }else if(this.x >= this.scene.player1.x){
+                            if(this.checkXRangeFromPlayer(70, 70)){
 
+                                console.log("jackovine in postion")
+            
+                            this.flipX = false;
+                                this.anims.play('jackOVineWalk', true);
+                                this.setVelocityX(200); 
+
+                            }else if(this.checkXRangeFromPlayer(80, 80)){
+
+                                console.log("jackovine in postion")
+            
+                                this.anims.play('jackOVineSideIdle', true);
+                                this.flipX = true;
+                                this.setVelocityX(0);
+
+                            }else{
+                                this.flipX = true;
+                                this.anims.play('jackOVineWalk', true);
+                                this.setVelocityX(-200); 
                             }
                         }
+                    }else if(this.scene.vineThatGrabbedPlayer.playerDefeatedAnimationStage === 1){
 
+                        //if thep layer is male then, position them behind the player butt
+                        if(this.enemySex === 0){
+
+                            //variable to set position of where the jackovine should be 
+                            let correctPosition = 0;
+
+                            //if the flipx is fauls then the players ass is to the left. need that jackovine to the left of that.
+                            if(this.scene.vineThatGrabbedPlayer.flipX === false){
+                                correctPosition = this.scene.vineThatGrabbedPlayer.x - 28;
+
+                            //otherwise the position should be to the right since the players ass is to the right.
+                            }else if(this.scene.vineThatGrabbedPlayer.flipX === true){ 
+                                correctPosition = this.scene.vineThatGrabbedPlayer.x + 28;
+
+                            }
+
+                            // in order to do that, we need to make a line from where the pumpkin is, to where it needs to go
+                            //this variable locks out the travel direction variable.
+                            if(this.setTravelDirection === false){
+
+                                this.setTravelDirection = true;
+
+                                //if the pumpkin is to the left of the player butt then 
+                                if(this.x <= correctPosition){
+                                    this.travelDirection = "left";
+                                }else{
+                                    this.travelDirection = "right";
+                                }
+                            }
+
+                            if(this.travelDirection === "left"){
+
+                                //if the player is to the left of the correct position them move them to 
+                                if(this.x < correctPosition){
+                                    this.flipX = false;
+                                    this.anims.play('jackOVineWalk', true);
+                                    this.setVelocityX(200); 
+
+                                }else if(this.x >= correctPosition){
+                                    this.anims.play('jackOVineSideIdle', true);
+                                    this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
+                                    this.setVelocityX(0);
+                                    this.x = correctPosition;
+
+                                    this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
+
+                                    this.grab();
+
+                                }
+
+                            }else if(this.travelDirection === "right"){
+
+                                //if the player is to the left of the correct position them move them to 
+                                if(this.x > correctPosition){
+                                    this.flipX = true;
+                                    this.anims.play('jackOVineWalk', true);
+                                    this.setVelocityX(-200); 
+
+                                }else if(this.x <= correctPosition){
+                                    this.anims.play('jackOVineSideIdle', true);
+                                    this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
+                                    this.setVelocityX(0);
+                                    this.x = correctPosition;
+
+                                    this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
+
+                                    this.grab();
+
+                                }
+                            }
+
+                        }else if(this.enemySex === 1){
+
+                            //variable to set position of where the jackovine should be 
+                            let correctPosition = 0;
+
+                            //if the flipx is fauls then the players ass is to the left. need that jackovine to the left of that.
+                            if(this.scene.vineThatGrabbedPlayer.flipX === false){
+                                correctPosition = this.scene.vineThatGrabbedPlayer.x + 28;
+
+                            //otherwise the position should be to the right since the players ass is to the right.
+                            }else if(this.scene.vineThatGrabbedPlayer.flipX === true){ 
+                                correctPosition = this.scene.vineThatGrabbedPlayer.x - 28;
+
+                            }
+
+                            // in order to do that, we need to make a line from where the pumpkin is, to where it needs to go
+                            //this variable locks out the travel direction variable.
+                            if(this.setTravelDirection === false){
+
+                                this.setTravelDirection = true;
+
+                                //if the pumpkin is to the left of the player butt then 
+                                if(this.x <= correctPosition){
+                                    this.travelDirection = "left";
+                                }else{
+                                    this.travelDirection = "right";
+                                }
+                            }
+
+                            if(this.travelDirection === "left"){
+
+                                //if the player is to the left of the correct position them move them to 
+                                if(this.x < correctPosition){
+                                    this.flipX = false;
+                                    this.anims.play('jackOVineWalk', true);
+                                    this.setVelocityX(200); 
+
+                                }else if(this.x >= correctPosition){
+                                    this.anims.play('jackOVineSideIdle', true);
+                                    this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
+                                    this.setVelocityX(0);
+                                    this.x = correctPosition;
+
+                                    this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
+
+                                    this.grab();
+
+                                }
+
+                            }else if(this.travelDirection === "right"){
+
+                                //if the player is to the left of the correct position them move them to 
+                                if(this.x > correctPosition){
+                                    this.flipX = true;
+                                    this.anims.play('jackOVineWalk', true);
+                                    this.setVelocityX(-200); 
+
+                                }else if(this.x <= correctPosition){
+                                    this.anims.play('jackOVineSideIdle', true);
+                                    this.flipX = this.scene.vineThatGrabbedPlayer.flipX;
+                                    this.setVelocityX(0);
+                                    this.x = correctPosition;
+
+                                    this.scene.vineThatGrabbedPlayer.playerTransferToJackOVine();
+
+                                    this.grab();
+
+                                }
+                            }
+
+                        }
+                        
                     }
-                    
-                }
+                
 
         }
            
@@ -581,6 +777,14 @@ class jackOVine extends jackOVineMaleTF {
      
         }
         
+    }
+
+    //if the player is hidding out on the edges of the map, the kicks the shit out of them.
+    thrashingRange(){
+        if(this.scene.player1.x >= 893 && this.scene.player1.x <= 1627 && this.scene.playerLocation === "BridgeToLibertalia"){
+            return true;
+        }
+        return false;
     }
 
    
@@ -708,6 +912,8 @@ class jackOVine extends jackOVineMaleTF {
 
         if(this.grabType === "maleTF"){
             this.playerIsNotDefeatedInputsMaleTF(playerHealthObject);
+        }else if(this.grabType === "femaleTF"){
+            this.playerIsNotDefeatedInputsFemaleTF(playerHealthObject);
         }
 
      }
@@ -716,6 +922,8 @@ class jackOVine extends jackOVineMaleTF {
 
         if(this.grabType === "maleTF"){
             this.playerIsStrugglingLogicMaleTF(playerHealthObject);
+        }else if(this.grabType === "femaleTF"){
+            this.playerIsStrugglingLogicFemaleTF(playerHealthObject);
         }
     }
 
@@ -723,6 +931,8 @@ class jackOVine extends jackOVineMaleTF {
 
         if(this.grabType === "maleTF"){
             this.playerIsDefeatedLogicMaleTF(playerHealthObject);
+        }else if(this.grabType === "femaleTF"){
+            this.playerIsDefeatedLogicFemaleTF(playerHealthObject);
         }
      
     }
@@ -731,6 +941,8 @@ class jackOVine extends jackOVineMaleTF {
 
         if(this.grabType === "maleTF"){
             this.playerEscapedMaleTF(playerHealthObject);
+        }else if(this.grabType === "femaleTF"){
+            this.playerEscapedFemaleTF(playerHealthObject);
         }
     }
 
@@ -791,7 +1003,7 @@ class jackOVine extends jackOVineMaleTF {
     // controls the damage resistance of the jackOVine.
     damage(refrence) {
         this.setVelocityX(0);
-        if (this.damageCoolDown === false) {
+        if (this.damageCoolDown === false && this.isHidding === false) {
             this.damageCoolDown = true;
             this.setTint(0xff7a7a);
 
@@ -879,6 +1091,8 @@ class jackOVine extends jackOVineMaleTF {
 
         if(this.grabType === "maleTF"){
             this.animationGrabMaleTF();
+        }else if(this.grabType === "femaleTF"){
+            this.animationGrabFemaleTF();
         }
     }
     

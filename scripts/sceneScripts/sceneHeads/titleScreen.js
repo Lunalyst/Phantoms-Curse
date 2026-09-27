@@ -272,7 +272,7 @@ class titleScreen extends defaultScene {
             this.credits.setDepth(51);
 
             this.month = new Date().getMonth();
-            ///this.month = 9;
+            this.month = 9;
 
             //adds looping sound effect.
             if(this.titleLogoType === "shadow"){

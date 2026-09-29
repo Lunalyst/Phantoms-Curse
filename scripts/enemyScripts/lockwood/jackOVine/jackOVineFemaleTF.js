@@ -326,12 +326,12 @@ class jackOVineFemaleTF extends enemy {
     }
 
     // functioned called to play animation when the player is defeated by the jackOVine in gameover.
-    gameOver(playerSex) {
+    gameOverFemale(playerSex) {
 
         this.setSize(27, 70, true);
         this.setOffset(72, 38);
 
-        this.anims.play('jackOVineGameover', true);
+        this.anims.play('jackOVineGameoverFemale', true);
 
     }
 

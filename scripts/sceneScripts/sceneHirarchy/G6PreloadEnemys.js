@@ -389,11 +389,16 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.spritesheet('jov-male-male-tf1', 'assets/enemys/jov-male-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-male-male-tf2', 'assets/enemys/jov-male-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-male-male-tf3', 'assets/enemys/jov-male-male-tf3.png',{frameWidth: 171, frameHeight: 141 });
+
+        tempSceneRef.load.spritesheet('jov-male-female-tf1', 'assets/enemys/jov-male-female-tf1.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-male-female-tf2', 'assets/enemys/jov-male-female-tf2.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-male-female-tf3', 'assets/enemys/jov-male-female-tf3.png',{frameWidth: 171, frameHeight: 141 });
         
         tempSceneRef.load.spritesheet('jov-female-male-tf1', 'assets/enemys/jov-female-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-female-male-tf2', 'assets/enemys/jov-female-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
       
         tempSceneRef.load.spritesheet('jov-male-tf-gameover', 'assets/enemys/jov-male-tf-gameover.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-female-tf-gameover', 'assets/enemys/jov-female-tf-gameover.png',{frameWidth: 171, frameHeight: 141 });
       
         tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
           "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"

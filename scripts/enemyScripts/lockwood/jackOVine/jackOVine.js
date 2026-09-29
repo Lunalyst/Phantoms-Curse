@@ -26,6 +26,8 @@ class jackOVine extends jackOVineMaleTF {
             }
         }
 
+        this.playerSex
+
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(65,65,true);
@@ -117,6 +119,25 @@ class jackOVine extends jackOVineMaleTF {
                      
             //and the player is female, so only specific male on female animations
             }else{
+                this.anims.create({ key: 'jackOVineGrabStart', frames: this.anims.generateFrameNames('jov-male-female-tf1', { start: 43-43, end: 50-43 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'jackOVineGrabEnd', frames: this.anims.generateFrameNames('jov-male-female-tf1', { start: 51-43, end: 54-43 }), frameRate: 6, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing1', frames: this.anims.generateFrameNames('jov-male-female-tf1', { start: 55-43, end: 60-43 }), frameRate: 9, repeat: 0 });
+
+                this.anims.create({ key: 'jackOVinePlowing2', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 0, end: 5 }), frameRate: 10, repeat: -1 });
+                this.anims.create({ key: 'jackOVineFillingPlayer', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 6, end: 23 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing3', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 24, end: 29 }), frameRate: 11, repeat: -1 });
+                this.anims.create({ key: 'jackOVineMoveTailVine', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 30, end: 36 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing4', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 37, end: 42 }), frameRate: 8, repeat: -1 });
+                this.anims.create({ key: 'jackOVineLinkingVine', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 43, end: 59 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVinePlowing5', frames: this.anims.generateFrameNames('jov-male-female-tf2', { start: 60, end: 65 }), frameRate: 13, repeat: -1 });
+
+                this.anims.create({ key: 'jackOVineFinishing1', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 0, end: 4 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing2', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 5, end: 5 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishing3', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 6, end: 17 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishingSmackStart', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 18, end: 25 }), frameRate: 8, repeat: 0 });
+                this.anims.create({ key: 'jackOVineFinishingSmackEnd', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 26, end: 27 }), frameRate: 8, repeat: 0 });
+
+                this.anims.create({ key: 'jackOVineFinishedIdle', frames: this.anims.generateFrameNames('jov-male-female-tf3', { start: 19, end: 22 }), frameRate: 7, repeat: -1 });
                 
             }
 
@@ -176,7 +197,8 @@ class jackOVine extends jackOVineMaleTF {
 
         }
 
-        this.anims.create({ key: 'jackOVineGameover', frames: this.anims.generateFrameNames('jov-male-tf-gameover', { start: 0, end: 9 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'jackOVineGameoverMale', frames: this.anims.generateFrameNames('jov-male-tf-gameover', { start: 0, end: 9 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'jackOVineGameoverFemale', frames: this.anims.generateFrameNames('jov-female-tf-gameover', { start: 0, end: 9 }), frameRate: 12, repeat: -1 });
 
         if(this.inSafeMode === true){
              this.anims.play("jackOVineIdle", true);

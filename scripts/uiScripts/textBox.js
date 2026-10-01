@@ -258,6 +258,8 @@ class textBox extends Phaser.GameObjects.Container{
           //attempt to add flag to player data if its set. 
           this.addFlag();
 
+          //when we close text box alway make sure that inventory button is showing.
+          
           //check to see if npc flag needs incrementing.
           this.incNPCState();
 

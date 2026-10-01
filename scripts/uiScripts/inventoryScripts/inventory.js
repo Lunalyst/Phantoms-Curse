@@ -643,7 +643,8 @@ class inventory extends Phaser.GameObjects.Container{
 
         // removes name and discription.
         this.inventoryArray[counter].on('pointerout',function(pointer){
-          if(scene.inventoryDataArray[counter].itemID !== 0){
+          //console.log("tempInventory.scene.itemName: ",tempInventory.scene.itemName);
+          if(scene.inventoryDataArray[counter].itemID !== 0 || tempInventory.scene.itemName !== undefined ){
           tempInventory.scene.itemName.destroy();
           tempInventory.scene.itemDescription.destroy();
           

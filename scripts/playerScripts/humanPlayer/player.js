@@ -304,7 +304,8 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
       let tempPlayer = this;
       setTimeout(function () {
         tempPlayer.curseReductiontimer = false;
-        if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax){
+        console.log("tempPlayer.scene.isPaused: ",tempPlayer.scene.isPaused);
+        if(playerHealthObject.playerCurse !== playerHealthObject.playerCurseMax && tempPlayer.scene.isPaused === false){
           healthEmitter.emit(healthEvent.reduceCurse,1);
         }  
       }, 2000);

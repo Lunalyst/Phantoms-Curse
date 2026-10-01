@@ -867,7 +867,7 @@ class gameHud extends A3SoundEffects {
               this.mobileInventory.visible = toggle;
             //otherwise we only want to toggle the inventory button
             }else{
-              this.mobileInventory.visible = false;
+              this.mobileInventory.visible = toggle;
             }
             
           });

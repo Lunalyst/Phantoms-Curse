@@ -483,7 +483,7 @@ class storage extends Phaser.GameObjects.Container{
         this.storageArray[counter].on('pointerout',function(pointer){
 
           if(counter < 14){
-            if(scene.inventoryDataArray[counter + this.slotOffset] !== 0){
+            if(scene.inventoryDataArray[counter + this.slotOffset] !== 0 || this.scene.itemName !== undefined){
             this.scene.itemName.destroy();
             this.scene.itemDescription.destroy();
 
@@ -492,7 +492,7 @@ class storage extends Phaser.GameObjects.Container{
             }
             }
           }else{
-            if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID !== 0){
+            if(scene.inventoryDataArray[counter + (this.pageNumber * 25) + this.slotOffset].itemID !== 0 || this.scene.itemName !== undefined){
             this.scene.itemName.destroy();
             this.scene.itemDescription.destroy();
 

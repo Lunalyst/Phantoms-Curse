@@ -904,7 +904,7 @@ class shop extends Phaser.GameObjects.Container{
 
         // removes name and discription.
         this.shopArray[counter].on('pointerout',function(pointer){
-        if(tempshop.copyDataArray[counter + tempshop.slotOffset].itemID !== 0){
+        if(tempshop.copyDataArray[counter + tempshop.slotOffset].itemID !== 0 || tempshop.scene.itemName !== undefined){
           tempshop.scene.itemName.destroy();
           tempshop.scene.itemDescription.destroy();
 

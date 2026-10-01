@@ -206,6 +206,45 @@ class playerItemMaps extends playerAnimationFunctions{
       14: function Funct0() {
     
       },
+      15: function Funct0() {
+    
+      },
+      16: function Funct0() {
+    
+      },
+      17: function Funct0() {
+    
+      },
+      18: function Funct0() {
+    
+      },
+      19: function Funct0() {
+    
+      },
+      20: function Funct0() {
+    
+      },
+      21: function Funct0() {
+    
+      },
+      22: function Funct0() {
+    
+      },
+      23: function Funct0() {
+    
+      },
+      24: function Funct0() {
+    
+      },
+      25: function Funct0() {
+    
+      },
+      26: function Funct0() {
+    
+      },
+      27: function Funct0() {
+    
+      },
       28: function Funct0() {
         tempPlayer.consumeType = 28;
       },

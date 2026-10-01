@@ -1,7 +1,7 @@
 // wood barriers that break when the player does enough damage to them.
 class vine extends enemy{
 
-    constructor(scene, xPos, yPos, sex, id,flip){
+    constructor(scene, xPos, yPos, sex, id,flip,soundKey){
         //super() calls the constructor() from the parent class we are extending
 
         super(scene, xPos, yPos , sex,id,10,'vines');
@@ -32,8 +32,12 @@ class vine extends enemy{
         this.originalX = xPos;
         this.originalY = yPos;
 
+        this.soundKey = soundKey;
+
         this.maxMoves = 10;
         this.currentMoves = 0;
+
+        this.volume = 0.15
 
         this.destroyed = false;
 
@@ -51,8 +55,8 @@ class vine extends enemy{
             this.anims.create({ key: 'PlayerGrabbed', frames: this.anims.generateFrameNames('vines', { start:32, end: 35 }), frameRate:  7, repeat: -1 });
             this.anims.create({ key: 'PlayerGrabbedStruggle', frames: this.anims.generateFrameNames('vines', { start:36, end: 39 }), frameRate:  7, repeat: 0 });
             
-            this.anims.create({ key: 'PlayerGrabbedTransition', frames: this.anims.generateFrameNames('vines', { start:40, end: 45 }), frameRate:  7, repeat: 0 });
-            this.anims.create({ key: 'PlayerGrabbedRestrained', frames: this.anims.generateFrameNames('vines', { start:46, end: 50 }), frameRate:  7, repeat: -1 });
+            this.anims.create({ key: 'PlayerGrabbedTransition', frames: this.anims.generateFrameNames('vines', { start:40, end: 46 }), frameRate:  7, repeat: 0 });
+            this.anims.create({ key: 'PlayerGrabbedRestrained', frames: this.anims.generateFrameNames('vines', { start:47, end: 50 }), frameRate:  7, repeat: -1 });
         
         }else{
             
@@ -109,12 +113,14 @@ class vine extends enemy{
                         this.anims.play('grabStart').once('animationcomplete', () => {
                             this.hitboxActive = true;
                             console.log("this.scene.grabCoolDown: ",this.scene.grabCoolDown)
-                    
+                            this.scene.initSoundEffect(this.soundKey,'2',this.volume);
                             this.anims.play('grabMiddle').once('animationcomplete', () => {
                                 this.hitboxActive = false;
 
                                 //saftey case
                                 if(this.playerGrabbed === false){
+
+                                    this.scene.initSoundEffect(this.soundKey,'4',this.volume);
 
                                     this.anims.play('grabEnd').once('animationcomplete', () => {
                                     
@@ -132,8 +138,10 @@ class vine extends enemy{
                 
 
                 }else{
+                    console.log("this.soundKey: ",this.soundKey);
                     if(this.animationPlaying === false){
                         this.animationPlaying = true;
+                        this.scene.initSoundEffect(this.soundKey,'groundRise',this.volume);
                         this.anims.play('travel').once('animationcomplete', () => {
                             this.currentMoves++; 
                             this.animationPlaying = false; 

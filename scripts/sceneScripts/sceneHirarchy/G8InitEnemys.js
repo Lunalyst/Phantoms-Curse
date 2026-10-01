@@ -1191,6 +1191,8 @@ class G8InitEnemys extends G7EnemyCollisions{
         tempSceneRef.enemys.add(tempEnemy);  
         tempSceneRef.jackOVines.add(tempEnemy);
 
+        //tempEnemy.soundKey = soundSFX;
+
         if(inSafeMode === false){
           //checks if the attack hitbox is overlapping the tiger to deal damage.
           let collider = tempSceneRef.physics.add.overlap(tempSceneRef.attackHitBox, tempEnemy, function () {
@@ -1270,7 +1272,7 @@ class G8InitEnemys extends G7EnemyCollisions{
 
       vine: function vineFunction(startX, startY, playerSex,inSafeMode,soundSFX) {
 
-        let tempEnemy = new vine(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode);
+        let tempEnemy = new vine(tempSceneRef, startX, startY, playerSex,tempSceneRef.enemyId,inSafeMode,soundSFX);
         console.log("created vine id: ",tempEnemy.enemyId);
         tempSceneRef.enemyId++;
         tempSceneRef.enemys.add(tempEnemy);  

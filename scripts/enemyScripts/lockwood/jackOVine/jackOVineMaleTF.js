@@ -52,7 +52,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
 
             // plays the gram animation then starts tween and struggle animation
             this.anims.play('jackOVineGrabStart').once('animationcomplete', () => {
-
+                this.playPlapSound('plap1',1800);
                 this.anims.play('jackOVineGrabEnd').once('animationcomplete', () => {
 
                 this.startedGrab = true;
@@ -73,7 +73,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
       
         }else if(this.playerDefeatedAnimationStage === 0 && this.struggleAnimationInterupt === false && this.startedGrab === true){
             this.anims.play('jackOVinePlowing1', true);
-            this.playJumpySound('2',800); 
+            this.playPlapSound('plap3',800); 
  
            
         }
@@ -223,11 +223,7 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             // if tab is pressed or the player finished the defeated animations then we call the game over scene.
             if (this.scene.checkSkipIndicatorIsDown() || (this.isMaxStageMaleTF() && this.scene.checkDIsDown())) {
                 
-                if(this.enemySex === 0){
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineMaleTF;
-                }else{
-                    this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineFemaleTF;
-                }
+                this.scene.enemyThatDefeatedPlayer = bestiaryKey.jackOVineMaleTF;
 
                 this.scene.gameoverLocation = "pumpkinGameover";
                 this.scene.KeyDisplay.visible = false;
@@ -243,12 +239,18 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
 
     enemyDefeatedPlayerAnimationMaleTF(){
           let currentjackOVine = this;
+
+           console.log("this.animationPlayed: ",this.animationPlayed )
         if (this.playerDefeatedAnimationStage === 1) {
 
             //sets the ending value correctly once this enemy defeated animation activates.
             this.playerDefeatedAnimationStageMax = 9;
             this.inStartDefeatedLogic = false;
             this.anims.play('jackOVinePlowing2', true);
+            this.playPlapSound('plap3',700);
+
+            //if the player hits tab too quickly on the intor grab sprite then this variable stay true and locks out the play once animations. 
+            this.animationPlayed = false;
 
         }else if (this.playerDefeatedAnimationStage === 2) {
 
@@ -266,13 +268,16 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         }else if (this.playerDefeatedAnimationStage === 3) {
 
             this.anims.play('jackOVinePlowing3', true);
+            this.playPlapSound('plap9',1000);
         }else if (this.playerDefeatedAnimationStage === 4) {
 
              if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+                
                 this.anims.play('jackOVineMoveTailVine').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
+                    this.scene.initSoundEffect('lickSFX','1',0.05);
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     
@@ -282,12 +287,15 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         }else if (this.playerDefeatedAnimationStage === 5) {
 
             this.anims.play('jackOVinePlowing4', true);
+            this.playLickFlapSound('5',1000)
+            this.playPlapSound('plap9',1000);
 
         }else if (this.playerDefeatedAnimationStage === 6) {
 
              if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+                this.scene.initSoundEffect('lickSFX','1',0.05);
                 this.anims.play('jackOVineLinkingVine').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
@@ -299,6 +307,8 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
         }else if (this.playerDefeatedAnimationStage === 7) {
 
             this.anims.play('jackOVinePlowing5', true);
+
+            this.playPlapSound('plap9',500);
             
         }else if (this.playerDefeatedAnimationStage === 8) {
 
@@ -306,9 +316,13 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             
                 this.animationPlayed = true;
                 this.anims.play('jackOVineFinishing1').once('animationcomplete', () => {
+                    this.scene.initSoundEffect('curseSFX','curse',0.3);
                     this.anims.play('jackOVineFinishing2').once('animationcomplete', () => {
+                        
                         this.anims.play('jackOVineFinishing3').once('animationcomplete', () => {
+                            this.scene.initSoundEffect('jackOVineSFX','vineSnap',0.15);
                             this.anims.play('jackOVineFinishingSmackStart').once('animationcomplete', () => {
+                                this.scene.initSoundEffect('weaponSFX','smack',0.1);
                                 this.anims.play('jackOVineFinishingSmackEnd').once('animationcomplete', () => {
                                     //this.scene.onomat.destroy();
                                     this.animationPlayed = false;
@@ -358,14 +372,14 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
             // if the grabbed is false but this function is called then do the following.
             if (this.playerGrabbed === false) {
 
+                this.jackOVineGrabFalse();
                 this.isViewingAnimation = true;
                 this.playerProgressingAnimation = false;
 
                 this.anims.play('jackOVineGrabStart').once('animationcomplete', () => {
                     this.anims.play('jackOVineGrabEnd').once('animationcomplete', () => {
                         //then destroy slime.
-                        this.jackOVineGrabFalse();
-                        this.anims.play("jackOVinePlowing1", true);
+                        this.playAminViewer = true;
                     });
                 });
                
@@ -406,6 +420,9 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
                 //if the player is not defeated
                 if (this.playerProgressingAnimation === false) {
 
+                    if(this.playAminViewer === true){
+                        this.anims.play("jackOVinePlowing1", true);
+                    }
                 // handles input for progressing animation
                 if (this.scene.checkDPressed() === true) {
                     this.playerProgressingAnimation = true;

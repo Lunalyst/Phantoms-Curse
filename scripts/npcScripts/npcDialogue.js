@@ -6329,7 +6329,7 @@ const npcDialogue = {
                 },
                 "jackOVine_male_tf":{
                     "node1":{
-                        "dialogue": "darkness falls across your eyes, the lustful hour was close at hand. pumpkin vines crawl in search of your seed, to terrorize your wobbling knees. and who so ever who shall be found with out the desire to be bound, must stand and take the penetration all the way through, and be stuck inside a pumpkins shell.",
+                        "dialogue": "Darkness falls across your eyes, the lustful hour was close at hand. pumpkin vines crawl in search of your seed, to terrorize your wobbling knees. and who so ever who shall be found with out the desire to be bound, must stand and take the penetration all the way through, and be stuck inside a pumpkins shell.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]
@@ -6337,7 +6337,7 @@ const npcDialogue = {
                 },
                 "jackOVine_female_tf":{
                     "node1":{
-                        "dialogue": "darkness falls across your eyes, the lustful hour was close at hand. pumpkin vines crawl in search of your seed, to terrorize your wobbling knees. and who so ever who shall be found with out the desire to be bound, must stand and take the penetration all the way through, and be stuck inside a pumpkins shell.",
+                        "dialogue": "The Lustful stench is in the air. The funk of two centurys of lustful desire, as the vines where closing in to seal your digestive tract. Though you fight to stay free your body start to transform and no mortal can resist the desire of the curse.",
                         "profile":"",
                         "textvoice":"lightPiano",
                         "children":[]

@@ -27,6 +27,22 @@
             "start": 4.7,
             "end": 5.9,
             "loop": false
+        },"4":{
+            "start": 6.2,
+            "end": 6.52,
+            "loop": false
+        },"groundRise":{
+            "start": 6.77,
+            "end": 7.63,
+            "loop": false
+        },"groundFall":{
+            "start": 8.35,
+            "end": 9.07,
+            "loop": false
+        },"vineSnap":{
+            "start": 9.28,
+            "end": 9.60,
+            "loop": false
         }
     
     }

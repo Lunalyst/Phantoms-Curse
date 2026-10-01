@@ -1262,7 +1262,7 @@ class gameoverManager extends A3SoundEffects {
 
             jackOVine_female_tf: function jackOVinefemaleTFFunction() {
                 tempSceneRef.preferance = 1;
-                tempSceneRef.enemy = new jackOVine(tempSceneRef,450, 560,tempSceneRef.playerSex);
+                tempSceneRef.enemy = new jackOVine(tempSceneRef,450, 580,tempSceneRef.playerSex);
                 tempSceneRef.defeatedTitle = 'cursed';
 
                 if(tempSceneRef.playerSex === 0){

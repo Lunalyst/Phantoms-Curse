@@ -396,6 +396,9 @@ class G6PreloadEnemys extends G5InitNPCs{
         
         tempSceneRef.load.spritesheet('jov-female-male-tf1', 'assets/enemys/jov-female-male-tf1.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-female-male-tf2', 'assets/enemys/jov-female-male-tf2.png',{frameWidth: 171, frameHeight: 141 });
+        
+        tempSceneRef.load.spritesheet('jov-female-female-tf1', 'assets/enemys/jov-female-female-tf1.png',{frameWidth: 171, frameHeight: 141 });
+        tempSceneRef.load.spritesheet('jov-female-female-tf2', 'assets/enemys/jov-female-female-tf2.png',{frameWidth: 171, frameHeight: 141 });
       
         tempSceneRef.load.spritesheet('jov-male-tf-gameover', 'assets/enemys/jov-male-tf-gameover.png',{frameWidth: 171, frameHeight: 141 });
         tempSceneRef.load.spritesheet('jov-female-tf-gameover', 'assets/enemys/jov-female-tf-gameover.png',{frameWidth: 171, frameHeight: 141 });
@@ -403,11 +406,35 @@ class G6PreloadEnemys extends G5InitNPCs{
         tempSceneRef.load.audioSprite('woodBarrierSFX','audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.json',[
           "audio/used-audio/wood-barrier-sounds/wood-barrier-sounds.mp3"
         ]);
-        /*tempSceneRef.load.spritesheet('curseShadowSecretFemale', 'assets/enemys/curseShadowFemaleSecret.png',{frameWidth: 303, frameHeight: 219 });
 
-        tempSceneRef.load.audioSprite('pumpingSFX','audio/used-audio/pumping-sounds/pumping-sounds.json',[
-          "audio/used-audio/pumping-sounds/pumping-sounds.mp3"
-        ]);*/
+        tempSceneRef.load.audioSprite('lickSFX','audio/used-audio/lick-sounds/lick-sounds.json',[
+          "audio/used-audio/lick-sounds/lick.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('jackOVineSFX','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('growSFX1','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('growSFX2','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('growSFX3','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('growSFX4','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+
+        tempSceneRef.load.audioSprite('growSFX5','audio/used-audio/growing-sounds/growing-sounds.json',[
+          "audio/used-audio/growing-sounds/growing-sounds.mp3"
+        ]);
+      
       },
 
       vines: function vineFunction() {

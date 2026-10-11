@@ -148,6 +148,11 @@ class G12UpdateLoops extends G11CheckGameObjects{
             //console.log("player warping: ",this.playerWarping);
             if(this.playerWarping === false){
               // then move the player
+
+              //bug fix line. issue where reloading player would cause this variable to stay true. completely locking up npc animations.
+              //if the player can move its a safe assumption that the inventory is not open.
+              //probably better way of doing this but hey...
+              this.inventoryOpen = false;
               this.player1.movePlayer(this.keyA,this.keyD,this.space, this.player1.playerPreviousY,this);
             //otherwise kill player x velocity
             }else{

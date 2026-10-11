@@ -97,14 +97,26 @@ class yes extends Phaser.Physics.Arcade.Sprite{
         this.on('pointerdown', function (pointer) {
             console.log("activating settings yes to reset game.")
             //calls the save function in the options menue which reloads the scene after saving
-            if(that.optionsMenu.reloadNeeded === true){
+
+            if(this.ReloadActivated !== true){
+
+                if(that.optionsMenu.reloadNeeded === true){
+
+                    that.optionsMenu.saveSettings();
                 
-                that.optionsMenu.saveSettings();
-            
-            // otherwise we call the fadeout function of the game huds which reloads the webpage.
-            }else{
-            that.scene.initSoundEffect('buttonSFX','2',0.05);
-            that.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                // otherwise we call the fadeout function of the game huds which reloads the webpage.
+                }else{
+                    that.scene.initSoundEffect('buttonSFX','2',0.05);
+                    that.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                }
+
+                that.ReloadActivated = true;
+                
+                setTimeout(function () {
+                    that.ReloadActivated = undefined;
+                    
+                },500);
+
             }
         });
     }

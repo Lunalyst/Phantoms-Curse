@@ -448,6 +448,7 @@ class titleScreen extends defaultScene {
             
             this.sceneTextBox = new textBox(this, this.textboxX,this.textboxY,'charWhite');
             this.sceneTextBox.setScale(2);
+            this.sceneTextBox.instantText = true;
             //this.sceneTextBox.setTitleScreenView();
             this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             this.sceneTextBox.activateTitleScreenTextbox(

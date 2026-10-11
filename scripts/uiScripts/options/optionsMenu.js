@@ -127,6 +127,7 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //need textbox to display exit
         this.optionsTextBox = new textBox(scene,-267,625+250,'charBlack');
         this.optionsTextBox.setScale(2);
+        this.optionsTextBox.instantText = true;
         this.add(this.optionsTextBox);
 
         //closing settings button
@@ -380,9 +381,12 @@ class optionsMenu extends Phaser.GameObjects.Container{
         //makes a object to pass along the players data too
         let playerDataObject = this.scene.makePlayerDataObject();
         
+        console.log("playerDataObject: ",playerDataObject);
         // then we call the built in returnfile function from our custom scene class
         console.log("getting saveslot data for settings.")
+        
         this.scene.returnFile(getSaveSlot.saveSlot,playerDataObject);
+
         console.log("playerDataObject",playerDataObject);
         
         //set the non game reset settings
@@ -400,6 +404,8 @@ class optionsMenu extends Phaser.GameObjects.Container{
 
         //saves settings to our json save file
         this.scene.saveGameFile(playerDataObject);
+
+        this.scene.saveGame(playerDataObject);
 
         //resets the reload value
         this.reloadNeeded = false;

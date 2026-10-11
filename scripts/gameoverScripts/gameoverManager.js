@@ -284,7 +284,9 @@ class gameoverManager extends A3SoundEffects {
         },1000);
 
         this.tryAgian.on('pointerdown', function (pointer) {
-            if(gameoverThat.dialogueInterupt === false){
+
+            if(gameoverThat.dialogueInterupt === false && this.startingOver !== true){
+                this.startingOver = true;
                 gameoverThat.tryAgianLoad(gameoverThat);
             }
         });

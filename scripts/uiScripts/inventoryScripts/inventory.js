@@ -474,7 +474,7 @@ class inventory extends Phaser.GameObjects.Container{
     closeInventoryForSettings(){
       //console.log("this.isOpen: ",this.isOpen,"this.openDelay: ",this.openDelay,);
       
-      this.scene.
+      //this.scene.
       //set variables to reflect that
       this.openDelay = false;
       this.isOpen = false;
@@ -521,7 +521,7 @@ class inventory extends Phaser.GameObjects.Container{
       //this.inventoryInterior.visible = true;
 
       //loops through all slots to hide there numbers on closing.
-      for(let counter = 0; counter < 28 ;counter++){
+      for(let counter = 0; counter < 20 ;counter++){
         this.inventoryArray[counter].number1.visible = false;
         this.inventoryArray[counter].number2.visible = false;
       }

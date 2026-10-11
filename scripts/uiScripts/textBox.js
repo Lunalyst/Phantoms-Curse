@@ -69,6 +69,8 @@ class textBox extends Phaser.GameObjects.Container{
 
       this.textInterupt = false;
 
+      this.instantText = false;
+
       this.soundType = "default";
 
       //set when talking with a npc.
@@ -408,14 +410,18 @@ class textBox extends Phaser.GameObjects.Container{
         }
 
         textPos = 0;
-        //awsome wack ass recursion using anims complete to create text scrolling.
-        this.displayHelper(start,textPos,end+1,this.progressionAmount)
+
+        if(this.instantText === true){
+          this.displayInstant(textPos,end+1);
+        }else{
+
+          //awsome wack ass recursion using anims complete to create text scrolling.
+          this.displayHelper(start,textPos,end+1,this.progressionAmount);
+        }
         if(this.profileArray.length > 0){
           this.textBoxProfileImage.anims.play(this.profileArray[this.profileArray.length-1]);
         }
-        
-        
-        
+         
     }
 
     //function that makes delayed text 
@@ -424,6 +430,8 @@ class textBox extends Phaser.GameObjects.Container{
       //if we arnt at the end of the text to be displayed
       if(counter < end-1 && wPosition === this.progressionAmount){
 
+        //console.log("this.delayTextTime: ",this.delayTextTime);
+
         //if there is a character in length of the texbox to be idsplayed
         if(counter < this.currentText.length){
           
@@ -431,32 +439,7 @@ class textBox extends Phaser.GameObjects.Container{
           if(this.visible && this.currentText.charAt(counter) !== ' '){
             //decision making for sound that player during dialogue
             //
-            //console.log("this.soundType: ",this.soundType);
-            if(this.soundType === "default"){
-              this.scene.initSoundEffect('buttonSFX','oldButton',0.05);
-            }else if(this.soundType === "hit"){
-              this.scene.initSoundEffect('buttonSFX','hit',0.05);
-            }else if(this.soundType === "drum"){
-              this.scene.initSoundEffect('buttonSFX','drum',0.05);
-            }else if(this.soundType === "trumpet"){
-              this.scene.initSoundEffect('buttonSFX','trumpet',0.05);
-            }else if(this.soundType === "mediumVoice"){
-              this.scene.initSoundEffect('buttonSFX','mediumVoice',0.05);
-            }else if(this.soundType === "lightVoice"){
-              this.scene.initSoundEffect('buttonSFX','lightVoice',0.1);
-            }else if(this.soundType === "mediumPiano"){
-              this.scene.initSoundEffect('buttonSFX','mediumPiano',0.05);
-            }else if(this.soundType === "lightPiano"){
-              this.scene.initSoundEffect('buttonSFX','lightPiano',0.05);
-            }else if(this.soundType === "digest"){
-              this.scene.initSoundEffect('stomachSFX','2',0.03);
-            }else if(this.soundType === "wah"){
-              this.scene.initSoundEffect('buttonSFX','wah',0.03);
-            }else if(this.soundType === "squeak"){
-              this.scene.initSoundEffect('buttonSFX','squeak',0.03);
-            }else if(this.soundType === "batChirp"){
-              this.scene.initSoundEffect('buttonSFX','batChirp',0.2);
-            }
+           this.playSoundType();
 
           }
           
@@ -513,6 +496,58 @@ class textBox extends Phaser.GameObjects.Container{
 
       }
       
+    }
+
+    displayInstant(textPos,end){
+
+      let PosInText = textPos;
+
+      for(PosInText; PosInText < end; PosInText++){
+
+       //if there is a character in length of the texbox to be idsplayed
+        if(PosInText < this.currentText.length){
+          
+          if(this.textTint !== null){
+            this.lines[PosInText].setTint(this.textTint);
+          }else{
+            this.lines[PosInText].clearTint();
+          }
+          this.lines[PosInText].settint
+          this.lines[PosInText].anims.play(this.currentText.charAt(PosInText));
+        
+          //else we fill in the rest with spaces, dialogue over
+        }else{
+          this.lines[PosInText].anims.play(' ');
+        }
+      }
+    }
+
+    playSoundType(){
+      if(this.soundType === "default"){
+        this.scene.initSoundEffect('buttonSFX','oldButton',0.05);
+      }else if(this.soundType === "hit"){
+        this.scene.initSoundEffect('buttonSFX','hit',0.05);
+      }else if(this.soundType === "drum"){
+        this.scene.initSoundEffect('buttonSFX','drum',0.05);
+      }else if(this.soundType === "trumpet"){
+        this.scene.initSoundEffect('buttonSFX','trumpet',0.05);
+      }else if(this.soundType === "mediumVoice"){
+        this.scene.initSoundEffect('buttonSFX','mediumVoice',0.05);
+      }else if(this.soundType === "lightVoice"){
+        this.scene.initSoundEffect('buttonSFX','lightVoice',0.1);
+      }else if(this.soundType === "mediumPiano"){
+        this.scene.initSoundEffect('buttonSFX','mediumPiano',0.05);
+      }else if(this.soundType === "lightPiano"){
+        this.scene.initSoundEffect('buttonSFX','lightPiano',0.05);
+      }else if(this.soundType === "digest"){
+        this.scene.initSoundEffect('stomachSFX','2',0.03);
+      }else if(this.soundType === "wah"){
+        this.scene.initSoundEffect('buttonSFX','wah',0.03);
+      }else if(this.soundType === "squeak"){
+        this.scene.initSoundEffect('buttonSFX','squeak',0.03);
+      }else if(this.soundType === "batChirp"){
+        this.scene.initSoundEffect('buttonSFX','batChirp',0.2);
+      }
     }
 
     //formatting function so text properly fixts in textbox

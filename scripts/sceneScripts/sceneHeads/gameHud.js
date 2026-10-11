@@ -1288,6 +1288,7 @@ class gameHud extends A3SoundEffects {
 
             console.log("increasing all foraging values.");
             
+            console.log("this.forageValues: ",this.forageValues);
             for (let [key, value] of Object.entries(this.forageValues)) {
 
               if(this.forageValues[key].abundance + incrementValue <= 100){

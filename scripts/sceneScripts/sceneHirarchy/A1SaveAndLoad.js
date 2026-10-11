@@ -183,6 +183,8 @@ class A1SaveAndLoad extends Phaser.Scene {
       console.log("dataObject.playerFullValue:",dataObject.playerFullValue," --> file.playerFullValue: ",file.playerFullValue);
       console.log("dataObject.forageValues:",dataObject.forageValues," --> file.forageValues: ",file.forageValues);
       console.log("=======================================================");
+
+      console.log("file: ",file);
       //uses local Storage to store the data. playerSaveSlotData.saveSlot determines which slot the save data is stored in.
       if (dataObject.playerSaveSlotData.saveSlot === 1) {
       localStorage.setItem('saveFile1', JSON.stringify(file));
@@ -448,6 +450,7 @@ class A1SaveAndLoad extends Phaser.Scene {
         console.log("dataObject.forageValues:",this.forageValues," <-- file.forageValues: ",file.forageValues);
         console.log("=======================================================");
 
+        console.log("file: ",file);
   }
 
   returnSave(dataObject){

@@ -5568,7 +5568,7 @@ const npcDialogue = {
                         "dialogue": "I\'m sure getting this was quite dangerous.",
                         "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
-                        "children":[]
+                        "children":["wolfHasSample1"]
                     }
 
                     //i want a reward for it.
@@ -5596,7 +5596,7 @@ const npcDialogue = {
                         "dialogue": "I was already planning to pay you for it regardless so here you go.",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
-                        "children":[]
+                        "children":["wolfHasSample1"]
                     },
 
                     //(How about I get a feel?)
@@ -5685,7 +5685,52 @@ const npcDialogue = {
                         "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":[]
-                    }
+                    },
+
+                    //convergence of quest.
+                     "wolfHasSample1":{
+                        "dialogue": "Now lets get a good look at this sample you brought me.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample2"]
+                    },
+                    "wolfHasSample2":{
+                        "dialogue": "hmmmmmmm........",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample3"]
+                    },
+                    "wolfHasSample3":{
+                        "dialogue": "OH?",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample4"]
+                    },
+                    "wolfHasSample4":{
+                        "dialogue": "This isn't exactly what I was expecting....",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample5"]
+                    },
+                    "wolfHasSample5":{
+                        "dialogue": "this is just like...",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample6"]
+                    },
+                    "wolfHasSample6":{
+                        "dialogue": "oh! um... ",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample7"]
+                    },
+                    "wolfHasSample7":{
+                        "dialogue": "well that part isn't important. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
 
                 },
 

@@ -284,6 +284,7 @@ healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
     //console.log("activating ring map: ","F"+ this.playerDataObject.playerInventoryData[1].itemID);
     this.weaponPassivesMap[this.playerDataObject.playerInventoryData[0].itemID]();
     this.ringPassivesMap[this.playerDataObject.playerInventoryData[1].itemID]();
+    //console.log("this.playerDataObject.playerInventoryData[4]: ",this.playerDataObject.playerInventoryData[4], );
     this.consumablePassivesMap[this.playerDataObject.playerInventoryData[4].itemID]();
     
     

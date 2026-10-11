@@ -272,6 +272,9 @@ class playerItemMaps extends playerAnimationFunctions{
       37: function Funct0() {
         tempPlayer.consumeType = 37;
       },
+      38: function Funct0() {
+        tempPlayer.consumeType = 38;
+      },
       
       
     }

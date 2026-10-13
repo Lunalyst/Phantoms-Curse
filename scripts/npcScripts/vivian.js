@@ -204,8 +204,9 @@ class vivian extends npc{
   activateNpc(){
     
     //if the player meets activation requiements for the sign display the text box
-    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false){
+    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false && this.scene.inventoryOpen === false ){
       //overworld knocking loggic true
+
       if(this.npcType === "overworldShopKnock" || this.npcType ==='overworldShopKnockAnimationView'){
         //if the correct knock is not set yet than progress dialogue
 
@@ -220,6 +221,7 @@ class vivian extends npc{
 
       //otherwise normal logic
       }else{
+
         if(this.popOut === false){
           //console.log("popout is false");
           //logic to start dialogue
@@ -2539,10 +2541,13 @@ class vivian extends npc{
      if(this.currentDictNode !== null){
 
       this.scene.player1.x = this.x-30;
+      this.scene.player1.mainHitbox.x = this.x-30;
       this.scene.player1.flipXcontainer(false);
 
         //state machine for dialogue 
         if(this.currentDictNode.nodeName === "node1"){
+
+          //this.scene.playerStuckGrab = true;
 
           this.scene.initSoundEffect('creakSFX','wood',0.05);
 
@@ -2675,10 +2680,13 @@ class vivian extends npc{
      if(this.currentDictNode !== null){
 
       this.scene.player1.x = this.x-30;
+      this.scene.player1.mainHitbox.x = this.x-30;
       this.scene.player1.flipXcontainer(false);
 
         //state machine for dialogue 
         if(this.currentDictNode.nodeName === "node1"){
+
+          //this.scene.playerStuckGrab = true;
 
           this.scene.initSoundEffect('creakSFX','wood',0.05);
 

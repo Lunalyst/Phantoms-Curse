@@ -548,6 +548,12 @@ const npcDialogue = {
                         "dialogue": "Beware of holes in the floor, as the lower part of this cave is rather deep.",
                         "profile":"signLoop",
                         "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "both the upper and lower part of this cave are connected.",
+                        "profile":"signLoop",
+                        "textvoice":"default",
                         "children":[]
                     },
                 },
@@ -1238,7 +1244,7 @@ const npcDialogue = {
                         "textvoice":"default",
                         "children":["node4"]
                     },"node4":{
-                        "dialogue": "Its seems than lots of people have washed up here over the years.",
+                        "dialogue": "Its seems that lots of people have washed up here over the years.",
                         "profile":"yellowBook",
                         "textvoice":"default",
                         "children":["node5"]
@@ -5696,25 +5702,25 @@ const npcDialogue = {
                     },
                     "wolfHasSample2":{
                         "dialogue": "hmmmmmmm........",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfLookDown",
                         "textvoice":"lightVoice",
                         "children":["wolfHasSample3"]
                     },
                     "wolfHasSample3":{
                         "dialogue": "OH?",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfShock1",
                         "textvoice":"lightVoice",
                         "children":["wolfHasSample4"]
                     },
                     "wolfHasSample4":{
                         "dialogue": "This isn't exactly what I was expecting....",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfShock2",
                         "textvoice":"lightVoice",
                         "children":["wolfHasSample5"]
                     },
                     "wolfHasSample5":{
                         "dialogue": "this is just like...",
-                        "profile":"wolfNeutral",
+                        "profile":"wolfLookLeft",
                         "textvoice":"lightVoice",
                         "children":["wolfHasSample6"]
                     },
@@ -5726,6 +5732,18 @@ const npcDialogue = {
                     },
                     "wolfHasSample7":{
                         "dialogue": "well that part isn't important. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample8"]
+                    },
+                    "wolfHasSample8":{
+                        "dialogue": "give me some time to tinker with this sample. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["wolfHasSample9"]
+                    },
+                    "wolfHasSample9":{
+                        "dialogue": "see you in a little while dear. ",
                         "profile":"wolfHappy1",
                         "textvoice":"lightVoice",
                         "children":[]

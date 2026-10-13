@@ -92,7 +92,7 @@ class istara extends npc{
   activateNpc(){
 
     //if the player meets activation requiements for the sign display the text box
-    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false){
+    if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.activated === false && this.scene.inventoryOpen === false){
 
       if(this.underWater === false){
         //logic to start dialogue

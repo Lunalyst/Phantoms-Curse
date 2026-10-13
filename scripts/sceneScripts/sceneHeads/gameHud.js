@@ -1397,9 +1397,25 @@ class gameHud extends A3SoundEffects {
             console.log("ADDING item to inventory: ",item);
             let itemAdded = false;
 
-            //loop through inventory item array to see if the item added already been picked up.
-            //27
-              for(let counter = 5; counter < 19 ;counter++){
+            //need to add a extra case.
+            //check to see if the item is in the player inventory at all.
+            let itemStackExists = false;
+            let addableStackLocation = null;
+
+            //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //need to check if there is a valid item stack to add to the players inventory
+            for(let counter = 5; counter < 20 ;counter++){
+              if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
+                itemStackExists = true;
+                addableStackLocation = counter;
+                break;
+
+              }
+            }
+
+
+            //loop through inventory item array to see if the item added already been picked up. 19.
+              for(let counter = 5; counter < 20 ;counter++){
 
                   console.log("this.inventoryDataArray[counter].itemID ",this.inventoryDataArray[counter].itemID," === item.ItemID: ",item.itemID);
                   console.log("this.inventoryDataArray[counter].itemStackable ",this.inventoryDataArray[counter].itemStackable,",=== 1");
@@ -1428,8 +1444,8 @@ class gameHud extends A3SoundEffects {
                     //break out of loop not setting item added as there is still a item that needs to be added. goes to the next loop.
                     break;
                   
-                  // else if the id at this space is zero, then place that item. 
-                  }else if(this.inventoryDataArray[counter].itemID === 0 ){
+                  // else if the id at this space is zero, then place that item, but only if we know there isnt a stack the item can be filled into.
+                  }else if(this.inventoryDataArray[counter].itemID === 0 && !itemStackExists){
                     //adds the item to the item in the inventory.
                     this.inventoryDataArray[counter] = item;
 
@@ -1442,22 +1458,57 @@ class gameHud extends A3SoundEffects {
 
               //if the item doesnt exist in the players inventory or that item slot is full, then add it to the nearest item slot that is empty.
               if(itemAdded === false){
-                //loop through inventory item array
-                for(let counter = 19; counter < this.inventoryDataArray.length;counter++){
 
-                  //if the item id is empty then add the new item to that id.
-                  //note, add here a check for the first and second item slot so things that arnt, a weapon, ring, clothing item, or ammo end dont end up in those slots.
-                  if(this.inventoryDataArray[counter].itemID === 0 ){
+                 //need to check if there is a valid item stack to add to the players inventory
+                for(let counter = 20; counter < this.inventoryDataArray.length;counter++){
+                  if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
+                    itemStackExists = true;
+                    addableStackLocation = counter;
+                    break;
+
+                  }
+                }
+
+                //loop through inventory item array
+                for(let counter = 20; counter < this.inventoryDataArray.length;counter++){
+
+                  //if the item id matches, and the item is stackable, and the total amount does not go above 64 and the item has not already been added then add the item recieved to the item allready in the inventory.
+                  if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount < 65){
+                    
+                    console.log("item stack adds to less than 65")
+                    
+                    //adds the item to the item in the inventory.
+                    this.inventoryDataArray[counter].itemAmount = this.inventoryDataArray[counter].itemAmount + item.itemAmount;
+                    //lets the check function know if it sucessfully put a item in the inventory.
+                    itemAdded = true;
+                    inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"ITEM ADDED TO STORAGE.");
+                    //item added so break out of the loop.
+                    break;
+                  
+                  //alternatively, if the item amount plus the inventory object would create a stack larger than 64  we increase the stack to 64 and make a new stack.
+                  }else if(this.inventoryDataArray[counter].itemID === item.itemID && this.inventoryDataArray[counter].itemStackable === 1 && this.inventoryDataArray[counter].itemAmount + item.itemAmount > 64 && this.inventoryDataArray[counter].itemAmount !== 64){
+                    
+                    console.log("item stack adds to more than 64")
+                    //set the value in the item to be added to the difference.
+                    item.itemAmount = (this.inventoryDataArray[counter].itemAmount + item.itemAmount) - 64;
+                    //then set the initial value  of the item in the inventory to 64
+                    this.inventoryDataArray[counter].itemAmount = 64;
+                    //break out of loop not setting item added as there is still a item that needs to be added. goes to the next loop.
+                    break;
+                  
+                  // else if the id at this space is zero, then place that item, but only if we know there isnt a stack the item can be filled into.
+                  }else if(this.inventoryDataArray[counter].itemID === 0 && !itemStackExists){
                     //adds the item to the item in the inventory.
                     this.inventoryDataArray[counter] = item;
 
                     itemAdded = true;
+                    inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"ITEM ADDED TO STORAGE.");
 
                     //item added so break out of the loop.
                     break;
                   }
                 }
-
+          
                 //if the item still has not been added, then we need to expand the storage array, so add a new page to the storage.
                 //if inventory does not have 100 slots, then add those slots.
                 if(itemAdded === false) {
@@ -1489,6 +1540,8 @@ class gameHud extends A3SoundEffects {
                       this.inventoryDataArray[counter] = item;
   
                       itemAdded = true;
+
+                      inventoryKeyEmitter.emit(inventoryKey.playCustomMessage,"ITEM ADDED TO STORAGE AND STORAGE EXPANDED.");
   
                       //item added so break out of the loop.
                       break;

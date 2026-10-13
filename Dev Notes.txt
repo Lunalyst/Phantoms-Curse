@@ -41,6 +41,8 @@ https://github.com/sporadic-labs/tile-extruder
 //dont forget our tiles are 96 by 96 then downscaled by a third
 //tile-extruder --tileWidth 96 --tileHeight 96 --input ./Downloads/Forest_Large_Tiles.png --output ./Downloads/extruded.png
 
+//tile-extruder --tileWidth 96 --tileHeight 96 --input X:/ConvertTileset/Forest_Large_Tiles.png --output X:/ConvertTileset/extruded.png
+
 ctrl + shift + f to find a line of text for all files in project.
 
 for new tileset, 

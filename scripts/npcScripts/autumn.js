@@ -206,7 +206,7 @@ class autumn extends npc{
     //console.log("autumn is in range.")
     if(this.isInPosition === true){
          //if the player meets activation requiements for the sign display the text box
-      if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down){
+      if(this.safeToSpeak === true && this.scene.checkWPressed() && this.scene.activatedNpcId === this.npcId && this.scene.player1.mainHitbox.body.blocked.down && this.scene.inventoryOpen === false){
 
         //console.log("this.currentDictNode: ",this.currentDictNode);
 

@@ -137,6 +137,11 @@ class textBoxProfile extends Phaser.Physics.Arcade.Sprite{
       this.anims.create({key: 'wolfMad',frames: this.anims.generateFrameNames('wolfEmots', { start: 52 , end:  53+2}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfSmirk2',frames: this.anims.generateFrameNames('wolfEmots', { start: 55+2 , end:  59+2}),frameRate: 5,repeat: -1});
       this.anims.create({key: 'wolfKiss',frames: this.anims.generateFrameNames('wolfEmots', { start: 61+2 , end:  65+2}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfLookDown',frames: this.anims.generateFrameNames('wolfEmots', { start: 69 , end:  69}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfShock1',frames: this.anims.generateFrameNames('wolfEmots', { start: 70 , end:  70}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfShock2',frames: this.anims.generateFrameNames('wolfEmots', { start: 71 , end:  71}),frameRate: 5,repeat: -1});
+      this.anims.create({key: 'wolfLookLeft',frames: this.anims.generateFrameNames('wolfEmots', { start: 72 , end:  72}),frameRate: 5,repeat: -1});
+    
     }
 
     setUpRegiEmots(){

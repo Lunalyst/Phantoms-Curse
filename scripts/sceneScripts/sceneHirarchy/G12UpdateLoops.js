@@ -168,18 +168,9 @@ class G12UpdateLoops extends G11CheckGameObjects{
           //has the hitbox active at the middle of the attack animation
           this.player1.attackHitboxActive();
 
-         
-          
-          //console.log("FOLLOWING PLAYER 1")
-
           //console.log("this.player.x: ",this.player1.x, "this.player.y: ",this.player1.y)
           this.mycamera.startFollow(this.player1,true,0,0,0,70);
           this.cameras.main.zoom = 2;
-        
-          //call player function to see if there attacking
-          /*if(this.player1.mainHitbox.body.blocked.down && this.shift.isDown){
-             this.player1.attackPlayer(this);
-          }*/
 
         //however if the player is grabbed
         }else if(this.grabbed === true || this.playerStuckGrab === true){

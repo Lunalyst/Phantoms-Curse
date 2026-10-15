@@ -272,7 +272,7 @@ class mushroomHandSingle extends enemy{
                     }, 1000);
                 }
                 //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
             }
     }
 

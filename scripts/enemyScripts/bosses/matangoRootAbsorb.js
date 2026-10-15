@@ -147,7 +147,7 @@ class matangoRootAbsorb extends enemy {
 
                 //deal 2 hp damager everys .8 seconds.
                 if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,2);
+                    healthEmitter.emit(healthEvent.loseHealth,1);
                 }
 
                 let currentEnemy = this;
@@ -162,8 +162,7 @@ class matangoRootAbsorb extends enemy {
 
         this.scene.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-        //hides the mobile controls in the way of the tab/skip indicator.
-        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+        
             
         console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
             // can we replace this with a settimeout function? probbably. lets make a backup first.
@@ -189,7 +188,7 @@ class matangoRootAbsorb extends enemy {
                 }
 
                 //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
+                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
                     
 
 
@@ -224,6 +223,19 @@ class matangoRootAbsorb extends enemy {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
+        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
+
+            this.scene.KeyDisplay.visible = false;
+            console.log("changing scene");
+
+            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                this.scene.sound.get("plapSFX").stop();
+            }
+
+            this.scene.changeToGameover();
+        }
+
         //may be able to set a bool to true or false to tell what animations have the key skip
         //that way we dont need tons of if checks for numbers
         if (this.scene.checkDPressed() &&
@@ -248,19 +260,6 @@ class matangoRootAbsorb extends enemy {
                 currentEnemy.scene.KeyDisplay.playDKey();
                 currentEnemy.playerDefeatedAnimationCooldown = false;
             }, 3000);
-        }
-
-        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 7 && this.scene.checkDIsDown())) {
-
-            this.scene.KeyDisplay.visible = false;
-            console.log("changing scene");
-
-            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
-                this.scene.sound.get("plapSFX").stop();
-            }
-
-            this.scene.changeToGameover();
         }
 
         //function to play the defeated animation

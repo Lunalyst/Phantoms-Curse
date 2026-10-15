@@ -208,7 +208,7 @@ class matangoRootOral extends  matangoRootUnbirth {
             if(this.playerBellyLocation === 'upper'){
 
                 if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,3);
+                    healthEmitter.emit(healthEvent.loseHealth,1);
                 }
                 let currentEnemy = this;
                 setTimeout(function () {
@@ -218,7 +218,7 @@ class matangoRootOral extends  matangoRootUnbirth {
             }else if(this.playerBellyLocation === 'lower'){
 
                 if(this.animationPlayed === false){
-                    healthEmitter.emit(healthEvent.loseHealth,2);
+                    healthEmitter.emit(healthEvent.loseHealth,1);
                 }
 
                 let currentEnemy = this;
@@ -233,8 +233,7 @@ class matangoRootOral extends  matangoRootUnbirth {
 
         this.scene.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-        //hides the mobile controls in the way of the tab/skip indicator.
-        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+        
             
         console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage," this.lastKeyPressed: ",this.lastKeyPressed);
             
@@ -275,17 +274,16 @@ class matangoRootOral extends  matangoRootUnbirth {
                                 currentEnemy.scene.grabCoolDown = false;
                                 console.log("grab cooldown has ended. player can be grabbed agian.");
                             }, 2000);
+
+                            //hides the mobile controls in the way of the tab/skip indicator.
+                            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
                             
                         });
                     });
 
                 }
 
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-                    
-
-
+                
             }else if(this.struggleFree === false && playerHealthObject.playerHealth >= 1 && this.playerBellyLocation === 'upper' && this.lastKeyPressed === 'W'){
                 if(this.spitUp === false){
                     this.preventGiveUp = true;
@@ -379,6 +377,19 @@ class matangoRootOral extends  matangoRootUnbirth {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
+        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 2 && this.scene.checkDIsDown())) {
+
+            this.scene.KeyDisplay.visible = false;
+            console.log("changing scene");
+
+            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                this.scene.sound.get("plapSFX").stop();
+            }
+
+            this.scene.changeToGameover();
+        }
+
         //may be able to set a bool to true or false to tell what animations have the key skip
         //that way we dont need tons of if checks for numbers
         if (this.scene.checkDPressed() &&
@@ -401,19 +412,6 @@ class matangoRootOral extends  matangoRootUnbirth {
                 currentEnemy.scene.KeyDisplay.playDKey();
                 currentEnemy.playerDefeatedAnimationCooldown = false;
             }, 3000);
-        }
-
-        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 2 && this.scene.checkDIsDown())) {
-
-            this.scene.KeyDisplay.visible = false;
-            console.log("changing scene");
-
-            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
-                this.scene.sound.get("plapSFX").stop();
-            }
-
-            this.scene.changeToGameover();
         }
 
         //function to play the defeated animation

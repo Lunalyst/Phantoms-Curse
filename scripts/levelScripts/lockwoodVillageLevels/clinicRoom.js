@@ -30,7 +30,10 @@ class ClinicRoom extends defaultScene {
       this.load.tilemapTiledJSON("clinic_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Clinic_Room.json");
       
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
-      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
       
       this.load.spritesheet("playerOnStrecherMale" , "assets/gameObjects/playerOnStrecherMale.png" , {frameWidth: 264 , frameHeight: 222 });
       this.load.spritesheet("playerOnStrecherFemale" , "assets/gameObjects/playerOnStrecherFemale.png" , {frameWidth: 264 , frameHeight: 222 });

@@ -201,8 +201,7 @@ class matangoRootAnal extends matangoRootOral {
 
         this.scene.KeyDisplay.visible = false;
         struggleEmitter.emit(struggleEvent.activateStruggleBar, false);
-        //hides the mobile controls in the way of the tab/skip indicator.
-        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+    
             
         console.log("this.struggleFree: ", this.struggleFree,"this.spitUp: ",this.spitUp, "this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
             // can we replace this with a settimeout function? probbably. lets make a backup first.
@@ -234,13 +233,11 @@ class matangoRootAnal extends matangoRootOral {
                             console.log("grab cooldown has ended. player can be grabbed agian.");
                         }, 1000);
                         
+                        //hides the mobile controls in the way of the tab/skip indicator.
+                        controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
                     });
 
                 }
-
-                //hides the mobile controls in the way of the tab/skip indicator.
-                controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, false);
-                    
 
 
             }
@@ -271,6 +268,19 @@ class matangoRootAnal extends matangoRootOral {
             this.playerDefeatedAnimationStage++;
         }
 
+        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
+        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 2 && this.scene.checkDIsDown())) {
+
+            this.scene.KeyDisplay.visible = false;
+            console.log("changing scene");
+
+            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
+                this.scene.sound.get("plapSFX").stop();
+            }
+
+            this.scene.changeToGameover();
+        }
+
         //may be able to set a bool to true or false to tell what animations have the key skip
         //that way we dont need tons of if checks for numbers
         if (this.scene.checkDPressed() &&
@@ -295,18 +305,7 @@ class matangoRootAnal extends matangoRootOral {
             }, 3000);
         }
 
-        // if tab is pressed or the player finished the defeated animations then we call the game over scene.
-        if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 2 && this.scene.checkDIsDown())) {
-
-            this.scene.KeyDisplay.visible = false;
-            console.log("changing scene");
-
-            if(this.scene.sound.get("plapSFX") !== null && this.scene.sound.get("plapSFX") !== undefined){
-                this.scene.sound.get("plapSFX").stop();
-            }
-
-            this.scene.changeToGameover();
-        }
+        
 
         //function to play the defeated animation
         this.enemyDefeatedPlayerAnimationAnal();

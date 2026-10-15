@@ -44,10 +44,10 @@ class BridgeToLibertalia extends defaultScene {
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
       this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
-      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
-      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 363 , frameHeight: 363 });
-      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 363 , frameHeight: 363 });
-
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
       //this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
 
       ///this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });

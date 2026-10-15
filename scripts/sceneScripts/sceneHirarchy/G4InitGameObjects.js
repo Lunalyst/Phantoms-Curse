@@ -229,6 +229,16 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
   }
 
+  initFakeItem(x, y,itemID) {
+    //creates a item drop
+    let drop1 = new itemDrop(this, x, y,itemID,0,1,"","","",0);
+
+    console.log("adding new fake item drop that doesnt decay: ",drop1);
+    
+    return drop1;
+    
+  }
+
   initForagingPoint(x, y,item,amountLower,amountUpper,reduceAbundance) {
 
       let foragePoint1 = new foragingPoint(this, x, y,item,amountLower,amountUpper,reduceAbundance);

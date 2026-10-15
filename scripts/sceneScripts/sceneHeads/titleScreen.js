@@ -184,9 +184,8 @@ class titleScreen extends defaultScene {
             this.load.tilemapTiledJSON("bridge_to_libertalia_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bridge_To_Libertalia.json");
             this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
             this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
-            this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 363 , frameHeight: 363 });
-      
-
+            this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 121 , frameHeight: 121 });
+     
 
         }
 
@@ -211,11 +210,14 @@ class titleScreen extends defaultScene {
             this.elements.add(this.version);
 
             this.creditsArray = [
-                "Lunalyst: lead developer",
-                'Justanotherjames: development assistance',
-                'chocola(NiniMimi): Export & Import Save Functionality',
-                "Ximena: sound composer",
-                'tracks:',
+                "(Developers)======================================",
+                "Lunalyst: (Lead Dev)",
+                'Justanotherjames: (Development Assistance)',
+                'Fursagi: (Export & Import Save Functionality)',
+                "(Sound Designers)=================================",
+                "Lunalyst: (enemy and level sound effects)",
+                "Ximena: (Music Design)",
+                "Ximena\'s tracks:",
                 '- Hare-raising Harmonies',
                 '- Paws and Wait',
                 '- Whats Good Slime',
@@ -223,47 +225,38 @@ class titleScreen extends defaultScene {
                 '- Lockwood your Cockwood',
                 '- Bee Hive Benis',
                 '- Give Me Neck-Tar',
-                'KALE13: spritework assistance',
+                "(Sprite Artists)==================================",
+                'KALE13: (spritework assistance)',
                  '- M bat F player TF sprite',
-                'Stiefeljackal: rabbit gameover moddification',
-                'Zacchary Dempsey-Plante: Pixellari font',
-                "Scarlet: orthographer, inspiration, bug testing",
-                'Kashindolly: orthographer',
-                'Otpfurry1: donation, inspiration',
-                'Vik : patreon, commision, gameover dialogue,',
-                'Tyler Ritchie: patreon',
-                'Leo: patreon',
-                'Inquisitor Kobold: patreon',
-                'Zealotdkd: patreon',
-                'Bunger: patreon',
-                'Dainsleft Rovera: patreon',
-                'Night Raven: patreon',
-                'Foxymew: patreon',
-                'Senro: patreon',
-                'Djodjow: patreon',
-                'Lexi: patreon',
-                'Irongelatin: gameover dialogue',
-                'Istara: commission & inspiration',
-                'inspiration, bug testing',
-                'Zebby: inspiration, bug testing',
-                'Drachen: inspiration,  bug testing',
-                'Cirme: inspiration, bug testing',
-                'Darkgamer22263: inspiration, bug testing',
-                'Rat Profile Picture: inspiration, bug testing',
-                'Lit_kale_chip: bug testing',
-                'Gamersgate123: bug testing',
-                'patrickster: bug testing',
-                'Aaron: bug testing',
-                'Dolly-decimal: bug testing',
-                'luna: bug testing',
-                'Kaynstarr: inspiration',
-                'Fluffstuff: inspiration',
-                'Manny: inspiration',
-                'Wagoo: inspiration',
-                'Nox: inspiration',
-                'Bigbigbig: inspiration',
-                'Turtwag: inspiration',
-                'Adorabletyphlosion: inspiration',
+                'Stiefeljackal: (rabbit gameover moddification)',
+                'Zacchary Dempsey-Plante: (Pixellari font)',
+                "(Commissions)=====================================",
+                "Vik (Vivian)",
+                "Irongelatin (Nectar & Plum)",
+                "Istara (Istara)",
+                "Deaugh (wolf)",
+                "blight (COMMING SOON!)",
+                "Zebby (COMMING SOON!)",
+                "Dainsleft Rovera(COMMING SOON!)",
+                "Downfall(COMMING SOON!)",
+                "Kale(COMMING SOON!)",
+                "Deathpits(COMMING SOON!)",
+                "Fursagi(COMMING SOON!)",
+                "(Donators)========================================",
+                'Otpfurry1, Vik, Tyler Ritchie, Leo, ',
+                "Bunger, Dainsleft Rovera, Night Raven, Foxymew, ",
+                "Lexi, Istara, Zealotdkd, Senro, Djodjow",
+                "Inquisitor Kobold",
+                "(Orthographers)===================================",
+                "Scarlet, Kashindolly",
+                "(Bug Hunters)=====================================",
+                "Scarlet, Dainsleft Rovera, Zebby, Drachen, ",
+                "Rat Profile Picture, Lit_kale_chip, Gamersgate123,",
+                "Aaron, Dolly-decimal, luna, Cirme, Darkgamer22263,",
+                "patrickster",
+                "(Inspiration)=====================================",
+                "Scarlet, Otpfurry1, Kaynstarr, Fluffstuff, Manny,",
+                "Bigbigbig, Turtwag, Adorabletyphlosion, Nox, ",
             ];
             
             //this.form = new makeEcrus(this,20, 200,"@011@ @00110@ @111@ @1101@ @111@ @011@ @01011@ @011@ @000@ @00111@ @0010@ @111@ @1101@ @11000@ @1001@ @1101@ @11001@ @1010@ @111@ @10111@ @10110@ @000@ @000@ @1010@ @011@ @1000@ @0100@ @111@ @1001@ @01010@ @000@ @1000@ @0100@ @0010@ @111@");
@@ -376,7 +369,7 @@ class titleScreen extends defaultScene {
             this.deaugh = this.add.sprite(525, 669, "deaugh");
             this.deaugh.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('deaugh', { start: 68, end: 71 }), frameRate: 6, repeat: -1 });
             this.deaugh.anims.play("idle", true);
-            this.deaugh.setScale(1);
+            this.deaugh.setScale(3);
 
             }else{
 

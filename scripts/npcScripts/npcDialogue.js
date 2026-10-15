@@ -5593,6 +5593,7 @@ const npcDialogue = {
                     }
 
                     //(some shell would be nice.) branches back to tf scene route.
+
                     ,"nodeReward3":{
                         "dialogue": "fair enough. I\'m sure getting it was dangerous.",
                         "profile":"wolfHappy1",
@@ -5752,6 +5753,90 @@ const npcDialogue = {
 
                 },
 
+                "wolfComeBackLater":{
+                    "node1":{
+                        "dialogue": "Hey dear. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Give me some time to tinker with this sample. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "see you in a little while. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+
+                "wolfSecretCutscene":{
+                    "node1":{
+                        "dialogue": "It really is another cursed without a mark... ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "There\'s no way they just showed up THERE of all places when the seals start to weaken.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Oh Ciracle.... ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "We might be running out of time faster than we thought. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "But this sample, and the power coming off it... ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "Maybe I could subsume it...",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "It\'s a part of me now... my womb? ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "Gosh... I feel so horny...",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                    "node9":{
+                        "dialogue": "I can\'t stop thinking about that helpful human...",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+
                 "wolfHalloween1":{
 
                     "node1":{
@@ -5786,6 +5871,7 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
+
                 "wolfHalloween2":{
 
                     "node1":{

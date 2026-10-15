@@ -1226,7 +1226,12 @@ class vivian extends npc{
 
             //warps player to the next scene
             this.scene.destination = "minigameShed";
-            controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+
+            setTimeout(function () {
+              controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+              controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
+            }, 500);
+            
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
         }else if(this.currentDictNode.nodeName === "node16"){
@@ -2668,6 +2673,12 @@ class vivian extends npc{
             this.scene.destination = "messyShed";
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
 
+            //turns mobile controls back on.
+            setTimeout(function () {
+              controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+              controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
+            }, 500);
+
 
 
         }
@@ -2807,6 +2818,12 @@ class vivian extends npc{
             //warps player to the next scene
             this.scene.destination = "messyShed";
             this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+            //turns mobile controls back on. 
+            setTimeout(function () {
+              controlKeyEmitter.emit(controlKeyEvent.toggleForStruggle, true);
+              controlKeyEmitter.emit(controlKeyEvent.toggleForTextBox, true);
+            }, 500);
 
         }
       }

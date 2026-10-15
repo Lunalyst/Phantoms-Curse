@@ -64,8 +64,8 @@ class wolf extends npc{
       }
 
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 43 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 44, end: 48 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 42 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 43, end: 46 }), frameRate: 6, repeat: -1 });
 
       this.anims.create({ key: 'shookItemHold', frames: this.anims.generateFrameNames('deaugh', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
 
@@ -83,6 +83,15 @@ class wolf extends npc{
       this.anims.create({ key: 'bigBoobaFinish', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 53, end: 56 }), frameRate: 6, repeat: -1 });
 
       this.anims.create({ key: 'breastVoreGameover', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 57, end: 62 }), frameRate: 6, repeat: -1 });
+      
+
+      this.anims.create({ key: 'subsume1', frames: this.anims.generateFrameNames('deaughCutscene', { start: 0, end: 7 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'subsume2', frames: this.anims.generateFrameNames('deaughCutscene', { start: 8, end: 15 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'subsume3', frames: this.anims.generateFrameNames('deaughCutscene', { start: 16, end: 20 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'hornyIdle', frames: this.anims.generateFrameNames('deaughCutscene', { start:21, end: 24 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'crouchToMicroscope', frames: this.anims.generateFrameNames('deaughCutscene', { start:25, end: 28 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'MicroscopeIdle', frames: this.anims.generateFrameNames('deaughCutscene', { start:29, end: 29 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'MicroscopeStandUp', frames: this.anims.generateFrameNames('deaughCutscene', { start:30, end: 32 }), frameRate: 6, repeat: 0 });
       
       
       //makes a key promptsa object to be displayed to the user
@@ -120,8 +129,9 @@ class wolf extends npc{
 
        //this.body.setGravityY(600); 
 
-        this.setSize(60,200,true);
-        this.setOffset(185, 91);
+        this.setScale(1);
+        this.setSize(27, 70, true);
+        this.setOffset(47, 45);
  
        if(this.npcType === 'miloSavedThePlayer'){
 
@@ -2531,19 +2541,26 @@ class wolf extends npc{
 
   wolfShop2(){
 
-    this.nodeHandler("wolf","Behavior1","wolfShop2");
-
+    let wolfDialogue1 = {
+      flagToFind: "labEncounter1Flag5",
+      foundFlag: false,
+    };
+            
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, wolfDialogue1);
+    
+    if(wolfDialogue1.foundFlag === false){
+      this.nodeHandler("wolf","Behavior1","wolfShop2");
       if(this.currentDictNode !== null){
         //state machine for dialogue 
 
         //orient the player so it looks like they are facing wolf.
     
       if(this.scene.player1.x < this.x){
-        this.scene.player1.x = this.x-30;
-        this.scene.player1.mainHitbox.x = this.x-30;
+        this.scene.player1.x = this.x-35;
+        this.scene.player1.mainHitbox.x = this.x-35;
       }else{
-        this.scene.player1.x = this.x+30;
-        this.scene.player1.mainHitbox.x = this.x+30;
+        this.scene.player1.x = this.x+35;
+        this.scene.player1.mainHitbox.x = this.x+35;
       }
 
       
@@ -2560,11 +2577,15 @@ class wolf extends npc{
           //this.anims.play('sideIdle',true);
           //this.flipX = false;
         }
+
+
       
 
         console.log("this.currentDictNode:", this.currentDictNode);
         console.log("this.inDialogue", this.inDialogue);
         console.log(" this.activatedTradeUI: ", this.activatedTradeUI);
+
+         
 
         if(this.currentDictNode.nodeName === "node3" && this.inDialogue ===false){
           if(this.scene.player1.x < this.x){
@@ -3115,6 +3136,9 @@ class wolf extends npc{
             //progress to node branch with state name node5
             this.progressNode("nodeSure1");
 
+            //display currency
+            inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
+
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
             this.scene.npcChoice2.destroy();
@@ -3192,6 +3216,9 @@ class wolf extends npc{
 
             //progress to node branch with state name node5
             this.progressNode("nodeReward3");
+
+            //display currency
+            inventoryKeyEmitter.emit(inventoryKey.displayCurrency);
 
             //destroy itself and other deciosions
             this.scene.npcChoice1.destroy();
@@ -3455,9 +3482,71 @@ class wolf extends npc{
 
         this.scene.sceneTextBox.textInterupt = true;
         this.scene.sceneTextBox.textCoolDown = true;
+      }else if(this.currentDictNode.nodeName === "nodeReward4" || this.currentDictNode.nodeName === "nodeSure2"){
+        //subtract amount from players currency
+        if(this.showShellOnce1 !== true){
+          this.showShellOnce1 = true;
+          let currencyObject = {
+            changeType:'+',
+            changeAmount:300,
+          };
+
+          inventoryKeyEmitter.emit(inventoryKey.changeCurrency,currencyObject);
+        }
+
+      }else if(this.currentDictNode.nodeName === "wolfHasSample1" && this.choke === false && this.inDialogue === false){
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+
+        console.log("starting look at item")
+        if(this.choke === false){
+          this.choke = true;
+
+          if(this.spawnMatangoStarOnce !== true){
+            this.spawnMatangoStarOnce = true;
+
+           this.anims.play('wolfGiveItem1', true).once('animationcomplete', () => {
+
+              this.inDialogue = false;
+              this.scene.sceneTextBox.textInterupt = false;
+              this.choke = false;
+
+              this.anims.play('wolfGiveItem2', true);
+
+              if(this.scene.player1.x < this.x){
+                this.matangoStar = this.scene.initFakeItem(this.x - 20, this.y-20,31);
+              }else{
+                this.matangoStar = this.scene.initFakeItem(this.x + 20, this.y-20,31);
+              }
+          
+          });
+        }  
+      }  
+
+      }else if(this.currentDictNode.nodeName === "wolfHasSample3"){
+       
+        this.anims.play('shookItemHold', true);
+        
+      }else if(this.currentDictNode.nodeName === "wolfHasSample6"){
+
+       if(this.spawnMatangoStarOnce === true){
+          this.spawnMatangoStarOnce = false;
+           this.matangoStar.activateFakeDropWithSpeed(10);
+       }
+
+        this.anims.play('sideIdle', true);
+
+        //set the trigger flag to be added at the end of the dialogue.
+        this.scene.sceneTextBox.storeFlag(wolfDialogue1);
+        
       }
-  
+      }
+      
+    } else{
+
+      this.nodeHandler("wolf","Behavior1","wolfComeBackLater");
     }
+
        
     
   }

@@ -624,7 +624,7 @@ class gameHud extends A3SoundEffects {
           },this);
 
           //==========================================================================================
-          this.mobileSpecial = new mobileButton(this,this.screenWidth-340,mobileY+100).setInteractive(this.input.makePixelPerfect());
+          this.mobileSpecial = new mobileButton(this,this.screenWidth-230,mobileY-100).setInteractive(this.input.makePixelPerfect());
           this.mobileGroup.add(this.mobileSpecial);
           this.mobileSpecial.playSpecialKey();
 

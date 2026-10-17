@@ -111,6 +111,8 @@ class DeaughsRoom extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
+      
+
       this.initSigns(865,760+21,"question","Fundamentals of Cursed Energy",false);
 
       this.storageRoomDoor = this.initPortals(1024,728+25,578,760,"door2","StorageRoom");
@@ -144,7 +146,18 @@ class DeaughsRoom extends defaultScene {
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, readBook);
-      if(lab4.foundFlag === true && readBook.foundFlag === true){
+
+      //make cutscene of wolf doing stuff to the sample
+      if(this.player1.x === 483){
+
+        this.player1.visible = false;
+
+        //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+        this.grabbed = true;
+
+        this.initWolf(472, 728+16, "wolfSecretCutscene");
+
+      }else if(lab4.foundFlag === true && readBook.foundFlag === true){
         this.initWolf(531, 729+15, "wolfShop2");
       }else if(lab4.foundFlag === true){
         this.initWolf(461, 729+15, "wolfShop1");

@@ -28,7 +28,12 @@ class WaitingRoom extends defaultScene {
       //loads the image with the tiles and the .json file of the tilemap
       this.load.image("castle_source_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Castle_Interior_Tileset.png");
       this.load.tilemapTiledJSON("waiting_room_map" , "assets/tiledMap/LockWood/Castle_Interior_Tileset/Waiting_Room.json");
-     
+      
+      this.load.spritesheet("wolfEmots" , "assets/hudElements/wolfEmots.png" , {frameWidth: 105 , frameHeight: 96 });
+      this.load.spritesheet("deaugh" , "assets/npcs/deaugh.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
 
       this.defaultPreload();
 
@@ -61,7 +66,6 @@ class WaitingRoom extends defaultScene {
       //adds looping sound effect.
       this.initLoopingSound('wardSFX','wolfs ward',0.01,"music");
 
-
       //sets up the player key prompts for when the player is grabbed
       this.setUpKeyPrompts();
 
@@ -82,17 +86,15 @@ class WaitingRoom extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
       //this.initSavePoints(2050,558);
-        // as well as signs.
+      //as well as signs.
+
+      
 
       //this sets up the text box which will be used by the signs to display text.
       this.setUpTextBox();
 
       this.initPortalsWithTransparency(700,728+25,611,728,"door1","LockwoodBridges",0.75);
-      
-      this.initPortals(487,728+25,774,760,"door2","DeaughsRoom");
 
       this.initPortals(862,728+25,386,760,"door2","ClinicRoom");
 
@@ -106,6 +108,35 @@ class WaitingRoom extends defaultScene {
       this.setUpItemDropCollider();
 
       this.initSigns(579,760+21,"question","The Curse Mark Plague",false,"readCurseMarkPlague");
+
+      this.wolfDoor = this.initPortals(487,728+25,774,760,"door2","DeaughsRoom");
+
+      let flag1 = {
+        flagToFind: "labEncounter1Flag5",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, flag1);
+
+      let flag2 = {
+        flagToFind: "labEncounter1Flag6",
+        foundFlag: false,
+      };
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, flag2);
+
+      if(flag1.foundFlag === true && flag2.foundFlag === false){
+        //creates tileset
+        console.log("found labEncounter1Flag5 but not labEncounter1Flag6")
+        inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,flag2.flagToFind);
+
+        //spawn wolf as door so that we can have the player prompt for missable cutscene.
+
+        this.fakeWarp1 = new fakeWarp(this,this.wolfDoor.x,this.wolfDoor.y+7,'door2');
+        this.initWolf(this.wolfDoor.x, this.wolfDoor.y, "deaughsRoomDoor");
+        this.wolfDoor.destroy();
+            
+      }
 
       //time out function to spawn enemys. if they are not delayed then the physics is not properly set up on them.
       let thisScene = this;

@@ -5774,40 +5774,85 @@ const npcDialogue = {
                     },
                 },
 
+                "deaughsRoomDoor":{
+                    "node1":{
+                        "dialogue": "It wont open...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "wolf\'s seems to have locked the door...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "Ease drop on her?",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node4","node6"]
+                    },
+                    "node4":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "best to give her some privacy...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                    "node6":{
+                        "dialogue": "...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "you listen closely to the door...",
+                        "profile":"blank",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    },
+                },
+
                 "wolfSecretCutscene":{
                     "node1":{
                         "dialogue": "It really is another cursed without a mark... ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfShock2",
                         "textvoice":"lightVoice",
                         "children":["node2"]
                     },
                     "node2":{
                         "dialogue": "There\'s no way they just showed up THERE of all places when the seals start to weaken.",
-                        "profile":"wolfHappy2",
+                        "profile":"wolfAnnoyed",
                         "textvoice":"lightVoice",
                         "children":["node3"]
                     },
                     "node3":{
                         "dialogue": "Oh Ciracle.... ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfKO",
                         "textvoice":"lightVoice",
                         "children":["node4"]
                     },
                     "node4":{
                         "dialogue": "We might be running out of time faster than we thought. ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["node5"]
                     },
                     "node5":{
                         "dialogue": "But this sample, and the power coming off it... ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk2",
                         "textvoice":"lightVoice",
                         "children":["node6"]
                     },
                     "node6":{
                         "dialogue": "Maybe I could subsume it...",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfSmirk1",
                         "textvoice":"lightVoice",
                         "children":["node7"]
                     },
@@ -5819,19 +5864,19 @@ const npcDialogue = {
                     },
                     "node8":{
                         "dialogue": "It\'s a part of me now... my womb? ",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfConfused",
                         "textvoice":"lightVoice",
                         "children":["node9"]
                     },
                     "node9":{
                         "dialogue": "Gosh... I feel so horny...",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfPant",
                         "textvoice":"lightVoice",
-                        "children":[]
+                        "children":["node10"]
                     },
-                    "node9":{
+                    "node10":{
                         "dialogue": "I can\'t stop thinking about that helpful human...",
-                        "profile":"wolfHappy1",
+                        "profile":"wolfHeartEyes",
                         "textvoice":"lightVoice",
                         "children":[]
                     },

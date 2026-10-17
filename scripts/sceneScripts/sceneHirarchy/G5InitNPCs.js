@@ -206,7 +206,7 @@ class G5InitNPCs extends G4InitGameObjects {
     //this is so that the trigger dialogue always occurs first
     //we then flag in the npc logic to changer the dialogue after the trigger version
 
-    if(type === "miloSavedThePlayer" || type === "riddleAnswered" || type === "wolfxLuna"){
+    if(type === "miloSavedThePlayer" || type === "riddleAnswered" || type === "wolfxLuna" || type === "wolfSecretCutscene"){
       this.npcTriggers.add(Wolf);
      
     }else{

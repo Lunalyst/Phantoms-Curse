@@ -93,7 +93,7 @@ class gameHud extends A3SoundEffects {
       ]);
 
       //level containers for hud.
-      this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
+      //this.load.spritesheet('containerScreen', 'assets/containerScreen.png',{frameWidth: 525 , frameHeight: 519 });
 
       this.load.scenePlugin({
         key: 'rexuiplugin',

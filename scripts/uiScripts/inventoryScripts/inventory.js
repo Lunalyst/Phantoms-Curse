@@ -546,6 +546,7 @@ class inventory extends Phaser.GameObjects.Container{
         let animationNumber = "";
         animationNumber += scene.playerSaveSlotData.currency;
         console.log("animationNumber for currency: " + animationNumber);
+        
         this.shellLetters = new makeText(this.scene,this.shellIcon.x + startingX,this.shellIcon.y+startingY,'charBubble',""+ scene.playerSaveSlotData.currency);
         this.inventoryElements.add(this.shellLetters);
         this.add(this.shellLetters);

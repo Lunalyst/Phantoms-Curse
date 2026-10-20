@@ -285,6 +285,8 @@
     new Phaser.Game(
         {
         //list of property names and there associated values.
+        //width: (window.innerWidth * (window.devicePixelRatio || 1)),
+        //height: window.innerHeight * (window.devicePixelRatio || 1), 
         width: 1200,
         height: 900, 
         maxLights: 40,
@@ -381,12 +383,25 @@
           new postOfficeHallway,
           new AutumnsRoom,
         ],//multiple scenes
-        scale: {
+
+         scale: {
           mode: Phaser.Scale.FIT,
-          autoCenter: Phaser.Scale.CENTER_BOTH
-        }, // scale manager used to scale game up to fit display. centers gameplay screen
-        disableContextMenu: true
-      });
+            autoCenter: Phaser.Scale.CENTER_BOTH
+          }, // scale manager used to scale game up to fit display. centers gameplay screen
+          disableContextMenu: true
+        });
+        
+        /*scale: {
+          mode: Phaser.Scale.RESIZE,
+          //autoCenter: Phaser.Scale.CENTER_BOTH,
+          parent: document.body,
+          width: 800, // Base logical width
+          height: 600, // Base logical height
+          min: { width: 400, height: 300 },
+          max: { width: 1920, height: 1080 }
+        },
+        }); */// scale manager used to scale game up to fit display. centers gameplay screen
+
     };
     
     </script>

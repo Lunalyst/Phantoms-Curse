@@ -2611,57 +2611,7 @@ const npcDialogue = {
                         "children":[]
                     },
                 },
-                "":{
-                    "node1":{
-                        "dialogue": "Hey....",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node2":{
-                        "dialogue": "Back there....",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node3":{
-                        "dialogue": "I couldn't help but despise her...",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node4":{
-                        "dialogue": "im confident I have never met her but....",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node5":{
-                        "dialogue": "I feel like she was someone who use to be important to me.",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node6":{
-                        "dialogue": "All I could feel was betrayal. As if she broke a promise.",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node6":{
-                        "dialogue": "though I guess it doesnt matter now.",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    "node7":{
-                        "dialogue": "we Have to continue deeper.",
-                        "profile":"miloExcited",
-                        "textvoice":"trumpet",
-                        "children":["node2"]
-                    },
-                    
-                }
+                
             }
         },
         "nectar":{
@@ -5348,7 +5298,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
                     
-                        //I'm hurt could you heal me? (but player isnt hurt)
+                    //I'm hurt could you heal me? (but player isnt hurt)
                     },"nodeHealFull1":{
                         "dialogue": "there isn\'t a scratch on you silly.",
                         "profile":"wolfHappy1",
@@ -5880,6 +5830,275 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":[]
                     },
+                },
+
+                "wolfShop3":{
+                    "node1":{
+                        "dialogue": "oh! hello dear.",
+                        "profile":"wolfMad",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },"node2":{
+                        "dialogue": "how can I help my new adorable helper?",
+                        "profile":"wolfKO",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk1","node10","node12","nodeHeal1"]
+                    },
+
+                    //who are you dialogue again. modify this to reflect the player helping her, and forgetting about her.
+                    "nodeAsk1":{
+                        "dialogue": "Forget about me dear? well...",
+                        "profile":"wolfAnnoyed",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk2"]
+                    },
+                    "nodeAsk2":{
+                        "dialogue": "My name is wolf and I ended up on Kuko Nui like many others.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk3"]
+                    },
+                    "nodeAsk3":{
+                        "dialogue": "Washing ashore after the ship I was on got recked by the perpetual storm. ",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk4"]
+                    },
+                    "nodeAsk4":{
+                        "dialogue": "It didn\'t take long for me to be transformed. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk5"]
+                    },
+                    "nodeAsk5":{
+                        "dialogue": "I was enamored by the creatures of this island. You see, I always wanted to have fur and a tail. ",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk6"]
+                    },
+                    "nodeAsk6":{
+                        "dialogue": "Thanks to the curse my dream came true, though it wasn\'t without its risks.",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk7"]
+                    },
+                    "nodeAsk7":{
+                        "dialogue": "But it\'s also thanks to the curse that I\'m able to do so much more than just look pretty. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk8"]
+                    },
+                    "nodeAsk8":{
+                        "dialogue": "I have cultivated an ability to use cursed energy to heal others which allowed me to save many people over the years.",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["nodeAsk9"]
+                    },
+                    "nodeAsk9":{
+                        "dialogue": "For now my focus is on researching the curse and understanding it.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                    // shop inventory
+                    "node10":{
+                        "dialogue": "sure thing. I got some medical supplies.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },"node11":{
+                        "dialogue": "Here\'s what I got.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    //leaving dialogue
+                    },"node12":{
+                        "dialogue": "stay safe out there, and don\'t get in any trouble.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    
+                        
+                    },
+                    //I'm hurt could you heal me? (but player isnt hurt)
+                    "nodeHealFull1":{
+                        "dialogue": "there isn\'t a scratch on you silly.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull2"]
+                    },"nodeHealFull2":{
+                        "dialogue": "You dont need to lie if you want a smooch my sweet little cutie.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull3"]     
+                    },"nodeHealFull3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull4"]
+                    },"nodeHealFull4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHealFull5"]
+                    },"nodeHealFull5":{
+                        "dialogue": "your so adorable. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    //can you heal me
+                    },"nodeHeal1":{
+                        "dialogue": "oh dear.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal2"]
+                    },"nodeHeal2":{
+                        "dialogue": "don\'t worry I will patch you up. ",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal3"]
+                    },"nodeHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal4"]
+                    },"nodeHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeHeal5"]
+                    },"nodeHeal5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    },"nodeFirstHeal1":{
+                        "dialogue": " I can heal you up, though I won\'t need a curse iv drip this time.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal2"]
+                    },"nodeFirstHeal2":{
+                        "dialogue": "just stay still for a moment.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal3"]
+                    },"nodeFirstHeal3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal4"]
+                    },"nodeFirstHeal4":{
+                        "dialogue": "there we go.",
+                        "profile":"wolfKiss",
+                        "textvoice":"lightVoice",
+                        "children":["nodeFirstHeal5"]
+                    },"nodeFirstHeal5":{
+                        "dialogue": "should be all better in no time.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":[]
+
+                    //Any luck with that sample? 
+                    },"sampleDialogue1":{
+                        "dialogue": "oh that sample you got me?",
+                        "profile":"wolfConfused",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue2"]
+                    },"sampleDialogue2":{
+                        "dialogue": "Well I can\'t state enough how thankful I am that you got it for me",
+                        "profile":"wolfHappy",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue3"]
+                    },"sampleDialogue3":{
+                        "dialogue": "As for it helping me reverse the mental alterations the curse causes, well I have no clue to be honest with you.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue4"]
+                    },"sampleDialogue4":{
+                        "dialogue": "The goal was to find something that I could use to improve my body.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue5"]
+                    },"sampleDialogue5":{
+                        "dialogue": "You see some cursed, they have the ability to alter and even overwrite other cursed marks. ",
+                        "profile":"wolfSmirk",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue6"]
+                    },"sampleDialogue6":{
+                        "dialogue": "I think the sample you gave me was the thing I needed to achieve that.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue7"]
+                    },"sampleDialogue7":{
+                        "dialogue": "But even if I can edit other cursed, that\'s no guarantee I can revert the mental alterations, or even safely pass on a version of my curse. ",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue8"]
+                    },"sampleDialogue8":{
+                        "dialogue": "This is a huge step forward in my research and I know I already paid you for it but...",
+                        "profile":"wolfStarEyes",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue9"]
+                    },"sampleDialogue9":{
+                        "dialogue": "well I want to reward you a little more. ",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue10"]
+                    },"sampleDialogue10":{
+                        "dialogue": "You\'re just so adorable, and I would love to have some fun with you.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue11"]
+                    },"sampleDialogue11":{
+                        "dialogue": "Promise I won\'t curse you,",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogue12"]
+                    },"sampleDialogue12":{
+                        "dialogue": "unless you want me to test out our little theory. ",
+                        "profile":"wolfWink",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogueYes1","sampleDialogueNo1"]
+                    }
+
+                    //branch in dialogue of player saying yes or no.
+
+                    //yes / i want have fun with you.
+                    //repeat smex, and also if the player says no on first ask.
+
+                    ,"sampleDialogueYes1":{
+                        "dialogue": "perfect.",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogueYes2"]
+                    },"sampleDialogueYes2":{
+                        "dialogue": "now get over here.",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+
+                    // no.
+                    ,"sampleDialogueNo1":{
+                        "dialogue": "awwww.....",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogueNo2"]
+                    },"sampleDialogueNo2":{
+                        "dialogue": "well thats alright dear.",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["sampleDialogueNo3"]
+                    },"sampleDialogueNo4":{
+                        "dialogue": "just let me know if you change your mind. ",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    }
+                    
                 },
 
                 "wolfHalloween1":{

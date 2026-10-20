@@ -65,7 +65,7 @@ class wolf extends npc{
 
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 42 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 43, end: 46 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 43, end: 48 }), frameRate: 6, repeat: 0 });
 
       this.anims.create({ key: 'shookItemHold', frames: this.anims.generateFrameNames('deaugh', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
 
@@ -3070,7 +3070,9 @@ class wolf extends npc{
           });
          }
       }else if(this.currentDictNode.nodeName === "nodequest10"){
-        
+
+         this.scene.sceneTextBox.textInterupt = true;
+
         if(this.doOnce === false){
 
             this.doOnce = true;
@@ -3107,10 +3109,14 @@ class wolf extends npc{
                   }else{
                     this.scene.initFakeItemDropWithSpeed(this.x-14 , this.y-13 ,29,1000);
                   }
+                  console.log("finishing first animation!")
 
                     this.anims.play('wolfGiveItem2').once('animationcomplete', () => {
+
+                      console.log("hand is now lowered!")
                     this.anims.play('sideIdle',true);
                     this.animationPlayed = false;
+                    this.scene.sceneTextBox.textInterupt = false;
 
                     //set flag for first part of the quest being finished
                 inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"WolfMatangoQuest1");

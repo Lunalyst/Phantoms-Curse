@@ -5395,22 +5395,22 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["nodequest4"]
                     },"nodequest4":{
-                        "dialogue": "I tryed to have someone else fech me a sample but, they always seemed slip away through there mycelium network.",
+                        "dialogue": "I tried to have someone else fetch me a sample but, they always seemed slip away through their mycelium network.",
                         "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["nodequest5"]
                     },"nodequest5":{
-                        "dialogue": "I have a theory about them, but i\'m still in the process of writing a new book about it.",
+                        "dialogue": "I have a theory about them, but I\'m still in the process of writing a new book about it.",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodequest6"]
                     },"nodequest6":{
-                        "dialogue": "anyway theres also some shadows in that cave which are quite dangerous.",
+                        "dialogue": "anyway there\'s also some shadows in that cave which are quite dangerous.",
                         "profile":"wolfNeutral",
                         "textvoice":"lightVoice",
                         "children":["nodequest7"]
                     },"nodequest7":{
-                        "dialogue": "I wouldnt feel comfortable sending you out there without some supplies. ",
+                        "dialogue": "I wouldn\'t feel comfortable sending you out there without some supplies. ",
                         "profile":"wolfConcentrate",
                         "textvoice":"lightVoice",
                         "children":["nodequest8"]

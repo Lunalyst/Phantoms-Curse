@@ -650,7 +650,7 @@ class wolf extends npc{
   MoveWolfxLuna(){
     if(this.moveWolfToPosition === false){
 
-      if(this.x < 782){
+      if(this.x < 784){
 
         this.ignoreTriggerRange = true;
         this.setVelocityX(80);

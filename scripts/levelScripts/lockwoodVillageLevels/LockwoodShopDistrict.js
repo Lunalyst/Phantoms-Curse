@@ -88,9 +88,7 @@ class LockwoodShopDistrict extends defaultScene {
 
       //lunalyst
       this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
-      //TSA
-      this.load.spritesheet("TSA" , "assets/bosses/TSACorrupted.png" , {frameWidth: 459 , frameHeight: 459 });
-      
+
       //ximena
       this.load.spritesheet("spidermena" , "assets/npcs/spiderximena.png" , {frameWidth: 399 , frameHeight: 399 });
       

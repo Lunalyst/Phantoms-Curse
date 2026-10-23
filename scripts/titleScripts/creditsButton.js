@@ -47,7 +47,7 @@ class creditsButton extends Phaser.Physics.Arcade.Sprite{
 
             let random = Math.floor((Math.random() * 10)+1);
             console.log(random);
-            if(random === 7){
+            if(that.scene.titleLogoType === "shadow"){
                 that.scene.credits.form.visible = true;
                 that.scene.credits.form1.visible = true;
                 that.scene.credits.thankYou1.visible = false;
@@ -55,13 +55,23 @@ class creditsButton extends Phaser.Physics.Arcade.Sprite{
                 that.scene.credits.thankYou5.visible = false;
                 that.scene.credits.thankYou6.visible = false;
             }else{
-                that.scene.credits.form.visible = false;
-                that.scene.credits.form1.visible = false;
-                that.scene.credits.thankYou1.visible = true;
-                that.scene.credits.thankYou2.visible = true;
-                that.scene.credits.thankYou5.visible = true;
-                that.scene.credits.thankYou6.visible = true;
+                if(random === 7){
+                    that.scene.credits.form.visible = true;
+                    that.scene.credits.form1.visible = true;
+                    that.scene.credits.thankYou1.visible = false;
+                    that.scene.credits.thankYou2.visible = false;
+                    that.scene.credits.thankYou5.visible = false;
+                    that.scene.credits.thankYou6.visible = false;
+                }else{
+                    that.scene.credits.form.visible = false;
+                    that.scene.credits.form1.visible = false;
+                    that.scene.credits.thankYou1.visible = true;
+                    that.scene.credits.thankYou2.visible = true;
+                    that.scene.credits.thankYou5.visible = true;
+                    that.scene.credits.thankYou6.visible = true;
+                }
             }
+            
             
            
         });

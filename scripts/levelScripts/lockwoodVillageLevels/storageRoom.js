@@ -48,6 +48,9 @@ class StorageRoom extends defaultScene {
         "audio/used-audio/calm-sounds/Paws and Rest by Gangstalka.mp3"
       ]);
 
+      this.load.spritesheet('storageLocker', 'assets/gameObjects/storageLocker.png',{frameWidth: 195, frameHeight: 291 });
+      
+
     }
 
     create(){
@@ -130,13 +133,24 @@ class StorageRoom extends defaultScene {
         //used to prevent the player from moving while in the scene load in before the trigger npc activates.
         this.grabbed = true;
 
+        this.fakeLocker = this.add.sprite(671, 760-8, "storageLocker");
+        this.fakeLocker.setScale(1/3);
+        
         this.initWolf(636, 728+16, "wolfxLuna");
         this.initLunalyst(827+20,763,'wolfxLuna');
+
+        
+      }else{
+
+        this.setUpPlayerStorage();
+        let storage = this.initStorage(671, 760-8);
       }
 
       if(flag1.foundFlag === true){
         this.initSigns(865,760+21,"question","memoryLog8",false);
       }
+
+      
 
 
       //this.initSigns(579,760+16,"question","The Curse Mark Plague",false);

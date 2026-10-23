@@ -5430,7 +5430,7 @@ const npcDialogue = {
                         "textvoice":"lightVoice",
                         "children":["nodequest11"]
                     },"nodequest11":{
-                        "dialogue": "please stay safe, and try not to get cursd.",
+                        "dialogue": "please stay safe, and try not to get cursed.",
                         "profile":"wolfHappy2",
                         "textvoice":"lightVoice",
                         "children":[]

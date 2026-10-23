@@ -134,8 +134,6 @@ class titleScreen extends defaultScene {
 
             this.load.spritesheet('Lockwood_Center_background', 'assets/parrallax/Lockwood_Center_background.png',{frameWidth: 960 , frameHeight: 960});
 
-            this.load.spritesheet('Lockwood_Center_Castle', 'assets/parrallax/Lockwood_Center_Castle.png',{frameWidth: 3840 , frameHeight: 3072});
-
             this.load.spritesheet('lockwoodDrawBridge', 'assets/gameObjects/Draw Bridge.png',{frameWidth: 768 , frameHeight: 672});
 
 
@@ -152,6 +150,13 @@ class titleScreen extends defaultScene {
 
             }else if(this.titleLogoType === "shadow"){
                 this.load.spritesheet("titleLogo" , "assets/titleScreen/title screen logo shadow.png" , {frameWidth: 720 , frameHeight: 760});
+
+                this.load.tilemapTiledJSON("shadowGameover" , "assets/tiledMap/LockWood/Cave_Tileset/Shadow_Cave_Gameover.json");
+                this.load.image("cave_source_map" , "assets/tiledMap/LockWood/Cave_Tileset/Cave_Tileset.png");
+
+                //TSA
+                this.load.spritesheet("TSA" , "assets/bosses/TSACorrupted.png" , {frameWidth: 153 , frameHeight: 153 });
+      
 
                 this.load.audioSprite('earieSFX','audio/used-audio/earie-sounds/earie-sounds.json',[
                     "audio/used-audio/earie-sounds/earie-sounds.mp3"
@@ -197,6 +202,8 @@ class titleScreen extends defaultScene {
             this.elements = this.physics.add.group();
 
             this.cameras.main.zoom = 1;
+
+            
             
             //displays the current game version
             this.version = new makeText(this,this.screenWidth-230,this.screenHeight-25,'charBubble',"Alpha V0.30.08");
@@ -267,24 +274,8 @@ class titleScreen extends defaultScene {
             this.month = new Date().getMonth();
             //this.month = 9;
 
-            //adds looping sound effect.
-            if(this.titleLogoType === "shadow"){
-                this.initLoopingSound('earieSFX','earieCave', 0.1);
-            }else{
-
-                if(this.month === 9){
-
-                    this.initLoopingSound('halloweenSFX','theme',0.1);
-
-                }else{
-                    this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
-                }
-               
-            }
-
             console.log("this.scene.sound.soundGroups: ",this.sound.soundGroups);
             
-
             //dramatic fade in.
             this.cameras.main.fadeIn(500, 0, 0, 0);
 
@@ -329,7 +320,67 @@ class titleScreen extends defaultScene {
             this.anims.create({key: 'titleLogoLoop2',frames: this.anims.generateFrameNames('titleLogo', { start: 11, end: 14 }),frameRate: 4,repeat: 0});
             this.anims.create({key: 'titleLoop',frames: this.anims.generateFrameNames('title', { start: 0, end: 3 }),frameRate: 4,repeat: 0});
 
-            if(this.month === 9){
+            if(this.titleLogoType === "shadow"){
+                //adds looping sound effect.
+                this.initLoopingSound('earieSFX','earieCave', 0.1);
+            
+                this.layerX = -2980;
+                this.layerY = -1070;
+
+                this.lightingSystemActive = true;
+
+                //sets the ambient lighting color using a hex value.
+                this.lights.enable().setAmbientColor(0x111111);
+
+                this.setUpTileSet("shadowGameover","Cave_Tileset",'cave_source_map');
+                this.processMap.layer2.setTint(0xFFFFFF);
+                this.processMap.layer3.setTint(0x909090);
+
+                this.layerScale = 1;
+                this.processMap.layer0.setPosition(this.layerX, this.layerY);
+                this.processMap.layer0.setScale(this.layerScale);
+                this.processMap.layer1.setPosition(this.layerX, this.layerY);
+                this.processMap.layer1.setScale(this.layerScale);
+                this.processMap.layer2.setPosition(this.layerX, this.layerY);
+                this.processMap.layer2.setScale(this.layerScale);
+                this.processMap.layer3.setPosition(this.layerX, this.layerY);
+                this.processMap.layer3.setScale(this.layerScale);
+
+                this.shadow = this.add.sprite(600, 560, "TSA");
+                this.shadow.anims.create({ key: 'idle', frames: this.anims.generateFrameNames('TSA', { start: 0, end: 3 }), frameRate: 5, repeat: -1 });
+                this.shadow.anims.play("idle", true);
+                this.shadow.setScale(3);
+                this.shadow.setPipeline('Light2D');
+
+                this.mouthLight = this.lights.addLight(600,560-110, 70, 0xb317ff);
+                this.mouthLight.intensity = 1;
+
+                this.curseLight = this.lights.addLight(600,560-160, 70, 0xb317ff);
+                this.curseLight.intensity = 2;
+
+                this.femaleLight = this.lights.addLight(600-30,560-130, 70, 0xf50000);
+                this.femaleLight.intensity = 1.5;
+
+                this.maleLight = this.lights.addLight(600+30,560-130, 70, 0x35c7f7);
+                this.maleLight.intensity = 1.5;
+
+                this.curseLight1 = this.lights.addLight(600,560-200, 70, 0xb317ff);
+                this.curseLight1.intensity = 2;
+
+                this.femaleLight1 = this.lights.addLight(600-30,560-200, 70, 0xf50000);
+                this.femaleLight1.intensity = 1.5;
+
+                this.maleLight1 = this.lights.addLight(600+30,560-200, 70, 0x35c7f7);
+                this.maleLight1.intensity = 1.5;
+
+                this.findMe = new makeEcrus(this,180, 270,"@1001@ @0100@ @110@ @011@ @00@ @10111@ @1001@ @1111@ @00@ @11100@ @110@ @10110@ @1111@ @1010@ @110@ @00@ @1111@ @011@ @110@ @10000@ @00@ @10001@ @01011@ @011@ @11101@ @00@ @1010@ @110@ @01010@");
+                
+                this.findMe.setDepth(0);
+                
+
+            }else if(this.month === 9){
+
+            this.initLoopingSound('halloweenSFX','theme',0.1);
 
             //background definition.
             this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
@@ -372,6 +423,8 @@ class titleScreen extends defaultScene {
             this.deaugh.setScale(3);
 
             }else{
+
+                this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
 
                 //background definition.
                 this.backround = this.add.sprite(this.screenWidth/2 - 70, -20, "titleBackground");
@@ -723,6 +776,10 @@ class titleScreen extends defaultScene {
             //this.countActiveScenes()
 
             this.titleLetterLoop();
+            if(this.findMe !== undefined){
+                this.findMe.visible = this.title.visible;
+            }
+            
 
             //code handles the title screen phantom logo animation.
             /*if(this.logoToggle === false){

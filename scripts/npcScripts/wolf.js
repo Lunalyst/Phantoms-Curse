@@ -66,6 +66,7 @@ class wolf extends npc{
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'wolfGiveItem1', frames: this.anims.generateFrameNames('deaugh', { start: 41, end: 42 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'wolfGiveItem2', frames: this.anims.generateFrameNames('deaugh', { start: 43, end: 48 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfGiveItemIdle', frames: this.anims.generateFrameNames('deaugh', { start: 43, end: 46 }), frameRate: 6, repeat: -1 });
 
       this.anims.create({ key: 'shookItemHold', frames: this.anims.generateFrameNames('deaugh', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
 
@@ -613,6 +614,15 @@ class wolf extends npc{
         console.log("this.currentDictNode",this.currentDictNode)
 
         this.forceDialogueEnd();
+
+        let that = this;
+        setTimeout(function(){
+        
+      
+          that.scene.initSoundEffect('doorSFX','lockingDoorSound',0.1);
+        },1000);
+
+        
 
         //spawn wolfs cloths on the ground.
         this.headBand = this.scene.add.sprite(1050,760+37, "wolfProps");
@@ -3352,6 +3362,8 @@ class wolf extends npc{
                 temp.progressNode("vore8");
 
                 temp.anims.play('bigBoobaIdle', true);
+                temp.setLoopingSound('stomachSFX','3',0.1,800);
+                temp.setLoopingSoundChannel2('jumpySFX','4',0.1,800);
               }, 1000);
 
             this.anims.play('bigBoobaSideIdle', true);
@@ -3538,7 +3550,7 @@ class wolf extends npc{
               this.scene.sceneTextBox.textInterupt = false;
               this.choke = false;
 
-              this.anims.play('wolfGiveItem2', true);
+              this.anims.play('wolfGiveItemIdle', true);
 
               if(this.scene.player1.x < this.x){
                 this.matangoStar = this.scene.initFakeItem(this.x - 20, this.y-20,31);

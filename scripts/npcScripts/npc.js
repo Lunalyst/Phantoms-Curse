@@ -61,6 +61,12 @@ class npc extends Phaser.Physics.Arcade.Sprite{
       this.loopTime = null;
       this.soundLoopTimeOut = null;
 
+      this.loopSoundIDChannel2 = null;
+      this.loopSoundNameChannel2 = null;
+      this.loopVolumeChannel2 = null;
+      this.loopTimeChannel2 = null;
+      this.soundLoopTimeOutChannel2 = null;
+
       this.npcState = 0;
 
       this.moveFunctionActive = false;
@@ -541,6 +547,73 @@ class npc extends Phaser.Physics.Arcade.Sprite{
     this.loopVolume = null;
     this.loopTime = null;
     this.soundLoopTimeOut = null;
+  }
+  
+ }
+
+ //allow for npcs to have looping sound calls using time out
+  npcLoopingSoundChannel2(){
+
+   //console.log("looping sound ")
+    //settimeout function
+    let temp = this;
+    //call sound effect
+    if(temp.scene !== null && temp.scene !== undefined){
+      temp.scene.initSoundEffect(this.loopSoundIDChannel2,this.loopSoundNameChannel2,this.loopVolumeChannel2);
+    }
+
+    //set a timeout to recurseively play sound.
+    this.soundLoopTimeOutChannel2 = setTimeout(function () {
+      temp.npcLoopingSoundChannel2();  
+    },this.loopTimeChannel2); 
+  }
+
+ //function to kill sound effect loop
+ setLoopingSoundChannel2(soundID,soundName,volume,time){
+
+    //protective if to make sure we dont have duplicate calls to the same loop sounds as it may break sound effects
+    if(soundID !== this.loopSoundIDChannel2 && soundName !== this.loopSoundNameChannel2 && volume !== this.loopVolumeChannel2 && time !== this.loopTimeChannel2){
+       //sets looping variable information
+      this.loopSoundIDChannel2 = soundID;
+      this.loopSoundNameChannel2 = soundName;
+      this.loopVolumeChannel2 = volume;
+      this.loopTimeChannel2 = time;
+
+      //call recursive looping function to play looping sound.
+      this.npcLoopingSoundChannel2();
+    }
+   
+    
+ }
+
+ //apply once 
+ interuptSoundLoopChannel2(soundID,soundName,volume,time){
+
+  //clears current sound loop settimeout
+  clearTimeout(this.soundLoopTimeOutChannel2);
+
+  //sets looping variable information
+  this.loopSoundIDChannel2 = soundID;
+  this.loopSoundNameChannel2 = soundName;
+  this.loopVolumeChannel2 = volume;
+  this.loopTimeChannel2 = time;
+
+  //call recursive looping function to play new looping sound.
+  this.npcLoopingSoundChannel2();
+ }
+
+ killSoundLoopChannel2(){
+
+  if(this.soundLoopTimeOutChannel2 !== null && this.soundLoopTimeOutChannel2 !== undefined){
+    //clears current sound loop settimeout
+    clearTimeout(this.soundLoopTimeOutChannel2);
+
+    //set loop sound npc variables to null.
+    this.loopSoundIDChannel2 = null;
+    this.loopSoundNameChannel2 = null;
+    this.loopVolumeChannel2 = null;
+    this.loopTimeChannel2 = null;
+    this.soundLoopTimeOutChannel2 = null;
   }
   
  }

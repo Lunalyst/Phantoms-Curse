@@ -45,6 +45,10 @@ class WaitingRoom extends defaultScene {
         "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
 
+      this.load.audioSprite('doorSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
+
     }
 
     create(){
@@ -133,6 +137,8 @@ class WaitingRoom extends defaultScene {
         //spawn wolf as door so that we can have the player prompt for missable cutscene.
 
         this.fakeWarp1 = new fakeWarp(this,this.wolfDoor.x,this.wolfDoor.y+7,'door2');
+        this.initSoundEffect('doorSFX','lockingDoorSound',0.1);
+    
         this.initWolf(this.wolfDoor.x, this.wolfDoor.y, "deaughsRoomDoor");
         this.wolfDoor.destroy();
             

@@ -120,6 +120,10 @@
             "start": 43.32,
             "end": 43.82,
             "loop": false
+        },"lockingDoorSound":{
+            "start": 43.89,
+            "end": 44.62,
+            "loop": false
         }
         
     }

@@ -45,6 +45,10 @@ class DeaughsRoom extends defaultScene {
       this.load.audioSprite('wardSFX','audio/used-audio/ward-sounds/wolfs ward.json',[
         "audio/used-audio/ward-sounds/wolfs ward.mp3"
       ]);
+      
+      this.load.audioSprite('doorSFX','audio/used-audio/button-sounds/button-sounds.json',[
+            "audio/used-audio/button-sounds/button-sounds.mp3"
+        ]);
 
 
     }

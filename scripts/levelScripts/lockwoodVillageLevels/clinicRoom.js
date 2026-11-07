@@ -34,6 +34,18 @@ class ClinicRoom extends defaultScene {
       this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      //========================================================================================================================
+      this.load.spritesheet("deaughAndPlayerMale" , "assets/npcs/deaughAndPlayerMale.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughPlayerFemale" , "assets/npcs/deaughPlayerFemale.png" , {frameWidth: 121 , frameHeight: 121 });
+      
+      this.load.spritesheet("deaughAndPlayerFemaleUnbirth1" , "assets/npcs/deaughAndPlayerFemaleUnbirth1.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndPlayerFemaleUnbirth2" , "assets/npcs/deaughAndPlayerFemaleUnbirth2.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      this.load.spritesheet("deaughAndPlayerMaleUnbirth1" , "assets/npcs/deaughAndPlayerMaleUnbirth1.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndPlayerMaleUnbirth2" , "assets/npcs/deaughAndPlayerMaleUnbirth2.png" , {frameWidth: 121 , frameHeight: 121 });
+      
+      //========================================================================================================================
       
       this.load.spritesheet("playerOnStrecherMale" , "assets/gameObjects/playerOnStrecherMale.png" , {frameWidth: 264 , frameHeight: 222 });
       this.load.spritesheet("playerOnStrecherFemale" , "assets/gameObjects/playerOnStrecherFemale.png" , {frameWidth: 264 , frameHeight: 222 });

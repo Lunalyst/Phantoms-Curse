@@ -34,7 +34,7 @@ class gameHud extends A3SoundEffects {
       this.isStorageOpen = false;
       this.displayCurrencyIcon = null;
 
-      this.debugToggle = false;
+      this.debugToggle = true;
 
       this.travelMap = null;
 

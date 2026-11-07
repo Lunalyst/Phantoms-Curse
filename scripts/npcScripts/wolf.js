@@ -46,7 +46,10 @@ class wolf extends npc{
       this.anims.create({ key: 'lunaSitOnLapFinishedIdle', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 84, end: 87 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHugStart', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 88, end: 91 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'lunaSitOnLapFinishedHug', frames: this.anims.generateFrameNames('deaughAndLuna', { start: 92, end: 95 }), frameRate: 6, repeat: -1 });
-      
+
+      this.anims.create({ key: 'cursePatchIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 0, end: 3 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'cursePatchSideIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 4, end: 7 }), frameRate: 6, repeat: -1 });
+
       if(scene.playerSex === 0){
 
         this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaugh', { start: 25, end: 29 }), frameRate: 6, repeat: 0 });
@@ -57,8 +60,37 @@ class wolf extends npc{
         this.anims.create({ key: 'grabBoobaIdleHorny', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 9, end: 12 }), frameRate: 6, repeat: -1 });
         this.anims.create({ key: 'suckedIntoBooba1', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 13, end: 19 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'suckedIntoBooba2', frames: this.anims.generateFrameNames('deaughMaleVore', { start: 20, end: 24 }), frameRate: 6, repeat: 0 });
-      
+
+        this.anims.create({ key: 'wolfRidingPlayer1', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 8, end: 13 }), frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'wolfRidingPlayer1Faster', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 8, end: 13 }), frameRate: 9, repeat: -1 });
+        this.anims.create({ key: 'wolfRidingPlayer2', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 14, end: 19 }), frameRate: 10, repeat: -1 });
+        this.anims.create({ key: 'wolfRidingPlayer3', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 20, end: 25 }), frameRate: 12, repeat: -1 });
+        this.anims.create({ key: 'wolfRidingPlayer4', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 26, end: 31 }), frameRate: 14, repeat: -1 });
+        this.anims.create({ key: 'wolfRidingPlayerFinish1', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 32, end: 35 }), frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'wolfRidingPlayerFinish2', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 36, end: 40 }), frameRate: 5, repeat: 0 });
+        this.anims.create({ key: 'wolfRidingPlayerFinish2Hold', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 40, end: 40 }), frameRate: 2, repeat: 0 });
+        this.anims.create({ key: 'wolfRidingPlayerFinish3', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 41, end: 42 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfRidingPlayerFinishedIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 43, end: 46 }), frameRate: 6, repeat: -1 });
+
       }else{
+
+        this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 0, end: 4 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'healingKiss2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 5, end: 11 }), frameRate: 6, repeat: 0 });
+
+        this.anims.create({ key: 'grabBooba', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 0+13, end: 3+13 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'grabBoobaIdle', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 4+13, end: 7+13 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'grabBoobaIdleHorny', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 9+13, end: 12+13 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'suckedIntoBooba1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 13+13, end: 19+13 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'suckedIntoBooba2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 20+13, end: 24+12 }), frameRate: 6, repeat: 0 });
+
+        this.anims.create({ key: 'wolfLesbians1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 37, end: 42 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfLesbians1To2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 43, end: 48 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfLesbians2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 49, end: 54 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfLesbians2To3', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 55, end: 60 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfLesbians3', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 61, end: 66 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfLesbiansFinish1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 67, end: 70 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfLesbiansFinish2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 71, end: 74 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfLesbiansFinishIdle', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 75, end: 78 }), frameRate: 6, repeat: -1 });
 
 
       }
@@ -244,6 +276,9 @@ class wolf extends npc{
        }else if(this.npcType === 'wolfShop2'){
           this.advancedIdleAnimation = false;
           this.anims.play("backIdle",true);
+       }else if(this.npcType === 'wolfShop3'){
+          this.advancedIdleAnimation = false;
+          this.anims.play("backIdle",true);
        }else if(this.npcType === 'halloween'){
           this.advancedIdleAnimation = true;
           this.anims.play("halloweenIdle",true);
@@ -253,6 +288,35 @@ class wolf extends npc{
 
         this.ignoreTriggerRange = true;
         this.anims.play('MicroscopeIdle');
+        this.moveWolf = false;
+
+        this.npcTriggerRange = true;
+
+        this.scene.mycamera.startFollow(this,true);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
+       }else if (this.npcType === 'smexSceneMale' || this.npcType === 'smexSceneFemale'){
+
+        this.ignoreTriggerRange = true;
+
+        if(this.scene.playerSex === 0 ){
+          this.anims.play('wolfRidingPlayer1');
+        }else{
+          this.anims.play('wolfLesbians1');
+        }
+        
+        this.flipX = true;
+        this.moveWolf = false;
+
+        this.npcTriggerRange = true;
+
+        this.scene.mycamera.startFollow(this,true);
+        this.scene.cameras.main.zoom = 2;
+        this.scene.cameras.main.followOffset.set(0,70);
+       }else if (this.npcType === 'unbirthTFScene'){
+
+        this.ignoreTriggerRange = true;
+        this.anims.play('');
         this.moveWolf = false;
 
         this.npcTriggerRange = true;
@@ -306,6 +370,14 @@ class wolf extends npc{
       this.wolfShop1();
     }else if(this.npcType === 'wolfShop2'){
       this.wolfShop2();
+    }else if(this.npcType === 'wolfShop3'){
+      this.wolfShop3();
+    }else if(this.npcType === 'smexSceneMale'){
+      this.smexSceneMale();
+    }else if(this.npcType === 'smexSceneFemale'){
+      this.smexSceneFemale();
+    }else if(this.npcType === 'unbirthTFScene'){
+      this.unbirthTFScene();
     }else if(this.npcType === 'deaughsRoomDoor'){
       this.deaughsRoomDoor();
     }else if(this.npcType === 'wolfSecretCutscene'){
@@ -3590,6 +3662,631 @@ class wolf extends npc{
     
   }
 
+  wolfShop3(){
+
+    let wolfDialogue1 = {
+      flagToFind: "labEncounter1Flag5",
+      foundFlag: false,
+    };
+            
+    inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, wolfDialogue1);
+    
+      this.nodeHandler("wolf","Behavior1","wolfShop3");
+      if(this.currentDictNode !== null){
+        //state machine for dialogue 
+
+        //orient the player so it looks like they are facing wolf.
+    
+      if(this.scene.player1.x < this.x){
+        this.scene.player1.x = this.x-35;
+        this.scene.player1.mainHitbox.x = this.x-35;
+      }else{
+        this.scene.player1.x = this.x+35;
+        this.scene.player1.mainHitbox.x = this.x+35;
+      }
+
+      
+
+        if(this.scene.player1.x < this.x){
+
+          this.playerIsOnLeft = true;
+          this.scene.player1.flipXcontainer(false);
+          //this.anims.play('sideIdle',true);
+          //this.flipX = true;
+        }else{
+          this.playerIsOnRight = true;
+          this.scene.player1.flipXcontainer(true);
+          //this.anims.play('sideIdle',true);
+          //this.flipX = false;
+        }
+
+
+      
+
+        console.log("this.currentDictNode:", this.currentDictNode);
+        console.log("this.inDialogue", this.inDialogue);
+        console.log(" this.activatedTradeUI: ", this.activatedTradeUI);
+
+         
+
+        if(this.currentDictNode.nodeName === "node1" && this.inDialogue ===false){
+          if(this.scene.player1.x < this.x){
+
+            this.anims.play('sideIdle',true);
+            this.flipX = true;
+          }else{
+
+            this.anims.play('sideIdle',true);
+            this.flipX = false;
+          }
+      }else if(this.currentDictNode.nodeName === "node2" && this.inDialogue ===false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"who are you?",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("nodeAsk1");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
+            this.scene.npcChoice5.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Got any supplies?",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node10",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
+            this.scene.npcChoice5.destroy();
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice3 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-200,'charBubble',"could you heal me?",true);
+          this.scene.npcChoice3.textWob();
+          this.scene.npcChoice3.setScrollFactor(0);
+          this.scene.npcChoice3.addHitbox();
+          this.scene.npcChoice3.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice3.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice3.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice3.on('pointerout',function(pointer){
+              this.scene.npcChoice3.clearTextTint();
+          },this);
+
+          this.scene.npcChoice3.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+
+          //check flag for lantern
+          //make a temp object
+            let object = {
+              flagToFind: "kissedByWolf",
+              foundFlag: false,
+            };
+
+            //call the emitter to check if the value already was picked up.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+          //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+            let playerHealthObject = {
+                playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+          if(object.foundFlag === false){
+            this.progressNode("nodeFirstHeal1");
+            inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,object.flagToFind);
+
+          }else if(playerHealthObject.playerHealth === playerHealthObject.playerMaxHealth){
+            this.progressNode("nodeHealFull1");
+          }else{
+            this.progressNode("nodeHeal1");
+          }
+          //progress to node branch with state name node5
+         
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+          this.scene.npcChoice5.destroy();
+
+          },this);
+
+          
+          //check to see if player has quest flag.
+          let object = {
+            flagToFind: "wolfAskedForSmexed",
+            foundFlag: false,
+          };
+
+          //call the emitter to check if the value already was picked up.
+          inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+         
+
+
+          //if the player is first asking about the sample.
+          if(object.foundFlag === true){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"I want to be close with you.",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+
+          //if first time asking
+          }else if(object.foundFlag === false){
+
+            //create dialogue buttons for player choice
+            this.scene.npcChoice4 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-160,'charBubble',"Any luck with that sample?",true);
+            this.scene.npcChoice4.textWob();
+            this.scene.npcChoice4.setScrollFactor(0);
+            this.scene.npcChoice4.addHitbox();
+            this.scene.npcChoice4.setScale(.8);
+
+          }
+
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice4.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice4.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice4.on('pointerout',function(pointer){
+              this.scene.npcChoice4.clearTextTint();
+          },this);
+
+          this.scene.npcChoice4.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //check to see if player has quest flag.
+            let object = {
+              flagToFind: "wolfAskedForSmexed",
+              foundFlag: false,
+            };
+
+            //call the emitter to check if the value already was picked up.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+
+
+            //if item and quest variable
+            if(object.foundFlag === true){
+              this.progressNode("sampleRepeatYes1",true);
+
+            //if item, and  no quest variable
+            }else if(object.foundFlag === false){
+               this.progressNode("sampleDialogue1",true);
+
+               //after traversing this branch, add flag to lock it out. 
+               inventoryKeyEmitter.emit(inventoryKey.addContainerFlag,"wolfAskedForSmexed");
+
+            
+            }
+
+            
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            this.scene.npcChoice3.destroy();
+            this.scene.npcChoice4.destroy();
+            this.scene.npcChoice5.destroy();
+
+          },this);
+
+          this.scene.npcChoice5 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-120,'charBubble',"See you later.",true);
+          this.scene.npcChoice5.textWob();
+          this.scene.npcChoice5.setScrollFactor(0);
+          this.scene.npcChoice5.addHitbox();
+          this.scene.npcChoice5.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice5.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice5.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice5.on('pointerout',function(pointer){
+              this.scene.npcChoice5.clearTextTint();
+          },this);
+
+          this.scene.npcChoice5.on('pointerdown', function (pointer) {
+          
+            this.inDialogue = false;
+          this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+          this.scene.sceneTextBox.textInterupt = false;
+          
+          //progress to node branch with state name node5
+          this.progressNode("node12");
+
+          //important, add extra flag so player so they have repeat dialogue option after this one. 
+
+          //destroy itself and other deciosions
+          this.scene.npcChoice1.destroy();
+          this.scene.npcChoice2.destroy();
+          this.scene.npcChoice3.destroy();
+          this.scene.npcChoice4.destroy();
+          this.scene.npcChoice5.destroy();
+
+          },this);
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+      }else if(this.currentDictNode.nodeName === "node11"&& this.activatedTradeUI === false){
+
+            this.activatedTradeUI = true;
+            
+            let object = {
+              NPCRef: this,
+            };
+    
+            this.buyBack = [];
+    
+            this.buyBack.push(
+              {
+                itemID: 28,
+                itemName: 'JARED CURSE INK',
+                itemDescription: 'LIQUID CURSE ENERGY. CAUSES CURSE BUILD UP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 10
+              },
+              {
+                itemID: 29,
+                itemName: 'FRUIT JUICE',
+                itemDescription: 'FRUITY DRINK THAT RESTORES MODERATE AMOUNT OF HP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 20
+              },
+              {
+                itemID: 30,
+                itemName: 'CRACKED COCONUT.',
+                itemDescription: 'READY TO CONSUME AND RESTORES MINOR AMOUNT OF HP.',
+                itemStackable: 1,
+                itemAmount: 1,
+                itemType: "consumable",
+                sellValue: 5
+              }
+            );
+
+            if(new Date().getMonth() === 9){
+
+              this.buyBack.push(
+              {
+                 itemID: 34,
+                  itemName: 'RED CANDY',
+                  itemDescription: 'A SPOOKY TREAT WHICH RESTORES A GREAT AMOUNT OF HP.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              {
+                itemID: 35,
+                  itemName: 'PURPLE CANDY',
+                  itemDescription: 'A LUSTFUL TREAT WHICH FILLS THE CURSE BAR GREATLY.',
+                  itemStackable: 1,
+                  itemAmount: 3,
+                  itemType: "consumable",
+                  sellValue: 20
+              },
+              );
+            }
+    
+    
+            //make a special object to pass to the listener
+            let buyArray = {
+              array: this.buyBack,
+              sellMultiplier: 1.8
+            };
+    
+            //send that object to the emiter so it can be set in the gamehud
+            inventoryKeyEmitter.emit(inventoryKey.setUpBuyArray, buyArray);
+    
+            //call emitter to tell if the onetime item is present in the inventory.
+            inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, object);
+    
+    
+            inventoryKeyEmitter.emit(inventoryKey.activateShop,this.scene,object);
+    
+            this.scene.sceneTextBox.textInterupt = true;
+
+      }else if(this.currentDictNode.nodeName === "nodeHealFull3" || this.currentDictNode.nodeName === "nodeHeal3" || this.currentDictNode.nodeName === "nodeFirstHeal3" && this.animationPlayed === false){
+
+        this.scene.player1.visible = false;
+
+         if(this.animationPlayed === false){
+
+          this.animationPlayed = true;
+
+          this.advancedIdleAnimation = false;
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+          this.anims.play('healingKiss1').once('animationcomplete', () => {
+
+            this.restoreHp();
+
+            this.anims.play('healingKiss2').once('animationcomplete', () => {
+
+              ///this.anims.play('lunalystMaleHug',true);
+              this.animationPlayed = false;
+              this.advancedIdleAnimation  = true;
+              //this.scene.player1.visible = false;
+
+              //call scene variable to create interupt.
+              this.scene.sceneTextBox.textInterupt = false;
+
+              //let the npc know they are in dialogue
+              this.inDialogue = false;
+              if(this.currentDictNode.nodeName === "nodeFirstHeal3"){
+                this.progressNode("nodeFirstHeal4");
+              }else if(this.currentDictNode.nodeName === "nodeHealFull3"){
+                this.progressNode("nodeHealFull4");
+              }else{
+                this.progressNode("nodeHeal4");
+              }
+
+              if(this.scene.player1.x < this.x){
+
+                this.anims.play('sideIdle',true);
+                this.flipX = true;
+              }else{
+
+                this.anims.play('sideIdle',true);
+                this.flipX = false;
+              }
+
+              this.scene.player1.visible = true;
+
+            });
+          });
+         }
+      }else if(this.currentDictNode.nodeName === "sampleDialogue12" && this.inDialogue === false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Lets Have Some Fun",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("sampleDialogueYes1");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"Maybe Later",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("sampleDialogueNo1",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+          
+
+          },this);
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+      }if(this.currentDictNode.nodeName === "sampleDialogueYes2" || this.currentDictNode.nodeName === "sampleRepeatYes2" && this.inDialogue === false){
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+      
+          // here is where to check dream viewer flag. check this.scene.playerLocation ==="dreamviewer location, then add temp flag to be removed once scene is over."
+
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = temp.scene.makePlayerDataObject();
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 387;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "DeaughsRoom";
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "DeaughsRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },2000);
+      }
+      }
+      
+    
+
+       
+    
+  }
+
   deaughsRoomDoor(){
 
     this.nodeHandler("wolf","Behavior1","deaughsRoomDoor");
@@ -3705,7 +4402,7 @@ class wolf extends npc{
             //let the npc know they are in dialogue
             this.inDialogue = true;
             
-      }if(this.currentDictNode.nodeName === "node7" && this.inDialogue === false){
+      }else if(this.currentDictNode.nodeName === "node7" && this.inDialogue === false){
         this.inDialogue = true;
         //set variable approperiately
         this.scene.sceneTextBox.textInterupt = true;
@@ -3759,6 +4456,359 @@ class wolf extends npc{
             },2000);
       }
     }
+  }
+
+  smexSceneMale(){
+    this.nodeHandler("wolf","Behavior1","smexSceneMale");
+
+    if(this.currentDictNode !== null){
+
+      if(this.currentDictNode.nodeName === "node2" && this.choke1 === undefined && this.inDialogue === false){
+
+        this.anims.play('wolfRidingPlayer1Faster', true);
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.choke1 = true;
+        let that = this;
+        setTimeout(function(){
+        
+          that.inDialogue = false;
+          that.scene.sceneTextBox.textInterupt = false;
+
+          that.progressNode("nodeA");
+        },5000);
+   
+      }else if(this.currentDictNode.nodeName === "nodeA"){
+       
+        this.anims.play('wolfRidingPlayer2', true);
+        
+      }else if(this.currentDictNode.nodeName === "node4"  && this.choke2 === undefined && this.inDialogue === false){
+       
+        this.anims.play('wolfRidingPlayer3', true);
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.choke2 = true;
+        let that = this;
+        setTimeout(function(){
+        
+          that.inDialogue = false;
+          that.scene.sceneTextBox.textInterupt = false;
+          that.progressNode("nodeB");
+        },5000);
+        
+      }else if(this.currentDictNode.nodeName === "node5"){
+       
+        this.anims.play('wolfRidingPlayer4', true);
+        
+      }else if(this.currentDictNode.nodeName === "node6" && this.choke3 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        console.log("starting wolf sit down")
+      
+          this.choke3 = true;
+          this.anims.play('wolfRidingPlayerFinish1', true).once('animationcomplete', () => {
+              this.anims.play('wolfRidingPlayerFinish2', true).once('animationcomplete', () => {
+                this.anims.play('wolfRidingPlayerFinish2Hold', true).once('animationcomplete', () => {
+                  this.anims.play('wolfRidingPlayerFinish3', true).once('animationcomplete', () => {
+                    this.inDialogue = false;
+                    this.scene.sceneTextBox.textInterupt = false;
+
+                    this.progressNode("nodefinish2");
+                    this.anims.play('wolfRidingPlayerFinishedIdle', true);
+                  });
+              });
+            });
+          });
+        
+      }else if(this.currentDictNode.nodeName === "node7" && this.inDialogue === false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"Thank you this was great.",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("node8");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"I want to test your theory.",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node10",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+          
+
+          },this);
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+      }else if(this.currentDictNode.nodeName === "node11" && this.inDialogue === false){
+
+          this.inDialogue = true;
+          //set variable approperiately
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice1 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-280,'charBubble',"yes I\'m sure.",true);
+          this.scene.npcChoice1.textWob();
+          this.scene.npcChoice1.setScrollFactor(0);
+          this.scene.npcChoice1.addHitbox();
+          this.scene.npcChoice1.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice1.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice1.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice1.on('pointerout',function(pointer){
+              this.scene.npcChoice1.clearTextTint();
+          },this);
+
+          this.scene.npcChoice1.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node5
+            this.progressNode("node12");
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+            
+
+          },this);
+
+          //create dialogue buttons for player choice
+          this.scene.npcChoice2 = new makeText(this.scene,this.scene.sceneTextBox.x-280,this.scene.sceneTextBox.y-240,'charBubble',"on second though...",true);
+          this.scene.npcChoice2.textWob();
+          this.scene.npcChoice2.setScrollFactor(0);
+          this.scene.npcChoice2.addHitbox();
+          this.scene.npcChoice2.setScale(.8);
+
+          //set up dialogue option functionality so they work like buttons
+          this.scene.npcChoice2.on('pointerover',function(pointer){
+            this.scene.initSoundEffect('buttonSFX','1',0.05);
+            this.scene.npcChoice2.setTextTint(0xff7a7a);
+          },this);
+
+          this.scene.npcChoice2.on('pointerout',function(pointer){
+              this.scene.npcChoice2.clearTextTint();
+          },this);
+
+          this.scene.npcChoice2.on('pointerdown', function (pointer) {
+            
+            this.inDialogue = false;
+            this.scene.initSoundEffect('buttonSFX','2',0.05);
+
+            //set variable approperiately
+            this.scene.sceneTextBox.textInterupt = false;
+
+            //progress to node branch with state name node10 special function which ignores lock out of text
+            this.progressNode("node14",true);
+
+            //sets the dialogue catch so the textbox stays open during the shop ui interactions.
+            this.dialogueCatch = true;
+
+            //destroy itself and other deciosions
+            this.scene.npcChoice1.destroy();
+            this.scene.npcChoice2.destroy();
+          
+
+          },this);
+
+          //call scene variable to create interupt.
+          this.scene.sceneTextBox.textInterupt = true;
+
+          //let the npc know they are in dialogue
+          this.inDialogue = true;
+
+      }else if(this.currentDictNode.nodeName === "node9" || this.currentDictNode.nodeName === "node15" && this.inDialogue === false){
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = temp.scene.makePlayerDataObject();
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 440;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "DeaughsRoom";
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "DeaughsRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },2000);
+      }else if(this.currentDictNode.nodeName === "node13" && this.inDialogue === false){
+        this.inDialogue = true;
+        //set variable approperiately
+        this.scene.sceneTextBox.textInterupt = true;
+
+        let temp = this;
+            setTimeout(function () {
+                //creates a object to hold data for scene transition
+                let playerDataObject = temp.scene.makePlayerDataObject();
+                
+                temp.scene.cutSceneActive = false;
+                //console.log(playerDataObject)
+
+                //grabs the latests data values from the gamehud. also sets hp back to max hp.
+                inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+            
+                //then we set the correct location values to the scene transition data.
+                playerDataObject.saveX = 385;
+                playerDataObject.saveY = 760;
+                playerDataObject.playerSex = temp.scene.playerSex;
+                playerDataObject.playerLocation = "DeaughsRoom";
+                //this.scene.destination = "ClinicRoom";
+
+                // then we save the scene transition data.
+                temp.scene.saveGame(playerDataObject);
+
+                //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                  let playerHealthObject = {
+                      playerHealth: null
+                  };
+
+                //gets the hp value using a emitter
+                healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                //kills gameplay emitters so they dont pile up between scenes
+                temp.scene.clearGameplayEmmitters();
+
+                //stops player momentum in update loop.
+                temp.scene.playerWarping = true;
+
+                //for loop looks through all the looping music playing within a given scene and stops the music.
+                for(let counter = 0; counter < temp.scene.sound.sounds.length; counter++){
+                  temp.scene.sound.get(temp.scene.sound.sounds[counter].key).stop();
+                }
+
+                //temp.scene.player1.visible = false;
+                //warps player to the next scene
+                temp.scene.destination = "DeaughsRoom";
+                temp.scene.cameras.main.fadeOut(500, 0, 0, 0);
+
+                    //time out function which leads to deaugh cutscene here.
+            },2000);
+      }
+    }
+  }
+
+  smexSceneFemale(){
+    
+  }
+
+  unbirthTFScene(){
+
   }
 
   wolfSecretCutscene(){

@@ -32,6 +32,16 @@ class DeaughsRoom extends defaultScene {
       this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      this.load.spritesheet("deaughAndPlayerFemaleUnbirth1" , "assets/npcs/deaughAndPlayerFemaleUnbirth1.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndPlayerFemaleUnbirth2" , "assets/npcs/deaughAndPlayerFemaleUnbirth2.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      this.load.spritesheet("deaughAndPlayerMale" , "assets/npcs/deaughAndPlayerMale.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      this.load.spritesheet("deaughAndPlayerMaleUnbirth1" , "assets/npcs/deaughAndPlayerMaleUnbirth1.png" , {frameWidth: 121 , frameHeight: 121 });
+      this.load.spritesheet("deaughAndPlayerMaleUnbirth2" , "assets/npcs/deaughAndPlayerMaleUnbirth2.png" , {frameWidth: 121 , frameHeight: 121 });
+
+      this.load.spritesheet("deaughPlayerFemale" , "assets/npcs/deaughPlayerFemale.png" , {frameWidth: 121 , frameHeight: 121 });
       
       this.load.spritesheet("wolfProps" , "assets/gameObjects/wolfProps.png" , {frameWidth: 96 , frameHeight: 96 });
 
@@ -143,11 +153,18 @@ class DeaughsRoom extends defaultScene {
         foundFlag: false,
       };
 
+      let lab6 = {
+        flagToFind: "labEncounter1Flag6",
+        foundFlag: false,
+      };
+
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab1);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab3);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab4);
+
+      inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, lab6);
 
       inventoryKeyEmitter.emit(inventoryKey.checkContainerFlag, readBook);
 
@@ -159,8 +176,23 @@ class DeaughsRoom extends defaultScene {
         //used to prevent the player from moving while in the scene load in before the trigger npc activates.
         this.grabbed = true;
 
-        this.initWolf(472, 728+16, "wolfSecretCutscene");
+        this.initWolf(387, 728+16, "wolfSecretCutscene");
 
+      }else if(this.player1.x === 387){
+
+        this.player1.visible = false;
+
+        //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+        this.grabbed = true;
+
+        if(this.playerSex === 0){
+          this.initWolf(372, 728+14, "smexSceneMale");
+        }else{
+          this.initWolf(372, 728+14, "smexSceneFemale");
+        }
+
+      }else if(lab6.foundFlag === true){
+        this.initWolf(531, 729+15, "wolfShop3");
       }else if(lab4.foundFlag === true && readBook.foundFlag === true){
         this.initWolf(531, 729+15, "wolfShop2");
       }else if(lab4.foundFlag === true){

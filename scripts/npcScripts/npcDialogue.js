@@ -6225,7 +6225,118 @@ const npcDialogue = {
                         "children":["node13"]
                     },
                     "node13":{
-                        "dialogue": "No matter what happen I promise I\'ll take care of you.",
+                        "dialogue": "No matter what happens I promise I\'ll take care of you.",
+                        "profile":"wolfSmirk2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                    "node14":{
+                        "dialogue": "That\'s aright dear. I understand your hesitancy.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "Still this was lovely.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+
+                },
+
+                "smexSceneFemale":{
+                    //1
+                    "node1":{
+                        "dialogue": "Ahhhh...",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    //1to2
+                    "node2":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    //2
+                    "node3":{
+                        "dialogue": "mmmhhhhh.....",
+                        "profile":"wolfKissing2",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    //2 to 3
+                    "node4":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["nodeB"]
+                    },
+                    //3
+                    "nodeB":{
+                        "dialogue": "ohhhmmm...",
+                        "profile":"wolfKissing3",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    //finishing
+                    "node6":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["nodeC"]
+                    },
+                    "nodeC":{
+                        "dialogue": "ahhhhh....",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Did my new helper enjoy themselves?",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node8", "node10"]
+                    },
+                    //Thank you this was great.
+                    "node8":{
+                        "dialogue": "I\'m glad dear.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "I'm happy to do this again any time you like.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                    //I want to test your theory.
+                    "node10":{
+                        "dialogue": "are you sure?",
+                        "profile":"wolfShock1",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    //I want to test your theory.
+                    "node11":{
+                        "dialogue": "There\'s no guarantee you will still be you after the process is done.",
+                        "profile":"wolfNeutral",
+                        "textvoice":"lightVoice",
+                        "children":["node12","node14"]
+                    },
+                    //Player choices(yes I’m sure.)( on second though…)
+                    //Player choices(yes I’m sure.)
+                    "node12":{
+                        "dialogue": "Alright dear. lets do it then.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "No matter what happens I promise I\'ll take care of you.",
                         "profile":"wolfSmirk2",
                         "textvoice":"lightVoice",
                         "children":[]

@@ -158,82 +158,108 @@ class G2levelSetupFunctions extends G1PlayerInputs {
 
     this.destination ='';
     //creates fadeout when fadeout function is called in the camera object
-    
-    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-
-      //makes a temp object
-      let isWindowObject = {
-        isOpen: null
-      };
-        
-      //that is transfered to the emitter
-      inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
-      console.log("isWindowObject.isOpen: ", isWindowObject.isOpen);
-
-      //protective call to make sure the inventory isnt open when we call a scene transition.
-      if(isWindowObject.isOpen === true){
-
-        //and if its open then close the inventory.
-        inventoryKeyEmitter.emit(inventoryKey.activateWindow,this,true);
-      }
-
-       //warps player to the next scene
-      console.log('sending player to: ',this.destination);
-      console.log('this.playerDefeated: ',this.playerDefeated);
-      console.log('this.transitionToCutscene: ',this.transitionToCutscene);
-      if(this.transitionToCutscene === true){
-        this.scene.stop('gameHud');
-        this.scene.start(this.destination);
-        this.transitionToCutscene = false;
-      }else if(this.playerDefeated === true){
-        this.scene.stop('gameHud');
-        this.scene.start('gameOver');
-        this.playerDefeated = false;
-      }else{
-        this.scene.stop();
-        this.scene.start(this.destination); 
-        //this.scene.restart();
-      }
-      console.log('unpausing the game');
-      console.log('this, scene: ',this);
-      this.pausedInTextBox = false;
-      this.isPaused = false;
-      this.gameStartedDelay = false;
-      this.PlayerOutOfBounds = false;
-      this.playerWarping = false;
-
-      //should protect agianst the struggle bar lingering if the player gets grabbed while warping.
-      struggleEmitter.emit(struggleEvent.activateStruggleBar,false);
-
-      //hide the giveup indicator
-      giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
-
-      //hides the skip indicator 
-      skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
-
-      
-    });
+    // cleaver use fo slow recursion
+    // so if we have a cutscene, and that cutscene has a fake fade in and out. the issue is that the fade out is a .once so it only happens once. then if we fade out again the function is gone. 
+    this.setUpFadeOutEvent();
 
     //emitter to transition scenes
     loadSceneTransitionLoad.on(SceneTransitionLoad.reloadGame,(location) =>{
-      console.log('reloading game, location: ',location);
-      console.log('this, scene: ',this);
+        console.log('reloading game, location: ',location);
+        console.log('this, scene: ',this);
 
-      this.destination = location;
+        this.destination = location;
 
-      
-      this.clearGameplayEmmitters();
-      //for loop looks through all the looping music playing within a given scene and stops the music.
-      for(let counter = 0; counter < this.sound.sounds.length; counter++){
-        this.sound.get(this.sound.sounds[counter].key).stop();
-      }
-      //this.scene.stop('gameHud');
-      //this.scene.launch('gameHud');
-      //this.scene.start('gameHud');
-        console.log("resetinging level for settings")
-        this.cameras.main.fadeOut(500, 0, 0, 0);
+        
+        this.clearGameplayEmmitters();
+        //for loop looks through all the looping music playing within a given scene and stops the music.
+        for(let counter = 0; counter < this.sound.sounds.length; counter++){
+          this.sound.get(this.sound.sounds[counter].key).stop();
+        }
+        //this.scene.stop('gameHud');
+        //this.scene.launch('gameHud');
+        //this.scene.start('gameHud');
+          console.log("resetinging level for settings")
+          this.cameras.main.fadeOut(500, 0, 0, 0);
+    
+
     });
 
+     
+      
+
+  }
+
+  //but this function is recursive. if the fake cutscene version is called. then it reset its self up after that case is completed.
+  setUpFadeOutEvent(){
+
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+
+      //special case for cutscene fad to black but no loading. 
+      if(this.CutsceneFadeToBlackAndBack === true){
+        console.log(" activating fake fade out for dramatic effect.")
+        this.CutsceneFadeToBlackAndBack = false;
+        let temp = this;
+          setTimeout(function () {
+            temp.cameras.main.fadeIn(1000, 0, 0, 0);
+            // afterward need to reset once fadeout complete function
+            temp.setUpFadeOutEvent();
+          },1000);
+        
+      }else{
+
+        //makes a temp object
+        let isWindowObject = {
+          isOpen: null
+        };
+          
+        //that is transfered to the emitter
+        inventoryKeyEmitter.emit(inventoryKey.isWindowOpen,isWindowObject);
+        console.log("isWindowObject.isOpen: ", isWindowObject.isOpen);
+
+        //protective call to make sure the inventory isnt open when we call a scene transition.
+        if(isWindowObject.isOpen === true){
+
+          //and if its open then close the inventory.
+          inventoryKeyEmitter.emit(inventoryKey.activateWindow,this,true);
+        }
+
+        //warps player to the next scene
+        console.log('sending player to: ',this.destination);
+        console.log('this.playerDefeated: ',this.playerDefeated);
+        console.log('this.transitionToCutscene: ',this.transitionToCutscene);
+        if(this.transitionToCutscene === true){
+          this.scene.stop('gameHud');
+          this.scene.start(this.destination);
+          this.transitionToCutscene = false;
+        }else if(this.playerDefeated === true){
+          this.scene.stop('gameHud');
+          this.scene.start('gameOver');
+          this.playerDefeated = false;
+        }else{
+          this.scene.stop();
+          this.scene.start(this.destination); 
+          //this.scene.restart();
+        }
+        console.log('unpausing the game');
+        console.log('this, scene: ',this);
+        this.pausedInTextBox = false;
+        this.isPaused = false;
+        this.gameStartedDelay = false;
+        this.PlayerOutOfBounds = false;
+        this.playerWarping = false;
+
+        //should protect agianst the struggle bar lingering if the player gets grabbed while warping.
+        struggleEmitter.emit(struggleEvent.activateStruggleBar,false);
+
+        //hide the giveup indicator
+        giveUpIndicatorEmitter.emit(giveUpIndicator.activateGiveUpIndicator,false);
+
+        //hides the skip indicator 
+        skipIndicatorEmitter.emit(skipIndicator.activateSkipIndicator,false);
+
+        }
+
+    });
   }
 
   

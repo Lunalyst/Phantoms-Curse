@@ -191,6 +191,15 @@ class DeaughsRoom extends defaultScene {
           this.initWolf(372, 728+14, "smexSceneFemale");
         }
 
+      }else if(this.player1.x === 385){
+
+        this.player1.visible = false;
+
+        //used to prevent the player from moving while in the scene load in before the trigger npc activates.
+        this.grabbed = true;
+
+        this.initWolf(375, 728+13, "unbirthTFScene");
+    
       }else if(lab6.foundFlag === true){
         this.initWolf(531, 729+15, "wolfShop3");
       }else if(lab4.foundFlag === true && readBook.foundFlag === true){

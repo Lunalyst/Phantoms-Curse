@@ -72,6 +72,11 @@ class wolf extends npc{
         this.anims.create({ key: 'wolfRidingPlayerFinish3', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 41, end: 42 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'wolfRidingPlayerFinishedIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMale', { start: 43, end: 46 }), frameRate: 6, repeat: -1 });
 
+        this.anims.create({ key: 'wolfFaceSittingPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 0, end: 5 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfPullingPlayerIn1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 6, end: 10 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfPullingPlayerIn2', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 11, end: 14 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfPullingPlayerIn3', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 15, end: 24 }), frameRate: 6, repeat: 0 });
+    
       }else{
 
         this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 0, end: 4 }), frameRate: 6, repeat: 0 });
@@ -128,6 +133,29 @@ class wolf extends npc{
       this.anims.create({ key: 'thinking', frames: this.anims.generateFrameNames('deaughCutscene', { start:33, end: 36 }), frameRate: 6, repeat: -1 });
       this.anims.create({ key: 'thinkingHard', frames: this.anims.generateFrameNames('deaughCutscene', { start:37, end: 40 }), frameRate: 6, repeat: -1 });
       
+      this.anims.create({ key: 'wolfPullingPlayerIn4', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 25, end: 27 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfWithWombedPlayer1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 28, end: 31 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfLiftHandToMeltPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 31, end: 33 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfMeltPlayerIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 34, end: 37 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfMeltingPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 38, end: 48 }), frameRate: 6, repeat: 0 });
+      //re use for reforming player.
+      this.anims.create({ key: 'wolfMeltedPlayerIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 49, end: 52 }), frameRate: 6, repeat: -1 });
+      
+      this.anims.create({ key: 'wolfMovingHandToJorkinIt', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 53, end: 65 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfJorkinIt', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 66, end: 69 }), frameRate: 11, repeat: -1 });
+      this.anims.create({ key: 'wolfJorkinItHarder', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 70, end: 73 }), frameRate: 14, repeat: -1 });
+      this.anims.create({ key: 'wolfCursingPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 74, end: 81 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfLiftHandToReform', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 82, end: 88 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfLiftHandToReformIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 89, end: 92 }), frameRate: 6, repeat: -1 });
+      
+      this.anims.create({ key: 'wolfReformPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 0, end: 16 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfReformedPlayerIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 17, end: 20 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfReleasePlayer1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 21, end: 26 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfReleasePlayer2', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 27, end: 30 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfReleasePlayer3', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 31, end: 35 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfAndPlayerTFIdleClosed', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 36, end: 39 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfAndPlayerEyesOpening', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 40, end: 41 }), frameRate: 6, repeat: 0 });
+      this.anims.create({ key: 'wolfAndPlayerTFIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 42, end: 45 }), frameRate: 6, repeat: -1 });
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -316,10 +344,11 @@ class wolf extends npc{
        }else if (this.npcType === 'unbirthTFScene'){
 
         this.ignoreTriggerRange = true;
-        this.anims.play('');
+        this.anims.play('wolfFaceSittingPlayer');
         this.moveWolf = false;
 
         this.npcTriggerRange = true;
+         this.flipX = true;
 
         this.scene.mycamera.startFollow(this,true);
         this.scene.cameras.main.zoom = 2;
@@ -4244,7 +4273,8 @@ class wolf extends npc{
                 inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
             
                 //then we set the correct location values to the scene transition data.
-                playerDataObject.saveX = 387;
+                playerDataObject.saveX = 385;
+                //playerDataObject.saveX = 387;
                 playerDataObject.saveY = 760;
                 playerDataObject.playerSex = temp.scene.playerSex;
                 playerDataObject.playerLocation = "DeaughsRoom";
@@ -5095,7 +5125,7 @@ class wolf extends npc{
         this.scene.sceneTextBox.textInterupt = true;
 
         this.choke4 = true;
-        
+
         let temp = this;
             setTimeout(function () {
                 //creates a object to hold data for scene transition
@@ -5149,6 +5179,186 @@ class wolf extends npc{
 
   unbirthTFScene(){
 
+    this.nodeHandler("wolf","Behavior1","unbirthTFScene");
+
+    if(this.currentDictNode !== null){
+
+      if(this.currentDictNode.nodeName === "node3" && this.choke1 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true
+      
+        this.choke1 = true;
+        
+        this.anims.play('wolfPullingPlayerIn1', true).once('animationcomplete', () => {
+          this.anims.play('wolfPullingPlayerIn2', true).once('animationcomplete', () => {
+            this.anims.play('wolfPullingPlayerIn3', true).once('animationcomplete', () => {
+              this.anims.play('wolfPullingPlayerIn4', true).once('animationcomplete', () => {
+                this.inDialogue = false;
+                this.scene.sceneTextBox.textInterupt = false;
+
+                this.progressNode("node4");
+                this.anims.play('wolfWithWombedPlayer1', true);
+              });
+            });
+          });
+        });
+   
+      }else if(this.currentDictNode.nodeName === "node8" && this.choke2 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.choke2 = true;
+        
+          this.anims.play('wolfLiftHandToMeltPlayer', true).once('animationcomplete', () => {
+            
+            
+
+            let temp = this;
+            setTimeout(function () {
+              console.log(" progressing to node 9?")
+              temp.inDialogue = false;
+              temp.scene.sceneTextBox.textInterupt = false;
+
+              temp.progressNode("node9");
+            },1000);
+
+            this.anims.play('wolfMeltPlayerIdle', true);
+       
+          });
+   
+      }else if(this.currentDictNode.nodeName === "node11" && this.choke3 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.choke3 = true;
+        
+        this.scene.CutsceneFadeToBlackAndBack = true;
+
+        let temp = this;
+          setTimeout(function () {
+            temp.scene.cameras.main.fadeOut(1000, 0, 0, 0);
+            setTimeout(function () {
+              temp.anims.play('wolfMeltingPlayer', true).once('animationcomplete', () => {
+                temp.inDialogue = false;
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.anims.play('wolfMeltedPlayerIdle', true);
+                temp.progressNode("node12");
+              });
+            },2500);
+          },1000);
+
+      }else if(this.currentDictNode.nodeName === "node16" && this.choke4 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true
+      
+        this.choke4 = true;
+        
+        this.anims.play('wolfMovingHandToJorkinIt', true).once('animationcomplete', () => {
+          this.inDialogue = false;
+          this.scene.sceneTextBox.textInterupt = false;
+
+          this.progressNode("node17");
+
+          this.anims.play('wolfJorkinIt', true);
+   
+        });
+   
+      }else if(this.currentDictNode.nodeName === "node18"){
+       
+        this.anims.play('wolfJorkinItHarder', true);
+        
+      }else if(this.currentDictNode.nodeName === "node19" && this.choke5 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true
+        this.choke5 = true;
+        
+        this.anims.play('wolfCursingPlayer', true).once('animationcomplete', () => {
+          this.anims.play('wolfLiftHandToReform', true).once('animationcomplete', () => {
+            this.inDialogue = false;
+            this.scene.sceneTextBox.textInterupt = false;
+
+            this.progressNode("node20");
+
+            this.anims.play('wolfLiftHandToReformIdle', true);
+    
+          });
+   
+        });
+   
+      }else if(this.currentDictNode.nodeName === "node22" && this.choke6 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true;
+        this.choke6 = true;
+        
+        this.scene.CutsceneFadeToBlackAndBack = true;
+
+        this.anims.play('wolfMeltedPlayerIdle', true);
+
+        let temp = this;
+          setTimeout(function () {
+            temp.scene.cameras.main.fadeOut(1000, 0, 0, 0);
+            setTimeout(function () {
+              temp.anims.play('wolfReformPlayer', true).once('animationcomplete', () => {
+                temp.inDialogue = false;
+                temp.scene.sceneTextBox.textInterupt = false;
+                temp.anims.play('wolfReformedPlayerIdle', true);
+                temp.progressNode("node23");
+              });
+            },2500);
+          },1000);
+
+      }else if(this.currentDictNode.nodeName === "node24" && this.choke7 === undefined && this.inDialogue === false){
+
+        this.inDialogue = true;
+        this.scene.sceneTextBox.textInterupt = true
+      
+        this.choke7 = true;
+        
+        this.anims.play('wolfReleasePlayer1', true).once('animationcomplete', () => {
+          this.anims.play('wolfReleasePlayer2', true).once('animationcomplete', () => {
+            this.anims.play('wolfReleasePlayer3', true).once('animationcomplete', () => {
+              this.inDialogue = false;
+              this.scene.sceneTextBox.textInterupt = false;
+
+              this.progressNode("node25");
+
+              this.anims.play('wolfAndPlayerTFIdleClosed', true);
+    
+            });
+   
+          });
+   
+        });
+   
+      }else if(this.currentDictNode.nodeName === "node27" && this.choke8 === undefined){
+
+        this.startGameoverActivated  = true;
+        this.dialogueCatch = true;
+        this.choke8 = true;
+
+        this.anims.play('wolfAndPlayerEyesOpening', true).once('animationcomplete', () => {
+              
+          this.anims.play('wolfAndPlayerTFIdle', true);
+
+          let temp = this;
+          setTimeout(function () {
+            temp.scene.gameoverLocation = "wolfGameover";
+            temp.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
+            temp.scene.changeToGameover();
+
+          },3000);
+    
+        });
+
+        this.scene.sceneTextBox.textInterupt = true;
+        this.scene.sceneTextBox.textCoolDown = true;
+      }
+
+    }
   }
 
   wolfSecretCutscene(){

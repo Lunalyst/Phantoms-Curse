@@ -6356,6 +6356,172 @@ const npcDialogue = {
 
                 },
 
+                "unbirthTFScene":{
+                    //1
+                    "node1":{
+                        "dialogue": "Mmmmmhhhhhh...",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Time to tuck you away.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "Aahhh...",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "Right where you belong.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node6"]
+                    },
+                    "node6":{
+                        "dialogue": "Don\'t be alarmed.",
+                        "profile":"wolfHappy1",
+                        "textvoice":"lightVoice",
+                        "children":["node7"]
+                    },
+                    "node7":{
+                        "dialogue": "Melting you down is just the first step. ",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node8"]
+                    },
+                    "node8":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node9"]
+                    },
+                    "node9":{
+                        "dialogue": "This is going to take a while.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node10"]
+                    },
+                    "node10":{
+                        "dialogue": "I\'m going to enjoy every second.",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node11"]
+                    },
+                    "node11":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node12"]
+                    },
+                    "node12":{
+                        "dialogue": "you\'re nothing but goo now...",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node13"]
+                    },
+                    "node13":{
+                        "dialogue": "I wonder if you can hear me like that?",
+                        "profile":"wolfConfused",
+                        "textvoice":"lightVoice",
+                        "children":["node14"]
+                    },
+                    "node14":{
+                        "dialogue": "Not that it matters.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node15"]
+                    },
+                    "node15":{
+                        "dialogue": "It\'s times to give you my gift.",
+                        "profile":"wolfHappy2",
+                        "textvoice":"lightVoice",
+                        "children":["node16"]
+                    },
+                    "node16":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node17"]
+                    },
+                    "node17":{
+                        "dialogue": "Mmmmmhhhhhh...",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node18"]
+                    },
+                    "node18":{
+                        "dialogue": "Aaaahhhh.....",
+                        "profile":"wolfConcentrate",
+                        "textvoice":"lightVoice",
+                        "children":["node19"]
+                    },
+                    "node19":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node20"]
+                    },
+                    "node20":{
+                        "dialogue": "That felt soo gooooood!",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node21"]
+                    },
+                    "node21":{
+                        "dialogue": "As much as I would love to keep you in my belly, it\'s time to reform you.",
+                        "profile":"wolfSmirk1",
+                        "textvoice":"lightVoice",
+                        "children":["node22"]
+                    },
+                    "node22":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node23"]
+                    },
+                    "node23":{
+                        "dialogue": "I feel you squirming.",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node24"]
+                    },
+                    "node24":{
+                        "dialogue": "*HIDETEXT*",
+                        "profile":"wolfKissing1",
+                        "textvoice":"lightVoice",
+                        "children":["node25"]
+                    },
+                    "node25":{
+                        "dialogue": "Ooohhhh...",
+                        "profile":"wolfHeartEyes",
+                        "textvoice":"lightVoice",
+                        "children":["node26"]
+                    },
+                    "node26":{
+                        "dialogue": "That was euphoric but...",
+                        "profile":"wolfPant",
+                        "textvoice":"lightVoice",
+                        "children":["node27"]
+                    },
+                    "node27":{
+                        "dialogue": "Are you still you?",
+                        "profile":"wolfConfused",
+                        "textvoice":"lightVoice",
+                        "children":[]
+                    },
+                },
+
                 "wolfHalloween1":{
 
                     "node1":{

@@ -2089,6 +2089,12 @@ class rabbit extends enemy {
 
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
+
+                    if(this.scene.playerSex === 0){
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerRabbitTF","HARE");
+                    }else{
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerRabbitFutaTF","HARE");
+                    }
                     
                     if (this.scene.playerSex === 0) {
                         return setTimeout(() => {
@@ -2261,6 +2267,13 @@ class rabbit extends enemy {
                 this.anims.play('rabbitClimax').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+
+                    if(this.scene.playerSex === 0){
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerRabbitFutaTF","HARE");
+                    }else{
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerRabbitTF","HARE");
+                    }
+                    
                 });
             }
         }
@@ -2348,6 +2361,8 @@ class rabbit extends enemy {
                         this.scene.onomat.increaseRight(600);
                         this.scene.onomat.textFadeOutAndDestroy(600);
                         this.scene.initSoundEffect('stomachSFX','1',0.03);
+
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","RABBIT PUDGE");
                         this.anims.play('rabbitHungerDigestion1').once('animationcomplete', () => {
                             console.log("animation finished");
                            

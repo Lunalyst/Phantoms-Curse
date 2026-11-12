@@ -51,6 +51,7 @@ const healthEvent = {
     healthVisibility:'health_visibility',
     setMiloHealth: 'set_milo_health',
     setMiloUnmask: 'set_milo_unmask',
+    setSpecialBarFace: 'set_special_bar_face',
     
 };
 
@@ -475,6 +476,7 @@ const bestiaryKey = {
   nectarVore2:"nectar_vore_2",
 
   wolfVore1: "wolf_vore_1",
+  wolfUnbirthTF:"wolf_unbirth_tf",
 
   autumnVore1:"autumn_vore_1",
  
@@ -686,6 +688,11 @@ const bestiaryTextList = {
       wolf_vore_1:{
         title: "THICK WOLF",
         summary: "The kind healer of lockwood has her limits. if someone tests those limits, then they might find themselves, a perminant addition to her figure. ",
+      },
+
+      wolf_unbirth_tf:{
+        title: "WOLF",
+        summary: "After consuming the matango root sample, wolf\'s abilitys where improved. she now has the ability to alter some traits of cursed who find there way inside her womb.",
       },
 
       

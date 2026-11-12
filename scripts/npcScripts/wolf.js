@@ -5,6 +5,23 @@ class wolf extends npc{
       
       super(scene, xPos, yPos, 'deaugh');
 
+       if(scene.preferance === 0){
+           
+          this.playerPref = 0;
+        }else if(scene.preferance === 1){
+
+          this.playerPref = 1;
+        //if the pref is either, then we randomly pick a sex for the jackOVine.
+        }else{
+          let randomPref = Math.floor((Math.random() * 2));
+          console.log('randomPref',randomPref);
+          if(randomPref === 1){
+            this.playerPref = 1;
+          }else{
+            this.playerPref = 0;
+          }
+        }
+
       //then we add new instance into the scene. 
       scene.add.existing(this);
 
@@ -76,7 +93,25 @@ class wolf extends npc{
         this.anims.create({ key: 'wolfPullingPlayerIn1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 6, end: 10 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'wolfPullingPlayerIn2', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 11, end: 14 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'wolfPullingPlayerIn3', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth1', { start: 15, end: 24 }), frameRate: 6, repeat: 0 });
-    
+        
+        this.anims.create({ key: 'wolfReleasePlayer2', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 28, end: 30 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfReleasePlayer3', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 31, end: 35 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfAndPlayerTFIdleClosed', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 36, end: 39 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfAndPlayerEyesOpening', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 40, end: 41 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfAndPlayerTFIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 42, end: 45 }), frameRate: 6, repeat: -1 });
+        
+        //two males and wolf
+        //if(this.playerPref === 0){
+
+          this.anims.create({ key: 'wolfUnbirthGameover', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 46, end: 49 }), frameRate: 6, repeat: -1 });
+        
+          //male and female and wolf
+        /*}else{
+
+          this.anims.create({ key: 'wolfUnbirthGameover', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 50, end: 53 }), frameRate: 6, repeat: -1 });
+        
+        }*/
+
       }else{
 
         this.anims.create({ key: 'healingKiss1', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 0, end: 4 }), frameRate: 6, repeat: 0 });
@@ -97,7 +132,28 @@ class wolf extends npc{
         this.anims.create({ key: 'wolfLesbiansFinish2', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 71, end: 74 }), frameRate: 6, repeat: 0 });
         this.anims.create({ key: 'wolfLesbiansFinishIdle', frames: this.anims.generateFrameNames('deaughPlayerFemale', { start: 75, end: 78 }), frameRate: 6, repeat: -1 });
 
+        this.anims.create({ key: 'wolfFaceSittingPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth1', { start: 0, end: 5 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfPullingPlayerIn1', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth1', { start: 6, end: 10 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfPullingPlayerIn2', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth1', { start: 11, end: 14 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfPullingPlayerIn3', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth1', { start: 15, end: 24 }), frameRate: 6, repeat: 0 });
+        
+        this.anims.create({ key: 'wolfReleasePlayer2', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 28-28, end: 30-28 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfReleasePlayer3', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 31-28, end: 35-28 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfAndPlayerTFIdleClosed', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 36-28, end: 39-28 }), frameRate: 6, repeat: -1 });
+        this.anims.create({ key: 'wolfAndPlayerEyesOpening', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 40-28, end: 41-28 }), frameRate: 6, repeat: 0 });
+        this.anims.create({ key: 'wolfAndPlayerTFIdle', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 42-28, end: 45-28 }), frameRate: 6, repeat: -1 });
+        
+        //female and male and wolf
+        //if(this.playerPref === 0){
 
+          this.anims.create({ key: 'wolfUnbirthGameover', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 18, end: 21 }), frameRate: 6, repeat: -1 });
+        
+          //male and female and wolf
+        //}else{
+
+          //this.anims.create({ key: 'wolfUnbirthGameover', frames: this.anims.generateFrameNames('deaughAndPlayerFemaleUnbirth2', { start: 22, end: 25 }), frameRate: 6, repeat: -1 });
+        
+        //}
       }
 
       this.anims.create({ key: 'backIdle', frames: this.anims.generateFrameNames('deaugh', { start: 37, end: 40 }), frameRate: 6, repeat: -1 });
@@ -150,12 +206,7 @@ class wolf extends npc{
       
       this.anims.create({ key: 'wolfReformPlayer', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 0, end: 16 }), frameRate: 6, repeat: 0 });
       this.anims.create({ key: 'wolfReformedPlayerIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 17, end: 20 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'wolfReleasePlayer1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 21, end: 26 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfReleasePlayer2', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 27, end: 30 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfReleasePlayer3', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 31, end: 35 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfAndPlayerTFIdleClosed', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 36, end: 39 }), frameRate: 6, repeat: -1 });
-      this.anims.create({ key: 'wolfAndPlayerEyesOpening', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 40, end: 41 }), frameRate: 6, repeat: 0 });
-      this.anims.create({ key: 'wolfAndPlayerTFIdle', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 42, end: 45 }), frameRate: 6, repeat: -1 });
+      this.anims.create({ key: 'wolfReleasePlayer1', frames: this.anims.generateFrameNames('deaughAndPlayerMaleUnbirth2', { start: 21, end: 27 }), frameRate: 6, repeat: 0 });
       
       //makes a key promptsa object to be displayed to the user
        this.npcKeyPrompts = new keyPrompts(scene, xPos, yPos + 70,'keyPrompts');
@@ -5239,6 +5290,23 @@ class wolf extends npc{
           setTimeout(function () {
             temp.scene.cameras.main.fadeOut(1000, 0, 0, 0);
             setTimeout(function () {
+
+              //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+              let playerHealthObject = {
+                playerHealth: null
+              };
+
+              //gets the hp value using a emitter
+              healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+              //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+              let dropToOne = playerHealthObject.playerHealth - 1;
+              console.log("dropToOne: ",dropToOne);
+              healthEmitter.emit(healthEvent.loseHealth,dropToOne);
+
+              //play player unbirth animation.
+              healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth');
+
               temp.anims.play('wolfMeltingPlayer', true).once('animationcomplete', () => {
                 temp.inDialogue = false;
                 temp.scene.sceneTextBox.textInterupt = false;
@@ -5302,6 +5370,11 @@ class wolf extends npc{
           setTimeout(function () {
             temp.scene.cameras.main.fadeOut(1000, 0, 0, 0);
             setTimeout(function () {
+              //play player unbirth animation.
+              healthEmitter.emit(healthEvent.setSpecialBarFace,'wolfRebirth');
+
+              temp.restoreHp();
+
               temp.anims.play('wolfReformPlayer', true).once('animationcomplete', () => {
                 temp.inDialogue = false;
                 temp.scene.sceneTextBox.textInterupt = false;
@@ -5347,7 +5420,7 @@ class wolf extends npc{
           let temp = this;
           setTimeout(function () {
             temp.scene.gameoverLocation = "wolfGameover";
-            temp.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfVore1;
+            temp.scene.enemyThatDefeatedPlayer = bestiaryKey.wolfUnbirthTF;
             temp.scene.changeToGameover();
 
           },3000);
@@ -5620,6 +5693,10 @@ class wolf extends npc{
 
   gameOverVore(){
     this.anims.play('breastVoreGameover', true);
+  }
+
+  gameOverUnbirth(){
+    this.anims.play('wolfUnbirthGameover', true);
   }
 
 }

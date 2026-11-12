@@ -7177,6 +7177,14 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "wolf_unbirth_tf":{
+                    "node1":{
+                        "dialogue": "You offered yourself up to test wolfs theory. She was happy to tuck you into her womb and melted your body down. In your gooey state she applied her curse to you in the hopes that she could protect your mind. Working hard to reform your new body, she released you back into the world. While she had succeeded in creating a process that results in a sentient cursed, your memories where not completely preserved. Wolf continues her research with you as her mate, Hoping to find a way to bring back your old memories. In the mean time Lunalyst also offered himself up to wolf to further her research. Together the three of you make a happy little family.",
+                        "profile":"",
+                        "textvoice":"lightPiano",
+                        "children":[]
+                    }
+                },
                 
                 "template":{
                     "node1":{

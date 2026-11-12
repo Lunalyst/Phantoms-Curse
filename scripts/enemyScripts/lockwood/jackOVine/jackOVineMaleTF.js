@@ -323,11 +323,12 @@ class jackOVineMaleTF extends jackOVineFemaleTF {
                             this.scene.initSoundEffect('jackOVineSFX','vineSnap',0.15);
                             this.anims.play('jackOVineFinishingSmackStart').once('animationcomplete', () => {
                                 this.scene.initSoundEffect('weaponSFX','smack',0.1);
+                                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerPumpkinTF","PUMPKIN HEAD");
                                 this.anims.play('jackOVineFinishingSmackEnd').once('animationcomplete', () => {
                                     //this.scene.onomat.destroy();
                                     this.animationPlayed = false;
                                     this.playerDefeatedAnimationStage++;
-                        
+                                    
                                 });
                         
                             });

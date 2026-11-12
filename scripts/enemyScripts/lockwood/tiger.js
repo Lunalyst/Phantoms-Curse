@@ -1947,6 +1947,13 @@ class tiger extends enemy {
 
                 this.scene.initSoundEffect('stomachSFX','1',0.03);
                 this.animationPlayed = true;
+
+                if(this.enemySex === 0){
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","TIGER BALLS");
+                }else{
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","TIGER BREASTS");
+                }
+
                 this.anims.play('tigerTummyDigestion1').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
@@ -2127,7 +2134,7 @@ class tiger extends enemy {
 
                 if(this.scene.playerSex === 0){
                     this.scene.internalView.anims.play("playerClimaxInTiger");
-                 }
+                }
 
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
                
@@ -2138,8 +2145,9 @@ class tiger extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
-
-                    
+            
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerTigerTF","TIGER KIN");
+   
                 });
             }
         }
@@ -2230,6 +2238,8 @@ class tiger extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     console.log("this.playerDefeatedAnimationStage",this.playerDefeatedAnimationStage);
+
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerTigerTF","TIGER KIN");
 
                     
                 });

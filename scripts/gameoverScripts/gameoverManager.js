@@ -1240,6 +1240,15 @@ class gameoverManager extends A3SoundEffects {
 
             },
 
+            wolf_unbirth_tf: function  wolfUnbirthTFFunction() {
+
+                tempSceneRef.enemy = new wolf(tempSceneRef,450, 551,"voreSequence");
+                tempSceneRef.enemy.gameOverUnbirth();
+                tempSceneRef.defeatedTitle = 'cursed';
+                //tempSceneRef.enemy.setLoopingSound('jumpySFX','3',0.04,800);
+
+            },
+
             autumn_vore_1: function  autumnVoreFunction() {
                 tempSceneRef.preferance = 1;
                 tempSceneRef.enemy = new autumn(tempSceneRef,444, 504,"voreSequence");
@@ -1867,6 +1876,10 @@ class gameoverManager extends A3SoundEffects {
 
             wolf_vore_1: function  wolfVore1Function() {
                 
+            },
+
+            wolf_unbirth_tf: function  wolfUnbirthTFFunction() {
+
             },
 
             autumn_vore_1: function  autumnVoreFunction() {

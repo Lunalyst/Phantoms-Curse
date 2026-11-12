@@ -1634,6 +1634,20 @@ class vivian extends npc{
                               temp.scene.initSoundEffect('burpSFX','4',0.1);
                             },1600); 
 
+                          //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                          let playerHealthObject = {
+                            playerHealth: null
+                          };
+
+                          //gets the hp value using a emitter
+                          healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+                          //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+  
+                          healthEmitter.emit(healthEvent.loseHealth,playerHealthObject.playerHealth);
+
+                          healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","Vivian's Belly Buddy");
+
+
                           this.anims.play('vivianHideExtendLong').once('animationcomplete', () => {
 
                             
@@ -1899,6 +1913,19 @@ class vivian extends npc{
                           setTimeout(function(){
                               temp.scene.initSoundEffect('burpSFX','4',0.1);
                             },1600); 
+
+                            //make an object which is passed by refrence to the emitter to update the hp values so the enemy has a way of seeing what the current health value is.
+                          let playerHealthObject = {
+                            playerHealth: null
+                          };
+
+                          //gets the hp value using a emitter
+                          healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+                          //take the difference of the current max hp and the player current health, then subtract by one to get the damage that would drop the user hp to 1.
+                          healthEmitter.emit(healthEvent.loseHealth,playerHealthObject.playerHealth);
+
+                          healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","Vivian's Belly Buddy");
 
                           this.anims.play('vivianHideExtendLong').once('animationcomplete', () => {
 
@@ -2302,6 +2329,9 @@ class vivian extends npc{
            //and burp sound
             this.scene.initSoundEffect('burpSFX','1',0.1);
             //play animation and on complete allow w to be pressed.
+
+            healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","Wolf Girl Pudge");
+
             this.anims.play('vivianGameVoreBellyDigestion').once('animationcomplete', () => {
               this.scene.initSoundEffect('stomachSFX','3',0.1);
 
@@ -2492,6 +2522,7 @@ class vivian extends npc{
               this.progressNode("",true);
               //this.scene.sceneTextBox.visible = true;
               this.dialogueCatch = false;
+              healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerVivianTF","Best Mate Forever");
             });
           }
         

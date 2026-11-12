@@ -349,6 +349,7 @@ class jackOVineFemaleTF extends enemy {
                             //this.scene.onomat.destroy();
                             this.animationPlayed = false;
                             this.playerDefeatedAnimationStage++;
+                            healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerPumpkinTF","PUMPKIN HEAD");
                         });
                     
                     });

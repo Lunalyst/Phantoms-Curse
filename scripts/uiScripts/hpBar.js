@@ -14,7 +14,7 @@ const fullMaxWidthArr = [185,259,298,346,383,413,432,449,463,474];
 const startmaxHight2 = 27;
 const startPlayerFull = 10;
 
-class hpBar extends Phaser.GameObjects.Container{
+class hpBar extends hpBarAnimations{
 
     constructor(scene, xPos, yPos){
 
@@ -99,6 +99,10 @@ class hpBar extends Phaser.GameObjects.Container{
 
         this.miloMode = false;
 
+        //use this variable, check if null or not to delete it and re make it in update display.
+        this.playerName = null;
+        this.specialFaceActive = false;
+
         
     }
 
@@ -106,15 +110,9 @@ class hpBar extends Phaser.GameObjects.Container{
 
         console.log("this.scene.playerSex: ",this.scene.playerSex);
 
-        this.face.anims.create({key: '1playerGreen',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 7, end: 7 }),frameRate: 1,repeat: -1});
-        this.face.anims.create({key: '1playerYellow',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 8, end: 8 }),frameRate: 1,repeat: -1});
-        this.face.anims.create({key: '1playerRed',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 9, end: 9 }),frameRate: 1,repeat: -1});  
-        this.face.anims.create({key: '1playerZero',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 10, end: 13 }),frameRate: 6,repeat: -1});  
+        this.setFaceAnimations();
 
-        this.face.anims.create({key: '0playerGreen',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
-        this.face.anims.create({key: '0playerYellow',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
-        this.face.anims.create({key: '0playerRed',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 2, end: 2 }),frameRate: 1,repeat: -1});
-        this.face.anims.create({key: '0playerZero',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 3, end: 6 }),frameRate: 6,repeat: -1});     
+        this.setSpecialFaceMap();
         
 
         if (this.playerHealth < (this.playerHealthMax/3)){
@@ -251,18 +249,44 @@ class hpBar extends Phaser.GameObjects.Container{
 
             this.curseStage.anims.play(this.scene.playerSaveSlotData.playerHealthUpgrades+"",true);
 
-            if(this.playerHealth === 0 ){
-                this.face.anims.play(this.scene.playerSex+"playerZero",true);
-            }else if (this.playerHealth < (this.playerHealthMax/3))
-            {
+            if(this.specialFaceActive === false){
+                if(this.playerName === null && this.scene.playerSex === 0){
+                    this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Evan");
+                    this.add(this.playerName);
+                }else if(this.scene.playerSex === 0){
+                    this.playerName.destroy();
+                    this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Evan");
+                    this.add(this.playerName);
+                }else if(this.playerName === null && this.scene.playerSex === 1){
+                    this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Evelyn");
+                    this.add(this.playerName);
+                }else if(this.scene.playerSex === 1){
+                    this.playerName.destroy();
+                    this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Evelyn");
+                    this.add(this.playerName);
+                }
+
+                if(this.playerHealth === 0 ){
+                    this.face.anims.play(this.scene.playerSex+"playerZero",true);
+                }else if (this.playerHealth < (this.playerHealthMax/3))
+                {
+                  
+                    this.face.anims.play(this.scene.playerSex+"playerRed",true);
+                }else if(this.playerHealth < (this.playerHealthMax/2)){
+
+                    this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+                }else{
+                    
+                    this.face.anims.play(this.scene.playerSex+"playerGreen",true);
+                }
+            }
+
+            if (this.playerHealth < (this.playerHealthMax/3)){
                 this.hpBar.fillStyle(0xff0000);
-                this.face.anims.play(this.scene.playerSex+"playerRed",true);
             }else if(this.playerHealth < (this.playerHealthMax/2)){
-                this.hpBar.fillStyle(0xffff00);
-                this.face.anims.play(this.scene.playerSex+"playerYellow",true);
+                this.hpBar.fillStyle(0xffff00); 
             }else{
                 this.hpBar.fillStyle(0x00ff00);
-                this.face.anims.play(this.scene.playerSex+"playerGreen",true);
             }
 
             //this.bar.setScale(.4);
@@ -513,13 +537,15 @@ class hpBar extends Phaser.GameObjects.Container{
         if(this.miloMode){
 
             this.outSide.setTint(0x194800);
-            this.face.anims.create({key: 'mask',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 14, end: 14 }),frameRate: 6,repeat: -1});
-            this.face.anims.create({key: 'miloGreen',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 15, end: 15 }),frameRate: 6,repeat: -1}); 
-            this.face.anims.create({key: 'miloYellow',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 16, end: 16 }),frameRate: 6,repeat: -1});
-            this.face.anims.create({key: 'miloRed',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 17, end: 17 }),frameRate: 6,repeat: -1}); 
-            this.face.anims.create({key: 'miloKO',frames: this.face.anims.generateFrameNames('hpBarFace', { start: 18, end: 21 }),frameRate: 6,repeat: -1});    
+            this.face.anims.create({key: 'mask',frames: this.face.anims.generateFrameNames('hpBarFaceMilo', { start: 0, end: 0 }),frameRate: 6,repeat: -1});
+            this.face.anims.create({key: 'miloGreen',frames: this.face.anims.generateFrameNames('hpBarFaceMilo', { start: 1, end: 1 }),frameRate: 6,repeat: -1}); 
+            this.face.anims.create({key: 'miloYellow',frames: this.face.anims.generateFrameNames('hpBarFaceMilo', { start: 2, end: 2 }),frameRate: 6,repeat: -1});
+            this.face.anims.create({key: 'miloRed',frames: this.face.anims.generateFrameNames('hpBarFaceMilo', { start: 3, end: 3 }),frameRate: 6,repeat: -1}); 
+            this.face.anims.create({key: 'miloKO',frames: this.face.anims.generateFrameNames('hpBarFaceMilo', { start: 4, end: 7 }),frameRate: 6,repeat: -1});  
+
             if(this.miloMask === true){
                 this.face.anims.play('mask', true);
+
             }else{
                 this.face.anims.play('miloGreen', true);
             }

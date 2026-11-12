@@ -61,7 +61,11 @@ class gameHud extends A3SoundEffects {
 
       this.load.spritesheet('healthBar', 'assets/hudElements/hpBar.png',{frameWidth: 1179, frameHeight: 159 });
       this.load.spritesheet('hpBarCurseStage', 'assets/hudElements/hpBarCurseStage.png',{frameWidth: 96, frameHeight: 159 });
-      this.load.spritesheet('hpBarFace', 'assets/hudElements/hpBarFace.png',{frameWidth: 96, frameHeight: 159 });
+      //this.load.spritesheet('hpBarFace', 'assets/hudElements/hpBarFace.png',{frameWidth: 96, frameHeight: 159 });
+      
+      this.load.spritesheet('hpBarFaceMale', 'assets/hudElements/hpBarFaceMale.png',{frameWidth: 96, frameHeight: 159 });
+      this.load.spritesheet('hpBarFaceFemale', 'assets/hudElements/hpBarFaceFemale.png',{frameWidth: 96, frameHeight: 159 });
+      this.load.spritesheet('hpBarFaceMilo', 'assets/hudElements/hpBarFaceMilo.png',{frameWidth: 96, frameHeight: 159 });
       
       this.load.spritesheet('bossBar', 'assets/hudElements/bossBar.png',{frameWidth: 1083, frameHeight: 75});
       this.load.spritesheet('struggleBar', 'assets/hudElements/struggleBar.png',{frameWidth: 441, frameHeight: 45 });
@@ -129,7 +133,7 @@ class gameHud extends A3SoundEffects {
         });
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
-        this.healthDisplay = new hpBar(this,237,27);
+        this.healthDisplay = new hpBar(this,237,30);
 
         //creates a health bar object, needs to be ahead of loading data so that the warped hp value can be set.
         this.bossHealthDisplay = new bossBar(this,this.screenWidth/2,880);
@@ -290,6 +294,13 @@ class gameHud extends A3SoundEffects {
         healthEmitter.on(healthEvent.setMiloUnmask,() =>{
             this.healthDisplay.miloMask = false;
             this.healthDisplay.updateDisplay();
+        });
+
+        //emitter for trigger special hpbarface animations. 
+        healthEmitter.on(healthEvent.setSpecialBarFace,(triggerString, animationText,nameText) =>{
+          console.log("activating face animation: ",this.healthDisplay.specialFaceMap);
+          this.healthDisplay.specialFaceActive = true;
+          this.healthDisplay.specialFaceMap[triggerString](animationText,nameText);
         });
 
 

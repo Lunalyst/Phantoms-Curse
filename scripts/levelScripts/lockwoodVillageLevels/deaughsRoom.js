@@ -105,9 +105,6 @@ class DeaughsRoom extends defaultScene {
       this.signPoints = this.physics.add.group();
       this.saveStonePoints = this.physics.add.group();
       
-      
-      
-      //this.initSavePoints(2050,558);
         // as well as signs.
 
       //this sets up the text box which will be used by the signs to display text.

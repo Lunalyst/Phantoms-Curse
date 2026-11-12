@@ -254,7 +254,7 @@ class titleScreen extends defaultScene {
                 'Otpfurry1, Vik, Tyler Ritchie, Leo, ',
                 "Bunger, Dainsleft Rovera, Night Raven, Foxymew, ",
                 "Lexi, Istara, Zealotdkd, Senro, Djodjow",
-                "Inquisitor Kobold, doge duge,GreenLS",
+                "Inquisitor Kobold, doge duge, GreenLS, Zackattack",
                 "(Orthographers)===================================",
                 "Scarlet, Kashindolly",
                 "(Bug Hunters)=====================================",

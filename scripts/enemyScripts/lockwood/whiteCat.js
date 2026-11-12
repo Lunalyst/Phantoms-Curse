@@ -1488,6 +1488,9 @@ class whiteCat extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+
+                    //play player unbirth animation.
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerWhiteCatTF","CAT KISSER");
                 });
             }
            
@@ -1617,6 +1620,9 @@ class whiteCat extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+
+                    //play player unbirth animation.
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerWhiteCatTF","CAT KISSER");
                    
                 });
             }
@@ -1688,10 +1694,13 @@ class whiteCat extends enemy {
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                
                 this.anims.play('catGrabDefeatedVore2').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.inStartDefeatedLogic = false;
+                    
+                    
                 });
             }
            
@@ -1776,6 +1785,7 @@ class whiteCat extends enemy {
                 this.scene.initSoundEffect('stomachSFX','2',0.1);
                 this.playJumpySound('3',800);
                 this.animationPlayed = true;
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntMatter","CAT PUDGE");
                 this.anims.play('catGrabDefeatedVore8').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

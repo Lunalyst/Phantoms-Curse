@@ -40,6 +40,30 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
         this.face.anims.create({key: '1playerRed',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 2, end: 2 }),frameRate: 1,repeat: -1});  
         this.face.anims.create({key: '1playerZero',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 3, end: 6 }),frameRate: 6,repeat: -1});  
 
+        this.face.anims.create({key: '1playerDigest',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 7, end: 19 }),frameRate: 8,repeat: 0});
+        this.face.anims.create({key: '1playerDigested',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 19, end: 19 }),frameRate: 8,repeat: -1});
+        
+        this.face.anims.create({key: '1playerUnbirth',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 20, end: 32 }),frameRate: 8,repeat: 0});
+        this.face.anims.create({key: '1playerUnbirthed',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 32, end: 32 }),frameRate: 8,repeat: -1});               
+        
+        this.face.anims.create({key: '1playerRebirth',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 33, end: 48 }),frameRate: 8,repeat: 0}); 
+        this.face.anims.create({key: '1playerRebirthed',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 48, end: 48 }),frameRate: 8,repeat: -1});              
+            
+        this.face.anims.create({key: '1playerBlueSlimed',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 49, end: 63 }),frameRate: 8,repeat: 0});              
+        this.face.anims.create({key: '1playerBlueSlime',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 63, end: 63 }),frameRate: 8,repeat: -1});              
+        
+        this.face.anims.create({key: '1playerBatTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 64, end: 64 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerBeeDroneTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 65, end: 65 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerWhiteCatTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 66, end: 66 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerShadowTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 67, end: 67 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerMimicTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 68, end: 68 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerMushroomTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 69, end: 69 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerRabbitTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 70, end: 70 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerTigerTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 71, end: 71 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerVivianTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 72, end: 72 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerPumpkinTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 73, end: 73 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1playerRabbitFutaTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 74, end: 74 }),frameRate: 8,repeat: -1});              
+        
        
     }
 

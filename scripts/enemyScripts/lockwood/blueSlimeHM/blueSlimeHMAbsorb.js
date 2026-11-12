@@ -429,7 +429,6 @@ class blueSlimeHMAbsorb extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
-                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
 
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
                     this.animationPlayed = false;
@@ -655,6 +654,8 @@ class blueSlimeHMAbsorb extends enemy {
             this.playSlimeSound('5',800);
             if (!this.animationPlayed) {
 
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
+                
                 this.scene.onomat = new makeText(this.scene,this.x+20,this.y-20,'charBubble',"GLOOORRRPP");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
                 this.scene.onomat.setScale(1/4);

@@ -1278,7 +1278,6 @@ class blueSlime extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
-                    healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
@@ -1304,6 +1303,8 @@ class blueSlime extends enemy {
             if (!this.animationPlayed) {
                 //plays curse sound effect
                 this.scene.initSoundEffect('curseSFX','curse',0.3);
+
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
 
                 if(this.scene.lightingSystemActive === true){
                     this.curseLight.x = this.x-5;
@@ -1471,12 +1472,13 @@ class blueSlime extends enemy {
                 this.scene.onomat.textFadeOutAndDestroy(1000);
                
                 this.animationPlayed = true;
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
                 this.anims.play('largeSlimeGrabDefeated5').once('animationcomplete', () => {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
 
-                    healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
+                    
 
                     //after cursing is over hide the light.
                     if(this.scene.lightingSystemActive === true){

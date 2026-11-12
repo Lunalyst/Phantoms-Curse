@@ -5305,7 +5305,7 @@ class wolf extends npc{
               healthEmitter.emit(healthEvent.loseHealth,dropToOne);
 
               //play player unbirth animation.
-              healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth');
+              healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Wolf Goo");
 
               temp.anims.play('wolfMeltingPlayer', true).once('animationcomplete', () => {
                 temp.inDialogue = false;

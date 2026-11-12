@@ -350,7 +350,9 @@ class mushroomDefeat extends enemy {
                     this.curseLight1.y = this.y;
                     this.curseLight1.radius = 90;
                     this.curseLight1.intensity = 1.1;
-            
+                    
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerMushroomTF","Mushroom node");
+                        
                     this.curseLight2.x = this.x
                     this.curseLight2.y = this.y;
                     this.curseLight2.radius = 110;

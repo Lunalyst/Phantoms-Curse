@@ -56,7 +56,7 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
                 tempBar.face.anims.play(tempBar.scene.playerSex+'playerUnbirthed', true);
 
                 tempBar.playerName.destroy();
-                tempBar.playerName = new makeText(tempBar.scene,-260 ,-10,'charBubble',"WOLF GOO");
+                tempBar.playerName = new makeText(tempBar.scene,-260 ,-10,'charBubble',nameText);
                 tempBar.add(tempBar.playerName);
 
             });
@@ -102,6 +102,21 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
             tempBar.playerName.destroy();
             tempBar.playerName = new makeText(tempBar.scene,-260 ,-10,'charBubble',nameText);
             tempBar.add(tempBar.playerName);
+
+        },
+        "blueSlimeDigest": function unbirthFuct(animationText,nameText) {
+            
+            console.log("genericDigest : ", animationText , ", ",nameText)
+
+            tempBar.face.anims.play(tempBar.scene.playerSex+'playerBlueSlimed').once('animationcomplete', () => {
+
+                tempBar.face.anims.play(tempBar.scene.playerSex+'playerBlueSlime', true);
+
+                tempBar.playerName.destroy();
+                tempBar.playerName = new makeText(tempBar.scene,-260 ,-10,'charBubble',"Blue Goo");
+                tempBar.add(tempBar.playerName);
+
+            });
 
         },
         

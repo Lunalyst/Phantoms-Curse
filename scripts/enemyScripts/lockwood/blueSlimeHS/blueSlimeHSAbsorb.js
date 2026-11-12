@@ -327,6 +327,8 @@ class blueSlimeHSAbsorb extends enemy {
             if (!this.animationPlayed) {
                 this.animationPlayed = true;
 
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
+
                 this.scene.onomat.destroy();
                 this.scene.onomat = new makeText(this.scene,this.x+15,this.y+30,'charBubble',"GURRGGGLEEE!");
                 this.scene.onomat.visible = this.scene.onomatopoeia;
@@ -338,6 +340,8 @@ class blueSlimeHSAbsorb extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
+
+                    
                 });
             }
         }else if (this.playerDefeatedAnimationStage === 8) {

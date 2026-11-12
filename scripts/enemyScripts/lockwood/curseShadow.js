@@ -1181,11 +1181,16 @@ class curseShadow extends enemy {
                     this.playPumpSound("pumpingShort",3000);
                     //this.scene.initSoundEffect('pumpingSFX','pumpingFull',1);
 
+                    
+
                     this.anims.play('playerGettingPumped').once('animationcomplete', () => {
                         this.animationPlayed = false;
                         this.playerDefeatedAnimationStage++;
                         this.inStartDefeatedLogic = false;
                         console.log("this.playerDefeatedAnimationStage: ",this.playerDefeatedAnimationStage);
+
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerShadowTF","DARK GOO");
+                        
         
                     });
                 }
@@ -1200,10 +1205,13 @@ class curseShadow extends enemy {
 
                     this.animationPlayed = true;
 
+                    
+
                     this.scene.initSoundEffect('stomachSFX','8',0.3);
                     
                     this.anims.play('playerFinishTransformation').once('animationcomplete', () => {
 
+                    
                         this.anims.play('playerShadowUnderground').once('animationcomplete', () => {
                             this.curseLight.y = this.curseLight.y-30;
                             this.anims.play('playerShadowRise').once('animationcomplete', () => {

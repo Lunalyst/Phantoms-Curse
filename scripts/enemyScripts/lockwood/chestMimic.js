@@ -1152,6 +1152,8 @@ class chestMimic extends enemy {
                     }
                 }, 1500);
 
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerMimicTF","MIMIC SPROUT");
+
                 this.anims.play('mimicDefeatedTF4').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
 
@@ -1264,6 +1266,9 @@ class chestMimic extends enemy {
                 this.scene.onomat.setScale(1/4);
                 this.scene.onomat.textWave();
                 this.scene.onomat.textFadeOutAndDestroy(1000);
+
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntmatter","Mimic Belly");
+                
                 this.anims.play('mimicDefeatedVore6').once('animationcomplete', () => {
 
                     //this.scene.onomat.destroy();

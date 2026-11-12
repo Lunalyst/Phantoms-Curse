@@ -327,6 +327,7 @@ class beeGrubAbsorb extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Grub");
                 this.anims.play('beeGrubAbsorbCurse1').once('animationcomplete', () => {
                    this.anims.play('beeGrubAbsorbCurse2').once('animationcomplete', () => {
                         this.anims.play('beeGrubAbsorbCurse3').once('animationcomplete', () => {
@@ -358,6 +359,8 @@ class beeGrubAbsorb extends enemy {
                     this.setVelocityY(-100);
                     this.anims.play('beeGrubAbsorbMorph2').once('animationcomplete', () => {
                     
+                        healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerBeeDroneTF","BEE DRONE");
+                        
                             //this.scene.onomat.destroy();
                             this.animationPlayed = false;
                             this.playerDefeatedAnimationStage++;

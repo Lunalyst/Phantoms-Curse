@@ -1278,6 +1278,7 @@ class blueSlime extends enemy {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
                     this.scene.onomat.destroy();
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
                 });
             }
         } else if (this.playerDefeatedAnimationStage === 7) {
@@ -1474,6 +1475,8 @@ class blueSlime extends enemy {
                     this.scene.onomat.destroy();
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
+
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
 
                     //after cursing is over hide the light.
                     if(this.scene.lightingSystemActive === true){

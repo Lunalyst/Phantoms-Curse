@@ -363,6 +363,8 @@ class matangoRootOral extends  matangoRootUnbirth {
 
         if(this.inStartDefeatedLogic === false) {
 
+            healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntmatter","matango pudge");
+                
             this.scene.KeyDisplay.playDKey();
             let currentEnemy = this; // important, sets currentEnemy to the current object so that we can use variables attached to this current enemy object in our set timeout functions.
             
@@ -767,7 +769,7 @@ class matangoRootOral extends  matangoRootUnbirth {
             if( this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1){
                     //handle the defeated logic that plays defeated animations
                      this.playerIsDefeatedLogicOral();
 

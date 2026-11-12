@@ -429,6 +429,8 @@ class blueSlimeHMAbsorb extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
+
                 this.anims.play('slimeGrabDefeated7').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;
@@ -474,6 +476,9 @@ class blueSlimeHMAbsorb extends enemy {
             if (!this.animationPlayed) {
             
                 this.animationPlayed = true;
+
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'blueSlimeDigest',"doesntMatter","doesntMatter");
+
                 this.anims.play('slimeGrabDefeated9').once('animationcomplete', () => {
                     this.animationPlayed = false;
                     this.playerDefeatedAnimationStage++;

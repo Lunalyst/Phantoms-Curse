@@ -1877,6 +1877,7 @@ class bat extends enemy {
 
                 this.scene.initSoundEffect('stomachSFX','1',0.03);
                 this.animationPlayed = true;
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntmatter","BAT BOOTY FAT");
                 this.anims.play('batButtDigest').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();
                     this.animationPlayed = false;
@@ -2136,6 +2137,8 @@ class bat extends enemy {
                         this.scene.internalView1 = null;
                     });
                 }
+
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"playerBatTF","BAT");
 
                 this.anims.play('batFatTF').once('animationcomplete', () => {
                     //this.scene.onomat.destroy();

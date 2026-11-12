@@ -242,6 +242,8 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
         }
 
+        console.log("this.playerDefeatedAnimationStage: " + this.playerDefeatedAnimationStage);
+
          // if tab is pressed or the player finished the defeated animations then we call the game over scene.
         if (this.scene.checkSkipIndicatorIsDown() || (this.playerDefeatedAnimationStage > 4 && this.scene.checkDIsDown())) {
 
@@ -298,6 +300,8 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             if (!this.animationPlayed) {
 
                 this.animationPlayed = true;
+                //play player unbirth animation.
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Matango Goo");
 
                 this.anims.play('unbirthGameover1').once('animationcomplete', () => {
 
@@ -449,7 +453,7 @@ class matangoRootUnbirth extends matangoRootAbsorb {
             if( this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1){
                     //handle the defeated logic that plays defeated animations
                      this.playerIsDefeatedLogicUnbirth();
 

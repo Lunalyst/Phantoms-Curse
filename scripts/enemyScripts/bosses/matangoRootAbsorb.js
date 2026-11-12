@@ -322,7 +322,7 @@ class matangoRootAbsorb extends enemy {
 
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('growSFX','2',0.1);
-
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntmatter","matango pudge");
                 this.anims.play('absorbGameover6').once('animationcomplete', () => {
 
                     this.animationPlayed = false;
@@ -449,7 +449,7 @@ class matangoRootAbsorb extends enemy {
             if( this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1){
                     //handle the defeated logic that plays defeated animations
                      this.playerIsDefeatedLogicAbsorb();
 

@@ -323,6 +323,8 @@ class istara extends npc{
 
           this.scene.initSoundEffect('curseSFX','curse',0.3);
 
+          healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Istara Goo");
+                
           //play animation and on complete allow w to be pressed.
           this.anims.play('istaraEggTF').once('animationcomplete', () => {
             this.anims.play('istaraEggBelly',true);
@@ -528,6 +530,8 @@ class istara extends npc{
           }
 
           this.scene.initSoundEffect('curseSFX','curse',0.3);
+
+          healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Istara Goo");
 
           //play animation and on complete allow w to be pressed.
           this.anims.play('istaraEggTF').once('animationcomplete', () => {

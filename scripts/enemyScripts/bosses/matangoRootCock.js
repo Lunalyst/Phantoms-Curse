@@ -440,6 +440,7 @@ class matangoRootCock extends  matangoRootAnal {
 
                     this.animationPlayed = true;
                      this.scene.initSoundEffect('growSFX','2',0.1);
+                      //play player unbirth animation.
                     this.anims.play('cockVoreGameover1').once('animationcomplete', () => {
 
                         this.animationPlayed = false;
@@ -479,6 +480,8 @@ class matangoRootCock extends  matangoRootAnal {
                 this.scene.initSoundEffect('stomachSFX','1',0.05);
                 this.playPlapSound('plap10',500)
                 if (!this.animationPlayed) {
+
+                    healthEmitter.emit(healthEvent.setSpecialBarFace,'unbirth',"doesntmatter","Matango cum");
 
                     this.animationPlayed = true;
                     this.anims.play('cockVoreGameover6').once('animationcomplete', () => {
@@ -839,7 +842,7 @@ class matangoRootCock extends  matangoRootAnal {
             if( this.playerProgressingAnimation === true){
                 
                 //calls animation grab code until the animation is finished
-                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax){
+                if(this.playerDefeatedAnimationStage <= this.playerDefeatedAnimationStageMax+1){
                     //handle the defeated logic that plays defeated animations
                      this.playerIsDefeatedLogicCock();
 

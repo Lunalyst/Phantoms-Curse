@@ -541,6 +541,8 @@ class istara extends npc{
             //progress the dialogue by one stage so the button moves dialogue forward.
             this.scene.initSoundEffect('stomachSFX','13',0.1);
 
+            healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"istaraEgg","cobrabold Egg");
+
             if(this.scene.lightingSystemActive === true){
               this.curseLight.visible = false;
             }

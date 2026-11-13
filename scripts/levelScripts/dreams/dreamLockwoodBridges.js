@@ -227,7 +227,8 @@ class dreamLockwoodBridges extends defaultScene {
         this.player2Active = true;
         this.Milo.visible = false;
         this.player2.visible = true;
-        this.player2.anims.play('MenacingSpearHold',true);
+        console.log("this.player2: ",this.player2);
+        //this.player2.anims.play('MenacingSpearHold',true);
         this.player2.x = 1895;
         this.player2.y = 728;
         this.dialogueCatch = false;

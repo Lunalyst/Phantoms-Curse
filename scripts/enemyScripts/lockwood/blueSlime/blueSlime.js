@@ -887,7 +887,7 @@ class blueSlime extends enemy {
             this.playerDefeatedAnimationCooldown === false &&
             this.inStartDefeatedLogic === true &&
              this.scene.KeyDisplay.visible === true &&
-              this.playerDefeatedAnimationStage !== 3 &&
+              /*this.playerDefeatedAnimationStage !== 3 &&*/
                this.playerDefeatedAnimationStage !== 6) {
 
                 this.scene.KeyDisplay.visible = false;
@@ -1410,7 +1410,11 @@ class blueSlime extends enemy {
             this.playPlapSound('plap11',500);
             this.anims.play('largeSlimeGrabDefeated4', true);
 
-            this.scene.internalView.anims.play("slimeWiggle2",true);
+            if( this.scene.internalView !== null && this.scene.internalView !== undefined){
+                console.log("this.scene.internalView",this.scene.internalView );
+                this.scene.internalView.anims.play("slimeWiggle2",true);
+            }
+            
 
             if (this.onomatPlayed === false) {
                 

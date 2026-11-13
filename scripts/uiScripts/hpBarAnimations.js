@@ -34,6 +34,9 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
         this.face.anims.create({key: '0playerPumpkinTF',frames: this.face.anims.generateFrameNames('hpBarFaceMale', { start: 73, end: 73 }),frameRate: 8,repeat: -1});              
         this.face.anims.create({key: '0playerRabbitFutaTF',frames: this.face.anims.generateFrameNames('hpBarFaceMale', { start: 74, end: 74 }),frameRate: 8,repeat: -1});              
         
+        this.face.anims.create({key: '0istaraEgg',frames: this.face.anims.generateFrameNames('hpBarFaceMale', { start: 75, end: 75 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '0matangoPudge',frames: this.face.anims.generateFrameNames('hpBarFaceMale', { start: 76, end: 76 }),frameRate: 8,repeat: -1});              
+        
         //female animations.
         this.face.anims.create({key: '1playerGreen',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
         this.face.anims.create({key: '1playerYellow',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 1, end: 1 }),frameRate: 1,repeat: -1});
@@ -63,6 +66,9 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
         this.face.anims.create({key: '1playerVivianTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 72, end: 72 }),frameRate: 8,repeat: -1});              
         this.face.anims.create({key: '1playerPumpkinTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 73, end: 73 }),frameRate: 8,repeat: -1});              
         this.face.anims.create({key: '1playerRabbitFutaTF',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 74, end: 74 }),frameRate: 8,repeat: -1});              
+        
+        this.face.anims.create({key: '1istaraEgg',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 75, end: 75 }),frameRate: 8,repeat: -1});              
+        this.face.anims.create({key: '1matangoPudge',frames: this.face.anims.generateFrameNames('hpBarFaceFemale', { start: 76, end: 76 }),frameRate: 8,repeat: -1});              
         
        
     }

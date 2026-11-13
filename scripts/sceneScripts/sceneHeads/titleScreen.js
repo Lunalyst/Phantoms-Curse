@@ -261,7 +261,7 @@ class titleScreen extends defaultScene {
                 "Scarlet, Dainsleft Rovera, Zebby, Drachen, ",
                 "Rat Profile Picture, Lit_kale_chip, Gamersgate123,",
                 "Aaron, Dolly-decimal, luna, Cirme, Darkgamer22263,",
-                "patrickster",
+                "patrickster, Djmc216",
                 "(Inspiration)=====================================",
                 "Scarlet, Otpfurry1, Kaynstarr, Fluffstuff, Manny,",
                 "Bigbigbig, Turtwag, Adorabletyphlosion, Nox, ",

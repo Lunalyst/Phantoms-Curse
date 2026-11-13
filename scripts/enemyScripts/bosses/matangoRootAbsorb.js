@@ -322,7 +322,7 @@ class matangoRootAbsorb extends enemy {
 
                 this.animationPlayed = true;
                 this.scene.initSoundEffect('growSFX','2',0.1);
-                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericDigest',"doesntmatter","matango pudge");
+                healthEmitter.emit(healthEvent.setSpecialBarFace,'genericTF',"matangoPudge","matango pudge");
                 this.anims.play('absorbGameover6').once('animationcomplete', () => {
 
                     this.animationPlayed = false;

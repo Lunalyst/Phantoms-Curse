@@ -479,11 +479,21 @@ class matangoRoot extends matangoRootCock {
                             //get refrence to sound key
                             let entranceStart = this.scene.getSFX('battleMyceliumSFX1');
 
+                            let currentScene = this.scene;
+
                             //add on complete for that.
                             entranceStart.on('complete', function (sound){
                                 console.log("starting main track for mushroom!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                                 //this.scene.initSoundEffect('nectarEntranceSFX','entranceLoop',0.3,'music');
-                                this.scene.initSoundEffect('battleMyceliumSFX2','entranceLoop',0.3,'music');
+                               
+                                console.log("currentScene: ",currentScene);
+
+                                if(currentScene !== null && currentScene !== undefined){
+                                    currentScene.initSoundEffect('battleMyceliumSFX2','entranceLoop',0.3,'music');
+                                }else{
+                                    console.log("currentScene is null or undefined so saddly we cant play the music without crashing the game :( ");
+                                }
+                                
                                         
                             },this);
                                     

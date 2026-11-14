@@ -554,7 +554,7 @@ class wolf extends npc{
     //resets catch so dialogue can end. useful for shop ui.
     this.dialogueCatch = false;
 
-    if(this.npcType === "wolfShop2"){
+    if(this.npcType === "wolfShop2" || this.npcType === "wolfShop3"){
       this.anims.play("backIdle",true);
     }
     

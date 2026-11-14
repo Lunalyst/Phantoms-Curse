@@ -546,6 +546,8 @@ class hpBar extends hpBarAnimations{
             if(this.miloMask === true){
                 this.face.anims.play('mask', true);
 
+                
+
             }else{
                 this.face.anims.play('miloGreen', true);
             }

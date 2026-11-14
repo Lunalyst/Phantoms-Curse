@@ -150,6 +150,7 @@ class hpBarAnimations extends Phaser.GameObjects.Container{
 
         },
         
+        
         }
     }
 

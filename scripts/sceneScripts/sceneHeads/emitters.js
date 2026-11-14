@@ -598,7 +598,7 @@ const bestiaryTextList = {
       },
       whiteCat_female_vore: {
         title: "CHUBBY CAT FEMALE",
-        summary: "Once its prey has been completely swallowed, it loves rubbing its engorged tummy until its prey is nothing more than belly fat. You like being a girl belly fat, don't you? :3",
+        summary: "Once its prey has been completely swallowed, it loves rubbing its engorged tummy until its prey is nothing more than belly fat. You like being girl belly fat, don't you? :3",
       },
       whiteCat_male_tf: {
         title: "WHITE CAT MALE",

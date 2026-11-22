@@ -3114,13 +3114,19 @@ const npcDialogue = {
                     },
                     //three branches for dialogue firs is if the player has enough money
                     "node8":{
-                        "dialogue": "...Oh, really?!? Didn\'t think you had that much...",
+                        "dialogue": "...Oh, really?!?",
                         "profile":"vivianShocked",
+                        "textvoice":"lightVoice",
+                        "children":["nodePatch"]
+                    },
+                    "nodePatch":{
+                        "dialogue": "Didn\'t think you had that much...",
+                        "profile":"vivianSquish",
                         "textvoice":"lightVoice",
                         "children":["node9"]
                     },
                     "node9":{
-                        "dialogue": "Ah, I mean",
+                        "dialogue": "Ah, I mean.",
                         "profile":"vivianNeutral",
                         "textvoice":"lightVoice",
                         "children":["node10"]

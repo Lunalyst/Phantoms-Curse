@@ -201,13 +201,9 @@ class dreamLockwoodBridges extends defaultScene {
       //this.initSavePoints(1406,1112-10);
 
       this.initPortals(3566,728-8,782,728,"warpCaveInside","dreamLockwoodEntrance",false);
-      //this.initPortals(961,728-8,1122+320,728,"warpCaveInside","LockwoodCenter",false);
-
-      //this.initPortals(611,728-8,700,728+32,"door1","WaitingRoom",false);
-
-      //this.initLunalyst(935,1083,'clearingTheWay');
       
-
+      this.initPortals(1090,728-8,700,728+32,"door1","dreamCastle",false);
+      
       this.initSavePoints(1099,728-10);
 
       //this.initSavePoints(1805,728-10);

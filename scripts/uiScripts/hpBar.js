@@ -98,6 +98,7 @@ class hpBar extends hpBarAnimations{
         this.setScale(2/3);
 
         this.miloMode = false;
+        this.miloNameHidden = false;
 
         //use this variable, check if null or not to delete it and re make it in update display.
         this.playerName = null;
@@ -186,6 +187,22 @@ class hpBar extends hpBarAnimations{
                     this.face.anims.play(this.scene.playerSex+"playerGreen",true);
                 }
                 
+            }
+
+            if(this.playerName === null && this.miloMask === true){
+                this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"???");
+                this.add(this.playerName);
+            }else if (this.miloMask === true){
+                this.playerName.destroy();
+                this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"???");
+                this.add(this.playerName);
+            }else if(this.playerName === null && this.miloMask === false){
+                this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Milo");
+                this.add(this.playerName);
+            }else if (this.miloMask === false){
+                this.playerName.destroy();
+                this.playerName = new makeText(this.scene,-260 ,-10,'charBubble',"Milo");
+                this.add(this.playerName);
             }
 
             //this.bar.setScale(.4);

@@ -12,6 +12,9 @@ const textEnd = 75;
 const musicDampen = 0.15;
 const ambienceDampen = 0.15;
 
+const backgroundW = 320;
+const backgroundH = 900;
+
 //simple time tester functions.
 function startTimeTest(label){
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");

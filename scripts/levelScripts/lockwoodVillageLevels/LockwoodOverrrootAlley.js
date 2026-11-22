@@ -186,7 +186,7 @@ class LockwoodOverrootAlley extends defaultScene {
         this.backroundXOrigin = 2360;
         this.backroundYOrigin = 500;
          
-        //this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+
         this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*2700,1800 , "Clearing_Background");
         this.backround.setDepth(-50);
         this.backround.setScale(1/3);

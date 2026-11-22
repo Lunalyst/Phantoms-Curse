@@ -38,8 +38,6 @@ class BunBunRanchFront extends defaultScene {
       this.load.image("Bun_Bun_Ranch_source_map" , "assets/tiledMap/LockWood/Bun_Bun_Ranch_Tileset/Bun_Bun_Ranch_Tileset.png");
       this.load.tilemapTiledJSON("Bun_Bun_Ranch_Path" , "assets/tiledMap/LockWood/Bun_Bun_Ranch_Tileset/Bun_Bun_Ranch_Path.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
-      
       this.load.spritesheet('Clearing_Background',  'assets/backgrounds/Clearing_Background.png',{frameWidth: 2700 , frameHeight: 1800});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
@@ -157,7 +155,6 @@ class BunBunRanchFront extends defaultScene {
         this.backroundXOrigin = 2360;
         this.backroundYOrigin = 500+50;
          
-        //this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
         this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 6*2700,1800 , "Clearing_Background");
         this.backround.setDepth(-50);
         this.backround.setScale(1/3);

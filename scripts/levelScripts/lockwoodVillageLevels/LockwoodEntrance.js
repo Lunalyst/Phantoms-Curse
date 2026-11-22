@@ -38,7 +38,7 @@ class LockwoodEntrance extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("lockwood_etrance_map" , "assets/tiledMap/LockWood/Forest_Tileset/Lockwood_Entrance.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -190,11 +190,11 @@ class LockwoodEntrance extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backroundXOrigin = 0;
-        this.backroundYOrigin = 540;
-        this.backround = this.add.tileSprite(0, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backroundXOrigin = 2200;
+        this.backroundYOrigin = 680;
+        this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 12*backgroundW, backgroundH, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
-        this.backround.setScale(1.2);
+
         //original pos - player pos * scrol factor
 
         this.parrallax1XOrigin = 1500;

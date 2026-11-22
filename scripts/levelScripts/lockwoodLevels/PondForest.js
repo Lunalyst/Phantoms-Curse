@@ -36,7 +36,8 @@ class PondForest extends defaultScene {
       this.load.tilemapTiledJSON("ForestPondMap" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond.json");
       this.load.tilemapTiledJSON("ForestPondMapViv" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Pond_Viv.json");
 
-      this.load.spritesheet('backgroundForestStaticLevel', 'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
+
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet("secretWall2" , "assets/gameObjects/secretWall2.png" , {frameWidth: 960 , frameHeight: 1248 });
@@ -147,10 +148,8 @@ class PondForest extends defaultScene {
 
       this.backroundXOrigin = 1500;
       this.backroundYOrigin = 500;
-      this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 10*1600 ,1090, "backgroundForestStaticLevel");
+      this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 20*backgroundW, backgroundH, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
-      this.backround.setScale(.9);
-      this.backround.setTint(0xd3d3d3);
 
       this.parrallax1XOrigin = 3000;
       this.parrallax1YOrigin = 700;

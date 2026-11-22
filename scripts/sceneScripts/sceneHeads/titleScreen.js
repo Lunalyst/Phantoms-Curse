@@ -72,12 +72,15 @@ class titleScreen extends defaultScene {
 
         this.textWidth = 84
         this.textHight = 108
+
        
         }
 
         preload(){
             startTimeTest("loading title screen.");
-            this.load.spritesheet('titleBackground',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+            //this.load.spritesheet('titleBackground',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
+            console.log(" backgroundW: ", backgroundW , " backgroundH", backgroundH);
+            this.load.spritesheet('titleBackground',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
             this.load.spritesheet("newGame" , "assets/titleScreen/NewGame.png" , {frameWidth: 228 , frameHeight: 33 });
             this.load.spritesheet("loadGame" , "assets/titleScreen/LoadGame.png" , {frameWidth: 231 , frameHeight: 33 });
             this.load.spritesheet("options" , "assets/titleScreen/options.png" , {frameWidth: 165 , frameHeight: 33 });
@@ -126,8 +129,6 @@ class titleScreen extends defaultScene {
 
             this.load.image("lockwood_entrance_source_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Entrance_Tileset.png");
             this.load.tilemapTiledJSON("lockwood_bridges_map" , "assets/tiledMap/LockWood/Lockwood_Entrance_Tileset/Lockwood_Bridges.json");
-
-            this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
             this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth:1920 ,frameHeight: 1920});
             this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -383,10 +384,6 @@ class titleScreen extends defaultScene {
 
             this.initLoopingSound('halloweenSFX','theme',0.1);
 
-            //background definition.
-            this.backround = this.add.sprite(this.screenWidth/2, 300, "titleBackground");
-            this.backround.setScale(1.1);
-
             this.layerX = -2980;
             this.layerY = -1370;
 
@@ -428,8 +425,11 @@ class titleScreen extends defaultScene {
                 this.initLoopingSound('titleThemeSFX','titleTheme',0.1);
 
                 //background definition.
-                this.backround = this.add.sprite(this.screenWidth/2 - 70, -20, "titleBackground");
-                this.backround.setScale(1.1);
+
+                this.backround = this.add.tileSprite(this.screenWidth/2 - 0, -500, 2*backgroundW, backgroundH, "titleBackground");
+                this.backround.setScale(3);
+        
+                //this.backround.setScale(1.1);
 
                 this.layerX = -7250;
                 this.layerY = -1467-32;

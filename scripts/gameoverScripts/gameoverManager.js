@@ -11,7 +11,7 @@ class gameoverManager extends A3SoundEffects {
         
         this.mapOfTileMapsJSON = {
             forestGameover: function forestGameover() {
-                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/Forest_Background_Static.png');
+                tempGameover.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
                 tempGameover.load.tilemapTiledJSON("forestGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Gameover.json");
             },
             caveGameover: function caveGameover() {
@@ -101,7 +101,7 @@ class gameoverManager extends A3SoundEffects {
                 
             },
             pumpkinGameover: function pumpkinGameover() {
-                tempGameover.load.image('backgroundForestRavineLevel', 'assets/backgrounds/Forest_Background_Static.png');
+                tempGameover.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
                 tempGameover.load.tilemapTiledJSON("pumpkinGameover" , "assets/tiledMap/LockWood/Forest_Tileset/Pumpkin_Gameover.json");
                 tempGameover.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
                 tempGameover.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -340,8 +340,10 @@ class gameoverManager extends A3SoundEffects {
         
         this.mapOfLocationPreloads = {
             forestGameover: function forestGameover() {
-                let backround = tempSceneRef.add.sprite(450, 120, "backgroundForestRavineLevel");
+                //let backround = tempSceneRef.add.sprite(450, 120, "backgroundForestRavineLevel");
 
+                let backround = tempSceneRef.add.tileSprite(450, 120, 14*backgroundW, backgroundH, "backgroundForestRavineLevel");
+                backround.setDepth(-50);
                 tempSceneRef.lightingSystemActive = false;
 
                 tempSceneRef.processMap.tilesetNameInTiled = "Forest_Tileset";
@@ -500,7 +502,8 @@ class gameoverManager extends A3SoundEffects {
 
             pumpkinGameover: function pumpkinGameover() {
 
-                let backround = tempSceneRef.add.sprite(450, 120, "backgroundForestRavineLevel");
+                let backround = tempSceneRef.add.tileSprite(450, 120, 14*backgroundW, backgroundH, "backgroundForestRavineLevel");
+                backround.setDepth(-50);
                 tempSceneRef.parrallax1XOrigin = 500;
                 tempSceneRef.parrallax1YOrigin = 0;
                 tempSceneRef.parrallax1 = tempSceneRef.add.tileSprite(tempSceneRef.parrallax1XOrigin, tempSceneRef.parrallax1YOrigin, 1920*6 ,1920, "tree_parrallax");

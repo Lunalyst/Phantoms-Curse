@@ -138,14 +138,17 @@ class dreamLockwoodEntrance extends defaultScene {
 
       //this.initSigns(813,1757+12,"generic","tutorialCabin");
 
-      this.initSavePoints(1132,728-10);
+      this.initSavePoints(1428,728-10);
       
       this.initPortals(1294,728-13,1683,925,"warpCaveOutside","DreamHub",false);
 
       if(nectarFlag.foundFlag === true){
         
         this.initPortals(782,728-13,3566,728,"warpCaveOutside","dreamLockwoodBridges",false);
+
         this.initSigns(890,728+18,"generic","nectarMemoryText");
+
+        this.initPortals(1090,728-8,700,728+32,"door2","dreamCastle");
       }
 
       

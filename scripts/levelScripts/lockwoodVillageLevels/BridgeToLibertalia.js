@@ -38,8 +38,8 @@ class BridgeToLibertalia extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("bridge_to_libertalia_map" , "assets/tiledMap/LockWood/Forest_Tileset/Bridge_To_Libertalia.json");
 
-      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
-
+      this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: backgroundW , frameHeight: backgroundH});
+      
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
 
@@ -182,11 +182,11 @@ class BridgeToLibertalia extends defaultScene {
         this.playerPreviousX = this.player1.x;
         this.playerPreviousY = this.player1.y;
 
-        this.backroundXOrigin = -500;
-        this.backroundYOrigin = -140;
-        this.backround = this.add.tileSprite(0, this.backroundYOrigin, 6*1600, 1090, "backgroundForestRavineLevel");
+        this.backroundXOrigin = 1000;
+        this.backroundYOrigin = 0;
+         
+        this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 12*backgroundW, backgroundH, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
-        this.backround.setScale(1.2);
         //original pos - player pos * scrol factor
 
         this.parrallax1XOrigin = 500;
@@ -213,6 +213,8 @@ class BridgeToLibertalia extends defaultScene {
       this.enemyUpdate(this.enemyGroupArray);
 
       this.checkPlayerLeftWarp(320,"LockwoodEntrance",2076,1080);
+
+      this.checkPlayerRightWarp(2078,"swampEntrance",630,536);
       
       if(  430 > this.player1.y){
         this.processMap.layer0.setDepth(9);

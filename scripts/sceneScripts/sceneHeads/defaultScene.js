@@ -280,6 +280,6 @@ class defaultScene extends G12UpdateLoops {
   this.damagedPlayer = false;
 
   this.transitionToCutscene = false;
-
+  
   }
 }

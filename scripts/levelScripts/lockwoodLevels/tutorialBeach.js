@@ -30,6 +30,8 @@ class tutorialBeach extends defaultScene {
       this.load.spritesheet('tutorialSprite', 'assets/hudElements/tutorialSprite.png',{frameWidth: 300 , frameHeight: 300});
       this.load.spritesheet('tutorialBorder', 'assets/hudElements/tutorialBorder.png',{frameWidth: 306 , frameHeight: 306});
 
+      this.load.spritesheet('backgroundSkyLevel', 'assets/backgrounds/sky backdrop.png',{frameWidth: 1024 , frameHeight: 1024});
+      
       this.load.image("beach_source_map" , "assets/tiledMap/LockWood/Beach_Tileset/Beach_Tileset.png");
       
       this.defaultPreload();
@@ -63,10 +65,13 @@ class tutorialBeach extends defaultScene {
       this.loadGamePlayData();
 
       //controls the Background
-      this.backround = this.add.tileSprite(0, 400, 10000, 1000, "backgroundBeachLevel");
-      this.backround.setScale(1.5);
-      
+      this.backround = this.add.tileSprite(2000, 520, 12*backgroundW, backgroundH, "backgroundBeachLevel");
+      this.backround.setScrollFactor(0.9);
       this.grabbed = false;
+
+      this.skybackround = this.add.tileSprite(1500, -1740, 7*1024, 6*1024, "backgroundSkyLevel");
+      this.skybackround.setDepth(-50);
+      this.skybackround.setTint(0xd3d3d3);
 
       //creates tileset
       this.setUpTileSet("beach_map","Beach_Tileset","beach_source_map");
@@ -304,26 +309,6 @@ class tutorialBeach extends defaultScene {
       
       //calls the built in update function
       this.defaultUpdate();
-
-      //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
-        
-        this.backround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
-        
-        this.backround.x -= 0.7;
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-       
-        this.backround.y += 0.3;
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        
-        this.backround.y -= 0.3;
-      }
 
       if( this.movementTutorial === true && this.player1.x > 400){
         this.movementTutorial = false;

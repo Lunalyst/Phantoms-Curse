@@ -28,7 +28,7 @@ class dreamHub extends defaultScene {
       
       this.defaultPreload();
 
-      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
+      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background1.png',{frameWidth: backgroundW , frameHeight: backgroundH});
 
       this.load.spritesheet('bedWarp', 'assets/gameObjects/bedTeleport.png',{frameWidth: 249, frameHeight: 117 });
 
@@ -121,9 +121,8 @@ class dreamHub extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.backround = this.add.tileSprite(100, 350, 1400*3, 664*2, "dreamBackground");
-        this.backround.setDepth(-50);
-        this.backround.setScale(1);
+        this.initDreamviewerBackground(100, 630,12,1);
+
     }
 
     update(){

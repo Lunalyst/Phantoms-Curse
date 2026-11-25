@@ -133,7 +133,7 @@ class BridgeToLibertalia extends defaultScene {
 
       this.initSavePoints(689,600-10);
 
-      if(/*new Date().getMonth() === 9*/ 1){
+      if(new Date().getMonth() === 9){
 
         this.initWolf(1923, 632-16, "halloween");
 

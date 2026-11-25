@@ -34,7 +34,7 @@ class dreamForest extends defaultScene {
 
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
 
-      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
+      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background1.png',{frameWidth: backgroundW , frameHeight: backgroundH});
 
       this.load.audioSprite('forestThemeSFX','audio/used-audio/forest-theme-sounds/forest-theme-sounds.json',[
         "audio/used-audio/forest-theme-sounds/Hare-Raising Harmonies by Gangstalka.mp3"
@@ -252,9 +252,10 @@ class dreamForest extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.backround = this.add.tileSprite(1000, 300, 1400*4, 664*2, "dreamBackground");
+        this.initDreamviewerBackground(100, 470,12,1);
+        /*this.backround = this.add.tileSprite(1000, 300, 1400*4, 664*2, "dreamBackground");
         this.backround.setDepth(-50);
-        this.backround.setScale(1);
+        this.backround.setScale(1);*/
     }
 
     update(){

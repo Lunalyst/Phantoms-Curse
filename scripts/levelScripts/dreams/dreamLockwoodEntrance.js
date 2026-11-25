@@ -42,7 +42,7 @@ class dreamLockwoodEntrance extends defaultScene {
 
       this.load.spritesheet('backgroundForestRavineLevel',  'assets/backgrounds/Forest_Background_Static.png',{frameWidth: 1600 , frameHeight: 1090});
 
-      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background.png',{frameWidth: 1400 , frameHeight: 664});
+      this.load.spritesheet('dreamBackground', 'assets/backgrounds/dream_background1.png',{frameWidth: backgroundW , frameHeight: backgroundH});
 
       this.load.spritesheet('tree_parrallax', 'assets/parrallax/Forest_Parrallax_Trees.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -174,9 +174,7 @@ class dreamLockwoodEntrance extends defaultScene {
 
         this.backroundXOrigin = 0;
         this.backroundYOrigin = 540;
-        this.backround = this.add.tileSprite(1000, 300, 1400*4, 664*2, "dreamBackground");
-        this.backround.setDepth(-50);
-        this.backround.setScale(1);
+        this.initDreamviewerBackground(100, 470,12,1);
         //original pos - player pos * scrol factor
 
         this.parrallax1XOrigin = 1500;
@@ -203,12 +201,12 @@ class dreamLockwoodEntrance extends defaultScene {
       
        //updates the x value of the scrolling backround.
       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.3);
+        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.3);
        
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
+        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.3);
+        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.3);
         
       }
       //updates the x values stored every tick 
@@ -226,20 +224,25 @@ class dreamLockwoodEntrance extends defaultScene {
       }
 
        //updates the x value of the scrolling backround.
-       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x += 0.7;
+      /*if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
+        this.backround.x += 0.1;
       }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x -= 0.7;
-      }
+        this.backround.x -= 0.1;
+      }*/
+
+      
 
       //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
+      /*if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
         this.backround.y -= 0.3;
       }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
         this.backround.y += 0.3;
-      }
+      }*/
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
+      console.log("");
+      this.backround.x = 100;
+      console.log();
 
     }
 

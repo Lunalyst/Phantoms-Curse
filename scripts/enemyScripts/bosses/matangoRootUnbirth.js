@@ -335,8 +335,8 @@ class matangoRootUnbirth extends matangoRootAbsorb {
 
     // functioned called to play animation when the player is defeated by the enemy in gameover.
     enemyGameOverUnbirth() {
-        this.setSize(240, 180, true);
-        this.setOffset(220, 380);
+        this.setSize(100, 100, true);
+        this.setOffset(67, 87);
         this.visible = true;
         this.anims.play('unbirthGameoverFinish', true);
     }

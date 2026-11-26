@@ -59,7 +59,8 @@ class matangoRoot extends matangoRootCock {
         this.animationViewTransferValue = 0;
 
         this.grabType = "unbirth";
-
+        
+        this.setScale(1);
 
         //make a hitbox so the cat can grab the player.
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
@@ -433,8 +434,8 @@ class matangoRoot extends matangoRootCock {
     //functions that move enemy objects.
     move(){
         //set hitbox to correct size
-        this.setSize(240, 180, true);
-        this.setOffset(220, 380);
+        this.setSize(100, 100, true);
+        this.setOffset(67, 80);
         
         if(this.enemyDefeated === false){
             //if the mushroom has not awoken and the player in in range

@@ -59,6 +59,7 @@ class dreamHub extends defaultScene {
       //creates tileset
       this.setUpTileSet("dream_hub_map","Dream_Tileset","dream_source_map");
       this.processMap.layer0.setDepth(9);
+      //this.processMap.layer2.setTint(0xffffff);
     
       //creates player object
       this.setUpPlayer();
@@ -103,7 +104,7 @@ class dreamHub extends defaultScene {
       this.setUpItemDrops();
       this.setUpItemDropCollider();
 
-      this.initSigns(1281,925+12,"generic","dreamView1");
+      this.initSigns(1136,925+12,"generic","dreamView1");
 
       //sets up enemy colliders and groups
       this.setUpEnemyCollider(this.enemyGroupArray);
@@ -121,7 +122,7 @@ class dreamHub extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.initDreamviewerBackground(100, 630,12,1);
+        this.initDreamviewerBackground(100, 630,13,1);
 
     }
 

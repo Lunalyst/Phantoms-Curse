@@ -252,7 +252,7 @@ class dreamForest extends defaultScene {
         //calls the time outs for various things.
         this.setUpDefaultTimeOuts();
 
-        this.initDreamviewerBackground(100, 470,12,1);
+        this.initDreamviewerBackground(500, 470,12,1);
         /*this.backround = this.add.tileSprite(1000, 300, 1400*4, 664*2, "dreamBackground");
         this.backround.setDepth(-50);
         this.backround.setScale(1);*/
@@ -265,19 +265,6 @@ class dreamForest extends defaultScene {
       //handles enemy interactions
       this.enemyUpdate(this.enemyGroupArray);
 
-       //updates the x value of the scrolling backround.
-       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x -= 0.7;
-      }
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backround.y -= 0.3;
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backround.y += 0.3;
-      }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

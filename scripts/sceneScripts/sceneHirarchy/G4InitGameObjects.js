@@ -685,6 +685,7 @@ class G4InitGameObjects extends G3SetupCollisionFunctions {
 
     this.backround = this.add.tileSprite(x,y, width * backgroundW, height * backgroundH, "dreamBackground");
     this.backround.setDepth(-50);
+    this.backround.setScrollFactor(.6);
 
     /*this.anims.create({key: '0',frames: this.anims.generateFrameNames('dreamBackground', { start: 0, end: 0 }),frameRate: 1,repeat: -1});
     this.anims.create({key: '1',frames: this.anims.generateFrameNames('dreamBackground', { start: 1, end: 1 }),frameRate: 1,repeat: -1});

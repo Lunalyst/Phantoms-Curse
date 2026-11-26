@@ -13,8 +13,8 @@ class G6PreloadEnemys extends G5InitNPCs{
 
       blueSlimes: function blueSlimesFunction() {
 
-        tempSceneRef.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 291, frameHeight: 315 });
-        tempSceneRef.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 291, frameHeight: 315 });
+        tempSceneRef.load.spritesheet('CommonBlueSlime-evan', 'assets/enemys/CommonBlueSlime-evan.png',{frameWidth: 97, frameHeight: 105 });
+        tempSceneRef.load.spritesheet('CommonBlueSlime-evelyn', 'assets/enemys/CommonBlueSlime-evelyn.png',{frameWidth: 97, frameHeight: 105 });
 
         tempSceneRef.load.spritesheet('slimePenning', 'assets/internalViews/slimePenning.png',{frameWidth: 213, frameHeight: 213});
         

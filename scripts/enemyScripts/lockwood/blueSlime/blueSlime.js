@@ -33,6 +33,8 @@ class blueSlime extends enemy {
         this.grabHitBox = new hitBoxes(scene,this.x,this.y);
         this.grabHitBox.setSize(30,10,true);
         this.hitboxActive = false;
+
+        this.setScale(1);
           
         //defines Slime animations based on the players sex.
         if (sex === 0) {
@@ -105,14 +107,14 @@ class blueSlime extends enemy {
 
         //if the slime is of size 1 then set its hit box to the correct size
         if (this.slimeSize === 1) {
-            this.setSize(90, 90, true);
-            this.setOffset(105, 209);
+            this.setSize(30, 50, true);
+            this.setOffset(34, 50);
 
             this.body.setGravityY(600);
             //else if the slime is size 2 then set its hit box to the correct size
         } else if (this.slimeSize === 2) {
-            this.setSize(130, 90, true);
-            this.setOffset(82, 209);
+            this.setSize(40, 50, true);
+            this.setOffset(29, 50);
             this.body.setGravityY(700);
         }
 
@@ -127,20 +129,6 @@ class blueSlime extends enemy {
 
     //functions that move slime objects.
     move() {
-
-        //if the slime is of size 1 then set its hit box to the correct size
-        if (this.slimeSize === 1) {
-            this.setSize(90, 90, true);
-            this.setOffset(105, 209);
-            this.body.setGravityY(600);
-
-        //else if the slime is size 2 then set its hit box to the correct size
-        } else if (this.slimeSize === 2) {
-            this.setSize(130, 90, true);
-            this.setOffset(82, 207);
-            this.body.setGravityY(700);
-        }
-
         //this.movecycletimer is used to keep track of the slime movement. its incrimented to 100 and then set to zero so it loops
         if (this.moveCycleTimer === true && this.activatedCycleTimer === false) {
             let currentSlime = this;
@@ -306,15 +294,15 @@ class blueSlime extends enemy {
 
     // functioned called to play animation when the player is defeated by the slime in gameover.
     slimeGameOver() {
-        this.setSize(100, 150, true);
-        this.setOffset(90, 150);
+        this.setSize(30, 50, true);
+        this.setOffset(34, 50);
         this.anims.play('slimeGameOver', true);
     }
 
     // functioned called to play animation when the player is defeated by the large slime in gameover.
     largeSlimeGameOver() {
-        this.setSize(130, 90, true);
-        this.setOffset(82, 209);
+        this.setSize(40, 50, true);
+        this.setOffset(29, 50);
         this.anims.play('slimeGameOver1', true);
         this.y - 500;
         let currentSlime = this;
@@ -956,7 +944,6 @@ class blueSlime extends enemy {
 
                 this.struggleCounter = 0;
                 this.animationPlayed = false;
-                this.setSize(90, 65, true);
                 this.playerDamaged = false;
                 this.playerGrabbed = false;
                 this.keyAnimationPlayed = false;
@@ -1015,8 +1002,8 @@ class blueSlime extends enemy {
                 //add the other slimes collider to this one.
                 this.setVelocityX(0);
                 console.log("this slime with Id: "+ this.enemyId+" is living")
-                this.setSize(130, 90, true);
-                this.setOffset(82, 209);
+                this.setSize(40, 50, true);
+                this.setOffset(29, 50);
                 this.anims.play("mitosis");
                 this.slimeSize = 2;
                 this.enemyHP = 40;

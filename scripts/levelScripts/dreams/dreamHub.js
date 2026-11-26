@@ -95,7 +95,7 @@ class dreamHub extends defaultScene {
 
       this.initBedPortals(1031, 925+15);
 
-      this.initSavePoints(863,925-15);
+      //this.initSavePoints(863,925-15);
       
       //sets up containers
       this.setUpContainers();

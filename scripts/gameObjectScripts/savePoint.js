@@ -49,11 +49,9 @@ class savePoint extends Phaser.Physics.Arcade.Sprite{
             //play save sound
             scene1.initSoundEffect('curseSFX','curse',0.3);
 
-             let playerHealthObject = {
+            let playerHealthObject = {
               playerHealth: null
             };
-
-            //let restoreHP = playerHealthObject.playerMaxHealth * 0.6;
 
             //gets the hp value using a emitter
             healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);

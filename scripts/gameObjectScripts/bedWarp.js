@@ -95,6 +95,42 @@ class bedWarp extends Phaser.Physics.Arcade.Sprite{
               //heal the player back to full once they save
               healthEmitter.emit(healthEvent.maxHealth);
 
+              //because its the hub, and we dont want players losing therep rogress if they enjoy a scene but forgot to sace, then make a save here.
+              //creates a object to hold data for scene transition
+              playerDataObject = scene1.makePlayerDataObject();
+                      
+              //grabs the latests data values from the gamehud. also sets hp back to max hp.
+              inventoryKeyEmitter.emit(inventoryKey.getCurrentData,playerDataObject);
+
+              //modifies the object with the new relivant information.
+              playerDataObject.saveX = this.nextSceneX;
+              playerDataObject.saveY = this.nextSceneY;
+              playerDataObject.playerSex = scene1.playerSex;
+              playerDataObject.playerLocation = this.destination;
+
+              //saves the game by calling the save game file function in the scene
+              scene1.saveGameFile(playerDataObject);
+
+              //makes graphic to show player the game is saved
+              inventoryKeyEmitter.emit(inventoryKey.playGameSaved);
+
+            
+            let playerHealthObject = {
+              playerHealth: null
+            };
+
+            //gets the hp value using a emitter
+            healthEmitter.emit(healthEvent.returnHealth,playerHealthObject);
+
+            //max out player health.
+            healthEmitter.emit(healthEvent.maxHealth);
+
+            //also set there hunger to zero
+            //healthEmitter.emit(healthEvent.reduceFull,playerHealthObject.playerFull);
+
+            //also set there hunger to zero
+            //healthEmitter.emit(healthEvent.reduceCurse,playerHealthObject.playerCurse);
+
 
             }
 

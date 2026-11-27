@@ -133,21 +133,6 @@ class dreamHub extends defaultScene {
       //handles enemy interactions
       //this.enemyUpdate(this.enemyGroupArray);
 
-       //updates the x value of the scrolling backround.
-       if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x += 0.7;
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX){
-        this.backround.x -= 0.7;
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backround.y -= 0.3;
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backround.y += 0.3;
-      }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

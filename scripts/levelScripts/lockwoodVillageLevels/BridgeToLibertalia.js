@@ -48,7 +48,7 @@ class BridgeToLibertalia extends defaultScene {
       this.load.spritesheet("deaughAndLuna" , "assets/npcs/deaughAndLuna.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughMaleVore" , "assets/npcs/deaughMaleVore.png" , {frameWidth: 121 , frameHeight: 121 });
       this.load.spritesheet("deaughCutscene" , "assets/npcs/deaughCutscene.png" , {frameWidth: 121 , frameHeight: 121 });
-      //this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
+      this.load.spritesheet('toBeContinued', 'assets/gameObjects/toBeContinued.png',{frameWidth: 933 , frameHeight: 216});
 
       ///this.load.spritesheet("lunalyst" , "assets/npcs/lunalyst.png" , {frameWidth: 273 , frameHeight: 228 });
 
@@ -141,6 +141,13 @@ class BridgeToLibertalia extends defaultScene {
       
       this.initPortals(548,632-8,2796,600,"warpCaveOutside","ShadowCaveUpper");
 
+
+      this.toBeContinued = this.add.sprite(1925,358, "toBeContinued");
+      this.toBeContinued.anims.create({key: 'left',frames: this.anims.generateFrameNames('toBeContinued', { start: 1, end: 1}),frameRate: 3.5,repeat: -1});
+      this.toBeContinued.anims.play("left",true);
+      this.toBeContinued.setScale(1/6);
+      this.initSigns(1925,358+44,"generic","demoSwamp",false);
+
       //code to handle value for spawning foraging objects.
       let foragingObject = {
         keyToFind: this.playerLocation,
@@ -183,10 +190,11 @@ class BridgeToLibertalia extends defaultScene {
         this.playerPreviousY = this.player1.y;
 
         this.backroundXOrigin = 1000;
-        this.backroundYOrigin = 0;
+        this.backroundYOrigin = 50;
          
         this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 12*backgroundW, backgroundH, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
+        this.backround.setScrollFactor(.6);
         //original pos - player pos * scrol factor
 
         this.parrallax1XOrigin = 500;
@@ -195,6 +203,7 @@ class BridgeToLibertalia extends defaultScene {
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
         this.parrallax1.setTint(0x444444);
+        this.parrallax1.setScrollFactor(.9);
 
         this.parrallax2XOrigin = 500;
         this.parrallax2YOrigin = 200+600;
@@ -202,6 +211,7 @@ class BridgeToLibertalia extends defaultScene {
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x444444);
+        this.parrallax2.setScrollFactor(.9);
     }
 
     update(){
@@ -214,7 +224,7 @@ class BridgeToLibertalia extends defaultScene {
 
       this.checkPlayerLeftWarp(320,"LockwoodEntrance",2076,1080);
 
-      this.checkPlayerRightWarp(2078,"swampEntrance",630,536);
+      //this.checkPlayerRightWarp(2078,"swampEntrance",630,536);
       
       if(  430 > this.player1.y){
         this.processMap.layer0.setDepth(9);
@@ -224,29 +234,6 @@ class BridgeToLibertalia extends defaultScene {
         this.processMap.layer1.setDepth(0);
       }
       
-       //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeUp(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeUp(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeUp(this.backround,this.backroundYOrigin,90,0.3);
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeDown(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
-      }
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 

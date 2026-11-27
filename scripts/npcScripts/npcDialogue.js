@@ -716,6 +716,59 @@ const npcDialogue = {
                         "children":[]
                     }
                 },
+                "demoSwamp":{
+                     "node1":{
+                        "dialogue": "this place marks the end of the current version of phantoms curse.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node2"]
+                    },
+                    "node2":{
+                        "dialogue": "Thanks for playing!",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node3"]
+                    },
+                    "node3":{
+                        "dialogue": "as for whats next...",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node4"]
+                    },
+                    "node4":{
+                        "dialogue": "well past his point will be a rainy swamp full of strange cursed.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":["node5"]
+                    },
+                    "node5":{
+                        "dialogue": "during the development of lockwood I'm going to expand out this way. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node6']
+                    },
+                    "node6":{
+                        "dialogue": "the first enemy of that area will be a purple slug.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node7']
+                    },"node7":{
+                        "dialogue": "crazy to think I made the pre alpha sprites of that slug three years ago. ",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node8']
+                    },"node8":{
+                        "dialogue": "hopefully sometime soon I can implement it.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":['node9']
+                    },"node9":{
+                        "dialogue": "but until then, stay tuned.",
+                        "profile":"blank",
+                        "textvoice":"default",
+                        "children":[]
+                    }
+                },
             },
             "question":{
                 "Fundamentals of Cursed Energy":{

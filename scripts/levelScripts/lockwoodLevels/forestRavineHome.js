@@ -171,23 +171,23 @@ class ForestRavineHome extends defaultScene {
         this.playerPreviousY = this.player1.y;
 
         this.backroundXOrigin = 1000;
-        this.backroundYOrigin = 890;
+        this.backroundYOrigin = 650;
         this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 12*backgroundW, backgroundH, "backgroundForestRavineLevel");
         this.backround.setDepth(-50);
-        this.backround.setScrollFactor(0.9);
+        this.backround.setScrollFactor(0.6);
         //original pos - player pos * scrol factor
 
         this.parrallax1XOrigin = 1500;
-        this.parrallax1YOrigin = 1100;
-        this.parrallax1 = this.add.tileSprite(1500, 1100, 1920*4 ,1920, "tree_parrallax");
+        this.parrallax1YOrigin = 1000;
+        this.parrallax1 = this.add.tileSprite(1500, 1100, 1920*6 ,1920, "tree_parrallax");
         this.parrallax1.setScale(1/3);
         this.parrallax1.setDepth(-50);
         this.parrallax1.setTint(0x444444);
         this.parrallax1.setScrollFactor(0.9);
 
         this.parrallax2XOrigin = 1500;
-        this.parrallax2YOrigin = 1100+600;
-        this.parrallax2 = this.add.tileSprite(1500, 1100+600, 1920*4 ,1920, "ground_parrallax");
+        this.parrallax2YOrigin = 1000+600;
+        this.parrallax2 = this.add.tileSprite(1500, 1100+600, 1920*6 ,1920, "ground_parrallax");
         this.parrallax2.setScale(1/3);
         this.parrallax2.setDepth(-50);
         this.parrallax2.setTint(0x444444);

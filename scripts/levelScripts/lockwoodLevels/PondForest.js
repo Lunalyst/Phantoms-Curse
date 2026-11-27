@@ -147,23 +147,26 @@ class PondForest extends defaultScene {
       this.setUpTextBox();
 
       this.backroundXOrigin = 1500;
-      this.backroundYOrigin = 500;
+      this.backroundYOrigin = 400;
       this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 20*backgroundW, backgroundH, "backgroundForestRavineLevel");
       this.backround.setDepth(-50);
+      this.backround.setScrollFactor(.6);
 
       this.parrallax1XOrigin = 3000;
-      this.parrallax1YOrigin = 700;
+      this.parrallax1YOrigin = 400;
       this.parrallax1 = this.add.tileSprite(3000, 700, 1920*10 ,1920, "tree_parrallax");
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-50);
       this.parrallax1.setTint(0x444444);
+      this.parrallax1.setScrollFactor(.9);
 
       this.parrallax2XOrigin = 3000;
-      this.parrallax2YOrigin = 700+900;
+      this.parrallax2YOrigin = 400+900;
       this.parrallax2 = this.add.tileSprite(3000, 700+900, 1920*10 ,1920*2, "ground_parrallax");
       this.parrallax2.setScale(1/3);
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0x444444);
+      this.parrallax2.setScrollFactor(.9);
 
       this.initSavePoints(2885,824-10);
 
@@ -361,30 +364,6 @@ class PondForest extends defaultScene {
         this.shadow.visible = false;
         this.secret1 = 0;
         this.form1.textFadeOut(1);
-      }
-
-      //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeUp(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeUp(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeUp(this.backround,this.backroundYOrigin,90,0.3);
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeDown(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
       }
 
       //updates the y values stored every tick 

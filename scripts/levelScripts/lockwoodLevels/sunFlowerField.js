@@ -36,7 +36,7 @@ class sunFlowerField extends defaultScene {
       this.load.image("forest_source_map" , "assets/tiledMap/LockWood/Forest_Tileset/Forest_Tileset.png");
       this.load.tilemapTiledJSON("Sun_Flower_Fields" , "assets/tiledMap/LockWood/Forest_Tileset/Sun_Flower_Fields.json");
       
-      this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: 1600 , frameHeight: 1315});
+      this.load.spritesheet('backgroundSunflowerLevel', 'assets/backgrounds/flowerfield backdrop.png',{frameWidth: backgroundW , frameHeight: backgroundH});
       this.load.spritesheet('backgroundTreeLevel', 'assets/backgrounds/tree backdrop.png',{frameWidth: 1600 , frameHeight: 1090});
       this.load.spritesheet('Sun_Flower_Parrallax', 'assets/parrallax/Sun_Flower_Parrallax.png',{frameWidth: 1920 , frameHeight: 1920});
       this.load.spritesheet('ground_parrallax', 'assets/parrallax/Forest_Parrallax_Ground.png',{frameWidth: 1920 , frameHeight: 1920});
@@ -104,13 +104,14 @@ class sunFlowerField extends defaultScene {
       this.parrallax2.flipX = true;
       this.parrallax2.setDepth(-50);
       this.parrallax2.setTint(0xd3d3d3);
+      this.parrallax2.setScrollFactor(0.9);
 
       this.backroundXOrigin = 3000;
-      this.backroundYOrigin = 650;
-      this.backround = this.add.tileSprite(3000, 650, 7*1600, 1315, "backgroundSunflowerLevel");
+      this.backroundYOrigin = 600;
+      this.backround = this.add.tileSprite(this.backroundXOrigin, this.backroundYOrigin, 20*backgroundW, backgroundH, "backgroundSunflowerLevel");
       this.backround.setDepth(-49);
-      this.backround.setScale(0.7);
-      this.backround.setTint(0xd3d3d3);
+      //this.backround.setScale(0.7);
+      this.backround.setScrollFactor(0.6);
 
       this.parrallax1XOrigin = 3000;
       this.parrallax1YOrigin = 1290-450;
@@ -118,6 +119,7 @@ class sunFlowerField extends defaultScene {
       this.parrallax1.setScale(1/3);
       this.parrallax1.setDepth(-48);
       this.parrallax1.setTint(0x808080);
+      this.parrallax1.setScrollFactor(0.9);
       
       //this.initSavePoints(759,1437-14);
       this.initSavePoints(759,1021-14);
@@ -226,30 +228,6 @@ class sunFlowerField extends defaultScene {
       this.enemyUpdate(this.enemyGroupArray);
 
       //console.log("this.player1.x: "+this.player1.x+" this.player1.y: "+this.player1.y);
-
-      //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
-      }else if(this.playerPreviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
-      }
-      //updates the x values stored every tick 
-      this.playerPreviousX = this.player1.x;
-
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeUp(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeUp(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeUp(this.backround,this.backroundYOrigin,90,0.3);
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeDown(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
-      }
 
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;

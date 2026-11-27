@@ -127,7 +127,7 @@ class LockwoodEntrance extends defaultScene {
       
       this.initPortals(1306,1112-7,1642,503,"warpCaveOutside","ShadowCaveUpper");
       
-      this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
+      //this.initPortals(785,1083-15,3566,728,"door2","LockwoodBridges",false);
 
       this.initPortals(1506,1112-8,968,600,"door2","DevRoom2");
 
@@ -223,27 +223,7 @@ class LockwoodEntrance extends defaultScene {
 
       this.checkPlayerRightWarp(2080,"BridgeToLibertalia",360,408);
       
-      /* //updates the x value of the scrolling backround.
-      if( this.playerPreviousX < this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeRight(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeRight(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeRight(this.backround,this.backroundXOrigin,900,0.7);
-      }else if(this.playerPrdeviousX > this.player1.x && this.player1.x !== this.playerPreviousX ){
-        this.backgroundRangeLeft(this.parrallax1,this.parrallax1XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.parrallax2,this.parrallax2XOrigin,900,0.5);
-        this.backgroundRangeLeft(this.backround,this.backroundXOrigin,900,0.7);
-      }
 
-      //updates the y value of the scrolling backround.
-      if( this.playerPreviousY < this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeUp(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeUp(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeUp(this.backround,this.backroundYOrigin,90,0.3);
-      }else if(this.playerPreviousY > this.player1.y && this.player1.y !== this.playerPreviousY){
-        this.backgroundRangeDown(this.parrallax1,this.parrallax1YOrigin,90,0.1);
-        this.backgroundRangeDown(this.parrallax2,this.parrallax2YOrigin,90,0.1);
-        this.backgroundRangeDown(this.backround,this.backroundYOrigin,30,0.3);
-      }*/
       //updates the y values stored every tick 
       this.playerPreviousY = this.player1.y;
 
